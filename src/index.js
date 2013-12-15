@@ -11,7 +11,7 @@ var extend = require('./extend');
 var Specification = require('./specification');
 
 var Header = require('./header');
-// var Packet = require('./packet');
+var Packet = require('./packet');
 // var Datagram = require('./datagram');
 // var Telegram = require('./telegram');
 
@@ -28,7 +28,7 @@ module.exports = {
     Specification: Specification,
 
     Header: Header,
-    // Packet: Packet,
+    Packet: Packet,
     // Datagram: Datagram,
     // Telegram: Telegram,
     
