@@ -17,7 +17,7 @@ describe('Header', function() {
         expect(Header.extend).to.be.a('function');
     });
 
-    it('has reasonable defaults', function() {
+    it('should have reasonable defaults', function() {
         var before = new Date();
         var header = new Header();
         var after = new Date();
@@ -33,10 +33,10 @@ describe('Header', function() {
     it('should copy certain options', function() {
         var options = {
             timestamp: new Date(0),
-            channel: 1337,
-            destinationAddress: 2 * 1337,
-            sourceAddress: 3 * 1337,
-            junk: 4 * 1337
+            channel: 0x1337,
+            destinationAddress: 0x2336,
+            sourceAddress: 0x3335,
+            junk: 0x7331
         };
 
         var header = new Header(options);
