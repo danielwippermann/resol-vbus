@@ -100,7 +100,7 @@ describe('Packet', function() {
         expect(stats.packetCount).to.eql(1);
         expect(stats.lastPacket).to.be.an.instanceOf(Packet);
 
-        _.keys(options, function(key) {
+        _.forEach(options, function(optionsValue, key) {
             var value = stats.lastPacket [key];
             var refValue = packet [key];
 
@@ -117,11 +117,35 @@ describe('Packet', function() {
     });
 
     it('should have a fromBuffer function', function() {
-        var buffer = new Buffer('aa10002177100001113502032e02004a7601040100037b007800050702013822041e17011601005046050000003401000000007e64640000003700000000007f00000000007f01000000007e0e010900006706010a00016d68010a00000c0e0109000067010e012304485d070c0f017f', 'hex');
+        var frameData = new Buffer(13 * 4);
+        for (var i = 0; i < frameData.length; i++) {
+            frameData [i] = i * 4;
+        }
+
+        var options = {
+            destinationAddress: 0x2336,
+            sourceAddress: 0x3335,
+            command: 0x4334,
+            frameCount: 13,
+            frameData: frameData,
+        };
+
+        var buffer = new Buffer('aa362335331034430d2a0004080c00671014181c00272024282c00673034383c00274044484c00675054585c00276064686c00677074787c00270004080c0f581014181c0f182024282c0f583034383c0f184044484c0f58', 'hex');
 
         var packet = Packet.fromBuffer(buffer, 0, buffer.length);
 
         expect(packet).to.be.an.instanceOf(Packet);
+
+        _.forEach(options, function(refValue, key) {
+            var value = packet [key];
+
+            if ((value instanceof Buffer) && (refValue instanceof Buffer)) {
+                value = value.slice(0, refValue.length).toString('hex');
+                refValue = refValue.toString('hex');
+            }
+
+            expect(value).to.equal(refValue, key);
+        });
     });
 
 });
