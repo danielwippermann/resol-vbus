@@ -87,14 +87,12 @@ var Packet = Header.extend({
         var frameCount = buffer [start + 8];
 
         var frameData = new Buffer(127 * 4);
-        for (var i = 0; i < frameData.length; i++) {
-            frameData [i] = 0;
-        }
+        frameData.fill(0);
 
         for (var frameIndex = 0; frameIndex < frameCount; frameIndex++) {
             var sourceStart = start + 10 + frameIndex * 6;
             var targetStart = frameIndex * 4;
-            Header.injectSeptett(buffer, sourceStart, sourceStart + 4, frameData, targetStart);
+            Packet.injectSeptett(buffer, sourceStart, sourceStart + 4, frameData, targetStart);
         }
 
         return new Packet({
