@@ -1,0 +1,135 @@
+/**
+ * @license
+ * resol-vbus - A JavaScript library for processing RESOL VBus data
+ */
+'use strict';
+
+
+
+var _ = require('lodash');
+
+
+var Datagram = require('./resol-vbus').Datagram;
+
+
+var connectionSpec = require('./connection.spec');
+
+
+
+describe('Datagram', function() {
+
+    it('should be a constructor function', function() {
+        expect(Datagram).to.be.a('function');
+        expect(Datagram.extend).to.be.a('function');
+    });
+
+    it('should have reasonable defaults', function() {
+        var before = new Date();
+        var datagram = new Datagram();
+        var after = new Date();
+
+        expect(datagram).to.be.an('object');
+        expect(datagram.timestamp).to.be.an.instanceOf(Date);
+        expect(datagram.timestamp.getTime()).to.be.within(before.getTime(), after.getTime());
+        expect(datagram.channel).to.eql(0);
+        expect(datagram.destinationAddress).to.eql(0);
+        expect(datagram.sourceAddress).to.eql(0);
+        expect(datagram.command).to.eql(0);
+        expect(datagram.valueId).to.eql(0);
+        expect(datagram.value).to.eql(0);
+    });
+
+    it('should copy certain options', function() {
+        var frameData = new Buffer(13 * 4);
+        for (var i = 0; i < frameData.length; i++) {
+            frameData [i] = i * 4;
+        }
+
+        var options = {
+            timestamp: new Date(0),
+            channel: 0x1337,
+            destinationAddress: 0x2336,
+            sourceAddress: 0x3335,
+            command: 0x4334,
+            valueId: 0x5333,
+            value: 0x63328330,
+            junk: 0x7331
+        };
+
+        var datagram = new Datagram(options);
+
+        expect(datagram).to.be.an('object');
+        _.forEach(options, function(refValue, key) {
+            var value = datagram [key];
+
+            if (key === 'junk') {
+                refValue = undefined;
+            }
+
+            expect(value).to.eql(refValue, key);
+        });
+    });
+
+    it('should have a toBuffer method', function() {
+        var options = {
+            destinationAddress: 0x2336,
+            sourceAddress: 0x3335,
+            command: 0x4334,
+            valueId: 0x5333,
+            value: 0x63328330
+        };
+
+        var datagram = new Datagram(options);
+
+        var buffer = datagram.toBuffer();
+
+        expect(buffer).to.be.an.instanceOf(Buffer);
+        expect(buffer.length).to.eql(16);
+        expect(buffer.toString('hex')).to.eql('aa362335332034433353300332630851');
+
+/*
+        var stats = connectionSpec.parseRawDataOnce(buffer);
+        expect(stats.rawDataCount).to.eql(buffer.length);
+        expect(stats.junkDataCount).to.eql(0);
+        expect(stats.datagramCount).to.eql(1);
+        expect(stats.lastDatagram).to.be.an.instanceOf(Datagram);
+
+        _.keys(options, function(key) {
+            var value = stats.lastDatagram [key];
+            var refValue = datagram [key];
+
+            if (value instanceof Buffer) {
+                value = value.toString('hex');
+            }
+            if (refValue instanceof Buffer) {
+                refValue = refValue.toString('hex');
+            }
+
+            expect(value).to.equal(refValue, key);
+        });
+*/
+    });
+
+    it('should have a fromBuffer function', function() {
+        var options = {
+            destinationAddress: 0x2336,
+            sourceAddress: 0x3335,
+            command: 0x4334,
+            valueId: 0x5333,
+            value: 0x63328330
+        };
+
+        var buffer = new Buffer('aa362335332034433353300332630851', 'hex');
+
+        var datagram = Datagram.fromBuffer(buffer, 0, buffer.length);
+
+        expect(datagram).to.be.an.instanceOf(Datagram);
+
+        _.forEach(options, function(refValue, key) {
+            var value = datagram [key];
+
+            expect(value).to.equal(refValue, key);
+        });
+    });
+
+});

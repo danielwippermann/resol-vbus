@@ -12,7 +12,7 @@ var Specification = require('./specification');
 
 var Header = require('./header');
 var Packet = require('./packet');
-// var Datagram = require('./datagram');
+var Datagram = require('./datagram');
 // var Telegram = require('./telegram');
 
 // var Connection = require('./connection');
@@ -29,7 +29,7 @@ module.exports = {
 
     Header: Header,
     Packet: Packet,
-    // Datagram: Datagram,
+    Datagram: Datagram,
     // Telegram: Telegram,
     
     // Connection: Connection,
