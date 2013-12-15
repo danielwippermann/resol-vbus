@@ -49,6 +49,22 @@ describe('Header', function() {
         expect(header.junk).to.eql(undefined);
     });
 
+    it('should have abstract toBuffer method', function() {
+        var header = new Header();
+
+        expect(function() {
+            header.toBuffer();
+        }).to.throw(Error, 'Must be implemented by sub-class');
+    });
+
+    it('should have abstract fromBuffer function', function() {
+        var buffer = new Buffer('aa000021772000050000000000000042', 'hex');
+
+        expect(function() {
+            Header.fromBuffer(buffer);
+        }).to.throw(Error, 'Must be implemented by sub-class');
+    });
+
     it('should calc v0 checksum correctly', function() {
         var buffer = new Buffer('aa000021772000050000000000000042', 'hex');
 
