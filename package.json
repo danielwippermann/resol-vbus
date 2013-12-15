@@ -1,0 +1,23 @@
+{
+  "name": "resol-vbus",
+  "version": "0.0.1",
+  "description": "A JavaScript library for processing RESOL VBus data",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "",
+  "author": "Daniel Wippermann <Daniel.Wippermann@resol.de>",
+  "license": "BSD",
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-mocha-chai-sinon": "0.0.7",
+    "load-grunt-tasks": "~0.2.0"
+  },
+  "dependencies": {
+    "q": "~0.9.7",
+    "lodash": "~2.4.1",
+    "sprintf": "~0.1.3",
+    "moment": "~2.4.0"
+  }
+}
