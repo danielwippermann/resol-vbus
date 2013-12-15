@@ -15,7 +15,7 @@ var Packet = require('./packet');
 var Datagram = require('./datagram');
 // var Telegram = require('./telegram');
 
-// var Connection = require('./connection');
+var Connection = require('./connection');
 
 // var TcpDataSourceProvider = require('./tcp-data-source-provider');
 // var TcpConnection = require('./tcp-connection');
@@ -32,7 +32,7 @@ module.exports = {
     Datagram: Datagram,
     // Telegram: Telegram,
     
-    // Connection: Connection,
+    Connection: Connection,
     
     // TcpDataSourceProvider: TcpDataSourceProvider,
     // TcpConnection: TcpConnection,
