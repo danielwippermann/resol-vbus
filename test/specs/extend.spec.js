@@ -34,7 +34,7 @@ describe('extend', function() {
         expect(child.extend).to.be.a('function');
 
         if (parent) {
-            expect(child.prototype.__proto__).to.eql(parent.prototype);
+            expect(child.prototype.__proto__).to.equal(parent.prototype);
         }
 
         return child;
@@ -51,8 +51,8 @@ describe('extend', function() {
 
         });
 
-        expect(ChildClass.staticProp1).to.eql(true);
-        expect(ChildClass.prototype.protoProp1).to.eql(true);
+        expect(ChildClass.staticProp1).to.equal(true);
+        expect(ChildClass.prototype.protoProp1).to.equal(true);
     });
 
     it('should work with parent class', function() {
@@ -76,10 +76,10 @@ describe('extend', function() {
 
         });
 
-        expect(ChildClass.staticProp1).to.eql(true);
-        expect(ChildClass.staticProp2).to.eql(true);
-        expect(ChildClass.prototype.protoProp1).to.eql(true);
-        expect(ChildClass.prototype.protoProp2).to.eql(true);
+        expect(ChildClass.staticProp1).to.equal(true);
+        expect(ChildClass.staticProp2).to.equal(true);
+        expect(ChildClass.prototype.protoProp1).to.equal(true);
+        expect(ChildClass.prototype.protoProp2).to.equal(true);
     });
 
 });

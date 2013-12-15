@@ -31,12 +31,12 @@ describe('Datagram', function() {
         expect(datagram).to.be.an('object');
         expect(datagram.timestamp).to.be.an.instanceOf(Date);
         expect(datagram.timestamp.getTime()).to.be.within(before.getTime(), after.getTime());
-        expect(datagram.channel).to.eql(0);
-        expect(datagram.destinationAddress).to.eql(0);
-        expect(datagram.sourceAddress).to.eql(0);
-        expect(datagram.command).to.eql(0);
-        expect(datagram.valueId).to.eql(0);
-        expect(datagram.value).to.eql(0);
+        expect(datagram.channel).to.equal(0);
+        expect(datagram.destinationAddress).to.equal(0);
+        expect(datagram.sourceAddress).to.equal(0);
+        expect(datagram.command).to.equal(0);
+        expect(datagram.valueId).to.equal(0);
+        expect(datagram.value).to.equal(0);
     });
 
     it('should copy certain options', function() {
@@ -66,7 +66,7 @@ describe('Datagram', function() {
                 refValue = undefined;
             }
 
-            expect(value).to.eql(refValue, key);
+            expect(value).to.equal(refValue, key);
         });
     });
 
@@ -84,14 +84,14 @@ describe('Datagram', function() {
         var buffer = datagram.toBuffer();
 
         expect(buffer).to.be.an.instanceOf(Buffer);
-        expect(buffer.length).to.eql(16);
-        expect(buffer.toString('hex')).to.eql('aa362335332034433353300332630851');
+        expect(buffer.length).to.equal(16);
+        expect(buffer.toString('hex')).to.equal('aa362335332034433353300332630851');
 
 /*
         var stats = connectionSpec.parseRawDataOnce(buffer);
-        expect(stats.rawDataCount).to.eql(buffer.length);
-        expect(stats.junkDataCount).to.eql(0);
-        expect(stats.datagramCount).to.eql(1);
+        expect(stats.rawDataCount).to.equal(buffer.length);
+        expect(stats.junkDataCount).to.equal(0);
+        expect(stats.datagramCount).to.equal(1);
         expect(stats.lastDatagram).to.be.an.instanceOf(Datagram);
 
         _.keys(options, function(key) {

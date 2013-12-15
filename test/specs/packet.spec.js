@@ -31,13 +31,13 @@ describe('Packet', function() {
         expect(packet).to.be.an('object');
         expect(packet.timestamp).to.be.an.instanceOf(Date);
         expect(packet.timestamp.getTime()).to.be.within(before.getTime(), after.getTime());
-        expect(packet.channel).to.eql(0);
-        expect(packet.destinationAddress).to.eql(0);
-        expect(packet.sourceAddress).to.eql(0);
-        expect(packet.command).to.eql(0);
-        expect(packet.frameCount).to.eql(0);
+        expect(packet.channel).to.equal(0);
+        expect(packet.destinationAddress).to.equal(0);
+        expect(packet.sourceAddress).to.equal(0);
+        expect(packet.command).to.equal(0);
+        expect(packet.frameCount).to.equal(0);
         expect(packet.frameData).to.be.an.instanceOf(Buffer);
-        expect(packet.frameData.length).to.eql(127 * 4);
+        expect(packet.frameData.length).to.equal(127 * 4);
     });
 
     it('should copy certain options', function() {
@@ -60,15 +60,20 @@ describe('Packet', function() {
         var packet = new Packet(options);
 
         expect(packet).to.be.an('object');
-        expect(packet.timestamp).to.eql(options.timestamp);
-        expect(packet.channel).to.eql(options.channel);
-        expect(packet.destinationAddress).to.eql(options.destinationAddress);
-        expect(packet.sourceAddress).to.eql(options.sourceAddress);
-        expect(packet.command).to.eql(options.command);
-        expect(packet.frameCount).to.eql(options.frameCount);
-        expect(packet.frameData).to.be.an.instanceOf(Buffer);
-        expect(packet.frameData.slice(0, frameData.length)).to.eql(frameData);
-        expect(packet.junk).to.eql(undefined);
+
+        _.forEach(options, function(refValue, key) {
+            var value = packet [key];
+
+            if ((value instanceof Buffer) && (refValue instanceof Buffer)) {
+                value = value.slice(0, refValue.length).toString('hex');
+                refValue = refValue.toString('hex');
+            }
+            if (key === 'junk') {
+                refValue = undefined;
+            }
+
+            expect(value).to.equal(refValue, key);
+        });
     });
 
     it('should have a toBuffer method', function() {
@@ -90,14 +95,14 @@ describe('Packet', function() {
         var buffer = packet.toBuffer();
 
         expect(buffer).to.be.an.instanceOf(Buffer);
-        expect(buffer.length).to.eql(88);
-        expect(buffer.toString('hex')).to.eql('aa362335331034430d2a0004080c00671014181c00272024282c00673034383c00274044484c00675054585c00276064686c00677074787c00270004080c0f581014181c0f182024282c0f583034383c0f184044484c0f58');
+        expect(buffer.length).to.equal(88);
+        expect(buffer.toString('hex')).to.equal('aa362335331034430d2a0004080c00671014181c00272024282c00673034383c00274044484c00675054585c00276064686c00677074787c00270004080c0f581014181c0f182024282c0f583034383c0f184044484c0f58');
 
 /*
         var stats = connectionSpec.parseRawDataOnce(buffer);
-        expect(stats.rawDataCount).to.eql(buffer.length);
-        expect(stats.junkDataCount).to.eql(0);
-        expect(stats.packetCount).to.eql(1);
+        expect(stats.rawDataCount).to.equal(buffer.length);
+        expect(stats.junkDataCount).to.equal(0);
+        expect(stats.packetCount).to.equal(1);
         expect(stats.lastPacket).to.be.an.instanceOf(Packet);
 
         _.forEach(options, function(optionsValue, key) {
