@@ -126,6 +126,7 @@ describe('Connection', function() {
         expect(Connection.STATE_DISCONNECTED).to.be.a('string');
         expect(Connection.STATE_CONNECTING).to.be.a('string');
         expect(Connection.STATE_CONNECTED).to.be.a('string');
+        expect(Connection.STATE_INTERRUPTED).to.be.a('string');
         expect(Connection.STATE_RECONNECTING).to.be.a('string');
         expect(Connection.STATE_DISCONNECTING).to.be.a('string');
     });
