@@ -153,4 +153,25 @@ describe('Packet', function() {
         });
     });
 
+    it('should have a working getId method', function() {
+        var frameData = new Buffer(13 * 4);
+        for (var i = 0; i < frameData.length; i++) {
+            frameData [i] = i * 4;
+        }
+
+        var options = {
+            channel: 0x13,
+            destinationAddress: 0x2336,
+            sourceAddress: 0x3335,
+            command: 0x4334,
+            frameCount: 13,
+            frameData: frameData,
+        };
+
+        var packet = new Packet(options);
+
+        expect(packet).to.be.an('object');
+        expect(packet.getId()).to.equal('13_2336_3335_10_4334');
+    });
+
 });

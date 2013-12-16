@@ -7,6 +7,7 @@
 
 
 var _ = require('lodash');
+var sprintf = require('sprintf').sprintf;
 
 
 var Header = require('./header');
@@ -79,7 +80,16 @@ var Packet = Header.extend({
         }
 
         return buffer;
-    }
+    },
+
+    getProtocolVersion: function() {
+        return 0x10;
+    },
+
+    getId: function() {
+        var baseId = Header.prototype.getId.call(this);
+        return sprintf('%s_%04X', baseId, this.command);
+    },
 
 }, {
 
