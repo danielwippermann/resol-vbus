@@ -27,6 +27,7 @@ var states = _.reduce([
     'DISCONNECTED',
     'CONNECTING',
     'CONNECTED',
+    'INTERRUPTED',
     'RECONNECTING',
     'DISCONNECTING',
 ], function(memo, state) {
@@ -191,6 +192,18 @@ var Connection = extend(Duplex, {
 
     _read: function() {
         // nop
+    },
+
+    _setConnectionState: function(newState) {
+        if (this.connectionState !== newState) {
+            this.connectionState = newState;
+
+            this.rxBuffer = null;
+            
+            if (EventEmitter.listenerCount(this, 'connectionState') > 0) {
+                this.emit('connectionState', newState);
+            }
+        }
     },
 
     send: function(data) {
