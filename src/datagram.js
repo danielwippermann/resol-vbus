@@ -7,6 +7,7 @@
 
 
 var _ = require('lodash');
+var sprintf = require('sprintf').sprintf;
 
 
 var Header = require('./header');
@@ -65,7 +66,21 @@ var Datagram = Header.extend({
         Datagram.calcAndSetChecksumV0(buffer, 1, 15);
 
         return buffer;
-    }
+    },
+
+    getProtocolVersion: function() {
+        return 0x20;
+    },
+
+    getId: function() {
+        var info = 0;
+        if (this.command === 0x0900) {
+            info = this.valueId;
+        }
+
+        var baseId = Header.prototype.getId.call(this);
+        return sprintf('%s_%04X_%04X', baseId, this.command, info);
+    },
 
 }, {
 
