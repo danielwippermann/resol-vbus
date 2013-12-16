@@ -65,6 +65,35 @@ describe('Header', function() {
         }).to.throw(Error, 'Must be implemented by sub-class');
     });
 
+    it('should have abstract getProtocolVersion method', function() {
+        var header = new Header();
+
+        expect(function() {
+            header.getProtocolVersion();
+        }).to.throw(Error, 'Must be implemented by sub-class');
+    });
+
+    it('should have a working getId method', function() {
+        var options = {
+            timestamp: new Date(0),
+            channel: 0x13,
+            destinationAddress: 0x2336,
+            sourceAddress: 0x3335,
+            junk: 0x7331
+        };
+
+        var header = new Header(options);
+
+        expect(header).to.be.an('object');
+
+        // substitute abstract method for this test
+        header.getProtocolVersion = function() {
+            return 0x37;
+        };
+
+        expect(header.getId()).to.equal('13_2336_3335_37');
+    });
+
     it('should calc v0 checksum correctly', function() {
         var buffer = new Buffer('aa000021772000050000000000000042', 'hex');
 

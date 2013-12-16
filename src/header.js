@@ -7,6 +7,7 @@
 
 
 var _ = require('lodash');
+var sprintf = require('sprintf').sprintf;
 
 
 var extend = require('./extend');
@@ -42,7 +43,15 @@ var Header = extend(null, {
 
     toBuffer: function() {
         throw new Error('Must be implemented by sub-class');
-    }
+    },
+
+    getProtocolVersion: function() {
+        throw new Error('Must be implemented by sub-class');
+    },
+
+    getId: function() {
+        return sprintf('%02X_%04X_%04X_%02X', this.channel, this.destinationAddress, this.sourceAddress, this.getProtocolVersion());
+    },
 
 }, {
 
