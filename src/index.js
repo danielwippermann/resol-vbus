@@ -15,6 +15,10 @@ var Packet = require('./packet');
 var Datagram = require('./datagram');
 // var Telegram = require('./telegram');
 
+var HeaderSet = require('./header-set');
+
+// var Logger = require('./logger');
+
 var Connection = require('./connection');
 
 // var TcpDataSourceProvider = require('./tcp-data-source-provider');
@@ -31,6 +35,10 @@ module.exports = {
     Packet: Packet,
     Datagram: Datagram,
     // Telegram: Telegram,
+
+    HeaderSet: HeaderSet,
+
+    // Logger: Logger,
     
     Connection: Connection,
     
