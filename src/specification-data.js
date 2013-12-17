@@ -11137,25113 +11137,29593 @@ var types = {
 
 var getRawValueFunctions = {
 	_0010_0053_0100_000_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.0010;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readUInt8(start + 1) * 0.256;
+			valid = true;
 		}
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 65.536;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 16777.216;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_0053_0100_004_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.0010;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readUInt8(start + 5) * 0.256;
+			valid = true;
 		}
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 65.536;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 16777.216;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_0053_0100_008_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.0010;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readUInt8(start + 9) * 0.256;
+			valid = true;
 		}
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 65.536;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 16777.216;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_0053_0100_012_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 0.0010;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readUInt8(start + 13) * 0.256;
+			valid = true;
 		}
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 65.536;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readInt8(start + 15) * 16777.216;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_0053_0100_034_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 34 < end) {
 			rawValue += buffer.readUInt8(start + 34) * 0.1;
+			valid = true;
 		}
 		if (start + 35 < end) {
 			rawValue += buffer.readInt8(start + 35) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_0053_0100_036_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += buffer.readUInt8(start + 36) * 0.1;
+			valid = true;
 		}
 		if (start + 37 < end) {
 			rawValue += buffer.readInt8(start + 37) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_0053_0100_038_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 38 < end) {
 			rawValue += buffer.readUInt8(start + 38) * 0.1;
+			valid = true;
 		}
 		if (start + 39 < end) {
 			rawValue += buffer.readInt8(start + 39) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_0053_0100_016_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 1.0;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readUInt8(start + 17) * 256.0;
+			valid = true;
 		}
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 65536.0;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readInt8(start + 19) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_0053_0100_020_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 1.0;
+			valid = true;
 		}
 		if (start + 21 < end) {
 			rawValue += buffer.readUInt8(start + 21) * 256.0;
+			valid = true;
 		}
 		if (start + 22 < end) {
 			rawValue += buffer.readUInt8(start + 22) * 65536.0;
+			valid = true;
 		}
 		if (start + 23 < end) {
 			rawValue += buffer.readInt8(start + 23) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_0053_0100_024_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 1.0;
+			valid = true;
 		}
 		if (start + 25 < end) {
 			rawValue += buffer.readUInt8(start + 25) * 256.0;
+			valid = true;
 		}
 		if (start + 26 < end) {
 			rawValue += buffer.readUInt8(start + 26) * 65536.0;
+			valid = true;
 		}
 		if (start + 27 < end) {
 			rawValue += buffer.readInt8(start + 27) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_0053_0100_040_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 40 < end) {
 			rawValue += buffer.readUInt8(start + 40) * 1.0;
+			valid = true;
 		}
 		if (start + 41 < end) {
 			rawValue += buffer.readInt8(start + 41) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_1120_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_1120_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_1120_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_1120_0100_006_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_1120_0100_007_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 7 < end) {
 			rawValue += buffer.readUInt8(start + 7) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_1120_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 1.0;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readUInt8(start + 9) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_1120_0100_012_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 1.0;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readUInt8(start + 13) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_1120_0100_014_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 1.0;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readUInt8(start + 15) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_1120_0100_016_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 1.0;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readUInt8(start + 17) * 256.0;
+			valid = true;
 		}
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 65536.0;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readUInt8(start + 19) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_1120_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 1.0;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2211_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2211_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2211_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2211_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2211_0100_008_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2211_0100_012_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2211_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 1.0;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readUInt8(start + 11) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2211_0100_014_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 1.0;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readUInt8(start + 15) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2211_0100_016_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2211_0100_017_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 17 < end) {
 			rawValue += buffer.readUInt8(start + 17) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2211_0100_020_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 1.0;
+			valid = true;
 		}
 		if (start + 21 < end) {
 			rawValue += buffer.readUInt8(start + 21) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2211_0100_022_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += buffer.readUInt8(start + 22) * 1.0;
+			valid = true;
 		}
 		if (start + 23 < end) {
 			rawValue += buffer.readInt8(start + 23) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2211_0100_020_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += ((buffer.readInt8(start + 20) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2211_0100_020_1_2: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += ((buffer.readInt8(start + 20) >> 1) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2211_0100_020_1_4: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += ((buffer.readInt8(start + 20) >> 2) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2211_0100_020_1_8: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += ((buffer.readInt8(start + 20) >> 3) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2211_0100_024_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 1.0;
+			valid = true;
 		}
 		if (start + 25 < end) {
 			rawValue += buffer.readUInt8(start + 25) * 256.0;
+			valid = true;
 		}
 		if (start + 26 < end) {
 			rawValue += buffer.readUInt8(start + 26) * 65536.0;
+			valid = true;
 		}
 		if (start + 27 < end) {
 			rawValue += buffer.readUInt8(start + 27) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2211_0100_028_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 28 < end) {
 			rawValue += buffer.readUInt8(start + 28) * 1.0;
+			valid = true;
 		}
 		if (start + 29 < end) {
 			rawValue += buffer.readUInt8(start + 29) * 256.0;
+			valid = true;
 		}
 		if (start + 30 < end) {
 			rawValue += buffer.readUInt8(start + 30) * 65536.0;
+			valid = true;
 		}
 		if (start + 31 < end) {
 			rawValue += buffer.readUInt8(start + 31) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2211_0100_032_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 32 < end) {
 			rawValue += buffer.readUInt8(start + 32) * 0.01;
+			valid = true;
 		}
 		if (start + 33 < end) {
 			rawValue += buffer.readUInt8(start + 33) * 2.56;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2221_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2221_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2221_0100_004_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2221_0100_005_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 5 < end) {
 			rawValue += buffer.readUInt8(start + 5) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2221_0100_006_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += ((buffer.readInt8(start + 6) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2221_0100_006_1_2: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += ((buffer.readInt8(start + 6) >> 1) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2221_0100_006_1_4: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += ((buffer.readInt8(start + 6) >> 2) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2231_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2231_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2231_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2231_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2231_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.1;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2231_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 0.1;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2231_0100_012_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 0.1;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readInt8(start + 13) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2231_0100_014_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 0.1;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readInt8(start + 15) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2231_0100_016_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 0.1;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readInt8(start + 17) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2231_0100_018_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 0.1;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readInt8(start + 19) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2231_0100_020_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 0.1;
+			valid = true;
 		}
 		if (start + 21 < end) {
 			rawValue += buffer.readInt8(start + 21) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2231_0100_022_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += buffer.readUInt8(start + 22) * 0.1;
+			valid = true;
 		}
 		if (start + 23 < end) {
 			rawValue += buffer.readInt8(start + 23) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2231_0100_024_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 0.1;
+			valid = true;
 		}
 		if (start + 25 < end) {
 			rawValue += buffer.readInt8(start + 25) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2231_0100_026_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 26 < end) {
 			rawValue += buffer.readUInt8(start + 26) * 0.1;
+			valid = true;
 		}
 		if (start + 27 < end) {
 			rawValue += buffer.readInt8(start + 27) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2231_0100_028_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 28 < end) {
 			rawValue += buffer.readUInt8(start + 28) * 0.1;
+			valid = true;
 		}
 		if (start + 29 < end) {
 			rawValue += buffer.readInt8(start + 29) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2231_0100_030_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 30 < end) {
 			rawValue += buffer.readUInt8(start + 30) * 0.1;
+			valid = true;
 		}
 		if (start + 31 < end) {
 			rawValue += buffer.readInt8(start + 31) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2231_0100_036_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += buffer.readUInt8(start + 36) * 1.0;
+			valid = true;
 		}
 		if (start + 37 < end) {
 			rawValue += buffer.readInt8(start + 37) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2231_0100_038_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 38 < end) {
 			rawValue += buffer.readUInt8(start + 38) * 1.0;
+			valid = true;
 		}
 		if (start + 39 < end) {
 			rawValue += buffer.readUInt8(start + 39) * 256.0;
+			valid = true;
 		}
 		if (start + 40 < end) {
 			rawValue += buffer.readUInt8(start + 40) * 65536.0;
+			valid = true;
 		}
 		if (start + 41 < end) {
 			rawValue += buffer.readInt8(start + 41) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2231_0100_040_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 40 < end) {
 			rawValue += buffer.readUInt8(start + 40) * 1.0;
+			valid = true;
 		}
 		if (start + 41 < end) {
 			rawValue += buffer.readUInt8(start + 41) * 256.0;
+			valid = true;
 		}
 		if (start + 42 < end) {
 			rawValue += buffer.readUInt8(start + 42) * 65536.0;
+			valid = true;
 		}
 		if (start + 43 < end) {
 			rawValue += buffer.readInt8(start + 43) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2231_0100_088_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 88 < end) {
 			rawValue += buffer.readUInt8(start + 88) * 1.0;
+			valid = true;
 		}
 		if (start + 89 < end) {
 			rawValue += buffer.readUInt8(start + 89) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2231_0100_090_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 90 < end) {
 			rawValue += buffer.readUInt8(start + 90) * 1.0;
+			valid = true;
 		}
 		if (start + 91 < end) {
 			rawValue += buffer.readUInt8(start + 91) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2231_0100_080_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 80 < end) {
 			rawValue += buffer.readUInt8(start + 80) * 1.0;
+			valid = true;
 		}
 		if (start + 81 < end) {
 			rawValue += buffer.readUInt8(start + 81) * 256.0;
+			valid = true;
 		}
 		if (start + 82 < end) {
 			rawValue += buffer.readUInt8(start + 82) * 65536.0;
+			valid = true;
 		}
 		if (start + 83 < end) {
 			rawValue += buffer.readUInt8(start + 83) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2231_0100_042_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 42 < end) {
 			rawValue += buffer.readUInt8(start + 42) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2231_0100_043_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 43 < end) {
 			rawValue += buffer.readUInt8(start + 43) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2231_0100_044_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 44 < end) {
 			rawValue += buffer.readUInt8(start + 44) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2231_0100_045_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 45 < end) {
 			rawValue += buffer.readUInt8(start + 45) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2231_0100_046_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 46 < end) {
 			rawValue += buffer.readUInt8(start + 46) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2231_0100_047_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 47 < end) {
 			rawValue += buffer.readUInt8(start + 47) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2231_0100_048_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 48 < end) {
 			rawValue += buffer.readUInt8(start + 48) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2231_0100_049_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 49 < end) {
 			rawValue += buffer.readUInt8(start + 49) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2231_0100_050_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 50 < end) {
 			rawValue += buffer.readUInt8(start + 50) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2231_0100_051_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 51 < end) {
 			rawValue += buffer.readUInt8(start + 51) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2231_0100_052_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 52 < end) {
 			rawValue += buffer.readUInt8(start + 52) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2231_0100_053_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 53 < end) {
 			rawValue += buffer.readUInt8(start + 53) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2231_0100_054_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 54 < end) {
 			rawValue += buffer.readUInt8(start + 54) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2231_0100_084_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 84 < end) {
 			rawValue += buffer.readUInt8(start + 84) * 1.0;
+			valid = true;
 		}
 		if (start + 85 < end) {
 			rawValue += buffer.readUInt8(start + 85) * 256.0;
+			valid = true;
 		}
 		if (start + 86 < end) {
 			rawValue += buffer.readUInt8(start + 86) * 65536.0;
+			valid = true;
 		}
 		if (start + 87 < end) {
 			rawValue += buffer.readUInt8(start + 87) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2231_0100_056_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 56 < end) {
 			rawValue += buffer.readUInt8(start + 56) * 1.0;
+			valid = true;
 		}
 		if (start + 57 < end) {
 			rawValue += buffer.readUInt8(start + 57) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2231_0100_058_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 58 < end) {
 			rawValue += buffer.readUInt8(start + 58) * 1.0;
+			valid = true;
 		}
 		if (start + 59 < end) {
 			rawValue += buffer.readUInt8(start + 59) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2231_0100_072_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 72 < end) {
 			rawValue += buffer.readUInt8(start + 72) * 1.0;
+			valid = true;
 		}
 		if (start + 73 < end) {
 			rawValue += buffer.readUInt8(start + 73) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2231_0100_074_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 74 < end) {
 			rawValue += buffer.readUInt8(start + 74) * 1.0;
+			valid = true;
 		}
 		if (start + 75 < end) {
 			rawValue += buffer.readUInt8(start + 75) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2232_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2232_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2232_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 1.0;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readUInt8(start + 5) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2232_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 1.0;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readUInt8(start + 7) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2232_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 1.0;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readUInt8(start + 9) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2232_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 1.0;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readUInt8(start + 11) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2251_0100_000_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 1.0;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readUInt8(start + 1) * 256.0;
+			valid = true;
 		}
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 65536.0;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2251_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2251_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2251_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.1;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2251_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 0.1;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2251_0100_012_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 0.1;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readInt8(start + 13) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2251_0100_014_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 0.1;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readInt8(start + 15) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2251_0100_020_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 1.0;
+			valid = true;
 		}
 		if (start + 21 < end) {
 			rawValue += buffer.readUInt8(start + 21) * 256.0;
+			valid = true;
 		}
 		if (start + 22 < end) {
 			rawValue += buffer.readUInt8(start + 22) * 65536.0;
+			valid = true;
 		}
 		if (start + 23 < end) {
 			rawValue += buffer.readInt8(start + 23) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2251_0100_024_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 1.0;
+			valid = true;
 		}
 		if (start + 25 < end) {
 			rawValue += buffer.readUInt8(start + 25) * 256.0;
+			valid = true;
 		}
 		if (start + 26 < end) {
 			rawValue += buffer.readUInt8(start + 26) * 65536.0;
+			valid = true;
 		}
 		if (start + 27 < end) {
 			rawValue += buffer.readInt8(start + 27) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2251_0100_028_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 28 < end) {
 			rawValue += buffer.readUInt8(start + 28) * 1.0;
+			valid = true;
 		}
 		if (start + 29 < end) {
 			rawValue += buffer.readUInt8(start + 29) * 256.0;
+			valid = true;
 		}
 		if (start + 30 < end) {
 			rawValue += buffer.readUInt8(start + 30) * 65536.0;
+			valid = true;
 		}
 		if (start + 31 < end) {
 			rawValue += buffer.readInt8(start + 31) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2251_0100_032_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 32 < end) {
 			rawValue += buffer.readUInt8(start + 32) * 0.01;
+			valid = true;
 		}
 		if (start + 33 < end) {
 			rawValue += buffer.readInt8(start + 33) * 2.56;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2251_0100_034_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 34 < end) {
 			rawValue += buffer.readInt8(start + 34) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2251_0100_035_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 35 < end) {
 			rawValue += buffer.readInt8(start + 35) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2251_0100_036_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += buffer.readInt8(start + 36) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2251_0100_037_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 37 < end) {
 			rawValue += buffer.readInt8(start + 37) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2251_0100_038_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 38 < end) {
 			rawValue += buffer.readInt8(start + 38) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2251_0100_039_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 39 < end) {
 			rawValue += buffer.readInt8(start + 39) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2251_0100_040_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 40 < end) {
 			rawValue += buffer.readUInt8(start + 40) * 1.0;
+			valid = true;
 		}
 		if (start + 41 < end) {
 			rawValue += buffer.readUInt8(start + 41) * 256.0;
+			valid = true;
 		}
 		if (start + 42 < end) {
 			rawValue += buffer.readUInt8(start + 42) * 65536.0;
+			valid = true;
 		}
 		if (start + 43 < end) {
 			rawValue += buffer.readInt8(start + 43) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2251_0100_044_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 44 < end) {
 			rawValue += ((buffer.readInt8(start + 44) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2251_0100_048_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 48 < end) {
 			rawValue += buffer.readUInt8(start + 48) * 1.0;
+			valid = true;
 		}
 		if (start + 49 < end) {
 			rawValue += buffer.readUInt8(start + 49) * 256.0;
+			valid = true;
 		}
 		if (start + 50 < end) {
 			rawValue += buffer.readUInt8(start + 50) * 65536.0;
+			valid = true;
 		}
 		if (start + 51 < end) {
 			rawValue += buffer.readInt8(start + 51) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2251_0100_052_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 52 < end) {
 			rawValue += buffer.readUInt8(start + 52) * 1.0;
+			valid = true;
 		}
 		if (start + 53 < end) {
 			rawValue += buffer.readUInt8(start + 53) * 256.0;
+			valid = true;
 		}
 		if (start + 54 < end) {
 			rawValue += buffer.readUInt8(start + 54) * 65536.0;
+			valid = true;
 		}
 		if (start + 55 < end) {
 			rawValue += buffer.readInt8(start + 55) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2251_0100_056_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 56 < end) {
 			rawValue += buffer.readUInt8(start + 56) * 1.0;
+			valid = true;
 		}
 		if (start + 57 < end) {
 			rawValue += buffer.readUInt8(start + 57) * 256.0;
+			valid = true;
 		}
 		if (start + 58 < end) {
 			rawValue += buffer.readUInt8(start + 58) * 65536.0;
+			valid = true;
 		}
 		if (start + 59 < end) {
 			rawValue += buffer.readInt8(start + 59) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2251_0100_060_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 60 < end) {
 			rawValue += buffer.readUInt8(start + 60) * 1.0;
+			valid = true;
 		}
 		if (start + 61 < end) {
 			rawValue += buffer.readUInt8(start + 61) * 256.0;
+			valid = true;
 		}
 		if (start + 62 < end) {
 			rawValue += buffer.readUInt8(start + 62) * 65536.0;
+			valid = true;
 		}
 		if (start + 63 < end) {
 			rawValue += buffer.readInt8(start + 63) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2251_0100_064_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 64 < end) {
 			rawValue += ((buffer.readInt8(start + 64) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2251_0100_065_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 65 < end) {
 			rawValue += buffer.readInt8(start + 65) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2251_0100_066_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 66 < end) {
 			rawValue += buffer.readInt8(start + 66) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2251_0100_067_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 67 < end) {
 			rawValue += buffer.readInt8(start + 67) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2251_0100_068_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 68 < end) {
 			rawValue += buffer.readUInt8(start + 68) * 1.0;
+			valid = true;
 		}
 		if (start + 69 < end) {
 			rawValue += buffer.readUInt8(start + 69) * 256.0;
+			valid = true;
 		}
 		if (start + 70 < end) {
 			rawValue += buffer.readUInt8(start + 70) * 65536.0;
+			valid = true;
 		}
 		if (start + 71 < end) {
 			rawValue += buffer.readInt8(start + 71) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2251_0100_072_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 72 < end) {
 			rawValue += buffer.readUInt8(start + 72) * 1.0;
+			valid = true;
 		}
 		if (start + 73 < end) {
 			rawValue += buffer.readUInt8(start + 73) * 256.0;
+			valid = true;
 		}
 		if (start + 74 < end) {
 			rawValue += buffer.readUInt8(start + 74) * 65536.0;
+			valid = true;
 		}
 		if (start + 75 < end) {
 			rawValue += buffer.readInt8(start + 75) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2251_0100_076_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 76 < end) {
 			rawValue += buffer.readUInt8(start + 76) * 1.0;
+			valid = true;
 		}
 		if (start + 77 < end) {
 			rawValue += buffer.readUInt8(start + 77) * 256.0;
+			valid = true;
 		}
 		if (start + 78 < end) {
 			rawValue += buffer.readUInt8(start + 78) * 65536.0;
+			valid = true;
 		}
 		if (start + 79 < end) {
 			rawValue += buffer.readInt8(start + 79) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2251_0100_080_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 80 < end) {
 			rawValue += buffer.readInt8(start + 80) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2251_0100_081_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 81 < end) {
 			rawValue += ((buffer.readInt8(start + 81) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2251_0100_082_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 82 < end) {
 			rawValue += buffer.readInt8(start + 82) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2251_0100_083_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 83 < end) {
 			rawValue += buffer.readInt8(start + 83) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2251_0100_084_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 84 < end) {
 			rawValue += ((buffer.readInt8(start + 84) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2251_0100_085_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 85 < end) {
 			rawValue += ((buffer.readInt8(start + 85) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2251_0100_086_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 86 < end) {
 			rawValue += buffer.readInt8(start + 86) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2251_0100_087_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 87 < end) {
 			rawValue += buffer.readInt8(start + 87) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2251_0100_088_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 88 < end) {
 			rawValue += ((buffer.readInt8(start + 88) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2251_0100_089_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 89 < end) {
 			rawValue += ((buffer.readInt8(start + 89) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2251_0100_090_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 90 < end) {
 			rawValue += ((buffer.readInt8(start + 90) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2251_0100_091_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 91 < end) {
 			rawValue += ((buffer.readInt8(start + 91) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2251_0100_093_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 93 < end) {
 			rawValue += ((buffer.readInt8(start + 93) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2251_0100_094_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 94 < end) {
 			rawValue += ((buffer.readInt8(start + 94) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2251_0100_095_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 95 < end) {
 			rawValue += ((buffer.readInt8(start + 95) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2251_0100_096_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 96 < end) {
 			rawValue += buffer.readUInt8(start + 96) * 1.0;
+			valid = true;
 		}
 		if (start + 97 < end) {
 			rawValue += buffer.readUInt8(start + 97) * 256.0;
+			valid = true;
 		}
 		if (start + 98 < end) {
 			rawValue += buffer.readUInt8(start + 98) * 65536.0;
+			valid = true;
 		}
 		if (start + 99 < end) {
 			rawValue += buffer.readInt8(start + 99) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2252_0100_000_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 1.0;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readUInt8(start + 1) * 256.0;
+			valid = true;
 		}
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 65536.0;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2252_0100_004_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 1.0;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readUInt8(start + 5) * 256.0;
+			valid = true;
 		}
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 65536.0;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2252_0100_008_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 1.0;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readUInt8(start + 9) * 256.0;
+			valid = true;
 		}
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 65536.0;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_2252_0100_012_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 1.0;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readUInt8(start + 13) * 256.0;
+			valid = true;
 		}
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 65536.0;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readInt8(start + 15) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3011_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3011_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3011_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.01;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 2.56;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3011_0100_012_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 1.0;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readUInt8(start + 13) * 256.0;
+			valid = true;
 		}
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 65536.0;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readUInt8(start + 15) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3011_0100_016_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 1.0;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readUInt8(start + 17) * 256.0;
+			valid = true;
 		}
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 65536.0;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readUInt8(start + 19) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3011_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 0.01;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readUInt8(start + 11) * 2.56;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3011_0100_020_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 1.0E-4;
+			valid = true;
 		}
 		if (start + 21 < end) {
 			rawValue += buffer.readUInt8(start + 21) * 0.0256;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3011_0100_024_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 1.0;
+			valid = true;
 		}
 		if (start + 25 < end) {
 			rawValue += buffer.readUInt8(start + 25) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3011_0100_022_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += buffer.readUInt8(start + 22) * 0.1;
+			valid = true;
 		}
 		if (start + 23 < end) {
 			rawValue += buffer.readUInt8(start + 23) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3011_0100_028_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 28 < end) {
 			rawValue += buffer.readUInt8(start + 28) * 1.0;
+			valid = true;
 		}
 		if (start + 29 < end) {
 			rawValue += buffer.readUInt8(start + 29) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3011_0100_030_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 30 < end) {
 			rawValue += buffer.readUInt8(start + 30) * 1.0;
+			valid = true;
 		}
 		if (start + 31 < end) {
 			rawValue += buffer.readUInt8(start + 31) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3011_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 1.0;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readUInt8(start + 7) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3211_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3211_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3211_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3211_0100_006_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3211_0100_007_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 7 < end) {
 			rawValue += buffer.readUInt8(start + 7) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3211_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 1.0;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readUInt8(start + 9) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3211_0100_010_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3211_0100_011_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 11 < end) {
 			rawValue += buffer.readUInt8(start + 11) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3221_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3221_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3221_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3221_0100_006_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3221_0100_007_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 7 < end) {
 			rawValue += buffer.readUInt8(start + 7) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3221_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 1.0;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readUInt8(start + 9) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3221_0100_010_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3221_0100_012_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 1.0;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readUInt8(start + 13) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3221_0100_014_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 1.0;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readUInt8(start + 15) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3231_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3231_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3231_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3231_0100_006_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readInt8(start + 6) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3231_0100_007_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3231_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 1.0;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3231_0100_010_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readInt8(start + 10) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3231_0100_010_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += ((buffer.readInt8(start + 10) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3231_0100_010_1_2: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += ((buffer.readInt8(start + 10) >> 1) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3241_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3241_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3241_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3241_0100_006_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3241_0100_007_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 7 < end) {
 			rawValue += buffer.readUInt8(start + 7) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3241_0100_010_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3251_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3251_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3251_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3251_0100_006_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readInt8(start + 6) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3251_0100_007_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3251_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 1.0;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3271_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3271_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3271_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3271_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3271_0100_008_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readInt8(start + 8) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3271_0100_009_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3271_0100_010_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3271_0100_011_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 11 < end) {
 			rawValue += buffer.readUInt8(start + 11) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3271_0100_012_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 1.0;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readUInt8(start + 13) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3271_0100_014_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3271_0100_015_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 15 < end) {
 			rawValue += ((buffer.readInt8(start + 15) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3271_0100_015_1_2: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 15 < end) {
 			rawValue += ((buffer.readInt8(start + 15) >> 1) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3271_0100_015_1_4: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 15 < end) {
 			rawValue += ((buffer.readInt8(start + 15) >> 2) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3271_0100_016_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 1.0;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readUInt8(start + 17) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3271_0100_018_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 1.0;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readUInt8(start + 19) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3271_0100_020_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 1.0;
+			valid = true;
 		}
 		if (start + 21 < end) {
 			rawValue += buffer.readUInt8(start + 21) * 256.0;
+			valid = true;
 		}
 		if (start + 22 < end) {
 			rawValue += buffer.readUInt8(start + 22) * 1000.0;
+			valid = true;
 		}
 		if (start + 23 < end) {
 			rawValue += buffer.readUInt8(start + 23) * 256000.0;
+			valid = true;
 		}
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 1000000.0;
+			valid = true;
 		}
 		if (start + 25 < end) {
 			rawValue += buffer.readUInt8(start + 25) * 2.56E8;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3271_0100_026_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 26 < end) {
 			rawValue += buffer.readUInt8(start + 26) * 0.01;
+			valid = true;
 		}
 		if (start + 27 < end) {
 			rawValue += buffer.readUInt8(start + 27) * 2.56;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3311_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3311_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3311_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3311_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3311_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.1;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readUInt8(start + 9) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3311_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 0.1;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readUInt8(start + 11) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3311_0100_008_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3311_0100_009_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 9 < end) {
 			rawValue += buffer.readUInt8(start + 9) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3311_0100_010_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3311_0100_011_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 11 < end) {
 			rawValue += buffer.readUInt8(start + 11) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_3311_0100_012_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 1.0;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readUInt8(start + 13) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0000_4010_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 1.0;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readUInt8(start + 3) * 256.0;
+			valid = true;
 		}
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 1000.0;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readUInt8(start + 1) * 256000.0;
+			valid = true;
 		}
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 1000000.0;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readUInt8(start + 13) * 2.56E8;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0000_4010_0100_006_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 10.0;
+			valid = true;
 		}
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 2560.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0000_4010_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.01;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readUInt8(start + 5) * 2.56;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0000_4010_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.1;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0000_4010_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 0.1;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0000_4010_0100_015_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 15 < end) {
 			rawValue += buffer.readUInt8(start + 15) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0000_4010_0100_016_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 0.01;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readInt8(start + 17) * 2.56;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4111_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4111_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4111_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4111_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4111_0100_008_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4111_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 1.0;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readUInt8(start + 11) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4111_0100_012_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 1.0;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readUInt8(start + 13) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4111_0100_016_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 1.0;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readUInt8(start + 17) * 256.0;
+			valid = true;
 		}
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 65536.0;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readUInt8(start + 19) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4211_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4211_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4211_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4211_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4211_0100_008_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4211_0100_009_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 9 < end) {
 			rawValue += buffer.readUInt8(start + 9) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4211_0100_010_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4211_0100_012_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 1.0;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readUInt8(start + 13) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4211_0100_014_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 1.0;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readUInt8(start + 15) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4211_0100_016_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 1.0;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readInt8(start + 17) * 256.0;
+			valid = true;
 		}
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 1000.0;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readInt8(start + 19) * 256000.0;
+			valid = true;
 		}
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 1000000.0;
+			valid = true;
 		}
 		if (start + 21 < end) {
 			rawValue += buffer.readInt8(start + 21) * 2.56E8;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4212_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4212_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4212_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4212_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4212_0100_008_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4212_0100_009_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 9 < end) {
 			rawValue += buffer.readUInt8(start + 9) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4212_0100_010_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4212_0100_011_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 11 < end) {
 			rawValue += buffer.readUInt8(start + 11) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4212_0100_012_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 1.0;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readUInt8(start + 13) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4212_0100_014_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 1.0;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readUInt8(start + 15) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4212_0100_016_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 1.0;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readUInt8(start + 17) * 256.0;
+			valid = true;
 		}
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 1000.0;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readUInt8(start + 19) * 256000.0;
+			valid = true;
 		}
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 1000000.0;
+			valid = true;
 		}
 		if (start + 21 < end) {
 			rawValue += buffer.readUInt8(start + 21) * 2.56E8;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4212_0100_022_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += buffer.readUInt8(start + 22) * 1.0;
+			valid = true;
 		}
 		if (start + 23 < end) {
 			rawValue += buffer.readInt8(start + 23) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4213_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4213_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4213_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4213_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4213_0100_024_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 0.1;
+			valid = true;
 		}
 		if (start + 25 < end) {
 			rawValue += buffer.readInt8(start + 25) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4213_0100_026_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 26 < end) {
 			rawValue += buffer.readUInt8(start + 26) * 1.0;
+			valid = true;
 		}
 		if (start + 27 < end) {
 			rawValue += buffer.readInt8(start + 27) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4213_0100_008_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4213_0100_009_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 9 < end) {
 			rawValue += buffer.readUInt8(start + 9) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4213_0100_032_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 32 < end) {
 			rawValue += buffer.readUInt8(start + 32) * 0.1;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4213_0100_010_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4213_0100_012_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 1.0;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readUInt8(start + 13) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4213_0100_014_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 1.0;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readUInt8(start + 15) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4213_0100_016_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 1.0;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readInt8(start + 17) * 256.0;
+			valid = true;
 		}
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 1000.0;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readInt8(start + 19) * 256000.0;
+			valid = true;
 		}
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 1000000.0;
+			valid = true;
 		}
 		if (start + 21 < end) {
 			rawValue += buffer.readInt8(start + 21) * 2.56E8;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4214_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4214_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4214_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4214_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4214_0100_024_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 0.1;
+			valid = true;
 		}
 		if (start + 25 < end) {
 			rawValue += buffer.readInt8(start + 25) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4214_0100_026_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 26 < end) {
 			rawValue += buffer.readUInt8(start + 26) * 1.0;
+			valid = true;
 		}
 		if (start + 27 < end) {
 			rawValue += buffer.readInt8(start + 27) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4214_0100_008_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4214_0100_009_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 9 < end) {
 			rawValue += buffer.readUInt8(start + 9) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4214_0100_032_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 32 < end) {
 			rawValue += buffer.readUInt8(start + 32) * 0.1;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4214_0100_010_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4214_0100_012_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 1.0;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readUInt8(start + 13) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4214_0100_014_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 1.0;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readUInt8(start + 15) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4214_0100_016_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 1.0;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readInt8(start + 17) * 256.0;
+			valid = true;
 		}
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 1000.0;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readInt8(start + 19) * 256000.0;
+			valid = true;
 		}
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 1000000.0;
+			valid = true;
 		}
 		if (start + 21 < end) {
 			rawValue += buffer.readInt8(start + 21) * 2.56E8;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4221_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4221_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4221_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4221_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4221_0100_008_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readInt8(start + 8) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4221_0100_009_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4221_0100_010_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4221_0100_011_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 11 < end) {
 			rawValue += buffer.readUInt8(start + 11) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4221_0100_012_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 1.0;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readUInt8(start + 13) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4221_0100_014_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4221_0100_015_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 15 < end) {
 			rawValue += ((buffer.readInt8(start + 15) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4221_0100_015_1_2: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 15 < end) {
 			rawValue += ((buffer.readInt8(start + 15) >> 1) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4221_0100_015_1_4: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 15 < end) {
 			rawValue += ((buffer.readInt8(start + 15) >> 2) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4221_0100_015_1_8: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 15 < end) {
 			rawValue += ((buffer.readInt8(start + 15) >> 3) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4221_0100_015_1_16: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 15 < end) {
 			rawValue += ((buffer.readInt8(start + 15) >> 4) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4221_0100_015_1_32: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 15 < end) {
 			rawValue += ((buffer.readInt8(start + 15) >> 5) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4221_0100_016_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 1.0;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readUInt8(start + 17) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4221_0100_018_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 1.0;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readUInt8(start + 19) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4221_0100_020_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 1.0;
+			valid = true;
 		}
 		if (start + 21 < end) {
 			rawValue += buffer.readUInt8(start + 21) * 256.0;
+			valid = true;
 		}
 		if (start + 22 < end) {
 			rawValue += buffer.readUInt8(start + 22) * 1000.0;
+			valid = true;
 		}
 		if (start + 23 < end) {
 			rawValue += buffer.readUInt8(start + 23) * 256000.0;
+			valid = true;
 		}
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 1000000.0;
+			valid = true;
 		}
 		if (start + 25 < end) {
 			rawValue += buffer.readUInt8(start + 25) * 2.56E8;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4221_0100_026_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 26 < end) {
 			rawValue += buffer.readUInt8(start + 26) * 0.01;
+			valid = true;
 		}
 		if (start + 27 < end) {
 			rawValue += buffer.readUInt8(start + 27) * 2.56;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4223_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4223_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4223_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4223_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4223_0100_008_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readInt8(start + 8) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4223_0100_009_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4223_0100_010_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4223_0100_011_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 11 < end) {
 			rawValue += buffer.readUInt8(start + 11) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4223_0100_012_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 1.0;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readUInt8(start + 13) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4223_0100_014_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4223_0100_015_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 15 < end) {
 			rawValue += ((buffer.readInt8(start + 15) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4223_0100_015_1_2: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 15 < end) {
 			rawValue += ((buffer.readInt8(start + 15) >> 1) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4223_0100_015_1_4: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 15 < end) {
 			rawValue += ((buffer.readInt8(start + 15) >> 2) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4223_0100_015_1_8: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 15 < end) {
 			rawValue += ((buffer.readInt8(start + 15) >> 3) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4223_0100_015_1_16: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 15 < end) {
 			rawValue += ((buffer.readInt8(start + 15) >> 4) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4223_0100_015_1_32: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 15 < end) {
 			rawValue += ((buffer.readInt8(start + 15) >> 5) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4223_0100_016_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 1.0;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readUInt8(start + 17) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4223_0100_018_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 1.0;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readUInt8(start + 19) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4223_0100_020_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 1.0;
+			valid = true;
 		}
 		if (start + 21 < end) {
 			rawValue += buffer.readUInt8(start + 21) * 256.0;
+			valid = true;
 		}
 		if (start + 22 < end) {
 			rawValue += buffer.readUInt8(start + 22) * 1000.0;
+			valid = true;
 		}
 		if (start + 23 < end) {
 			rawValue += buffer.readUInt8(start + 23) * 256000.0;
+			valid = true;
 		}
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 1000000.0;
+			valid = true;
 		}
 		if (start + 25 < end) {
 			rawValue += buffer.readUInt8(start + 25) * 2.56E8;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4223_0100_026_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 26 < end) {
 			rawValue += buffer.readUInt8(start + 26) * 0.01;
+			valid = true;
 		}
 		if (start + 27 < end) {
 			rawValue += buffer.readUInt8(start + 27) * 2.56;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4224_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4224_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4224_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4224_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4224_0100_008_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readInt8(start + 8) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4224_0100_009_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4224_0100_010_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4224_0100_011_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 11 < end) {
 			rawValue += buffer.readUInt8(start + 11) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4224_0100_012_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 1.0;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readUInt8(start + 13) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4224_0100_014_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4224_0100_015_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 15 < end) {
 			rawValue += ((buffer.readInt8(start + 15) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4224_0100_015_1_2: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 15 < end) {
 			rawValue += ((buffer.readInt8(start + 15) >> 1) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4224_0100_015_1_4: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 15 < end) {
 			rawValue += ((buffer.readInt8(start + 15) >> 2) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4224_0100_015_1_8: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 15 < end) {
 			rawValue += ((buffer.readInt8(start + 15) >> 3) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4224_0100_015_1_16: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 15 < end) {
 			rawValue += ((buffer.readInt8(start + 15) >> 4) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4224_0100_015_1_32: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 15 < end) {
 			rawValue += ((buffer.readInt8(start + 15) >> 5) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4224_0100_016_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 1.0;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readUInt8(start + 17) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4224_0100_018_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 1.0;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readUInt8(start + 19) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4224_0100_020_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 1.0;
+			valid = true;
 		}
 		if (start + 21 < end) {
 			rawValue += buffer.readUInt8(start + 21) * 256.0;
+			valid = true;
 		}
 		if (start + 22 < end) {
 			rawValue += buffer.readUInt8(start + 22) * 1000.0;
+			valid = true;
 		}
 		if (start + 23 < end) {
 			rawValue += buffer.readUInt8(start + 23) * 256000.0;
+			valid = true;
 		}
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 1000000.0;
+			valid = true;
 		}
 		if (start + 25 < end) {
 			rawValue += buffer.readUInt8(start + 25) * 2.56E8;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4224_0100_026_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 26 < end) {
 			rawValue += buffer.readUInt8(start + 26) * 0.01;
+			valid = true;
 		}
 		if (start + 27 < end) {
 			rawValue += buffer.readUInt8(start + 27) * 2.56;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4231_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4231_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4231_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4231_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4231_0100_008_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4231_0100_009_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 9 < end) {
 			rawValue += buffer.readUInt8(start + 9) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4231_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 1.0;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4231_0100_012_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4231_0100_013_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 13 < end) {
 			rawValue += buffer.readUInt8(start + 13) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4231_0100_014_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4231_0100_015_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 15 < end) {
 			rawValue += buffer.readUInt8(start + 15) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4231_0100_016_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4231_0100_017_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 17 < end) {
 			rawValue += buffer.readUInt8(start + 17) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4231_0100_019_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 19 < end) {
 			rawValue += buffer.readUInt8(start + 19) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4231_0100_020_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 1.0;
+			valid = true;
 		}
 		if (start + 21 < end) {
 			rawValue += buffer.readUInt8(start + 21) * 256.0;
+			valid = true;
 		}
 		if (start + 22 < end) {
 			rawValue += buffer.readUInt8(start + 22) * 65536.0;
+			valid = true;
 		}
 		if (start + 23 < end) {
 			rawValue += buffer.readInt8(start + 23) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4231_0100_024_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 1.0;
+			valid = true;
 		}
 		if (start + 25 < end) {
 			rawValue += buffer.readUInt8(start + 25) * 256.0;
+			valid = true;
 		}
 		if (start + 26 < end) {
 			rawValue += buffer.readUInt8(start + 26) * 1000.0;
+			valid = true;
 		}
 		if (start + 27 < end) {
 			rawValue += buffer.readUInt8(start + 27) * 256000.0;
+			valid = true;
 		}
 		if (start + 28 < end) {
 			rawValue += buffer.readUInt8(start + 28) * 1000000.0;
+			valid = true;
 		}
 		if (start + 29 < end) {
 			rawValue += buffer.readUInt8(start + 29) * 2.56E8;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4231_0100_030_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 30 < end) {
 			rawValue += buffer.readUInt8(start + 30) * 1.0;
+			valid = true;
 		}
 		if (start + 31 < end) {
 			rawValue += buffer.readUInt8(start + 31) * 0.01;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4231_0100_032_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 32 < end) {
 			rawValue += buffer.readUInt8(start + 32) * 0.1;
+			valid = true;
 		}
 		if (start + 33 < end) {
 			rawValue += buffer.readInt8(start + 33) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4231_0100_034_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 34 < end) {
 			rawValue += buffer.readUInt8(start + 34) * 0.1;
+			valid = true;
 		}
 		if (start + 35 < end) {
 			rawValue += buffer.readInt8(start + 35) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4231_0100_036_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += buffer.readUInt8(start + 36) * 1.0;
+			valid = true;
 		}
 		if (start + 37 < end) {
 			rawValue += buffer.readInt8(start + 37) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4231_0100_038_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 38 < end) {
 			rawValue += buffer.readUInt8(start + 38) * 0.1;
+			valid = true;
 		}
 		if (start + 39 < end) {
 			rawValue += buffer.readUInt8(start + 39) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4241_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4241_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4241_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4241_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.01;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readUInt8(start + 7) * 2.56;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4241_0100_008_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4241_0100_009_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 9 < end) {
 			rawValue += buffer.readUInt8(start + 9) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4241_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 1.0;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readUInt8(start + 11) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4241_0100_012_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += ((buffer.readInt8(start + 12) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4241_0100_012_1_2: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += ((buffer.readInt8(start + 12) >> 1) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4241_0100_013_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 13 < end) {
 			rawValue += ((buffer.readInt8(start + 13) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4241_0100_013_1_2: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 13 < end) {
 			rawValue += ((buffer.readInt8(start + 13) >> 1) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4241_0100_013_1_4: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 13 < end) {
 			rawValue += ((buffer.readInt8(start + 13) >> 2) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4241_0100_013_1_8: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 13 < end) {
 			rawValue += ((buffer.readInt8(start + 13) >> 3) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4241_0100_013_1_16: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 13 < end) {
 			rawValue += ((buffer.readInt8(start + 13) >> 4) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4241_0100_013_1_32: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 13 < end) {
 			rawValue += ((buffer.readInt8(start + 13) >> 5) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4241_0100_013_1_64: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 13 < end) {
 			rawValue += ((buffer.readInt8(start + 13) >> 6) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4241_0100_013_1_128: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 13 < end) {
 			rawValue += ((buffer.readInt8(start + 13) >> 7) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4241_0100_014_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += ((buffer.readInt8(start + 14) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4241_0100_014_1_2: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += ((buffer.readInt8(start + 14) >> 1) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4241_0100_015_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 15 < end) {
 			rawValue += ((buffer.readInt8(start + 15) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4241_0100_015_1_2: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 15 < end) {
 			rawValue += ((buffer.readInt8(start + 15) >> 1) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4241_0100_015_1_4: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 15 < end) {
 			rawValue += ((buffer.readInt8(start + 15) >> 2) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4241_0100_015_1_8: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 15 < end) {
 			rawValue += ((buffer.readInt8(start + 15) >> 3) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4241_0100_016_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4241_0100_017_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 17 < end) {
 			rawValue += buffer.readUInt8(start + 17) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4241_0100_018_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 0.1;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4241_0100_019_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 19 < end) {
 			rawValue += buffer.readUInt8(start + 19) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4241_0100_020_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 1.0;
+			valid = true;
 		}
 		if (start + 21 < end) {
 			rawValue += buffer.readUInt8(start + 21) * 256.0;
+			valid = true;
 		}
 		if (start + 22 < end) {
 			rawValue += buffer.readUInt8(start + 22) * 65536.0;
+			valid = true;
 		}
 		if (start + 23 < end) {
 			rawValue += buffer.readUInt8(start + 23) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4241_0100_024_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 1.0;
+			valid = true;
 		}
 		if (start + 25 < end) {
 			rawValue += buffer.readUInt8(start + 25) * 256.0;
+			valid = true;
 		}
 		if (start + 26 < end) {
 			rawValue += buffer.readUInt8(start + 26) * 1000.0;
+			valid = true;
 		}
 		if (start + 27 < end) {
 			rawValue += buffer.readUInt8(start + 27) * 256000.0;
+			valid = true;
 		}
 		if (start + 28 < end) {
 			rawValue += buffer.readUInt8(start + 28) * 1000000.0;
+			valid = true;
 		}
 		if (start + 29 < end) {
 			rawValue += buffer.readUInt8(start + 29) * 2.56E8;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4241_0100_030_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 30 < end) {
 			rawValue += buffer.readUInt8(start + 30) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4241_0100_031_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 31 < end) {
 			rawValue += buffer.readUInt8(start + 31) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4241_0100_032_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 32 < end) {
 			rawValue += buffer.readUInt8(start + 32) * 0.1;
+			valid = true;
 		}
 		if (start + 33 < end) {
 			rawValue += buffer.readInt8(start + 33) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4241_0100_034_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 34 < end) {
 			rawValue += buffer.readUInt8(start + 34) * 0.1;
+			valid = true;
 		}
 		if (start + 35 < end) {
 			rawValue += buffer.readInt8(start + 35) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4241_0100_036_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += buffer.readUInt8(start + 36) * 1.0;
+			valid = true;
 		}
 		if (start + 37 < end) {
 			rawValue += buffer.readUInt8(start + 37) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4241_0100_038_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 38 < end) {
 			rawValue += buffer.readUInt8(start + 38) * 1.0;
+			valid = true;
 		}
 		if (start + 39 < end) {
 			rawValue += buffer.readUInt8(start + 39) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4241_0100_040_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 40 < end) {
 			rawValue += buffer.readUInt8(start + 40) * 0.1;
+			valid = true;
 		}
 		if (start + 41 < end) {
 			rawValue += buffer.readInt8(start + 41) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4241_0100_042_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 42 < end) {
 			rawValue += buffer.readUInt8(start + 42) * 0.1;
+			valid = true;
 		}
 		if (start + 43 < end) {
 			rawValue += buffer.readInt8(start + 43) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4241_0100_044_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 44 < end) {
 			rawValue += buffer.readUInt8(start + 44) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4241_0100_045_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 45 < end) {
 			rawValue += buffer.readUInt8(start + 45) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4241_0100_046_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 46 < end) {
 			rawValue += buffer.readUInt8(start + 46) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4241_0100_047_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 47 < end) {
 			rawValue += buffer.readUInt8(start + 47) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4241_0100_048_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 48 < end) {
 			rawValue += buffer.readUInt8(start + 48) * 1.0;
+			valid = true;
 		}
 		if (start + 49 < end) {
 			rawValue += buffer.readUInt8(start + 49) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4241_0100_050_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 50 < end) {
 			rawValue += buffer.readUInt8(start + 50) * 1.0;
+			valid = true;
 		}
 		if (start + 51 < end) {
 			rawValue += buffer.readUInt8(start + 51) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4251_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4251_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4251_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4251_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4251_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.1;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4251_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 1.0;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readUInt8(start + 11) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4251_0100_012_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 0.1;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readInt8(start + 13) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4251_0100_014_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 0.1;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readInt8(start + 15) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4251_0100_016_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 0.1;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readInt8(start + 17) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4251_0100_018_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 0.1;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readInt8(start + 19) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4251_0100_020_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 0.1;
+			valid = true;
 		}
 		if (start + 21 < end) {
 			rawValue += buffer.readInt8(start + 21) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4251_0100_022_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += ((buffer.readInt8(start + 22) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4251_0100_022_1_2: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += ((buffer.readInt8(start + 22) >> 1) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4251_0100_022_1_4: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += ((buffer.readInt8(start + 22) >> 2) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4251_0100_022_1_8: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += ((buffer.readInt8(start + 22) >> 3) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4251_0100_022_1_16: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += ((buffer.readInt8(start + 22) >> 4) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4251_0100_022_1_32: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += ((buffer.readInt8(start + 22) >> 5) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4251_0100_022_1_64: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += ((buffer.readInt8(start + 22) >> 6) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4251_0100_022_1_128: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += ((buffer.readInt8(start + 22) >> 7) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4251_0100_022_1_256: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += ((buffer.readInt8(start + 22) >> 8) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4251_0100_024_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 0.01;
+			valid = true;
 		}
 		if (start + 25 < end) {
 			rawValue += buffer.readUInt8(start + 25) * 2.56;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4252_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4252_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4252_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4252_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4252_0100_008_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4252_0100_010_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4252_0100_011_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 11 < end) {
 			rawValue += buffer.readUInt8(start + 11) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4252_0100_012_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 1.0;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readUInt8(start + 13) * 256.0;
+			valid = true;
 		}
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 65536.0;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readUInt8(start + 15) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4252_0100_016_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 1.0;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readUInt8(start + 17) * 256.0;
+			valid = true;
 		}
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 65536.0;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readUInt8(start + 19) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4252_0100_020_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += ((buffer.readInt8(start + 20) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4252_0100_020_1_2: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += ((buffer.readInt8(start + 20) >> 1) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4252_0100_020_1_4: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += ((buffer.readInt8(start + 20) >> 2) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4252_0100_020_1_8: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += ((buffer.readInt8(start + 20) >> 3) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4252_0100_022_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += ((buffer.readInt8(start + 22) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4252_0100_022_1_2: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += ((buffer.readInt8(start + 22) >> 1) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4252_0100_022_1_4: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += ((buffer.readInt8(start + 22) >> 2) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4252_0100_022_1_8: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += ((buffer.readInt8(start + 22) >> 3) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4252_0100_022_1_16: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += ((buffer.readInt8(start + 22) >> 4) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4252_0100_022_1_32: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += ((buffer.readInt8(start + 22) >> 5) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4252_0100_022_1_64: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += ((buffer.readInt8(start + 22) >> 6) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4252_0100_022_1_128: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += ((buffer.readInt8(start + 22) >> 7) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4252_0100_023_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 23 < end) {
 			rawValue += ((buffer.readInt8(start + 23) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4252_0100_023_1_2: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 23 < end) {
 			rawValue += ((buffer.readInt8(start + 23) >> 1) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4252_0100_023_1_4: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 23 < end) {
 			rawValue += ((buffer.readInt8(start + 23) >> 2) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4252_0100_023_1_8: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 23 < end) {
 			rawValue += ((buffer.readInt8(start + 23) >> 3) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4252_0100_024_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 1.0;
+			valid = true;
 		}
 		if (start + 25 < end) {
 			rawValue += buffer.readUInt8(start + 25) * 256.0;
+			valid = true;
 		}
 		if (start + 26 < end) {
 			rawValue += buffer.readUInt8(start + 26) * 65536.0;
+			valid = true;
 		}
 		if (start + 27 < end) {
 			rawValue += buffer.readUInt8(start + 27) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4252_0100_028_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 28 < end) {
 			rawValue += buffer.readUInt8(start + 28) * 1.0;
+			valid = true;
 		}
 		if (start + 29 < end) {
 			rawValue += buffer.readInt8(start + 29) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4252_0100_030_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 30 < end) {
 			rawValue += buffer.readUInt8(start + 30) * 0.01;
+			valid = true;
 		}
 		if (start + 31 < end) {
 			rawValue += buffer.readUInt8(start + 31) * 2.56;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4261_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4261_0100_012_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 0.1;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readInt8(start + 13) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4261_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4261_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4261_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4261_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.1;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4261_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 0.1;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4261_0100_014_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += ((buffer.readInt8(start + 14) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4261_0100_014_1_2: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += ((buffer.readInt8(start + 14) >> 1) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4261_0100_014_1_4: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += ((buffer.readInt8(start + 14) >> 2) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4261_0100_014_1_8: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += ((buffer.readInt8(start + 14) >> 3) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4261_0100_014_1_16: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += ((buffer.readInt8(start + 14) >> 4) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4261_0100_014_1_32: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += ((buffer.readInt8(start + 14) >> 5) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4261_0100_014_1_64: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += ((buffer.readInt8(start + 14) >> 6) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4261_0100_015_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 15 < end) {
 			rawValue += buffer.readInt8(start + 15) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4261_0100_016_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readInt8(start + 16) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4261_0100_017_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 17 < end) {
 			rawValue += buffer.readInt8(start + 17) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4261_0100_018_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4261_0100_019_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 19 < end) {
 			rawValue += buffer.readUInt8(start + 19) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4261_0100_022_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += buffer.readUInt8(start + 22) * 1.0;
+			valid = true;
 		}
 		if (start + 23 < end) {
 			rawValue += buffer.readUInt8(start + 23) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4261_0100_024_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 0.1;
+			valid = true;
 		}
 		if (start + 25 < end) {
 			rawValue += buffer.readInt8(start + 25) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4261_0100_052_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 52 < end) {
 			rawValue += buffer.readUInt8(start + 52) * 0.1;
+			valid = true;
 		}
 		if (start + 53 < end) {
 			rawValue += buffer.readInt8(start + 53) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4261_0100_048_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 48 < end) {
 			rawValue += buffer.readUInt8(start + 48) * 0.1;
+			valid = true;
 		}
 		if (start + 49 < end) {
 			rawValue += buffer.readInt8(start + 49) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4261_0100_050_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 50 < end) {
 			rawValue += buffer.readUInt8(start + 50) * 0.1;
+			valid = true;
 		}
 		if (start + 51 < end) {
 			rawValue += buffer.readInt8(start + 51) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4261_0100_026_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 26 < end) {
 			rawValue += buffer.readUInt8(start + 26) * 0.1;
+			valid = true;
 		}
 		if (start + 27 < end) {
 			rawValue += buffer.readInt8(start + 27) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4261_0100_054_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 54 < end) {
 			rawValue += buffer.readUInt8(start + 54) * 0.1;
+			valid = true;
 		}
 		if (start + 55 < end) {
 			rawValue += buffer.readInt8(start + 55) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4261_0100_056_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 56 < end) {
 			rawValue += buffer.readUInt8(start + 56) * 0.1;
+			valid = true;
 		}
 		if (start + 57 < end) {
 			rawValue += buffer.readInt8(start + 57) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4261_0100_058_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 58 < end) {
 			rawValue += buffer.readUInt8(start + 58) * 1.0;
+			valid = true;
 		}
 		if (start + 59 < end) {
 			rawValue += buffer.readInt8(start + 59) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4261_0100_030_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 30 < end) {
 			rawValue += buffer.readUInt8(start + 30) * 0.1;
+			valid = true;
 		}
 		if (start + 31 < end) {
 			rawValue += buffer.readInt8(start + 31) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4261_0100_032_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 32 < end) {
 			rawValue += buffer.readUInt8(start + 32) * 1.0;
+			valid = true;
 		}
 		if (start + 33 < end) {
 			rawValue += buffer.readUInt8(start + 33) * 256.0;
+			valid = true;
 		}
 		if (start + 34 < end) {
 			rawValue += buffer.readUInt8(start + 34) * 65536.0;
+			valid = true;
 		}
 		if (start + 35 < end) {
 			rawValue += buffer.readUInt8(start + 35) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4261_0100_036_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += buffer.readUInt8(start + 36) * 1.0;
+			valid = true;
 		}
 		if (start + 37 < end) {
 			rawValue += buffer.readUInt8(start + 37) * 256.0;
+			valid = true;
 		}
 		if (start + 38 < end) {
 			rawValue += buffer.readUInt8(start + 38) * 65536.0;
+			valid = true;
 		}
 		if (start + 39 < end) {
 			rawValue += buffer.readUInt8(start + 39) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4261_0100_040_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 40 < end) {
 			rawValue += buffer.readUInt8(start + 40) * 1.0;
+			valid = true;
 		}
 		if (start + 41 < end) {
 			rawValue += buffer.readInt8(start + 41) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4261_0100_042_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 42 < end) {
 			rawValue += buffer.readUInt8(start + 42) * 1.0;
+			valid = true;
 		}
 		if (start + 43 < end) {
 			rawValue += buffer.readInt8(start + 43) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4261_0100_044_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 44 < end) {
 			rawValue += buffer.readInt8(start + 44) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4261_0100_045_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 45 < end) {
 			rawValue += buffer.readInt8(start + 45) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4261_0100_046_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 46 < end) {
 			rawValue += buffer.readInt8(start + 46) * 1.0;
+			valid = true;
 		}
 		if (start + 47 < end) {
 			rawValue += buffer.readInt8(start + 47) * 0.01;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4265_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4265_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4265_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4265_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4265_0100_008_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4265_0100_009_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 9 < end) {
 			rawValue += buffer.readUInt8(start + 9) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4265_0100_010_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += ((buffer.readInt8(start + 10) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4265_0100_010_1_2: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += ((buffer.readInt8(start + 10) >> 1) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4265_0100_010_1_4: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += ((buffer.readInt8(start + 10) >> 2) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4265_0100_010_1_8: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += ((buffer.readInt8(start + 10) >> 3) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4265_0100_012_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 1.0;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readUInt8(start + 13) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4265_0100_014_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 1.0;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readUInt8(start + 15) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4265_0100_016_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 1.0;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readUInt8(start + 17) * 256.0;
+			valid = true;
 		}
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 1000.0;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readUInt8(start + 19) * 256000.0;
+			valid = true;
 		}
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 1000000.0;
+			valid = true;
 		}
 		if (start + 21 < end) {
 			rawValue += buffer.readUInt8(start + 21) * 2.56E8;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4265_0100_024_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 0.01;
+			valid = true;
 		}
 		if (start + 25 < end) {
 			rawValue += buffer.readUInt8(start + 25) * 2.56;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4278_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4278_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4278_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4278_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4278_0100_008_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4278_0100_009_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 9 < end) {
 			rawValue += buffer.readUInt8(start + 9) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4278_0100_010_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += ((buffer.readInt8(start + 10) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4278_0100_010_1_2: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += ((buffer.readInt8(start + 10) >> 1) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4278_0100_010_1_4: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += ((buffer.readInt8(start + 10) >> 2) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4278_0100_010_1_8: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += ((buffer.readInt8(start + 10) >> 3) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4278_0100_010_1_16: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += ((buffer.readInt8(start + 10) >> 4) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4278_0100_010_1_32: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += ((buffer.readInt8(start + 10) >> 5) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4278_0100_011_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 11 < end) {
 			rawValue += ((buffer.readInt8(start + 11) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4278_0100_011_1_2: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 11 < end) {
 			rawValue += ((buffer.readInt8(start + 11) >> 1) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4278_0100_012_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 1.0;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readUInt8(start + 13) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4278_0100_014_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 1.0;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readUInt8(start + 15) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4278_0100_016_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 1.0;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readUInt8(start + 17) * 256.0;
+			valid = true;
 		}
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 1000.0;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readUInt8(start + 19) * 256000.0;
+			valid = true;
 		}
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 1000000.0;
+			valid = true;
 		}
 		if (start + 21 < end) {
 			rawValue += buffer.readUInt8(start + 21) * 2.56E8;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4278_0100_022_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += buffer.readInt8(start + 22) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4278_0100_023_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 23 < end) {
 			rawValue += buffer.readUInt8(start + 23) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4278_0100_024_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 0.01;
+			valid = true;
 		}
 		if (start + 25 < end) {
 			rawValue += buffer.readUInt8(start + 25) * 2.56;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4279_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4279_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4279_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4279_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4279_0100_008_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4279_0100_009_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 9 < end) {
 			rawValue += buffer.readUInt8(start + 9) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4279_0100_010_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += ((buffer.readInt8(start + 10) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4279_0100_010_1_2: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += ((buffer.readInt8(start + 10) >> 1) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4279_0100_010_1_4: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += ((buffer.readInt8(start + 10) >> 2) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4279_0100_010_1_8: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += ((buffer.readInt8(start + 10) >> 3) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4279_0100_010_1_16: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += ((buffer.readInt8(start + 10) >> 4) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4279_0100_010_1_32: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += ((buffer.readInt8(start + 10) >> 5) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4279_0100_011_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 11 < end) {
 			rawValue += ((buffer.readInt8(start + 11) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4279_0100_011_1_2: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 11 < end) {
 			rawValue += ((buffer.readInt8(start + 11) >> 1) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4279_0100_012_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 1.0;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readUInt8(start + 13) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4279_0100_014_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 1.0;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readUInt8(start + 15) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4279_0100_016_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 1.0;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readUInt8(start + 17) * 256.0;
+			valid = true;
 		}
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 1000.0;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readUInt8(start + 19) * 256000.0;
+			valid = true;
 		}
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 1000000.0;
+			valid = true;
 		}
 		if (start + 21 < end) {
 			rawValue += buffer.readUInt8(start + 21) * 2.56E8;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4279_0100_022_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += buffer.readInt8(start + 22) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4279_0100_023_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 23 < end) {
 			rawValue += buffer.readUInt8(start + 23) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4279_0100_024_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 0.01;
+			valid = true;
 		}
 		if (start + 25 < end) {
 			rawValue += buffer.readUInt8(start + 25) * 2.56;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_427B_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_427B_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_427B_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_427B_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_427B_0100_008_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_427B_0100_012_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_427B_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 1.0;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readUInt8(start + 11) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_427B_0100_014_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 1.0;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readUInt8(start + 15) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_427B_0100_016_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_427B_0100_017_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 17 < end) {
 			rawValue += buffer.readUInt8(start + 17) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_427B_0100_020_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 1.0;
+			valid = true;
 		}
 		if (start + 21 < end) {
 			rawValue += buffer.readUInt8(start + 21) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_427B_0100_022_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += buffer.readUInt8(start + 22) * 1.0;
+			valid = true;
 		}
 		if (start + 23 < end) {
 			rawValue += buffer.readInt8(start + 23) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_427B_0100_020_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += ((buffer.readInt8(start + 20) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_427B_0100_020_1_2: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += ((buffer.readInt8(start + 20) >> 1) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_427B_0100_020_1_4: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += ((buffer.readInt8(start + 20) >> 2) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_427B_0100_020_1_8: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += ((buffer.readInt8(start + 20) >> 3) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_427B_0100_024_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 1.0;
+			valid = true;
 		}
 		if (start + 25 < end) {
 			rawValue += buffer.readUInt8(start + 25) * 256.0;
+			valid = true;
 		}
 		if (start + 26 < end) {
 			rawValue += buffer.readUInt8(start + 26) * 65536.0;
+			valid = true;
 		}
 		if (start + 27 < end) {
 			rawValue += buffer.readUInt8(start + 27) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_427B_0100_028_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 28 < end) {
 			rawValue += buffer.readUInt8(start + 28) * 1.0;
+			valid = true;
 		}
 		if (start + 29 < end) {
 			rawValue += buffer.readUInt8(start + 29) * 256.0;
+			valid = true;
 		}
 		if (start + 30 < end) {
 			rawValue += buffer.readUInt8(start + 30) * 65536.0;
+			valid = true;
 		}
 		if (start + 31 < end) {
 			rawValue += buffer.readUInt8(start + 31) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_427B_0100_032_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 32 < end) {
 			rawValue += buffer.readUInt8(start + 32) * 0.01;
+			valid = true;
 		}
 		if (start + 33 < end) {
 			rawValue += buffer.readUInt8(start + 33) * 2.56;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_427B_0100_034_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 34 < end) {
 			rawValue += buffer.readUInt8(start + 34) * 1.0;
+			valid = true;
 		}
 		if (start + 35 < end) {
 			rawValue += buffer.readUInt8(start + 35) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4311_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4311_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4311_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4311_0100_006_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4311_0100_013_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 13 < end) {
 			rawValue += buffer.readUInt8(start + 13) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4311_0100_007_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 7 < end) {
 			rawValue += buffer.readUInt8(start + 7) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4311_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 0.1;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4311_0100_012_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4311_0100_016_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 0.1;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readUInt8(start + 17) * 25.6;
+			valid = true;
 		}
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 6553.6;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readUInt8(start + 19) * 1677721.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4321_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4321_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4321_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4321_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4321_0100_008_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4321_0100_009_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 9 < end) {
 			rawValue += buffer.readUInt8(start + 9) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4321_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 1.0;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readUInt8(start + 11) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4321_0100_012_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4321_0100_013_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 13 < end) {
 			rawValue += buffer.readUInt8(start + 13) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4321_0100_014_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 1.0;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readUInt8(start + 15) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4321_0100_016_3_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 1.0;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readUInt8(start + 17) * 256.0;
+			valid = true;
 		}
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 65536.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4321_0100_019_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 19 < end) {
 			rawValue += buffer.readUInt8(start + 19) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_4321_0100_024_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 1.0;
+			valid = true;
 		}
 		if (start + 25 < end) {
 			rawValue += buffer.readUInt8(start + 25) * 256.0;
+			valid = true;
 		}
 		if (start + 26 < end) {
 			rawValue += buffer.readUInt8(start + 26) * 65536.0;
+			valid = true;
 		}
 		if (start + 27 < end) {
 			rawValue += buffer.readUInt8(start + 27) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0000_4420_0100_000_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0000_4420_0100_001_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 1 < end) {
 			rawValue += buffer.readUInt8(start + 1) * 1.0;
+			valid = true;
 		}
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0000_4420_0100_003_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 3 < end) {
 			rawValue += buffer.readUInt8(start + 3) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0000_4420_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 1.0;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readUInt8(start + 5) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0000_4420_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.1;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0000_4420_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 0.1;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0000_4420_0100_012_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 0.1;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readInt8(start + 13) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0000_4420_0100_016_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 0.1;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readInt8(start + 17) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0000_4420_0100_018_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 1.0;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readUInt8(start + 19) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5111_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5111_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5111_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5111_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5111_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.1;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5111_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 0.1;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5111_0100_012_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 1.0;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readInt8(start + 13) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5111_0100_014_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5111_0100_015_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 15 < end) {
 			rawValue += buffer.readUInt8(start + 15) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5111_0100_020_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 1.0;
+			valid = true;
 		}
 		if (start + 21 < end) {
 			rawValue += buffer.readUInt8(start + 21) * 256.0;
+			valid = true;
 		}
 		if (start + 22 < end) {
 			rawValue += buffer.readUInt8(start + 22) * 65536.0;
+			valid = true;
 		}
 		if (start + 23 < end) {
 			rawValue += buffer.readInt8(start + 23) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5111_0100_024_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 1.0;
+			valid = true;
 		}
 		if (start + 25 < end) {
 			rawValue += buffer.readUInt8(start + 25) * 256.0;
+			valid = true;
 		}
 		if (start + 26 < end) {
 			rawValue += buffer.readUInt8(start + 26) * 65536.0;
+			valid = true;
 		}
 		if (start + 27 < end) {
 			rawValue += buffer.readInt8(start + 27) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5111_0100_028_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 28 < end) {
 			rawValue += buffer.readUInt8(start + 28) * 1.0;
+			valid = true;
 		}
 		if (start + 29 < end) {
 			rawValue += buffer.readInt8(start + 29) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5112_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5112_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5112_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5112_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5112_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 1.0;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5112_0100_010_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5112_0100_011_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 11 < end) {
 			rawValue += buffer.readUInt8(start + 11) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5112_0100_012_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 0.0010;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readUInt8(start + 13) * 0.256;
+			valid = true;
 		}
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 65.536;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readUInt8(start + 15) * 16777.216;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5112_0100_016_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 1.0;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readUInt8(start + 17) * 256.0;
+			valid = true;
 		}
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 65536.0;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readInt8(start + 19) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5112_0100_020_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 1.0;
+			valid = true;
 		}
 		if (start + 21 < end) {
 			rawValue += buffer.readUInt8(start + 21) * 256.0;
+			valid = true;
 		}
 		if (start + 22 < end) {
 			rawValue += buffer.readUInt8(start + 22) * 65536.0;
+			valid = true;
 		}
 		if (start + 23 < end) {
 			rawValue += buffer.readInt8(start + 23) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5112_0100_024_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 1.0;
+			valid = true;
 		}
 		if (start + 25 < end) {
 			rawValue += buffer.readInt8(start + 25) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5121_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5121_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5121_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5121_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.01;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 2.56;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5121_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.01;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 2.56;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5121_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 0.01;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 2.56;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5121_0100_012_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 0.01;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readInt8(start + 13) * 2.56;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5121_0100_014_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 0.01;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readInt8(start + 15) * 2.56;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5121_0100_016_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5121_0100_017_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 17 < end) {
 			rawValue += buffer.readUInt8(start + 17) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5121_0100_018_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5121_0100_019_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 19 < end) {
 			rawValue += buffer.readUInt8(start + 19) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5121_0100_020_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 1.0;
+			valid = true;
 		}
 		if (start + 21 < end) {
 			rawValue += buffer.readUInt8(start + 21) * 256.0;
+			valid = true;
 		}
 		if (start + 22 < end) {
 			rawValue += buffer.readUInt8(start + 22) * 65536.0;
+			valid = true;
 		}
 		if (start + 23 < end) {
 			rawValue += buffer.readUInt8(start + 23) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5121_0100_024_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 1.0;
+			valid = true;
 		}
 		if (start + 25 < end) {
 			rawValue += buffer.readUInt8(start + 25) * 256.0;
+			valid = true;
 		}
 		if (start + 26 < end) {
 			rawValue += buffer.readUInt8(start + 26) * 65536.0;
+			valid = true;
 		}
 		if (start + 27 < end) {
 			rawValue += buffer.readUInt8(start + 27) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5121_0100_028_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 28 < end) {
 			rawValue += buffer.readUInt8(start + 28) * 1.0;
+			valid = true;
 		}
 		if (start + 29 < end) {
 			rawValue += buffer.readUInt8(start + 29) * 256.0;
+			valid = true;
 		}
 		if (start + 30 < end) {
 			rawValue += buffer.readUInt8(start + 30) * 1000.0;
+			valid = true;
 		}
 		if (start + 31 < end) {
 			rawValue += buffer.readUInt8(start + 31) * 256000.0;
+			valid = true;
 		}
 		if (start + 32 < end) {
 			rawValue += buffer.readUInt8(start + 32) * 1000000.0;
+			valid = true;
 		}
 		if (start + 33 < end) {
 			rawValue += buffer.readUInt8(start + 33) * 2.56E8;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5121_0100_036_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += buffer.readUInt8(start + 36) * 0.1;
+			valid = true;
 		}
 		if (start + 37 < end) {
 			rawValue += buffer.readUInt8(start + 37) * 25.6;
+			valid = true;
 		}
 		if (start + 38 < end) {
 			rawValue += buffer.readUInt8(start + 38) * 6553.6;
+			valid = true;
 		}
 		if (start + 39 < end) {
 			rawValue += buffer.readUInt8(start + 39) * 1677721.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5121_0100_040_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 40 < end) {
 			rawValue += buffer.readUInt8(start + 40) * 1.0;
+			valid = true;
 		}
 		if (start + 41 < end) {
 			rawValue += buffer.readUInt8(start + 41) * 256.0;
+			valid = true;
 		}
 		if (start + 42 < end) {
 			rawValue += buffer.readUInt8(start + 42) * 65536.0;
+			valid = true;
 		}
 		if (start + 43 < end) {
 			rawValue += buffer.readInt8(start + 43) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5121_0100_044_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 44 < end) {
 			rawValue += buffer.readUInt8(start + 44) * 1.0;
+			valid = true;
 		}
 		if (start + 45 < end) {
 			rawValue += buffer.readUInt8(start + 45) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5121_0100_046_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 46 < end) {
 			rawValue += buffer.readUInt8(start + 46) * 0.01;
+			valid = true;
 		}
 		if (start + 47 < end) {
 			rawValue += buffer.readUInt8(start + 47) * 2.56;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5141_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5141_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5141_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5141_0100_006_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5141_0100_007_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 7 < end) {
 			rawValue += buffer.readUInt8(start + 7) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5141_0100_008_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5141_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 1.0;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readUInt8(start + 11) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5141_0100_012_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 1.0;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readUInt8(start + 13) * 256.0;
+			valid = true;
 		}
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 65536.0;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readInt8(start + 15) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5141_0100_016_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 1.0;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readInt8(start + 17) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5210_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5210_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5210_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5210_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5210_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.1;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5210_0100_010_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5210_0100_011_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 11 < end) {
 			rawValue += buffer.readUInt8(start + 11) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5210_0100_012_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 1.0;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readUInt8(start + 13) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5210_0100_014_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5210_0100_015_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 15 < end) {
 			rawValue += buffer.readUInt8(start + 15) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5210_0100_016_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 1.0;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readUInt8(start + 17) * 256.0;
+			valid = true;
 		}
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 1000.0;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readUInt8(start + 19) * 256000.0;
+			valid = true;
 		}
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 1000000.0;
+			valid = true;
 		}
 		if (start + 21 < end) {
 			rawValue += buffer.readUInt8(start + 21) * 2.56E8;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5210_0100_022_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += buffer.readUInt8(start + 22) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5210_0100_023_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 23 < end) {
 			rawValue += buffer.readUInt8(start + 23) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5210_0100_024_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5210_0100_025_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 25 < end) {
 			rawValue += buffer.readUInt8(start + 25) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5210_0100_026_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 26 < end) {
 			rawValue += buffer.readUInt8(start + 26) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5210_0100_027_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 27 < end) {
 			rawValue += buffer.readUInt8(start + 27) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5210_0100_028_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 28 < end) {
 			rawValue += buffer.readUInt8(start + 28) * 1.0;
+			valid = true;
 		}
 		if (start + 29 < end) {
 			rawValue += buffer.readUInt8(start + 29) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5221_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5221_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5221_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5221_0100_006_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5221_0100_007_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 7 < end) {
 			rawValue += buffer.readUInt8(start + 7) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5221_0100_010_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5221_0100_012_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 0.1;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readInt8(start + 13) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5221_0100_014_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 0.1;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readInt8(start + 15) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5221_0100_016_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 0.1;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readInt8(start + 17) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5221_0100_018_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 1.0;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readUInt8(start + 19) * 256.0;
+			valid = true;
 		}
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 1000.0;
+			valid = true;
 		}
 		if (start + 21 < end) {
 			rawValue += buffer.readUInt8(start + 21) * 256000.0;
+			valid = true;
 		}
 		if (start + 22 < end) {
 			rawValue += buffer.readUInt8(start + 22) * 1000000.0;
+			valid = true;
 		}
 		if (start + 23 < end) {
 			rawValue += buffer.readUInt8(start + 23) * 2.56E8;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5231_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5231_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5231_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5231_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5231_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.1;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5231_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 0.1;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readUInt8(start + 11) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5231_0100_012_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5231_0100_013_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 13 < end) {
 			rawValue += buffer.readUInt8(start + 13) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5231_0100_014_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5231_0100_015_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 15 < end) {
 			rawValue += buffer.readUInt8(start + 15) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5231_0100_016_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 1.0;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readUInt8(start + 17) * 256.0;
+			valid = true;
 		}
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 65536.0;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readUInt8(start + 19) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5231_0100_020_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 1.0;
+			valid = true;
 		}
 		if (start + 21 < end) {
 			rawValue += buffer.readUInt8(start + 21) * 256.0;
+			valid = true;
 		}
 		if (start + 22 < end) {
 			rawValue += buffer.readUInt8(start + 22) * 65536.0;
+			valid = true;
 		}
 		if (start + 23 < end) {
 			rawValue += buffer.readUInt8(start + 23) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5231_0100_024_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 1.0;
+			valid = true;
 		}
 		if (start + 25 < end) {
 			rawValue += buffer.readUInt8(start + 25) * 256.0;
+			valid = true;
 		}
 		if (start + 26 < end) {
 			rawValue += buffer.readUInt8(start + 26) * 65536.0;
+			valid = true;
 		}
 		if (start + 27 < end) {
 			rawValue += buffer.readUInt8(start + 27) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5231_0100_028_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 28 < end) {
 			rawValue += buffer.readUInt8(start + 28) * 0.0010;
+			valid = true;
 		}
 		if (start + 29 < end) {
 			rawValue += buffer.readUInt8(start + 29) * 0.256;
+			valid = true;
 		}
 		if (start + 30 < end) {
 			rawValue += buffer.readUInt8(start + 30) * 65.536;
+			valid = true;
 		}
 		if (start + 31 < end) {
 			rawValue += buffer.readUInt8(start + 31) * 16777.216;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5231_0100_032_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 32 < end) {
 			rawValue += buffer.readUInt8(start + 32) * 1.0;
+			valid = true;
 		}
 		if (start + 33 < end) {
 			rawValue += buffer.readUInt8(start + 33) * 256.0;
+			valid = true;
 		}
 		if (start + 34 < end) {
 			rawValue += buffer.readUInt8(start + 34) * 65536.0;
+			valid = true;
 		}
 		if (start + 35 < end) {
 			rawValue += buffer.readUInt8(start + 35) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5231_0100_036_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += buffer.readUInt8(start + 36) * 1.0;
+			valid = true;
 		}
 		if (start + 37 < end) {
 			rawValue += buffer.readUInt8(start + 37) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5231_0100_038_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 38 < end) {
 			rawValue += buffer.readUInt8(start + 38) * 0.01;
+			valid = true;
 		}
 		if (start + 39 < end) {
 			rawValue += buffer.readUInt8(start + 39) * 2.56;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5311_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5311_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5311_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5311_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5311_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 1.0;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5311_0100_010_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5311_0100_011_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 11 < end) {
 			rawValue += buffer.readUInt8(start + 11) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5311_0100_012_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5311_0100_013_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 13 < end) {
 			rawValue += buffer.readUInt8(start + 13) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5311_0100_014_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 1.0;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readUInt8(start + 15) * 256.0;
+			valid = true;
 		}
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 1000.0;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readUInt8(start + 17) * 256000.0;
+			valid = true;
 		}
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 1000000.0;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readUInt8(start + 19) * 2.56E8;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5311_0100_021_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 21 < end) {
 			rawValue += buffer.readUInt8(start + 21) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5311_0100_022_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += ((buffer.readInt8(start + 22) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5311_0100_022_1_4: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += ((buffer.readInt8(start + 22) >> 2) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5311_0100_022_1_8: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += ((buffer.readInt8(start + 22) >> 3) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5311_0100_022_1_16: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += ((buffer.readInt8(start + 22) >> 4) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5311_0100_022_1_32: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += ((buffer.readInt8(start + 22) >> 5) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5311_0100_022_1_64: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += ((buffer.readInt8(start + 22) >> 6) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5311_0100_022_1_128: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += ((buffer.readInt8(start + 22) >> 7) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5311_0100_022_1_256: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += ((buffer.readInt8(start + 22) >> 8) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5311_0100_022_1_512: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += ((buffer.readInt8(start + 22) >> 9) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5311_0100_022_1_1024: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += ((buffer.readInt8(start + 22) >> 10) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5311_0100_022_1_2048: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += ((buffer.readInt8(start + 22) >> 11) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5311_0100_022_1_4096: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += ((buffer.readInt8(start + 22) >> 12) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5311_0100_022_1_8192: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += ((buffer.readInt8(start + 22) >> 13) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5311_0100_024_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5311_0100_025_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 25 < end) {
 			rawValue += buffer.readUInt8(start + 25) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5311_0100_026_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 26 < end) {
 			rawValue += buffer.readUInt8(start + 26) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5311_0100_028_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 28 < end) {
 			rawValue += buffer.readUInt8(start + 28) * 1.0;
+			valid = true;
 		}
 		if (start + 29 < end) {
 			rawValue += buffer.readInt8(start + 29) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5400_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5400_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5400_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5400_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5400_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.1;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5400_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 0.1;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5400_0100_012_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 0.1;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readInt8(start + 13) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5400_0100_014_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 0.1;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readInt8(start + 15) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5400_0100_016_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 0.1;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readInt8(start + 17) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5400_0100_018_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 1.0;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readInt8(start + 19) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5400_0100_020_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 0.1;
+			valid = true;
 		}
 		if (start + 21 < end) {
 			rawValue += buffer.readInt8(start + 21) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5400_0100_022_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += buffer.readUInt8(start + 22) * 0.1;
+			valid = true;
 		}
 		if (start + 23 < end) {
 			rawValue += buffer.readInt8(start + 23) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5400_0100_024_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 1.0;
+			valid = true;
 		}
 		if (start + 25 < end) {
 			rawValue += buffer.readUInt8(start + 25) * 256.0;
+			valid = true;
 		}
 		if (start + 26 < end) {
 			rawValue += buffer.readUInt8(start + 26) * 65536.0;
+			valid = true;
 		}
 		if (start + 27 < end) {
 			rawValue += buffer.readInt8(start + 27) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5400_0100_028_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 28 < end) {
 			rawValue += buffer.readUInt8(start + 28) * 1.0;
+			valid = true;
 		}
 		if (start + 29 < end) {
 			rawValue += buffer.readUInt8(start + 29) * 256.0;
+			valid = true;
 		}
 		if (start + 30 < end) {
 			rawValue += buffer.readUInt8(start + 30) * 65536.0;
+			valid = true;
 		}
 		if (start + 31 < end) {
 			rawValue += buffer.readInt8(start + 31) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5400_0100_032_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 32 < end) {
 			rawValue += buffer.readUInt8(start + 32) * 1.0;
+			valid = true;
 		}
 		if (start + 33 < end) {
 			rawValue += buffer.readUInt8(start + 33) * 256.0;
+			valid = true;
 		}
 		if (start + 34 < end) {
 			rawValue += buffer.readUInt8(start + 34) * 65536.0;
+			valid = true;
 		}
 		if (start + 35 < end) {
 			rawValue += buffer.readInt8(start + 35) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5400_0100_036_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += buffer.readUInt8(start + 36) * 0.01;
+			valid = true;
 		}
 		if (start + 37 < end) {
 			rawValue += buffer.readInt8(start + 37) * 2.56;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5400_0100_038_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 38 < end) {
 			rawValue += buffer.readUInt8(start + 38) * 0.01;
+			valid = true;
 		}
 		if (start + 39 < end) {
 			rawValue += buffer.readInt8(start + 39) * 2.56;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5400_0100_040_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 40 < end) {
 			rawValue += buffer.readInt8(start + 40) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5400_0100_041_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 41 < end) {
 			rawValue += buffer.readInt8(start + 41) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5400_0100_042_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 42 < end) {
 			rawValue += buffer.readInt8(start + 42) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5400_0100_043_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 43 < end) {
 			rawValue += buffer.readInt8(start + 43) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5400_0100_044_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 44 < end) {
 			rawValue += buffer.readInt8(start + 44) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5400_0100_045_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 45 < end) {
 			rawValue += buffer.readInt8(start + 45) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5400_0100_046_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 46 < end) {
 			rawValue += buffer.readInt8(start + 46) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5400_0100_048_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 48 < end) {
 			rawValue += buffer.readUInt8(start + 48) * 1.0;
+			valid = true;
 		}
 		if (start + 49 < end) {
 			rawValue += buffer.readUInt8(start + 49) * 256.0;
+			valid = true;
 		}
 		if (start + 50 < end) {
 			rawValue += buffer.readUInt8(start + 50) * 65536.0;
+			valid = true;
 		}
 		if (start + 51 < end) {
 			rawValue += buffer.readInt8(start + 51) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5400_0100_052_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 52 < end) {
 			rawValue += buffer.readUInt8(start + 52) * 1.0;
+			valid = true;
 		}
 		if (start + 53 < end) {
 			rawValue += buffer.readUInt8(start + 53) * 256.0;
+			valid = true;
 		}
 		if (start + 54 < end) {
 			rawValue += buffer.readUInt8(start + 54) * 65536.0;
+			valid = true;
 		}
 		if (start + 55 < end) {
 			rawValue += buffer.readInt8(start + 55) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5400_0100_056_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 56 < end) {
 			rawValue += buffer.readUInt8(start + 56) * 1.0;
+			valid = true;
 		}
 		if (start + 57 < end) {
 			rawValue += buffer.readUInt8(start + 57) * 256.0;
+			valid = true;
 		}
 		if (start + 58 < end) {
 			rawValue += buffer.readUInt8(start + 58) * 65536.0;
+			valid = true;
 		}
 		if (start + 59 < end) {
 			rawValue += buffer.readInt8(start + 59) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5411_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5411_0100_002_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readInt8(start + 2) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5411_0100_003_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5411_0100_004_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 1.0;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readUInt8(start + 5) * 256.0;
+			valid = true;
 		}
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 65536.0;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5421_0100_000_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 1.0;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readUInt8(start + 1) * 256.0;
+			valid = true;
 		}
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 65536.0;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5421_0100_004_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 1.0;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readUInt8(start + 5) * 256.0;
+			valid = true;
 		}
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 65536.0;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5421_0100_008_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 1.0;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readUInt8(start + 9) * 256.0;
+			valid = true;
 		}
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 65536.0;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5421_0100_012_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 1.0;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readUInt8(start + 13) * 256.0;
+			valid = true;
 		}
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 65536.0;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readInt8(start + 15) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5510_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5510_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5510_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5510_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5510_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 1.0;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readUInt8(start + 9) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5510_0100_010_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5510_0100_011_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 11 < end) {
 			rawValue += buffer.readUInt8(start + 11) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5510_0100_012_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5611_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5611_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5611_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5611_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5611_0100_008_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readInt8(start + 8) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5611_0100_009_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5611_0100_010_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readInt8(start + 10) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5611_0100_011_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5611_0100_018_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5611_0100_012_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 1.0;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readUInt8(start + 13) * 256.0;
+			valid = true;
 		}
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 65536.0;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readInt8(start + 15) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_5611_0100_016_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 1.0;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readInt8(start + 17) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0000_6510_0100_000_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0000_6510_0100_001_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 1 < end) {
 			rawValue += buffer.readUInt8(start + 1) * 1.0;
+			valid = true;
 		}
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0000_6510_0100_003_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 3 < end) {
 			rawValue += buffer.readUInt8(start + 3) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0000_6510_0100_003_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 3 < end) {
 			rawValue += ((buffer.readInt8(start + 3) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0000_6510_0100_003_1_2: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 3 < end) {
 			rawValue += ((buffer.readInt8(start + 3) >> 1) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0000_6510_0100_003_1_4: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 3 < end) {
 			rawValue += ((buffer.readInt8(start + 3) >> 2) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0000_6510_0100_003_1_8: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 3 < end) {
 			rawValue += ((buffer.readInt8(start + 3) >> 3) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0000_6510_0100_003_1_16: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 3 < end) {
 			rawValue += ((buffer.readInt8(start + 3) >> 4) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0000_6510_0100_003_1_32: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 3 < end) {
 			rawValue += ((buffer.readInt8(start + 3) >> 5) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0000_6510_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 1.0;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readUInt8(start + 5) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0000_6510_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.1;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0000_6510_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 0.1;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0000_6510_0100_012_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 0.1;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readInt8(start + 13) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0000_6510_0100_014_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 0.1;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readInt8(start + 15) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0000_6510_0100_016_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 0.1;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readInt8(start + 17) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0000_6510_0100_018_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 1.0;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readUInt8(start + 19) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0000_6510_0100_020_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 0.1;
+			valid = true;
 		}
 		if (start + 21 < end) {
 			rawValue += buffer.readInt8(start + 21) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0000_6510_0100_022_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += buffer.readUInt8(start + 22) * 0.1;
+			valid = true;
 		}
 		if (start + 23 < end) {
 			rawValue += buffer.readInt8(start + 23) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0000_6520_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0000_6520_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0000_6520_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0000_6520_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0000_6520_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.1;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0000_6520_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 0.1;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_6610_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_6610_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_6610_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_6610_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_6610_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.1;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_6610_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 0.1;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_6610_0100_012_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += ((buffer.readInt8(start + 12) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_6610_0100_012_1_2: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += ((buffer.readInt8(start + 12) >> 1) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_6610_0100_012_1_4: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += ((buffer.readInt8(start + 12) >> 2) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_6610_0100_012_1_8: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += ((buffer.readInt8(start + 12) >> 3) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_6610_0100_012_1_16: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += ((buffer.readInt8(start + 12) >> 4) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_6610_0100_012_1_32: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += ((buffer.readInt8(start + 12) >> 5) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_6610_0100_013_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 13 < end) {
 			rawValue += buffer.readUInt8(start + 13) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_6610_0100_030_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 30 < end) {
 			rawValue += buffer.readUInt8(start + 30) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_6610_0100_031_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 31 < end) {
 			rawValue += buffer.readUInt8(start + 31) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_6610_0100_015_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 15 < end) {
 			rawValue += buffer.readUInt8(start + 15) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_6610_0100_016_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 1.0;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readUInt8(start + 17) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_6610_0100_018_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_6610_0100_019_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 19 < end) {
 			rawValue += buffer.readUInt8(start + 19) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_6610_0100_020_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_6610_0100_021_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 21 < end) {
 			rawValue += buffer.readUInt8(start + 21) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_6610_0100_022_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += buffer.readUInt8(start + 22) * 1.0;
+			valid = true;
 		}
 		if (start + 23 < end) {
 			rawValue += buffer.readUInt8(start + 23) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_6610_0100_032_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 32 < end) {
 			rawValue += buffer.readUInt8(start + 32) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_6610_0100_024_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_6610_0100_025_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 25 < end) {
 			rawValue += buffer.readUInt8(start + 25) * 1.0;
+			valid = true;
 		}
 		if (start + 26 < end) {
 			rawValue += buffer.readUInt8(start + 26) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_6610_0100_027_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 27 < end) {
 			rawValue += buffer.readUInt8(start + 27) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_6610_0100_028_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 28 < end) {
 			rawValue += buffer.readUInt8(start + 28) * 1.0;
+			valid = true;
 		}
 		if (start + 29 < end) {
 			rawValue += buffer.readUInt8(start + 29) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_6610_0100_033_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 33 < end) {
 			rawValue += buffer.readUInt8(start + 33) * 1.0;
+			valid = true;
 		}
 		if (start + 34 < end) {
 			rawValue += buffer.readUInt8(start + 34) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_6610_0100_035_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 35 < end) {
 			rawValue += buffer.readUInt8(start + 35) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_6620_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_6620_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_6620_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_6620_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_6620_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.1;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_6620_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 0.1;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_6620_0100_012_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += ((buffer.readInt8(start + 12) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_6620_0100_012_1_2: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += ((buffer.readInt8(start + 12) >> 1) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_6620_0100_012_1_4: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += ((buffer.readInt8(start + 12) >> 2) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_6620_0100_012_1_8: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += ((buffer.readInt8(start + 12) >> 3) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_6620_0100_012_1_16: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += ((buffer.readInt8(start + 12) >> 4) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_6620_0100_012_1_32: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += ((buffer.readInt8(start + 12) >> 5) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_6620_0100_013_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 13 < end) {
 			rawValue += buffer.readUInt8(start + 13) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_6620_0100_030_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 30 < end) {
 			rawValue += buffer.readUInt8(start + 30) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_6620_0100_031_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 31 < end) {
 			rawValue += buffer.readUInt8(start + 31) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_6620_0100_015_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 15 < end) {
 			rawValue += buffer.readUInt8(start + 15) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_6620_0100_016_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 1.0;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readUInt8(start + 17) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_6620_0100_018_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_6620_0100_019_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 19 < end) {
 			rawValue += buffer.readUInt8(start + 19) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_6620_0100_020_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_6620_0100_021_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 21 < end) {
 			rawValue += buffer.readUInt8(start + 21) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_6620_0100_022_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += buffer.readUInt8(start + 22) * 1.0;
+			valid = true;
 		}
 		if (start + 23 < end) {
 			rawValue += buffer.readUInt8(start + 23) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_6620_0100_024_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_6620_0100_025_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 25 < end) {
 			rawValue += buffer.readUInt8(start + 25) * 1.0;
+			valid = true;
 		}
 		if (start + 26 < end) {
 			rawValue += buffer.readUInt8(start + 26) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_6620_0100_027_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 27 < end) {
 			rawValue += buffer.readUInt8(start + 27) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_6620_0100_028_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 28 < end) {
 			rawValue += buffer.readUInt8(start + 28) * 1.0;
+			valid = true;
 		}
 		if (start + 29 < end) {
 			rawValue += buffer.readUInt8(start + 29) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0000_6650_0100_000_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.0010;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readUInt8(start + 1) * 0.256;
+			valid = true;
 		}
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 65.536;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 16777.216;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0000_6650_0100_004_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.0010;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readUInt8(start + 5) * 0.256;
+			valid = true;
 		}
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 65.536;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 16777.216;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0000_6650_0100_008_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.0010;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readUInt8(start + 9) * 0.256;
+			valid = true;
 		}
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 65.536;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 16777.216;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0000_6650_0100_012_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 0.0010;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readUInt8(start + 13) * 0.256;
+			valid = true;
 		}
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 65.536;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readInt8(start + 15) * 16777.216;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0000_6650_0100_016_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 0.0010;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readUInt8(start + 17) * 0.256;
+			valid = true;
 		}
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 65.536;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readInt8(start + 19) * 16777.216;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0000_6650_0100_020_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 0.0010;
+			valid = true;
 		}
 		if (start + 21 < end) {
 			rawValue += buffer.readUInt8(start + 21) * 0.256;
+			valid = true;
 		}
 		if (start + 22 < end) {
 			rawValue += buffer.readUInt8(start + 22) * 65.536;
+			valid = true;
 		}
 		if (start + 23 < end) {
 			rawValue += buffer.readInt8(start + 23) * 16777.216;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7101_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7101_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7101_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7101_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7101_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.1;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7101_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 0.1;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7101_0100_012_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 0.1;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readInt8(start + 13) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7101_0100_014_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 0.1;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readInt8(start + 15) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7101_0100_016_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 1.0;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readInt8(start + 17) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7101_0100_024_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7101_0100_025_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 25 < end) {
 			rawValue += buffer.readUInt8(start + 25) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7101_0100_026_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 26 < end) {
 			rawValue += buffer.readUInt8(start + 26) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7101_0100_027_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 27 < end) {
 			rawValue += buffer.readUInt8(start + 27) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7101_0100_022_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += buffer.readUInt8(start + 22) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7101_0100_023_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 23 < end) {
 			rawValue += buffer.readUInt8(start + 23) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7101_0100_018_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 1.0;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readInt8(start + 19) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7101_0100_060_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 60 < end) {
 			rawValue += buffer.readUInt8(start + 60) * 1.0;
+			valid = true;
 		}
 		if (start + 61 < end) {
 			rawValue += buffer.readInt8(start + 61) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7101_0100_048_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 48 < end) {
 			rawValue += buffer.readUInt8(start + 48) * 1.0;
+			valid = true;
 		}
 		if (start + 49 < end) {
 			rawValue += buffer.readUInt8(start + 49) * 256.0;
+			valid = true;
 		}
 		if (start + 50 < end) {
 			rawValue += buffer.readUInt8(start + 50) * 65536.0;
+			valid = true;
 		}
 		if (start + 51 < end) {
 			rawValue += buffer.readInt8(start + 51) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7101_0100_054_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 54 < end) {
 			rawValue += buffer.readUInt8(start + 54) * 1.0;
+			valid = true;
 		}
 		if (start + 55 < end) {
 			rawValue += buffer.readUInt8(start + 55) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7101_0100_056_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 56 < end) {
 			rawValue += buffer.readUInt8(start + 56) * 1.0;
+			valid = true;
 		}
 		if (start + 57 < end) {
 			rawValue += buffer.readUInt8(start + 57) * 256.0;
+			valid = true;
 		}
 		if (start + 58 < end) {
 			rawValue += buffer.readUInt8(start + 58) * 65536.0;
+			valid = true;
 		}
 		if (start + 59 < end) {
 			rawValue += buffer.readUInt8(start + 59) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7101_0100_052_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 52 < end) {
 			rawValue += buffer.readUInt8(start + 52) * 0.01;
+			valid = true;
 		}
 		if (start + 53 < end) {
 			rawValue += buffer.readUInt8(start + 53) * 2.56;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7101_0100_028_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 28 < end) {
 			rawValue += buffer.readUInt8(start + 28) * 1.0;
+			valid = true;
 		}
 		if (start + 29 < end) {
 			rawValue += buffer.readUInt8(start + 29) * 256.0;
+			valid = true;
 		}
 		if (start + 30 < end) {
 			rawValue += buffer.readUInt8(start + 30) * 65536.0;
+			valid = true;
 		}
 		if (start + 31 < end) {
 			rawValue += buffer.readUInt8(start + 31) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7101_0100_032_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 32 < end) {
 			rawValue += buffer.readUInt8(start + 32) * 1.0;
+			valid = true;
 		}
 		if (start + 33 < end) {
 			rawValue += buffer.readUInt8(start + 33) * 256.0;
+			valid = true;
 		}
 		if (start + 34 < end) {
 			rawValue += buffer.readUInt8(start + 34) * 65536.0;
+			valid = true;
 		}
 		if (start + 35 < end) {
 			rawValue += buffer.readUInt8(start + 35) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7101_0100_036_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += buffer.readUInt8(start + 36) * 1.0;
+			valid = true;
 		}
 		if (start + 37 < end) {
 			rawValue += buffer.readUInt8(start + 37) * 256.0;
+			valid = true;
 		}
 		if (start + 38 < end) {
 			rawValue += buffer.readUInt8(start + 38) * 65536.0;
+			valid = true;
 		}
 		if (start + 39 < end) {
 			rawValue += buffer.readUInt8(start + 39) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7101_0100_040_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 40 < end) {
 			rawValue += buffer.readUInt8(start + 40) * 1.0;
+			valid = true;
 		}
 		if (start + 41 < end) {
 			rawValue += buffer.readUInt8(start + 41) * 256.0;
+			valid = true;
 		}
 		if (start + 42 < end) {
 			rawValue += buffer.readUInt8(start + 42) * 65536.0;
+			valid = true;
 		}
 		if (start + 43 < end) {
 			rawValue += buffer.readUInt8(start + 43) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7101_0100_046_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 46 < end) {
 			rawValue += buffer.readUInt8(start + 46) * 1.0;
+			valid = true;
 		}
 		if (start + 47 < end) {
 			rawValue += buffer.readUInt8(start + 47) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7101_0100_046_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 46 < end) {
 			rawValue += ((buffer.readInt8(start + 46) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7101_0100_046_1_2: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 46 < end) {
 			rawValue += ((buffer.readInt8(start + 46) >> 1) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7101_0100_046_1_4: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 46 < end) {
 			rawValue += ((buffer.readInt8(start + 46) >> 2) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7101_0100_046_1_8: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 46 < end) {
 			rawValue += ((buffer.readInt8(start + 46) >> 3) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7101_0100_046_1_16: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 46 < end) {
 			rawValue += ((buffer.readInt8(start + 46) >> 4) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7101_0100_046_1_32: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 46 < end) {
 			rawValue += ((buffer.readInt8(start + 46) >> 5) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7101_0100_046_1_64: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 46 < end) {
 			rawValue += ((buffer.readInt8(start + 46) >> 6) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7101_0100_046_1_128: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 46 < end) {
 			rawValue += ((buffer.readInt8(start + 46) >> 7) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7101_0100_047_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 47 < end) {
 			rawValue += ((buffer.readInt8(start + 47) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7101_0100_047_1_2: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 47 < end) {
 			rawValue += ((buffer.readInt8(start + 47) >> 1) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7101_0100_047_1_4: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 47 < end) {
 			rawValue += ((buffer.readInt8(start + 47) >> 2) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7101_0100_047_1_8: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 47 < end) {
 			rawValue += ((buffer.readInt8(start + 47) >> 3) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7101_0100_047_1_16: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 47 < end) {
 			rawValue += ((buffer.readInt8(start + 47) >> 4) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7101_0100_047_1_32: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 47 < end) {
 			rawValue += ((buffer.readInt8(start + 47) >> 5) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7101_0100_047_1_64: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 47 < end) {
 			rawValue += ((buffer.readInt8(start + 47) >> 6) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7101_0100_047_1_128: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 47 < end) {
 			rawValue += ((buffer.readInt8(start + 47) >> 7) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7101_0100_020_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7101_0100_044_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 44 < end) {
 			rawValue += buffer.readUInt8(start + 44) * 1.0;
+			valid = true;
 		}
 		if (start + 45 < end) {
 			rawValue += buffer.readUInt8(start + 45) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7101_0100_044_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 44 < end) {
 			rawValue += ((buffer.readInt8(start + 44) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7101_0100_044_1_2: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 44 < end) {
 			rawValue += ((buffer.readInt8(start + 44) >> 1) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7101_0100_044_1_4: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 44 < end) {
 			rawValue += ((buffer.readInt8(start + 44) >> 2) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7101_0100_044_1_8: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 44 < end) {
 			rawValue += ((buffer.readInt8(start + 44) >> 3) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7101_0100_044_1_16: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 44 < end) {
 			rawValue += ((buffer.readInt8(start + 44) >> 4) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7101_0100_044_1_32: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 44 < end) {
 			rawValue += ((buffer.readInt8(start + 44) >> 5) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7101_0100_044_1_64: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 44 < end) {
 			rawValue += ((buffer.readInt8(start + 44) >> 6) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7101_0100_044_1_128: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 44 < end) {
 			rawValue += ((buffer.readInt8(start + 44) >> 7) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7101_0100_045_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 45 < end) {
 			rawValue += ((buffer.readInt8(start + 45) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7101_0100_045_1_2: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 45 < end) {
 			rawValue += ((buffer.readInt8(start + 45) >> 1) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7101_0100_045_1_4: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 45 < end) {
 			rawValue += ((buffer.readInt8(start + 45) >> 2) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7101_0100_045_1_8: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 45 < end) {
 			rawValue += ((buffer.readInt8(start + 45) >> 3) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7101_0100_045_1_16: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 45 < end) {
 			rawValue += ((buffer.readInt8(start + 45) >> 4) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7112_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7112_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7112_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7112_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7112_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.1;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7112_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 0.1;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7112_0100_012_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 0.1;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readInt8(start + 13) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7112_0100_014_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 0.1;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readInt8(start + 15) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7112_0100_016_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 0.1;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readInt8(start + 17) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7112_0100_018_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 1.0;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readInt8(start + 19) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7112_0100_020_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 0.1;
+			valid = true;
 		}
 		if (start + 21 < end) {
 			rawValue += buffer.readInt8(start + 21) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7112_0100_022_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += buffer.readUInt8(start + 22) * 0.1;
+			valid = true;
 		}
 		if (start + 23 < end) {
 			rawValue += buffer.readInt8(start + 23) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7112_0100_024_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 1.0;
+			valid = true;
 		}
 		if (start + 25 < end) {
 			rawValue += buffer.readUInt8(start + 25) * 256.0;
+			valid = true;
 		}
 		if (start + 26 < end) {
 			rawValue += buffer.readUInt8(start + 26) * 65536.0;
+			valid = true;
 		}
 		if (start + 27 < end) {
 			rawValue += buffer.readInt8(start + 27) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7112_0100_028_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 28 < end) {
 			rawValue += buffer.readUInt8(start + 28) * 1.0;
+			valid = true;
 		}
 		if (start + 29 < end) {
 			rawValue += buffer.readUInt8(start + 29) * 256.0;
+			valid = true;
 		}
 		if (start + 30 < end) {
 			rawValue += buffer.readUInt8(start + 30) * 65536.0;
+			valid = true;
 		}
 		if (start + 31 < end) {
 			rawValue += buffer.readInt8(start + 31) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7112_0100_032_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 32 < end) {
 			rawValue += buffer.readUInt8(start + 32) * 1.0;
+			valid = true;
 		}
 		if (start + 33 < end) {
 			rawValue += buffer.readUInt8(start + 33) * 256.0;
+			valid = true;
 		}
 		if (start + 34 < end) {
 			rawValue += buffer.readUInt8(start + 34) * 65536.0;
+			valid = true;
 		}
 		if (start + 35 < end) {
 			rawValue += buffer.readInt8(start + 35) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7112_0100_036_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += buffer.readUInt8(start + 36) * 0.01;
+			valid = true;
 		}
 		if (start + 37 < end) {
 			rawValue += buffer.readInt8(start + 37) * 2.56;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7112_0100_038_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 38 < end) {
 			rawValue += buffer.readUInt8(start + 38) * 0.01;
+			valid = true;
 		}
 		if (start + 39 < end) {
 			rawValue += buffer.readInt8(start + 39) * 2.56;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7112_0100_040_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 40 < end) {
 			rawValue += buffer.readUInt8(start + 40) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7112_0100_041_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 41 < end) {
 			rawValue += buffer.readUInt8(start + 41) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7112_0100_042_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 42 < end) {
 			rawValue += buffer.readUInt8(start + 42) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7112_0100_043_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 43 < end) {
 			rawValue += buffer.readUInt8(start + 43) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7112_0100_044_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 44 < end) {
 			rawValue += buffer.readUInt8(start + 44) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7112_0100_048_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 48 < end) {
 			rawValue += buffer.readUInt8(start + 48) * 1.0;
+			valid = true;
 		}
 		if (start + 49 < end) {
 			rawValue += buffer.readUInt8(start + 49) * 256.0;
+			valid = true;
 		}
 		if (start + 50 < end) {
 			rawValue += buffer.readUInt8(start + 50) * 65536.0;
+			valid = true;
 		}
 		if (start + 51 < end) {
 			rawValue += buffer.readInt8(start + 51) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7112_0100_052_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 52 < end) {
 			rawValue += buffer.readUInt8(start + 52) * 1.0;
+			valid = true;
 		}
 		if (start + 53 < end) {
 			rawValue += buffer.readUInt8(start + 53) * 256.0;
+			valid = true;
 		}
 		if (start + 54 < end) {
 			rawValue += buffer.readUInt8(start + 54) * 65536.0;
+			valid = true;
 		}
 		if (start + 55 < end) {
 			rawValue += buffer.readInt8(start + 55) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7113_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7113_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7113_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7113_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7113_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.1;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7113_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 0.1;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7113_0100_012_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 0.1;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readInt8(start + 13) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7113_0100_014_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 0.1;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readInt8(start + 15) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7113_0100_016_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 0.1;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readInt8(start + 17) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7113_0100_018_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 0.1;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readInt8(start + 19) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7113_0100_020_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 0.1;
+			valid = true;
 		}
 		if (start + 21 < end) {
 			rawValue += buffer.readInt8(start + 21) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7113_0100_022_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += buffer.readUInt8(start + 22) * 0.1;
+			valid = true;
 		}
 		if (start + 23 < end) {
 			rawValue += buffer.readInt8(start + 23) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7121_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7121_0100_002_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7131_0100_000_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 1.0;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readUInt8(start + 1) * 256.0;
+			valid = true;
 		}
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 65536.0;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7131_0100_008_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 1.0;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readUInt8(start + 9) * 256.0;
+			valid = true;
 		}
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 65536.0;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7131_0100_012_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 1.0;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readUInt8(start + 13) * 256.0;
+			valid = true;
 		}
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 65536.0;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readInt8(start + 15) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7140_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7140_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7140_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7140_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7140_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.1;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7140_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 0.1;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7140_0100_012_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 0.1;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readInt8(start + 13) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7140_0100_014_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 0.1;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readInt8(start + 15) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7140_0100_016_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 0.1;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readInt8(start + 17) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7140_0100_018_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 1.0;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readInt8(start + 19) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7140_0100_020_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 1.0;
+			valid = true;
 		}
 		if (start + 21 < end) {
 			rawValue += buffer.readUInt8(start + 21) * 256.0;
+			valid = true;
 		}
 		if (start + 22 < end) {
 			rawValue += buffer.readUInt8(start + 22) * 65536.0;
+			valid = true;
 		}
 		if (start + 23 < end) {
 			rawValue += buffer.readInt8(start + 23) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7140_0100_024_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7140_0100_025_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 25 < end) {
 			rawValue += buffer.readUInt8(start + 25) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7140_0100_026_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 26 < end) {
 			rawValue += buffer.readUInt8(start + 26) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7140_0100_028_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 28 < end) {
 			rawValue += buffer.readUInt8(start + 28) * 1.0;
+			valid = true;
 		}
 		if (start + 29 < end) {
 			rawValue += buffer.readUInt8(start + 29) * 256.0;
+			valid = true;
 		}
 		if (start + 30 < end) {
 			rawValue += buffer.readUInt8(start + 30) * 65536.0;
+			valid = true;
 		}
 		if (start + 31 < end) {
 			rawValue += buffer.readInt8(start + 31) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7140_0100_032_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 32 < end) {
 			rawValue += buffer.readUInt8(start + 32) * 1.0;
+			valid = true;
 		}
 		if (start + 33 < end) {
 			rawValue += buffer.readUInt8(start + 33) * 256.0;
+			valid = true;
 		}
 		if (start + 34 < end) {
 			rawValue += buffer.readUInt8(start + 34) * 65536.0;
+			valid = true;
 		}
 		if (start + 35 < end) {
 			rawValue += buffer.readInt8(start + 35) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7151_0100_000_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 1.0;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readUInt8(start + 1) * 256.0;
+			valid = true;
 		}
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 65536.0;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7151_0100_008_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 1.0;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readUInt8(start + 9) * 256.0;
+			valid = true;
 		}
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 65536.0;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7151_0100_012_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 1.0;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readUInt8(start + 13) * 256.0;
+			valid = true;
 		}
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 65536.0;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readInt8(start + 15) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7160_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7160_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7160_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7160_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7160_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.1;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7160_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 0.1;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7160_0100_012_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 0.1;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readInt8(start + 13) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7160_0100_014_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 0.1;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readInt8(start + 15) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7160_0100_036_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += buffer.readUInt8(start + 36) * 0.1;
+			valid = true;
 		}
 		if (start + 37 < end) {
 			rawValue += buffer.readInt8(start + 37) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7160_0100_038_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 38 < end) {
 			rawValue += buffer.readUInt8(start + 38) * 0.1;
+			valid = true;
 		}
 		if (start + 39 < end) {
 			rawValue += buffer.readInt8(start + 39) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7160_0100_016_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 1.0;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readInt8(start + 17) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7160_0100_018_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 1.0;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readInt8(start + 19) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7160_0100_044_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 44 < end) {
 			rawValue += buffer.readUInt8(start + 44) * 1.0;
+			valid = true;
 		}
 		if (start + 45 < end) {
 			rawValue += buffer.readUInt8(start + 45) * 256.0;
+			valid = true;
 		}
 		if (start + 46 < end) {
 			rawValue += buffer.readUInt8(start + 46) * 65536.0;
+			valid = true;
 		}
 		if (start + 47 < end) {
 			rawValue += buffer.readInt8(start + 47) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7160_0100_048_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 48 < end) {
 			rawValue += buffer.readUInt8(start + 48) * 1.0;
+			valid = true;
 		}
 		if (start + 49 < end) {
 			rawValue += buffer.readUInt8(start + 49) * 256.0;
+			valid = true;
 		}
 		if (start + 50 < end) {
 			rawValue += buffer.readUInt8(start + 50) * 65536.0;
+			valid = true;
 		}
 		if (start + 51 < end) {
 			rawValue += buffer.readInt8(start + 51) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7160_0100_020_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7160_0100_021_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 21 < end) {
 			rawValue += buffer.readUInt8(start + 21) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7160_0100_022_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += buffer.readUInt8(start + 22) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7160_0100_023_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 23 < end) {
 			rawValue += buffer.readUInt8(start + 23) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7160_0100_024_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 1.0;
+			valid = true;
 		}
 		if (start + 25 < end) {
 			rawValue += buffer.readInt8(start + 25) * 256.0;
+			valid = true;
 		}
 		if (start + 26 < end) {
 			rawValue += buffer.readUInt8(start + 26) * 1000.0;
+			valid = true;
 		}
 		if (start + 27 < end) {
 			rawValue += buffer.readInt8(start + 27) * 256000.0;
+			valid = true;
 		}
 		if (start + 28 < end) {
 			rawValue += buffer.readUInt8(start + 28) * 1000000.0;
+			valid = true;
 		}
 		if (start + 29 < end) {
 			rawValue += buffer.readInt8(start + 29) * 2.56E8;
+			valid = true;
 		}
 		if (start + 30 < end) {
 			rawValue += buffer.readUInt8(start + 30) * 1.0E9;
+			valid = true;
 		}
 		if (start + 31 < end) {
 			rawValue += buffer.readInt8(start + 31) * 2.56E11;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7160_0100_060_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 60 < end) {
 			rawValue += buffer.readUInt8(start + 60) * 1.0;
+			valid = true;
 		}
 		if (start + 61 < end) {
 			rawValue += buffer.readInt8(start + 61) * 256.0;
+			valid = true;
 		}
 		if (start + 62 < end) {
 			rawValue += buffer.readUInt8(start + 62) * 1000.0;
+			valid = true;
 		}
 		if (start + 63 < end) {
 			rawValue += buffer.readInt8(start + 63) * 256000.0;
+			valid = true;
 		}
 		if (start + 64 < end) {
 			rawValue += buffer.readUInt8(start + 64) * 1000000.0;
+			valid = true;
 		}
 		if (start + 65 < end) {
 			rawValue += buffer.readInt8(start + 65) * 2.56E8;
+			valid = true;
 		}
 		if (start + 66 < end) {
 			rawValue += buffer.readUInt8(start + 66) * 1.0E9;
+			valid = true;
 		}
 		if (start + 67 < end) {
 			rawValue += buffer.readInt8(start + 67) * 2.56E11;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7160_0100_068_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 68 < end) {
 			rawValue += buffer.readUInt8(start + 68) * 1.0;
+			valid = true;
 		}
 		if (start + 69 < end) {
 			rawValue += buffer.readInt8(start + 69) * 256.0;
+			valid = true;
 		}
 		if (start + 70 < end) {
 			rawValue += buffer.readUInt8(start + 70) * 1000.0;
+			valid = true;
 		}
 		if (start + 71 < end) {
 			rawValue += buffer.readInt8(start + 71) * 256000.0;
+			valid = true;
 		}
 		if (start + 72 < end) {
 			rawValue += buffer.readUInt8(start + 72) * 1000000.0;
+			valid = true;
 		}
 		if (start + 73 < end) {
 			rawValue += buffer.readInt8(start + 73) * 2.56E8;
+			valid = true;
 		}
 		if (start + 74 < end) {
 			rawValue += buffer.readUInt8(start + 74) * 1.0E9;
+			valid = true;
 		}
 		if (start + 75 < end) {
 			rawValue += buffer.readInt8(start + 75) * 2.56E11;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7160_0100_052_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 52 < end) {
 			rawValue += buffer.readUInt8(start + 52) * 0.0010;
+			valid = true;
 		}
 		if (start + 53 < end) {
 			rawValue += buffer.readUInt8(start + 53) * 0.256;
+			valid = true;
 		}
 		if (start + 54 < end) {
 			rawValue += buffer.readUInt8(start + 54) * 65.536;
+			valid = true;
 		}
 		if (start + 55 < end) {
 			rawValue += buffer.readInt8(start + 55) * 16777.216;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7160_0100_056_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 56 < end) {
 			rawValue += buffer.readUInt8(start + 56) * 0.0010;
+			valid = true;
 		}
 		if (start + 57 < end) {
 			rawValue += buffer.readUInt8(start + 57) * 0.256;
+			valid = true;
 		}
 		if (start + 58 < end) {
 			rawValue += buffer.readUInt8(start + 58) * 65.536;
+			valid = true;
 		}
 		if (start + 59 < end) {
 			rawValue += buffer.readInt8(start + 59) * 16777.216;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7160_0100_032_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 32 < end) {
 			rawValue += buffer.readUInt8(start + 32) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7160_0100_033_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 33 < end) {
 			rawValue += buffer.readUInt8(start + 33) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7160_0100_034_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 34 < end) {
 			rawValue += buffer.readUInt8(start + 34) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7160_0100_042_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 42 < end) {
 			rawValue += buffer.readUInt8(start + 42) * 1.0;
+			valid = true;
 		}
 		if (start + 43 < end) {
 			rawValue += buffer.readInt8(start + 43) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7161_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7161_0100_002_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7161_0100_003_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 3 < end) {
 			rawValue += buffer.readUInt8(start + 3) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7161_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 1.0;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readUInt8(start + 5) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7162_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7162_0100_002_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7162_0100_003_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 3 < end) {
 			rawValue += buffer.readUInt8(start + 3) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7162_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 1.0;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readUInt8(start + 5) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7163_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7163_0100_002_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7163_0100_003_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 3 < end) {
 			rawValue += buffer.readUInt8(start + 3) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7163_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 1.0;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readUInt8(start + 5) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7210_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7210_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7210_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7210_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7210_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.1;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7210_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 0.1;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7210_0100_012_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 0.1;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readInt8(start + 13) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7210_0100_014_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 0.1;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readInt8(start + 15) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7210_0100_016_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 1.0;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readInt8(start + 17) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7210_0100_018_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 1.0;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readInt8(start + 19) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7210_0100_020_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7210_0100_021_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 21 < end) {
 			rawValue += buffer.readUInt8(start + 21) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7210_0100_022_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += buffer.readUInt8(start + 22) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7210_0100_023_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 23 < end) {
 			rawValue += buffer.readUInt8(start + 23) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7210_0100_024_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 1.0;
+			valid = true;
 		}
 		if (start + 25 < end) {
 			rawValue += buffer.readInt8(start + 25) * 256.0;
+			valid = true;
 		}
 		if (start + 26 < end) {
 			rawValue += buffer.readUInt8(start + 26) * 1000.0;
+			valid = true;
 		}
 		if (start + 27 < end) {
 			rawValue += buffer.readInt8(start + 27) * 256000.0;
+			valid = true;
 		}
 		if (start + 28 < end) {
 			rawValue += buffer.readUInt8(start + 28) * 1000000.0;
+			valid = true;
 		}
 		if (start + 29 < end) {
 			rawValue += buffer.readInt8(start + 29) * 2.56E8;
+			valid = true;
 		}
 		if (start + 30 < end) {
 			rawValue += buffer.readUInt8(start + 30) * 1.0E9;
+			valid = true;
 		}
 		if (start + 31 < end) {
 			rawValue += buffer.readInt8(start + 31) * 2.56E11;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7210_0100_032_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 32 < end) {
 			rawValue += buffer.readUInt8(start + 32) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7210_0100_033_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 33 < end) {
 			rawValue += buffer.readUInt8(start + 33) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7210_0100_034_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 34 < end) {
 			rawValue += buffer.readUInt8(start + 34) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7210_0100_042_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 42 < end) {
 			rawValue += buffer.readUInt8(start + 42) * 1.0;
+			valid = true;
 		}
 		if (start + 43 < end) {
 			rawValue += buffer.readInt8(start + 43) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7211_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7211_0100_002_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7211_0100_003_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 3 < end) {
 			rawValue += buffer.readUInt8(start + 3) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7211_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 1.0;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readUInt8(start + 5) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7212_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7212_0100_002_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7212_0100_003_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 3 < end) {
 			rawValue += buffer.readUInt8(start + 3) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7212_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 1.0;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readUInt8(start + 5) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7213_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7213_0100_002_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7213_0100_003_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 3 < end) {
 			rawValue += buffer.readUInt8(start + 3) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7213_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 1.0;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readUInt8(start + 5) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7221_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7221_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7221_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7221_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7221_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.1;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7221_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 1.0;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7221_0100_012_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 0.1;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readInt8(start + 13) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7221_0100_014_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readInt8(start + 14) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7221_0100_015_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 15 < end) {
 			rawValue += buffer.readInt8(start + 15) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7221_0100_016_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7221_0100_017_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 17 < end) {
 			rawValue += buffer.readUInt8(start + 17) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7221_0100_018_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7221_0100_019_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 19 < end) {
 			rawValue += buffer.readUInt8(start + 19) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7221_0100_020_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 1.0;
+			valid = true;
 		}
 		if (start + 21 < end) {
 			rawValue += buffer.readUInt8(start + 21) * 256.0;
+			valid = true;
 		}
 		if (start + 22 < end) {
 			rawValue += buffer.readUInt8(start + 22) * 65536.0;
+			valid = true;
 		}
 		if (start + 23 < end) {
 			rawValue += buffer.readInt8(start + 23) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7221_0100_036_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += buffer.readUInt8(start + 36) * 0.01;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7221_0100_038_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 38 < end) {
 			rawValue += buffer.readUInt8(start + 38) * 1.0;
+			valid = true;
 		}
 		if (start + 39 < end) {
 			rawValue += buffer.readInt8(start + 39) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7221_0100_040_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 40 < end) {
 			rawValue += buffer.readUInt8(start + 40) * 1.0;
+			valid = true;
 		}
 		if (start + 41 < end) {
 			rawValue += buffer.readUInt8(start + 41) * 256.0;
+			valid = true;
 		}
 		if (start + 42 < end) {
 			rawValue += buffer.readUInt8(start + 42) * 65536.0;
+			valid = true;
 		}
 		if (start + 43 < end) {
 			rawValue += buffer.readInt8(start + 43) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7231_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7231_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7231_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7231_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7231_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.1;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7231_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 1.0;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7231_0100_012_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 0.1;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readInt8(start + 13) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7231_0100_014_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 0.1;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readInt8(start + 15) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7231_0100_016_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readInt8(start + 16) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7231_0100_017_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 17 < end) {
 			rawValue += buffer.readInt8(start + 17) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7231_0100_018_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7231_0100_019_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 19 < end) {
 			rawValue += buffer.readUInt8(start + 19) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7231_0100_020_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7231_0100_021_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 21 < end) {
 			rawValue += buffer.readUInt8(start + 21) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7231_0100_022_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += ((buffer.readInt8(start + 22) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7231_0100_022_1_2: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += ((buffer.readInt8(start + 22) >> 1) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7231_0100_024_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 1.0;
+			valid = true;
 		}
 		if (start + 25 < end) {
 			rawValue += buffer.readUInt8(start + 25) * 256.0;
+			valid = true;
 		}
 		if (start + 26 < end) {
 			rawValue += buffer.readUInt8(start + 26) * 65536.0;
+			valid = true;
 		}
 		if (start + 27 < end) {
 			rawValue += buffer.readInt8(start + 27) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7231_0100_028_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 28 < end) {
 			rawValue += ((buffer.readInt8(start + 28) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7231_0100_028_1_2: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 28 < end) {
 			rawValue += ((buffer.readInt8(start + 28) >> 1) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7231_0100_028_1_4: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 28 < end) {
 			rawValue += ((buffer.readInt8(start + 28) >> 2) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7231_0100_028_1_8: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 28 < end) {
 			rawValue += ((buffer.readInt8(start + 28) >> 3) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7231_0100_028_1_16: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 28 < end) {
 			rawValue += ((buffer.readInt8(start + 28) >> 4) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7231_0100_028_1_32: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 28 < end) {
 			rawValue += ((buffer.readInt8(start + 28) >> 5) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7231_0100_028_1_64: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 28 < end) {
 			rawValue += ((buffer.readInt8(start + 28) >> 6) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7231_0100_028_1_128: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 28 < end) {
 			rawValue += ((buffer.readInt8(start + 28) >> 7) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7231_0100_029_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 29 < end) {
 			rawValue += ((buffer.readInt8(start + 29) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7231_0100_029_1_2: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 29 < end) {
 			rawValue += ((buffer.readInt8(start + 29) >> 1) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7231_0100_029_1_4: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 29 < end) {
 			rawValue += ((buffer.readInt8(start + 29) >> 2) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7231_0100_029_1_8: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 29 < end) {
 			rawValue += ((buffer.readInt8(start + 29) >> 3) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7231_0100_032_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 32 < end) {
 			rawValue += ((buffer.readInt8(start + 32) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7231_0100_032_1_2: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 32 < end) {
 			rawValue += ((buffer.readInt8(start + 32) >> 1) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7231_0100_032_1_4: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 32 < end) {
 			rawValue += ((buffer.readInt8(start + 32) >> 2) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7231_0100_036_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += ((buffer.readInt8(start + 36) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7231_0100_036_1_2: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += ((buffer.readInt8(start + 36) >> 1) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7231_0100_036_1_4: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += ((buffer.readInt8(start + 36) >> 2) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7231_0100_036_1_8: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += ((buffer.readInt8(start + 36) >> 3) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7231_0100_036_1_16: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += ((buffer.readInt8(start + 36) >> 4) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7231_0100_036_1_32: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += ((buffer.readInt8(start + 36) >> 5) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7231_0100_036_1_64: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += ((buffer.readInt8(start + 36) >> 6) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7231_0100_036_1_128: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += ((buffer.readInt8(start + 36) >> 7) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7231_0100_037_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 37 < end) {
 			rawValue += ((buffer.readInt8(start + 37) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7231_0100_040_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 40 < end) {
 			rawValue += buffer.readUInt8(start + 40) * 0.01;
+			valid = true;
 		}
 		if (start + 41 < end) {
 			rawValue += buffer.readUInt8(start + 41) * 2.56;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7231_0100_042_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 42 < end) {
 			rawValue += buffer.readUInt8(start + 42) * 1.0;
+			valid = true;
 		}
 		if (start + 43 < end) {
 			rawValue += buffer.readInt8(start + 43) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7231_0100_044_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 44 < end) {
 			rawValue += buffer.readUInt8(start + 44) * 1.0;
+			valid = true;
 		}
 		if (start + 45 < end) {
 			rawValue += buffer.readUInt8(start + 45) * 256.0;
+			valid = true;
 		}
 		if (start + 46 < end) {
 			rawValue += buffer.readUInt8(start + 46) * 65536.0;
+			valid = true;
 		}
 		if (start + 47 < end) {
 			rawValue += buffer.readInt8(start + 47) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7311_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7311_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7311_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7311_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7311_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.1;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7311_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 0.1;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7311_0100_012_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 0.1;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readInt8(start + 13) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7311_0100_014_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 0.1;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readInt8(start + 15) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7311_0100_016_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 0.1;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readInt8(start + 17) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7311_0100_018_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 0.1;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readInt8(start + 19) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7311_0100_020_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 0.1;
+			valid = true;
 		}
 		if (start + 21 < end) {
 			rawValue += buffer.readInt8(start + 21) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7311_0100_022_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += buffer.readUInt8(start + 22) * 0.1;
+			valid = true;
 		}
 		if (start + 23 < end) {
 			rawValue += buffer.readInt8(start + 23) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7311_0100_024_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 1.0;
+			valid = true;
 		}
 		if (start + 25 < end) {
 			rawValue += buffer.readInt8(start + 25) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7311_0100_028_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 28 < end) {
 			rawValue += buffer.readUInt8(start + 28) * 1.0;
+			valid = true;
 		}
 		if (start + 29 < end) {
 			rawValue += buffer.readUInt8(start + 29) * 256.0;
+			valid = true;
 		}
 		if (start + 30 < end) {
 			rawValue += buffer.readUInt8(start + 30) * 65536.0;
+			valid = true;
 		}
 		if (start + 31 < end) {
 			rawValue += buffer.readInt8(start + 31) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7311_0100_032_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 32 < end) {
 			rawValue += buffer.readUInt8(start + 32) * 1.0;
+			valid = true;
 		}
 		if (start + 33 < end) {
 			rawValue += buffer.readUInt8(start + 33) * 256.0;
+			valid = true;
 		}
 		if (start + 34 < end) {
 			rawValue += buffer.readUInt8(start + 34) * 65536.0;
+			valid = true;
 		}
 		if (start + 35 < end) {
 			rawValue += buffer.readInt8(start + 35) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7311_0100_036_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += buffer.readUInt8(start + 36) * 1.0;
+			valid = true;
 		}
 		if (start + 37 < end) {
 			rawValue += buffer.readUInt8(start + 37) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7311_0100_038_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 38 < end) {
 			rawValue += buffer.readUInt8(start + 38) * 1.0;
+			valid = true;
 		}
 		if (start + 39 < end) {
 			rawValue += buffer.readUInt8(start + 39) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7311_0100_040_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 40 < end) {
 			rawValue += buffer.readUInt8(start + 40) * 1.0;
+			valid = true;
 		}
 		if (start + 41 < end) {
 			rawValue += buffer.readUInt8(start + 41) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7311_0100_044_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 44 < end) {
 			rawValue += buffer.readUInt8(start + 44) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7311_0100_045_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 45 < end) {
 			rawValue += buffer.readUInt8(start + 45) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7311_0100_046_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 46 < end) {
 			rawValue += buffer.readUInt8(start + 46) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7311_0100_047_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 47 < end) {
 			rawValue += buffer.readUInt8(start + 47) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7311_0100_048_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 48 < end) {
 			rawValue += buffer.readUInt8(start + 48) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7311_0100_049_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 49 < end) {
 			rawValue += buffer.readUInt8(start + 49) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7311_0100_050_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 50 < end) {
 			rawValue += buffer.readUInt8(start + 50) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7311_0100_051_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 51 < end) {
 			rawValue += buffer.readUInt8(start + 51) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7311_0100_052_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 52 < end) {
 			rawValue += buffer.readUInt8(start + 52) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7311_0100_058_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 58 < end) {
 			rawValue += buffer.readUInt8(start + 58) * 1.0;
+			valid = true;
 		}
 		if (start + 59 < end) {
 			rawValue += buffer.readUInt8(start + 59) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7311_0100_060_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 60 < end) {
 			rawValue += buffer.readUInt8(start + 60) * 1.0;
+			valid = true;
 		}
 		if (start + 61 < end) {
 			rawValue += buffer.readUInt8(start + 61) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7311_0100_062_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 62 < end) {
 			rawValue += buffer.readUInt8(start + 62) * 1.0;
+			valid = true;
 		}
 		if (start + 63 < end) {
 			rawValue += buffer.readUInt8(start + 63) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7311_0100_064_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 64 < end) {
 			rawValue += buffer.readUInt8(start + 64) * 1.0;
+			valid = true;
 		}
 		if (start + 65 < end) {
 			rawValue += buffer.readUInt8(start + 65) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7311_0100_066_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 66 < end) {
 			rawValue += buffer.readUInt8(start + 66) * 1.0;
+			valid = true;
 		}
 		if (start + 67 < end) {
 			rawValue += buffer.readUInt8(start + 67) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7312_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7312_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7312_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7312_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7312_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.1;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7312_0100_010_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7315_0100_000_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 1.0;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readUInt8(start + 1) * 256.0;
+			valid = true;
 		}
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 65536.0;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readUInt8(start + 3) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7315_0100_004_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 1.0;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readUInt8(start + 5) * 256.0;
+			valid = true;
 		}
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 65536.0;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readUInt8(start + 7) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7315_0100_008_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 1.0;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readUInt8(start + 9) * 256.0;
+			valid = true;
 		}
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 65536.0;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readUInt8(start + 11) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7315_0100_012_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 1.0;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readUInt8(start + 13) * 256.0;
+			valid = true;
 		}
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 65536.0;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readUInt8(start + 15) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7315_0100_016_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 1.0;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readUInt8(start + 17) * 256.0;
+			valid = true;
 		}
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 65536.0;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readUInt8(start + 19) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7315_0100_020_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 1.0;
+			valid = true;
 		}
 		if (start + 21 < end) {
 			rawValue += buffer.readUInt8(start + 21) * 256.0;
+			valid = true;
 		}
 		if (start + 22 < end) {
 			rawValue += buffer.readUInt8(start + 22) * 65536.0;
+			valid = true;
 		}
 		if (start + 23 < end) {
 			rawValue += buffer.readUInt8(start + 23) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7315_0100_024_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 1.0;
+			valid = true;
 		}
 		if (start + 25 < end) {
 			rawValue += buffer.readUInt8(start + 25) * 256.0;
+			valid = true;
 		}
 		if (start + 26 < end) {
 			rawValue += buffer.readUInt8(start + 26) * 65536.0;
+			valid = true;
 		}
 		if (start + 27 < end) {
 			rawValue += buffer.readUInt8(start + 27) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7315_0100_028_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 28 < end) {
 			rawValue += buffer.readUInt8(start + 28) * 1.0;
+			valid = true;
 		}
 		if (start + 29 < end) {
 			rawValue += buffer.readUInt8(start + 29) * 256.0;
+			valid = true;
 		}
 		if (start + 30 < end) {
 			rawValue += buffer.readUInt8(start + 30) * 65536.0;
+			valid = true;
 		}
 		if (start + 31 < end) {
 			rawValue += buffer.readUInt8(start + 31) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7315_0100_032_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 32 < end) {
 			rawValue += buffer.readUInt8(start + 32) * 1.0;
+			valid = true;
 		}
 		if (start + 33 < end) {
 			rawValue += buffer.readUInt8(start + 33) * 256.0;
+			valid = true;
 		}
 		if (start + 34 < end) {
 			rawValue += buffer.readUInt8(start + 34) * 65536.0;
+			valid = true;
 		}
 		if (start + 35 < end) {
 			rawValue += buffer.readUInt8(start + 35) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7315_0100_036_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += buffer.readUInt8(start + 36) * 0.1;
+			valid = true;
 		}
 		if (start + 37 < end) {
 			rawValue += buffer.readUInt8(start + 37) * 25.6;
+			valid = true;
 		}
 		if (start + 38 < end) {
 			rawValue += buffer.readUInt8(start + 38) * 6553.6;
+			valid = true;
 		}
 		if (start + 39 < end) {
 			rawValue += buffer.readUInt8(start + 39) * 1677721.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7315_0100_040_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 40 < end) {
 			rawValue += buffer.readUInt8(start + 40) * 0.1;
+			valid = true;
 		}
 		if (start + 41 < end) {
 			rawValue += buffer.readUInt8(start + 41) * 25.6;
+			valid = true;
 		}
 		if (start + 42 < end) {
 			rawValue += buffer.readUInt8(start + 42) * 6553.6;
+			valid = true;
 		}
 		if (start + 43 < end) {
 			rawValue += buffer.readUInt8(start + 43) * 1677721.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7316_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7316_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7316_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 1.0;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readUInt8(start + 5) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7316_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 1.0;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readUInt8(start + 7) * 256.0;
+			valid = true;
 		}
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 1000.0;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readUInt8(start + 9) * 256000.0;
+			valid = true;
 		}
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 1000000.0;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readUInt8(start + 11) * 2.56E8;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7321_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7321_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7321_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7321_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7321_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.1;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7321_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 0.1;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7321_0100_012_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 0.1;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readInt8(start + 13) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7321_0100_014_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 0.1;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readInt8(start + 15) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7321_0100_016_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 0.1;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readInt8(start + 17) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7321_0100_018_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 0.1;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readInt8(start + 19) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7321_0100_020_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 0.1;
+			valid = true;
 		}
 		if (start + 21 < end) {
 			rawValue += buffer.readInt8(start + 21) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7321_0100_022_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += buffer.readUInt8(start + 22) * 0.1;
+			valid = true;
 		}
 		if (start + 23 < end) {
 			rawValue += buffer.readInt8(start + 23) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7321_0100_024_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 1.0;
+			valid = true;
 		}
 		if (start + 25 < end) {
 			rawValue += buffer.readInt8(start + 25) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7321_0100_028_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 28 < end) {
 			rawValue += buffer.readUInt8(start + 28) * 1.0;
+			valid = true;
 		}
 		if (start + 29 < end) {
 			rawValue += buffer.readUInt8(start + 29) * 256.0;
+			valid = true;
 		}
 		if (start + 30 < end) {
 			rawValue += buffer.readUInt8(start + 30) * 65536.0;
+			valid = true;
 		}
 		if (start + 31 < end) {
 			rawValue += buffer.readInt8(start + 31) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7321_0100_032_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 32 < end) {
 			rawValue += buffer.readUInt8(start + 32) * 1.0;
+			valid = true;
 		}
 		if (start + 33 < end) {
 			rawValue += buffer.readUInt8(start + 33) * 256.0;
+			valid = true;
 		}
 		if (start + 34 < end) {
 			rawValue += buffer.readUInt8(start + 34) * 65536.0;
+			valid = true;
 		}
 		if (start + 35 < end) {
 			rawValue += buffer.readInt8(start + 35) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7321_0100_036_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += buffer.readUInt8(start + 36) * 1.0;
+			valid = true;
 		}
 		if (start + 37 < end) {
 			rawValue += buffer.readUInt8(start + 37) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7321_0100_038_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 38 < end) {
 			rawValue += buffer.readUInt8(start + 38) * 1.0;
+			valid = true;
 		}
 		if (start + 39 < end) {
 			rawValue += buffer.readUInt8(start + 39) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7321_0100_040_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 40 < end) {
 			rawValue += buffer.readUInt8(start + 40) * 1.0;
+			valid = true;
 		}
 		if (start + 41 < end) {
 			rawValue += buffer.readUInt8(start + 41) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7321_0100_044_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 44 < end) {
 			rawValue += buffer.readUInt8(start + 44) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7321_0100_045_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 45 < end) {
 			rawValue += buffer.readUInt8(start + 45) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7321_0100_046_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 46 < end) {
 			rawValue += buffer.readUInt8(start + 46) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7321_0100_047_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 47 < end) {
 			rawValue += buffer.readUInt8(start + 47) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7321_0100_048_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 48 < end) {
 			rawValue += buffer.readUInt8(start + 48) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7321_0100_049_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 49 < end) {
 			rawValue += buffer.readUInt8(start + 49) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7321_0100_050_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 50 < end) {
 			rawValue += buffer.readUInt8(start + 50) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7321_0100_051_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 51 < end) {
 			rawValue += buffer.readUInt8(start + 51) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7321_0100_052_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 52 < end) {
 			rawValue += buffer.readUInt8(start + 52) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7321_0100_058_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 58 < end) {
 			rawValue += buffer.readUInt8(start + 58) * 1.0;
+			valid = true;
 		}
 		if (start + 59 < end) {
 			rawValue += buffer.readUInt8(start + 59) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7321_0100_060_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 60 < end) {
 			rawValue += buffer.readUInt8(start + 60) * 1.0;
+			valid = true;
 		}
 		if (start + 61 < end) {
 			rawValue += buffer.readUInt8(start + 61) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7321_0100_062_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 62 < end) {
 			rawValue += buffer.readUInt8(start + 62) * 1.0;
+			valid = true;
 		}
 		if (start + 63 < end) {
 			rawValue += buffer.readUInt8(start + 63) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7321_0100_064_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 64 < end) {
 			rawValue += buffer.readUInt8(start + 64) * 1.0;
+			valid = true;
 		}
 		if (start + 65 < end) {
 			rawValue += buffer.readUInt8(start + 65) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7321_0100_066_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 66 < end) {
 			rawValue += buffer.readUInt8(start + 66) * 1.0;
+			valid = true;
 		}
 		if (start + 67 < end) {
 			rawValue += buffer.readUInt8(start + 67) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7326_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7326_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7326_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 1.0;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readUInt8(start + 5) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7326_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 1.0;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readUInt8(start + 7) * 256.0;
+			valid = true;
 		}
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 1000.0;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readUInt8(start + 9) * 256000.0;
+			valid = true;
 		}
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 1000000.0;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readUInt8(start + 11) * 2.56E8;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7331_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7331_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7331_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7331_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7331_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.1;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7331_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 0.1;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7331_0100_012_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 0.1;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readInt8(start + 13) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7331_0100_014_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 0.1;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readInt8(start + 15) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7331_0100_016_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 0.1;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readInt8(start + 17) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7331_0100_018_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 0.1;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readInt8(start + 19) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7331_0100_020_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 0.1;
+			valid = true;
 		}
 		if (start + 21 < end) {
 			rawValue += buffer.readInt8(start + 21) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7331_0100_022_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += buffer.readUInt8(start + 22) * 0.1;
+			valid = true;
 		}
 		if (start + 23 < end) {
 			rawValue += buffer.readInt8(start + 23) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7331_0100_024_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 0.1;
+			valid = true;
 		}
 		if (start + 25 < end) {
 			rawValue += buffer.readInt8(start + 25) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7331_0100_026_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 26 < end) {
 			rawValue += buffer.readUInt8(start + 26) * 0.1;
+			valid = true;
 		}
 		if (start + 27 < end) {
 			rawValue += buffer.readInt8(start + 27) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7331_0100_028_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 28 < end) {
 			rawValue += buffer.readUInt8(start + 28) * 0.1;
+			valid = true;
 		}
 		if (start + 29 < end) {
 			rawValue += buffer.readInt8(start + 29) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7331_0100_030_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 30 < end) {
 			rawValue += buffer.readUInt8(start + 30) * 0.1;
+			valid = true;
 		}
 		if (start + 31 < end) {
 			rawValue += buffer.readInt8(start + 31) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7331_0100_032_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 32 < end) {
 			rawValue += buffer.readUInt8(start + 32) * 0.1;
+			valid = true;
 		}
 		if (start + 33 < end) {
 			rawValue += buffer.readInt8(start + 33) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7331_0100_034_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 34 < end) {
 			rawValue += buffer.readUInt8(start + 34) * 0.1;
+			valid = true;
 		}
 		if (start + 35 < end) {
 			rawValue += buffer.readInt8(start + 35) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7331_0100_036_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += buffer.readUInt8(start + 36) * 0.1;
+			valid = true;
 		}
 		if (start + 37 < end) {
 			rawValue += buffer.readInt8(start + 37) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7331_0100_038_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 38 < end) {
 			rawValue += buffer.readUInt8(start + 38) * 0.1;
+			valid = true;
 		}
 		if (start + 39 < end) {
 			rawValue += buffer.readInt8(start + 39) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7331_0100_040_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 40 < end) {
 			rawValue += buffer.readUInt8(start + 40) * 0.1;
+			valid = true;
 		}
 		if (start + 41 < end) {
 			rawValue += buffer.readInt8(start + 41) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7331_0100_042_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 42 < end) {
 			rawValue += buffer.readUInt8(start + 42) * 0.1;
+			valid = true;
 		}
 		if (start + 43 < end) {
 			rawValue += buffer.readInt8(start + 43) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7331_0100_044_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 44 < end) {
 			rawValue += buffer.readUInt8(start + 44) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7331_0100_045_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 45 < end) {
 			rawValue += buffer.readUInt8(start + 45) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7331_0100_046_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 46 < end) {
 			rawValue += buffer.readUInt8(start + 46) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7331_0100_047_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 47 < end) {
 			rawValue += buffer.readUInt8(start + 47) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7331_0100_048_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 48 < end) {
 			rawValue += buffer.readUInt8(start + 48) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7331_0100_049_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 49 < end) {
 			rawValue += buffer.readUInt8(start + 49) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7331_0100_050_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 50 < end) {
 			rawValue += buffer.readUInt8(start + 50) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7331_0100_051_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 51 < end) {
 			rawValue += buffer.readUInt8(start + 51) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7331_0100_052_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 52 < end) {
 			rawValue += buffer.readUInt8(start + 52) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7331_0100_053_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 53 < end) {
 			rawValue += buffer.readUInt8(start + 53) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7331_0100_054_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 54 < end) {
 			rawValue += buffer.readUInt8(start + 54) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7331_0100_055_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 55 < end) {
 			rawValue += buffer.readUInt8(start + 55) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7331_0100_056_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 56 < end) {
 			rawValue += buffer.readUInt8(start + 56) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7331_0100_057_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 57 < end) {
 			rawValue += buffer.readUInt8(start + 57) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7331_0100_058_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 58 < end) {
 			rawValue += buffer.readUInt8(start + 58) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7331_0100_059_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 59 < end) {
 			rawValue += buffer.readUInt8(start + 59) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7331_0100_060_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 60 < end) {
 			rawValue += buffer.readUInt8(start + 60) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7331_0100_061_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 61 < end) {
 			rawValue += buffer.readUInt8(start + 61) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7331_0100_064_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 64 < end) {
 			rawValue += buffer.readUInt8(start + 64) * 1.0;
+			valid = true;
 		}
 		if (start + 65 < end) {
 			rawValue += buffer.readUInt8(start + 65) * 256.0;
+			valid = true;
 		}
 		if (start + 66 < end) {
 			rawValue += buffer.readUInt8(start + 66) * 65536.0;
+			valid = true;
 		}
 		if (start + 67 < end) {
 			rawValue += buffer.readUInt8(start + 67) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7331_0100_068_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 68 < end) {
 			rawValue += buffer.readUInt8(start + 68) * 1.0;
+			valid = true;
 		}
 		if (start + 69 < end) {
 			rawValue += buffer.readUInt8(start + 69) * 256.0;
+			valid = true;
 		}
 		if (start + 70 < end) {
 			rawValue += buffer.readUInt8(start + 70) * 65536.0;
+			valid = true;
 		}
 		if (start + 71 < end) {
 			rawValue += buffer.readUInt8(start + 71) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7331_0100_072_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 72 < end) {
 			rawValue += buffer.readUInt8(start + 72) * 1.0;
+			valid = true;
 		}
 		if (start + 73 < end) {
 			rawValue += buffer.readUInt8(start + 73) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7331_0100_074_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 74 < end) {
 			rawValue += buffer.readUInt8(start + 74) * 1.0;
+			valid = true;
 		}
 		if (start + 75 < end) {
 			rawValue += buffer.readUInt8(start + 75) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7331_0100_076_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 76 < end) {
 			rawValue += buffer.readUInt8(start + 76) * 1.0;
+			valid = true;
 		}
 		if (start + 77 < end) {
 			rawValue += buffer.readUInt8(start + 77) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7331_0100_078_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 78 < end) {
 			rawValue += buffer.readUInt8(start + 78) * 1.0;
+			valid = true;
 		}
 		if (start + 79 < end) {
 			rawValue += buffer.readInt8(start + 79) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7331_0100_080_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 80 < end) {
 			rawValue += buffer.readUInt8(start + 80) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7332_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7332_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7332_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7332_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7332_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.1;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7332_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 0.1;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7332_0100_012_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7332_0100_013_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 13 < end) {
 			rawValue += buffer.readUInt8(start + 13) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7332_0100_014_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7332_0100_015_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 15 < end) {
 			rawValue += buffer.readUInt8(start + 15) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7332_0100_016_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7333_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7333_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7333_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7333_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7333_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.1;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7333_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 0.1;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7333_0100_012_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7333_0100_013_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 13 < end) {
 			rawValue += buffer.readUInt8(start + 13) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7333_0100_014_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7333_0100_015_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 15 < end) {
 			rawValue += buffer.readUInt8(start + 15) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7333_0100_016_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7334_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7334_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7334_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7334_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7334_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.1;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7334_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 0.1;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7334_0100_012_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7334_0100_013_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 13 < end) {
 			rawValue += buffer.readUInt8(start + 13) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7334_0100_014_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7334_0100_015_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 15 < end) {
 			rawValue += buffer.readUInt8(start + 15) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7334_0100_016_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7335_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7335_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7335_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7335_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7335_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.1;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7335_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 0.1;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7335_0100_012_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7335_0100_013_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 13 < end) {
 			rawValue += buffer.readUInt8(start + 13) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7335_0100_014_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7335_0100_015_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 15 < end) {
 			rawValue += buffer.readUInt8(start + 15) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7335_0100_016_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7341_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7341_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7341_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7341_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7341_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.1;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7341_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 0.1;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7341_0100_012_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 0.1;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readInt8(start + 13) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7341_0100_014_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 0.1;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readInt8(start + 15) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7341_0100_016_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 0.1;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readInt8(start + 17) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7341_0100_018_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 0.1;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readInt8(start + 19) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7341_0100_020_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 0.1;
+			valid = true;
 		}
 		if (start + 21 < end) {
 			rawValue += buffer.readInt8(start + 21) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7341_0100_022_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += buffer.readUInt8(start + 22) * 0.1;
+			valid = true;
 		}
 		if (start + 23 < end) {
 			rawValue += buffer.readInt8(start + 23) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7341_0100_024_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 0.1;
+			valid = true;
 		}
 		if (start + 25 < end) {
 			rawValue += buffer.readInt8(start + 25) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7341_0100_026_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 26 < end) {
 			rawValue += buffer.readUInt8(start + 26) * 0.1;
+			valid = true;
 		}
 		if (start + 27 < end) {
 			rawValue += buffer.readInt8(start + 27) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7341_0100_028_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 28 < end) {
 			rawValue += buffer.readUInt8(start + 28) * 0.1;
+			valid = true;
 		}
 		if (start + 29 < end) {
 			rawValue += buffer.readInt8(start + 29) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7341_0100_030_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 30 < end) {
 			rawValue += buffer.readUInt8(start + 30) * 0.1;
+			valid = true;
 		}
 		if (start + 31 < end) {
 			rawValue += buffer.readInt8(start + 31) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7341_0100_032_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 32 < end) {
 			rawValue += buffer.readUInt8(start + 32) * 1.0;
+			valid = true;
 		}
 		if (start + 33 < end) {
 			rawValue += buffer.readUInt8(start + 33) * 256.0;
+			valid = true;
 		}
 		if (start + 34 < end) {
 			rawValue += buffer.readUInt8(start + 34) * 65536.0;
+			valid = true;
 		}
 		if (start + 35 < end) {
 			rawValue += buffer.readInt8(start + 35) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7341_0100_036_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += buffer.readUInt8(start + 36) * 1.0;
+			valid = true;
 		}
 		if (start + 37 < end) {
 			rawValue += buffer.readUInt8(start + 37) * 256.0;
+			valid = true;
 		}
 		if (start + 38 < end) {
 			rawValue += buffer.readUInt8(start + 38) * 65536.0;
+			valid = true;
 		}
 		if (start + 39 < end) {
 			rawValue += buffer.readInt8(start + 39) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7341_0100_040_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 40 < end) {
 			rawValue += buffer.readUInt8(start + 40) * 1.0;
+			valid = true;
 		}
 		if (start + 41 < end) {
 			rawValue += buffer.readUInt8(start + 41) * 256.0;
+			valid = true;
 		}
 		if (start + 42 < end) {
 			rawValue += buffer.readUInt8(start + 42) * 65536.0;
+			valid = true;
 		}
 		if (start + 43 < end) {
 			rawValue += buffer.readInt8(start + 43) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7341_0100_044_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 44 < end) {
 			rawValue += buffer.readUInt8(start + 44) * 1.0;
+			valid = true;
 		}
 		if (start + 45 < end) {
 			rawValue += buffer.readUInt8(start + 45) * 256.0;
+			valid = true;
 		}
 		if (start + 46 < end) {
 			rawValue += buffer.readUInt8(start + 46) * 65536.0;
+			valid = true;
 		}
 		if (start + 47 < end) {
 			rawValue += buffer.readInt8(start + 47) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7341_0100_048_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 48 < end) {
 			rawValue += buffer.readUInt8(start + 48) * 0.01;
+			valid = true;
 		}
 		if (start + 49 < end) {
 			rawValue += buffer.readInt8(start + 49) * 2.56;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7341_0100_050_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 50 < end) {
 			rawValue += buffer.readUInt8(start + 50) * 0.01;
+			valid = true;
 		}
 		if (start + 51 < end) {
 			rawValue += buffer.readInt8(start + 51) * 2.56;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7341_0100_052_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 52 < end) {
 			rawValue += buffer.readUInt8(start + 52) * 0.01;
+			valid = true;
 		}
 		if (start + 53 < end) {
 			rawValue += buffer.readInt8(start + 53) * 2.56;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7341_0100_054_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 54 < end) {
 			rawValue += buffer.readUInt8(start + 54) * 0.01;
+			valid = true;
 		}
 		if (start + 55 < end) {
 			rawValue += buffer.readInt8(start + 55) * 2.56;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7341_0100_056_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 56 < end) {
 			rawValue += buffer.readInt8(start + 56) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7341_0100_057_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 57 < end) {
 			rawValue += buffer.readInt8(start + 57) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7341_0100_058_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 58 < end) {
 			rawValue += buffer.readInt8(start + 58) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7341_0100_059_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 59 < end) {
 			rawValue += buffer.readInt8(start + 59) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7341_0100_060_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 60 < end) {
 			rawValue += buffer.readInt8(start + 60) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7341_0100_061_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 61 < end) {
 			rawValue += buffer.readInt8(start + 61) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7341_0100_062_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 62 < end) {
 			rawValue += buffer.readInt8(start + 62) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7341_0100_063_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 63 < end) {
 			rawValue += buffer.readInt8(start + 63) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7341_0100_064_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 64 < end) {
 			rawValue += buffer.readInt8(start + 64) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7341_0100_065_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 65 < end) {
 			rawValue += buffer.readInt8(start + 65) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7341_0100_066_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 66 < end) {
 			rawValue += buffer.readInt8(start + 66) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7341_0100_067_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 67 < end) {
 			rawValue += buffer.readInt8(start + 67) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7341_0100_068_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 68 < end) {
 			rawValue += buffer.readInt8(start + 68) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7341_0100_069_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 69 < end) {
 			rawValue += buffer.readInt8(start + 69) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7341_0100_072_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 72 < end) {
 			rawValue += buffer.readUInt8(start + 72) * 0.1;
+			valid = true;
 		}
 		if (start + 73 < end) {
 			rawValue += buffer.readInt8(start + 73) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7341_0100_074_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 74 < end) {
 			rawValue += buffer.readUInt8(start + 74) * 0.1;
+			valid = true;
 		}
 		if (start + 75 < end) {
 			rawValue += buffer.readInt8(start + 75) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7341_0100_076_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 76 < end) {
 			rawValue += buffer.readUInt8(start + 76) * 0.1;
+			valid = true;
 		}
 		if (start + 77 < end) {
 			rawValue += buffer.readInt8(start + 77) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7341_0100_078_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 78 < end) {
 			rawValue += buffer.readUInt8(start + 78) * 0.1;
+			valid = true;
 		}
 		if (start + 79 < end) {
 			rawValue += buffer.readInt8(start + 79) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7341_0100_080_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 80 < end) {
 			rawValue += buffer.readUInt8(start + 80) * 0.1;
+			valid = true;
 		}
 		if (start + 81 < end) {
 			rawValue += buffer.readInt8(start + 81) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7341_0100_082_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 82 < end) {
 			rawValue += buffer.readUInt8(start + 82) * 0.1;
+			valid = true;
 		}
 		if (start + 83 < end) {
 			rawValue += buffer.readInt8(start + 83) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7341_0100_084_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 84 < end) {
 			rawValue += buffer.readUInt8(start + 84) * 1.0;
+			valid = true;
 		}
 		if (start + 85 < end) {
 			rawValue += buffer.readUInt8(start + 85) * 256.0;
+			valid = true;
 		}
 		if (start + 86 < end) {
 			rawValue += buffer.readUInt8(start + 86) * 65536.0;
+			valid = true;
 		}
 		if (start + 87 < end) {
 			rawValue += buffer.readInt8(start + 87) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7341_0100_088_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 88 < end) {
 			rawValue += buffer.readUInt8(start + 88) * 1.0;
+			valid = true;
 		}
 		if (start + 89 < end) {
 			rawValue += buffer.readUInt8(start + 89) * 256.0;
+			valid = true;
 		}
 		if (start + 90 < end) {
 			rawValue += buffer.readUInt8(start + 90) * 65536.0;
+			valid = true;
 		}
 		if (start + 91 < end) {
 			rawValue += buffer.readInt8(start + 91) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7341_0100_092_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 92 < end) {
 			rawValue += buffer.readUInt8(start + 92) * 1.0;
+			valid = true;
 		}
 		if (start + 93 < end) {
 			rawValue += buffer.readUInt8(start + 93) * 256.0;
+			valid = true;
 		}
 		if (start + 94 < end) {
 			rawValue += buffer.readUInt8(start + 94) * 65536.0;
+			valid = true;
 		}
 		if (start + 95 < end) {
 			rawValue += buffer.readInt8(start + 95) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7341_0100_096_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 96 < end) {
 			rawValue += buffer.readUInt8(start + 96) * 1.0;
+			valid = true;
 		}
 		if (start + 97 < end) {
 			rawValue += buffer.readUInt8(start + 97) * 256.0;
+			valid = true;
 		}
 		if (start + 98 < end) {
 			rawValue += buffer.readUInt8(start + 98) * 65536.0;
+			valid = true;
 		}
 		if (start + 99 < end) {
 			rawValue += buffer.readUInt8(start + 99) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7341_0100_100_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 100 < end) {
 			rawValue += buffer.readUInt8(start + 100) * 1.0;
+			valid = true;
 		}
 		if (start + 101 < end) {
 			rawValue += buffer.readUInt8(start + 101) * 256.0;
+			valid = true;
 		}
 		if (start + 102 < end) {
 			rawValue += buffer.readUInt8(start + 102) * 65536.0;
+			valid = true;
 		}
 		if (start + 103 < end) {
 			rawValue += buffer.readUInt8(start + 103) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7341_0100_104_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 104 < end) {
 			rawValue += buffer.readUInt8(start + 104) * 1.0;
+			valid = true;
 		}
 		if (start + 105 < end) {
 			rawValue += buffer.readUInt8(start + 105) * 256.0;
+			valid = true;
 		}
 		if (start + 106 < end) {
 			rawValue += buffer.readUInt8(start + 106) * 65536.0;
+			valid = true;
 		}
 		if (start + 107 < end) {
 			rawValue += buffer.readUInt8(start + 107) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7341_0100_108_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 108 < end) {
 			rawValue += buffer.readUInt8(start + 108) * 1.0;
+			valid = true;
 		}
 		if (start + 109 < end) {
 			rawValue += buffer.readUInt8(start + 109) * 256.0;
+			valid = true;
 		}
 		if (start + 110 < end) {
 			rawValue += buffer.readUInt8(start + 110) * 65536.0;
+			valid = true;
 		}
 		if (start + 111 < end) {
 			rawValue += buffer.readUInt8(start + 111) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7341_0100_112_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 112 < end) {
 			rawValue += buffer.readUInt8(start + 112) * 1.0;
+			valid = true;
 		}
 		if (start + 113 < end) {
 			rawValue += buffer.readUInt8(start + 113) * 256.0;
+			valid = true;
 		}
 		if (start + 114 < end) {
 			rawValue += buffer.readUInt8(start + 114) * 65536.0;
+			valid = true;
 		}
 		if (start + 115 < end) {
 			rawValue += buffer.readUInt8(start + 115) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7341_0100_116_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 116 < end) {
 			rawValue += buffer.readUInt8(start + 116) * 1.0;
+			valid = true;
 		}
 		if (start + 117 < end) {
 			rawValue += buffer.readUInt8(start + 117) * 256.0;
+			valid = true;
 		}
 		if (start + 118 < end) {
 			rawValue += buffer.readUInt8(start + 118) * 65536.0;
+			valid = true;
 		}
 		if (start + 119 < end) {
 			rawValue += buffer.readUInt8(start + 119) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7341_0100_120_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 120 < end) {
 			rawValue += buffer.readUInt8(start + 120) * 1.0;
+			valid = true;
 		}
 		if (start + 121 < end) {
 			rawValue += buffer.readUInt8(start + 121) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7341_0100_122_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 122 < end) {
 			rawValue += buffer.readUInt8(start + 122) * 1.0;
+			valid = true;
 		}
 		if (start + 123 < end) {
 			rawValue += buffer.readUInt8(start + 123) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7341_0100_124_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 124 < end) {
 			rawValue += buffer.readUInt8(start + 124) * 1.0;
+			valid = true;
 		}
 		if (start + 125 < end) {
 			rawValue += buffer.readUInt8(start + 125) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7342_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7342_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7342_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7342_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7342_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.1;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7342_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 0.1;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7342_0100_012_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7342_0100_013_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 13 < end) {
 			rawValue += buffer.readUInt8(start + 13) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7342_0100_014_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7342_0100_015_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 15 < end) {
 			rawValue += buffer.readUInt8(start + 15) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7342_0100_016_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7343_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7343_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7343_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7343_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7343_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.1;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7343_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 0.1;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7343_0100_012_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7343_0100_013_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 13 < end) {
 			rawValue += buffer.readUInt8(start + 13) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7343_0100_014_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7343_0100_015_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 15 < end) {
 			rawValue += buffer.readUInt8(start + 15) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7343_0100_016_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7344_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7344_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7344_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7344_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7344_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.1;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7344_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 0.1;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7344_0100_012_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7344_0100_013_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 13 < end) {
 			rawValue += buffer.readUInt8(start + 13) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7344_0100_014_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7344_0100_015_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 15 < end) {
 			rawValue += buffer.readUInt8(start + 15) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7344_0100_016_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7345_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7345_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7345_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7345_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7345_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.1;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7345_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 0.1;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7345_0100_012_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7345_0100_013_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 13 < end) {
 			rawValue += buffer.readUInt8(start + 13) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7345_0100_014_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7345_0100_015_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 15 < end) {
 			rawValue += buffer.readUInt8(start + 15) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7345_0100_016_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7346_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7346_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7346_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7346_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7346_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.1;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7346_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 0.1;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7346_0100_012_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7346_0100_013_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 13 < end) {
 			rawValue += buffer.readUInt8(start + 13) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7346_0100_014_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7346_0100_015_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 15 < end) {
 			rawValue += buffer.readUInt8(start + 15) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7346_0100_016_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7411_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7411_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7411_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7411_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7411_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.1;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7411_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 0.1;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7411_0100_012_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 0.1;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readInt8(start + 13) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7411_0100_014_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 0.1;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readInt8(start + 15) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7411_0100_016_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 0.01;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readInt8(start + 17) * 2.56;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7411_0100_018_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 1.0;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readInt8(start + 19) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7411_0100_021_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 21 < end) {
 			rawValue += buffer.readUInt8(start + 21) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7411_0100_022_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += buffer.readUInt8(start + 22) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7411_0100_023_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 23 < end) {
 			rawValue += buffer.readUInt8(start + 23) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7411_0100_020_1_8: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += ((buffer.readInt8(start + 20) >> 3) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7411_0100_020_1_16: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += ((buffer.readInt8(start + 20) >> 4) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7411_0100_020_1_32: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += ((buffer.readInt8(start + 20) >> 5) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7411_0100_024_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 1.0;
+			valid = true;
 		}
 		if (start + 25 < end) {
 			rawValue += buffer.readInt8(start + 25) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7411_0100_026_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 26 < end) {
 			rawValue += buffer.readUInt8(start + 26) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7411_0100_027_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 27 < end) {
 			rawValue += ((buffer.readInt8(start + 27) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7411_0100_027_1_2: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 27 < end) {
 			rawValue += ((buffer.readInt8(start + 27) >> 1) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7411_0100_027_1_4: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 27 < end) {
 			rawValue += ((buffer.readInt8(start + 27) >> 2) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7411_0100_027_1_8: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 27 < end) {
 			rawValue += ((buffer.readInt8(start + 27) >> 3) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7411_0100_027_1_16: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 27 < end) {
 			rawValue += ((buffer.readInt8(start + 27) >> 4) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7411_0100_027_1_32: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 27 < end) {
 			rawValue += ((buffer.readInt8(start + 27) >> 5) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7411_0100_028_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 28 < end) {
 			rawValue += buffer.readUInt8(start + 28) * 1.0;
+			valid = true;
 		}
 		if (start + 29 < end) {
 			rawValue += buffer.readUInt8(start + 29) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7411_0100_030_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 30 < end) {
 			rawValue += buffer.readUInt8(start + 30) * 1.0;
+			valid = true;
 		}
 		if (start + 31 < end) {
 			rawValue += buffer.readUInt8(start + 31) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7411_0100_032_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 32 < end) {
 			rawValue += buffer.readUInt8(start + 32) * 1.0;
+			valid = true;
 		}
 		if (start + 33 < end) {
 			rawValue += buffer.readUInt8(start + 33) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7411_0100_034_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 34 < end) {
 			rawValue += buffer.readUInt8(start + 34) * 1.0;
+			valid = true;
 		}
 		if (start + 35 < end) {
 			rawValue += buffer.readUInt8(start + 35) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7411_0100_036_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += buffer.readUInt8(start + 36) * 1.0;
+			valid = true;
 		}
 		if (start + 37 < end) {
 			rawValue += buffer.readUInt8(start + 37) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7411_0100_038_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 38 < end) {
 			rawValue += buffer.readUInt8(start + 38) * 1.0;
+			valid = true;
 		}
 		if (start + 39 < end) {
 			rawValue += buffer.readUInt8(start + 39) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7411_0100_040_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 40 < end) {
 			rawValue += buffer.readUInt8(start + 40) * 1.0;
+			valid = true;
 		}
 		if (start + 41 < end) {
 			rawValue += buffer.readUInt8(start + 41) * 256.0;
+			valid = true;
 		}
 		if (start + 42 < end) {
 			rawValue += buffer.readUInt8(start + 42) * 1000.0;
+			valid = true;
 		}
 		if (start + 43 < end) {
 			rawValue += buffer.readUInt8(start + 43) * 256000.0;
+			valid = true;
 		}
 		if (start + 44 < end) {
 			rawValue += buffer.readUInt8(start + 44) * 1000000.0;
+			valid = true;
 		}
 		if (start + 45 < end) {
 			rawValue += buffer.readUInt8(start + 45) * 2.56E8;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7421_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7421_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7421_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7421_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7421_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.1;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7421_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 0.1;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7421_0100_012_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 0.1;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readInt8(start + 13) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7421_0100_014_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 0.1;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readInt8(start + 15) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7421_0100_016_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 1.0;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readInt8(start + 17) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7421_0100_024_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7421_0100_025_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 25 < end) {
 			rawValue += buffer.readUInt8(start + 25) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7421_0100_026_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 26 < end) {
 			rawValue += buffer.readUInt8(start + 26) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7421_0100_027_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 27 < end) {
 			rawValue += buffer.readUInt8(start + 27) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7421_0100_022_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += buffer.readUInt8(start + 22) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7421_0100_023_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 23 < end) {
 			rawValue += buffer.readUInt8(start + 23) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7421_0100_018_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 1.0;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readInt8(start + 19) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7421_0100_048_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 48 < end) {
 			rawValue += buffer.readUInt8(start + 48) * 1.0;
+			valid = true;
 		}
 		if (start + 49 < end) {
 			rawValue += buffer.readUInt8(start + 49) * 256.0;
+			valid = true;
 		}
 		if (start + 50 < end) {
 			rawValue += buffer.readUInt8(start + 50) * 65536.0;
+			valid = true;
 		}
 		if (start + 51 < end) {
 			rawValue += buffer.readInt8(start + 51) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7421_0100_054_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 54 < end) {
 			rawValue += buffer.readUInt8(start + 54) * 1.0;
+			valid = true;
 		}
 		if (start + 55 < end) {
 			rawValue += buffer.readUInt8(start + 55) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7421_0100_056_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 56 < end) {
 			rawValue += buffer.readUInt8(start + 56) * 1.0;
+			valid = true;
 		}
 		if (start + 57 < end) {
 			rawValue += buffer.readUInt8(start + 57) * 256.0;
+			valid = true;
 		}
 		if (start + 58 < end) {
 			rawValue += buffer.readUInt8(start + 58) * 65536.0;
+			valid = true;
 		}
 		if (start + 59 < end) {
 			rawValue += buffer.readUInt8(start + 59) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7421_0100_052_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 52 < end) {
 			rawValue += buffer.readUInt8(start + 52) * 0.01;
+			valid = true;
 		}
 		if (start + 53 < end) {
 			rawValue += buffer.readUInt8(start + 53) * 2.56;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7421_0100_028_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 28 < end) {
 			rawValue += buffer.readUInt8(start + 28) * 1.0;
+			valid = true;
 		}
 		if (start + 29 < end) {
 			rawValue += buffer.readUInt8(start + 29) * 256.0;
+			valid = true;
 		}
 		if (start + 30 < end) {
 			rawValue += buffer.readUInt8(start + 30) * 65536.0;
+			valid = true;
 		}
 		if (start + 31 < end) {
 			rawValue += buffer.readUInt8(start + 31) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7421_0100_032_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 32 < end) {
 			rawValue += buffer.readUInt8(start + 32) * 1.0;
+			valid = true;
 		}
 		if (start + 33 < end) {
 			rawValue += buffer.readUInt8(start + 33) * 256.0;
+			valid = true;
 		}
 		if (start + 34 < end) {
 			rawValue += buffer.readUInt8(start + 34) * 65536.0;
+			valid = true;
 		}
 		if (start + 35 < end) {
 			rawValue += buffer.readUInt8(start + 35) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7421_0100_036_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += buffer.readUInt8(start + 36) * 1.0;
+			valid = true;
 		}
 		if (start + 37 < end) {
 			rawValue += buffer.readUInt8(start + 37) * 256.0;
+			valid = true;
 		}
 		if (start + 38 < end) {
 			rawValue += buffer.readUInt8(start + 38) * 65536.0;
+			valid = true;
 		}
 		if (start + 39 < end) {
 			rawValue += buffer.readUInt8(start + 39) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7421_0100_040_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 40 < end) {
 			rawValue += buffer.readUInt8(start + 40) * 1.0;
+			valid = true;
 		}
 		if (start + 41 < end) {
 			rawValue += buffer.readUInt8(start + 41) * 256.0;
+			valid = true;
 		}
 		if (start + 42 < end) {
 			rawValue += buffer.readUInt8(start + 42) * 65536.0;
+			valid = true;
 		}
 		if (start + 43 < end) {
 			rawValue += buffer.readUInt8(start + 43) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7421_0100_046_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 46 < end) {
 			rawValue += buffer.readUInt8(start + 46) * 1.0;
+			valid = true;
 		}
 		if (start + 47 < end) {
 			rawValue += buffer.readUInt8(start + 47) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7421_0100_046_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 46 < end) {
 			rawValue += ((buffer.readInt8(start + 46) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7421_0100_046_1_2: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 46 < end) {
 			rawValue += ((buffer.readInt8(start + 46) >> 1) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7421_0100_046_1_4: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 46 < end) {
 			rawValue += ((buffer.readInt8(start + 46) >> 2) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7421_0100_046_1_8: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 46 < end) {
 			rawValue += ((buffer.readInt8(start + 46) >> 3) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7421_0100_046_1_16: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 46 < end) {
 			rawValue += ((buffer.readInt8(start + 46) >> 4) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7421_0100_046_1_32: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 46 < end) {
 			rawValue += ((buffer.readInt8(start + 46) >> 5) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7421_0100_046_1_64: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 46 < end) {
 			rawValue += ((buffer.readInt8(start + 46) >> 6) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7421_0100_046_1_128: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 46 < end) {
 			rawValue += ((buffer.readInt8(start + 46) >> 7) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7421_0100_047_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 47 < end) {
 			rawValue += ((buffer.readInt8(start + 47) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7421_0100_047_1_2: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 47 < end) {
 			rawValue += ((buffer.readInt8(start + 47) >> 1) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7421_0100_047_1_4: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 47 < end) {
 			rawValue += ((buffer.readInt8(start + 47) >> 2) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7421_0100_047_1_8: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 47 < end) {
 			rawValue += ((buffer.readInt8(start + 47) >> 3) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7421_0100_047_1_16: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 47 < end) {
 			rawValue += ((buffer.readInt8(start + 47) >> 4) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7421_0100_047_1_32: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 47 < end) {
 			rawValue += ((buffer.readInt8(start + 47) >> 5) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7421_0100_047_1_64: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 47 < end) {
 			rawValue += ((buffer.readInt8(start + 47) >> 6) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7421_0100_047_1_128: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 47 < end) {
 			rawValue += ((buffer.readInt8(start + 47) >> 7) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7421_0100_020_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7421_0100_044_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 44 < end) {
 			rawValue += buffer.readUInt8(start + 44) * 1.0;
+			valid = true;
 		}
 		if (start + 45 < end) {
 			rawValue += buffer.readUInt8(start + 45) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7421_0100_044_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 44 < end) {
 			rawValue += ((buffer.readInt8(start + 44) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7421_0100_044_1_2: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 44 < end) {
 			rawValue += ((buffer.readInt8(start + 44) >> 1) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7421_0100_044_1_4: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 44 < end) {
 			rawValue += ((buffer.readInt8(start + 44) >> 2) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7421_0100_044_1_8: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 44 < end) {
 			rawValue += ((buffer.readInt8(start + 44) >> 3) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7421_0100_044_1_16: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 44 < end) {
 			rawValue += ((buffer.readInt8(start + 44) >> 4) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7421_0100_044_1_32: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 44 < end) {
 			rawValue += ((buffer.readInt8(start + 44) >> 5) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7421_0100_044_1_64: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 44 < end) {
 			rawValue += ((buffer.readInt8(start + 44) >> 6) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7421_0100_044_1_128: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 44 < end) {
 			rawValue += ((buffer.readInt8(start + 44) >> 7) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7421_0100_045_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 45 < end) {
 			rawValue += ((buffer.readInt8(start + 45) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7421_0100_045_1_2: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 45 < end) {
 			rawValue += ((buffer.readInt8(start + 45) >> 1) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7421_0100_045_1_4: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 45 < end) {
 			rawValue += ((buffer.readInt8(start + 45) >> 2) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7421_0100_045_1_8: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 45 < end) {
 			rawValue += ((buffer.readInt8(start + 45) >> 3) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7421_0100_045_1_16: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 45 < end) {
 			rawValue += ((buffer.readInt8(start + 45) >> 4) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7428_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7428_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7428_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7428_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7428_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.1;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7428_0100_024_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7428_0100_025_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 25 < end) {
 			rawValue += buffer.readUInt8(start + 25) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7428_0100_026_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 26 < end) {
 			rawValue += buffer.readUInt8(start + 26) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7428_0100_027_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 27 < end) {
 			rawValue += buffer.readUInt8(start + 27) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7428_0100_018_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 1.0;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readInt8(start + 19) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7428_0100_048_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 48 < end) {
 			rawValue += buffer.readUInt8(start + 48) * 1.0;
+			valid = true;
 		}
 		if (start + 49 < end) {
 			rawValue += buffer.readUInt8(start + 49) * 256.0;
+			valid = true;
 		}
 		if (start + 50 < end) {
 			rawValue += buffer.readUInt8(start + 50) * 65536.0;
+			valid = true;
 		}
 		if (start + 51 < end) {
 			rawValue += buffer.readInt8(start + 51) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7428_0100_054_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 54 < end) {
 			rawValue += buffer.readUInt8(start + 54) * 1.0;
+			valid = true;
 		}
 		if (start + 55 < end) {
 			rawValue += buffer.readUInt8(start + 55) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7428_0100_056_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 56 < end) {
 			rawValue += buffer.readUInt8(start + 56) * 1.0;
+			valid = true;
 		}
 		if (start + 57 < end) {
 			rawValue += buffer.readUInt8(start + 57) * 256.0;
+			valid = true;
 		}
 		if (start + 58 < end) {
 			rawValue += buffer.readUInt8(start + 58) * 65536.0;
+			valid = true;
 		}
 		if (start + 59 < end) {
 			rawValue += buffer.readUInt8(start + 59) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7428_0100_052_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 52 < end) {
 			rawValue += buffer.readUInt8(start + 52) * 0.01;
+			valid = true;
 		}
 		if (start + 53 < end) {
 			rawValue += buffer.readUInt8(start + 53) * 2.56;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7428_0100_028_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 28 < end) {
 			rawValue += buffer.readUInt8(start + 28) * 1.0;
+			valid = true;
 		}
 		if (start + 29 < end) {
 			rawValue += buffer.readUInt8(start + 29) * 256.0;
+			valid = true;
 		}
 		if (start + 30 < end) {
 			rawValue += buffer.readUInt8(start + 30) * 65536.0;
+			valid = true;
 		}
 		if (start + 31 < end) {
 			rawValue += buffer.readUInt8(start + 31) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7428_0100_032_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 32 < end) {
 			rawValue += buffer.readUInt8(start + 32) * 1.0;
+			valid = true;
 		}
 		if (start + 33 < end) {
 			rawValue += buffer.readUInt8(start + 33) * 256.0;
+			valid = true;
 		}
 		if (start + 34 < end) {
 			rawValue += buffer.readUInt8(start + 34) * 65536.0;
+			valid = true;
 		}
 		if (start + 35 < end) {
 			rawValue += buffer.readUInt8(start + 35) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7428_0100_036_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += buffer.readUInt8(start + 36) * 1.0;
+			valid = true;
 		}
 		if (start + 37 < end) {
 			rawValue += buffer.readUInt8(start + 37) * 256.0;
+			valid = true;
 		}
 		if (start + 38 < end) {
 			rawValue += buffer.readUInt8(start + 38) * 65536.0;
+			valid = true;
 		}
 		if (start + 39 < end) {
 			rawValue += buffer.readUInt8(start + 39) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7428_0100_040_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 40 < end) {
 			rawValue += buffer.readUInt8(start + 40) * 1.0;
+			valid = true;
 		}
 		if (start + 41 < end) {
 			rawValue += buffer.readUInt8(start + 41) * 256.0;
+			valid = true;
 		}
 		if (start + 42 < end) {
 			rawValue += buffer.readUInt8(start + 42) * 65536.0;
+			valid = true;
 		}
 		if (start + 43 < end) {
 			rawValue += buffer.readUInt8(start + 43) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7428_0100_046_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 46 < end) {
 			rawValue += buffer.readUInt8(start + 46) * 1.0;
+			valid = true;
 		}
 		if (start + 47 < end) {
 			rawValue += buffer.readUInt8(start + 47) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7428_0100_046_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 46 < end) {
 			rawValue += ((buffer.readInt8(start + 46) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7428_0100_046_1_2: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 46 < end) {
 			rawValue += ((buffer.readInt8(start + 46) >> 1) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7428_0100_046_1_4: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 46 < end) {
 			rawValue += ((buffer.readInt8(start + 46) >> 2) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7428_0100_046_1_8: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 46 < end) {
 			rawValue += ((buffer.readInt8(start + 46) >> 3) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7428_0100_046_1_32: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 46 < end) {
 			rawValue += ((buffer.readInt8(start + 46) >> 5) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7428_0100_046_1_64: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 46 < end) {
 			rawValue += ((buffer.readInt8(start + 46) >> 6) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7428_0100_046_1_128: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 46 < end) {
 			rawValue += ((buffer.readInt8(start + 46) >> 7) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7428_0100_047_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 47 < end) {
 			rawValue += ((buffer.readInt8(start + 47) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7428_0100_047_1_4: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 47 < end) {
 			rawValue += ((buffer.readInt8(start + 47) >> 2) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7428_0100_047_1_8: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 47 < end) {
 			rawValue += ((buffer.readInt8(start + 47) >> 3) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7428_0100_047_1_16: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 47 < end) {
 			rawValue += ((buffer.readInt8(start + 47) >> 4) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7428_0100_047_1_32: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 47 < end) {
 			rawValue += ((buffer.readInt8(start + 47) >> 5) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7428_0100_047_1_64: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 47 < end) {
 			rawValue += ((buffer.readInt8(start + 47) >> 6) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7428_0100_047_1_128: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 47 < end) {
 			rawValue += ((buffer.readInt8(start + 47) >> 7) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7428_0100_020_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7428_0100_044_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 44 < end) {
 			rawValue += buffer.readUInt8(start + 44) * 1.0;
+			valid = true;
 		}
 		if (start + 45 < end) {
 			rawValue += buffer.readUInt8(start + 45) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7428_0100_044_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 44 < end) {
 			rawValue += ((buffer.readInt8(start + 44) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7428_0100_044_1_2: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 44 < end) {
 			rawValue += ((buffer.readInt8(start + 44) >> 1) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7428_0100_044_1_4: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 44 < end) {
 			rawValue += ((buffer.readInt8(start + 44) >> 2) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7428_0100_044_1_8: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 44 < end) {
 			rawValue += ((buffer.readInt8(start + 44) >> 3) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7428_0100_044_1_16: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 44 < end) {
 			rawValue += ((buffer.readInt8(start + 44) >> 4) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7428_0100_045_1_2: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 45 < end) {
 			rawValue += ((buffer.readInt8(start + 45) >> 1) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7511_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7511_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7511_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7511_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7511_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.1;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7511_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 0.1;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7511_0100_012_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 0.1;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readInt8(start + 13) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7511_0100_014_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 0.1;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readInt8(start + 15) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7511_0100_018_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7511_0100_019_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 19 < end) {
 			rawValue += buffer.readUInt8(start + 19) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7511_0100_016_1_4: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += ((buffer.readInt8(start + 16) >> 2) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7511_0100_016_1_8: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += ((buffer.readInt8(start + 16) >> 3) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7511_0100_016_1_16: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += ((buffer.readInt8(start + 16) >> 4) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7511_0100_016_1_32: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += ((buffer.readInt8(start + 16) >> 5) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7511_0100_016_1_64: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += ((buffer.readInt8(start + 16) >> 6) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7511_0100_016_1_128: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += ((buffer.readInt8(start + 16) >> 7) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7511_0100_017_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 17 < end) {
 			rawValue += ((buffer.readInt8(start + 17) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7511_0100_020_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 1.0;
+			valid = true;
 		}
 		if (start + 21 < end) {
 			rawValue += buffer.readUInt8(start + 21) * 256.0;
+			valid = true;
 		}
 		if (start + 22 < end) {
 			rawValue += buffer.readUInt8(start + 22) * 65536.0;
+			valid = true;
 		}
 		if (start + 23 < end) {
 			rawValue += buffer.readInt8(start + 23) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7511_0100_025_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 25 < end) {
 			rawValue += buffer.readUInt8(start + 25) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7511_0100_026_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 26 < end) {
 			rawValue += buffer.readUInt8(start + 26) * 0.1;
+			valid = true;
 		}
 		if (start + 27 < end) {
 			rawValue += buffer.readInt8(start + 27) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7511_0100_028_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 28 < end) {
 			rawValue += buffer.readUInt8(start + 28) * 0.1;
+			valid = true;
 		}
 		if (start + 29 < end) {
 			rawValue += buffer.readUInt8(start + 29) * 25.6;
+			valid = true;
 		}
 		if (start + 30 < end) {
 			rawValue += buffer.readUInt8(start + 30) * 6553.6;
+			valid = true;
 		}
 		if (start + 31 < end) {
 			rawValue += buffer.readInt8(start + 31) * 1677721.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7511_0100_032_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 32 < end) {
 			rawValue += buffer.readUInt8(start + 32) * 0.1;
+			valid = true;
 		}
 		if (start + 33 < end) {
 			rawValue += buffer.readUInt8(start + 33) * 25.6;
+			valid = true;
 		}
 		if (start + 34 < end) {
 			rawValue += buffer.readUInt8(start + 34) * 6553.6;
+			valid = true;
 		}
 		if (start + 35 < end) {
 			rawValue += buffer.readInt8(start + 35) * 1677721.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7511_0100_036_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += buffer.readUInt8(start + 36) * 0.1;
+			valid = true;
 		}
 		if (start + 37 < end) {
 			rawValue += buffer.readInt8(start + 37) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7511_0100_038_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 38 < end) {
 			rawValue += buffer.readUInt8(start + 38) * 0.1;
+			valid = true;
 		}
 		if (start + 39 < end) {
 			rawValue += buffer.readInt8(start + 39) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7511_0100_040_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 40 < end) {
 			rawValue += buffer.readUInt8(start + 40) * 0.1;
+			valid = true;
 		}
 		if (start + 41 < end) {
 			rawValue += buffer.readInt8(start + 41) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7511_0100_042_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 42 < end) {
 			rawValue += buffer.readUInt8(start + 42) * 1.0;
+			valid = true;
 		}
 		if (start + 43 < end) {
 			rawValue += buffer.readInt8(start + 43) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7511_0100_044_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 44 < end) {
 			rawValue += buffer.readUInt8(start + 44) * 1.0;
+			valid = true;
 		}
 		if (start + 45 < end) {
 			rawValue += buffer.readUInt8(start + 45) * 256.0;
+			valid = true;
 		}
 		if (start + 46 < end) {
 			rawValue += buffer.readUInt8(start + 46) * 65536.0;
+			valid = true;
 		}
 		if (start + 47 < end) {
 			rawValue += buffer.readInt8(start + 47) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7511_0100_048_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 48 < end) {
 			rawValue += buffer.readUInt8(start + 48) * 1.0;
+			valid = true;
 		}
 		if (start + 49 < end) {
 			rawValue += buffer.readUInt8(start + 49) * 256.0;
+			valid = true;
 		}
 		if (start + 50 < end) {
 			rawValue += buffer.readUInt8(start + 50) * 65536.0;
+			valid = true;
 		}
 		if (start + 51 < end) {
 			rawValue += buffer.readInt8(start + 51) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7511_0100_056_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 56 < end) {
 			rawValue += buffer.readUInt8(start + 56) * 0.1;
+			valid = true;
 		}
 		if (start + 57 < end) {
 			rawValue += buffer.readInt8(start + 57) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7511_0100_058_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 58 < end) {
 			rawValue += buffer.readUInt8(start + 58) * 1.0;
+			valid = true;
 		}
 		if (start + 59 < end) {
 			rawValue += buffer.readInt8(start + 59) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7512_0100_000_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 1.0;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readUInt8(start + 1) * 256.0;
+			valid = true;
 		}
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 65536.0;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7512_0100_004_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 1.0;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readUInt8(start + 5) * 256.0;
+			valid = true;
 		}
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 65536.0;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7512_0100_008_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 1.0;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readUInt8(start + 9) * 256.0;
+			valid = true;
 		}
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 65536.0;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7512_0100_012_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 1.0;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readUInt8(start + 13) * 256.0;
+			valid = true;
 		}
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 65536.0;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readInt8(start + 15) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7512_0100_016_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 1.0;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readUInt8(start + 17) * 256.0;
+			valid = true;
 		}
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 65536.0;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readInt8(start + 19) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7512_0100_020_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 1.0;
+			valid = true;
 		}
 		if (start + 21 < end) {
 			rawValue += buffer.readUInt8(start + 21) * 256.0;
+			valid = true;
 		}
 		if (start + 22 < end) {
 			rawValue += buffer.readUInt8(start + 22) * 65536.0;
+			valid = true;
 		}
 		if (start + 23 < end) {
 			rawValue += buffer.readInt8(start + 23) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7512_0100_024_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 0.1;
+			valid = true;
 		}
 		if (start + 25 < end) {
 			rawValue += buffer.readInt8(start + 25) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7512_0100_026_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 26 < end) {
 			rawValue += buffer.readUInt8(start + 26) * 0.1;
+			valid = true;
 		}
 		if (start + 27 < end) {
 			rawValue += buffer.readInt8(start + 27) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7512_0100_028_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 28 < end) {
 			rawValue += buffer.readUInt8(start + 28) * 0.01;
+			valid = true;
 		}
 		if (start + 29 < end) {
 			rawValue += buffer.readInt8(start + 29) * 2.56;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7512_0100_030_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 30 < end) {
 			rawValue += buffer.readUInt8(start + 30) * 0.01;
+			valid = true;
 		}
 		if (start + 31 < end) {
 			rawValue += buffer.readInt8(start + 31) * 2.56;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7521_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7521_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7521_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7521_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7521_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.1;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7521_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 0.1;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7521_0100_012_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 0.1;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readInt8(start + 13) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7521_0100_014_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 0.1;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readInt8(start + 15) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7521_0100_016_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 0.1;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readInt8(start + 17) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7521_0100_018_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 0.1;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readInt8(start + 19) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7521_0100_020_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7521_0100_021_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 21 < end) {
 			rawValue += buffer.readUInt8(start + 21) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7521_0100_022_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += buffer.readUInt8(start + 22) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7521_0100_024_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 0.1;
+			valid = true;
 		}
 		if (start + 25 < end) {
 			rawValue += buffer.readUInt8(start + 25) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7521_0100_023_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 23 < end) {
 			rawValue += buffer.readUInt8(start + 23) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7521_0100_026_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 26 < end) {
 			rawValue += ((buffer.readInt8(start + 26) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7521_0100_027_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 27 < end) {
 			rawValue += buffer.readUInt8(start + 27) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7521_0100_028_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 28 < end) {
 			rawValue += buffer.readUInt8(start + 28) * 1.0;
+			valid = true;
 		}
 		if (start + 29 < end) {
 			rawValue += buffer.readUInt8(start + 29) * 256.0;
+			valid = true;
 		}
 		if (start + 30 < end) {
 			rawValue += buffer.readUInt8(start + 30) * 65536.0;
+			valid = true;
 		}
 		if (start + 31 < end) {
 			rawValue += buffer.readUInt8(start + 31) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7521_0100_032_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 32 < end) {
 			rawValue += buffer.readUInt8(start + 32) * 1.0;
+			valid = true;
 		}
 		if (start + 33 < end) {
 			rawValue += buffer.readUInt8(start + 33) * 256.0;
+			valid = true;
 		}
 		if (start + 34 < end) {
 			rawValue += buffer.readUInt8(start + 34) * 65536.0;
+			valid = true;
 		}
 		if (start + 35 < end) {
 			rawValue += buffer.readUInt8(start + 35) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7521_0100_036_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += buffer.readUInt8(start + 36) * 1.0;
+			valid = true;
 		}
 		if (start + 37 < end) {
 			rawValue += buffer.readUInt8(start + 37) * 256.0;
+			valid = true;
 		}
 		if (start + 38 < end) {
 			rawValue += buffer.readUInt8(start + 38) * 65536.0;
+			valid = true;
 		}
 		if (start + 39 < end) {
 			rawValue += buffer.readUInt8(start + 39) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7521_0100_040_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 40 < end) {
 			rawValue += buffer.readUInt8(start + 40) * 1.0;
+			valid = true;
 		}
 		if (start + 41 < end) {
 			rawValue += buffer.readUInt8(start + 41) * 256.0;
+			valid = true;
 		}
 		if (start + 42 < end) {
 			rawValue += buffer.readUInt8(start + 42) * 65536.0;
+			valid = true;
 		}
 		if (start + 43 < end) {
 			rawValue += buffer.readUInt8(start + 43) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7521_0100_044_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 44 < end) {
 			rawValue += buffer.readUInt8(start + 44) * 1.0;
+			valid = true;
 		}
 		if (start + 45 < end) {
 			rawValue += buffer.readUInt8(start + 45) * 256.0;
+			valid = true;
 		}
 		if (start + 46 < end) {
 			rawValue += buffer.readUInt8(start + 46) * 65536.0;
+			valid = true;
 		}
 		if (start + 47 < end) {
 			rawValue += buffer.readUInt8(start + 47) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7521_0100_048_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 48 < end) {
 			rawValue += buffer.readUInt8(start + 48) * 1.0;
+			valid = true;
 		}
 		if (start + 49 < end) {
 			rawValue += buffer.readUInt8(start + 49) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7521_0100_048_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 48 < end) {
 			rawValue += ((buffer.readInt8(start + 48) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7521_0100_048_1_2: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 48 < end) {
 			rawValue += ((buffer.readInt8(start + 48) >> 1) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7521_0100_048_1_4: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 48 < end) {
 			rawValue += ((buffer.readInt8(start + 48) >> 2) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7521_0100_048_1_8: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 48 < end) {
 			rawValue += ((buffer.readInt8(start + 48) >> 3) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7521_0100_048_1_16: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 48 < end) {
 			rawValue += ((buffer.readInt8(start + 48) >> 4) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7521_0100_048_1_32: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 48 < end) {
 			rawValue += ((buffer.readInt8(start + 48) >> 5) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7521_0100_048_1_64: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 48 < end) {
 			rawValue += ((buffer.readInt8(start + 48) >> 6) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7521_0100_048_1_128: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 48 < end) {
 			rawValue += ((buffer.readInt8(start + 48) >> 7) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7521_0100_049_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 49 < end) {
 			rawValue += ((buffer.readInt8(start + 49) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7521_0100_049_1_2: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 49 < end) {
 			rawValue += ((buffer.readInt8(start + 49) >> 1) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7521_0100_049_1_4: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 49 < end) {
 			rawValue += ((buffer.readInt8(start + 49) >> 2) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7521_0100_049_1_8: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 49 < end) {
 			rawValue += ((buffer.readInt8(start + 49) >> 3) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7521_0100_049_1_16: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 49 < end) {
 			rawValue += ((buffer.readInt8(start + 49) >> 4) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7521_0100_049_1_32: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 49 < end) {
 			rawValue += ((buffer.readInt8(start + 49) >> 5) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7521_0100_049_1_64: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 49 < end) {
 			rawValue += ((buffer.readInt8(start + 49) >> 6) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7521_0100_049_1_128: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 49 < end) {
 			rawValue += ((buffer.readInt8(start + 49) >> 7) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7521_0100_050_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 50 < end) {
 			rawValue += ((buffer.readInt8(start + 50) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7521_0100_051_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 51 < end) {
 			rawValue += ((buffer.readInt8(start + 51) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7521_0100_051_1_2: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 51 < end) {
 			rawValue += ((buffer.readInt8(start + 51) >> 1) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7521_0100_051_1_4: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 51 < end) {
 			rawValue += ((buffer.readInt8(start + 51) >> 2) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7521_0100_052_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 52 < end) {
 			rawValue += buffer.readUInt8(start + 52) * 1.0;
+			valid = true;
 		}
 		if (start + 53 < end) {
 			rawValue += buffer.readUInt8(start + 53) * 256.0;
+			valid = true;
 		}
 		if (start + 54 < end) {
 			rawValue += buffer.readUInt8(start + 54) * 65536.0;
+			valid = true;
 		}
 		if (start + 55 < end) {
 			rawValue += buffer.readUInt8(start + 55) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7521_0100_056_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 56 < end) {
 			rawValue += buffer.readUInt8(start + 56) * 0.01;
+			valid = true;
 		}
 		if (start + 57 < end) {
 			rawValue += buffer.readUInt8(start + 57) * 2.56;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7521_0100_058_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 58 < end) {
 			rawValue += buffer.readUInt8(start + 58) * 1.0;
+			valid = true;
 		}
 		if (start + 59 < end) {
 			rawValue += buffer.readUInt8(start + 59) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7521_0100_060_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 60 < end) {
 			rawValue += buffer.readUInt8(start + 60) * 1.0;
+			valid = true;
 		}
 		if (start + 61 < end) {
 			rawValue += buffer.readUInt8(start + 61) * 256.0;
+			valid = true;
 		}
 		if (start + 62 < end) {
 			rawValue += buffer.readUInt8(start + 62) * 65536.0;
+			valid = true;
 		}
 		if (start + 63 < end) {
 			rawValue += buffer.readUInt8(start + 63) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7522_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7522_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7522_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7522_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7522_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.1;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7522_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 0.1;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7522_0100_012_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 0.1;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readInt8(start + 13) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7522_0100_014_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 0.1;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readInt8(start + 15) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7522_0100_016_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 0.1;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readInt8(start + 17) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7522_0100_020_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 0.1;
+			valid = true;
 		}
 		if (start + 21 < end) {
 			rawValue += buffer.readInt8(start + 21) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7522_0100_022_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += buffer.readUInt8(start + 22) * 0.1;
+			valid = true;
 		}
 		if (start + 23 < end) {
 			rawValue += buffer.readInt8(start + 23) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7522_0100_018_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 1.0;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readInt8(start + 19) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7522_0100_024_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 1.0;
+			valid = true;
 		}
 		if (start + 25 < end) {
 			rawValue += buffer.readUInt8(start + 25) * 256.0;
+			valid = true;
 		}
 		if (start + 26 < end) {
 			rawValue += buffer.readUInt8(start + 26) * 65536.0;
+			valid = true;
 		}
 		if (start + 27 < end) {
 			rawValue += buffer.readInt8(start + 27) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7522_0100_028_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 28 < end) {
 			rawValue += buffer.readUInt8(start + 28) * 1.0;
+			valid = true;
 		}
 		if (start + 29 < end) {
 			rawValue += buffer.readUInt8(start + 29) * 256.0;
+			valid = true;
 		}
 		if (start + 30 < end) {
 			rawValue += buffer.readUInt8(start + 30) * 65536.0;
+			valid = true;
 		}
 		if (start + 31 < end) {
 			rawValue += buffer.readInt8(start + 31) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7522_0100_032_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 32 < end) {
 			rawValue += buffer.readUInt8(start + 32) * 1.0;
+			valid = true;
 		}
 		if (start + 33 < end) {
 			rawValue += buffer.readUInt8(start + 33) * 256.0;
+			valid = true;
 		}
 		if (start + 34 < end) {
 			rawValue += buffer.readUInt8(start + 34) * 65536.0;
+			valid = true;
 		}
 		if (start + 35 < end) {
 			rawValue += buffer.readInt8(start + 35) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7522_0100_036_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += buffer.readUInt8(start + 36) * 0.01;
+			valid = true;
 		}
 		if (start + 37 < end) {
 			rawValue += buffer.readInt8(start + 37) * 2.56;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7522_0100_038_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 38 < end) {
 			rawValue += buffer.readUInt8(start + 38) * 0.01;
+			valid = true;
 		}
 		if (start + 39 < end) {
 			rawValue += buffer.readInt8(start + 39) * 2.56;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7522_0100_040_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 40 < end) {
 			rawValue += buffer.readUInt8(start + 40) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7522_0100_041_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 41 < end) {
 			rawValue += buffer.readUInt8(start + 41) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7522_0100_042_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 42 < end) {
 			rawValue += buffer.readUInt8(start + 42) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7522_0100_043_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 43 < end) {
 			rawValue += buffer.readUInt8(start + 43) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7522_0100_044_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 44 < end) {
 			rawValue += buffer.readUInt8(start + 44) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7522_0100_048_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 48 < end) {
 			rawValue += buffer.readUInt8(start + 48) * 1.0;
+			valid = true;
 		}
 		if (start + 49 < end) {
 			rawValue += buffer.readUInt8(start + 49) * 256.0;
+			valid = true;
 		}
 		if (start + 50 < end) {
 			rawValue += buffer.readUInt8(start + 50) * 65536.0;
+			valid = true;
 		}
 		if (start + 51 < end) {
 			rawValue += buffer.readInt8(start + 51) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7522_0100_052_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 52 < end) {
 			rawValue += buffer.readUInt8(start + 52) * 1.0;
+			valid = true;
 		}
 		if (start + 53 < end) {
 			rawValue += buffer.readUInt8(start + 53) * 256.0;
+			valid = true;
 		}
 		if (start + 54 < end) {
 			rawValue += buffer.readUInt8(start + 54) * 65536.0;
+			valid = true;
 		}
 		if (start + 55 < end) {
 			rawValue += buffer.readInt8(start + 55) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7523_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7523_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7523_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7523_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7523_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.1;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7523_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 0.1;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7523_0100_012_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 0.1;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readInt8(start + 13) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7523_0100_014_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 0.1;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readInt8(start + 15) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7523_0100_016_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 0.1;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readInt8(start + 17) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7523_0100_018_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 0.1;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readInt8(start + 19) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7523_0100_020_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 0.1;
+			valid = true;
 		}
 		if (start + 21 < end) {
 			rawValue += buffer.readInt8(start + 21) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7523_0100_022_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += buffer.readUInt8(start + 22) * 0.1;
+			valid = true;
 		}
 		if (start + 23 < end) {
 			rawValue += buffer.readInt8(start + 23) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7523_0100_024_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 0.1;
+			valid = true;
 		}
 		if (start + 25 < end) {
 			rawValue += buffer.readInt8(start + 25) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7523_0100_026_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 26 < end) {
 			rawValue += buffer.readUInt8(start + 26) * 0.1;
+			valid = true;
 		}
 		if (start + 27 < end) {
 			rawValue += buffer.readInt8(start + 27) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7523_0100_028_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 28 < end) {
 			rawValue += buffer.readUInt8(start + 28) * 0.1;
+			valid = true;
 		}
 		if (start + 29 < end) {
 			rawValue += buffer.readInt8(start + 29) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7523_0100_030_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 30 < end) {
 			rawValue += buffer.readUInt8(start + 30) * 0.1;
+			valid = true;
 		}
 		if (start + 31 < end) {
 			rawValue += buffer.readInt8(start + 31) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7523_0100_032_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 32 < end) {
 			rawValue += buffer.readUInt8(start + 32) * 0.1;
+			valid = true;
 		}
 		if (start + 33 < end) {
 			rawValue += buffer.readInt8(start + 33) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7523_0100_034_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 34 < end) {
 			rawValue += buffer.readUInt8(start + 34) * 0.1;
+			valid = true;
 		}
 		if (start + 35 < end) {
 			rawValue += buffer.readInt8(start + 35) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7523_0100_036_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += buffer.readUInt8(start + 36) * 0.1;
+			valid = true;
 		}
 		if (start + 37 < end) {
 			rawValue += buffer.readInt8(start + 37) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7523_0100_038_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 38 < end) {
 			rawValue += buffer.readUInt8(start + 38) * 0.1;
+			valid = true;
 		}
 		if (start + 39 < end) {
 			rawValue += buffer.readInt8(start + 39) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7523_0100_040_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 40 < end) {
 			rawValue += buffer.readUInt8(start + 40) * 0.1;
+			valid = true;
 		}
 		if (start + 41 < end) {
 			rawValue += buffer.readInt8(start + 41) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7523_0100_042_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 42 < end) {
 			rawValue += buffer.readUInt8(start + 42) * 0.1;
+			valid = true;
 		}
 		if (start + 43 < end) {
 			rawValue += buffer.readInt8(start + 43) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7523_0100_044_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 44 < end) {
 			rawValue += buffer.readUInt8(start + 44) * 0.1;
+			valid = true;
 		}
 		if (start + 45 < end) {
 			rawValue += buffer.readInt8(start + 45) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7523_0100_046_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 46 < end) {
 			rawValue += buffer.readUInt8(start + 46) * 0.1;
+			valid = true;
 		}
 		if (start + 47 < end) {
 			rawValue += buffer.readInt8(start + 47) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7523_0100_048_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 48 < end) {
 			rawValue += buffer.readUInt8(start + 48) * 0.1;
+			valid = true;
 		}
 		if (start + 49 < end) {
 			rawValue += buffer.readInt8(start + 49) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7523_0100_050_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 50 < end) {
 			rawValue += buffer.readUInt8(start + 50) * 0.1;
+			valid = true;
 		}
 		if (start + 51 < end) {
 			rawValue += buffer.readInt8(start + 51) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7523_0100_052_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 52 < end) {
 			rawValue += buffer.readUInt8(start + 52) * 0.1;
+			valid = true;
 		}
 		if (start + 53 < end) {
 			rawValue += buffer.readInt8(start + 53) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7523_0100_054_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 54 < end) {
 			rawValue += buffer.readUInt8(start + 54) * 0.1;
+			valid = true;
 		}
 		if (start + 55 < end) {
 			rawValue += buffer.readInt8(start + 55) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7523_0100_056_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 56 < end) {
 			rawValue += buffer.readUInt8(start + 56) * 0.1;
+			valid = true;
 		}
 		if (start + 57 < end) {
 			rawValue += buffer.readInt8(start + 57) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7523_0100_058_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 58 < end) {
 			rawValue += buffer.readUInt8(start + 58) * 0.1;
+			valid = true;
 		}
 		if (start + 59 < end) {
 			rawValue += buffer.readInt8(start + 59) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7531_0100_000_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 1.0;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readUInt8(start + 1) * 256.0;
+			valid = true;
 		}
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 65536.0;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7531_0100_008_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 1.0;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readUInt8(start + 9) * 256.0;
+			valid = true;
 		}
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 65536.0;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7531_0100_012_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 1.0;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readUInt8(start + 13) * 256.0;
+			valid = true;
 		}
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 65536.0;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readInt8(start + 15) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7611_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7611_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7611_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7611_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7611_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.1;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7611_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 0.1;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7611_0100_012_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 0.1;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readInt8(start + 13) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7611_0100_014_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 0.1;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readInt8(start + 15) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7611_0100_016_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 0.1;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readInt8(start + 17) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7611_0100_018_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 1.0;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readInt8(start + 19) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7611_0100_020_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readInt8(start + 20) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7611_0100_021_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 21 < end) {
 			rawValue += buffer.readInt8(start + 21) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7611_0100_022_1_4: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += ((buffer.readInt8(start + 22) >> 2) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7611_0100_022_1_8: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += ((buffer.readInt8(start + 22) >> 3) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7611_0100_023_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 23 < end) {
 			rawValue += buffer.readUInt8(start + 23) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7611_0100_024_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7611_0100_025_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 25 < end) {
 			rawValue += buffer.readUInt8(start + 25) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7611_0100_026_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 26 < end) {
 			rawValue += buffer.readUInt8(start + 26) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7611_0100_028_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 28 < end) {
 			rawValue += buffer.readUInt8(start + 28) * 1.0;
+			valid = true;
 		}
 		if (start + 29 < end) {
 			rawValue += buffer.readUInt8(start + 29) * 256.0;
+			valid = true;
 		}
 		if (start + 30 < end) {
 			rawValue += buffer.readUInt8(start + 30) * 1000.0;
+			valid = true;
 		}
 		if (start + 31 < end) {
 			rawValue += buffer.readUInt8(start + 31) * 256000.0;
+			valid = true;
 		}
 		if (start + 32 < end) {
 			rawValue += buffer.readUInt8(start + 32) * 1000000.0;
+			valid = true;
 		}
 		if (start + 33 < end) {
 			rawValue += buffer.readUInt8(start + 33) * 2.56E8;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7611_0100_034_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 34 < end) {
 			rawValue += buffer.readInt8(start + 34) * 1.0;
+			valid = true;
 		}
 		if (start + 35 < end) {
 			rawValue += buffer.readInt8(start + 35) * 0.01;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7621_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7621_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7621_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7621_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7621_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.1;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7621_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 0.1;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7621_0100_012_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 0.1;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readInt8(start + 13) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7621_0100_014_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 1.0;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readInt8(start + 15) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7621_0100_016_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 1.0;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readInt8(start + 17) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7621_0100_018_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 1.0;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readInt8(start + 19) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7621_0100_020_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readInt8(start + 20) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7621_0100_021_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 21 < end) {
 			rawValue += buffer.readInt8(start + 21) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7621_0100_022_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += buffer.readInt8(start + 22) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7621_0100_023_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 23 < end) {
 			rawValue += buffer.readInt8(start + 23) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7621_0100_024_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readInt8(start + 24) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7621_0100_025_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 25 < end) {
 			rawValue += buffer.readUInt8(start + 25) * 1.0;
+			valid = true;
 		}
 		if (start + 26 < end) {
 			rawValue += buffer.readUInt8(start + 26) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7621_0100_028_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 28 < end) {
 			rawValue += buffer.readUInt8(start + 28) * 1.0;
+			valid = true;
 		}
 		if (start + 29 < end) {
 			rawValue += buffer.readUInt8(start + 29) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7621_0100_030_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 30 < end) {
 			rawValue += buffer.readInt8(start + 30) * 1.0;
+			valid = true;
 		}
 		if (start + 31 < end) {
 			rawValue += buffer.readInt8(start + 31) * 0.01;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7622_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7622_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7622_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 1.0;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7622_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 1.0;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readUInt8(start + 7) * 256.0;
+			valid = true;
 		}
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 1000.0;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readUInt8(start + 9) * 256000.0;
+			valid = true;
 		}
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 1000000.0;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readUInt8(start + 11) * 2.56E8;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7651_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7651_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7651_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7651_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7651_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.1;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7651_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 0.1;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7651_0100_012_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 0.1;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readInt8(start + 13) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7651_0100_014_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 0.1;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readInt8(start + 15) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7651_0100_016_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readInt8(start + 16) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7651_0100_017_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 17 < end) {
 			rawValue += buffer.readInt8(start + 17) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7651_0100_018_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 18 < end) {
 			rawValue += buffer.readInt8(start + 18) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7651_0100_019_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 19 < end) {
 			rawValue += buffer.readInt8(start + 19) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7651_0100_020_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readInt8(start + 20) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7651_0100_021_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 21 < end) {
 			rawValue += buffer.readInt8(start + 21) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7651_0100_022_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += ((buffer.readInt8(start + 22) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7651_0100_022_1_2: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += ((buffer.readInt8(start + 22) >> 1) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7651_0100_022_1_4: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += ((buffer.readInt8(start + 22) >> 2) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7651_0100_022_1_8: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += ((buffer.readInt8(start + 22) >> 3) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7651_0100_022_1_16: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += ((buffer.readInt8(start + 22) >> 4) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7651_0100_024_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 0.01;
+			valid = true;
 		}
 		if (start + 25 < end) {
 			rawValue += buffer.readUInt8(start + 25) * 2.56;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7651_0100_026_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 26 < end) {
 			rawValue += buffer.readUInt8(start + 26) * 1.0;
+			valid = true;
 		}
 		if (start + 27 < end) {
 			rawValue += buffer.readUInt8(start + 27) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7711_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7711_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7711_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7711_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7711_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.1;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7711_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 0.1;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7711_0100_012_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 0.1;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readInt8(start + 13) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7711_0100_014_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 0.1;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readInt8(start + 15) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7711_0100_016_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 0.1;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readInt8(start + 17) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7711_0100_018_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 0.1;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readInt8(start + 19) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7711_0100_020_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 1.0;
+			valid = true;
 		}
 		if (start + 21 < end) {
 			rawValue += buffer.readInt8(start + 21) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7711_0100_022_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += buffer.readUInt8(start + 22) * 1.0;
+			valid = true;
 		}
 		if (start + 23 < end) {
 			rawValue += buffer.readUInt8(start + 23) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7711_0100_024_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 1.0;
+			valid = true;
 		}
 		if (start + 25 < end) {
 			rawValue += buffer.readUInt8(start + 25) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7711_0100_026_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 26 < end) {
 			rawValue += buffer.readUInt8(start + 26) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7711_0100_027_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 27 < end) {
 			rawValue += buffer.readUInt8(start + 27) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7711_0100_028_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 28 < end) {
 			rawValue += buffer.readUInt8(start + 28) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7711_0100_029_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 29 < end) {
 			rawValue += buffer.readUInt8(start + 29) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7711_0100_030_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 30 < end) {
 			rawValue += buffer.readUInt8(start + 30) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7711_0100_031_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 31 < end) {
 			rawValue += buffer.readUInt8(start + 31) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7711_0100_032_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 32 < end) {
 			rawValue += buffer.readUInt8(start + 32) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7711_0100_034_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 34 < end) {
 			rawValue += buffer.readUInt8(start + 34) * 1.0;
+			valid = true;
 		}
 		if (start + 35 < end) {
 			rawValue += buffer.readUInt8(start + 35) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7711_0100_036_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += buffer.readUInt8(start + 36) * 1.0;
+			valid = true;
 		}
 		if (start + 37 < end) {
 			rawValue += buffer.readUInt8(start + 37) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7711_0100_038_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 38 < end) {
 			rawValue += buffer.readUInt8(start + 38) * 1.0;
+			valid = true;
 		}
 		if (start + 39 < end) {
 			rawValue += buffer.readUInt8(start + 39) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7711_0100_040_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 40 < end) {
 			rawValue += buffer.readUInt8(start + 40) * 1.0;
+			valid = true;
 		}
 		if (start + 41 < end) {
 			rawValue += buffer.readUInt8(start + 41) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7711_0100_042_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 42 < end) {
 			rawValue += buffer.readUInt8(start + 42) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7711_0100_043_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 43 < end) {
 			rawValue += buffer.readUInt8(start + 43) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7711_0100_044_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 44 < end) {
 			rawValue += buffer.readUInt8(start + 44) * 0.1;
+			valid = true;
 		}
 		if (start + 45 < end) {
 			rawValue += buffer.readInt8(start + 45) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7711_0100_046_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 46 < end) {
 			rawValue += buffer.readUInt8(start + 46) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7711_0100_047_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 47 < end) {
 			rawValue += buffer.readUInt8(start + 47) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7711_0100_048_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 48 < end) {
 			rawValue += buffer.readUInt8(start + 48) * 0.1;
+			valid = true;
 		}
 		if (start + 49 < end) {
 			rawValue += buffer.readInt8(start + 49) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7711_0100_050_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 50 < end) {
 			rawValue += buffer.readUInt8(start + 50) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7711_0100_051_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 51 < end) {
 			rawValue += buffer.readUInt8(start + 51) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7711_0100_052_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 52 < end) {
 			rawValue += buffer.readUInt8(start + 52) * 0.1;
+			valid = true;
 		}
 		if (start + 53 < end) {
 			rawValue += buffer.readInt8(start + 53) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7711_0100_054_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 54 < end) {
 			rawValue += buffer.readUInt8(start + 54) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7711_0100_055_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 55 < end) {
 			rawValue += buffer.readUInt8(start + 55) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7711_0100_056_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 56 < end) {
 			rawValue += buffer.readUInt8(start + 56) * 1.0;
+			valid = true;
 		}
 		if (start + 57 < end) {
 			rawValue += buffer.readUInt8(start + 57) * 256.0;
+			valid = true;
 		}
 		if (start + 58 < end) {
 			rawValue += buffer.readUInt8(start + 58) * 65536.0;
+			valid = true;
 		}
 		if (start + 59 < end) {
 			rawValue += buffer.readUInt8(start + 59) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7711_0100_060_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 60 < end) {
 			rawValue += buffer.readUInt8(start + 60) * 1.0;
+			valid = true;
 		}
 		if (start + 61 < end) {
 			rawValue += buffer.readUInt8(start + 61) * 256.0;
+			valid = true;
 		}
 		if (start + 62 < end) {
 			rawValue += buffer.readUInt8(start + 62) * 65536.0;
+			valid = true;
 		}
 		if (start + 63 < end) {
 			rawValue += buffer.readUInt8(start + 63) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7712_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7712_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7712_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 1.0;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readUInt8(start + 5) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7712_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 1.0;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readUInt8(start + 7) * 256.0;
+			valid = true;
 		}
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 1000.0;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readUInt8(start + 9) * 256000.0;
+			valid = true;
 		}
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 1000000.0;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readUInt8(start + 11) * 2.56E8;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7721_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7721_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7721_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7721_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7721_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.1;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7721_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 0.1;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7721_0100_012_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 0.1;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readInt8(start + 13) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7721_0100_014_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 0.1;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readInt8(start + 15) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7721_0100_016_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 0.1;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readInt8(start + 17) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7721_0100_018_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 0.1;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readInt8(start + 19) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7721_0100_020_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 1.0;
+			valid = true;
 		}
 		if (start + 21 < end) {
 			rawValue += buffer.readInt8(start + 21) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7721_0100_022_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += buffer.readUInt8(start + 22) * 1.0;
+			valid = true;
 		}
 		if (start + 23 < end) {
 			rawValue += buffer.readUInt8(start + 23) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7721_0100_024_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 1.0;
+			valid = true;
 		}
 		if (start + 25 < end) {
 			rawValue += buffer.readUInt8(start + 25) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7721_0100_026_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 26 < end) {
 			rawValue += buffer.readInt8(start + 26) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7721_0100_027_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 27 < end) {
 			rawValue += buffer.readInt8(start + 27) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7721_0100_028_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 28 < end) {
 			rawValue += buffer.readInt8(start + 28) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7721_0100_029_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 29 < end) {
 			rawValue += buffer.readInt8(start + 29) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7721_0100_030_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 30 < end) {
 			rawValue += buffer.readInt8(start + 30) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7721_0100_031_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 31 < end) {
 			rawValue += buffer.readInt8(start + 31) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7721_0100_032_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 32 < end) {
 			rawValue += buffer.readInt8(start + 32) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7721_0100_036_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += buffer.readUInt8(start + 36) * 1.0;
+			valid = true;
 		}
 		if (start + 37 < end) {
 			rawValue += buffer.readUInt8(start + 37) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7721_0100_038_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 38 < end) {
 			rawValue += buffer.readUInt8(start + 38) * 1.0;
+			valid = true;
 		}
 		if (start + 39 < end) {
 			rawValue += buffer.readUInt8(start + 39) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7721_0100_040_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 40 < end) {
 			rawValue += buffer.readInt8(start + 40) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7721_0100_042_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 42 < end) {
 			rawValue += buffer.readUInt8(start + 42) * 1.0;
+			valid = true;
 		}
 		if (start + 43 < end) {
 			rawValue += buffer.readUInt8(start + 43) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7721_0100_044_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 44 < end) {
 			rawValue += buffer.readUInt8(start + 44) * 0.1;
+			valid = true;
 		}
 		if (start + 45 < end) {
 			rawValue += buffer.readInt8(start + 45) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7721_0100_046_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 46 < end) {
 			rawValue += buffer.readUInt8(start + 46) * 1.0;
+			valid = true;
 		}
 		if (start + 47 < end) {
 			rawValue += buffer.readUInt8(start + 47) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7721_0100_048_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 48 < end) {
 			rawValue += buffer.readUInt8(start + 48) * 0.1;
+			valid = true;
 		}
 		if (start + 49 < end) {
 			rawValue += buffer.readInt8(start + 49) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7721_0100_050_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 50 < end) {
 			rawValue += buffer.readUInt8(start + 50) * 1.0;
+			valid = true;
 		}
 		if (start + 51 < end) {
 			rawValue += buffer.readUInt8(start + 51) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7721_0100_052_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 52 < end) {
 			rawValue += buffer.readUInt8(start + 52) * 0.1;
+			valid = true;
 		}
 		if (start + 53 < end) {
 			rawValue += buffer.readInt8(start + 53) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7721_0100_054_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 54 < end) {
 			rawValue += buffer.readUInt8(start + 54) * 1.0;
+			valid = true;
 		}
 		if (start + 55 < end) {
 			rawValue += buffer.readUInt8(start + 55) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7721_0100_056_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 56 < end) {
 			rawValue += buffer.readUInt8(start + 56) * 0.1;
+			valid = true;
 		}
 		if (start + 57 < end) {
 			rawValue += buffer.readInt8(start + 57) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7721_0100_058_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 58 < end) {
 			rawValue += buffer.readUInt8(start + 58) * 1.0;
+			valid = true;
 		}
 		if (start + 59 < end) {
 			rawValue += buffer.readUInt8(start + 59) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7721_0100_062_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 62 < end) {
 			rawValue += buffer.readUInt8(start + 62) * 1.0;
+			valid = true;
 		}
 		if (start + 63 < end) {
 			rawValue += buffer.readInt8(start + 63) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7721_0100_064_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 64 < end) {
 			rawValue += buffer.readUInt8(start + 64) * 1.0;
+			valid = true;
 		}
 		if (start + 65 < end) {
 			rawValue += buffer.readInt8(start + 65) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7721_0100_066_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 66 < end) {
 			rawValue += buffer.readInt8(start + 66) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7721_0100_067_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 67 < end) {
 			rawValue += buffer.readInt8(start + 67) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7721_0100_060_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 60 < end) {
 			rawValue += buffer.readInt8(start + 60) * 1.0;
+			valid = true;
 		}
 		if (start + 61 < end) {
 			rawValue += buffer.readInt8(start + 61) * 0.01;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7722_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7722_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7722_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 1.0;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7722_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 1.0;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readUInt8(start + 7) * 256.0;
+			valid = true;
 		}
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 1000.0;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readUInt8(start + 9) * 256000.0;
+			valid = true;
 		}
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 1000000.0;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readUInt8(start + 11) * 2.56E8;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7729_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7729_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7729_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7729_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7729_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.1;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7729_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 0.1;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7729_0100_012_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 0.1;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readInt8(start + 13) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7729_0100_014_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 0.1;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readInt8(start + 15) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7729_0100_016_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 0.1;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readInt8(start + 17) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7729_0100_018_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 0.1;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readInt8(start + 19) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7729_0100_020_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 1.0;
+			valid = true;
 		}
 		if (start + 21 < end) {
 			rawValue += buffer.readInt8(start + 21) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7729_0100_022_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += buffer.readUInt8(start + 22) * 1.0;
+			valid = true;
 		}
 		if (start + 23 < end) {
 			rawValue += buffer.readUInt8(start + 23) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7729_0100_024_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 1.0;
+			valid = true;
 		}
 		if (start + 25 < end) {
 			rawValue += buffer.readUInt8(start + 25) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7729_0100_026_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 26 < end) {
 			rawValue += buffer.readInt8(start + 26) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7729_0100_027_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 27 < end) {
 			rawValue += buffer.readInt8(start + 27) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7729_0100_028_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 28 < end) {
 			rawValue += buffer.readInt8(start + 28) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7729_0100_029_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 29 < end) {
 			rawValue += buffer.readInt8(start + 29) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7729_0100_030_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 30 < end) {
 			rawValue += buffer.readInt8(start + 30) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7729_0100_031_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 31 < end) {
 			rawValue += buffer.readInt8(start + 31) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7729_0100_032_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 32 < end) {
 			rawValue += buffer.readInt8(start + 32) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7729_0100_036_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += buffer.readUInt8(start + 36) * 1.0;
+			valid = true;
 		}
 		if (start + 37 < end) {
 			rawValue += buffer.readUInt8(start + 37) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7729_0100_038_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 38 < end) {
 			rawValue += buffer.readUInt8(start + 38) * 1.0;
+			valid = true;
 		}
 		if (start + 39 < end) {
 			rawValue += buffer.readUInt8(start + 39) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7729_0100_040_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 40 < end) {
 			rawValue += buffer.readInt8(start + 40) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7729_0100_042_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 42 < end) {
 			rawValue += buffer.readUInt8(start + 42) * 1.0;
+			valid = true;
 		}
 		if (start + 43 < end) {
 			rawValue += buffer.readUInt8(start + 43) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7729_0100_044_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 44 < end) {
 			rawValue += buffer.readUInt8(start + 44) * 0.1;
+			valid = true;
 		}
 		if (start + 45 < end) {
 			rawValue += buffer.readInt8(start + 45) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7729_0100_046_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 46 < end) {
 			rawValue += buffer.readUInt8(start + 46) * 1.0;
+			valid = true;
 		}
 		if (start + 47 < end) {
 			rawValue += buffer.readUInt8(start + 47) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7729_0100_048_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 48 < end) {
 			rawValue += buffer.readUInt8(start + 48) * 0.1;
+			valid = true;
 		}
 		if (start + 49 < end) {
 			rawValue += buffer.readInt8(start + 49) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7729_0100_050_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 50 < end) {
 			rawValue += buffer.readUInt8(start + 50) * 1.0;
+			valid = true;
 		}
 		if (start + 51 < end) {
 			rawValue += buffer.readUInt8(start + 51) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7729_0100_052_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 52 < end) {
 			rawValue += buffer.readUInt8(start + 52) * 0.1;
+			valid = true;
 		}
 		if (start + 53 < end) {
 			rawValue += buffer.readInt8(start + 53) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7729_0100_054_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 54 < end) {
 			rawValue += buffer.readUInt8(start + 54) * 1.0;
+			valid = true;
 		}
 		if (start + 55 < end) {
 			rawValue += buffer.readUInt8(start + 55) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7729_0100_056_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 56 < end) {
 			rawValue += buffer.readUInt8(start + 56) * 0.1;
+			valid = true;
 		}
 		if (start + 57 < end) {
 			rawValue += buffer.readInt8(start + 57) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7729_0100_058_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 58 < end) {
 			rawValue += buffer.readUInt8(start + 58) * 1.0;
+			valid = true;
 		}
 		if (start + 59 < end) {
 			rawValue += buffer.readUInt8(start + 59) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7729_0100_062_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 62 < end) {
 			rawValue += buffer.readUInt8(start + 62) * 1.0;
+			valid = true;
 		}
 		if (start + 63 < end) {
 			rawValue += buffer.readInt8(start + 63) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7729_0100_064_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 64 < end) {
 			rawValue += buffer.readUInt8(start + 64) * 1.0;
+			valid = true;
 		}
 		if (start + 65 < end) {
 			rawValue += buffer.readInt8(start + 65) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7729_0100_066_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 66 < end) {
 			rawValue += buffer.readInt8(start + 66) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7729_0100_067_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 67 < end) {
 			rawValue += buffer.readInt8(start + 67) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7729_0100_060_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 60 < end) {
 			rawValue += buffer.readInt8(start + 60) * 1.0;
+			valid = true;
 		}
 		if (start + 61 < end) {
 			rawValue += buffer.readInt8(start + 61) * 0.01;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_772A_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_772A_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_772A_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 1.0;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_772A_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 1.0;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readUInt8(start + 7) * 256.0;
+			valid = true;
 		}
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 1000.0;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readUInt8(start + 9) * 256000.0;
+			valid = true;
 		}
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 1000000.0;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readUInt8(start + 11) * 2.56E8;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7731_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7731_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7731_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7731_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7731_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.1;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7731_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 0.1;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7731_0100_012_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 0.1;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readInt8(start + 13) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7731_0100_014_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 0.1;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readInt8(start + 15) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7731_0100_016_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7731_0100_017_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 17 < end) {
 			rawValue += buffer.readUInt8(start + 17) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7731_0100_018_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7731_0100_019_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 19 < end) {
 			rawValue += buffer.readUInt8(start + 19) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7731_0100_020_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 1.0;
+			valid = true;
 		}
 		if (start + 21 < end) {
 			rawValue += buffer.readUInt8(start + 21) * 256.0;
+			valid = true;
 		}
 		if (start + 22 < end) {
 			rawValue += buffer.readUInt8(start + 22) * 1000.0;
+			valid = true;
 		}
 		if (start + 23 < end) {
 			rawValue += buffer.readUInt8(start + 23) * 256000.0;
+			valid = true;
 		}
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 1000000.0;
+			valid = true;
 		}
 		if (start + 25 < end) {
 			rawValue += buffer.readUInt8(start + 25) * 2.56E8;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7731_0100_026_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 26 < end) {
 			rawValue += buffer.readUInt8(start + 26) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7751_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7751_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7751_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7751_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7751_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.1;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7751_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 0.1;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7751_0100_012_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 0.1;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readInt8(start + 13) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7751_0100_014_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 0.1;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readInt8(start + 15) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7751_0100_016_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 0.1;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readInt8(start + 17) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7751_0100_018_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 0.1;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readInt8(start + 19) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7751_0100_020_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 0.1;
+			valid = true;
 		}
 		if (start + 21 < end) {
 			rawValue += buffer.readInt8(start + 21) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7751_0100_022_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += buffer.readUInt8(start + 22) * 0.1;
+			valid = true;
 		}
 		if (start + 23 < end) {
 			rawValue += buffer.readInt8(start + 23) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7751_0100_024_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7751_0100_025_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 25 < end) {
 			rawValue += buffer.readUInt8(start + 25) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7751_0100_026_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 26 < end) {
 			rawValue += buffer.readUInt8(start + 26) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7751_0100_027_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 27 < end) {
 			rawValue += ((buffer.readInt8(start + 27) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7751_0100_027_1_2: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 27 < end) {
 			rawValue += ((buffer.readInt8(start + 27) >> 1) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7751_0100_027_1_4: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 27 < end) {
 			rawValue += ((buffer.readInt8(start + 27) >> 2) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7751_0100_027_1_8: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 27 < end) {
 			rawValue += ((buffer.readInt8(start + 27) >> 3) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7751_0100_027_1_16: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 27 < end) {
 			rawValue += ((buffer.readInt8(start + 27) >> 4) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7751_0100_027_1_32: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 27 < end) {
 			rawValue += ((buffer.readInt8(start + 27) >> 5) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7751_0100_028_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 28 < end) {
 			rawValue += buffer.readUInt8(start + 28) * 1.0;
+			valid = true;
 		}
 		if (start + 29 < end) {
 			rawValue += buffer.readUInt8(start + 29) * 256.0;
+			valid = true;
 		}
 		if (start + 30 < end) {
 			rawValue += buffer.readUInt8(start + 30) * 65536.0;
+			valid = true;
 		}
 		if (start + 31 < end) {
 			rawValue += buffer.readUInt8(start + 31) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7751_0100_032_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 32 < end) {
 			rawValue += buffer.readUInt8(start + 32) * 1.0;
+			valid = true;
 		}
 		if (start + 33 < end) {
 			rawValue += buffer.readUInt8(start + 33) * 256.0;
+			valid = true;
 		}
 		if (start + 34 < end) {
 			rawValue += buffer.readUInt8(start + 34) * 65536.0;
+			valid = true;
 		}
 		if (start + 35 < end) {
 			rawValue += buffer.readUInt8(start + 35) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7751_0100_036_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += buffer.readUInt8(start + 36) * 1.0;
+			valid = true;
 		}
 		if (start + 37 < end) {
 			rawValue += buffer.readUInt8(start + 37) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7751_0100_039_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 39 < end) {
 			rawValue += buffer.readUInt8(start + 39) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7761_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7761_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7761_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7761_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7761_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.1;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7761_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 0.1;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7761_0100_012_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 0.1;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readInt8(start + 13) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7761_0100_014_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 0.1;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readInt8(start + 15) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7761_0100_016_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 0.1;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readInt8(start + 17) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7761_0100_018_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 0.1;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readInt8(start + 19) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7761_0100_020_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 1.0;
+			valid = true;
 		}
 		if (start + 21 < end) {
 			rawValue += buffer.readInt8(start + 21) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7761_0100_022_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += buffer.readUInt8(start + 22) * 1.0;
+			valid = true;
 		}
 		if (start + 23 < end) {
 			rawValue += buffer.readUInt8(start + 23) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7761_0100_024_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 1.0;
+			valid = true;
 		}
 		if (start + 25 < end) {
 			rawValue += buffer.readUInt8(start + 25) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7761_0100_026_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 26 < end) {
 			rawValue += buffer.readInt8(start + 26) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7761_0100_027_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 27 < end) {
 			rawValue += buffer.readInt8(start + 27) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7761_0100_028_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 28 < end) {
 			rawValue += buffer.readInt8(start + 28) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7761_0100_029_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 29 < end) {
 			rawValue += buffer.readInt8(start + 29) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7761_0100_030_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 30 < end) {
 			rawValue += buffer.readInt8(start + 30) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7761_0100_031_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 31 < end) {
 			rawValue += buffer.readInt8(start + 31) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7761_0100_032_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 32 < end) {
 			rawValue += buffer.readInt8(start + 32) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7761_0100_033_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 33 < end) {
 			rawValue += buffer.readUInt8(start + 33) * 1.0;
+			valid = true;
 		}
 		if (start + 34 < end) {
 			rawValue += buffer.readUInt8(start + 34) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7761_0100_036_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += buffer.readUInt8(start + 36) * 1.0;
+			valid = true;
 		}
 		if (start + 37 < end) {
 			rawValue += buffer.readUInt8(start + 37) * 256.0;
+			valid = true;
 		}
 		if (start + 38 < end) {
 			rawValue += buffer.readUInt8(start + 38) * 65536.0;
+			valid = true;
 		}
 		if (start + 39 < end) {
 			rawValue += buffer.readUInt8(start + 39) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7761_0100_040_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 40 < end) {
 			rawValue += buffer.readUInt8(start + 40) * 1.0;
+			valid = true;
 		}
 		if (start + 41 < end) {
 			rawValue += buffer.readUInt8(start + 41) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7761_0100_046_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 46 < end) {
 			rawValue += buffer.readUInt8(start + 46) * 1.0;
+			valid = true;
 		}
 		if (start + 47 < end) {
 			rawValue += buffer.readInt8(start + 47) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7761_0100_048_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 48 < end) {
 			rawValue += buffer.readUInt8(start + 48) * 1.0;
+			valid = true;
 		}
 		if (start + 49 < end) {
 			rawValue += buffer.readInt8(start + 49) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7761_0100_050_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 50 < end) {
 			rawValue += buffer.readInt8(start + 50) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7761_0100_051_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 51 < end) {
 			rawValue += buffer.readInt8(start + 51) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7761_0100_044_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 44 < end) {
 			rawValue += buffer.readInt8(start + 44) * 1.0;
+			valid = true;
 		}
 		if (start + 45 < end) {
 			rawValue += buffer.readInt8(start + 45) * 0.01;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7761_0100_052_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 52 < end) {
 			rawValue += buffer.readUInt8(start + 52) * 1.0;
+			valid = true;
 		}
 		if (start + 53 < end) {
 			rawValue += buffer.readUInt8(start + 53) * 256.0;
+			valid = true;
 		}
 		if (start + 54 < end) {
 			rawValue += buffer.readUInt8(start + 54) * 65536.0;
+			valid = true;
 		}
 		if (start + 55 < end) {
 			rawValue += buffer.readUInt8(start + 55) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7761_0100_056_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 56 < end) {
 			rawValue += buffer.readUInt8(start + 56) * 1.0;
+			valid = true;
 		}
 		if (start + 57 < end) {
 			rawValue += buffer.readUInt8(start + 57) * 256.0;
+			valid = true;
 		}
 		if (start + 58 < end) {
 			rawValue += buffer.readUInt8(start + 58) * 65536.0;
+			valid = true;
 		}
 		if (start + 59 < end) {
 			rawValue += buffer.readUInt8(start + 59) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7761_0100_060_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 60 < end) {
 			rawValue += buffer.readUInt8(start + 60) * 1.0;
+			valid = true;
 		}
 		if (start + 61 < end) {
 			rawValue += buffer.readUInt8(start + 61) * 256.0;
+			valid = true;
 		}
 		if (start + 62 < end) {
 			rawValue += buffer.readUInt8(start + 62) * 65536.0;
+			valid = true;
 		}
 		if (start + 63 < end) {
 			rawValue += buffer.readUInt8(start + 63) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7761_0100_064_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 64 < end) {
 			rawValue += buffer.readUInt8(start + 64) * 1.0;
+			valid = true;
 		}
 		if (start + 65 < end) {
 			rawValue += buffer.readUInt8(start + 65) * 256.0;
+			valid = true;
 		}
 		if (start + 66 < end) {
 			rawValue += buffer.readUInt8(start + 66) * 65536.0;
+			valid = true;
 		}
 		if (start + 67 < end) {
 			rawValue += buffer.readUInt8(start + 67) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7761_0100_068_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 68 < end) {
 			rawValue += buffer.readUInt8(start + 68) * 1.0;
+			valid = true;
 		}
 		if (start + 69 < end) {
 			rawValue += buffer.readUInt8(start + 69) * 256.0;
+			valid = true;
 		}
 		if (start + 70 < end) {
 			rawValue += buffer.readUInt8(start + 70) * 65536.0;
+			valid = true;
 		}
 		if (start + 71 < end) {
 			rawValue += buffer.readUInt8(start + 71) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7761_0100_072_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 72 < end) {
 			rawValue += buffer.readUInt8(start + 72) * 1.0;
+			valid = true;
 		}
 		if (start + 73 < end) {
 			rawValue += buffer.readUInt8(start + 73) * 256.0;
+			valid = true;
 		}
 		if (start + 74 < end) {
 			rawValue += buffer.readUInt8(start + 74) * 65536.0;
+			valid = true;
 		}
 		if (start + 75 < end) {
 			rawValue += buffer.readUInt8(start + 75) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7761_0100_036_1_1: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += ((buffer.readInt8(start + 36) >> 0) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7761_0100_036_1_67108864: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += ((buffer.readInt8(start + 36) >> 26) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7761_0100_036_1_2: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += ((buffer.readInt8(start + 36) >> 1) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7761_0100_036_1_4: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += ((buffer.readInt8(start + 36) >> 2) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7761_0100_036_1_8: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += ((buffer.readInt8(start + 36) >> 3) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7761_0100_036_1_16: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += ((buffer.readInt8(start + 36) >> 4) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7761_0100_036_1_32: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += ((buffer.readInt8(start + 36) >> 5) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7761_0100_036_1_64: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += ((buffer.readInt8(start + 36) >> 6) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7761_0100_036_1_128: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += ((buffer.readInt8(start + 36) >> 7) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7761_0100_036_1_256: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += ((buffer.readInt8(start + 36) >> 8) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7761_0100_036_1_512: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += ((buffer.readInt8(start + 36) >> 9) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7761_0100_036_1_1024: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += ((buffer.readInt8(start + 36) >> 10) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7761_0100_036_1_2048: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += ((buffer.readInt8(start + 36) >> 11) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7761_0100_036_1_262144: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += ((buffer.readInt8(start + 36) >> 18) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7761_0100_036_1_524288: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += ((buffer.readInt8(start + 36) >> 19) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7761_0100_036_1_4096: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += ((buffer.readInt8(start + 36) >> 12) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7761_0100_036_1_8192: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += ((buffer.readInt8(start + 36) >> 13) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7761_0100_036_1_16384: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += ((buffer.readInt8(start + 36) >> 14) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7761_0100_036_1_32768: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += ((buffer.readInt8(start + 36) >> 15) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7761_0100_036_1_65536: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += ((buffer.readInt8(start + 36) >> 16) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7761_0100_036_1_1048576: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += ((buffer.readInt8(start + 36) >> 20) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7761_0100_036_1_2097152: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += ((buffer.readInt8(start + 36) >> 21) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7761_0100_036_1_4194304: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += ((buffer.readInt8(start + 36) >> 22) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7761_0100_036_1_8388608: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += ((buffer.readInt8(start + 36) >> 23) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7761_0100_036_1_16777216: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += ((buffer.readInt8(start + 36) >> 24) & 1) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7762_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7762_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7762_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 1.0;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7762_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 1.0;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readUInt8(start + 7) * 256.0;
+			valid = true;
 		}
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 1000.0;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readUInt8(start + 9) * 256000.0;
+			valid = true;
 		}
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 1000000.0;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readUInt8(start + 11) * 2.56E8;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7774_0100_000_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 1.0;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readUInt8(start + 1) * 256.0;
+			valid = true;
 		}
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 65536.0;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7774_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 1.0;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7774_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.1;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7774_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 0.1;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7774_0100_012_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 1.0;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readUInt8(start + 13) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7774_0100_014_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 1.0;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readUInt8(start + 15) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7774_0100_016_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 1.0;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readUInt8(start + 17) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7774_0100_018_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 1.0;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readUInt8(start + 19) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7774_0100_020_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 0.01;
+			valid = true;
 		}
 		if (start + 21 < end) {
 			rawValue += buffer.readUInt8(start + 21) * 2.56;
+			valid = true;
 		}
 		if (start + 22 < end) {
 			rawValue += buffer.readUInt8(start + 22) * 655.36;
+			valid = true;
 		}
 		if (start + 23 < end) {
 			rawValue += buffer.readUInt8(start + 23) * 167772.16;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7774_0100_096_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 96 < end) {
 			rawValue += buffer.readUInt8(start + 96) * 1.0;
+			valid = true;
 		}
 		if (start + 97 < end) {
 			rawValue += buffer.readUInt8(start + 97) * 256.0;
+			valid = true;
 		}
 		if (start + 98 < end) {
 			rawValue += buffer.readUInt8(start + 98) * 65536.0;
+			valid = true;
 		}
 		if (start + 99 < end) {
 			rawValue += buffer.readUInt8(start + 99) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7774_0100_024_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 0.1;
+			valid = true;
 		}
 		if (start + 25 < end) {
 			rawValue += buffer.readInt8(start + 25) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7774_0100_026_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 26 < end) {
 			rawValue += buffer.readUInt8(start + 26) * 0.1;
+			valid = true;
 		}
 		if (start + 27 < end) {
 			rawValue += buffer.readInt8(start + 27) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7774_0100_028_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 28 < end) {
 			rawValue += buffer.readUInt8(start + 28) * 1.0;
+			valid = true;
 		}
 		if (start + 29 < end) {
 			rawValue += buffer.readUInt8(start + 29) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7774_0100_030_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 30 < end) {
 			rawValue += buffer.readUInt8(start + 30) * 1.0;
+			valid = true;
 		}
 		if (start + 31 < end) {
 			rawValue += buffer.readUInt8(start + 31) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7774_0100_032_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 32 < end) {
 			rawValue += buffer.readUInt8(start + 32) * 1.0;
+			valid = true;
 		}
 		if (start + 33 < end) {
 			rawValue += buffer.readUInt8(start + 33) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7774_0100_034_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 34 < end) {
 			rawValue += buffer.readUInt8(start + 34) * 1.0;
+			valid = true;
 		}
 		if (start + 35 < end) {
 			rawValue += buffer.readUInt8(start + 35) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7774_0100_036_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += buffer.readUInt8(start + 36) * 0.1;
+			valid = true;
 		}
 		if (start + 37 < end) {
 			rawValue += buffer.readInt8(start + 37) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7774_0100_038_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 38 < end) {
 			rawValue += buffer.readUInt8(start + 38) * 0.1;
+			valid = true;
 		}
 		if (start + 39 < end) {
 			rawValue += buffer.readInt8(start + 39) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7774_0100_040_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 40 < end) {
 			rawValue += buffer.readUInt8(start + 40) * 1.0;
+			valid = true;
 		}
 		if (start + 41 < end) {
 			rawValue += buffer.readUInt8(start + 41) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7774_0100_042_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 42 < end) {
 			rawValue += buffer.readUInt8(start + 42) * 1.0;
+			valid = true;
 		}
 		if (start + 43 < end) {
 			rawValue += buffer.readUInt8(start + 43) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7774_0100_044_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 44 < end) {
 			rawValue += buffer.readUInt8(start + 44) * 1.0;
+			valid = true;
 		}
 		if (start + 45 < end) {
 			rawValue += buffer.readUInt8(start + 45) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7774_0100_046_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 46 < end) {
 			rawValue += buffer.readUInt8(start + 46) * 1.0;
+			valid = true;
 		}
 		if (start + 47 < end) {
 			rawValue += buffer.readUInt8(start + 47) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7774_0100_100_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 100 < end) {
 			rawValue += buffer.readUInt8(start + 100) * 1.0;
+			valid = true;
 		}
 		if (start + 101 < end) {
 			rawValue += buffer.readUInt8(start + 101) * 256.0;
+			valid = true;
 		}
 		if (start + 102 < end) {
 			rawValue += buffer.readUInt8(start + 102) * 65536.0;
+			valid = true;
 		}
 		if (start + 103 < end) {
 			rawValue += buffer.readUInt8(start + 103) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7774_0100_048_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 48 < end) {
 			rawValue += buffer.readUInt8(start + 48) * 0.1;
+			valid = true;
 		}
 		if (start + 49 < end) {
 			rawValue += buffer.readInt8(start + 49) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7774_0100_050_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 50 < end) {
 			rawValue += buffer.readUInt8(start + 50) * 0.1;
+			valid = true;
 		}
 		if (start + 51 < end) {
 			rawValue += buffer.readInt8(start + 51) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7774_0100_052_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 52 < end) {
 			rawValue += buffer.readUInt8(start + 52) * 1.0;
+			valid = true;
 		}
 		if (start + 53 < end) {
 			rawValue += buffer.readUInt8(start + 53) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7774_0100_054_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 54 < end) {
 			rawValue += buffer.readUInt8(start + 54) * 1.0;
+			valid = true;
 		}
 		if (start + 55 < end) {
 			rawValue += buffer.readUInt8(start + 55) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7774_0100_056_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 56 < end) {
 			rawValue += buffer.readUInt8(start + 56) * 1.0;
+			valid = true;
 		}
 		if (start + 57 < end) {
 			rawValue += buffer.readUInt8(start + 57) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7774_0100_058_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 58 < end) {
 			rawValue += buffer.readUInt8(start + 58) * 1.0;
+			valid = true;
 		}
 		if (start + 59 < end) {
 			rawValue += buffer.readUInt8(start + 59) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7774_0100_104_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 104 < end) {
 			rawValue += buffer.readUInt8(start + 104) * 1.0;
+			valid = true;
 		}
 		if (start + 105 < end) {
 			rawValue += buffer.readUInt8(start + 105) * 256.0;
+			valid = true;
 		}
 		if (start + 106 < end) {
 			rawValue += buffer.readUInt8(start + 106) * 65536.0;
+			valid = true;
 		}
 		if (start + 107 < end) {
 			rawValue += buffer.readUInt8(start + 107) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7774_0100_060_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 60 < end) {
 			rawValue += buffer.readUInt8(start + 60) * 0.1;
+			valid = true;
 		}
 		if (start + 61 < end) {
 			rawValue += buffer.readInt8(start + 61) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7774_0100_062_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 62 < end) {
 			rawValue += buffer.readUInt8(start + 62) * 0.1;
+			valid = true;
 		}
 		if (start + 63 < end) {
 			rawValue += buffer.readInt8(start + 63) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7774_0100_064_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 64 < end) {
 			rawValue += buffer.readUInt8(start + 64) * 1.0;
+			valid = true;
 		}
 		if (start + 65 < end) {
 			rawValue += buffer.readUInt8(start + 65) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7774_0100_066_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 66 < end) {
 			rawValue += buffer.readUInt8(start + 66) * 1.0;
+			valid = true;
 		}
 		if (start + 67 < end) {
 			rawValue += buffer.readUInt8(start + 67) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7774_0100_068_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 68 < end) {
 			rawValue += buffer.readUInt8(start + 68) * 1.0;
+			valid = true;
 		}
 		if (start + 69 < end) {
 			rawValue += buffer.readUInt8(start + 69) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7774_0100_070_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 70 < end) {
 			rawValue += buffer.readUInt8(start + 70) * 1.0;
+			valid = true;
 		}
 		if (start + 71 < end) {
 			rawValue += buffer.readUInt8(start + 71) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7774_0100_108_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 108 < end) {
 			rawValue += buffer.readUInt8(start + 108) * 1.0;
+			valid = true;
 		}
 		if (start + 109 < end) {
 			rawValue += buffer.readUInt8(start + 109) * 256.0;
+			valid = true;
 		}
 		if (start + 110 < end) {
 			rawValue += buffer.readUInt8(start + 110) * 65536.0;
+			valid = true;
 		}
 		if (start + 111 < end) {
 			rawValue += buffer.readUInt8(start + 111) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7774_0100_072_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 72 < end) {
 			rawValue += buffer.readUInt8(start + 72) * 1.0;
+			valid = true;
 		}
 		if (start + 73 < end) {
 			rawValue += buffer.readUInt8(start + 73) * 256.0;
+			valid = true;
 		}
 		if (start + 74 < end) {
 			rawValue += buffer.readUInt8(start + 74) * 65536.0;
+			valid = true;
 		}
 		if (start + 75 < end) {
 			rawValue += buffer.readUInt8(start + 75) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7774_0100_076_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 76 < end) {
 			rawValue += buffer.readUInt8(start + 76) * 1.0;
+			valid = true;
 		}
 		if (start + 77 < end) {
 			rawValue += buffer.readUInt8(start + 77) * 256.0;
+			valid = true;
 		}
 		if (start + 78 < end) {
 			rawValue += buffer.readUInt8(start + 78) * 65536.0;
+			valid = true;
 		}
 		if (start + 79 < end) {
 			rawValue += buffer.readUInt8(start + 79) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7774_0100_112_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 112 < end) {
 			rawValue += buffer.readUInt8(start + 112) * 1.0;
+			valid = true;
 		}
 		if (start + 113 < end) {
 			rawValue += buffer.readUInt8(start + 113) * 256.0;
+			valid = true;
 		}
 		if (start + 114 < end) {
 			rawValue += buffer.readUInt8(start + 114) * 65536.0;
+			valid = true;
 		}
 		if (start + 115 < end) {
 			rawValue += buffer.readUInt8(start + 115) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7774_0100_080_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 80 < end) {
 			rawValue += buffer.readUInt8(start + 80) * 1.0;
+			valid = true;
 		}
 		if (start + 81 < end) {
 			rawValue += buffer.readUInt8(start + 81) * 256.0;
+			valid = true;
 		}
 		if (start + 82 < end) {
 			rawValue += buffer.readUInt8(start + 82) * 65536.0;
+			valid = true;
 		}
 		if (start + 83 < end) {
 			rawValue += buffer.readUInt8(start + 83) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7774_0100_116_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 116 < end) {
 			rawValue += buffer.readUInt8(start + 116) * 1.0;
+			valid = true;
 		}
 		if (start + 117 < end) {
 			rawValue += buffer.readUInt8(start + 117) * 256.0;
+			valid = true;
 		}
 		if (start + 118 < end) {
 			rawValue += buffer.readUInt8(start + 118) * 65536.0;
+			valid = true;
 		}
 		if (start + 119 < end) {
 			rawValue += buffer.readUInt8(start + 119) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7774_0100_084_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 84 < end) {
 			rawValue += buffer.readUInt8(start + 84) * 0.01;
+			valid = true;
 		}
 		if (start + 85 < end) {
 			rawValue += buffer.readUInt8(start + 85) * 2.56;
+			valid = true;
 		}
 		if (start + 86 < end) {
 			rawValue += buffer.readUInt8(start + 86) * 655.36;
+			valid = true;
 		}
 		if (start + 87 < end) {
 			rawValue += buffer.readUInt8(start + 87) * 167772.16;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7774_0100_128_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 128 < end) {
 			rawValue += buffer.readUInt8(start + 128) * 1.0;
+			valid = true;
 		}
 		if (start + 129 < end) {
 			rawValue += buffer.readUInt8(start + 129) * 256.0;
+			valid = true;
 		}
 		if (start + 130 < end) {
 			rawValue += buffer.readUInt8(start + 130) * 65536.0;
+			valid = true;
 		}
 		if (start + 131 < end) {
 			rawValue += buffer.readUInt8(start + 131) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7774_0100_088_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 88 < end) {
 			rawValue += buffer.readUInt8(start + 88) * 1.0;
+			valid = true;
 		}
 		if (start + 89 < end) {
 			rawValue += buffer.readUInt8(start + 89) * 256.0;
+			valid = true;
 		}
 		if (start + 90 < end) {
 			rawValue += buffer.readUInt8(start + 90) * 65536.0;
+			valid = true;
 		}
 		if (start + 91 < end) {
 			rawValue += buffer.readUInt8(start + 91) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7774_0100_120_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 120 < end) {
 			rawValue += buffer.readUInt8(start + 120) * 1.0;
+			valid = true;
 		}
 		if (start + 121 < end) {
 			rawValue += buffer.readUInt8(start + 121) * 256.0;
+			valid = true;
 		}
 		if (start + 122 < end) {
 			rawValue += buffer.readUInt8(start + 122) * 65536.0;
+			valid = true;
 		}
 		if (start + 123 < end) {
 			rawValue += buffer.readUInt8(start + 123) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7774_0100_092_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 92 < end) {
 			rawValue += buffer.readUInt8(start + 92) * 1.0;
+			valid = true;
 		}
 		if (start + 93 < end) {
 			rawValue += buffer.readUInt8(start + 93) * 256.0;
+			valid = true;
 		}
 		if (start + 94 < end) {
 			rawValue += buffer.readUInt8(start + 94) * 65536.0;
+			valid = true;
 		}
 		if (start + 95 < end) {
 			rawValue += buffer.readUInt8(start + 95) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7774_0100_124_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 124 < end) {
 			rawValue += buffer.readUInt8(start + 124) * 1.0;
+			valid = true;
 		}
 		if (start + 125 < end) {
 			rawValue += buffer.readUInt8(start + 125) * 256.0;
+			valid = true;
 		}
 		if (start + 126 < end) {
 			rawValue += buffer.readUInt8(start + 126) * 65536.0;
+			valid = true;
 		}
 		if (start + 127 < end) {
 			rawValue += buffer.readUInt8(start + 127) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7821_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7821_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7821_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7821_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7821_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.1;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7821_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 0.1;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7821_0100_012_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 0.1;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readInt8(start + 13) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7821_0100_014_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 0.1;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readInt8(start + 15) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7821_0100_016_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 0.1;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readInt8(start + 17) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7821_0100_018_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 0.1;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readInt8(start + 19) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7821_0100_020_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 1.0;
+			valid = true;
 		}
 		if (start + 21 < end) {
 			rawValue += buffer.readInt8(start + 21) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7821_0100_022_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += buffer.readUInt8(start + 22) * 1.0;
+			valid = true;
 		}
 		if (start + 23 < end) {
 			rawValue += buffer.readUInt8(start + 23) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7821_0100_024_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 1.0;
+			valid = true;
 		}
 		if (start + 25 < end) {
 			rawValue += buffer.readUInt8(start + 25) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7821_0100_026_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 26 < end) {
 			rawValue += buffer.readInt8(start + 26) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7821_0100_027_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 27 < end) {
 			rawValue += buffer.readInt8(start + 27) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7821_0100_028_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 28 < end) {
 			rawValue += buffer.readInt8(start + 28) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7821_0100_029_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 29 < end) {
 			rawValue += buffer.readInt8(start + 29) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7821_0100_030_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 30 < end) {
 			rawValue += buffer.readInt8(start + 30) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7821_0100_031_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 31 < end) {
 			rawValue += buffer.readInt8(start + 31) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7821_0100_032_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 32 < end) {
 			rawValue += buffer.readInt8(start + 32) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7821_0100_036_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += buffer.readUInt8(start + 36) * 1.0;
+			valid = true;
 		}
 		if (start + 37 < end) {
 			rawValue += buffer.readUInt8(start + 37) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7821_0100_038_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 38 < end) {
 			rawValue += buffer.readUInt8(start + 38) * 1.0;
+			valid = true;
 		}
 		if (start + 39 < end) {
 			rawValue += buffer.readUInt8(start + 39) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7821_0100_040_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 40 < end) {
 			rawValue += buffer.readInt8(start + 40) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7821_0100_042_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 42 < end) {
 			rawValue += buffer.readUInt8(start + 42) * 1.0;
+			valid = true;
 		}
 		if (start + 43 < end) {
 			rawValue += buffer.readUInt8(start + 43) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7821_0100_044_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 44 < end) {
 			rawValue += buffer.readUInt8(start + 44) * 0.1;
+			valid = true;
 		}
 		if (start + 45 < end) {
 			rawValue += buffer.readInt8(start + 45) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7821_0100_046_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 46 < end) {
 			rawValue += buffer.readUInt8(start + 46) * 1.0;
+			valid = true;
 		}
 		if (start + 47 < end) {
 			rawValue += buffer.readUInt8(start + 47) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7821_0100_048_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 48 < end) {
 			rawValue += buffer.readUInt8(start + 48) * 0.1;
+			valid = true;
 		}
 		if (start + 49 < end) {
 			rawValue += buffer.readInt8(start + 49) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7821_0100_050_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 50 < end) {
 			rawValue += buffer.readUInt8(start + 50) * 1.0;
+			valid = true;
 		}
 		if (start + 51 < end) {
 			rawValue += buffer.readUInt8(start + 51) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7821_0100_052_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 52 < end) {
 			rawValue += buffer.readUInt8(start + 52) * 0.1;
+			valid = true;
 		}
 		if (start + 53 < end) {
 			rawValue += buffer.readInt8(start + 53) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7821_0100_054_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 54 < end) {
 			rawValue += buffer.readUInt8(start + 54) * 1.0;
+			valid = true;
 		}
 		if (start + 55 < end) {
 			rawValue += buffer.readUInt8(start + 55) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7821_0100_056_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 56 < end) {
 			rawValue += buffer.readUInt8(start + 56) * 0.1;
+			valid = true;
 		}
 		if (start + 57 < end) {
 			rawValue += buffer.readInt8(start + 57) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7821_0100_058_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 58 < end) {
 			rawValue += buffer.readUInt8(start + 58) * 1.0;
+			valid = true;
 		}
 		if (start + 59 < end) {
 			rawValue += buffer.readUInt8(start + 59) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7821_0100_062_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 62 < end) {
 			rawValue += buffer.readUInt8(start + 62) * 1.0;
+			valid = true;
 		}
 		if (start + 63 < end) {
 			rawValue += buffer.readInt8(start + 63) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7821_0100_064_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 64 < end) {
 			rawValue += buffer.readUInt8(start + 64) * 1.0;
+			valid = true;
 		}
 		if (start + 65 < end) {
 			rawValue += buffer.readInt8(start + 65) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7821_0100_066_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 66 < end) {
 			rawValue += buffer.readInt8(start + 66) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7821_0100_067_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 67 < end) {
 			rawValue += buffer.readInt8(start + 67) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7821_0100_060_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 60 < end) {
 			rawValue += buffer.readInt8(start + 60) * 1.0;
+			valid = true;
 		}
 		if (start + 61 < end) {
 			rawValue += buffer.readInt8(start + 61) * 0.01;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7822_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7822_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7822_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 1.0;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7822_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 1.0;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readUInt8(start + 7) * 256.0;
+			valid = true;
 		}
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 1000.0;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readUInt8(start + 9) * 256000.0;
+			valid = true;
 		}
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 1000000.0;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readUInt8(start + 11) * 2.56E8;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7831_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 1.0;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7831_0100_002_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readInt8(start + 2) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7831_0100_003_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7831_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 1.0;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7831_0100_006_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readInt8(start + 6) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7831_0100_007_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7831_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.1;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7831_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 0.1;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7831_0100_012_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readInt8(start + 12) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7831_0100_013_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 13 < end) {
 			rawValue += buffer.readInt8(start + 13) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7831_0100_014_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readInt8(start + 14) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7831_0100_015_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 15 < end) {
 			rawValue += buffer.readInt8(start + 15) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7831_0100_016_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readInt8(start + 16) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7831_0100_017_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 17 < end) {
 			rawValue += buffer.readInt8(start + 17) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7831_0100_018_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 18 < end) {
 			rawValue += buffer.readInt8(start + 18) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7831_0100_019_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 19 < end) {
 			rawValue += buffer.readInt8(start + 19) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7831_0100_020_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 0.1;
+			valid = true;
 		}
 		if (start + 21 < end) {
 			rawValue += buffer.readInt8(start + 21) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7831_0100_022_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += buffer.readUInt8(start + 22) * 0.1;
+			valid = true;
 		}
 		if (start + 23 < end) {
 			rawValue += buffer.readInt8(start + 23) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7831_0100_024_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 0.1;
+			valid = true;
 		}
 		if (start + 25 < end) {
 			rawValue += buffer.readInt8(start + 25) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7831_0100_026_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 26 < end) {
 			rawValue += buffer.readInt8(start + 26) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7831_0100_027_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 27 < end) {
 			rawValue += buffer.readInt8(start + 27) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7D04_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7D04_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7D04_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7D04_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7D04_0100_008_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7D04_0100_009_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 9 < end) {
 			rawValue += buffer.readUInt8(start + 9) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7D04_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 1.0;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7D04_0100_012_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7D04_0100_013_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 13 < end) {
 			rawValue += buffer.readUInt8(start + 13) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7D04_0100_014_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7D04_0100_015_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 15 < end) {
 			rawValue += buffer.readUInt8(start + 15) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7D04_0100_016_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7D04_0100_017_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 17 < end) {
 			rawValue += buffer.readUInt8(start + 17) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7D04_0100_019_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 19 < end) {
 			rawValue += buffer.readUInt8(start + 19) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7D04_0100_020_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 1.0;
+			valid = true;
 		}
 		if (start + 21 < end) {
 			rawValue += buffer.readUInt8(start + 21) * 256.0;
+			valid = true;
 		}
 		if (start + 22 < end) {
 			rawValue += buffer.readUInt8(start + 22) * 65536.0;
+			valid = true;
 		}
 		if (start + 23 < end) {
 			rawValue += buffer.readInt8(start + 23) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7D04_0100_024_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 1.0;
+			valid = true;
 		}
 		if (start + 25 < end) {
 			rawValue += buffer.readUInt8(start + 25) * 256.0;
+			valid = true;
 		}
 		if (start + 26 < end) {
 			rawValue += buffer.readUInt8(start + 26) * 1000.0;
+			valid = true;
 		}
 		if (start + 27 < end) {
 			rawValue += buffer.readUInt8(start + 27) * 256000.0;
+			valid = true;
 		}
 		if (start + 28 < end) {
 			rawValue += buffer.readUInt8(start + 28) * 1000000.0;
+			valid = true;
 		}
 		if (start + 29 < end) {
 			rawValue += buffer.readUInt8(start + 29) * 2.56E8;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7D04_0100_030_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 30 < end) {
 			rawValue += buffer.readUInt8(start + 30) * 1.0;
+			valid = true;
 		}
 		if (start + 31 < end) {
 			rawValue += buffer.readUInt8(start + 31) * 0.01;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7D04_0100_032_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 32 < end) {
 			rawValue += buffer.readUInt8(start + 32) * 0.1;
+			valid = true;
 		}
 		if (start + 33 < end) {
 			rawValue += buffer.readInt8(start + 33) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7D04_0100_034_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 34 < end) {
 			rawValue += buffer.readUInt8(start + 34) * 0.1;
+			valid = true;
 		}
 		if (start + 35 < end) {
 			rawValue += buffer.readInt8(start + 35) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7D04_0100_036_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += buffer.readUInt8(start + 36) * 1.0;
+			valid = true;
 		}
 		if (start + 37 < end) {
 			rawValue += buffer.readInt8(start + 37) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7D04_0100_038_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 38 < end) {
 			rawValue += buffer.readUInt8(start + 38) * 0.1;
+			valid = true;
 		}
 		if (start + 39 < end) {
 			rawValue += buffer.readUInt8(start + 39) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E11_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E11_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E11_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E11_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E11_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.1;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E11_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 0.1;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E11_0100_012_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 0.1;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readInt8(start + 13) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E11_0100_014_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 0.1;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readInt8(start + 15) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E11_0100_016_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 0.1;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readInt8(start + 17) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E11_0100_018_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 0.1;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readInt8(start + 19) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E11_0100_020_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 0.1;
+			valid = true;
 		}
 		if (start + 21 < end) {
 			rawValue += buffer.readInt8(start + 21) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E11_0100_022_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += buffer.readUInt8(start + 22) * 0.1;
+			valid = true;
 		}
 		if (start + 23 < end) {
 			rawValue += buffer.readInt8(start + 23) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E11_0100_024_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 0.1;
+			valid = true;
 		}
 		if (start + 25 < end) {
 			rawValue += buffer.readInt8(start + 25) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E11_0100_026_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 26 < end) {
 			rawValue += buffer.readUInt8(start + 26) * 0.1;
+			valid = true;
 		}
 		if (start + 27 < end) {
 			rawValue += buffer.readInt8(start + 27) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E11_0100_028_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 28 < end) {
 			rawValue += buffer.readUInt8(start + 28) * 0.1;
+			valid = true;
 		}
 		if (start + 29 < end) {
 			rawValue += buffer.readInt8(start + 29) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E11_0100_030_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 30 < end) {
 			rawValue += buffer.readUInt8(start + 30) * 1.0;
+			valid = true;
 		}
 		if (start + 31 < end) {
 			rawValue += buffer.readInt8(start + 31) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E11_0100_032_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 32 < end) {
 			rawValue += buffer.readUInt8(start + 32) * 0.1;
+			valid = true;
 		}
 		if (start + 33 < end) {
 			rawValue += buffer.readInt8(start + 33) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E11_0100_034_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 34 < end) {
 			rawValue += buffer.readUInt8(start + 34) * 0.1;
+			valid = true;
 		}
 		if (start + 35 < end) {
 			rawValue += buffer.readInt8(start + 35) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E11_0100_036_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += buffer.readUInt8(start + 36) * 0.1;
+			valid = true;
 		}
 		if (start + 37 < end) {
 			rawValue += buffer.readInt8(start + 37) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E11_0100_038_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 38 < end) {
 			rawValue += buffer.readUInt8(start + 38) * 0.1;
+			valid = true;
 		}
 		if (start + 39 < end) {
 			rawValue += buffer.readInt8(start + 39) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E11_0100_040_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 40 < end) {
 			rawValue += buffer.readUInt8(start + 40) * 1.0;
+			valid = true;
 		}
 		if (start + 41 < end) {
 			rawValue += buffer.readUInt8(start + 41) * 256.0;
+			valid = true;
 		}
 		if (start + 42 < end) {
 			rawValue += buffer.readUInt8(start + 42) * 65536.0;
+			valid = true;
 		}
 		if (start + 43 < end) {
 			rawValue += buffer.readInt8(start + 43) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E11_0100_044_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 44 < end) {
 			rawValue += buffer.readUInt8(start + 44) * 1.0;
+			valid = true;
 		}
 		if (start + 45 < end) {
 			rawValue += buffer.readUInt8(start + 45) * 256.0;
+			valid = true;
 		}
 		if (start + 46 < end) {
 			rawValue += buffer.readUInt8(start + 46) * 65536.0;
+			valid = true;
 		}
 		if (start + 47 < end) {
 			rawValue += buffer.readInt8(start + 47) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E11_0100_048_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 48 < end) {
 			rawValue += buffer.readUInt8(start + 48) * 1.0;
+			valid = true;
 		}
 		if (start + 49 < end) {
 			rawValue += buffer.readUInt8(start + 49) * 256.0;
+			valid = true;
 		}
 		if (start + 50 < end) {
 			rawValue += buffer.readUInt8(start + 50) * 65536.0;
+			valid = true;
 		}
 		if (start + 51 < end) {
 			rawValue += buffer.readInt8(start + 51) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E11_0100_052_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 52 < end) {
 			rawValue += buffer.readUInt8(start + 52) * 1.0;
+			valid = true;
 		}
 		if (start + 53 < end) {
 			rawValue += buffer.readUInt8(start + 53) * 256.0;
+			valid = true;
 		}
 		if (start + 54 < end) {
 			rawValue += buffer.readUInt8(start + 54) * 65536.0;
+			valid = true;
 		}
 		if (start + 55 < end) {
 			rawValue += buffer.readInt8(start + 55) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E11_0100_056_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 56 < end) {
 			rawValue += buffer.readUInt8(start + 56) * 1.0;
+			valid = true;
 		}
 		if (start + 57 < end) {
 			rawValue += buffer.readUInt8(start + 57) * 256.0;
+			valid = true;
 		}
 		if (start + 58 < end) {
 			rawValue += buffer.readUInt8(start + 58) * 65536.0;
+			valid = true;
 		}
 		if (start + 59 < end) {
 			rawValue += buffer.readInt8(start + 59) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E11_0100_060_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 60 < end) {
 			rawValue += buffer.readUInt8(start + 60) * 1.0;
+			valid = true;
 		}
 		if (start + 61 < end) {
 			rawValue += buffer.readUInt8(start + 61) * 256.0;
+			valid = true;
 		}
 		if (start + 62 < end) {
 			rawValue += buffer.readUInt8(start + 62) * 65536.0;
+			valid = true;
 		}
 		if (start + 63 < end) {
 			rawValue += buffer.readInt8(start + 63) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E11_0100_064_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 64 < end) {
 			rawValue += buffer.readUInt8(start + 64) * 1.0;
+			valid = true;
 		}
 		if (start + 65 < end) {
 			rawValue += buffer.readUInt8(start + 65) * 256.0;
+			valid = true;
 		}
 		if (start + 66 < end) {
 			rawValue += buffer.readUInt8(start + 66) * 65536.0;
+			valid = true;
 		}
 		if (start + 67 < end) {
 			rawValue += buffer.readInt8(start + 67) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E11_0100_068_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 68 < end) {
 			rawValue += buffer.readUInt8(start + 68) * 0.01;
+			valid = true;
 		}
 		if (start + 69 < end) {
 			rawValue += buffer.readInt8(start + 69) * 2.56;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E11_0100_070_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 70 < end) {
 			rawValue += buffer.readUInt8(start + 70) * 0.01;
+			valid = true;
 		}
 		if (start + 71 < end) {
 			rawValue += buffer.readInt8(start + 71) * 2.56;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E11_0100_072_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 72 < end) {
 			rawValue += buffer.readUInt8(start + 72) * 0.01;
+			valid = true;
 		}
 		if (start + 73 < end) {
 			rawValue += buffer.readInt8(start + 73) * 2.56;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E11_0100_074_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 74 < end) {
 			rawValue += buffer.readUInt8(start + 74) * 0.01;
+			valid = true;
 		}
 		if (start + 75 < end) {
 			rawValue += buffer.readInt8(start + 75) * 2.56;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E11_0100_076_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 76 < end) {
 			rawValue += buffer.readUInt8(start + 76) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E11_0100_077_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 77 < end) {
 			rawValue += buffer.readUInt8(start + 77) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E11_0100_078_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 78 < end) {
 			rawValue += buffer.readUInt8(start + 78) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E11_0100_079_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 79 < end) {
 			rawValue += buffer.readUInt8(start + 79) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E11_0100_080_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 80 < end) {
 			rawValue += buffer.readUInt8(start + 80) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E11_0100_081_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 81 < end) {
 			rawValue += buffer.readUInt8(start + 81) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E11_0100_082_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 82 < end) {
 			rawValue += buffer.readUInt8(start + 82) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E11_0100_083_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 83 < end) {
 			rawValue += buffer.readUInt8(start + 83) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E11_0100_084_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 84 < end) {
 			rawValue += buffer.readUInt8(start + 84) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E11_0100_085_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 85 < end) {
 			rawValue += buffer.readUInt8(start + 85) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E11_0100_086_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 86 < end) {
 			rawValue += buffer.readUInt8(start + 86) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E11_0100_087_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 87 < end) {
 			rawValue += buffer.readUInt8(start + 87) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E11_0100_088_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 88 < end) {
 			rawValue += buffer.readUInt8(start + 88) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E11_0100_089_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 89 < end) {
 			rawValue += buffer.readUInt8(start + 89) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E11_0100_092_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 92 < end) {
 			rawValue += buffer.readUInt8(start + 92) * 1.0;
+			valid = true;
 		}
 		if (start + 93 < end) {
 			rawValue += buffer.readUInt8(start + 93) * 256.0;
+			valid = true;
 		}
 		if (start + 94 < end) {
 			rawValue += buffer.readUInt8(start + 94) * 65536.0;
+			valid = true;
 		}
 		if (start + 95 < end) {
 			rawValue += buffer.readInt8(start + 95) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E11_0100_096_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 96 < end) {
 			rawValue += buffer.readUInt8(start + 96) * 1.0;
+			valid = true;
 		}
 		if (start + 97 < end) {
 			rawValue += buffer.readUInt8(start + 97) * 256.0;
+			valid = true;
 		}
 		if (start + 98 < end) {
 			rawValue += buffer.readUInt8(start + 98) * 65536.0;
+			valid = true;
 		}
 		if (start + 99 < end) {
 			rawValue += buffer.readInt8(start + 99) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E12_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E12_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E12_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E12_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E12_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.1;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E12_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 0.1;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E12_0100_012_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 0.1;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readInt8(start + 13) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E12_0100_014_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 0.1;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readInt8(start + 15) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E12_0100_016_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 0.1;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readInt8(start + 17) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E12_0100_018_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 0.1;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readInt8(start + 19) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E12_0100_020_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 0.1;
+			valid = true;
 		}
 		if (start + 21 < end) {
 			rawValue += buffer.readInt8(start + 21) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E12_0100_022_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += buffer.readUInt8(start + 22) * 0.1;
+			valid = true;
 		}
 		if (start + 23 < end) {
 			rawValue += buffer.readInt8(start + 23) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E12_0100_024_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 0.1;
+			valid = true;
 		}
 		if (start + 25 < end) {
 			rawValue += buffer.readInt8(start + 25) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E12_0100_026_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 26 < end) {
 			rawValue += buffer.readUInt8(start + 26) * 0.1;
+			valid = true;
 		}
 		if (start + 27 < end) {
 			rawValue += buffer.readInt8(start + 27) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E12_0100_028_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 28 < end) {
 			rawValue += buffer.readUInt8(start + 28) * 0.1;
+			valid = true;
 		}
 		if (start + 29 < end) {
 			rawValue += buffer.readInt8(start + 29) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E12_0100_030_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 30 < end) {
 			rawValue += buffer.readUInt8(start + 30) * 0.1;
+			valid = true;
 		}
 		if (start + 31 < end) {
 			rawValue += buffer.readInt8(start + 31) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E12_0100_032_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 32 < end) {
 			rawValue += buffer.readUInt8(start + 32) * 0.1;
+			valid = true;
 		}
 		if (start + 33 < end) {
 			rawValue += buffer.readInt8(start + 33) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E12_0100_034_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 34 < end) {
 			rawValue += buffer.readUInt8(start + 34) * 0.1;
+			valid = true;
 		}
 		if (start + 35 < end) {
 			rawValue += buffer.readInt8(start + 35) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E12_0100_036_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += buffer.readUInt8(start + 36) * 0.1;
+			valid = true;
 		}
 		if (start + 37 < end) {
 			rawValue += buffer.readInt8(start + 37) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E12_0100_038_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 38 < end) {
 			rawValue += buffer.readUInt8(start + 38) * 0.1;
+			valid = true;
 		}
 		if (start + 39 < end) {
 			rawValue += buffer.readInt8(start + 39) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E12_0100_040_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 40 < end) {
 			rawValue += buffer.readUInt8(start + 40) * 0.1;
+			valid = true;
 		}
 		if (start + 41 < end) {
 			rawValue += buffer.readInt8(start + 41) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E12_0100_042_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 42 < end) {
 			rawValue += buffer.readUInt8(start + 42) * 0.1;
+			valid = true;
 		}
 		if (start + 43 < end) {
 			rawValue += buffer.readInt8(start + 43) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E12_0100_044_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 44 < end) {
 			rawValue += buffer.readUInt8(start + 44) * 0.1;
+			valid = true;
 		}
 		if (start + 45 < end) {
 			rawValue += buffer.readInt8(start + 45) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E12_0100_046_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 46 < end) {
 			rawValue += buffer.readUInt8(start + 46) * 0.1;
+			valid = true;
 		}
 		if (start + 47 < end) {
 			rawValue += buffer.readInt8(start + 47) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E12_0100_048_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 48 < end) {
 			rawValue += buffer.readUInt8(start + 48) * 0.1;
+			valid = true;
 		}
 		if (start + 49 < end) {
 			rawValue += buffer.readInt8(start + 49) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E12_0100_050_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 50 < end) {
 			rawValue += buffer.readUInt8(start + 50) * 0.1;
+			valid = true;
 		}
 		if (start + 51 < end) {
 			rawValue += buffer.readInt8(start + 51) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E12_0100_052_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 52 < end) {
 			rawValue += buffer.readUInt8(start + 52) * 0.1;
+			valid = true;
 		}
 		if (start + 53 < end) {
 			rawValue += buffer.readInt8(start + 53) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E12_0100_054_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 54 < end) {
 			rawValue += buffer.readUInt8(start + 54) * 0.1;
+			valid = true;
 		}
 		if (start + 55 < end) {
 			rawValue += buffer.readInt8(start + 55) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E12_0100_056_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 56 < end) {
 			rawValue += buffer.readUInt8(start + 56) * 0.1;
+			valid = true;
 		}
 		if (start + 57 < end) {
 			rawValue += buffer.readInt8(start + 57) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E12_0100_058_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 58 < end) {
 			rawValue += buffer.readUInt8(start + 58) * 0.1;
+			valid = true;
 		}
 		if (start + 59 < end) {
 			rawValue += buffer.readInt8(start + 59) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E21_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E21_0100_002_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E31_0100_000_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 1.0;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readUInt8(start + 1) * 256.0;
+			valid = true;
 		}
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 65536.0;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E31_0100_008_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 1.0;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readUInt8(start + 9) * 256.0;
+			valid = true;
 		}
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 65536.0;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7E31_0100_012_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 1.0;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readUInt8(start + 13) * 256.0;
+			valid = true;
 		}
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 65536.0;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readInt8(start + 15) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F61_0100_000_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 1.0;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readUInt8(start + 1) * 256.0;
+			valid = true;
 		}
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 65536.0;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F61_0100_004_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readUInt8(start + 5) * 25.6;
+			valid = true;
 		}
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 6553.6;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 1677721.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F61_0100_008_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.1;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readUInt8(start + 9) * 25.6;
+			valid = true;
 		}
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 6553.6;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 1677721.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F61_0100_012_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 0.1;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readUInt8(start + 13) * 25.6;
+			valid = true;
 		}
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 6553.6;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readInt8(start + 15) * 1677721.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F61_0100_016_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 0.1;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readUInt8(start + 17) * 25.6;
+			valid = true;
 		}
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 6553.6;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readInt8(start + 19) * 1677721.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F61_0100_020_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 0.1;
+			valid = true;
 		}
 		if (start + 21 < end) {
 			rawValue += buffer.readUInt8(start + 21) * 25.6;
+			valid = true;
 		}
 		if (start + 22 < end) {
 			rawValue += buffer.readUInt8(start + 22) * 6553.6;
+			valid = true;
 		}
 		if (start + 23 < end) {
 			rawValue += buffer.readInt8(start + 23) * 1677721.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F61_0100_024_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 0.1;
+			valid = true;
 		}
 		if (start + 25 < end) {
 			rawValue += buffer.readUInt8(start + 25) * 25.6;
+			valid = true;
 		}
 		if (start + 26 < end) {
 			rawValue += buffer.readUInt8(start + 26) * 6553.6;
+			valid = true;
 		}
 		if (start + 27 < end) {
 			rawValue += buffer.readInt8(start + 27) * 1677721.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F61_0100_028_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 28 < end) {
 			rawValue += buffer.readUInt8(start + 28) * 1.0;
+			valid = true;
 		}
 		if (start + 29 < end) {
 			rawValue += buffer.readUInt8(start + 29) * 256.0;
+			valid = true;
 		}
 		if (start + 30 < end) {
 			rawValue += buffer.readUInt8(start + 30) * 65536.0;
+			valid = true;
 		}
 		if (start + 31 < end) {
 			rawValue += buffer.readInt8(start + 31) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F61_0100_032_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 32 < end) {
 			rawValue += buffer.readUInt8(start + 32) * 1.0;
+			valid = true;
 		}
 		if (start + 33 < end) {
 			rawValue += buffer.readUInt8(start + 33) * 256.0;
+			valid = true;
 		}
 		if (start + 34 < end) {
 			rawValue += buffer.readUInt8(start + 34) * 65536.0;
+			valid = true;
 		}
 		if (start + 35 < end) {
 			rawValue += buffer.readInt8(start + 35) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F61_0100_036_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += buffer.readUInt8(start + 36) * 0.1;
+			valid = true;
 		}
 		if (start + 37 < end) {
 			rawValue += buffer.readUInt8(start + 37) * 25.6;
+			valid = true;
 		}
 		if (start + 38 < end) {
 			rawValue += buffer.readUInt8(start + 38) * 6553.6;
+			valid = true;
 		}
 		if (start + 39 < end) {
 			rawValue += buffer.readInt8(start + 39) * 1677721.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F61_0100_040_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 40 < end) {
 			rawValue += buffer.readUInt8(start + 40) * 0.1;
+			valid = true;
 		}
 		if (start + 41 < end) {
 			rawValue += buffer.readUInt8(start + 41) * 25.6;
+			valid = true;
 		}
 		if (start + 42 < end) {
 			rawValue += buffer.readUInt8(start + 42) * 6553.6;
+			valid = true;
 		}
 		if (start + 43 < end) {
 			rawValue += buffer.readInt8(start + 43) * 1677721.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F61_0100_044_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 44 < end) {
 			rawValue += buffer.readUInt8(start + 44) * 0.01;
+			valid = true;
 		}
 		if (start + 45 < end) {
 			rawValue += buffer.readUInt8(start + 45) * 2.56;
+			valid = true;
 		}
 		if (start + 46 < end) {
 			rawValue += buffer.readUInt8(start + 46) * 655.36;
+			valid = true;
 		}
 		if (start + 47 < end) {
 			rawValue += buffer.readInt8(start + 47) * 167772.16;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F61_0100_048_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 48 < end) {
 			rawValue += buffer.readUInt8(start + 48) * 0.01;
+			valid = true;
 		}
 		if (start + 49 < end) {
 			rawValue += buffer.readUInt8(start + 49) * 2.56;
+			valid = true;
 		}
 		if (start + 50 < end) {
 			rawValue += buffer.readUInt8(start + 50) * 655.36;
+			valid = true;
 		}
 		if (start + 51 < end) {
 			rawValue += buffer.readInt8(start + 51) * 167772.16;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F61_0100_052_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 52 < end) {
 			rawValue += buffer.readUInt8(start + 52) * 1.0;
+			valid = true;
 		}
 		if (start + 53 < end) {
 			rawValue += buffer.readUInt8(start + 53) * 256.0;
+			valid = true;
 		}
 		if (start + 54 < end) {
 			rawValue += buffer.readUInt8(start + 54) * 65536.0;
+			valid = true;
 		}
 		if (start + 55 < end) {
 			rawValue += buffer.readInt8(start + 55) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F61_0100_056_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 56 < end) {
 			rawValue += buffer.readUInt8(start + 56) * 0.01;
+			valid = true;
 		}
 		if (start + 57 < end) {
 			rawValue += buffer.readUInt8(start + 57) * 2.56;
+			valid = true;
 		}
 		if (start + 58 < end) {
 			rawValue += buffer.readUInt8(start + 58) * 655.36;
+			valid = true;
 		}
 		if (start + 59 < end) {
 			rawValue += buffer.readInt8(start + 59) * 167772.16;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F61_0100_060_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 60 < end) {
 			rawValue += buffer.readUInt8(start + 60) * 0.01;
+			valid = true;
 		}
 		if (start + 61 < end) {
 			rawValue += buffer.readUInt8(start + 61) * 2.56;
+			valid = true;
 		}
 		if (start + 62 < end) {
 			rawValue += buffer.readUInt8(start + 62) * 655.36;
+			valid = true;
 		}
 		if (start + 63 < end) {
 			rawValue += buffer.readInt8(start + 63) * 167772.16;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F61_0100_068_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 68 < end) {
 			rawValue += buffer.readUInt8(start + 68) * 1.0;
+			valid = true;
 		}
 		if (start + 69 < end) {
 			rawValue += buffer.readInt8(start + 69) * 256.0;
+			valid = true;
 		}
 		if (start + 70 < end) {
 			rawValue += buffer.readUInt8(start + 70) * 1000.0;
+			valid = true;
 		}
 		if (start + 71 < end) {
 			rawValue += buffer.readInt8(start + 71) * 256000.0;
+			valid = true;
 		}
 		if (start + 72 < end) {
 			rawValue += buffer.readUInt8(start + 72) * 1000000.0;
+			valid = true;
 		}
 		if (start + 73 < end) {
 			rawValue += buffer.readInt8(start + 73) * 2.56E8;
+			valid = true;
 		}
 		if (start + 74 < end) {
 			rawValue += buffer.readUInt8(start + 74) * 1.0E9;
+			valid = true;
 		}
 		if (start + 75 < end) {
 			rawValue += buffer.readInt8(start + 75) * 2.56E11;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F61_0100_064_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 64 < end) {
 			rawValue += buffer.readUInt8(start + 64) * 1.0;
+			valid = true;
 		}
 		if (start + 65 < end) {
 			rawValue += buffer.readUInt8(start + 65) * 256.0;
+			valid = true;
 		}
 		if (start + 66 < end) {
 			rawValue += buffer.readUInt8(start + 66) * 65536.0;
+			valid = true;
 		}
 		if (start + 67 < end) {
 			rawValue += buffer.readInt8(start + 67) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F62_0100_000_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 1.0;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readUInt8(start + 1) * 256.0;
+			valid = true;
 		}
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 65536.0;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F62_0100_004_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.01;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readUInt8(start + 5) * 2.56;
+			valid = true;
 		}
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 655.36;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 167772.16;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F62_0100_008_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.0010;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readUInt8(start + 9) * 0.256;
+			valid = true;
 		}
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 65.536;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 16777.216;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F62_0100_012_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 0.0010;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readUInt8(start + 13) * 0.256;
+			valid = true;
 		}
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 65.536;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readInt8(start + 15) * 16777.216;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F62_0100_016_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 0.0010;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readUInt8(start + 17) * 0.256;
+			valid = true;
 		}
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 65.536;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readInt8(start + 19) * 16777.216;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F62_0100_020_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 1.0;
+			valid = true;
 		}
 		if (start + 21 < end) {
 			rawValue += buffer.readUInt8(start + 21) * 256.0;
+			valid = true;
 		}
 		if (start + 22 < end) {
 			rawValue += buffer.readUInt8(start + 22) * 65536.0;
+			valid = true;
 		}
 		if (start + 23 < end) {
 			rawValue += buffer.readInt8(start + 23) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F62_0100_024_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 0.01;
+			valid = true;
 		}
 		if (start + 25 < end) {
 			rawValue += buffer.readUInt8(start + 25) * 2.56;
+			valid = true;
 		}
 		if (start + 26 < end) {
 			rawValue += buffer.readUInt8(start + 26) * 655.36;
+			valid = true;
 		}
 		if (start + 27 < end) {
 			rawValue += buffer.readInt8(start + 27) * 167772.16;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F62_0100_028_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 28 < end) {
 			rawValue += buffer.readUInt8(start + 28) * 0.01;
+			valid = true;
 		}
 		if (start + 29 < end) {
 			rawValue += buffer.readUInt8(start + 29) * 2.56;
+			valid = true;
 		}
 		if (start + 30 < end) {
 			rawValue += buffer.readUInt8(start + 30) * 655.36;
+			valid = true;
 		}
 		if (start + 31 < end) {
 			rawValue += buffer.readInt8(start + 31) * 167772.16;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F62_0100_032_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 32 < end) {
 			rawValue += buffer.readUInt8(start + 32) * 0.01;
+			valid = true;
 		}
 		if (start + 33 < end) {
 			rawValue += buffer.readUInt8(start + 33) * 2.56;
+			valid = true;
 		}
 		if (start + 34 < end) {
 			rawValue += buffer.readUInt8(start + 34) * 655.36;
+			valid = true;
 		}
 		if (start + 35 < end) {
 			rawValue += buffer.readInt8(start + 35) * 167772.16;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F62_0100_036_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += buffer.readUInt8(start + 36) * 0.01;
+			valid = true;
 		}
 		if (start + 37 < end) {
 			rawValue += buffer.readUInt8(start + 37) * 2.56;
+			valid = true;
 		}
 		if (start + 38 < end) {
 			rawValue += buffer.readUInt8(start + 38) * 655.36;
+			valid = true;
 		}
 		if (start + 39 < end) {
 			rawValue += buffer.readInt8(start + 39) * 167772.16;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F62_0100_040_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 40 < end) {
 			rawValue += buffer.readUInt8(start + 40) * 0.01;
+			valid = true;
 		}
 		if (start + 41 < end) {
 			rawValue += buffer.readUInt8(start + 41) * 2.56;
+			valid = true;
 		}
 		if (start + 42 < end) {
 			rawValue += buffer.readUInt8(start + 42) * 655.36;
+			valid = true;
 		}
 		if (start + 43 < end) {
 			rawValue += buffer.readInt8(start + 43) * 167772.16;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F62_0100_044_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 44 < end) {
 			rawValue += buffer.readUInt8(start + 44) * 0.01;
+			valid = true;
 		}
 		if (start + 45 < end) {
 			rawValue += buffer.readUInt8(start + 45) * 2.56;
+			valid = true;
 		}
 		if (start + 46 < end) {
 			rawValue += buffer.readUInt8(start + 46) * 655.36;
+			valid = true;
 		}
 		if (start + 47 < end) {
 			rawValue += buffer.readInt8(start + 47) * 167772.16;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F62_0100_048_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 48 < end) {
 			rawValue += buffer.readUInt8(start + 48) * 0.0010;
+			valid = true;
 		}
 		if (start + 49 < end) {
 			rawValue += buffer.readUInt8(start + 49) * 0.256;
+			valid = true;
 		}
 		if (start + 50 < end) {
 			rawValue += buffer.readUInt8(start + 50) * 65.536;
+			valid = true;
 		}
 		if (start + 51 < end) {
 			rawValue += buffer.readInt8(start + 51) * 16777.216;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F62_0100_052_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 52 < end) {
 			rawValue += buffer.readUInt8(start + 52) * 0.0010;
+			valid = true;
 		}
 		if (start + 53 < end) {
 			rawValue += buffer.readUInt8(start + 53) * 0.256;
+			valid = true;
 		}
 		if (start + 54 < end) {
 			rawValue += buffer.readUInt8(start + 54) * 65.536;
+			valid = true;
 		}
 		if (start + 55 < end) {
 			rawValue += buffer.readInt8(start + 55) * 16777.216;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F62_0100_056_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 56 < end) {
 			rawValue += buffer.readUInt8(start + 56) * 0.0010;
+			valid = true;
 		}
 		if (start + 57 < end) {
 			rawValue += buffer.readUInt8(start + 57) * 0.256;
+			valid = true;
 		}
 		if (start + 58 < end) {
 			rawValue += buffer.readUInt8(start + 58) * 65.536;
+			valid = true;
 		}
 		if (start + 59 < end) {
 			rawValue += buffer.readInt8(start + 59) * 16777.216;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F62_0100_060_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 60 < end) {
 			rawValue += buffer.readUInt8(start + 60) * 0.0010;
+			valid = true;
 		}
 		if (start + 61 < end) {
 			rawValue += buffer.readUInt8(start + 61) * 0.256;
+			valid = true;
 		}
 		if (start + 62 < end) {
 			rawValue += buffer.readUInt8(start + 62) * 65.536;
+			valid = true;
 		}
 		if (start + 63 < end) {
 			rawValue += buffer.readInt8(start + 63) * 16777.216;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F62_0100_064_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 64 < end) {
 			rawValue += buffer.readUInt8(start + 64) * 0.0010;
+			valid = true;
 		}
 		if (start + 65 < end) {
 			rawValue += buffer.readUInt8(start + 65) * 0.256;
+			valid = true;
 		}
 		if (start + 66 < end) {
 			rawValue += buffer.readUInt8(start + 66) * 65.536;
+			valid = true;
 		}
 		if (start + 67 < end) {
 			rawValue += buffer.readInt8(start + 67) * 16777.216;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F62_0100_068_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 68 < end) {
 			rawValue += buffer.readUInt8(start + 68) * 0.0010;
+			valid = true;
 		}
 		if (start + 69 < end) {
 			rawValue += buffer.readUInt8(start + 69) * 0.256;
+			valid = true;
 		}
 		if (start + 70 < end) {
 			rawValue += buffer.readUInt8(start + 70) * 65.536;
+			valid = true;
 		}
 		if (start + 71 < end) {
 			rawValue += buffer.readInt8(start + 71) * 16777.216;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F62_0100_072_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 72 < end) {
 			rawValue += buffer.readUInt8(start + 72) * 0.01;
+			valid = true;
 		}
 		if (start + 73 < end) {
 			rawValue += buffer.readUInt8(start + 73) * 2.56;
+			valid = true;
 		}
 		if (start + 74 < end) {
 			rawValue += buffer.readUInt8(start + 74) * 655.36;
+			valid = true;
 		}
 		if (start + 75 < end) {
 			rawValue += buffer.readInt8(start + 75) * 167772.16;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F63_0100_000_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readUInt8(start + 1) * 25.6;
+			valid = true;
 		}
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 6553.6;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 1677721.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F63_0100_004_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.0010;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readUInt8(start + 5) * 0.256;
+			valid = true;
 		}
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 65.536;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 16777.216;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F63_0100_008_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 1.0;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readUInt8(start + 9) * 256.0;
+			valid = true;
 		}
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 65536.0;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F64_0100_000_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readUInt8(start + 1) * 25.6;
+			valid = true;
 		}
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 6553.6;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 1677721.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F64_0100_004_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 1.0;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readUInt8(start + 5) * 256.0;
+			valid = true;
 		}
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 65536.0;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F64_0100_008_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 1.0;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readUInt8(start + 9) * 256.0;
+			valid = true;
 		}
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 65536.0;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F64_0100_012_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 1.0;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readUInt8(start + 13) * 256.0;
+			valid = true;
 		}
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 65536.0;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readInt8(start + 15) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F64_0100_016_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 1.0;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readUInt8(start + 17) * 256.0;
+			valid = true;
 		}
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 65536.0;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readInt8(start + 19) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F65_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F65_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F65_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F65_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F65_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.1;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F65_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 0.1;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F65_0100_012_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 1.0;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readUInt8(start + 13) * 256.0;
+			valid = true;
 		}
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 65536.0;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readInt8(start + 15) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F65_0100_016_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 1.0;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readUInt8(start + 17) * 256.0;
+			valid = true;
 		}
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 65536.0;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readInt8(start + 19) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F65_0100_020_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 0.1;
+			valid = true;
 		}
 		if (start + 21 < end) {
 			rawValue += buffer.readInt8(start + 21) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F65_0100_022_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += buffer.readUInt8(start + 22) * 0.1;
+			valid = true;
 		}
 		if (start + 23 < end) {
 			rawValue += buffer.readInt8(start + 23) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F65_0100_024_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 0.01;
+			valid = true;
 		}
 		if (start + 25 < end) {
 			rawValue += buffer.readInt8(start + 25) * 2.56;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F65_0100_026_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 26 < end) {
 			rawValue += buffer.readUInt8(start + 26) * 0.01;
+			valid = true;
 		}
 		if (start + 27 < end) {
 			rawValue += buffer.readInt8(start + 27) * 2.56;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F65_0100_028_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 28 < end) {
 			rawValue += buffer.readUInt8(start + 28) * 1.0;
+			valid = true;
 		}
 		if (start + 29 < end) {
 			rawValue += buffer.readInt8(start + 29) * 256.0;
+			valid = true;
 		}
 		if (start + 30 < end) {
 			rawValue += buffer.readUInt8(start + 30) * 1000.0;
+			valid = true;
 		}
 		if (start + 31 < end) {
 			rawValue += buffer.readInt8(start + 31) * 256000.0;
+			valid = true;
 		}
 		if (start + 32 < end) {
 			rawValue += buffer.readUInt8(start + 32) * 1000000.0;
+			valid = true;
 		}
 		if (start + 33 < end) {
 			rawValue += buffer.readInt8(start + 33) * 2.56E8;
+			valid = true;
 		}
 		if (start + 34 < end) {
 			rawValue += buffer.readUInt8(start + 34) * 1.0E9;
+			valid = true;
 		}
 		if (start + 35 < end) {
 			rawValue += buffer.readInt8(start + 35) * 2.56E11;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F65_0100_036_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += buffer.readUInt8(start + 36) * 1.0;
+			valid = true;
 		}
 		if (start + 37 < end) {
 			rawValue += buffer.readUInt8(start + 37) * 256.0;
+			valid = true;
 		}
 		if (start + 38 < end) {
 			rawValue += buffer.readUInt8(start + 38) * 65536.0;
+			valid = true;
 		}
 		if (start + 39 < end) {
 			rawValue += buffer.readInt8(start + 39) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F71_0100_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 0.1;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readInt8(start + 1) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F71_0100_002_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 0.1;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F71_0100_004_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 0.1;
+			valid = true;
 		}
 		if (start + 5 < end) {
 			rawValue += buffer.readInt8(start + 5) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F71_0100_006_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 0.1;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F71_0100_008_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 0.1;
+			valid = true;
 		}
 		if (start + 9 < end) {
 			rawValue += buffer.readInt8(start + 9) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F71_0100_010_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 0.01;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 2.56;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F71_0100_012_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 1.0;
+			valid = true;
 		}
 		if (start + 13 < end) {
 			rawValue += buffer.readInt8(start + 13) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F71_0100_014_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F71_0100_015_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 15 < end) {
 			rawValue += buffer.readUInt8(start + 15) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F71_0100_016_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 1.0;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readUInt8(start + 17) * 256.0;
+			valid = true;
 		}
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 65536.0;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readInt8(start + 19) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F71_0100_020_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 1.0;
+			valid = true;
 		}
 		if (start + 21 < end) {
 			rawValue += buffer.readUInt8(start + 21) * 256.0;
+			valid = true;
 		}
 		if (start + 22 < end) {
 			rawValue += buffer.readUInt8(start + 22) * 65536.0;
+			valid = true;
 		}
 		if (start + 23 < end) {
 			rawValue += buffer.readInt8(start + 23) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F71_0100_024_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 1.0;
+			valid = true;
 		}
 		if (start + 25 < end) {
 			rawValue += buffer.readUInt8(start + 25) * 256.0;
+			valid = true;
 		}
 		if (start + 26 < end) {
 			rawValue += buffer.readUInt8(start + 26) * 65536.0;
+			valid = true;
 		}
 		if (start + 27 < end) {
 			rawValue += buffer.readInt8(start + 27) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F71_0100_028_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 28 < end) {
 			rawValue += buffer.readUInt8(start + 28) * 1.0;
+			valid = true;
 		}
 		if (start + 29 < end) {
 			rawValue += buffer.readInt8(start + 29) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F71_0100_030_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 30 < end) {
 			rawValue += buffer.readUInt8(start + 30) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F71_0100_032_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 32 < end) {
 			rawValue += buffer.readUInt8(start + 32) * 1.0;
+			valid = true;
 		}
 		if (start + 33 < end) {
 			rawValue += buffer.readUInt8(start + 33) * 256.0;
+			valid = true;
 		}
 		if (start + 34 < end) {
 			rawValue += buffer.readUInt8(start + 34) * 65536.0;
+			valid = true;
 		}
 		if (start + 35 < end) {
 			rawValue += buffer.readInt8(start + 35) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F71_0100_036_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += buffer.readUInt8(start + 36) * 1.0;
+			valid = true;
 		}
 		if (start + 37 < end) {
 			rawValue += buffer.readUInt8(start + 37) * 256.0;
+			valid = true;
 		}
 		if (start + 38 < end) {
 			rawValue += buffer.readUInt8(start + 38) * 65536.0;
+			valid = true;
 		}
 		if (start + 39 < end) {
 			rawValue += buffer.readInt8(start + 39) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F71_0100_040_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 40 < end) {
 			rawValue += buffer.readUInt8(start + 40) * 1.0;
+			valid = true;
 		}
 		if (start + 41 < end) {
 			rawValue += buffer.readUInt8(start + 41) * 256.0;
+			valid = true;
 		}
 		if (start + 42 < end) {
 			rawValue += buffer.readUInt8(start + 42) * 65536.0;
+			valid = true;
 		}
 		if (start + 43 < end) {
 			rawValue += buffer.readInt8(start + 43) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F71_0100_044_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 44 < end) {
 			rawValue += buffer.readUInt8(start + 44) * 1.0;
+			valid = true;
 		}
 		if (start + 45 < end) {
 			rawValue += buffer.readUInt8(start + 45) * 256.0;
+			valid = true;
 		}
 		if (start + 46 < end) {
 			rawValue += buffer.readUInt8(start + 46) * 65536.0;
+			valid = true;
 		}
 		if (start + 47 < end) {
 			rawValue += buffer.readInt8(start + 47) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F71_0100_048_4_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 48 < end) {
 			rawValue += buffer.readUInt8(start + 48) * 1.0;
+			valid = true;
 		}
 		if (start + 49 < end) {
 			rawValue += buffer.readUInt8(start + 49) * 256.0;
+			valid = true;
 		}
 		if (start + 50 < end) {
 			rawValue += buffer.readUInt8(start + 50) * 65536.0;
+			valid = true;
 		}
 		if (start + 51 < end) {
 			rawValue += buffer.readInt8(start + 51) * 1.6777216E7;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F71_0100_052_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 52 < end) {
 			rawValue += buffer.readUInt8(start + 52) * 1.0;
+			valid = true;
 		}
 		if (start + 53 < end) {
 			rawValue += buffer.readInt8(start + 53) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_0010_7F71_0100_054_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 54 < end) {
 			rawValue += buffer.readUInt8(start + 54) * 0.1;
+			valid = true;
 		}
 		if (start + 55 < end) {
 			rawValue += buffer.readInt8(start + 55) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_4420_0000_0200_008_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_4420_0000_0200_009_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 9 < end) {
 			rawValue += buffer.readUInt8(start + 9) * 0.1;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_4420_0000_0200_010_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readInt8(start + 10) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_4420_0000_0200_011_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 11 < end) {
 			rawValue += buffer.readUInt8(start + 11) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_4420_0000_0200_012_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_4420_0000_0200_013_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 13 < end) {
 			rawValue += buffer.readUInt8(start + 13) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_4420_0000_0200_014_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6510_0000_0200_000_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 1.0;
+			valid = true;
 		}
 		if (start + 1 < end) {
 			rawValue += buffer.readUInt8(start + 1) * 256.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6510_0000_0200_008_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6510_0000_0200_009_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 9 < end) {
 			rawValue += buffer.readUInt8(start + 9) * 0.1;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6510_0000_0200_010_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 10 < end) {
 			rawValue += buffer.readInt8(start + 10) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6510_0000_0200_011_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 11 < end) {
 			rawValue += buffer.readUInt8(start + 11) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6510_0000_0200_012_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6510_0000_0200_013_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 13 < end) {
 			rawValue += buffer.readUInt8(start + 13) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6510_0000_0200_014_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6510_0000_0200_015_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 15 < end) {
 			rawValue += buffer.readUInt8(start + 15) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6510_0000_0200_016_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 0.1;
+			valid = true;
 		}
 		if (start + 17 < end) {
 			rawValue += buffer.readInt8(start + 17) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6510_0000_0200_018_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 0.1;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readInt8(start + 19) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6510_0000_0200_020_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 0.1;
+			valid = true;
 		}
 		if (start + 21 < end) {
 			rawValue += buffer.readInt8(start + 21) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6510_0000_0200_022_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 22 < end) {
 			rawValue += buffer.readUInt8(start + 22) * 0.1;
+			valid = true;
 		}
 		if (start + 23 < end) {
 			rawValue += buffer.readInt8(start + 23) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6510_0000_0200_024_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6510_0000_0200_025_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 25 < end) {
 			rawValue += buffer.readUInt8(start + 25) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6510_0000_0200_026_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 26 < end) {
 			rawValue += buffer.readUInt8(start + 26) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6510_0000_0200_027_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 27 < end) {
 			rawValue += buffer.readUInt8(start + 27) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6510_0000_0200_028_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 28 < end) {
 			rawValue += buffer.readUInt8(start + 28) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6510_0000_0200_029_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 29 < end) {
 			rawValue += buffer.readUInt8(start + 29) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6510_0000_0200_030_2_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 30 < end) {
 			rawValue += buffer.readUInt8(start + 30) * 0.1;
+			valid = true;
 		}
 		if (start + 31 < end) {
 			rawValue += buffer.readInt8(start + 31) * 25.6;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6520_0000_0200_000_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readInt8(start + 0) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6520_0000_0200_001_3_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 1 < end) {
 			rawValue += buffer.readUInt8(start + 1) * 1.0;
+			valid = true;
 		}
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 256.0;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 65536.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6520_0000_0200_004_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readInt8(start + 4) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6520_0000_0200_005_3_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 5 < end) {
 			rawValue += buffer.readUInt8(start + 5) * 1.0;
+			valid = true;
 		}
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 256.0;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 65536.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6520_0000_0200_008_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readInt8(start + 8) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6520_0000_0200_009_3_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 9 < end) {
 			rawValue += buffer.readUInt8(start + 9) * 1.0;
+			valid = true;
 		}
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 256.0;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 65536.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6520_0000_0200_012_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readInt8(start + 12) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6520_0000_0200_013_3_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 13 < end) {
 			rawValue += buffer.readUInt8(start + 13) * 1.0;
+			valid = true;
 		}
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 256.0;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readInt8(start + 15) * 65536.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6520_0000_0200_016_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readInt8(start + 16) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6520_0000_0200_017_3_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 17 < end) {
 			rawValue += buffer.readUInt8(start + 17) * 1.0;
+			valid = true;
 		}
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 256.0;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readInt8(start + 19) * 65536.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6520_0000_0200_020_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readInt8(start + 20) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6520_0000_0200_021_3_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 21 < end) {
 			rawValue += buffer.readUInt8(start + 21) * 1.0;
+			valid = true;
 		}
 		if (start + 22 < end) {
 			rawValue += buffer.readUInt8(start + 22) * 256.0;
+			valid = true;
 		}
 		if (start + 23 < end) {
 			rawValue += buffer.readInt8(start + 23) * 65536.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6520_0000_0200_024_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readInt8(start + 24) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6520_0000_0200_025_3_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 25 < end) {
 			rawValue += buffer.readUInt8(start + 25) * 1.0;
+			valid = true;
 		}
 		if (start + 26 < end) {
 			rawValue += buffer.readUInt8(start + 26) * 256.0;
+			valid = true;
 		}
 		if (start + 27 < end) {
 			rawValue += buffer.readInt8(start + 27) * 65536.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6520_0000_0200_028_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 28 < end) {
 			rawValue += buffer.readInt8(start + 28) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6520_0000_0200_029_3_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 29 < end) {
 			rawValue += buffer.readUInt8(start + 29) * 1.0;
+			valid = true;
 		}
 		if (start + 30 < end) {
 			rawValue += buffer.readUInt8(start + 30) * 256.0;
+			valid = true;
 		}
 		if (start + 31 < end) {
 			rawValue += buffer.readInt8(start + 31) * 65536.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6520_0000_0200_032_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 32 < end) {
 			rawValue += buffer.readInt8(start + 32) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6520_0000_0200_033_3_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 33 < end) {
 			rawValue += buffer.readUInt8(start + 33) * 1.0;
+			valid = true;
 		}
 		if (start + 34 < end) {
 			rawValue += buffer.readUInt8(start + 34) * 256.0;
+			valid = true;
 		}
 		if (start + 35 < end) {
 			rawValue += buffer.readInt8(start + 35) * 65536.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6520_0000_0200_036_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += buffer.readInt8(start + 36) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6520_0000_0200_037_3_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 37 < end) {
 			rawValue += buffer.readUInt8(start + 37) * 1.0;
+			valid = true;
 		}
 		if (start + 38 < end) {
 			rawValue += buffer.readUInt8(start + 38) * 256.0;
+			valid = true;
 		}
 		if (start + 39 < end) {
 			rawValue += buffer.readInt8(start + 39) * 65536.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6520_0000_0200_040_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 40 < end) {
 			rawValue += buffer.readInt8(start + 40) * 0.1;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6520_0000_0200_041_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 41 < end) {
 			rawValue += buffer.readInt8(start + 41) * 0.1;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6520_0000_0200_042_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 42 < end) {
 			rawValue += buffer.readInt8(start + 42) * 0.1;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6520_0000_0200_043_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 43 < end) {
 			rawValue += buffer.readInt8(start + 43) * 0.1;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6520_0000_0200_044_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 44 < end) {
 			rawValue += buffer.readInt8(start + 44) * 0.1;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6520_0000_0200_045_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 45 < end) {
 			rawValue += buffer.readInt8(start + 45) * 0.1;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6520_0000_0200_046_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 46 < end) {
 			rawValue += buffer.readInt8(start + 46) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6520_0000_0200_047_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 47 < end) {
 			rawValue += buffer.readInt8(start + 47) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6650_0000_0200_000_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 0 < end) {
 			rawValue += buffer.readUInt8(start + 0) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6650_0000_0200_001_3_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 1 < end) {
 			rawValue += buffer.readUInt8(start + 1) * 1.0;
+			valid = true;
 		}
 		if (start + 2 < end) {
 			rawValue += buffer.readUInt8(start + 2) * 256.0;
+			valid = true;
 		}
 		if (start + 3 < end) {
 			rawValue += buffer.readInt8(start + 3) * 65536.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6650_0000_0200_004_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 4 < end) {
 			rawValue += buffer.readUInt8(start + 4) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6650_0000_0200_005_3_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 5 < end) {
 			rawValue += buffer.readUInt8(start + 5) * 1.0;
+			valid = true;
 		}
 		if (start + 6 < end) {
 			rawValue += buffer.readUInt8(start + 6) * 256.0;
+			valid = true;
 		}
 		if (start + 7 < end) {
 			rawValue += buffer.readInt8(start + 7) * 65536.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6650_0000_0200_008_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 8 < end) {
 			rawValue += buffer.readUInt8(start + 8) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6650_0000_0200_009_3_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 9 < end) {
 			rawValue += buffer.readUInt8(start + 9) * 1.0;
+			valid = true;
 		}
 		if (start + 10 < end) {
 			rawValue += buffer.readUInt8(start + 10) * 256.0;
+			valid = true;
 		}
 		if (start + 11 < end) {
 			rawValue += buffer.readInt8(start + 11) * 65536.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6650_0000_0200_012_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 12 < end) {
 			rawValue += buffer.readUInt8(start + 12) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6650_0000_0200_013_3_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 13 < end) {
 			rawValue += buffer.readUInt8(start + 13) * 1.0;
+			valid = true;
 		}
 		if (start + 14 < end) {
 			rawValue += buffer.readUInt8(start + 14) * 256.0;
+			valid = true;
 		}
 		if (start + 15 < end) {
 			rawValue += buffer.readInt8(start + 15) * 65536.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6650_0000_0200_016_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 16 < end) {
 			rawValue += buffer.readUInt8(start + 16) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6650_0000_0200_017_3_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 17 < end) {
 			rawValue += buffer.readUInt8(start + 17) * 1.0;
+			valid = true;
 		}
 		if (start + 18 < end) {
 			rawValue += buffer.readUInt8(start + 18) * 256.0;
+			valid = true;
 		}
 		if (start + 19 < end) {
 			rawValue += buffer.readInt8(start + 19) * 65536.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6650_0000_0200_020_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 20 < end) {
 			rawValue += buffer.readUInt8(start + 20) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6650_0000_0200_021_3_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 21 < end) {
 			rawValue += buffer.readUInt8(start + 21) * 1.0;
+			valid = true;
 		}
 		if (start + 22 < end) {
 			rawValue += buffer.readUInt8(start + 22) * 256.0;
+			valid = true;
 		}
 		if (start + 23 < end) {
 			rawValue += buffer.readInt8(start + 23) * 65536.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6650_0000_0200_024_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 24 < end) {
 			rawValue += buffer.readUInt8(start + 24) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6650_0000_0200_025_3_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 25 < end) {
 			rawValue += buffer.readUInt8(start + 25) * 1.0;
+			valid = true;
 		}
 		if (start + 26 < end) {
 			rawValue += buffer.readUInt8(start + 26) * 256.0;
+			valid = true;
 		}
 		if (start + 27 < end) {
 			rawValue += buffer.readInt8(start + 27) * 65536.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6650_0000_0200_028_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 28 < end) {
 			rawValue += buffer.readUInt8(start + 28) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6650_0000_0200_029_3_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 29 < end) {
 			rawValue += buffer.readUInt8(start + 29) * 1.0;
+			valid = true;
 		}
 		if (start + 30 < end) {
 			rawValue += buffer.readUInt8(start + 30) * 256.0;
+			valid = true;
 		}
 		if (start + 31 < end) {
 			rawValue += buffer.readInt8(start + 31) * 65536.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6650_0000_0200_032_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 32 < end) {
 			rawValue += buffer.readUInt8(start + 32) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6650_0000_0200_033_3_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 33 < end) {
 			rawValue += buffer.readUInt8(start + 33) * 1.0;
+			valid = true;
 		}
 		if (start + 34 < end) {
 			rawValue += buffer.readUInt8(start + 34) * 256.0;
+			valid = true;
 		}
 		if (start + 35 < end) {
 			rawValue += buffer.readInt8(start + 35) * 65536.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6650_0000_0200_036_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 36 < end) {
 			rawValue += buffer.readUInt8(start + 36) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6650_0000_0200_037_3_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 37 < end) {
 			rawValue += buffer.readUInt8(start + 37) * 1.0;
+			valid = true;
 		}
 		if (start + 38 < end) {
 			rawValue += buffer.readUInt8(start + 38) * 256.0;
+			valid = true;
 		}
 		if (start + 39 < end) {
 			rawValue += buffer.readInt8(start + 39) * 65536.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6650_0000_0200_040_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 40 < end) {
 			rawValue += buffer.readUInt8(start + 40) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6650_0000_0200_041_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 41 < end) {
 			rawValue += buffer.readUInt8(start + 41) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6650_0000_0200_042_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 42 < end) {
 			rawValue += buffer.readUInt8(start + 42) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6650_0000_0200_043_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 43 < end) {
 			rawValue += buffer.readUInt8(start + 43) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6650_0000_0200_044_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 44 < end) {
 			rawValue += buffer.readUInt8(start + 44) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 	_6650_0000_0200_045_1_0: function(buffer, start, end) {
-		var rawValue = 0;
+		var rawValue = 0, valid = false;
 		if (start + 45 < end) {
 			rawValue += buffer.readUInt8(start + 45) * 1.0;
+			valid = true;
 		}
-		return rawValue;
+		return (valid ? rawValue : null);
 	},
 
 };
@@ -54866,6 +59346,8 @@ var getPacketSpecification = function(destinationAddress, sourceAddress, command
 
 
 module.exports = {
+	units: units,
+	types: types,
 	getDeviceSpecification: getDeviceSpecification,
 	getPacketSpecification: getPacketSpecification,
 };
