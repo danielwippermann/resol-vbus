@@ -16,13 +16,13 @@ var formatTextValueFromRawValueInternal = function(rawValue, unit, rootType, pre
 
     var result, textValue, format;
     if (rootType === 'Time') {
-        textValue = moment(rawValue * 60000).format('LT');
+        textValue = moment(rawValue * 60000).utc().format('LT');
         result = textValue + unitText;
     } else if (rootType === 'Weektime') {
-        textValue = moment(rawValue * 60000).format('ddd,LT');
+        textValue = moment(rawValue * 60000).utc().format('ddd,LT');
         result = textValue + unitText;
     } else if (rootType === 'Datetime') {
-        textValue = moment(rawValue * 60000).format('L LT');
+        textValue = moment(rawValue).format('L LT');
         result = textValue + unitText;
     } else if (precision === 0) {
         result = sprintf('%.0f%s', rawValue, unitText);
