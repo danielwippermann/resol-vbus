@@ -6,6 +6,9 @@
 
 
 
+var packageInfo = require('../package.json');
+
+
 var extend = require('./extend');
 
 var Specification = require('./specification');
@@ -27,6 +30,9 @@ var Connection = require('./connection');
 
 
 module.exports = {
+    
+    VERSION: packageInfo.version,
+    
     extend: extend,
     
     Specification: Specification,
