@@ -17,7 +17,7 @@ var Datagram = require('./datagram');
 
 var HeaderSet = require('./header-set');
 
-// var Logger = require('./logger');
+var Logger = require('./logger');
 
 var Connection = require('./connection');
 
@@ -38,7 +38,7 @@ module.exports = {
 
     HeaderSet: HeaderSet,
 
-    // Logger: Logger,
+    Logger: Logger,
     
     Connection: Connection,
     
