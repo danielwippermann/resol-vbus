@@ -87,6 +87,10 @@ var HeaderSet = extend(EventEmitter, {
         });
     },
 
+    getHeaderCount: function() {
+        return _.keys(this.headerMap).length;
+    },
+
     getSortedHeaders: function() {
         var _this = this;
 
