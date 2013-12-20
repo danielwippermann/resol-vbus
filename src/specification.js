@@ -7,31 +7,48 @@
 
 
 var _ = require('lodash');
+var moment = require('moment');
 var sprintf = require('sprintf').sprintf;
 
 
 var extend = require('./extend');
 
-var specificationData = require('./specification-data');
+var createVBusSpecificationData = require('./specification-data');
+
+
+
+var optionKeys = [
+    'language'
+];
 
 
 
 var Specification = extend(null, {
 
+    language: 'en',
+
     deviceSpecCache: null,
 
     packetSpecCache: null,
 
-    constructor: function() {
+    specificationData: null,
+
+    constructor: function(options) {
+        var _this = this;
+
+        _.extend(this, _.pick(options, optionKeys));
+
         this.deviceSpecCache = {};
         this.packetSpecCache = {};
+
+        this.specificationData = createVBusSpecificationData();
     },
 
     getDeviceSpecification: function(channel, selfAddress, peerAddress) {
         var deviceId = sprintf('%02X_%04X_%04X', channel, selfAddress, peerAddress);
 
         if (!_.has(this.deviceSpecCache, deviceId)) {
-            var origDeviceSpec = specificationData.getDeviceSpecification(selfAddress, peerAddress);
+            var origDeviceSpec = this.specificationData.getDeviceSpecification(selfAddress, peerAddress);
 
             var deviceSpec = _.extend({}, origDeviceSpec, {
                 deviceId: deviceId,
@@ -58,7 +75,7 @@ var Specification = extend(null, {
         var packetId = sprintf('%02X_%04X_%04X_%04X_10', headerOrChannel, destinationAddress, sourceAddress, command);
 
         if (!_.has(this.packetSpecCache, packetId)) {
-            var origPacketSpec = specificationData.getPacketSpecification(destinationAddress, sourceAddress, command);
+            var origPacketSpec = this.specificationData.getPacketSpecification(destinationAddress, sourceAddress, command);
 
             var destinationDeviceSpec = this.getDeviceSpecification(headerOrChannel, destinationAddress, sourceAddress);
             var sourceDeviceSpec = this.getDeviceSpecification(headerOrChannel, sourceAddress, destinationAddress);
@@ -100,15 +117,16 @@ var Specification = extend(null, {
 
         if ((rawValue !== undefined) && (rawValue !== null)) {
             if (typeof unit === 'string') {
-                if (_.has(specificationData.units, unit)) {
-                    unit = specificationData.units [unit];
+                if (_.has(this.specificationData.units, unit)) {
+                    unit = this.specificationData.units [unit];
                 } else {
                     throw new Error('Unknown unit named "' + unit + '"');
                 }
             }
 
-            if (packetField && packetField.type && packetField.type.formatTextValueFromRawValue) {
-                textValue = packetField.type.formatTextValueFromRawValue(rawValue, unit);
+            if (packetField && packetField.type) {
+                var type = packetField.type;
+                textValue = this.formatTextValueFromRawValueInternal(rawValue, unit, type.rootTypeId, type.precision, type.unit);
             } else {
                 textValue = rawValue.toString();
             }
@@ -117,6 +135,37 @@ var Specification = extend(null, {
         }
 
         return textValue;
+    },
+
+    formatTextValueFromRawValueInternal: function(rawValue, unit, rootType, precision, defaultUnit) {
+        var unitText = unit ? unit.unitText : defaultUnit.unitText;
+
+        var result, textValue, format;
+        if (rootType === 'Time') {
+            textValue = moment(rawValue * 60000).lang(this.language).utc().format('HH:mm');
+            result = textValue + unitText;
+        } else if (rootType === 'Weektime') {
+            textValue = moment(rawValue * 60000).lang(this.language).utc().format('ddd,HH:mm');
+            result = textValue + unitText;
+        } else if (rootType === 'Datetime') {
+            textValue = moment(rawValue).lang(this.language).format('L HH:mm:ss');
+            result = textValue + unitText;
+        } else if (precision === 0) {
+            result = sprintf('%.0f%s', rawValue, unitText);
+        } else if (precision === 1) {
+            result = sprintf('%.1f%s', rawValue, unitText);
+        } else if (precision === 2) {
+            result = sprintf('%.2f%s', rawValue, unitText);
+        } else if (precision === 3) {
+            result = sprintf('%.3f%s', rawValue, unitText);
+        } else if (precision === 4) {
+            result = sprintf('%.4f%s', rawValue, unitText);
+        } else {
+            format = '%.' + precision + 'f%s';
+            result = sprintf(format, rawValue, unitText);
+        }
+
+        return result;
     },
 
 });
