@@ -1,0 +1,23 @@
+{
+  "name": "resol-vbus-logger",
+  "version": "0.2.0",
+  "dependencies": {
+    "sprintf": "~0.1.3",
+    "lodash": "~2.4.1",
+    "moment": "~2.4.0"
+  },
+  "engines": {
+    "node": ">=0.8.0"
+  },
+  "main": "index.html",
+  "window": {
+    "title": "RESOL VBus Logger",
+    "toolbar": false,
+    "frame": true,
+    "width": 400,
+    "height": 500,
+    "position": "mouse",
+    "min_width": 400,
+    "max_width": 400
+  }
+}

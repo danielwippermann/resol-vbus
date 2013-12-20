@@ -1,6 +1,6 @@
 {
   "name": "resol-vbus",
-  "version": "0.0.1",
+  "version": "0.2.0",
   "description": "A JavaScript library for processing RESOL VBus data",
   "main": "src/index.js",
   "scripts": {
@@ -12,7 +12,12 @@
   "devDependencies": {
     "grunt": "~0.4.2",
     "grunt-mocha-chai-sinon": "0.0.7",
-    "load-grunt-tasks": "~0.2.0"
+    "load-grunt-tasks": "~0.2.0",
+    "grunt-node-webkit-builder": "~0.1.14",
+    "grunt-contrib-copy": "~0.4.1",
+    "grunt-shell": "~0.6.1",
+    "grunt-contrib-compress": "~0.5.3",
+    "grunt-open": "~0.2.2"
   },
   "dependencies": {
     "q": "~0.9.7",
