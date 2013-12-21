@@ -34,7 +34,7 @@ describe('extend', function() {
         expect(child.extend).to.be.a('function');
 
         if (parent) {
-            expect(child.prototype.__proto__).to.equal(parent.prototype);
+            expect(Object.getPrototypeOf(child.prototype)).to.equal(parent.prototype);
         }
 
         return child;
