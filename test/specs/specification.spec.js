@@ -10,10 +10,24 @@ var Specification = require('./resol-vbus').Specification;
 
 
 
+// Create first Specification instance outside of the tests, because otherwise
+// the first test to create an instance will be marked as "slow"...
+try {
+    new Specification();
+} catch (ex) {
+    // eat it silently
+}
+
+
+
 describe('Specification', function() {
 
     it('should be a constructor function', function() {
         expect(Specification).to.be.a('function');
+
+        var spec = new Specification();
+
+        expect(spec).to.be.an.instanceOf(Specification);
     });
 
     it('should return known devices', function() {
@@ -54,11 +68,10 @@ describe('Specification', function() {
         expect(packetFieldSpec.name.ref).to.equal('Temperature sensor 1');
         expect(packetFieldSpec.type).to.be.an('object');
         expect(packetFieldSpec.type.rootTypeId).to.equal('Number');
+        expect(packetFieldSpec.type.precision).to.equal(1);
         expect(packetFieldSpec.type.unit).to.be.an('object');
         expect(packetFieldSpec.type.unit.unitCode).to.equal('DegreesCelsius');
         expect(packetFieldSpec.type.unit.unitText).to.equal(' °C');
-        expect(packetFieldSpec.type.formatTextValueFromRawValue).to.be.a('function');
-        expect(packetFieldSpec.type.formatTextValueFromRawValue(123.4, null)).to.equal('123.4 °C');
         expect(packetFieldSpec.getRawValue).to.be.a('function');
     });
 
