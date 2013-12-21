@@ -41,7 +41,7 @@ var Header = extend(null, {
         }
     },
 
-    toBuffer: function() {
+    toLiveBuffer: function() {
         throw new Error('Must be implemented by sub-class');
     },
 
@@ -55,7 +55,7 @@ var Header = extend(null, {
 
 }, {
 
-    fromBuffer: function() {
+    fromLiveBuffer: function() {
         throw new Error('Must be implemented by sub-class');
     },
     

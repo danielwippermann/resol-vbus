@@ -167,17 +167,17 @@ var Connection = extend(Duplex, {
                     if (valid) {
                         if (majorVersion === 1) {
                             if (EventEmitter.listenerCount(this, 'packet') > 0) {
-                                var packet = Packet.fromBuffer(buffer, start, index);
+                                var packet = Packet.fromLiveBuffer(buffer, start, index);
                                 this.emit('packet', packet);
                             }
                         } else if (majorVersion === 2) {
                             if (EventEmitter.listenerCount(this, 'datagram') > 0) {
-                                var datagram = Datagram.fromBuffer(buffer, start, index);
+                                var datagram = Datagram.fromLiveBuffer(buffer, start, index);
                                 this.emit('datagram', datagram);
                             }
                         } else if (majorVersion === 3) {
                             if (EventEmitter.listenerCount(this, 'telegram') > 0) {
-                                var telegram = Telegram.fromBuffer(buffer, start, index);
+                                var telegram = Telegram.fromLiveBuffer(buffer, start, index);
                                 this.emit('telegram', telegram);
                             }
                         }
@@ -230,7 +230,7 @@ var Connection = extend(Duplex, {
 
     send: function(data) {
         if (data instanceof Header) {
-            data = data.toBuffer();
+            data = data.toLiveBuffer();
         }
         return this.push(data);
     },
@@ -337,7 +337,7 @@ var Connection = extend(Duplex, {
             command: 0x0600,
             valueId: 0,
             value: 0
-        }).toBuffer();
+        }).toLiveBuffer();
 
         options.filterPacket = function(rxPacket, done) {
             done();
@@ -358,7 +358,7 @@ var Connection = extend(Duplex, {
             command: 0x0300,
             valueId: valueId,
             value: 0
-        }).toBuffer();
+        }).toLiveBuffer();
 
         options.filterDatagram = function(rxDatagram, done) {
             if (rxDatagram.destinationAddress !== txDatagram.sourceAddress) {
@@ -390,7 +390,7 @@ var Connection = extend(Duplex, {
             command: options.save ? 0x0400 : 0x0200,
             valueId: valueId,
             value: value
-        }).toBuffer();
+        }).toLiveBuffer();
 
         options.filterDatagram = function(rxDatagram, done) {
             if (rxDatagram.destinationAddress !== txDatagram.sourceAddress) {

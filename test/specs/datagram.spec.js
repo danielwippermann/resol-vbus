@@ -65,7 +65,7 @@ describe('Datagram', function() {
         });
     });
 
-    it('should have a toBuffer method', function() {
+    it('should have a toLiveBuffer method', function() {
         var options = {
             destinationAddress: 0x2336,
             sourceAddress: 0x3335,
@@ -76,7 +76,7 @@ describe('Datagram', function() {
 
         var datagram = new Datagram(options);
 
-        var buffer = datagram.toBuffer();
+        var buffer = datagram.toLiveBuffer();
 
         expect(buffer).to.be.an.instanceOf(Buffer);
         expect(buffer.length).to.equal(16);
@@ -105,7 +105,7 @@ describe('Datagram', function() {
 */
     });
 
-    it('should have a fromBuffer function', function() {
+    it('should have a fromLiveBuffer function', function() {
         var options = {
             destinationAddress: 0x2336,
             sourceAddress: 0x3335,
@@ -116,7 +116,7 @@ describe('Datagram', function() {
 
         var buffer = new Buffer('aa362335332034433353300332630851', 'hex');
 
-        var datagram = Datagram.fromBuffer(buffer, 0, buffer.length);
+        var datagram = Datagram.fromLiveBuffer(buffer, 0, buffer.length);
 
         expect(datagram).to.be.an.instanceOf(Datagram);
 

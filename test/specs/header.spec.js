@@ -49,19 +49,19 @@ describe('Header', function() {
         expect(header.junk).to.equal(undefined);
     });
 
-    it('should have abstract toBuffer method', function() {
+    it('should have abstract toLiveBuffer method', function() {
         var header = new Header();
 
         expect(function() {
-            header.toBuffer();
+            header.toLiveBuffer();
         }).to.throw(Error, 'Must be implemented by sub-class');
     });
 
-    it('should have abstract fromBuffer function', function() {
+    it('should have abstract fromLiveBuffer function', function() {
         var buffer = new Buffer('aa000021772000050000000000000042', 'hex');
 
         expect(function() {
-            Header.fromBuffer(buffer);
+            Header.fromLiveBuffer(buffer);
         }).to.throw(Error, 'Must be implemented by sub-class');
     });
 

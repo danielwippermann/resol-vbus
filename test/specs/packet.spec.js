@@ -76,7 +76,7 @@ describe('Packet', function() {
         });
     });
 
-    it('should have a toBuffer method', function() {
+    it('should have a toLiveBuffer method', function() {
         var frameData = new Buffer(13 * 4);
         for (var i = 0; i < frameData.length; i++) {
             frameData [i] = i * 4;
@@ -92,7 +92,7 @@ describe('Packet', function() {
 
         var packet = new Packet(options);
 
-        var buffer = packet.toBuffer();
+        var buffer = packet.toLiveBuffer();
 
         expect(buffer).to.be.an.instanceOf(Buffer);
         expect(buffer.length).to.equal(88);
@@ -121,7 +121,7 @@ describe('Packet', function() {
 */
     });
 
-    it('should have a fromBuffer function', function() {
+    it('should have a fromLiveBuffer function', function() {
         var frameData = new Buffer(13 * 4);
         for (var i = 0; i < frameData.length; i++) {
             frameData [i] = i * 4;
@@ -137,7 +137,7 @@ describe('Packet', function() {
 
         var buffer = new Buffer('aa362335331034430d2a0004080c00671014181c00272024282c00673034383c00274044484c00675054585c00276064686c00677074787c00270004080c0f581014181c0f182024282c0f583034383c0f184044484c0f58', 'hex');
 
-        var packet = Packet.fromBuffer(buffer, 0, buffer.length);
+        var packet = Packet.fromLiveBuffer(buffer, 0, buffer.length);
 
         expect(packet).to.be.an.instanceOf(Packet);
 

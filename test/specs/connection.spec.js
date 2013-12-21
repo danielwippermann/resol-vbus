@@ -89,7 +89,7 @@ var parseRawData = function(rawDataOrCallback, start, end) {
 
     connection.send = function(chunk) {
         if (chunk instanceof Header) {
-            chunk = chunk.toBuffer();
+            chunk = chunk.toLiveBuffer();
         }
 
         stats.txDataCount += chunk.length;

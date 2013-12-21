@@ -47,7 +47,7 @@ var Packet = Header.extend({
         }
     },
 
-    toBuffer: function(origBuffer, start, end) {
+    toLiveBuffer: function(origBuffer, start, end) {
         var length = 10 + this.frameCount * 6;
 
         var buffer;
@@ -90,7 +90,7 @@ var Packet = Header.extend({
 
 }, {
 
-    fromBuffer: function(buffer, start, end) {
+    fromLiveBuffer: function(buffer, start, end) {
         var frameCount = buffer [start + 8];
 
         var frameData = new Buffer(127 * 4);

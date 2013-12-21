@@ -44,7 +44,7 @@ var Telegram = Header.extend({
         }
     },
 
-    toBuffer: function(origBuffer, start, end) {
+    toLiveBuffer: function(origBuffer, start, end) {
         var frameCount = this.getFrameCount();
         var length = 8 + frameCount * 9;
 
@@ -91,7 +91,7 @@ var Telegram = Header.extend({
 
 }, {
 
-    fromBuffer: function(buffer, start, end) {
+    fromLiveBuffer: function(buffer, start, end) {
         var frameCount = this.getFrameCountForCommand(buffer [start + 6]);
 
         var frameData = new Buffer(3 * 7);

@@ -36,7 +36,7 @@ var Datagram = Header.extend({
         _.extend(this, _.pick(options, optionKeys));
     },
 
-    toBuffer: function(origBuffer, start, end) {
+    toLiveBuffer: function(origBuffer, start, end) {
         var length = 16;
 
         var buffer;
@@ -81,7 +81,7 @@ var Datagram = Header.extend({
 
 }, {
 
-    fromBuffer: function(buffer, start, end) {
+    fromLiveBuffer: function(buffer, start, end) {
         var frameData = new Buffer(6);
         Header.injectSeptett(buffer, start + 8, start + 14, frameData, 0);
 
