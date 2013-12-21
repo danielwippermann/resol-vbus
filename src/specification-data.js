@@ -59222,8 +59222,14 @@ var createVBusSpecificationData = function() {
 
 	var vbusSpecificationData = {
 		units: units,
+		fieldNameTexts: fieldNameTexts,
+		fieldNames: fieldNames,
 		types: types,
+		getRawValueFunctions: getRawValueFunctions,
+		deviceSpecs: deviceSpecs,
 		getDeviceSpecification: getDeviceSpecification,
+		packetFieldSpecs: packetFieldSpecs,
+		packetSpecs: packetSpecs,
 		getPacketSpecification: getPacketSpecification,
 	};
 
