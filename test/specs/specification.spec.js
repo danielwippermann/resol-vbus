@@ -33,7 +33,7 @@ describe('Specification', function() {
     it('should return known devices', function() {
         var spec = new Specification();
 
-        var deviceSpec = spec.getDeviceSpecification(0, 0x0010, 0x7721);
+        var deviceSpec = spec.getDeviceSpecification(0x0010, 0x7721, 0);
 
         expect(deviceSpec).to.be.an('object');
         expect(deviceSpec.name).to.equal('DFA');
@@ -42,7 +42,7 @@ describe('Specification', function() {
     it('should return unknown devices', function() {
         var spec = new Specification();
 
-        var deviceSpec = spec.getDeviceSpecification(0, 0x000F, 0x7721);
+        var deviceSpec = spec.getDeviceSpecification(0x000F, 0x7721, 0);
 
         expect(deviceSpec).to.be.an('object');
         expect(deviceSpec.name).to.equal('Unknown Device (0x000F)');

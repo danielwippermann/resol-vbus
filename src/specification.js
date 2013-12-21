@@ -17,6 +17,10 @@ var createVBusSpecificationData = require('./specification-data');
 
 
 
+var globalSpecificationData = createVBusSpecificationData();
+
+
+
 var optionKeys = [
     'language'
 ];
@@ -41,14 +45,47 @@ var Specification = extend(null, {
         this.deviceSpecCache = {};
         this.packetSpecCache = {};
 
-        this.specificationData = createVBusSpecificationData();
+        this.specificationData = this.loadSpecificationData(options.specificationData);
     },
 
-    getDeviceSpecification: function(channel, selfAddress, peerAddress) {
+    loadSpecificationData: function(rawSpecificationData) {
+        // TODO mix in rawSpecData
+        return globalSpecificationData;
+    },
+
+    storeSpecificationData: function(options) {
+        // TODO mix out specData
+    },
+
+    getDeviceSpecification: function(selfAddress, peerAddress, channel) {
+        if (typeof selfAddress === 'object') {
+            if (peerAddress === 'source') {
+                channel = selfAddress.channel;
+                peerAddress = selfAddress.destinationAddress;
+                selfAddress = selfAddress.sourceAddress;
+            } else if (peerAddress === 'destination') {
+                channel = selfAddress.channel;
+                peerAddress = selfAddress.sourceAddress;
+                selfAddress = selfAddress.destinationAddress;
+            } else {
+                throw new Error('Invalid arguments');
+            }
+        }
+
+        if (channel === undefined) {
+            channel = 0;
+        }
+
         var deviceId = sprintf('%02X_%04X_%04X', channel, selfAddress, peerAddress);
 
         if (!_.has(this.deviceSpecCache, deviceId)) {
-            var origDeviceSpec = this.specificationData.getDeviceSpecification(selfAddress, peerAddress);
+            var origDeviceSpec;
+            if (!origDeviceSpec && this.specificationData.getDeviceSpecification) {
+                origDeviceSpec = this.specificationData.getDeviceSpecification(selfAddress, peerAddress);
+            }
+            if (!origDeviceSpec && this.specificationData.deviceSpecs) {
+                origDeviceSpec = this.specificationData.deviceSpecs ['_' + deviceId];
+            }
 
             var deviceSpec = _.extend({}, origDeviceSpec, {
                 deviceId: deviceId,
@@ -75,10 +112,16 @@ var Specification = extend(null, {
         var packetId = sprintf('%02X_%04X_%04X_%04X_10', headerOrChannel, destinationAddress, sourceAddress, command);
 
         if (!_.has(this.packetSpecCache, packetId)) {
-            var origPacketSpec = this.specificationData.getPacketSpecification(destinationAddress, sourceAddress, command);
+            var origPacketSpec;
+            if (!origPacketSpec && this.specificationData.getPacketSpecification) {
+                origPacketSpec = this.specificationData.getPacketSpecification(destinationAddress, sourceAddress, command);
+            }
+            if (!origPacketSpec && this.specificationData.packetSpecs) {
+                origPacketSpec = this.specificationData.packetSpecs ['_' + packetId];
+            }
 
-            var destinationDeviceSpec = this.getDeviceSpecification(headerOrChannel, destinationAddress, sourceAddress);
-            var sourceDeviceSpec = this.getDeviceSpecification(headerOrChannel, sourceAddress, destinationAddress);
+            var destinationDeviceSpec = this.getDeviceSpecification(destinationAddress, sourceAddress, headerOrChannel);
+            var sourceDeviceSpec = this.getDeviceSpecification(sourceAddress, destinationAddress, headerOrChannel);
 
             var packetSpec = _.extend({}, origPacketSpec, {
                 packetId: packetId,
@@ -166,6 +209,34 @@ var Specification = extend(null, {
         }
 
         return result;
+    },
+
+    getPacketFieldsForHeaders: function(headers) {
+        var packetFields = [];
+
+        for (var i = 0; i < headers.length; i++) {
+            var header = headers [i];
+
+            var sourceDeviceSpec = this.getDeviceSpecification(header, 'source');
+            var destinationDeviceSpec = this.getDeviceSpecification(header, 'destination');
+            var packetSpec = this.getPacketSpecification(header);
+
+            if (packetSpec) {
+                for (var j = 0; j < packetSpec.packetFields.length; j++) {
+                    var packetFieldSpec = packetSpec.packetFields [j];
+
+                    packetFields.push({
+                        id: packetSpec.packetId + '_' + packetFieldSpec.fieldId,
+                        sourceDeviceSpec: sourceDeviceSpec,
+                        destinationDeviceSpec: destinationDeviceSpec,
+                        packetSpec: packetSpec,
+                        packetFieldSpec: packetFieldSpec,
+                    });
+                }
+            }
+        }
+
+        return packetFields;
     },
 
 });
