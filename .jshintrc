@@ -68,6 +68,7 @@
         "define",
         "describe",
         "it",
+        "xit",
         "expect"
     ],
     "indent"        : 4,

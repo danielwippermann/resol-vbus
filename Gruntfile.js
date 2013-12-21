@@ -9,6 +9,12 @@
 module.exports = function(grunt) {
     // configure tasks
     grunt.initConfig({
+        jshint: {
+            options: {
+                jshintrc: '.jshintrc',
+            },
+            all: ['Gruntfile.js', 'src/**/*.js', 'test/**/*.js']
+        },
         'mocha-chai-sinon': {
             build: {
                 src: ['./test/specs/**/*.spec.js'],
