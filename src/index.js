@@ -27,6 +27,8 @@ var Connection = require('./connection');
 // var TcpDataSourceProvider = require('./tcp-data-source-provider');
 var TcpConnection = require('./tcp-connection');
 
+var TextFileRecorder = require('./text-file-recorder');
+
 
 
 module.exports = {
@@ -51,4 +53,6 @@ module.exports = {
     // TcpDataSourceProvider: TcpDataSourceProvider,
     TcpConnection: TcpConnection,
 
+    TextFileRecorder: TextFileRecorder,
+    
 };
