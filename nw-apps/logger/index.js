@@ -45,6 +45,8 @@ var defaultConfig = {
 
     textLogLineSeparator: '\r\n',
 
+    filter: '{}'
+
 };
 
 var storedConfig = JSON.parse(window.localStorage.getItem('config') || '{}');
@@ -79,84 +81,6 @@ var state = {
 
 
 
-var logToTextFile = function(headerSet, idHashDiffers, spec) {
-    var headers = headerSet.getSortedHeaders();
-
-    var packetInfos = _.reduce(headers, function(memo, header) {
-        if (header.getProtocolVersion() === 0x10) {
-            var packetSpec = spec.getPacketSpecification(header);
-            if (packetSpec && (packetSpec.packetFields.length > 0)) {
-                memo.push({
-                    packet: header,
-                    packetSpec: packetSpec,
-                });
-            }
-        }
-        return memo;
-    }, []);
-
-    var content = '', columns;
-
-    var appendColumnsToContent = function() {
-        content += columns.join(config.textLogColumSeparator) + config.textLogLineSeparator;
-    };
-
-    if (idHashDiffers) {
-        // output header lines first
-        columns = [ '' ];
-
-        _.forEach(packetInfos, function(packetInfo) {
-            var packetDesc = sprintf('VBus #%d: %s => %s', packetInfo.packet.channel, packetInfo.packetSpec.sourceDevice.name, packetInfo.packetSpec.destinationDevice.name);
-            columns.push(packetDesc);
-
-            var packetFields = packetInfo.packetSpec.packetFields;
-            for (var i = 1; i < packetFields.length; i++) {
-                columns.push('');
-            }
-        });
-        appendColumnsToContent();
-
-        columns = [ 'Date / Time' ];
-        _.forEach(packetInfos, function(packetInfo) {
-            var packetFields = packetInfo.packetSpec.packetFields;
-            for (var i = 0; i < packetFields.length; i++) {
-                var columnDesc = packetFields [i].name.ref;
-                columns.push(columnDesc);
-            }
-        });
-        appendColumnsToContent();
-    }
-
-    columns = [ moment(headerSet.timestamp).lang(config.language).format('L HH:mm:ss') ];
-    _.forEach(packetInfos, function(packetInfo) {
-        var packetFrameData = packetInfo.packet.frameData;
-        var packetFields = packetInfo.packetSpec.packetFields;
-        for (var i = 0; i < packetFields.length; i++) {
-            var packetField = packetFields [i];
-
-            // console.log(packetField);
-            var rawValue = spec.getRawValue(packetField, packetFrameData);
-            var textValue = spec.formatTextValueFromRawValue(packetField, rawValue, 'None');
-            columns.push(textValue);
-        }
-    });
-    appendColumnsToContent();
-
-    var filename = moment().format(config.textLogFilePattern);
-    var filepath = path.join(config.textLogDirectory, filename);
-
-    fs.appendFile(filepath, content, function (err) {
-        if (err) {
-            console.log(err);
-        } else {
-            state.lastFilePath = filepath;
-        }
-    });
-
-};
-
-
-
 var App = vbus.extend(EventEmitter, {
 
     config: config,
@@ -171,6 +95,8 @@ var App = vbus.extend(EventEmitter, {
 
     spec: null,
 
+    textRecorder: null,
+
     constructor: function() {
         var _this = this;
 
@@ -182,7 +108,10 @@ var App = vbus.extend(EventEmitter, {
 
         this.logger.on('logInterval', function(event) {
             if (state.connectionState === vbus.TcpConnection.STATE_CONNECTED) {
-                logToTextFile(_this.headerSet, event.idHashDiffers, _this.spec);
+                if (_this.textRecorder) {
+                    _this.textRecorder.recordHeaderSet(_this.headerSet);
+                    state.lastFilePath = _this.textRecorder.lastFilePath;
+                }
             }
         });
 
@@ -190,9 +119,13 @@ var App = vbus.extend(EventEmitter, {
 
         this.headerSet = this.logger.headerSet;
 
-        this.spec = new vbus.Specification({
-            language: config.language
-        });
+        try {
+            this.applyFilter(config.filter);
+        } catch (ex) {
+            console.log(ex);
+
+            this.applyFilter(null);
+        }
     },
 
     saveConfig: function() {
@@ -213,13 +146,14 @@ var App = vbus.extend(EventEmitter, {
         });
 
         this.connection.on('packet', function(packet) {
-            state.packetCount++;
-            _this.headerSet.addHeader(packet);
+            _this._onPacket(packet);
         });
 
         this.connection.connect();
 
         this.logger.logInterval = config.logInterval * 1000;
+
+        this.createTextRecorder();
     },
 
     disconnect: function() {
@@ -242,7 +176,50 @@ var App = vbus.extend(EventEmitter, {
         }
 
         this.emit('connectionState');
-    }
+    },
+
+    _onPacket: function(packet) {
+        state.packetCount++;
+        this.headerSet.addHeader(packet);
+
+        var headers = this.headerSet.getSortedHeaders();
+        var packetFieldSpecs = this.spec.getPacketFieldsForHeaders(headers);
+
+        // var tableBody = $('#liveDataTable tbody');
+
+    },
+
+    applyFilter: function(specificationDataText) {
+        var specificationData = JSON.parse(specificationDataText || '{}');
+
+        this.spec = new vbus.Specification({
+            language: config.language,
+            specificationData: specificationData
+        });
+
+        this.headerSet.removeAllHeaders();
+
+        this.createTextRecorder();
+    },
+
+    applyAndSaveFilter: function(specificationDataText) {
+        try {
+            this.applyFilter(specificationDataText);
+
+            this.config.filter = specificationDataText;
+            this.saveConfig();
+        } catch (ex) {
+            console.log(ex);
+        }
+    },
+
+    createTextRecorder: function() {
+        this.textRecorder = new vbus.TextFileRecorder({
+            directory: config.textLogDirectory,
+            filePattern: config.textLogFilePattern,
+            specification: this.spec
+        });
+    },
 
 });
 
