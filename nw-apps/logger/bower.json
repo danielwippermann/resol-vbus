@@ -1,10 +1,12 @@
 {
   "name": "resol-vbus-logger",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "dependencies": {
     "jquery": "~1.10.2",
     "lodash": "~2.4.1",
-    "bootstrap": "~3.0.3"
+    "bootstrap": "~3.0.3",
+    "codemirror": "~3.20.0",
+    "jquery-treetable": "~3.1.0"
   },
   "devDependencies": {}
 }
