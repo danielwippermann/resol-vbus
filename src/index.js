@@ -16,7 +16,7 @@ var Specification = require('./specification');
 var Header = require('./header');
 var Packet = require('./packet');
 var Datagram = require('./datagram');
-// var Telegram = require('./telegram');
+var Telegram = require('./telegram');
 
 var HeaderSet = require('./header-set');
 
@@ -40,7 +40,7 @@ module.exports = {
     Header: Header,
     Packet: Packet,
     Datagram: Datagram,
-    // Telegram: Telegram,
+    Telegram: Telegram,
 
     HeaderSet: HeaderSet,
 

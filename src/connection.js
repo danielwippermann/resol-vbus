@@ -19,7 +19,7 @@ var extend = require('./extend');
 var Header = require('./header');
 var Packet = require('./packet');
 var Datagram = require('./datagram');
-// var Telegram = require('./telegram');
+var Telegram = require('./telegram');
 
 
 
@@ -119,19 +119,25 @@ var Connection = extend(Duplex, {
                     }
                 } else if (majorVersion === 2) {
                     length = 16;
+                } else if (majorVersion === 3) {
+                    if (index >= start + 6) {
+                        length = 8 + Telegram.getFrameCountForCommand(buffer [start + 6]) * 9;
+                    } else {
+                        length = 8;
+                    }
                 } else {
                     length = 0;
                 }
 
                 if (index === start + length - 1) {
-                    var valid = true;
+                    var valid = true, frameIndex;
                     if (version === 0x10) {
                         if (!Header.calcAndCompareChecksumV0(buffer, start + 1, start + 9)) {
                             // console.log('checksum error in header');
                             valid = false;
                         }
 
-                        var frameIndex = start + 10;
+                        frameIndex = start + 10;
                         while (valid && (frameIndex < start + length)) {
                             if (!Header.calcAndCompareChecksumV0(buffer, frameIndex, frameIndex + 5)) {
                                 // console.log('checksum error in frame index ' + frameIndex);
@@ -142,6 +148,17 @@ var Connection = extend(Duplex, {
                     } else if (version === 0x20) {
                         if (!Header.calcAndCompareChecksumV0(buffer, start + 1, start + 15)) {
                             valid = false;
+                        }
+                    } else if (version === 0x30) {
+                        if (!Header.calcAndCompareChecksumV0(buffer, start + 1, start + 7)) {
+                            valid = false;
+                        }
+
+                        frameIndex = start + 8;
+                        while (valid && (frameIndex < start + length)) {
+                            if (!Header.calcAndCompareChecksumV0(buffer, frameIndex, frameIndex + 8)) {
+                                valid = false;
+                            }
                         }
                     } else {
                         valid = false;
@@ -157,6 +174,11 @@ var Connection = extend(Duplex, {
                             if (EventEmitter.listenerCount(this, 'datagram') > 0) {
                                 var datagram = Datagram.fromBuffer(buffer, start, index);
                                 this.emit('datagram', datagram);
+                            }
+                        } else if (majorVersion === 3) {
+                            if (EventEmitter.listenerCount(this, 'telegram') > 0) {
+                                var telegram = Telegram.fromBuffer(buffer, start, index);
+                                this.emit('telegram', telegram);
                             }
                         }
                     } else {
