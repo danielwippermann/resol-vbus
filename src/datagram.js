@@ -42,9 +42,6 @@ var Datagram = Header.extend({
         var buffer;
         if (origBuffer === undefined) {
             buffer = new Buffer(length);
-
-            // debug
-            buffer.fill(0xA5);
         } else {
             buffer = origBuffer.slice(start, end);
         }
