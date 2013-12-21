@@ -68,6 +68,26 @@ var HeaderSet = extend(EventEmitter, {
         });
     },
 
+    _removeHeader: function(key) {
+        this.emit('removeHeader', this.headerMap [key]);
+
+        delete this.headerMap [key];
+    },
+
+    _removeHeaders: function(keys) {
+        var _this = this;
+
+        _.forEach(keys, function(key) {
+            _this._removeHeader(key);
+        });
+    },
+
+    removeAllHeaders: function() {
+        var keys = _.keys(this.headerMap);
+
+        this._removeHeaders(keys);
+    },
+
     removeHeadersOlderThan: function(timestamp) {
         var _this = this;
 
@@ -80,11 +100,7 @@ var HeaderSet = extend(EventEmitter, {
             }
         });
 
-        _.forEach(keys, function(key) {
-            this.emit('removeHeader', _this.headerMap [key]);
-
-            delete _this.headerMap [key];
-        });
+        this._removeHeaders(keys);
     },
 
     getHeaderCount: function() {
