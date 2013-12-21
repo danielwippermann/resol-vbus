@@ -56,11 +56,13 @@ var TextFileRecorder = Recorder.extend({
 
         var spec = this.specification;
 
+        var language = spec.language || 'en';
+
         var headers = headerSet.getSortedHeaders();
 
         var packetFields = spec.getPacketFieldsForHeaders(headers);
 
-        var filename = moment().lang(spec.language).format(this.filePattern);
+        var filename = moment().lang(language).format(this.filePattern);
         var filepath = path.join(this.directory, filename);
 
         var idList = _.pluck(packetFields, 'id').join(',');
@@ -86,19 +88,19 @@ var TextFileRecorder = Recorder.extend({
 
             columns = [ '' ];
             _.forEach(packetFields, function(packetField) {
+                var packetDesc;
                 if (lastPacketSpec !== packetField.packetSpec) {
                     lastPacketSpec = packetField.packetSpec;
 
-                    var packetDesc;
                     if (packetField.packet && packetField.packetSpec) {
                         packetDesc = sprintf('VBus #%d: %s => %s', packetField.packet.channel, packetField.packetSpec.sourceDevice.name, packetField.packetSpec.destinationDevice.name);
                     } else {
                         packetDesc = '';
                     }
-                    columns.push(packetDesc);
                 } else {
-                    columns.push('');
+                    packetDesc = '';
                 }
+                columns.push(packetDesc);
             });
             appendColumnsToContent();
 
@@ -106,7 +108,13 @@ var TextFileRecorder = Recorder.extend({
             _.forEach(packetFields, function(packetField) {
                 var columnDesc;
                 if (packetField.packetFieldSpec) {
-                    columnDesc = packetField.packetFieldSpec.name.ref;
+                    var names = packetField.packetFieldSpec.name;
+                    columnDesc = names [language] || names.en || names.de || names.ref;
+
+                    var type = packetField.packetFieldSpec.type;
+                    if (type && type.unit && type.unit.unitText) {
+                        columnDesc += ' [' + type.unit.unitText + ']';
+                    }
                 } else {
                     columnDesc = '';
                 }
@@ -115,7 +123,7 @@ var TextFileRecorder = Recorder.extend({
             appendColumnsToContent();
         }
 
-        columns = [ moment(headerSet.timestamp).lang(spec.language).format('L HH:mm:ss') ];
+        columns = [ moment(headerSet.timestamp).lang(language).format('L HH:mm:ss') ];
         _.forEach(packetFields, function(packetField) {
             var textValue;
             if (packetField.packet && packetField.packetSpec && packetField.packetFieldSpec) {
