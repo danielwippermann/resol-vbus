@@ -18,6 +18,7 @@ var createVBusSpecificationData = require('./specification-data');
 
 
 var globalSpecificationData = createVBusSpecificationData();
+var globalSpecification;
 
 
 
@@ -45,16 +46,89 @@ var Specification = extend(null, {
         this.deviceSpecCache = {};
         this.packetSpecCache = {};
 
-        this.specificationData = this.loadSpecificationData(options.specificationData);
+        this.specificationData = this.loadSpecificationData(options && options.specificationData);
     },
 
     loadSpecificationData: function(rawSpecificationData) {
-        // TODO mix in rawSpecData
-        return globalSpecificationData;
+        if (rawSpecificationData === undefined) {
+            rawSpecificationData = {};
+        }
+
+        var filteredPacketFieldSpecs;
+        
+        var rawFilteredPacketFieldSpecs = rawSpecificationData.filteredPacketFieldSpecs;
+        if (rawFilteredPacketFieldSpecs) {
+            var resolve = function(value, collectionKey) {
+                var collection = globalSpecificationData [collectionKey];
+
+                if (_.has(collection, value)) {
+                    value = collection [value];
+                }
+
+                return value;
+            };
+
+            filteredPacketFieldSpecs = _.map(rawFilteredPacketFieldSpecs, function(rfpfs) {
+                var packetSpec = globalSpecification.getPacketSpecification(rfpfs.packetId);
+                var packetFieldSpec = globalSpecification.getPacketFieldSpecification(packetSpec, rfpfs.fieldId);
+
+                return _.extend({}, rfpfs, {
+                    packetSpec: packetSpec,
+                    packetFieldSpec: packetFieldSpec,
+                    type: resolve(rfpfs.type, 'types'),
+                    getRawValue: resolve(rfpfs.getRawValue, 'getRawValueFunctions'),
+                });
+            });
+        }
+
+        var specificationData = _.extend({}, globalSpecificationData, {
+            filteredPacketFieldSpecs: filteredPacketFieldSpecs,
+        });
+
+        return specificationData;
     },
 
     storeSpecificationData: function(options) {
-        // TODO mix out specData
+        options = _.defaults({}, options, {
+        });
+
+        var specificationData = options.specificationData || this.specificationData || {};
+        var filteredPacketFieldSpecs = options.filteredPacketFieldSpecs || specificationData.filteredPacketFieldSpecs || [];
+
+        var link = function(value, valueIdKey, collectionKey) {
+            var collection = specificationData [collectionKey];
+
+            var valueId;
+            if (valueIdKey) {
+                valueId = value [valueIdKey];
+            } else {
+                valueId = _.findKey(collection, function(refValue) {
+                    return (value === refValue);
+                });
+            }
+            if (valueId && _.has(collection, valueId) && (collection [valueId] === value)) {
+                value = valueId;
+            }
+
+            return value;
+        };
+
+        var rawFilteredPacketFieldSpecs = _.map(filteredPacketFieldSpecs, function(fpfs) {
+            return {
+                filteredPacketFieldId: fpfs.filteredPacketFieldId,
+                packetId: fpfs.packetId,
+                fieldId: fpfs.fieldId,
+                name: fpfs.name,
+                type: link(fpfs.type, 'id', 'types'),
+                getRawValue: link(fpfs.getRawValue, null, 'getRawValueFunctions'),
+            };
+        });
+
+        var rawSpecificationData = {
+            filteredPacketFieldSpecs: rawFilteredPacketFieldSpecs,
+        };
+
+        return rawSpecificationData;
     },
 
     getDeviceSpecification: function(selfAddress, peerAddress, channel) {
@@ -107,6 +181,16 @@ var Specification = extend(null, {
             sourceAddress = headerOrChannel.sourceAddress;
             destinationAddress = headerOrChannel.destinationAddress;
             headerOrChannel = headerOrChannel.channel;
+        } else if (typeof headerOrChannel === 'string') {
+            var md = headerOrChannel.match(/^([0-9a-f]{2})_([0-9a-f]{4})_([0-9a-f]{4})_([0-9a-f]{4})_10/i);
+            if (!md) {
+                throw new Error('Invalid packet ID');
+            }
+
+            command = parseInt(md [4], 16);
+            sourceAddress = parseInt(md [3], 16);
+            destinationAddress = parseInt(md [2], 16);
+            headerOrChannel = parseInt(md [1], 16);
         }
 
         var packetId = sprintf('%02X_%04X_%04X_%04X_10', headerOrChannel, destinationAddress, sourceAddress, command);
@@ -137,6 +221,31 @@ var Specification = extend(null, {
         }
         
         return this.packetSpecCache [packetId];
+    },
+
+    getPacketFieldSpecification: function(packetSpecOrId, fieldId) {
+        var packetFieldSpec;
+        if (typeof packetSpecOrId === 'string') {
+            if (this.specificationData.filteredPacketFieldSpecs) {
+                packetFieldSpec = _.find(this.specificationData.filteredPacketFieldSpecs, { filteredPacketFieldId: packetSpecOrId });
+            }
+
+            if (!packetFieldSpec) {
+                var md = packetSpecOrId.match(/^([0-9a-f]{2}_[0-9a-f]{4}_[0-9a-f]{4}_[0-9a-f]{4}_10)_(.*)$/i);
+                if (!md) {
+                    throw new Error('Invalid packet field ID');
+                }
+
+                fieldId = md [2];
+                packetSpecOrId = this.getPacketSpecification(md [1]);
+            }
+        }
+
+        if (!packetFieldSpec) {
+            packetFieldSpec = _.find(packetSpecOrId.packetFields, { fieldId: fieldId });
+        }
+
+        return packetFieldSpec;
     },
 
     getRawValue: function(packetField, buffer, start, end) {
@@ -211,8 +320,8 @@ var Specification = extend(null, {
         return result;
     },
 
-    getPacketFieldsForHeaders: function(headers) {
-        var packetFields = [];
+    getFilteredPacketFieldSpecificationsForHeaders: function(headers) {
+        var filteredPacketFieldSpecs = [];
 
         for (var i = 0; i < headers.length; i++) {
             var header = headers [i];
@@ -225,21 +334,83 @@ var Specification = extend(null, {
                 for (var j = 0; j < packetSpec.packetFields.length; j++) {
                     var packetFieldSpec = packetSpec.packetFields [j];
 
-                    packetFields.push({
-                        id: packetSpec.packetId + '_' + packetFieldSpec.fieldId,
-                        sourceDeviceSpec: sourceDeviceSpec,
-                        destinationDeviceSpec: destinationDeviceSpec,
-                        packetSpec: packetSpec,
-                        packetFieldSpec: packetFieldSpec,
+                    var filteredPacketFieldSpec = _.extend({}, packetFieldSpec, {
+                        filteredPacketFieldId: packetSpec.packetId + '_' + packetFieldSpec.fieldId,
+                        packetId: packetSpec.packetId,
                     });
+
+                    filteredPacketFieldSpecs.push(filteredPacketFieldSpec);
                 }
             }
+        }
+
+        return filteredPacketFieldSpecs;
+    },
+
+    getPacketFieldsForHeaders: function(headers) {
+        var _this = this;
+
+        // filter out all packets
+        var packets = _.reduce(headers, function(memo, header) {
+            if ((header.getProtocolVersion() & 0xF0) === 0x10) {
+                memo.push(header);
+            }
+            return memo;
+        }, []);
+
+        var packetFields = [];
+
+        var filteredPacketFieldSpecs = this.specificationData.filteredPacketFieldSpecs;
+        if (filteredPacketFieldSpecs) {
+            var packetInfoById = _.reduce(packets, function(memo, packet) {
+                var packetSpec = _this.getPacketSpecification(packet);
+                memo [packetSpec.packetId] = {
+                    packet: packet,
+                    packetSpec: packetSpec,
+                };
+                return memo;
+            }, {});
+
+            _.forEach(filteredPacketFieldSpecs, function(fpfs) {
+                var packetInfo = packetInfoById [fpfs.packetId];
+                var packetFieldSpec;
+                if (packetInfo && packetInfo.packetSpec) {
+                    packetFieldSpec = _this.getPacketFieldSpecification(packetInfo.packetSpec, fpfs.fieldId);
+                }
+
+                var packetField = _.extend({}, packetInfo, {
+                    id: fpfs.filteredPacketFieldId,
+                    packetFieldSpec: fpfs,
+                    origPacketFieldSpec: packetFieldSpec,
+                });
+                packetFields.push(packetField);
+            });
+        } else {
+            _.forEach(packets, function(packet) {
+                var packetSpec = _this.getPacketSpecification(packet);
+                if (packetSpec) {
+                    _.forEach(packetSpec.packetFields, function(packetFieldSpec) {
+                        var packetField = {
+                            id: packetSpec.packetId + '_' + packetFieldSpec.fieldId,
+                            packet: packet,
+                            packetSpec: packetSpec,
+                            packetFieldSpec: packetFieldSpec,
+                            origPacketFieldSpec: packetFieldSpec,
+                        };
+                        packetFields.push(packetField);
+                    });
+                }
+            });
         }
 
         return packetFields;
     },
 
 });
+
+
+
+globalSpecification = new Specification();
 
 
 
