@@ -6,226 +6,271 @@ var createVBusSpecificationData = function() {
 	// ---- UNITS ----
 	var units = {
 		Bars: {
+			unitId: 'Bars',
 			unitCode: 'Bars',
 			unitText: ' bar',
 		},
 
 		Btus: {
+			unitId: 'Btus',
 			unitCode: 'Btus',
 			unitText: ' Btu',
 		},
 
 		CubicMeters: {
+			unitId: 'CubicMeters',
 			unitCode: 'CubicMeters',
 			unitText: ' m³',
 		},
 
 		CubicMetersPerHour: {
+			unitId: 'CubicMetersPerHour',
 			unitCode: 'CubicMetersPerHour',
 			unitText: ' m³/h',
 		},
 
 		Days: {
+			unitId: 'Days',
 			unitCode: 'Days',
 			unitText: ' d',
 		},
 
 		DegreesAngular: {
+			unitId: 'DegreesAngular',
 			unitCode: 'DegreesAngular',
 			unitText: ' °',
 		},
 
 		DegreesCelsius: {
+			unitId: 'DegreesCelsius',
 			unitCode: 'DegreesCelsius',
 			unitText: ' °C',
 		},
 
 		DegreesFahrenheit: {
+			unitId: 'DegreesFahrenheit',
 			unitCode: 'DegreesFahrenheit',
 			unitText: ' °F',
 		},
 
 		DegreesKelvin: {
+			unitId: 'DegreesKelvin',
 			unitCode: 'DegreesKelvin',
 			unitText: ' K',
 		},
 
 		GallonsPerHour: {
+			unitId: 'GallonsPerHour',
 			unitCode: 'GallonsPerHour',
 			unitText: ' gal/h',
 		},
 
 		GallonsPerMinute: {
+			unitId: 'GallonsPerMinute',
 			unitCode: 'GallonsPerMinute',
 			unitText: ' gal/min',
 		},
 
 		GramsCO2Gas: {
+			unitId: 'GramsCO2Gas',
 			unitCode: 'GramsCO2Gas',
 			unitText: ' g CO₂ (Gas)',
 		},
 
 		GramsCO2Oil: {
+			unitId: 'GramsCO2Oil',
 			unitCode: 'GramsCO2Oil',
 			unitText: ' g CO₂ (Oil)',
 		},
 
 		Hectopascals: {
+			unitId: 'Hectopascals',
 			unitCode: 'Hectopascals',
 			unitText: ' hPa',
 		},
 
 		Hertz: {
+			unitId: 'Hertz',
 			unitCode: 'Hertz',
 			unitText: ' Hz',
 		},
 
 		Hours: {
+			unitId: 'Hours',
 			unitCode: 'Hours',
 			unitText: ' h',
 		},
 
 		KiloBtus: {
+			unitId: 'KiloBtus',
 			unitCode: 'KiloBtus',
 			unitText: ' MBTU',
 		},
 
 		KiloWattHoursPerSquareMeterPerDay: {
+			unitId: 'KiloWattHoursPerSquareMeterPerDay',
 			unitCode: 'KiloWattHoursPerSquareMeterPerDay',
 			unitText: ' kWh/(m²*d)',
 		},
 
 		KilogramsCO2Gas: {
+			unitId: 'KilogramsCO2Gas',
 			unitCode: 'KilogramsCO2Gas',
 			unitText: ' kg CO₂ (Gas)',
 		},
 
 		KilogramsCO2Oil: {
+			unitId: 'KilogramsCO2Oil',
 			unitCode: 'KilogramsCO2Oil',
 			unitText: ' kg CO₂ (Oil)',
 		},
 
 		KilogramsPerCubicMeter: {
+			unitId: 'KilogramsPerCubicMeter',
 			unitCode: 'KilogramsPerCubicMeter',
 			unitText: ' kg/m³',
 		},
 
 		KilogramsPerHour: {
+			unitId: 'KilogramsPerHour',
 			unitCode: 'KilogramsPerHour',
 			unitText: ' kg/h',
 		},
 
 		KilowattHours: {
+			unitId: 'KilowattHours',
 			unitCode: 'KilowattHours',
 			unitText: ' kWh',
 		},
 
 		Kilowatts: {
+			unitId: 'Kilowatts',
 			unitCode: 'Kilowatts',
 			unitText: ' kW',
 		},
 
 		Liters: {
+			unitId: 'Liters',
 			unitCode: 'Liters',
 			unitText: ' l',
 		},
 
 		LitersPerHour: {
+			unitId: 'LitersPerHour',
 			unitCode: 'LitersPerHour',
 			unitText: ' l/h',
 		},
 
 		LitersPerMinute: {
+			unitId: 'LitersPerMinute',
 			unitCode: 'LitersPerMinute',
 			unitText: ' l/min',
 		},
 
 		LitersPerSquareMeterPerDay: {
+			unitId: 'LitersPerSquareMeterPerDay',
 			unitCode: 'LitersPerSquareMeterPerDay',
 			unitText: ' l/(m²*d)',
 		},
 
 		MegaBtus: {
+			unitId: 'MegaBtus',
 			unitCode: 'MegaBtus',
 			unitText: ' MMBTU',
 		},
 
 		MegawattHours: {
+			unitId: 'MegawattHours',
 			unitCode: 'MegawattHours',
 			unitText: ' MWh',
 		},
 
 		MetersPerSecond: {
+			unitId: 'MetersPerSecond',
 			unitCode: 'MetersPerSecond',
 			unitText: ' m/s',
 		},
 
 		Milliamperes: {
+			unitId: 'Milliamperes',
 			unitCode: 'Milliamperes',
 			unitText: ' mA',
 		},
 
 		Milliseconds: {
+			unitId: 'Milliseconds',
 			unitCode: 'Milliseconds',
 			unitText: ' ms',
 		},
 
 		Minutes: {
+			unitId: 'Minutes',
 			unitCode: 'Minutes',
 			unitText: ' min',
 		},
 
 		None: {
+			unitId: 'None',
 			unitCode: 'None',
 			unitText: '',
 		},
 
 		Ohms: {
+			unitId: 'Ohms',
 			unitCode: 'Ohms',
 			unitText: ' Ohm',
 		},
 
 		Percent: {
+			unitId: 'Percent',
 			unitCode: 'Percent',
 			unitText: '%',
 		},
 
 		Seconds: {
+			unitId: 'Seconds',
 			unitCode: 'Seconds',
 			unitText: ' s',
 		},
 
 		SquareMeters: {
+			unitId: 'SquareMeters',
 			unitCode: 'SquareMeters',
 			unitText: ' m²',
 		},
 
 		TonsCO2Gas: {
+			unitId: 'TonsCO2Gas',
 			unitCode: 'TonsCO2Gas',
 			unitText: ' t CO₂ (Gas)',
 		},
 
 		TonsCO2Oil: {
+			unitId: 'TonsCO2Oil',
 			unitCode: 'TonsCO2Oil',
 			unitText: ' t CO₂ (Oil)',
 		},
 
 		Volts: {
+			unitId: 'Volts',
 			unitCode: 'Volts',
 			unitText: ' V',
 		},
 
 		WattHours: {
+			unitId: 'WattHours',
 			unitCode: 'WattHours',
 			unitText: ' Wh',
 		},
 
 		Watts: {
+			unitId: 'Watts',
 			unitCode: 'Watts',
 			unitText: ' W',
 		},
 
 		WattsPerSquareMeter: {
+			unitId: 'WattsPerSquareMeter',
 			unitCode: 'WattsPerSquareMeter',
 			unitText: ' W/m²',
 		},
@@ -10580,427 +10625,427 @@ var createVBusSpecificationData = function() {
 
 	var types = {
 		Number_0_0010_Ohms: {
-			id: 'Number_0_0010_Ohms',
+			typeId: 'Number_0_0010_Ohms',
 			rootTypeId: 'Number',
 			precision: 3,
 			unit: units.Ohms,
 		},
 
 		Number_0_0010_Milliamperes: {
-			id: 'Number_0_0010_Milliamperes',
+			typeId: 'Number_0_0010_Milliamperes',
 			rootTypeId: 'Number',
 			precision: 3,
 			unit: units.Milliamperes,
 		},
 
 		Number_0_1_DegreesCelsius: {
-			id: 'Number_0_1_DegreesCelsius',
+			typeId: 'Number_0_1_DegreesCelsius',
 			rootTypeId: 'Number',
 			precision: 1,
 			unit: units.DegreesCelsius,
 		},
 
 		Number_1_0_None: {
-			id: 'Number_1_0_None',
+			typeId: 'Number_1_0_None',
 			rootTypeId: 'Number',
 			precision: 0,
 			unit: units.None,
 		},
 
 		Number_1_0_WattsPerSquareMeter: {
-			id: 'Number_1_0_WattsPerSquareMeter',
+			typeId: 'Number_1_0_WattsPerSquareMeter',
 			rootTypeId: 'Number',
 			precision: 0,
 			unit: units.WattsPerSquareMeter,
 		},
 
 		Number_1_0_Percent: {
-			id: 'Number_1_0_Percent',
+			typeId: 'Number_1_0_Percent',
 			rootTypeId: 'Number',
 			precision: 0,
 			unit: units.Percent,
 		},
 
 		Number_1_0_Hours: {
-			id: 'Number_1_0_Hours',
+			typeId: 'Number_1_0_Hours',
 			rootTypeId: 'Number',
 			precision: 0,
 			unit: units.Hours,
 		},
 
 		Number_1_0_WattHours: {
-			id: 'Number_1_0_WattHours',
+			typeId: 'Number_1_0_WattHours',
 			rootTypeId: 'Number',
 			precision: 0,
 			unit: units.WattHours,
 		},
 
 		Time__1_0_None: {
-			id: 'Time__1_0_None',
+			typeId: 'Time__1_0_None',
 			rootTypeId: 'Time',
 			precision: 0,
 			unit: units.None,
 		},
 
 		Number_0_01_None: {
-			id: 'Number_0_01_None',
+			typeId: 'Number_0_01_None',
 			rootTypeId: 'Number',
 			precision: 2,
 			unit: units.None,
 		},
 
 		Number_1_0_1_DegreesCelsius: {
-			id: 'Number_1_0_1_DegreesCelsius',
+			typeId: 'Number_1_0_1_DegreesCelsius',
 			rootTypeId: 'Number',
 			precision: 1,
 			unit: units.DegreesCelsius,
 		},
 
 		Weektime__1_0_None: {
-			id: 'Weektime__1_0_None',
+			typeId: 'Weektime__1_0_None',
 			rootTypeId: 'Weektime',
 			precision: 0,
 			unit: units.None,
 		},
 
 		Number_1_0_LitersPerHour: {
-			id: 'Number_1_0_LitersPerHour',
+			typeId: 'Number_1_0_LitersPerHour',
 			rootTypeId: 'Number',
 			precision: 0,
 			unit: units.LitersPerHour,
 		},
 
 		Number_1_0_KilowattHours: {
-			id: 'Number_1_0_KilowattHours',
+			typeId: 'Number_1_0_KilowattHours',
 			rootTypeId: 'Number',
 			precision: 0,
 			unit: units.KilowattHours,
 		},
 
 		Number_1_0_MegawattHours: {
-			id: 'Number_1_0_MegawattHours',
+			typeId: 'Number_1_0_MegawattHours',
 			rootTypeId: 'Number',
 			precision: 0,
 			unit: units.MegawattHours,
 		},
 
 		DateTime__1_0_None: {
-			id: 'DateTime__1_0_None',
+			typeId: 'DateTime__1_0_None',
 			rootTypeId: 'DateTime',
 			precision: 0,
 			unit: units.None,
 		},
 
 		Number_0_01_Bars: {
-			id: 'Number_0_01_Bars',
+			typeId: 'Number_0_01_Bars',
 			rootTypeId: 'Number',
 			precision: 2,
 			unit: units.Bars,
 		},
 
 		Number_1_0_Seconds: {
-			id: 'Number_1_0_Seconds',
+			typeId: 'Number_1_0_Seconds',
 			rootTypeId: 'Number',
 			precision: 0,
 			unit: units.Seconds,
 		},
 
 		Number_1_0_Watts: {
-			id: 'Number_1_0_Watts',
+			typeId: 'Number_1_0_Watts',
 			rootTypeId: 'Number',
 			precision: 0,
 			unit: units.Watts,
 		},
 
 		Number_0_01_MetersPerSecond: {
-			id: 'Number_0_01_MetersPerSecond',
+			typeId: 'Number_0_01_MetersPerSecond',
 			rootTypeId: 'Number',
 			precision: 2,
 			unit: units.MetersPerSecond,
 		},
 
 		Number_1_0_CubicMetersPerHour: {
-			id: 'Number_1_0_CubicMetersPerHour',
+			typeId: 'Number_1_0_CubicMetersPerHour',
 			rootTypeId: 'Number',
 			precision: 0,
 			unit: units.CubicMetersPerHour,
 		},
 
 		Number_1_0_KilogramsPerHour: {
-			id: 'Number_1_0_KilogramsPerHour',
+			typeId: 'Number_1_0_KilogramsPerHour',
 			rootTypeId: 'Number',
 			precision: 0,
 			unit: units.KilogramsPerHour,
 		},
 
 		Number_0_01_SquareMeters: {
-			id: 'Number_0_01_SquareMeters',
+			typeId: 'Number_0_01_SquareMeters',
 			rootTypeId: 'Number',
 			precision: 2,
 			unit: units.SquareMeters,
 		},
 
 		Number_1_0E_4_KilogramsPerCubicMeter: {
-			id: 'Number_1_0E_4_KilogramsPerCubicMeter',
+			typeId: 'Number_1_0E_4_KilogramsPerCubicMeter',
 			rootTypeId: 'Number',
 			precision: 4,
 			unit: units.KilogramsPerCubicMeter,
 		},
 
 		Number_1_0_Hectopascals: {
-			id: 'Number_1_0_Hectopascals',
+			typeId: 'Number_1_0_Hectopascals',
 			rootTypeId: 'Number',
 			precision: 0,
 			unit: units.Hectopascals,
 		},
 
 		Number_0_1_Kilowatts: {
-			id: 'Number_0_1_Kilowatts',
+			typeId: 'Number_0_1_Kilowatts',
 			rootTypeId: 'Number',
 			precision: 1,
 			unit: units.Kilowatts,
 		},
 
 		Number_0_1_Percent: {
-			id: 'Number_0_1_Percent',
+			typeId: 'Number_0_1_Percent',
 			rootTypeId: 'Number',
 			precision: 1,
 			unit: units.Percent,
 		},
 
 		Number_0_01_CubicMetersPerHour: {
-			id: 'Number_0_01_CubicMetersPerHour',
+			typeId: 'Number_0_01_CubicMetersPerHour',
 			rootTypeId: 'Number',
 			precision: 2,
 			unit: units.CubicMetersPerHour,
 		},
 
 		Number_0_1_Volts: {
-			id: 'Number_0_1_Volts',
+			typeId: 'Number_0_1_Volts',
 			rootTypeId: 'Number',
 			precision: 1,
 			unit: units.Volts,
 		},
 
 		Number_0_1_DegreesFahrenheit: {
-			id: 'Number_0_1_DegreesFahrenheit',
+			typeId: 'Number_0_1_DegreesFahrenheit',
 			rootTypeId: 'Number',
 			precision: 1,
 			unit: units.DegreesFahrenheit,
 		},
 
 		Number_1_0_Btus: {
-			id: 'Number_1_0_Btus',
+			typeId: 'Number_1_0_Btus',
 			rootTypeId: 'Number',
 			precision: 0,
 			unit: units.Btus,
 		},
 
 		Number_0_1_LitersPerMinute: {
-			id: 'Number_0_1_LitersPerMinute',
+			typeId: 'Number_0_1_LitersPerMinute',
 			rootTypeId: 'Number',
 			precision: 1,
 			unit: units.LitersPerMinute,
 		},
 
 		Number_1_0_DegreesCelsius: {
-			id: 'Number_1_0_DegreesCelsius',
+			typeId: 'Number_1_0_DegreesCelsius',
 			rootTypeId: 'Number',
 			precision: 0,
 			unit: units.DegreesCelsius,
 		},
 
 		Number_1_0_Minutes: {
-			id: 'Number_1_0_Minutes',
+			typeId: 'Number_1_0_Minutes',
 			rootTypeId: 'Number',
 			precision: 0,
 			unit: units.Minutes,
 		},
 
 		Number_0_1_CubicMeters: {
-			id: 'Number_0_1_CubicMeters',
+			typeId: 'Number_0_1_CubicMeters',
 			rootTypeId: 'Number',
 			precision: 1,
 			unit: units.CubicMeters,
 		},
 
 		Number_0_01_LitersPerHour: {
-			id: 'Number_0_01_LitersPerHour',
+			typeId: 'Number_0_01_LitersPerHour',
 			rootTypeId: 'Number',
 			precision: 2,
 			unit: units.LitersPerHour,
 		},
 
 		Number_0_1_DegreesKelvin: {
-			id: 'Number_0_1_DegreesKelvin',
+			typeId: 'Number_0_1_DegreesKelvin',
 			rootTypeId: 'Number',
 			precision: 1,
 			unit: units.DegreesKelvin,
 		},
 
 		Number_1_0_CubicMeters: {
-			id: 'Number_1_0_CubicMeters',
+			typeId: 'Number_1_0_CubicMeters',
 			rootTypeId: 'Number',
 			precision: 0,
 			unit: units.CubicMeters,
 		},
 
 		Number_1_0_Hertz: {
-			id: 'Number_1_0_Hertz',
+			typeId: 'Number_1_0_Hertz',
 			rootTypeId: 'Number',
 			precision: 0,
 			unit: units.Hertz,
 		},
 
 		Number_2_1_0_None: {
-			id: 'Number_2_1_0_None',
+			typeId: 'Number_2_1_0_None',
 			rootTypeId: 'Number',
 			precision: 2,
 			unit: units.None,
 		},
 
 		Number_0_1_None: {
-			id: 'Number_0_1_None',
+			typeId: 'Number_0_1_None',
 			rootTypeId: 'Number',
 			precision: 1,
 			unit: units.None,
 		},
 
 		Number_0_1_KilowattHours: {
-			id: 'Number_0_1_KilowattHours',
+			typeId: 'Number_0_1_KilowattHours',
 			rootTypeId: 'Number',
 			precision: 1,
 			unit: units.KilowattHours,
 		},
 
 		Number_0_1_Bars: {
-			id: 'Number_0_1_Bars',
+			typeId: 'Number_0_1_Bars',
 			rootTypeId: 'Number',
 			precision: 1,
 			unit: units.Bars,
 		},
 
 		Number_0_0010_Kilowatts: {
-			id: 'Number_0_0010_Kilowatts',
+			typeId: 'Number_0_0010_Kilowatts',
 			rootTypeId: 'Number',
 			precision: 3,
 			unit: units.Kilowatts,
 		},
 
 		Number_0_01_DegreesCelsius: {
-			id: 'Number_0_01_DegreesCelsius',
+			typeId: 'Number_0_01_DegreesCelsius',
 			rootTypeId: 'Number',
 			precision: 2,
 			unit: units.DegreesCelsius,
 		},
 
 		Number_0_01_LitersPerMinute: {
-			id: 'Number_0_01_LitersPerMinute',
+			typeId: 'Number_0_01_LitersPerMinute',
 			rootTypeId: 'Number',
 			precision: 2,
 			unit: units.LitersPerMinute,
 		},
 
 		Number_0_0010_CubicMeters: {
-			id: 'Number_0_0010_CubicMeters',
+			typeId: 'Number_0_0010_CubicMeters',
 			rootTypeId: 'Number',
 			precision: 3,
 			unit: units.CubicMeters,
 		},
 
 		Number_0_1_Liters: {
-			id: 'Number_0_1_Liters',
+			typeId: 'Number_0_1_Liters',
 			rootTypeId: 'Number',
 			precision: 1,
 			unit: units.Liters,
 		},
 
 		Number_1_0_Liters: {
-			id: 'Number_1_0_Liters',
+			typeId: 'Number_1_0_Liters',
 			rootTypeId: 'Number',
 			precision: 0,
 			unit: units.Liters,
 		},
 
 		Number_1_0_Milliseconds: {
-			id: 'Number_1_0_Milliseconds',
+			typeId: 'Number_1_0_Milliseconds',
 			rootTypeId: 'Number',
 			precision: 0,
 			unit: units.Milliseconds,
 		},
 
 		Number_0_01_CubicMeters: {
-			id: 'Number_0_01_CubicMeters',
+			typeId: 'Number_0_01_CubicMeters',
 			rootTypeId: 'Number',
 			precision: 2,
 			unit: units.CubicMeters,
 		},
 
 		Number_1_0_Days: {
-			id: 'Number_1_0_Days',
+			typeId: 'Number_1_0_Days',
 			rootTypeId: 'Number',
 			precision: 0,
 			unit: units.Days,
 		},
 
 		Number_0_1_WattsPerSquareMeter: {
-			id: 'Number_0_1_WattsPerSquareMeter',
+			typeId: 'Number_0_1_WattsPerSquareMeter',
 			rootTypeId: 'Number',
 			precision: 1,
 			unit: units.WattsPerSquareMeter,
 		},
 
 		Number_0_01_Milliamperes: {
-			id: 'Number_0_01_Milliamperes',
+			typeId: 'Number_0_01_Milliamperes',
 			rootTypeId: 'Number',
 			precision: 2,
 			unit: units.Milliamperes,
 		},
 
 		Number_0_01_KilowattHours: {
-			id: 'Number_0_01_KilowattHours',
+			typeId: 'Number_0_01_KilowattHours',
 			rootTypeId: 'Number',
 			precision: 2,
 			unit: units.KilowattHours,
 		},
 
 		Number_0_01_KiloWattHoursPerSquareMeterPerDay: {
-			id: 'Number_0_01_KiloWattHoursPerSquareMeterPerDay',
+			typeId: 'Number_0_01_KiloWattHoursPerSquareMeterPerDay',
 			rootTypeId: 'Number',
 			precision: 2,
 			unit: units.KiloWattHoursPerSquareMeterPerDay,
 		},
 
 		Number_0_0010_KiloWattHoursPerSquareMeterPerDay: {
-			id: 'Number_0_0010_KiloWattHoursPerSquareMeterPerDay',
+			typeId: 'Number_0_0010_KiloWattHoursPerSquareMeterPerDay',
 			rootTypeId: 'Number',
 			precision: 3,
 			unit: units.KiloWattHoursPerSquareMeterPerDay,
 		},
 
 		Number_0_01_Hours: {
-			id: 'Number_0_01_Hours',
+			typeId: 'Number_0_01_Hours',
 			rootTypeId: 'Number',
 			precision: 2,
 			unit: units.Hours,
 		},
 
 		Number_0_1_LitersPerSquareMeterPerDay: {
-			id: 'Number_0_1_LitersPerSquareMeterPerDay',
+			typeId: 'Number_0_1_LitersPerSquareMeterPerDay',
 			rootTypeId: 'Number',
 			precision: 1,
 			unit: units.LitersPerSquareMeterPerDay,
 		},
 
 		Number_1_0_DegreesAngular: {
-			id: 'Number_1_0_DegreesAngular',
+			typeId: 'Number_1_0_DegreesAngular',
 			rootTypeId: 'Number',
 			precision: 0,
 			unit: units.DegreesAngular,
 		},
 
 		Number_1_0_DegreesKelvin: {
-			id: 'Number_1_0_DegreesKelvin',
+			typeId: 'Number_1_0_DegreesKelvin',
 			rootTypeId: 'Number',
 			precision: 0,
 			unit: units.DegreesKelvin,
