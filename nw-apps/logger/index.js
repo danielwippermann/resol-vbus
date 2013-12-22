@@ -203,14 +203,20 @@ var App = vbus.extend(EventEmitter, {
     },
 
     applyAndSaveFilter: function(specificationDataText) {
-        try {
-            this.applyFilter(specificationDataText);
+        this.applyFilter(specificationDataText);
 
-            this.config.filter = specificationDataText;
-            this.saveConfig();
-        } catch (ex) {
-            console.log(ex);
-        }
+        this.config.filter = specificationDataText;
+        this.saveConfig();
+    },
+
+    generateFilter: function() {
+        var headers = this.headerSet.getSortedHeaders();
+        var spec = new vbus.Specification();
+        var filteredPacketFieldSpecs = spec.getFilteredPacketFieldSpecificationsForHeaders(headers);
+        var filterSpec = vbus.Specification.storeSpecificationData({
+            filteredPacketFieldSpecs: filteredPacketFieldSpecs
+        });
+        return filterSpec;
     },
 
     createTextRecorder: function() {
