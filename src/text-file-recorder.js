@@ -24,6 +24,7 @@ var optionKeys = [
     'filePattern',
     'columnSeparator',
     'lineSeparator',
+    'separateDateAndTime',
     'specification',
 ];
 
@@ -38,6 +39,8 @@ var TextFileRecorder = Recorder.extend({
     columnSeparator: '\t',
 
     lineSeparator: '\r\n',
+
+    separateDateAndTime: false,
 
     specification: null,
 
@@ -62,7 +65,9 @@ var TextFileRecorder = Recorder.extend({
 
         var packetFields = spec.getPacketFieldsForHeaders(headers);
 
-        var filename = moment().lang(language).format(this.filePattern);
+        var now = moment(headerSet.timestamp).lang(language);
+
+        var filename = now.format(this.filePattern);
         var filepath = path.join(this.directory, filename);
 
         var idList = _.pluck(packetFields, 'id').join(',');
@@ -86,7 +91,14 @@ var TextFileRecorder = Recorder.extend({
         if (needHeaderLines) {
             var lastPacketSpec = null;
 
-            columns = [ '' ];
+            columns = [];
+            if (this.separateDateAndTime) {
+                columns.push('');
+                columns.push('');
+            } else {
+                columns.push('');
+            }
+
             _.forEach(packetFields, function(packetField) {
                 var packetDesc;
                 if (lastPacketSpec !== packetField.packetSpec) {
@@ -104,7 +116,14 @@ var TextFileRecorder = Recorder.extend({
             });
             appendColumnsToContent();
 
-            columns = [ 'Date / Time' ];
+            columns = [];
+            if (this.separateDateAndTime) {
+                columns.push('Date');
+                columns.push('Time');
+            } else {
+                columns.push('Date / Time');
+            }
+
             _.forEach(packetFields, function(packetField) {
                 var columnDesc;
                 if (packetField.packetFieldSpec) {
@@ -123,7 +142,14 @@ var TextFileRecorder = Recorder.extend({
             appendColumnsToContent();
         }
 
-        columns = [ moment(headerSet.timestamp).lang(language).format('L HH:mm:ss') ];
+        columns = [];
+        if (this.separateDateAndTime) {
+            columns.push(now.format('L'));
+            columns.push(now.format('HH:mm:ss'));
+        } else {
+            columns.push(now.format('L HH:mm:ss'));
+        }
+        
         _.forEach(packetFields, function(packetField) {
             var textValue;
             if (packetField.packet && packetField.packetSpec && packetField.packetFieldSpec) {
