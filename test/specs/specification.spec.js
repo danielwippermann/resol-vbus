@@ -11,16 +11,6 @@ var Specification = require('./resol-vbus').Specification;
 
 
 
-// // Create first Specification instance outside of the tests, because otherwise
-// // the first test to create an instance will be marked as 'slow'...
-// try {
-//     var spec = new Specification();
-// } catch (ex) {
-//     // eat it silently
-// }
-
-
-
 describe('Specification', function() {
 
     it('should be a constructor function', function() {
