@@ -45,6 +45,8 @@ var defaultConfig = {
 
     textLogLineSeparator: '\r\n',
 
+    textLogSeparateDateAndTime: false,
+
     filter: '{}'
 
 };
@@ -223,6 +225,7 @@ var App = vbus.extend(EventEmitter, {
         this.textRecorder = new vbus.TextFileRecorder({
             directory: config.textLogDirectory,
             filePattern: config.textLogFilePattern,
+            separateDateAndTime: config.textLogSeparateDateAndTime,
             specification: this.spec
         });
     },
