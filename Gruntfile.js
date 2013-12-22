@@ -29,7 +29,6 @@ module.exports = function(grunt) {
                     ui: 'bdd',
                     reporter: 'html-cov',
                     quiet: true,
-                    filter: 'src',
                     captureFile: './coverage.html',
                     'data-cover-flags': {
                         debug: true
@@ -104,6 +103,9 @@ module.exports = function(grunt) {
     // register tasks for execution chain
     grunt.registerTask('test', [
         'mocha-chai-sinon:build'
+    ]);
+    grunt.registerTask('coverage', [
+        'mocha-chai-sinon:coverage'
     ]);
 
     grunt.registerTask('deploy:logger', [
