@@ -72,6 +72,18 @@ var TcpConnection = Connection.extend({
         var _this = this;
 
         var deferred = Q.defer();
+        var promise = deferred.promise;
+
+        var done = function(err, result) {
+            if (deferred) {
+                if (err) {
+                    deferred.reject(err);
+                } else {
+                    deferred.resolve(result);
+                }
+                deferred = null;
+            }
+        };
 
         var options = {
             host: this.host,
@@ -154,6 +166,8 @@ var TcpConnection = Connection.extend({
                     _this.reconnectTimeout = 0;
 
                     _this._setConnectionState(TcpConnection.STATE_CONNECTED);
+
+                    done();
                 }
             }
         };
@@ -211,6 +225,8 @@ var TcpConnection = Connection.extend({
                 _this._setConnectionState(TcpConnection.STATE_DISCONNECTED);
 
                 _this.socket = null;
+
+                done(new Error('Unable to connect'));
             } else if (_this.connectionState === TcpConnection.STATE_DISCONNECTING) {
                 _this._setConnectionState(TcpConnection.STATE_DISCONNECTED);
 
@@ -262,7 +278,7 @@ var TcpConnection = Connection.extend({
 
         this.socket = socket;
 
-        return deferred.promise;
+        return promise;
     },
 
 });
