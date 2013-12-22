@@ -223,17 +223,17 @@ var Specification = extend(null, {
     },
 
     formatTextValueFromRawValueInternal: function(rawValue, unit, rootType, precision, defaultUnit) {
-        var unitText = unit ? unit.unitText : defaultUnit.unitText;
+        var unitText = unit ? unit.unitText : defaultUnit ? defaultUnit.unitText : '';
 
         var result, textValue, format;
         if (rootType === 'Time') {
             textValue = moment(rawValue * 60000).lang(this.language).utc().format('HH:mm');
             result = textValue + unitText;
         } else if (rootType === 'Weektime') {
-            textValue = moment(rawValue * 60000).lang(this.language).utc().format('ddd,HH:mm');
+            textValue = moment((rawValue + 5760) * 60000).lang(this.language).utc().format('dd,HH:mm');
             result = textValue + unitText;
         } else if (rootType === 'Datetime') {
-            textValue = moment(rawValue).lang(this.language).format('L HH:mm:ss');
+            textValue = moment((rawValue + 978307200) * 1000).lang(this.language).utc().format('L HH:mm:ss');
             result = textValue + unitText;
         } else if (precision === 0) {
             result = sprintf('%.0f%s', rawValue, unitText);

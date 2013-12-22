@@ -328,6 +328,22 @@ describe('Specification', function() {
 
     describe('#getPacketFieldSpecification', function() {
 
+        var rawSpecificationData1 = {
+            'filteredPacketFieldSpecs': [{
+                'filteredPacketFieldId': 'DemoValue1',
+                'packetId': '00_0010_7722_10_0100',
+                'fieldId': '000_2_0',
+                'name': {
+                    'ref': 'Flow temperatureL',
+                    'en': 'Flow temperature',
+                    'de': 'T-VL',
+                    'fr': 'Température Départ'
+                },
+                'type': 'Number_0_1_DegreesCelsius',
+                'getRawValue': '_0010_7722_0100_000_2_0'
+            }]
+        };
+
         it('should be a method', function() {
             expect(Specification.prototype.getPacketFieldSpecification).to.be.a('function');
         });
@@ -396,6 +412,26 @@ describe('Specification', function() {
             var packetFieldSpec = spec.getPacketFieldSpecification(packetSpec, '000_0_0');
 
             expect(packetFieldSpec).to.equal(undefined);
+        });
+
+        it('should work correctly with a filtered spec and a custom ID string', function() {
+            var spec = new Specification({
+                specificationData: rawSpecificationData1
+            });
+
+            var packetFieldSpec = spec.getPacketFieldSpecification('DemoValue1');
+
+            expect(packetFieldSpec).to.be.an('object');
+            expect(packetFieldSpec.fieldId).to.be.a('string');
+            expect(packetFieldSpec.name).to.be.an('object');
+            expect(packetFieldSpec.name.ref).to.be.a('string');
+            expect(packetFieldSpec.type).to.be.an('object');
+            expect(packetFieldSpec.type.typeId).to.be.a('string');
+            expect(packetFieldSpec.type.rootTypeId).to.be.a('string');
+            expect(packetFieldSpec.type.precision).to.be.a('number');
+            expect(packetFieldSpec.type.unit).to.be.an('object');
+            expect(packetFieldSpec.type.unit.unitCode).to.be.a('string');
+            expect(packetFieldSpec.type.unit.unitText).to.be.a('string');
         });
 
     });
@@ -528,6 +564,86 @@ describe('Specification', function() {
             var textValue = spec.formatTextValueFromRawValue(null, 888.8, 'DegreesCelsius');
 
             expect(textValue).to.equal('888.8 °C');
+        });
+
+    });
+
+    describe('#formatTextValueFromRawValueInternal', function() {
+
+        it('should be a method', function() {
+            expect(Specification.prototype.formatTextValueFromRawValueInternal).to.be.a('function');
+        });
+
+        it('should work correctly for root type "Time"', function() {
+            var spec = new Specification();
+
+            var textValue = spec.formatTextValueFromRawValueInternal(721, null, 'Time', 0, null);            
+
+            expect(textValue).to.equal('12:01');
+        });
+
+        it('should work correctly for root type "Weektime"', function() {
+            var spec = new Specification();
+
+            var textValue = spec.formatTextValueFromRawValueInternal(3 * 1440 + 721, null, 'Weektime', 0, null);            
+
+            expect(textValue).to.equal('Th,12:01');
+        });
+
+        it('should work correctly for root type "Datetime"', function() {
+            var spec = new Specification();
+
+            var textValue = spec.formatTextValueFromRawValueInternal(409418262, null, 'Datetime', 0, null);            
+
+            expect(textValue).to.equal('12/22/2013 15:17:42');
+        });
+
+        it('should work correctly for root type "Number" and precision "0"', function() {
+            var spec = new Specification();
+
+            var textValue = spec.formatTextValueFromRawValueInternal(12345.6789, null, 'Number', 0, null);            
+
+            expect(textValue).to.equal('12346');
+        });
+
+        it('should work correctly for root type "Number" and precision "1"', function() {
+            var spec = new Specification();
+
+            var textValue = spec.formatTextValueFromRawValueInternal(12345.6789, null, 'Number', 1, null);            
+
+            expect(textValue).to.equal('12345.7');
+        });
+
+        it('should work correctly for root type "Number" and precision "2"', function() {
+            var spec = new Specification();
+
+            var textValue = spec.formatTextValueFromRawValueInternal(12345.6789, null, 'Number', 2, null);            
+
+            expect(textValue).to.equal('12345.68');
+        });
+
+        it('should work correctly for root type "Number" and precision "3"', function() {
+            var spec = new Specification();
+
+            var textValue = spec.formatTextValueFromRawValueInternal(12345.6789, null, 'Number', 3, null);            
+
+            expect(textValue).to.equal('12345.679');
+        });
+
+        it('should work correctly for root type "Number" and precision "4"', function() {
+            var spec = new Specification();
+
+            var textValue = spec.formatTextValueFromRawValueInternal(12345.6789, null, 'Number', 4, null);            
+
+            expect(textValue).to.equal('12345.6789');
+        });
+
+        it('should work correctly for root type "Number" and precision "10"', function() {
+            var spec = new Specification();
+
+            var textValue = spec.formatTextValueFromRawValueInternal(1.23456789, null, 'Number', 10, null);            
+
+            expect(textValue).to.equal('1.2345678900');
         });
 
     });
