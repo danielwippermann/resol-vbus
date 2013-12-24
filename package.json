@@ -8,7 +8,7 @@
   },
   "repository": "",
   "author": "Daniel Wippermann <Daniel.Wippermann@resol.de>",
-  "license": "BSD",
+  "license": "MIT",
   "devDependencies": {
     "grunt": "~0.4.2",
     "grunt-mocha-chai-sinon": "0.0.7",
