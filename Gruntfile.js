@@ -13,7 +13,7 @@ module.exports = function(grunt) {
             options: {
                 jshintrc: '.jshintrc',
             },
-            all: ['Gruntfile.js', 'src/**/*.js', 'test/**/*.js']
+            all: ['Gruntfile.js', 'src/**/*.js', 'test/**/*.js', '!src/specification-data.js']
         },
         'mocha-chai-sinon': {
             build: {
