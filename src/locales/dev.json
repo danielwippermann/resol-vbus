@@ -1,0 +1,7 @@
+{
+	"specification": {
+		"date": "Date",
+		"time": "Time",
+		"unknownDevice": "Unknown Device (0x%1$04X)"
+	}
+}
