@@ -69,7 +69,8 @@
         "describe",
         "it",
         "xit",
-        "expect"
+        "expect",
+        "sinon"
     ],
     "indent"        : 4,
     "globals"       : [
