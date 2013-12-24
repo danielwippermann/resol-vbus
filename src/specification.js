@@ -7,11 +7,11 @@
 
 
 var _ = require('lodash');
-var moment = require('moment');
 var sprintf = require('sprintf').sprintf;
 
 
 var extend = require('./extend');
+var I18N = require('./i18n');
 
 var createVBusSpecificationData = require('./specification-data');
 
@@ -28,6 +28,10 @@ var optionKeys = [
 
 
 
+var numberFormatCache = {};
+
+
+
 var Specification = extend(null, {
 
     language: 'en',
@@ -36,12 +40,16 @@ var Specification = extend(null, {
 
     packetSpecCache: null,
 
+    i18n: null,
+
     specificationData: null,
 
     constructor: function(options) {
         var _this = this;
 
         _.extend(this, _.pick(options, optionKeys));
+
+        this.i18n = new I18N(this.language);
 
         this.deviceSpecCache = {};
         this.packetSpecCache = {};
@@ -227,27 +235,40 @@ var Specification = extend(null, {
 
         var result, textValue, format;
         if (rootType === 'Time') {
-            textValue = moment(rawValue * 60000).lang(this.language).utc().format('HH:mm');
+            textValue = this.i18n.moment(rawValue * 60000).utc().format('HH:mm');
             result = textValue + unitText;
         } else if (rootType === 'Weektime') {
-            textValue = moment((rawValue + 5760) * 60000).lang(this.language).utc().format('dd,HH:mm');
+            textValue = this.i18n.moment((rawValue + 5760) * 60000).utc().format('dd,HH:mm');
             result = textValue + unitText;
         } else if (rootType === 'Datetime') {
-            textValue = moment((rawValue + 978307200) * 1000).lang(this.language).utc().format('L HH:mm:ss');
+            textValue = this.i18n.moment((rawValue + 978307200) * 1000).utc().format('L HH:mm:ss');
             result = textValue + unitText;
         } else if (precision === 0) {
-            result = sprintf('%.0f%s', rawValue, unitText);
+            textValue = this.i18n.numeral(rawValue).format('0');
+            result = textValue + unitText;
         } else if (precision === 1) {
-            result = sprintf('%.1f%s', rawValue, unitText);
+            textValue = this.i18n.numeral(rawValue).format('0.0');
+            result = textValue + unitText;
         } else if (precision === 2) {
-            result = sprintf('%.2f%s', rawValue, unitText);
+            textValue = this.i18n.numeral(rawValue).format('0.00');
+            result = textValue + unitText;
         } else if (precision === 3) {
-            result = sprintf('%.3f%s', rawValue, unitText);
+            textValue = this.i18n.numeral(rawValue).format('0.000');
+            result = textValue + unitText;
         } else if (precision === 4) {
-            result = sprintf('%.4f%s', rawValue, unitText);
+            textValue = this.i18n.numeral(rawValue).format('0.0000');
+            result = textValue + unitText;
         } else {
-            format = '%.' + precision + 'f%s';
-            result = sprintf(format, rawValue, unitText);
+            if (!_.has(numberFormatCache, precision)) {
+                format = '0.';
+                for (var i = 0; i < precision; i++) {
+                    format = format + '0';
+                }
+                numberFormatCache [precision] = format;
+            }
+
+            textValue = this.i18n.numeral(rawValue).format(numberFormatCache [precision]);
+            result = textValue + unitText;
         }
 
         return result;
