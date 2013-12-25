@@ -1,7 +1,4 @@
-/**
- * @license
- * resol-vbus - A JavaScript library for processing RESOL VBus data
- */
+/*! resol-vbus | Copyright (c) 2013, Daniel Wippermann | MIT license */
 'use strict';
 
 
