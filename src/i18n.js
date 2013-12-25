@@ -43,10 +43,6 @@ numeral.language('de', require('numeral/languages/de'));
 
 
 
-var cache = {};
-
-
-
 var I18N = extend(null, {
 
     language: null,
