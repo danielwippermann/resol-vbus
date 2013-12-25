@@ -68,6 +68,14 @@ describe('I18N', function() {
             expect(text).to.equal('Unbekanntes Gerät (0x%1$04X)');
         });
 
+        it('should work correctly for known keys with sprintf placeholders', function() {
+            var i18n = new I18N();
+
+            var text = i18n.t('specification.unknownDevice', 0x1234);
+
+            expect(text).to.equal('Unknown Device (0x1234)');
+        });
+
     });
 
     describe('#moment', function() {

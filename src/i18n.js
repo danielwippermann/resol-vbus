@@ -10,6 +10,7 @@ var i18next = require('i18next');
 var _ = require('lodash');
 var moment = require('moment');
 var numeral = require('numeral');
+var sprintf = require('sprintf').sprintf;
 
 
 var extend = require('./extend');
@@ -52,7 +53,7 @@ var I18N = extend(null, {
 
     languageData: null,
 
-    t: null,
+    i18nextT: null,
 
     constructor: function(language) {
         var _this = this;
@@ -65,8 +66,27 @@ var I18N = extend(null, {
         this.languageData = knownLanguages [language];
 
         i18next.init({ lng: this.languageData.i18next, resStore: resources }, function(t) {
-            _this.t = t;
+            _this.i18nextT = t;
         });
+    },
+
+    sprintf: function() {
+        return sprintf.apply(null, arguments);
+    },
+
+    vsprintf: function(fmt, argv) {
+        var args = argv.slice(0);
+        args.splice(0, 0, fmt);
+        return sprintf.apply(null, args);
+    },
+
+    t: function(key) {
+        var text = this.i18nextT(key);
+        if (arguments.length > 1) {
+            var args = _.toArray(arguments).slice(1);
+            text = this.vsprintf(text, args);
+        }
+        return text;
     },
 
     moment: function() {
