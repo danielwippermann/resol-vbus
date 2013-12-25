@@ -28,9 +28,10 @@ var HeaderSet = require('./header-set');
 var Logger = require('./logger');
 
 var Connection = require('./connection');
-
-var TcpDataSourceProvider = require('./tcp-data-source-provider');
 var TcpConnection = require('./tcp-connection');
+
+var DataSourceProvider = require('./data-source-provider');
+var TcpDataSourceProvider = require('./tcp-data-source-provider');
 
 var Converter = require('./converter');
 var VBusRecordingConverter = require('./vbus-recording-converter');
@@ -62,9 +63,10 @@ module.exports = {
     Logger: Logger,
     
     Connection: Connection,
-    
-    TcpDataSourceProvider: TcpDataSourceProvider,
     TcpConnection: TcpConnection,
+    
+    DataSourceProvider: DataSourceProvider,
+    TcpDataSourceProvider: TcpDataSourceProvider,
     
     Converter: Converter,
     VBusRecordingConverter: VBusRecordingConverter,
