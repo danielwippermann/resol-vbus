@@ -23,6 +23,14 @@ describe('TextConverter', function() {
         
     });
 
+    describe('#reset', function() {
+
+        it('should be a method', function() {
+            expect(TextConverter.prototype.reset).to.be.a('function');
+        });
+
+    });
+
     describe('readable stream', function() {
 
         var rawPacket1 = 'aa100053001000010b0020051000004a723d1000013f40571000015706100000016800000000007f00000000007f00000000007f00000000007f00007f00000025003600051f11000000006e';
@@ -73,7 +81,11 @@ describe('TextConverter', function() {
 
             converter.convertHeaderSet(headerSet);
 
-            expect(onData.callCount).to.equal(4);
+            converter.reset();
+
+            converter.convertHeaderSet(headerSet);
+
+            expect(onData.callCount).to.equal(5);
 
             var chunk = onData.firstCall.args [0];
 
@@ -94,6 +106,11 @@ describe('TextConverter', function() {
 
             expect(chunk).to.be.an('object');
             expect(chunk.toString()).to.equal('12/24/2013 14:50:06\t1049.888\t1064.434\t1071.040\t4.230\t12.7\t16.5\t18.2\t0\t0\t0\t17\t0.0\t11\t4880133\t0\t3347\r\n');
+
+            chunk = onData.getCall(4).args [0];
+
+            expect(chunk).to.be.an('object');
+            expect(chunk.toString()).to.equal('\tDL3\t\t\t\t\t\t\t\t\t\t\tVBus #1: DeltaSol MX [Heizkreis #1]\t\tVBus #1: DeltaSol MX [WMZ #1]\t\t\r\nDate / Time\tResistor sensor 1 [ Ohm]\tResistor sensor 2 [ Ohm]\tResistor sensor 3 [ Ohm]\tCurrent sensor 4 [ mA]\tTemperature Sensor 1 [ °C]\tTemperature Sensor 2 [ °C]\tTemperature Sensor 3 [ °C]\tImpulse Counter Sensor 1\tImpulse Counter Sensor 2\tImpulse Counter Sensor 3\tIrradiation Sensor 4 [ W/m²]\tFlow set temperature [ °C]\tOperating status\tHeat quantity [ Wh]\tHeat quantity today [ Wh]\tHeat quantity week [ Wh]\r\n12/24/2013 14:50:06\t1049.888\t1064.434\t1071.040\t4.230\t12.7\t16.5\t18.2\t0\t0\t0\t17\t0.0\t11\t4880133\t0\t3347\r\n');
         });
 
     });
