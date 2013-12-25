@@ -197,6 +197,9 @@ describe('Specification', function() {
 
             expect(deviceSpec).to.be.an('object');
             expect(deviceSpec.deviceId).to.be.a('string');
+            expect(deviceSpec.channel).to.equal(0);
+            expect(deviceSpec.selfAddress).to.equal(0x7721);
+            expect(deviceSpec.peerAddress).to.equal(0x0010);
             expect(deviceSpec.name).to.equal('DeltaSol E [Regler]');
             expect(deviceSpec.fullName).to.equal('DeltaSol E [Regler]');
         });
@@ -208,6 +211,9 @@ describe('Specification', function() {
 
             expect(deviceSpec).to.be.an('object');
             expect(deviceSpec.deviceId).to.be.a('string');
+            expect(deviceSpec.channel).to.equal(1);
+            expect(deviceSpec.selfAddress).to.equal(0x7721);
+            expect(deviceSpec.peerAddress).to.equal(0x0010);
             expect(deviceSpec.name).to.equal('DeltaSol E [Regler]');
             expect(deviceSpec.fullName).to.equal('VBus #1: DeltaSol E [Regler]');
         });
@@ -225,6 +231,9 @@ describe('Specification', function() {
 
             expect(deviceSpec).to.be.an('object');
             expect(deviceSpec.deviceId).to.be.a('string');
+            expect(deviceSpec.channel).to.equal(1);
+            expect(deviceSpec.selfAddress).to.equal(0x7721);
+            expect(deviceSpec.peerAddress).to.equal(0x0010);
             expect(deviceSpec.name).to.equal('DeltaSol E [Regler]');
             expect(deviceSpec.fullName).to.equal('VBus #1: DeltaSol E [Regler]');
         });
@@ -253,6 +262,9 @@ describe('Specification', function() {
 
             expect(deviceSpec).to.be.an('object');
             expect(deviceSpec.deviceId).to.be.a('string');
+            expect(deviceSpec.channel).to.equal(1);
+            expect(deviceSpec.selfAddress).to.equal(0x772F);
+            expect(deviceSpec.peerAddress).to.equal(0x0010);
             expect(deviceSpec.name).to.equal('Unknown Device (0x772F)');
             expect(deviceSpec.fullName).to.equal('VBus #1: Unknown Device (0x772F)');
         });
@@ -272,8 +284,13 @@ describe('Specification', function() {
 
             expect(packetSpec).to.be.an('object');
             expect(packetSpec.packetId).to.be.a('string');
+            expect(packetSpec.channel).to.equal(1);
+            expect(packetSpec.destinationAddress).to.equal(0x0010);
+            expect(packetSpec.sourceAddress).to.equal(0x7721);
+            expect(packetSpec.command).to.equal(0x0100);
             expect(packetSpec.destinationDevice).to.be.an('object');
             expect(packetSpec.sourceDevice).to.be.an('object');
+            expect(packetSpec.fullName).to.equal('VBus #1: DeltaSol E [Regler]');
             expect(packetSpec.packetFields).to.be.an('array');
             expect(packetSpec.packetFields.length).to.be.above(0);
         });

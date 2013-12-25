@@ -89,20 +89,23 @@ var Specification = extend(null, {
 
             var deviceSpec = _.extend({}, origDeviceSpec, {
                 deviceId: deviceId,
+                channel: channel,
+                selfAddress: selfAddress,
+                peerAddress: peerAddress,
             });
 
             if (!_.has(deviceSpec, 'name')) {
-                deviceSpec.name = sprintf('Unknown Device (0x%04X)', selfAddress);
+                deviceSpec.name = this.i18n.t('specification.unknownDevice', selfAddress);
             }
 
             if (!_.has(deviceSpec, 'fullName')) {
                 var fullNameFormatter;
                 if (channel) {
-                    fullNameFormatter = 'VBus #%1$d: %2$s';
+                    fullNameFormatter = 'specification.fullNameWithChannel';
                 } else {
-                    fullNameFormatter = '%2$s';
+                    fullNameFormatter = 'specification.fullNameWithoutChannel';
                 }
-                deviceSpec.fullName = sprintf(fullNameFormatter, channel, deviceSpec.name);
+                deviceSpec.fullName = this.i18n.t(fullNameFormatter, channel, deviceSpec.name);
             }
 
             this.deviceSpecCache [deviceId] = deviceSpec;
@@ -143,10 +146,20 @@ var Specification = extend(null, {
             var destinationDeviceSpec = this.getDeviceSpecification(destinationAddress, sourceAddress, headerOrChannel);
             var sourceDeviceSpec = this.getDeviceSpecification(sourceAddress, destinationAddress, headerOrChannel);
 
+            var fullName = sourceDeviceSpec.fullName;
+            if (destinationAddress !== 0x0010) {
+                fullName += ' => ' + destinationDeviceSpec.name;
+            }
+            
             var packetSpec = _.extend({}, origPacketSpec, {
                 packetId: packetId,
+                channel: headerOrChannel,
+                destinationAddress: destinationAddress,
+                sourceAddress: sourceAddress,
+                command: command,
                 destinationDevice: destinationDeviceSpec,
                 sourceDevice: sourceDeviceSpec,
+                fullName: fullName,
             });
 
             if (!_.has(packetSpec, 'packetFields')) {
