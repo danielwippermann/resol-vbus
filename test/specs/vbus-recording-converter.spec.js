@@ -18,7 +18,15 @@ var VBusRecordingConverter = require('./resol-vbus').VBusRecordingConverter;
 
 describe('VBusRecordingConverter', function() {
 
-    describe('Writable stream', function() {
+    describe('constructor', function() {
+
+        it('should be a constructor function', function() {
+            expect(VBusRecordingConverter).to.be.a('function');
+        });
+
+    });
+
+    describe('writable stream', function() {
 
         var rawVBusRecordingHexDump = [
             'a5440e000e00eda1de2443010000a566',
@@ -146,7 +154,7 @@ describe('VBusRecordingConverter', function() {
 
     });
 
-    describe('Readable stream', function() {
+    describe('readable stream', function() {
 
         var rawPacket1 = 'aa100053001000010b0020051000004a723d1000013f40571000015706100000016800000000007f00000000007f00000000007f00000000007f00007f00000025003600051f11000000006e';
         var rawPacket2 = 'aa1000217e100001013e00000b000074';
