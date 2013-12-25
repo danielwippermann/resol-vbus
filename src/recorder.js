@@ -9,6 +9,10 @@ var extend = require('./extend');
 
 var Recorder = extend(null, {
 
+    constructor: function() {
+
+    }
+    
 });
 
 

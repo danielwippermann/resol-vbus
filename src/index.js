@@ -36,6 +36,8 @@ var Converter = require('./converter');
 var VBusRecordingConverter = require('./vbus-recording-converter');
 var TextConverter = require('./text-converter');
 
+var Recorder = require('./recorder');
+
 var TextFileRecorder = require('./text-file-recorder');
 
 
@@ -67,6 +69,8 @@ module.exports = {
     Converter: Converter,
     VBusRecordingConverter: VBusRecordingConverter,
     TextConverter: TextConverter,
+
+    Recorder: Recorder,
 
     TextFileRecorder: TextFileRecorder,
 };
