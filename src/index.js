@@ -1,6 +1,9 @@
 /**
- * @license
  * resol-vbus - A JavaScript library for processing RESOL VBus data
+ *
+ * Copyright (c) 2013, Daniel Wippermann.
+ *
+ * This Software is released under the MIT license.
  */
 'use strict';
 
@@ -10,6 +13,8 @@ var packageInfo = require('../package.json');
 
 
 var extend = require('./extend');
+
+var I18N = require('./i18n');
 
 var Specification = require('./specification');
 
@@ -27,6 +32,10 @@ var Connection = require('./connection');
 // var TcpDataSourceProvider = require('./tcp-data-source-provider');
 var TcpConnection = require('./tcp-connection');
 
+var Converter = require('./converter');
+var VBusRecordingConverter = require('./vbus-recording-converter');
+var TextConverter = require('./text-converter');
+
 var TextFileRecorder = require('./text-file-recorder');
 
 
@@ -36,6 +45,8 @@ module.exports = {
     VERSION: packageInfo.version,
     
     extend: extend,
+    
+    I18N: I18N,
     
     Specification: Specification,
 
@@ -52,7 +63,10 @@ module.exports = {
     
     // TcpDataSourceProvider: TcpDataSourceProvider,
     TcpConnection: TcpConnection,
+    
+    Converter: Converter,
+    VBusRecordingConverter: VBusRecordingConverter,
+    TextConverter: TextConverter,
 
     TextFileRecorder: TextFileRecorder,
-    
 };
