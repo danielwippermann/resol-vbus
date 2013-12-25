@@ -1,7 +1,11 @@
 {
 	"specification": {
+		"unknownDevice": "Unknown Device (0x%1$04X)",
+		"fullNameWithChannel": "VBus #%1$d: %2$s",
+		"fullNameWithoutChannel": "%2$s"
+	},
+	"textConverter": {
 		"date": "Date",
-		"time": "Time",
-		"unknownDevice": "Unknown Device (0x%1$04X)"
+		"time": "Time"
 	}
 }
