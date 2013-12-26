@@ -61,4 +61,36 @@ describe('Converter', function() {
 
     });
 
+    describe('#_read', function() {
+
+        it('should be a method', function() {
+            expect(Converter.prototype._read).to.be.a('function');
+        });
+
+        it('should be abstract', function() {
+            var converter = new Converter();
+
+            expect(function() {
+                converter._read();
+            }).to.throw(Error, 'Must be implemented by sub-class');
+        });
+
+    });
+
+    describe('#_write', function() {
+
+        it('should be a method', function() {
+            expect(Converter.prototype._write).to.be.a('function');
+        });
+
+        it('should be abstract', function() {
+            var converter = new Converter();
+
+            expect(function() {
+                converter._write();
+            }).to.throw(Error, 'Must be implemented by sub-class');
+        });
+
+    });
+
 });
