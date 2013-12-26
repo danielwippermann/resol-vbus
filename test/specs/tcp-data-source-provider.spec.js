@@ -74,7 +74,7 @@ describe('TCP Data Source Provider', function() {
 
                 var dsp = new TcpDataSourceProvider();
 
-                dsp.fetchDeviceInformation(address.address + ':' + address.port).done(onFetch);
+                dsp.fetchDeviceInformation(address.address, address.port).done(onFetch);
             };
 
             var onRequest = function(req, res) {

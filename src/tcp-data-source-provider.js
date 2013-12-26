@@ -57,6 +57,15 @@ var TcpDataSourceProvider = DataSourceProvider.extend({
                 }
                 return memo;
             }, []);
+        }).then(function(results) {
+            return _.map(results, function(result) {
+                return new TcpDataSource({
+                    provider: _this.id,
+                    id: result.__address__,
+                    name: result.name || result.__address__,
+                    host: result.__address__,
+                });
+            });
         });
     },
 
@@ -131,8 +140,12 @@ var TcpDataSourceProvider = DataSourceProvider.extend({
         return promise;
     },
 
-    fetchDeviceInformation: function(address) {
+    fetchDeviceInformation: function(address, port) {
         var _this = this;
+
+        if (port === undefined) {
+            port = 80;
+        }
 
         var deferred = Q.defer();
         var promise = deferred.promise;
@@ -148,7 +161,14 @@ var TcpDataSourceProvider = DataSourceProvider.extend({
             }
         };
 
-        var reqUrl = url.parse('http://' + address + '/cgi-bin/get_resol_device_information');
+        var portSuffix;
+        if (port !== 80) {
+            portSuffix = ':' + port;
+        } else {
+            portSuffix = '';
+        }
+
+        var reqUrl = url.parse('http://' + address + portSuffix + '/cgi-bin/get_resol_device_information');
 
         var req = http.get(reqUrl, function(res) {
             if (res.statusCode === 200) {
@@ -160,7 +180,9 @@ var TcpDataSourceProvider = DataSourceProvider.extend({
 
                 res.on('end', function() {
                     var bodyString = buffer.toString();
-                    var info = _this.parseDeviceInformation(bodyString);
+                    var info = _.extend(_this.parseDeviceInformation(bodyString), {
+                        __address__: address,
+                    });
                     done(null, info);
                 });
 
