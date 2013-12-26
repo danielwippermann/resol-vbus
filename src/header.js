@@ -50,6 +50,20 @@ var Header = extend(null, {
         return sprintf('%02X_%04X_%04X_%02X', this.channel, this.destinationAddress, this.sourceAddress, this.getProtocolVersion());
     },
 
+    compareTo: function(that) {
+        var result = this.channel - that.channel;
+        if (result === 0) {
+            result = this.destinationAddress - that.destinationAddress;
+        }
+        if (result === 0) {
+            result = this.sourceAddress - that.sourceAddress;
+        }
+        if (result === 0) {
+            result = this.getProtocolVersion() - that.getProtocolVersion();
+        }
+        return result;
+    },
+
 }, {
 
     fromLiveBuffer: function() {

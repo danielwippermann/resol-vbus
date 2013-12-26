@@ -14,7 +14,8 @@ var Header = require('./header');
 var optionKeys = [
     'command',
     'valueId',
-    'value'
+    'value',
+    'info',
 ];
 
 
@@ -26,6 +27,8 @@ var Datagram = Header.extend({
     valueId: 0,
 
     value: 0,
+
+    info: 0,
 
     constructor: function(options) {
         Header.call(this, options);
@@ -76,6 +79,17 @@ var Datagram = Header.extend({
         return sprintf('%s_%04X_%04X', baseId, this.command, info);
     },
 
+    compareTo: function(that) {
+        var result = Header.prototype.compareTo.apply(this, arguments);
+        if (result === 0) {
+            result = this.command - that.command;
+        }
+        if (result === 0) {
+            result = this.info - that.info;
+        }
+        return result;
+    },
+    
 }, {
 
     fromLiveBuffer: function(buffer, start, end) {

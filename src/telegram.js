@@ -82,6 +82,14 @@ var Telegram = Header.extend({
         return sprintf('%s_%02X', baseId, this.command);
     },
 
+    compareTo: function(that) {
+        var result = Header.prototype.compareTo.apply(this, arguments);
+        if (result === 0) {
+            result = this.command - that.command;
+        }
+        return result;
+    },
+    
     getFrameCount: function() {
         return Telegram.getFrameCountForCommand(this.command);
     },
