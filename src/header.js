@@ -46,6 +46,10 @@ var Header = extend(null, {
         throw new Error('Must be implemented by sub-class');
     },
 
+    getInfo: function() {
+        return 0;
+    },
+
     getId: function() {
         return sprintf('%02X_%04X_%04X_%02X', this.channel, this.destinationAddress, this.sourceAddress, this.getProtocolVersion());
     },
