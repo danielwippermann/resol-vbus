@@ -115,6 +115,8 @@ var TcpDataSourceProvider = DataSourceProvider.extend({
                     return addressMap [key];
                 });
 
+                socket.close();
+
                 done(null, result);
             }
         };
@@ -135,6 +137,12 @@ var TcpDataSourceProvider = DataSourceProvider.extend({
                     }
                 }
             }
+        });
+
+        socket.on('error', function(err) {
+            socket.close();
+            
+            done(err);
         });
 
         return promise;
