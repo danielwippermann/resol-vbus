@@ -240,10 +240,12 @@ var Connection = extend(Duplex, {
 
         options = _.defaults({}, options, {
             timeout: 500,
+            timeoutIncr: 0,
             tries: 1,
         });
 
         var deferred = Q.defer();
+        var promise = deferred.promise;
 
         var timer, onPacket, onDatagram;
 
@@ -254,21 +256,22 @@ var Connection = extend(Duplex, {
             }
 
             if (onPacket) {
-                _this.off('packet', onPacket);
+                _this.removeListener('packet', onPacket);
                 onPacket = null;
             }
 
             if (onDatagram) {
-                _this.off('datagram', onDatagram);
+                _this.removeListener('datagram', onDatagram);
                 onDatagram = null;
             }
 
-            if (deferred.promise.isPending()) {
+            if (deferred) {
                 if (err) {
                     deferred.reject(err);
                 } else {
                     deferred.resolve(result);
                 }
+                deferred = null;
             }
         };
 
@@ -288,26 +291,27 @@ var Connection = extend(Duplex, {
             this.on('datagram', onDatagram);
         }
 
-        var tries = options.tries, timeout = 0;
+        var tries = options.tries, timeout = options.timeout;
 
         var nextTry = function() {
             if (tries > 0) {
                 tries--;
-                timeout += options.timeout;
 
                 if (txData) {
                     _this.send(txData);
                 }
 
                 timer = setTimeout(nextTry, timeout);
+
+                timeout += options.timeoutIncr;
             } else {
-                done(new Error('Waiting for reply timed out'));
+                done(null, null);
             }
         };
 
         process.nextTick(nextTry);
 
-        return deferred.promise;
+        return promise;
     },
 
     waitForFreeBus: function(timeout) {
@@ -340,15 +344,18 @@ var Connection = extend(Duplex, {
         }).toLiveBuffer();
 
         options.filterPacket = function(rxPacket, done) {
-            done();
+            done(null, rxPacket);
         };
 
         return this.transceive(txDatagram, options);
     },
 
     getValueById: function(address, valueId, options) {
+        var _this = this;
+
         options = _.defaults({}, options, {
             timeout: 500,
+            timeoutIncr: 500,
             tries: 3,
         });
 
@@ -361,9 +368,9 @@ var Connection = extend(Duplex, {
         }).toLiveBuffer();
 
         options.filterDatagram = function(rxDatagram, done) {
-            if (rxDatagram.destinationAddress !== txDatagram.sourceAddress) {
+            if (rxDatagram.destinationAddress !== _this.selfAddress) {
 
-            } else if (rxDatagram.sourceAddress !== txDatagram.destinationAddress) {
+            } else if (rxDatagram.sourceAddress !== address) {
 
             } else if (rxDatagram.command !== 0x0100) {
 
@@ -378,8 +385,11 @@ var Connection = extend(Duplex, {
     },
 
     setValueById: function(address, valueId, value, options) {
+        var _this = this;
+
         options = _.defaults({}, options, {
             timeout: 500,
+            timeoutIncr: 500,
             tries: 3,
             save: false
         });
@@ -393,9 +403,9 @@ var Connection = extend(Duplex, {
         }).toLiveBuffer();
 
         options.filterDatagram = function(rxDatagram, done) {
-            if (rxDatagram.destinationAddress !== txDatagram.sourceAddress) {
+            if (rxDatagram.destinationAddress !== _this.selfAddress) {
 
-            } else if (rxDatagram.sourceAddress !== txDatagram.destinationAddress) {
+            } else if (rxDatagram.sourceAddress !== address) {
 
             } else if (rxDatagram.command !== 0x0100) {
 
