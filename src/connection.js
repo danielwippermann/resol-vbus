@@ -165,16 +165,19 @@ var Connection = extend(Duplex, {
                         if (majorVersion === 1) {
                             if (EventEmitter.listenerCount(this, 'packet') > 0) {
                                 var packet = Packet.fromLiveBuffer(buffer, start, index);
+                                packet.channel = this.channel;
                                 this.emit('packet', packet);
                             }
                         } else if (majorVersion === 2) {
                             if (EventEmitter.listenerCount(this, 'datagram') > 0) {
                                 var datagram = Datagram.fromLiveBuffer(buffer, start, index);
+                                datagram.channel = this.channel;
                                 this.emit('datagram', datagram);
                             }
                         } else if (majorVersion === 3) {
                             if (EventEmitter.listenerCount(this, 'telegram') > 0) {
                                 var telegram = Telegram.fromLiveBuffer(buffer, start, index);
+                                telegram.channel = this.channel;
                                 this.emit('telegram', telegram);
                             }
                         }
