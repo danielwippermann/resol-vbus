@@ -56,12 +56,22 @@ var TcpConnection = Connection.extend({
     },
 
     disconnect: function() {
-        if (this.connectionState !== TcpConnection.STATE_DISCONNECTED) {
-            this._setConnectionState(TcpConnection.STATE_DISCONNECTING);
+        if (this.connectionState === TcpConnection.STATE_DISCONNECTING) {
+            if (this.socket) {
+                this.socket.destroy();
 
-            this.socket.destroy();
+                this.socket = null;
+            }
 
             this._setConnectionState(TcpConnection.STATE_DISCONNECTED);
+        } else if (this.connectionState !== TcpConnection.STATE_DISCONNECTED) {
+            this._setConnectionState(TcpConnection.STATE_DISCONNECTING);
+
+            if (this.socket) {
+                this.socket.end();
+            } else {
+                this._setConnectionState(TcpConnection.STATE_DISCONNECTED);
+            }
         }
     },
 
@@ -91,13 +101,11 @@ var TcpConnection = Connection.extend({
         var rxBuffer = null;
 
         var write = function() {
-            // console.log(arguments);
             return socket.write.apply(socket, arguments);
         };
 
         var onConnect = function() {
             // console.log('onConnect');
-
         };
 
         var onLine = function(line) {
@@ -169,7 +177,7 @@ var TcpConnection = Connection.extend({
             }
         };
 
-        var onData = function(chunk) {
+        var onSocketData = function(chunk) {
             // console.log('onData');
 
             if (phase < 1000) {
@@ -212,8 +220,12 @@ var TcpConnection = Connection.extend({
             }
         };
 
+        var onConnectionData = function(chunk) {
+            write(chunk);
+        };
+
         var onSocketTermination = function() {
-            console.log('onSocketTermination', _this.socket === socket, _this.connectionState, 'TO: ' + _this.reconnectTimeout);
+            _this.removeListener('data', onConnectionData);
 
             if (_this.socket !== socket) {
                 // nop
@@ -247,27 +259,23 @@ var TcpConnection = Connection.extend({
         };
 
         var onEnd = function() {
-            console.log('onEnd');
-            
             onSocketTermination();
         };
 
         var onError = function(err) {
-            console.log(err);
-
             socket.destroy();
             onSocketTermination();
         };
 
         var onTimeout = function() {
-            console.log('onTimeout');
-
             socket.destroy();
             onSocketTermination();
         };
 
+        this.on('data', onConnectionData);
+
         var socket = net.connect(options, onConnect);
-        socket.on('data', onData);
+        socket.on('data', onSocketData);
         socket.on('end', onEnd);
         socket.on('error', onError);
         socket.setTimeout(30000, onTimeout);
