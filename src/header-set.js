@@ -28,12 +28,12 @@ var HeaderSet = extend(EventEmitter, {
 
     timestamp: null,
 
-    headerMap: null,
+    headerList: null,
 
     constructor: function(options) {
         EventEmitter.call(this);
 
-        this.headerMap = {};
+        this.headerList = [];
 
         _.extend(this, _.pick(options, optionKeys));
 
@@ -46,9 +46,19 @@ var HeaderSet = extend(EventEmitter, {
         }
     },
 
+    _findIndex: function(header) {
+        return _.findIndex(this.headerList, function(refHeader) {
+            return (refHeader.compareTo(header) === 0);
+        });
+    },
+
     addHeader: function(header) {
-        var id = header.getId();
-        this.headerMap [id] = header;
+        var index = this._findIndex(header);
+        if (index >= 0) {
+            this.headerList [index] = header;
+        } else {
+            this.headerList.push(header);
+        }
 
         if (this.timestamp.getTime() < header.timestamp.getTime()) {
             this.timestamp = header.timestamp;
@@ -65,24 +75,25 @@ var HeaderSet = extend(EventEmitter, {
         });
     },
 
-    _removeHeader: function(key) {
-        this.emit('removeHeader', this.headerMap [key]);
+    _removeHeader: function(header) {
+        var index = this._findIndex(header);
+        if (index >= 0) {
+            this.emit('removeHeader', this.headerList [index]);
 
-        delete this.headerMap [key];
+            this.headerList.splice(index, 1);
+        }
     },
 
-    _removeHeaders: function(keys) {
+    _removeHeaders: function(headers) {
         var _this = this;
 
-        _.forEach(keys, function(key) {
-            _this._removeHeader(key);
+        _.forEach(headers, function(header) {
+            _this._removeHeader(header);
         });
     },
 
     removeAllHeaders: function() {
-        var keys = _.keys(this.headerMap);
-
-        this._removeHeaders(keys);
+        this._removeHeaders(this.headerList.slice(0));
     },
 
     removeHeadersOlderThan: function(timestamp) {
@@ -90,36 +101,38 @@ var HeaderSet = extend(EventEmitter, {
 
         var time = timestamp.getTime();
 
-        var keys = [];
-        _.forEach(this.headerMap, function(header, key) {
+        var headers = [];
+        _.forEach(this.headerList, function(header) {
             if (header.timestamp.getTime() < time) {
-                keys.push(key);
+                headers.push(header);
             }
         });
 
-        this._removeHeaders(keys);
+        this._removeHeaders(headers);
     },
 
     getHeaderCount: function() {
-        return _.keys(this.headerMap).length;
+        return this.headerList.length;
     },
 
     getSortedHeaders: function() {
         var _this = this;
 
-        var sortedKeys = _.keys(this.headerMap).sort();
-
-        var sortedHeaders = _.map(sortedKeys, function(key) {
-            return _this.headerMap [key];
+        var sortedHeaders = this.headerList.slice(0).sort(function(left, right) {
+            return left.compareTo(right);
         });
 
         return sortedHeaders;
     },
 
     getId: function() {
-        var sortedKeys = _.keys(this.headerMap).sort();
+        var sortedHeaders = this.getSortedHeaders();
 
-        var id = sortedKeys.join(',');
+        var sortedIds = _.map(sortedHeaders, function(header) {
+            return header.getId();
+        });
+
+        var id = sortedIds.join(',');
 
         return id;
     },
