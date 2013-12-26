@@ -50,6 +50,11 @@ describe('extend', function() {
 
         expect(ChildClass.staticProp1).to.equal(true);
         expect(ChildClass.prototype.protoProp1).to.equal(true);
+
+        var instance = new ChildClass();
+
+        expect(instance).to.be.an('object');
+        expect(instance).to.be.an.instanceOf(ChildClass);
     });
 
     it('should work with parent class', function() {
@@ -77,6 +82,11 @@ describe('extend', function() {
         expect(ChildClass.staticProp2).to.equal(true);
         expect(ChildClass.prototype.protoProp1).to.equal(true);
         expect(ChildClass.prototype.protoProp2).to.equal(true);
+
+        var instance = new ChildClass();
+
+        expect(instance).to.be.an('object');
+        expect(instance).to.be.an.instanceOf(ChildClass);
     });
 
 });
