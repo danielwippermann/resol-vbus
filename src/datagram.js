@@ -15,7 +15,6 @@ var optionKeys = [
     'command',
     'valueId',
     'value',
-    'info',
 ];
 
 
@@ -27,8 +26,6 @@ var Datagram = Header.extend({
     valueId: 0,
 
     value: 0,
-
-    info: 0,
 
     constructor: function(options) {
         Header.call(this, options);
@@ -69,13 +66,19 @@ var Datagram = Header.extend({
         return 0x20;
     },
 
-    getId: function() {
-        var info = 0;
+    getInfo: function() {
+        var info;
         if (this.command === 0x0900) {
             info = this.valueId;
+        } else {
+            info = 0;
         }
+        return info;
+    },
 
+    getId: function() {
         var baseId = Header.prototype.getId.call(this);
+        var info = this.getInfo();
         return sprintf('%s_%04X_%04X', baseId, this.command, info);
     },
 
@@ -85,7 +88,7 @@ var Datagram = Header.extend({
             result = this.command - that.command;
         }
         if (result === 0) {
-            result = this.info - that.info;
+            result = this.getInfo() - that.getInfo();
         }
         return result;
     },
