@@ -27,6 +27,7 @@
     "moment": "~2.4.0",
     "numeral": "~1.5.2",
     "i18next": "~1.7.1",
-    "buffer-more-ints": "0.0.2"
+    "buffer-more-ints": "0.0.2",
+    "serialport": "~1.2.5"
   }
 }
