@@ -46,9 +46,32 @@ var TcpDataSourceProvider = DataSourceProvider.extend({
     discoverDataSources: function() {
         var _this = this;
 
-        return this.sendBroadcast(function(address) {
-            return _this.fetchDeviceInformation(address);
-        }).then(function(promises) {
+        return TcpDataSourceProvider.discoverDevices().then(function(results) {
+            return _.map(results, function(result) {
+                var options = _.extend({}, result, {
+                    host: result.__address__
+                });
+
+                return _this.createDataSource(options);
+            });
+        });
+    },
+
+    createDataSource: function(options) {
+        options = _.extend({}, options, {
+            provider: this.id,
+            id: options.__address__,
+            name: options.name || options.__address__,
+            host: options.__address__,
+        });
+
+        return new TcpDataSource(options);
+    },
+
+}, {
+
+    discoverDevices: function(options) {
+        return TcpDataSourceProvider.sendBroadcast(options).then(function(promises) {
             return Q.allSettled(promises);
         }).then(function(results) {
             return _.reduce(results, function(memo, result) {
@@ -57,23 +80,10 @@ var TcpDataSourceProvider = DataSourceProvider.extend({
                 }
                 return memo;
             }, []);
-        }).then(function(results) {
-            return _.map(results, function(result) {
-                return new TcpDataSource({
-                    provider: _this.id,
-                    id: result.__address__,
-                    name: result.name || result.__address__,
-                    host: result.__address__,
-                });
-            });
         });
     },
 
-    createDataSource: function(options) {
-        return new TcpDataSource(options);
-    },
-
-    sendBroadcast: function(callback) {
+    sendBroadcast: function(options) {
         var deferred = Q.defer();
         var promise = deferred.promise;
 
@@ -88,8 +98,19 @@ var TcpDataSourceProvider = DataSourceProvider.extend({
             }
         };
 
-        var bcastAddress = this.broadcastAddress;
-        var bcastPort = this.broadcastPort;
+        options = _.defaults(options, {
+            broadcastAddress: '255.255.255.255',
+            broadcastPort: 7053,
+        });
+
+        if (options.fetchCallback === undefined) {
+            options.fetchCallback = function(address) {
+                return TcpDataSourceProvider.fetchDeviceInformation(address);
+            };
+        }
+
+        var bcastAddress = options.broadcastAddress;
+        var bcastPort = options.broadcastPort;
 
         var addressMap = {};
 
@@ -121,7 +142,7 @@ var TcpDataSourceProvider = DataSourceProvider.extend({
             }
         };
 
-        socket.bind(bcastPort, function() {
+        socket.bind(0, function() {
             socket.setBroadcast(true);
 
             sendQuery();
@@ -133,7 +154,7 @@ var TcpDataSourceProvider = DataSourceProvider.extend({
                 if (msgString === replyString) {
                     var address = rinfo.address;
                     if (!_.has(addressMap, address)) {
-                        addressMap [address] = callback(address);
+                        addressMap [address] = options.fetchCallback(address);
                     }
                 }
             }
@@ -149,8 +170,6 @@ var TcpDataSourceProvider = DataSourceProvider.extend({
     },
 
     fetchDeviceInformation: function(address, port) {
-        var _this = this;
-
         if (port === undefined) {
             port = 80;
         }
@@ -188,7 +207,7 @@ var TcpDataSourceProvider = DataSourceProvider.extend({
 
                 res.on('end', function() {
                     var bodyString = buffer.toString();
-                    var info = _.extend(_this.parseDeviceInformation(bodyString), {
+                    var info = _.extend(TcpDataSourceProvider.parseDeviceInformation(bodyString), {
                         __address__: address,
                     });
                     done(null, info);

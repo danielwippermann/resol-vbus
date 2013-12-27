@@ -20,18 +20,16 @@ describe('TCP Data Source Provider', function() {
 
     });
 
-    describe('#parseDeviceInformation', function() {
+    describe('.parseDeviceInformation', function() {
 
-        it('should be a method', function() {
-            expect(TcpDataSourceProvider.prototype.parseDeviceInformation).to.be.a('function');
+        it('should be a function', function() {
+            expect(TcpDataSourceProvider.parseDeviceInformation).to.be.a('function');
         });
 
         it('should work correctly', function() {
             var string = 'vendor = \"RESOL\"\r\nproduct = \"DL3\"\r\nserial = \"001E660300F0\"\r\nversion = \"2.1.0\"\r\nbuild = \"201311280853\"\r\nname = \"DL3-001E660300F0\"\r\nfeatures = \"vbus,dl2,dl3\"\r\n';
 
-            var dsp = new TcpDataSourceProvider();
-
-            var info = dsp.parseDeviceInformation(string);
+            var info = TcpDataSourceProvider.parseDeviceInformation(string);
 
             expect(info).to.be.an('object');
             expect(info.vendor).to.equal('RESOL');
@@ -45,10 +43,10 @@ describe('TCP Data Source Provider', function() {
 
     });
 
-    describe('#fetchDeviceInformation', function() {
+    describe('.fetchDeviceInformation', function() {
 
-        it('should be a method', function() {
-            expect(TcpDataSourceProvider.prototype.fetchDeviceInformation).to.be.a('function');
+        it('should be a function', function() {
+            expect(TcpDataSourceProvider.fetchDeviceInformation).to.be.a('function');
         });
 
         it('should work correctly', function(done) {
@@ -72,9 +70,7 @@ describe('TCP Data Source Provider', function() {
             var onListening = function() {
                 var address = server.address();
 
-                var dsp = new TcpDataSourceProvider();
-
-                dsp.fetchDeviceInformation(address.address, address.port).done(onFetch);
+                TcpDataSourceProvider.fetchDeviceInformation(address.address, address.port).done(onFetch);
             };
 
             var onRequest = function(req, res) {
