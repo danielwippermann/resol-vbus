@@ -28,9 +28,15 @@ var HeaderSet = require('./header-set');
 var Logger = require('./logger');
 
 var Connection = require('./connection');
+var SerialConnection = require('./serial-connection');
 var TcpConnection = require('./tcp-connection');
 
+var DataSource = require('./data-source');
+var SerialDataSource = require('./serial-data-source');
+var TcpDataSource = require('./tcp-data-source');
+
 var DataSourceProvider = require('./data-source-provider');
+var SerialDataSourceProvider = require('./serial-data-source-provider');
 var TcpDataSourceProvider = require('./tcp-data-source-provider');
 
 var Converter = require('./converter');
@@ -63,9 +69,15 @@ module.exports = {
     Logger: Logger,
     
     Connection: Connection,
+    SerialConnection: SerialConnection,
     TcpConnection: TcpConnection,
     
+    DataSource: DataSource,
+    SerialDataSource: SerialDataSource,
+    TcpDataSource: TcpDataSource,
+    
     DataSourceProvider: DataSourceProvider,
+    SerialDataSourceProvider: SerialDataSourceProvider,
     TcpDataSourceProvider: TcpDataSourceProvider,
     
     Converter: Converter,
