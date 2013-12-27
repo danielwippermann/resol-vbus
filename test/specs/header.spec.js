@@ -7,6 +7,26 @@ var Header = require('./resol-vbus').Header;
 
 
 
+var DebugHeader = Header.extend({
+
+    protocolVersion: 0x37,
+
+    constructor: function(options) {
+        Header.call(this, options);
+
+        if (options.protocolVersion !== undefined) {
+            this.protocolVersion = options.protocolVersion;
+        }
+    },
+
+    getProtocolVersion: function() {
+        return this.protocolVersion;
+    },
+
+});
+
+
+
 describe('Header', function() {
 
     describe('.fromLiveBuffer', function() {
@@ -203,19 +223,110 @@ describe('Header', function() {
                 channel: 0x13,
                 destinationAddress: 0x2336,
                 sourceAddress: 0x3335,
-                junk: 0x7331
+                protocolVersion: 0x37,
             };
 
-            var header = new Header(options);
-
-            expect(header).to.be.an('object');
-
-            // substitute abstract method for this test
-            header.getProtocolVersion = function() {
-                return 0x37;
-            };
+            var header = new DebugHeader(options);
 
             expect(header.getId()).to.equal('13_2336_3335_37');
+        });
+
+    });
+
+    describe('#compareTo', function() {
+
+        it('should be a method', function() {
+            expect(Header.prototype.compareTo).to.be.a('function');
+        });
+
+        it('should work correctly for channel', function() {
+            var options = {
+                timestamp: new Date(0),
+                channel: 0x13,
+                destinationAddress: 0x2336,
+                sourceAddress: 0x3335,
+                protocolVersion: 0x37,
+            };
+
+            var datagram = new DebugHeader(options);
+
+            expect(datagram.compareTo(new DebugHeader(options))).to.equal(0);
+
+            options.channel = 0x00;
+
+            expect(datagram.compareTo(new DebugHeader(options))).to.be.above(0);
+
+            options.channel = 0x7F;
+
+            expect(datagram.compareTo(new DebugHeader(options))).to.be.below(0);
+        });
+
+        it('should work correctly for destinationAddress', function() {
+            var options = {
+                timestamp: new Date(0),
+                channel: 0x13,
+                destinationAddress: 0x2336,
+                sourceAddress: 0x3335,
+                protocolVersion: 0x37,
+            };
+
+            var datagram = new DebugHeader(options);
+
+            expect(datagram.compareTo(new DebugHeader(options))).to.equal(0);
+
+            options.destinationAddress = 0x0000;
+
+            expect(datagram.compareTo(new DebugHeader(options))).to.be.above(0);
+
+            options.destinationAddress = 0x7F7F;
+
+            expect(datagram.compareTo(new DebugHeader(options))).to.be.below(0);
+        });
+
+        it('should work correctly for sourceAddress', function() {
+            var options = {
+                timestamp: new Date(0),
+                channel: 0x13,
+                destinationAddress: 0x2336,
+                sourceAddress: 0x3335,
+                protocolVersion: 0x37,
+            };
+
+            var datagram = new DebugHeader(options);
+
+            expect(datagram.compareTo(new DebugHeader(options))).to.equal(0);
+
+            options.sourceAddress = 0x0000;
+
+            expect(datagram.compareTo(new DebugHeader(options))).to.be.above(0);
+
+            options.sourceAddress = 0x7F7F;
+
+            expect(datagram.compareTo(new DebugHeader(options))).to.be.below(0);
+        });
+
+        it('should work correctly for protocol version', function() {
+            var options = {
+                timestamp: new Date(0),
+                channel: 0x13,
+                destinationAddress: 0x2336,
+                sourceAddress: 0x3335,
+                protocolVersion: 0x37,
+            };
+
+            debugger;
+
+            var datagram = new DebugHeader(options);
+
+            expect(datagram.compareTo(new DebugHeader(options))).to.equal(0);
+
+            options.protocolVersion = 0x00;
+
+            expect(datagram.compareTo(new DebugHeader(options))).to.be.above(0);
+
+            options.protocolVersion = 0x7F;
+
+            expect(datagram.compareTo(new DebugHeader(options))).to.be.below(0);
         });
 
     });
