@@ -26,12 +26,14 @@ var TcpDataSource = DataSource.extend({
 
     liveChannel: 0,
 
-    livePassword: 0,
+    livePassword: 'vbus',
 
     constructor: function(options) {
         DataSource.call(this, options);
 
-        _.extend(_.pick(options, optionKeys));
+        _.extend(this, _.pick(options, optionKeys));
+
+        this.options = options;
     },
 
     connectLive: function(options) {
