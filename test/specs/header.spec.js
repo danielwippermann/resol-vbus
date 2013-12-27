@@ -211,6 +211,20 @@ describe('Header', function() {
 
     });
 
+    describe('#getInfo', function() {
+
+        it('should be a method', function() {
+            expect(Header.prototype.getInfo).to.be.a('function');
+        });
+
+        it('should work correctly', function() {
+            var header = new Header();
+
+            expect(header.getInfo()).to.equal(0);
+        });
+        
+    });
+
     describe('#getId', function() {
 
         it('should be a method', function() {
