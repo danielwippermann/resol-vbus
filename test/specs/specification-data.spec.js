@@ -13,6 +13,8 @@ var Specification = require('./resol-vbus').Specification;
 describe('SpecificationData', function() {
 
     it('is auto-generated, just increase test coverage :)', function() {
+        this.slow(1000);
+        
         var spec = new Specification();
 
         var specificationData = spec.specificationData;
