@@ -33,12 +33,42 @@ describe('I18N', function() {
 
     });
 
+    describe('#sprintf', function() {
+
+        it('should be a method', function() {
+            expect(I18N.prototype.sprintf).to.be.a('function');
+        });
+
+        it('should work correctly', function() {
+            var i18n = new I18N();
+
+            var result = i18n.sprintf('%04d_%04x_%s', 0x300, 0x300, 'Test');
+
+            expect(result).to.equal('0768_0300_Test');
+        });
+
+    });
+
+    describe('#vsprintf', function() {
+
+        it('should be a method', function() {
+            expect(I18N.prototype.sprintf).to.be.a('function');
+        });
+
+        it('should work correctly', function() {
+            var i18n = new I18N();
+
+            var result = i18n.vsprintf('%04d_%04x_%s', [ 0x300, 0x300, 'Test' ]);
+
+            expect(result).to.equal('0768_0300_Test');
+        });
+        
+    });
+
     describe('#t', function() {
 
         it('should be a method', function() {
-            var i18n = new I18N();
-
-            expect(i18n.t).to.be.a('function');
+            expect(I18N.prototype.t).to.be.a('function');
         });
 
         it('should work correctly for known keys', function() {
