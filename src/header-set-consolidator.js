@@ -26,7 +26,7 @@ var HeaderSetConsolidator = HeaderSet.extend({
 
     timeToLive: 0,
 
-    lastLogTime: 0,
+    lastIntervalTime: 0,
 
     timer: null,
 
@@ -39,7 +39,7 @@ var HeaderSetConsolidator = HeaderSet.extend({
     startTimer: function() {
         this.stopTimer();
 
-        this.lastLogTime = Date.now();
+        this.lastIntervalTime = Date.now();
 
         this._handleInterval();
     },
@@ -76,20 +76,20 @@ var HeaderSetConsolidator = HeaderSet.extend({
 
     _processHeaderSet: function(now) {
         if (this.interval > 0) {
-            var lastInterval = Math.floor(this.lastLogTime / this.interval);
+            var lastInterval = Math.floor(this.lastIntervalTime / this.interval);
             var currentInterval = Math.floor(now / this.interval);
             var diff = currentInterval - lastInterval;
 
             if ((diff < -1) || (diff > 0)) {
                 if (this.timeToLive > 0) {
-                    this.headerSet.removeHeadersOlderThan(now - this.timeToLive);
+                    this.removeHeadersOlderThan(now - this.timeToLive);
                 }
 
-                this.headerSet.timestamp = new Date(now);
+                this.timestamp = new Date(now);
 
-                this.emit('headerSet', this.headerSet);
+                this.emit('headerSet', this);
 
-                this.lastLogTime = now;
+                this.lastIntervalTime = now;
             }
         }
     },
