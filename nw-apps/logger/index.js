@@ -91,35 +91,50 @@ var App = vbus.extend(EventEmitter, {
 
     connection: null,
 
-    logger: null,
-
-    headerSet: null,
+    headerSetConsolidator: null,
 
     spec: null,
 
-    textRecorder: null,
+    textConverter: null,
 
     constructor: function() {
         var _this = this;
 
         EventEmitter.call(this);
 
-        this.logger = new vbus.Logger({
-            logInterval: config.logInterval * 1000
+        this.headerSetConsolidator = new vbus.HeaderSetConsolidator({
+            interval: config.logInterval * 1000
         });
 
-        this.logger.on('logInterval', function(event) {
+        this.headerSetConsolidator.on('headerSet', function(headerSet) {
             if (state.connectionState === vbus.TcpConnection.STATE_CONNECTED) {
-                if (_this.textRecorder) {
-                    _this.textRecorder.recordHeaderSet(_this.headerSet);
-                    state.lastFilePath = _this.textRecorder.lastFilePath;
+                if (_this.textConverter) {
+                    _this.textConverter.convertHeaderSet(headerSet);
                 }
             }
         });
 
-        this.logger.startLogInterval();
+        this.headerSetConsolidator.startTimer();
 
-        this.headerSet = this.logger.headerSet;
+        this.textConverter = new vbus.TextConverter({
+            columnSeparator: config.textLogColumSeparator,
+            lineSeparator: config.textLogLineSeparator,
+            separateDateAndTime: config.textLogSeparateDateAndTime,
+            specification: null
+        });
+
+        this.textConverter.on('data', function(chunk) {
+            var now = _this.headerSetConsolidator.lastIntervalTime;
+            var filename = moment(now).format(config.textLogFilePattern);
+            var fullPath = path.join(config.textLogDirectory, filename);
+            fs.appendFile(fullPath, chunk, function(err) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    state.lastFilePath = fullPath;
+                }
+            });
+        });
 
         try {
             this.applyFilter(config.filter);
@@ -153,9 +168,7 @@ var App = vbus.extend(EventEmitter, {
 
         this.connection.connect();
 
-        this.logger.logInterval = config.logInterval * 1000;
-
-        this.createTextRecorder();
+        this.headerSetConsolidator.interval = config.logInterval * 1000;
     },
 
     disconnect: function() {
@@ -182,9 +195,9 @@ var App = vbus.extend(EventEmitter, {
 
     _onPacket: function(packet) {
         state.packetCount++;
-        this.headerSet.addHeader(packet);
+        this.headerSetConsolidator.addHeader(packet);
 
-        var headers = this.headerSet.getSortedHeaders();
+        var headers = this.headerSetConsolidator.getSortedHeaders();
         var packetFieldSpecs = this.spec.getPacketFieldsForHeaders(headers);
 
         // var tableBody = $('#liveDataTable tbody');
@@ -199,9 +212,11 @@ var App = vbus.extend(EventEmitter, {
             specificationData: specificationData
         });
 
-        this.headerSet.removeAllHeaders();
+        this.headerSetConsolidator.removeAllHeaders();
 
-        this.createTextRecorder();
+        this.textConverter.specification = this.spec;
+
+        this.textConverter.reset();
     },
 
     applyAndSaveFilter: function(specificationDataText) {
@@ -212,22 +227,13 @@ var App = vbus.extend(EventEmitter, {
     },
 
     generateFilter: function() {
-        var headers = this.headerSet.getSortedHeaders();
+        var headers = this.headerSetConsolidator.getSortedHeaders();
         var spec = new vbus.Specification();
         var filteredPacketFieldSpecs = spec.getFilteredPacketFieldSpecificationsForHeaders(headers);
         var filterSpec = vbus.Specification.storeSpecificationData({
             filteredPacketFieldSpecs: filteredPacketFieldSpecs
         });
         return filterSpec;
-    },
-
-    createTextRecorder: function() {
-        this.textRecorder = new vbus.TextFileRecorder({
-            directory: config.textLogDirectory,
-            filePattern: config.textLogFilePattern,
-            separateDateAndTime: config.textLogSeparateDateAndTime,
-            specification: this.spec
-        });
     },
 
 });

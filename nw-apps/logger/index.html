@@ -220,7 +220,7 @@
           var state = app.state;
 
           $('#packetCount').text(state.packetCount);
-          $('#uniquePacketCount').text(app.logger.headerSet.getHeaderCount());
+          $('#uniquePacketCount').text(app.headerSetConsolidator.getHeaderCount());
           $('#lastFilePath').text(state.lastFilePath || '-');
 
           setTimeout(updateStats, 1000);
