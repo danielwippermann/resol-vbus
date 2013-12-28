@@ -196,6 +196,35 @@ describe('HeaderSet', function() {
 
     });
 
+    describe('#getHeaders', function() {
+
+        it('should be a method', function() {
+            expect(HeaderSet.prototype.getHeaders).to.be.a('function');
+        });
+
+        it('should work correctly', function() {
+            var header1 = new Packet({
+                channel: 1
+            });
+
+            var header2 = new Packet({
+                channel: 2
+            });
+
+            var headerSet = new HeaderSet({
+                headers: [ header2, header1 ]
+            });
+
+            var headers = headerSet.getHeaders();
+
+            expect(headers).to.be.an('array');
+            expect(headers.length).to.equal(2);
+            expect(headers.indexOf(header1) >= 0);
+            expect(headers.indexOf(header2) >= 0);
+        });
+
+    });
+
     describe('#getSortedHeaders', function() {
 
         it('should be a method', function() {

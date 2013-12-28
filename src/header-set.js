@@ -115,6 +115,10 @@ var HeaderSet = extend(EventEmitter, {
         return this.headerList.length;
     },
 
+    getHeaders: function() {
+        return this.headerList.slice(0);
+    },
+
     getSortedHeaders: function() {
         var _this = this;
 
