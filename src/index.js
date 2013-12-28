@@ -24,8 +24,7 @@ var Datagram = require('./datagram');
 var Telegram = require('./telegram');
 
 var HeaderSet = require('./header-set');
-
-var Logger = require('./logger');
+var HeaderSetConsolidator = require('./header-set-consolidator');
 
 var Connection = require('./connection');
 var SerialConnection = require('./serial-connection');
@@ -44,8 +43,7 @@ var VBusRecordingConverter = require('./vbus-recording-converter');
 var TextConverter = require('./text-converter');
 
 var Recorder = require('./recorder');
-
-var TextFileRecorder = require('./text-file-recorder');
+var DLxRecorder = require('./dlx-recorder');
 
 
 
@@ -65,9 +63,8 @@ module.exports = {
     Telegram: Telegram,
 
     HeaderSet: HeaderSet,
+    HeaderSetConsolidator: HeaderSetConsolidator,
 
-    Logger: Logger,
-    
     Connection: Connection,
     SerialConnection: SerialConnection,
     TcpConnection: TcpConnection,
@@ -85,6 +82,5 @@ module.exports = {
     TextConverter: TextConverter,
 
     Recorder: Recorder,
-
-    TextFileRecorder: TextFileRecorder,
+    DLxRecorder: DLxRecorder,
 };
