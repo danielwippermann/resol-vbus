@@ -27,9 +27,6 @@ module.exports = function(grunt) {
                     reporter: 'html-cov',
                     quiet: true,
                     captureFile: './coverage.html',
-                    'data-cover-flags': {
-                        debug: true
-                    }
                 }
             }
         },
@@ -37,19 +34,19 @@ module.exports = function(grunt) {
             logger: {
                 files: [ {
                     expand: true,
-                    cwd: 'nw-apps/logger',
-                    src: [
-                        '**/*',
-                    ],
-                    dest: 'nw-builds/tmp/logger'
-                }, { 
-                    expand: true,
                     cwd: '.',
                     src: [ 
                         'package.json', 
                         'src/**/*',
                     ], 
-                    dest: 'nw-builds/tmp/logger/node_modules/resol-vbus'
+                    dest: 'nw-apps/logger/node_modules/resol-vbus'
+                }, { 
+                    expand: true,
+                    cwd: 'nw-apps/logger',
+                    src: [
+                        '**/*',
+                    ],
+                    dest: 'nw-builds/tmp/logger'
                 } ]
             }
         },
