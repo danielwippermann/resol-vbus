@@ -54,6 +54,14 @@ var Specification = extend(null, {
         this.specificationData = Specification.loadSpecificationData(options && options.specificationData);
     },
 
+    getUnitById: function(id) {
+        return this.specificationData.units [id];
+    },
+
+    getTypeById: function(id) {
+        return this.specificationData.types [id];
+    },
+
     getDeviceSpecification: function(selfAddress, peerAddress, channel) {
         if (typeof selfAddress === 'object') {
             if (peerAddress === 'source') {
@@ -153,7 +161,9 @@ var Specification = extend(null, {
                 channel: headerOrChannel,
                 destinationAddress: destinationAddress,
                 sourceAddress: sourceAddress,
+                protocolVersion: 0x10,
                 command: command,
+                info: 0,
                 destinationDevice: destinationDeviceSpec,
                 sourceDevice: sourceDeviceSpec,
                 fullName: fullName,
@@ -250,7 +260,7 @@ var Specification = extend(null, {
         } else if (rootType === 'Weektime') {
             textValue = this.i18n.moment((rawValue + 5760) * 60000).utc().format('dd,HH:mm');
             result = textValue + unitText;
-        } else if (rootType === 'Datetime') {
+        } else if (rootType === 'DateTime') {
             textValue = this.i18n.moment((rawValue + 978307200) * 1000).utc().format('L HH:mm:ss');
             result = textValue + unitText;
         } else if (precision === 0) {

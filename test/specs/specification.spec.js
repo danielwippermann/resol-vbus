@@ -181,6 +181,54 @@ describe('Specification', function() {
 
     });
 
+    describe('#getUnitById', function() {
+
+        it('should be a method', function() {
+            expect(Specification.prototype.getUnitById).to.be.a('function');
+        });
+
+        it('should work correctly for known units', function() {
+            var spec = new Specification();
+
+            var unit = spec.getUnitById('None');
+
+            expect(unit).to.be.an('object');
+        });
+
+        it('should work correctly for unknown units', function() {
+            var spec = new Specification();
+
+            var unit = spec.getUnitById('Unknown');
+
+            expect(unit).to.equal(undefined);
+        });
+
+    });
+
+    describe('#getTypeById', function() {
+
+        it('should be a method', function() {
+            expect(Specification.prototype.getTypeById).to.be.a('function');
+        });
+
+        it('should work correctly for known types', function() {
+            var spec = new Specification();
+
+            var unit = spec.getTypeById('Number_1_0_None');
+
+            expect(unit).to.be.an('object');
+        });
+
+        it('should work correctly for unknown types', function() {
+            var spec = new Specification();
+
+            var unit = spec.getTypeById('Unknown');
+
+            expect(unit).to.equal(undefined);
+        });
+
+    });
+
     describe('#getDeviceSpecification', function() {
 
         it('should be a method', function() {
@@ -604,10 +652,10 @@ describe('Specification', function() {
             expect(textValue).to.equal('Th,12:01');
         });
 
-        it('should work correctly for root type "Datetime"', function() {
+        it('should work correctly for root type "DateTime"', function() {
             var spec = new Specification();
 
-            var textValue = spec.formatTextValueFromRawValueInternal(409418262, null, 'Datetime', 0, null);            
+            var textValue = spec.formatTextValueFromRawValueInternal(409418262, null, 'DateTime', 0, null);            
 
             expect(textValue).to.equal('12/22/2013 15:17:42');
         });
