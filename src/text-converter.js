@@ -40,7 +40,9 @@ var TextConverter = Converter.extend({
         _.extend(this, _.pick(options, optionKeys));
 
         if (!this.specification) {
-            this.specification = new Specification(options && options.language || 'en');
+            this.specification = new Specification({
+                language: options && options.language || 'en'
+            });
         }
     },
 
