@@ -345,12 +345,30 @@ describe('Connection', function() {
             });
         });
 
-        xit('should report v3 header checksum errors correctly', function() {
-            throw new Error('NYI');
+        it('should report v3 header checksum errors correctly', function() {
+            parseRawData(function(conn, stats) {
+                conn.write(new Buffer('AA11207177300400', 'hex'));
+
+                expect(stats.txDataCount).to.equal(0);
+                expect(stats.rawDataCount).to.equal(8);
+                expect(stats.junkDataCount).to.equal(8);
+                expect(stats.packetCount).to.equal(0);
+                expect(stats.datagramCount).to.equal(0);
+                expect(stats.telegramCount).to.equal(0);
+            });
         });
 
-        xit('should report v3 frame checksum errors correctly', function() {
-            throw new Error('NYI');
+        it('should report v3 frame checksum errors correctly', function() {
+            parseRawData(function(conn, stats) {
+                conn.write(new Buffer('AA7177112030251160182B040000000400', 'hex'));
+
+                expect(stats.txDataCount).to.equal(0);
+                expect(stats.rawDataCount).to.equal(17);
+                expect(stats.junkDataCount).to.equal(17);
+                expect(stats.packetCount).to.equal(0);
+                expect(stats.datagramCount).to.equal(0);
+                expect(stats.telegramCount).to.equal(0);
+            });
         });
 
     });
