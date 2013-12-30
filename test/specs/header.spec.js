@@ -328,8 +328,6 @@ describe('Header', function() {
                 protocolVersion: 0x37,
             };
 
-            debugger;
-
             var datagram = new DebugHeader(options);
 
             expect(datagram.compareTo(new DebugHeader(options))).to.equal(0);
