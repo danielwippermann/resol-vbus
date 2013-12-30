@@ -41,6 +41,7 @@ var TcpDataSourceProvider = require('./tcp-data-source-provider');
 var Converter = require('./converter');
 var VBusRecordingConverter = require('./vbus-recording-converter');
 var TextConverter = require('./text-converter');
+var DLxJsonConverter = require('./dlx-json-converter');
 
 var Recorder = require('./recorder');
 var DLxRecorder = require('./dlx-recorder');
@@ -80,6 +81,7 @@ module.exports = {
     Converter: Converter,
     VBusRecordingConverter: VBusRecordingConverter,
     TextConverter: TextConverter,
+    DLxJsonConverter: DLxJsonConverter,
 
     Recorder: Recorder,
     DLxRecorder: DLxRecorder,
