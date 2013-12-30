@@ -156,6 +156,7 @@ var Connection = extend(Duplex, {
                             if (!Header.calcAndCompareChecksumV0(buffer, frameIndex, frameIndex + 8)) {
                                 valid = false;
                             }
+                            frameIndex += 9;
                         }
                     } else {
                         valid = false;

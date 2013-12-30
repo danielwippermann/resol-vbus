@@ -6,6 +6,7 @@
 var Header = require('./resol-vbus').Header;
 var Packet = require('./resol-vbus').Packet;
 var Datagram = require('./resol-vbus').Datagram;
+var Telegram = require('./resol-vbus').Telegram;
 var Connection = require('./resol-vbus').Connection;
 
 
@@ -33,6 +34,9 @@ var rawDataPacket = new Buffer([
 
 var rawDataDatagram = new Buffer('aa000021772000050000000000000042', 'hex');
 
+var rawDataTelegram1 = new Buffer('AA11207177300432', 'hex');
+
+var rawDataTelegram2 = new Buffer('AA7177112030251160182B040000000454', 'hex');
 
 
 var parseRawData = function(rawDataOrCallback, start, end) {
@@ -204,8 +208,26 @@ describe('Connection', function() {
             });
         });
 
-        xit('should parse valid v3 data correctly', function() {
-            throw new Error('NYI');
+        it('should parse valid v3 data correctly', function() {
+            parseRawData(function(conn, stats) {
+                conn.write(rawDataTelegram1);
+
+                expect(stats.txDataCount).to.equal(0);
+                expect(stats.rawDataCount).to.equal(8);
+                expect(stats.junkDataCount).to.equal(0);
+                expect(stats.packetCount).to.equal(0);
+                expect(stats.datagramCount).to.equal(0);
+                expect(stats.telegramCount).to.equal(1);
+
+                conn.write(rawDataTelegram2);
+
+                expect(stats.txDataCount).to.equal(0);
+                expect(stats.rawDataCount).to.equal(25);
+                expect(stats.junkDataCount).to.equal(0);
+                expect(stats.packetCount).to.equal(0);
+                expect(stats.datagramCount).to.equal(0);
+                expect(stats.telegramCount).to.equal(2);
+            });
         });
 
         it('should parse fragmented data correctly', function() {
