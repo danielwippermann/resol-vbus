@@ -59,8 +59,8 @@ var DLxRecorder = Recorder.extend({
             options.maxDate = new Date(2036, 0);
         }
 
-        var minFilename = moment(options.minDate).subtract('days', 1).format('[/log/]YYYYMMDD');
-        var maxFilename = moment(options.maxDate).add('days', 1).format('[/log/]YYYYMMDD');
+        var minFilename = moment.utc(options.minDate).format('[/log/]YYYYMMDD');
+        var maxFilename = moment.utc(options.maxDate).format('[/log/]YYYYMMDD');
 
         return this.getRecordingFilenames().then(function(filenames) {
             return _.reduce(filenames, function(memo, filename) {
