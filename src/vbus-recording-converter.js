@@ -47,6 +47,8 @@ var VBusRecordingConverter = Converter.extend({
 
         this.on('finish', function() {
             _this._emitHeaderSet();
+
+            _this.push(null);
         });
     },
 

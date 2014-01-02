@@ -240,6 +240,8 @@ var DLxJsonConverter = Converter.extend({
         ].join('');
 
         this.push(content);
+
+        this.push(null);
     },
 
     _read: function() {
