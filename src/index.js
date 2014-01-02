@@ -1,7 +1,7 @@
 /**
  * resol-vbus - A JavaScript library for processing RESOL VBus data
  *
- * Copyright (c) 2013, Daniel Wippermann.
+ * Copyright (c) 2013-2014, Daniel Wippermann.
  *
  * This Software is released under the MIT license.
  */
