@@ -29,18 +29,125 @@ var numberFormatCache = {};
 
 
 
-var Specification = extend(null, {
+/**
+ * @typedef UnitSpecification
+ * @type {object}
+ * @property {String} unitId Unit identifier
+ * @property {String} unitCode Unit code
+ * @property {String} unitFamily Unit family
+ * @property {String} unitText Unit text
+ */
 
+/**
+ * @typedef TypeSpecification
+ * @type {object}
+ * @property {String} typeId Type identifier
+ * @property {String} rootTypeId Root type identifier
+ * @property {number} precision Precision for numeral values
+ * @property {UnitSpecification} unit Unit object
+ */
+
+/**
+ * @typedef DeviceSpecification
+ * @type {object}
+ * @property {string} deviceId Device identifier
+ * @property {number} channel VBus channel
+ * @property {number} selfAddress VBus address of the device itself
+ * @property {number} peerAddress VBus address of the device's peer
+ * @property {string} name Name of the device
+ * @property {string} fullName Name of the device optionally prefixed with VBus channel (if it is not 0)
+ */
+
+/**
+ * @typedef PacketSpecification
+ * @type {object}
+ * @property {string} packetId Packet identifier
+ * @property {number} channel VBus channel
+ * @property {number} destinationAddress VBus address of the destination device
+ * @property {number} sourceAddress VBus address of the source device
+ * @property {number} protocolVersion VBus protocol version
+ * @property {number} command VBus command
+ * @property {number} info Additional info for sorting purposes
+ * @property {DeviceSpecification} destinationDevice DeviceSpecification object of the destination device
+ * @property {DeviceSpecification} sourceDevice DeviceSpecification object of the source device
+ * @property {PacketFieldSpecification[]} packetFields Array of PacketFieldSpecification objects
+ */
+
+/**
+ * @typedef packetFieldGetRawValue
+ * @type {function}
+ * @param {Buffer} buffer Buffer object
+ * @param {number} start Start index in the buffer
+ * @param {number} end End index in the buffer
+ */
+
+/**
+ * @typedef PacketFieldSpecification
+ * @type {object}
+ * @property {string} fieldId Field identifier
+ * @property {object} name Object containing names by language code
+ * @property {TypeSpecification} type TypeSpecification object
+ * @property {packetFieldGetRawValue} getRawValue Function to get raw value from a buffer
+ */
+
+/**
+ * @typedef PacketField
+ * @type {object}
+ * @property {string} id Packet field identifier
+ * @property {Packet} packet Packet
+ * @property {PacketSpecification} packetSpec
+ * @property {PacketFieldSpecification} packetFieldSpec
+ * @property {PacketFieldSpecification} origPacketFieldSpec
+ * @property {string} name
+ * @property {number} rawValue Raw value
+ * @property {function} formatTextValue Function to format this packet field's raw value into textual form
+ */
+
+/**
+ * @typedef FilteredPacketFieldSpecification
+ * @type {object}
+ * @property {string} filteredPacketFieldId
+ * @property {string} packetId
+ * @property {string} fieldId
+ * @property {string} name
+ * @property {string} type
+ * @property {string} getRawValue
+ */
+
+ 
+
+var Specification = extend(null, /** @lends Specification# */ {
+
+    /**
+     * Language code (ISO 639-1)
+     * @type {string}
+     */
     language: 'en',
 
     deviceSpecCache: null,
 
     packetSpecCache: null,
 
+    /**
+     * I18N instance
+     * @type {I18N}
+     */
     i18n: null,
 
+    /**
+     * Custom specification data to be mixed-in to built-in specification.
+     * @type {object}
+     */
     specificationData: null,
 
+    /**
+     * Creates a new Specification instance and optionally initializes its members with the given values.
+     *
+     * @constructs
+     * @param {object} options Initialization values for this instance's members
+     * @param {string} language {@link Specification#language}
+     * @param {string} specificationData {@link Specification#specificationData}
+     */
     constructor: function(options) {
         var _this = this;
 
@@ -54,14 +161,77 @@ var Specification = extend(null, {
         this.specificationData = Specification.loadSpecificationData(options && options.specificationData);
     },
 
+    /**
+     * Gets the UnitSpecification object matching the given identifier.
+     *
+     * @param {string} id Unit identifier
+     * @returns {UnitSpecification} Unit object
+     *
+     * @example
+     * > console.log(spec.getUnitById('DegreesCelsius'));
+     * { unitId: 'DegreesCelsius',
+     *   unitCode: 'DegreesCelsius',
+     *   unitText: ' °C' }
+     * undefined
+     * >
+     */
     getUnitById: function(id) {
         return this.specificationData.units [id];
     },
 
+    /**
+     * Gets the TypeSpecification object matching the given identifier.
+     *
+     * @param {string} id Type identifier
+     * @returns {TypeSpecification} Type object
+     *
+     * @example
+     * > console.log(spec.getTypeById('Number_0_1_DegreesCelsius'));
+     * { typeId: 'Number_0_1_DegreesCelsius',
+     *   rootTypeId: 'Number',
+     *   precision: 1,
+     *   unit:
+     *    { unitId: 'DegreesCelsius',
+     *      unitCode: 'DegreesCelsius',
+     *      unitText: ' °C' } }
+     * undefined
+     * >
+     */
     getTypeById: function(id) {
         return this.specificationData.types [id];
     },
 
+    /**
+     * Gets the DeviceSpecification object matching the given arguments.
+     *
+     * @memberof Specification#
+     * @name getDeviceSpecification
+     * @method
+     *
+     * @param {number} selfAddress VBus address of the device itself
+     * @param {number} peerAddress VBus address of the device's peer
+     * @param {number} [channel=0] VBus channel of the device
+     * @returns {DeviceSpecification} DeviceSpecification object
+     *
+     * @example
+     * > console.log(spec.getDeviceSpecification(0x7E11, 0x0000, 1));
+     * { name: 'DeltaSol MX [Regler]',
+     *   deviceId: '01_7E11_0000',
+     *   channel: 1,
+     *   selfAddress: 32273,
+     *   peerAddress: 0,
+     *   fullName: 'VBus #1: DeltaSol MX [Regler]' }
+     * undefined
+     * >
+     */
+
+    /**
+     * Gets the DeviceSpecification object matching the given header and direction.
+     *
+     * @param {Header} header Header instance
+     * @param {string} which Either `'source'` or `'destination'`
+     * @returns {DeviceSpecification} DeviceSpecification object
+     */
     getDeviceSpecification: function(selfAddress, peerAddress, channel) {
         if (typeof selfAddress === 'object') {
             if (peerAddress === 'source') {
@@ -119,6 +289,109 @@ var Specification = extend(null, {
         return this.deviceSpecCache [deviceId];
     },
 
+    /**
+     * Gets the PacketSpecification object matching the given arguments.
+     *
+     * @memberof Specification#
+     * @name getPacketSpecification
+     * @method
+     *
+     * @param {number} channel VBus channel
+     * @param {number} destinationAddress VBus address of destination device
+     * @param {number} sourceAddress VBus address of source device
+     * @param {number} command VBus command
+     * @returns {PacketSpecification} PacketSpecification object
+     *
+     * @example
+     * > console.log(spec.getPacketSpecification(1, 0x0010, 0x7E21, 0x0100));
+     * { packetId: '01_0010_7E21_10_0100',
+     *   packetFields:
+     *    [ { fieldId: '000_2_0',
+     *        name: [Object],
+     *        type: [Object],
+     *        getRawValue: [Function] },
+     *      { fieldId: '002_1_0',
+     *        name: [Object],
+     *        type: [Object],
+     *        getRawValue: [Function] } ],
+     *   channel: 1,
+     *   destinationAddress: 16,
+     *   sourceAddress: 32289,
+     *   protocolVersion: 16,
+     *   command: 256,
+     *   info: 0,
+     *   destinationDevice:
+     *    { name: 'DFA',
+     *      deviceId: '01_0010_7E21',
+     *      channel: 1,
+     *      selfAddress: 16,
+     *      peerAddress: 32289,
+     *      fullName: 'VBus #1: DFA' },
+     *   sourceDevice:
+     *    { name: 'DeltaSol MX [Heizkreis #1]',
+     *      deviceId: '01_7E21_0010',
+     *      channel: 1,
+     *      selfAddress: 32289,
+     *      peerAddress: 16,
+     *      fullName: 'VBus #1: DeltaSol MX [Heizkreis #1]' },
+     *   fullName: 'VBus #1: DeltaSol MX [Heizkreis #1]' }
+     * undefined
+     * >
+     */
+
+    /**
+     * Gets the PacketSpecification object matching the given arguments.
+     *
+     * @memberof Specification#
+     * @name getPacketSpecification
+     * @method
+     *
+     * @param {string} packetSpecId PacketSpecification identifier
+     * @returns {PacketSpecification} PacketSpecification object
+     *
+     * @example
+     * > console.log(spec.getPacketSpecification('01_0010_7E21_10_0100'));
+     * { packetId: '01_0010_7E21_10_0100',
+     *   packetFields:
+     *    [ { fieldId: '000_2_0',
+     *        name: [Object],
+     *        type: [Object],
+     *        getRawValue: [Function] },
+     *      { fieldId: '002_1_0',
+     *        name: [Object],
+     *        type: [Object],
+     *        getRawValue: [Function] } ],
+     *   channel: 1,
+     *   destinationAddress: 16,
+     *   sourceAddress: 32289,
+     *   protocolVersion: 16,
+     *   command: 256,
+     *   info: 0,
+     *   destinationDevice:
+     *    { name: 'DFA',
+     *      deviceId: '01_0010_7E21',
+     *      channel: 1,
+     *      selfAddress: 16,
+     *      peerAddress: 32289,
+     *      fullName: 'VBus #1: DFA' },
+     *   sourceDevice:
+     *    { name: 'DeltaSol MX [Heizkreis #1]',
+     *      deviceId: '01_7E21_0010',
+     *      channel: 1,
+     *      selfAddress: 32289,
+     *      peerAddress: 16,
+     *      fullName: 'VBus #1: DeltaSol MX [Heizkreis #1]' },
+     *   fullName: 'VBus #1: DeltaSol MX [Heizkreis #1]' }
+     * undefined
+     * >
+     */
+
+    /**
+     * Gets the PacketSpecification object matching the given packet.
+     *
+     * @param {Packet} packet VBus packet
+     * @returns {PacketSpecification} PacketSpecification object
+     */
     getPacketSpecification: function(headerOrChannel, destinationAddress, sourceAddress, command) {
         if (typeof headerOrChannel === 'object') {
             command = headerOrChannel.command;
@@ -179,6 +452,66 @@ var Specification = extend(null, {
         return this.packetSpecCache [packetId];
     },
 
+    /**
+     * Gets the PacketFieldSpecification object matching the given arguments.
+     *
+     * @memberof Specification#
+     * @name getPacketFieldSpecification
+     * @method
+     *
+     * @param {PacketSpecification} packetSpec PacketSpecification object
+     * @param {string} fieldId Field identifier
+     * @returns {PacketFieldSpecification} PacketFieldSpecification object
+     *
+     * @example
+     * > var packetSpec = spec.getPacketSpecification('01_0010_7E21_10_0100');
+     * undefined
+     * > console.log(spec.getPacketFieldSpecification(packetSpec, '000_2_0'));
+     * { fieldId: '000_2_0',
+     *   name:
+     *    { ref: 'Flow set temperature',
+     *      en: 'Flow set temperature',
+     *      de: 'Vorlauf-Soll-Temperatur',
+     *      fr: 'Température nominale départ' },
+     *   type:
+     *    { typeId: 'Number_0_1_DegreesCelsius',
+     *      rootTypeId: 'Number',
+     *      precision: 1,
+     *      unit:
+     *       { unitId: 'DegreesCelsius',
+     *         unitCode: 'DegreesCelsius',
+     *         unitText: ' °C' } },
+     *   getRawValue: [Function] }
+     * undefined
+     * >
+     */
+
+    /**
+     * Gets the PacketFieldSpecification object matching the given arguments.
+     *
+     * @param {string} packetFieldId Packet field identifier
+     * @returns {PacketFieldSpecification} PacketFieldSpecification object
+     *
+     * @example
+     * > console.log(spec.getPacketFieldSpecification('01_0010_7E21_10_0100_000_2_0'));
+     * { fieldId: '000_2_0',
+     *   name:
+     *    { ref: 'Flow set temperature',
+     *      en: 'Flow set temperature',
+     *      de: 'Vorlauf-Soll-Temperatur',
+     *      fr: 'Température nominale départ' },
+     *   type:
+     *    { typeId: 'Number_0_1_DegreesCelsius',
+     *      rootTypeId: 'Number',
+     *      precision: 1,
+     *      unit:
+     *       { unitId: 'DegreesCelsius',
+     *         unitCode: 'DegreesCelsius',
+     *         unitText: ' °C' } },
+     *   getRawValue: [Function] }
+     * undefined
+     * >
+     */
     getPacketFieldSpecification: function(packetSpecOrId, fieldId) {
         var packetFieldSpec;
         if (typeof packetSpecOrId === 'string') {
@@ -204,6 +537,25 @@ var Specification = extend(null, {
         return packetFieldSpec;
     },
 
+    /**
+     * Gets the raw value of a packet field from a buffer.
+     *
+     * @param {PacketFieldSpecification} packetField PacketFieldSpecification object
+     * @param {Buffer} buffer Buffer object
+     * @param {number} [start=0] Start index in the buffer
+     * @param {number} [end=buffer.length] End index in the buffer
+     * @returns {number} Raw value
+     *
+     * @example
+     * > var packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
+     * undefined
+     * > var buffer = new Buffer('b822', 'hex');
+     * undefined
+     * > console.log(spec.getRawValue(packetFieldSpec, buffer));
+     * 888.8000000000001
+     * undefined
+     * >
+     */
     getRawValue: function(packetField, buffer, start, end) {
         if (start === undefined) {
             start = 0;
@@ -222,6 +574,24 @@ var Specification = extend(null, {
         return rawValue;
     },
 
+    /**
+     * Formats a raw value into its textual representation.
+     *
+     * @param {PacketFieldSpecification} packetField PacketFieldSpecification object
+     * @param {number} rawValue Raw value
+     * @param {string|UnitSpecification|null} [unit] Unit to format to
+     * @returns {string} Textual representation of the raw value
+     *
+     * @example
+     * > var packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
+     * undefined
+     * > var rawValue = 888.8000000000001;
+     * undefined
+     * > console.log(spec.formatTextValueFromRawValue(packetFieldSpec, rawValue, 'DegreesCelsius'));
+     * 888.8 °C
+     * undefined
+     * >
+     */
     formatTextValueFromRawValue: function(packetField, rawValue, unit) {
         var textValue;
 
@@ -294,6 +664,12 @@ var Specification = extend(null, {
         return result;
     },
 
+    /**
+     * Gets an array of PacketField objects for the provided Packet objects.
+     *
+     * @param {Header[]} headers Array of Header objects
+     * @returns {PacketField[]} Array of PacketField objects
+     */
     getPacketFieldsForHeaders: function(headers) {
         var _this = this;
 

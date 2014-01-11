@@ -1,4 +1,4 @@
-/**
+/*!
  * resol-vbus - A JavaScript library for processing RESOL VBus data
  *
  * Copyright (c) 2013-2014, Daniel Wippermann.
