@@ -4,7 +4,7 @@
   "description": "A JavaScript library for processing RESOL VBus data",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "grunt test"
   },
   "repository": "",
   "author": "Daniel Wippermann <Daniel.Wippermann@resol.de>",
@@ -18,7 +18,9 @@
     "grunt-shell": "~0.6.1",
     "grunt-contrib-compress": "~0.5.3",
     "grunt-open": "~0.2.2",
-    "grunt-contrib-jshint": "~0.7.2"
+    "grunt-contrib-jshint": "~0.7.2",
+    "grunt-jsdoc": "~0.5.1",
+    "grunt-contrib-watch": "~0.5.3"
   },
   "dependencies": {
     "q": "~0.9.7",

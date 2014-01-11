@@ -6,11 +6,30 @@
 module.exports = function(grunt) {
     // configure tasks
     grunt.initConfig({
+        watch: {
+            js: {
+                files: ['src/**/*.js', 'test/specs/**/*.js'],
+                tasks: ['jshint', 'jsdoc', 'test']
+            }
+        },
         jshint: {
             options: {
                 jshintrc: '.jshintrc',
             },
             all: ['Gruntfile.js', 'src/**/*.js', 'test/**/*.js', '!src/specification-data.js']
+        },
+        jsdoc: {
+            html: {
+                src: [
+                    'README.md',
+                    'src/**/*.js',
+                    '!src/specification-data.js'
+                ],
+                options: {
+                    destination: 'docs',
+                    configure: 'jsdoc.json'
+                }
+            }
         },
         'mocha-chai-sinon': {
             build: {
