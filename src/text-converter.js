@@ -22,18 +22,52 @@ var optionKeys = [
 
 
 
-var TextConverter = Converter.extend({
+var TextConverter = Converter.extend(/** @lends TextConverter# */ {
 
+    /**
+     * Column separator, defaults to tab
+     * @type {string}
+     */
     columnSeparator: '\t',
 
+    /**
+     * Line separator, defaults to CR+NL
+     * @type {string}
+     */
     lineSeparator: '\r\n',
 
+    /**
+     * Specifies whether date and time columns should be output separately
+     * @type {boolean}
+     */
     separateDateAndTime: false,
 
+    /**
+     * VBus specification
+     * @type {Specification}
+     */
     specification: null,
 
+    /**
+     * List of packet IDs converted last time, enables decision whether a
+     * new header line pair must be output.
+     * @type {string}
+     */
     lastIdList: null,
 
+    /**
+     * Create a new TextConverter instance given the set of options.
+     * @constructs
+     * @augments Converter
+     *
+     * @classdesc
+     * The TextConverter class takes header sets, converts them into text
+     * representation and then publishes that on the readable stream side
+     * of itself.
+     *
+     * It does not support parsing text content back into header sets (the
+     * writable stream side).
+     */
     constructor: function(options) {
         Converter.call(this, options);
 
@@ -46,10 +80,19 @@ var TextConverter = Converter.extend({
         }
     },
 
+    /**
+     * Resets the converter, resulting in a ne pair of header lines
+     * generated on next header set conversion.
+     */
     reset: function() {
         this.lastIdList = null;
     },
 
+    /**
+     * Converts a header set into text representation.
+     *
+     * @param {HeaderSet} headerSet
+     */
     convertHeaderSet: function(headerSet) {
         var _this = this;
 
