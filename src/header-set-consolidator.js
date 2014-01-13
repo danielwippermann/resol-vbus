@@ -16,6 +16,8 @@ var HeaderSet = require('./header-set');
 var optionKeys = [
     'interval',
     'timeToLive',
+    'minTimestamp',
+    'maxTimestamp',
 ];
 
 
@@ -25,6 +27,10 @@ var HeaderSetConsolidator = HeaderSet.extend({
     interval: 0,
 
     timeToLive: 0,
+
+    minTimestamp: null,
+
+    maxTimestamp: null,
 
     lastIntervalTime: 0,
 
@@ -75,22 +81,40 @@ var HeaderSetConsolidator = HeaderSet.extend({
     },
 
     _processHeaderSet: function(now) {
+        var include = true;
+
+        if (this.minTimestamp) {
+            if (now < this.minTimestamp) {
+                include = false;
+            }
+        }
+
+        if (this.maxTimestamp) {
+            if (now > this.maxTimestamp) {
+                include = false;
+            }
+        }
+
         if (this.interval > 0) {
             var lastInterval = Math.floor(this.lastIntervalTime / this.interval);
             var currentInterval = Math.floor(now / this.interval);
             var diff = currentInterval - lastInterval;
 
-            if ((diff < -1) || (diff > 0)) {
-                if (this.timeToLive > 0) {
-                    this.removeHeadersOlderThan(now - this.timeToLive);
-                }
-
-                this.timestamp = new Date(now);
-
-                this.emit('headerSet', this);
-
-                this.lastIntervalTime = now;
+            if ((diff >= -1) && (diff <= 0)) {
+                include = false;
             }
+        }
+        
+        if (include) {
+            if (this.timeToLive > 0) {
+                this.removeHeadersOlderThan(now - this.timeToLive);
+            }
+
+            this.timestamp = new Date(now);
+
+            this.emit('headerSet', this);
+
+            this.lastIntervalTime = now;
         }
     },
 
