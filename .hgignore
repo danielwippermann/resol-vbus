@@ -4,3 +4,4 @@
 ^coverage.html$
 ^nw-builds/
 ^cache/
+^docs/
