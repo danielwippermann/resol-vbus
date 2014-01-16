@@ -62,7 +62,7 @@ var HeaderSetConsolidator = HeaderSet.extend({
 
         var now = headerSet.timestamp.getTime();
 
-        this.headerSet.addHeaders(headerSet.getHeaders());
+        this.addHeaders(headerSet.getHeaders());
 
         this._processHeaderSet(now);
     },
