@@ -15,6 +15,7 @@ var request = require('request');
 
 
 var HeaderSet = require('./header-set');
+var HeaderSetConsolidator = require('./header-set-consolidator');
 var VBusRecordingConverter = require('./vbus-recording-converter');
 
 var Recorder = require('./recorder');
@@ -44,6 +45,102 @@ var DLxRecorder = Recorder.extend({
         Recorder.call(this, options);
 
         _.extend(this, _.pick(options, optionKeys));
+    },
+
+    playbackRecording: function(options) {
+        var _this = this;
+
+        options = _.defaults({}, options, {
+            interval: 0,
+        });
+
+        if (!_.has(options, 'minTimestamp')) {
+            options.minTimestamp = new Date(2008, 0);
+        }
+        if (!_.has(options, 'maxTimestamp')) {
+            options.maxTimestamp = new Date(2036, 0);
+        }
+
+        var deferred = Q.defer();
+        var promise = deferred.promise;
+
+        var done = function(err, result) {
+            if (deferred) {
+                // console.log('    Done!');
+
+                if (err) {
+                    deferred.reject(err);
+                } else {
+                    deferred.resolve(result);
+                }
+                deferred = null;
+            }
+        };
+
+        var converter = new VBusRecordingConverter();
+
+        var headerSetConsolidator = new HeaderSetConsolidator({
+            minTimestamp: options.minTimestamp,
+            maxTimestamp: options.maxTimestamp,
+            interval: options.interval,
+        });
+
+        converter.on('headerSet', function(headerSet) {
+            headerSetConsolidator.processHeaderSet(headerSet);
+        });
+
+        headerSetConsolidator.on('headerSet', function(headerSet) {
+            _this.emit('headerSet', headerSet);
+        });
+
+        // console.log(options);
+
+        var currentTimestamp = options.minTimestamp;
+
+        var nextDay = function() {
+            // console.log(currentTimestamp.toString());
+
+            if (currentTimestamp < options.maxTimestamp) {
+                var filename = moment.utc(currentTimestamp).format('[/log/]YYYYMMDD[_packets.vbus]');
+
+                var hash = _this.getRecordingFilenameHash(filename);
+
+                var syncFilenamePrefix = path.join(_this.cacheDirectory, hash);
+
+                var jsonSyncFilename = syncFilenamePrefix + '.json';
+                var binSyncFilename = syncFilenamePrefix + '.bin';
+
+                currentTimestamp = new Date(currentTimestamp.getTime() + 86400000);
+
+                fs.exists(binSyncFilename, function(exists) {
+                    // console.log(filename, 'exists: ', exists);
+                    // console.log('    ', binSyncFilename);
+
+                    if (exists) {
+                        var file = fs.createReadStream(binSyncFilename);
+
+                        file.pipe(converter, { end: false });
+
+                        file.on('error', function(err) {
+                            done(err);
+                        });
+
+                        file.on('end', function() {
+                            // console.log('    Done!');
+                            nextDay();
+                        });
+                    } else {
+                        nextDay();
+                    }
+                });
+            } else {
+                done();
+            }
+        };
+
+        nextDay();
+
+        return promise;
     },
 
     synchronizeRecordings: function(options) {
@@ -197,14 +294,14 @@ var DLxRecorder = Recorder.extend({
     syncRecording: function(filename) {
         var _this = this;
 
-        console.log(filename);
+        // console.log(filename);
 
         var deferred = Q.defer();
         var promise = deferred.promise;
 
         var done = function(err, result) {
             if (deferred) {
-                console.log('    Done!');
+                // console.log('    Done!');
 
                 if (err) {
                     deferred.reject(err);
@@ -223,7 +320,7 @@ var DLxRecorder = Recorder.extend({
         var binSyncFilename = syncFilenamePrefix + '.bin';
 
         var storeInfo = function(info) {
-            console.log('    Storing info...');
+            // console.log('    Storing info...');
             fs.writeFile(jsonSyncFilename, JSON.stringify(info), function(err) {
                 if (err) {
                     done(err);
@@ -234,7 +331,7 @@ var DLxRecorder = Recorder.extend({
         };
 
         var analyze = function(info) {
-            console.log('    Analyze...');
+            // console.log('    Analyze...');
 
             var stream = fs.createReadStream(binSyncFilename);
 
@@ -280,7 +377,7 @@ var DLxRecorder = Recorder.extend({
 
         var sync = function(info, remoteInfo) {
             if (remoteInfo.size > info.size) {
-                console.log('    Syncing...');
+                // console.log('    Syncing...');
 
                 var stream = _this.download(filename, {
                     headers: {
