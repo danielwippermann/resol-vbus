@@ -606,7 +606,11 @@ var Specification = extend(null, /** @lends Specification# */ {
 
             if (packetField && packetField.type) {
                 var type = packetField.type;
-                textValue = this.formatTextValueFromRawValueInternal(rawValue, unit, type.rootTypeId, type.precision, type.unit);
+                if (type.formatTextValue) {
+                    textValue = type.formatTextValue(rawValue, unit);
+                } else {
+                    textValue = this.formatTextValueFromRawValueInternal(rawValue, unit, type.rootTypeId, type.precision, type.unit);
+                }
             } else {
                 textValue = rawValue.toString();
                 if (unit && unit.unitText) {
@@ -871,6 +875,10 @@ var Specification = extend(null, /** @lends Specification# */ {
         };
 
         return rawSpecificationData;
+    },
+
+    getDefaultSpecification: function() {
+        return globalSpecification;
     },
 
 });
