@@ -28,24 +28,63 @@ var optionKeys = [
 
 var Recorder = extend(EventEmitter, /** @lends Recorder# */ {
 
+    /**
+     * Identifier for this recorder instance. It may be used to reference
+     * recorders, for example in sync data storage.
+     * @type {string}
+     */
     id: null,
 
+    /**
+     * Minimum timestamp to use as a default during playback and
+     * synchronization.
+     * @type {Date}
+     * @default '2001-01-01T00:00:00.000Z'
+     */
     minTimestamp: null,
 
+    /**
+     * Maximum timestamp to use as a default during playback and
+     * synchronization.
+     * @type {Date}
+     * @default '2038-01-01T00:00:00.000Z'
+     */
     maxTimestamp: null,
 
+    /**
+     * Interval to be used as a default during playback and
+     * synchronization.
+     * @type {number}
+     * @default 0
+     */
     interval: 0,
 
     /**
-     * Creates a new Recorder instance.
+     * Creates a new Recorder instance and optionally initializes
+     * its members with the given values.
      *
      * @constructs
-
+     * @param {object} options Initialization values for this instance's members
+     * @param {string} options.id {@link Recorder#id}
+     * @param {Date} options.minTimestamp {@link Recorder#minTimestamp}
+     * @param {Date} options.maxTimestamp {@link Recorder#maxTimestamp}
+     * @param {number} options.interval {@link Recorder#interval}
+     *
      * @classdesc
-     * A Recorder is a storage for HeaderSet object.
+     * A Recorder provides access to HeaderSet stores (e.g. dataloggers) by
+     * allowing to either playback the HeaderSets in the store, record 
+     * HeaderSets to the store or synchronize two Recorders.
+     *
+     * The playback and record operation both use the VBusRecordingConverter
+     * to serialize the HeaderSets to and from Node.js streams.
+     *
+     * The synchronization operation builds on top of this two operations
+     * and is able to find unsynced HeaderSets in the source Recorder.
+     * Thoses unsynced HeaderSets are then played back from the source Recorder
+     * and recorded in the destination Recorder.
      * 
-     * The storage format and retrieval is implementation specific.
-     * 
+     * The storage mechanism and format of the Recorder sub-classes is 
+     * implementation-specific to this class.
      */
     constructor: function(options) {
         EventEmitter.call(this);
@@ -67,6 +106,17 @@ var Recorder = extend(EventEmitter, /** @lends Recorder# */ {
         return _.extend({}, _.pick(this, optionKeys));
     },
 
+    /**
+     * Plays back a given range of HeaderSets. The HeaderSets are serialized to
+     * the stream using the VBusRecordingConverter.
+     *
+     * @param {Writable} stream A writable stream
+     * @param {object} options Options to select and filter HeaderSets
+     * @param {Date} [options.minTimestamp] {@link Recorder#minTimestamp}
+     * @param {Date} [options.maxTimestamp] {@link Recorder#maxTimestamp}
+     * @param {number} [options.interval] {@link Recorder#interval}
+     * @param {boolean} [options.end=true] Whether the stream should be `end()`ed when the playback is complete
+     */
     playback: function(stream, options) {
         var _this = this;
 
@@ -118,6 +168,16 @@ var Recorder = extend(EventEmitter, /** @lends Recorder# */ {
         throw new Error('Must be implemented by sub-class');
     },
 
+    /**
+     * Synchronize this Recorder's HeaderSets to another Recorder.
+     *
+     * @param {Recorder} recorder Destination Recorder
+     * @param {object} options Options to select and filter HeaderSets
+     * @param {Date} [options.minTimestamp] {@link Recorder#minTimestamp}
+     * @param {Date} [options.maxTimestamp] {@link Recorder#maxTimestamp}
+     * @param {number} [options.interval] {@link Recorder#interval}
+     * @returns {Promise} Promise resolving with a list of ranges that were synchronized.
+     */
     synchronizeTo: function(recorder, options) {
         var _this = this;
 
@@ -152,15 +212,19 @@ var Recorder = extend(EventEmitter, /** @lends Recorder# */ {
             syncStateDiffs: [],
         });
 
-        var syncState = syncJob.syncState.sourceSyncState;
+        if (!syncJob.syncState.sourceSyncState.Recorder) {
+            syncJob.syncState.sourceSyncState.Recorder = {};
+        }
+
+        var syncState = syncJob.syncState.sourceSyncState.Recorder;
 
         // migrate
-        var syncVersion = syncState.recorderVersion || 0;
+        var syncVersion = syncState.version || 0;
         if (syncVersion === 0) {
             syncVersion = 1;
             syncState.rangesByInterval = {};
         }
-        syncState.recorderVersion = syncVersion;
+        syncState.version = syncVersion;
 
         if (!syncState.rangesByInterval [options.interval]) {
             syncState.rangesByInterval [options.interval] = [];
@@ -193,8 +257,34 @@ var Recorder = extend(EventEmitter, /** @lends Recorder# */ {
         throw new Error('Must be implemented by sub-class');
     },
 
+    _markSourceSyncRanges: function(ranges, syncJob) {
+        var syncState = syncJob.syncState.sourceSyncState.Recorder;
+
+        var handledRanges = syncState.rangesByInterval [syncJob.interval];
+
+        handledRanges = Recorder.performRangeSetOperation(handledRanges, ranges, syncJob.interval, 'union');
+
+        syncState.rangesByInterval [syncJob.interval] = handledRanges;
+    },
+
 }, /** @lends Recorder. */ {
 
+    /**
+     * Performs operations on two sets of timestamp ranges.
+     *
+     * Timestamp ranges are objects with two properties: `minTimestamp` and `maxTimestamp`.
+     *
+     * The operations correspond to the operations in mathematic's set theory.
+     * Currently supported are union, difference and intersection.
+     *
+     * See [http://en.wikipedia.org/wiki/Set_theory]() for details.
+     *
+     * @param {Array} rangesA Set A containing timestamp ranges
+     * @param {Array} rangesB Set B containing timestamp ranges
+     * @param {number} interval Interval to allow between adjacent timestamp ranges
+     * @param {string} operation Operation to perform, can be `'union'`, `'difference'` or `'intersection'`
+     * @returns {Array} Set containing timestamp ranges after the operation
+     */
     performRangeSetOperation: function(rangesA, rangesB, interval, operation) {
         var newInfos = [];
 
@@ -391,11 +481,9 @@ var Recorder = extend(EventEmitter, /** @lends Recorder# */ {
 
         var newRanges = [];
         _.forEach(newInfos, function(newInfo) {
-            if (newInfo.valid) {
-                newRanges.push({
-                    minTimestamp: new Date(newInfo.minTimestamp),
-                    maxTimestamp: new Date(newInfo.maxTimestamp),
-                });
+            var newRange = infoToRange(newInfo);
+            if (newRange) {
+                newRanges.push(newRange);
             }
         });
 
