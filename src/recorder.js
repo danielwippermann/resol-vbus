@@ -212,11 +212,7 @@ var Recorder = extend(EventEmitter, /** @lends Recorder# */ {
             syncStateDiffs: [],
         });
 
-        if (!syncJob.syncState.sourceSyncState.Recorder) {
-            syncJob.syncState.sourceSyncState.Recorder = {};
-        }
-
-        var syncState = syncJob.syncState.sourceSyncState.Recorder;
+        var syncState = this._getSyncState(syncJob, 'source', 'Recorder');
 
         // migrate
         var syncVersion = syncState.version || 0;
@@ -257,8 +253,18 @@ var Recorder = extend(EventEmitter, /** @lends Recorder# */ {
         throw new Error('Must be implemented by sub-class');
     },
 
+    _getSyncState: function(syncJob, which, type) {
+        var syncStateRoot = syncJob.syncState [which + 'SyncState'];
+
+        if (!syncStateRoot [type]) {
+            syncStateRoot [type] = {};
+        }
+
+        return syncStateRoot [type];
+    },
+
     _markSourceSyncRanges: function(ranges, syncJob) {
-        var syncState = syncJob.syncState.sourceSyncState.Recorder;
+        var syncState = this._getSyncState(syncJob, 'source', 'Recorder');
 
         var handledRanges = syncState.rangesByInterval [syncJob.interval];
 

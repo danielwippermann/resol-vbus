@@ -150,7 +150,7 @@ var DLxRecorder = Recorder.extend( /** @lends DLxRecorder# */ {
     _playbackSyncJob: function(stream, syncJob) {
         var _this = this;
 
-        var syncState = syncJob.syncState.sourceSyncState;
+        var syncState = this._getSyncState(syncJob, 'source', 'DLxRecorder');
 
         return Q.try(function() {
             return _this.getLazyRecordingRanges();

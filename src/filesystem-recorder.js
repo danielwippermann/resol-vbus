@@ -80,14 +80,14 @@ var FileSystemRecorder = Recorder.extend({
     _recordSyncJob: function(recorder, syncJob) {
         var _this = this;
 
-        var syncState = syncJob.syncState.destinationSyncState;
+        var syncState = this._getSyncState(syncJob, 'destination', 'FileSystemRecorder');
 
-        var syncVersion = syncState.fsRecorderVersion || 0;
+        var syncVersion = syncState.version || 0;
         if (syncVersion === 0) {
             syncVersion = 1;
             syncState.infoListByInterval = {};
         }
-        syncState.fsRecorderVersion = syncVersion;
+        syncState.version = syncVersion;
 
         if (!syncState.infoListByInterval [syncJob.interval]) {
             syncState.infoListByInterval [syncJob.interval] = [];
@@ -146,7 +146,7 @@ var FileSystemRecorder = Recorder.extend({
                         if (useCurrentInfo) {
                             currentInfo = info;
 
-                            console.log('Reusing existing info ', info);
+                            // console.log('Reusing existing info ', info);
 
                             break;
                         }
@@ -188,7 +188,7 @@ var FileSystemRecorder = Recorder.extend({
                 outConverter.pipe(outFile);
             }
 
-            console.log(timestamp.toString());
+            // console.log(timestamp.toString());
 
             outConverter.convertHeaderSet(headerSet);
         });
