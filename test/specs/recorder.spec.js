@@ -97,7 +97,7 @@ describe('Recorder', function() {
                 call = onConverterHeaderSet.getCall(0);
 
                 expect(call.args [0].timestamp.toISOString()).to.equal(demoHeaderSet.timestamp.toISOString());
-                
+
                 done();
             });
         });
@@ -190,10 +190,10 @@ describe('Recorder', function() {
 
         var rangeOffset = moment().startOf('day');
 
-        var createRange = function(hoursA, minutesA, hoursB, minutesB) {
+        var createRange = function(hoursA, minutesA, hoursB, minutesB, addMilliA, subtractMilliB) {
             return {
-                minTimestamp: moment(rangeOffset).add({ hours: hoursA, minutes: minutesA }).toDate(),
-                maxTimestamp: moment(rangeOffset).add({ hours: hoursB, minutes: minutesB }).toDate(),
+                minTimestamp: moment(rangeOffset).add({ hours: hoursA, minutes: minutesA, milliseconds: (addMilliA ? 1 : 0) }).toDate(),
+                maxTimestamp: moment(rangeOffset).add({ hours: hoursB, minutes: minutesB, milliseconds: (subtractMilliB ? -1 : 0) }).toDate(),
             };
         };
 
@@ -420,10 +420,10 @@ describe('Recorder', function() {
             var newRanges = Recorder.performRangeSetOperation(rangesA, rangesB, 120000, 'difference');
 
             expect(newRanges).to.eql([
-                createRange(5, 0, 6, 0),
+                createRange(5, 0, 6, 0, true, true),
                 createRange(8, 30, 10, 30),
-                createRange(12, 30, 14, 0),
-                createRange(17, 0, 18, 30),
+                createRange(12, 30, 14, 0, false, true),
+                createRange(17, 0, 18, 30, true, false),
             ]);
         });
 
@@ -442,7 +442,7 @@ describe('Recorder', function() {
             var newRanges = Recorder.performRangeSetOperation(rangesA, rangesB, 120000, 'difference');
 
             expect(newRanges).to.eql([
-                createRange(13, 0, 14, 30),
+                createRange(13, 0, 14, 30, true, false),
                 createRange(16, 30, 18, 30),
             ]);
         });

@@ -402,29 +402,29 @@ var Recorder = extend(EventEmitter, /** @lends Recorder# */ {
                         if (refInfo.maxBaseTimestamp >= newInfo.maxBaseTimestamp) {
                             deleteThis = true;
                         } else {
-                            if (newInfo.minTimestamp < refInfo.maxTimestamp) {
-                                newInfo.minTimestamp = refInfo.maxTimestamp;
+                            if (newInfo.minTimestamp < refInfo.maxTimestamp + 1) {
+                                newInfo.minTimestamp = refInfo.maxTimestamp + 1;
                             }
-                            newInfo.minBaseTimestamp = refInfo.maxBaseTimestamp;
+                            newInfo.minBaseTimestamp = refInfo.maxBaseTimestamp + 1;
                         }
                     } else if (refInfo.maxBaseTimestamp >= newInfo.maxBaseTimestamp) {
-                        if (newInfo.maxTimestamp > refInfo.minTimestamp) {
-                            newInfo.maxTimestamp = refInfo.minTimestamp;
+                        if (newInfo.maxTimestamp > refInfo.minTimestamp - 1) {
+                            newInfo.maxTimestamp = refInfo.minTimestamp - 1;
                         }
-                        newInfo.maxBaseTimestamp = refInfo.minBaseTimestamp;
+                        newInfo.maxBaseTimestamp = refInfo.minBaseTimestamp - 1;
                     } else {
                         // split
                         var splitInfo = {
                             minTimestamp: newInfo.minTimestamp,
-                            maxTimestamp: refInfo.minTimestamp,
+                            maxTimestamp: refInfo.minTimestamp - 1,
                             minBaseTimestamp: newInfo.minBaseTimestamp,
-                            maxBaseTimestamp: refInfo.minBaseTimestamp,
+                            maxBaseTimestamp: refInfo.minBaseTimestamp - 1,
                             valid: true,
                         };
                         newInfos.splice(i, 0, splitInfo);
 
-                        newInfo.minTimestamp = refInfo.maxBaseTimestamp;
-                        newInfo.minBaseTimestamp = refInfo.maxBaseTimestamp;
+                        newInfo.minTimestamp = refInfo.maxBaseTimestamp + 1;
+                        newInfo.minBaseTimestamp = refInfo.maxBaseTimestamp + 1;
                         break;
                     }
 
