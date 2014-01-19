@@ -16,6 +16,7 @@ var request = require('request');
 
 var HeaderSet = require('./header-set');
 var HeaderSetConsolidator = require('./header-set-consolidator');
+var utils = require('./utils');
 var VBusRecordingConverter = require('./vbus-recording-converter');
 
 var Recorder = require('./recorder');
@@ -26,140 +27,69 @@ var optionKeys = [
     'urlPrefix',
     'username',
     'password',
-    'cacheDirectory',
 ];
 
 
 
-var DLxRecorder = Recorder.extend({
+var DLxRecorder = Recorder.extend( /** @lends DLxRecorder# */ {
 
+    /**
+     * The root URL to access the DLx.
+     * @type string
+     */
     urlPrefix: null,
 
     username: 'admin',
 
     password: 'admin',
 
-    cacheDirectory: '.',
-
+    /**
+     * Creates a new DLxRecorder instance.
+     * @constructs
+     *
+     * @classdesc
+     * DLxRecorder is a recorder that can play back data recorded by a Datalogger.
+     */
     constructor: function(options) {
         Recorder.call(this, options);
 
         _.extend(this, _.pick(options, optionKeys));
     },
 
-    playbackRecording: function(options) {
+    _getOptions: function() {
+        var options = Recorder.prototype._getOptions.call(this);
+        return _.extend(options, _.pick(this, optionKeys));
+    },
+
+    _playback: function(headerSetConsolidator, options) {
         var _this = this;
 
-        options = _.defaults({}, options, {
-            interval: 0,
-        });
-
-        if (!_.has(options, 'minTimestamp')) {
-            options.minTimestamp = new Date(2008, 0);
-        }
-        if (!_.has(options, 'maxTimestamp')) {
-            options.maxTimestamp = new Date(2036, 0);
-        }
-
-        var deferred = Q.defer();
-        var promise = deferred.promise;
-
-        var done = function(err, result) {
-            if (deferred) {
-                // console.log('    Done!');
-
-                if (err) {
-                    deferred.reject(err);
-                } else {
-                    deferred.resolve(result);
-                }
-                deferred = null;
-            }
-        };
-
         var converter = new VBusRecordingConverter();
-
-        var headerSetConsolidator = new HeaderSetConsolidator({
-            minTimestamp: options.minTimestamp,
-            maxTimestamp: options.maxTimestamp,
-            interval: options.interval,
-        });
 
         converter.on('headerSet', function(headerSet) {
             headerSetConsolidator.processHeaderSet(headerSet);
         });
 
-        headerSetConsolidator.on('headerSet', function(headerSet) {
-            _this.emit('headerSet', headerSet);
-        });
-
-        // console.log(options);
-
-        var currentTimestamp = options.minTimestamp;
-
-        var nextDay = function() {
-            // console.log(currentTimestamp.toString());
-
-            if (currentTimestamp < options.maxTimestamp) {
-                var filename = moment.utc(currentTimestamp).format('[/log/]YYYYMMDD[_packets.vbus]');
-
-                var hash = _this.getRecordingFilenameHash(filename);
-
-                var syncFilenamePrefix = path.join(_this.cacheDirectory, hash);
-
-                var jsonSyncFilename = syncFilenamePrefix + '.json';
-                var binSyncFilename = syncFilenamePrefix + '.bin';
-
-                currentTimestamp = new Date(currentTimestamp.getTime() + 86400000);
-
-                fs.exists(binSyncFilename, function(exists) {
-                    // console.log(filename, 'exists: ', exists);
-                    // console.log('    ', binSyncFilename);
-
-                    if (exists) {
-                        var file = fs.createReadStream(binSyncFilename);
-
-                        file.pipe(converter, { end: false });
-
-                        file.on('error', function(err) {
-                            done(err);
-                        });
-
-                        file.on('end', function() {
-                            // console.log('    Done!');
-                            nextDay();
-                        });
-                    } else {
-                        nextDay();
-                    }
-                });
+        return Q.try(function() {
+            if (options.apiAccess) {
+                return _this._playbackApi(converter, options);
             } else {
-                done();
+                return _this._playbackRaw(converter, options);
             }
-        };
-
-        nextDay();
-
-        return promise;
+        }).then(function() {
+            converter.end();
+        });
     },
 
-    synchronizeRecordings: function(options) {
+    _playbackRaw: function(converter, options) {
         var _this = this;
 
-        options = _.defaults({}, options, {
-        });
+        var minFilename = moment.utc(options.minTimestamp).format('[/log/]YYYYMMDD');
+        var maxFilename = moment.utc(options.maxTimestamp).format('[/log/]YYYYMMDD');
 
-        if (!_.has(options, 'minDate')) {
-            options.minDate = new Date(2008, 0);
-        }
-        if (!_.has(options, 'maxDate')) {
-            options.maxDate = new Date(2036, 0);
-        }
-
-        var minFilename = moment.utc(options.minDate).format('[/log/]YYYYMMDD');
-        var maxFilename = moment.utc(options.maxDate).format('[/log/]YYYYMMDD');
-
-        return this.getRecordingFilenames().then(function(filenames) {
+        return Q.try(function() {
+            return _this.getRecordingFilenames(options);
+        }).then(function(filenames) {
             return _.reduce(filenames, function(memo, filename) {
                 var filenamePrefix = filename.slice(0, minFilename.length);
 
@@ -170,308 +100,225 @@ var DLxRecorder = Recorder.extend({
                 return memo;
             }, []);
         }).then(function(filenames) {
-            var promise = Q.fcall(function() {
-                return [];
-            });
+            var promise = Q();
 
             _.forEach(filenames, function(filename) {
-                promise = promise.then(function(results) {
-                    return _this.syncRecording(filename).then(function(result) {
-                        results.push(result);
-                        return results;
-                    });
+                promise = promise.then(function() {
+                    var urlString = options.urlPrefix + filename;
+
+                    var urlOptions = {
+                        auth: {
+                            username: options.username,
+                            password: options.password,
+                        },
+                    };
+
+                    return _this.downloadToStream(urlString, urlOptions, converter);
                 });
             });
 
             return promise;
-        }).then(function(results) {
-            return results;
+        });
+    },
+
+    _playbackApi: function(converter, options) {
+        var urlString = options.urlPrefix + '/dlx/download/download';
+
+        var urlOptions = {
+            qs: {
+                sessionAuthUsername: options.username,
+                sessionAuthPassword: options.password,
+                source: 'log',
+                inputType: 'packets',
+                outputType: 'vbus',
+                sieveInterval: Math.round(options.interval / 1000) || 1,
+                startDate: moment(options.minTimestamp).format('MM/DD/YYYY'),
+                endDate: moment(options.maxTimestamp).format('MM/DD/YYYY'),
+                dataLanguage: 'en',
+            },
+            auth: {
+                username: options.username,
+                password: options.password,
+            },
+        };
+
+        return Q.try(function() {
+            return this.downloadToStream(urlString, urlOptions, converter);
+        });
+    },
+
+    _playbackSyncJob: function(stream, syncJob) {
+        var _this = this;
+
+        var syncState = syncJob.syncState.sourceSyncState;
+
+        return Q.try(function() {
+            return _this.getLazyRecordingRanges();
+        }).then(function(availableRanges) {
+            var ranges = Recorder.performRangeSetOperation(availableRanges, syncJob.syncStateDiffs, syncJob.interval, 'intersection');
+
+            var playedBackRanges = [];
+
+            var promise = Q();
+
+            _.forEach(ranges, function(range) {
+                var options = _.extend({}, syncJob, {
+                    minTimestamp: range.minTimestamp,
+                    maxTimestamp: range.maxTimestamp,
+                    end: false,
+                });
+
+                promise = promise.then(function() {
+                    return _this.playback(stream, options);
+                }).then(function(ranges) {
+                    playedBackRanges = Recorder.performRangeSetOperation(playedBackRanges, ranges, syncJob.interval, 'union');
+                });
+            });
+
+            promise = promise.then(function() {
+                var handledRanges = playedBackRanges;
+
+                if (availableRanges.length > 0) {
+                    var notAvailableRanges = [{
+                        minTimestamp: new Date(Date.UTC(2001, 0)),
+                        maxTimestamp: availableRanges [0].minTimestamp,
+                    }];
+
+                    handledRanges = Recorder.performRangeSetOperation(handledRanges, notAvailableRanges, syncJob.interval, 'union');
+                }
+
+                _this._markSourceSyncRanges(handledRanges, syncJob);
+
+                return playedBackRanges;
+            });
+
+            return promise;
+        });
+    },
+
+    getLazyRecordingRanges: function() {
+        var _this = this;
+
+        return Q.try(function() {
+            return _this.getRecordingFilenames();
+        }).then(function(filenames) {
+            var ranges = _.map(filenames, function(filename) {
+                var minTimestamp = moment.utc(filename.slice(5, 13), 'YYYYMMDD');
+                var maxTimestamp = moment.utc(minTimestamp).add({ hours: 24 });
+                return {
+                    minTimestamp: minTimestamp.toDate(),
+                    maxTimestamp: maxTimestamp.toDate(),
+                };
+            });
+
+            ranges = Recorder.performRangeSetOperation(ranges, [], 86400000, 'union');
+
+            return ranges;
         });
     },
 
     getRecordingFilenames: function() {
-        var deferred = Q.defer();
-        var promise = deferred.promise;
+        return utils.promise(function(resolve, reject) {
+            var rxBuffer = null;
 
-        var done = function(err, result) {
-            if (deferred) {
-                if (err) {
-                    deferred.reject(err);
+            var filenames = [];
+
+            var onResponse = function(res) {
+            };
+
+            var onData = function(chunk) {
+                var buffer;
+                if (rxBuffer) {
+                    buffer = Buffer.concat([ rxBuffer, chunk ]);
                 } else {
-                    deferred.resolve(result);
+                    buffer = chunk;
                 }
-                deferred = null;
-            }
-        };
 
-        var rxBuffer = null;
+                var string = buffer.toString('utf8');
 
-        var filenames = [];
+                var re = /<a href="([0-9]{8}_[a-z]+.vbus)">/g;
 
-        var onResponse = function(res) {
-        };
+                var md, index;
+                while ((md = re.exec(string)) !== null) {
+                    filenames.push('/log/' + md [1]);
+                    index = re.lastIndex;
+                }
 
-        var onData = function(chunk) {
-            var buffer;
-            if (rxBuffer) {
-                buffer = Buffer.concat([ rxBuffer, chunk ]);
-            } else {
-                buffer = chunk;
-            }
+                string = string.slice(index);
 
-            var string = buffer.toString('utf8');
+                rxBuffer = new Buffer(string, 'utf8');
+            };
 
-            var re = /<a href="([0-9]{8}_[a-z]+.vbus)">/g;
+            var onEnd = function() {
+                resolve(filenames.sort());
+            };
 
-            var md, index;
-            while ((md = re.exec(string)) !== null) {
-                filenames.push('/log/' + md [1]);
-                index = re.lastIndex;
-            }
+            var onError = function(err) {
+                reject(err);
+            };
 
-            string = string.slice(index);
+            var urlOptions = {
+                auth: {
+                    username: this.username,
+                    password: this.password,
+                },
+            };
 
-            rxBuffer = new Buffer(string, 'utf8');
-        };
-
-        var onEnd = function() {
-            done(null, filenames);
-        };
-
-        var onError = function(err) {
-            done(err);
-        };
-
-        var stream = this.download('/log/');
-        stream.on('response', onResponse);
-        stream.on('data', onData);
-        stream.on('end', onEnd);
-        stream.on('error', onError);
-
-        return promise;
+            var stream = request(this.urlPrefix + '/log/', urlOptions);
+            stream.on('response', onResponse);
+            stream.on('data', onData);
+            stream.on('end', onEnd);
+            stream.on('error', onError);
+        }, this);
     },
 
     getRecordingInfo: function(filename) {
-        var deferred = Q.defer();
-        var promise = deferred.promise;
+        return utils.promise(function(resolve, reject) {
+            var info = {};
 
-        var done = function(err, result) {
-            if (deferred) {
-                if (err) {
-                    deferred.reject(err);
-                } else {
-                    deferred.resolve(result);
-                }
-                deferred = null;
-            }
-        };
+            var onResponse = function(res) {
+                info.size = res.headers ['content-length'] | 0;
+                info.etag = res.headers.etag;
+            };
 
-        var info = {};
+            var onEnd = function() {
+                resolve(info);
+            };
 
-        var onResponse = function(res) {
-            info.size = res.headers ['content-length'] | 0;
-            info.etag = res.headers.etag;
-        };
+            var onError = function(err) {
+                reject(err);
+            };
 
-        var onEnd = function() {
-            done(null, info);
-        };
+            var urlOptions = {
+                method: 'HEAD',
+                auth: {
+                    username: this.username,
+                    password: this.password,
+                },
+            };
 
-        var onError = function(err) {
-            done(err);
-        };
-
-        var stream = this.download(filename, {
-            method: 'HEAD'
-        });
-        stream.on('response', onResponse);
-        stream.on('end', onEnd);
-        stream.on('error', onError);
-
-        return promise;
+            var stream = request(this.urlPrefix + filename, urlOptions);
+            stream.on('response', onResponse);
+            stream.on('end', onEnd);
+            stream.on('error', onError);
+        }, this);
     },
 
-    syncRecording: function(filename) {
-        var _this = this;
+    downloadToStream: function(urlString, urlOptions, stream) {
+        return utils.promise(function(resolve, reject) {
+            var onEnd = function() {
+                resolve();
+            };
 
-        // console.log(filename);
+            var onError = function(err) {
+                reject(err);
+            };
 
-        var deferred = Q.defer();
-        var promise = deferred.promise;
-
-        var done = function(err, result) {
-            if (deferred) {
-                // console.log('    Done!');
-
-                if (err) {
-                    deferred.reject(err);
-                } else {
-                    deferred.resolve(result);
-                }
-                deferred = null;
-            }
-        };
-
-        var hash = this.getRecordingFilenameHash(filename);
-
-        var syncFilenamePrefix = path.join(this.cacheDirectory, hash);
-
-        var jsonSyncFilename = syncFilenamePrefix + '.json';
-        var binSyncFilename = syncFilenamePrefix + '.bin';
-
-        var storeInfo = function(info) {
-            // console.log('    Storing info...');
-            fs.writeFile(jsonSyncFilename, JSON.stringify(info), function(err) {
-                if (err) {
-                    done(err);
-                } else {
-                    done(null, info);
-                }
-            });
-        };
-
-        var analyze = function(info) {
-            // console.log('    Analyze...');
-
-            var stream = fs.createReadStream(binSyncFilename);
-
-            var converter = new VBusRecordingConverter();
-
-            stream.pipe(converter);
-
-            var uniqueHeaders = new HeaderSet();
-
-            var headerSetCount = 0;
-            var minTimestamp = null, maxTimestamp = null;
-
-            converter.on('headerSet', function(headerSet) {
-                headerSetCount++;
-
-                var timestamp = headerSet.timestamp.getTime();
-                if ((minTimestamp === null) || (minTimestamp > timestamp)) {
-                    minTimestamp = timestamp;
-                }
-                if ((maxTimestamp === null) || (maxTimestamp < timestamp)) {
-                    maxTimestamp = timestamp;
-                }
-
-                uniqueHeaders.addHeaders(headerSet.getSortedHeaders());
-            });
-
-            converter.on('finish', function() {
-                info.headerSetCount = headerSetCount;
-
-                info.minTimestamp = minTimestamp;
-                info.maxTimestamp = maxTimestamp;
-
-                info.uniqueHeaders = _.map(uniqueHeaders.getSortedHeaders(), function(header) {
-                    return header.getId();
-                });
-
-                info.uniqueHeadersId = uniqueHeaders.getId();
-                info.uniqueHeadersIdHash = uniqueHeaders.getIdHash();
-
-                storeInfo(info);
-            });
-        };
-
-        var sync = function(info, remoteInfo) {
-            if (remoteInfo.size > info.size) {
-                // console.log('    Syncing...');
-
-                var stream = _this.download(filename, {
-                    headers: {
-                        'range': 'bytes=' + info.size + '-',
-                    }
-                });
-
-                var file = fs.createWriteStream(binSyncFilename, {
-                    flags: 'a'
-                });
-
-                stream.pipe(file);
-
-                file.on('finish', function() {
-                    var info = {
-                        urlPrefix: _this.urlPrefix,
-                        filename: filename,
-                        filenameHash: hash,
-                        size: remoteInfo.size,
-                    };
-
-                    analyze(info);
-                });
-            } else if (info.headerSetCount === undefined) {
-                analyze(info);
-            } else {
-                done(null, info);
-            }
-        };
-
-        var onBinSyncFileStat = function(info, stats) {
-            if (stats === undefined) {
-                stats = {
-                    size: 0,
-                };
-            }
-
-            info.size = stats.size;
-
-            _this.getRecordingInfo(filename).then(function(remoteInfo) {
-                return sync(info, remoteInfo);
-            }, function(err) {
-                done(err);
-            });
-        };
-
-        var onJsonSyncFileRead = function(info) {
-            if (info !== undefined) {
-                info = JSON.parse(info);
-            } else {
-                info = {
-                    urlPrefix: _this.urlPrefix,
-                    filename: filename,
-                    filenameHash: hash,
-                    size: 0,
-                };
-            }
-
-            fs.stat(binSyncFilename, function(err, stats) {
-                if (err && (err.code !== 'ENOENT')) {
-                    done(err);
-                } else {
-                    onBinSyncFileStat(info, stats);
-                }
-            });
-        };
-
-        fs.readFile(jsonSyncFilename, {
-            encoding: 'utf8'
-        }, function(err, info) {
-            if (err && (err.code !== 'ENOENT')) {
-                done(err);
-            } else {
-                onJsonSyncFileRead(info);
-            }
-        });
-
-
-        return promise;
-    },
-
-    download: function(urlString, options) {
-        var req = request(this.urlPrefix + urlString, options).auth(this.username, this.password, false);
-        return req;
-    },
-
-    getRecordingFilenameHash: function(filename) {
-        var url = this.urlPrefix + filename;
-
-        var shasum = crypto.createHash('sha1');
-
-        shasum.update(new Buffer(url, 'utf8'));
-
-        return shasum.digest('hex');
+            var req = request(urlString, urlOptions);
+            req.pipe(stream, { end: false });
+            req.on('end', onEnd);
+            req.on('error', onError);
+        }, this);
     },
 
 });
