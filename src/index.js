@@ -12,6 +12,7 @@
 var packageInfo = require('../package.json');
 
 
+var utils = require('./utils');
 var extend = require('./extend');
 
 var I18N = require('./i18n');
@@ -45,6 +46,7 @@ var DLxJsonConverter = require('./dlx-json-converter');
 
 var Recorder = require('./recorder');
 var DLxRecorder = require('./dlx-recorder');
+var FileSystemRecorder = require('./filesystem-recorder');
 
 
 
@@ -52,6 +54,7 @@ module.exports = {
     
     VERSION: packageInfo.version,
     
+    utils: utils,
     extend: extend,
     
     I18N: I18N,
@@ -85,4 +88,6 @@ module.exports = {
 
     Recorder: Recorder,
     DLxRecorder: DLxRecorder,
+    FileSystemRecorder: FileSystemRecorder,
+    
 };
