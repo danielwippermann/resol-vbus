@@ -40,7 +40,7 @@ module.exports = function(grunt) {
                     reporter: 'spec'
                 }
             },
-            xcoverage: {
+            coverage: {
                 src: ['./test/specs/**/*.spec.js'],
                 options: {
                     ui: 'bdd',
