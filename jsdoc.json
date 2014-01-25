@@ -2,30 +2,26 @@
     "tags": {
         "allowUnknownTags": true
     },
-    "xsource": {
-        "include": [ 
-            "src/extend.js",
-            "src/utils.js",
-            "src/i18n.js",
-            "src/converter.js", 
-            "src/text-converter.js", 
-            "src/header-set.js",
-            "src/recorder.js"
-        ],
-        "includePattern": ".+\\.js(doc)?$",
-        "excludePattern": "(^|\\/|\\\\)_"
-    },
-    "plugins": [ "plugins/markdown" ],
-    "markdown": {
-        "parser": "gfm",
-        "githubRepoOwner": "danielwippermann",
-        "githubRepoName": "resol-vbus"
-    },
+    "plugins": ["plugins/markdown"],
     "templates": {
         "cleverLinks": false,
-        "monospaceLinks": false
+        "monospaceLinks": false,
+        "default": {
+            "outputSourceFiles": true
+        },
+        "systemName": "resol-vbus",
+        "footer": "",
+        "copyright": "resol-vbus | Copyright (c) 2013-2014, Daniel Wippermann",
+        "navType": "vertical",
+        "theme": "spacelab",
+        "linenums": false,
+        "collapseSymbols": false,
+        "inverseNav": true
     },
-    "xopts": {
-        "template": "templates/haruki"
+    "markdown": {
+        "parser": "gfm",
+        "hardwrap": true,
+        "githubRepoOwner": "danielwippermann",
+        "githubRepoName": "resol-vbus"
     }
 }
