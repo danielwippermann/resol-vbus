@@ -1,6 +1,6 @@
 {
   "name": "resol-vbus",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "A JavaScript library for processing RESOL VBus data",
   "main": "src/index.js",
   "scripts": {
