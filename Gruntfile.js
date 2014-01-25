@@ -51,7 +51,7 @@ module.exports = function(grunt) {
             }
         },
         copy: {
-            logger: {
+            module2logger: {
                 files: [ {
                     expand: true,
                     cwd: '.',
@@ -60,7 +60,10 @@ module.exports = function(grunt) {
                         'src/**/*',
                     ], 
                     dest: 'nw-apps/logger/node_modules/resol-vbus'
-                }, { 
+                } ]
+            },
+            logger2build: {
+                files: [ {
                     expand: true,
                     cwd: 'nw-apps/logger',
                     src: [
@@ -123,7 +126,8 @@ module.exports = function(grunt) {
     ]);
 
     grunt.registerTask('deploy:logger', [
-        'copy:logger',
+        'copy:module2logger',
+        'copy:logger2build',
         'shell:logger',
         'nodewebkit:logger',
         'open:logger',
