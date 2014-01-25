@@ -5,7 +5,7 @@
 
 var i18next = require('i18next');
 var _ = require('lodash');
-var moment = require('moment');
+var moment = require('moment-timezone');
 var numeral = require('numeral');
 var sprintf = require('sprintf').sprintf;
 
@@ -45,6 +45,8 @@ var I18N = extend(null, /** @lends I18N# */ {
     language: null,
 
     languageData: null,
+
+    timezone: null,
 
     i18nextT: null,
 
@@ -149,7 +151,11 @@ var I18N = extend(null, /** @lends I18N# */ {
      * @see http://momentjs.com/docs/
      */
     moment: function() {
-        return moment.apply(null, arguments).lang(this.languageData.moment);
+        var m = moment.apply(null, arguments).lang(this.languageData.moment);
+        if (this.timezone) {
+            m = m.tz(this.timezone);
+        }
+        return m;
     },
 
     /**

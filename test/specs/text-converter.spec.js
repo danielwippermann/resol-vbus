@@ -59,6 +59,7 @@ describe('TextConverter', function() {
             });
 
             var converter = new TextConverter();
+            converter.specification.i18n.timezone = 'Europe/Berlin';
 
             var onData = sinon.spy();
             converter.on('data', onData);

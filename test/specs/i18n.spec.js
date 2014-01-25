@@ -113,6 +113,7 @@ describe('I18N', function() {
 
         it('should work correctly', function() {
             var i18n = new I18N();
+            i18n.timezone = 'Europe/Berlin';
 
             var m = i18n.moment(1387888153828);
 
@@ -123,6 +124,7 @@ describe('I18N', function() {
 
         it('should work correctly in German', function() {
             var i18n = new I18N('de');
+            i18n.timezone = 'Europe/Berlin';
 
             var m = i18n.moment(1387888153828);
 
@@ -133,6 +135,7 @@ describe('I18N', function() {
 
         it('should work correctly in an unknown language', function() {
             var i18n = new I18N('?');
+            i18n.timezone = 'Europe/Berlin';
 
             var m = i18n.moment(1387888153828);
 
