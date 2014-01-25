@@ -6,3 +6,4 @@ nw-builds/
 cache/
 docs/
 
+examples/local-config.json
