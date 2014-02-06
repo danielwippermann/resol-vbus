@@ -421,7 +421,7 @@ describe('Connection', function() {
         });
 
     });
-    
+
     describe('#send', function() {
 
         it('should be a method', function() {
@@ -730,7 +730,7 @@ describe('Connection', function() {
 
                 conn.on('datagram', function(datagram) {
                     expect(datagram.getId()).to.equal('00_7721_0020_20_0600_0000');
-                    
+
                     conn.send(rawDataPacket);
                 });
 

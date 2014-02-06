@@ -62,7 +62,7 @@ describe('I18N', function() {
 
             expect(result).to.equal('0768_0300_Test');
         });
-        
+
     });
 
     describe('#t', function() {
@@ -171,7 +171,7 @@ describe('I18N', function() {
             expect(n.format).to.be.a('function');
             expect(n.format('0,0.0')).to.equal('1 234,5');
         });
-        
+
         it('should work correctly in an unknown language', function() {
             var i18n = new I18N('?');
 

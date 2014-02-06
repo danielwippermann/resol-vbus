@@ -155,7 +155,7 @@ describe('Recorder', function() {
                 done();
             });
         });
-        
+
     });
 
     describe('#_getSyncJob', function() {

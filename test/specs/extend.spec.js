@@ -132,7 +132,7 @@ describe('extend', function() {
         var childClassConstructor = sinon.spy(function() {
             ParentClass.call(this);
         });
-        
+
         var ChildClass = testExtend(ParentClass, {
 
             protoProp2: true,

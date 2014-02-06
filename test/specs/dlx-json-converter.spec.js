@@ -184,7 +184,7 @@ describe('DLxJsonConverter', function() {
 
                 done();
             });
-            
+
             inConv.write(rawRecording, 'hex');
 
             inConv.end();

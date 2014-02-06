@@ -20,7 +20,7 @@ describe('TextConverter', function() {
         it('should be a constructor function', function() {
             expect(TextConverter).to.be.a('function');
         });
-        
+
     });
 
     describe('#reset', function() {

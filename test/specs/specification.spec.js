@@ -455,7 +455,7 @@ describe('Specification', function() {
 
             expect(packetFieldSpec).to.equal(undefined);
         });
-        
+
         it('should work correctly for a missing field ID', function() {
             var spec = new Specification();
 
@@ -465,7 +465,7 @@ describe('Specification', function() {
 
             expect(packetFieldSpec).to.equal(undefined);
         });
-        
+
         it('should work correctly for an unknown field ID', function() {
             var spec = new Specification();
 
@@ -639,7 +639,7 @@ describe('Specification', function() {
         it('should work correctly for root type "Time"', function() {
             var spec = new Specification();
 
-            var textValue = spec.formatTextValueFromRawValueInternal(721, null, 'Time', 0, null);            
+            var textValue = spec.formatTextValueFromRawValueInternal(721, null, 'Time', 0, null);
 
             expect(textValue).to.equal('12:01');
         });
@@ -647,7 +647,7 @@ describe('Specification', function() {
         it('should work correctly for root type "Weektime"', function() {
             var spec = new Specification();
 
-            var textValue = spec.formatTextValueFromRawValueInternal(3 * 1440 + 721, null, 'Weektime', 0, null);            
+            var textValue = spec.formatTextValueFromRawValueInternal(3 * 1440 + 721, null, 'Weektime', 0, null);
 
             expect(textValue).to.equal('Th,12:01');
         });
@@ -655,7 +655,7 @@ describe('Specification', function() {
         it('should work correctly for root type "DateTime"', function() {
             var spec = new Specification();
 
-            var textValue = spec.formatTextValueFromRawValueInternal(409418262, null, 'DateTime', 0, null);            
+            var textValue = spec.formatTextValueFromRawValueInternal(409418262, null, 'DateTime', 0, null);
 
             expect(textValue).to.equal('12/22/2013 15:17:42');
         });
@@ -663,7 +663,7 @@ describe('Specification', function() {
         it('should work correctly for root type "Number" and precision "0"', function() {
             var spec = new Specification();
 
-            var textValue = spec.formatTextValueFromRawValueInternal(12345.6789, null, 'Number', 0, null);            
+            var textValue = spec.formatTextValueFromRawValueInternal(12345.6789, null, 'Number', 0, null);
 
             expect(textValue).to.equal('12346');
         });
@@ -671,7 +671,7 @@ describe('Specification', function() {
         it('should work correctly for root type "Number" and precision "1"', function() {
             var spec = new Specification();
 
-            var textValue = spec.formatTextValueFromRawValueInternal(12345.6789, null, 'Number', 1, null);            
+            var textValue = spec.formatTextValueFromRawValueInternal(12345.6789, null, 'Number', 1, null);
 
             expect(textValue).to.equal('12345.7');
         });
@@ -679,7 +679,7 @@ describe('Specification', function() {
         it('should work correctly for root type "Number" and precision "2"', function() {
             var spec = new Specification();
 
-            var textValue = spec.formatTextValueFromRawValueInternal(12345.6789, null, 'Number', 2, null);            
+            var textValue = spec.formatTextValueFromRawValueInternal(12345.6789, null, 'Number', 2, null);
 
             expect(textValue).to.equal('12345.68');
         });
@@ -687,7 +687,7 @@ describe('Specification', function() {
         it('should work correctly for root type "Number" and precision "3"', function() {
             var spec = new Specification();
 
-            var textValue = spec.formatTextValueFromRawValueInternal(12345.6789, null, 'Number', 3, null);            
+            var textValue = spec.formatTextValueFromRawValueInternal(12345.6789, null, 'Number', 3, null);
 
             expect(textValue).to.equal('12345.679');
         });
@@ -695,7 +695,7 @@ describe('Specification', function() {
         it('should work correctly for root type "Number" and precision "4"', function() {
             var spec = new Specification();
 
-            var textValue = spec.formatTextValueFromRawValueInternal(12345.6789, null, 'Number', 4, null);            
+            var textValue = spec.formatTextValueFromRawValueInternal(12345.6789, null, 'Number', 4, null);
 
             expect(textValue).to.equal('12345.6789');
         });
@@ -703,7 +703,7 @@ describe('Specification', function() {
         it('should work correctly for root type "Number" and precision "10"', function() {
             var spec = new Specification();
 
-            var textValue = spec.formatTextValueFromRawValueInternal(1.23456789, null, 'Number', 10, null);            
+            var textValue = spec.formatTextValueFromRawValueInternal(1.23456789, null, 'Number', 10, null);
 
             expect(textValue).to.equal('1.2345678900');
         });
@@ -776,7 +776,7 @@ describe('Specification', function() {
             expect(pfs [5].packetFieldSpec).to.be.an('object');
             expect(pfs [5].origPacketFieldSpec).to.be.an('object');
             expect(pfs [5].name).to.equal('Return temperature');
-            expect(pfs [5].rawValue).to.be.closeTo(-888.8, 0.05);
+            expect(pfs [5].rawValue).to.be.closeTo( -888.8, 0.05);
             expect(pfs [5].formatTextValue).to.be.a('function');
             expect(pfs [5].formatTextValue()).to.equal('-888.8 °C');
         });
@@ -807,7 +807,7 @@ describe('Specification', function() {
             expect(pfs [1].packetFieldSpec).to.be.an('object');
             expect(pfs [1].origPacketFieldSpec).to.be.an('object');
             expect(pfs [1].name).to.equal('T-return');
-            expect(pfs [1].rawValue).to.be.closeTo(-888.8, 0.05);
+            expect(pfs [1].rawValue).to.be.closeTo( -888.8, 0.05);
             expect(pfs [1].formatTextValue).to.be.a('function');
             expect(pfs [1].formatTextValue()).to.equal('-888.8 °C');
         });

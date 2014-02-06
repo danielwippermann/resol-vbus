@@ -95,7 +95,7 @@ describe('Header', function() {
         });
 
     });
-    
+
     describe('.injectSeptett', function() {
 
         it('should be a function', function() {
@@ -222,7 +222,7 @@ describe('Header', function() {
 
             expect(header.getInfo()).to.equal(0);
         });
-        
+
     });
 
     describe('#getId', function() {
