@@ -70,7 +70,7 @@ var DLxRecorder = Recorder.extend( /** @lends DLxRecorder# */ {
             headerSetConsolidator.processHeaderSet(headerSet);
         });
 
-        return Q.try(function() {
+        return Q.fcall(function() {
             if (options.apiAccess) {
                 return _this._playbackApi(converter, options);
             } else {
@@ -87,7 +87,7 @@ var DLxRecorder = Recorder.extend( /** @lends DLxRecorder# */ {
         var minFilename = moment.utc(options.minTimestamp).format('[/log/]YYYYMMDD');
         var maxFilename = moment.utc(options.maxTimestamp).format('[/log/]YYYYMMDD');
 
-        return Q.try(function() {
+        return Q.fcall(function() {
             return _this.getRecordingFilenames(options);
         }).then(function(filenames) {
             return _.reduce(filenames, function(memo, filename) {
@@ -142,7 +142,7 @@ var DLxRecorder = Recorder.extend( /** @lends DLxRecorder# */ {
             },
         };
 
-        return Q.try(function() {
+        return Q.fcall(function() {
             return this.downloadToStream(urlString, urlOptions, converter);
         });
     },
@@ -152,7 +152,7 @@ var DLxRecorder = Recorder.extend( /** @lends DLxRecorder# */ {
 
         var syncState = this._getSyncState(syncJob, 'source', 'DLxRecorder');
 
-        return Q.try(function() {
+        return Q.fcall(function() {
             return _this.getLazyRecordingRanges();
         }).then(function(availableRanges) {
             var ranges = Recorder.performRangeSetOperation(availableRanges, syncJob.syncStateDiffs, syncJob.interval, 'intersection');
@@ -199,7 +199,7 @@ var DLxRecorder = Recorder.extend( /** @lends DLxRecorder# */ {
     getLazyRecordingRanges: function() {
         var _this = this;
 
-        return Q.try(function() {
+        return Q.fcall(function() {
             return _this.getRecordingFilenames();
         }).then(function(filenames) {
             var ranges = _.map(filenames, function(filename) {

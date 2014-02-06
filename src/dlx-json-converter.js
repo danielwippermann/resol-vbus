@@ -102,7 +102,7 @@ var DLxJsonConverter = Converter.extend({
                     var rawValue = packetField.rawValue;
                     var precision = packetField.packetFieldSpec.type.precision;
                     var numberValue = spec.formatTextValueFromRawValueInternal(rawValue, noneUnit, numberType, precision, noneUnit);
-                    rawValue = +numberValue;
+                    rawValue = + numberValue;
 
                     return {
                         field_index: packetFieldIndex,

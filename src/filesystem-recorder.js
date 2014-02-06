@@ -54,7 +54,7 @@ var FileSystemRecorder = Recorder.extend({
     _getCurrentSyncState: function(options) {
         var filename = this._getCurrentSyncStateFilename(options);
 
-        return Q.try(function() {
+        return Q.fcall(function() {
             return Q.npost(fs, 'readFile', [ filename ]);
         }).fail(function(err) {
             if (err.code === 'ENOENT') {
@@ -70,7 +70,7 @@ var FileSystemRecorder = Recorder.extend({
     _setCurrentSyncState: function(syncState, options) {
         var filename = this._getCurrentSyncStateFilename(options);
 
-        return Q.try(function() {
+        return Q.fcall(function() {
             return JSON.stringify(syncState, null, '    ');
         }).then(function(data) {
             return Q.npost(fs, 'writeFile', [ filename, data ]);
@@ -193,7 +193,7 @@ var FileSystemRecorder = Recorder.extend({
             outConverter.convertHeaderSet(headerSet);
         });
 
-        return Q.try(function() {
+        return Q.fcall(function() {
             return recorder._playbackSyncJob(inConverter, syncJob);
         }).then(function(playedBackRanges) {
             return utils.promise(function(resolve) {

@@ -149,7 +149,7 @@ var Recorder = extend(EventEmitter, /** @lends Recorder# */ {
             converter.convertHeaderSet(headerSet);
         });
 
-        return Q.try(function() {
+        return Q.fcall(function() {
             return _this._playback(headerSetConsolidator, options);
         }).then(function() {
             if (options.end) {
@@ -183,7 +183,7 @@ var Recorder = extend(EventEmitter, /** @lends Recorder# */ {
 
         options = _.extend({}, this._getOptions(), options);
 
-        return Q.try(function() {
+        return Q.fcall(function() {
             return recorder._getCurrentSyncState(options);
         }).then(function(oldSyncState) {
             oldSyncState = _.cloneDeep(oldSyncState);
