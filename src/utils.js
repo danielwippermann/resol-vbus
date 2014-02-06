@@ -61,7 +61,7 @@ var utils = {
 
         try {
             callback.call(thisArg, resolve, reject);
-        } catch(ex) {
+        } catch (ex) {
             done(ex);
         }
 

@@ -72,7 +72,7 @@ var Recorder = extend(EventEmitter, /** @lends Recorder# */ {
      *
      * @classdesc
      * A Recorder provides access to HeaderSet stores (e.g. dataloggers) by
-     * allowing to either playback the HeaderSets in the store, record 
+     * allowing to either playback the HeaderSets in the store, record
      * HeaderSets to the store or synchronize two Recorders.
      *
      * The playback and record operation both use the VBusRecordingConverter
@@ -82,8 +82,8 @@ var Recorder = extend(EventEmitter, /** @lends Recorder# */ {
      * and is able to find unsynced HeaderSets in the source Recorder.
      * Thoses unsynced HeaderSets are then played back from the source Recorder
      * and recorded in the destination Recorder.
-     * 
-     * The storage mechanism and format of the Recorder sub-classes is 
+     *
+     * The storage mechanism and format of the Recorder sub-classes is
      * implementation-specific to this class.
      */
     constructor: function(options) {
@@ -187,7 +187,7 @@ var Recorder = extend(EventEmitter, /** @lends Recorder# */ {
             return recorder._getCurrentSyncState(options);
         }).then(function(oldSyncState) {
             oldSyncState = _.cloneDeep(oldSyncState);
-            
+
             if (!oldSyncState.sourceSyncState) {
                 oldSyncState.sourceSyncState = {};
             }
@@ -228,7 +228,7 @@ var Recorder = extend(EventEmitter, /** @lends Recorder# */ {
 
         // find diffs
         var syncStateDiffs = syncJob.syncStateDiffs;
-        syncStateDiffs.push({ 
+        syncStateDiffs.push({
             minTimestamp: options.minTimestamp,
             maxTimestamp: options.maxTimestamp,
         });

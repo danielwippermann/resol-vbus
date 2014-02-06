@@ -92,7 +92,7 @@ var Datagram = Header.extend({
         }
         return result;
     },
-    
+
 }, {
 
     fromLiveBuffer: function(buffer, start, end) {

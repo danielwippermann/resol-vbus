@@ -114,7 +114,7 @@ var numberFormatCache = {};
  * @property {string} getRawValue
  */
 
- 
+
 
 var Specification = extend(null, /** @lends Specification# */ {
 
@@ -428,7 +428,7 @@ var Specification = extend(null, /** @lends Specification# */ {
             if (destinationAddress !== 0x0010) {
                 fullName += ' => ' + destinationDeviceSpec.name;
             }
-            
+
             var packetSpec = _.extend({}, origPacketSpec, {
                 packetId: packetId,
                 channel: headerOrChannel,
@@ -448,7 +448,7 @@ var Specification = extend(null, /** @lends Specification# */ {
 
             this.packetSpecCache [packetId] = packetSpec;
         }
-        
+
         return this.packetSpecCache [packetId];
     },
 
@@ -786,7 +786,7 @@ var Specification = extend(null, /** @lends Specification# */ {
         var rawFilteredPacketFieldSpecs = rawSpecificationData.filteredPacketFieldSpecs;
         var specification = options.specification || globalSpecification || {};
         var specificationData = options.specificationData || specification.specificationData || globalSpecificationData || {};
-        
+
         var filteredPacketFieldSpecs;
         if (rawFilteredPacketFieldSpecs) {
             var resolve = function(value, collectionKey) {

@@ -35,7 +35,7 @@ var Header = extend(null, /** @lends Header# */ {
      * @default 0
      */
     channel: 0,
-    
+
     /**
      * VBus address of this header's destination
      * @type {number}
@@ -124,7 +124,7 @@ var Header = extend(null, /** @lends Header# */ {
      *
      * Sub-classes can extend that information. The structure of this
      * identifier is implementation specific, do not rely on it!
-     * 
+     *
      * @returns {string} Identifier
      */
     getId: function() {
@@ -175,7 +175,7 @@ var Header = extend(null, /** @lends Header# */ {
     fromLiveBuffer: function(/* buffer, start, end */) {
         throw new Error('Must be implemented by sub-class');
     },
-    
+
     /**
      * Calculates the VBus checksum (according to version x.0 specification)
      * over a part of a Buffer instance.

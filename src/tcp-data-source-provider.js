@@ -131,7 +131,7 @@ var TcpDataSourceProvider = DataSourceProvider.extend({
                 setTimeout(sendQuery, 500);
             } else {
                 var keys = _.keys(addressMap).sort();
-                
+
                 var result = _.map(keys, function(key) {
                     return addressMap [key];
                 });
@@ -162,7 +162,7 @@ var TcpDataSourceProvider = DataSourceProvider.extend({
 
         socket.on('error', function(err) {
             socket.close();
-            
+
             done(err);
         });
 

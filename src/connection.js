@@ -205,8 +205,8 @@ var Connection = extend(Duplex, {
         } else {
             this.rxBuffer = null;
         }
-        
-        // console.log('_write (end): ', this.rxBuffer); 
+
+        // console.log('_write (end): ', this.rxBuffer);
 
         if (callback) {
             callback(null);
@@ -222,7 +222,7 @@ var Connection = extend(Duplex, {
             this.connectionState = newState;
 
             this.rxBuffer = null;
-            
+
             if (EventEmitter.listenerCount(this, 'connectionState') > 0) {
                 this.emit('connectionState', newState);
             }
@@ -283,7 +283,7 @@ var Connection = extend(Duplex, {
 
             this.on('packet', onPacket);
         }
-        
+
         if (options.filterDatagram) {
             onDatagram = function(rxDatagram) {
                 options.filterDatagram(rxDatagram, done);

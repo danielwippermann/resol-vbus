@@ -89,7 +89,7 @@ var Telegram = Header.extend({
         }
         return result;
     },
-    
+
     getFrameCount: function() {
         return Telegram.getFrameCountForCommand(this.command);
     },

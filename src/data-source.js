@@ -34,7 +34,7 @@ var DataSource = extend(null, {
     isSupportingLiveData: false,
 
     isSupportingRecordedData: false,
-    
+
     constructor: function(options) {
         _.extend(this, _.pick(options, optionKeys));
     },

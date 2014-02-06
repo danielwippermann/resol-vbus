@@ -213,7 +213,7 @@ var FileSystemRecorder = Recorder.extend({
             });
         }).then(function(playedBackRanges) {
             console.log(playedBackRanges);
-            
+
             return _this._setCurrentSyncState(syncJob.syncState, syncJob);
         });
     },

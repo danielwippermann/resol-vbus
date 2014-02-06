@@ -104,7 +104,7 @@ var HeaderSetConsolidator = HeaderSet.extend({
                 include = false;
             }
         }
-        
+
         if (include) {
             if (this.timeToLive > 0) {
                 this.removeHeadersOlderThan(now - this.timeToLive);

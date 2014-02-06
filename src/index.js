@@ -51,14 +51,14 @@ var FileSystemRecorder = require('./filesystem-recorder');
 
 
 module.exports = {
-    
+
     VERSION: packageInfo.version,
-    
+
     utils: utils,
     extend: extend,
-    
+
     I18N: I18N,
-    
+
     Specification: Specification,
 
     Header: Header,
@@ -72,15 +72,15 @@ module.exports = {
     Connection: Connection,
     SerialConnection: SerialConnection,
     TcpConnection: TcpConnection,
-    
+
     DataSource: DataSource,
     SerialDataSource: SerialDataSource,
     TcpDataSource: TcpDataSource,
-    
+
     DataSourceProvider: DataSourceProvider,
     SerialDataSourceProvider: SerialDataSourceProvider,
     TcpDataSourceProvider: TcpDataSourceProvider,
-    
+
     Converter: Converter,
     VBusRecordingConverter: VBusRecordingConverter,
     TextConverter: TextConverter,
@@ -89,5 +89,5 @@ module.exports = {
     Recorder: Recorder,
     DLxRecorder: DLxRecorder,
     FileSystemRecorder: FileSystemRecorder,
-    
+
 };

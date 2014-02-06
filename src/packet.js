@@ -92,7 +92,7 @@ var Packet = Header.extend({
         }
         return result;
     },
-    
+
 }, {
 
     fromLiveBuffer: function(buffer, start, end) {
