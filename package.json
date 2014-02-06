@@ -6,8 +6,8 @@
   "scripts": {
     "test": "grunt test"
   },
-  "repository": "",
-  "author": "Daniel Wippermann <Daniel.Wippermann@resol.de>",
+  "repository": "https://github.com/danielwippermann/resol-vbus",
+  "author": "Daniel Wippermann <Daniel.Wippermann@gmail.com>",
   "license": "MIT",
   "devDependencies": {
     "grunt": "~0.4.2",
