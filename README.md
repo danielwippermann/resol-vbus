@@ -72,8 +72,8 @@ into your shell:
 
 * [RESOL VBus Google Group](https://groups.google.com/forum/#!forum/resol-vbus)
 * [RESOL VBus Protocol Specification](http://goo.gl/HP6ZY)
-* [RESOL VBus File Format Specification](https://docs.google.com/document/d/1qNdpl8pB409eeCmpoApXBVtR8feIn_Jz3XEk8E5r7Go)
-* [RESOL VBus over TCP Specification](https://docs.google.com/document/d/1fIDqsWv2X7EfezLiP9f2P3vRdpmgbiK6kzcUUrMGoEU)
+* [RESOL VBus File Format Specification](https://docs.google.com/document/d/1qNdpl8pB409eeCmpoApXBVtR8feIn_Jz3XEk8E5r7Go/edit?usp=sharing&authkey=COLYjnI)
+* [RESOL VBus over TCP Specification](https://docs.google.com/document/d/1fIDqsWv2X7EfezLiP9f2P3vRdpmgbiK6kzcUUrMGoEU/edit?usp=sharing&authkey=CODQ-vMD)
 
 
 
