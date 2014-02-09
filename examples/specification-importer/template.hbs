@@ -75,6 +75,12 @@ var createVBusSpecificationData = function() {
             name: {{stringify name}},
             type: types.{{typeId}},
             getRawValue: getRawValueFunctions._{{packetFieldId}},
+            parts: [{{#each parts}}{
+                offset: {{offset}},
+                mask: {{mask}},
+                isSigned: {{isSigned}},
+                factor: {{factor}},
+            }, {{/each}}],
         }, {{/each}}],
         {{/each}}
     };

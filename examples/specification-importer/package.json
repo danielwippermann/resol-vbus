@@ -1,13 +1,13 @@
 {
   "name": "specification-importer",
   "version": "0.0.0",
-  "description": "ERROR: No README.md file found!",
+  "description": "Imports RSC VBus specification XMLs",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": "",
-  "author": "",
+  "repository": "https://github.com/danielwippermann/resol-vbus",
+  "author": "Daniel Wippermann <Daniel.Wippermann@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "glob": "~3.2.8",
