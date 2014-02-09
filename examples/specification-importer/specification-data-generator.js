@@ -106,12 +106,21 @@ var generateVBusSpecificationData = function(spec) {
 
     var packetTemplates = sortedMap(info.packetTemplates, function(packet, packetId) {
         var fields = _.map(packet.fields, function(field) {
+            var parts = _.map(field.parts, function(part) {
+                return {
+                    offset: part.offset | 0,
+                    mask: part.mask | 0,
+                    isSigned: JSON.stringify(part.isSigned),
+                    factor: part.factor,
+                };
+            });
+
             return {
                 packetFieldId: packetId + '_' + field.fieldId,
                 fieldId: field.fieldId,
                 name: field.name,
                 typeId: field.typeId,
-                parts: field.parts,
+                parts: parts,
             };
         });
 
