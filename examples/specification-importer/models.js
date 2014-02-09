@@ -3,11 +3,11 @@
 
 
 
-var vbus = require('../..');
+var extend = require('../../src/extend');
 
 
 
-var VBusSpecModel = vbus.extend(null, {
+var VBusSpecModel = extend(null, {
 
 });
 
