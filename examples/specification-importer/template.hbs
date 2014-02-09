@@ -1,0 +1,122 @@
+/*! resol-vbus | Copyright (c) 2013-2014, Daniel Wippermann | MIT license */
+'use strict';
+
+
+
+var createVBusSpecificationData = function() {
+    // ---- UNITS ----
+    var units = {
+{{#each units}}
+        {{unitCode}}: {
+            unitId: {{stringify unitCode}},
+            unitCode: {{stringify unitCode}},
+            unitFamily: {{stringify unitFamily}},
+            unitText: {{stringify unitText}},
+        },
+{{/each}}
+    };
+
+
+
+    var types = {
+{{#each types}}
+        {{typeId}}: {
+            typeId: {{stringify typeId}},
+            rootTypeId: {{stringify rootTypeId}},
+            precision: {{precision}},
+            unit: units.{{unitCode}},
+        },
+{{/each}}
+    };
+
+
+
+    var getRawValueFunctions = {
+{{#each fieldTemplates}}
+        _{{packetFieldId}}: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            {{#each parts}}if (start + {{offset}} < end) {
+                rawValue += buffer.read{{#unless isSigned}}U{{/unless}}Int8(start + {{offset}}) * {{factor}};
+                valid = true;
+            }
+            {{/each}}
+            return (valid ? rawValue : null);
+        },
+{{/each}}
+    };
+
+
+
+    var deviceSpecs = {
+{{#each devices}}
+        _{{deviceId}}: {
+            name: {{stringify name}}
+        },
+        {{/each}}
+    };
+
+
+
+    var getDeviceSpecification = function(selfAddress, peerAddress) {
+        var deviceSpec;
+        {{#each devices}}if ((selfAddress === 0x{{deviceId}}) && (true)) {
+            deviceSpec = deviceSpecs._{{deviceId}};
+        } else {{/each}}{
+            deviceSpec = null;
+        }
+        return deviceSpec;
+    };
+
+
+
+    var packetFieldSpecs = {
+        {{#each packetTemplates}}_{{packetId}}: [{{#each fields}}{
+            fieldId: {{stringify fieldId}},
+            name: {{stringify name}},
+            type: types.{{typeId}},
+            getRawValue: getRawValueFunctions._{{packetFieldId}},
+        }, {{/each}}],
+        {{/each}}
+    };
+
+
+
+    var packetSpecs = {
+        {{#each packetTemplates}}_{{packetId}}: {
+            packetId: {{stringify packetId}},
+            packetFields: packetFieldSpecs._{{packetId}},
+        },
+        {{/each}}
+    };
+
+
+
+    var getPacketSpecification = function(destinationAddress, sourceAddress, command) {
+        var packetSpec;
+        {{#each packets}}if ({{destinationCondition}} && {{sourceCondition}} && {{commandCondition}}) {
+            packetSpec = packetSpecs._{{packetTemplateId}};
+        } else {{/each}}{
+            packetSpec = null;
+        }
+        return packetSpec;
+    };
+
+
+
+    var vbusSpecificationData = {
+        units: units,
+        types: types,
+        getRawValueFunctions: getRawValueFunctions,
+        deviceSpecs: deviceSpecs,
+        getDeviceSpecification: getDeviceSpecification,
+        packetFieldSpecs: packetFieldSpecs,
+        packetSpecs: packetSpecs,
+        getPacketSpecification: getPacketSpecification,
+    };
+
+    return vbusSpecificationData;
+};
+
+
+
+module.exports = createVBusSpecificationData;
