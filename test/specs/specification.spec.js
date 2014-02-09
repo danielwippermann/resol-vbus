@@ -214,7 +214,7 @@ describe('Specification', function() {
         it('should work correctly for known types', function() {
             var spec = new Specification();
 
-            var unit = spec.getTypeById('Number_1_0_None');
+            var unit = spec.getTypeById('Number_1_None');
 
             expect(unit).to.be.an('object');
         });
@@ -419,8 +419,7 @@ describe('Specification', function() {
 
             expect(packetFieldSpec).to.be.an('object');
             expect(packetFieldSpec.fieldId).to.be.a('string');
-            expect(packetFieldSpec.name).to.be.an('object');
-            expect(packetFieldSpec.name.ref).to.be.a('string');
+            expect(packetFieldSpec.name).to.be.a('string');
             expect(packetFieldSpec.type).to.be.an('object');
             expect(packetFieldSpec.type.typeId).to.be.a('string');
             expect(packetFieldSpec.type.rootTypeId).to.be.a('string');
@@ -437,8 +436,7 @@ describe('Specification', function() {
 
             expect(packetFieldSpec).to.be.an('object');
             expect(packetFieldSpec.fieldId).to.be.a('string');
-            expect(packetFieldSpec.name).to.be.an('object');
-            expect(packetFieldSpec.name.ref).to.be.a('string');
+            expect(packetFieldSpec.name).to.be.a('string');
             expect(packetFieldSpec.type).to.be.an('object');
             expect(packetFieldSpec.type.typeId).to.be.a('string');
             expect(packetFieldSpec.type.rootTypeId).to.be.a('string');

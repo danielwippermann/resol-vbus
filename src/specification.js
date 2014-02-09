@@ -145,8 +145,8 @@ var Specification = extend(null, /** @lends Specification# */ {
      *
      * @constructs
      * @param {object} options Initialization values for this instance's members
-     * @param {string} language {@link Specification#language}
-     * @param {string} specificationData {@link Specification#specificationData}
+     * @param {string} options.language {@link Specification#language}
+     * @param {string} options.specificationData {@link Specification#specificationData}
      */
     constructor: function(options) {
         var _this = this;
@@ -726,8 +726,17 @@ var Specification = extend(null, /** @lends Specification# */ {
         var language = this.language;
 
         _.forEach(packetFields, function(packetField) {
-            var names = packetField.packetFieldSpec.name;
-            var name = names [language] || names.en || names.de || names.ref;
+            var pfsName = packetField.packetFieldSpec.name;
+            var name;
+            if (_.isString(pfsName)) {
+                var key = 'specificationData.packetFieldName.' + pfsName;
+                name = _this.i18n.t(key);
+                if (name === key) {
+                    name = pfsName;
+                }
+            } else if (_.isObject(pfsName)) {
+                name = pfsName [language] || pfsName.en || pfsName.de || pfsName.ref;
+            }
 
             var rawValue;
             if (packetField.packetFieldSpec && packetField.packet) {

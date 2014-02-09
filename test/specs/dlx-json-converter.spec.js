@@ -128,7 +128,7 @@ describe('DLxJsonConverter', function() {
             chunk = onData.getCall(6).args [0];
 
             expect(chunk).to.be.an('object');
-            expect(chunk.toString()).to.equal('],"headerset_stats":{\"headerset_count\":5,\"min_timestamp\":1387893006.829,\"max_timestamp\":1387893006.829},"headers":[{\"id\":\"01_0010_7E21_0100\",\"description\":\"VBus 1: DeltaSol MX [Heizkreis #1]\",\"channel\":1,\"destination_address\":16,\"source_address\":32289,\"protocol_version\":16,\"command\":256,\"info\":0,\"destination_name\":\"DFA\",\"source_name\":\"DeltaSol MX [Heizkreis #1]\",\"fields\":[{\"id\":\"000_2_0\",\"name\":\"Flow set temperature\",\"unit\":\" °C\",\"unit_code\":\"DegreesCelsius\"},{\"id\":\"002_1_0\",\"name\":\"Operating status\",\"unit\":\"\",\"unit_code\":\"None\"}]},{\"id\":\"01_0010_7E31_0100\",\"description\":\"VBus 1: DeltaSol MX [WMZ #1]\",\"channel\":1,\"destination_address\":16,\"source_address\":32305,\"protocol_version\":16,\"command\":256,\"info\":0,\"destination_name\":\"DFA\",\"source_name\":\"DeltaSol MX [WMZ #1]\",\"fields\":[{\"id\":\"000_4_0\",\"name\":\"Heat quantity\",\"unit\":\" Wh\",\"unit_code\":\"WattHours\"},{\"id\":\"008_4_0\",\"name\":\"Heat quantity today\",\"unit\":\" Wh\",\"unit_code\":\"WattHours\"},{\"id\":\"012_4_0\",\"name\":\"Heat quantity week\",\"unit\":\" Wh\",\"unit_code\":\"WattHours\"}]},{\"id\":\"00_0010_0053_0100\",\"description\":\"VBus 0: DL3\",\"channel\":0,\"destination_address\":16,\"source_address\":83,\"protocol_version\":16,\"command\":256,\"info\":0,\"destination_name\":\"DFA\",\"source_name\":\"DL3\",\"fields\":[{\"id\":\"000_4_0\",\"name\":\"Resistor sensor 1\",\"unit\":\" Ohm\",\"unit_code\":\"Ohms\"},{\"id\":\"004_4_0\",\"name\":\"Resistor sensor 2\",\"unit\":\" Ohm\",\"unit_code\":\"Ohms\"},{\"id\":\"008_4_0\",\"name\":\"Resistor sensor 3\",\"unit\":\" Ohm\",\"unit_code\":\"Ohms\"},{\"id\":\"012_4_0\",\"name\":\"Current sensor 4\",\"unit\":\" mA\",\"unit_code\":\"Milliamperes\"},{\"id\":\"034_2_0\",\"name\":\"Temperature Sensor 1\",\"unit\":\" °C\",\"unit_code\":\"DegreesCelsius\"},{\"id\":\"036_2_0\",\"name\":\"Temperature Sensor 2\",\"unit\":\" °C\",\"unit_code\":\"DegreesCelsius\"},{\"id\":\"038_2_0\",\"name\":\"Temperature Sensor 3\",\"unit\":\" °C\",\"unit_code\":\"DegreesCelsius\"},{\"id\":\"016_4_0\",\"name\":\"Impulse Counter Sensor 1\",\"unit\":\"\",\"unit_code\":\"None\"},{\"id\":\"020_4_0\",\"name\":\"Impulse Counter Sensor 2\",\"unit\":\"\",\"unit_code\":\"None\"},{\"id\":\"024_4_0\",\"name\":\"Impulse Counter Sensor 3\",\"unit\":\"\",\"unit_code\":\"None\"},{\"id\":\"040_2_0\",\"name\":\"Irradiation Sensor 4\",\"unit\":\" W/m²\",\"unit_code\":\"WattsPerSquareMeter\"}]}],"language":"en"}');
+            expect(chunk.toString()).to.equal('],"headerset_stats":{\"headerset_count\":5,\"min_timestamp\":1387893006.829,\"max_timestamp\":1387893006.829},"headers":[{\"id\":\"01_0010_7E21_0100\",\"description\":\"VBus 1: DeltaSol MX [Heizkreis #1]\",\"channel\":1,\"destination_address\":16,\"source_address\":32289,\"protocol_version\":16,\"command\":256,\"info\":0,\"destination_name\":\"DFA\",\"source_name\":\"DeltaSol MX [Heizkreis #1]\",\"fields\":[{\"id\":\"000_2_0\",\"name\":\"Flow set temperature\",\"unit\":\" °C\",\"unit_code\":\"DegreesCelsius\"},{\"id\":\"002_1_0\",\"name\":\"Operating status\",\"unit\":\"\",\"unit_code\":\"None\"}]},{\"id\":\"01_0010_7E31_0100\",\"description\":\"VBus 1: DeltaSol MX [WMZ #1]\",\"channel\":1,\"destination_address\":16,\"source_address\":32305,\"protocol_version\":16,\"command\":256,\"info\":0,\"destination_name\":\"DFA\",\"source_name\":\"DeltaSol MX [WMZ #1]\",\"fields\":[{\"id\":\"000_4_0\",\"name\":\"Heat quantity\",\"unit\":\" Wh\",\"unit_code\":\"WattHours\"},{\"id\":\"008_4_0\",\"name\":\"Heat quantity today\",\"unit\":\" Wh\",\"unit_code\":\"WattHours\"},{\"id\":\"012_4_0\",\"name\":\"Heat quantity week\",\"unit\":\" Wh\",\"unit_code\":\"WattHours\"}]},{\"id\":\"00_0010_0053_0100\",\"description\":\"VBus 0: DL3\",\"channel\":0,\"destination_address\":16,\"source_address\":83,\"protocol_version\":16,\"command\":256,\"info\":0,\"destination_name\":\"DFA\",\"source_name\":\"DL3\",\"fields\":[{\"id\":\"000_4_0\",\"name\":\"Resistor sensor 1\",\"unit\":\" Ω\",\"unit_code\":\"Ohms\"},{\"id\":\"004_4_0\",\"name\":\"Resistor sensor 2\",\"unit\":\" Ω\",\"unit_code\":\"Ohms\"},{\"id\":\"008_4_0\",\"name\":\"Resistor sensor 3\",\"unit\":\" Ω\",\"unit_code\":\"Ohms\"},{\"id\":\"012_4_0\",\"name\":\"Current sensor 4\",\"unit\":\" mA\",\"unit_code\":\"Milliamperes\"},{\"id\":\"034_2_0\",\"name\":\"Temperature Sensor 1\",\"unit\":\" °C\",\"unit_code\":\"DegreesCelsius\"},{\"id\":\"036_2_0\",\"name\":\"Temperature Sensor 2\",\"unit\":\" °C\",\"unit_code\":\"DegreesCelsius\"},{\"id\":\"038_2_0\",\"name\":\"Temperature Sensor 3\",\"unit\":\" °C\",\"unit_code\":\"DegreesCelsius\"},{\"id\":\"016_4_0\",\"name\":\"Impulse Counter Sensor 1\",\"unit\":\"\",\"unit_code\":\"None\"},{\"id\":\"020_4_0\",\"name\":\"Impulse Counter Sensor 2\",\"unit\":\"\",\"unit_code\":\"None\"},{\"id\":\"024_4_0\",\"name\":\"Impulse Counter Sensor 3\",\"unit\":\"\",\"unit_code\":\"None\"},{\"id\":\"040_2_0\",\"name\":\"Irradiation Sensor 4\",\"unit\":\" W/m²\",\"unit_code\":\"WattsPerSquareMeter\"}]}],"language":"en"}');
         });
 
         it('should work correctly', function(done) {
@@ -283,17 +283,17 @@ refJsonRecording1 = {
         'fields': [{
             'id': '000_4_0',
             'name': 'Resistor sensor 1',
-            'unit': ' Ohm',
+            'unit': ' Ω',
             'unit_code': 'Ohms'
         }, {
             'id': '004_4_0',
             'name': 'Resistor sensor 2',
-            'unit': ' Ohm',
+            'unit': ' Ω',
             'unit_code': 'Ohms'
         }, {
             'id': '008_4_0',
             'name': 'Resistor sensor 3',
-            'unit': ' Ohm',
+            'unit': ' Ω',
             'unit_code': 'Ohms'
         }, {
             'id': '012_4_0',
@@ -1638,32 +1638,32 @@ refJsonRecording1 = {
         'fields': [{
             'id': '000_4_0',
             'name': 'Resistor 1',
-            'unit': ' Ohm',
+            'unit': ' Ω',
             'unit_code': 'Ohms'
         }, {
             'id': '004_4_0',
             'name': 'Resistor 2',
-            'unit': ' Ohm',
+            'unit': ' Ω',
             'unit_code': 'Ohms'
         }, {
             'id': '008_4_0',
             'name': 'Resistor 3',
-            'unit': ' Ohm',
+            'unit': ' Ω',
             'unit_code': 'Ohms'
         }, {
             'id': '012_4_0',
             'name': 'Resistor 4',
-            'unit': ' Ohm',
+            'unit': ' Ω',
             'unit_code': 'Ohms'
         }, {
             'id': '016_4_0',
             'name': 'Resistor 5',
-            'unit': ' Ohm',
+            'unit': ' Ω',
             'unit_code': 'Ohms'
         }, {
             'id': '020_4_0',
             'name': 'Resistor 6',
-            'unit': ' Ohm',
+            'unit': ' Ω',
             'unit_code': 'Ohms'
         }]
     }],
