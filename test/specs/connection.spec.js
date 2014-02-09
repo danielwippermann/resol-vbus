@@ -118,7 +118,7 @@ var parseRawData = function(rawDataOrCallback, start, end) {
 
 
 
-var maxTimeoutFactor = 2;
+var maxTimeoutFactor = process.env.TRAVIS ? 1000 : 1;
 
 
 
