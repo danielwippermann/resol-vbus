@@ -25,7 +25,7 @@
 
 You can find JSDoc-generated documentation for this project here:
 
-[http://danielwippermann.github.io/resol-vbus/docs/]()
+[http://danielwippermann.github.io/resol-vbus/docs/](http://danielwippermann.github.io/resol-vbus/docs/)
 
 
 
