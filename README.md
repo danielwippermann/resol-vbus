@@ -5,6 +5,9 @@
 <iframe src="http://ghbtns.com/github-btn.html?user=danielwippermann&repo=resol-vbus&type=watch&size=large" allowtransparency="true" frameborder="0" scrolling="0" width="77" height="30"></iframe>
 <iframe src="http://ghbtns.com/github-btn.html?user=danielwippermann&repo=resol-vbus&type=fork&size=large" allowtransparency="true" frameborder="0" scrolling="0" width="80" height="30"></iframe>
 
+[![Build Status](https://travis-ci.org/danielwippermann/resol-vbus.png?branch=master)](https://travis-ci.org/danielwippermann/resol-vbus)
+[![Code Climate](https://codeclimate.com/github/danielwippermann/resol-vbus.png)](https://codeclimate.com/github/danielwippermann/resol-vbus)
+
 
 
 ## Features
@@ -15,6 +18,14 @@
 * Allows to send parameterization commands to a controller
 * Synchronizes recorded VBus data from a RESOL datalogger to your local file system
 * Converts recorded VBus data into human or machine readable formats, optionally allowing to filter the output
+
+
+
+## Documentation
+
+You can find JSDoc-generated documentation for this project here:
+
+[http://danielwippermann.github.io/resol-vbus/docs/]()
 
 
 
@@ -74,6 +85,8 @@ into your shell:
 * [RESOL VBus Protocol Specification](http://goo.gl/HP6ZY)
 * [RESOL VBus File Format Specification](https://docs.google.com/document/d/1qNdpl8pB409eeCmpoApXBVtR8feIn_Jz3XEk8E5r7Go/edit?usp=sharing&authkey=COLYjnI)
 * [RESOL VBus over TCP Specification](https://docs.google.com/document/d/1fIDqsWv2X7EfezLiP9f2P3vRdpmgbiK6kzcUUrMGoEU/edit?usp=sharing&authkey=CODQ-vMD)
+* [RESOL DL2 (v1) Data Download API](https://drive.google.com/file/d/0B4wMTuLGRPi2YmM5ZTJiNDQtNjkyMi00ZWYzLTgzYzgtYTdiMjBlZmI5ODgx/edit?usp=sharing)
+* [RESOL DL2 (v2) & DL3 Data Download API](http://danielwippermann.github.io/resol-vbus/dlx-data-download-api-docs)
 
 
 
