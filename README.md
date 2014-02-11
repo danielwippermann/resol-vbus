@@ -82,7 +82,7 @@ into your shell:
 ## Technical Information & Specifications
 
 * [RESOL VBus Google Group](https://groups.google.com/forum/#!forum/resol-vbus)
-* [RESOL VBus Protocol Specification](http://goo.gl/HP6ZY)
+* [RESOL VBus Protocol Specification](https://drive.google.com/file/d/0B4wMTuLGRPi2RnU0Vm1tTG5wM1k/edit?usp=sharing)
 * [RESOL VBus File Format Specification](https://docs.google.com/document/d/1qNdpl8pB409eeCmpoApXBVtR8feIn_Jz3XEk8E5r7Go/edit?usp=sharing&authkey=COLYjnI)
 * [RESOL VBus over TCP Specification](https://docs.google.com/document/d/1fIDqsWv2X7EfezLiP9f2P3vRdpmgbiK6kzcUUrMGoEU/edit?usp=sharing&authkey=CODQ-vMD)
 * [RESOL DL2 (v1) Data Download API](https://drive.google.com/file/d/0B4wMTuLGRPi2YmM5ZTJiNDQtNjkyMi00ZWYzLTgzYzgtYTdiMjBlZmI5ODgx/edit?usp=sharing)
