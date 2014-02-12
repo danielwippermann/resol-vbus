@@ -87,14 +87,14 @@ var createVBusSpecificationData = function() {
         GramsCO2Gas: {
             unitId: 'GramsCO2Gas',
             unitCode: 'GramsCO2Gas',
-            unitFamily: null,
+            unitFamily: 'Energy',
             unitText: ' g CO₂ (Gas)',
         },
 
         GramsCO2Oil: {
             unitId: 'GramsCO2Oil',
             unitCode: 'GramsCO2Oil',
-            unitFamily: null,
+            unitFamily: 'Energy',
             unitText: ' g CO₂ (Oil)',
         },
 
@@ -136,14 +136,14 @@ var createVBusSpecificationData = function() {
         KilogramsCO2Gas: {
             unitId: 'KilogramsCO2Gas',
             unitCode: 'KilogramsCO2Gas',
-            unitFamily: null,
+            unitFamily: 'Energy',
             unitText: ' kg CO₂ (Gas)',
         },
 
         KilogramsCO2Oil: {
             unitId: 'KilogramsCO2Oil',
             unitCode: 'KilogramsCO2Oil',
-            unitFamily: null,
+            unitFamily: 'Energy',
             unitText: ' kg CO₂ (Oil)',
         },
 
@@ -283,14 +283,14 @@ var createVBusSpecificationData = function() {
         TonsCO2Gas: {
             unitId: 'TonsCO2Gas',
             unitCode: 'TonsCO2Gas',
-            unitFamily: null,
+            unitFamily: 'Energy',
             unitText: ' t CO₂ (Gas)',
         },
 
         TonsCO2Oil: {
             unitId: 'TonsCO2Oil',
             unitCode: 'TonsCO2Oil',
-            unitFamily: null,
+            unitFamily: 'Energy',
             unitText: ' t CO₂ (Oil)',
         },
 
