@@ -5,7 +5,12 @@
 
 var _ = require('lodash');
 var Q = require('q');
-var serialport = require('serialport');
+var serialport;
+try {
+    serialport = require('serialport');
+} catch (ex) {
+    // eat it
+}
 
 
 var SerialDataSource = require('./serial-data-source');

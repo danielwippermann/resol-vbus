@@ -5,7 +5,12 @@
 
 var _ = require('lodash');
 var Q = require('q');
-var SerialPort = require('serialport').SerialPort;
+var serialport;
+try {
+    serialport = require('serialport');
+} catch (ex) {
+    // eat it
+}
 
 
 var Connection = require('./connection');
@@ -127,7 +132,7 @@ var SerialConnection = Connection.extend({
 
         this.on('data', onConnectionData);
 
-        var serialPort = new SerialPort(this.path);
+        var serialPort = new serialport.SerialPort(this.path);
         serialPort.on('data', onSerialPortData);
         serialPort.on('end', onEnd);
         serialPort.on('error', onError);
