@@ -48,6 +48,8 @@ var Recorder = require('./recorder');
 var DLxRecorder = require('./dlx-recorder');
 var FileSystemRecorder = require('./filesystem-recorder');
 
+var ConfigurationOptimizer = require('./configuration-optimizer');
+
 
 
 module.exports = {
@@ -89,5 +91,7 @@ module.exports = {
     Recorder: Recorder,
     DLxRecorder: DLxRecorder,
     FileSystemRecorder: FileSystemRecorder,
+
+    ConfigurationOptimizer: ConfigurationOptimizer,
 
 };
