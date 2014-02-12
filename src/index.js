@@ -50,6 +50,9 @@ var FileSystemRecorder = require('./filesystem-recorder');
 
 var ConfigurationOptimizer = require('./configuration-optimizer');
 
+var Customizer = require('./customizer');
+var ConnectionCustomizer = require('./connection-customizer');
+
 
 
 module.exports = {
@@ -93,5 +96,8 @@ module.exports = {
     FileSystemRecorder: FileSystemRecorder,
 
     ConfigurationOptimizer: ConfigurationOptimizer,
+
+    Customizer: Customizer,
+    ConnectionCustomizer: ConnectionCustomizer,
 
 };
