@@ -41,7 +41,7 @@ var utils = {
 
         var resolve = function(result) {
             if (deferred) {
-                    deferred.resolve(result);
+                deferred.resolve(result);
 
                 deferred = null;
             }
@@ -66,6 +66,48 @@ var utils = {
         } catch (ex) {
             reject(ex);
         }
+
+        return promise;
+    },
+
+    cancelablePromise: function(callback, thisArg) {
+        var cancelDeferred = Q.defer();
+        var cancelPromise = cancelDeferred.promise;
+        var isCanceled = false;
+
+        var cancel = function(reason) {
+            if (!isCanceled) {
+                cancelPromise.then(function(result) {
+                    result.cancel(reason);
+                });
+
+                isCanceled = true;
+            }
+        };
+
+        var checkCanceled = function(result) {
+            if (!isCanceled) {
+                return result;
+            } else {
+                throw new Error('Canceled');
+            }
+        };
+
+        var promise = utils.promise(function(resolve, reject, notify) {
+            if (cancelDeferred) {
+                cancelDeferred.resolve({ cancel: reject });
+
+                cancelDeferred = null;
+            }
+
+            return Q.fcall(function() {
+                return cancelPromise;
+            }).then(function() {
+                return callback.call(thisArg, resolve, reject, notify, checkCanceled);
+            });
+        });
+
+        promise.cancel = cancel;
 
         return promise;
     },
