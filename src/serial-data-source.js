@@ -8,7 +8,7 @@ var _ = require('lodash');
 
 var DataSource = require('./data-source');
 
-var SerialConnection = require('./tcp-connection');
+var SerialConnection = require('./serial-connection');
 
 
 
@@ -24,8 +24,8 @@ var SerialDataSource = DataSource.extend({
 
     constructor: function(options) {
         DataSource.call(this, options);
-        
-        _.extend(_.pick(options, optionKeys));
+
+        _.extend(this, _.pick(options, optionKeys));
     },
 
     connectLive: function(options) {
