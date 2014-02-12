@@ -6,6 +6,7 @@
 <iframe src="http://ghbtns.com/github-btn.html?user=danielwippermann&repo=resol-vbus&type=fork&size=large" allowtransparency="true" frameborder="0" scrolling="0" width="80" height="30"></iframe>
 
 [![Build Status](https://travis-ci.org/danielwippermann/resol-vbus.png?branch=master)](https://travis-ci.org/danielwippermann/resol-vbus)
+[![Coverage Status](https://coveralls.io/repos/danielwippermann/resol-vbus/badge.png)](https://coveralls.io/r/danielwippermann/resol-vbus)
 [![Code Climate](https://codeclimate.com/github/danielwippermann/resol-vbus.png)](https://codeclimate.com/github/danielwippermann/resol-vbus)
 
 
@@ -31,7 +32,6 @@ You can find JSDoc-generated documentation for this project here:
 
 ## Installation
 
-	⌘  sudo npm install -g grunt-cli
 	⌘  git clone https://github.com/danielwippermann/resol-vbus.git
 	⌘  cd resol-vbus
 	⌘  npm install
@@ -44,27 +44,19 @@ You can find JSDoc-generated documentation for this project here:
 
 
 
-## Running the node-webkit example
-
-Currently hard-coded for developing on a Mac:
-
-	⌘  grunt deploy:logger
-
-
-
 ## Running the tests
 
 To start a single run of the test suite just enter the following command
 into your shell:
 
-	⌘  grunt test
+	⌘  gulp
 
 In addition to that the project is configured to watch its own files for
 modification and rerun the documentation generator and test suite every
 time you hit save on a file. To run that just enter the following command
 into your shell:
 
-	⌘  grunt watch
+	⌘  gulp watch
 
 
 
