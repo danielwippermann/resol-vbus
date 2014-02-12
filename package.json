@@ -4,23 +4,26 @@
   "description": "A JavaScript library for processing RESOL VBus data",
   "main": "src/index.js",
   "scripts": {
-    "test": "grunt test"
+    "test": "gulp && gulp coverage && gulp coveralls"
   },
   "repository": "https://github.com/danielwippermann/resol-vbus",
   "author": "Daniel Wippermann <Daniel.Wippermann@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "grunt": "~0.4.2",
-    "grunt-mocha-chai-sinon": "0.0.7",
-    "load-grunt-tasks": "~0.2.0",
-    "grunt-node-webkit-builder": "~0.1.14",
-    "grunt-contrib-copy": "~0.4.1",
-    "grunt-shell": "~0.6.1",
-    "grunt-contrib-compress": "~0.5.3",
-    "grunt-open": "~0.2.2",
-    "grunt-contrib-jshint": "~0.7.2",
-    "grunt-jsdoc": "~0.5.1",
-    "grunt-contrib-watch": "~0.5.3"
+    "gulp": "~3.5.2",
+    "gulp-load-tasks": "~0.1.1",
+    "gulp-jscs": "~0.3.0",
+    "gulp-mocha": "~0.4.1",
+    "gulp-jshint": "~1.4.0",
+    "gulp-jsdoc": "0.0.1",
+    "glob": "~3.2.8",
+    "sinon": "~1.8.1",
+    "chai": "~1.9.0",
+    "gulp-eslint": "~0.1.2",
+    "better-stack-traces": "~1.0.1",
+    "coveralls": "~2.7.1",
+    "gulp-coveralls": "~0.1.0",
+    "gulp-istanbul": "~0.1.0"
   },
   "dependencies": {
     "q": "~0.9.7",
