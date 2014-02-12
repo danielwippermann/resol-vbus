@@ -39,30 +39,32 @@ var utils = {
         var deferred = Q.defer();
         var promise = deferred.promise;
 
-        var done = function(err, result) {
+        var resolve = function(result) {
             if (deferred) {
-                if (err) {
-                    deferred.reject(err);
-                } else {
                     deferred.resolve(result);
-                }
 
                 deferred = null;
             }
         };
 
-        var resolve = function(result) {
-            done(null, result);
+        var reject = function(reason) {
+            if (deferred) {
+                deferred.reject(reason);
+
+                deferred = null;
+            }
         };
 
-        var reject = function(reason) {
-            done(reason);
+        var notify = function(value) {
+            if (deferred) {
+                deferred.notify(value);
+            }
         };
 
         try {
-            callback.call(thisArg, resolve, reject);
+            callback.call(thisArg, resolve, reject, notify);
         } catch (ex) {
-            done(ex);
+            reject(ex);
         }
 
         return promise;
