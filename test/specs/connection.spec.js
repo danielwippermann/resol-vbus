@@ -39,7 +39,7 @@ var rawDataTelegram1 = new Buffer('AA11207177300432', 'hex');
 var rawDataTelegram2 = new Buffer('AA7177112030251160182B040000000454', 'hex');
 
 
-var parseRawData = function(rawDataOrCallback, start, end) {
+var parseRawData = function(rawDataOrCallback, start, end, ignoreEvents) {
     var rawData, callback;
     if (typeof rawDataOrCallback === 'function') {
         callback = rawDataOrCallback;
@@ -62,36 +62,38 @@ var parseRawData = function(rawDataOrCallback, start, end) {
         lastTelegram: null,
     };
 
-    connection.on('data', function(chunk) {
-        stats.txDataCount += chunk.length;
+    if (!ignoreEvents) {
+        connection.on('data', function(chunk) {
+            stats.txDataCount += chunk.length;
 
-        this.write(chunk);
-    });
+            this.write(chunk);
+        });
 
-    connection.on('rawData', function(chunk) {
-        // console.log(new Error('DEBUG rawData').stack);
+        connection.on('rawData', function(chunk) {
+            // console.log(new Error('DEBUG rawData').stack);
 
-        stats.rawDataCount += chunk.length;
-    });
+            stats.rawDataCount += chunk.length;
+        });
 
-    connection.on('junkData', function(chunk) {
-        stats.junkDataCount += chunk.length;
-    });
+        connection.on('junkData', function(chunk) {
+            stats.junkDataCount += chunk.length;
+        });
 
-    connection.on('packet', function(packet) {
-        stats.packetCount++;
-        stats.lastPacket = packet;
-    });
+        connection.on('packet', function(packet) {
+            stats.packetCount++;
+            stats.lastPacket = packet;
+        });
 
-    connection.on('datagram', function(datagram) {
-        stats.datagramCount++;
-        stats.lastDatagram = datagram;
-    });
+        connection.on('datagram', function(datagram) {
+            stats.datagramCount++;
+            stats.lastDatagram = datagram;
+        });
 
-    connection.on('telegram', function(telegram) {
-        stats.telegramCount++;
-        stats.lastTelegram = telegram;
-    });
+        connection.on('telegram', function(telegram) {
+            stats.telegramCount++;
+            stats.lastTelegram = telegram;
+        });
+    }
 
     var done = function() {
         connection.removeAllListeners();
@@ -171,6 +173,16 @@ describe('Connection', function() {
     });
 
     describe('writable stream', function() {
+
+        it('should work correctly without event listeners', function() {
+            parseRawData(function(conn, stats) {
+                conn.write(rawDataPacket);
+
+                conn.write(rawDataDatagram);
+
+                conn.write(rawDataTelegram1);
+            }, null, null, true);
+        });
 
         it('should parse valid v1 data correctly', function() {
             parseRawData(function(conn, stats) {

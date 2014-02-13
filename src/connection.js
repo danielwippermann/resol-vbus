@@ -41,28 +41,66 @@ var optionKeys = [
 
 
 
-var Connection = extend(Duplex, {
+var Connection = extend(Duplex, /** @lends Connection# */ {
 
+    /**
+     * Creates a new Connection instance and optionally initializes its member with the given values.
+     *
+     * @constructs
+     * @augments Duplex
+     * @param {object} options Initialization values for this instance's members
+     * @param {number} options.channel {@link Connection#channel}
+     * @param {number} options.selfAddress {@link Connection#selfAddress}
+     */
     constructor: function(options) {
         Duplex.call(this);
 
         _.extend(this, _.pick(options, optionKeys));
     },
 
+    /**
+     * Reference to this instance's DataSource.
+     * @type {DataSource}
+     */
     dataSource: null,
 
+    /**
+     * The VBus channel that this connection is established to.
+     * @type {number}
+     */
     channel: 0,
 
+    /**
+     * The VBus address used for sending information over this connection.
+     * @type {number}
+     */
     selfAddress: 0x0020,
 
+    /**
+     * The current connection state.
+     * @type {string}
+     */
     connectionState: states.STATE_DISCONNECTED,
 
+    /**
+     * The internal receive buffer of this conneciton.
+     * @type {Buffer}
+     */
     rxBuffer: null,
 
+    /**
+     * Establish connection.
+     * @abstract
+     * @returns {Promise} A promise that resolves once the connection has been established.
+     */
     connect: function() {
         throw new Error('Must be implemented by sub-class');
     },
 
+    /**
+     * Diconnect this instance.
+     * @abstract
+     */
     disconnect: function() {
         throw new Error('Must be implemented by sub-class');
     },
@@ -229,6 +267,11 @@ var Connection = extend(Duplex, {
         }
     },
 
+    /**
+     * Send raw data over this Connection instance.
+     *
+     * @param {Header|Buffer} data The Header or Buffer instance to be sent.
+     */
     send: function(data) {
         if (data instanceof Header) {
             data = data.toLiveBuffer();
@@ -236,6 +279,18 @@ var Connection = extend(Duplex, {
         return this.push(data);
     },
 
+    /**
+     * Sends and / or receives a VBus data.
+     *
+     * @param {Header|Buffer} txData The Header or Buffer instance to be sent.
+     * @param {object} options
+     * @param {number} options.timeout Timeout in milliseconds after which the `txData` will be sent again
+     * @param {number} options.timeoutIncr After each timeout retransmission the timeout value for the next try is increment by this value.
+     * @param {number} options.tries After this number of tries the returned Promise will resolve with value `null`.
+     * @param {?function} options.filterPacket Will be called when a Packet has been received with the Packet and a callback as arguments.
+     * @param {?function} options.filterDatagram Will be called when a Datagram has been received with the Datagram and a callback as arguments.
+     * @returns {Promise} A Promise that either resolves to the VBus data selected by one of the filter callbacks or `null` on timeout.
+     */
     transceive: function(txData, options) {
         var _this = this;
 
@@ -315,6 +370,13 @@ var Connection = extend(Duplex, {
         return promise;
     },
 
+    /**
+     * Waits for a VBus bus offering datagram (Command 0x0500).
+     *
+     * Returns a Promise that resolves with the Datagram or `null` if the method timed out.
+     * @param {number} timeout=10000 Timeout in milliseconds
+     * @returns {Promise} A Promise that resolves to the bus offering Datagram or `null` on timeout.
+     */
     waitForFreeBus: function(timeout) {
         var options = {
             tries: 1,
@@ -330,6 +392,15 @@ var Connection = extend(Duplex, {
         return this.transceive(null, options);
     },
 
+    /**
+     * Sends a VBus bus release datagram (Command 0x0600).
+     * Returns a Promise that resolves with the first VBus packet received after the release or `null` on timeout.
+     *
+     * @param {number} address The VBus address of the master device to give the bus ownership back to.
+     * @param {object} options
+     * @param {number} options.tries=2 Number of tries to give the bus ownership back.
+     * @param {number} options.timeout=1500 Time in milliseconds to wait between tries.
+     */
     releaseBus: function(address, options) {
         options = _.defaults({}, options, {
             tries: 2,
@@ -351,6 +422,17 @@ var Connection = extend(Duplex, {
         return this.transceive(txDatagram, options);
     },
 
+    /**
+     * Sends a Datagram to get a value from a device.
+     * Returns a Promise that resolves to the answer Datagram or `null` on timeout.
+     *
+     * @param {number} address The VBus address of the device to get the value from
+     * @param {number} valueId The ID of the value to read from the device.
+     * @param {object} options
+     * @param {number} options.timeout=500 Time in milliseconds between tries.
+     * @param {number} options.tries=2 Number of tries to get the value.
+     * @returns {Promise} A promise that resolves to the received Datagram or `null` on timeout.
+     */
     getValueById: function(address, valueId, options) {
         var _this = this;
 
@@ -385,6 +467,17 @@ var Connection = extend(Duplex, {
         return this.transceive(txDatagram, options);
     },
 
+    /**
+     * Sends a Datagram to set a value in a device.
+     * Returns a Promise that resolves to the answer Datagram or `null` on timeout.
+     *
+     * @param {number} address The VBus address of the device to set the value in
+     * @param {number} valueId The ID of the value to write to the device.
+     * @param {object} options
+     * @param {number} options.timeout=500 Time in milliseconds between tries.
+     * @param {number} options.tries=2 Number of tries to get the value.
+     * @returns {Promise} A promise that resolves to the received Datagram or `null` on timeout.
+     */
     setValueById: function(address, valueId, value, options) {
         var _this = this;
 
