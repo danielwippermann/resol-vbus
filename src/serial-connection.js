@@ -56,7 +56,7 @@ var SerialConnection = Connection.extend({
             this._setConnectionState(SerialConnection.STATE_DISCONNECTING);
 
             if (this.serialPort) {
-                this.serialPort.destroy();
+                this.serialPort.close();
             } else {
                 this._setConnectionState(SerialConnection.STATE_DISCONNECTED);
             }
@@ -130,12 +130,30 @@ var SerialConnection = Connection.extend({
             onSerialPortTermination();
         };
 
+        var onConnectionEstablished = function() {
+            _this.reconnectTimeout = 0;
+
+            _this._setConnectionState(SerialConnection.STATE_CONNECTED);
+
+            done();
+        };
+
         this.on('data', onConnectionData);
 
-        var serialPort = new serialport.SerialPort(this.path);
-        serialPort.on('data', onSerialPortData);
-        serialPort.on('end', onEnd);
-        serialPort.on('error', onError);
+        var serialPort = new serialport.SerialPort(this.path, {
+            baudrate: 9600,
+            databits: 8,
+            stopbits: 1,
+            parity: 'none',
+        });
+
+        serialPort.once('open', function() {
+            serialPort.on('data', onSerialPortData);
+            serialPort.on('end', onEnd);
+            serialPort.on('error', onError);
+
+            onConnectionEstablished();
+        });
 
         this.serialPort = serialPort;
 
