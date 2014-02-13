@@ -3,6 +3,9 @@
 
 
 
+var crypto = require('crypto');
+
+
 var Packet = require('./resol-vbus').Packet;
 var HeaderSet = require('./resol-vbus').HeaderSet;
 
@@ -84,6 +87,24 @@ describe('HeaderSet', function() {
             expect(headerSet.headerList).to.eql([ header1, header3 ]);
         });
 
+        it('should update the timestamp', function() {
+            var header1 = new Packet({
+                channel: 1
+            });
+
+            var startTimestamp = new Date(0);
+
+            var headerSet = new HeaderSet({
+                timestamp: startTimestamp,
+            });
+
+            expect(headerSet.timestamp).to.equal(startTimestamp);
+
+            headerSet.addHeader(header1);
+
+            expect(headerSet.timestamp).to.equal(header1.timestamp);
+        });
+
     });
 
     describe('#addHeaders', function() {
@@ -110,6 +131,54 @@ describe('HeaderSet', function() {
             headerSet.addHeaders([ header1, header2, header3 ]);
 
             expect(headerSet.headerList).to.eql([ header1, header3 ]);
+        });
+
+    });
+
+    describe('#_removeHeader', function() {
+
+        it('should be a method', function() {
+            expect(HeaderSet.prototype._removeHeader).to.be.a('function');
+        });
+
+        it('should work correctly', function() {
+            var header1 = new Packet({
+                channel: 1
+            });
+
+            var header2 = new Packet({
+                channel: 2
+            });
+
+            var headerSet = new HeaderSet({
+                headers: [ header1, header2 ],
+            });
+
+            headerSet._removeHeader(header1);
+
+            expect(headerSet.headerList).to.eql([ header2 ]);
+        });
+
+        it('should ignore unknown headers', function() {
+            var header1 = new Packet({
+                channel: 1
+            });
+
+            var header2 = new Packet({
+                channel: 2
+            });
+
+            var header3 = new Packet({
+                channel: 3
+            });
+
+            var headerSet = new HeaderSet({
+                headers: [ header1, header2 ],
+            });
+
+            headerSet._removeHeader(header3);
+
+            expect(headerSet.headerList).to.eql([ header1, header2 ]);
         });
 
     });
@@ -297,6 +366,36 @@ describe('HeaderSet', function() {
             var id = headerSet.getIdHash();
 
             expect(id).to.equal('5c9c71b01aca96a35c15cffd0ec382e8a1be99b3e42eeff57ecd7836aa7f1a24');
+        });
+
+        it('should cache hashes and return them', function() {
+            var header1 = new Packet({
+                channel: 1,
+                command: 0x7654,
+            });
+
+            var header2 = new Packet({
+                channel: 2,
+                command: 0x7654,
+            });
+
+            var headerSet = new HeaderSet({
+                headers: [ header2, header1 ]
+            });
+
+            var spy = sinon.spy(crypto, 'createHash');
+
+            var id = headerSet.getIdHash();
+
+            expect(id).to.equal('28ee1aa76e488e1d87ebd79573b08b2cf20f08f1991fae46ecca3197812cca86');
+            expect(spy.callCount).to.equal(1);
+
+            id = headerSet.getIdHash();
+
+            expect(id).to.equal('28ee1aa76e488e1d87ebd79573b08b2cf20f08f1991fae46ecca3197812cca86');
+            expect(spy.callCount).to.equal(1);
+
+            spy.restore();
         });
 
     });
