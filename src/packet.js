@@ -18,14 +18,36 @@ var optionKeys = [
 
 
 
-var Packet = Header.extend({
+var Packet = Header.extend(/** @lends Packet# */ {
 
+    /**
+     * The command field of this VBus packet. See the VBus Protocol specification for details.
+     * @type {number}
+     */
     command: 0,
 
+    /**
+     * The number of frames of this VBus packet. Each frame can hold four bytes of payload.
+     * @type {number}
+     */
     frameCount: 0,
 
+    /**
+     * The buffer containing the frame data of this VBus packet.
+     */
     frameData: null,
 
+    /**
+     * Creates a new Packet instance and optionally initializes its members with the given values.
+     *
+     * @constructs
+     * @augments Header
+     * @param {object} options Initialization values for this instance's members
+     * @param {number} options.command {@link Packet#command}
+     * @param {number} options.frameCount {@link Packet#frameCount}
+     * @param {Buffer} options.frameData {@link Packet#frameData}
+     * @see Header#constructor
+     */
     constructor: function(options) {
         Header.call(this, options);
 
@@ -50,11 +72,9 @@ var Packet = Header.extend({
         var buffer;
         if (origBuffer === undefined) {
             buffer = new Buffer(length);
+        } else if (start + length <= end) {
+            buffer = origBuffer.slice(start, start + length);
         } else {
-            buffer = origBuffer.slice(start, end);
-        }
-
-        if (buffer.length < length) {
             throw new Error('Buffer too small');
         }
 
@@ -93,7 +113,7 @@ var Packet = Header.extend({
         return result;
     },
 
-}, {
+}, /** @lends Packet */ {
 
     fromLiveBuffer: function(buffer, start, end) {
         var frameCount = buffer [start + 8];
