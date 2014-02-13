@@ -19,6 +19,7 @@ var optionKeys = [
     'port',
     'viaTag',
     'password',
+    'rawVBusDataOnly',
 ];
 
 
@@ -32,6 +33,8 @@ var TcpConnection = Connection.extend({
     viaTag: null,
 
     password: null,
+
+    rawVBusDataOnly: false,
 
     reconnectTimeout: 0,
 
@@ -97,15 +100,25 @@ var TcpConnection = Connection.extend({
             port: this.port
         };
 
-        var phase = 0;
+        var phase = this.rawVBusDataOnly ? 1000 : 0;
         var rxBuffer = null;
 
         var write = function() {
             return socket.write.apply(socket, arguments);
         };
 
+        var onConnectionEstablished = function() {
+            _this.reconnectTimeout = 0;
+
+            _this._setConnectionState(TcpConnection.STATE_CONNECTED);
+
+            done();
+        };
+
         var onConnect = function() {
-            // console.log('onConnect');
+            if (phase === 1000) {
+                onConnectionEstablished();
+            }
         };
 
         var onLine = function(line) {
@@ -168,11 +181,7 @@ var TcpConnection = Connection.extend({
                     // DATA
                     write('DATA\r\n');
                 } else if (phase === 1000) {
-                    _this.reconnectTimeout = 0;
-
-                    _this._setConnectionState(TcpConnection.STATE_CONNECTED);
-
-                    done();
+                    onConnectionEstablished();
                 }
             }
         };
