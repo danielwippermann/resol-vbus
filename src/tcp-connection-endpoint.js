@@ -10,7 +10,7 @@ var _ = require('lodash');
 var Q = require('q');
 
 
-var Connection = require('./Connection');
+var Connection = require('./connection');
 
 
 
