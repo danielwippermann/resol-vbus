@@ -17,12 +17,23 @@ var optionKeys = [
 
 
 
-var Telegram = Header.extend({
+var Telegram = Header.extend(/** @lends Telegram# */ {
 
+    /**
+     * The VBus command of this Telegram instance.
+     * @type {number}
+     */
     command: 0,
 
     frameData: null,
 
+    /**
+     * Creates a new Telegram instance.
+     *
+     * @constructs
+     * @augments Header
+     * @param {object} options Initialization options.
+     */
     constructor: function(options) {
         Header.call(this, options);
 
@@ -48,11 +59,9 @@ var Telegram = Header.extend({
         var buffer;
         if (origBuffer === undefined) {
             buffer = new Buffer(length);
+        } else if (start + length <= end) {
+            buffer = origBuffer.slice(start, start + length);
         } else {
-            buffer = origBuffer.slice(start, end);
-        }
-
-        if (buffer.length < length) {
             throw new Error('Buffer too small');
         }
 
@@ -94,7 +103,7 @@ var Telegram = Header.extend({
         return Telegram.getFrameCountForCommand(this.command);
     },
 
-}, {
+}, /** @lends Telegram */ {
 
     fromLiveBuffer: function(buffer, start, end) {
         var frameCount = this.getFrameCountForCommand(buffer [start + 6]);
