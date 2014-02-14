@@ -37,6 +37,15 @@ describe('extend', function() {
         return child;
     };
 
+    it('should work without prototype properties', function() {
+        var ChildClass = testExtend(null, null, null);
+
+        var instance = new ChildClass();
+
+        expect(instance).to.be.an('object');
+        expect(instance).to.be.an.instanceOf(ChildClass);
+    });
+
     it('should work without parent class', function() {
         var ChildClass = testExtend(null, {
 
