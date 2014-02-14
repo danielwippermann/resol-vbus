@@ -24,24 +24,70 @@ var optionKeys = [
 
 
 
-var TcpConnection = Connection.extend({
+var TcpConnection = Connection.extend( /** @lends TcpConnection# */ {
 
+    /**
+     * Host name or IP address of the connection target.
+     * @type {string}
+     */
     host: null,
 
+    /**
+     * Port number of the connection target.
+     * @type {number}
+     */
     port: 7053,
 
+    /**
+     * Via tag if connection target is accessed using the VBus.net service.
+     * @type {string}
+     */
     viaTag: null,
 
+    /**
+     * Password needed to connect to target.
+     * @type {string}
+     */
     password: null,
 
+    /**
+     * Indicates that connection does not need to perform login handshake.
+     * Useful for serial-to-LAN converters.
+     * @type {boolean}
+     */
     rawVBusDataOnly: false,
 
+    /**
+     * Timeout in milliseconds to way between reconnection retries.
+     * @type {number}
+     */
     reconnectTimeout: 0,
 
+    /**
+     * Value to increment timeout after every unsuccessful reconnection retry.
+     * @type {number}
+     */
     reconnectTimeoutIncr: 10000,
 
+    /**
+     * Maximum timeout value between unsuccessful reconnection retry.
+     * @type {number}
+     */
     reconnectTimeoutMax: 60000,
 
+    /**
+     * Creates a new TcpConnection instance and optionally initializes its
+     * members to the given values.
+     *
+     * @constructs
+     * @augments Connection
+     * @param options Initialization values
+     * @param options.host See {@link TcpConnection#host}
+     * @param options.port See {@link TcpConnection#port}
+     * @param options.viaTag See {@link TcpConnection#viaTag}
+     * @param options.password See {@link TcpConnection#password}
+     * @param options.rawVBusDataOnly See {@link TcpConnection#rawVBusDataOnly}
+     */
     constructor: function(options) {
         Connection.call(this, options);
 
@@ -121,6 +167,8 @@ var TcpConnection = Connection.extend({
             }
         };
 
+        var channelList = [];
+
         var onLine = function(line) {
             var newPhase = -1;
             if (line [0] === '+') {
@@ -143,7 +191,15 @@ var TcpConnection = Connection.extend({
                         newPhase = 900;
                     }
                 } else if (phase === 60) {
-                    // TODO: call callback
+                    newPhase = 70;
+                    _this.channelListCallback(channelList, function(err, channel) {
+                        if (err) {
+                            done(err);
+                        } else {
+                            _this.channel = channel.substring(0, 1);
+                            newPhase = 80;
+                        }
+                    });
                 } else if (phase === 80) {
                     newPhase = 900;
                 } else if (phase === 900) {
@@ -153,7 +209,7 @@ var TcpConnection = Connection.extend({
                 newPhase = 800;
             } else if (line [0] === '*') {
                 if (phase === 60) {
-
+                    channelList.push(line.substring(1).trim());
                 }
             } else {
 
