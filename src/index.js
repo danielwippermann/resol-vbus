@@ -53,6 +53,8 @@ var ConfigurationOptimizer = require('./configuration-optimizer');
 var Customizer = require('./customizer');
 var ConnectionCustomizer = require('./connection-customizer');
 
+var TcpConnectionEndpoint = require('./tcp-connection-endpoint');
+
 
 
 module.exports = {
@@ -99,5 +101,7 @@ module.exports = {
 
     Customizer: Customizer,
     ConnectionCustomizer: ConnectionCustomizer,
+
+    TcpConnectionEndpoint: TcpConnectionEndpoint,
 
 };
