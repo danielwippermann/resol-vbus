@@ -306,27 +306,7 @@ var ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# */
                 return Q.fcall(function() {
                     return checkCanceled();
                 }).then(function() {
-                    return utils.promise(function(resolve, reject) {
-                        if (connection.connectionState === Connection.STATE_DISCONNECTED) {
-                            reject(new Error('Disconnected'));
-                        } else if (connection.connectionState !== Connection.STATE_CONNECTED) {
-                            onConnectionState = function(state) {
-                                if (state === Connection.STATE_DISCONNECTED) {
-                                    reject(new Error('Disconnected'));
-                                } else if (state === Connection.STATE_CONNECTED) {
-                                    connection.removeListener('connectionState', onConnectionState);
-
-                                    onConnectionState = null;
-
-                                    resolve();
-                                }
-                            };
-
-                            connection.on('connectionState', onConnectionState);
-                        } else {
-                            resolve();
-                        }
-                    });
+                    return connection.createConnectedPromise();
                 });
             };
 
