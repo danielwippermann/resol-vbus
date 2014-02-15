@@ -7,6 +7,7 @@ var _ = require('lodash');
 var Q = require('q');
 
 
+var Connection = require('./connection');
 var utils = require('./utils');
 
 var Customizer = require('./customizer');
@@ -282,7 +283,7 @@ var ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# */
         var address = this.deviceAddress;
 
         return utils.cancelablePromise(function(resolve, reject, notify, checkCanceled) {
-            var timer;
+            var timer, onConnectionState;
 
             var done = function(err, result) {
                 if (timer) {
@@ -290,11 +291,43 @@ var ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# */
                     timer = null;
                 }
 
+                if (onConnectionState) {
+                    connection.removeListener('connectionState', onConnectionState);
+                }
+
                 if (err) {
                     reject(err);
                 } else {
                     resolve(result);
                 }
+            };
+
+            var check = function(result) {
+                return Q.fcall(function() {
+                    return checkCanceled();
+                }).then(function() {
+                    return utils.promise(function(resolve, reject) {
+                        if (connection.connectionState === Connection.STATE_DISCONNECTED) {
+                            reject(new Error('Disconnected'));
+                        } else if (connection.connectionState !== Connection.STATE_CONNECTED) {
+                            onConnectionState = function(state) {
+                                if (state === Connection.STATE_DISCONNECTED) {
+                                    reject(new Error('Disconnected'));
+                                } else if (state === Connection.STATE_CONNECTED) {
+                                    connection.removeListener('connectionState', onConnectionState);
+
+                                    onConnectionState = null;
+
+                                    resolve();
+                                }
+                            };
+
+                            connection.on('connectionState', onConnectionState);
+                        } else {
+                            resolve();
+                        }
+                    });
+                });
             };
 
             var tries = 0;
@@ -310,7 +343,7 @@ var ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# */
                 if (tries < options.triesPerValue) {
                     tries++;
 
-                    Q.fcall(checkCanceled).then(function() {
+                    Q.fcall(check).then(function() {
                         if ((tries > 1) && (state.masterLastContacted !== null)) {
                             reportProgress('RELEASING_BUS');
 
@@ -318,7 +351,7 @@ var ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# */
 
                             return connection.releaseBus(state.masterAddress);
                         }
-                    }).then(checkCanceled).then(function() {
+                    }).then(check).then(function() {
                         if (state.masterLastContacted === null) {
                             reportProgress('WAITING_FOR_FREE_BUS');
 
@@ -330,7 +363,7 @@ var ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# */
                                 }
                             });
                         }
-                    }).then(checkCanceled).then(function() {
+                    }).then(check).then(function() {
                         var contactMaster;
                         if (state.masterAddress === null) {
                             contactMaster = false;
@@ -353,7 +386,7 @@ var ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# */
                                 tries: 1,
                             });
                         }
-                    }).then(checkCanceled).then(function() {
+                    }).then(check).then(function() {
                         if (state.masterAddress === address) {
                             state.masterLastContacted = Date.now();
                         }
