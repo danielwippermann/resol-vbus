@@ -35,17 +35,26 @@ var DLxRecorder = Recorder.extend( /** @lends DLxRecorder# */ {
 
     /**
      * The root URL to access the DLx.
-     * @type string
+     * @type {string}
      */
     urlPrefix: null,
 
+    /**
+     * The username to login to the web interface.
+     * @type {string}
+     */
     username: 'admin',
 
+    /**
+     * The password to login to the web interface.
+     * @type {string}
+     */
     password: 'admin',
 
     /**
      * Creates a new DLxRecorder instance.
      * @constructs
+     * @augments Recorder
      *
      * @classdesc
      * DLxRecorder is a recorder that can play back data recorded by a Datalogger.
@@ -264,7 +273,7 @@ var DLxRecorder = Recorder.extend( /** @lends DLxRecorder# */ {
                 },
             };
 
-            var stream = request(this.urlPrefix + '/log/', urlOptions);
+            var stream = this._request(this.urlPrefix + '/log/', urlOptions);
             stream.on('response', onResponse);
             stream.on('data', onData);
             stream.on('end', onEnd);
@@ -297,7 +306,8 @@ var DLxRecorder = Recorder.extend( /** @lends DLxRecorder# */ {
                 },
             };
 
-            var stream = request(this.urlPrefix + filename, urlOptions);
+            var stream = this._request(this.urlPrefix + filename, urlOptions);
+            stream.resume();
             stream.on('response', onResponse);
             stream.on('end', onEnd);
             stream.on('error', onError);
@@ -314,11 +324,15 @@ var DLxRecorder = Recorder.extend( /** @lends DLxRecorder# */ {
                 reject(err);
             };
 
-            var req = request(urlString, urlOptions);
+            var req = this._request(urlString, urlOptions);
             req.pipe(stream, { end: false });
             req.on('end', onEnd);
             req.on('error', onError);
         }, this);
+    },
+
+    _request: function() {
+        return request.apply(undefined, arguments);
     },
 
 });
