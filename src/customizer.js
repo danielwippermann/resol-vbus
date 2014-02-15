@@ -64,8 +64,8 @@ var Customizer = extend(EventEmitter, /** @lends Customizer# */ {
 
         _.extend(this, _.pick(options, optionKeys));
 
-        if (!this._optimizer) {
-            this._optimizer = new ConfigurationOptimizer(this.deviceAddress);
+        if (!this.optimizer) {
+            this.optimizer = new ConfigurationOptimizer(this.deviceAddress);
         }
     },
 
@@ -84,11 +84,11 @@ var Customizer = extend(EventEmitter, /** @lends Customizer# */ {
     },
 
     _getInitialConfiguration: function(oldConfig) {
-        return this._optimizer.getInitialConfiguration(oldConfig);
+        return this.optimizer.getInitialConfiguration(oldConfig);
     },
 
     _optimizeConfiguration: function(oldConfig) {
-        return this._optimizer.optimizeConfiguration(oldConfig);
+        return this.optimizer.optimizeConfiguration(oldConfig);
     },
 
 });
