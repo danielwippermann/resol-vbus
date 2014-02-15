@@ -17,6 +17,7 @@ var Header = require('./header');
 var Packet = require('./packet');
 var Datagram = require('./datagram');
 var Telegram = require('./telegram');
+var utils = require('./utils');
 
 
 
@@ -511,7 +512,43 @@ var Connection = extend(Duplex, /** @lends Connection# */ {
         };
 
         return this.transceive(txDatagram, options);
-    }
+    },
+
+    /**
+     * Creates a promise that resolves when this Connection
+     * instance is connected and rejects if it is disconnected.
+     * If it is either connected nor disconnected the promise
+     * will stay pending until one of the states is entered.
+     *
+     * @returns {Promise}
+     */
+    createConnectedPromise: function() {
+        var _this = this;
+
+        return utils.promise(function(resolve, reject) {
+            var checkConnectionState = function(state) {
+                if (state === Connection.STATE_DISCONNECTED) {
+                    reject(new Error(state));
+                    return true;
+                } else if (state === Connection.STATE_CONNECTED) {
+                    resolve();
+                    return true;
+                } else {
+                    return false;
+                }
+            };
+
+            if (!checkConnectionState(_this.connectionState)) {
+                var onConnectionState = function(state) {
+                    if (checkConnectionState(state)) {
+                        _this.removeListener('connectionState', onConnectionState);
+                    }
+                };
+
+                _this.on('connectionState', onConnectionState);
+            }
+        });
+    },
 
 }, states);
 
