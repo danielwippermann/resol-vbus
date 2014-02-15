@@ -374,13 +374,13 @@ var Connection = extend(Duplex, /** @lends Connection# */ {
      * Waits for a VBus bus offering datagram (Command 0x0500).
      *
      * Returns a Promise that resolves with the Datagram or `null` if the method timed out.
-     * @param {number} timeout=10000 Timeout in milliseconds
+     * @param {number} timeout=20000 Timeout in milliseconds
      * @returns {Promise} A Promise that resolves to the bus offering Datagram or `null` on timeout.
      */
     waitForFreeBus: function(timeout) {
         var options = {
             tries: 1,
-            timeout: timeout || 10000,
+            timeout: timeout || 20000,
         };
 
         options.filterDatagram = function(rxDatagram, done) {
