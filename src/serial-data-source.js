@@ -18,10 +18,19 @@ var optionKeys = [
 
 
 
-var SerialDataSource = DataSource.extend({
+var SerialDataSource = DataSource.extend(/** @lends SerialDataSource# */ {
 
+    /**
+     * The path to the serial port.
+     */
     path: null,
 
+    /**
+     * Creates a new SerialDataSource.
+     *
+     * @constructs
+     * @augments DataSource
+     */
     constructor: function(options) {
         DataSource.call(this, options);
 
@@ -40,7 +49,9 @@ var SerialDataSource = DataSource.extend({
 
         var connection = new SerialConnection(options);
 
-        return connection.connect();
+        return connection.connect().then(function() {
+            return connection;
+        });
     }
 
 });
