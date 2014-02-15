@@ -43,7 +43,9 @@ var rawDataPacket = new Buffer([
 
 
 var testConnection = function(done, callback) {
-    var endpoint = new TcpConnectionEndpoint();
+    var endpoint = new TcpConnectionEndpoint({
+        port: 0,
+    });
 
     var createEndpointSocketPromise = function() {
         var deferred = Q.defer();
