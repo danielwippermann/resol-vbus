@@ -4,6 +4,7 @@
 
 
 var _ = require('lodash');
+var Q = require('q');
 
 
 var DataSource = require('./data-source');
@@ -49,7 +50,9 @@ var SerialDataSource = DataSource.extend(/** @lends SerialDataSource# */ {
 
         var connection = new SerialConnection(options);
 
-        return connection.connect().then(function() {
+        return Q.fcall(function() {
+            return connection.connect();
+        }).then(function() {
             return connection;
         });
     }
