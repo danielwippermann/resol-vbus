@@ -71,7 +71,7 @@ into your shell:
 
 
 
-## Technical Information & Specifications
+## <a name="specs"></a>Technical Information & Specifications
 
 * [RESOL VBus Google Group](https://groups.google.com/forum/#!forum/resol-vbus)
 * [RESOL VBus Protocol Specification](https://drive.google.com/file/d/0B4wMTuLGRPi2RnU0Vm1tTG5wM1k/edit?usp=sharing)
