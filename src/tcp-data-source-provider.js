@@ -25,7 +25,7 @@ var optionKeys = [
 
 
 
-var TcpDataSourceProvider = DataSourceProvider.extend({
+var TcpDataSourceProvider = DataSourceProvider.extend(/** @lends TcpDataSourceProvider# */ {
 
     id: 'tcp-data-source-provider',
 
@@ -37,6 +37,12 @@ var TcpDataSourceProvider = DataSourceProvider.extend({
 
     broadcastPort: 7053,
 
+    /**
+     * Creates a new TcpDataSourceProvider instance.
+     *
+     * @constructs
+     * @augments DataSourceProvider
+     */
     constructor: function(options) {
         DataSourceProvider.call(this, options);
 
@@ -46,7 +52,14 @@ var TcpDataSourceProvider = DataSourceProvider.extend({
     discoverDataSources: function() {
         var _this = this;
 
-        return TcpDataSourceProvider.discoverDevices().then(function(results) {
+        var options = {
+            broadcastAddress: this.broadcastAddress,
+            broadcastPort: this.broadcastPort,
+        };
+
+        return Q.fcall(function() {
+            return TcpDataSourceProvider.discoverDevices(options);
+        }).then(function(results) {
             return _.map(results, function(result) {
                 var options = _.extend({}, result, {
                     host: result.__address__
@@ -68,8 +81,16 @@ var TcpDataSourceProvider = DataSourceProvider.extend({
         return new TcpDataSource(options);
     },
 
-}, {
+}, /** @lends TcpDataSourceProvider */ {
 
+    /**
+     * Discovers devices on the local network.
+     *
+     * @params {object} options
+     * @params {string} options.broadcastAddress IP address to broadcast to
+     * @params {number} options.broadcastPort Port number to broadcast to.
+     * @returns {Promise} A Promise that resolves to an array of device information objects.
+     */
     discoverDevices: function(options) {
         return TcpDataSourceProvider.sendBroadcast(options).then(function(promises) {
             return Q.allSettled(promises);
@@ -98,9 +119,11 @@ var TcpDataSourceProvider = DataSourceProvider.extend({
             }
         };
 
-        options = _.defaults(options, {
+        options = _.defaults({}, options, {
             broadcastAddress: '255.255.255.255',
             broadcastPort: 7053,
+            tries: 3,
+            timeout: 500,
         });
 
         if (options.fetchCallback === undefined) {
@@ -117,18 +140,18 @@ var TcpDataSourceProvider = DataSourceProvider.extend({
         var queryString = '---RESOL-BROADCAST-QUERY---';
         var replyString = '---RESOL-BROADCAST-REPLY---';
 
-        var tries = 3;
+        var tries = 0;
 
         var socket = dgram.createSocket('udp4');
 
         var sendQuery = function() {
-            if (tries > 0) {
-                tries--;
+            if (tries < options.tries) {
+                tries++;
 
                 var queryBuffer = new Buffer(queryString);
                 socket.send(queryBuffer, 0, queryBuffer.length, bcastPort, bcastAddress);
 
-                setTimeout(sendQuery, 500);
+                setTimeout(sendQuery, options.timeout);
             } else {
                 var keys = _.keys(addressMap).sort();
 
