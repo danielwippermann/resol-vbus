@@ -354,13 +354,13 @@ var Connection = extend(Duplex, /** @lends Connection# */ {
             if (tries > 0) {
                 tries--;
 
-                if (txData) {
-                    _this.send(txData);
-                }
-
                 timer = setTimeout(nextTry, timeout);
 
                 timeout += options.timeoutIncr;
+
+                if (txData) {
+                    _this.send(txData);
+                }
             } else {
                 done(null, null);
             }
