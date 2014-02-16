@@ -4,6 +4,7 @@
 
 
 var _ = require('lodash');
+var Q = require('q');
 
 
 var DataSource = require('./data-source');
@@ -20,14 +21,32 @@ var optionKeys = [
 
 
 
-var TcpDataSource = DataSource.extend({
+var TcpDataSource = DataSource.extend(/** @lends TcpDataSource# */ {
 
+    /**
+     * The host to connect to.
+     * @type {string}
+     */
     host: null,
 
+    /**
+     * The channel to connect to live.
+     * @type {number}
+     */
     liveChannel: 0,
 
+    /**
+     * The password to connect live.
+     * @type {string}
+     */
     livePassword: 'vbus',
 
+    /**
+     * Creates a new TcpDataSource instance.
+     *
+     * @constructs
+     * @augments DataSource
+     */
     constructor: function(options) {
         DataSource.call(this, options);
 
@@ -49,7 +68,11 @@ var TcpDataSource = DataSource.extend({
 
         var connection = new TcpConnection(options);
 
-        return connection.connect();
+        return Q.fcall(function() {
+            return connection.connect();
+        }).then(function() {
+            return connection;
+        });
     }
 
 });
