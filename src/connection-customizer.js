@@ -157,6 +157,16 @@ var ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# */
         var address = this.deviceAddress;
 
         return utils.cancelablePromise(function(resolve, reject, notify, checkCanceled) {
+            var check = function(result) {
+                return Q.fcall(function() {
+                    return checkCanceled();
+                }).then(function() {
+                    return connection.createConnectedPromise();
+                }).then(function() {
+                    return result;
+                });
+            };
+
             var config = null;
 
             var state = {
@@ -184,11 +194,11 @@ var ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# */
                 if (round < options.maxRounds) {
                     round++;
 
-                    Q.fcall(checkCanceled).then(function() {
+                    Q.fcall(check).then(function() {
                         reportProgress('OPTIMIZING_VALUES');
 
                         return callback(config, round);
-                    }).then(checkCanceled).then(function(newConfig) {
+                    }).then(check).then(function(newConfig) {
                         config = newConfig;
 
                         var pendingValues = _.filter(config, function(value) {
@@ -201,7 +211,7 @@ var ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# */
                             if (index < pendingValues.length) {
                                 var valueInfo = pendingValues [index++];
 
-                                Q.fcall(checkCanceled).then(function() {
+                                Q.fcall(check).then(function() {
                                     return _this.transceiveValue(valueInfo.valueIndex, valueInfo.value, {
                                         triesPerValue: options.triesPerValue,
                                         timeoutPerValue: options.timeoutPerValue,
@@ -307,6 +317,8 @@ var ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# */
                     return checkCanceled();
                 }).then(function() {
                     return connection.createConnectedPromise();
+                }).then(function() {
+                    return result;
                 });
             };
 
