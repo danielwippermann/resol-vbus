@@ -69,6 +69,7 @@
         "describe",
         "it",
         "xit",
+        "promiseIt",
         "expect",
         "sinon"
     ],

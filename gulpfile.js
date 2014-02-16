@@ -7,6 +7,7 @@ require('better-stack-traces').install();
 var chai = require('chai');
 var gulp = require('gulp');
 var tasks = require('gulp-load-tasks')();
+var Q = require('q');
 global.sinon = require('sinon');
 
 
@@ -14,6 +15,20 @@ global.sinon = require('sinon');
 chai.Assertion.includeStack = true;
 
 global.expect = chai.expect;
+
+
+
+global.promiseIt = function(message, callback) {
+    it(message, function(done) {
+        Q.fcall(function() {
+            return callback();
+        }).then(function() {
+            done();
+        }, function(err) {
+            done(err);
+        }).done();
+    });
+};
 
 
 
