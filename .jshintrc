@@ -70,6 +70,7 @@
         "it",
         "xit",
         "promiseIt",
+        "xpromiseIt",
         "expect",
         "sinon"
     ],

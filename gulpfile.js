@@ -30,6 +30,12 @@ global.promiseIt = function(message, callback) {
     });
 };
 
+global.xpromiseIt = function(message, callback) {
+    xit(message, function() {
+        // x-ed test
+    });
+};
+
 
 
 var patterns = {
