@@ -133,11 +133,17 @@ describe('FileSystemRecorder', function() {
                 return createDeleteFixturesPathPromise();
             }).then(function() {
                 return sourceRecorder.synchronizeTo(targetRecorder);
-            }).then(function() {
-                sourceRecorder.resetCounters();
+            }).then(function(ranges) {
+                expect(ranges).an('array').lengthOf(1);
+                expect(ranges [0]).property('minTimestamp').instanceOf(Date);
+                expect(ranges [0].minTimestamp.toISOString()).equal('2014-02-14T00:00:00.983Z');
+                expect(ranges [0]).property('maxTimestamp').instanceOf(Date);
+                expect(ranges [0].maxTimestamp.toISOString()).equal('2014-02-16T23:55:00.805Z');
 
                 return sourceRecorder.synchronizeTo(targetRecorder);
-            }).then(function() {
+            }).then(function(ranges) {
+                expect(ranges).an('array').lengthOf(0);
+                expect(ranges).eql(sourceRecorder.playedBackRanges);
 
             });
         });

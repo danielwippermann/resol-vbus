@@ -167,7 +167,7 @@ var FileSystemRecorder = Recorder.extend({
 
                 infoList.push(currentInfo);
 
-                console.log('Starting new info ', currentInfo);
+                // console.log('Starting new info ', currentInfo);
             }
 
             if (currentInfo !== previousInfo) {
@@ -177,7 +177,7 @@ var FileSystemRecorder = Recorder.extend({
 
                 var path = _this._getAbsoluteFilename(currentInfo.filename);
 
-                console.log('Starting new file ' + path);
+                // console.log('Starting new file ' + path);
 
                 outFile = fs.createWriteStream(path, {
                     flags: 'a'
@@ -197,24 +197,20 @@ var FileSystemRecorder = Recorder.extend({
             return recorder._playbackSyncJob(inConverter, syncJob);
         }).then(function(playedBackRanges) {
             return utils.promise(function(resolve) {
-                var done = function() {
-                    resolve(playedBackRanges);
-                };
-
                 inConverter.end(function() {
                     if (outConverter) {
                         outConverter.end(function() {
-                            done();
+                            resolve();
                         });
                     } else {
-                        done();
+                        resolve();
                     }
                 });
+            }).then(function() {
+                return _this._setCurrentSyncState(syncJob.syncState, syncJob);
+            }).then(function() {
+                return playedBackRanges;
             });
-        }).then(function(playedBackRanges) {
-            console.log(playedBackRanges);
-
-            return _this._setCurrentSyncState(syncJob.syncState, syncJob);
         });
     },
 
