@@ -1,6 +1,6 @@
 {
   "name": "resol-vbus-logger",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "dependencies": {
     "jquery": "~1.10.2",
     "lodash": "~2.4.1",
