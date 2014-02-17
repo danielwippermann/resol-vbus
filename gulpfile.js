@@ -20,8 +20,10 @@ global.expect = chai.expect;
 
 global.promiseIt = function(message, callback) {
     it(message, function(done) {
+        var _this = this;
+
         Q.fcall(function() {
-            return callback();
+            return callback.call(_this);
         }).then(function() {
             done();
         }, function(err) {
