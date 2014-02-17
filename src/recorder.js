@@ -245,10 +245,26 @@ var Recorder = extend(EventEmitter, /** @lends Recorder# */ {
         return Q(syncJob);
     },
 
+    /**
+     * Starts a playback of the provided recorder, recording its data and returning a
+     * Promise that resolves to the recorded ranges.
+     *
+     * @param {Recorder} recorder The recorder to use for playback
+     * @param {RecorderSyncJob} syncJob The synchronization job to perform.
+     * @returns {Promise} Promise resolving with a list of ranges that were synchronized.
+     */
     _recordSyncJob: function(recorder, syncJob) {
         throw new Error('Must be implemented by sub-class');
     },
 
+    /**
+     * Plays back the requested synchronization job, piping the resulting data into the
+     * provided stream. Returns a Promise that resolves to the played back ranges.
+     *
+     * @param {Stream} stream The stream to pipe data into
+     * @param {RecorderSyncJob} syncJob The synchronization job to perform.
+     * @returns {Promise} Promise resolving with a list of ranges that were synchronized.
+     */
     _playbackSyncJob: function(stream, syncJob) {
         throw new Error('Must be implemented by sub-class');
     },
