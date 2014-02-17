@@ -105,6 +105,10 @@ var TestRecorder = Recorder.extend({
         return this.syncState;
     },
 
+    _setCurrentSyncState: function(syncState, options) {
+        this.syncState = syncState;
+    },
+
     _playbackSyncJob: function(stream, syncJob) {
         var _this = this;
 
@@ -185,7 +189,61 @@ var TestRecorder = Recorder.extend({
     },
 
     _recordSyncJob: function(recorder, syncJob) {
+        var _this = this;
 
+        var syncState = this._getSyncState(syncJob, 'destination', 'TestRecorder');
+
+        var syncVersion = syncState.version || 0;
+        if (syncVersion === 0) {
+            syncVersion = 1;
+            syncState.infoListByInterval = {};
+        }
+        syncState.version = syncVersion;
+
+        if (!syncState.infoListByInterval [syncJob.interval]) {
+            syncState.infoListByInterval [syncJob.interval] = [];
+        }
+
+        var infoList = syncState.infoListByInterval [syncJob.interval];
+
+        var recordedRanges = [];
+
+        var lastTimestamp = null;
+
+        var inConverter = new VBusRecordingConverter();
+
+        inConverter.on('headerSet', function(headerSet) {
+            var timestamp = headerSet.timestamp;
+
+            if (lastTimestamp && (timestamp < lastTimestamp)) {
+                // headersets are assumed to be played back in a chronological order,
+                // so discard any headersets that are not...
+                console.log('SKIPPING unlinear header sets');
+                return;
+            }
+            lastTimestamp = timestamp;
+
+            var thisRanges = [{
+                minTimestamp: timestamp,
+                maxTimestamp: timestamp,
+            }];
+
+            recordedRanges = Recorder.performRangeSetOperation(recordedRanges, thisRanges, syncJob.interval, 'union');
+        });
+
+        return Q.fcall(function() {
+            return recorder._playbackSyncJob(inConverter, syncJob);
+        }).then(function(playedBackRanges) {
+            return vbus.utils.promise(function(resolve) {
+                inConverter.end(function() {
+                    resolve();
+                });
+            }).then(function() {
+                return _this._setCurrentSyncState(syncJob.syncState, syncJob);
+            }).then(function() {
+                return playedBackRanges;
+            });
+        });
     },
 
     resetCounters: function() {
