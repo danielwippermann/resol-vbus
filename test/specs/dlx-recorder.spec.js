@@ -3,11 +3,17 @@
 
 
 
+var fs = require('fs');
+var path = require('path');
 var Duplex = require('stream').Duplex;
+
+
+var Q = require('q');
 
 
 var vbus = require('./resol-vbus');
 
+var TestRecorder = require('./test-recorder');
 var testUtils = require('./test-utils');
 
 
@@ -368,7 +374,84 @@ describe('DLxRecorder', function() {
 
     });
 
-    xit('should perform tests...', function() {
+    describe('synchronization source', function() {
+
+        var fixturesPath = path.join(__dirname, '../fixtures/dlx-recorder-1');
+
+        promiseIt('should work correctly', function() {
+            var options = {
+                id: 'DLx',
+                interval: 300000,
+                urlPrefix: '',
+            };
+
+            var sourceRecorder = new DLxRecorder(options);
+
+            sourceRecorder._request = sinon.spy(function(url, options) {
+                var stream = new Duplex();
+
+                stream._read = function() {
+                    // nop
+                };
+
+                stream._write = function(chunk, encoding, callback) {
+                    this.push(chunk, encoding);
+                    callback();
+                };
+
+                stream.once('finish', function() {
+                    stream.push(null);
+                });
+
+                process.nextTick(function() {
+                    var response, bodyStream, bodyData;
+                    if (url === '/log/') {
+                        bodyStream = fs.createReadStream(path.join(fixturesPath, 'index.html'));
+                    } else if (url === '/log/20140214_packets.vbus') {
+                        bodyStream = fs.createReadStream(path.join(fixturesPath, '20140214_packets.vbus'));
+                    } else if (url === '/log/20140215_packets.vbus') {
+                        bodyStream = fs.createReadStream(path.join(fixturesPath, '20140215_packets.vbus'));
+                    } else if (url === '/log/20140216_packets.vbus') {
+                        bodyStream = fs.createReadStream(path.join(fixturesPath, '20140216_packets.vbus'));
+                    } else {
+                        console.log(url);
+                    }
+
+                    stream.emit('response', response);
+                    if (bodyStream) {
+                        bodyStream.pipe(stream);
+                    } else {
+                        if (bodyData) {
+                            stream.push(bodyData);
+                        }
+                        stream.push(null);
+                    }
+                });
+
+                return stream;
+            });
+
+
+            var targetRecorder = new TestRecorder({
+                id: 'Test',
+                interval: 300000,
+            });
+
+            return Q.fcall(function() {
+                return sourceRecorder.synchronizeTo(targetRecorder);
+            }).then(function(ranges) {
+                expect(ranges).a('array').lengthOf(1);
+                expect(ranges [0]).property('minTimestamp').instanceOf(Date);
+                expect(ranges [0].minTimestamp.toISOString()).equal('2014-02-14T00:00:00.983Z');
+                expect(ranges [0]).property('maxTimestamp').instanceOf(Date);
+                expect(ranges [0].maxTimestamp.toISOString()).equal('2014-02-16T23:55:00.805Z');
+
+                return sourceRecorder.synchronizeTo(targetRecorder);
+            }).then(function(ranges) {
+                expect(ranges).a('array').lengthOf(0);
+
+            });
+        });
 
     });
 
