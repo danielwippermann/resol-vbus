@@ -5,9 +5,12 @@
 <iframe src="http://ghbtns.com/github-btn.html?user=danielwippermann&repo=resol-vbus&type=watch&size=large" allowtransparency="true" frameborder="0" scrolling="0" width="77" height="30"></iframe>
 <iframe src="http://ghbtns.com/github-btn.html?user=danielwippermann&repo=resol-vbus&type=fork&size=large" allowtransparency="true" frameborder="0" scrolling="0" width="80" height="30"></iframe>
 
+[![NPM version](https://badge.fury.io/js/resol-vbus.png)](https://npmjs.org/package/resol-vbus)
 [![Build Status](https://travis-ci.org/danielwippermann/resol-vbus.png?branch=master)](https://travis-ci.org/danielwippermann/resol-vbus)
 [![Coverage Status](https://coveralls.io/repos/danielwippermann/resol-vbus/badge.png)](https://coveralls.io/r/danielwippermann/resol-vbus)
 [![Code Climate](https://codeclimate.com/github/danielwippermann/resol-vbus.png)](https://codeclimate.com/github/danielwippermann/resol-vbus)
+[![Dependency Status](https://david-dm.org/danielwippermann/resol-vbus.png?theme=shields.io)](https://david-dm.org/danielwippermann/resol-vbus)
+[![devDependency Status](https://david-dm.org/danielwippermann/resol-vbus/dev-status.png?theme=shields.io)](https://david-dm.org/danielwippermann/resol-vbus#info=devDependencies)
 
 
 
@@ -31,6 +34,12 @@ You can find JSDoc-generated documentation for this project here:
 
 
 ## Installation
+
+If you want to use this module in your own application, you can just install it from the npm registry:
+
+	⌘  npm install --save resol-vbus
+
+If you want to contribute to it you might want to check out the latest version from GitHub:
 
 	⌘  git clone https://github.com/danielwippermann/resol-vbus.git
 	⌘  cd resol-vbus
@@ -79,6 +88,14 @@ into your shell:
 * [RESOL VBus over TCP Specification](https://docs.google.com/document/d/1fIDqsWv2X7EfezLiP9f2P3vRdpmgbiK6kzcUUrMGoEU/edit?usp=sharing&authkey=CODQ-vMD)
 * [RESOL DL2 (v1) Data Download API](https://drive.google.com/file/d/0B4wMTuLGRPi2YmM5ZTJiNDQtNjkyMi00ZWYzLTgzYzgtYTdiMjBlZmI5ODgx/edit?usp=sharing)
 * [RESOL DL2 (v2) & DL3 Data Download API](http://danielwippermann.github.io/resol-vbus/dlx-data-download-api-docs)
+
+
+
+## Changelog
+
+### Version 0.7.0 (2014-02-17)
+
+First release to the NPM registry.
 
 
 
