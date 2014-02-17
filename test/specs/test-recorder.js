@@ -27,9 +27,17 @@ var TestRecorder = Recorder.extend({
 
     fixturesPath: path.join(__dirname, '../fixtures/test-recorder'),
 
+    syncState: null,
+
+    availableRanges: null,
+
+    playedBackRanges: null,
+
+    recordedRanges: null,
+
     constructor: function() {
         Recorder.apply(this, arguments);
-        this._syncState = {};
+        this.syncState = {};
     },
 
     _playback: function(headerSetConsolidator, options) {
@@ -94,7 +102,7 @@ var TestRecorder = Recorder.extend({
     },
 
     _getCurrentSyncState: function(options) {
-        return this._syncState;
+        return this.syncState;
     },
 
     _playbackSyncJob: function(stream, syncJob) {
@@ -127,6 +135,8 @@ var TestRecorder = Recorder.extend({
                 });
             });
         }).then(function(availableRanges) {
+            _this.availableRanges = availableRanges;
+
             var ranges = Recorder.performRangeSetOperation(availableRanges, syncJob.syncStateDiffs, syncJob.interval, 'intersection');
 
             var playedBackRanges = [];
@@ -160,6 +170,12 @@ var TestRecorder = Recorder.extend({
                 }
 
                 _this._markSourceSyncRanges(handledRanges, syncJob);
+
+                return playedBackRanges;
+            });
+
+            promise = promise.then(function(playedBackRanges) {
+                _this.playedBackRanges = playedBackRanges;
 
                 return playedBackRanges;
             });
