@@ -379,6 +379,8 @@ describe('DLxRecorder', function() {
         var fixturesPath = path.join(__dirname, '../fixtures/dlx-recorder-1');
 
         promiseIt('should work correctly', function() {
+            this.timeout(30000);
+
             var options = {
                 id: 'DLx',
                 interval: 300000,

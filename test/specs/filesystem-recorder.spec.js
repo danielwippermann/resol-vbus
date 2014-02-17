@@ -116,6 +116,8 @@ describe('FileSystemRecorder', function() {
         };
 
         promiseIt('should work correctly', function() {
+            this.timeout(30000);
+
             var options = {
                 id: 'FileSystem',
                 interval: 300000,
