@@ -50,8 +50,37 @@ var Connection = extend(Duplex, /** @lends Connection# */ {
      * @constructs
      * @augments Duplex
      * @param {object} options Initialization values for this instance's members
-     * @param {number} options.channel {@link Connection#channel}
-     * @param {number} options.selfAddress {@link Connection#selfAddress}
+     * @param {number} options.channel See {@link Connection#channel}
+     * @param {number} options.selfAddress See {@link Connection#selfAddress}
+     *
+     * @classdesc
+     * The `Connection` class is the abstract base class for all VBus live data connections.
+     * It extends the `Duplex` stream class. Any data written to a `Connection` instance is
+     * parsed according to the VBus Protocol Specification. Once a valid instance of one of the
+     * `Header` sub-classes (`Packet`, `Datagram` or `Telegram`)
+     * is created from the binary data stream, the respective event is emitted on
+     * the `Connection` instance.
+     *
+     * In addition to receiving incoming data the `Connection` class
+     * offers several helper methods e.g. to send data to the underlying VBus connection.
+     *
+     * The `Connection` class itself has no knowledge about the underlying VBus connection.
+     * Several sub-classes exist that know how to contact different types of VBus live streams.
+     *
+     * See `SerialConnection` or `TcpConnection` for concrete implementations.
+     *
+     * @example
+     * var connection = new SerialConnection({ path: '/dev/tty.usbserial' });
+     * connection.on('connectionState', function(state) {
+     *     console.log(state);
+     * });
+     * connection.on('packet', function(packet) {
+     *     console.log(packet.getId());
+     * });
+     * connection.on('datagram', function(datagram) {
+     *     console.log(datagram.getId());
+     * });
+     * connection.connect();
      */
     constructor: function(options) {
         Duplex.call(this);
@@ -67,6 +96,8 @@ var Connection = extend(Duplex, /** @lends Connection# */ {
 
     /**
      * The VBus channel that this connection is established to.
+     * All `Header` instances created by this `Connection` instance will be assigned
+     * this VBus channel.
      * @type {number}
      */
     channel: 0,
@@ -90,7 +121,9 @@ var Connection = extend(Duplex, /** @lends Connection# */ {
     rxBuffer: null,
 
     /**
-     * Establish connection.
+     * Establish underlying connection and start streaming data to the writable side
+     * of this `Connection` instance's stream.
+     *
      * @abstract
      * @returns {Promise} A promise that resolves once the connection has been established.
      */
