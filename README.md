@@ -29,7 +29,7 @@
 
 You can find JSDoc-generated documentation for this project here:
 
-[http://danielwippermann.github.io/resol-vbus/docs/](http://danielwippermann.github.io/resol-vbus/docs/)
+[http://danielwippermann.github.io/resol-vbus/docs/classes.list.html](http://danielwippermann.github.io/resol-vbus/docs/classes.list.html)
 
 
 
