@@ -6,7 +6,7 @@
 require('better-stack-traces').install();
 var chai = require('chai');
 var gulp = require('gulp');
-var tasks = require('gulp-load-tasks')();
+var plugins = require('gulp-load-plugins')();
 var Q = require('q');
 global.sinon = require('sinon');
 
@@ -67,12 +67,12 @@ var patterns = {
 
 gulp.task('default', function() {
     return gulp.src(patterns.all)
-        .pipe(tasks.jshint('.jshintrc'))
-        .pipe(tasks.jshint.reporter('default'))
-        .pipe(tasks.jscs())
+        .pipe(plugins.jshint('.jshintrc'))
+        .pipe(plugins.jshint.reporter('default'))
+        .pipe(plugins.jscs())
         .on('end', function() {
             return gulp.src(patterns.test)
-                .pipe(tasks.mocha({
+                .pipe(plugins.mocha({
                     ui: 'bdd',
                     reporter: 'spec',
                 }));
@@ -82,7 +82,7 @@ gulp.task('default', function() {
 
 gulp.task('docs', function() {
     return gulp.src(patterns.doc)
-        .pipe(tasks.jsdoc('./docs', {
+        .pipe(plugins.jsdoc('./docs', {
             'path': 'ink-docstrap',
             'cleverLinks': false,
             'monospaceLinks': false,
@@ -109,20 +109,20 @@ gulp.task('publish', [ 'docs' ], function() {
 
 gulp.task('coverage', function() {
     return gulp.src(patterns.coverage)
-        .pipe(tasks.istanbul())
+        .pipe(plugins.istanbul())
         .on('end', function() {
             return gulp.src(patterns.test)
-                .pipe(tasks.mocha({
+                .pipe(plugins.mocha({
                     ui: 'bdd',
                 }))
-                .pipe(tasks.istanbul.writeReports());
+                .pipe(plugins.istanbul.writeReports());
         });
 });
 
 
 gulp.task('coveralls', function() {
     return gulp.src('coverage/lcov.info')
-        .pipe(tasks.coveralls());
+        .pipe(plugins.coveralls());
 });
 
 

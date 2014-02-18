@@ -19,7 +19,7 @@
     "gulp-jscs": "~0.3.0",
     "gulp-jsdoc": "~0.0.2",
     "gulp-jshint": "~1.4.0",
-    "gulp-load-tasks": "~0.1.1",
+    "gulp-load-plugins": "~0.3.0",
     "gulp-mocha": "~0.4.1",
     "sinon": "~1.8.1"
   },
