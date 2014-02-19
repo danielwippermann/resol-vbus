@@ -23,18 +23,45 @@ var optionKeys = [
 
 
 
-var SerialConnection = Connection.extend({
+var SerialConnection = Connection.extend(/** lends SerialConnection# */ {
 
+    /**
+     * The path to the serial port.
+     * @type {string}
+     */
     path: null,
 
+    /**
+     * Timeout in milliseconds to way between reconnection retries.
+     * @type {number}
+     */
     reconnectTimeout: 0,
 
+    /**
+     * Value to increment timeout after every unsuccessful reconnection retry.
+     * @type {number}
+     */
     reconnectTimeoutIncr: 10000,
 
+    /**
+     * Maximum timeout value between unsuccessful reconnection retry.
+     * @type {number}
+     */
     reconnectTimeoutMax: 60000,
 
     serialPort: null,
 
+    /**
+     * Creates a new SerialConnection instance and optionally initialized its member with the given values.
+     *
+     * @constructs
+     * @augments Connection
+     * @param {object} options
+     * @param {string} options.path See {@link SerialConnection#path}
+     *
+     * @classdesc
+     * The SerialConnection class provides asscess to a VBus live data stream using a serial port.
+     */
     constructor: function(options) {
         Connection.call(this, options);
 
