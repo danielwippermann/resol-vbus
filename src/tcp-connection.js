@@ -87,6 +87,13 @@ var TcpConnection = Connection.extend( /** @lends TcpConnection# */ {
      * @param options.viaTag See {@link TcpConnection#viaTag}
      * @param options.password See {@link TcpConnection#password}
      * @param options.rawVBusDataOnly See {@link TcpConnection#rawVBusDataOnly}
+     *
+     * @classdesc
+     * The TcpConnection class is primarily designed to provide access to VBus live data
+     * using the VBus-over-TCP specification. That includes the VBus/LAN adapter, the
+     * Dataloggers (DL2 and DL3) and VBus.net.
+     * In addition to that it can be used to connect to a raw VBus data stream using TCP
+     * (for example provided by a serial-to-LAN gateway).
      */
     constructor: function(options) {
         Connection.call(this, options);
