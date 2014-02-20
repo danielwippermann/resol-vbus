@@ -550,7 +550,7 @@ var Connection = extend(Duplex, /** @lends Connection# */ {
     /**
      * Creates a promise that resolves when this Connection
      * instance is connected and rejects if it is disconnected.
-     * If it is either connected nor disconnected the promise
+     * If it is neither connected nor disconnected the promise
      * will stay pending until one of the states is entered.
      *
      * @returns {Promise}
