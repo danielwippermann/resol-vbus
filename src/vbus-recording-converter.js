@@ -28,7 +28,7 @@ var writeUInt64LE = function(buffer, index) {
 };
 
 
-var VBusRecordingConverter = Converter.extend({
+var VBusRecordingConverter = Converter.extend(/** @lends VBusRecordingConverter# */ {
 
     rxBuffer: null,
 
@@ -38,6 +38,17 @@ var VBusRecordingConverter = Converter.extend({
 
     currentChannel: 0,
 
+    /**
+     * Creates a new VBusRecordingConverter instance.
+     *
+     * @constructs
+     * @augments Converter
+     *
+     * @classdesc
+     * This Converter subclass converts Header and HeaderSet instances to and from a binary stream that
+     * conforms to the VBus Recording File Format (the binary file format used e.g. to store data on the
+     * Datalogger devices).
+     */
     constructor: function(options) {
         var _this = this;
 
