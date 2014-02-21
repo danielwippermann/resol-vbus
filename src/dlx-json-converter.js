@@ -21,8 +21,12 @@ var optionKeys = [
 
 
 
-var DLxJsonConverter = Converter.extend({
+var DLxJsonConverter = Converter.extend(/** @lends DLxJsonConverter# */ {
 
+    /**
+     * Reference to the Specification instance that is used for the binary -> text conversion.
+     * @type {Specification}
+     */
     specification: null,
 
     allHeaderSet: null,
@@ -31,6 +35,23 @@ var DLxJsonConverter = Converter.extend({
 
     stats: null,
 
+    /**
+     * Creates a new DLxJsonConverter instance and optionally initializes its members with the given values.
+     *
+     * @constructs
+     * @augments Converter
+     * @param {object} options Initialization values
+     * @param {object} options.specification See {@link DLxJsonConverter#specification}
+     *
+     * @classdesc
+     * The DLxJsonConverter class takes HeaderSet instances, converts them into JSON
+     * representation and then publishes that on the readable stream side
+     * of itself. The format of the JSON data is similar to the one that is generated
+     * by the Dataloggers DL2 and DL3.
+     *
+     * It does not support parsing JSON content back into HeaderSet instances (the
+     * writable stream side).
+     */
     constructor: function(options) {
         var _this = this;
 
