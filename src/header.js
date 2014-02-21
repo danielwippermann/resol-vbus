@@ -60,6 +60,19 @@ var Header = extend(null, /** @lends Header# */ {
      * @param {number} [options.channel] {@link Header#channel}
      * @param {number} [options.destinationAddress] {@link Header#destinationAddress}
      * @param {number} [options.sourceAddress] {@link Header#sourceAddress}
+     *
+     * @classdesc
+     * All VBus models are sub-classes of this Header class. The Header class provides
+     * a generic interface and the common properties that all (currently three)
+     * different types of VBus models can use.
+     *
+     * Header instances can either be created by calling the constructor function or
+     * by passing a Buffer object containing the binary VBus data to the class method
+     * `HeaderSubClass.fromLiveBuffer`.
+     *
+     * @see Packet
+     * @see Datagram
+     * @see Telegram
      */
     constructor: function(options) {
         _.extend(this, _.pick(options, optionKeys));
