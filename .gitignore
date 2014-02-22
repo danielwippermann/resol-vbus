@@ -4,6 +4,6 @@
 coverage/
 nw-builds/
 cache/
-docs/jsdoc/
+.docs/
 
 examples/local-config.json
