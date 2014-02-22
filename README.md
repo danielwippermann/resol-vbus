@@ -3,7 +3,6 @@
 #### A JavaScript library for processing RESOL VBus data.
 
 <iframe src="http://ghbtns.com/github-btn.html?user=danielwippermann&repo=resol-vbus&type=watch&size=large" allowtransparency="true" frameborder="0" scrolling="0" width="77" height="30"></iframe>
-<iframe src="http://ghbtns.com/github-btn.html?user=danielwippermann&repo=resol-vbus&type=fork&size=large" allowtransparency="true" frameborder="0" scrolling="0" width="80" height="30"></iframe>
 
 [![NPM version](https://badge.fury.io/js/resol-vbus.png)](https://npmjs.org/package/resol-vbus)
 [![Build Status](https://travis-ci.org/danielwippermann/resol-vbus.png?branch=master)](https://travis-ci.org/danielwippermann/resol-vbus)
@@ -27,9 +26,13 @@
 
 ## Documentation
 
-You can find JSDoc-generated documentation for this project here:
+You can find the work-in-progress documentation for this project here:
 
-[http://danielwippermann.github.io/resol-vbus/docs/classes.list.html](http://danielwippermann.github.io/resol-vbus/docs/classes.list.html)
+[http://danielwippermann.github.io/resol-vbus/](http://danielwippermann.github.io/resol-vbus/)
+
+The JSDoc-generated documentation is located here:
+
+[http://danielwippermann.github.io/resol-vbus/jsdoc/classes.list.html](http://danielwippermann.github.io/resol-vbus/jsdoc/classes.list.html)
 
 
 
