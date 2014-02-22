@@ -82,7 +82,7 @@ gulp.task('default', function() {
 
 gulp.task('docs', function() {
     return gulp.src(patterns.doc)
-        .pipe(plugins.jsdoc('./docs', {
+        .pipe(plugins.jsdoc('./docs/jsdoc', {
             'path': 'ink-docstrap',
             'cleverLinks': false,
             'monospaceLinks': false,
