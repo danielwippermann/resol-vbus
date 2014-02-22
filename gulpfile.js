@@ -3,6 +3,9 @@
 
 
 
+var exec = require('child_process').exec;
+
+
 require('better-stack-traces').install();
 var chai = require('chai');
 var gulp = require('gulp');
@@ -86,7 +89,7 @@ gulp.task('default', function() {
 
 gulp.task('jsdoc', function() {
     return gulp.src(patterns.jsdoc)
-        .pipe(plugins.jsdoc('./docs/jsdoc', {
+        .pipe(plugins.jsdoc('./.docs/jsdoc', {
             'path': 'ink-docstrap',
             'cleverLinks': false,
             'monospaceLinks': false,
@@ -96,17 +99,22 @@ gulp.task('jsdoc', function() {
             'systemName': 'resol-vbus',
             'footer': '',
             'copyright': 'resol-vbus | Copyright (c) 2013-2014, Daniel Wippermann',
-            'navType': 'vertical',
+            'navType': 'inline',
             'theme': 'spacelab',
             'linenums': false,
-            'collapseSymbols': false,
+            'collapseSymbols': true,
             'inverseNav': true
         }));
 });
 
 
-gulp.task('publish', [ 'jsdoc' ], function() {
-    return gulp.src(patterns.docs, { base: './docs' })
+gulp.task('jekyll', function(done) {
+    exec('jekyll build', { cwd: 'docs' }, done);
+});
+
+
+gulp.task('publish', [ 'jekyll', 'jsdoc' ], function() {
+    return gulp.src('.docs/**/*', { base: './.docs' })
         .pipe(gulp.dest('../danielwippermann.github.io/resol-vbus'));
 });
 
