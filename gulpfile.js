@@ -52,7 +52,7 @@ var patterns = {
         '!src/specification-data.js',
         'test/specs/**/*.js'
     ],
-    doc: [
+    jsdoc: [
         'src/**/*.js',
         '!src/specification-data.js',
         'README.md',
@@ -60,6 +60,10 @@ var patterns = {
     coverage: [
         'src/**/*.js',
         '!src/specification-data.js',
+    ],
+    docs: [
+        'docs/**/*',
+        '!docs/_site/**/*',
     ],
 };
 
@@ -80,8 +84,8 @@ gulp.task('default', function() {
 });
 
 
-gulp.task('docs', function() {
-    return gulp.src(patterns.doc)
+gulp.task('jsdoc', function() {
+    return gulp.src(patterns.jsdoc)
         .pipe(plugins.jsdoc('./docs/jsdoc', {
             'path': 'ink-docstrap',
             'cleverLinks': false,
@@ -101,9 +105,9 @@ gulp.task('docs', function() {
 });
 
 
-gulp.task('publish', [ 'docs' ], function() {
-    return gulp.src('./docs/**/*', { base: './docs' })
-        .pipe(gulp.dest('../danielwippermann.github.io/resol-vbus/docs'));
+gulp.task('publish', [ 'jsdoc' ], function() {
+    return gulp.src(patterns.docs, { base: './docs' })
+        .pipe(gulp.dest('../danielwippermann.github.io/resol-vbus'));
 });
 
 
