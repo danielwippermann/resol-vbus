@@ -1,0 +1,34 @@
+---
+layout: base
+resol_vbus: docs
+---
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-3 doc-sidebar">
+      <div class="well">
+        <h4>General</h4>
+        <ul>
+          <li><a href="docs.html">Overview</a></li>
+          <li><a href="getting-started.html">Getting Started</a></li>
+        </ul>
+        <h4>Connections</h4>
+        <ul>
+          <li><a href="connection.html">Overview</a></li>
+          <li><a href="connection-class.html">vbus.Connection</a></li>
+          <li><a href="serial-connection-class.html">vbus.SerialConnection</a></li>
+          <li><a href="tcp-connection-class.html">vbus.TcpConnection</a></li>
+        </ul>
+        <h4>Technical Specifications</h4>
+        <ul>
+          <li><a href="vbus-recording-file-format.html">VBus Recording File Format</a></li>
+          <li><a href="vbus-over-tcp.html">VBus Over TCP</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-sm-9 doc-main">
+      <h1>{{page.title}}</h1>
+      {{ content }}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+{
+  "name": "resol-vbus docs",
+  "version": "0.7.0",
+  "homepage": "http://danielwippermann.github.io/resol-vbus/",
+  "authors": [
+    "Daniel Wippermann <Daniel.Wippermann@gmail.com>"
+  ],
+  "description": "The documentation site of the resol-vbus module",
+  "main": "index.html",
+  "keywords": [
+    "resol-vbus"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.0",
+    "bootstrap": "~3.1.1",
+    "bootswatch": "~3.1.1",
+    "lodash": "~2.4.1",
+    "backbone": "~1.1.2"
+  }
+}
