@@ -53,7 +53,7 @@ var Packet = Header.extend(/** @lends Packet# */ {
      * In addition to the packet header it may contain up to 508 bytes of payload data.
      * The structure of the payload depends on the combination of destination and source addresses as well as
      * the command of the packet. The different payloads are described in further detail
-     * in Appendix H of the VBus Protocol Specification and can be decoded using a Specification instance.
+     * in Chapter H of the VBus Protocol Specification and can be decoded using a Specification instance.
      *
      * @see Specification
      */
