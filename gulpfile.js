@@ -128,15 +128,18 @@ gulp.task('publish', [ 'jekyll', 'jsdoc' ], function() {
 });
 
 
-gulp.task('coverage', function() {
+gulp.task('coverage', function(done) {
     return gulp.src(patterns.coverage)
         .pipe(plugins.istanbul())
+        .on('error', done)
         .on('end', function() {
             return gulp.src(patterns.test)
                 .pipe(plugins.mocha({
                     ui: 'bdd',
                 }))
-                .pipe(plugins.istanbul.writeReports());
+                .pipe(plugins.istanbul.writeReports())
+                .on('error', done)
+                .on('end', done);
         });
 });
 
