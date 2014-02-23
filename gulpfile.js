@@ -109,7 +109,16 @@ gulp.task('jsdoc', function() {
 
 
 gulp.task('jekyll', function(done) {
-    exec('jekyll build', { cwd: 'docs' }, done);
+    exec('jekyll build', { cwd: 'docs' }, function(err) {
+        if (err) {
+            done(err);
+        } else {
+            gulp.src('docs/_site/**/*', { base: 'docs/_site' })
+                .pipe(gulp.dest('.docs/'))
+                .on('error', done)
+                .on('end', done);
+        }
+    });
 });
 
 
