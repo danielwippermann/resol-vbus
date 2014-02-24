@@ -3,6 +3,7 @@
 
 
 
+var _ = require('lodash');
 var Q = require('q');
 
 
@@ -21,6 +22,19 @@ var testUtils = {
         expect(promise).to.be.an('object');
         expect(promise.then).to.be.a('function');
         return promise;
+    },
+
+    expectRanges: function(ranges) {
+        expect(ranges).a('array');
+
+        var comparableRanges = _.map(ranges, function(range) {
+            return {
+                minTimestamp: range.minTimestamp.toISOString(),
+                maxTimestamp: range.maxTimestamp.toISOString(),
+            };
+        });
+
+        return expect(comparableRanges);
     },
 
 };
