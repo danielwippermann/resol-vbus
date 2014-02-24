@@ -269,8 +269,15 @@ var Recorder = extend(EventEmitter, /** @lends Recorder# */ {
         throw new Error('Must be implemented by sub-class');
     },
 
-    _getSyncState: function(syncJob, which, type) {
-        var syncStateRoot = syncJob.syncState [which + 'SyncState'];
+    _getSyncState: function(syncJobOrState, which, type) {
+        var syncState;
+        if (_.has(syncJobOrState, 'syncState') && _.has(syncJobOrState, 'syncId')) {
+            syncState = syncJobOrState.syncState;
+        } else {
+            syncState = syncJobOrState;
+        }
+
+        var syncStateRoot = syncState [which + 'SyncState'];
 
         if (!syncStateRoot [type]) {
             syncStateRoot [type] = {};
