@@ -277,9 +277,15 @@ var Recorder = extend(EventEmitter, /** @lends Recorder# */ {
             syncState = syncJobOrState;
         }
 
-        var syncStateRoot = syncState [which + 'SyncState'];
+        var syncStateKey = which + 'SyncState';
 
-        if (!syncStateRoot [type]) {
+        if (!_.has(syncState, syncStateKey)) {
+            syncState [syncStateKey] = {};
+        }
+
+        var syncStateRoot = syncState [syncStateKey];
+
+        if (!_.has(syncStateRoot, type)) {
             syncStateRoot [type] = {};
         }
 
