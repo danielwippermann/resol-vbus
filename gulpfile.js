@@ -72,18 +72,25 @@ var patterns = {
 
 
 
-gulp.task('default', function() {
+gulp.task('jshint', function() {
     return gulp.src(patterns.all)
         .pipe(plugins.jshint('.jshintrc'))
-        .pipe(plugins.jshint.reporter('default'))
-        .pipe(plugins.jscs())
-        .on('end', function() {
-            return gulp.src(patterns.test)
-                .pipe(plugins.mocha({
-                    ui: 'bdd',
-                    reporter: 'spec',
-                }));
-        });
+        .pipe(plugins.jshint.reporter('default'));
+});
+
+
+gulp.task('jscs', function() {
+    return gulp.src(patterns.all)
+        .pipe(plugins.jscs());
+});
+
+
+gulp.task('mocha', function() {
+    return gulp.src(patterns.test)
+        .pipe(plugins.mocha({
+            ui: 'bdd',
+            reporter: 'dot',
+        }));
 });
 
 
@@ -128,19 +135,18 @@ gulp.task('publish', [ 'jekyll', 'jsdoc' ], function() {
 });
 
 
-gulp.task('coverage', function(done) {
+gulp.task('coverage-prepare', function() {
     return gulp.src(patterns.coverage)
-        .pipe(plugins.istanbul())
-        .on('error', done)
-        .on('end', function() {
-            return gulp.src(patterns.test)
-                .pipe(plugins.mocha({
-                    ui: 'bdd',
-                }))
-                .pipe(plugins.istanbul.writeReports())
-                .on('error', done)
-                .on('end', done);
-        });
+        .pipe(plugins.istanbul());
+});
+
+
+gulp.task('coverage', [ 'coverage-prepare' ], function(done) {
+    return gulp.src(patterns.test)
+        .pipe(plugins.mocha({
+            ui: 'bdd',
+        }))
+        .pipe(plugins.istanbul.writeReports());
 });
 
 
@@ -153,3 +159,9 @@ gulp.task('coveralls', function() {
 gulp.task('watch', function() {
     gulp.watch(patterns.all, [ 'default' ]);
 });
+
+
+gulp.task('default', [ 'jshint', 'jscs', 'mocha' ]);
+
+
+gulp.task('nodemon', [ 'coverage', 'jsdoc' ]);
