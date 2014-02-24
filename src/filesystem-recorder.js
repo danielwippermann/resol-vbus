@@ -77,10 +77,8 @@ var FileSystemRecorder = Recorder.extend({
         });
     },
 
-    _recordSyncJob: function(recorder, syncJob) {
-        var _this = this;
-
-        var syncState = this._getSyncState(syncJob, 'destination', 'FileSystemRecorder');
+    _getOwnSyncState: function(syncState, options) {
+        var dstSyncState = this._getSyncState(syncState, 'destination', 'FileSystemRecorder');
 
         var syncVersion = syncState.version || 0;
         if (syncVersion === 0) {
@@ -89,11 +87,19 @@ var FileSystemRecorder = Recorder.extend({
         }
         syncState.version = syncVersion;
 
-        if (!syncState.infoListByInterval [syncJob.interval]) {
-            syncState.infoListByInterval [syncJob.interval] = [];
+        if (!syncState.infoListByInterval [options.interval]) {
+            syncState.infoListByInterval [options.interval] = [];
         }
 
-        var infoList = syncState.infoListByInterval [syncJob.interval];
+        var infoList = syncState.infoListByInterval [options.interval];
+
+        return infoList;
+    },
+
+    _recordSyncJob: function(recorder, syncJob) {
+        var _this = this;
+
+        var infoList = _this._getOwnSyncState(syncJob, syncJob);
 
         var lastTimestamp = null;
 
