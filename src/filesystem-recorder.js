@@ -80,18 +80,18 @@ var FileSystemRecorder = Recorder.extend({
     _getOwnSyncState: function(syncState, options) {
         var dstSyncState = this._getSyncState(syncState, 'destination', 'FileSystemRecorder');
 
-        var syncVersion = syncState.version || 0;
+        var syncVersion = dstSyncState.version || 0;
         if (syncVersion === 0) {
             syncVersion = 1;
-            syncState.infoListByInterval = {};
+            dstSyncState.infoListByInterval = {};
         }
-        syncState.version = syncVersion;
+        dstSyncState.version = syncVersion;
 
-        if (!syncState.infoListByInterval [options.interval]) {
-            syncState.infoListByInterval [options.interval] = [];
+        if (!dstSyncState.infoListByInterval [options.interval]) {
+            dstSyncState.infoListByInterval [options.interval] = [];
         }
 
-        var infoList = syncState.infoListByInterval [options.interval];
+        var infoList = dstSyncState.infoListByInterval [options.interval];
 
         return infoList;
     },
