@@ -96,6 +96,49 @@ var FileSystemRecorder = Recorder.extend({
         return infoList;
     },
 
+    _playback: function(headerSetConsolidator, options) {
+        var _this = this;
+
+        var converter = new VBusRecordingConverter();
+
+        converter.on('headerSet', function(headerSet) {
+            headerSetConsolidator.processHeaderSet(headerSet);
+        });
+
+        var requestedRanges = [{
+            minTimestamp: options.minTimestamp,
+            maxTimestamp: options.maxTimestamp,
+        }];
+
+        return Q.fcall(function() {
+            return _this._getCurrentSyncState(options);
+        }).then(function(syncState) {
+            var infoList = _this._getOwnSyncState(syncState, options);
+
+            return _.reduce(infoList, function(memo, info) {
+                var commonRanges = Recorder.performRangeSetOperation(requestedRanges, info.ranges, options.interval, 'intersection');
+
+                if (commonRanges.length > 0) {
+                    memo.push(info.filename);
+                }
+
+                return memo;
+            }, []);
+        }).then(function(filenames) {
+            var promise = Q();
+
+            _.forEach(filenames, function(filename) {
+                promise = promise.then(function() {
+                    return _this._readToStream(filename, converter);
+                });
+            });
+
+            return promise;
+        }).then(function() {
+            converter.end();
+        });
+    },
+
     _recordSyncJob: function(recorder, syncJob) {
         var _this = this;
 
@@ -228,6 +271,25 @@ var FileSystemRecorder = Recorder.extend({
         shasum.update(new Buffer(url, 'utf8'));
 
         return shasum.digest('hex');
+    },
+
+    _readToStream: function(filename, stream) {
+        return utils.promise(function(resolve, reject) {
+            var onEnd = function() {
+                resolve();
+            };
+
+            var onError = function(err) {
+                reject(err);
+            };
+
+            var absoluteFilename = this._getAbsoluteFilename(filename);
+
+            var readStream = fs.createReadStream(absoluteFilename);
+            readStream.pipe(stream, { end: false });
+            readStream.on('end', onEnd);
+            readStream.on('error', onError);
+        }, this);
     },
 
 });

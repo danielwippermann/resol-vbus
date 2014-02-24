@@ -14,6 +14,7 @@ var Q = require('q');
 
 var vbus = require('./resol-vbus');
 var TestRecorder = require('./test-recorder');
+var testUtils = require('./test-utils');
 
 
 
@@ -71,6 +72,56 @@ describe('FileSystemRecorder', function() {
             result = recorder.getHash('Test');
 
             expect(result).equal('c1444fc16b7108b3f7635616549920e3dc2d96b1');
+        });
+
+    });
+
+    describe('#playback', function() {
+
+        it('should be a method', function() {
+            expect(FileSystemRecorder.prototype).ownProperty('_playback').property('_playback').a('function');
+        });
+
+        promiseIt('should work correctly', function() {
+            this.timeout(30000);
+
+            var options = {
+                id: 'FileSystem',
+                interval: 300000,
+                path: path.join(__dirname, '../fixtures/filesystem-recorder-2'),
+            };
+
+            var sourceRecorder = new FileSystemRecorder(options);
+
+            var readToStreamSpy = sinon.spy(sourceRecorder, '_readToStream');
+
+            var converter = new VBusRecordingConverter();
+
+            var ranges = [];
+
+            var onHeaderSet = sinon.spy(function(headerSet) {
+                var headerSetRanges = [{
+                    minTimestamp: headerSet.timestamp,
+                    maxTimestamp: headerSet.timestamp,
+                }];
+
+                ranges = Recorder.performRangeSetOperation(ranges, headerSetRanges, options.interval, 'union');
+            });
+
+            converter.on('headerSet', onHeaderSet);
+
+            return Q.fcall(function() {
+                return sourceRecorder.playback(converter);
+            }).then(function(ranges) {
+                expect(onHeaderSet).property('callCount').equal(864);
+                expect(ranges).lengthOf(1);
+                testUtils.expectRanges(ranges).eql([{
+                    maxTimestamp: '2014-02-16T23:55:00.805Z',
+                    minTimestamp: '2014-02-14T00:00:00.983Z',
+                }]);
+            }).finally(function() {
+                readToStreamSpy.restore();
+            });
         });
 
     });
@@ -163,6 +214,8 @@ describe('FileSystemRecorder', function() {
 
             var sourceRecorder = new FileSystemRecorder(options);
 
+            var readToStream = sinon.spy(sourceRecorder, '_readToStream');
+
             var targetRecorder = new TestRecorder({
                 id: 'Test',
                 interval: 300000,
@@ -176,6 +229,8 @@ describe('FileSystemRecorder', function() {
                 return sourceRecorder.synchronizeTo(targetRecorder);
             }).then(function() {
 
+            }).finally(function() {
+                readToStream.restore();
             });
         });
 
