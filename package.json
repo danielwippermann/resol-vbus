@@ -7,7 +7,8 @@
     "test": "gulp",
     "coveralls": "gulp coverage && gulp coveralls"
   },
-  "repository": "https://github.com/danielwippermann/resol-vbus",
+  "homepage": "https://github.com/danielwippermann/resol-vbus",
+  "repository": "https://github.com/danielwippermann/resol-vbus.git",
   "author": "Daniel Wippermann <Daniel.Wippermann@gmail.com>",
   "license": "MIT",
   "devDependencies": {
@@ -18,7 +19,7 @@
     "gulp-istanbul": "~0.1.0",
     "gulp-jscs": "~0.3.0",
     "gulp-jsdoc": "~0.0.2",
-    "gulp-jshint": "~1.4.0",
+    "gulp-jshint": "~1.5.0",
     "gulp-load-plugins": "~0.3.0",
     "gulp-mocha": "~0.4.1",
     "sinon": "~1.8.1"
