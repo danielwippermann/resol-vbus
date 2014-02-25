@@ -48,7 +48,7 @@ var FileSystemRecorder = Recorder.extend({
     },
 
     _getCurrentSyncStateFilename: function(options) {
-        return this._getAbsoluteFilename(this.getHash(options.id) + '_SyncState.json');
+        return this._getAbsoluteFilename('SyncState.json');
     },
 
     _getCurrentSyncState: function(options) {
@@ -206,7 +206,7 @@ var FileSystemRecorder = Recorder.extend({
             if (useCurrentInfo) {
                 currentInfo.ranges = combinedRange;
             } else {
-                var filename = _this.getHash(syncJob.id) + '_' + syncJob.interval + '_' + timestampText + '.vbus';
+                var filename = syncJob.interval + '_' + timestampText + '.vbus';
 
                 currentInfo = {
                     ranges: thisRanges,
