@@ -130,10 +130,10 @@ describe('FileSystemRecorder', function() {
 
         var fixturesPath = path.join(__dirname, '../fixtures/filesystem-recorder-1/');
 
+        var testFixturesPath = path.join(fixturesPath, '0a008f5b8c77c121d0fd39ae985593ba78ae5d85');
+
         var createDeleteFixturesPathPromise = function() {
             return vbus.utils.promise(function(resolve, reject) {
-                var testFixturesPath = path.join(fixturesPath, '0a008f5b8c77c121d0fd39ae985593ba78ae5d85');
-
                 fs.readdir(testFixturesPath, function(err, filenames) {
                     if (err) {
                         reject(err);
@@ -193,6 +193,33 @@ describe('FileSystemRecorder', function() {
                 expect(ranges [0]).property('maxTimestamp').instanceOf(Date);
                 expect(ranges [0].maxTimestamp.toISOString()).equal('2014-02-16T23:55:00.805Z');
 
+                var expectedFilenames = [
+                    'SyncState.json',
+                    '300000_20140214000000983.vbus',
+                    '300000_20140215000001077.vbus',
+                    '300000_20140216000002271.vbus',
+                ];
+
+                var promise = Q();
+
+                _.forEach(expectedFilenames, function(expectedFilename) {
+                    var absoluteFilename = path.join(testFixturesPath, expectedFilename);
+
+                    promise = promise.then(function() {
+                        return vbus.utils.promise(function(resolve, reject) {
+                            fs.exists(absoluteFilename, function(exists) {
+                                if (!exists) {
+                                    reject(new Error('Expected file ' + JSON.stringify(expectedFilename) + ' to exist'));
+                                } else {
+                                    resolve();
+                                }
+                            });
+                        });
+                    });
+                });
+
+                return promise;
+            }).then(function() {
                 return sourceRecorder.synchronizeTo(targetRecorder);
             }).then(function(ranges) {
                 expect(ranges).an('array').lengthOf(0);
