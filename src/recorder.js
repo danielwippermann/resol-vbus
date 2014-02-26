@@ -161,6 +161,8 @@ var Recorder = extend(EventEmitter, /** @lends Recorder# */ {
             }
         }).then(function() {
             return playedBackRanges;
+        }).finally(function() {
+            converter.unpipe(stream);
         });
     },
 
