@@ -19,22 +19,63 @@ var extend = require('./extend');
 
 var optionKeys = [
     'port',
+    'channels',
 ];
 
 
 
-var TcpConnectionEndpoint = extend(EventEmitter, {
+var TcpConnectionEndpoint = extend(EventEmitter, /** @lends TcpConnectionEndpoint# */ {
 
+    /**
+     * The port number to listen on for incoming connections.
+     * @type {number}
+     */
     port: 7053,
 
+    /**
+     * The list of channels to return if the CHANNELLIST command is received.
+     * @type {string[]}
+     */
+    channels: null,
+
+    /**
+     * The Server instance used for listening for incoming connections.
+     * @type {net.Server}
+     */
     server: null,
 
+    /**
+     * Creates a new instance and optionally initializes its members.
+     *
+     * @constructs
+     * @augments EventEmitter
+     * @param {object} options The initialization values for this instance.
+     * @param {number} options.port See {@link TcpConnectionEndpoint#port}
+     * @param {number} options.channels See {@link TcpConnectionEndpoint#channels}
+     *
+     * @classdesc
+     * The TcpConnectionEndpoint can act as the remote side for a TcpConnection.
+     * It supports all the commands that a DL3 connected via VBus.net would
+     * provide as well.
+     *
+     * A `connection` event is emitted whenever an incoming connection passes
+     * the VBus-over-TCP handshake.
+     */
     constructor: function(options) {
         EventEmitter.call(this);
 
         _.extend(this, _.pick(options, optionKeys));
+
+        if (!_.has(this, 'channels')) {
+            this.channels = [ 'VBus' ];
+        }
     },
 
+    /**
+     * Starts the server to listen for incoming connections.
+     *
+     * @return {Promise} A promise that resolves when the server is started.
+     */
     start: function() {
         var _this = this;
 
@@ -135,7 +176,14 @@ var TcpConnectionEndpoint = extend(EventEmitter, {
                         connectionInfo.password = md [1];
                         callback(null, '+OK');
                     } else if ((md = /^CHANNELLIST$/.exec(line))) {
-                        callback(null, '*0:VBus\r\n+OK');
+                        var response = _.reduce(_this.channels, function(memo, channel, index) {
+                            if (channel) {
+                                memo.push('*' + index + ':' + channel);
+                            }
+                            return memo;
+                        }, []).join('\r\n');
+
+                        callback(null, response + '\r\n+OK');
                     } else if ((md = /^CHANNEL (.*)$/.exec(line))) {
                         connectionInfo.channel = md [1];
                         callback(null, '+OK');
