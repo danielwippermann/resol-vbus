@@ -47,11 +47,11 @@ var testConnection = function(done, callback) {
         port: 0,
     });
 
-    var createEndpointSocketPromise = function() {
+    var createEndpointInfoPromise = function() {
         var deferred = Q.defer();
 
-        endpoint.once('connection', function(socket) {
-            deferred.resolve(socket);
+        endpoint.once('connection', function(info) {
+            deferred.resolve(info);
         });
 
         return deferred.promise;
@@ -68,7 +68,7 @@ var testConnection = function(done, callback) {
 
         expect(connection.connectionState).to.equal(TcpConnection.STATE_DISCONNECTED);
 
-        return callback(connection, endpoint, createEndpointSocketPromise);
+        return callback(connection, endpoint, createEndpointInfoPromise);
     }).finally(function() {
         connection.disconnect();
         endpoint.stop();
@@ -129,7 +129,7 @@ describe('TcpConnection', function() {
         });
 
         it('should work correctly if disconnected', function(done) {
-            testConnection(done, function(connection, endpoint) {
+            testConnection(done, function(connection, endpoint, createEndpointInfoPromise) {
                 var onConnectionState = sinon.spy();
 
                 var options = {
@@ -144,17 +144,21 @@ describe('TcpConnection', function() {
 
                 connection.on('connectionState', onConnectionState);
 
+                var epiPromise = createEndpointInfoPromise();
+
                 return Q.fcall(function() {
                     return connection.connect();
                 }).then(function() {
+                    return epiPromise;
+                }).then(function(epi) {
                     expect(connection.connectionState).to.equal(TcpConnection.STATE_CONNECTED);
                     expect(onConnectionState.callCount).to.equal(2);
                     expect(onConnectionState.firstCall.args [0]).to.equal(TcpConnection.STATE_CONNECTING);
                     expect(onConnectionState.secondCall.args [0]).to.equal(TcpConnection.STATE_CONNECTED);
 
-                    expect(endpoint.viaTag).to.equal(options.viaTag);
-                    expect(endpoint.password).to.equal(options.password);
-                    expect(endpoint.channel).to.equal('Ä');
+                    expect(epi.viaTag).to.equal(options.viaTag);
+                    expect(epi.password).to.equal(options.password);
+                    expect(epi.channel).to.equal('Ä');
 
                     expect(connection.channelListCallback.callCount).to.equal(1);
                 }).finally(function() {
@@ -212,27 +216,27 @@ describe('TcpConnection', function() {
     describe('Automatic reconnection', function() {
 
         it('should reconnect when connected', function(done) {
-            testConnection(done, function(connection, endpoint, createEndpointSocketPromise) {
+            testConnection(done, function(connection, endpoint, createEndpointInfoPromise) {
                 var onConnectionState = sinon.spy();
 
                 connection.on('connectionState', onConnectionState);
 
-                var epsPromise = createEndpointSocketPromise();
+                var epiPromise = createEndpointInfoPromise();
 
                 return Q.fcall(function() {
                     return connection.connect();
                 }).then(function() {
-                    return epsPromise;
-                }).then(function(socket) {
+                    return epiPromise;
+                }).then(function(epi) {
                     expect(onConnectionState.callCount).to.equal(2);
                     expect(onConnectionState.firstCall.args [0]).to.equal(TcpConnection.STATE_CONNECTING);
                     expect(onConnectionState.secondCall.args [0]).to.equal(TcpConnection.STATE_CONNECTED);
 
-                    epsPromise = createEndpointSocketPromise();
+                    epiPromise = createEndpointInfoPromise();
 
-                    socket.end();
+                    epi.socket.end();
                 }).then(function() {
-                    return epsPromise;
+                    return epiPromise;
                 }).then(function() {
                     expect(onConnectionState.callCount).to.equal(4);
                     expect(onConnectionState.getCall(2).args [0]).to.equal(TcpConnection.STATE_INTERRUPTED);
