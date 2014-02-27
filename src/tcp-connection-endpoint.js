@@ -3,6 +3,7 @@
 
 
 
+var EventEmitter = require('events').EventEmitter;
 var net = require('net');
 
 
@@ -12,6 +13,8 @@ var Q = require('q');
 
 var Connection = require('./connection');
 
+var extend = require('./extend');
+
 
 
 var optionKeys = [
@@ -20,14 +23,14 @@ var optionKeys = [
 
 
 
-var TcpConnectionEndpoint = Connection.extend({
+var TcpConnectionEndpoint = extend(EventEmitter, {
 
     port: 7053,
 
     server: null,
 
     constructor: function(options) {
-        Connection.call(this);
+        EventEmitter.call(this);
 
         _.extend(this, _.pick(options, optionKeys));
     },
@@ -80,6 +83,10 @@ var TcpConnectionEndpoint = Connection.extend({
     _onConnection: function(socket) {
         var _this = this;
 
+        var connectionInfo = {
+            socket: socket,
+        };
+
         var phase = 0;
         var rxBuffer = null;
 
@@ -108,11 +115,36 @@ var TcpConnectionEndpoint = Connection.extend({
 
                         if (transition === false) {
                             socket.end();
+                            connectionInfo.socket = null;
                         } else if (transition === true) {
                             phase = 1000;
+
+                            _this.emit('connection', connectionInfo);
                         }
 
                         processNextLine();
+                    }
+                };
+
+                var processLine = function(line) {
+                    var md;
+                    if ((md = /^CONNECT (.*)$/.exec(line))) {
+                        connectionInfo.viaTag = md [1];
+                        callback(null, '+OK');
+                    } else if ((md = /^PASS (.*)$/.exec(line))) {
+                        connectionInfo.password = md [1];
+                        callback(null, '+OK');
+                    } else if ((md = /^CHANNELLIST$/.exec(line))) {
+                        callback(null, '*0:VBus\r\n+OK');
+                    } else if ((md = /^CHANNEL (.*)$/.exec(line))) {
+                        connectionInfo.channel = md [1];
+                        callback(null, '+OK');
+                    } else if ((md = /^QUIT$/.exec(line))) {
+                        callback(null, '+OK', false);
+                    } else if ((md = /^DATA$/.exec(line))) {
+                        callback(null, '+OK', true);
+                    } else {
+                        callback('Unknown command');
                     }
                 };
 
@@ -123,7 +155,7 @@ var TcpConnectionEndpoint = Connection.extend({
                                 if (start < index) {
                                     var line = buffer.toString('utf8', start, index);
                                     start = index + 1;
-                                    _this.processLine(line, callback);
+                                    processLine(line);
                                     break;
                                 } else {
                                     start = index + 1;
@@ -135,7 +167,7 @@ var TcpConnectionEndpoint = Connection.extend({
                     } else {
                         if (start < buffer.length) {
                             if (phase >= 1000) {
-                                _this._write(buffer.slice(start));
+                                // _this._write(buffer.slice(start));
 
                                 rxBuffer = null;
                             } else {
@@ -148,8 +180,8 @@ var TcpConnectionEndpoint = Connection.extend({
                 };
 
                 processNextLine();
-            } else {
-                _this._write(chunk);
+            // } else {
+            //     _this._write(chunk);
             }
         };
 
@@ -172,31 +204,7 @@ var TcpConnectionEndpoint = Connection.extend({
         socket.setKeepAlive(true, 60000);
 
         write('+HELLO: This is TcpConnectionEndpoint, at your service!\r\n');
-
-        this.emit('connection', socket);
     },
-
-    processLine: function(line, callback) {
-        var md;
-        if ((md = /^CONNECT (.*)$/.exec(line))) {
-            this.viaTag = md [1];
-            callback(null, '+OK');
-        } else if ((md = /^PASS (.*)$/.exec(line))) {
-            this.password = md [1];
-            callback(null, '+OK');
-        } else if ((md = /^CHANNELLIST$/.exec(line))) {
-            callback(null, '*0:VBus\r\n+OK');
-        } else if ((md = /^CHANNEL (.*)$/.exec(line))) {
-            this.channel = md [1];
-            callback(null, '+OK');
-        } else if ((md = /^QUIT$/.exec(line))) {
-            callback(null, '+OK', false);
-        } else if ((md = /^DATA$/.exec(line))) {
-            callback(null, '+OK', true);
-        } else {
-            callback('Unknown command');
-        }
-    }
 
 });
 
