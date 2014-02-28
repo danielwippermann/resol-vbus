@@ -507,6 +507,7 @@ var Connection = extend(Duplex, /** @lends Connection# */ {
      *
      * @param {number} address The VBus address of the device to set the value in
      * @param {number} valueId The ID of the value to write to the device.
+     * @param {number} value The value to write to the device.
      * @param {object} options
      * @param {number} options.timeout=500 Time in milliseconds between tries.
      * @param {number} options.tries=2 Number of tries to get the value.
