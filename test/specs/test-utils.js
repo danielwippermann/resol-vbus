@@ -20,7 +20,7 @@ var testUtils = {
 
     expectPromise: function(promise) {
         expect(promise).to.be.an('object');
-        expect(promise.then).to.be.a('function');
+        expect(promise).to.have.a.property('then').that.is.a('function');
         return promise;
     },
 
