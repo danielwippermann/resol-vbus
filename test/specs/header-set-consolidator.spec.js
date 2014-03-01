@@ -69,7 +69,7 @@ describe('HeaderSetConsolidator', function() {
                 .that.is.a('function');
         });
 
-        promiseIt('should work correctly', function() {
+        xpromiseIt('should work correctly', function() {
             var hsc = new HeaderSetConsolidator({
 
                 interval: 1000,
