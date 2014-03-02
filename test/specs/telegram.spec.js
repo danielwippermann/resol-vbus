@@ -3,6 +3,9 @@
 
 
 
+var _ = require('lodash');
+
+
 var vbus = require('./resol-vbus');
 
 
@@ -130,6 +133,40 @@ describe('Telegram', function() {
 
     });
 
+    describe('.fromLiveBuffer', function() {
+
+        it('should be a method', function() {
+            expect(Telegram).to.have.a.property('fromLiveBuffer').that.is.a('function');
+        });
+
+        it('should work correctly', function() {
+            var options = {
+                destinationAddress: 0x7771,
+                sourceAddress: 0x2011,
+                command: 0x25,
+                frameData: new Buffer('6018ab04000000', 'hex'),
+            };
+
+            var buffer = new Buffer('AA7177112030251160182B040000000454', 'hex');
+
+            var telegram = Telegram.fromLiveBuffer(buffer, 0, buffer.length);
+
+            expect(telegram).to.be.an.instanceOf(Telegram);
+
+            _.forEach(options, function(refValue, key) {
+                var value = telegram [key];
+
+                if ((value instanceof Buffer) && (refValue instanceof Buffer)) {
+                    value = value.slice(0, refValue.length).toString('hex');
+                    refValue = refValue.toString('hex');
+                }
+
+                expect(value).to.equal(refValue, key);
+            });
+        });
+
+    });
+
     describe('#getId', function() {
 
         it('should be a method', function() {
@@ -154,10 +191,6 @@ describe('Telegram', function() {
             expect(telegram.getId()).to.equal('13_1122_3344_30_77');
         });
 
-    });
-
-    xit('should have tests', function() {
-        // TODO need raw data snippets of v3 communication
     });
 
 });
