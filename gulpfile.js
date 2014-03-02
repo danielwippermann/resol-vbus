@@ -161,7 +161,12 @@ gulp.task('watch', function() {
 });
 
 
-gulp.task('test', [ 'jshint', 'jscs', 'mocha' ], function() {
+gulp.task('test-force-exit', [ 'jshint', 'jscs', 'mocha' ], function() {
+    process.exit(0);
+});
+
+
+gulp.task('coverage-force-exit', [ 'coverage' ], function() {
     process.exit(0);
 });
 

@@ -4,8 +4,8 @@
   "description": "A JavaScript library for processing RESOL VBus data",
   "main": "src/index.js",
   "scripts": {
-    "test": "gulp test",
-    "coveralls": "gulp coverage && gulp coveralls",
+    "test": "gulp test-force-exit",
+    "coveralls": "gulp coverage-force-exit && gulp coveralls",
     "watch": "nodemon -w src -w test --exec gulp nodemon"
   },
   "homepage": "https://github.com/danielwippermann/resol-vbus",
