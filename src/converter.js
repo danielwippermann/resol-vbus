@@ -3,6 +3,9 @@
 
 
 
+var util = require('util');
+
+
 var EventEmitter = require('events').EventEmitter;
 var Duplex = require('stream').Duplex;
 
@@ -10,11 +13,15 @@ var Duplex = require('stream').Duplex;
 var _ = require('lodash');
 
 
+var Header = require('./header');
+var HeaderSet = require('./header-set');
+
 var extend = require('./extend');
 
 
 
 var optionKeys = [
+    'objectMode',
 ];
 
 
@@ -22,10 +29,18 @@ var optionKeys = [
 var Converter = extend(Duplex, /** @lends Converter# */ {
 
     /**
-     * Creates a new Converter instance.
+     * Specifies whether the underlying stream operates in object mode.
+     * @type {boolean}
+     */
+    objectMode: false,
+
+    /**
+     * Creates a new Converter instance and optionally initializes its members with the given values.
      *
      * @constructs
      * @augments Duplex
+     * @param {object} options Initialization values
+     * @param {boolean} options.objectMode See {@link Converter#objectMode}
      *
      * @classdesc
      * Converter instances are streams that convert VBus models (Packet, Datagram and Telegram instances) and / or
@@ -35,7 +50,11 @@ var Converter = extend(Duplex, /** @lends Converter# */ {
      * character-separated text representations.
      */
     constructor: function(options) {
-        Duplex.call(this);
+        options = _.defaults({}, options);
+
+        Duplex.call(this, {
+            objectMode: options.objectMode,
+        });
 
         _.extend(this, _.pick(options, optionKeys));
     },
@@ -55,7 +74,11 @@ var Converter = extend(Duplex, /** @lends Converter# */ {
      * @param {Header} header The Header to queue for conversion.
      */
     convertHeader: function(header) {
-        throw new Error('Must be implemented by sub-class');
+        if (this.objectMode) {
+            this.push(header);
+        } else {
+            throw new Error('Must be implemented by sub-class');
+        }
     },
 
     /**
@@ -65,15 +88,35 @@ var Converter = extend(Duplex, /** @lends Converter# */ {
      * @param {HeaderSet} headerSet The HeaderSet to queue for conversion.
      */
     convertHeaderSet: function(headerSet) {
-        throw new Error('Must be implemented by sub-class');
+        if (this.objectMode) {
+            this.push(headerSet);
+        } else {
+            throw new Error('Must be implemented by sub-class');
+        }
     },
 
     _read: function() {
-        throw new Error('Must be implemented by sub-class');
+        if (this.objectMode) {
+            // nop
+        } else {
+            throw new Error('Must be implemented by sub-class');
+        }
     },
 
-    _write: function() {
-        throw new Error('Must be implemented by sub-class');
+    _write: function(chunk, encoding, callback) {
+        if (this.objectMode) {
+            if (chunk instanceof HeaderSet) {
+                this.emit('headerSet', chunk);
+            } else if (chunk instanceof Header) {
+                this.emit('header', chunk);
+            } else {
+                throw new Error('Unsupported object found: ' + util.inspect(chunk));
+            }
+
+            callback();
+        } else {
+            throw new Error('Must be implemented by sub-class');
+        }
     },
 
 });
