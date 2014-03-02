@@ -243,7 +243,7 @@ describe('TcpConnection', function() {
 
     describe('Automatic reconnection', function() {
 
-        xit('should reconnect when connected', function(done) {
+        it('should reconnect when connected', function(done) {
             testConnection(done, function(connection, endpoint, createEndpointInfoPromise) {
                 var onConnectionState = sinon.spy();
 
