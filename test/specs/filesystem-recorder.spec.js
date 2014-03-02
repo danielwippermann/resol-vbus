@@ -83,7 +83,7 @@ describe('FileSystemRecorder', function() {
         });
 
         promiseIt('should work correctly', function() {
-            this.timeout(30000);
+            this.timeout(testUtils.adaptTimeout(3000));
 
             var options = {
                 id: 'FileSystem',
@@ -95,7 +95,9 @@ describe('FileSystemRecorder', function() {
 
             var readToStreamSpy = sinon.spy(sourceRecorder, '_readToStream');
 
-            var converter = new VBusRecordingConverter();
+            var converter = new VBusRecordingConverter({
+                objectMode: true,
+            });
 
             var ranges = [];
 
@@ -167,7 +169,7 @@ describe('FileSystemRecorder', function() {
         };
 
         promiseIt('should work correctly', function() {
-            this.timeout(30000);
+            this.timeout(testUtils.adaptTimeout(3000));
 
             var options = {
                 id: 'FileSystem',

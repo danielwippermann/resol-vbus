@@ -152,7 +152,9 @@ var FileSystemRecorder = Recorder.extend({
 
         var outConverter = null;
 
-        var inConverter = new VBusRecordingConverter();
+        var inConverter = new VBusRecordingConverter({
+            objectMode: true,
+        });
 
         inConverter.on('headerSet', function(headerSet) {
             var timestamp = headerSet.timestamp;
