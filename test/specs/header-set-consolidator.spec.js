@@ -3,6 +3,9 @@
 
 
 
+var moment = require('moment');
+
+
 var vbus = require('./resol-vbus');
 
 
@@ -106,7 +109,7 @@ describe('HeaderSetConsolidator', function() {
 
     describe('#processHeaderSet', function() {
 
-        it('should work correctly', function() {
+        it('should work correctly without options', function() {
             var header1 = new vbus.Packet({
                 channel: 1
             });
@@ -139,9 +142,149 @@ describe('HeaderSetConsolidator', function() {
             expect(onHeaderSetSpy.firstCall.args [0].getHeaders()).to.have.lengthOf(3);
         });
 
-    });
+        it('should work correctly with minTimestamp', function() {
+            var header1 = new vbus.Packet({
+                channel: 1
+            });
 
-    xit('should perform tests...', function() {
+            var headerSet = new vbus.HeaderSet({
+                headers: [ header1 ],
+            });
+
+            var timestamp = moment.utc([ 2014, 3, 1 ]).valueOf();
+
+            var hsc = new HeaderSetConsolidator({
+                minTimestamp: new Date(timestamp),
+            });
+
+            var onHeaderSetSpy = sinon.spy();
+
+            hsc.on('headerSet', onHeaderSetSpy);
+
+            headerSet.timestamp = new Date(timestamp - 1);
+            hsc.processHeaderSet(headerSet);
+
+            expect(onHeaderSetSpy.callCount).equal(0);
+
+            headerSet.timestamp = new Date(timestamp);
+            hsc.processHeaderSet(headerSet);
+
+            expect(onHeaderSetSpy.callCount).equal(1);
+
+            headerSet.timestamp = new Date(timestamp + 1);
+            hsc.processHeaderSet(headerSet);
+
+            expect(onHeaderSetSpy.callCount).equal(2);
+        });
+
+        it('should work correctly with maxTimestamp', function() {
+            var header1 = new vbus.Packet({
+                channel: 1
+            });
+
+            var headerSet = new vbus.HeaderSet({
+                headers: [ header1 ],
+            });
+
+            var timestamp = moment.utc([ 2014, 3, 1 ]).valueOf();
+
+            var hsc = new HeaderSetConsolidator({
+                maxTimestamp: new Date(timestamp),
+            });
+
+            var onHeaderSetSpy = sinon.spy();
+
+            hsc.on('headerSet', onHeaderSetSpy);
+
+            headerSet.timestamp = new Date(timestamp - 1);
+            hsc.processHeaderSet(headerSet);
+
+            expect(onHeaderSetSpy.callCount).equal(1);
+
+            headerSet.timestamp = new Date(timestamp);
+            hsc.processHeaderSet(headerSet);
+
+            expect(onHeaderSetSpy.callCount).equal(2);
+
+            headerSet.timestamp = new Date(timestamp + 1);
+            hsc.processHeaderSet(headerSet);
+
+            expect(onHeaderSetSpy.callCount).equal(2);
+        });
+
+        it('should work correctly with interval', function() {
+            var header1 = new vbus.Packet({
+                channel: 1
+            });
+
+            var headerSet = new vbus.HeaderSet({
+                headers: [ header1 ],
+            });
+
+            var timestamp = moment.utc([ 2014, 3, 1 ]).valueOf();
+
+            var hsc = new HeaderSetConsolidator({
+                interval: 3600,
+            });
+
+            var onHeaderSetSpy = sinon.spy();
+
+            hsc.on('headerSet', onHeaderSetSpy);
+
+            headerSet.timestamp = new Date(timestamp);
+            hsc.processHeaderSet(headerSet);
+
+            expect(onHeaderSetSpy.callCount).equal(1);
+
+            headerSet.timestamp = new Date(timestamp + 3599);
+            hsc.processHeaderSet(headerSet);
+
+            expect(onHeaderSetSpy.callCount).equal(1);
+
+            headerSet.timestamp = new Date(timestamp + 3600);
+            hsc.processHeaderSet(headerSet);
+
+            expect(onHeaderSetSpy.callCount).equal(2);
+        });
+
+        it('should work correctly with timeToLive', function() {
+            var timestamp = moment.utc([ 2014, 3, 1 ]).valueOf();
+
+            var header1 = new vbus.Packet({
+                timestamp: new Date(timestamp),
+                channel: 1,
+            });
+
+            var headerSet = new vbus.HeaderSet({
+                headers: [ header1 ],
+            });
+
+            var hsc = new HeaderSetConsolidator({
+                timeToLive: 3600,
+            });
+
+            var onHeaderSetSpy = sinon.spy();
+
+            hsc.on('headerSet', onHeaderSetSpy);
+
+            headerSet.timestamp = new Date(timestamp);
+            hsc.processHeaderSet(headerSet);
+
+            expect(onHeaderSetSpy.callCount).equal(1);
+            expect(onHeaderSetSpy.firstCall.args [0].getHeaders()).lengthOf(1);
+
+            headerSet.timestamp = new Date(timestamp + 3599);
+            hsc.processHeaderSet(headerSet);
+
+            expect(onHeaderSetSpy.callCount).equal(2);
+            expect(onHeaderSetSpy.secondCall.args [0].getHeaders()).lengthOf(1);
+
+            headerSet.timestamp = new Date(timestamp + 3601);
+            hsc.processHeaderSet(headerSet);
+
+            expect(onHeaderSetSpy.callCount).equal(3);
+            expect(onHeaderSetSpy.thirdCall.args [0].getHeaders()).lengthOf(0);
+        });
 
     });
 
