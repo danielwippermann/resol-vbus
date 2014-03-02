@@ -23,7 +23,7 @@ var optionKeys = [
 
 
 
-var SerialConnection = Connection.extend(/** lends SerialConnection# */ {
+var SerialConnection = Connection.extend(/** @lends SerialConnection# */ {
 
     /**
      * The path to the serial port.
@@ -56,7 +56,7 @@ var SerialConnection = Connection.extend(/** lends SerialConnection# */ {
      *
      * @constructs
      * @augments Connection
-     * @param {object} options
+     * @param {object} options Initialization values
      * @param {string} options.path See {@link SerialConnection#path}
      *
      * @classdesc

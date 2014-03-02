@@ -81,12 +81,12 @@ var TcpConnection = Connection.extend( /** @lends TcpConnection# */ {
      *
      * @constructs
      * @augments Connection
-     * @param options Initialization values
-     * @param options.host See {@link TcpConnection#host}
-     * @param options.port See {@link TcpConnection#port}
-     * @param options.viaTag See {@link TcpConnection#viaTag}
-     * @param options.password See {@link TcpConnection#password}
-     * @param options.rawVBusDataOnly See {@link TcpConnection#rawVBusDataOnly}
+     * @param {object} options Initialization values
+     * @param {string} options.host See {@link TcpConnection#host}
+     * @param {number} options.port See {@link TcpConnection#port}
+     * @param {string} options.viaTag See {@link TcpConnection#viaTag}
+     * @param {string} options.password See {@link TcpConnection#password}
+     * @param {boolean} options.rawVBusDataOnly See {@link TcpConnection#rawVBusDataOnly}
      *
      * @classdesc
      * The TcpConnection class is primarily designed to provide access to VBus live data
