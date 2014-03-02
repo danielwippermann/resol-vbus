@@ -112,6 +112,10 @@ var TestRecorder = Recorder.extend({
     _playbackSyncJob: function(stream, syncJob) {
         var _this = this;
 
+        if (!stream.objectMode) {
+            throw new Error('Stream must be in object mode');
+        }
+
         var syncState = this._getSyncState(syncJob, 'source', 'TestRecorder');
 
         return Q.fcall(function() {
@@ -210,7 +214,9 @@ var TestRecorder = Recorder.extend({
 
         var lastTimestamp = null;
 
-        var inConverter = new VBusRecordingConverter();
+        var inConverter = new VBusRecordingConverter({
+            objectMode: true,
+        });
 
         inConverter.on('headerSet', function(headerSet) {
             var timestamp = headerSet.timestamp;
