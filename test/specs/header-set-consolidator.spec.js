@@ -69,7 +69,7 @@ describe('HeaderSetConsolidator', function() {
                 .that.is.a('function');
         });
 
-        xpromiseIt('should work correctly', function() {
+        promiseIt('should work correctly', function() {
             var hsc = new HeaderSetConsolidator({
 
                 interval: 1000,
@@ -97,6 +97,8 @@ describe('HeaderSetConsolidator', function() {
 
                 expect(onHeaderSet.callCount).to.equal(1);
                 expect(onHeaderSet.firstCall.args [0].getHeaders).lengthOf(0);
+
+                hsc.removeListener('headerSet', onHeaderSet);
             });
         });
 
