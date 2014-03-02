@@ -7,8 +7,8 @@ var _ = require('lodash');
 var moreints = require('buffer-more-ints');
 
 
-var Packet = require('./packet');
 var HeaderSet = require('./header-set');
+var Packet = require('./packet');
 
 var Converter = require('./converter');
 
@@ -68,11 +68,19 @@ var VBusRecordingConverter = Converter.extend(/** @lends VBusRecordingConverter#
     },
 
     convertHeader: function(header) {
-        return this._convertHeaders(header.timestamp, [ header ]);
+        if (this.objectMode) {
+            return Converter.prototype.convertHeader.apply(this, arguments);
+        } else {
+            return this._convertHeaders(header.timestamp, [ header ]);
+        }
     },
 
     convertHeaderSet: function(headerSet) {
-        return this._convertHeaders(headerSet.timestamp, headerSet.getSortedHeaders());
+        if (this.objectMode) {
+            return Converter.prototype.convertHeaderSet.apply(this, arguments);
+        } else {
+            return this._convertHeaders(headerSet.timestamp, headerSet.getSortedHeaders());
+        }
     },
 
     _convertHeaders: function(timestamp, headers) {
@@ -144,69 +152,73 @@ var VBusRecordingConverter = Converter.extend(/** @lends VBusRecordingConverter#
     },
 
     _write: function(chunk, encoding, callback) {
-        var buffer;
-        if (this.rxBuffer) {
-            buffer = Buffer.concat([ this.rxBuffer, chunk ]);
+        if (this.objectMode) {
+            return Converter.prototype._write.apply(this, arguments);
         } else {
-            buffer = chunk;
-        }
-
-        var getRecordLength = function(index) {
-            var length;
-            if (index > buffer.length - 6) {
-                length = 0;
-            } else if (buffer [index] !== 0xA5) {
-                length = 0;
-            } else if ((buffer [index + 1] >> 4) !== (buffer [index + 1] & 15)) {
-                length = 0;
-            } else if (buffer [index + 2] !== buffer [index + 4]) {
-                length = 0;
-            } else if (buffer [index + 3] !== buffer [index + 5]) {
-                length = 0;
+            var buffer;
+            if (this.rxBuffer) {
+                buffer = Buffer.concat([ this.rxBuffer, chunk ]);
             } else {
-                length = buffer.readUInt16LE(index + 2);
+                buffer = chunk;
+            }
 
-                if ((index + length) > buffer.length) {
+            var getRecordLength = function(index) {
+                var length;
+                if (index > buffer.length - 6) {
                     length = 0;
+                } else if (buffer [index] !== 0xA5) {
+                    length = 0;
+                } else if ((buffer [index + 1] >> 4) !== (buffer [index + 1] & 15)) {
+                    length = 0;
+                } else if (buffer [index + 2] !== buffer [index + 4]) {
+                    length = 0;
+                } else if (buffer [index + 3] !== buffer [index + 5]) {
+                    length = 0;
+                } else {
+                    length = buffer.readUInt16LE(index + 2);
+
+                    if ((index + length) > buffer.length) {
+                        length = 0;
+                    }
                 }
-            }
-            return length;
-        };
+                return length;
+            };
 
-        var currentIndex = 0, currentLength = getRecordLength(0), nextIndex, nextLength, start = 0;
-        while (currentIndex < buffer.length) {
-            if (currentLength > 0) {
-                nextIndex = currentIndex + currentLength;
-            } else {
-                nextIndex = currentIndex + 1;
-            }
+            var currentIndex = 0, currentLength = getRecordLength(0), nextIndex, nextLength, start = 0;
+            while (currentIndex < buffer.length) {
+                if (currentLength > 0) {
+                    nextIndex = currentIndex + currentLength;
+                } else {
+                    nextIndex = currentIndex + 1;
+                }
 
-            nextLength = getRecordLength(nextIndex);
-
-            if ((currentLength > 0) && ((nextLength > 0) || (nextIndex === buffer.length))) {
-                var record = buffer.slice(currentIndex, nextIndex);
-
-                this._processRecord(record);
-
-                start = nextIndex;
-            } else if (nextIndex !== (currentIndex + 1)) {
-                nextIndex = currentIndex + 1;
                 nextLength = getRecordLength(nextIndex);
+
+                if ((currentLength > 0) && ((nextLength > 0) || (nextIndex === buffer.length))) {
+                    var record = buffer.slice(currentIndex, nextIndex);
+
+                    this._processRecord(record);
+
+                    start = nextIndex;
+                } else if (nextIndex !== (currentIndex + 1)) {
+                    nextIndex = currentIndex + 1;
+                    nextLength = getRecordLength(nextIndex);
+                }
+
+                currentIndex = nextIndex;
+                currentLength = nextLength;
             }
 
-            currentIndex = nextIndex;
-            currentLength = nextLength;
-        }
+            var maxLength = 65536;
+            if (buffer.length - start >= maxLength) {
+                start = buffer.length - maxLength;
+            }
 
-        var maxLength = 65536;
-        if (buffer.length - start >= maxLength) {
-            start = buffer.length - maxLength;
-        }
-
-        if (start < buffer.length) {
-            this.rxBuffer = new Buffer(buffer.slice(start));
-        } else {
-            this.rxBuffer = null;
+            if (start < buffer.length) {
+                this.rxBuffer = new Buffer(buffer.slice(start));
+            } else {
+                this.rxBuffer = null;
+            }
         }
 
         callback();

@@ -6,10 +6,14 @@
 var _ = require('lodash');
 
 
-var HeaderSet = require('./resol-vbus').HeaderSet;
-var Packet = require('./resol-vbus').Packet;
+var vbus = require('./resol-vbus');
 
-var VBusRecordingConverter = require('./resol-vbus').VBusRecordingConverter;
+
+
+var HeaderSet = vbus.HeaderSet;
+var Packet = vbus.Packet;
+
+var VBusRecordingConverter = vbus.VBusRecordingConverter;
 
 
 
@@ -19,6 +23,24 @@ describe('VBusRecordingConverter', function() {
 
         it('should be a constructor function', function() {
             expect(VBusRecordingConverter).to.be.a('function');
+        });
+
+        it('should have reasonable defaults', function() {
+            var converter = new VBusRecordingConverter();
+
+            expect(converter).property('objectMode').equal(false);
+        });
+
+        it('should copy selected options', function() {
+            var options = {
+                objectMode: true,
+                junk: 'JUNK',
+            };
+
+            var converter = new VBusRecordingConverter(options);
+
+            expect(converter).property('objectMode').equal(options.objectMode);
+            expect(converter).not.property('junk');
         });
 
     });
