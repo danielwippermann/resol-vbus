@@ -159,6 +159,10 @@ var DLxRecorder = Recorder.extend( /** @lends DLxRecorder# */ {
     _playbackSyncJob: function(stream, syncJob) {
         var _this = this;
 
+        if (!stream.objectMode) {
+            throw new Error('Stream must be in object mode');
+        }
+
         var syncState = this._getSyncState(syncJob, 'source', 'DLxRecorder');
 
         return Q.fcall(function() {
