@@ -14,6 +14,8 @@ var Q = require('q');
 global.sinon = require('sinon');
 
 
+var jsdoc = require('./lib/gulp-jsdoc');
+
 
 chai.Assertion.includeStack = true;
 
@@ -96,22 +98,7 @@ gulp.task('mocha', function() {
 
 gulp.task('jsdoc', function() {
     return gulp.src(patterns.jsdoc)
-        .pipe(plugins.jsdoc('./.docs/jsdoc', {
-            'path': 'ink-docstrap',
-            'cleverLinks': false,
-            'monospaceLinks': false,
-            'default': {
-                'outputSourceFiles': true
-            },
-            'systemName': 'resol-vbus',
-            'footer': '',
-            'copyright': 'resol-vbus | Copyright (c) 2013-2014, Daniel Wippermann',
-            'navType': 'inline',
-            'theme': 'spacelab',
-            'linenums': false,
-            'collapseSymbols': true,
-            'inverseNav': true
-        }));
+        .pipe(jsdoc());
 });
 
 
