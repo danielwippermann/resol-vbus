@@ -25,6 +25,7 @@ describe('DataSource', function() {
             expect(dataSource.description).to.equal(null);
             expect(dataSource.isSupportingLiveData).to.equal(false);
             expect(dataSource.isSupportingRecordedData).to.equal(false);
+            expect(dataSource.isSupportingCustomization).to.equal(false);
         });
 
         it('should copy selected options', function() {
@@ -35,6 +36,7 @@ describe('DataSource', function() {
                 description: 'description',
                 isSupportingLiveData: true,
                 isSupportingRecordedData: true,
+                isSupportingCustomization: true,
                 junk: 'JUNK',
             });
 
@@ -45,6 +47,7 @@ describe('DataSource', function() {
             expect(dataSource.description).to.equal('description');
             expect(dataSource.isSupportingLiveData).to.equal(true);
             expect(dataSource.isSupportingRecordedData).to.equal(true);
+            expect(dataSource.isSupportingCustomization).to.equal(true);
             expect(dataSource.junk).to.equal(undefined);
         });
 
@@ -97,6 +100,32 @@ describe('DataSource', function() {
 
             expect(function() {
                 converter.openRecorder();
+            }).to.throw(Error, 'Must be implemented by sub-class');
+        });
+
+    });
+
+    describe('#createCustomizer', function() {
+
+        it('should be a method', function() {
+            expect(DataSource.prototype).property('createCustomizer').to.be.a('function');
+        });
+
+        it('should report if not supported', function() {
+            var converter = new DataSource();
+
+            expect(function() {
+                converter.createCustomizer();
+            }).to.throw(Error, 'Does not support customization');
+        });
+
+        it('should be abstract', function() {
+            var converter = new DataSource({
+                isSupportingCustomization: true,
+            });
+
+            expect(function() {
+                converter.createCustomizer();
             }).to.throw(Error, 'Must be implemented by sub-class');
         });
 

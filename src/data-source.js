@@ -17,6 +17,7 @@ var optionKeys = [
     'description',
     'isSupportingLiveData',
     'isSupportingRecordedData',
+    'isSupportingCustomization',
 ];
 
 
@@ -34,6 +35,8 @@ var DataSource = extend(null, {
     isSupportingLiveData: false,
 
     isSupportingRecordedData: false,
+
+    isSupportingCustomization: false,
 
     constructor: function(options) {
         _.extend(this, _.pick(options, optionKeys));
@@ -53,7 +56,15 @@ var DataSource = extend(null, {
         } else {
             throw new Error('Does not support recorded data');
         }
-    }
+    },
+
+    createCustomizer: function(deviceAddress, options) {
+        if (this.isSupportingCustomization) {
+            throw new Error('Must be implemented by sub-class');
+        } else {
+            throw new Error('Does not support customization');
+        }
+    },
 
 });
 
