@@ -161,6 +161,11 @@ gulp.task('watch', function() {
 });
 
 
+gulp.task('test', [ 'jshint', 'jscs', 'mocha' ], function() {
+    process.exit(0);
+});
+
+
 gulp.task('default', [ 'jshint', 'jscs', 'mocha' ]);
 
 
