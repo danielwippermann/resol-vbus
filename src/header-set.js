@@ -141,12 +141,17 @@ var HeaderSet = extend(EventEmitter, /** @lends HeaderSet# */ {
     /**
      * Removes all Header instances from this set which are older than the given timestamp.
      *
-     * @param {Date} timestamp Timestamp to compare Header instances against.
+     * @param {number|Date} timestamp Timestamp to compare Header instances against.
      */
     removeHeadersOlderThan: function(timestamp) {
         var _this = this;
 
-        var time = timestamp.getTime();
+        var time;
+        if (typeof timestamp === 'number') {
+            time = timestamp;
+        } else {
+            time = timestamp.getTime();
+        }
 
         var headers = [];
         _.forEach(this.headerList, function(header) {
