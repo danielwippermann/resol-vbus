@@ -107,8 +107,7 @@ var Recorder = extend(EventEmitter, /** @lends Recorder# */ {
     },
 
     /**
-     * Plays back a given range of HeaderSets. The HeaderSets are serialized to
-     * the stream using the VBusRecordingConverter.
+     * Plays back a given range of HeaderSets. The stream must be in object mode.
      *
      * @param {Writable} stream A writable stream
      * @param {object} options Options to select and filter HeaderSets
@@ -124,9 +123,9 @@ var Recorder = extend(EventEmitter, /** @lends Recorder# */ {
             end: true
         });
 
-        var converter = new VBusRecordingConverter();
-
-        converter.pipe(stream);
+        if (!stream.objectMode) {
+            throw new Error('Stream must be in object mode');
+        }
 
         var headerSetConsolidator = new HeaderSetConsolidator({
             minTimestamp: options.minTimestamp,
@@ -146,7 +145,7 @@ var Recorder = extend(EventEmitter, /** @lends Recorder# */ {
 
             playedBackRanges = Recorder.performRangeSetOperation(playedBackRanges, [ headerSetRange ], options.interval, 'union');
 
-            converter.convertHeaderSet(headerSet);
+            stream.write(headerSet);
         });
 
         return Q.fcall(function() {
@@ -161,8 +160,6 @@ var Recorder = extend(EventEmitter, /** @lends Recorder# */ {
             }
         }).then(function() {
             return playedBackRanges;
-        }).finally(function() {
-            converter.unpipe(stream);
         });
     },
 
@@ -263,7 +260,7 @@ var Recorder = extend(EventEmitter, /** @lends Recorder# */ {
      * Plays back the requested synchronization job, piping the resulting data into the
      * provided stream. Returns a Promise that resolves to the played back ranges.
      *
-     * @param {Stream} stream The stream to pipe data into
+     * @param {Stream} stream The stream (in object mode) to pipe data into
      * @param {RecorderSyncJob} syncJob The synchronization job to perform.
      * @returns {Promise} Promise resolving with a list of ranges that were synchronized.
      */

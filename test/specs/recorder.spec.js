@@ -64,7 +64,9 @@ describe('Recorder', function() {
                 interval: 600,
             };
 
-            var converter = new vbus.VBusRecordingConverter();
+            var converter = new vbus.VBusRecordingConverter({
+                objectMode: true,
+            });
 
             var onConverterHeaderSet = sinon.spy();
 
