@@ -37,6 +37,11 @@ var testUtils = {
         return expect(comparableRanges);
     },
 
+    adaptTimeout: function(timeout) {
+        var factor = process.env.TRAVIS ? 1000 : 1;
+        return timeout * factor;
+    },
+
 };
 
 
