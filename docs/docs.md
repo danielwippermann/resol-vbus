@@ -71,8 +71,6 @@ The resol-vbus module includes the following sub-classes of the abstract Convert
 
 A Recorder provides access to HeaderSet stores (e.g. dataloggers) by allowing to either playback the HeaderSets in the store, record HeaderSets to the store or synchronize two Recorders.
 
-The playback and record operation both use the VBusRecordingConverter to serialize the HeaderSets to and from Node.js streams.
-
 The synchronization operation builds on top of this two operations and is able to find unsynced HeaderSets in the source Recorder. Thoses unsynced HeaderSets are then played back from the source Recorder and recorded in the destination Recorder.
 
 The resol-vbus module includes the following sub-classes of the abstract Recorder class:

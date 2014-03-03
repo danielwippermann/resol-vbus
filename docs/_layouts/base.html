@@ -26,14 +26,15 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">resol-vbus</a>
+          <a class="navbar-brand" href="index.html">resol-vbus</a>
         </div>
         <div class="navbar-collapse collapse navbar-inverse-collapse">
           <ul class="nav navbar-nav">
             <li{% if page.resol_vbus == 'about' %} class="active"{% endif %}><a href="index.html">About</a></li>
+            <li{% if page.resol_vbus == 'tutorials' %} class="active"{% endif %}><a href="tutorials.html">Tutorials</a></li>
             <li{% if page.resol_vbus == 'docs' %} class="active"{% endif %}><a href="docs.html">Documentation</a></li>
-            <li><a href="examples.html">Examples</a></li>
-            <li><a href="support.html">Support</a></li>
+            <li{% if page.resol_vbus == 'examples' %} class="active"{% endif %}><a href="examples.html">Examples</a></li>
+            <li{% if page.resol_vbus == 'support' %} class="active"{% endif %}><a href="support.html">Support</a></li>
   <!--
             <li class="active"><a href="#">Active</a></li>
             <li><a href="#">Link</a></li>
