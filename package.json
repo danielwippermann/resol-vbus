@@ -1,6 +1,6 @@
 {
   "name": "resol-vbus",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "A JavaScript library for processing RESOL VBus data",
   "main": "src/index.js",
   "scripts": {
@@ -10,6 +10,7 @@
   },
   "homepage": "https://github.com/danielwippermann/resol-vbus",
   "repository": "https://github.com/danielwippermann/resol-vbus.git",
+  "bugs": "https://github.com/danielwippermann/resol-vbus/issues",
   "author": "Daniel Wippermann <Daniel.Wippermann@gmail.com>",
   "license": "MIT",
   "devDependencies": {
