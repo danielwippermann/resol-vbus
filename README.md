@@ -96,6 +96,13 @@ into your shell:
 
 ## Changelog
 
+### Version 0.8.0 (2014-03-03)
+
+- Extended Converter and VBusRecordingConverter to support object mode in stream (for performance reason)
+- Fixed several bugs
+- Increased test coverage and completed documentation.
+
+
 ### Version 0.7.0 (2014-02-17)
 
 First release to the NPM registry.
