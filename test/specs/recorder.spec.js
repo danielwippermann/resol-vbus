@@ -136,7 +136,7 @@ describe('Recorder', function() {
                 hsc.on('headerSet', onHeaderSet);
 
                 converter.convertHeaderSet(demoHeaderSet);
-                converter.end();
+                converter.finish();
             });
 
             recorder._endRecording = sinon.spy(function(hsc) {
