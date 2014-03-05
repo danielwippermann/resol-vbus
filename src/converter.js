@@ -68,6 +68,14 @@ var Converter = extend(Duplex, /** @lends Converter# */ {
     },
 
     /**
+     * This method signals that no additional VBus Header or HeaderSet models will
+     * be converted.
+     */
+    finish: function() {
+        this.push(null);
+    },
+
+    /**
      * This method queues a VBus Header model (Packet, Datagram or Telegram) for conversion.
      * Not all Converter sub-classes support this method.
      *
