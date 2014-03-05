@@ -11,6 +11,8 @@ var Q = require('q');
 
 
 var extend = require('./extend');
+var Header = require('./header');
+var HeaderSet = require('./header-set');
 var HeaderSetConsolidator = require('./header-set-consolidator');
 var utils = require('./utils');
 var VBusRecordingConverter = require('./vbus-recording-converter');
@@ -164,6 +166,102 @@ var Recorder = extend(EventEmitter, /** @lends Recorder# */ {
     },
 
     _playback: function(headerSetConsolidator, options) {
+        throw new Error('Must be implemented by sub-class');
+    },
+
+    /**
+     * Records a given range of HeaderSet instances. The stream must be in object mode.
+     *
+     * @param {Readable} stream A readable stream in object mode.
+     * @param {object} options Options to select and filter HeaderSet instances.
+     * @param {Date} [options.minTimestamp] See {@link Recorder#minTimestamp}
+     * @param {Date} [options.maxTimestamp] See {@link Recorder#maxTimestamp}
+     * @param {number} [options.interval] See {@link Recorder#interval}
+     * @return {Promise} A Promise that resolves to the recorded ranges.
+     */
+    record: function(stream, options) {
+        var _this = this;
+
+        options = _.defaults({}, options, this._getOptions(), {
+        });
+
+        if (!stream.objectMode) {
+            throw new Error('Stream must be in object mode');
+        }
+
+        var headerSetConsolidator = new HeaderSetConsolidator({
+            minTimestamp: options.minTimestamp,
+            maxTimestamp: options.maxTimestamp,
+            interval: options.interval,
+        });
+
+        var recordedRanges = [];
+
+        headerSetConsolidator.on('headerSet', function(headerSet) {
+            var timestamp = headerSet.timestamp;
+
+            var headerSetRange = {
+                minTimestamp: timestamp,
+                maxTimestamp: timestamp,
+            };
+
+            recordedRanges = Recorder.performRangeSetOperation(recordedRanges, [ headerSetRange ], options.interval, 'union');
+        });
+
+        var recordingJob = _.defaults({}, options, {
+            recordedRanges: recordedRanges,
+        });
+
+        return Q.fcall(function() {
+            return _this._startRecording(headerSetConsolidator, recordingJob);
+        }).then(function() {
+            return utils.promise(function(resolve, reject) {
+                var onData, onEnd, onError;
+
+                var cleanup = function() {
+                    stream.removeListener('data', onData);
+                    stream.removeListener('end', onEnd);
+                    stream.removeListener('error', onError);
+                };
+
+                onData = function(obj) {
+                    if (obj instanceof Header) {
+                        headerSetConsolidator.addHeader(obj);
+                    } else if (obj instanceof HeaderSet) {
+                        headerSetConsolidator.processHeaderSet(obj);
+                    } else {
+                        throw new Error('Unsupported object received by Recorder');
+                    }
+                };
+
+                onEnd = function() {
+                    cleanup();
+
+                    resolve();
+                };
+
+                onError = function(err) {
+                    cleanup();
+
+                    reject(err);
+                };
+
+                stream.on('data', onData);
+                stream.on('end', onEnd);
+                stream.on('error', onError);
+            });
+        }).then(function() {
+            return _this._endRecording(headerSetConsolidator, recordingJob);
+        }).then(function() {
+            return recordedRanges;
+        });
+    },
+
+    _startRecording: function(headerSetConsolidator, recordingJob) {
+        throw new Error('Must be implemented by sub-class');
+    },
+
+    _endRecording: function(headerSetConsolidator, recordingJob) {
         throw new Error('Must be implemented by sub-class');
     },
 

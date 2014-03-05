@@ -106,6 +106,63 @@ describe('Recorder', function() {
 
     });
 
+    describe('#record', function() {
+
+        it('should be a method', function() {
+            expect(Recorder.prototype.record).a('function');
+        });
+
+        promiseIt('should copy defaults from the recorder', function() {
+            var options = {
+                id: 'myId',
+                minTimestamp: new Date(2013, 0),
+                maxTimestamp: new Date(2014, 0),
+                interval: 600,
+            };
+
+            var converter = new vbus.Converter({
+                objectMode: true,
+            });
+
+            var recorder = new Recorder(options);
+
+            var demoHeaderSet = new vbus.HeaderSet({
+                timestamp: new Date(2013, 5)
+            });
+
+            var onHeaderSet = sinon.spy();
+
+            recorder._startRecording = sinon.spy(function(hsc) {
+                hsc.on('headerSet', onHeaderSet);
+
+                converter.convertHeaderSet(demoHeaderSet);
+                converter.end();
+            });
+
+            recorder._endRecording = sinon.spy(function(hsc) {
+                hsc.removeListener('headerSet', onHeaderSet);
+            });
+
+            return recorder.record(converter, options).then(function() {
+                expect(recorder._startRecording.callCount).equal(1);
+                expect(recorder._endRecording.callCount).equal(1);
+
+                var hsc = recorder._startRecording.firstCall.args [0];
+                var recordingJob = recorder._startRecording.firstCall.args [1];
+
+                expect(recorder._endRecording.firstCall.args [0]).equal(hsc);
+                expect(recorder._endRecording.firstCall.args [1]).equal(recordingJob);
+
+                expect(hsc).to.be.an.instanceOf(vbus.HeaderSetConsolidator);
+                expect(recordingJob.id).to.eql(options.id);
+                expect(recordingJob.minTimestamp).to.eql(options.minTimestamp);
+                expect(recordingJob.maxTimestamp).to.eql(options.maxTimestamp);
+                expect(recordingJob.interval).to.eql(options.interval);
+            });
+        });
+
+    });
+
     describe('#synchronizeTo', function() {
 
         it('should be a method', function() {
