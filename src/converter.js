@@ -15,6 +15,7 @@ var _ = require('lodash');
 
 var Header = require('./header');
 var HeaderSet = require('./header-set');
+var utils = require('./utils');
 
 var extend = require('./extend');
 
@@ -34,6 +35,8 @@ var Converter = extend(Duplex, /** @lends Converter# */ {
      */
     objectMode: false,
 
+    finishedPromise: null,
+
     /**
      * Creates a new Converter instance and optionally initializes its members with the given values.
      *
@@ -50,6 +53,8 @@ var Converter = extend(Duplex, /** @lends Converter# */ {
      * character-separated text representations.
      */
     constructor: function(options) {
+        var _this = this;
+
         options = _.defaults({}, options);
 
         Duplex.call(this, {
@@ -57,6 +62,12 @@ var Converter = extend(Duplex, /** @lends Converter# */ {
         });
 
         _.extend(this, _.pick(options, optionKeys));
+
+        this.finishedPromise = utils.promise(function(resolve) {
+            _this.once('end', function() {
+                resolve();
+            });
+        });
     },
 
     /**
@@ -69,10 +80,15 @@ var Converter = extend(Duplex, /** @lends Converter# */ {
 
     /**
      * This method signals that no additional VBus Header or HeaderSet models will
-     * be converted.
+     * be converted. It returns a promise that resolves when all data has been
+     * consumed.
+     *
+     * @return {Promise} A Promise that resolves when all data has been consumed.
      */
     finish: function() {
         this.push(null);
+
+        return this.finishedPromise;
     },
 
     /**
