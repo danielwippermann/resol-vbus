@@ -139,10 +139,15 @@ var FileSystemRecorder = Recorder.extend({
         });
     },
 
-    _recordSyncJob: function(recorder, syncJob) {
+    _startRecordingInternal: function(options) {
         var _this = this;
 
-        var infoList = _this._getOwnSyncState(syncJob, syncJob);
+        options = _.defaults({}, options, this._getOptions(), {
+            interval: this.interval,
+            syncState: [],
+        });
+
+        var syncState = options.syncState;
 
         var lastTimestamp = null;
 
@@ -152,11 +157,7 @@ var FileSystemRecorder = Recorder.extend({
 
         var outConverter = null;
 
-        var inConverter = new VBusRecordingConverter({
-            objectMode: true,
-        });
-
-        inConverter.on('headerSet', function(headerSet) {
+        var onHeaderSet = function(headerSet) {
             var timestamp = headerSet.timestamp;
 
             if (lastTimestamp && (timestamp < lastTimestamp)) {
@@ -179,18 +180,18 @@ var FileSystemRecorder = Recorder.extend({
             // can we use the current range (and file)?
             var combinedRange, useCurrentInfo = false, previousInfo = currentInfo;
             if (currentInfo && (currentInfo.datecode === datecode)) {
-                combinedRange = Recorder.performRangeSetOperation(currentInfo.ranges, thisRanges, syncJob.interval, 'union');
+                combinedRange = Recorder.performRangeSetOperation(currentInfo.ranges, thisRanges, options.interval, 'union');
 
                 useCurrentInfo = ((combinedRange.length === 1) && (combinedRange [0].maxTimestamp.getTime() === timestamp.getTime()));
             }
 
             if (!useCurrentInfo) {
                 // find other range, prefer existing ranges before starting a new one
-                for (var i = 0; i < infoList.length; i++) {
-                    var info = infoList [i];
+                for (var i = 0; i < syncState.length; i++) {
+                    var info = syncState [i];
 
                     if (info && (info.datecode === datecode)) {
-                        combinedRange = Recorder.performRangeSetOperation(info.ranges, thisRanges, syncJob.interval, 'union');
+                        combinedRange = Recorder.performRangeSetOperation(info.ranges, thisRanges, options.interval, 'union');
 
                         useCurrentInfo = ((combinedRange.length === 1) && (combinedRange [0].maxTimestamp.getTime() === timestamp.getTime()));
 
@@ -208,7 +209,7 @@ var FileSystemRecorder = Recorder.extend({
             if (useCurrentInfo) {
                 currentInfo.ranges = combinedRange;
             } else {
-                var filename = syncJob.interval + '_' + timestampText + '.vbus';
+                var filename = options.interval + '_' + timestampText + '.vbus';
 
                 currentInfo = {
                     ranges: thisRanges,
@@ -216,7 +217,7 @@ var FileSystemRecorder = Recorder.extend({
                     datecode: datecode,
                 };
 
-                infoList.push(currentInfo);
+                syncState.push(currentInfo);
 
                 // console.log('Starting new info ', currentInfo);
             }
@@ -242,28 +243,118 @@ var FileSystemRecorder = Recorder.extend({
             // console.log(timestamp.toString());
 
             outConverter.convertHeaderSet(headerSet);
+        };
+
+        var finish = function() {
+            return utils.promise(function(resolve) {
+                if (outConverter) {
+                    outConverter.end(function() {
+                        resolve();
+                    });
+                } else {
+                    resolve();
+                }
+            });
+        };
+
+        var recording = {
+            onHeaderSet: onHeaderSet,
+            finish: finish,
+        };
+
+        return recording;
+    },
+
+    _startRecording: function(headerSetConsolidator, recordingJob) {
+        return Q.fcall(function() {
+            var options = {
+                interval: recordingJob.interval,
+            };
+
+            var recording = this._startRecordingInternal(options);
+
+            headerSetConsolidator.on('headerSet', recording.onHeaderSet);
+
+            return recording;
         });
+    },
+
+    _endRecording: function(headerSetConsolidator, recordingJob, recording) {
+        return Q.fcall(function() {
+            return recording.finish();
+        }).finally(function() {
+            return headerSetConsolidator.removeListener('headerSet', recording.onHeaderSet);
+        });
+    },
+
+    _recordSyncJob: function(recorder, syncJob) {
+        var _this = this;
+
+        var syncState = _this._getOwnSyncState(syncJob, syncJob);
+
+        var recording = this._startRecordingInternal({
+            interval: syncJob.interval,
+            syncState: syncState,
+        });
+
+        var inConverter = new VBusRecordingConverter({
+            objectMode: true,
+        });
+
+        inConverter.on('headerSet', recording.onHeaderSet);
 
         return Q.fcall(function() {
             return recorder._playbackSyncJob(inConverter, syncJob);
         }).then(function(playedBackRanges) {
-            return utils.promise(function(resolve) {
-                inConverter.end(function() {
-                    if (outConverter) {
-                        outConverter.end(function() {
-                            resolve();
-                        });
-                    } else {
+            return Q.fcall(function() {
+                return utils.promise(function(resolve) {
+                    inConverter.end(function() {
                         resolve();
-                    }
+                    });
                 });
+            }).then(function() {
+                return recording.finish();
             }).then(function() {
                 return _this._setCurrentSyncState(syncJob.syncState, syncJob);
             }).then(function() {
                 return playedBackRanges;
+            }).finally(function() {
+                inConverter.removeListener('headerSet', recording.onHeaderSet);
             });
         });
     },
+
+    // _playbackSyncJob: function(stream, syncJob) {
+    //     var _this = this;
+
+    //     return Q.fcall(function() {
+    //         return _this._getCurrentSyncState(syncJob);
+    //     }).then(function(syncState) {
+    //         var infoList = _this._getOwnSyncState(syncState, syncJob);
+
+    //         return _.reduce(infoList, function(memo, info) {
+    //             var commonRanges = Recorder.performRangeSetOperation(requestedRanges, info.ranges, syncJob.interval, 'intersection');
+
+    //             if (commonRanges.length > 0) {
+    //                 memo.push(info.filename);
+    //             }
+
+    //             return memo;
+    //         }, []);
+    //     }).then(function(filenames) {
+    //         var promise = Q();
+
+    //         _.forEach(filenames, function(filename) {
+    //             promise = promise.then(function() {
+    //                 return _this._readToStream(filename, converter);
+    //             });
+    //         });
+
+    //         return promise;
+    //     }).then(function() {
+    //         converter.end();
+    //     });
+    // },
 
     getHash: function(filename) {
         var url = this.urlPrefix + filename;
