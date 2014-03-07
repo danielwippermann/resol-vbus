@@ -57,14 +57,18 @@ var VBusRecordingConverter = Converter.extend(/** @lends VBusRecordingConverter#
         _.extend(this, _.pick(options, optionKeys));
 
         this.on('finish', function() {
-            _this._emitHeaderSet();
-
-            _this.push(null);
+            _this.finish();
         });
     },
 
     reset: function() {
         this.rxBuffer = null;
+    },
+
+    finish: function() {
+        this._emitHeaderSet();
+
+        return Converter.prototype.finish.apply(this, arguments);
     },
 
     convertHeader: function(header) {
