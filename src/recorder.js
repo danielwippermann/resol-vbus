@@ -214,44 +214,46 @@ var Recorder = extend(EventEmitter, /** @lends Recorder# */ {
 
         return Q.fcall(function() {
             return _this._startRecording(headerSetConsolidator, recordingJob);
-        }).then(function() {
-            return utils.promise(function(resolve, reject) {
-                var onData, onEnd, onError;
+        }).then(function(recording) {
+            return Q.fcall(function() {
+                return utils.promise(function(resolve, reject) {
+                    var onData, onEnd, onError;
 
-                var cleanup = function() {
-                    stream.removeListener('data', onData);
-                    stream.removeListener('end', onEnd);
-                    stream.removeListener('error', onError);
-                };
+                    var cleanup = function() {
+                        stream.removeListener('data', onData);
+                        stream.removeListener('end', onEnd);
+                        stream.removeListener('error', onError);
+                    };
 
-                onData = function(obj) {
-                    if (obj instanceof Header) {
-                        headerSetConsolidator.addHeader(obj);
-                    } else if (obj instanceof HeaderSet) {
-                        headerSetConsolidator.processHeaderSet(obj);
-                    } else {
-                        throw new Error('Unsupported object received by Recorder');
-                    }
-                };
+                    onData = function(obj) {
+                        if (obj instanceof Header) {
+                            headerSetConsolidator.addHeader(obj);
+                        } else if (obj instanceof HeaderSet) {
+                            headerSetConsolidator.processHeaderSet(obj);
+                        } else {
+                            throw new Error('Unsupported object received by Recorder');
+                        }
+                    };
 
-                onEnd = function() {
-                    cleanup();
+                    onEnd = function() {
+                        cleanup();
 
-                    resolve();
-                };
+                        resolve();
+                    };
 
-                onError = function(err) {
-                    cleanup();
+                    onError = function(err) {
+                        cleanup();
 
-                    reject(err);
-                };
+                        reject(err);
+                    };
 
-                stream.on('data', onData);
-                stream.on('end', onEnd);
-                stream.on('error', onError);
+                    stream.on('data', onData);
+                    stream.on('end', onEnd);
+                    stream.on('error', onError);
+                });
+            }).finally(function() {
+                return _this._endRecording(headerSetConsolidator, recordingJob, recording);
             });
-        }).then(function() {
-            return _this._endRecording(headerSetConsolidator, recordingJob);
         }).then(function() {
             return recordedRanges;
         });
@@ -261,7 +263,7 @@ var Recorder = extend(EventEmitter, /** @lends Recorder# */ {
         throw new Error('Must be implemented by sub-class');
     },
 
-    _endRecording: function(headerSetConsolidator, recordingJob) {
+    _endRecording: function(headerSetConsolidator, recordingJob, recording) {
         throw new Error('Must be implemented by sub-class');
     },
 
