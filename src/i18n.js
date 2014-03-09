@@ -3,7 +3,6 @@
 
 
 
-var i18next = require('i18next');
 var _ = require('lodash');
 var moment = require('moment-timezone');
 var numeral = require('numeral');
@@ -16,12 +15,10 @@ var extend = require('./extend');
 
 var knownLanguages = {
     'de': {
-        i18next: 'de',
         moment: 'de',
         numeral: 'de',
     },
     'en': {
-        i18next: 'en',
         moment: 'en',
         numeral: 'en',
     },
@@ -48,8 +45,6 @@ var I18N = extend(null, /** @lends I18N# */ {
 
     timezone: null,
 
-    i18nextT: null,
-
     /**
      * Creates a new I18N instance for the given language code.
      *
@@ -65,10 +60,6 @@ var I18N = extend(null, /** @lends I18N# */ {
 
         this.language = language;
         this.languageData = knownLanguages [language];
-
-        i18next.init({ lng: this.languageData.i18next, resStore: resources }, function(t) {
-            _this.i18nextT = t;
-        });
     },
 
     /**
@@ -133,7 +124,26 @@ var I18N = extend(null, /** @lends I18N# */ {
      * console.log(i18n.t('specification.unknownDevice', 0x7e11));
      */
     t: function(key) {
-        var text = this.i18nextT(key);
+        var parts = key.split('.');
+
+        var languages = [ this.language, 'dev' ];
+
+        var value;
+        for (var i = 0; i < languages.length; i++) {
+            value = resources [languages [i]];
+            value = value && value.translation;
+
+            var j = 0;
+            while (value && (j < parts.length)) {
+                value = value [parts [j]];
+                j++;
+            }
+
+            if (value) {
+                break;
+            }
+        }
+        var text = value ? value : key;
         if (arguments.length > 1) {
             var args = _.toArray(arguments).slice(1);
             text = this.vsprintf(text, args);
