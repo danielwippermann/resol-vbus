@@ -191,10 +191,17 @@ var DLxRecorder = Recorder.extend( /** @lends DLxRecorder# */ {
             promise = promise.then(function() {
                 var handledRanges = playedBackRanges;
 
-                if (availableRanges.length > 0) {
+                if (handledRanges.length > 0) {
+                    var maxTimestamp;
+                    if (syncJob.markGapsAsUnsynced) {
+                        maxTimestamp = handledRanges [0].minTimestamp;
+                    } else {
+                        maxTimestamp = handledRanges [handledRanges.length - 1].minTimestamp;
+                    }
+
                     var notAvailableRanges = [{
                         minTimestamp: new Date(Date.UTC(2001, 0)),
-                        maxTimestamp: availableRanges [0].minTimestamp,
+                        maxTimestamp: maxTimestamp,
                     }];
 
                     handledRanges = Recorder.performRangeSetOperation(handledRanges, notAvailableRanges, syncJob.interval, 'union');
