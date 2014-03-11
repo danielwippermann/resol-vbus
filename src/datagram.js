@@ -19,14 +19,42 @@ var optionKeys = [
 
 
 
-var Datagram = Header.extend({
+var Datagram = Header.extend(/** @lends Datagram# */ {
 
+    /**
+     * The command field of this VBus datagram. See the VBus Protocol Specification for details.
+     * @type {number}
+     */
     command: 0,
 
+    /**
+     * The value ID field of this VBus datagram.
+     * @type {number}
+     */
     valueId: 0,
 
+    /**
+     * The value field of this VBus datagram.
+     * @type {number}
+     */
     value: 0,
 
+    /**
+     * Creates a new Datagram instance and optionally initializes its members with the given values.
+     *
+     * @constructs
+     * @augments Header
+     * @param {object} options Initialization values for this instance's members
+     * @param {number} options.command {@link Datagram#command}
+     * @param {number} options.valueId {@link Datagram#valueId}
+     * @param {Buffer} options.value {@link Datagram#value}
+     * @see Header#constructor
+     *
+     * @classdesc
+     * The Datagram sub-class provides access to all properties and methods applicable for VBus version 2 datagrams.
+     * In addition to the packet header it may contain a command, a value ID and a value.
+     * The value ID is a device-specific reference to one of the values presented in the device's menu interface.
+     */
     constructor: function(options) {
         Header.call(this, options);
 
