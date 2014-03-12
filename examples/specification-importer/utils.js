@@ -12,6 +12,7 @@ var unitCodesByUnitFamily = {
     'Pressure': [ 'Bars' ],
     'Temperature': [ 'DegreesCelsius', 'DegreesFahrenheit' ],
     'Time': [ 'Seconds', 'Minutes', 'Hours', 'Days' ],
+    'Volume': [ 'Liters', 'CubicMeters', 'Gallons' ],
     'VolumeFlow': [ 'LitersPerMinute', 'LitersPerHour', 'CubicMetersPerHour', 'GallonsPerMinute', 'GallonsPerHour' ],
 };
 
@@ -26,6 +27,7 @@ var unitsByUnitCode = {
     'DegreesCelsius': [ ' °C' ],
     'DegreesFahrenheit': [ ' °F' ],
     'DegreesKelvin': [ ' K' ],
+    'Gallons': [ ' gal' ],
     'GallonsPerHour': [ ' gal/h' ],
     'GallonsPerMinute': [ ' gal/min' ],
     'GramsCO2Gas': [ ' g CO₂ (Gas)' ],
