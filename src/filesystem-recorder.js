@@ -272,7 +272,11 @@ var FileSystemRecorder = Recorder.extend({
     },
 
     _startRecording: function(headerSetConsolidator, recordingJob) {
+        var _this = this;
+
         return Q.fcall(function() {
+            return _this._makeDirectories();
+        }).then(function() {
             var options = {
                 interval: recordingJob.interval,
             };
@@ -310,6 +314,8 @@ var FileSystemRecorder = Recorder.extend({
         inConverter.on('headerSet', recording.onHeaderSet);
 
         return Q.fcall(function() {
+            return _this._makeDirectories();
+        }).then(function() {
             return recorder._playbackSyncJob(inConverter, syncJob);
         }).then(function(playedBackRanges) {
             return Q.fcall(function() {
@@ -389,6 +395,36 @@ var FileSystemRecorder = Recorder.extend({
             readStream.on('end', onEnd);
             readStream.on('error', onError);
         }, this);
+    },
+
+    _makeDirectory: function(directory) {
+        return utils.promise(function(resolve, reject) {
+            fs.exists(directory, function(exists) {
+                if (exists) {
+                    resolve();
+                } else {
+                    fs.mkdir(directory, function(err) {
+                        if (err) {
+                            reject(err);
+                        } else {
+                            resolve();
+                        }
+                    });
+                }
+            });
+        });
+    },
+
+    _makeDirectories: function() {
+        var _this = this;
+
+        return Q.fcall(function() {
+            return _this._makeDirectory(_this.path);
+        }).then(function() {
+            var directory = _this._getAbsoluteFilename();
+
+            return _this._makeDirectory(directory);
+        });
     },
 
 });
