@@ -44,7 +44,13 @@ var FileSystemRecorder = Recorder.extend({
     },
 
     _getAbsoluteFilename: function(filename) {
-        return path.resolve(this.path, this.getHash(this.id), filename);
+        var result;
+        if (filename !== undefined) {
+            result = path.resolve(this.path, this.getHash(this.id), filename);
+        } else {
+            result = path.resolve(this.path, this.getHash(this.id));
+        }
+        return result;
     },
 
     _getCurrentSyncStateFilename: function(options) {
