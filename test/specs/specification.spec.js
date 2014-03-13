@@ -3,6 +3,9 @@
 
 
 
+var _ = require('lodash');
+
+
 var Packet = require('./resol-vbus').Packet;
 var Specification = require('./resol-vbus').Specification;
 
@@ -569,6 +572,309 @@ describe('Specification', function() {
 
             expect(rawValue).to.equal(null);
         });
+
+    });
+
+    describe('#convertRawValue', function() {
+
+        var specData = Specification.loadSpecificationData();
+
+        var unitsByFamily = {};
+
+        var knownFamilyUnitCodes = [];
+
+        _.forEach(specData.units, function(unit) {
+            var uf = unit.unitFamily;
+            if (uf) {
+                if (!_.has(unitsByFamily, uf)) {
+                    unitsByFamily [uf] = [];
+                }
+
+                unitsByFamily [uf].push(unit);
+                knownFamilyUnitCodes.push(unit.unitCode);
+            }
+        });
+
+        var content = [];
+        _.forEach(_.keys(unitsByFamily).sort(), function(uf) {
+            var units = unitsByFamily [uf];
+
+            content.push('describe(\'Unit Family ' + JSON.stringify(uf) + '\', function() {');
+            content.push('');
+            // content.push('var units = unitsByFamily [\'' + uf + '\'];');
+            // content.push('');
+
+            _.forEach(units, function(sourceUnit, index) {
+                var targetUnit = units [index + 1] || units [0];
+
+                content.push('it(\'should convert from ' + JSON.stringify(sourceUnit.unitCode) + ' to ' + JSON.stringify(targetUnit.unitCode) + '\', function() {');
+                content.push('expectConversion(0, \'' + sourceUnit.unitCode + '\', \'' + targetUnit.unitCode + '\').closeTo(undefined, delta);');
+                content.push('expectConversion(1000000, \'' + sourceUnit.unitCode + '\', \'' + targetUnit.unitCode + '\').closeTo(undefined, delta);');
+                content.push('});');
+                content.push('');
+            });
+
+            content.push('});');
+            content.push('');
+        });
+
+        // console.log(content.join('\n'));
+
+        it('should be a method', function() {
+            expect(Specification.prototype).property('convertRawValue').a('function');
+        });
+
+        var checkedSourceUnitCodes = [];
+        var checkedTargetUnitCodes = [];
+
+        var expectConversion = function(rawValue, sourceUnitCode, targetUnitCode) {
+            checkedSourceUnitCodes.push(sourceUnitCode);
+            checkedTargetUnitCodes.push(targetUnitCode);
+
+            var spec = new Specification();
+
+            var sourceUnit = specData.units [sourceUnitCode];
+            var targetUnit = specData.units [targetUnitCode];
+
+            expect(sourceUnit).a('object').property('unitCode').equal(sourceUnitCode);
+            expect(targetUnit).a('object').property('unitCode').equal(targetUnitCode);
+
+            var error, result;
+            try {
+                result = spec.convertRawValue(rawValue, sourceUnit, targetUnit);
+            } catch (ex) {
+                error = ex;
+            }
+
+            expect(error).equal(undefined);
+            expect(result).a('object').property('unit').equal(targetUnit);
+
+            return expect(result).property('rawValue').a('number');
+        };
+
+        var delta = 0.000000001;
+
+        describe('Unit Family "Energy"', function() {
+
+            it('should convert from "Btus" to "GramsCO2Gas"', function() {
+                expectConversion(0, 'Btus', 'GramsCO2Gas').closeTo(0, delta);
+                expectConversion(1000000, 'Btus', 'GramsCO2Gas').closeTo(74323.12035187425, delta);
+            });
+
+            it('should convert from "GramsCO2Gas" to "GramsCO2Oil"', function() {
+                expectConversion(0, 'GramsCO2Gas', 'GramsCO2Oil').closeTo(0, delta);
+                expectConversion(10, 'GramsCO2Gas', 'GramsCO2Oil').closeTo(22.397476, 0.0000005);
+            });
+
+            it('should convert from "GramsCO2Oil" to "KiloBtus"', function() {
+                expectConversion(0, 'GramsCO2Oil', 'KiloBtus').closeTo(0, delta);
+                expectConversion(1000000, 'GramsCO2Oil', 'KiloBtus').closeTo(6007.267605633803, delta);
+            });
+
+            it('should convert from "KiloBtus" to "KilogramsCO2Gas"', function() {
+                expectConversion(0, 'KiloBtus', 'KilogramsCO2Gas').closeTo(0, delta);
+                expectConversion(1000000, 'KiloBtus', 'KilogramsCO2Gas').closeTo(74323.12035187425, delta);
+            });
+
+            it('should convert from "KilogramsCO2Gas" to "KilogramsCO2Oil"', function() {
+                expectConversion(0, 'KilogramsCO2Gas', 'KilogramsCO2Oil').closeTo(0, delta);
+                expectConversion(10, 'KilogramsCO2Gas', 'KilogramsCO2Oil').closeTo(22.397476, 0.0000005);
+            });
+
+            it('should convert from "KilogramsCO2Oil" to "KilowattHours"', function() {
+                expectConversion(0, 'KilogramsCO2Oil', 'KilowattHours').closeTo(0, delta);
+                expectConversion(1000000, 'KilogramsCO2Oil', 'KilowattHours').closeTo(1760563.3802816903, delta);
+            });
+
+            it('should convert from "KilowattHours" to "MegaBtus"', function() {
+                expectConversion(0, 'KilowattHours', 'MegaBtus').closeTo(0, delta);
+                expectConversion(1000000, 'KilowattHours', 'MegaBtus').closeTo(3412.128, delta);
+            });
+
+            it('should convert from "MegaBtus" to "MegawattHours"', function() {
+                expectConversion(0, 'MegaBtus', 'MegawattHours').closeTo(0, delta);
+                expectConversion(1, 'MegaBtus', 'MegawattHours').closeTo(0.293072241, delta);
+            });
+
+            it('should convert from "MegawattHours" to "TonsCO2Gas"', function() {
+                expectConversion(0, 'MegawattHours', 'TonsCO2Gas').closeTo(0, delta);
+                expectConversion(1000000, 'MegawattHours', 'TonsCO2Gas').closeTo(253600, delta);
+            });
+
+            it('should convert from "TonsCO2Gas" to "TonsCO2Oil"', function() {
+                expectConversion(0, 'TonsCO2Gas', 'TonsCO2Oil').closeTo(0, delta);
+                expectConversion(10, 'TonsCO2Gas', 'TonsCO2Oil').closeTo(22.397476, 0.0000005);
+            });
+
+            it('should convert from "TonsCO2Oil" to "WattHours"', function() {
+                expectConversion(0, 'TonsCO2Oil', 'WattHours').closeTo(0, delta);
+                expectConversion(10, 'TonsCO2Oil', 'WattHours').closeTo(17605633.8, 0.05);
+            });
+
+            it('should convert from "WattHours" to "Btus"', function() {
+                expectConversion(0, 'WattHours', 'Btus').closeTo(0, delta);
+                expectConversion(1000000, 'WattHours', 'Btus').closeTo(3412128, delta);
+            });
+
+        });
+
+        describe('Unit Family "Pressure"', function() {
+
+            it('should convert from "Bars" to "Bars"', function() {
+                expectConversion(0, 'Bars', 'Bars').closeTo(0, delta);
+                expectConversion(10, 'Bars', 'Bars').closeTo(10, delta);
+            });
+
+        });
+
+        describe('Unit Family "Temperature"', function() {
+
+            it('should convert from "DegreesCelsius" to "DegreesFahrenheit"', function() {
+                expectConversion(0, 'DegreesCelsius', 'DegreesFahrenheit').closeTo(32, delta);
+                expectConversion(100, 'DegreesCelsius', 'DegreesFahrenheit').closeTo(212, delta);
+            });
+
+            it('should convert from "DegreesFahrenheit" to "DegreesCelsius"', function() {
+                expectConversion(32, 'DegreesFahrenheit', 'DegreesCelsius').closeTo(0, delta);
+                expectConversion(212, 'DegreesFahrenheit', 'DegreesCelsius').closeTo(100, delta);
+            });
+
+        });
+
+        describe('Unit Family "Time"', function() {
+
+            it('should convert from "Days" to "Hours"', function() {
+                expectConversion(0, 'Days', 'Hours').closeTo(0, delta);
+                expectConversion(10, 'Days', 'Hours').closeTo(240, delta);
+            });
+
+            it('should convert from "Hours" to "Minutes"', function() {
+                expectConversion(0, 'Hours', 'Minutes').closeTo(0, delta);
+                expectConversion(10, 'Hours', 'Minutes').closeTo(600, delta);
+            });
+
+            it('should convert from "Minutes" to "Seconds"', function() {
+                expectConversion(0, 'Minutes', 'Seconds').closeTo(0, delta);
+                expectConversion(10, 'Minutes', 'Seconds').closeTo(600, delta);
+            });
+
+            it('should convert from "Seconds" to "Days"', function() {
+                expectConversion(0, 'Seconds', 'Days').closeTo(0, delta);
+                expectConversion(86400, 'Seconds', 'Days').closeTo(1, delta);
+            });
+
+        });
+
+        describe('Unit Family "Volume"', function() {
+
+            it('should convert from "CubicMeters" to "Gallons"', function() {
+                expectConversion(0, 'CubicMeters', 'Gallons').closeTo(0, delta);
+                expectConversion(10, 'CubicMeters', 'Gallons').closeTo(2641.72, 0.005);
+            });
+
+            it('should convert from "Gallons" to "Liters"', function() {
+                expectConversion(0, 'Gallons', 'Liters').closeTo(0, delta);
+                expectConversion(10, 'Gallons', 'Liters').closeTo(37.8541, 0.00005);
+            });
+
+            it('should convert from "Liters" to "CubicMeters"', function() {
+                expectConversion(0, 'Liters', 'CubicMeters').closeTo(0, delta);
+                expectConversion(10000, 'Liters', 'CubicMeters').closeTo(10, delta);
+            });
+
+        });
+
+        describe('Unit Family "VolumeFlow"', function() {
+
+            it('should convert from "CubicMetersPerHour" to "GallonsPerHour"', function() {
+                expectConversion(0, 'CubicMetersPerHour', 'GallonsPerHour').closeTo(0, delta);
+                expectConversion(10, 'CubicMetersPerHour', 'GallonsPerHour').closeTo(2641.72, 0.005);
+            });
+
+            it('should convert from "GallonsPerHour" to "GallonsPerMinute"', function() {
+                expectConversion(0, 'GallonsPerHour', 'GallonsPerMinute').closeTo(0, delta);
+                expectConversion(600, 'GallonsPerHour', 'GallonsPerMinute').closeTo(10, delta);
+            });
+
+            it('should convert from "GallonsPerMinute" to "LitersPerHour"', function() {
+                expectConversion(0, 'GallonsPerMinute', 'LitersPerHour').closeTo(0, delta);
+                expectConversion(10, 'GallonsPerMinute', 'LitersPerHour').closeTo(2271.2475, 0.00005);
+            });
+
+            it('should convert from "LitersPerHour" to "LitersPerMinute"', function() {
+                expectConversion(0, 'LitersPerHour', 'LitersPerMinute').closeTo(0, delta);
+                expectConversion(6000, 'LitersPerHour', 'LitersPerMinute').closeTo(100, delta);
+            });
+
+            it('should convert from "LitersPerMinute" to "CubicMetersPerHour"', function() {
+                expectConversion(0, 'LitersPerMinute', 'CubicMetersPerHour').closeTo(0, delta);
+                expectConversion(1000, 'LitersPerMinute', 'CubicMetersPerHour').closeTo(60, delta);
+            });
+
+        });
+
+        describe('Units', function() {
+
+            it('should have checked all units as source units', function() {
+                expect(_.uniq(checkedSourceUnitCodes).sort()).eql(knownFamilyUnitCodes.sort());
+            });
+
+            it('should have checked all units as target units', function() {
+                expect(_.uniq(checkedTargetUnitCodes).sort()).eql(knownFamilyUnitCodes.sort());
+            });
+
+        });
+
+
+        // _.forEach(_.keys(unitsByFamily).sort(), function(uf) {
+
+        //     describe('Unit Family ' + JSON.stringify(uf) + ' (automated)', function() {
+
+        //         _.forEach(unitsByFamily [uf], function(unit, index) {
+
+        //             it('should support ' + JSON.stringify(unit.unitCode) + ' as source unit', function() {
+        //                 var spec = new Specification();
+
+        //                 var targetUnit = {
+        //                     unitFamily: uf,
+        //                     unitCode: 'UnknownUnitCode',
+        //                 };
+
+        //                 var error, result;
+        //                 try {
+        //                     result = spec.convertRawValue(0, unit, targetUnit);
+        //                 } catch (ex) {
+        //                     error = ex;
+        //                 }
+
+        //                 expect(error).a('object');
+        //                 expect(error).property('message').equal('Unsupported target unit "UnknownUnitCode"');
+        //             });
+
+        //             if (unitsByFamily [uf].length > 1) {
+        //                 it('should support ' + JSON.stringify(unit.unitCode) + ' as target unit', function() {
+        //                     var spec = new Specification();
+
+        //                     var sourceUnit = unitsByFamily [uf] [(index === 0) ? 1 : 0];
+
+        //                     var error, result;
+        //                     try {
+        //                         result = spec.convertRawValue(0, sourceUnit, unit);
+        //                     } catch (ex) {
+        //                         error = ex;
+        //                     }
+
+        //                     expect(error).a('undefined');
+        //                     expect(result).a('object');
+        //                     expect(result.unit).equal(unit);
+        //                 });
+        //             } else {
+        //                 xit('should support ' + JSON.stringify(unit.unitCode) + ' as target unit');
+        //             }
+        //         });
+
+        //     });
+        // });
 
     });
 
