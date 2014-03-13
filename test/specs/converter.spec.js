@@ -53,6 +53,26 @@ describe('Converter', function() {
 
     });
 
+    describe('#finish', function() {
+
+        it('should be a method', function() {
+            expect(Converter.prototype).property('finish').a('function');
+        });
+
+        it('should be fire an end event', function(done) {
+            var converter = new Converter({
+                objectMode: true,
+            });
+
+            converter.once('end', function() {
+                done();
+            });
+
+            converter.finish();
+        });
+
+    });
+
     describe('#convertHeader', function() {
 
         it('should be a method', function() {

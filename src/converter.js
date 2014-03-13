@@ -11,6 +11,7 @@ var Duplex = require('stream').Duplex;
 
 
 var _ = require('lodash');
+var Q = require('q');
 
 
 var Header = require('./header');
@@ -64,7 +65,14 @@ var Converter = extend(Duplex, /** @lends Converter# */ {
         _.extend(this, _.pick(options, optionKeys));
 
         this.finishedPromise = utils.promise(function(resolve) {
+            // we have to add a data event handler to enable getting end event
+            var onData = function() {};
+
+            _this.on('data', onData);
+
             _this.once('end', function() {
+                _this.removeListener('data', onData);
+
                 resolve();
             });
         });
@@ -86,9 +94,13 @@ var Converter = extend(Duplex, /** @lends Converter# */ {
      * @return {Promise} A Promise that resolves when all data has been consumed.
      */
     finish: function() {
-        this.push(null);
+        var _this = this;
 
-        return this.finishedPromise;
+        return Q.fcall(function() {
+            _this.push(null);
+
+            return _this.finishedPromise;
+        });
     },
 
     /**
