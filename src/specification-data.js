@@ -24,7 +24,7 @@ var createVBusSpecificationData = function() {
         CubicMeters: {
             unitId: 'CubicMeters',
             unitCode: 'CubicMeters',
-            unitFamily: null,
+            unitFamily: 'Volume',
             unitText: ' m³',
         },
 
@@ -68,6 +68,13 @@ var createVBusSpecificationData = function() {
             unitCode: 'DegreesKelvin',
             unitFamily: null,
             unitText: ' K',
+        },
+
+        Gallons: {
+            unitId: 'Gallons',
+            unitCode: 'Gallons',
+            unitFamily: 'Volume',
+            unitText: ' gal',
         },
 
         GallonsPerHour: {
@@ -178,7 +185,7 @@ var createVBusSpecificationData = function() {
         Liters: {
             unitId: 'Liters',
             unitCode: 'Liters',
-            unitFamily: null,
+            unitFamily: 'Volume',
             unitText: ' l',
         },
 
