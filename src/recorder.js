@@ -335,6 +335,14 @@ var Recorder = extend(EventEmitter, /** @lends Recorder# */ {
         _.forEach(syncState.rangesByInterval, function(ranges, rangesKey) {
             var interval = rangesKey | 0;
             if ((options.interval % interval) === 0) {
+                ranges = _.map(ranges, function(range) {
+                    console.log(range);
+                    return {
+                        minTimestamp: Recorder.alignTimestampToInterval(range.minTimestamp, interval),
+                        maxTimestamp: Recorder.alignTimestampToInterval(range.maxTimestamp, interval) + interval,
+                    };
+                });
+
                 syncStateDiffs = Recorder.performRangeSetOperation(syncStateDiffs, ranges, interval, 'difference');
             }
         });
