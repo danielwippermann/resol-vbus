@@ -163,6 +163,10 @@ var FileSystemRecorder = Recorder.extend({
 
         var outConverter = null;
 
+        var debugLog = function() {
+            // console.log.apply(console, arguments);
+        };
+
         var onHeaderSet = function(headerSet) {
             var timestamp = headerSet.timestamp;
 
@@ -204,7 +208,7 @@ var FileSystemRecorder = Recorder.extend({
                         if (useCurrentInfo) {
                             currentInfo = info;
 
-                            // console.log('Reusing existing info ', info);
+                            debugLog('Reusing existing info ', info);
 
                             break;
                         }
@@ -225,7 +229,7 @@ var FileSystemRecorder = Recorder.extend({
 
                 syncState.push(currentInfo);
 
-                // console.log('Starting new info ', currentInfo);
+                debugLog('Starting new info ', currentInfo);
             }
 
             if (currentInfo !== previousInfo) {
@@ -235,7 +239,7 @@ var FileSystemRecorder = Recorder.extend({
 
                 var path = _this._getAbsoluteFilename(currentInfo.filename);
 
-                // console.log('Starting new file ' + path);
+                debugLog('Starting new file ' + path);
 
                 outFile = fs.createWriteStream(path, {
                     flags: 'a'
@@ -246,7 +250,7 @@ var FileSystemRecorder = Recorder.extend({
                 outConverter.pipe(outFile);
             }
 
-            // console.log(timestamp.toString());
+            debugLog(timestamp.toString());
 
             outConverter.convertHeaderSet(headerSet);
         };
