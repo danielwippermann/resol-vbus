@@ -234,7 +234,7 @@ var FileSystemRecorder = Recorder.extend({
 
             if (currentInfo !== previousInfo) {
                 if (outConverter) {
-                    outConverter.end();
+                    outConverter.finish();
                 }
 
                 var path = _this._getAbsoluteFilename(currentInfo.filename);
@@ -256,13 +256,9 @@ var FileSystemRecorder = Recorder.extend({
         };
 
         var finish = function() {
-            return utils.promise(function(resolve) {
+            return Q.fcall(function() {
                 if (outConverter) {
-                    outConverter.end(function() {
-                        resolve();
-                    });
-                } else {
-                    resolve();
+                    return outConverter.finish();
                 }
             });
         };

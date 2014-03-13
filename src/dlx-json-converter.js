@@ -67,10 +67,6 @@ var DLxJsonConverter = Converter.extend(/** @lends DLxJsonConverter# */ {
 
         this.allHeaderSet = new HeaderSet();
 
-        this.on('finish', function() {
-            _this._emitEnd();
-        });
-
         this.reset();
     },
 
@@ -84,6 +80,12 @@ var DLxJsonConverter = Converter.extend(/** @lends DLxJsonConverter# */ {
             minTimestamp: null,
             maxTimestamp: null,
         };
+    },
+
+    finish: function() {
+        this._emitEnd();
+
+        return Converter.prototype.finish.apply(this, arguments);
     },
 
     convertHeaderSet: function(headerSet) {
