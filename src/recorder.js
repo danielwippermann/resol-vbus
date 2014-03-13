@@ -403,6 +403,22 @@ var Recorder = extend(EventEmitter, /** @lends Recorder# */ {
 
 }, /** @lends Recorder. */ {
 
+    alignTimestampToInterval: function(timestamp, interval) {
+        if (typeof timestamp.getTime === 'function') {
+            timestamp = timestamp.getTime();
+        } else if (typeof timestamp === 'string') {
+            timestamp = new Date(timestamp).getTime();
+        } else if (typeof timestamp !== 'number') {
+            throw new Error('Invalid timestamp "' + timestamp + '" (type "' + typeof timestamp + '"');
+        }
+
+        if (_.isNumber(interval) && (interval > 0)) {
+            return Math.floor(timestamp / interval) * interval;
+        } else {
+            return timestamp;
+        }
+    },
+
     /**
      * Performs operations on two sets of timestamp ranges.
      *
