@@ -175,6 +175,7 @@ describe('Recorder', function() {
                 minTimestamp: new Date(2013, 0),
                 maxTimestamp: new Date(2014, 0),
                 interval: 600,
+                timeToLive: 3600,
             };
 
             var recorder = new Recorder(options);
@@ -196,6 +197,7 @@ describe('Recorder', function() {
                 expect(call.args [0].minTimestamp).to.eql(options.minTimestamp);
                 expect(call.args [0].maxTimestamp).to.eql(options.maxTimestamp);
                 expect(call.args [0].interval).to.eql(options.interval);
+                expect(call.args [0].timeToLive).to.eql(options.timeToLive);
 
                 expect(recorder._getSyncJob.callCount).to.equal(1);
 

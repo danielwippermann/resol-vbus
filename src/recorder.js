@@ -24,6 +24,7 @@ var optionKeys = [
     'minTimestamp',
     'maxTimestamp',
     'interval',
+    'timeToLive',
 ];
 
 
@@ -193,6 +194,7 @@ var Recorder = extend(EventEmitter, /** @lends Recorder# */ {
             minTimestamp: options.minTimestamp,
             maxTimestamp: options.maxTimestamp,
             interval: options.interval,
+            timeToLive: options.timeToLive,
         });
 
         var recordedRanges = [];
