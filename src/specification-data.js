@@ -273,6 +273,13 @@ var createVBusSpecificationData = function() {
             unitText: '%',
         },
 
+        PoundsForcePerSquareInch: {
+            unitId: 'PoundsForcePerSquareInch',
+            unitCode: 'PoundsForcePerSquareInch',
+            unitFamily: 'Pressure',
+            unitText: ' psi',
+        },
+
         Seconds: {
             unitId: 'Seconds',
             unitCode: 'Seconds',
