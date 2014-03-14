@@ -24,7 +24,9 @@ var conversionFactors = {
     GramsCO2OilPerWattHour: 0.568,
     GramsCO2GasPerWattHour: 0.2536,
 
-    GallonsPerLiter: 0.264172
+    GallonsPerLiter: 0.264172,
+
+    PoundsForcePerSquareInchPerBar: 14.5037738,
 };
 
 
@@ -702,6 +704,9 @@ var Specification = extend(null, /** @lends Specification# */ {
             case 'Bars':
                 // nop
                 break;
+            case 'PoundsForcePerSquareInch':
+                rawValue = rawValue / conversionFactors.PoundsForcePerSquareInchPerBar;
+                break;
             default:
                 throw new Error('Unsupported source unit ' + JSON.stringify(sourceUnit.unitCode));
             }
@@ -709,6 +714,9 @@ var Specification = extend(null, /** @lends Specification# */ {
             switch (targetUnit.unitCode) {
             case 'Bars':
                 // nop
+                break;
+            case 'PoundsForcePerSquareInch':
+                rawValue = rawValue * conversionFactors.PoundsForcePerSquareInchPerBar;
                 break;
             default:
                 throw new Error('Unsupported target unit ' + JSON.stringify(targetUnit.unitCode));

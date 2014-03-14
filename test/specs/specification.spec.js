@@ -720,9 +720,14 @@ describe('Specification', function() {
 
         describe('Unit Family "Pressure"', function() {
 
-            it('should convert from "Bars" to "Bars"', function() {
-                expectConversion(0, 'Bars', 'Bars').closeTo(0, delta);
-                expectConversion(10, 'Bars', 'Bars').closeTo(10, delta);
+            it('should convert from "Bars" to "PoundsForcePerSquareInch"', function() {
+                expectConversion(0, 'Bars', 'PoundsForcePerSquareInch').closeTo(0, delta);
+                expectConversion(10, 'Bars', 'PoundsForcePerSquareInch').closeTo(145.037738, delta);
+            });
+
+            it('should convert from "PoundsForcePerSquareInch" to "Bars"', function() {
+                expectConversion(0, 'PoundsForcePerSquareInch', 'Bars').closeTo(0, delta);
+                expectConversion(100, 'PoundsForcePerSquareInch', 'Bars').closeTo(6.89475728, delta);
             });
 
         });
