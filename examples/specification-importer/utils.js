@@ -9,7 +9,7 @@ var _ = require('lodash');
 
 var unitCodesByUnitFamily = {
     'Energy': [ 'WattHours', 'KilowattHours', 'MegawattHours', 'Btus', 'KiloBtus', 'MegaBtus', 'GramsCO2Gas', 'KilogramsCO2Gas', 'TonsCO2Gas', 'GramsCO2Oil', 'KilogramsCO2Oil', 'TonsCO2Oil' ],
-    'Pressure': [ 'Bars' ],
+    'Pressure': [ 'Bars', 'PoundsForcePerSquareInch' ],
     'Temperature': [ 'DegreesCelsius', 'DegreesFahrenheit' ],
     'Time': [ 'Seconds', 'Minutes', 'Hours', 'Days' ],
     'Volume': [ 'Liters', 'CubicMeters', 'Gallons' ],
@@ -56,6 +56,7 @@ var unitsByUnitCode = {
     'None': [ '', ' ', null ],
     'Ohms': [ ' Ω', ' Ohm' ],
     'Percent': [ '%', ' %' ],
+    'PoundsForcePerSquareInch': [ ' psi' ],
     'Seconds': [ ' s', ' sec' ],
     'SquareMeters': [ ' m²' ],
     'TonsCO2Gas': [ ' t CO₂ (Gas)' ],
