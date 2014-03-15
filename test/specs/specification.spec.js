@@ -860,57 +860,6 @@ describe('Specification', function() {
 
         });
 
-
-        // _.forEach(_.keys(unitsByFamily).sort(), function(uf) {
-
-        //     describe('Unit Family ' + JSON.stringify(uf) + ' (automated)', function() {
-
-        //         _.forEach(unitsByFamily [uf], function(unit, index) {
-
-        //             it('should support ' + JSON.stringify(unit.unitCode) + ' as source unit', function() {
-        //                 var spec = new Specification();
-
-        //                 var targetUnit = {
-        //                     unitFamily: uf,
-        //                     unitCode: 'UnknownUnitCode',
-        //                 };
-
-        //                 var error, result;
-        //                 try {
-        //                     result = spec.convertRawValue(0, unit, targetUnit);
-        //                 } catch (ex) {
-        //                     error = ex;
-        //                 }
-
-        //                 expect(error).a('object');
-        //                 expect(error).property('message').equal('Unsupported target unit "UnknownUnitCode"');
-        //             });
-
-        //             if (unitsByFamily [uf].length > 1) {
-        //                 it('should support ' + JSON.stringify(unit.unitCode) + ' as target unit', function() {
-        //                     var spec = new Specification();
-
-        //                     var sourceUnit = unitsByFamily [uf] [(index === 0) ? 1 : 0];
-
-        //                     var error, result;
-        //                     try {
-        //                         result = spec.convertRawValue(0, sourceUnit, unit);
-        //                     } catch (ex) {
-        //                         error = ex;
-        //                     }
-
-        //                     expect(error).a('undefined');
-        //                     expect(result).a('object');
-        //                     expect(result.unit).equal(unit);
-        //                 });
-        //             } else {
-        //                 xit('should support ' + JSON.stringify(unit.unitCode) + ' as target unit');
-        //             }
-        //         });
-
-        //     });
-        // });
-
     });
 
     describe('#formatTextValueFromRawValue', function() {
