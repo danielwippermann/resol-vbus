@@ -7,7 +7,6 @@
 [![NPM version](https://badge.fury.io/js/resol-vbus.png)](https://npmjs.org/package/resol-vbus)
 [![Build Status](https://travis-ci.org/danielwippermann/resol-vbus.png?branch=master)](https://travis-ci.org/danielwippermann/resol-vbus)
 [![Coverage Status](https://coveralls.io/repos/danielwippermann/resol-vbus/badge.png)](https://coveralls.io/r/danielwippermann/resol-vbus)
-[![Code Climate](https://codeclimate.com/github/danielwippermann/resol-vbus.png)](https://codeclimate.com/github/danielwippermann/resol-vbus)
 [![Dependency Status](https://david-dm.org/danielwippermann/resol-vbus.png?theme=shields.io)](https://david-dm.org/danielwippermann/resol-vbus)
 [![devDependency Status](https://david-dm.org/danielwippermann/resol-vbus/dev-status.png?theme=shields.io)](https://david-dm.org/danielwippermann/resol-vbus#info=devDependencies)
 
