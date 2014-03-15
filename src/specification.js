@@ -411,7 +411,7 @@ var Specification = extend(null, /** @lends Specification# */ {
             destinationAddress = headerOrChannel.destinationAddress;
             headerOrChannel = headerOrChannel.channel;
         } else if (typeof headerOrChannel === 'string') {
-            var md = headerOrChannel.match(/^([0-9a-f]{2})_([0-9a-f]{4})_([0-9a-f]{4})_10_([0-9a-f]{4})/i);
+            var md = headerOrChannel.match(/^([0-9a-f]{2})_([0-9a-f]{4})_([0-9a-f]{4})(?:_10)?_([0-9a-f]{4})/i);
             if (!md) {
                 throw new Error('Invalid packet ID');
             }
@@ -532,7 +532,7 @@ var Specification = extend(null, /** @lends Specification# */ {
             }
 
             if (!packetFieldSpec) {
-                var md = packetSpecOrId.match(/^([0-9a-f]{2}_[0-9a-f]{4}_[0-9a-f]{4}_10_[0-9a-f]{4})_(.*)$/i);
+                var md = packetSpecOrId.match(/^([0-9a-f]{2}_[0-9a-f]{4}_[0-9a-f]{4}(?:_10)?_[0-9a-f]{4})_(.*)$/i);
                 if (!md) {
                     throw new Error('Invalid packet field ID');
                 }

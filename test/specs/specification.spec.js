@@ -363,10 +363,23 @@ describe('Specification', function() {
             expect(packetSpec.packetFields.length).to.be.above(0);
         });
 
-        it('should work correctly with a packet ID string', function() {
+        it('should work correctly with a packet ID string with protocol version', function() {
             var spec = new Specification();
 
             var packetSpec = spec.getPacketSpecification('01_0010_7721_10_0100');
+
+            expect(packetSpec).to.be.an('object');
+            expect(packetSpec.packetId).to.be.a('string');
+            expect(packetSpec.destinationDevice).to.be.an('object');
+            expect(packetSpec.sourceDevice).to.be.an('object');
+            expect(packetSpec.packetFields).to.be.an('array');
+            expect(packetSpec.packetFields.length).to.be.above(0);
+        });
+
+        it('should work correctly with a packet ID string without protocol version', function() {
+            var spec = new Specification();
+
+            var packetSpec = spec.getPacketSpecification('01_0010_7721_0100');
 
             expect(packetSpec).to.be.an('object');
             expect(packetSpec.packetId).to.be.a('string');
@@ -432,10 +445,27 @@ describe('Specification', function() {
             expect(packetFieldSpec.type.unit.unitText).to.be.a('string');
         });
 
-        it('should work correctly with a packet field ID string', function() {
+        it('should work correctly with a packet field ID string with protocol version', function() {
             var spec = new Specification();
 
             var packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
+
+            expect(packetFieldSpec).to.be.an('object');
+            expect(packetFieldSpec.fieldId).to.be.a('string');
+            expect(packetFieldSpec.name).to.be.a('string');
+            expect(packetFieldSpec.type).to.be.an('object');
+            expect(packetFieldSpec.type.typeId).to.be.a('string');
+            expect(packetFieldSpec.type.rootTypeId).to.be.a('string');
+            expect(packetFieldSpec.type.precision).to.be.a('number');
+            expect(packetFieldSpec.type.unit).to.be.an('object');
+            expect(packetFieldSpec.type.unit.unitCode).to.be.a('string');
+            expect(packetFieldSpec.type.unit.unitText).to.be.a('string');
+        });
+
+        it('should work correctly with a packet field ID string without protocol version', function() {
+            var spec = new Specification();
+
+            var packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_0100_000_2_0');
 
             expect(packetFieldSpec).to.be.an('object');
             expect(packetFieldSpec.fieldId).to.be.a('string');
