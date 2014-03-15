@@ -610,233 +610,17 @@ var Specification = extend(null, /** @lends Specification# */ {
         } else if (!unitFamily) {
             // nop, no conversion for unknown unit family
         } else if (unitFamily === 'Temperature') {
-            switch (sourceUnit.unitCode) {
-            case 'DegreesCelsius':
-                // nop
-                break;
-            case 'DegreesFahrenheit':
-                rawValue = (rawValue - 32) / 1.8;
-                break;
-            default:
-                throw new Error('Unsupported source unit ' + JSON.stringify(sourceUnit.unitCode));
-            }
-
-            switch (targetUnit.unitCode) {
-            case 'DegreesCelsius':
-                // nop
-                break;
-            case 'DegreesFahrenheit':
-                rawValue = (rawValue * 1.8) + 32;
-                break;
-            default:
-                throw new Error('Unsupported target unit ' + JSON.stringify(targetUnit.unitCode));
-            }
+            rawValue = this._convertTemperatureRawValue(rawValue, sourceUnit.unitCode, targetUnit.unitCode);
         } else if (unitFamily === 'Volume') {
-            switch (sourceUnit.unitCode) {
-            case 'Liters':
-                // nop
-                break;
-            case 'CubicMeters':
-                rawValue = rawValue * 1000;
-                break;
-            case 'Gallons':
-                rawValue = rawValue / conversionFactors.GallonsPerLiter;
-                break;
-            default:
-                throw new Error('Unsupported source unit ' + JSON.stringify(sourceUnit.unitCode));
-            }
-
-            switch (targetUnit.unitCode) {
-            case 'Liters':
-                // nop
-                break;
-            case 'CubicMeters':
-                rawValue = rawValue / 1000;
-                break;
-            case 'Gallons':
-                rawValue = rawValue * conversionFactors.GallonsPerLiter;
-                break;
-            default:
-                throw new Error('Unsupported target unit ' + JSON.stringify(targetUnit.unitCode));
-            }
+            rawValue = this._convertVolumeRawValue(rawValue, sourceUnit.unitCode, targetUnit.unitCode);
         } else if (unitFamily === 'VolumeFlow') {
-            switch (sourceUnit.unitCode) {
-            case 'LitersPerHour':
-                // nop
-                break;
-            case 'LitersPerMinute':
-                rawValue = rawValue * 60;
-                break;
-            case 'CubicMetersPerHour':
-                rawValue = rawValue * 1000;
-                break;
-            case 'GallonsPerHour':
-                rawValue = rawValue / conversionFactors.GallonsPerLiter;
-                break;
-            case 'GallonsPerMinute':
-                rawValue = rawValue * 60 / conversionFactors.GallonsPerLiter;
-                break;
-            default:
-                throw new Error('Unsupported source unit ' + JSON.stringify(sourceUnit.unitCode));
-            }
-
-            switch (targetUnit.unitCode) {
-            case 'LitersPerHour':
-                // nop
-                break;
-            case 'LitersPerMinute':
-                rawValue = rawValue / 60;
-                break;
-            case 'CubicMetersPerHour':
-                rawValue = rawValue / 1000;
-                break;
-            case 'GallonsPerHour':
-                rawValue = rawValue * conversionFactors.GallonsPerLiter;
-                break;
-            case 'GallonsPerMinute':
-                rawValue = rawValue / 60 * conversionFactors.GallonsPerLiter;
-                break;
-            default:
-                throw new Error('Unsupported target unit ' + JSON.stringify(targetUnit.unitCode));
-            }
+            rawValue = this._convertVolumeFlowRawValue(rawValue, sourceUnit.unitCode, targetUnit.unitCode);
         } else if (unitFamily === 'Pressure') {
-            switch (sourceUnit.unitCode) {
-            case 'Bars':
-                // nop
-                break;
-            case 'PoundsForcePerSquareInch':
-                rawValue = rawValue / conversionFactors.PoundsForcePerSquareInchPerBar;
-                break;
-            default:
-                throw new Error('Unsupported source unit ' + JSON.stringify(sourceUnit.unitCode));
-            }
-
-            switch (targetUnit.unitCode) {
-            case 'Bars':
-                // nop
-                break;
-            case 'PoundsForcePerSquareInch':
-                rawValue = rawValue * conversionFactors.PoundsForcePerSquareInchPerBar;
-                break;
-            default:
-                throw new Error('Unsupported target unit ' + JSON.stringify(targetUnit.unitCode));
-            }
+            rawValue = this._convertPressureRawValue(rawValue, sourceUnit.unitCode, targetUnit.unitCode);
         } else if (unitFamily === 'Energy') {
-            switch (sourceUnit.unitCode) {
-            case 'WattHours':
-                // nop
-                break;
-            case 'KilowattHours':
-                rawValue = rawValue * 1000;
-                break;
-            case 'MegawattHours':
-                rawValue = rawValue * 1000000;
-                break;
-            case 'Btus':
-                rawValue = rawValue / conversionFactors.BtusPerWattHour;
-                break;
-            case 'KiloBtus':
-                rawValue = rawValue * 1000 / conversionFactors.BtusPerWattHour;
-                break;
-            case 'MegaBtus':
-                rawValue = rawValue * 1000000 / conversionFactors.BtusPerWattHour;
-                break;
-            case 'GramsCO2Gas':
-                rawValue = rawValue / conversionFactors.GramsCO2GasPerWattHour;
-                break;
-            case 'KilogramsCO2Gas':
-                rawValue = rawValue * 1000 / conversionFactors.GramsCO2GasPerWattHour;
-                break;
-            case 'TonsCO2Gas':
-                rawValue = rawValue * 1000000 / conversionFactors.GramsCO2GasPerWattHour;
-                break;
-            case 'GramsCO2Oil':
-                rawValue = rawValue / conversionFactors.GramsCO2OilPerWattHour;
-                break;
-            case 'KilogramsCO2Oil':
-                rawValue = rawValue * 1000 / conversionFactors.GramsCO2OilPerWattHour;
-                break;
-            case 'TonsCO2Oil':
-                rawValue = rawValue * 1000000 / conversionFactors.GramsCO2OilPerWattHour;
-                break;
-            default:
-                throw new Error('Unsupported source unit ' + JSON.stringify(sourceUnit.unitCode));
-            }
-
-            switch (targetUnit.unitCode) {
-            case 'WattHours':
-                // nop
-                break;
-            case 'KilowattHours':
-                rawValue = rawValue / 1000;
-                break;
-            case 'MegawattHours':
-                rawValue = rawValue / 1000000;
-                break;
-            case 'Btus':
-                rawValue = rawValue * conversionFactors.BtusPerWattHour;
-                break;
-            case 'KiloBtus':
-                rawValue = rawValue / 1000 * conversionFactors.BtusPerWattHour;
-                break;
-            case 'MegaBtus':
-                rawValue = rawValue / 1000000 * conversionFactors.BtusPerWattHour;
-                break;
-            case 'GramsCO2Gas':
-                rawValue = rawValue * conversionFactors.GramsCO2GasPerWattHour;
-                break;
-            case 'KilogramsCO2Gas':
-                rawValue = rawValue / 1000 * conversionFactors.GramsCO2GasPerWattHour;
-                break;
-            case 'TonsCO2Gas':
-                rawValue = rawValue / 1000000 * conversionFactors.GramsCO2GasPerWattHour;
-                break;
-            case 'GramsCO2Oil':
-                rawValue = rawValue * conversionFactors.GramsCO2OilPerWattHour;
-                break;
-            case 'KilogramsCO2Oil':
-                rawValue = rawValue / 1000 * conversionFactors.GramsCO2OilPerWattHour;
-                break;
-            case 'TonsCO2Oil':
-                rawValue = rawValue / 1000000 * conversionFactors.GramsCO2OilPerWattHour;
-                break;
-            default:
-                throw new Error('Unsupported target unit ' + JSON.stringify(targetUnit.unitCode));
-            }
+            rawValue = this._convertEnergyRawValue(rawValue, sourceUnit.unitCode, targetUnit.unitCode);
         } else if (unitFamily === 'Time') {
-            switch (sourceUnit.unitCode) {
-            case 'Seconds':
-                // nop
-                break;
-            case 'Minutes':
-                rawValue = rawValue * 60;
-                break;
-            case 'Hours':
-                rawValue = rawValue * 3600;
-                break;
-            case 'Days':
-                rawValue = rawValue * 86400;
-                break;
-            default:
-                throw new Error('Unsupported source unit ' + JSON.stringify(sourceUnit.unitCode));
-            }
-
-            switch (targetUnit.unitCode) {
-            case 'Seconds':
-                // nop
-                break;
-            case 'Minutes':
-                rawValue = rawValue / 60;
-                break;
-            case 'Hours':
-                rawValue = rawValue / 3600;
-                break;
-            case 'Days':
-                rawValue = rawValue / 86400;
-                break;
-            default:
-                throw new Error('Unsupported target unit ' + JSON.stringify(targetUnit.unitCode));
-            }
+            rawValue = this._convertTimeRawValue(rawValue, sourceUnit.unitCode, targetUnit.unitCode);
         } else {
             throw new Error('Unsupported unit family ' + JSON.stringify(sourceUnit.unitFamily));
         }
@@ -847,6 +631,258 @@ var Specification = extend(null, /** @lends Specification# */ {
         };
 
         return result;
+    },
+
+    _convertTemperatureRawValue: function(rawValue, sourceUnitCode, targetUnitCode) {
+        switch (sourceUnitCode) {
+        case 'DegreesCelsius':
+            // nop
+            break;
+        case 'DegreesFahrenheit':
+            rawValue = (rawValue - 32) / 1.8;
+            break;
+        default:
+            throw new Error('Unsupported source unit ' + JSON.stringify(sourceUnitCode));
+        }
+
+        switch (targetUnitCode) {
+        case 'DegreesCelsius':
+            // nop
+            break;
+        case 'DegreesFahrenheit':
+            rawValue = (rawValue * 1.8) + 32;
+            break;
+        default:
+            throw new Error('Unsupported target unit ' + JSON.stringify(targetUnitCode));
+        }
+
+        return rawValue;
+    },
+
+    _convertVolumeRawValue: function(rawValue, sourceUnitCode, targetUnitCode) {
+        switch (sourceUnitCode) {
+        case 'Liters':
+            // nop
+            break;
+        case 'CubicMeters':
+            rawValue = rawValue * 1000;
+            break;
+        case 'Gallons':
+            rawValue = rawValue / conversionFactors.GallonsPerLiter;
+            break;
+        default:
+            throw new Error('Unsupported source unit ' + JSON.stringify(sourceUnitCode));
+        }
+
+        switch (targetUnitCode) {
+        case 'Liters':
+            // nop
+            break;
+        case 'CubicMeters':
+            rawValue = rawValue / 1000;
+            break;
+        case 'Gallons':
+            rawValue = rawValue * conversionFactors.GallonsPerLiter;
+            break;
+        default:
+            throw new Error('Unsupported target unit ' + JSON.stringify(targetUnitCode));
+        }
+
+        return rawValue;
+    },
+
+    _convertVolumeFlowRawValue: function(rawValue, sourceUnitCode, targetUnitCode) {
+        switch (sourceUnitCode) {
+        case 'LitersPerHour':
+            // nop
+            break;
+        case 'LitersPerMinute':
+            rawValue = rawValue * 60;
+            break;
+        case 'CubicMetersPerHour':
+            rawValue = rawValue * 1000;
+            break;
+        case 'GallonsPerHour':
+            rawValue = rawValue / conversionFactors.GallonsPerLiter;
+            break;
+        case 'GallonsPerMinute':
+            rawValue = rawValue * 60 / conversionFactors.GallonsPerLiter;
+            break;
+        default:
+            throw new Error('Unsupported source unit ' + JSON.stringify(sourceUnitCode));
+        }
+
+        switch (targetUnitCode) {
+        case 'LitersPerHour':
+            // nop
+            break;
+        case 'LitersPerMinute':
+            rawValue = rawValue / 60;
+            break;
+        case 'CubicMetersPerHour':
+            rawValue = rawValue / 1000;
+            break;
+        case 'GallonsPerHour':
+            rawValue = rawValue * conversionFactors.GallonsPerLiter;
+            break;
+        case 'GallonsPerMinute':
+            rawValue = rawValue / 60 * conversionFactors.GallonsPerLiter;
+            break;
+        default:
+            throw new Error('Unsupported target unit ' + JSON.stringify(targetUnitCode));
+        }
+
+        return rawValue;
+    },
+
+    _convertPressureRawValue: function(rawValue, sourceUnitCode, targetUnitCode) {
+        switch (sourceUnitCode) {
+        case 'Bars':
+            // nop
+            break;
+        case 'PoundsForcePerSquareInch':
+            rawValue = rawValue / conversionFactors.PoundsForcePerSquareInchPerBar;
+            break;
+        default:
+            throw new Error('Unsupported source unit ' + JSON.stringify(sourceUnitCode));
+        }
+
+        switch (targetUnitCode) {
+        case 'Bars':
+            // nop
+            break;
+        case 'PoundsForcePerSquareInch':
+            rawValue = rawValue * conversionFactors.PoundsForcePerSquareInchPerBar;
+            break;
+        default:
+            throw new Error('Unsupported target unit ' + JSON.stringify(targetUnitCode));
+        }
+
+        return rawValue;
+    },
+
+    _convertEnergyRawValue: function(rawValue, sourceUnitCode, targetUnitCode) {
+        switch (sourceUnitCode) {
+        case 'WattHours':
+            // nop
+            break;
+        case 'KilowattHours':
+            rawValue = rawValue * 1000;
+            break;
+        case 'MegawattHours':
+            rawValue = rawValue * 1000000;
+            break;
+        case 'Btus':
+            rawValue = rawValue / conversionFactors.BtusPerWattHour;
+            break;
+        case 'KiloBtus':
+            rawValue = rawValue * 1000 / conversionFactors.BtusPerWattHour;
+            break;
+        case 'MegaBtus':
+            rawValue = rawValue * 1000000 / conversionFactors.BtusPerWattHour;
+            break;
+        case 'GramsCO2Gas':
+            rawValue = rawValue / conversionFactors.GramsCO2GasPerWattHour;
+            break;
+        case 'KilogramsCO2Gas':
+            rawValue = rawValue * 1000 / conversionFactors.GramsCO2GasPerWattHour;
+            break;
+        case 'TonsCO2Gas':
+            rawValue = rawValue * 1000000 / conversionFactors.GramsCO2GasPerWattHour;
+            break;
+        case 'GramsCO2Oil':
+            rawValue = rawValue / conversionFactors.GramsCO2OilPerWattHour;
+            break;
+        case 'KilogramsCO2Oil':
+            rawValue = rawValue * 1000 / conversionFactors.GramsCO2OilPerWattHour;
+            break;
+        case 'TonsCO2Oil':
+            rawValue = rawValue * 1000000 / conversionFactors.GramsCO2OilPerWattHour;
+            break;
+        default:
+            throw new Error('Unsupported source unit ' + JSON.stringify(sourceUnitCode));
+        }
+
+        switch (targetUnitCode) {
+        case 'WattHours':
+            // nop
+            break;
+        case 'KilowattHours':
+            rawValue = rawValue / 1000;
+            break;
+        case 'MegawattHours':
+            rawValue = rawValue / 1000000;
+            break;
+        case 'Btus':
+            rawValue = rawValue * conversionFactors.BtusPerWattHour;
+            break;
+        case 'KiloBtus':
+            rawValue = rawValue / 1000 * conversionFactors.BtusPerWattHour;
+            break;
+        case 'MegaBtus':
+            rawValue = rawValue / 1000000 * conversionFactors.BtusPerWattHour;
+            break;
+        case 'GramsCO2Gas':
+            rawValue = rawValue * conversionFactors.GramsCO2GasPerWattHour;
+            break;
+        case 'KilogramsCO2Gas':
+            rawValue = rawValue / 1000 * conversionFactors.GramsCO2GasPerWattHour;
+            break;
+        case 'TonsCO2Gas':
+            rawValue = rawValue / 1000000 * conversionFactors.GramsCO2GasPerWattHour;
+            break;
+        case 'GramsCO2Oil':
+            rawValue = rawValue * conversionFactors.GramsCO2OilPerWattHour;
+            break;
+        case 'KilogramsCO2Oil':
+            rawValue = rawValue / 1000 * conversionFactors.GramsCO2OilPerWattHour;
+            break;
+        case 'TonsCO2Oil':
+            rawValue = rawValue / 1000000 * conversionFactors.GramsCO2OilPerWattHour;
+            break;
+        default:
+            throw new Error('Unsupported target unit ' + JSON.stringify(targetUnitCode));
+        }
+
+        return rawValue;
+    },
+
+    _convertTimeRawValue: function(rawValue, sourceUnitCode, targetUnitCode) {
+        switch (sourceUnitCode) {
+        case 'Seconds':
+            // nop
+            break;
+        case 'Minutes':
+            rawValue = rawValue * 60;
+            break;
+        case 'Hours':
+            rawValue = rawValue * 3600;
+            break;
+        case 'Days':
+            rawValue = rawValue * 86400;
+            break;
+        default:
+            throw new Error('Unsupported source unit ' + JSON.stringify(sourceUnitCode));
+        }
+
+        switch (targetUnitCode) {
+        case 'Seconds':
+            // nop
+            break;
+        case 'Minutes':
+            rawValue = rawValue / 60;
+            break;
+        case 'Hours':
+            rawValue = rawValue / 3600;
+            break;
+        case 'Days':
+            rawValue = rawValue / 86400;
+            break;
+        default:
+            throw new Error('Unsupported target unit ' + JSON.stringify(targetUnitCode));
+        }
+
+        return rawValue;
     },
 
     /**
