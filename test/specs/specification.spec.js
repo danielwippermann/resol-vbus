@@ -603,6 +603,29 @@ describe('Specification', function() {
             expect(rawValue).to.equal(null);
         });
 
+        it('should work correctly with a filtered spec and conversion', function() {
+            var rawSpecificationData1 = {
+                'filteredPacketFieldSpecs': [{
+                    'filteredPacketFieldId': 'DemoValue1',
+                    'packetId': '01_0010_7721_10_0100',
+                    'fieldId': '000_2_0',
+                    'name': 'T1',
+                    'type': 'Number_0_1_DegreesFahrenheit',
+                }]
+            };
+            var spec = new Specification({
+                specificationData: rawSpecificationData1,
+            });
+
+            var packetFieldSpec = spec.getPacketFieldSpecification('DemoValue1');
+
+            var buffer = new Buffer('0000', 'hex');
+
+            var rawValue = spec.getRawValue(packetFieldSpec, buffer, 0, buffer.length);
+
+            expect(rawValue).to.be.closeTo(32.0, 0.05);
+        });
+
     });
 
     describe('#convertRawValue', function() {
@@ -1036,6 +1059,16 @@ describe('Specification', function() {
             }]
         };
 
+        var rawSpecificationData2 = {
+            'filteredPacketFieldSpecs': [{
+                'filteredPacketFieldId': 'DemoValue3',
+                'packetId': '01_0010_7722_10_0100',
+                'fieldId': '002_2_0',
+                'name': 'T-return',
+                'type': 'Number_0_1_DegreesFahrenheit',
+            }]
+        };
+
         it('should be a method', function() {
             expect(Specification.prototype.getPacketFieldsForHeaders).to.be.a('function');
         });
@@ -1129,6 +1162,27 @@ describe('Specification', function() {
             expect(pfs [1].rawValue).to.equal(undefined);
             expect(pfs [1].formatTextValue).to.be.a('function');
             expect(pfs [1].formatTextValue()).to.equal('');
+        });
+
+        it('should work correctly with a filtered spec and conversion', function() {
+            var spec = new Specification({
+                specificationData: rawSpecificationData2
+            });
+
+            var pfs = spec.getPacketFieldsForHeaders([ header1, header2 ]);
+
+            expect(pfs).to.be.an('array');
+            expect(pfs.length).to.equal(1);
+            expect(pfs [0]).to.be.an('object');
+            expect(pfs [0].id).to.equal('DemoValue3');
+            expect(pfs [0].packet).to.be.an('object');
+            expect(pfs [0].packetSpec).to.be.an('object');
+            expect(pfs [0].packetFieldSpec).to.be.an('object');
+            expect(pfs [0].origPacketFieldSpec).to.be.an('object');
+            expect(pfs [0].name).to.equal('T-return');
+            expect(pfs [0].rawValue).to.be.closeTo(32.0, 0.05);
+            expect(pfs [0].formatTextValue).to.be.a('function');
+            expect(pfs [0].formatTextValue()).to.equal('32.0 °F');
         });
 
     });

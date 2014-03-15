@@ -579,6 +579,12 @@ var Specification = extend(null, /** @lends Specification# */ {
         var rawValue;
         if (packetField && packetField.getRawValue) {
             rawValue = packetField.getRawValue(buffer, start, end);
+        } else if (packetField && packetField.packetFieldSpec) {
+            rawValue = this.getRawValue(packetField.packetFieldSpec, buffer, start, end);
+
+            if (_.isNumber(rawValue)) {
+                rawValue = this.convertRawValue(rawValue, packetField.packetFieldSpec.type.unit, packetField.type.unit).rawValue;
+            }
         } else {
             rawValue = null;
         }
