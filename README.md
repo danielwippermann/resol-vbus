@@ -95,6 +95,13 @@ into your shell:
 
 ## Changelog
 
+### Version 0.9.0 (2014-03-16)
+
+- Completed Recorder class by adding support for recording
+- Added unit conversion to VBus specification
+- Several bug fixes.
+
+
 ### Version 0.8.0 (2014-03-03)
 
 - Extended Converter and VBusRecordingConverter to support object mode in stream (for performance reason)

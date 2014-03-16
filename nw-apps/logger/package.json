@@ -1,6 +1,6 @@
 {
   "name": "resol-vbus-logger",
-  "version": "0.7.0",
+  "version": "0.9.0",
   "dependencies": {
     "sprintf": "~0.1.3",
     "lodash": "~2.4.1",
