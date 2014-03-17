@@ -27133,32 +27133,20 @@ var createVBusSpecificationData = function() {
                 rawValue += buffer.readUInt8(start + 13) * 256;
                 valid = true;
             }
-            
-            return (valid ? rawValue : null);
-        },
-
-        _0010_7774_0100_014_2_0: function(buffer, start, end) {
-            var rawValue = 0, valid = false;
             if (start + 14 < end) {
-                rawValue += buffer.readUInt8(start + 14) * 1;
+                rawValue += buffer.readUInt8(start + 14) * 1000;
                 valid = true;
             }
             if (start + 15 < end) {
-                rawValue += buffer.readUInt8(start + 15) * 256;
+                rawValue += buffer.readUInt8(start + 15) * 256000;
                 valid = true;
             }
-            
-            return (valid ? rawValue : null);
-        },
-
-        _0010_7774_0100_016_2_0: function(buffer, start, end) {
-            var rawValue = 0, valid = false;
             if (start + 16 < end) {
-                rawValue += buffer.readUInt8(start + 16) * 1;
+                rawValue += buffer.readUInt8(start + 16) * 1000000;
                 valid = true;
             }
             if (start + 17 < end) {
-                rawValue += buffer.readUInt8(start + 17) * 256;
+                rawValue += buffer.readUInt8(start + 17) * 256000000;
                 valid = true;
             }
             
@@ -27239,32 +27227,20 @@ var createVBusSpecificationData = function() {
                 rawValue += buffer.readUInt8(start + 29) * 256;
                 valid = true;
             }
-            
-            return (valid ? rawValue : null);
-        },
-
-        _0010_7774_0100_030_2_0: function(buffer, start, end) {
-            var rawValue = 0, valid = false;
             if (start + 30 < end) {
-                rawValue += buffer.readUInt8(start + 30) * 1;
+                rawValue += buffer.readUInt8(start + 30) * 1000;
                 valid = true;
             }
             if (start + 31 < end) {
-                rawValue += buffer.readUInt8(start + 31) * 256;
+                rawValue += buffer.readUInt8(start + 31) * 256000;
                 valid = true;
             }
-            
-            return (valid ? rawValue : null);
-        },
-
-        _0010_7774_0100_032_2_0: function(buffer, start, end) {
-            var rawValue = 0, valid = false;
             if (start + 32 < end) {
-                rawValue += buffer.readUInt8(start + 32) * 1;
+                rawValue += buffer.readUInt8(start + 32) * 1000000;
                 valid = true;
             }
             if (start + 33 < end) {
-                rawValue += buffer.readUInt8(start + 33) * 256;
+                rawValue += buffer.readUInt8(start + 33) * 256000000;
                 valid = true;
             }
             
@@ -27323,32 +27299,20 @@ var createVBusSpecificationData = function() {
                 rawValue += buffer.readUInt8(start + 41) * 256;
                 valid = true;
             }
-            
-            return (valid ? rawValue : null);
-        },
-
-        _0010_7774_0100_042_2_0: function(buffer, start, end) {
-            var rawValue = 0, valid = false;
             if (start + 42 < end) {
-                rawValue += buffer.readUInt8(start + 42) * 1;
+                rawValue += buffer.readUInt8(start + 42) * 1000;
                 valid = true;
             }
             if (start + 43 < end) {
-                rawValue += buffer.readUInt8(start + 43) * 256;
+                rawValue += buffer.readUInt8(start + 43) * 256000;
                 valid = true;
             }
-            
-            return (valid ? rawValue : null);
-        },
-
-        _0010_7774_0100_044_2_0: function(buffer, start, end) {
-            var rawValue = 0, valid = false;
             if (start + 44 < end) {
-                rawValue += buffer.readUInt8(start + 44) * 1;
+                rawValue += buffer.readUInt8(start + 44) * 1000000;
                 valid = true;
             }
             if (start + 45 < end) {
-                rawValue += buffer.readUInt8(start + 45) * 256;
+                rawValue += buffer.readUInt8(start + 45) * 256000000;
                 valid = true;
             }
             
@@ -27407,32 +27371,20 @@ var createVBusSpecificationData = function() {
                 rawValue += buffer.readUInt8(start + 53) * 256;
                 valid = true;
             }
-            
-            return (valid ? rawValue : null);
-        },
-
-        _0010_7774_0100_054_2_0: function(buffer, start, end) {
-            var rawValue = 0, valid = false;
             if (start + 54 < end) {
-                rawValue += buffer.readUInt8(start + 54) * 1;
+                rawValue += buffer.readUInt8(start + 54) * 1000;
                 valid = true;
             }
             if (start + 55 < end) {
-                rawValue += buffer.readUInt8(start + 55) * 256;
+                rawValue += buffer.readUInt8(start + 55) * 256000;
                 valid = true;
             }
-            
-            return (valid ? rawValue : null);
-        },
-
-        _0010_7774_0100_056_2_0: function(buffer, start, end) {
-            var rawValue = 0, valid = false;
             if (start + 56 < end) {
-                rawValue += buffer.readUInt8(start + 56) * 1;
+                rawValue += buffer.readUInt8(start + 56) * 1000000;
                 valid = true;
             }
             if (start + 57 < end) {
-                rawValue += buffer.readUInt8(start + 57) * 256;
+                rawValue += buffer.readUInt8(start + 57) * 256000000;
                 valid = true;
             }
             
@@ -27491,32 +27443,20 @@ var createVBusSpecificationData = function() {
                 rawValue += buffer.readUInt8(start + 65) * 256;
                 valid = true;
             }
-            
-            return (valid ? rawValue : null);
-        },
-
-        _0010_7774_0100_066_2_0: function(buffer, start, end) {
-            var rawValue = 0, valid = false;
             if (start + 66 < end) {
-                rawValue += buffer.readUInt8(start + 66) * 1;
+                rawValue += buffer.readUInt8(start + 66) * 1000;
                 valid = true;
             }
             if (start + 67 < end) {
-                rawValue += buffer.readUInt8(start + 67) * 256;
+                rawValue += buffer.readUInt8(start + 67) * 256000;
                 valid = true;
             }
-            
-            return (valid ? rawValue : null);
-        },
-
-        _0010_7774_0100_068_2_0: function(buffer, start, end) {
-            var rawValue = 0, valid = false;
             if (start + 68 < end) {
-                rawValue += buffer.readUInt8(start + 68) * 1;
+                rawValue += buffer.readUInt8(start + 68) * 1000000;
                 valid = true;
             }
             if (start + 69 < end) {
-                rawValue += buffer.readUInt8(start + 69) * 256;
+                rawValue += buffer.readUInt8(start + 69) * 256000000;
                 valid = true;
             }
             
@@ -65951,38 +65891,26 @@ var createVBusSpecificationData = function() {
                 mask: 255,
                 isSigned: 0,
                 factor: 256,
-            }, ],
-        }, {
-            fieldId: '014_2_0',
-            name: 'Wärme',
-            type: types.Number_1_KilowattHours,
-            getRawValue: getRawValueFunctions._0010_7774_0100_014_2_0,
-            parts: [{
+            }, {
                 offset: 14,
                 mask: 255,
                 isSigned: 0,
-                factor: 1,
+                factor: 1000,
             }, {
                 offset: 15,
                 mask: 255,
                 isSigned: 0,
-                factor: 256,
-            }, ],
-        }, {
-            fieldId: '016_2_0',
-            name: 'Wärme',
-            type: types.Number_1_MegawattHours,
-            getRawValue: getRawValueFunctions._0010_7774_0100_016_2_0,
-            parts: [{
+                factor: 256000,
+            }, {
                 offset: 16,
                 mask: 255,
                 isSigned: 0,
-                factor: 1,
+                factor: 1000000,
             }, {
                 offset: 17,
                 mask: 255,
                 isSigned: 0,
-                factor: 256,
+                factor: 256000000,
             }, ],
         }, {
             fieldId: '018_2_0',
@@ -66099,38 +66027,26 @@ var createVBusSpecificationData = function() {
                 mask: 255,
                 isSigned: 0,
                 factor: 256,
-            }, ],
-        }, {
-            fieldId: '030_2_0',
-            name: 'Wärme2',
-            type: types.Number_1_KilowattHours,
-            getRawValue: getRawValueFunctions._0010_7774_0100_030_2_0,
-            parts: [{
+            }, {
                 offset: 30,
                 mask: 255,
                 isSigned: 0,
-                factor: 1,
+                factor: 1000,
             }, {
                 offset: 31,
                 mask: 255,
                 isSigned: 0,
-                factor: 256,
-            }, ],
-        }, {
-            fieldId: '032_2_0',
-            name: 'Wärme2',
-            type: types.Number_1_MegawattHours,
-            getRawValue: getRawValueFunctions._0010_7774_0100_032_2_0,
-            parts: [{
+                factor: 256000,
+            }, {
                 offset: 32,
                 mask: 255,
                 isSigned: 0,
-                factor: 1,
+                factor: 1000000,
             }, {
                 offset: 33,
                 mask: 255,
                 isSigned: 0,
-                factor: 256,
+                factor: 256000000,
             }, ],
         }, {
             fieldId: '034_2_0',
@@ -66221,38 +66137,26 @@ var createVBusSpecificationData = function() {
                 mask: 255,
                 isSigned: 0,
                 factor: 256,
-            }, ],
-        }, {
-            fieldId: '042_2_0',
-            name: 'Wärme3',
-            type: types.Number_1_KilowattHours,
-            getRawValue: getRawValueFunctions._0010_7774_0100_042_2_0,
-            parts: [{
+            }, {
                 offset: 42,
                 mask: 255,
                 isSigned: 0,
-                factor: 1,
+                factor: 1000,
             }, {
                 offset: 43,
                 mask: 255,
                 isSigned: 0,
-                factor: 256,
-            }, ],
-        }, {
-            fieldId: '044_2_0',
-            name: 'Wärme3',
-            type: types.Number_1_MegawattHours,
-            getRawValue: getRawValueFunctions._0010_7774_0100_044_2_0,
-            parts: [{
+                factor: 256000,
+            }, {
                 offset: 44,
                 mask: 255,
                 isSigned: 0,
-                factor: 1,
+                factor: 1000000,
             }, {
                 offset: 45,
                 mask: 255,
                 isSigned: 0,
-                factor: 256,
+                factor: 256000000,
             }, ],
         }, {
             fieldId: '046_2_0',
@@ -66343,38 +66247,26 @@ var createVBusSpecificationData = function() {
                 mask: 255,
                 isSigned: 0,
                 factor: 256,
-            }, ],
-        }, {
-            fieldId: '054_2_0',
-            name: 'Wärme4',
-            type: types.Number_1_KilowattHours,
-            getRawValue: getRawValueFunctions._0010_7774_0100_054_2_0,
-            parts: [{
+            }, {
                 offset: 54,
                 mask: 255,
                 isSigned: 0,
-                factor: 1,
+                factor: 1000,
             }, {
                 offset: 55,
                 mask: 255,
                 isSigned: 0,
-                factor: 256,
-            }, ],
-        }, {
-            fieldId: '056_2_0',
-            name: 'Wärme4',
-            type: types.Number_1_MegawattHours,
-            getRawValue: getRawValueFunctions._0010_7774_0100_056_2_0,
-            parts: [{
+                factor: 256000,
+            }, {
                 offset: 56,
                 mask: 255,
                 isSigned: 0,
-                factor: 1,
+                factor: 1000000,
             }, {
                 offset: 57,
                 mask: 255,
                 isSigned: 0,
-                factor: 256,
+                factor: 256000000,
             }, ],
         }, {
             fieldId: '058_2_0',
@@ -66465,38 +66357,26 @@ var createVBusSpecificationData = function() {
                 mask: 255,
                 isSigned: 0,
                 factor: 256,
-            }, ],
-        }, {
-            fieldId: '066_2_0',
-            name: 'Wärme5',
-            type: types.Number_1_KilowattHours,
-            getRawValue: getRawValueFunctions._0010_7774_0100_066_2_0,
-            parts: [{
+            }, {
                 offset: 66,
                 mask: 255,
                 isSigned: 0,
-                factor: 1,
+                factor: 1000,
             }, {
                 offset: 67,
                 mask: 255,
                 isSigned: 0,
-                factor: 256,
-            }, ],
-        }, {
-            fieldId: '068_2_0',
-            name: 'Wärme5',
-            type: types.Number_1_MegawattHours,
-            getRawValue: getRawValueFunctions._0010_7774_0100_068_2_0,
-            parts: [{
+                factor: 256000,
+            }, {
                 offset: 68,
                 mask: 255,
                 isSigned: 0,
-                factor: 1,
+                factor: 1000000,
             }, {
                 offset: 69,
                 mask: 255,
                 isSigned: 0,
-                factor: 256,
+                factor: 256000000,
             }, ],
         }, {
             fieldId: '070_2_0',
