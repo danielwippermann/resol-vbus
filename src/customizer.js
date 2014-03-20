@@ -71,6 +71,8 @@ var Customizer = extend(EventEmitter, /** @lends Customizer# */ {
 
     /**
      * Load a set of configuration values from a device.
+     *
+     * @returns {Promise} A Promise that resolves to the set of values transfered.
      */
     loadConfiguration: function() {
         throw new Error('Must be implemented by sub-class');
@@ -78,15 +80,30 @@ var Customizer = extend(EventEmitter, /** @lends Customizer# */ {
 
     /**
      * Save a set of configuration values to a device.
+     *
+     * @param {array} configuration The set values to transfer.
+     * @returns {Promise} A Promise that resolves to the set of values transfered.
      */
     saveConfiguration: function(configuration) {
         throw new Error('Must be implemented by sub-class');
     },
 
+    /**
+     * Gets the set of values for the first round of transfer.
+     *
+     * @param {array} oldConfig The set of values to transfer or `null` if no set is given (e.g. during `loadConfiguration`)
+     * @returns {Promise} A Promise that resolves to the set of values to transfer.
+     */
     _getInitialConfiguration: function(oldConfig) {
         return this.optimizer.getInitialConfiguration(oldConfig);
     },
 
+    /**
+     * Gets the set of values for the second and all successive rounds of transfer.
+     *
+     * @param {array} oldConfig
+     * @returns {Promise} A Promise that resolves to the set of values to transfer.
+     */
     _optimizeConfiguration: function(oldConfig) {
         return this.optimizer.optimizeConfiguration(oldConfig);
     },
