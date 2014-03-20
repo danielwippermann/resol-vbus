@@ -24,7 +24,7 @@ var generateVBusSpecificationData = require('./specification-data-generator');
  * cd <tmpdir>
  * 7z x <RSC setup exe>
  * mkdir resol
- * cp -a eclipse/plugins/de.resol* resol/
+ * cp -a \$_OUTDIR/plugins/de.resol* resol/
  * cd resol
  * for NAME in *.jar; do DIR="$(basename $NAME .jar)"; mkdir $DIR; (cd $DIR; 7z x ../$NAME); done
  * rm ./de.resol.servicecenter.vbus.cosmo_2.0.0/VBusSpecificationCosmoMulti.xml
