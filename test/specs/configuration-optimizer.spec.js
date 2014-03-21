@@ -29,7 +29,7 @@ describe('ConfigurationOptimizer', function() {
 
     });
 
-    describe('getInitialConfiguration', function() {
+    describe('#getInitialConfiguration', function() {
 
         it('should be a method', function() {
             expect(ConfigurationOptimizer.prototype).property('getInitialConfiguration').a('function');
@@ -37,7 +37,7 @@ describe('ConfigurationOptimizer', function() {
 
     });
 
-    describe('optimizeConfiguration', function() {
+    describe('#optimizeConfiguration', function() {
 
         it('should be a method', function() {
             expect(ConfigurationOptimizer.prototype).property('optimizeConfiguration').a('function');
