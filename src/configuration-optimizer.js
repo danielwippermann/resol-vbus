@@ -14,28 +14,36 @@ var utils = require('./utils');
 
 var ConfigurationOptimizer = extend(null, /** @lends ConfigurationOptimizer# */ {
 
-    deviceAddress: 0,
+    getInitialLoadConfiguration: function() {
+        throw new Error('Must be implemented by sub-class');
+    },
+
+    optimizeLoadConfiguration: function(oldConfig) {
+        throw new Error('Must be implemented by sub-class');
+    },
+
+    getSaveConfiguration: function(newConfig, oldConfig) {
+        throw new Error('Must be implemented by sub-class');
+    },
+
+}, {
 
     /**
-     * Creates a new ConfigurationOptimizer for the given VBus device address.
+     * Get the configuration optimizer for the given device (identified by its address).
      *
-     * @constructs
-     * @param {number} deviceAddress VBus device address of the device to configure.
-     *
-     * @classdesc
-     * The ConfigurationOptimizer can be used to find the optimal set of
-     * configuration values for a given VBus device.
+     * @param {number} deviceAddress VBus address of the device
+     * @returns {Promise} A Promise that resolvs to the optimizer for the given device.
      */
-    constructor: function(deviceAddress) {
-        this.deviceAddress = deviceAddress;
-    },
+    getOptimizerByDeviceAddress: function(deviceAddress) {
+        return Q.fcall(function() {
+            var result;
 
-    getInitialConfiguration: function(oldConfig) {
-        throw new Error('NYI');
-    },
+            switch (deviceAddress) {
 
-    optimizeConfiguration: function(oldConfig) {
-        throw new Error('NYI');
+            }
+
+            return result;
+        });
     },
 
 });

@@ -13,34 +13,34 @@ var ConfigurationOptimizer = vbus.ConfigurationOptimizer;
 
 describe('ConfigurationOptimizer', function() {
 
-    describe('constructor', function() {
+    describe('.getOptimizerByDeviceAddress', function() {
 
-        it('should be a constructor function', function() {
-            expect(ConfigurationOptimizer).a('function');
-        });
-
-        it('should copy the device address', function() {
-            var deviceAddress = 0x1234;
-
-            var optimizer = new ConfigurationOptimizer(deviceAddress);
-
-            expect(optimizer).property('deviceAddress').equal(deviceAddress);
+        it('should be a function', function() {
+            expect(ConfigurationOptimizer).property('getOptimizerByDeviceAddress').a('function');
         });
 
     });
 
-    describe('#getInitialConfiguration', function() {
+    describe('#getInitialLoadConfiguration', function() {
 
         it('should be a method', function() {
-            expect(ConfigurationOptimizer.prototype).property('getInitialConfiguration').a('function');
+            expect(ConfigurationOptimizer.prototype).property('getInitialLoadConfiguration').a('function');
         });
 
     });
 
-    describe('#optimizeConfiguration', function() {
+    describe('#optimizeLoadConfiguration', function() {
 
         it('should be a method', function() {
-            expect(ConfigurationOptimizer.prototype).property('optimizeConfiguration').a('function');
+            expect(ConfigurationOptimizer.prototype).property('optimizeLoadConfiguration').a('function');
+        });
+
+    });
+
+    describe('#getSaveConfiguration', function() {
+
+        it('should be a method', function() {
+            expect(ConfigurationOptimizer.prototype).property('getSaveConfiguration').a('function');
         });
 
     });
