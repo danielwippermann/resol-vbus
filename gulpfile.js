@@ -55,6 +55,7 @@ var patterns = {
     all: [
         'src/**/*.js',
         '!src/specification-data.js',
+        '!src/configurations/**/*-data.js',
         'test/specs/**/*.js'
     ],
     jsdoc: [
