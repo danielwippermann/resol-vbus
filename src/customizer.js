@@ -65,7 +65,7 @@ var Customizer = extend(EventEmitter, /** @lends Customizer# */ {
         _.extend(this, _.pick(options, optionKeys));
 
         if (!this.optimizer) {
-            this.optimizer = new ConfigurationOptimizer(this.deviceAddress);
+            this.optimizer = ConfigurationOptimizer.getOptimizerByDeviceAddress(this.deviceAddress);
         }
     },
 
