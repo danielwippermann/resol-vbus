@@ -38,7 +38,7 @@ describe('ConnectionCustomizer', function() {
                     .that.is.equal(0);
             expect(customizer)
                 .to.have.a.property('optimizer')
-                    .that.is.instanceOf(ConfigurationOptimizer);
+                    .that.is.equal(null);
             expect(customizer)
                 .to.have.a.property('connection')
                     .that.is.equal(null);
