@@ -94,16 +94,16 @@ var ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# */
 
         var callback = function(config, round) {
             if (round === 1) {
-                return _this._getInitialConfiguration(config);
+                return _this._getInitialLoadConfiguration();
             } else {
-                return _this._optimizeConfiguration(config);
+                return _this._optimizeLoadConfiguration(config);
             }
         };
 
         return this.transceiveConfiguration(options, callback);
     },
 
-    saveConfiguration: function(configuration) {
+    saveConfiguration: function(newConfiguration, oldConfigurstion) {
         var _this = this;
 
         var options = {
@@ -115,9 +115,9 @@ var ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# */
 
         var callback = function(config, round) {
             if (round === 1) {
-                return _this._getInitialConfiguration(config);
+                return _this._getSaveConfiguration(newConfiguration, oldConfigurstion);
             } else {
-                return _this._optimizeConfiguration(config);
+                return _this._getSaveConfiguration(newConfiguration, config);
             }
         };
 
