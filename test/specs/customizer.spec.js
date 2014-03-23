@@ -23,13 +23,14 @@ describe('Customizer', function() {
             var options = {
                 id: null,
                 deviceAddress: 0,
+                optimizer: null,
             };
 
             var customizer = new Customizer();
 
             expect(customizer).property('id').equal(options.id);
             expect(customizer).property('deviceAddress').equal(options.deviceAddress);
-            expect(customizer).property('optimizer').an('object');
+            expect(customizer).property('optimizer').equal(options.optimizer);
         });
 
         it('should copy selected options', function() {
@@ -82,14 +83,13 @@ describe('Customizer', function() {
 
     });
 
-    describe('#_getInitialConfiguration', function() {
+    describe('#_getInitialLoadConfiguration', function() {
 
         it('should be a method', function() {
-            expect(Customizer.prototype).property('_getInitialConfiguration').a('function');
+            expect(Customizer.prototype).property('_getInitialLoadConfiguration').a('function');
         });
 
         it('should forward to the optimizer', function() {
-            var refConfig = {};
             var refResult = {};
 
             var spy = sinon.spy(function() {
@@ -97,7 +97,7 @@ describe('Customizer', function() {
             });
 
             var optimizer = {
-                getInitialConfiguration: spy,
+                getInitialLoadConfiguration: spy,
             };
 
             var options = {
@@ -106,19 +106,18 @@ describe('Customizer', function() {
 
             var customizer = new Customizer(options);
 
-            var result = customizer._getInitialConfiguration(refConfig);
+            var result = customizer._getInitialLoadConfiguration();
 
-            expect(optimizer.getInitialConfiguration.callCount).equal(1);
-            expect(optimizer.getInitialConfiguration.firstCall.args [0]).equal(refConfig);
+            expect(optimizer.getInitialLoadConfiguration.callCount).equal(1);
             expect(result).equal(refResult);
         });
 
     });
 
-    describe('#_optimizeConfiguration', function() {
+    describe('#_optimizeLoadConfiguration', function() {
 
         it('should be a method', function() {
-            expect(Customizer.prototype).property('_optimizeConfiguration').a('function');
+            expect(Customizer.prototype).property('_optimizeLoadConfiguration').a('function');
         });
 
         it('should forward to the optimizer', function() {
@@ -130,7 +129,7 @@ describe('Customizer', function() {
             });
 
             var optimizer = {
-                optimizeConfiguration: spy,
+                optimizeLoadConfiguration: spy,
             };
 
             var options = {
@@ -139,10 +138,45 @@ describe('Customizer', function() {
 
             var customizer = new Customizer(options);
 
-            var result = customizer._optimizeConfiguration(refConfig);
+            var result = customizer._optimizeLoadConfiguration(refConfig);
 
-            expect(optimizer.optimizeConfiguration.callCount).equal(1);
-            expect(optimizer.optimizeConfiguration.firstCall.args [0]).equal(refConfig);
+            expect(optimizer.optimizeLoadConfiguration.callCount).equal(1);
+            expect(optimizer.optimizeLoadConfiguration.firstCall.args [0]).equal(refConfig);
+            expect(result).equal(refResult);
+        });
+
+    });
+
+    describe('#_getSaveConfiguration', function() {
+
+        it('should be a method', function() {
+            expect(Customizer.prototype).property('_getSaveConfiguration').a('function');
+        });
+
+        it('should forward to the optimizer', function() {
+            var newConfig = {};
+            var oldConfig = {};
+            var refResult = {};
+
+            var spy = sinon.spy(function() {
+                return refResult;
+            });
+
+            var optimizer = {
+                getSaveConfiguration: spy,
+            };
+
+            var options = {
+                optimizer: optimizer,
+            };
+
+            var customizer = new Customizer(options);
+
+            var result = customizer._getSaveConfiguration(newConfig, oldConfig);
+
+            expect(optimizer.getSaveConfiguration.callCount).equal(1);
+            expect(optimizer.getSaveConfiguration.firstCall.args [0]).equal(newConfig);
+            expect(optimizer.getSaveConfiguration.firstCall.args [1]).equal(oldConfig);
             expect(result).equal(refResult);
         });
 

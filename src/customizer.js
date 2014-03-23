@@ -63,10 +63,6 @@ var Customizer = extend(EventEmitter, /** @lends Customizer# */ {
         EventEmitter.call(this);
 
         _.extend(this, _.pick(options, optionKeys));
-
-        if (!this.optimizer) {
-            this.optimizer = ConfigurationOptimizer.getOptimizerByDeviceAddress(this.deviceAddress);
-        }
     },
 
     /**
@@ -91,21 +87,31 @@ var Customizer = extend(EventEmitter, /** @lends Customizer# */ {
     /**
      * Gets the set of values for the first round of transfer.
      *
-     * @param {array} oldConfig The set of values to transfer or `null` if no set is given (e.g. during `loadConfiguration`)
-     * @returns {Promise} A Promise that resolves to the set of values to transfer.
+     * @returns {Promise} A Promise that resolves to the set of values to load.
      */
-    _getInitialConfiguration: function(oldConfig) {
-        return this.optimizer.getInitialConfiguration(oldConfig);
+    _getInitialLoadConfiguration: function() {
+        return this.optimizer.getInitialLoadConfiguration();
     },
 
     /**
      * Gets the set of values for the second and all successive rounds of transfer.
      *
-     * @param {array} oldConfig
-     * @returns {Promise} A Promise that resolves to the set of values to transfer.
+     * @param {array} oldConfig The set of values that has already been looaded.
+     * @returns {Promise} A Promise that resolves to the set of values to load.
      */
-    _optimizeConfiguration: function(oldConfig) {
-        return this.optimizer.optimizeConfiguration(oldConfig);
+    _optimizeLoadConfiguration: function(oldConfig) {
+        return this.optimizer.optimizeLoadConfiguration(oldConfig);
+    },
+
+    /**
+     * Gets the set of values to save to the controller.
+     *
+     * @param {array} newConfig The set of values to transfer.
+     * @param {array} oldConfig The optional set of values that should be currently saved in the device.
+     * @returns {Promise} A Promise that resolves to the set of values to save.
+     */
+    _getSaveConfiguration: function(newConfig, oldConfig) {
+        return this.optimizer.getSaveConfiguration(newConfig, oldConfig);
     },
 
 });
