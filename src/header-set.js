@@ -70,6 +70,18 @@ var HeaderSet = extend(EventEmitter, /** @lends HeaderSet# */ {
     },
 
     /**
+     * Returns `true` if a Header of the same kind is already added to the HeaderSet.
+     *
+     * @params {Header} header The Header instance to check for.
+     * @returns {boolean} `true` if a Header of the same kind is already in the HeaderSet, `false` otherwise.
+     */
+    containsHeader: function(header) {
+        var index = this._findIndex(header);
+
+        return (index >= 0);
+    },
+
+    /**
      * Adds a Header instance to this set, replacing a previously added Header of same kind.
      *
      * @param {Header} header The Header instance to add to this set.

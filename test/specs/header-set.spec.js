@@ -53,6 +53,53 @@ describe('HeaderSet', function() {
 
     });
 
+    describe('#containsHeader', function() {
+
+        it('should be a method', function() {
+            expect(HeaderSet.prototype).property('containsHeader').a('function');
+        });
+
+        it('should work correctly', function() {
+            var header1 = new Packet({
+                channel: 1
+            });
+
+            var header2 = new Packet({
+                channel: 2
+            });
+
+            var header3 = new Packet({
+                channel: 2
+            });
+
+            var headerSet = new HeaderSet();
+
+            expect(headerSet.containsHeader(header1)).to.equal(false);
+            expect(headerSet.containsHeader(header2)).to.equal(false);
+            expect(headerSet.containsHeader(header3)).to.equal(false);
+
+            headerSet.addHeader(header1);
+
+            expect(headerSet.containsHeader(header1)).to.equal(true);
+            expect(headerSet.containsHeader(header2)).to.equal(false);
+            expect(headerSet.containsHeader(header3)).to.equal(false);
+
+            headerSet.addHeader(header2);
+
+            expect(headerSet.containsHeader(header1)).to.equal(true);
+            expect(headerSet.containsHeader(header2)).to.equal(true);
+            expect(headerSet.containsHeader(header3)).to.equal(true);
+
+            headerSet.removeAllHeaders();
+            headerSet.addHeader(header3);
+
+            expect(headerSet.containsHeader(header1)).to.equal(false);
+            expect(headerSet.containsHeader(header2)).to.equal(true);
+            expect(headerSet.containsHeader(header3)).to.equal(true);
+        });
+
+    });
+
     describe('#addHeader', function() {
 
         it('should be a method', function() {
