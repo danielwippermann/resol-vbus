@@ -62,6 +62,10 @@ var VBusRecordingConverter = Converter.extend(/** @lends VBusRecordingConverter#
     },
 
     end: function() {
+        if (!this.objectMode) {
+            this._processBuffer(new Buffer(0), true);
+        }
+
         this._emitHeaderSet();
 
         return Converter.prototype.end.apply(this, arguments);
@@ -155,80 +159,93 @@ var VBusRecordingConverter = Converter.extend(/** @lends VBusRecordingConverter#
         if (this.objectMode) {
             return Converter.prototype._write.apply(this, arguments);
         } else {
-            var buffer;
-            if (this.rxBuffer) {
-                buffer = Buffer.concat([ this.rxBuffer, chunk ]);
-            } else {
-                buffer = chunk;
-            }
+            this._processBuffer(chunk);
+            callback();
+        }
+    },
 
-            var getRecordLength = function(index) {
-                var length;
-                if (index > buffer.length - 6) {
-                    length = 0;
-                } else if (buffer [index] !== 0xA5) {
-                    length = 0;
-                } else if ((buffer [index + 1] >> 4) !== (buffer [index + 1] & 15)) {
-                    length = 0;
-                } else if (buffer [index + 2] !== buffer [index + 4]) {
-                    length = 0;
-                } else if (buffer [index + 3] !== buffer [index + 5]) {
-                    length = 0;
-                } else {
-                    length = buffer.readUInt16LE(index + 2);
-
-                    if ((index + length) > buffer.length) {
-                        length = 0;
-                    }
-                }
-                return length;
-            };
-
-            var currentIndex = 0, currentLength = getRecordLength(0), nextIndex, nextLength, start = 0;
-            while (currentIndex < buffer.length) {
-                if (currentLength > 0) {
-                    nextIndex = currentIndex + currentLength;
-                } else {
-                    nextIndex = currentIndex + 1;
-                }
-
-                nextLength = getRecordLength(nextIndex);
-
-                if ((currentLength > 0) && ((nextLength > 0) || (nextIndex === buffer.length))) {
-                    var record = buffer.slice(currentIndex, nextIndex);
-
-                    this._processRecord(record);
-
-                    start = nextIndex;
-                } else if (nextIndex !== (currentIndex + 1)) {
-                    nextIndex = currentIndex + 1;
-                    nextLength = getRecordLength(nextIndex);
-                }
-
-                currentIndex = nextIndex;
-                currentLength = nextLength;
-            }
-
-            var maxLength = 65536;
-            if (buffer.length - start >= maxLength) {
-                start = buffer.length - maxLength;
-            }
-
-            if (start < buffer.length) {
-                this.rxBuffer = new Buffer(buffer.slice(start));
-            } else {
-                this.rxBuffer = null;
-            }
+    _processBuffer: function(chunk, endOfStream) {
+        var buffer;
+        if (this.rxBuffer) {
+            buffer = Buffer.concat([ this.rxBuffer, chunk ]);
+        } else {
+            buffer = chunk;
         }
 
-        callback();
+        var getRecordLength = function(index) {
+            var length;
+            if (index > buffer.length - 6) {
+                length = -1;
+            } else if (buffer [index] !== 0xA5) {
+                length = 0;
+            } else if ((buffer [index + 1] >> 4) !== (buffer [index + 1] & 15)) {
+                length = 0;
+            } else if (buffer [index + 2] !== buffer [index + 4]) {
+                length = 0;
+            } else if (buffer [index + 3] !== buffer [index + 5]) {
+                length = 0;
+            } else {
+                length = buffer.readUInt16LE(index + 2);
+
+                if ((index + length) > buffer.length) {
+                    length = -1;
+                }
+            }
+            return length;
+        };
+
+        var currentIndex = 0, currentLength = getRecordLength(0), nextIndex, nextLength, start = 0;
+        while ((currentLength >= 0) && (currentIndex < buffer.length)) {
+            if (currentLength > 0) {
+                nextIndex = currentIndex + currentLength;
+            } else {
+                nextIndex = currentIndex + 1;
+            }
+
+            nextLength = getRecordLength(nextIndex);
+
+            if ((nextLength < 0) && !endOfStream) {
+                break;
+            }
+
+            if ((currentLength > 0) && ((nextLength > 0) || (nextIndex === buffer.length))) {
+                var record = buffer.slice(currentIndex, nextIndex);
+
+                this._processRecord(record);
+
+                start = nextIndex;
+            } else if (nextIndex !== (currentIndex + 1)) {
+                nextIndex = currentIndex + 1;
+                nextLength = getRecordLength(nextIndex);
+
+                if (nextLength < 0) {
+                    break;
+                }
+            }
+
+            currentIndex = nextIndex;
+            currentLength = nextLength;
+        }
+
+        var maxLength = 65536;
+        if (buffer.length - start >= maxLength) {
+            start = buffer.length - maxLength;
+        }
+
+        if (start < buffer.length) {
+            this.rxBuffer = new Buffer(buffer.slice(start));
+        } else {
+            this.rxBuffer = null;
+        }
     },
 
     _processRecord: function(buffer) {
         var type = buffer [1] & 0x0F;
         var timestamp = moreints.readUInt64LE(buffer, 6);
 
-        if (type === 4) {
+        if (type === 3) {
+            this._processType3Record(buffer, timestamp);
+        } else if (type === 4) {
             this._emitHeaderSet();
 
             this.headerSet = new HeaderSet();
@@ -275,9 +292,57 @@ var VBusRecordingConverter = Converter.extend(/** @lends VBusRecordingConverter#
         }
     },
 
+    _processType3Record: function(buffer, timestamp) {
+        var destinationAddress = buffer.readUInt16LE(14);
+        var sourceAddress = buffer.readUInt16LE(16);
+        var protocolVersion = buffer.readUInt16LE(18);
+
+        var majorVersion = protocolVersion >> 4;
+        if ((majorVersion === 1) && (buffer.length >= 26)) {
+            var command = buffer.readUInt16LE(20);
+            var dataLength = buffer.readUInt16LE(22);
+
+            if (buffer.length >= 26 + dataLength) {
+                var frameCount = Math.floor(dataLength / 4);
+
+                var frameData = new Buffer(127 * 4);
+                buffer.copy(frameData, 0, 26, 26 + dataLength);
+
+                var header = new Packet({
+                    timestamp: new Date(timestamp),
+                    channel: this.currentChannel,
+                    destinationAddress: destinationAddress,
+                    sourceAddress: sourceAddress,
+                    command: command,
+                    frameCount: frameCount,
+                    frameData: frameData,
+                    dontCopyFrameData: true,
+                });
+
+                if (destinationAddress === 0x0010) {
+                    this._emitHeaderSet();
+                } else if (this.headerSet && this.headerSet.containsHeader(header)) {
+                    this._emitHeaderSet();
+                }
+
+                if (!this.headerSet) {
+                    this.headerSet = new HeaderSet();
+
+                    this.headerSet.timestamp = header.timestamp;
+                }
+
+                this.headerSet.addHeader(header);
+
+                this.emit('header', header);
+            }
+        }
+    },
+
     _emitHeaderSet: function() {
         if (this.headerSet) {
-            this.headerSet.timestamp = this.headerSetTimestamp;
+            if (this.headerSetTimestamp) {
+                this.headerSet.timestamp = this.headerSetTimestamp;
+            }
 
             this.emit('headerSet', this.headerSet);
 
