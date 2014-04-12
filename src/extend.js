@@ -37,13 +37,13 @@ var extend = function(parent, protoProps, staticProps) {
 
     _.extend(child, parent, staticProps);
 
+    var Surrogate = function() {
+        this.constructor = child;
+    };
     if (parent) {
-        var Surrogate = function() {
-            this.constructor = child;
-        };
         Surrogate.prototype = parent.prototype;
-        child.prototype = new Surrogate();
     }
+    child.prototype = new Surrogate();
 
     if (protoProps) {
         _.extend(child.prototype, protoProps);
