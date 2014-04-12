@@ -55,17 +55,19 @@ var patterns = {
     all: [
         'src/**/*.js',
         '!src/specification-data.js',
-        '!src/configurations/**/*-data.js',
+        '!src/configuration-optimizers/**/*-data.js',
         'test/specs/**/*.js'
     ],
     jsdoc: [
         'src/**/*.js',
         '!src/specification-data.js',
+        '!src/configuration-optimizers/**/*-data.js',
         'README.md',
     ],
     coverage: [
         'src/**/*.js',
         '!src/specification-data.js',
+        '!src/configuration-optimizers/**/*-data.js',
     ],
     docs: [
         'docs/**/*',
