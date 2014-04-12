@@ -214,6 +214,7 @@ var TcpConnection = Connection.extend( /** @lends TcpConnection# */ {
                 }
             } else if (line [0] === '-') {
                 newPhase = 800;
+                done(new Error('Remote side responded with ' + JSON.stringify(line)));
             } else if (line [0] === '*') {
                 if (phase === 60) {
                     channelList.push(line.substring(1).trim());
