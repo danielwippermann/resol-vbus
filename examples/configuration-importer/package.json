@@ -1,0 +1,11 @@
+{
+  "name": "configuration-importer",
+  "version": "0.9.0",
+  "description": "RESOL XML Configuration Importer",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Daniel Wippermann <Daniel.Wippermann@gmail.com> (http://danielwippermann.github.io/)",
+  "license": "MIT"
+}
