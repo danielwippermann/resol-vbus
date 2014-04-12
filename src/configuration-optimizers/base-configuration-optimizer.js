@@ -290,21 +290,23 @@ var BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
         var adjustableValues = _.reduce(data.values, function(memo, value) {
             if (adjustableValueIds [value.id]) {
                 var valueTextById = {};
+                var addValueText = function(valueText, index) {
+                    if (valueText.id && !_.has(valueTextById, valueText.id)) {
+                        var valueTextValue = valueText.value;
+                        if (valueTextValue === undefined) {
+                            valueTextValue = index;
+                        }
+
+                        valueTextById [valueText.id] = valueTextValue;
+                    }
+                };
+
                 var typeId = value.type.base;
                 while (typeId) {
                     var type = typeById [typeId];
                     if (type) {
                         if (type.valueTexts.length > 0) {
-                            _.forEach(type.valueTexts, function(valueText, index) {
-                                if (valueText.id && !_.has(valueTextById, valueText.id)) {
-                                    var valueTextValue = valueText.value;
-                                    if (valueTextValue === undefined) {
-                                        valueTextValue = index;
-                                    }
-
-                                    valueTextById [valueText.id] = valueTextValue;
-                                }
-                            });
+                            _.forEach(type.valueTexts, addValueText);
                         }
                     }
 
@@ -323,9 +325,6 @@ var BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
         return adjustableValues;
     },
 
-    // 1. initialLoad: oldConfig empty, newConfig = all pending
-    // 2. optimizeLoad: oldConfig = partly transceived, newConfig = partly transceived, partly pending
-    // 3. 
     _optimizeConfiguration: function(config, adjustableValues) {
         var _this = this;
 
