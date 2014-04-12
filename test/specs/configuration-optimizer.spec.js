@@ -13,14 +13,6 @@ var ConfigurationOptimizer = vbus.ConfigurationOptimizer;
 
 describe('ConfigurationOptimizer', function() {
 
-    describe('.getOptimizerByDeviceAddress', function() {
-
-        it('should be a function', function() {
-            expect(ConfigurationOptimizer).property('getOptimizerByDeviceAddress').a('function');
-        });
-
-    });
-
     describe('#getInitialLoadConfiguration', function() {
 
         it('should be a method', function() {
