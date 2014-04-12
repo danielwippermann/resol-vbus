@@ -218,6 +218,13 @@ var ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# */
                                         action: options.action,
                                         actionOptions: options.actionOptions,
                                     }, state).progress(function(progress) {
+                                        progress = _.extend({}, progress, {
+                                            valueId: valueInfo.valueId,
+                                            valueIndex: valueInfo.valueIndex,
+                                            valueNr: index,
+                                            valueCount: pendingValues.length,
+                                        });
+
                                         reportProgress(progress);
                                     });
                                 }).then(function(datagram) {
@@ -328,6 +335,7 @@ var ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# */
                 notify({
                     message: message,
                     tries: tries,
+                    valueIndex: valueIndex,
                 });
             };
 
