@@ -85,12 +85,12 @@ var ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# */
         _.extend(this, _.pick(options, optionKeys));
     },
 
-    loadConfiguration: function() {
+    loadConfiguration: function(options) {
         var _this = this;
 
-        var options = {
+        options = _.defaults({}, options, {
             action: 'get',
-        };
+        });
 
         var callback = function(config, round) {
             if (round === 1) {
@@ -103,15 +103,15 @@ var ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# */
         return this.transceiveConfiguration(options, callback);
     },
 
-    saveConfiguration: function(newConfiguration, oldConfigurstion) {
+    saveConfiguration: function(newConfiguration, oldConfigurstion, options) {
         var _this = this;
 
-        var options = {
+        options = _.defaults({}, options, {
             action: 'set',
             actionOptions: {
                 save: true,
             },
-        };
+        });
 
         var callback = function(config, round) {
             if (round === 1) {
