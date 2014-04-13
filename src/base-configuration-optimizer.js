@@ -96,7 +96,10 @@ var ValuesWrapper = extend(null, {
 
     isChanged: function(callback) {
         return this._check(callback, function(value, valueInfo) {
-            return valueInfo.changed;
+            return (_.isNumber(value) && valueInfo.changed);
+        }, {
+            includeUndefined: false,
+            includeFailed: false,
         });
     },
 
@@ -104,20 +107,29 @@ var ValuesWrapper = extend(null, {
         _.forEach(this.values, function(value) {
             value.ignored = true;
         });
+
+        return this;
     },
 
     invalidate: function() {
         _.forEach(this.values, function(value) {
             value.invalidated = true;
         });
+
+        return this;
     },
 
-    check: function(checker, action) {
-        return this._check(action, checker);
+    check: function(checker, action, options) {
+        return this._check(action, checker, options);
     },
 
-    _check: function(action, checker) {
+    _check: function(action, checker, options) {
         var _this = this;
+
+        options = _.defaults({}, options, {
+            includeUndefined: true,
+            includeFailed: true,
+        });
 
         _.forEach(this.values, function(value) {
             value.checked = true;
@@ -125,15 +137,17 @@ var ValuesWrapper = extend(null, {
             var result;
             if (value.ignored) {
                 result = false;
-            } else if (value.value !== undefined) {
-                result = checker.call(_this, value.value, value);
+            } else if (value.value === undefined) {
+                result = options.includeUndefined;
+            } else if (value.value === null) {
+                result = options.includeFailed;
             } else {
-                result = undefined;
+                result = checker.call(_this, value.value, value);
             }
 
             if (result !== false) {
                 if (action.length > 0) {
-                    var wrapper = _this.$(value.valueId);
+                    var wrapper = _this.$('^' + value.valueId + '$');
 
                     wrapper.md = _this.pattern.exec(value.valueId);
 
@@ -143,6 +157,8 @@ var ValuesWrapper = extend(null, {
                 }
             }
         });
+
+        return this;
     },
 
     _normalizeValue: function(value, valueInfo) {
