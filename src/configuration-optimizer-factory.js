@@ -18,7 +18,7 @@ var optimizerClasses = [
     require('./configuration-optimizers/resol-deltasol-bx-plus-xxx-configuration-optimizer'),
 
     // DeltaSol CS Plus
-    require('./configuration-optimizers/resol-deltasol-cs-plus-xxx-configuration-optimizer'),
+    // require('./configuration-optimizers/resol-deltasol-cs-plus-xxx-configuration-optimizer'),
 
 ];
 
