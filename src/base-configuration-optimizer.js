@@ -6,8 +6,8 @@
 var _ = require('lodash');
 
 
-var ConfigurationOptimizer = require('../configuration-optimizer');
-var extend = require('../extend');
+var ConfigurationOptimizer = require('./configuration-optimizer');
+var extend = require('./extend');
 
 
 

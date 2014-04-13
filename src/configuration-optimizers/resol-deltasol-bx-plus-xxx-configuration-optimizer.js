@@ -8,7 +8,7 @@ var _ = require('lodash');
 
 var configurationData = require('./resol-deltasol-bx-plus-xxx-data');
 
-var BaseConfigurationOptimizer = require('./base-configuration-optimizer');
+var BaseConfigurationOptimizer = require('../base-configuration-optimizer');
 
 
 
