@@ -123,7 +123,9 @@ var ValuesWrapper = extend(null, {
             value.checked = true;
 
             var result;
-            if (value.value !== undefined) {
+            if (value.ignored) {
+                result = false;
+            } else if (value.value !== undefined) {
                 result = checker.call(_this, value.value, value);
             } else {
                 result = undefined;
