@@ -19,6 +19,14 @@ describe('ConfigurationOptimizer', function() {
             expect(ConfigurationOptimizer.prototype).property('getInitialLoadConfiguration').a('function');
         });
 
+        it('should be an abstract method', function() {
+            var optimizer = new ConfigurationOptimizer();
+
+            expect(function() {
+                return optimizer.getInitialLoadConfiguration();
+            }).throw(Error, 'Must be implemented by sub-class');
+        });
+
     });
 
     describe('#optimizeLoadConfiguration', function() {
@@ -27,12 +35,28 @@ describe('ConfigurationOptimizer', function() {
             expect(ConfigurationOptimizer.prototype).property('optimizeLoadConfiguration').a('function');
         });
 
+        it('should be an abstract method', function() {
+            var optimizer = new ConfigurationOptimizer();
+
+            expect(function() {
+                return optimizer.optimizeLoadConfiguration();
+            }).throw(Error, 'Must be implemented by sub-class');
+        });
+
     });
 
     describe('#getSaveConfiguration', function() {
 
         it('should be a method', function() {
             expect(ConfigurationOptimizer.prototype).property('getSaveConfiguration').a('function');
+        });
+
+        it('should be an abstract method', function() {
+            var optimizer = new ConfigurationOptimizer();
+
+            expect(function() {
+                return optimizer.getSaveConfiguration();
+            }).throw(Error, 'Must be implemented by sub-class');
         });
 
     });
