@@ -40,7 +40,7 @@ var ResolDeltaSolBxPlusXxxConfigurationOptimizer = BaseConfigurationOptimizer.ex
         });
 
         var hasSecondKollektor = function(solarSystemId) {
-            return (((solarSystemId / 10) % 2) !== 0);
+            return (((solarSystemId / 10) & 1) !== 0);
         };
 
         value.lt(10, function() {
@@ -51,7 +51,7 @@ var ResolDeltaSolBxPlusXxxConfigurationOptimizer = BaseConfigurationOptimizer.ex
             $(/^Solar_Kol2_.*/).ignore();
             $(/^Solar_Wf2_(Roehrenkollektor|Bypass|Frostschutz)_.*/).ignore();
         });
-        $('Solar_OKollektor3').isFalse(function() {
+        $('^Solar_OKollektor3$').isFalse(function() {
             $(/^Solar_Kol3_.*/).ignore();
             $(/^Solar_Wf3_(Roehrenkollektor|Bypass|Frostschutz)_.*/).ignore();
         });
@@ -78,7 +78,7 @@ var ResolDeltaSolBxPlusXxxConfigurationOptimizer = BaseConfigurationOptimizer.ex
             $(/^Solar_Wf5_(ExtWT)_.*/).ignore();
         });
 
-        value.lt(1, function() {
+        value.lt(10, function() {
             $(/^Solar_Wf1_(Zieltemperatur|Bereitschaft|DrainBack)_.*/).ignore();
         });
     },
@@ -88,7 +88,7 @@ var ResolDeltaSolBxPlusXxxConfigurationOptimizer = BaseConfigurationOptimizer.ex
             var prefix = '^Solar_Wf' + value.md [1] + '_';
 
             value.in([ 0, '#Frei' ], function() {
-                $(prefix + '(?!Type).*').ignore();
+                $(prefix + '(?!(Type|(Roehrenkollektor|Bypass|Frostschutz|ExtWT|Zieltemperatur|Bereitschaft|DrainBack)_)).*').ignore();
             });
 
             var wfTypes = [
