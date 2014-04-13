@@ -13,6 +13,7 @@ var Q = require('q');
 
 
 var TcpDataSource = require('./tcp-data-source');
+var utils = require('./utils');
 
 var DataSourceProvider = require('./data-source-provider');
 
@@ -194,65 +195,55 @@ var TcpDataSourceProvider = DataSourceProvider.extend(/** @lends TcpDataSourcePr
 
     fetchDeviceInformation: function(address, port) {
         if (port === undefined) {
-            port = 80;
-        }
-
-        var deferred = Q.defer();
-        var promise = deferred.promise;
-
-        var done = function(err, result) {
-            if (deferred) {
-                if (err) {
-                    deferred.reject(err);
-                } else {
-                    deferred.resolve(result);
-                }
-                deferred = null;
-            }
-        };
-
-        var portSuffix;
-        if (port !== 80) {
-            portSuffix = ':' + port;
+            return Q.fcall(function() {
+                return TcpDataSourceProvider.fetchDeviceInformation(address, 80);
+            }).fail(function() {
+                return TcpDataSourceProvider.fetchDeviceInformation(address, 3000);
+            });
         } else {
-            portSuffix = '';
+            return utils.promise(function(resolve, reject) {
+                var portSuffix;
+                if (port !== 80) {
+                    portSuffix = ':' + port;
+                } else {
+                    portSuffix = '';
+                }
+
+                var reqUrl = url.parse('http://' + address + portSuffix + '/cgi-bin/get_resol_device_information');
+
+                var req = http.get(reqUrl, function(res) {
+                    if (res.statusCode === 200) {
+                        var buffer = new Buffer(0);
+
+                        res.on('data', function(chunk) {
+                            buffer = Buffer.concat([ buffer, chunk ]);
+                        });
+
+                        res.on('end', function() {
+                            var bodyString = buffer.toString();
+                            var info = _.extend(TcpDataSourceProvider.parseDeviceInformation(bodyString), {
+                                __address__: address,
+                            });
+                            resolve(info);
+                        });
+
+                        res.on('error', function(err) {
+                            reject(err);
+                        });
+                    } else {
+                        reject(new Error('HTTP request returned status ' + res.statusCode));
+                    }
+                });
+
+                req.on('error', function(err) {
+                    reject(err);
+                });
+
+                req.setTimeout(10000, function() {
+                    reject(new Error('HTTP request timed out'));
+                });
+            });
         }
-
-        var reqUrl = url.parse('http://' + address + portSuffix + '/cgi-bin/get_resol_device_information');
-
-        var req = http.get(reqUrl, function(res) {
-            if (res.statusCode === 200) {
-                var buffer = new Buffer(0);
-
-                res.on('data', function(chunk) {
-                    buffer = Buffer.concat([ buffer, chunk ]);
-                });
-
-                res.on('end', function() {
-                    var bodyString = buffer.toString();
-                    var info = _.extend(TcpDataSourceProvider.parseDeviceInformation(bodyString), {
-                        __address__: address,
-                    });
-                    done(null, info);
-                });
-
-                res.on('error', function(err) {
-                    done(err);
-                });
-            } else {
-                done(new Error('HTTP request returned status ' + res.statusCode));
-            }
-        });
-
-        req.on('error', function(err) {
-            done(err);
-        });
-
-        req.setTimeout(10000, function() {
-            done(new Error('HTTP request timed out'));
-        });
-
-        return promise;
     },
 
     parseDeviceInformation: function(string) {
