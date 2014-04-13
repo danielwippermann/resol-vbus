@@ -4,6 +4,7 @@
 
 
 var _ = require('lodash');
+var Q = require('q');
 
 
 var ConfigurationOptimizer = require('./configuration-optimizer');
@@ -190,9 +191,7 @@ var ValuesWrapper = extend(null, {
 var BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
 
     getInitialLoadConfiguration: function() {
-        var config = this._buildLoadConfiguration([]);
-
-        return config;
+        return this._buildLoadConfiguration([]);
     },
 
     optimizeLoadConfiguration: function(oldConfig) {
@@ -204,19 +203,23 @@ var BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
     },
 
     _buildLoadConfiguration: function(oldConfig) {
-        var config = this._buildConfiguration(oldConfig);
+        var _this = this;
 
-        _.forEach(config, function(value) {
-            if (value.previousValue !== undefined) {
-                value.value = value.previousValue;
-            } else if (value.ignored) {
-                // nop
-            } else {
-                value.pending = true;
-            }
+        return Q.fcall(function() {
+            return _this._buildConfiguration(oldConfig);
+        }).then(function(config) {
+            _.forEach(config, function(value) {
+                if (value.previousValue !== undefined) {
+                    value.value = value.previousValue;
+                } else if (value.ignored) {
+                    // nop
+                } else {
+                    value.pending = true;
+                }
+            });
+
+            return config;
         });
-
-        return config;
     },
 
     _buildConfiguration: function(oldConfig) {
