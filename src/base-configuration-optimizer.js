@@ -303,10 +303,16 @@ var BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
                     }
                 };
 
+                var dependsOnValueIds = [];
+
                 var type = value.type;
                 while (type) {
                     if (type.valueTexts && (type.valueTexts.length > 0)) {
                         _.forEach(type.valueTexts, addValueText);
+                    }
+
+                    if (type.selectorValueRef) {
+                        dependsOnValueIds.push(type.selectorValueRef);
                     }
 
                     type = typeById [type.base];
@@ -314,6 +320,7 @@ var BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
 
                 var adjustableValue = _.extend({}, value, {
                     valueTextById: valueTextById,
+                    dependsOnValueIds: dependsOnValueIds,
                 });
 
                 memo.push(adjustableValue);
@@ -344,10 +351,19 @@ var BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
                 changed = (configValue.previousValue !== configValue.value);
             }
 
+            var ignored = false;
+            _.forEach(value.dependsOnValueIds, function(dependsOnValueId) {
+                var dependsOnConfigValue = configValueById [dependsOnValueId];
+
+                if (dependsOnConfigValue && (dependsOnConfigValue.value === undefined)) {
+                    ignored = true;
+                }
+            });
+
             var valueInfo = _.extend({}, configValue, {
                 changed: changed,
                 checked: false,
-                ignored: false,
+                ignored: ignored,
                 invalidated: false,
             });
 
