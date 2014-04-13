@@ -68,7 +68,7 @@ var mergeTypes = function(menuSystem) {
             });
         });
 
-        keys = [ 'unit', 'structValueRef', 'compoundValueRef' ];
+        keys = [ 'unit', 'selectorValueRef' ];
         _.forEach(keys, function(key) {
             if (type [key] !== null) {
                 info [key] = type [key];
