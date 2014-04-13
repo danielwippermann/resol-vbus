@@ -23,6 +23,87 @@ var promise = vbus.utils.promise;
 
 
 
+var mergeTypes = function(menuSystem) {
+    var typeById = _.reduce(menuSystem.types, function(memo, type) {
+        memo [type.id] = type;
+        return memo;
+    }, {});
+
+    var mergeType = function(info, type) {
+        if (type.base) {
+            var baseType = typeById [type.base];
+            if (baseType) {
+                mergeType(info, baseType);
+            } else {
+                console.log('Unknown base type ' + JSON.stringify(type.base) + ' for type ' + JSON.stringify(type.id));
+            }
+        } else {
+            info.rootTypeId = type.id;
+        }
+
+        var keys = [ 'storeFactors', 'displayFactors', 'minimums', 'maximums', 'defaults' ];
+        _.forEach(keys, function(key) {
+            _.forEach(type [key], function(typeValue) {
+                if (!_.isString(typeValue.id) || (typeValue.id === info.id)) {
+                    info [key] = typeValue.value;
+                }
+            });
+        });
+
+        _.forEach(type.quants, function(typeQuantValue) {
+            if (!_.isString(typeQuantValue.id) || (typeQuantValue.id === info.id)) {
+                info.quants [typeQuantValue.step] = typeQuantValue.value;
+            }
+        });
+
+        _.forEach(type.valueTexts, function(typeValueText) {
+            var value = typeValueText.value;
+            if (value === null) {
+                value = info.valueTexts.length;
+            }
+
+            info.valueTexts.push({
+                value: value,
+                id: typeValueText.id,
+            });
+        });
+
+        keys = [ 'unit', 'structValueRef', 'compoundValueRef' ];
+        _.forEach(keys, function(key) {
+            if (type [key] !== null) {
+                info [key] = type [key];
+            }
+        });
+
+        if (type.unit) {
+            info.unit = type.unit;
+        }
+    };
+
+    _.forEach(menuSystem.values, function(value) {
+        var info = {
+            id: value.id,
+            quants: [],
+            valueTexts: [],
+        };
+
+        mergeType(info, value.type);
+
+        delete info.id;
+        if (info.quants.length === 0) {
+            delete info.quants;
+        }
+        if (info.valueTexts.length === 0) {
+            delete info.valueTexts;
+        }
+
+        value.type = info;
+    });
+
+    return menuSystem;
+};
+
+
 var filterPrefsValues = function(menuSystem) {
     var valueById = {};
     _.forEach(menuSystem.values, function(value) {
@@ -120,6 +201,20 @@ var convertMenuXmlFile = function(inputFilename, outputFilename, convert) {
         return deserializer.deserializeMenuSystem(root);
     }).then(function(menuSystem) {
         return filterPrefsValues(menuSystem);
+    }).then(function(menuSystem) {
+        return mergeTypes(menuSystem);
+    }).then(function(menuSystem) {
+        menuSystem.translationGroups = null;
+        menuSystem.strings = null;
+        menuSystem.types = null;
+        menuSystem.presets = null;
+        menuSystem.masks = null;
+        menuSystem.linesTemplates = null;
+        menuSystem.menus = null;
+        menuSystem.implHeaders = null;
+        menuSystem.implInitializers = null;
+
+        return menuSystem;
     }).then(function(menuSystem) {
         menuSystem.values = _.clone(menuSystem.values).sort(function(left, right) {
             var result = right.priority - left.priority;
