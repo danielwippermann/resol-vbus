@@ -17,6 +17,9 @@ var optimizerClasses = [
     // DeltaSol BX Plus
     require('./configuration-optimizers/resol-deltasol-bx-plus-xxx-configuration-optimizer'),
 
+    // DeltaSol CS Plus
+    require('./configuration-optimizers/resol-deltasol-cs-plus-xxx-configuration-optimizer'),
+
 ];
 
 
@@ -27,11 +30,11 @@ var ConfigurationOptimizerFactory = {
      * Get the configuration optimizer for the given device (identified by its address).
      *
      * @param {number} deviceAddress VBus address of the device
-     * @returns {Promise} A Promise that resolvs to the optimizer for the given device.
+     * @returns {Promise} A Promise that resolvs to the optimizer for the given device or `null` if no optimizer was found.
      */
     getOptimizerByDeviceAddress: function(deviceAddress) {
         return Q.fcall(function() {
-            var result;
+            var result = null;
 
             _.forEach(optimizerClasses, function(Optimizer) {
                 if (Optimizer.deviceAddress === deviceAddress) {
