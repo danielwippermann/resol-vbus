@@ -301,16 +301,13 @@ var BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
                     }
                 };
 
-                var typeId = value.type.base;
-                while (typeId) {
-                    var type = typeById [typeId];
-                    if (type) {
-                        if (type.valueTexts.length > 0) {
-                            _.forEach(type.valueTexts, addValueText);
-                        }
+                var type = value.type;
+                while (type) {
+                    if (type.valueTexts && (type.valueTexts.length > 0)) {
+                        _.forEach(type.valueTexts, addValueText);
                     }
 
-                    typeId = type && type.base;
+                    type = typeById [type.base];
                 }
 
                 var adjustableValue = _.extend({}, value, {
