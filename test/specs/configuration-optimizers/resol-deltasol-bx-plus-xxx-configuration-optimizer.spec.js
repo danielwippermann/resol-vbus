@@ -29,15 +29,14 @@ describe('ResolDeltaSolBxPlusXxxConfigurationOptimizer', function() {
 
     });
 
-    describe('#getInitialLoadConfiguration', function() {
+    describe('#completeConfiguration', function() {
 
         promiseIt('should work correctly', function() {
             return optimizerPromise.then(function(optimizer) {
                 return Q.fcall(function() {
-                    return testUtils.expectPromise(optimizer.getInitialLoadConfiguration());
+                    return testUtils.expectPromise(optimizer.completeConfiguration());
                 }).then(function(config) {
-                    expect(config).an('array');
-                    expect(_.where(config, { pending: true })).lengthOf(159);
+                    expect(config).an('array').lengthOf(4351);
                 });
             });
         });
@@ -49,8 +48,15 @@ describe('ResolDeltaSolBxPlusXxxConfigurationOptimizer', function() {
         promiseIt('should work correctly after', function() {
             return optimizerPromise.then(function(optimizer) {
                 return Q.fcall(function() {
-                    return testUtils.expectPromise(optimizer.getInitialLoadConfiguration());
+                    return testUtils.expectPromise(optimizer.completeConfiguration());
                 }).then(function(config) {
+                    return testUtils.expectPromise(optimizer.optimizeLoadConfiguration(config));
+                }).then(function(config) {
+                    expect(config).an('array');
+
+                    var valueIds = _.pluck(_.where(config, { pending: true }), 'valueId');
+                    expect(valueIds).lengthOf(159);
+
                     _.forEach(config, function(value) {
                         if (value.pending) {
                             value.pending = false;
@@ -62,6 +68,7 @@ describe('ResolDeltaSolBxPlusXxxConfigurationOptimizer', function() {
                     return testUtils.expectPromise(optimizer.optimizeLoadConfiguration(config));
                 }).then(function(config) {
                     expect(config).an('array');
+
                     var valueIds = _.pluck(_.where(config, { pending: true }), 'valueId');
                     expect(valueIds).lengthOf(9);
                 });
