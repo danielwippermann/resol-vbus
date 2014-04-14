@@ -68,50 +68,58 @@ var Customizer = extend(EventEmitter, /** @lends Customizer# */ {
     /**
      * Load a set of configuration values from a device.
      *
+     * @param {array} configuration The set of values to transfer.
+     * @param {object} options
      * @returns {Promise} A Promise that resolves to the set of values transfered.
      */
-    loadConfiguration: function() {
+    loadConfiguration: function(configuration, options) {
         throw new Error('Must be implemented by sub-class');
     },
 
     /**
      * Save a set of configuration values to a device.
      *
-     * @param {array} configuration The set values to transfer.
+     * @param {array} newConfiguration The set of values to transfer.
+     * @param {array} oldConfiguration The set of values to assume to be stored in the device.
+     * @param {object} options
      * @returns {Promise} A Promise that resolves to the set of values transfered.
      */
-    saveConfiguration: function(configuration) {
+    saveConfiguration: function(newConfiguration, oldConfiguration, options) {
         throw new Error('Must be implemented by sub-class');
     },
 
     /**
-     * Gets the set of values for the first round of transfer.
+     * Converts the configuration provided into an array of {@see ConfigurationValue} objects.
+     * The provided configuration can be either an array of partially initialized ConfigurationValue
+     * objects or an object mapping value IDs as keys to values.
+     * If no configuration is given a complete configuration set is returned.
      *
-     * @returns {Promise} A Promise that resolves to the set of values to load.
+     * @param {undefined|null|array|object} config Configuration to complete.
+     * @returns {Promise} A Promise that resolves to the completed array of values.
      */
-    _getInitialLoadConfiguration: function() {
-        return this.optimizer.getInitialLoadConfiguration();
+    _completeConfiguration: function(config) {
+        return this.optimizer.completeConfiguration(config);
     },
 
     /**
-     * Gets the set of values for the second and all successive rounds of transfer.
+     * Gets the optimized array of values based on what values are already loaded.
      *
-     * @param {array} oldConfig The set of values that has already been looaded.
-     * @returns {Promise} A Promise that resolves to the set of values to load.
+     * @param {array} config The array of values that has already been loaded.
+     * @returns {Promise} A Promise that resolves to the array of values to load next.
      */
-    _optimizeLoadConfiguration: function(oldConfig) {
-        return this.optimizer.optimizeLoadConfiguration(oldConfig);
+    _optimizeLoadConfiguration: function(config) {
+        return this.optimizer.optimizeLoadConfiguration(config);
     },
 
     /**
-     * Gets the set of values to save to the controller.
+     * Gets the optimzed array of values to save to the controller.
      *
-     * @param {array} newConfig The set of values to transfer.
-     * @param {array} oldConfig The optional set of values that should be currently saved in the device.
-     * @returns {Promise} A Promise that resolves to the set of values to save.
+     * @param {array} newConfig The array of values to transfer.
+     * @param {array} oldConfig The array of values that are assumed to be currently stored in the device.
+     * @returns {Promise} A Promise that resolves to the array of values to save.
      */
-    _getSaveConfiguration: function(newConfig, oldConfig) {
-        return this.optimizer.getSaveConfiguration(newConfig, oldConfig);
+    _optimizeSaveConfiguration: function(newConfig, oldConfig) {
+        return this.optimizer.optimizeSaveConfiguration(newConfig, oldConfig);
     },
 
 });
