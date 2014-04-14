@@ -13,17 +13,17 @@ var ConfigurationOptimizer = vbus.ConfigurationOptimizer;
 
 describe('ConfigurationOptimizer', function() {
 
-    describe('#getInitialLoadConfiguration', function() {
+    describe('#completeConfiguration', function() {
 
         it('should be a method', function() {
-            expect(ConfigurationOptimizer.prototype).property('getInitialLoadConfiguration').a('function');
+            expect(ConfigurationOptimizer.prototype).property('completeConfiguration').a('function');
         });
 
         it('should be an abstract method', function() {
             var optimizer = new ConfigurationOptimizer();
 
             expect(function() {
-                return optimizer.getInitialLoadConfiguration();
+                return optimizer.completeConfiguration();
             }).throw(Error, 'Must be implemented by sub-class');
         });
 
@@ -45,17 +45,17 @@ describe('ConfigurationOptimizer', function() {
 
     });
 
-    describe('#getSaveConfiguration', function() {
+    describe('#optimizeSaveConfiguration', function() {
 
         it('should be a method', function() {
-            expect(ConfigurationOptimizer.prototype).property('getSaveConfiguration').a('function');
+            expect(ConfigurationOptimizer.prototype).property('optimizeSaveConfiguration').a('function');
         });
 
         it('should be an abstract method', function() {
             var optimizer = new ConfigurationOptimizer();
 
             expect(function() {
-                return optimizer.getSaveConfiguration();
+                return optimizer.optimizeSaveConfiguration();
             }).throw(Error, 'Must be implemented by sub-class');
         });
 
