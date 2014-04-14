@@ -200,19 +200,21 @@ var BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
             if (!config) {
                 result = _.map(adjustableValues, function(value) {
                     return {
-                        valueId: value.valueId,
-                        valueIndex: value.valueIndex,
+                        valueId: value.id,
+                        valueIndex: value.index,
                     };
                 });
             } else {
                 var valueByIndex = {}, valueById = {};
                 _.forEach(adjustableValues, function(value) {
-                    valueByIndex [value.valueIndex] = value;
-                    valueById [value.valueId] = value;
+                    valueByIndex [value.index] = value;
+                    valueById [value.id] = value;
                 });
 
                 result = _.map(config, function(value, key) {
-                    if (_.isObject(config)) {
+                    if (_.isArray(config)) {
+                        // nop
+                    } else if (_.isObject(config)) {
                         if (_.has(valueById, key)) {
                             value = {
                                 valueId: key,
