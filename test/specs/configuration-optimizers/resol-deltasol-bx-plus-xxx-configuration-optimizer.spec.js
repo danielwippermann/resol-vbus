@@ -63,7 +63,6 @@ describe('ResolDeltaSolBxPlusXxxConfigurationOptimizer', function() {
                 }).then(function(config) {
                     expect(config).an('array');
                     var valueIds = _.pluck(_.where(config, { pending: true }), 'valueId');
-                    console.log(valueIds);
                     expect(valueIds).lengthOf(9);
                 });
             });
