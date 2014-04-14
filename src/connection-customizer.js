@@ -93,23 +93,28 @@ var ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# */
             action: 'get',
         });
 
-        configuration = this._completeConfiguration(configuration);
+        return Q.fcall(function() {
+            return _this._completeConfiguration(configuration);
+        }).then(function(configuration) {
 
         var callback = function(config, round) {
             if (options.optimize) {
                 return _this._optimizeLoadConfiguration(config);
             } else {
                 if (round === 1) {
-                    _.forEach(config, function(value) {
+                        _.forEach(configuration, function(value) {
                         value.pending = true;
                     });
-                }
 
+                        return configuration;
+                    } else {
                 return config;
             }
+                }
         };
 
-        return this.transceiveConfiguration(options, callback);
+            return _this.transceiveConfiguration(options, callback);
+        });
     },
 
     saveConfiguration: function(newConfiguration, oldConfigurstion, options) {
@@ -123,8 +128,9 @@ var ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# */
             },
         });
 
-        newConfiguration = this._completeConfiguration(newConfiguration);
-
+        return Q.fcall(function() {
+            return _this._completeConfiguration(newConfiguration);
+        }).then(function(newConfiguration) {
         var callback = function(config, round) {
             if (options.optimize) {
                 if (round === 1) {
@@ -134,16 +140,19 @@ var ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# */
                 }
             } else {
                 if (round === 1) {
-                    _.forEach(config, function(value) {
+                        _.forEach(newConfiguration, function(value) {
                         value.pending = true;
                     });
-                }
 
+                        return newConfiguration;
+                    } else {
                 return config;
             }
+                }
         };
 
-        return this.transceiveConfiguration(options, callback);
+            return _this.transceiveConfiguration(options, callback);
+        });
     },
 
     /**
