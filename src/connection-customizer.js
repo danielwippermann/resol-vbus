@@ -85,18 +85,27 @@ var ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# */
         _.extend(this, _.pick(options, optionKeys));
     },
 
-    loadConfiguration: function(options) {
+    loadConfiguration: function(configuration, options) {
         var _this = this;
 
         options = _.defaults({}, options, {
+            optimize: true,
             action: 'get',
         });
 
+        configuration = this._completeConfiguration(configuration);
+
         var callback = function(config, round) {
-            if (round === 1) {
-                return _this._getInitialLoadConfiguration();
-            } else {
+            if (options.optimize) {
                 return _this._optimizeLoadConfiguration(config);
+            } else {
+                if (round === 1) {
+                    _.forEach(config, function(value) {
+                        value.pending = true;
+                    });
+                }
+
+                return config;
             }
         };
 
@@ -107,17 +116,30 @@ var ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# */
         var _this = this;
 
         options = _.defaults({}, options, {
+            optimize: true,
             action: 'set',
             actionOptions: {
                 save: true,
             },
         });
 
+        newConfiguration = this._completeConfiguration(newConfiguration);
+
         var callback = function(config, round) {
-            if (round === 1) {
-                return _this._getSaveConfiguration(newConfiguration, oldConfigurstion);
+            if (options.optimize) {
+                if (round === 1) {
+                    return _this._optimizeSaveConfiguration(newConfiguration, oldConfigurstion);
+                } else {
+                    return _this._optimizeSaveConfiguration(newConfiguration, config);
+                }
             } else {
-                return _this._getSaveConfiguration(newConfiguration, config);
+                if (round === 1) {
+                    _.forEach(config, function(value) {
+                        value.pending = true;
+                    });
+                }
+
+                return config;
             }
         };
 
