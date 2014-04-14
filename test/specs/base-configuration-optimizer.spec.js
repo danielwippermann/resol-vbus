@@ -29,10 +29,10 @@ describe('BaseConfigurationOptimizer', function() {
 
     });
 
-    describe('#getInitialLoadConfiguration', function() {
+    describe('#completeConfiguration', function() {
 
         it('should be a method', function() {
-            expect(BaseConfigurationOptimizer.prototype).property('getInitialLoadConfiguration').a('function');
+            expect(BaseConfigurationOptimizer.prototype).property('completeConfiguration').a('function');
         });
 
     });
@@ -45,10 +45,10 @@ describe('BaseConfigurationOptimizer', function() {
 
     });
 
-    describe('#getSaveConfiguration', function() {
+    describe('#optimizeSaveConfiguration', function() {
 
         it('should be a method', function() {
-            expect(BaseConfigurationOptimizer.prototype).property('getSaveConfiguration').a('function');
+            expect(BaseConfigurationOptimizer.prototype).property('optimizeSaveConfiguration').a('function');
         });
 
     });

@@ -190,23 +190,76 @@ var ValuesWrapper = extend(null, {
 
 var BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
 
-    getInitialLoadConfiguration: function() {
-        return this._buildLoadConfiguration([]);
-    },
-
-    optimizeLoadConfiguration: function(oldConfig) {
-        return this._buildLoadConfiguration(oldConfig);
-    },
-
-    getSaveConfiguration: function(newConfig, oldConfig) {
-        throw new Error('NYI');
-    },
-
-    _buildLoadConfiguration: function(oldConfig) {
+    completeConfiguration: function(config) {
         var _this = this;
 
         return Q.fcall(function() {
-            return _this._buildConfiguration(oldConfig);
+            var adjustableValues = _this._getAdjustableValues();
+
+            var result;
+            if (!config) {
+                result = _.map(adjustableValues, function(value) {
+                    return {
+                        valueId: value.valueId,
+                        valueIndex: value.valueIndex,
+                    };
+                });
+            } else {
+                var valueByIndex = {}, valueById = {};
+                _.forEach(adjustableValues, function(value) {
+                    valueByIndex [value.valueIndex] = value;
+                    valueById [value.valueId] = value;
+                });
+
+                result = _.map(config, function(value, key) {
+                    if (_.isObject(config)) {
+                        if (_.has(valueById, key)) {
+                            value = {
+                                valueId: key,
+                                value: value,
+                            };
+                        } else {
+                            value = null;
+                        }
+                    }
+
+                    var refValue;
+                    if (!value) {
+                        refValue = null;
+                    } else if (_.has(value, 'valueIndex')) {
+                        refValue = valueByIndex [value.valueIndex];
+                    } else if (_.has(value, 'index')) {
+                        refValue = valueByIndex [value.index];
+                    } else if (_.has(value, 'valueId')) {
+                        refValue = valueById [value.valueId];
+                    } else if (_.has(value, 'id')) {
+                        refValue = valueById [value.id];
+                    } else {
+                        refValue = null;
+                    }
+
+                    if (!refValue) {
+                        throw new Error('Unable to complete value ' + JSON.stringify({ key: key, value: value }));
+                    }
+
+                    return _.extend({}, value, {
+                        valueId: refValue.id,
+                        valueIndex: refValue.index,
+                        priority: refValue.priority || 0,
+                        valueTextById: refValue.valueTextById,
+                    });
+                });
+            }
+
+            return result;
+        });
+    },
+
+    optimizeLoadConfiguration: function(config) {
+        var _this = this;
+
+        return Q.fcall(function() {
+            return _this._buildConfiguration(config);
         }).then(function(config) {
             _.forEach(config, function(value) {
                 if (value.previousValue !== undefined) {
@@ -220,6 +273,10 @@ var BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
 
             return config;
         });
+    },
+
+    optimizeSaveConfiguration: function(newConfig, oldConfig) {
+        throw new Error('NYI');
     },
 
     _buildConfiguration: function(oldConfig) {
