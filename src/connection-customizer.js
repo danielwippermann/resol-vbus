@@ -96,22 +96,21 @@ var ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# */
         return Q.fcall(function() {
             return _this._completeConfiguration(configuration);
         }).then(function(configuration) {
-
-        var callback = function(config, round) {
-            if (options.optimize) {
-                return _this._optimizeLoadConfiguration(config);
-            } else {
-                if (round === 1) {
+            var callback = function(config, round) {
+                if (options.optimize) {
+                    return _this._optimizeLoadConfiguration(config);
+                } else {
+                    if (round === 1) {
                         _.forEach(configuration, function(value) {
-                        value.pending = true;
-                    });
+                            value.pending = true;
+                        });
 
                         return configuration;
                     } else {
-                return config;
-            }
+                        return config;
+                    }
                 }
-        };
+            };
 
             return _this.transceiveConfiguration(options, callback);
         });
@@ -131,25 +130,25 @@ var ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# */
         return Q.fcall(function() {
             return _this._completeConfiguration(newConfiguration);
         }).then(function(newConfiguration) {
-        var callback = function(config, round) {
-            if (options.optimize) {
-                if (round === 1) {
-                    return _this._optimizeSaveConfiguration(newConfiguration, oldConfigurstion);
+            var callback = function(config, round) {
+                if (options.optimize) {
+                    if (round === 1) {
+                        return _this._optimizeSaveConfiguration(newConfiguration, oldConfigurstion);
+                    } else {
+                        return _this._optimizeSaveConfiguration(newConfiguration, config);
+                    }
                 } else {
-                    return _this._optimizeSaveConfiguration(newConfiguration, config);
-                }
-            } else {
-                if (round === 1) {
+                    if (round === 1) {
                         _.forEach(newConfiguration, function(value) {
-                        value.pending = true;
-                    });
+                            value.pending = true;
+                        });
 
                         return newConfiguration;
                     } else {
-                return config;
-            }
+                        return config;
+                    }
                 }
-        };
+            };
 
             return _this.transceiveConfiguration(options, callback);
         });
