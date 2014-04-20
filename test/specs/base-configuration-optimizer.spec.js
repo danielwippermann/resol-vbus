@@ -636,10 +636,11 @@ describe('ValuesWrapper', function() {
                 setValue('TestValue2', null);
                 setValue('TestValue3', 0);
                 setValue('TestValue4', 1);
+                setValue('TestValue5', 2);
 
                 var valueIds = [];
 
-                $(/^TestValue[1-4]$/).lt(1, function(value) {
+                $(/^TestValue[1-5]$/).lt(1, function(value) {
                     valueIds.push(value.md [0]);
                 });
 
@@ -647,6 +648,86 @@ describe('ValuesWrapper', function() {
                     'TestValue1',
                     'TestValue2',
                     'TestValue3',
+                ]);
+            });
+        });
+
+    });
+
+    describe('#lte', function() {
+
+        it('should work correctly for numbers', function() {
+            var values = testValuesWrapper(function($, setValue) {
+                setValue('TestValue1', undefined);
+                setValue('TestValue2', null);
+                setValue('TestValue3', 0);
+                setValue('TestValue4', 1);
+                setValue('TestValue5', 2);
+
+                var valueIds = [];
+
+                $(/^TestValue[1-5]$/).lte(1, function(value) {
+                    valueIds.push(value.md [0]);
+                });
+
+                expect(valueIds).lengthOf(4).eql([
+                    'TestValue1',
+                    'TestValue2',
+                    'TestValue3',
+                    'TestValue4',
+                ]);
+            });
+        });
+
+    });
+
+    describe('#gt', function() {
+
+        it('should work correctly for numbers', function() {
+            var values = testValuesWrapper(function($, setValue) {
+                setValue('TestValue1', undefined);
+                setValue('TestValue2', null);
+                setValue('TestValue3', 0);
+                setValue('TestValue4', 1);
+                setValue('TestValue5', 2);
+
+                var valueIds = [];
+
+                $(/^TestValue[1-5]$/).gt(1, function(value) {
+                    valueIds.push(value.md [0]);
+                });
+
+                expect(valueIds).lengthOf(3).eql([
+                    'TestValue1',
+                    'TestValue2',
+                    'TestValue5',
+                ]);
+            });
+        });
+
+    });
+
+    describe('#gte', function() {
+
+        it('should work correctly for numbers', function() {
+            var values = testValuesWrapper(function($, setValue) {
+                setValue('TestValue1', undefined);
+                setValue('TestValue2', null);
+                setValue('TestValue3', 0);
+                setValue('TestValue4', 1);
+                setValue('TestValue5', 2);
+
+                var valueIds = [];
+
+                $(/^TestValue[1-5]$/).gte(1, function(value) {
+                    valueIds.push(value.md [0]);
+                });
+
+                expect(valueIds).lengthOf(4).eql([
+                    'TestValue1',
+                    'TestValue2',
+                    'TestValue4',
+                    'TestValue5',
                 ]);
             });
         });
@@ -675,6 +756,34 @@ describe('ValuesWrapper', function() {
                     'TestValue2',
                     'TestValue4',
                     'TestValue6',
+                ]);
+            });
+        });
+
+    });
+
+    describe('#notIn', function() {
+
+        it('should work correctly', function() {
+            var values = testValuesWrapper(function($, setValue) {
+                setValue('TestValue1', undefined);
+                setValue('TestValue2', null);
+                setValue('TestValue3', 0);
+                setValue('TestValue4', 1);
+                setValue('TestValue5', 2);
+                setValue('TestValue6', 3);
+
+                var valueIds = [];
+
+                $(/^TestValue[1-6]$/).notIn([ '#True', 3, 4, 5], function(value) {
+                    valueIds.push(value.md [0]);
+                });
+
+                expect(valueIds).lengthOf(4).eql([
+                    'TestValue1',
+                    'TestValue2',
+                    'TestValue3',
+                    'TestValue5',
                 ]);
             });
         });

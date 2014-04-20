@@ -88,10 +88,38 @@ var ValuesWrapper = extend(null, {
         });
     },
 
+    lte: function(refValue, callback) {
+        return this._check(callback, function(value, valueInfo) {
+            var normalizedRefValue = this._normalizeValue(refValue, valueInfo);
+            return (value <= normalizedRefValue);
+        });
+    },
+
+    gt: function(refValue, callback) {
+        return this._check(callback, function(value, valueInfo) {
+            var normalizedRefValue = this._normalizeValue(refValue, valueInfo);
+            return (value > normalizedRefValue);
+        });
+    },
+
+    gte: function(refValue, callback) {
+        return this._check(callback, function(value, valueInfo) {
+            var normalizedRefValue = this._normalizeValue(refValue, valueInfo);
+            return (value >= normalizedRefValue);
+        });
+    },
+
     in: function(refValues, callback) {
         return this._check(callback, function(value, valueInfo) {
             var normalizedRefValues = this._normalizeValues(refValues, valueInfo);
             return _.contains(normalizedRefValues, value);
+        });
+    },
+
+    notIn: function(refValues, callback) {
+        return this._check(callback, function(value, valueInfo) {
+            var normalizedRefValues = this._normalizeValues(refValues, valueInfo);
+            return !_.contains(normalizedRefValues, value);
         });
     },
 
