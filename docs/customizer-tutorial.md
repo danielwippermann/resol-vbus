@@ -43,7 +43,11 @@ Once the controller's device address is known a corresponding `ConfigurationOpti
 	}).then(function() {
 		return vbus.ConfigurationOptimizerFactory.createOptimizerByDeviceAddress(context.deviceAddress);
 	}).then(function(optimizer) {
-		context.optimizer = optimizer;
+		if (optimizer) {
+			context.optimizer = optimizer;
+		} else {
+			throw new Error('Unable to find optimizer for device');
+		}
 	}).then(function() {
 		// ...
 
