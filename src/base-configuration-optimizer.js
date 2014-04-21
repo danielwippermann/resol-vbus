@@ -221,6 +221,8 @@ var BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
     completeConfiguration: function(config) {
         var _this = this;
 
+        var args = _.toArray(arguments);
+
         return Q.fcall(function() {
             var adjustableValues = _this._getAdjustableValues();
 
@@ -239,46 +241,62 @@ var BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
                     valueById [value.id] = value;
                 });
 
-                result = _.map(config, function(value, key) {
-                    if (_.isArray(config)) {
-                        // nop
-                    } else if (_.isObject(config)) {
-                        if (_.has(valueById, key)) {
-                            value = {
-                                valueId: key,
-                                value: value,
-                            };
-                        } else {
-                            value = null;
+                var configValuesById = {};
+
+                var mergeConfig = function(config) {
+                    _.forEach(config, function(value, key) {
+                        if (_.isArray(config)) {
+                            // nop
+                        } else if (_.isObject(config)) {
+                            if (_.has(valueById, key)) {
+                                value = {
+                                    valueId: key,
+                                    value: value,
+                                };
+                            } else {
+                                value = null;
+                            }
                         }
-                    }
 
-                    var refValue;
-                    if (!value) {
-                        refValue = null;
-                    } else if (_.has(value, 'valueIndex')) {
-                        refValue = valueByIndex [value.valueIndex];
-                    } else if (_.has(value, 'index')) {
-                        refValue = valueByIndex [value.index];
-                    } else if (_.has(value, 'valueId')) {
-                        refValue = valueById [value.valueId];
-                    } else if (_.has(value, 'id')) {
-                        refValue = valueById [value.id];
-                    } else {
-                        refValue = null;
-                    }
+                        var refValue;
+                        if (!value) {
+                            refValue = null;
+                        } else if (_.has(value, 'valueIndex')) {
+                            refValue = valueByIndex [value.valueIndex];
+                        } else if (_.has(value, 'valueId')) {
+                            refValue = valueById [value.valueId];
+                        } else if (_.has(value, 'index')) {
+                            refValue = valueByIndex [value.index];
+                        } else if (_.has(value, 'id')) {
+                            refValue = valueById [value.id];
+                        } else {
+                            refValue = null;
+                        }
 
-                    if (!refValue) {
-                        throw new Error('Unable to complete value ' + JSON.stringify({ key: key, value: value }));
-                    }
+                        if (!refValue) {
+                            throw new Error('Unable to complete value ' + JSON.stringify({ key: key, value: value }));
+                        }
 
-                    return _.extend({}, value, {
-                        valueId: refValue.id,
-                        valueIndex: refValue.index,
-                        priority: refValue.priority || 0,
-                        valueTextById: refValue.valueTextById,
+                        var configValue = _.extend({}, value, {
+                            valueId: refValue.id,
+                            valueIndex: refValue.index,
+                            priority: refValue.priority || 0,
+                            valueTextById: refValue.valueTextById,
+                        });
+
+                        configValuesById [configValue.valueId] = configValue;
                     });
-                });
+                };
+
+                _.forEachRight(args, mergeConfig);
+
+                result = _.reduce(adjustableValues, function(memo, value) {
+                    var configValue = configValuesById [value.id];
+                    if (configValue) {
+                        memo.push(configValue);
+                    }
+                    return memo;
+                }, []);
             }
 
             return result;

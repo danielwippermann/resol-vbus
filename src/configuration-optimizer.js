@@ -34,12 +34,12 @@ var utils = require('./utils');
 var ConfigurationOptimizer = extend(null, /** @lends ConfigurationOptimizer# */ {
 
     /**
-     * Converts the configuration provided into an array of {@see ConfigurationValue} objects.
-     * The provided configuration can be either an array of partially initialized ConfigurationValue
+     * Converts the configurations provided into an array of {@see ConfigurationValue} objects.
+     * The provided configurations can be either an array of partially initialized ConfigurationValue
      * objects or an object mapping value IDs as keys to values.
      * If no configuration is given a complete configuration set is returned.
      *
-     * @param {undefined|null|array|object} config Configuration to complete.
+     * @param {array|object} configs... Configurations to complete.
      * @returns {Promise} A Promise that resolves to the completed array of values.
      */
     completeConfiguration: function(config) {
