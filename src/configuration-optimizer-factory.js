@@ -32,7 +32,7 @@ var ConfigurationOptimizerFactory = {
      * @param {number} deviceAddress VBus address of the device
      * @returns {Promise} A Promise that resolvs to the optimizer for the given device or `null` if no optimizer was found.
      */
-    getOptimizerByDeviceAddress: function(deviceAddress) {
+    createOptimizerByDeviceAddress: function(deviceAddress) {
         return Q.fcall(function() {
             var result = null;
 

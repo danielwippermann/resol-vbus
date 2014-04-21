@@ -13,7 +13,7 @@ var testUtils = require('../test-utils');
 
 
 
-var optimizerPromise = vbus.ConfigurationOptimizerFactory.getOptimizerByDeviceAddress(0x7112);
+var optimizerPromise = vbus.ConfigurationOptimizerFactory.createOptimizerByDeviceAddress(0x7112);
 
 
 
