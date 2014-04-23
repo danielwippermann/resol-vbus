@@ -277,9 +277,25 @@ var BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
                             throw new Error('Unable to complete value ' + JSON.stringify({ key: key, value: value }));
                         }
 
+                        var numericValue = value.value;
+                        if (_.isString(numericValue)) {
+                            if (numericValue.charAt(0) === '#') {
+                                var valueTextId = numericValue.slice(1);
+                                var valueText = refValue.valueTextById [valueTextId];
+                                if (valueText !== undefined) {
+                                    numericValue = valueText;
+                                } else {
+                                    throw new Error('Unable to convert value text ID to numeric value: ' + JSON.stringify(numericValue));
+                                }
+                            } else {
+                                numericValue = numericValue | 0;
+                            }
+                        }
+
                         var configValue = _.extend({}, value, {
                             valueId: refValue.id,
                             valueIndex: refValue.index,
+                            value: numericValue,
                             priority: refValue.priority || 0,
                             valueTextById: refValue.valueTextById,
                         });
