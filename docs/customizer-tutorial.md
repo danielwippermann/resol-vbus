@@ -1,15 +1,31 @@
 ---
 layout: tutorials
-title: Load and Store Controller Configuration
+title: Load and Save Controller Configuration
 ---
 
-This tutorial covers the steps to load and store configuration from a controller.
+This tutorial covers the steps to customize a controller's configuration by loading and saving it from and to a controller.
+
+You can find the example code here:
+
+[Customizer Example](customizer-example.html)
 
 
 ## Preparations
 
 - [Install the resol-vbus module](installation-tutorial.html)
 - [Creating and establishing a connection](connection-tutorial.html)
+
+
+## General information
+
+TBD: How does customization work?
+
+
+## Supported controllers
+
+The process of customizing a controller's adjustable values requires a `ConfigurationOptimizer` sub-class specific for that controller. This sub-class knows about all supported adjustable values in the controller and optionally about their relationship (to allow to find the minimal set of values to transfer).
+
+Please have a look at the `src/configuration-optimizer-factory.js` file and the `src/configuration-optimizers` directory for a list of supported controllers.
 
 
 ## Find out the master controller on the VBus
