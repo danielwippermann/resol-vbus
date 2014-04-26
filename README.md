@@ -95,6 +95,12 @@ into your shell:
 
 ## Changelog
 
+### Version 0.10.0 (2014-04-26)
+
+- Finalized support for customizing controller configuration.
+- Several bug fixes.
+
+
 ### Version 0.9.0 (2014-03-16)
 
 - Completed Recorder class by adding support for recording

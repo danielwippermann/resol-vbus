@@ -1,6 +1,6 @@
 {
   "name": "configuration-importer",
-  "version": "0.9.0",
+  "version": "0.10.0",
   "description": "RESOL XML Configuration Importer",
   "main": "index.js",
   "scripts": {
