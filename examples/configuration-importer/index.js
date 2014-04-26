@@ -278,6 +278,18 @@ var main = function() {
         return convertMenuXmlFile('HC-Menu.xml', 'resol-deltasol-hc-xxx-data.js', function(menuSystem) {
             return menuSystem;
         });
+    }).then(function() {
+        return convertMenuXmlFile('CSPlus-Menu.xml', 'resol-deltasol-cs-plus-110-data.js', function(menuSystem) {
+            menuSystem = removeNamedValues(menuSystem, [
+                /^S[0-9]+(_C|_F)?$/,
+                /^Emv_DDS_Temperatur(_C|_F)?$/,
+                /^Save$/,
+                /^UnitSensor$/,
+                /^Variantenummer$/,
+                /^Wmz1_TemperatureSensor[12](_C|_F)?$/,
+            ]);
+            return menuSystem;
+        });
     // }).then(function() {
     //     var filename = process.argv [2];
     //     // var filename = '/Users/daniel/Projects/RESOL/DeltaSol_SLT/DeltaSol_SLT/src/Menu_output.xml';
