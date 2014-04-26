@@ -128,7 +128,7 @@ var filterPrefsValues = function(menuSystem) {
     };
 
     _.forEach(menuSystem.values, function(value) {
-        if ((value.storage === null)) {
+        if ((value.storage === null) || value.allowParameterization) {
             markValueIdAsUsed(value.id);
         }
     });

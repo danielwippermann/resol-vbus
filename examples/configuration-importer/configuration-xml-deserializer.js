@@ -275,6 +275,9 @@ var ConfigurationXmlDeserializer = XmlDeserializer.extend({
             case 'enablevalueref':
                 model.enableValueRef = this._getStringValue(child);
                 break;
+            case 'allowparameterization':
+                model.allowParameterization = this._getBooleanValue(child);
+                break;
             default:
                 this._reportUnexpectedProperty(parent, key);
                 break;

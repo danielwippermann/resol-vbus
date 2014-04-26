@@ -424,7 +424,7 @@ var BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
         };
 
         _.forEach(data.values, function(value) {
-            if (!value.storage) {
+            if (!value.storage || value.allowParameterization) {
                 markValueIdAsAdjustable(value.id);
             }
         });
