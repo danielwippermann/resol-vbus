@@ -281,7 +281,7 @@ var FileSystemRecorder = Recorder.extend({
                 interval: recordingJob.interval,
             };
 
-            var recording = this._startRecordingInternal(options);
+            var recording = _this._startRecordingInternal(options);
 
             headerSetConsolidator.on('headerSet', recording.onHeaderSet);
 
