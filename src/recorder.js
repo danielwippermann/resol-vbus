@@ -252,6 +252,7 @@ var Recorder = extend(EventEmitter, /** @lends Recorder# */ {
                     stream.on('data', onData);
                     stream.on('end', onEnd);
                     stream.on('error', onError);
+                    stream.resume();
                 });
             }).finally(function() {
                 return _this._endRecording(headerSetConsolidator, recordingJob, recording);
