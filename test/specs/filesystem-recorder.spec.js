@@ -18,9 +18,49 @@ var testUtils = require('./test-utils');
 
 
 
+var Converter = vbus.Converter;
 var FileSystemRecorder = vbus.FileSystemRecorder;
+var HeaderSet = vbus.HeaderSet;
+var HeaderSetConsolidator = vbus.HeaderSetConsolidator;
+var Packet = vbus.Packet;
 var Recorder = vbus.Recorder;
 var VBusRecordingConverter = vbus.VBusRecordingConverter;
+
+
+
+var createDeleteFilesInPathPromise = function(pathname) {
+    return vbus.utils.promise(function(resolve, reject) {
+        fs.readdir(pathname, function(err, filenames) {
+            if (err) {
+                reject(err);
+            } else {
+                var index = 0;
+
+                var deleteNextFile = function() {
+                    if (index < filenames.length) {
+                        var filename = filenames [index++];
+
+                        if (filename !== '.gitignore') {
+                            fs.unlink(path.join(pathname, filename), function(err) {
+                                if (err) {
+                                    reject(err);
+                                } else {
+                                    deleteNextFile();
+                                }
+                            });
+                        } else {
+                            deleteNextFile();
+                        }
+                    } else {
+                        resolve();
+                    }
+                };
+
+                deleteNextFile();
+            }
+        });
+    });
+};
 
 
 
@@ -128,45 +168,11 @@ describe('FileSystemRecorder', function() {
 
     });
 
-    describe('synchronization target', function() {
+    describe('#record', function() {
 
         var fixturesPath = path.join(__dirname, '../fixtures/filesystem-recorder-1/');
 
         var testFixturesPath = path.join(fixturesPath, '0a008f5b8c77c121d0fd39ae985593ba78ae5d85');
-
-        var createDeleteFixturesPathPromise = function() {
-            return vbus.utils.promise(function(resolve, reject) {
-                fs.readdir(testFixturesPath, function(err, filenames) {
-                    if (err) {
-                        reject(err);
-                    } else {
-                        var index = 0;
-
-                        var deleteNextFile = function() {
-                            if (index < filenames.length) {
-                                var filename = filenames [index++];
-
-                                if (filename !== '.gitignore') {
-                                    fs.unlink(path.join(testFixturesPath, filename), function(err) {
-                                        if (err) {
-                                            reject(err);
-                                        } else {
-                                            deleteNextFile();
-                                        }
-                                    });
-                                } else {
-                                    deleteNextFile();
-                                }
-                            } else {
-                                resolve();
-                            }
-                        };
-
-                        deleteNextFile();
-                    }
-                });
-            });
-        };
 
         promiseIt('should work correctly', function() {
             this.timeout(testUtils.adaptTimeout(3000));
@@ -185,7 +191,172 @@ describe('FileSystemRecorder', function() {
             var targetRecorder = new FileSystemRecorder(options);
 
             return Q.fcall(function() {
-                return createDeleteFixturesPathPromise();
+                return createDeleteFilesInPathPromise(testFixturesPath);
+            }).then(function() {
+                var sourceConverter = new Converter({ objectMode: true });
+
+                var targetConverter = new Converter({ objectMode: true });
+
+                sourceConverter.on('headerSet', function(headerSet) {
+                    targetConverter.convertHeaderSet(headerSet);
+                });
+
+                sourceConverter.on('finish', function() {
+                    targetConverter.finish();
+                });
+
+                return Q.all([
+                    sourceRecorder.playback(sourceConverter),
+                    targetRecorder.record(targetConverter),
+                ]);
+            }).then(function(results) {
+                var sourceRanges = results [0];
+                expect(sourceRanges).an('array').lengthOf(1);
+                expect(sourceRanges [0]).property('minTimestamp').instanceOf(Date);
+                expect(sourceRanges [0].minTimestamp.toISOString()).equal('2014-02-14T00:00:00.983Z');
+                expect(sourceRanges [0]).property('maxTimestamp').instanceOf(Date);
+                expect(sourceRanges [0].maxTimestamp.toISOString()).equal('2014-02-16T23:55:00.805Z');
+
+                var targetRanges = results [1];
+                expect(targetRanges).an('array').lengthOf(1);
+                expect(targetRanges [0]).property('minTimestamp').instanceOf(Date);
+                expect(targetRanges [0].minTimestamp.toISOString()).equal('2014-02-14T00:00:00.983Z');
+                expect(targetRanges [0]).property('maxTimestamp').instanceOf(Date);
+                expect(targetRanges [0].maxTimestamp.toISOString()).equal('2014-02-16T23:55:00.805Z');
+
+                var expectedFilenames = [
+                    // 'SyncState.json',
+                    '300000_20140214000000983.vbus',
+                    '300000_20140215000001077.vbus',
+                    '300000_20140216000002271.vbus',
+                ];
+
+                var promise = Q();
+
+                _.forEach(expectedFilenames, function(expectedFilename) {
+                    var absoluteFilename = path.join(testFixturesPath, expectedFilename);
+
+                    promise = promise.then(function() {
+                        return vbus.utils.promise(function(resolve, reject) {
+                            fs.exists(absoluteFilename, function(exists) {
+                                if (!exists) {
+                                    reject(new Error('Expected file ' + JSON.stringify(expectedFilename) + ' to exist'));
+                                } else {
+                                    resolve();
+                                }
+                            });
+                        });
+                    });
+                });
+
+                return promise;
+            });
+        });
+
+        promiseIt('should work correctly for a single HeaderSet', function() {
+            this.timeout(testUtils.adaptTimeout(300000)); // TODO reduce by 100
+
+            var options = {
+                id: 'FileSystem',
+                interval: 300000,
+                path: fixturesPath,
+            };
+
+            var sourceRecorder = new TestRecorder({
+                id: 'Test',
+                interval: 300000,
+            });
+
+            var targetRecorder = new FileSystemRecorder(options);
+
+            return Q.fcall(function() {
+                return createDeleteFilesInPathPromise(testFixturesPath);
+            }).then(function() {
+                var targetConverter = new Converter({ objectMode: true });
+                targetConverter.pause();
+
+                var timestamp = new Date('2014-02-14T00:00:00.983Z');
+
+                var header1 = new Packet({
+                    timestamp: timestamp,
+                    channel: 1,
+                    command: 0x7654,
+                });
+
+                var header2 = new Packet({
+                    timestamp: timestamp,
+                    channel: 2,
+                    command: 0x7654,
+                });
+
+                var headerSet = new HeaderSet({
+                    timestamp: timestamp,
+                    headers: [ header2, header1 ]
+                });
+
+                targetConverter.convertHeaderSet(headerSet);
+                targetConverter.finish();
+
+                return targetRecorder.record(targetConverter);
+            }).then(function(ranges) {
+                expect(ranges).an('array').lengthOf(1);
+                expect(ranges [0]).property('minTimestamp').instanceOf(Date);
+                expect(ranges [0].minTimestamp.toISOString()).equal('2014-02-14T00:00:00.983Z');
+                expect(ranges [0]).property('maxTimestamp').instanceOf(Date);
+                expect(ranges [0].maxTimestamp.toISOString()).equal('2014-02-14T00:00:00.983Z');
+
+                var expectedFilenames = [
+                    '300000_20140214000000983.vbus',
+                ];
+
+                var promise = Q();
+
+                _.forEach(expectedFilenames, function(expectedFilename) {
+                    var absoluteFilename = path.join(testFixturesPath, expectedFilename);
+
+                    promise = promise.then(function() {
+                        return vbus.utils.promise(function(resolve, reject) {
+                            fs.exists(absoluteFilename, function(exists) {
+                                if (!exists) {
+                                    reject(new Error('Expected file ' + JSON.stringify(expectedFilename) + ' to exist'));
+                                } else {
+                                    resolve();
+                                }
+                            });
+                        });
+                    });
+                });
+
+                return promise;
+            });
+        });
+
+    });
+
+    describe('synchronization target', function() {
+
+        var fixturesPath = path.join(__dirname, '../fixtures/filesystem-recorder-1/');
+
+        var testFixturesPath = path.join(fixturesPath, '0a008f5b8c77c121d0fd39ae985593ba78ae5d85');
+
+        promiseIt('should work correctly', function() {
+            this.timeout(testUtils.adaptTimeout(3000));
+
+            var options = {
+                id: 'FileSystem',
+                interval: 300000,
+                path: fixturesPath,
+            };
+
+            var sourceRecorder = new TestRecorder({
+                id: 'Test',
+                interval: 300000,
+            });
+
+            var targetRecorder = new FileSystemRecorder(options);
+
+            return Q.fcall(function() {
+                return createDeleteFilesInPathPromise(testFixturesPath);
             }).then(function() {
                 return sourceRecorder.synchronizeTo(targetRecorder);
             }).then(function(ranges) {
