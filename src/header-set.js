@@ -208,6 +208,16 @@ var HeaderSet = extend(EventEmitter, /** @lends HeaderSet# */ {
         return sortedHeaders;
     },
 
+    getSortedHeaderSet: function() {
+        var headerSet = new HeaderSet({
+            headers: this.getSortedHeaders(),
+        });
+
+        headerSet.timestamp = this.timestamp;
+
+        return headerSet;
+    },
+
     /**
      * Returns an ID composed of the IDs of all headers stored in this set.
      *
