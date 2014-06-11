@@ -391,6 +391,13 @@ var createVBusSpecificationData = function() {
             unit: units.Ohms,
         },
 
+        Number_0_001_Volts: {
+            typeId: 'Number_0_001_Volts',
+            rootTypeId: 'Number',
+            precision: 3,
+            unit: units.Volts,
+        },
+
         Number_0_01_Bars: {
             typeId: 'Number_0_01_Bars',
             rootTypeId: 'Number',
@@ -676,6 +683,13 @@ var createVBusSpecificationData = function() {
             rootTypeId: 'Number',
             precision: 0,
             unit: units.LitersPerHour,
+        },
+
+        Number_1_LitersPerMinute: {
+            typeId: 'Number_1_LitersPerMinute',
+            rootTypeId: 'Number',
+            precision: 0,
+            unit: units.LitersPerMinute,
         },
 
         Number_1_MegawattHours: {
@@ -1629,6 +1643,2850 @@ var createVBusSpecificationData = function() {
             }
             if (start + 41 < end) {
                 rawValue += buffer.readInt8(start + 41) * 256;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1001_0100_000_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 0 < end) {
+                rawValue += buffer.readUInt8(start + 0) * 1;
+                valid = true;
+            }
+            if (start + 1 < end) {
+                rawValue += buffer.readUInt8(start + 1) * 256;
+                valid = true;
+            }
+            if (start + 2 < end) {
+                rawValue += buffer.readUInt8(start + 2) * 65536;
+                valid = true;
+            }
+            if (start + 3 < end) {
+                rawValue += buffer.readInt8(start + 3) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1001_0100_004_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 4 < end) {
+                rawValue += buffer.readUInt8(start + 4) * 0.1;
+                valid = true;
+            }
+            if (start + 5 < end) {
+                rawValue += buffer.readInt8(start + 5) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1001_0100_006_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 6 < end) {
+                rawValue += buffer.readUInt8(start + 6) * 0.1;
+                valid = true;
+            }
+            if (start + 7 < end) {
+                rawValue += buffer.readInt8(start + 7) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1001_0100_008_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 8 < end) {
+                rawValue += buffer.readUInt8(start + 8) * 0.1;
+                valid = true;
+            }
+            if (start + 9 < end) {
+                rawValue += buffer.readInt8(start + 9) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1001_0100_010_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 10 < end) {
+                rawValue += buffer.readUInt8(start + 10) * 0.1;
+                valid = true;
+            }
+            if (start + 11 < end) {
+                rawValue += buffer.readInt8(start + 11) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1001_0100_012_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 12 < end) {
+                rawValue += buffer.readUInt8(start + 12) * 0.1;
+                valid = true;
+            }
+            if (start + 13 < end) {
+                rawValue += buffer.readInt8(start + 13) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1001_0100_014_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 14 < end) {
+                rawValue += buffer.readUInt8(start + 14) * 0.1;
+                valid = true;
+            }
+            if (start + 15 < end) {
+                rawValue += buffer.readInt8(start + 15) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1001_0100_016_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 16 < end) {
+                rawValue += buffer.readUInt8(start + 16) * 1;
+                valid = true;
+            }
+            if (start + 17 < end) {
+                rawValue += buffer.readUInt8(start + 17) * 256;
+                valid = true;
+            }
+            if (start + 18 < end) {
+                rawValue += buffer.readUInt8(start + 18) * 65536;
+                valid = true;
+            }
+            if (start + 19 < end) {
+                rawValue += buffer.readInt8(start + 19) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1001_0100_020_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 20 < end) {
+                rawValue += buffer.readUInt8(start + 20) * 1;
+                valid = true;
+            }
+            if (start + 21 < end) {
+                rawValue += buffer.readUInt8(start + 21) * 256;
+                valid = true;
+            }
+            if (start + 22 < end) {
+                rawValue += buffer.readUInt8(start + 22) * 65536;
+                valid = true;
+            }
+            if (start + 23 < end) {
+                rawValue += buffer.readInt8(start + 23) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1001_0100_024_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 24 < end) {
+                rawValue += buffer.readUInt8(start + 24) * 1;
+                valid = true;
+            }
+            if (start + 25 < end) {
+                rawValue += buffer.readUInt8(start + 25) * 256;
+                valid = true;
+            }
+            if (start + 26 < end) {
+                rawValue += buffer.readUInt8(start + 26) * 65536;
+                valid = true;
+            }
+            if (start + 27 < end) {
+                rawValue += buffer.readInt8(start + 27) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1001_0100_028_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 28 < end) {
+                rawValue += buffer.readUInt8(start + 28) * 0.01;
+                valid = true;
+            }
+            if (start + 29 < end) {
+                rawValue += buffer.readInt8(start + 29) * 2.56;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1001_0100_030_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 30 < end) {
+                rawValue += buffer.readInt8(start + 30) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1001_0100_031_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 31 < end) {
+                rawValue += buffer.readInt8(start + 31) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1001_0100_032_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 32 < end) {
+                rawValue += buffer.readInt8(start + 32) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1001_0100_033_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 33 < end) {
+                rawValue += buffer.readInt8(start + 33) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1001_0100_034_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 34 < end) {
+                rawValue += buffer.readInt8(start + 34) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1001_0100_035_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 35 < end) {
+                rawValue += buffer.readInt8(start + 35) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1001_0100_036_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 36 < end) {
+                rawValue += buffer.readUInt8(start + 36) * 1;
+                valid = true;
+            }
+            if (start + 37 < end) {
+                rawValue += buffer.readUInt8(start + 37) * 256;
+                valid = true;
+            }
+            if (start + 38 < end) {
+                rawValue += buffer.readUInt8(start + 38) * 65536;
+                valid = true;
+            }
+            if (start + 39 < end) {
+                rawValue += buffer.readInt8(start + 39) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1001_0100_040_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 40 < end) {
+                rawValue += buffer.readUInt8(start + 40) * 1;
+                valid = true;
+            }
+            if (start + 41 < end) {
+                rawValue += buffer.readUInt8(start + 41) * 256;
+                valid = true;
+            }
+            if (start + 42 < end) {
+                rawValue += buffer.readUInt8(start + 42) * 65536;
+                valid = true;
+            }
+            if (start + 43 < end) {
+                rawValue += buffer.readInt8(start + 43) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1010_0100_000_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 0 < end) {
+                rawValue += buffer.readUInt8(start + 0) * 1;
+                valid = true;
+            }
+            if (start + 1 < end) {
+                rawValue += buffer.readUInt8(start + 1) * 256;
+                valid = true;
+            }
+            if (start + 2 < end) {
+                rawValue += buffer.readUInt8(start + 2) * 65536;
+                valid = true;
+            }
+            if (start + 3 < end) {
+                rawValue += buffer.readUInt8(start + 3) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1010_0100_004_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 4 < end) {
+                rawValue += buffer.readUInt8(start + 4) * 1;
+                valid = true;
+            }
+            if (start + 5 < end) {
+                rawValue += buffer.readUInt8(start + 5) * 256;
+                valid = true;
+            }
+            if (start + 6 < end) {
+                rawValue += buffer.readUInt8(start + 6) * 65536;
+                valid = true;
+            }
+            if (start + 7 < end) {
+                rawValue += buffer.readUInt8(start + 7) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1010_0100_008_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 8 < end) {
+                rawValue += buffer.readUInt8(start + 8) * 1;
+                valid = true;
+            }
+            if (start + 9 < end) {
+                rawValue += buffer.readUInt8(start + 9) * 256;
+                valid = true;
+            }
+            if (start + 10 < end) {
+                rawValue += buffer.readUInt8(start + 10) * 65536;
+                valid = true;
+            }
+            if (start + 11 < end) {
+                rawValue += buffer.readUInt8(start + 11) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1010_0100_012_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 12 < end) {
+                rawValue += buffer.readUInt8(start + 12) * 1;
+                valid = true;
+            }
+            if (start + 13 < end) {
+                rawValue += buffer.readUInt8(start + 13) * 256;
+                valid = true;
+            }
+            if (start + 14 < end) {
+                rawValue += buffer.readUInt8(start + 14) * 65536;
+                valid = true;
+            }
+            if (start + 15 < end) {
+                rawValue += buffer.readUInt8(start + 15) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1010_0100_016_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 16 < end) {
+                rawValue += buffer.readUInt8(start + 16) * 1;
+                valid = true;
+            }
+            if (start + 17 < end) {
+                rawValue += buffer.readUInt8(start + 17) * 256;
+                valid = true;
+            }
+            if (start + 18 < end) {
+                rawValue += buffer.readUInt8(start + 18) * 65536;
+                valid = true;
+            }
+            if (start + 19 < end) {
+                rawValue += buffer.readUInt8(start + 19) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1010_0100_020_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 20 < end) {
+                rawValue += buffer.readUInt8(start + 20) * 1;
+                valid = true;
+            }
+            if (start + 21 < end) {
+                rawValue += buffer.readUInt8(start + 21) * 256;
+                valid = true;
+            }
+            if (start + 22 < end) {
+                rawValue += buffer.readUInt8(start + 22) * 65536;
+                valid = true;
+            }
+            if (start + 23 < end) {
+                rawValue += buffer.readUInt8(start + 23) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1010_0100_024_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 24 < end) {
+                rawValue += buffer.readUInt8(start + 24) * 1;
+                valid = true;
+            }
+            if (start + 25 < end) {
+                rawValue += buffer.readUInt8(start + 25) * 256;
+                valid = true;
+            }
+            if (start + 26 < end) {
+                rawValue += buffer.readUInt8(start + 26) * 65536;
+                valid = true;
+            }
+            if (start + 27 < end) {
+                rawValue += buffer.readUInt8(start + 27) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1010_0100_028_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 28 < end) {
+                rawValue += buffer.readUInt8(start + 28) * 1;
+                valid = true;
+            }
+            if (start + 29 < end) {
+                rawValue += buffer.readUInt8(start + 29) * 256;
+                valid = true;
+            }
+            if (start + 30 < end) {
+                rawValue += buffer.readUInt8(start + 30) * 65536;
+                valid = true;
+            }
+            if (start + 31 < end) {
+                rawValue += buffer.readUInt8(start + 31) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1010_0100_032_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 32 < end) {
+                rawValue += buffer.readUInt8(start + 32) * 1;
+                valid = true;
+            }
+            if (start + 33 < end) {
+                rawValue += buffer.readUInt8(start + 33) * 256;
+                valid = true;
+            }
+            if (start + 34 < end) {
+                rawValue += buffer.readUInt8(start + 34) * 65536;
+                valid = true;
+            }
+            if (start + 35 < end) {
+                rawValue += buffer.readUInt8(start + 35) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1010_0100_036_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 36 < end) {
+                rawValue += buffer.readUInt8(start + 36) * 1;
+                valid = true;
+            }
+            if (start + 37 < end) {
+                rawValue += buffer.readUInt8(start + 37) * 256;
+                valid = true;
+            }
+            if (start + 38 < end) {
+                rawValue += buffer.readUInt8(start + 38) * 65536;
+                valid = true;
+            }
+            if (start + 39 < end) {
+                rawValue += buffer.readUInt8(start + 39) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1010_0100_040_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 40 < end) {
+                rawValue += buffer.readUInt8(start + 40) * 1;
+                valid = true;
+            }
+            if (start + 41 < end) {
+                rawValue += buffer.readUInt8(start + 41) * 256;
+                valid = true;
+            }
+            if (start + 42 < end) {
+                rawValue += buffer.readUInt8(start + 42) * 65536;
+                valid = true;
+            }
+            if (start + 43 < end) {
+                rawValue += buffer.readInt8(start + 43) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1010_0100_044_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 44 < end) {
+                rawValue += buffer.readUInt8(start + 44) * 1;
+                valid = true;
+            }
+            if (start + 45 < end) {
+                rawValue += buffer.readUInt8(start + 45) * 256;
+                valid = true;
+            }
+            if (start + 46 < end) {
+                rawValue += buffer.readUInt8(start + 46) * 65536;
+                valid = true;
+            }
+            if (start + 47 < end) {
+                rawValue += buffer.readUInt8(start + 47) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1010_0100_048_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 48 < end) {
+                rawValue += buffer.readUInt8(start + 48) * 1;
+                valid = true;
+            }
+            if (start + 49 < end) {
+                rawValue += buffer.readUInt8(start + 49) * 256;
+                valid = true;
+            }
+            if (start + 50 < end) {
+                rawValue += buffer.readUInt8(start + 50) * 65536;
+                valid = true;
+            }
+            if (start + 51 < end) {
+                rawValue += buffer.readUInt8(start + 51) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1010_0100_052_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 52 < end) {
+                rawValue += buffer.readUInt8(start + 52) * 1;
+                valid = true;
+            }
+            if (start + 53 < end) {
+                rawValue += buffer.readUInt8(start + 53) * 256;
+                valid = true;
+            }
+            if (start + 54 < end) {
+                rawValue += buffer.readUInt8(start + 54) * 65536;
+                valid = true;
+            }
+            if (start + 55 < end) {
+                rawValue += buffer.readUInt8(start + 55) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1010_0100_056_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 56 < end) {
+                rawValue += buffer.readUInt8(start + 56) * 1;
+                valid = true;
+            }
+            if (start + 57 < end) {
+                rawValue += buffer.readUInt8(start + 57) * 256;
+                valid = true;
+            }
+            if (start + 58 < end) {
+                rawValue += buffer.readUInt8(start + 58) * 65536;
+                valid = true;
+            }
+            if (start + 59 < end) {
+                rawValue += buffer.readUInt8(start + 59) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1010_0100_060_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 60 < end) {
+                rawValue += buffer.readUInt8(start + 60) * 1;
+                valid = true;
+            }
+            if (start + 61 < end) {
+                rawValue += buffer.readUInt8(start + 61) * 256;
+                valid = true;
+            }
+            if (start + 62 < end) {
+                rawValue += buffer.readUInt8(start + 62) * 65536;
+                valid = true;
+            }
+            if (start + 63 < end) {
+                rawValue += buffer.readUInt8(start + 63) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1010_0100_064_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 64 < end) {
+                rawValue += buffer.readUInt8(start + 64) * 1;
+                valid = true;
+            }
+            if (start + 65 < end) {
+                rawValue += buffer.readUInt8(start + 65) * 256;
+                valid = true;
+            }
+            if (start + 66 < end) {
+                rawValue += buffer.readUInt8(start + 66) * 65536;
+                valid = true;
+            }
+            if (start + 67 < end) {
+                rawValue += buffer.readInt8(start + 67) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1010_0100_068_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 68 < end) {
+                rawValue += buffer.readUInt8(start + 68) * 1;
+                valid = true;
+            }
+            if (start + 69 < end) {
+                rawValue += buffer.readUInt8(start + 69) * 256;
+                valid = true;
+            }
+            if (start + 70 < end) {
+                rawValue += buffer.readUInt8(start + 70) * 65536;
+                valid = true;
+            }
+            if (start + 71 < end) {
+                rawValue += buffer.readUInt8(start + 71) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1010_0100_072_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 72 < end) {
+                rawValue += buffer.readUInt8(start + 72) * 0.001;
+                valid = true;
+            }
+            if (start + 73 < end) {
+                rawValue += buffer.readUInt8(start + 73) * 0.256;
+                valid = true;
+            }
+            if (start + 74 < end) {
+                rawValue += buffer.readUInt8(start + 74) * 65.536;
+                valid = true;
+            }
+            if (start + 75 < end) {
+                rawValue += buffer.readUInt8(start + 75) * 16777.216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1040_0100_000_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 0 < end) {
+                rawValue += buffer.readUInt8(start + 0) * 1;
+                valid = true;
+            }
+            if (start + 1 < end) {
+                rawValue += buffer.readInt8(start + 1) * 256;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1040_0100_002_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 2 < end) {
+                rawValue += buffer.readInt8(start + 2) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1040_0100_003_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 3 < end) {
+                rawValue += buffer.readInt8(start + 3) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1040_0100_004_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 4 < end) {
+                rawValue += buffer.readUInt8(start + 4) * 1;
+                valid = true;
+            }
+            if (start + 5 < end) {
+                rawValue += buffer.readInt8(start + 5) * 256;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1040_0100_006_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 6 < end) {
+                rawValue += buffer.readInt8(start + 6) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1040_0100_007_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 7 < end) {
+                rawValue += buffer.readInt8(start + 7) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1040_0100_008_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 8 < end) {
+                rawValue += buffer.readUInt8(start + 8) * 0.1;
+                valid = true;
+            }
+            if (start + 9 < end) {
+                rawValue += buffer.readInt8(start + 9) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1040_0100_010_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 10 < end) {
+                rawValue += buffer.readUInt8(start + 10) * 0.1;
+                valid = true;
+            }
+            if (start + 11 < end) {
+                rawValue += buffer.readInt8(start + 11) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1040_0100_012_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 12 < end) {
+                rawValue += buffer.readInt8(start + 12) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1040_0100_013_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 13 < end) {
+                rawValue += buffer.readInt8(start + 13) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1040_0100_014_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 14 < end) {
+                rawValue += buffer.readInt8(start + 14) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1040_0100_015_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 15 < end) {
+                rawValue += buffer.readInt8(start + 15) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1040_0100_016_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 16 < end) {
+                rawValue += buffer.readInt8(start + 16) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1040_0100_017_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 17 < end) {
+                rawValue += buffer.readInt8(start + 17) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1040_0100_018_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 18 < end) {
+                rawValue += buffer.readInt8(start + 18) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1040_0100_019_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 19 < end) {
+                rawValue += buffer.readInt8(start + 19) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1040_0100_020_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 20 < end) {
+                rawValue += buffer.readUInt8(start + 20) * 0.1;
+                valid = true;
+            }
+            if (start + 21 < end) {
+                rawValue += buffer.readInt8(start + 21) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1040_0100_022_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 22 < end) {
+                rawValue += buffer.readUInt8(start + 22) * 0.1;
+                valid = true;
+            }
+            if (start + 23 < end) {
+                rawValue += buffer.readInt8(start + 23) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1040_0100_024_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 24 < end) {
+                rawValue += buffer.readUInt8(start + 24) * 0.1;
+                valid = true;
+            }
+            if (start + 25 < end) {
+                rawValue += buffer.readInt8(start + 25) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1040_0100_026_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 26 < end) {
+                rawValue += buffer.readInt8(start + 26) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1040_0100_027_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 27 < end) {
+                rawValue += buffer.readInt8(start + 27) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1050_0100_000_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 0 < end) {
+                rawValue += buffer.readUInt8(start + 0) * 0.1;
+                valid = true;
+            }
+            if (start + 1 < end) {
+                rawValue += buffer.readInt8(start + 1) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1050_0100_002_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 2 < end) {
+                rawValue += buffer.readUInt8(start + 2) * 0.1;
+                valid = true;
+            }
+            if (start + 3 < end) {
+                rawValue += buffer.readInt8(start + 3) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1050_0100_004_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 4 < end) {
+                rawValue += buffer.readUInt8(start + 4) * 0.1;
+                valid = true;
+            }
+            if (start + 5 < end) {
+                rawValue += buffer.readInt8(start + 5) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1050_0100_006_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 6 < end) {
+                rawValue += buffer.readUInt8(start + 6) * 0.1;
+                valid = true;
+            }
+            if (start + 7 < end) {
+                rawValue += buffer.readInt8(start + 7) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1050_0100_008_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 8 < end) {
+                rawValue += buffer.readUInt8(start + 8) * 0.1;
+                valid = true;
+            }
+            if (start + 9 < end) {
+                rawValue += buffer.readInt8(start + 9) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1050_0100_010_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 10 < end) {
+                rawValue += buffer.readUInt8(start + 10) * 0.1;
+                valid = true;
+            }
+            if (start + 11 < end) {
+                rawValue += buffer.readInt8(start + 11) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1050_0100_012_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 12 < end) {
+                rawValue += buffer.readUInt8(start + 12) * 0.1;
+                valid = true;
+            }
+            if (start + 13 < end) {
+                rawValue += buffer.readInt8(start + 13) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1050_0100_014_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 14 < end) {
+                rawValue += buffer.readUInt8(start + 14) * 0.1;
+                valid = true;
+            }
+            if (start + 15 < end) {
+                rawValue += buffer.readInt8(start + 15) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1050_0100_016_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 16 < end) {
+                rawValue += buffer.readUInt8(start + 16) * 0.1;
+                valid = true;
+            }
+            if (start + 17 < end) {
+                rawValue += buffer.readInt8(start + 17) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1050_0100_018_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 18 < end) {
+                rawValue += buffer.readUInt8(start + 18) * 0.1;
+                valid = true;
+            }
+            if (start + 19 < end) {
+                rawValue += buffer.readInt8(start + 19) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1050_0100_020_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 20 < end) {
+                rawValue += buffer.readUInt8(start + 20) * 1;
+                valid = true;
+            }
+            if (start + 21 < end) {
+                rawValue += buffer.readInt8(start + 21) * 256;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1050_0100_022_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 22 < end) {
+                rawValue += buffer.readUInt8(start + 22) * 1;
+                valid = true;
+            }
+            if (start + 23 < end) {
+                rawValue += buffer.readUInt8(start + 23) * 256;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1050_0100_024_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 24 < end) {
+                rawValue += buffer.readUInt8(start + 24) * 1;
+                valid = true;
+            }
+            if (start + 25 < end) {
+                rawValue += buffer.readUInt8(start + 25) * 256;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1050_0100_026_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 26 < end) {
+                rawValue += buffer.readInt8(start + 26) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1050_0100_027_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 27 < end) {
+                rawValue += buffer.readInt8(start + 27) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1050_0100_028_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 28 < end) {
+                rawValue += buffer.readInt8(start + 28) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1050_0100_029_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 29 < end) {
+                rawValue += buffer.readInt8(start + 29) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1050_0100_030_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 30 < end) {
+                rawValue += buffer.readInt8(start + 30) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1050_0100_031_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 31 < end) {
+                rawValue += buffer.readInt8(start + 31) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1050_0100_032_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 32 < end) {
+                rawValue += buffer.readInt8(start + 32) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1050_0100_036_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 36 < end) {
+                rawValue += buffer.readUInt8(start + 36) * 1;
+                valid = true;
+            }
+            if (start + 37 < end) {
+                rawValue += buffer.readUInt8(start + 37) * 256;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1050_0100_038_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 38 < end) {
+                rawValue += buffer.readUInt8(start + 38) * 1;
+                valid = true;
+            }
+            if (start + 39 < end) {
+                rawValue += buffer.readUInt8(start + 39) * 256;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1050_0100_040_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 40 < end) {
+                rawValue += buffer.readInt8(start + 40) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1050_0100_042_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 42 < end) {
+                rawValue += buffer.readUInt8(start + 42) * 1;
+                valid = true;
+            }
+            if (start + 43 < end) {
+                rawValue += buffer.readUInt8(start + 43) * 256;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1050_0100_044_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 44 < end) {
+                rawValue += buffer.readUInt8(start + 44) * 0.1;
+                valid = true;
+            }
+            if (start + 45 < end) {
+                rawValue += buffer.readInt8(start + 45) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1050_0100_046_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 46 < end) {
+                rawValue += buffer.readUInt8(start + 46) * 1;
+                valid = true;
+            }
+            if (start + 47 < end) {
+                rawValue += buffer.readUInt8(start + 47) * 256;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1050_0100_048_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 48 < end) {
+                rawValue += buffer.readUInt8(start + 48) * 0.1;
+                valid = true;
+            }
+            if (start + 49 < end) {
+                rawValue += buffer.readInt8(start + 49) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1050_0100_050_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 50 < end) {
+                rawValue += buffer.readUInt8(start + 50) * 1;
+                valid = true;
+            }
+            if (start + 51 < end) {
+                rawValue += buffer.readUInt8(start + 51) * 256;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1050_0100_052_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 52 < end) {
+                rawValue += buffer.readUInt8(start + 52) * 0.1;
+                valid = true;
+            }
+            if (start + 53 < end) {
+                rawValue += buffer.readInt8(start + 53) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1050_0100_054_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 54 < end) {
+                rawValue += buffer.readUInt8(start + 54) * 1;
+                valid = true;
+            }
+            if (start + 55 < end) {
+                rawValue += buffer.readUInt8(start + 55) * 256;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1050_0100_056_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 56 < end) {
+                rawValue += buffer.readUInt8(start + 56) * 0.1;
+                valid = true;
+            }
+            if (start + 57 < end) {
+                rawValue += buffer.readInt8(start + 57) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1050_0100_058_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 58 < end) {
+                rawValue += buffer.readUInt8(start + 58) * 1;
+                valid = true;
+            }
+            if (start + 59 < end) {
+                rawValue += buffer.readUInt8(start + 59) * 256;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1050_0100_060_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 60 < end) {
+                rawValue += buffer.readInt8(start + 60) * 1;
+                valid = true;
+            }
+            if (start + 61 < end) {
+                rawValue += buffer.readInt8(start + 61) * 0.01;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1050_0100_062_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 62 < end) {
+                rawValue += buffer.readUInt8(start + 62) * 1;
+                valid = true;
+            }
+            if (start + 63 < end) {
+                rawValue += buffer.readInt8(start + 63) * 256;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1050_0100_064_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 64 < end) {
+                rawValue += buffer.readUInt8(start + 64) * 1;
+                valid = true;
+            }
+            if (start + 65 < end) {
+                rawValue += buffer.readInt8(start + 65) * 256;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1050_0100_066_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 66 < end) {
+                rawValue += buffer.readInt8(start + 66) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1050_0100_067_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 67 < end) {
+                rawValue += buffer.readInt8(start + 67) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1050_0100_068_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 68 < end) {
+                rawValue += buffer.readInt8(start + 68) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1050_0100_069_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 69 < end) {
+                rawValue += buffer.readInt8(start + 69) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1050_0100_070_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 70 < end) {
+                rawValue += buffer.readInt8(start + 70) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1051_0100_000_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 0 < end) {
+                rawValue += buffer.readUInt8(start + 0) * 0.1;
+                valid = true;
+            }
+            if (start + 1 < end) {
+                rawValue += buffer.readInt8(start + 1) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1051_0100_002_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 2 < end) {
+                rawValue += buffer.readUInt8(start + 2) * 0.1;
+                valid = true;
+            }
+            if (start + 3 < end) {
+                rawValue += buffer.readInt8(start + 3) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1051_0100_004_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 4 < end) {
+                rawValue += buffer.readUInt8(start + 4) * 1;
+                valid = true;
+            }
+            if (start + 5 < end) {
+                rawValue += buffer.readInt8(start + 5) * 256;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1051_0100_006_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 6 < end) {
+                rawValue += buffer.readUInt8(start + 6) * 1;
+                valid = true;
+            }
+            if (start + 7 < end) {
+                rawValue += buffer.readUInt8(start + 7) * 256;
+                valid = true;
+            }
+            if (start + 8 < end) {
+                rawValue += buffer.readUInt8(start + 8) * 1000;
+                valid = true;
+            }
+            if (start + 9 < end) {
+                rawValue += buffer.readUInt8(start + 9) * 256000;
+                valid = true;
+            }
+            if (start + 10 < end) {
+                rawValue += buffer.readUInt8(start + 10) * 1000000;
+                valid = true;
+            }
+            if (start + 11 < end) {
+                rawValue += buffer.readUInt8(start + 11) * 256000000;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1058_0100_000_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 0 < end) {
+                rawValue += buffer.readUInt8(start + 0) * 0.1;
+                valid = true;
+            }
+            if (start + 1 < end) {
+                rawValue += buffer.readInt8(start + 1) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1058_0100_002_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 2 < end) {
+                rawValue += buffer.readUInt8(start + 2) * 0.1;
+                valid = true;
+            }
+            if (start + 3 < end) {
+                rawValue += buffer.readInt8(start + 3) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1058_0100_004_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 4 < end) {
+                rawValue += buffer.readUInt8(start + 4) * 0.1;
+                valid = true;
+            }
+            if (start + 5 < end) {
+                rawValue += buffer.readInt8(start + 5) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1058_0100_006_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 6 < end) {
+                rawValue += buffer.readUInt8(start + 6) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1058_0100_007_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 7 < end) {
+                rawValue += buffer.readUInt8(start + 7) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1058_0100_008_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 8 < end) {
+                rawValue += buffer.readInt8(start + 8) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1058_0100_009_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 9 < end) {
+                rawValue += buffer.readInt8(start + 9) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1058_0100_010_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 10 < end) {
+                rawValue += buffer.readInt8(start + 10) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1058_0100_011_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 11 < end) {
+                rawValue += buffer.readInt8(start + 11) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1058_0100_012_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 12 < end) {
+                rawValue += buffer.readInt8(start + 12) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1058_0100_016_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 16 < end) {
+                rawValue += buffer.readUInt8(start + 16) * 1;
+                valid = true;
+            }
+            if (start + 17 < end) {
+                rawValue += buffer.readUInt8(start + 17) * 256;
+                valid = true;
+            }
+            if (start + 18 < end) {
+                rawValue += buffer.readUInt8(start + 18) * 65536;
+                valid = true;
+            }
+            if (start + 19 < end) {
+                rawValue += buffer.readUInt8(start + 19) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1058_0100_020_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 20 < end) {
+                rawValue += buffer.readUInt8(start + 20) * 1;
+                valid = true;
+            }
+            if (start + 21 < end) {
+                rawValue += buffer.readUInt8(start + 21) * 256;
+                valid = true;
+            }
+            if (start + 22 < end) {
+                rawValue += buffer.readUInt8(start + 22) * 65536;
+                valid = true;
+            }
+            if (start + 23 < end) {
+                rawValue += buffer.readUInt8(start + 23) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1058_0100_024_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 24 < end) {
+                rawValue += buffer.readUInt8(start + 24) * 1;
+                valid = true;
+            }
+            if (start + 25 < end) {
+                rawValue += buffer.readUInt8(start + 25) * 256;
+                valid = true;
+            }
+            if (start + 26 < end) {
+                rawValue += buffer.readUInt8(start + 26) * 65536;
+                valid = true;
+            }
+            if (start + 27 < end) {
+                rawValue += buffer.readUInt8(start + 27) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1058_0100_028_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 28 < end) {
+                rawValue += buffer.readUInt8(start + 28) * 1;
+                valid = true;
+            }
+            if (start + 29 < end) {
+                rawValue += buffer.readUInt8(start + 29) * 256;
+                valid = true;
+            }
+            if (start + 30 < end) {
+                rawValue += buffer.readUInt8(start + 30) * 65536;
+                valid = true;
+            }
+            if (start + 31 < end) {
+                rawValue += buffer.readUInt8(start + 31) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1058_0100_032_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 32 < end) {
+                rawValue += buffer.readUInt8(start + 32) * 1;
+                valid = true;
+            }
+            if (start + 33 < end) {
+                rawValue += buffer.readUInt8(start + 33) * 256;
+                valid = true;
+            }
+            if (start + 34 < end) {
+                rawValue += buffer.readUInt8(start + 34) * 65536;
+                valid = true;
+            }
+            if (start + 35 < end) {
+                rawValue += buffer.readUInt8(start + 35) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1058_0100_036_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 36 < end) {
+                rawValue += buffer.readUInt8(start + 36) * 1;
+                valid = true;
+            }
+            if (start + 37 < end) {
+                rawValue += buffer.readUInt8(start + 37) * 256;
+                valid = true;
+            }
+            if (start + 38 < end) {
+                rawValue += buffer.readUInt8(start + 38) * 65536;
+                valid = true;
+            }
+            if (start + 39 < end) {
+                rawValue += buffer.readUInt8(start + 39) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_000_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 0 < end) {
+                rawValue += buffer.readUInt8(start + 0) * 0.1;
+                valid = true;
+            }
+            if (start + 1 < end) {
+                rawValue += buffer.readInt8(start + 1) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_002_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 2 < end) {
+                rawValue += buffer.readUInt8(start + 2) * 0.1;
+                valid = true;
+            }
+            if (start + 3 < end) {
+                rawValue += buffer.readInt8(start + 3) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_004_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 4 < end) {
+                rawValue += buffer.readUInt8(start + 4) * 0.1;
+                valid = true;
+            }
+            if (start + 5 < end) {
+                rawValue += buffer.readInt8(start + 5) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_006_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 6 < end) {
+                rawValue += buffer.readUInt8(start + 6) * 0.1;
+                valid = true;
+            }
+            if (start + 7 < end) {
+                rawValue += buffer.readInt8(start + 7) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_008_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 8 < end) {
+                rawValue += buffer.readUInt8(start + 8) * 0.1;
+                valid = true;
+            }
+            if (start + 9 < end) {
+                rawValue += buffer.readInt8(start + 9) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_010_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 10 < end) {
+                rawValue += buffer.readUInt8(start + 10) * 0.1;
+                valid = true;
+            }
+            if (start + 11 < end) {
+                rawValue += buffer.readInt8(start + 11) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_012_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 12 < end) {
+                rawValue += buffer.readUInt8(start + 12) * 0.1;
+                valid = true;
+            }
+            if (start + 13 < end) {
+                rawValue += buffer.readInt8(start + 13) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_014_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 14 < end) {
+                rawValue += buffer.readUInt8(start + 14) * 0.1;
+                valid = true;
+            }
+            if (start + 15 < end) {
+                rawValue += buffer.readInt8(start + 15) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_016_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 16 < end) {
+                rawValue += buffer.readUInt8(start + 16) * 0.1;
+                valid = true;
+            }
+            if (start + 17 < end) {
+                rawValue += buffer.readInt8(start + 17) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_018_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 18 < end) {
+                rawValue += buffer.readUInt8(start + 18) * 0.1;
+                valid = true;
+            }
+            if (start + 19 < end) {
+                rawValue += buffer.readInt8(start + 19) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_020_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 20 < end) {
+                rawValue += buffer.readUInt8(start + 20) * 0.1;
+                valid = true;
+            }
+            if (start + 21 < end) {
+                rawValue += buffer.readInt8(start + 21) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_022_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 22 < end) {
+                rawValue += buffer.readUInt8(start + 22) * 0.1;
+                valid = true;
+            }
+            if (start + 23 < end) {
+                rawValue += buffer.readInt8(start + 23) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_024_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 24 < end) {
+                rawValue += buffer.readUInt8(start + 24) * 1;
+                valid = true;
+            }
+            if (start + 25 < end) {
+                rawValue += buffer.readInt8(start + 25) * 256;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_026_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 26 < end) {
+                rawValue += buffer.readUInt8(start + 26) * 0.001;
+                valid = true;
+            }
+            if (start + 27 < end) {
+                rawValue += buffer.readUInt8(start + 27) * 0.256;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_028_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 28 < end) {
+                rawValue += buffer.readUInt8(start + 28) * 1;
+                valid = true;
+            }
+            if (start + 29 < end) {
+                rawValue += buffer.readUInt8(start + 29) * 256;
+                valid = true;
+            }
+            if (start + 30 < end) {
+                rawValue += buffer.readUInt8(start + 30) * 65536;
+                valid = true;
+            }
+            if (start + 31 < end) {
+                rawValue += buffer.readInt8(start + 31) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_032_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 32 < end) {
+                rawValue += buffer.readUInt8(start + 32) * 1;
+                valid = true;
+            }
+            if (start + 33 < end) {
+                rawValue += buffer.readUInt8(start + 33) * 256;
+                valid = true;
+            }
+            if (start + 34 < end) {
+                rawValue += buffer.readUInt8(start + 34) * 65536;
+                valid = true;
+            }
+            if (start + 35 < end) {
+                rawValue += buffer.readInt8(start + 35) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_036_1_1: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 36 < end) {
+                rawValue += buffer.readInt8(start + 36) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_036_1_1024: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 36 < end) {
+                rawValue += buffer.readInt8(start + 36) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_036_1_128: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 36 < end) {
+                rawValue += buffer.readInt8(start + 36) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_036_1_16: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 36 < end) {
+                rawValue += buffer.readInt8(start + 36) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_036_1_2: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 36 < end) {
+                rawValue += buffer.readInt8(start + 36) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_036_1_2048: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 36 < end) {
+                rawValue += buffer.readInt8(start + 36) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_036_1_256: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 36 < end) {
+                rawValue += buffer.readInt8(start + 36) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_036_1_32: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 36 < end) {
+                rawValue += buffer.readInt8(start + 36) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_036_1_4: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 36 < end) {
+                rawValue += buffer.readInt8(start + 36) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_036_1_512: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 36 < end) {
+                rawValue += buffer.readInt8(start + 36) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_036_1_64: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 36 < end) {
+                rawValue += buffer.readInt8(start + 36) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_036_1_8: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 36 < end) {
+                rawValue += buffer.readInt8(start + 36) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_036_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 36 < end) {
+                rawValue += buffer.readUInt8(start + 36) * 1;
+                valid = true;
+            }
+            if (start + 37 < end) {
+                rawValue += buffer.readInt8(start + 37) * 256;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_038_1_1: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 38 < end) {
+                rawValue += buffer.readInt8(start + 38) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_038_1_1024: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 38 < end) {
+                rawValue += buffer.readInt8(start + 38) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_038_1_128: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 38 < end) {
+                rawValue += buffer.readInt8(start + 38) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_038_1_16: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 38 < end) {
+                rawValue += buffer.readInt8(start + 38) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_038_1_1_1: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 38 < end) {
+                rawValue += buffer.readInt8(start + 38) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_038_1_2: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 38 < end) {
+                rawValue += buffer.readInt8(start + 38) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_038_1_2048: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 38 < end) {
+                rawValue += buffer.readInt8(start + 38) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_038_1_256: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 38 < end) {
+                rawValue += buffer.readInt8(start + 38) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_038_1_32: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 38 < end) {
+                rawValue += buffer.readInt8(start + 38) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_038_1_4: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 38 < end) {
+                rawValue += buffer.readInt8(start + 38) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_038_1_512: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 38 < end) {
+                rawValue += buffer.readInt8(start + 38) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_038_1_64: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 38 < end) {
+                rawValue += buffer.readInt8(start + 38) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_038_1_8: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 38 < end) {
+                rawValue += buffer.readInt8(start + 38) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_040_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 40 < end) {
+                rawValue += buffer.readUInt8(start + 40) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_040_1_1: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 40 < end) {
+                rawValue += buffer.readInt8(start + 40) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_040_1_1024: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 40 < end) {
+                rawValue += buffer.readInt8(start + 40) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_040_1_128: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 40 < end) {
+                rawValue += buffer.readInt8(start + 40) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_040_1_16: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 40 < end) {
+                rawValue += buffer.readInt8(start + 40) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_040_1_2: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 40 < end) {
+                rawValue += buffer.readInt8(start + 40) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_040_1_2048: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 40 < end) {
+                rawValue += buffer.readInt8(start + 40) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_040_1_256: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 40 < end) {
+                rawValue += buffer.readInt8(start + 40) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_040_1_32: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 40 < end) {
+                rawValue += buffer.readInt8(start + 40) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_040_1_4: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 40 < end) {
+                rawValue += buffer.readInt8(start + 40) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_040_1_512: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 40 < end) {
+                rawValue += buffer.readInt8(start + 40) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_040_1_64: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 40 < end) {
+                rawValue += buffer.readInt8(start + 40) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_040_1_8: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 40 < end) {
+                rawValue += buffer.readInt8(start + 40) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_044_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 44 < end) {
+                rawValue += buffer.readUInt8(start + 44) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_045_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 45 < end) {
+                rawValue += buffer.readUInt8(start + 45) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_046_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 46 < end) {
+                rawValue += buffer.readUInt8(start + 46) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_047_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 47 < end) {
+                rawValue += buffer.readUInt8(start + 47) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_048_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 48 < end) {
+                rawValue += buffer.readUInt8(start + 48) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_049_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 49 < end) {
+                rawValue += buffer.readUInt8(start + 49) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_050_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 50 < end) {
+                rawValue += buffer.readUInt8(start + 50) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_056_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 56 < end) {
+                rawValue += buffer.readUInt8(start + 56) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_056_1_1: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 56 < end) {
+                rawValue += buffer.readInt8(start + 56) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_056_1_2: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 56 < end) {
+                rawValue += buffer.readInt8(start + 56) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_056_1_4: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 56 < end) {
+                rawValue += buffer.readInt8(start + 56) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_056_1_8: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 56 < end) {
+                rawValue += buffer.readInt8(start + 56) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_057_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 57 < end) {
+                rawValue += buffer.readUInt8(start + 57) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_057_1_1: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 57 < end) {
+                rawValue += buffer.readInt8(start + 57) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_057_1_2: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 57 < end) {
+                rawValue += buffer.readInt8(start + 57) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_057_1_4: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 57 < end) {
+                rawValue += buffer.readInt8(start + 57) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_057_1_8: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 57 < end) {
+                rawValue += buffer.readInt8(start + 57) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_058_1_1: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 58 < end) {
+                rawValue += buffer.readInt8(start + 58) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_058_1_16: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 58 < end) {
+                rawValue += buffer.readInt8(start + 58) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_058_1_2: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 58 < end) {
+                rawValue += buffer.readInt8(start + 58) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_058_1_32: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 58 < end) {
+                rawValue += buffer.readInt8(start + 58) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_058_1_4: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 58 < end) {
+                rawValue += buffer.readInt8(start + 58) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_058_1_64: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 58 < end) {
+                rawValue += buffer.readInt8(start + 58) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_058_1_8: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 58 < end) {
+                rawValue += buffer.readInt8(start + 58) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_058_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 58 < end) {
+                rawValue += buffer.readUInt8(start + 58) * 1;
+                valid = true;
+            }
+            if (start + 59 < end) {
+                rawValue += buffer.readUInt8(start + 59) * 256;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_060_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 60 < end) {
+                rawValue += buffer.readUInt8(start + 60) * 1;
+                valid = true;
+            }
+            if (start + 61 < end) {
+                rawValue += buffer.readUInt8(start + 61) * 256;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_062_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 62 < end) {
+                rawValue += buffer.readUInt8(start + 62) * 1;
+                valid = true;
+            }
+            if (start + 63 < end) {
+                rawValue += buffer.readUInt8(start + 63) * 256;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_064_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 64 < end) {
+                rawValue += buffer.readUInt8(start + 64) * 0.1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_065_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 65 < end) {
+                rawValue += buffer.readUInt8(start + 65) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_066_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 66 < end) {
+                rawValue += buffer.readUInt8(start + 66) * 1;
+                valid = true;
+            }
+            if (start + 67 < end) {
+                rawValue += buffer.readUInt8(start + 67) * 256;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1060_0100_072_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 72 < end) {
+                rawValue += buffer.readUInt8(start + 72) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1064_0100_000_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 0 < end) {
+                rawValue += buffer.readUInt8(start + 0) * 0.1;
+                valid = true;
+            }
+            if (start + 1 < end) {
+                rawValue += buffer.readInt8(start + 1) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1064_0100_002_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 2 < end) {
+                rawValue += buffer.readUInt8(start + 2) * 0.1;
+                valid = true;
+            }
+            if (start + 3 < end) {
+                rawValue += buffer.readInt8(start + 3) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1064_0100_004_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 4 < end) {
+                rawValue += buffer.readUInt8(start + 4) * 1;
+                valid = true;
+            }
+            if (start + 5 < end) {
+                rawValue += buffer.readUInt8(start + 5) * 256;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1064_0100_006_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 6 < end) {
+                rawValue += buffer.readUInt8(start + 6) * 1;
+                valid = true;
+            }
+            if (start + 7 < end) {
+                rawValue += buffer.readUInt8(start + 7) * 256;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1064_0100_006_2_0_1: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 6 < end) {
+                rawValue += buffer.readUInt8(start + 6) * 1;
+                valid = true;
+            }
+            if (start + 7 < end) {
+                rawValue += buffer.readUInt8(start + 7) * 256;
+                valid = true;
+            }
+            if (start + 8 < end) {
+                rawValue += buffer.readUInt8(start + 8) * 1000;
+                valid = true;
+            }
+            if (start + 9 < end) {
+                rawValue += buffer.readUInt8(start + 9) * 256000;
+                valid = true;
+            }
+            if (start + 10 < end) {
+                rawValue += buffer.readUInt8(start + 10) * 1000000;
+                valid = true;
+            }
+            if (start + 11 < end) {
+                rawValue += buffer.readUInt8(start + 11) * 256000000;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1064_0100_008_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 8 < end) {
+                rawValue += buffer.readUInt8(start + 8) * 1;
+                valid = true;
+            }
+            if (start + 9 < end) {
+                rawValue += buffer.readUInt8(start + 9) * 256;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_1064_0100_010_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 10 < end) {
+                rawValue += buffer.readUInt8(start + 10) * 1;
+                valid = true;
+            }
+            if (start + 11 < end) {
+                rawValue += buffer.readUInt8(start + 11) * 256;
                 valid = true;
             }
             
@@ -3360,6 +6218,578 @@ var createVBusSpecificationData = function() {
         },
 
         _0010_2252_0100_012_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 12 < end) {
+                rawValue += buffer.readUInt8(start + 12) * 1;
+                valid = true;
+            }
+            if (start + 13 < end) {
+                rawValue += buffer.readUInt8(start + 13) * 256;
+                valid = true;
+            }
+            if (start + 14 < end) {
+                rawValue += buffer.readUInt8(start + 14) * 65536;
+                valid = true;
+            }
+            if (start + 15 < end) {
+                rawValue += buffer.readInt8(start + 15) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_2271_0100_000_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 0 < end) {
+                rawValue += buffer.readUInt8(start + 0) * 1;
+                valid = true;
+            }
+            if (start + 1 < end) {
+                rawValue += buffer.readUInt8(start + 1) * 256;
+                valid = true;
+            }
+            if (start + 2 < end) {
+                rawValue += buffer.readUInt8(start + 2) * 65536;
+                valid = true;
+            }
+            if (start + 3 < end) {
+                rawValue += buffer.readInt8(start + 3) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_2271_0100_004_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 4 < end) {
+                rawValue += buffer.readUInt8(start + 4) * 0.1;
+                valid = true;
+            }
+            if (start + 5 < end) {
+                rawValue += buffer.readInt8(start + 5) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_2271_0100_006_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 6 < end) {
+                rawValue += buffer.readUInt8(start + 6) * 0.1;
+                valid = true;
+            }
+            if (start + 7 < end) {
+                rawValue += buffer.readInt8(start + 7) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_2271_0100_008_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 8 < end) {
+                rawValue += buffer.readUInt8(start + 8) * 0.1;
+                valid = true;
+            }
+            if (start + 9 < end) {
+                rawValue += buffer.readInt8(start + 9) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_2271_0100_010_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 10 < end) {
+                rawValue += buffer.readUInt8(start + 10) * 0.1;
+                valid = true;
+            }
+            if (start + 11 < end) {
+                rawValue += buffer.readInt8(start + 11) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_2271_0100_012_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 12 < end) {
+                rawValue += buffer.readUInt8(start + 12) * 1;
+                valid = true;
+            }
+            if (start + 13 < end) {
+                rawValue += buffer.readInt8(start + 13) * 256;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_2271_0100_016_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 16 < end) {
+                rawValue += buffer.readUInt8(start + 16) * 1;
+                valid = true;
+            }
+            if (start + 17 < end) {
+                rawValue += buffer.readUInt8(start + 17) * 256;
+                valid = true;
+            }
+            if (start + 18 < end) {
+                rawValue += buffer.readUInt8(start + 18) * 65536;
+                valid = true;
+            }
+            if (start + 19 < end) {
+                rawValue += buffer.readInt8(start + 19) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_2271_0100_020_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 20 < end) {
+                rawValue += buffer.readInt8(start + 20) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_2271_0100_021_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 21 < end) {
+                rawValue += buffer.readInt8(start + 21) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_2271_0100_022_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 22 < end) {
+                rawValue += buffer.readInt8(start + 22) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_2271_0100_024_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 24 < end) {
+                rawValue += buffer.readUInt8(start + 24) * 1;
+                valid = true;
+            }
+            if (start + 25 < end) {
+                rawValue += buffer.readUInt8(start + 25) * 256;
+                valid = true;
+            }
+            if (start + 26 < end) {
+                rawValue += buffer.readUInt8(start + 26) * 65536;
+                valid = true;
+            }
+            if (start + 27 < end) {
+                rawValue += buffer.readInt8(start + 27) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_2271_0100_028_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 28 < end) {
+                rawValue += buffer.readUInt8(start + 28) * 0.01;
+                valid = true;
+            }
+            if (start + 29 < end) {
+                rawValue += buffer.readInt8(start + 29) * 2.56;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_2271_0100_032_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 32 < end) {
+                rawValue += buffer.readUInt8(start + 32) * 1;
+                valid = true;
+            }
+            if (start + 33 < end) {
+                rawValue += buffer.readUInt8(start + 33) * 256;
+                valid = true;
+            }
+            if (start + 34 < end) {
+                rawValue += buffer.readUInt8(start + 34) * 65536;
+                valid = true;
+            }
+            if (start + 35 < end) {
+                rawValue += buffer.readInt8(start + 35) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_2271_0100_036_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 36 < end) {
+                rawValue += buffer.readUInt8(start + 36) * 1;
+                valid = true;
+            }
+            if (start + 37 < end) {
+                rawValue += buffer.readUInt8(start + 37) * 256;
+                valid = true;
+            }
+            if (start + 38 < end) {
+                rawValue += buffer.readUInt8(start + 38) * 65536;
+                valid = true;
+            }
+            if (start + 39 < end) {
+                rawValue += buffer.readInt8(start + 39) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_2271_0100_040_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 40 < end) {
+                rawValue += buffer.readUInt8(start + 40) * 1;
+                valid = true;
+            }
+            if (start + 41 < end) {
+                rawValue += buffer.readUInt8(start + 41) * 256;
+                valid = true;
+            }
+            if (start + 42 < end) {
+                rawValue += buffer.readUInt8(start + 42) * 65536;
+                valid = true;
+            }
+            if (start + 43 < end) {
+                rawValue += buffer.readInt8(start + 43) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_2271_0100_044_1_1: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 44 < end) {
+                rawValue += buffer.readInt8(start + 44) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_2271_0100_045_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 45 < end) {
+                rawValue += buffer.readInt8(start + 45) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_2271_0100_046_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 46 < end) {
+                rawValue += buffer.readInt8(start + 46) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_2271_0100_047_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 47 < end) {
+                rawValue += buffer.readInt8(start + 47) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_2271_0100_048_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 48 < end) {
+                rawValue += buffer.readUInt8(start + 48) * 1;
+                valid = true;
+            }
+            if (start + 49 < end) {
+                rawValue += buffer.readUInt8(start + 49) * 256;
+                valid = true;
+            }
+            if (start + 50 < end) {
+                rawValue += buffer.readUInt8(start + 50) * 65536;
+                valid = true;
+            }
+            if (start + 51 < end) {
+                rawValue += buffer.readInt8(start + 51) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_2271_0100_052_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 52 < end) {
+                rawValue += buffer.readUInt8(start + 52) * 1;
+                valid = true;
+            }
+            if (start + 53 < end) {
+                rawValue += buffer.readUInt8(start + 53) * 256;
+                valid = true;
+            }
+            if (start + 54 < end) {
+                rawValue += buffer.readUInt8(start + 54) * 65536;
+                valid = true;
+            }
+            if (start + 55 < end) {
+                rawValue += buffer.readInt8(start + 55) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_2271_0100_054_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 54 < end) {
+                rawValue += buffer.readUInt8(start + 54) * 1;
+                valid = true;
+            }
+            if (start + 55 < end) {
+                rawValue += buffer.readUInt8(start + 55) * 256;
+                valid = true;
+            }
+            if (start + 56 < end) {
+                rawValue += buffer.readUInt8(start + 56) * 65536;
+                valid = true;
+            }
+            if (start + 57 < end) {
+                rawValue += buffer.readInt8(start + 57) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_2271_0100_060_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 60 < end) {
+                rawValue += buffer.readInt8(start + 60) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_2271_0100_061_1_1: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 61 < end) {
+                rawValue += buffer.readInt8(start + 61) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_2271_0100_062_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 62 < end) {
+                rawValue += buffer.readInt8(start + 62) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_2271_0100_063_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 63 < end) {
+                rawValue += buffer.readInt8(start + 63) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_2271_0100_064_1_1: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 64 < end) {
+                rawValue += buffer.readInt8(start + 64) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_2271_0100_065_1_1: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 65 < end) {
+                rawValue += buffer.readInt8(start + 65) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_2271_0100_066_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 66 < end) {
+                rawValue += buffer.readInt8(start + 66) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_2271_0100_067_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 67 < end) {
+                rawValue += buffer.readInt8(start + 67) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_2271_0100_068_1_1: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 68 < end) {
+                rawValue += buffer.readInt8(start + 68) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_2271_0100_069_1_1: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 69 < end) {
+                rawValue += buffer.readInt8(start + 69) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_2271_0100_070_1_1: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 70 < end) {
+                rawValue += buffer.readInt8(start + 70) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_2271_0100_072_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 72 < end) {
+                rawValue += buffer.readUInt8(start + 72) * 1;
+                valid = true;
+            }
+            if (start + 73 < end) {
+                rawValue += buffer.readUInt8(start + 73) * 256;
+                valid = true;
+            }
+            if (start + 74 < end) {
+                rawValue += buffer.readUInt8(start + 74) * 65536;
+                valid = true;
+            }
+            if (start + 75 < end) {
+                rawValue += buffer.readInt8(start + 75) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_2272_0100_000_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 0 < end) {
+                rawValue += buffer.readUInt8(start + 0) * 1;
+                valid = true;
+            }
+            if (start + 1 < end) {
+                rawValue += buffer.readUInt8(start + 1) * 256;
+                valid = true;
+            }
+            if (start + 2 < end) {
+                rawValue += buffer.readUInt8(start + 2) * 65536;
+                valid = true;
+            }
+            if (start + 3 < end) {
+                rawValue += buffer.readInt8(start + 3) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_2272_0100_004_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 4 < end) {
+                rawValue += buffer.readUInt8(start + 4) * 1;
+                valid = true;
+            }
+            if (start + 5 < end) {
+                rawValue += buffer.readUInt8(start + 5) * 256;
+                valid = true;
+            }
+            if (start + 6 < end) {
+                rawValue += buffer.readUInt8(start + 6) * 65536;
+                valid = true;
+            }
+            if (start + 7 < end) {
+                rawValue += buffer.readInt8(start + 7) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_2272_0100_008_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 8 < end) {
+                rawValue += buffer.readUInt8(start + 8) * 1;
+                valid = true;
+            }
+            if (start + 9 < end) {
+                rawValue += buffer.readUInt8(start + 9) * 256;
+                valid = true;
+            }
+            if (start + 10 < end) {
+                rawValue += buffer.readUInt8(start + 10) * 65536;
+                valid = true;
+            }
+            if (start + 11 < end) {
+                rawValue += buffer.readInt8(start + 11) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_2272_0100_012_4_0: function(buffer, start, end) {
             var rawValue = 0, valid = false;
             if (start + 12 < end) {
                 rawValue += buffer.readUInt8(start + 12) * 1;
@@ -10463,6 +13893,208 @@ var createVBusSpecificationData = function() {
             return (valid ? rawValue : null);
         },
 
+        _0010_5251_0100_000_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 0 < end) {
+                rawValue += buffer.readUInt8(start + 0) * 0.1;
+                valid = true;
+            }
+            if (start + 1 < end) {
+                rawValue += buffer.readInt8(start + 1) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_5251_0100_002_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 2 < end) {
+                rawValue += buffer.readUInt8(start + 2) * 0.1;
+                valid = true;
+            }
+            if (start + 3 < end) {
+                rawValue += buffer.readInt8(start + 3) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_5251_0100_004_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 4 < end) {
+                rawValue += buffer.readUInt8(start + 4) * 0.1;
+                valid = true;
+            }
+            if (start + 5 < end) {
+                rawValue += buffer.readInt8(start + 5) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_5251_0100_006_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 6 < end) {
+                rawValue += buffer.readUInt8(start + 6) * 0.1;
+                valid = true;
+            }
+            if (start + 7 < end) {
+                rawValue += buffer.readInt8(start + 7) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_5251_0100_008_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 8 < end) {
+                rawValue += buffer.readUInt8(start + 8) * 0.1;
+                valid = true;
+            }
+            if (start + 9 < end) {
+                rawValue += buffer.readInt8(start + 9) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_5251_0100_010_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 10 < end) {
+                rawValue += buffer.readUInt8(start + 10) * 0.1;
+                valid = true;
+            }
+            if (start + 11 < end) {
+                rawValue += buffer.readInt8(start + 11) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_5251_0100_022_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 22 < end) {
+                rawValue += buffer.readUInt8(start + 22) * 0.1;
+                valid = true;
+            }
+            if (start + 23 < end) {
+                rawValue += buffer.readInt8(start + 23) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_5251_0100_036_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 36 < end) {
+                rawValue += buffer.readUInt8(start + 36) * 1;
+                valid = true;
+            }
+            if (start + 37 < end) {
+                rawValue += buffer.readUInt8(start + 37) * 256;
+                valid = true;
+            }
+            if (start + 38 < end) {
+                rawValue += buffer.readUInt8(start + 38) * 65536;
+                valid = true;
+            }
+            if (start + 39 < end) {
+                rawValue += buffer.readInt8(start + 39) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_5251_0100_049_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 49 < end) {
+                rawValue += buffer.readUInt8(start + 49) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_5251_0100_050_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 50 < end) {
+                rawValue += buffer.readUInt8(start + 50) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_5251_0100_051_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 51 < end) {
+                rawValue += buffer.readUInt8(start + 51) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_5251_0100_052_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 52 < end) {
+                rawValue += buffer.readUInt8(start + 52) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_5251_0100_056_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 56 < end) {
+                rawValue += buffer.readUInt8(start + 56) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_5251_0100_057_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 57 < end) {
+                rawValue += buffer.readUInt8(start + 57) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_5251_0100_112_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 112 < end) {
+                rawValue += buffer.readUInt8(start + 112) * 1;
+                valid = true;
+            }
+            if (start + 113 < end) {
+                rawValue += buffer.readUInt8(start + 113) * 256;
+                valid = true;
+            }
+            if (start + 114 < end) {
+                rawValue += buffer.readUInt8(start + 114) * 65536;
+                valid = true;
+            }
+            if (start + 115 < end) {
+                rawValue += buffer.readInt8(start + 115) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
         _0010_5311_0100_000_2_0: function(buffer, start, end) {
             var rawValue = 0, valid = false;
             if (start + 0 < end) {
@@ -13277,6 +16909,26 @@ var createVBusSpecificationData = function() {
             return (valid ? rawValue : null);
         },
 
+        _0010_7112_0100_064_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 64 < end) {
+                rawValue += buffer.readUInt8(start + 64) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7112_0100_065_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 65 < end) {
+                rawValue += buffer.readUInt8(start + 65) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
         _0010_7113_0100_000_2_0: function(buffer, start, end) {
             var rawValue = 0, valid = false;
             if (start + 0 < end) {
@@ -13529,6 +17181,28 @@ var createVBusSpecificationData = function() {
             }
             if (start + 15 < end) {
                 rawValue += buffer.readInt8(start + 15) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7130_0100_016_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 16 < end) {
+                rawValue += buffer.readUInt8(start + 16) * 1;
+                valid = true;
+            }
+            if (start + 17 < end) {
+                rawValue += buffer.readUInt8(start + 17) * 256;
+                valid = true;
+            }
+            if (start + 18 < end) {
+                rawValue += buffer.readUInt8(start + 18) * 65536;
+                valid = true;
+            }
+            if (start + 19 < end) {
+                rawValue += buffer.readInt8(start + 19) * 16777216;
                 valid = true;
             }
             
@@ -21179,6 +24853,426 @@ var createVBusSpecificationData = function() {
             return (valid ? rawValue : null);
         },
 
+        _0010_7441_0100_004_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 4 < end) {
+                rawValue += buffer.readUInt8(start + 4) * 0.1;
+                valid = true;
+            }
+            if (start + 5 < end) {
+                rawValue += buffer.readInt8(start + 5) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7441_0100_006_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 6 < end) {
+                rawValue += buffer.readUInt8(start + 6) * 0.1;
+                valid = true;
+            }
+            if (start + 7 < end) {
+                rawValue += buffer.readInt8(start + 7) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7441_0100_008_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 8 < end) {
+                rawValue += buffer.readUInt8(start + 8) * 0.1;
+                valid = true;
+            }
+            if (start + 9 < end) {
+                rawValue += buffer.readInt8(start + 9) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7441_0100_010_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 10 < end) {
+                rawValue += buffer.readUInt8(start + 10) * 0.1;
+                valid = true;
+            }
+            if (start + 11 < end) {
+                rawValue += buffer.readInt8(start + 11) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7441_0100_012_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 12 < end) {
+                rawValue += buffer.readInt8(start + 12) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7441_0100_013_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 13 < end) {
+                rawValue += buffer.readInt8(start + 13) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7441_0100_014_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 14 < end) {
+                rawValue += buffer.readInt8(start + 14) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7441_0100_016_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 16 < end) {
+                rawValue += buffer.readUInt8(start + 16) * 1;
+                valid = true;
+            }
+            if (start + 17 < end) {
+                rawValue += buffer.readUInt8(start + 17) * 256;
+                valid = true;
+            }
+            if (start + 18 < end) {
+                rawValue += buffer.readUInt8(start + 18) * 65536;
+                valid = true;
+            }
+            if (start + 19 < end) {
+                rawValue += buffer.readInt8(start + 19) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7441_0100_020_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 20 < end) {
+                rawValue += buffer.readUInt8(start + 20) * 1;
+                valid = true;
+            }
+            if (start + 21 < end) {
+                rawValue += buffer.readUInt8(start + 21) * 256;
+                valid = true;
+            }
+            if (start + 22 < end) {
+                rawValue += buffer.readUInt8(start + 22) * 65536;
+                valid = true;
+            }
+            if (start + 23 < end) {
+                rawValue += buffer.readInt8(start + 23) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7441_0100_024_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 24 < end) {
+                rawValue += buffer.readUInt8(start + 24) * 1;
+                valid = true;
+            }
+            if (start + 25 < end) {
+                rawValue += buffer.readUInt8(start + 25) * 256;
+                valid = true;
+            }
+            if (start + 26 < end) {
+                rawValue += buffer.readUInt8(start + 26) * 65536;
+                valid = true;
+            }
+            if (start + 27 < end) {
+                rawValue += buffer.readInt8(start + 27) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7441_0100_028_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 28 < end) {
+                rawValue += buffer.readUInt8(start + 28) * 1;
+                valid = true;
+            }
+            if (start + 29 < end) {
+                rawValue += buffer.readUInt8(start + 29) * 256;
+                valid = true;
+            }
+            if (start + 30 < end) {
+                rawValue += buffer.readUInt8(start + 30) * 65536;
+                valid = true;
+            }
+            if (start + 31 < end) {
+                rawValue += buffer.readInt8(start + 31) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7441_0100_032_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 32 < end) {
+                rawValue += buffer.readUInt8(start + 32) * 1;
+                valid = true;
+            }
+            if (start + 33 < end) {
+                rawValue += buffer.readUInt8(start + 33) * 256;
+                valid = true;
+            }
+            if (start + 34 < end) {
+                rawValue += buffer.readUInt8(start + 34) * 65536;
+                valid = true;
+            }
+            if (start + 35 < end) {
+                rawValue += buffer.readInt8(start + 35) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7441_0100_036_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 36 < end) {
+                rawValue += buffer.readUInt8(start + 36) * 1;
+                valid = true;
+            }
+            if (start + 37 < end) {
+                rawValue += buffer.readUInt8(start + 37) * 256;
+                valid = true;
+            }
+            if (start + 38 < end) {
+                rawValue += buffer.readUInt8(start + 38) * 65536;
+                valid = true;
+            }
+            if (start + 39 < end) {
+                rawValue += buffer.readInt8(start + 39) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7441_0100_040_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 40 < end) {
+                rawValue += buffer.readUInt8(start + 40) * 1;
+                valid = true;
+            }
+            if (start + 41 < end) {
+                rawValue += buffer.readUInt8(start + 41) * 256;
+                valid = true;
+            }
+            if (start + 42 < end) {
+                rawValue += buffer.readUInt8(start + 42) * 65536;
+                valid = true;
+            }
+            if (start + 43 < end) {
+                rawValue += buffer.readInt8(start + 43) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7441_0100_044_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 44 < end) {
+                rawValue += buffer.readInt8(start + 44) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7441_0100_045_1_1: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 45 < end) {
+                rawValue += buffer.readInt8(start + 45) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7441_0100_046_1_1: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 46 < end) {
+                rawValue += buffer.readInt8(start + 46) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7441_0100_047_1_1: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 47 < end) {
+                rawValue += buffer.readInt8(start + 47) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7441_0100_048_1_1: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 48 < end) {
+                rawValue += buffer.readInt8(start + 48) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7441_0100_049_1_1: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 49 < end) {
+                rawValue += buffer.readInt8(start + 49) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7441_0100_050_1_1: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 50 < end) {
+                rawValue += buffer.readInt8(start + 50) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7441_0100_052_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 52 < end) {
+                rawValue += buffer.readUInt8(start + 52) * 1;
+                valid = true;
+            }
+            if (start + 53 < end) {
+                rawValue += buffer.readUInt8(start + 53) * 256;
+                valid = true;
+            }
+            if (start + 54 < end) {
+                rawValue += buffer.readUInt8(start + 54) * 65536;
+                valid = true;
+            }
+            if (start + 55 < end) {
+                rawValue += buffer.readInt8(start + 55) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7442_0100_000_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 0 < end) {
+                rawValue += buffer.readUInt8(start + 0) * 1;
+                valid = true;
+            }
+            if (start + 1 < end) {
+                rawValue += buffer.readUInt8(start + 1) * 256;
+                valid = true;
+            }
+            if (start + 2 < end) {
+                rawValue += buffer.readUInt8(start + 2) * 65536;
+                valid = true;
+            }
+            if (start + 3 < end) {
+                rawValue += buffer.readInt8(start + 3) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7442_0100_004_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 4 < end) {
+                rawValue += buffer.readUInt8(start + 4) * 1;
+                valid = true;
+            }
+            if (start + 5 < end) {
+                rawValue += buffer.readUInt8(start + 5) * 256;
+                valid = true;
+            }
+            if (start + 6 < end) {
+                rawValue += buffer.readUInt8(start + 6) * 65536;
+                valid = true;
+            }
+            if (start + 7 < end) {
+                rawValue += buffer.readInt8(start + 7) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7442_0100_008_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 8 < end) {
+                rawValue += buffer.readUInt8(start + 8) * 1;
+                valid = true;
+            }
+            if (start + 9 < end) {
+                rawValue += buffer.readUInt8(start + 9) * 256;
+                valid = true;
+            }
+            if (start + 10 < end) {
+                rawValue += buffer.readUInt8(start + 10) * 65536;
+                valid = true;
+            }
+            if (start + 11 < end) {
+                rawValue += buffer.readInt8(start + 11) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7442_0100_012_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 12 < end) {
+                rawValue += buffer.readUInt8(start + 12) * 1;
+                valid = true;
+            }
+            if (start + 13 < end) {
+                rawValue += buffer.readUInt8(start + 13) * 256;
+                valid = true;
+            }
+            if (start + 14 < end) {
+                rawValue += buffer.readUInt8(start + 14) * 65536;
+                valid = true;
+            }
+            if (start + 15 < end) {
+                rawValue += buffer.readInt8(start + 15) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
         _0010_7511_0100_000_2_0: function(buffer, start, end) {
             var rawValue = 0, valid = false;
             if (start + 0 < end) {
@@ -28815,6 +32909,570 @@ var createVBusSpecificationData = function() {
             return (valid ? rawValue : null);
         },
 
+        _0010_7910_0100_000_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 0 < end) {
+                rawValue += buffer.readUInt8(start + 0) * 0.1;
+                valid = true;
+            }
+            if (start + 1 < end) {
+                rawValue += buffer.readInt8(start + 1) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7910_0100_002_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 2 < end) {
+                rawValue += buffer.readUInt8(start + 2) * 0.1;
+                valid = true;
+            }
+            if (start + 3 < end) {
+                rawValue += buffer.readInt8(start + 3) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7910_0100_004_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 4 < end) {
+                rawValue += buffer.readUInt8(start + 4) * 0.1;
+                valid = true;
+            }
+            if (start + 5 < end) {
+                rawValue += buffer.readInt8(start + 5) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7910_0100_006_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 6 < end) {
+                rawValue += buffer.readUInt8(start + 6) * 0.1;
+                valid = true;
+            }
+            if (start + 7 < end) {
+                rawValue += buffer.readInt8(start + 7) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7910_0100_008_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 8 < end) {
+                rawValue += buffer.readUInt8(start + 8) * 0.1;
+                valid = true;
+            }
+            if (start + 9 < end) {
+                rawValue += buffer.readInt8(start + 9) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7910_0100_010_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 10 < end) {
+                rawValue += buffer.readUInt8(start + 10) * 0.1;
+                valid = true;
+            }
+            if (start + 11 < end) {
+                rawValue += buffer.readInt8(start + 11) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7910_0100_012_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 12 < end) {
+                rawValue += buffer.readUInt8(start + 12) * 0.1;
+                valid = true;
+            }
+            if (start + 13 < end) {
+                rawValue += buffer.readInt8(start + 13) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7910_0100_014_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 14 < end) {
+                rawValue += buffer.readUInt8(start + 14) * 0.1;
+                valid = true;
+            }
+            if (start + 15 < end) {
+                rawValue += buffer.readInt8(start + 15) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7910_0100_016_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 16 < end) {
+                rawValue += buffer.readUInt8(start + 16) * 0.1;
+                valid = true;
+            }
+            if (start + 17 < end) {
+                rawValue += buffer.readInt8(start + 17) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7910_0100_018_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 18 < end) {
+                rawValue += buffer.readUInt8(start + 18) * 0.1;
+                valid = true;
+            }
+            if (start + 19 < end) {
+                rawValue += buffer.readInt8(start + 19) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7910_0100_020_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 20 < end) {
+                rawValue += buffer.readUInt8(start + 20) * 1;
+                valid = true;
+            }
+            if (start + 21 < end) {
+                rawValue += buffer.readUInt8(start + 21) * 256;
+                valid = true;
+            }
+            if (start + 22 < end) {
+                rawValue += buffer.readUInt8(start + 22) * 65536;
+                valid = true;
+            }
+            if (start + 23 < end) {
+                rawValue += buffer.readInt8(start + 23) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7910_0100_024_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 24 < end) {
+                rawValue += buffer.readUInt8(start + 24) * 1;
+                valid = true;
+            }
+            if (start + 25 < end) {
+                rawValue += buffer.readInt8(start + 25) * 256;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7910_0100_026_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 26 < end) {
+                rawValue += buffer.readUInt8(start + 26) * 0.01;
+                valid = true;
+            }
+            if (start + 27 < end) {
+                rawValue += buffer.readInt8(start + 27) * 2.56;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7910_0100_028_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 28 < end) {
+                rawValue += buffer.readUInt8(start + 28) * 1;
+                valid = true;
+            }
+            if (start + 29 < end) {
+                rawValue += buffer.readUInt8(start + 29) * 256;
+                valid = true;
+            }
+            if (start + 30 < end) {
+                rawValue += buffer.readUInt8(start + 30) * 65536;
+                valid = true;
+            }
+            if (start + 31 < end) {
+                rawValue += buffer.readInt8(start + 31) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7910_0100_032_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 32 < end) {
+                rawValue += buffer.readUInt8(start + 32) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7910_0100_033_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 33 < end) {
+                rawValue += buffer.readUInt8(start + 33) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7910_0100_034_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 34 < end) {
+                rawValue += buffer.readUInt8(start + 34) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7910_0100_035_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 35 < end) {
+                rawValue += buffer.readUInt8(start + 35) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7910_0100_036_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 36 < end) {
+                rawValue += buffer.readUInt8(start + 36) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7910_0100_040_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 40 < end) {
+                rawValue += buffer.readUInt8(start + 40) * 1;
+                valid = true;
+            }
+            if (start + 41 < end) {
+                rawValue += buffer.readUInt8(start + 41) * 256;
+                valid = true;
+            }
+            if (start + 42 < end) {
+                rawValue += buffer.readUInt8(start + 42) * 65536;
+                valid = true;
+            }
+            if (start + 43 < end) {
+                rawValue += buffer.readInt8(start + 43) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7910_0100_044_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 44 < end) {
+                rawValue += buffer.readUInt8(start + 44) * 1;
+                valid = true;
+            }
+            if (start + 45 < end) {
+                rawValue += buffer.readUInt8(start + 45) * 256;
+                valid = true;
+            }
+            if (start + 46 < end) {
+                rawValue += buffer.readUInt8(start + 46) * 65536;
+                valid = true;
+            }
+            if (start + 47 < end) {
+                rawValue += buffer.readInt8(start + 47) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7911_0100_000_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 0 < end) {
+                rawValue += buffer.readUInt8(start + 0) * 0.1;
+                valid = true;
+            }
+            if (start + 1 < end) {
+                rawValue += buffer.readInt8(start + 1) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7911_0100_002_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 2 < end) {
+                rawValue += buffer.readUInt8(start + 2) * 0.1;
+                valid = true;
+            }
+            if (start + 3 < end) {
+                rawValue += buffer.readInt8(start + 3) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7911_0100_004_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 4 < end) {
+                rawValue += buffer.readUInt8(start + 4) * 0.1;
+                valid = true;
+            }
+            if (start + 5 < end) {
+                rawValue += buffer.readInt8(start + 5) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7911_0100_006_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 6 < end) {
+                rawValue += buffer.readUInt8(start + 6) * 0.1;
+                valid = true;
+            }
+            if (start + 7 < end) {
+                rawValue += buffer.readInt8(start + 7) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7911_0100_008_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 8 < end) {
+                rawValue += buffer.readUInt8(start + 8) * 0.1;
+                valid = true;
+            }
+            if (start + 9 < end) {
+                rawValue += buffer.readInt8(start + 9) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7911_0100_010_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 10 < end) {
+                rawValue += buffer.readUInt8(start + 10) * 0.1;
+                valid = true;
+            }
+            if (start + 11 < end) {
+                rawValue += buffer.readInt8(start + 11) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7911_0100_012_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 12 < end) {
+                rawValue += buffer.readUInt8(start + 12) * 0.1;
+                valid = true;
+            }
+            if (start + 13 < end) {
+                rawValue += buffer.readInt8(start + 13) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7911_0100_014_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 14 < end) {
+                rawValue += buffer.readUInt8(start + 14) * 0.1;
+                valid = true;
+            }
+            if (start + 15 < end) {
+                rawValue += buffer.readInt8(start + 15) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7911_0100_016_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 16 < end) {
+                rawValue += buffer.readUInt8(start + 16) * 0.1;
+                valid = true;
+            }
+            if (start + 17 < end) {
+                rawValue += buffer.readInt8(start + 17) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7911_0100_018_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 18 < end) {
+                rawValue += buffer.readUInt8(start + 18) * 0.1;
+                valid = true;
+            }
+            if (start + 19 < end) {
+                rawValue += buffer.readInt8(start + 19) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7911_0100_020_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 20 < end) {
+                rawValue += buffer.readUInt8(start + 20) * 0.1;
+                valid = true;
+            }
+            if (start + 21 < end) {
+                rawValue += buffer.readInt8(start + 21) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7911_0100_022_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 22 < end) {
+                rawValue += buffer.readUInt8(start + 22) * 0.1;
+                valid = true;
+            }
+            if (start + 23 < end) {
+                rawValue += buffer.readInt8(start + 23) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7920_0100_000_2_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 0 < end) {
+                rawValue += buffer.readUInt8(start + 0) * 0.1;
+                valid = true;
+            }
+            if (start + 1 < end) {
+                rawValue += buffer.readInt8(start + 1) * 25.6;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7920_0100_002_1_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 2 < end) {
+                rawValue += buffer.readUInt8(start + 2) * 1;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7930_0100_000_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 0 < end) {
+                rawValue += buffer.readUInt8(start + 0) * 1;
+                valid = true;
+            }
+            if (start + 1 < end) {
+                rawValue += buffer.readUInt8(start + 1) * 256;
+                valid = true;
+            }
+            if (start + 2 < end) {
+                rawValue += buffer.readUInt8(start + 2) * 65536;
+                valid = true;
+            }
+            if (start + 3 < end) {
+                rawValue += buffer.readInt8(start + 3) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7930_0100_008_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 8 < end) {
+                rawValue += buffer.readUInt8(start + 8) * 1;
+                valid = true;
+            }
+            if (start + 9 < end) {
+                rawValue += buffer.readUInt8(start + 9) * 256;
+                valid = true;
+            }
+            if (start + 10 < end) {
+                rawValue += buffer.readUInt8(start + 10) * 65536;
+                valid = true;
+            }
+            if (start + 11 < end) {
+                rawValue += buffer.readInt8(start + 11) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
+        _0010_7930_0100_012_4_0: function(buffer, start, end) {
+            var rawValue = 0, valid = false;
+            if (start + 12 < end) {
+                rawValue += buffer.readUInt8(start + 12) * 1;
+                valid = true;
+            }
+            if (start + 13 < end) {
+                rawValue += buffer.readUInt8(start + 13) * 256;
+                valid = true;
+            }
+            if (start + 14 < end) {
+                rawValue += buffer.readUInt8(start + 14) * 65536;
+                valid = true;
+            }
+            if (start + 15 < end) {
+                rawValue += buffer.readInt8(start + 15) * 16777216;
+                valid = true;
+            }
+            
+            return (valid ? rawValue : null);
+        },
+
         _0010_7D04_0100_000_2_0: function(buffer, start, end) {
             var rawValue = 0, valid = false;
             if (start + 0 < end) {
@@ -32905,6 +37563,114 @@ var createVBusSpecificationData = function() {
             name: 'DL3'
         },
         
+        _1001: {
+            name: 'DeltaSol SLT [Regler]'
+        },
+        
+        _1010: {
+            name: 'DeltaSol SLT [WMZ #0]'
+        },
+        
+        _1011: {
+            name: 'DeltaSol SLT [WMZ #1]'
+        },
+        
+        _1012: {
+            name: 'DeltaSol SLT [WMZ #2]'
+        },
+        
+        _1013: {
+            name: 'DeltaSol SLT [WMZ #3]'
+        },
+        
+        _1014: {
+            name: 'DeltaSol SLT [WMZ #4]'
+        },
+        
+        _1015: {
+            name: 'DeltaSol SLT [WMZ #5]'
+        },
+        
+        _1016: {
+            name: 'DeltaSol SLT [WMZ #6]'
+        },
+        
+        _1017: {
+            name: 'DeltaSol SLT [WMZ #7]'
+        },
+        
+        _1018: {
+            name: 'DeltaSol SLT [WMZ #8]'
+        },
+        
+        _1019: {
+            name: 'DeltaSol SLT [WMZ #9]'
+        },
+        
+        _101A: {
+            name: 'DeltaSol SLT [WMZ #10]'
+        },
+        
+        _101B: {
+            name: 'DeltaSol SLT [WMZ #11]'
+        },
+        
+        _101C: {
+            name: 'DeltaSol SLT [WMZ #12]'
+        },
+        
+        _101D: {
+            name: 'DeltaSol SLT [WMZ #13]'
+        },
+        
+        _101E: {
+            name: 'DeltaSol SLT [WMZ #14]'
+        },
+        
+        _101F: {
+            name: 'DeltaSol SLT [WMZ #15]'
+        },
+        
+        _1040: {
+            name: 'DeltaSol E V2 HK 1 Estrichtrockung [Modul 1]'
+        },
+        
+        _1041: {
+            name: 'DeltaSol E V2 HK 2 Estrichtrockung [Modul 2]'
+        },
+        
+        _1042: {
+            name: 'DeltaSol E V2 HK 3 Estrichtrockung [Modul 3]'
+        },
+        
+        _1043: {
+            name: 'DeltaSol E V2 HK Estrichtrockung [Lokal]'
+        },
+        
+        _1050: {
+            name: 'DeltaSol E V2 [Regler]'
+        },
+        
+        _1051: {
+            name: 'DeltaSol E V2 [WMZ]'
+        },
+        
+        _1058: {
+            name: 'Caleffi Biomassa'
+        },
+        
+        _1060: {
+            name: 'Vitosolic 200 [Regler]'
+        },
+        
+        _1065: {
+            name: 'Vitosolic 200 [WMZ 1]'
+        },
+        
+        _1066: {
+            name: 'Vitosolic 200 [WMZ 2]'
+        },
+        
         _1111: {
             name: 'EC1'
         },
@@ -33449,6 +38215,14 @@ var createVBusSpecificationData = function() {
             name: 'DeltaSol SL [WMZ1]'
         },
         
+        _2271: {
+            name: 'DeltaSol SLL [Regler]'
+        },
+        
+        _2272: {
+            name: 'DeltaSol SLL [WMZ1]'
+        },
+        
         _3011: {
             name: 'WMZ-L10'
         },
@@ -33803,6 +38577,10 @@ var createVBusSpecificationData = function() {
         
         _5231: {
             name: 'nemux'
+        },
+        
+        _5251: {
+            name: 'Frischwasserregler'
         },
         
         _5311: {
@@ -34298,7 +39076,7 @@ var createVBusSpecificationData = function() {
         },
         
         _7160: {
-            name: 'SKS3HE'
+            name: 'SKSC3HE'
         },
         
         _7161: {
@@ -34431,6 +39209,14 @@ var createVBusSpecificationData = function() {
         
         _7428: {
             name: 'DeltaSol BXL'
+        },
+        
+        _7441: {
+            name: 'ZEN DT6 [Regler]'
+        },
+        
+        _7442: {
+            name: 'ZEN DT6 [WMZ1]'
         },
         
         _7451: {
@@ -34621,6 +39407,78 @@ var createVBusSpecificationData = function() {
             name: 'R-Wandler'
         },
         
+        _7910: {
+            name: 'PAW SOLEX SC5.14 [Regler]'
+        },
+        
+        _7911: {
+            name: 'PAW SOLEX SC5.14 [Module]'
+        },
+        
+        _7920: {
+            name: 'PAW SOLEX SC5.14 [Heizkreis #0]'
+        },
+        
+        _7921: {
+            name: 'PAW SOLEX SC5.14 [Heizkreis #1]'
+        },
+        
+        _7922: {
+            name: 'PAW SOLEX SC5.14 [Heizkreis #2]'
+        },
+        
+        _7923: {
+            name: 'PAW SOLEX SC5.14 [Heizkreis #3]'
+        },
+        
+        _7924: {
+            name: 'PAW SOLEX SC5.14 [Heizkreis #4]'
+        },
+        
+        _7925: {
+            name: 'PAW SOLEX SC5.14 [Heizkreis #5]'
+        },
+        
+        _7926: {
+            name: 'PAW SOLEX SC5.14 [Heizkreis #6]'
+        },
+        
+        _7927: {
+            name: 'PAW SOLEX SC5.14 [Heizkreis #7]'
+        },
+        
+        _7928: {
+            name: 'PAW SOLEX SC5.14 [Heizkreis #8]'
+        },
+        
+        _7929: {
+            name: 'PAW SOLEX SC5.14 [Heizkreis #9]'
+        },
+        
+        _792A: {
+            name: 'PAW SOLEX SC5.14 [Heizkreis #10]'
+        },
+        
+        _792B: {
+            name: 'PAW SOLEX SC5.14 [Heizkreis #11]'
+        },
+        
+        _792C: {
+            name: 'PAW SOLEX SC5.14 [Heizkreis #12]'
+        },
+        
+        _792D: {
+            name: 'PAW SOLEX SC5.14 [Heizkreis #13]'
+        },
+        
+        _792E: {
+            name: 'PAW SOLEX SC5.14 [Heizkreis #14]'
+        },
+        
+        _792F: {
+            name: 'PAW SOLEX SC5.14 [Heizkreis #15]'
+        },
+        
         _7D04: {
             name: 'FRISTA-mix'
         },
@@ -34809,6 +39667,60 @@ var createVBusSpecificationData = function() {
             deviceSpec = deviceSpecs._0050;
         } else if ((selfAddress === 0x0053) && (true)) {
             deviceSpec = deviceSpecs._0053;
+        } else if ((selfAddress === 0x1001) && (true)) {
+            deviceSpec = deviceSpecs._1001;
+        } else if ((selfAddress === 0x1010) && (true)) {
+            deviceSpec = deviceSpecs._1010;
+        } else if ((selfAddress === 0x1011) && (true)) {
+            deviceSpec = deviceSpecs._1011;
+        } else if ((selfAddress === 0x1012) && (true)) {
+            deviceSpec = deviceSpecs._1012;
+        } else if ((selfAddress === 0x1013) && (true)) {
+            deviceSpec = deviceSpecs._1013;
+        } else if ((selfAddress === 0x1014) && (true)) {
+            deviceSpec = deviceSpecs._1014;
+        } else if ((selfAddress === 0x1015) && (true)) {
+            deviceSpec = deviceSpecs._1015;
+        } else if ((selfAddress === 0x1016) && (true)) {
+            deviceSpec = deviceSpecs._1016;
+        } else if ((selfAddress === 0x1017) && (true)) {
+            deviceSpec = deviceSpecs._1017;
+        } else if ((selfAddress === 0x1018) && (true)) {
+            deviceSpec = deviceSpecs._1018;
+        } else if ((selfAddress === 0x1019) && (true)) {
+            deviceSpec = deviceSpecs._1019;
+        } else if ((selfAddress === 0x101A) && (true)) {
+            deviceSpec = deviceSpecs._101A;
+        } else if ((selfAddress === 0x101B) && (true)) {
+            deviceSpec = deviceSpecs._101B;
+        } else if ((selfAddress === 0x101C) && (true)) {
+            deviceSpec = deviceSpecs._101C;
+        } else if ((selfAddress === 0x101D) && (true)) {
+            deviceSpec = deviceSpecs._101D;
+        } else if ((selfAddress === 0x101E) && (true)) {
+            deviceSpec = deviceSpecs._101E;
+        } else if ((selfAddress === 0x101F) && (true)) {
+            deviceSpec = deviceSpecs._101F;
+        } else if ((selfAddress === 0x1040) && (true)) {
+            deviceSpec = deviceSpecs._1040;
+        } else if ((selfAddress === 0x1041) && (true)) {
+            deviceSpec = deviceSpecs._1041;
+        } else if ((selfAddress === 0x1042) && (true)) {
+            deviceSpec = deviceSpecs._1042;
+        } else if ((selfAddress === 0x1043) && (true)) {
+            deviceSpec = deviceSpecs._1043;
+        } else if ((selfAddress === 0x1050) && (true)) {
+            deviceSpec = deviceSpecs._1050;
+        } else if ((selfAddress === 0x1051) && (true)) {
+            deviceSpec = deviceSpecs._1051;
+        } else if ((selfAddress === 0x1058) && (true)) {
+            deviceSpec = deviceSpecs._1058;
+        } else if ((selfAddress === 0x1060) && (true)) {
+            deviceSpec = deviceSpecs._1060;
+        } else if ((selfAddress === 0x1065) && (true)) {
+            deviceSpec = deviceSpecs._1065;
+        } else if ((selfAddress === 0x1066) && (true)) {
+            deviceSpec = deviceSpecs._1066;
         } else if ((selfAddress === 0x1111) && (true)) {
             deviceSpec = deviceSpecs._1111;
         } else if ((selfAddress === 0x1120) && (true)) {
@@ -35081,6 +39993,10 @@ var createVBusSpecificationData = function() {
             deviceSpec = deviceSpecs._2251;
         } else if ((selfAddress === 0x2252) && (true)) {
             deviceSpec = deviceSpecs._2252;
+        } else if ((selfAddress === 0x2271) && (true)) {
+            deviceSpec = deviceSpecs._2271;
+        } else if ((selfAddress === 0x2272) && (true)) {
+            deviceSpec = deviceSpecs._2272;
         } else if ((selfAddress === 0x3011) && (true)) {
             deviceSpec = deviceSpecs._3011;
         } else if ((selfAddress === 0x3112) && (true)) {
@@ -35259,6 +40175,8 @@ var createVBusSpecificationData = function() {
             deviceSpec = deviceSpecs._5221;
         } else if ((selfAddress === 0x5231) && (true)) {
             deviceSpec = deviceSpecs._5231;
+        } else if ((selfAddress === 0x5251) && (true)) {
+            deviceSpec = deviceSpecs._5251;
         } else if ((selfAddress === 0x5311) && (true)) {
             deviceSpec = deviceSpecs._5311;
         } else if ((selfAddress === 0x5400) && (true)) {
@@ -35573,6 +40491,10 @@ var createVBusSpecificationData = function() {
             deviceSpec = deviceSpecs._7422;
         } else if ((selfAddress === 0x7428) && (true)) {
             deviceSpec = deviceSpecs._7428;
+        } else if ((selfAddress === 0x7441) && (true)) {
+            deviceSpec = deviceSpecs._7441;
+        } else if ((selfAddress === 0x7442) && (true)) {
+            deviceSpec = deviceSpecs._7442;
         } else if ((selfAddress === 0x7451) && (true)) {
             deviceSpec = deviceSpecs._7451;
         } else if ((selfAddress === 0x7511) && (true)) {
@@ -35667,6 +40589,42 @@ var createVBusSpecificationData = function() {
             deviceSpec = deviceSpecs._7834;
         } else if ((selfAddress === 0x7900) && (true)) {
             deviceSpec = deviceSpecs._7900;
+        } else if ((selfAddress === 0x7910) && (true)) {
+            deviceSpec = deviceSpecs._7910;
+        } else if ((selfAddress === 0x7911) && (true)) {
+            deviceSpec = deviceSpecs._7911;
+        } else if ((selfAddress === 0x7920) && (true)) {
+            deviceSpec = deviceSpecs._7920;
+        } else if ((selfAddress === 0x7921) && (true)) {
+            deviceSpec = deviceSpecs._7921;
+        } else if ((selfAddress === 0x7922) && (true)) {
+            deviceSpec = deviceSpecs._7922;
+        } else if ((selfAddress === 0x7923) && (true)) {
+            deviceSpec = deviceSpecs._7923;
+        } else if ((selfAddress === 0x7924) && (true)) {
+            deviceSpec = deviceSpecs._7924;
+        } else if ((selfAddress === 0x7925) && (true)) {
+            deviceSpec = deviceSpecs._7925;
+        } else if ((selfAddress === 0x7926) && (true)) {
+            deviceSpec = deviceSpecs._7926;
+        } else if ((selfAddress === 0x7927) && (true)) {
+            deviceSpec = deviceSpecs._7927;
+        } else if ((selfAddress === 0x7928) && (true)) {
+            deviceSpec = deviceSpecs._7928;
+        } else if ((selfAddress === 0x7929) && (true)) {
+            deviceSpec = deviceSpecs._7929;
+        } else if ((selfAddress === 0x792A) && (true)) {
+            deviceSpec = deviceSpecs._792A;
+        } else if ((selfAddress === 0x792B) && (true)) {
+            deviceSpec = deviceSpecs._792B;
+        } else if ((selfAddress === 0x792C) && (true)) {
+            deviceSpec = deviceSpecs._792C;
+        } else if ((selfAddress === 0x792D) && (true)) {
+            deviceSpec = deviceSpecs._792D;
+        } else if ((selfAddress === 0x792E) && (true)) {
+            deviceSpec = deviceSpecs._792E;
+        } else if ((selfAddress === 0x792F) && (true)) {
+            deviceSpec = deviceSpecs._792F;
         } else if ((selfAddress === 0x7D04) && (true)) {
             deviceSpec = deviceSpecs._7D04;
         } else if ((selfAddress === 0x7E11) && (true)) {
@@ -36771,6 +41729,3251 @@ var createVBusSpecificationData = function() {
                 mask: 255,
                 isSigned: true,
                 factor: 256,
+            }, ],
+        }, ],
+        _0010_1001_0100: [{
+            fieldId: '000_4_0',
+            name: 'Systemdatum',
+            type: types.DateTime_1_None,
+            getRawValue: getRawValueFunctions._0010_1001_0100_000_4_0,
+            parts: [{
+                offset: 0,
+                mask: 255,
+                isSigned: false,
+                factor: 1,
+            }, {
+                offset: 1,
+                mask: 255,
+                isSigned: false,
+                factor: 256,
+            }, {
+                offset: 2,
+                mask: 255,
+                isSigned: false,
+                factor: 65536,
+            }, {
+                offset: 3,
+                mask: 255,
+                isSigned: true,
+                factor: 16777216,
+            }, ],
+        }, {
+            fieldId: '004_2_0',
+            name: 'Temperatur Sensor 1',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_1001_0100_004_2_0,
+            parts: [{
+                offset: 4,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 5,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '006_2_0',
+            name: 'Temperatur Sensor 2',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_1001_0100_006_2_0,
+            parts: [{
+                offset: 6,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 7,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '008_2_0',
+            name: 'Temperatur Sensor 3',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_1001_0100_008_2_0,
+            parts: [{
+                offset: 8,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 9,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '010_2_0',
+            name: 'Temperatur Sensor 4',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_1001_0100_010_2_0,
+            parts: [{
+                offset: 10,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 11,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '012_2_0',
+            name: 'Temperatur Sensor 5',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_1001_0100_012_2_0,
+            parts: [{
+                offset: 12,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 13,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '014_2_0',
+            name: 'Temperatur VFS/RPS (S6)',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_1001_0100_014_2_0,
+            parts: [{
+                offset: 14,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 15,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '016_4_0',
+            name: 'Volumenstrom V40',
+            type: types.Number_1_LitersPerHour,
+            getRawValue: getRawValueFunctions._0010_1001_0100_016_4_0,
+            parts: [{
+                offset: 16,
+                mask: 255,
+                isSigned: false,
+                factor: 1,
+            }, {
+                offset: 17,
+                mask: 255,
+                isSigned: false,
+                factor: 256,
+            }, {
+                offset: 18,
+                mask: 255,
+                isSigned: false,
+                factor: 65536,
+            }, {
+                offset: 19,
+                mask: 255,
+                isSigned: true,
+                factor: 16777216,
+            }, ],
+        }, {
+            fieldId: '020_4_0',
+            name: 'Volumenstrom VFS (S6)',
+            type: types.Number_1_LitersPerHour,
+            getRawValue: getRawValueFunctions._0010_1001_0100_020_4_0,
+            parts: [{
+                offset: 20,
+                mask: 255,
+                isSigned: false,
+                factor: 1,
+            }, {
+                offset: 21,
+                mask: 255,
+                isSigned: false,
+                factor: 256,
+            }, {
+                offset: 22,
+                mask: 255,
+                isSigned: false,
+                factor: 65536,
+            }, {
+                offset: 23,
+                mask: 255,
+                isSigned: true,
+                factor: 16777216,
+            }, ],
+        }, {
+            fieldId: '024_4_0',
+            name: 'Volumenstrom Flowrotor (S7)',
+            type: types.Number_1_LitersPerHour,
+            getRawValue: getRawValueFunctions._0010_1001_0100_024_4_0,
+            parts: [{
+                offset: 24,
+                mask: 255,
+                isSigned: false,
+                factor: 1,
+            }, {
+                offset: 25,
+                mask: 255,
+                isSigned: false,
+                factor: 256,
+            }, {
+                offset: 26,
+                mask: 255,
+                isSigned: false,
+                factor: 65536,
+            }, {
+                offset: 27,
+                mask: 255,
+                isSigned: true,
+                factor: 16777216,
+            }, ],
+        }, {
+            fieldId: '028_2_0',
+            name: 'Druck RPS (S6)',
+            type: types.Number_0_01_Bars,
+            getRawValue: getRawValueFunctions._0010_1001_0100_028_2_0,
+            parts: [{
+                offset: 28,
+                mask: 255,
+                isSigned: false,
+                factor: 0.01,
+            }, {
+                offset: 29,
+                mask: 255,
+                isSigned: true,
+                factor: 2.56,
+            }, ],
+        }, {
+            fieldId: '030_1_0',
+            name: 'Drehzahl Relais 1',
+            type: types.Number_1_Percent,
+            getRawValue: getRawValueFunctions._0010_1001_0100_030_1_0,
+            parts: [{
+                offset: 30,
+                mask: 255,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '031_1_0',
+            name: 'Drehzahl Relais 2',
+            type: types.Number_1_Percent,
+            getRawValue: getRawValueFunctions._0010_1001_0100_031_1_0,
+            parts: [{
+                offset: 31,
+                mask: 255,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '032_1_0',
+            name: 'Drehzahl Relais 3',
+            type: types.Number_1_Percent,
+            getRawValue: getRawValueFunctions._0010_1001_0100_032_1_0,
+            parts: [{
+                offset: 32,
+                mask: 255,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '033_1_0',
+            name: 'Drehzahl Relais 4',
+            type: types.Number_1_Percent,
+            getRawValue: getRawValueFunctions._0010_1001_0100_033_1_0,
+            parts: [{
+                offset: 33,
+                mask: 255,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '034_1_0',
+            name: 'PWM A',
+            type: types.Number_1_Percent,
+            getRawValue: getRawValueFunctions._0010_1001_0100_034_1_0,
+            parts: [{
+                offset: 34,
+                mask: 255,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '035_1_0',
+            name: 'PWM B',
+            type: types.Number_1_Percent,
+            getRawValue: getRawValueFunctions._0010_1001_0100_035_1_0,
+            parts: [{
+                offset: 35,
+                mask: 255,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '036_4_0',
+            name: 'Fehlermaske',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1001_0100_036_4_0,
+            parts: [{
+                offset: 36,
+                mask: 255,
+                isSigned: false,
+                factor: 1,
+            }, {
+                offset: 37,
+                mask: 255,
+                isSigned: false,
+                factor: 256,
+            }, {
+                offset: 38,
+                mask: 255,
+                isSigned: false,
+                factor: 65536,
+            }, {
+                offset: 39,
+                mask: 255,
+                isSigned: true,
+                factor: 16777216,
+            }, ],
+        }, {
+            fieldId: '040_4_0',
+            name: 'Warnmaske',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1001_0100_040_4_0,
+            parts: [{
+                offset: 40,
+                mask: 255,
+                isSigned: false,
+                factor: 1,
+            }, {
+                offset: 41,
+                mask: 255,
+                isSigned: false,
+                factor: 256,
+            }, {
+                offset: 42,
+                mask: 255,
+                isSigned: false,
+                factor: 65536,
+            }, {
+                offset: 43,
+                mask: 255,
+                isSigned: true,
+                factor: 16777216,
+            }, ],
+        }, ],
+        _0010_1010_0100: [{
+            fieldId: '000_4_0',
+            name: 'Wärme Gesamt',
+            type: types.Number_1_WattHours,
+            getRawValue: getRawValueFunctions._0010_1010_0100_000_4_0,
+            parts: [{
+                offset: 0,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, {
+                offset: 1,
+                mask: 255,
+                isSigned: 0,
+                factor: 256,
+            }, {
+                offset: 2,
+                mask: 255,
+                isSigned: 0,
+                factor: 65536,
+            }, {
+                offset: 3,
+                mask: 255,
+                isSigned: 0,
+                factor: 16777216,
+            }, ],
+        }, {
+            fieldId: '004_4_0',
+            name: 'Wärme Heute',
+            type: types.Number_1_WattHours,
+            getRawValue: getRawValueFunctions._0010_1010_0100_004_4_0,
+            parts: [{
+                offset: 4,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, {
+                offset: 5,
+                mask: 255,
+                isSigned: 0,
+                factor: 256,
+            }, {
+                offset: 6,
+                mask: 255,
+                isSigned: 0,
+                factor: 65536,
+            }, {
+                offset: 7,
+                mask: 255,
+                isSigned: 0,
+                factor: 16777216,
+            }, ],
+        }, {
+            fieldId: '008_4_0',
+            name: 'Wärme Gestern',
+            type: types.Number_1_WattHours,
+            getRawValue: getRawValueFunctions._0010_1010_0100_008_4_0,
+            parts: [{
+                offset: 8,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, {
+                offset: 9,
+                mask: 255,
+                isSigned: 0,
+                factor: 256,
+            }, {
+                offset: 10,
+                mask: 255,
+                isSigned: 0,
+                factor: 65536,
+            }, {
+                offset: 11,
+                mask: 255,
+                isSigned: 0,
+                factor: 16777216,
+            }, ],
+        }, {
+            fieldId: '012_4_0',
+            name: 'Wärme Woche',
+            type: types.Number_1_WattHours,
+            getRawValue: getRawValueFunctions._0010_1010_0100_012_4_0,
+            parts: [{
+                offset: 12,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, {
+                offset: 13,
+                mask: 255,
+                isSigned: 0,
+                factor: 256,
+            }, {
+                offset: 14,
+                mask: 255,
+                isSigned: 0,
+                factor: 65536,
+            }, {
+                offset: 15,
+                mask: 255,
+                isSigned: 0,
+                factor: 16777216,
+            }, ],
+        }, {
+            fieldId: '016_4_0',
+            name: 'Wärme Vorwoche',
+            type: types.Number_1_WattHours,
+            getRawValue: getRawValueFunctions._0010_1010_0100_016_4_0,
+            parts: [{
+                offset: 16,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, {
+                offset: 17,
+                mask: 255,
+                isSigned: 0,
+                factor: 256,
+            }, {
+                offset: 18,
+                mask: 255,
+                isSigned: 0,
+                factor: 65536,
+            }, {
+                offset: 19,
+                mask: 255,
+                isSigned: 0,
+                factor: 16777216,
+            }, ],
+        }, {
+            fieldId: '020_4_0',
+            name: 'Wärme Monat',
+            type: types.Number_1_WattHours,
+            getRawValue: getRawValueFunctions._0010_1010_0100_020_4_0,
+            parts: [{
+                offset: 20,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, {
+                offset: 21,
+                mask: 255,
+                isSigned: 0,
+                factor: 256,
+            }, {
+                offset: 22,
+                mask: 255,
+                isSigned: 0,
+                factor: 65536,
+            }, {
+                offset: 23,
+                mask: 255,
+                isSigned: 0,
+                factor: 16777216,
+            }, ],
+        }, {
+            fieldId: '024_4_0',
+            name: 'Wärme Vormonat',
+            type: types.Number_1_WattHours,
+            getRawValue: getRawValueFunctions._0010_1010_0100_024_4_0,
+            parts: [{
+                offset: 24,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, {
+                offset: 25,
+                mask: 255,
+                isSigned: 0,
+                factor: 256,
+            }, {
+                offset: 26,
+                mask: 255,
+                isSigned: 0,
+                factor: 65536,
+            }, {
+                offset: 27,
+                mask: 255,
+                isSigned: 0,
+                factor: 16777216,
+            }, ],
+        }, {
+            fieldId: '028_4_0',
+            name: 'Wärme Jahr',
+            type: types.Number_1_WattHours,
+            getRawValue: getRawValueFunctions._0010_1010_0100_028_4_0,
+            parts: [{
+                offset: 28,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, {
+                offset: 29,
+                mask: 255,
+                isSigned: 0,
+                factor: 256,
+            }, {
+                offset: 30,
+                mask: 255,
+                isSigned: 0,
+                factor: 65536,
+            }, {
+                offset: 31,
+                mask: 255,
+                isSigned: 0,
+                factor: 16777216,
+            }, ],
+        }, {
+            fieldId: '032_4_0',
+            name: 'Wärme Vorjahr',
+            type: types.Number_1_WattHours,
+            getRawValue: getRawValueFunctions._0010_1010_0100_032_4_0,
+            parts: [{
+                offset: 32,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, {
+                offset: 33,
+                mask: 255,
+                isSigned: 0,
+                factor: 256,
+            }, {
+                offset: 34,
+                mask: 255,
+                isSigned: 0,
+                factor: 65536,
+            }, {
+                offset: 35,
+                mask: 255,
+                isSigned: 0,
+                factor: 16777216,
+            }, ],
+        }, {
+            fieldId: '036_4_0',
+            name: 'Volumen gesamt',
+            type: types.Number_1_LitersPerHour,
+            getRawValue: getRawValueFunctions._0010_1010_0100_036_4_0,
+            parts: [{
+                offset: 36,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, {
+                offset: 37,
+                mask: 255,
+                isSigned: 0,
+                factor: 256,
+            }, {
+                offset: 38,
+                mask: 255,
+                isSigned: 0,
+                factor: 65536,
+            }, {
+                offset: 39,
+                mask: 255,
+                isSigned: 0,
+                factor: 16777216,
+            }, ],
+        }, {
+            fieldId: '040_4_0',
+            name: 'Volumen Heute',
+            type: types.Number_1_LitersPerHour,
+            getRawValue: getRawValueFunctions._0010_1010_0100_040_4_0,
+            parts: [{
+                offset: 40,
+                mask: 255,
+                isSigned: false,
+                factor: 1,
+            }, {
+                offset: 41,
+                mask: 255,
+                isSigned: false,
+                factor: 256,
+            }, {
+                offset: 42,
+                mask: 255,
+                isSigned: false,
+                factor: 65536,
+            }, {
+                offset: 43,
+                mask: 255,
+                isSigned: true,
+                factor: 16777216,
+            }, ],
+        }, {
+            fieldId: '044_4_0',
+            name: 'Volumen Gestern',
+            type: types.Number_1_LitersPerHour,
+            getRawValue: getRawValueFunctions._0010_1010_0100_044_4_0,
+            parts: [{
+                offset: 44,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, {
+                offset: 45,
+                mask: 255,
+                isSigned: 0,
+                factor: 256,
+            }, {
+                offset: 46,
+                mask: 255,
+                isSigned: 0,
+                factor: 65536,
+            }, {
+                offset: 47,
+                mask: 255,
+                isSigned: 0,
+                factor: 16777216,
+            }, ],
+        }, {
+            fieldId: '048_4_0',
+            name: 'Volumen Woche',
+            type: types.Number_1_LitersPerHour,
+            getRawValue: getRawValueFunctions._0010_1010_0100_048_4_0,
+            parts: [{
+                offset: 48,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, {
+                offset: 49,
+                mask: 255,
+                isSigned: 0,
+                factor: 256,
+            }, {
+                offset: 50,
+                mask: 255,
+                isSigned: 0,
+                factor: 65536,
+            }, {
+                offset: 51,
+                mask: 255,
+                isSigned: 0,
+                factor: 16777216,
+            }, ],
+        }, {
+            fieldId: '052_4_0',
+            name: 'Volumen Vorwoche',
+            type: types.Number_1_LitersPerHour,
+            getRawValue: getRawValueFunctions._0010_1010_0100_052_4_0,
+            parts: [{
+                offset: 52,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, {
+                offset: 53,
+                mask: 255,
+                isSigned: 0,
+                factor: 256,
+            }, {
+                offset: 54,
+                mask: 255,
+                isSigned: 0,
+                factor: 65536,
+            }, {
+                offset: 55,
+                mask: 255,
+                isSigned: 0,
+                factor: 16777216,
+            }, ],
+        }, {
+            fieldId: '056_4_0',
+            name: 'Volumen Monat',
+            type: types.Number_1_LitersPerHour,
+            getRawValue: getRawValueFunctions._0010_1010_0100_056_4_0,
+            parts: [{
+                offset: 56,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, {
+                offset: 57,
+                mask: 255,
+                isSigned: 0,
+                factor: 256,
+            }, {
+                offset: 58,
+                mask: 255,
+                isSigned: 0,
+                factor: 65536,
+            }, {
+                offset: 59,
+                mask: 255,
+                isSigned: 0,
+                factor: 16777216,
+            }, ],
+        }, {
+            fieldId: '060_4_0',
+            name: 'Volumen Vormonat',
+            type: types.Number_1_LitersPerHour,
+            getRawValue: getRawValueFunctions._0010_1010_0100_060_4_0,
+            parts: [{
+                offset: 60,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, {
+                offset: 61,
+                mask: 255,
+                isSigned: 0,
+                factor: 256,
+            }, {
+                offset: 62,
+                mask: 255,
+                isSigned: 0,
+                factor: 65536,
+            }, {
+                offset: 63,
+                mask: 255,
+                isSigned: 0,
+                factor: 16777216,
+            }, ],
+        }, {
+            fieldId: '064_4_0',
+            name: 'Volumen Jahr',
+            type: types.Number_1_LitersPerHour,
+            getRawValue: getRawValueFunctions._0010_1010_0100_064_4_0,
+            parts: [{
+                offset: 64,
+                mask: 255,
+                isSigned: false,
+                factor: 1,
+            }, {
+                offset: 65,
+                mask: 255,
+                isSigned: false,
+                factor: 256,
+            }, {
+                offset: 66,
+                mask: 255,
+                isSigned: false,
+                factor: 65536,
+            }, {
+                offset: 67,
+                mask: 255,
+                isSigned: true,
+                factor: 16777216,
+            }, ],
+        }, {
+            fieldId: '068_4_0',
+            name: 'Volumen Vorjahr',
+            type: types.Number_1_LitersPerHour,
+            getRawValue: getRawValueFunctions._0010_1010_0100_068_4_0,
+            parts: [{
+                offset: 68,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, {
+                offset: 69,
+                mask: 255,
+                isSigned: 0,
+                factor: 256,
+            }, {
+                offset: 70,
+                mask: 255,
+                isSigned: 0,
+                factor: 65536,
+            }, {
+                offset: 71,
+                mask: 255,
+                isSigned: 0,
+                factor: 16777216,
+            }, ],
+        }, {
+            fieldId: '072_4_0',
+            name: 'Leistung',
+            type: types.Number_0_001_Kilowatts,
+            getRawValue: getRawValueFunctions._0010_1010_0100_072_4_0,
+            parts: [{
+                offset: 72,
+                mask: 255,
+                isSigned: 0,
+                factor: 0.001,
+            }, {
+                offset: 73,
+                mask: 255,
+                isSigned: 0,
+                factor: 0.256,
+            }, {
+                offset: 74,
+                mask: 255,
+                isSigned: 0,
+                factor: 65.536,
+            }, {
+                offset: 75,
+                mask: 255,
+                isSigned: 0,
+                factor: 16777.216,
+            }, ],
+        }, ],
+        _0010_1040_0100: [{
+            fieldId: '000_2_0',
+            name: 'Jahr',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1040_0100_000_2_0,
+            parts: [{
+                offset: 0,
+                mask: 255,
+                isSigned: false,
+                factor: 1,
+            }, {
+                offset: 1,
+                mask: 255,
+                isSigned: true,
+                factor: 256,
+            }, ],
+        }, {
+            fieldId: '002_1_0',
+            name: 'Monat',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1040_0100_002_1_0,
+            parts: [{
+                offset: 2,
+                mask: 255,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '003_1_0',
+            name: 'Tag',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1040_0100_003_1_0,
+            parts: [{
+                offset: 3,
+                mask: 255,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '004_2_0',
+            name: 'Systemzeit',
+            type: types.Time_1_None,
+            getRawValue: getRawValueFunctions._0010_1040_0100_004_2_0,
+            parts: [{
+                offset: 4,
+                mask: 255,
+                isSigned: false,
+                factor: 1,
+            }, {
+                offset: 5,
+                mask: 255,
+                isSigned: true,
+                factor: 256,
+            }, ],
+        }, {
+            fieldId: '006_1_0',
+            name: 'Status',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1040_0100_006_1_0,
+            parts: [{
+                offset: 6,
+                mask: 255,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '007_1_0',
+            name: 'Fehlermeldung',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1040_0100_007_1_0,
+            parts: [{
+                offset: 7,
+                mask: 255,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '008_2_0',
+            name: 'Vorlauf-Soll-Temperatur',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_1040_0100_008_2_0,
+            parts: [{
+                offset: 8,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 9,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '010_2_0',
+            name: 'Vorlauftemperatur',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_1040_0100_010_2_0,
+            parts: [{
+                offset: 10,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 11,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '012_1_0',
+            name: 'Relais Pumpe',
+            type: types.Number_1_Percent,
+            getRawValue: getRawValueFunctions._0010_1040_0100_012_1_0,
+            parts: [{
+                offset: 12,
+                mask: 255,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '013_1_0',
+            name: 'Relais Mischer Auf',
+            type: types.Number_1_Percent,
+            getRawValue: getRawValueFunctions._0010_1040_0100_013_1_0,
+            parts: [{
+                offset: 13,
+                mask: 255,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '014_1_0',
+            name: 'Relais Mischer Zu',
+            type: types.Number_1_Percent,
+            getRawValue: getRawValueFunctions._0010_1040_0100_014_1_0,
+            parts: [{
+                offset: 14,
+                mask: 255,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '015_1_0',
+            name: 'Handebetrieb Relais Pumpe',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1040_0100_015_1_0,
+            parts: [{
+                offset: 15,
+                mask: 255,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '016_1_0',
+            name: 'Handebetrieb Relais Mischer Auf',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1040_0100_016_1_0,
+            parts: [{
+                offset: 16,
+                mask: 255,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '017_1_0',
+            name: 'Handebetrieb Relais Mischer Zu',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1040_0100_017_1_0,
+            parts: [{
+                offset: 17,
+                mask: 255,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '018_1_0',
+            name: 'NH-Anforderung',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1040_0100_018_1_0,
+            parts: [{
+                offset: 18,
+                mask: 255,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '019_1_0',
+            name: 'Parameter Start',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1040_0100_019_1_0,
+            parts: [{
+                offset: 19,
+                mask: 255,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '020_2_0',
+            name: 'Parameter TStart',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_1040_0100_020_2_0,
+            parts: [{
+                offset: 20,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 21,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '022_2_0',
+            name: 'Parameter TMax',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_1040_0100_022_2_0,
+            parts: [{
+                offset: 22,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 23,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '024_2_0',
+            name: 'Parameter Anstieg',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_1040_0100_024_2_0,
+            parts: [{
+                offset: 24,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 25,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '026_1_0',
+            name: 'Parameter Anstiegszeit',
+            type: types.Number_1_Hours,
+            getRawValue: getRawValueFunctions._0010_1040_0100_026_1_0,
+            parts: [{
+                offset: 26,
+                mask: 255,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '027_1_0',
+            name: 'Parameter Haltezeit',
+            type: types.Number_1_Days,
+            getRawValue: getRawValueFunctions._0010_1040_0100_027_1_0,
+            parts: [{
+                offset: 27,
+                mask: 255,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, ],
+        _0010_1050_0100: [{
+            fieldId: '000_2_0',
+            name: 'Temperatur Sensor 1',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_1050_0100_000_2_0,
+            parts: [{
+                offset: 0,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 1,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '002_2_0',
+            name: 'Temperatur Sensor 2',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_1050_0100_002_2_0,
+            parts: [{
+                offset: 2,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 3,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '004_2_0',
+            name: 'Temperatur Sensor 3',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_1050_0100_004_2_0,
+            parts: [{
+                offset: 4,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 5,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '006_2_0',
+            name: 'Temperatur Sensor 4',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_1050_0100_006_2_0,
+            parts: [{
+                offset: 6,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 7,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '008_2_0',
+            name: 'Temperatur Sensor 5',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_1050_0100_008_2_0,
+            parts: [{
+                offset: 8,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 9,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '010_2_0',
+            name: 'Temperatur Sensor 6',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_1050_0100_010_2_0,
+            parts: [{
+                offset: 10,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 11,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '012_2_0',
+            name: 'Temperatur Sensor 7',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_1050_0100_012_2_0,
+            parts: [{
+                offset: 12,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 13,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '014_2_0',
+            name: 'Temperatur Sensor 8',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_1050_0100_014_2_0,
+            parts: [{
+                offset: 14,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 15,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '016_2_0',
+            name: 'Temperatur Sensor 9',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_1050_0100_016_2_0,
+            parts: [{
+                offset: 16,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 17,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '018_2_0',
+            name: 'Temperatur Sensor 10',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_1050_0100_018_2_0,
+            parts: [{
+                offset: 18,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 19,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '020_2_0',
+            name: 'Einstrahlung CS',
+            type: types.Number_1_WattsPerSquareMeter,
+            getRawValue: getRawValueFunctions._0010_1050_0100_020_2_0,
+            parts: [{
+                offset: 20,
+                mask: 255,
+                isSigned: false,
+                factor: 1,
+            }, {
+                offset: 21,
+                mask: 255,
+                isSigned: true,
+                factor: 256,
+            }, ],
+        }, {
+            fieldId: '022_2_0',
+            name: 'Impulse 1 V40',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1050_0100_022_2_0,
+            parts: [{
+                offset: 22,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, {
+                offset: 23,
+                mask: 255,
+                isSigned: 0,
+                factor: 256,
+            }, ],
+        }, {
+            fieldId: '024_2_0',
+            name: 'Digital Input',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1050_0100_024_2_0,
+            parts: [{
+                offset: 24,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, {
+                offset: 25,
+                mask: 255,
+                isSigned: 0,
+                factor: 256,
+            }, ],
+        }, {
+            fieldId: '068_1_0',
+            name: 'PWM 1',
+            type: types.Number_1_Percent,
+            getRawValue: getRawValueFunctions._0010_1050_0100_068_1_0,
+            parts: [{
+                offset: 68,
+                mask: 255,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '026_1_0',
+            name: 'Drehzahl Relais 1',
+            type: types.Number_1_Percent,
+            getRawValue: getRawValueFunctions._0010_1050_0100_026_1_0,
+            parts: [{
+                offset: 26,
+                mask: 255,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '069_1_0',
+            name: 'PWM 2',
+            type: types.Number_1_Percent,
+            getRawValue: getRawValueFunctions._0010_1050_0100_069_1_0,
+            parts: [{
+                offset: 69,
+                mask: 255,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '027_1_0',
+            name: 'Drehzahl Relais 2',
+            type: types.Number_1_Percent,
+            getRawValue: getRawValueFunctions._0010_1050_0100_027_1_0,
+            parts: [{
+                offset: 27,
+                mask: 255,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '070_1_0',
+            name: 'PWM 3',
+            type: types.Number_1_Percent,
+            getRawValue: getRawValueFunctions._0010_1050_0100_070_1_0,
+            parts: [{
+                offset: 70,
+                mask: 255,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '028_1_0',
+            name: 'Drehzahl Relais 3',
+            type: types.Number_1_Percent,
+            getRawValue: getRawValueFunctions._0010_1050_0100_028_1_0,
+            parts: [{
+                offset: 28,
+                mask: 255,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '029_1_0',
+            name: 'Drehzahl Relais 4',
+            type: types.Number_1_Percent,
+            getRawValue: getRawValueFunctions._0010_1050_0100_029_1_0,
+            parts: [{
+                offset: 29,
+                mask: 255,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '030_1_0',
+            name: 'Drehzahl Relais 5',
+            type: types.Number_1_Percent,
+            getRawValue: getRawValueFunctions._0010_1050_0100_030_1_0,
+            parts: [{
+                offset: 30,
+                mask: 255,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '031_1_0',
+            name: 'Drehzahl Relais 6',
+            type: types.Number_1_Percent,
+            getRawValue: getRawValueFunctions._0010_1050_0100_031_1_0,
+            parts: [{
+                offset: 31,
+                mask: 255,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '032_1_0',
+            name: 'Drehzahl Relais 7',
+            type: types.Number_1_Percent,
+            getRawValue: getRawValueFunctions._0010_1050_0100_032_1_0,
+            parts: [{
+                offset: 32,
+                mask: 255,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '036_2_0',
+            name: 'Fehlermaske',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1050_0100_036_2_0,
+            parts: [{
+                offset: 36,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, {
+                offset: 37,
+                mask: 255,
+                isSigned: 0,
+                factor: 256,
+            }, ],
+        }, {
+            fieldId: '038_2_0',
+            name: 'Meldungen',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1050_0100_038_2_0,
+            parts: [{
+                offset: 38,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, {
+                offset: 39,
+                mask: 255,
+                isSigned: 0,
+                factor: 256,
+            }, ],
+        }, {
+            fieldId: '040_1_0',
+            name: 'System',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1050_0100_040_1_0,
+            parts: [{
+                offset: 40,
+                mask: 255,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '042_2_0',
+            name: 'Schema',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1050_0100_042_2_0,
+            parts: [{
+                offset: 42,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, {
+                offset: 43,
+                mask: 255,
+                isSigned: 0,
+                factor: 256,
+            }, ],
+        }, {
+            fieldId: '044_2_0',
+            name: 'Vorlauf Soll HK1 Modul Sensor 18',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_1050_0100_044_2_0,
+            parts: [{
+                offset: 44,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 45,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '046_2_0',
+            name: 'Status HK1 Modul',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1050_0100_046_2_0,
+            parts: [{
+                offset: 46,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, {
+                offset: 47,
+                mask: 255,
+                isSigned: 0,
+                factor: 256,
+            }, ],
+        }, {
+            fieldId: '048_2_0',
+            name: 'Vorlauf Soll HK2 Modul Sensor 25',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_1050_0100_048_2_0,
+            parts: [{
+                offset: 48,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 49,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '050_2_0',
+            name: 'Status HK2 Modul',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1050_0100_050_2_0,
+            parts: [{
+                offset: 50,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, {
+                offset: 51,
+                mask: 255,
+                isSigned: 0,
+                factor: 256,
+            }, ],
+        }, {
+            fieldId: '052_2_0',
+            name: 'Vorlauf Soll HK3 Modul Sensor 32',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_1050_0100_052_2_0,
+            parts: [{
+                offset: 52,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 53,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '054_2_0',
+            name: 'Status HK3 Modul',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1050_0100_054_2_0,
+            parts: [{
+                offset: 54,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, {
+                offset: 55,
+                mask: 255,
+                isSigned: 0,
+                factor: 256,
+            }, ],
+        }, {
+            fieldId: '056_2_0',
+            name: 'Vorlauf Soll Heizkreis Sensor 11',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_1050_0100_056_2_0,
+            parts: [{
+                offset: 56,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 57,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '058_2_0',
+            name: 'Status Heizkreis',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1050_0100_058_2_0,
+            parts: [{
+                offset: 58,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, {
+                offset: 59,
+                mask: 255,
+                isSigned: 0,
+                factor: 256,
+            }, ],
+        }, {
+            fieldId: '062_2_0',
+            name: 'Systemzeit',
+            type: types.Time_1_None,
+            getRawValue: getRawValueFunctions._0010_1050_0100_062_2_0,
+            parts: [{
+                offset: 62,
+                mask: 255,
+                isSigned: false,
+                factor: 1,
+            }, {
+                offset: 63,
+                mask: 255,
+                isSigned: true,
+                factor: 256,
+            }, ],
+        }, {
+            fieldId: '064_2_0',
+            name: 'Jahr',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1050_0100_064_2_0,
+            parts: [{
+                offset: 64,
+                mask: 255,
+                isSigned: false,
+                factor: 1,
+            }, {
+                offset: 65,
+                mask: 255,
+                isSigned: true,
+                factor: 256,
+            }, ],
+        }, {
+            fieldId: '066_1_0',
+            name: 'Monat',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1050_0100_066_1_0,
+            parts: [{
+                offset: 66,
+                mask: 255,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '067_1_0',
+            name: 'Tag',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1050_0100_067_1_0,
+            parts: [{
+                offset: 67,
+                mask: 255,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '060_1_0',
+            name: 'Version',
+            type: types.Number_0_01_None,
+            getRawValue: getRawValueFunctions._0010_1050_0100_060_1_0,
+            parts: [{
+                offset: 60,
+                mask: 255,
+                isSigned: true,
+                factor: 1,
+            }, {
+                offset: 61,
+                mask: 255,
+                isSigned: true,
+                factor: 0.01,
+            }, ],
+        }, ],
+        _0010_1051_0100: [{
+            fieldId: '000_2_0',
+            name: 'Temperatur Vorlauf',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_1051_0100_000_2_0,
+            parts: [{
+                offset: 0,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 1,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '002_2_0',
+            name: 'Temperatur Rücklauf',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_1051_0100_002_2_0,
+            parts: [{
+                offset: 2,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 3,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '004_2_0',
+            name: 'Durchfluss Sensor 8',
+            type: types.Number_1_LitersPerHour,
+            getRawValue: getRawValueFunctions._0010_1051_0100_004_2_0,
+            parts: [{
+                offset: 4,
+                mask: 255,
+                isSigned: false,
+                factor: 1,
+            }, {
+                offset: 5,
+                mask: 255,
+                isSigned: true,
+                factor: 256,
+            }, ],
+        }, {
+            fieldId: '006_2_0',
+            name: 'Wärmemenge',
+            type: types.Number_1_WattHours,
+            getRawValue: getRawValueFunctions._0010_1051_0100_006_2_0,
+            parts: [{
+                offset: 6,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, {
+                offset: 7,
+                mask: 255,
+                isSigned: 0,
+                factor: 256,
+            }, {
+                offset: 8,
+                mask: 255,
+                isSigned: 0,
+                factor: 1000,
+            }, {
+                offset: 9,
+                mask: 255,
+                isSigned: 0,
+                factor: 256000,
+            }, {
+                offset: 10,
+                mask: 255,
+                isSigned: 0,
+                factor: 1000000,
+            }, {
+                offset: 11,
+                mask: 255,
+                isSigned: 0,
+                factor: 256000000,
+            }, ],
+        }, ],
+        _0010_1058_0100: [{
+            fieldId: '000_2_0',
+            name: 'Temperatur Sensor 1',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_1058_0100_000_2_0,
+            parts: [{
+                offset: 0,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 1,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '002_2_0',
+            name: 'Temperatur Sensor 2',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_1058_0100_002_2_0,
+            parts: [{
+                offset: 2,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 3,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '004_2_0',
+            name: 'Temperatur Sensor 3',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_1058_0100_004_2_0,
+            parts: [{
+                offset: 4,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 5,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '006_1_0',
+            name: 'Sensor 3 Zustand (FS)',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1058_0100_006_1_0,
+            parts: [{
+                offset: 6,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '007_1_0',
+            name: 'Sensor 4 Zustand (TA)',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1058_0100_007_1_0,
+            parts: [{
+                offset: 7,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '008_1_0',
+            name: 'Drehzahl Relais 1',
+            type: types.Number_1_Percent,
+            getRawValue: getRawValueFunctions._0010_1058_0100_008_1_0,
+            parts: [{
+                offset: 8,
+                mask: 255,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '009_1_0',
+            name: 'Drehzahl Relais 2',
+            type: types.Number_1_Percent,
+            getRawValue: getRawValueFunctions._0010_1058_0100_009_1_0,
+            parts: [{
+                offset: 9,
+                mask: 255,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '010_1_0',
+            name: 'Drehzahl Relais 3',
+            type: types.Number_1_Percent,
+            getRawValue: getRawValueFunctions._0010_1058_0100_010_1_0,
+            parts: [{
+                offset: 10,
+                mask: 255,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '011_1_0',
+            name: 'Drehzahl Relais 4',
+            type: types.Number_1_Percent,
+            getRawValue: getRawValueFunctions._0010_1058_0100_011_1_0,
+            parts: [{
+                offset: 11,
+                mask: 255,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '012_1_0',
+            name: 'Schema',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1058_0100_012_1_0,
+            parts: [{
+                offset: 12,
+                mask: 255,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '016_4_0',
+            name: 'Betriebssekunden Relais 1',
+            type: types.Number_1_Seconds,
+            getRawValue: getRawValueFunctions._0010_1058_0100_016_4_0,
+            parts: [{
+                offset: 16,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, {
+                offset: 17,
+                mask: 255,
+                isSigned: 0,
+                factor: 256,
+            }, {
+                offset: 18,
+                mask: 255,
+                isSigned: 0,
+                factor: 65536,
+            }, {
+                offset: 19,
+                mask: 255,
+                isSigned: 0,
+                factor: 16777216,
+            }, ],
+        }, {
+            fieldId: '020_4_0',
+            name: 'Betriebssekunden Relais 2',
+            type: types.Number_1_Seconds,
+            getRawValue: getRawValueFunctions._0010_1058_0100_020_4_0,
+            parts: [{
+                offset: 20,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, {
+                offset: 21,
+                mask: 255,
+                isSigned: 0,
+                factor: 256,
+            }, {
+                offset: 22,
+                mask: 255,
+                isSigned: 0,
+                factor: 65536,
+            }, {
+                offset: 23,
+                mask: 255,
+                isSigned: 0,
+                factor: 16777216,
+            }, ],
+        }, {
+            fieldId: '024_4_0',
+            name: 'Betriebssekunden Relais 3',
+            type: types.Number_1_Seconds,
+            getRawValue: getRawValueFunctions._0010_1058_0100_024_4_0,
+            parts: [{
+                offset: 24,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, {
+                offset: 25,
+                mask: 255,
+                isSigned: 0,
+                factor: 256,
+            }, {
+                offset: 26,
+                mask: 255,
+                isSigned: 0,
+                factor: 65536,
+            }, {
+                offset: 27,
+                mask: 255,
+                isSigned: 0,
+                factor: 16777216,
+            }, ],
+        }, {
+            fieldId: '028_4_0',
+            name: 'Betriebssekunden Relais 4',
+            type: types.Number_1_Seconds,
+            getRawValue: getRawValueFunctions._0010_1058_0100_028_4_0,
+            parts: [{
+                offset: 28,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, {
+                offset: 29,
+                mask: 255,
+                isSigned: 0,
+                factor: 256,
+            }, {
+                offset: 30,
+                mask: 255,
+                isSigned: 0,
+                factor: 65536,
+            }, {
+                offset: 31,
+                mask: 255,
+                isSigned: 0,
+                factor: 16777216,
+            }, ],
+        }, {
+            fieldId: '032_4_0',
+            name: 'Fehlermaske',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1058_0100_032_4_0,
+            parts: [{
+                offset: 32,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, {
+                offset: 33,
+                mask: 255,
+                isSigned: 0,
+                factor: 256,
+            }, {
+                offset: 34,
+                mask: 255,
+                isSigned: 0,
+                factor: 65536,
+            }, {
+                offset: 35,
+                mask: 255,
+                isSigned: 0,
+                factor: 16777216,
+            }, ],
+        }, {
+            fieldId: '036_4_0',
+            name: 'Meldungen',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1058_0100_036_4_0,
+            parts: [{
+                offset: 36,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, {
+                offset: 37,
+                mask: 255,
+                isSigned: 0,
+                factor: 256,
+            }, {
+                offset: 38,
+                mask: 255,
+                isSigned: 0,
+                factor: 65536,
+            }, {
+                offset: 39,
+                mask: 255,
+                isSigned: 0,
+                factor: 16777216,
+            }, ],
+        }, ],
+        _0010_1060_0100: [{
+            fieldId: '000_2_0',
+            name: 'Temperatur Sensor 1',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_1060_0100_000_2_0,
+            parts: [{
+                offset: 0,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 1,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '002_2_0',
+            name: 'Temperatur Sensor 2',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_1060_0100_002_2_0,
+            parts: [{
+                offset: 2,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 3,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '004_2_0',
+            name: 'Temperatur Sensor 3',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_1060_0100_004_2_0,
+            parts: [{
+                offset: 4,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 5,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '006_2_0',
+            name: 'Temperatur Sensor 4',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_1060_0100_006_2_0,
+            parts: [{
+                offset: 6,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 7,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '008_2_0',
+            name: 'Temperatur Sensor 5',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_1060_0100_008_2_0,
+            parts: [{
+                offset: 8,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 9,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '010_2_0',
+            name: 'Temperatur Sensor 6',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_1060_0100_010_2_0,
+            parts: [{
+                offset: 10,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 11,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '012_2_0',
+            name: 'Temperatur Sensor 7',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_1060_0100_012_2_0,
+            parts: [{
+                offset: 12,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 13,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '014_2_0',
+            name: 'Temperatur Sensor 8',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_1060_0100_014_2_0,
+            parts: [{
+                offset: 14,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 15,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '016_2_0',
+            name: 'Temperatur Sensor 9',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_1060_0100_016_2_0,
+            parts: [{
+                offset: 16,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 17,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '018_2_0',
+            name: 'Temperatur Sensor 10',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_1060_0100_018_2_0,
+            parts: [{
+                offset: 18,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 19,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '020_2_0',
+            name: 'Temperatur Sensor 11',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_1060_0100_020_2_0,
+            parts: [{
+                offset: 20,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 21,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '022_2_0',
+            name: 'Temperatur Sensor 12',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_1060_0100_022_2_0,
+            parts: [{
+                offset: 22,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 23,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '024_2_0',
+            name: 'SZ Einstrahlung',
+            type: types.Number_1_WattsPerSquareMeter,
+            getRawValue: getRawValueFunctions._0010_1060_0100_024_2_0,
+            parts: [{
+                offset: 24,
+                mask: 255,
+                isSigned: false,
+                factor: 1,
+            }, {
+                offset: 25,
+                mask: 255,
+                isSigned: true,
+                factor: 256,
+            }, ],
+        }, {
+            fieldId: '026_2_0',
+            name: 'SZ Spannung',
+            type: types.Number_0_001_Volts,
+            getRawValue: getRawValueFunctions._0010_1060_0100_026_2_0,
+            parts: [{
+                offset: 26,
+                mask: 255,
+                isSigned: 0,
+                factor: 0.001,
+            }, {
+                offset: 27,
+                mask: 255,
+                isSigned: 0,
+                factor: 0.256,
+            }, ],
+        }, {
+            fieldId: '028_4_0',
+            name: 'Impulszähler 1',
+            type: types.Number_1_LitersPerMinute,
+            getRawValue: getRawValueFunctions._0010_1060_0100_028_4_0,
+            parts: [{
+                offset: 28,
+                mask: 255,
+                isSigned: false,
+                factor: 1,
+            }, {
+                offset: 29,
+                mask: 255,
+                isSigned: false,
+                factor: 256,
+            }, {
+                offset: 30,
+                mask: 255,
+                isSigned: false,
+                factor: 65536,
+            }, {
+                offset: 31,
+                mask: 255,
+                isSigned: true,
+                factor: 16777216,
+            }, ],
+        }, {
+            fieldId: '032_4_0',
+            name: 'Impulszähler 2',
+            type: types.Number_1_LitersPerMinute,
+            getRawValue: getRawValueFunctions._0010_1060_0100_032_4_0,
+            parts: [{
+                offset: 32,
+                mask: 255,
+                isSigned: false,
+                factor: 1,
+            }, {
+                offset: 33,
+                mask: 255,
+                isSigned: false,
+                factor: 256,
+            }, {
+                offset: 34,
+                mask: 255,
+                isSigned: false,
+                factor: 65536,
+            }, {
+                offset: 35,
+                mask: 255,
+                isSigned: true,
+                factor: 16777216,
+            }, ],
+        }, {
+            fieldId: '036_2_0',
+            name: 'Sensor Unterbrechung',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1060_0100_036_2_0,
+            parts: [{
+                offset: 36,
+                mask: 255,
+                isSigned: false,
+                factor: 1,
+            }, {
+                offset: 37,
+                mask: 255,
+                isSigned: true,
+                factor: 256,
+            }, ],
+        }, {
+            fieldId: '036_1_1',
+            name: 'Sensor Unterbrechung S1',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1060_0100_036_1_1,
+            parts: [{
+                offset: 36,
+                mask: 1,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '036_1_2',
+            name: 'Sensor Unterbrechung S2',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1060_0100_036_1_2,
+            parts: [{
+                offset: 36,
+                mask: 2,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '036_1_4',
+            name: 'Sensor Unterbrechung S3',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1060_0100_036_1_4,
+            parts: [{
+                offset: 36,
+                mask: 4,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '036_1_8',
+            name: 'Sensor Unterbrechung S4',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1060_0100_036_1_8,
+            parts: [{
+                offset: 36,
+                mask: 8,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '036_1_16',
+            name: 'Sensor Unterbrechung S5',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1060_0100_036_1_16,
+            parts: [{
+                offset: 36,
+                mask: 16,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '036_1_32',
+            name: 'Sensor Unterbrechung S6',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1060_0100_036_1_32,
+            parts: [{
+                offset: 36,
+                mask: 32,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '036_1_64',
+            name: 'Sensor Unterbrechung S7',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1060_0100_036_1_64,
+            parts: [{
+                offset: 36,
+                mask: 64,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '036_1_128',
+            name: 'Sensor Unterbrechung S8',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1060_0100_036_1_128,
+            parts: [{
+                offset: 36,
+                mask: 128,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '036_1_256',
+            name: 'Sensor Unterbrechung S9',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1060_0100_036_1_256,
+            parts: [{
+                offset: 36,
+                mask: 256,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '036_1_512',
+            name: 'Sensor Unterbrechung S10',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1060_0100_036_1_512,
+            parts: [{
+                offset: 36,
+                mask: 512,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '036_1_1024',
+            name: 'Sensor Unterbrechung S11',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1060_0100_036_1_1024,
+            parts: [{
+                offset: 36,
+                mask: 1024,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '036_1_2048',
+            name: 'Sensor Unterbrechung S12',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1060_0100_036_1_2048,
+            parts: [{
+                offset: 36,
+                mask: 2048,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '038_1_1',
+            name: 'Sensor Kurzschluss',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1060_0100_038_1_1,
+            parts: [{
+                offset: 38,
+                mask: 1,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '038_1_1_1',
+            name: 'Sensor Kurzschluss S1',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1060_0100_038_1_1_1,
+            parts: [{
+                offset: 38,
+                mask: 1,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '038_1_2',
+            name: 'Sensor Kurzschluss S2',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1060_0100_038_1_2,
+            parts: [{
+                offset: 38,
+                mask: 2,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '038_1_4',
+            name: 'Sensor Kurzschluss S3',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1060_0100_038_1_4,
+            parts: [{
+                offset: 38,
+                mask: 4,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '038_1_8',
+            name: 'Sensor Kurzschluss S4',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1060_0100_038_1_8,
+            parts: [{
+                offset: 38,
+                mask: 8,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '038_1_16',
+            name: 'Sensor Kurzschluss S5',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1060_0100_038_1_16,
+            parts: [{
+                offset: 38,
+                mask: 16,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '038_1_32',
+            name: 'Sensor Kurzschluss S6',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1060_0100_038_1_32,
+            parts: [{
+                offset: 38,
+                mask: 32,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '038_1_64',
+            name: 'Sensor Kurzschluss S7',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1060_0100_038_1_64,
+            parts: [{
+                offset: 38,
+                mask: 64,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '038_1_128',
+            name: 'Sensor Kurzschluss S8',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1060_0100_038_1_128,
+            parts: [{
+                offset: 38,
+                mask: 128,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '038_1_256',
+            name: 'Sensor Kurzschluss S9',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1060_0100_038_1_256,
+            parts: [{
+                offset: 38,
+                mask: 256,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '038_1_512',
+            name: 'Sensor Kurzschluss S10',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1060_0100_038_1_512,
+            parts: [{
+                offset: 38,
+                mask: 512,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '038_1_1024',
+            name: 'Sensor Kurzschluss S11',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1060_0100_038_1_1024,
+            parts: [{
+                offset: 38,
+                mask: 1024,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '038_1_2048',
+            name: 'Sensor Kurzschluss S12',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1060_0100_038_1_2048,
+            parts: [{
+                offset: 38,
+                mask: 2048,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '040_1_0',
+            name: 'Sensor benutzt',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1060_0100_040_1_0,
+            parts: [{
+                offset: 40,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '040_1_1',
+            name: 'Sensor 1 benutzt',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1060_0100_040_1_1,
+            parts: [{
+                offset: 40,
+                mask: 1,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '040_1_2',
+            name: 'Sensor 2 benutzt',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1060_0100_040_1_2,
+            parts: [{
+                offset: 40,
+                mask: 2,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '040_1_4',
+            name: 'Sensor 3 benutzt',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1060_0100_040_1_4,
+            parts: [{
+                offset: 40,
+                mask: 4,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '040_1_8',
+            name: 'Sensor 4 benutzt',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1060_0100_040_1_8,
+            parts: [{
+                offset: 40,
+                mask: 8,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '040_1_16',
+            name: 'Sensor 5 benutzt',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1060_0100_040_1_16,
+            parts: [{
+                offset: 40,
+                mask: 16,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '040_1_32',
+            name: 'Sensor 6 benutzt',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1060_0100_040_1_32,
+            parts: [{
+                offset: 40,
+                mask: 32,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '040_1_64',
+            name: 'Sensor 7 benutzt',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1060_0100_040_1_64,
+            parts: [{
+                offset: 40,
+                mask: 64,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '040_1_128',
+            name: 'Sensor 8 benutzt',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1060_0100_040_1_128,
+            parts: [{
+                offset: 40,
+                mask: 128,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '040_1_256',
+            name: 'Sensor 9 benutzt',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1060_0100_040_1_256,
+            parts: [{
+                offset: 40,
+                mask: 256,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '040_1_512',
+            name: 'Sensor 10 benutzt',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1060_0100_040_1_512,
+            parts: [{
+                offset: 40,
+                mask: 512,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '040_1_1024',
+            name: 'Sensor 11 benutzt',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1060_0100_040_1_1024,
+            parts: [{
+                offset: 40,
+                mask: 1024,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '040_1_2048',
+            name: 'Sensor 12 benutzt',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1060_0100_040_1_2048,
+            parts: [{
+                offset: 40,
+                mask: 2048,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '044_1_0',
+            name: 'Drehzahl Relais 1',
+            type: types.Number_1_Percent,
+            getRawValue: getRawValueFunctions._0010_1060_0100_044_1_0,
+            parts: [{
+                offset: 44,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '045_1_0',
+            name: 'Drehzahl Relais 2',
+            type: types.Number_1_Percent,
+            getRawValue: getRawValueFunctions._0010_1060_0100_045_1_0,
+            parts: [{
+                offset: 45,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '046_1_0',
+            name: 'Drehzahl Relais 3',
+            type: types.Number_1_Percent,
+            getRawValue: getRawValueFunctions._0010_1060_0100_046_1_0,
+            parts: [{
+                offset: 46,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '047_1_0',
+            name: 'Drehzahl Relais 4',
+            type: types.Number_1_Percent,
+            getRawValue: getRawValueFunctions._0010_1060_0100_047_1_0,
+            parts: [{
+                offset: 47,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '048_1_0',
+            name: 'Drehzahl Relais 5',
+            type: types.Number_1_Percent,
+            getRawValue: getRawValueFunctions._0010_1060_0100_048_1_0,
+            parts: [{
+                offset: 48,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '049_1_0',
+            name: 'Drehzahl Relais 6',
+            type: types.Number_1_Percent,
+            getRawValue: getRawValueFunctions._0010_1060_0100_049_1_0,
+            parts: [{
+                offset: 49,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '050_1_0',
+            name: 'Drehzahl Relais 7',
+            type: types.Number_1_Percent,
+            getRawValue: getRawValueFunctions._0010_1060_0100_050_1_0,
+            parts: [{
+                offset: 50,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '056_1_0',
+            name: 'Lasterkennung Relais',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1060_0100_056_1_0,
+            parts: [{
+                offset: 56,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '056_1_1',
+            name: 'Lasterkennung R1',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1060_0100_056_1_1,
+            parts: [{
+                offset: 56,
+                mask: 1,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '056_1_2',
+            name: 'Lasterkennung R2',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1060_0100_056_1_2,
+            parts: [{
+                offset: 56,
+                mask: 2,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '056_1_4',
+            name: 'Lasterkennung R3',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1060_0100_056_1_4,
+            parts: [{
+                offset: 56,
+                mask: 4,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '056_1_8',
+            name: 'Lasterkennung R4',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1060_0100_056_1_8,
+            parts: [{
+                offset: 56,
+                mask: 8,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '057_1_0',
+            name: 'Fehler Lasterkennung Relais',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1060_0100_057_1_0,
+            parts: [{
+                offset: 57,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '057_1_1',
+            name: 'Fehler Lasterkennung R1',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1060_0100_057_1_1,
+            parts: [{
+                offset: 57,
+                mask: 1,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '057_1_2',
+            name: 'Fehler Lasterkennung R2',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1060_0100_057_1_2,
+            parts: [{
+                offset: 57,
+                mask: 2,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '057_1_4',
+            name: 'Fehler Lasterkennung R3',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1060_0100_057_1_4,
+            parts: [{
+                offset: 57,
+                mask: 4,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '057_1_8',
+            name: 'Fehler Lasterkennung R4',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1060_0100_057_1_8,
+            parts: [{
+                offset: 57,
+                mask: 8,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '058_2_0',
+            name: 'Relaisbenutzungsmaske',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1060_0100_058_2_0,
+            parts: [{
+                offset: 58,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, {
+                offset: 59,
+                mask: 255,
+                isSigned: 0,
+                factor: 256,
+            }, ],
+        }, {
+            fieldId: '058_1_1',
+            name: 'Relais 1 benutzt',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1060_0100_058_1_1,
+            parts: [{
+                offset: 58,
+                mask: 1,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '058_1_2',
+            name: 'Relais 2 benutzt',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1060_0100_058_1_2,
+            parts: [{
+                offset: 58,
+                mask: 2,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '058_1_4',
+            name: 'Relais 3 benutzt',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1060_0100_058_1_4,
+            parts: [{
+                offset: 58,
+                mask: 4,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '058_1_8',
+            name: 'Relais 4 benutzt',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1060_0100_058_1_8,
+            parts: [{
+                offset: 58,
+                mask: 8,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '058_1_16',
+            name: 'Relais 5 benutzt',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1060_0100_058_1_16,
+            parts: [{
+                offset: 58,
+                mask: 16,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '058_1_32',
+            name: 'Relais 6 benutzt',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1060_0100_058_1_32,
+            parts: [{
+                offset: 58,
+                mask: 32,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '058_1_64',
+            name: 'Relais 7 benutzt',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1060_0100_058_1_64,
+            parts: [{
+                offset: 58,
+                mask: 64,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '060_2_0',
+            name: 'Fehlermaske',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1060_0100_060_2_0,
+            parts: [{
+                offset: 60,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, {
+                offset: 61,
+                mask: 255,
+                isSigned: 0,
+                factor: 256,
+            }, ],
+        }, {
+            fieldId: '062_2_0',
+            name: 'Warnmaske',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1060_0100_062_2_0,
+            parts: [{
+                offset: 62,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, {
+                offset: 63,
+                mask: 255,
+                isSigned: 0,
+                factor: 256,
+            }, ],
+        }, {
+            fieldId: '064_1_0',
+            name: 'SW-Version',
+            type: types.Number_0_1_None,
+            getRawValue: getRawValueFunctions._0010_1060_0100_064_1_0,
+            parts: [{
+                offset: 64,
+                mask: 255,
+                isSigned: 0,
+                factor: 0.1,
+            }, ],
+        }, {
+            fieldId: '065_1_0',
+            name: 'Minorversion',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1060_0100_065_1_0,
+            parts: [{
+                offset: 65,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '066_2_0',
+            name: 'Systemzeit',
+            type: types.Time_1_None,
+            getRawValue: getRawValueFunctions._0010_1060_0100_066_2_0,
+            parts: [{
+                offset: 66,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, {
+                offset: 67,
+                mask: 255,
+                isSigned: 0,
+                factor: 256,
+            }, ],
+        }, {
+            fieldId: '072_1_0',
+            name: 'Fehler Solarzelle',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_1060_0100_072_1_0,
+            parts: [{
+                offset: 72,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, ],
+        }, ],
+        _0010_1064_0100: [{
+            fieldId: '000_2_0',
+            name: 'Vorlauftemperatur',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_1064_0100_000_2_0,
+            parts: [{
+                offset: 0,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 1,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '002_2_0',
+            name: 'Rücklauftemperatur',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_1064_0100_002_2_0,
+            parts: [{
+                offset: 2,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 3,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '004_2_0',
+            name: 'Volumenstrom',
+            type: types.Number_1_LitersPerHour,
+            getRawValue: getRawValueFunctions._0010_1064_0100_004_2_0,
+            parts: [{
+                offset: 4,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, {
+                offset: 5,
+                mask: 255,
+                isSigned: 0,
+                factor: 256,
+            }, ],
+        }, {
+            fieldId: '006_2_0',
+            name: 'Wärme Wh',
+            type: types.Number_1_WattHours,
+            getRawValue: getRawValueFunctions._0010_1064_0100_006_2_0,
+            parts: [{
+                offset: 6,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, {
+                offset: 7,
+                mask: 255,
+                isSigned: 0,
+                factor: 256,
+            }, ],
+        }, {
+            fieldId: '008_2_0',
+            name: 'Wärme kWh',
+            type: types.Number_1_KilowattHours,
+            getRawValue: getRawValueFunctions._0010_1064_0100_008_2_0,
+            parts: [{
+                offset: 8,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, {
+                offset: 9,
+                mask: 255,
+                isSigned: 0,
+                factor: 256,
+            }, ],
+        }, {
+            fieldId: '010_2_0',
+            name: 'Wärme MWh',
+            type: types.Number_1_MegawattHours,
+            getRawValue: getRawValueFunctions._0010_1064_0100_010_2_0,
+            parts: [{
+                offset: 10,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, {
+                offset: 11,
+                mask: 255,
+                isSigned: 0,
+                factor: 256,
+            }, ],
+        }, {
+            fieldId: '006_2_0_1',
+            name: 'Wärme',
+            type: types.Number_1_WattHours,
+            getRawValue: getRawValueFunctions._0010_1064_0100_006_2_0_1,
+            parts: [{
+                offset: 6,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, {
+                offset: 7,
+                mask: 255,
+                isSigned: 0,
+                factor: 256,
+            }, {
+                offset: 8,
+                mask: 255,
+                isSigned: 0,
+                factor: 1000,
+            }, {
+                offset: 9,
+                mask: 255,
+                isSigned: 0,
+                factor: 256000,
+            }, {
+                offset: 10,
+                mask: 255,
+                isSigned: 0,
+                factor: 1000000,
+            }, {
+                offset: 11,
+                mask: 255,
+                isSigned: 0,
+                factor: 256000000,
             }, ],
         }, ],
         _0010_1120_0100: [{
@@ -38752,6 +46955,666 @@ var createVBusSpecificationData = function() {
             name: 'Wmz1_WertWoche_Wh',
             type: types.Number_1_WattHours,
             getRawValue: getRawValueFunctions._0010_2252_0100_012_4_0,
+            parts: [{
+                offset: 12,
+                mask: 255,
+                isSigned: false,
+                factor: 1,
+            }, {
+                offset: 13,
+                mask: 255,
+                isSigned: false,
+                factor: 256,
+            }, {
+                offset: 14,
+                mask: 255,
+                isSigned: false,
+                factor: 65536,
+            }, {
+                offset: 15,
+                mask: 255,
+                isSigned: true,
+                factor: 16777216,
+            }, ],
+        }, ],
+        _0010_2271_0100: [{
+            fieldId: '000_4_0',
+            name: 'Systemdatum',
+            type: types.DateTime_1_None,
+            getRawValue: getRawValueFunctions._0010_2271_0100_000_4_0,
+            parts: [{
+                offset: 0,
+                mask: 255,
+                isSigned: false,
+                factor: 1,
+            }, {
+                offset: 1,
+                mask: 255,
+                isSigned: false,
+                factor: 256,
+            }, {
+                offset: 2,
+                mask: 255,
+                isSigned: false,
+                factor: 65536,
+            }, {
+                offset: 3,
+                mask: 255,
+                isSigned: true,
+                factor: 16777216,
+            }, ],
+        }, {
+            fieldId: '004_2_0',
+            name: 'Temperatur Sensor 1',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_2271_0100_004_2_0,
+            parts: [{
+                offset: 4,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 5,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '006_2_0',
+            name: 'Temperatur Sensor 2',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_2271_0100_006_2_0,
+            parts: [{
+                offset: 6,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 7,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '008_2_0',
+            name: 'Temperatur Sensor 3',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_2271_0100_008_2_0,
+            parts: [{
+                offset: 8,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 9,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '010_2_0',
+            name: 'Temperatur Sensor 4',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_2271_0100_010_2_0,
+            parts: [{
+                offset: 10,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 11,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '012_2_0',
+            name: 'TAGE',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_2271_0100_012_2_0,
+            parts: [{
+                offset: 12,
+                mask: 255,
+                isSigned: false,
+                factor: 1,
+            }, {
+                offset: 13,
+                mask: 255,
+                isSigned: true,
+                factor: 256,
+            }, ],
+        }, {
+            fieldId: '016_4_0',
+            name: 'Volumenstrom V40',
+            type: types.Number_1_LitersPerHour,
+            getRawValue: getRawValueFunctions._0010_2271_0100_016_4_0,
+            parts: [{
+                offset: 16,
+                mask: 255,
+                isSigned: false,
+                factor: 1,
+            }, {
+                offset: 17,
+                mask: 255,
+                isSigned: false,
+                factor: 256,
+            }, {
+                offset: 18,
+                mask: 255,
+                isSigned: false,
+                factor: 65536,
+            }, {
+                offset: 19,
+                mask: 255,
+                isSigned: true,
+                factor: 16777216,
+            }, ],
+        }, {
+            fieldId: '020_1_0',
+            name: 'Drehzahl Relais 1',
+            type: types.Number_1_Percent,
+            getRawValue: getRawValueFunctions._0010_2271_0100_020_1_0,
+            parts: [{
+                offset: 20,
+                mask: 255,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '021_1_0',
+            name: 'Drehzahl Relais 2',
+            type: types.Number_1_Percent,
+            getRawValue: getRawValueFunctions._0010_2271_0100_021_1_0,
+            parts: [{
+                offset: 21,
+                mask: 255,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '022_1_0',
+            name: 'Drehzahl Relais 3',
+            type: types.Number_1_Percent,
+            getRawValue: getRawValueFunctions._0010_2271_0100_022_1_0,
+            parts: [{
+                offset: 22,
+                mask: 255,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '024_4_0',
+            name: 'Wärmemenge',
+            type: types.Number_1_WattHours,
+            getRawValue: getRawValueFunctions._0010_2271_0100_024_4_0,
+            parts: [{
+                offset: 24,
+                mask: 255,
+                isSigned: false,
+                factor: 1,
+            }, {
+                offset: 25,
+                mask: 255,
+                isSigned: false,
+                factor: 256,
+            }, {
+                offset: 26,
+                mask: 255,
+                isSigned: false,
+                factor: 65536,
+            }, {
+                offset: 27,
+                mask: 255,
+                isSigned: true,
+                factor: 16777216,
+            }, ],
+        }, {
+            fieldId: '028_2_0',
+            name: 'SW-Version',
+            type: types.Number_0_01_None,
+            getRawValue: getRawValueFunctions._0010_2271_0100_028_2_0,
+            parts: [{
+                offset: 28,
+                mask: 255,
+                isSigned: false,
+                factor: 0.01,
+            }, {
+                offset: 29,
+                mask: 255,
+                isSigned: true,
+                factor: 2.56,
+            }, ],
+        }, {
+            fieldId: '032_4_0',
+            name: 'Betriebsstunden Relais 1',
+            type: types.Number_1_Hours,
+            getRawValue: getRawValueFunctions._0010_2271_0100_032_4_0,
+            parts: [{
+                offset: 32,
+                mask: 255,
+                isSigned: false,
+                factor: 1,
+            }, {
+                offset: 33,
+                mask: 255,
+                isSigned: false,
+                factor: 256,
+            }, {
+                offset: 34,
+                mask: 255,
+                isSigned: false,
+                factor: 65536,
+            }, {
+                offset: 35,
+                mask: 255,
+                isSigned: true,
+                factor: 16777216,
+            }, ],
+        }, {
+            fieldId: '036_4_0',
+            name: 'Betriebsstunden Relais 2',
+            type: types.Number_1_Hours,
+            getRawValue: getRawValueFunctions._0010_2271_0100_036_4_0,
+            parts: [{
+                offset: 36,
+                mask: 255,
+                isSigned: false,
+                factor: 1,
+            }, {
+                offset: 37,
+                mask: 255,
+                isSigned: false,
+                factor: 256,
+            }, {
+                offset: 38,
+                mask: 255,
+                isSigned: false,
+                factor: 65536,
+            }, {
+                offset: 39,
+                mask: 255,
+                isSigned: true,
+                factor: 16777216,
+            }, ],
+        }, {
+            fieldId: '040_4_0',
+            name: 'Betriebsstunden Relais 3',
+            type: types.Number_1_Hours,
+            getRawValue: getRawValueFunctions._0010_2271_0100_040_4_0,
+            parts: [{
+                offset: 40,
+                mask: 255,
+                isSigned: false,
+                factor: 1,
+            }, {
+                offset: 41,
+                mask: 255,
+                isSigned: false,
+                factor: 256,
+            }, {
+                offset: 42,
+                mask: 255,
+                isSigned: false,
+                factor: 65536,
+            }, {
+                offset: 43,
+                mask: 255,
+                isSigned: true,
+                factor: 16777216,
+            }, ],
+        }, {
+            fieldId: '044_1_1',
+            name: 'Urlaubsfunktion',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_2271_0100_044_1_1,
+            parts: [{
+                offset: 44,
+                mask: 1,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '045_1_0',
+            name: 'Blockierschutz 1',
+            type: types.Number_1_Percent,
+            getRawValue: getRawValueFunctions._0010_2271_0100_045_1_0,
+            parts: [{
+                offset: 45,
+                mask: 255,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '046_1_0',
+            name: 'Blockierschutz 2',
+            type: types.Number_1_Percent,
+            getRawValue: getRawValueFunctions._0010_2271_0100_046_1_0,
+            parts: [{
+                offset: 46,
+                mask: 255,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '047_1_0',
+            name: 'Blockierschutz 3',
+            type: types.Number_1_Percent,
+            getRawValue: getRawValueFunctions._0010_2271_0100_047_1_0,
+            parts: [{
+                offset: 47,
+                mask: 255,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '048_4_0',
+            name: 'Initalisieren',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_2271_0100_048_4_0,
+            parts: [{
+                offset: 48,
+                mask: 255,
+                isSigned: false,
+                factor: 1,
+            }, {
+                offset: 49,
+                mask: 255,
+                isSigned: false,
+                factor: 256,
+            }, {
+                offset: 50,
+                mask: 255,
+                isSigned: false,
+                factor: 65536,
+            }, {
+                offset: 51,
+                mask: 255,
+                isSigned: true,
+                factor: 16777216,
+            }, ],
+        }, {
+            fieldId: '052_4_0',
+            name: 'Befüllung',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_2271_0100_052_4_0,
+            parts: [{
+                offset: 52,
+                mask: 255,
+                isSigned: false,
+                factor: 1,
+            }, {
+                offset: 53,
+                mask: 255,
+                isSigned: false,
+                factor: 256,
+            }, {
+                offset: 54,
+                mask: 255,
+                isSigned: false,
+                factor: 65536,
+            }, {
+                offset: 55,
+                mask: 255,
+                isSigned: true,
+                factor: 16777216,
+            }, ],
+        }, {
+            fieldId: '054_4_0',
+            name: 'Stabilisieren',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_2271_0100_054_4_0,
+            parts: [{
+                offset: 54,
+                mask: 255,
+                isSigned: false,
+                factor: 1,
+            }, {
+                offset: 55,
+                mask: 255,
+                isSigned: false,
+                factor: 256,
+            }, {
+                offset: 56,
+                mask: 255,
+                isSigned: false,
+                factor: 65536,
+            }, {
+                offset: 57,
+                mask: 255,
+                isSigned: true,
+                factor: 16777216,
+            }, ],
+        }, {
+            fieldId: '060_1_0',
+            name: 'Pumpenverzögerung',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_2271_0100_060_1_0,
+            parts: [{
+                offset: 60,
+                mask: 255,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '061_1_1',
+            name: 'Überwärmeabfuhr',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_2271_0100_061_1_1,
+            parts: [{
+                offset: 61,
+                mask: 1,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '062_1_0',
+            name: 'Nachlauf',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_2271_0100_062_1_0,
+            parts: [{
+                offset: 62,
+                mask: 255,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '063_1_0',
+            name: 'Thermische Desinfektion',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_2271_0100_063_1_0,
+            parts: [{
+                offset: 63,
+                mask: 255,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '064_1_1',
+            name: 'Speicherkühlung',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_2271_0100_064_1_1,
+            parts: [{
+                offset: 64,
+                mask: 1,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '065_1_1',
+            name: 'Systemkühlung',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_2271_0100_065_1_1,
+            parts: [{
+                offset: 65,
+                mask: 1,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '066_1_0',
+            name: 'Spreizung',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_2271_0100_066_1_0,
+            parts: [{
+                offset: 66,
+                mask: 255,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '067_1_0',
+            name: 'Frostschutz',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_2271_0100_067_1_0,
+            parts: [{
+                offset: 67,
+                mask: 255,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '068_1_1',
+            name: 'Kollektorkühlung',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_2271_0100_068_1_1,
+            parts: [{
+                offset: 68,
+                mask: 1,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '069_1_1',
+            name: 'Speichermaximaltemperatur',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_2271_0100_069_1_1,
+            parts: [{
+                offset: 69,
+                mask: 1,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '070_1_1',
+            name: 'Neustarts',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_2271_0100_070_1_1,
+            parts: [{
+                offset: 70,
+                mask: 1,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '072_4_0',
+            name: 'Fehlermaske',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_2271_0100_072_4_0,
+            parts: [{
+                offset: 72,
+                mask: 255,
+                isSigned: false,
+                factor: 1,
+            }, {
+                offset: 73,
+                mask: 255,
+                isSigned: false,
+                factor: 256,
+            }, {
+                offset: 74,
+                mask: 255,
+                isSigned: false,
+                factor: 65536,
+            }, {
+                offset: 75,
+                mask: 255,
+                isSigned: true,
+                factor: 16777216,
+            }, ],
+        }, ],
+        _0010_2272_0100: [{
+            fieldId: '000_4_0',
+            name: 'Wert',
+            type: types.Number_1_WattHours,
+            getRawValue: getRawValueFunctions._0010_2272_0100_000_4_0,
+            parts: [{
+                offset: 0,
+                mask: 255,
+                isSigned: false,
+                factor: 1,
+            }, {
+                offset: 1,
+                mask: 255,
+                isSigned: false,
+                factor: 256,
+            }, {
+                offset: 2,
+                mask: 255,
+                isSigned: false,
+                factor: 65536,
+            }, {
+                offset: 3,
+                mask: 255,
+                isSigned: true,
+                factor: 16777216,
+            }, ],
+        }, {
+            fieldId: '004_4_0',
+            name: 'Leistung',
+            type: types.Number_1_Watts,
+            getRawValue: getRawValueFunctions._0010_2272_0100_004_4_0,
+            parts: [{
+                offset: 4,
+                mask: 255,
+                isSigned: false,
+                factor: 1,
+            }, {
+                offset: 5,
+                mask: 255,
+                isSigned: false,
+                factor: 256,
+            }, {
+                offset: 6,
+                mask: 255,
+                isSigned: false,
+                factor: 65536,
+            }, {
+                offset: 7,
+                mask: 255,
+                isSigned: true,
+                factor: 16777216,
+            }, ],
+        }, {
+            fieldId: '008_4_0',
+            name: 'Wert heute',
+            type: types.Number_1_WattHours,
+            getRawValue: getRawValueFunctions._0010_2272_0100_008_4_0,
+            parts: [{
+                offset: 8,
+                mask: 255,
+                isSigned: false,
+                factor: 1,
+            }, {
+                offset: 9,
+                mask: 255,
+                isSigned: false,
+                factor: 256,
+            }, {
+                offset: 10,
+                mask: 255,
+                isSigned: false,
+                factor: 65536,
+            }, {
+                offset: 11,
+                mask: 255,
+                isSigned: true,
+                factor: 16777216,
+            }, ],
+        }, {
+            fieldId: '012_4_0',
+            name: 'Wert Woche',
+            type: types.Number_1_WattHours,
+            getRawValue: getRawValueFunctions._0010_2272_0100_012_4_0,
             parts: [{
                 offset: 12,
                 mask: 255,
@@ -46855,6 +55718,237 @@ var createVBusSpecificationData = function() {
                 factor: 2.56,
             }, ],
         }, ],
+        _0010_5251_0100: [{
+            fieldId: '036_4_0',
+            name: 'Volumenstrom VFS / FlowSonic',
+            type: types.Number_1_LitersPerHour,
+            getRawValue: getRawValueFunctions._0010_5251_0100_036_4_0,
+            parts: [{
+                offset: 36,
+                mask: 255,
+                isSigned: false,
+                factor: 1,
+            }, {
+                offset: 37,
+                mask: 255,
+                isSigned: false,
+                factor: 256,
+            }, {
+                offset: 38,
+                mask: 255,
+                isSigned: false,
+                factor: 65536,
+            }, {
+                offset: 39,
+                mask: 255,
+                isSigned: true,
+                factor: 16777216,
+            }, ],
+        }, {
+            fieldId: '022_2_0',
+            name: 'Temperatur VFS',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_5251_0100_022_2_0,
+            parts: [{
+                offset: 22,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 23,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '000_2_0',
+            name: 'Temperatur Sensor 1',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_5251_0100_000_2_0,
+            parts: [{
+                offset: 0,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 1,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '002_2_0',
+            name: 'Temperatur Sensor 2',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_5251_0100_002_2_0,
+            parts: [{
+                offset: 2,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 3,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '004_2_0',
+            name: 'Temperatur Sensor 3',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_5251_0100_004_2_0,
+            parts: [{
+                offset: 4,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 5,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '006_2_0',
+            name: 'Temperatur Sensor 4',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_5251_0100_006_2_0,
+            parts: [{
+                offset: 6,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 7,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '008_2_0',
+            name: 'Temperatur Sensor 5',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_5251_0100_008_2_0,
+            parts: [{
+                offset: 8,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 9,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '010_2_0',
+            name: 'Temperatur Sensor 6',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_5251_0100_010_2_0,
+            parts: [{
+                offset: 10,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 11,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '056_1_0',
+            name: 'Drehzahl Ausgang PWM 1',
+            type: types.Number_1_Percent,
+            getRawValue: getRawValueFunctions._0010_5251_0100_056_1_0,
+            parts: [{
+                offset: 56,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '057_1_0',
+            name: 'Drehzahl Ausgang PWM 2',
+            type: types.Number_1_Percent,
+            getRawValue: getRawValueFunctions._0010_5251_0100_057_1_0,
+            parts: [{
+                offset: 57,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '049_1_0',
+            name: 'Drehzahl Relais 1',
+            type: types.Number_1_Percent,
+            getRawValue: getRawValueFunctions._0010_5251_0100_049_1_0,
+            parts: [{
+                offset: 49,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '050_1_0',
+            name: 'Drehzahl Relais 2',
+            type: types.Number_1_Percent,
+            getRawValue: getRawValueFunctions._0010_5251_0100_050_1_0,
+            parts: [{
+                offset: 50,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '051_1_0',
+            name: 'Drehzahl Relais 3',
+            type: types.Number_1_Percent,
+            getRawValue: getRawValueFunctions._0010_5251_0100_051_1_0,
+            parts: [{
+                offset: 51,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '052_1_0',
+            name: 'Drehzahl Relais 4',
+            type: types.Number_1_Percent,
+            getRawValue: getRawValueFunctions._0010_5251_0100_052_1_0,
+            parts: [{
+                offset: 52,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '112_4_0',
+            name: 'Systemdatum',
+            type: types.DateTime_1_None,
+            getRawValue: getRawValueFunctions._0010_5251_0100_112_4_0,
+            parts: [{
+                offset: 112,
+                mask: 255,
+                isSigned: false,
+                factor: 1,
+            }, {
+                offset: 113,
+                mask: 255,
+                isSigned: false,
+                factor: 256,
+            }, {
+                offset: 114,
+                mask: 255,
+                isSigned: false,
+                factor: 65536,
+            }, {
+                offset: 115,
+                mask: 255,
+                isSigned: true,
+                factor: 16777216,
+            }, ],
+        }, ],
         _0010_5311_0100: [{
             fieldId: '000_2_0',
             name: 'Temperatur Sensor 1',
@@ -49948,7 +59042,7 @@ var createVBusSpecificationData = function() {
             }, ],
         }, {
             fieldId: '040_1_0',
-            name: 'Drehzahl Relais 1',
+            name: 'Relais 1',
             type: types.Number_1_Percent,
             getRawValue: getRawValueFunctions._0010_7112_0100_040_1_0,
             parts: [{
@@ -49959,7 +59053,7 @@ var createVBusSpecificationData = function() {
             }, ],
         }, {
             fieldId: '041_1_0',
-            name: 'Drehzahl Relais 2',
+            name: 'Relais 2',
             type: types.Number_1_Percent,
             getRawValue: getRawValueFunctions._0010_7112_0100_041_1_0,
             parts: [{
@@ -49970,7 +59064,7 @@ var createVBusSpecificationData = function() {
             }, ],
         }, {
             fieldId: '042_1_0',
-            name: 'Drehzahl Relais 3',
+            name: 'Relais 3',
             type: types.Number_1_Percent,
             getRawValue: getRawValueFunctions._0010_7112_0100_042_1_0,
             parts: [{
@@ -49981,7 +59075,7 @@ var createVBusSpecificationData = function() {
             }, ],
         }, {
             fieldId: '043_1_0',
-            name: 'Drehzahl Relais 4',
+            name: 'Relais 4',
             type: types.Number_1_Percent,
             getRawValue: getRawValueFunctions._0010_7112_0100_043_1_0,
             parts: [{
@@ -49992,11 +59086,33 @@ var createVBusSpecificationData = function() {
             }, ],
         }, {
             fieldId: '044_1_0',
-            name: 'Drehzahl Relais 5',
+            name: 'Relais 5',
             type: types.Number_1_Percent,
             getRawValue: getRawValueFunctions._0010_7112_0100_044_1_0,
             parts: [{
                 offset: 44,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '064_1_0',
+            name: 'PWM/0-10V A',
+            type: types.Number_1_Percent,
+            getRawValue: getRawValueFunctions._0010_7112_0100_064_1_0,
+            parts: [{
+                offset: 64,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '065_1_0',
+            name: 'PWM/0-10V B',
+            type: types.Number_1_Percent,
+            getRawValue: getRawValueFunctions._0010_7112_0100_065_1_0,
+            parts: [{
+                offset: 65,
                 mask: 255,
                 isSigned: 0,
                 factor: 1,
@@ -50349,6 +59465,32 @@ var createVBusSpecificationData = function() {
                 factor: 65536,
             }, {
                 offset: 15,
+                mask: 255,
+                isSigned: true,
+                factor: 16777216,
+            }, ],
+        }, {
+            fieldId: '016_4_0',
+            name: 'Gesamtvolumen',
+            type: types.Number_1_Liters,
+            getRawValue: getRawValueFunctions._0010_7130_0100_016_4_0,
+            parts: [{
+                offset: 16,
+                mask: 255,
+                isSigned: false,
+                factor: 1,
+            }, {
+                offset: 17,
+                mask: 255,
+                isSigned: false,
+                factor: 256,
+            }, {
+                offset: 18,
+                mask: 255,
+                isSigned: false,
+                factor: 65536,
+            }, {
+                offset: 19,
                 mask: 255,
                 isSigned: true,
                 factor: 16777216,
@@ -59081,6 +68223,494 @@ var createVBusSpecificationData = function() {
                 mask: 2,
                 isSigned: true,
                 factor: 1,
+            }, ],
+        }, ],
+        _0010_7441_0100: [{
+            fieldId: '004_2_0',
+            name: 'Temperatur Sensor 1',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_7441_0100_004_2_0,
+            parts: [{
+                offset: 4,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 5,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '006_2_0',
+            name: 'Temperatur Sensor 2',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_7441_0100_006_2_0,
+            parts: [{
+                offset: 6,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 7,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '008_2_0',
+            name: 'Temperatur Sensor 3',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_7441_0100_008_2_0,
+            parts: [{
+                offset: 8,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 9,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '010_2_0',
+            name: 'Temperatur Sensor 4',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_7441_0100_010_2_0,
+            parts: [{
+                offset: 10,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 11,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '012_1_0',
+            name: 'Drehzahl Relais 1',
+            type: types.Number_1_Percent,
+            getRawValue: getRawValueFunctions._0010_7441_0100_012_1_0,
+            parts: [{
+                offset: 12,
+                mask: 255,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '013_1_0',
+            name: 'Drehzahl Relais 2',
+            type: types.Number_1_Percent,
+            getRawValue: getRawValueFunctions._0010_7441_0100_013_1_0,
+            parts: [{
+                offset: 13,
+                mask: 255,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '014_1_0',
+            name: 'Regler Ausgang 1',
+            type: types.Number_1_Percent,
+            getRawValue: getRawValueFunctions._0010_7441_0100_014_1_0,
+            parts: [{
+                offset: 14,
+                mask: 255,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '016_4_0',
+            name: 'Wmz1_Wert_Wh',
+            type: types.Number_1_WattHours,
+            getRawValue: getRawValueFunctions._0010_7441_0100_016_4_0,
+            parts: [{
+                offset: 16,
+                mask: 255,
+                isSigned: false,
+                factor: 1,
+            }, {
+                offset: 17,
+                mask: 255,
+                isSigned: false,
+                factor: 256,
+            }, {
+                offset: 18,
+                mask: 255,
+                isSigned: false,
+                factor: 65536,
+            }, {
+                offset: 19,
+                mask: 255,
+                isSigned: true,
+                factor: 16777216,
+            }, ],
+        }, {
+            fieldId: '020_4_0',
+            name: 'SW-Version',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_7441_0100_020_4_0,
+            parts: [{
+                offset: 20,
+                mask: 255,
+                isSigned: false,
+                factor: 1,
+            }, {
+                offset: 21,
+                mask: 255,
+                isSigned: false,
+                factor: 256,
+            }, {
+                offset: 22,
+                mask: 255,
+                isSigned: false,
+                factor: 65536,
+            }, {
+                offset: 23,
+                mask: 255,
+                isSigned: true,
+                factor: 16777216,
+            }, ],
+        }, {
+            fieldId: '024_4_0',
+            name: 'Betriebssekunden Relais 1',
+            type: types.Number_1_Seconds,
+            getRawValue: getRawValueFunctions._0010_7441_0100_024_4_0,
+            parts: [{
+                offset: 24,
+                mask: 255,
+                isSigned: false,
+                factor: 1,
+            }, {
+                offset: 25,
+                mask: 255,
+                isSigned: false,
+                factor: 256,
+            }, {
+                offset: 26,
+                mask: 255,
+                isSigned: false,
+                factor: 65536,
+            }, {
+                offset: 27,
+                mask: 255,
+                isSigned: true,
+                factor: 16777216,
+            }, ],
+        }, {
+            fieldId: '028_4_0',
+            name: 'Betriebssekunden Relais 2',
+            type: types.Number_1_Seconds,
+            getRawValue: getRawValueFunctions._0010_7441_0100_028_4_0,
+            parts: [{
+                offset: 28,
+                mask: 255,
+                isSigned: false,
+                factor: 1,
+            }, {
+                offset: 29,
+                mask: 255,
+                isSigned: false,
+                factor: 256,
+            }, {
+                offset: 30,
+                mask: 255,
+                isSigned: false,
+                factor: 65536,
+            }, {
+                offset: 31,
+                mask: 255,
+                isSigned: true,
+                factor: 16777216,
+            }, ],
+        }, {
+            fieldId: '032_4_0',
+            name: 'Initalisieren',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_7441_0100_032_4_0,
+            parts: [{
+                offset: 32,
+                mask: 255,
+                isSigned: false,
+                factor: 1,
+            }, {
+                offset: 33,
+                mask: 255,
+                isSigned: false,
+                factor: 256,
+            }, {
+                offset: 34,
+                mask: 255,
+                isSigned: false,
+                factor: 65536,
+            }, {
+                offset: 35,
+                mask: 255,
+                isSigned: true,
+                factor: 16777216,
+            }, ],
+        }, {
+            fieldId: '036_4_0',
+            name: 'Befüllung',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_7441_0100_036_4_0,
+            parts: [{
+                offset: 36,
+                mask: 255,
+                isSigned: false,
+                factor: 1,
+            }, {
+                offset: 37,
+                mask: 255,
+                isSigned: false,
+                factor: 256,
+            }, {
+                offset: 38,
+                mask: 255,
+                isSigned: false,
+                factor: 65536,
+            }, {
+                offset: 39,
+                mask: 255,
+                isSigned: true,
+                factor: 16777216,
+            }, ],
+        }, {
+            fieldId: '040_4_0',
+            name: 'Stabilisieren',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_7441_0100_040_4_0,
+            parts: [{
+                offset: 40,
+                mask: 255,
+                isSigned: false,
+                factor: 1,
+            }, {
+                offset: 41,
+                mask: 255,
+                isSigned: false,
+                factor: 256,
+            }, {
+                offset: 42,
+                mask: 255,
+                isSigned: false,
+                factor: 65536,
+            }, {
+                offset: 43,
+                mask: 255,
+                isSigned: true,
+                factor: 16777216,
+            }, ],
+        }, {
+            fieldId: '044_1_0',
+            name: 'Frostschutz',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_7441_0100_044_1_0,
+            parts: [{
+                offset: 44,
+                mask: 255,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '045_1_1',
+            name: 'Einheit Temperatur',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_7441_0100_045_1_1,
+            parts: [{
+                offset: 45,
+                mask: 1,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '046_1_1',
+            name: 'Einheit Durchfluss',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_7441_0100_046_1_1,
+            parts: [{
+                offset: 46,
+                mask: 1,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '047_1_1',
+            name: 'Einheit Druck',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_7441_0100_047_1_1,
+            parts: [{
+                offset: 47,
+                mask: 1,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '048_1_1',
+            name: 'Einheit Leistung',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_7441_0100_048_1_1,
+            parts: [{
+                offset: 48,
+                mask: 1,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '049_1_1',
+            name: 'Einheit Energie',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_7441_0100_049_1_1,
+            parts: [{
+                offset: 49,
+                mask: 1,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '050_1_1',
+            name: 'VDI dT zu hoch',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_7441_0100_050_1_1,
+            parts: [{
+                offset: 50,
+                mask: 1,
+                isSigned: true,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '052_4_0',
+            name: 'Fehlermaske',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_7441_0100_052_4_0,
+            parts: [{
+                offset: 52,
+                mask: 255,
+                isSigned: false,
+                factor: 1,
+            }, {
+                offset: 53,
+                mask: 255,
+                isSigned: false,
+                factor: 256,
+            }, {
+                offset: 54,
+                mask: 255,
+                isSigned: false,
+                factor: 65536,
+            }, {
+                offset: 55,
+                mask: 255,
+                isSigned: true,
+                factor: 16777216,
+            }, ],
+        }, ],
+        _0010_7442_0100: [{
+            fieldId: '000_4_0',
+            name: 'Wmz1_Wert_Wh',
+            type: types.Number_1_WattHours,
+            getRawValue: getRawValueFunctions._0010_7442_0100_000_4_0,
+            parts: [{
+                offset: 0,
+                mask: 255,
+                isSigned: false,
+                factor: 1,
+            }, {
+                offset: 1,
+                mask: 255,
+                isSigned: false,
+                factor: 256,
+            }, {
+                offset: 2,
+                mask: 255,
+                isSigned: false,
+                factor: 65536,
+            }, {
+                offset: 3,
+                mask: 255,
+                isSigned: true,
+                factor: 16777216,
+            }, ],
+        }, {
+            fieldId: '004_4_0',
+            name: 'Wmz1_Leistung_W',
+            type: types.Number_1_Watts,
+            getRawValue: getRawValueFunctions._0010_7442_0100_004_4_0,
+            parts: [{
+                offset: 4,
+                mask: 255,
+                isSigned: false,
+                factor: 1,
+            }, {
+                offset: 5,
+                mask: 255,
+                isSigned: false,
+                factor: 256,
+            }, {
+                offset: 6,
+                mask: 255,
+                isSigned: false,
+                factor: 65536,
+            }, {
+                offset: 7,
+                mask: 255,
+                isSigned: true,
+                factor: 16777216,
+            }, ],
+        }, {
+            fieldId: '008_4_0',
+            name: 'Wmz1_WertHeute_Wh',
+            type: types.Number_1_WattHours,
+            getRawValue: getRawValueFunctions._0010_7442_0100_008_4_0,
+            parts: [{
+                offset: 8,
+                mask: 255,
+                isSigned: false,
+                factor: 1,
+            }, {
+                offset: 9,
+                mask: 255,
+                isSigned: false,
+                factor: 256,
+            }, {
+                offset: 10,
+                mask: 255,
+                isSigned: false,
+                factor: 65536,
+            }, {
+                offset: 11,
+                mask: 255,
+                isSigned: true,
+                factor: 16777216,
+            }, ],
+        }, {
+            fieldId: '012_4_0',
+            name: 'Wmz1_WertWoche_Wh',
+            type: types.Number_1_WattHours,
+            getRawValue: getRawValueFunctions._0010_7442_0100_012_4_0,
+            parts: [{
+                offset: 12,
+                mask: 255,
+                isSigned: false,
+                factor: 1,
+            }, {
+                offset: 13,
+                mask: 255,
+                isSigned: false,
+                factor: 256,
+            }, {
+                offset: 14,
+                mask: 255,
+                isSigned: false,
+                factor: 65536,
+            }, {
+                offset: 15,
+                mask: 255,
+                isSigned: true,
+                factor: 16777216,
             }, ],
         }, ],
         _0010_7511_0100: [{
@@ -67836,6 +77466,658 @@ var createVBusSpecificationData = function() {
                 factor: 1,
             }, ],
         }, ],
+        _0010_7910_0100: [{
+            fieldId: '000_2_0',
+            name: 'Temperatur Sensor 1',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_7910_0100_000_2_0,
+            parts: [{
+                offset: 0,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 1,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '002_2_0',
+            name: 'Temperatur Sensor 2',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_7910_0100_002_2_0,
+            parts: [{
+                offset: 2,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 3,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '004_2_0',
+            name: 'Temperatur Sensor 3',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_7910_0100_004_2_0,
+            parts: [{
+                offset: 4,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 5,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '006_2_0',
+            name: 'Temperatur Sensor 4',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_7910_0100_006_2_0,
+            parts: [{
+                offset: 6,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 7,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '008_2_0',
+            name: 'Temperatur Sensor 5',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_7910_0100_008_2_0,
+            parts: [{
+                offset: 8,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 9,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '010_2_0',
+            name: 'Temperatur Sensor 6',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_7910_0100_010_2_0,
+            parts: [{
+                offset: 10,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 11,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '012_2_0',
+            name: 'Temperatur Sensor 7',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_7910_0100_012_2_0,
+            parts: [{
+                offset: 12,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 13,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '014_2_0',
+            name: 'Temperatur Sensor 8',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_7910_0100_014_2_0,
+            parts: [{
+                offset: 14,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 15,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '016_2_0',
+            name: 'Temperatur Sensor 9',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_7910_0100_016_2_0,
+            parts: [{
+                offset: 16,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 17,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '018_2_0',
+            name: 'Temperatur Sensor 10',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_7910_0100_018_2_0,
+            parts: [{
+                offset: 18,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 19,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '020_4_0',
+            name: 'Volumenstrom Sensor S10/V40',
+            type: types.Number_1_LitersPerHour,
+            getRawValue: getRawValueFunctions._0010_7910_0100_020_4_0,
+            parts: [{
+                offset: 20,
+                mask: 255,
+                isSigned: false,
+                factor: 1,
+            }, {
+                offset: 21,
+                mask: 255,
+                isSigned: false,
+                factor: 256,
+            }, {
+                offset: 22,
+                mask: 255,
+                isSigned: false,
+                factor: 65536,
+            }, {
+                offset: 23,
+                mask: 255,
+                isSigned: true,
+                factor: 16777216,
+            }, ],
+        }, {
+            fieldId: '024_2_0',
+            name: 'Einstrahlung Sensor CS10',
+            type: types.Number_1_WattsPerSquareMeter,
+            getRawValue: getRawValueFunctions._0010_7910_0100_024_2_0,
+            parts: [{
+                offset: 24,
+                mask: 255,
+                isSigned: false,
+                factor: 1,
+            }, {
+                offset: 25,
+                mask: 255,
+                isSigned: true,
+                factor: 256,
+            }, ],
+        }, {
+            fieldId: '026_2_0',
+            name: 'Druck Sensor RPS',
+            type: types.Number_0_01_Bars,
+            getRawValue: getRawValueFunctions._0010_7910_0100_026_2_0,
+            parts: [{
+                offset: 26,
+                mask: 255,
+                isSigned: false,
+                factor: 0.01,
+            }, {
+                offset: 27,
+                mask: 255,
+                isSigned: true,
+                factor: 2.56,
+            }, ],
+        }, {
+            fieldId: '028_4_0',
+            name: 'Volumenstrom Sensor FlowRotor',
+            type: types.Number_1_LitersPerHour,
+            getRawValue: getRawValueFunctions._0010_7910_0100_028_4_0,
+            parts: [{
+                offset: 28,
+                mask: 255,
+                isSigned: false,
+                factor: 1,
+            }, {
+                offset: 29,
+                mask: 255,
+                isSigned: false,
+                factor: 256,
+            }, {
+                offset: 30,
+                mask: 255,
+                isSigned: false,
+                factor: 65536,
+            }, {
+                offset: 31,
+                mask: 255,
+                isSigned: true,
+                factor: 16777216,
+            }, ],
+        }, {
+            fieldId: '032_1_0',
+            name: 'Drehzahl Relais 1',
+            type: types.Number_1_Percent,
+            getRawValue: getRawValueFunctions._0010_7910_0100_032_1_0,
+            parts: [{
+                offset: 32,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '033_1_0',
+            name: 'Drehzahl Relais 2',
+            type: types.Number_1_Percent,
+            getRawValue: getRawValueFunctions._0010_7910_0100_033_1_0,
+            parts: [{
+                offset: 33,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '034_1_0',
+            name: 'Drehzahl Relais 3',
+            type: types.Number_1_Percent,
+            getRawValue: getRawValueFunctions._0010_7910_0100_034_1_0,
+            parts: [{
+                offset: 34,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '035_1_0',
+            name: 'Drehzahl Relais 4',
+            type: types.Number_1_Percent,
+            getRawValue: getRawValueFunctions._0010_7910_0100_035_1_0,
+            parts: [{
+                offset: 35,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '036_1_0',
+            name: 'Drehzahl Relais 5',
+            type: types.Number_1_Percent,
+            getRawValue: getRawValueFunctions._0010_7910_0100_036_1_0,
+            parts: [{
+                offset: 36,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, ],
+        }, {
+            fieldId: '040_4_0',
+            name: 'Systemdatum',
+            type: types.DateTime_1_None,
+            getRawValue: getRawValueFunctions._0010_7910_0100_040_4_0,
+            parts: [{
+                offset: 40,
+                mask: 255,
+                isSigned: false,
+                factor: 1,
+            }, {
+                offset: 41,
+                mask: 255,
+                isSigned: false,
+                factor: 256,
+            }, {
+                offset: 42,
+                mask: 255,
+                isSigned: false,
+                factor: 65536,
+            }, {
+                offset: 43,
+                mask: 255,
+                isSigned: true,
+                factor: 16777216,
+            }, ],
+        }, {
+            fieldId: '044_4_0',
+            name: 'Fehlermaske',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_7910_0100_044_4_0,
+            parts: [{
+                offset: 44,
+                mask: 255,
+                isSigned: false,
+                factor: 1,
+            }, {
+                offset: 45,
+                mask: 255,
+                isSigned: false,
+                factor: 256,
+            }, {
+                offset: 46,
+                mask: 255,
+                isSigned: false,
+                factor: 65536,
+            }, {
+                offset: 47,
+                mask: 255,
+                isSigned: true,
+                factor: 16777216,
+            }, ],
+        }, ],
+        _0010_7911_0100: [{
+            fieldId: '000_2_0',
+            name: 'Temperatur Modul 1 Sensor 1',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_7911_0100_000_2_0,
+            parts: [{
+                offset: 0,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 1,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '002_2_0',
+            name: 'Temperatur Modul 1 Sensor 2',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_7911_0100_002_2_0,
+            parts: [{
+                offset: 2,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 3,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '004_2_0',
+            name: 'Temperatur Modul 1 Sensor 3',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_7911_0100_004_2_0,
+            parts: [{
+                offset: 4,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 5,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '006_2_0',
+            name: 'Temperatur Modul 1 Sensor 4',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_7911_0100_006_2_0,
+            parts: [{
+                offset: 6,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 7,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '008_2_0',
+            name: 'Temperatur Modul 1 Sensor 5',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_7911_0100_008_2_0,
+            parts: [{
+                offset: 8,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 9,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '010_2_0',
+            name: 'Temperatur Modul 1 Sensor 6',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_7911_0100_010_2_0,
+            parts: [{
+                offset: 10,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 11,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '012_2_0',
+            name: 'Temperatur Modul 2 Sensor 1',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_7911_0100_012_2_0,
+            parts: [{
+                offset: 12,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 13,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '014_2_0',
+            name: 'Temperatur Modul 2 Sensor 2',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_7911_0100_014_2_0,
+            parts: [{
+                offset: 14,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 15,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '016_2_0',
+            name: 'Temperatur Modul 2 Sensor 3',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_7911_0100_016_2_0,
+            parts: [{
+                offset: 16,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 17,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '018_2_0',
+            name: 'Temperatur Modul 2 Sensor 4',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_7911_0100_018_2_0,
+            parts: [{
+                offset: 18,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 19,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '020_2_0',
+            name: 'Temperatur Modul 2 Sensor 5',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_7911_0100_020_2_0,
+            parts: [{
+                offset: 20,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 21,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '022_2_0',
+            name: 'Temperatur Modul 2 Sensor 6',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_7911_0100_022_2_0,
+            parts: [{
+                offset: 22,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 23,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, ],
+        _0010_7920_0100: [{
+            fieldId: '000_2_0',
+            name: 'Vorlauf-Soll-Temperatur',
+            type: types.Number_0_1_DegreesCelsius,
+            getRawValue: getRawValueFunctions._0010_7920_0100_000_2_0,
+            parts: [{
+                offset: 0,
+                mask: 255,
+                isSigned: false,
+                factor: 0.1,
+            }, {
+                offset: 1,
+                mask: 255,
+                isSigned: true,
+                factor: 25.6,
+            }, ],
+        }, {
+            fieldId: '002_1_0',
+            name: 'Betriebsstatus',
+            type: types.Number_1_None,
+            getRawValue: getRawValueFunctions._0010_7920_0100_002_1_0,
+            parts: [{
+                offset: 2,
+                mask: 255,
+                isSigned: 0,
+                factor: 1,
+            }, ],
+        }, ],
+        _0010_7930_0100: [{
+            fieldId: '000_4_0',
+            name: 'Wärmemenge',
+            type: types.Number_1_WattHours,
+            getRawValue: getRawValueFunctions._0010_7930_0100_000_4_0,
+            parts: [{
+                offset: 0,
+                mask: 255,
+                isSigned: false,
+                factor: 1,
+            }, {
+                offset: 1,
+                mask: 255,
+                isSigned: false,
+                factor: 256,
+            }, {
+                offset: 2,
+                mask: 255,
+                isSigned: false,
+                factor: 65536,
+            }, {
+                offset: 3,
+                mask: 255,
+                isSigned: true,
+                factor: 16777216,
+            }, ],
+        }, {
+            fieldId: '008_4_0',
+            name: 'Wärmemenge heute',
+            type: types.Number_1_WattHours,
+            getRawValue: getRawValueFunctions._0010_7930_0100_008_4_0,
+            parts: [{
+                offset: 8,
+                mask: 255,
+                isSigned: false,
+                factor: 1,
+            }, {
+                offset: 9,
+                mask: 255,
+                isSigned: false,
+                factor: 256,
+            }, {
+                offset: 10,
+                mask: 255,
+                isSigned: false,
+                factor: 65536,
+            }, {
+                offset: 11,
+                mask: 255,
+                isSigned: true,
+                factor: 16777216,
+            }, ],
+        }, {
+            fieldId: '012_4_0',
+            name: 'Wärmemenge Woche',
+            type: types.Number_1_WattHours,
+            getRawValue: getRawValueFunctions._0010_7930_0100_012_4_0,
+            parts: [{
+                offset: 12,
+                mask: 255,
+                isSigned: false,
+                factor: 1,
+            }, {
+                offset: 13,
+                mask: 255,
+                isSigned: false,
+                factor: 256,
+            }, {
+                offset: 14,
+                mask: 255,
+                isSigned: false,
+                factor: 65536,
+            }, {
+                offset: 15,
+                mask: 255,
+                isSigned: true,
+                factor: 16777216,
+            }, ],
+        }, ],
         _0010_7D04_0100: [{
             fieldId: '000_2_0',
             name: 'Temperatur Warmwasser',
@@ -72555,6 +82837,38 @@ var createVBusSpecificationData = function() {
             packetId: '0010_0053_0100',
             packetFields: packetFieldSpecs._0010_0053_0100,
         },
+        _0010_1001_0100: {
+            packetId: '0010_1001_0100',
+            packetFields: packetFieldSpecs._0010_1001_0100,
+        },
+        _0010_1010_0100: {
+            packetId: '0010_1010_0100',
+            packetFields: packetFieldSpecs._0010_1010_0100,
+        },
+        _0010_1040_0100: {
+            packetId: '0010_1040_0100',
+            packetFields: packetFieldSpecs._0010_1040_0100,
+        },
+        _0010_1050_0100: {
+            packetId: '0010_1050_0100',
+            packetFields: packetFieldSpecs._0010_1050_0100,
+        },
+        _0010_1051_0100: {
+            packetId: '0010_1051_0100',
+            packetFields: packetFieldSpecs._0010_1051_0100,
+        },
+        _0010_1058_0100: {
+            packetId: '0010_1058_0100',
+            packetFields: packetFieldSpecs._0010_1058_0100,
+        },
+        _0010_1060_0100: {
+            packetId: '0010_1060_0100',
+            packetFields: packetFieldSpecs._0010_1060_0100,
+        },
+        _0010_1064_0100: {
+            packetId: '0010_1064_0100',
+            packetFields: packetFieldSpecs._0010_1064_0100,
+        },
         _0010_1120_0100: {
             packetId: '0010_1120_0100',
             packetFields: packetFieldSpecs._0010_1120_0100,
@@ -72578,6 +82892,14 @@ var createVBusSpecificationData = function() {
         _0010_2252_0100: {
             packetId: '0010_2252_0100',
             packetFields: packetFieldSpecs._0010_2252_0100,
+        },
+        _0010_2271_0100: {
+            packetId: '0010_2271_0100',
+            packetFields: packetFieldSpecs._0010_2271_0100,
+        },
+        _0010_2272_0100: {
+            packetId: '0010_2272_0100',
+            packetFields: packetFieldSpecs._0010_2272_0100,
         },
         _0010_3011_0100: {
             packetId: '0010_3011_0100',
@@ -72714,6 +83036,10 @@ var createVBusSpecificationData = function() {
         _0010_5231_0100: {
             packetId: '0010_5231_0100',
             packetFields: packetFieldSpecs._0010_5231_0100,
+        },
+        _0010_5251_0100: {
+            packetId: '0010_5251_0100',
+            packetFields: packetFieldSpecs._0010_5251_0100,
         },
         _0010_5311_0100: {
             packetId: '0010_5311_0100',
@@ -72895,6 +83221,14 @@ var createVBusSpecificationData = function() {
             packetId: '0010_7428_0100',
             packetFields: packetFieldSpecs._0010_7428_0100,
         },
+        _0010_7441_0100: {
+            packetId: '0010_7441_0100',
+            packetFields: packetFieldSpecs._0010_7441_0100,
+        },
+        _0010_7442_0100: {
+            packetId: '0010_7442_0100',
+            packetFields: packetFieldSpecs._0010_7442_0100,
+        },
         _0010_7511_0100: {
             packetId: '0010_7511_0100',
             packetFields: packetFieldSpecs._0010_7511_0100,
@@ -72990,6 +83324,22 @@ var createVBusSpecificationData = function() {
         _0010_7830_0100: {
             packetId: '0010_7830_0100',
             packetFields: packetFieldSpecs._0010_7830_0100,
+        },
+        _0010_7910_0100: {
+            packetId: '0010_7910_0100',
+            packetFields: packetFieldSpecs._0010_7910_0100,
+        },
+        _0010_7911_0100: {
+            packetId: '0010_7911_0100',
+            packetFields: packetFieldSpecs._0010_7911_0100,
+        },
+        _0010_7920_0100: {
+            packetId: '0010_7920_0100',
+            packetFields: packetFieldSpecs._0010_7920_0100,
+        },
+        _0010_7930_0100: {
+            packetId: '0010_7930_0100',
+            packetFields: packetFieldSpecs._0010_7930_0100,
         },
         _0010_7D04_0100: {
             packetId: '0010_7D04_0100',
@@ -73220,6 +83570,88 @@ var createVBusSpecificationData = function() {
             packetSpec = packetSpecs._0000_6650_0100;
         } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x0053) && (command === 0x0100)) {
             packetSpec = packetSpecs._0010_0053_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x1001) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_1001_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x1010) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_1010_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x1011) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_1010_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x1012) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_1010_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x1013) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_1010_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x1014) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_1010_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x1015) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_1010_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x1016) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_1010_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x1017) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_1010_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x1018) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_1010_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x1019) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_1010_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x101A) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_1010_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x101B) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_1010_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x101C) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_1010_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x101D) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_1010_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x101E) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_1010_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x101F) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_1010_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x1040) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_1040_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x1041) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_1040_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x1042) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_1040_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x1043) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_1040_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x1044) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_1040_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x1045) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_1040_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x1046) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_1040_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x1047) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_1040_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x1048) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_1040_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x1049) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_1040_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x104A) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_1040_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x104B) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_1040_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x104C) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_1040_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x104D) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_1040_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x104E) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_1040_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x104F) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_1040_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x1050) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_1050_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x1051) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_1051_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x1058) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_1058_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x1060) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_1060_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x1064) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_1064_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x1065) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_1064_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x1066) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_1064_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x1067) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_1064_0100;
         } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x1120) && (command === 0x0100)) {
             packetSpec = packetSpecs._0010_1120_0100;
         } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x2211) && (command === 0x0100)) {
@@ -73232,6 +83664,10 @@ var createVBusSpecificationData = function() {
             packetSpec = packetSpecs._0010_2251_0100;
         } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x2252) && (command === 0x0100)) {
             packetSpec = packetSpecs._0010_2252_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x2271) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_2271_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x2272) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_2272_0100;
         } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x3011) && (command === 0x0100)) {
             packetSpec = packetSpecs._0010_3011_0100;
         } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x3211) && (command === 0x0100)) {
@@ -73300,6 +83736,8 @@ var createVBusSpecificationData = function() {
             packetSpec = packetSpecs._0010_5221_0100;
         } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x5231) && (command === 0x0100)) {
             packetSpec = packetSpecs._0010_5231_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x5251) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_5251_0100;
         } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x5311) && (command === 0x0100)) {
             packetSpec = packetSpecs._0010_5311_0100;
         } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x5400) && (command === 0x0100)) {
@@ -73546,6 +83984,10 @@ var createVBusSpecificationData = function() {
             packetSpec = packetSpecs._0010_7421_0100;
         } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x7428) && (command === 0x0100)) {
             packetSpec = packetSpecs._0010_7428_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x7441) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_7441_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x7442) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_7442_0100;
         } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x7511) && (command === 0x0100)) {
             packetSpec = packetSpecs._0010_7511_0100;
         } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x7512) && (command === 0x0100)) {
@@ -73654,6 +84096,74 @@ var createVBusSpecificationData = function() {
             packetSpec = packetSpecs._0010_7830_0100;
         } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x783F) && (command === 0x0100)) {
             packetSpec = packetSpecs._0010_7830_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x7910) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_7910_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x7911) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_7911_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x7920) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_7920_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x7921) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_7920_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x7922) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_7920_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x7923) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_7920_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x7924) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_7920_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x7925) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_7920_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x7926) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_7920_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x7927) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_7920_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x7928) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_7920_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x7929) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_7920_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x792A) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_7920_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x792B) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_7920_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x792C) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_7920_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x792D) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_7920_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x792E) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_7920_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x792F) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_7920_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x7930) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_7930_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x7931) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_7930_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x7932) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_7930_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x7933) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_7930_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x7934) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_7930_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x7935) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_7930_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x7936) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_7930_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x7937) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_7930_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x7938) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_7930_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x7939) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_7930_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x793A) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_7930_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x793B) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_7930_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x793C) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_7930_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x793D) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_7930_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x793E) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_7930_0100;
+        } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x793F) && (command === 0x0100)) {
+            packetSpec = packetSpecs._0010_7930_0100;
         } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x7D04) && (command === 0x0100)) {
             packetSpec = packetSpecs._0010_7D04_0100;
         } else if ((destinationAddress === 0x0010) && (sourceAddress === 0x7E11) && (command === 0x0100)) {
