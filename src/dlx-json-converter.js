@@ -205,6 +205,7 @@ var DLxJsonConverter = Converter.extend(/** @lends DLxJsonConverter# */ {
                 var fieldsData = _.map(packetInfo.packetFields, function(packetField, packetFieldIndex) {
                     return {
                         id: packetField.packetFieldSpec.fieldId,
+                        filteredId: packetField.packetFieldSpec.filteredPacketFieldId,
                         name: packetField.name,
                         unit: packetField.packetFieldSpec.type.unit.unitText,
                         unit_code: packetField.packetFieldSpec.type.unit.unitCode,
