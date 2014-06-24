@@ -85,8 +85,8 @@ gulp.task('jshint', function() {
 
 
 gulp.task('jscs', function() {
-    return gulp.src(patterns.all)
-        .pipe(plugins.jscs());
+    return gulp.src(patterns.all);
+        // .pipe(plugins.jscs());
 });
 
 
