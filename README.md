@@ -86,8 +86,9 @@ into your shell:
 
 * [RESOL VBus Google Group](https://groups.google.com/forum/#!forum/resol-vbus)
 * [RESOL VBus Protocol Specification](https://drive.google.com/file/d/0B4wMTuLGRPi2RnU0Vm1tTG5wM1k/edit?usp=sharing)
-* [RESOL VBus File Format Specification](https://docs.google.com/document/d/1qNdpl8pB409eeCmpoApXBVtR8feIn_Jz3XEk8E5r7Go/edit?usp=sharing&authkey=COLYjnI)
-* [RESOL VBus over TCP Specification](https://docs.google.com/document/d/1fIDqsWv2X7EfezLiP9f2P3vRdpmgbiK6kzcUUrMGoEU/edit?usp=sharing&authkey=CODQ-vMD)
+* [RESOL VBus Packet List](http://danielwippermann.github.io/resol-vbus/vbus-packets.html)
+* [RESOL VBus File Format Specification](http://danielwippermann.github.io/resol-vbus/vbus-recording-file-format.html)
+* [RESOL VBus over TCP Specification](http://danielwippermann.github.io/resol-vbus/vbus-over-tcp.html)
 * [RESOL DL2 (v1) Data Download API](https://drive.google.com/file/d/0B4wMTuLGRPi2YmM5ZTJiNDQtNjkyMi00ZWYzLTgzYzgtYTdiMjBlZmI5ODgx/edit?usp=sharing)
 * [RESOL DL2 (v2) & DL3 Data Download API](http://danielwippermann.github.io/resol-vbus/dlx-data-download-api.html)
 
