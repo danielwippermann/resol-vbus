@@ -31,8 +31,30 @@ var generateSpecInfo = function(spec) {
         return sprintf('%04X', device.selfAddress);
     };
 
+    var formatPacketDeviceId = function(packet, which) {
+        var device;
+        if (which === 'source') {
+            device = {
+                selfAddress: packet.sourceAddress,
+                selfMask: packet.sourceMask,
+                peerAddress: packet.destinationAddress,
+                peerMask: packet.destinationMask,
+            };
+        } else if (which === 'destination') {
+            device = {
+                selfAddress: packet.destinationAddress,
+                selfMask: packet.destinationMask,
+                peerAddress: packet.sourceAddress,
+                peerMask: packet.sourceMask,
+            };
+        } else {
+            throw new Error('Unexpected which ' + JSON.stringify(which));
+        }
+        return formatDeviceId(device);
+    };
+
     var formatPacketId = function(packet) {
-        return sprintf('%04X_%04X_%04X', packet.destinationAddress, packet.sourceAddress, packet.command);
+        return sprintf('%s_%s_%04X', formatPacketDeviceId(packet, 'destination'), formatPacketDeviceId(packet, 'source'), packet.command);
     };
 
     var deviceTemplates = {}, devices = {};
@@ -252,8 +274,11 @@ var generateSpecInfo = function(spec) {
     });
 
     var info = {
+        formatDeviceId: formatDeviceId,
         deviceTemplates: deviceTemplates,
         devices: devices,
+        formatPacketDeviceId: formatPacketDeviceId,
+        formatPacketId: formatPacketId,
         packetTemplates: packetTemplates,
         packets: packets,
     };

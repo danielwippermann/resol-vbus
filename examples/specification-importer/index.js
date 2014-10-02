@@ -8,6 +8,7 @@ var fs = require('fs');
 
 var glob = require('glob');
 var _ = require('lodash');
+var minimist = require('minimist');
 var Q = require('q');
 var xml2js = require('xml2js');
 
@@ -16,6 +17,7 @@ var checkSpec = require('./checker');
 var VBusSpecDeserializer = require('./deserializer');
 var models = require('./models');
 var generateVBusSpecificationData = require('./specification-data-generator');
+var generateVBusSpecificationDocs = require('./specification-docs-generator');
 
 
 
@@ -35,8 +37,10 @@ var generateVBusSpecificationData = require('./specification-data-generator');
 
 
 var main = function() {
+    var args = minimist(process.argv.slice(2));
+
     return Q.fcall(function() {
-        var rscExtractPath = process.argv [2] || '.';
+        var rscExtractPath = args._ [0] || '.';
 
         return Q.nfapply(glob, [ rscExtractPath + '/**/VBus*.xml' ]);
     }).then(function(filenames) {
@@ -68,9 +72,17 @@ var main = function() {
     }).then(function(spec) {
         return checkSpec(spec);
     }).then(function(spec) {
-        return generateVBusSpecificationData(spec);
+        if (args.docs) {
+            return generateVBusSpecificationDocs(spec);
+        } else {
+            return generateVBusSpecificationData(spec);
+        }
     }).then(function(output) {
-        console.log(output);
+        if (args.out) {
+            return Q.npost(fs, 'writeFile', [ args.out, output ]);
+        } else {
+            console.log(output);
+        }
     });
 };
 
