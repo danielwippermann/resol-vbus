@@ -153,6 +153,8 @@ gulp.task('watch', function() {
 
 gulp.task('test-force-exit', [ 'jshint', 'jscs', 'mocha' ], function() {
     process.exit(0);
+}).on('error', function(err) {
+    process.exit(1);
 });
 
 
