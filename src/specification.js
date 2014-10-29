@@ -1085,7 +1085,8 @@ var Specification = extend(null, /** @lends Specification# */ {
 
             var rawValue;
             if (packetField.packetFieldSpec && packetField.packet) {
-                rawValue = _this.getRawValue(packetField.packetFieldSpec, packetField.packet.frameData);
+                var frameData = packetField.packet.frameData.slice(0, packetField.packet.frameCount * 4);
+                rawValue = _this.getRawValue(packetField.packetFieldSpec, frameData);
             }
 
             _.extend(packetField, {
@@ -1125,7 +1126,8 @@ var Specification = extend(null, /** @lends Specification# */ {
             } else if (packetField === null) {
                 throw new Error('Non-unique raw value ID ' + JSON.stringify(key));
             } else {
-                _this.setRawValue(packetField.packetFieldSpec, rawValue, packetField.packet.frameData);
+                var frameData = packetField.packet.frameData.slice(0, packetField.packet.frameCount * 4);
+                _this.setRawValue(packetField.packetFieldSpec, rawValue, frameData);
             }
         });
     },
@@ -1194,6 +1196,7 @@ var Specification = extend(null, /** @lends Specification# */ {
                     name: name,
                     type: resolve(rfpfs.type, 'types'),
                     getRawValue: resolve(rfpfs.getRawValue, 'getRawValueFunctions'),
+                    setRawValue: resolve(rfpfs.setRawValue, 'setRawValueFunctions'),
                 });
             });
         }
@@ -1246,6 +1249,7 @@ var Specification = extend(null, /** @lends Specification# */ {
                     name: fpfs.name,
                     type: link(fpfs.type, 'typeId', 'types'),
                     getRawValue: link(fpfs.getRawValue, null, 'getRawValueFunctions'),
+                    setRawValue: link(fpfs.setRawValue, null, 'setRawValueFunctions'),
                 };
             });
         }
