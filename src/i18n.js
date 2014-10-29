@@ -169,6 +169,20 @@ var I18N = extend(null, /** @lends I18N# */ {
     },
 
     /**
+     * Wrapper for a moment.js UTC date object that is setup to use this
+     * instance's language code.
+     *
+     * @param {...mixed} args Arguments to be passed to `moment.utc()` function
+     * @returns {mixed} Result of calling the `moment.utc()` function
+     *
+     * @see http://momentjs.com/docs/
+     */
+    momentUtc: function() {
+        var m = moment.utc.apply(null, arguments).lang(this.languageData.moment);
+        return m;
+    },
+
+    /**
      * Wrapper for a numeral.js number object that is setup to use this
      * instance's language code.
      *
