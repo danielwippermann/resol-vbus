@@ -601,6 +601,25 @@ var Specification = extend(null, /** @lends Specification# */ {
         return rawValue;
     },
 
+    setRawValue: function(packetField, rawValue, buffer, start, end) {
+        if (start === undefined) {
+            start = 0;
+        }
+        if (end === undefined) {
+            end = buffer ? buffer.length : 0;
+        }
+
+        if (packetField && packetField.getRawValue) {
+            packetField.setRawValue(rawValue, buffer, start, end);
+        } else if (packetField && packetField.packetFieldSpec) {
+            if (_.isNumber(rawValue)) {
+                rawValue = this.convertRawValue(rawValue, packetField.type.unit, packetField.packetFieldSpec.type.unit).rawValue;
+            }
+
+            this.setRawValue(packetField.packetFieldSpec, rawValue, buffer, start, end);
+        }
+    },
+
     /**
      * Converts a raw number value from one unit to another. The units must be in the same unit family.
      *
@@ -1083,6 +1102,32 @@ var Specification = extend(null, /** @lends Specification# */ {
         });
 
         return packetFields;
+    },
+
+    setPacketFieldRawValues: function(packetFields, rawValues) {
+        var _this = this;
+
+        var packetFieldById = _.reduce(packetFields, function(memo, packetField) {
+            memo [packetField.id] = packetField;
+            var fieldId = packetField.packetFieldSpec.fieldId;
+            if (memo [fieldId] === undefined) {
+                memo [fieldId] = packetField;
+            } else {
+                memo [fieldId] = null;
+            }
+            return memo;
+        }, {});
+
+        _.forEach(rawValues, function(rawValue, key) {
+            var packetField = packetFieldById [key];
+            if (packetField === undefined) {
+                throw new Error('Unknown raw value ID ' + JSON.stringify(key));
+            } else if (packetField === null) {
+                throw new Error('Non-unique raw value ID ' + JSON.stringify(key));
+            } else {
+                _this.setRawValue(packetField.packetFieldSpec, rawValue, packetField.packet.frameData);
+            }
+        });
     },
 
     getFilteredPacketFieldSpecificationsForHeaders: function(headers) {
