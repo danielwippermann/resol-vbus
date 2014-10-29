@@ -46,7 +46,7 @@ describe('DLxJsonConverter', function() {
 
         var rawPacket1 = 'aa100053001000010b0020051000004a723d1000013f40571000015706100000016800000000007f00000000007f00000000007f00000000007f00007f00000025003600051f11000000006e';
         var rawPacket2 = 'aa1000217e100001013e00000b000074';
-        var rawPacket3 = 'aa1000317e100001042b05774a00003900000000007f00000000007f130d0000005f';
+        var rawPacket3 = 'aa1000317e100001052a05774a00003900000000007f00000000007f130d0000005f00000000007f';
 
         promiseIt('should work correctly', function() {
             var buffer1 = new Buffer(rawPacket1, 'hex');
@@ -114,27 +114,27 @@ describe('DLxJsonConverter', function() {
                 chunk = onData.thirdCall.args [0];
 
                 expect(chunk).to.be.an('object');
-                expect(chunk.toString()).to.equal(',{\"timestamp\":1387893006.829,\"packets\":[{\"header_index\":0,\"timestamp\":1387893003.303,\"field_values\":[{\"field_index\":0,\"raw_value\":0,\"value\":\"0.0\"},{\"field_index\":1,\"raw_value\":11,\"value\":\"11\"}]},{\"header_index\":1,\"timestamp\":1387893003.454,\"field_values\":[{\"field_index\":0,\"raw_value\":4880133,\"value\":\"4880133\"},{\"field_index\":1,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":2,\"raw_value\":3347,\"value\":\"3347\"}]}]}');
+                expect(chunk.toString()).to.equal(',{\"timestamp\":1387893006.829,\"packets\":[{\"header_index\":0,\"timestamp\":1387893003.303,\"field_values\":[{\"field_index\":0,\"raw_value\":0,\"value\":\"0.0\"},{\"field_index\":1,\"raw_value\":11,\"value\":\"11\"}]},{\"header_index\":1,\"timestamp\":1387893003.454,\"field_values\":[{\"field_index\":0,\"raw_value\":4880133,\"value\":\"4880133\"},{\"field_index\":1,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":2,\"raw_value\":3347,\"value\":\"3347\"},{\"field_index\":3,\"raw_value\":0,\"value\":\"0\"}]}]}');
 
                 chunk = onData.getCall(3).args [0];
 
                 expect(chunk).to.be.an('object');
-                expect(chunk.toString()).to.equal(',{\"timestamp\":1387893006.829,\"packets\":[{\"header_index\":0,\"timestamp\":1387893003.303,\"field_values\":[{\"field_index\":0,\"raw_value\":0,\"value\":\"0.0\"},{\"field_index\":1,\"raw_value\":11,\"value\":\"11\"}]},{\"header_index\":1,\"timestamp\":1387893003.454,\"field_values\":[{\"field_index\":0,\"raw_value\":4880133,\"value\":\"4880133\"},{\"field_index\":1,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":2,\"raw_value\":3347,\"value\":\"3347\"}]},{\"header_index\":2,\"timestamp\":1387893006.778,\"field_values\":[{\"field_index\":0,\"raw_value\":1049.888,\"value\":\"1049.888\"},{\"field_index\":1,\"raw_value\":1064.434,\"value\":\"1064.434\"},{\"field_index\":2,\"raw_value\":1071.04,\"value\":\"1071.040\"},{\"field_index\":3,\"raw_value\":4.23,\"value\":\"4.230\"},{\"field_index\":4,\"raw_value\":12.7,\"value\":\"12.7\"},{\"field_index\":5,\"raw_value\":16.5,\"value\":\"16.5\"},{\"field_index\":6,\"raw_value\":18.2,\"value\":\"18.2\"},{\"field_index\":7,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":8,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":9,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":10,\"raw_value\":17,\"value\":\"17\"}]}]}');
+                expect(chunk.toString()).to.equal(',{\"timestamp\":1387893006.829,\"packets\":[{\"header_index\":0,\"timestamp\":1387893003.303,\"field_values\":[{\"field_index\":0,\"raw_value\":0,\"value\":\"0.0\"},{\"field_index\":1,\"raw_value\":11,\"value\":\"11\"}]},{\"header_index\":1,\"timestamp\":1387893003.454,\"field_values\":[{\"field_index\":0,\"raw_value\":4880133,\"value\":\"4880133\"},{\"field_index\":1,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":2,\"raw_value\":3347,\"value\":\"3347\"},{\"field_index\":3,\"raw_value\":0,\"value\":\"0\"}]},{\"header_index\":2,\"timestamp\":1387893006.778,\"field_values\":[{\"field_index\":0,\"raw_value\":1049.888,\"value\":\"1049.888\"},{\"field_index\":1,\"raw_value\":1064.434,\"value\":\"1064.434\"},{\"field_index\":2,\"raw_value\":1071.04,\"value\":\"1071.040\"},{\"field_index\":3,\"raw_value\":4.23,\"value\":\"4.230\"},{\"field_index\":4,\"raw_value\":12.7,\"value\":\"12.7\"},{\"field_index\":5,\"raw_value\":16.5,\"value\":\"16.5\"},{\"field_index\":6,\"raw_value\":18.2,\"value\":\"18.2\"},{\"field_index\":7,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":8,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":9,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":10,\"raw_value\":17,\"value\":\"17\"}]}]}');
 
                 chunk = onData.getCall(4).args [0];
 
                 expect(chunk).to.be.an('object');
-                expect(chunk.toString()).to.equal(',{\"timestamp\":1387893006.829,\"packets\":[{\"header_index\":0,\"timestamp\":1387893003.303,\"field_values\":[{\"field_index\":0,\"raw_value\":0,\"value\":\"0.0\"},{\"field_index\":1,\"raw_value\":11,\"value\":\"11\"}]},{\"header_index\":1,\"timestamp\":1387893003.454,\"field_values\":[{\"field_index\":0,\"raw_value\":4880133,\"value\":\"4880133\"},{\"field_index\":1,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":2,\"raw_value\":3347,\"value\":\"3347\"}]},{\"header_index\":2,\"timestamp\":1387893006.778,\"field_values\":[{\"field_index\":0,\"raw_value\":1049.888,\"value\":\"1049.888\"},{\"field_index\":1,\"raw_value\":1064.434,\"value\":\"1064.434\"},{\"field_index\":2,\"raw_value\":1071.04,\"value\":\"1071.040\"},{\"field_index\":3,\"raw_value\":4.23,\"value\":\"4.230\"},{\"field_index\":4,\"raw_value\":12.7,\"value\":\"12.7\"},{\"field_index\":5,\"raw_value\":16.5,\"value\":\"16.5\"},{\"field_index\":6,\"raw_value\":18.2,\"value\":\"18.2\"},{\"field_index\":7,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":8,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":9,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":10,\"raw_value\":17,\"value\":\"17\"}]}]}');
+                expect(chunk.toString()).to.equal(',{\"timestamp\":1387893006.829,\"packets\":[{\"header_index\":0,\"timestamp\":1387893003.303,\"field_values\":[{\"field_index\":0,\"raw_value\":0,\"value\":\"0.0\"},{\"field_index\":1,\"raw_value\":11,\"value\":\"11\"}]},{\"header_index\":1,\"timestamp\":1387893003.454,\"field_values\":[{\"field_index\":0,\"raw_value\":4880133,\"value\":\"4880133\"},{\"field_index\":1,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":2,\"raw_value\":3347,\"value\":\"3347\"},{\"field_index\":3,\"raw_value\":0,\"value\":\"0\"}]},{\"header_index\":2,\"timestamp\":1387893006.778,\"field_values\":[{\"field_index\":0,\"raw_value\":1049.888,\"value\":\"1049.888\"},{\"field_index\":1,\"raw_value\":1064.434,\"value\":\"1064.434\"},{\"field_index\":2,\"raw_value\":1071.04,\"value\":\"1071.040\"},{\"field_index\":3,\"raw_value\":4.23,\"value\":\"4.230\"},{\"field_index\":4,\"raw_value\":12.7,\"value\":\"12.7\"},{\"field_index\":5,\"raw_value\":16.5,\"value\":\"16.5\"},{\"field_index\":6,\"raw_value\":18.2,\"value\":\"18.2\"},{\"field_index\":7,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":8,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":9,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":10,\"raw_value\":17,\"value\":\"17\"}]}]}');
 
                 chunk = onData.getCall(5).args [0];
 
                 expect(chunk).to.be.an('object');
-                expect(chunk.toString()).to.equal(',{\"timestamp\":1387893006.829,\"packets\":[{\"header_index\":0,\"timestamp\":1387893003.303,\"field_values\":[{\"field_index\":0,\"raw_value\":0,\"value\":\"0.0\"},{\"field_index\":1,\"raw_value\":11,\"value\":\"11\"}]},{\"header_index\":1,\"timestamp\":1387893003.454,\"field_values\":[{\"field_index\":0,\"raw_value\":4880133,\"value\":\"4880133\"},{\"field_index\":1,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":2,\"raw_value\":3347,\"value\":\"3347\"}]},{\"header_index\":2,\"timestamp\":1387893006.778,\"field_values\":[{\"field_index\":0,\"raw_value\":1049.888,\"value\":\"1049.888\"},{\"field_index\":1,\"raw_value\":1064.434,\"value\":\"1064.434\"},{\"field_index\":2,\"raw_value\":1071.04,\"value\":\"1071.040\"},{\"field_index\":3,\"raw_value\":4.23,\"value\":\"4.230\"},{\"field_index\":4,\"raw_value\":12.7,\"value\":\"12.7\"},{\"field_index\":5,\"raw_value\":16.5,\"value\":\"16.5\"},{\"field_index\":6,\"raw_value\":18.2,\"value\":\"18.2\"},{\"field_index\":7,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":8,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":9,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":10,\"raw_value\":17,\"value\":\"17\"}]}]}');
+                expect(chunk.toString()).to.equal(',{\"timestamp\":1387893006.829,\"packets\":[{\"header_index\":0,\"timestamp\":1387893003.303,\"field_values\":[{\"field_index\":0,\"raw_value\":0,\"value\":\"0.0\"},{\"field_index\":1,\"raw_value\":11,\"value\":\"11\"}]},{\"header_index\":1,\"timestamp\":1387893003.454,\"field_values\":[{\"field_index\":0,\"raw_value\":4880133,\"value\":\"4880133\"},{\"field_index\":1,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":2,\"raw_value\":3347,\"value\":\"3347\"},{\"field_index\":3,\"raw_value\":0,\"value\":\"0\"}]},{\"header_index\":2,\"timestamp\":1387893006.778,\"field_values\":[{\"field_index\":0,\"raw_value\":1049.888,\"value\":\"1049.888\"},{\"field_index\":1,\"raw_value\":1064.434,\"value\":\"1064.434\"},{\"field_index\":2,\"raw_value\":1071.04,\"value\":\"1071.040\"},{\"field_index\":3,\"raw_value\":4.23,\"value\":\"4.230\"},{\"field_index\":4,\"raw_value\":12.7,\"value\":\"12.7\"},{\"field_index\":5,\"raw_value\":16.5,\"value\":\"16.5\"},{\"field_index\":6,\"raw_value\":18.2,\"value\":\"18.2\"},{\"field_index\":7,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":8,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":9,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":10,\"raw_value\":17,\"value\":\"17\"}]}]}');
 
                 chunk = onData.getCall(6).args [0];
 
                 expect(chunk).to.be.an('object');
-                expect(chunk.toString()).to.equal('],"headerset_stats":{\"headerset_count\":5,\"min_timestamp\":1387893006.829,\"max_timestamp\":1387893006.829},"headers":[{\"id\":\"01_0010_7E21_0100\",\"description\":\"VBus 1: DeltaSol MX [Heizkreis #1]\",\"channel\":1,\"destination_address\":16,\"source_address\":32289,\"protocol_version\":16,\"command\":256,\"info\":0,\"destination_name\":\"DFA\",\"source_name\":\"DeltaSol MX [Heizkreis #1]\",\"fields\":[{\"id\":\"000_2_0\",\"name\":\"Flow set temperature\",\"unit\":\" °C\",\"unit_code\":\"DegreesCelsius\"},{\"id\":\"002_1_0\",\"name\":\"Operating status\",\"unit\":\"\",\"unit_code\":\"None\"}]},{\"id\":\"01_0010_7E31_0100\",\"description\":\"VBus 1: DeltaSol MX [WMZ #1]\",\"channel\":1,\"destination_address\":16,\"source_address\":32305,\"protocol_version\":16,\"command\":256,\"info\":0,\"destination_name\":\"DFA\",\"source_name\":\"DeltaSol MX [WMZ #1]\",\"fields\":[{\"id\":\"000_4_0\",\"name\":\"Heat quantity\",\"unit\":\" Wh\",\"unit_code\":\"WattHours\"},{\"id\":\"008_4_0\",\"name\":\"Heat quantity today\",\"unit\":\" Wh\",\"unit_code\":\"WattHours\"},{\"id\":\"012_4_0\",\"name\":\"Heat quantity week\",\"unit\":\" Wh\",\"unit_code\":\"WattHours\"}]},{\"id\":\"00_0010_0053_0100\",\"description\":\"VBus 0: DL3\",\"channel\":0,\"destination_address\":16,\"source_address\":83,\"protocol_version\":16,\"command\":256,\"info\":0,\"destination_name\":\"DFA\",\"source_name\":\"DL3\",\"fields\":[{\"id\":\"000_4_0\",\"name\":\"Resistor sensor 1\",\"unit\":\" Ω\",\"unit_code\":\"Ohms\"},{\"id\":\"004_4_0\",\"name\":\"Resistor sensor 2\",\"unit\":\" Ω\",\"unit_code\":\"Ohms\"},{\"id\":\"008_4_0\",\"name\":\"Resistor sensor 3\",\"unit\":\" Ω\",\"unit_code\":\"Ohms\"},{\"id\":\"012_4_0\",\"name\":\"Current sensor 4\",\"unit\":\" mA\",\"unit_code\":\"Milliamperes\"},{\"id\":\"034_2_0\",\"name\":\"Temperature Sensor 1\",\"unit\":\" °C\",\"unit_code\":\"DegreesCelsius\"},{\"id\":\"036_2_0\",\"name\":\"Temperature Sensor 2\",\"unit\":\" °C\",\"unit_code\":\"DegreesCelsius\"},{\"id\":\"038_2_0\",\"name\":\"Temperature Sensor 3\",\"unit\":\" °C\",\"unit_code\":\"DegreesCelsius\"},{\"id\":\"016_4_0\",\"name\":\"Impulse Counter Sensor 1\",\"unit\":\"\",\"unit_code\":\"None\"},{\"id\":\"020_4_0\",\"name\":\"Impulse Counter Sensor 2\",\"unit\":\"\",\"unit_code\":\"None\"},{\"id\":\"024_4_0\",\"name\":\"Impulse Counter Sensor 3\",\"unit\":\"\",\"unit_code\":\"None\"},{\"id\":\"040_2_0\",\"name\":\"Irradiation Sensor 4\",\"unit\":\" W/m²\",\"unit_code\":\"WattsPerSquareMeter\"}]}],"language":"en"}');
+                expect(chunk.toString()).to.equal('],"headerset_stats":{\"headerset_count\":5,\"min_timestamp\":1387893006.829,\"max_timestamp\":1387893006.829},"headers":[{\"id\":\"01_0010_7E21_0100\",\"description\":\"VBus 1: DeltaSol MX [Heizkreis #1]\",\"channel\":1,\"destination_address\":16,\"source_address\":32289,\"protocol_version\":16,\"command\":256,\"info\":0,\"destination_name\":\"DFA\",\"source_name\":\"DeltaSol MX [Heizkreis #1]\",\"fields\":[{\"id\":\"000_2_0\",\"name\":\"Flow set temperature\",\"unit\":\" °C\",\"unit_code\":\"DegreesCelsius\"},{\"id\":\"002_1_0\",\"name\":\"Operating status\",\"unit\":\"\",\"unit_code\":\"None\"}]},{\"id\":\"01_0010_7E31_0100\",\"description\":\"VBus 1: DeltaSol MX [WMZ #1]\",\"channel\":1,\"destination_address\":16,\"source_address\":32305,\"protocol_version\":16,\"command\":256,\"info\":0,\"destination_name\":\"DFA\",\"source_name\":\"DeltaSol MX [WMZ #1]\",\"fields\":[{\"id\":\"000_4_0\",\"name\":\"Heat quantity\",\"unit\":\" Wh\",\"unit_code\":\"WattHours\"},{\"id\":\"008_4_0\",\"name\":\"Heat quantity today\",\"unit\":\" Wh\",\"unit_code\":\"WattHours\"},{\"id\":\"012_4_0\",\"name\":\"Heat quantity week\",\"unit\":\" Wh\",\"unit_code\":\"WattHours\"},{\"id\":\"016_4_0\",\"name\":\"Gesamtvolumen\",\"unit\":\" l\",\"unit_code\":\"Liters\"}]},{\"id\":\"00_0010_0053_0100\",\"description\":\"VBus 0: DL3\",\"channel\":0,\"destination_address\":16,\"source_address\":83,\"protocol_version\":16,\"command\":256,\"info\":0,\"destination_name\":\"DFA\",\"source_name\":\"DL3\",\"fields\":[{\"id\":\"000_4_0\",\"name\":\"Resistor sensor 1\",\"unit\":\" Ω\",\"unit_code\":\"Ohms\"},{\"id\":\"004_4_0\",\"name\":\"Resistor sensor 2\",\"unit\":\" Ω\",\"unit_code\":\"Ohms\"},{\"id\":\"008_4_0\",\"name\":\"Resistor sensor 3\",\"unit\":\" Ω\",\"unit_code\":\"Ohms\"},{\"id\":\"012_4_0\",\"name\":\"Current sensor 4\",\"unit\":\" mA\",\"unit_code\":\"Milliamperes\"},{\"id\":\"034_2_0\",\"name\":\"Temperature Sensor 1\",\"unit\":\" °C\",\"unit_code\":\"DegreesCelsius\"},{\"id\":\"036_2_0\",\"name\":\"Temperature Sensor 2\",\"unit\":\" °C\",\"unit_code\":\"DegreesCelsius\"},{\"id\":\"038_2_0\",\"name\":\"Temperature Sensor 3\",\"unit\":\" °C\",\"unit_code\":\"DegreesCelsius\"},{\"id\":\"016_4_0\",\"name\":\"Impulse Counter Sensor 1\",\"unit\":\"\",\"unit_code\":\"None\"},{\"id\":\"020_4_0\",\"name\":\"Impulse Counter Sensor 2\",\"unit\":\"\",\"unit_code\":\"None\"},{\"id\":\"024_4_0\",\"name\":\"Impulse Counter Sensor 3\",\"unit\":\"\",\"unit_code\":\"None\"},{\"id\":\"040_2_0\",\"name\":\"Irradiation Sensor 4\",\"unit\":\" W/m²\",\"unit_code\":\"WattsPerSquareMeter\"}]}],"language":"en"}');
             });
         });
 
@@ -809,6 +809,11 @@ refJsonRecording1 = {
             'name': 'Heat quantity week',
             'unit': ' Wh',
             'unit_code': 'WattHours'
+        }, {
+            'id': '016_4_0',
+            'name': 'Gesamtvolumen',
+            'unit': ' l',
+            'unit_code': 'Liters'
         }]
     }, {
         'id': '01_0010_7E32_0100',
@@ -836,6 +841,11 @@ refJsonRecording1 = {
             'name': 'Heat quantity week',
             'unit': ' Wh',
             'unit_code': 'WattHours'
+        }, {
+            'id': '016_4_0',
+            'name': 'Gesamtvolumen',
+            'unit': ' l',
+            'unit_code': 'Liters'
         }]
     }, {
         'id': '01_0010_7E33_0100',
@@ -863,6 +873,11 @@ refJsonRecording1 = {
             'name': 'Heat quantity week',
             'unit': ' Wh',
             'unit_code': 'WattHours'
+        }, {
+            'id': '016_4_0',
+            'name': 'Gesamtvolumen',
+            'unit': ' l',
+            'unit_code': 'Liters'
         }]
     }, {
         'id': '01_0010_7E34_0100',
@@ -890,6 +905,11 @@ refJsonRecording1 = {
             'name': 'Heat quantity week',
             'unit': ' Wh',
             'unit_code': 'WattHours'
+        }, {
+            'id': '016_4_0',
+            'name': 'Gesamtvolumen',
+            'unit': ' l',
+            'unit_code': 'Liters'
         }]
     }, {
         'id': '01_0010_7E35_0100',
@@ -917,6 +937,11 @@ refJsonRecording1 = {
             'name': 'Heat quantity week',
             'unit': ' Wh',
             'unit_code': 'WattHours'
+        }, {
+            'id': '016_4_0',
+            'name': 'Gesamtvolumen',
+            'unit': ' l',
+            'unit_code': 'Liters'
         }]
     }, {
         'id': '01_0015_7E11_0100',
@@ -2081,6 +2106,10 @@ refJsonRecording1 = {
                 'field_index': 2,
                 'raw_value': 5603.000000,
                 'value': '5603'
+            }, {
+                'field_index': 3,
+                'raw_value': 0,
+                'value': ''
             }]
         }, {
             'header_index': 5,
@@ -2097,6 +2126,10 @@ refJsonRecording1 = {
                 'field_index': 2,
                 'raw_value': 10433.000000,
                 'value': '10433'
+            }, {
+                'field_index': 3,
+                'raw_value': 0,
+                'value': ''
             }]
         }, {
             'header_index': 6,
@@ -2113,6 +2146,10 @@ refJsonRecording1 = {
                 'field_index': 2,
                 'raw_value': 153015.000000,
                 'value': '153015'
+            }, {
+                'field_index': 3,
+                'raw_value': 0,
+                'value': ''
             }]
         }, {
             'header_index': 7,
@@ -2129,6 +2166,10 @@ refJsonRecording1 = {
                 'field_index': 2,
                 'raw_value': 15561.000000,
                 'value': '15561'
+            }, {
+                'field_index': 3,
+                'raw_value': 0,
+                'value': ''
             }]
         }, {
             'header_index': 8,
@@ -2145,6 +2186,10 @@ refJsonRecording1 = {
                 'field_index': 2,
                 'raw_value': 137591.000000,
                 'value': '137591'
+            }, {
+                'field_index': 3,
+                'raw_value': 0,
+                'value': ''
             }]
         }, {
             'header_index': 9,

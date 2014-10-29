@@ -96,22 +96,22 @@ describe('TextConverter', function() {
             chunk = onData.secondCall.args [0];
 
             expect(chunk).to.be.an('object');
-            expect(chunk.toString()).to.equal('\tVBus #1: DeltaSol MX [Heizkreis #1]\t\tVBus #1: DeltaSol MX [WMZ #1]\t\t\r\nDate / Time\tFlow set temperature [ °C]\tOperating status\tHeat quantity [ Wh]\tHeat quantity today [ Wh]\tHeat quantity week [ Wh]\r\n12/24/2013 14:50:06\t0.0\t11\t4880133\t0\t3347\r\n');
+            expect(chunk.toString()).to.equal('\tVBus #1: DeltaSol MX [Heizkreis #1]\t\tVBus #1: DeltaSol MX [WMZ #1]\t\t\t\r\nDate / Time\tFlow set temperature [ °C]\tOperating status\tHeat quantity [ Wh]\tHeat quantity today [ Wh]\tHeat quantity week [ Wh]\tGesamtvolumen [ l]\r\n12/24/2013 14:50:06\t0.0\t11\t4880133\t0\t3347\t\r\n');
 
             chunk = onData.thirdCall.args [0];
 
             expect(chunk).to.be.an('object');
-            expect(chunk.toString()).to.equal('\tDL3\t\t\t\t\t\t\t\t\t\t\tVBus #1: DeltaSol MX [Heizkreis #1]\t\tVBus #1: DeltaSol MX [WMZ #1]\t\t\r\nDate / Time\tResistor sensor 1 [ Ω]\tResistor sensor 2 [ Ω]\tResistor sensor 3 [ Ω]\tCurrent sensor 4 [ mA]\tTemperature Sensor 1 [ °C]\tTemperature Sensor 2 [ °C]\tTemperature Sensor 3 [ °C]\tImpulse Counter Sensor 1\tImpulse Counter Sensor 2\tImpulse Counter Sensor 3\tIrradiation Sensor 4 [ W/m²]\tFlow set temperature [ °C]\tOperating status\tHeat quantity [ Wh]\tHeat quantity today [ Wh]\tHeat quantity week [ Wh]\r\n12/24/2013 14:50:06\t1049.888\t1064.434\t1071.040\t4.230\t12.7\t16.5\t18.2\t0\t0\t0\t17\t0.0\t11\t4880133\t0\t3347\r\n');
+            expect(chunk.toString()).to.equal('\tDL3\t\t\t\t\t\t\t\t\t\t\tVBus #1: DeltaSol MX [Heizkreis #1]\t\tVBus #1: DeltaSol MX [WMZ #1]\t\t\t\r\nDate / Time\tResistor sensor 1 [ Ω]\tResistor sensor 2 [ Ω]\tResistor sensor 3 [ Ω]\tCurrent sensor 4 [ mA]\tTemperature Sensor 1 [ °C]\tTemperature Sensor 2 [ °C]\tTemperature Sensor 3 [ °C]\tImpulse Counter Sensor 1\tImpulse Counter Sensor 2\tImpulse Counter Sensor 3\tIrradiation Sensor 4 [ W/m²]\tFlow set temperature [ °C]\tOperating status\tHeat quantity [ Wh]\tHeat quantity today [ Wh]\tHeat quantity week [ Wh]\tGesamtvolumen [ l]\r\n12/24/2013 14:50:06\t1049.888\t1064.434\t1071.040\t4.230\t12.7\t16.5\t18.2\t0\t0\t0\t17\t0.0\t11\t4880133\t0\t3347\t\r\n');
 
             chunk = onData.getCall(3).args [0];
 
             expect(chunk).to.be.an('object');
-            expect(chunk.toString()).to.equal('12/24/2013 14:50:06\t1049.888\t1064.434\t1071.040\t4.230\t12.7\t16.5\t18.2\t0\t0\t0\t17\t0.0\t11\t4880133\t0\t3347\r\n');
+            expect(chunk.toString()).to.equal('12/24/2013 14:50:06\t1049.888\t1064.434\t1071.040\t4.230\t12.7\t16.5\t18.2\t0\t0\t0\t17\t0.0\t11\t4880133\t0\t3347\t\r\n');
 
             chunk = onData.getCall(4).args [0];
 
             expect(chunk).to.be.an('object');
-            expect(chunk.toString()).to.equal('\tDL3\t\t\t\t\t\t\t\t\t\t\tVBus #1: DeltaSol MX [Heizkreis #1]\t\tVBus #1: DeltaSol MX [WMZ #1]\t\t\r\nDate / Time\tResistor sensor 1 [ Ω]\tResistor sensor 2 [ Ω]\tResistor sensor 3 [ Ω]\tCurrent sensor 4 [ mA]\tTemperature Sensor 1 [ °C]\tTemperature Sensor 2 [ °C]\tTemperature Sensor 3 [ °C]\tImpulse Counter Sensor 1\tImpulse Counter Sensor 2\tImpulse Counter Sensor 3\tIrradiation Sensor 4 [ W/m²]\tFlow set temperature [ °C]\tOperating status\tHeat quantity [ Wh]\tHeat quantity today [ Wh]\tHeat quantity week [ Wh]\r\n12/24/2013 14:50:06\t1049.888\t1064.434\t1071.040\t4.230\t12.7\t16.5\t18.2\t0\t0\t0\t17\t0.0\t11\t4880133\t0\t3347\r\n');
+            expect(chunk.toString()).to.equal('\tDL3\t\t\t\t\t\t\t\t\t\t\tVBus #1: DeltaSol MX [Heizkreis #1]\t\tVBus #1: DeltaSol MX [WMZ #1]\t\t\t\r\nDate / Time\tResistor sensor 1 [ Ω]\tResistor sensor 2 [ Ω]\tResistor sensor 3 [ Ω]\tCurrent sensor 4 [ mA]\tTemperature Sensor 1 [ °C]\tTemperature Sensor 2 [ °C]\tTemperature Sensor 3 [ °C]\tImpulse Counter Sensor 1\tImpulse Counter Sensor 2\tImpulse Counter Sensor 3\tIrradiation Sensor 4 [ W/m²]\tFlow set temperature [ °C]\tOperating status\tHeat quantity [ Wh]\tHeat quantity today [ Wh]\tHeat quantity week [ Wh]\tGesamtvolumen [ l]\r\n12/24/2013 14:50:06\t1049.888\t1064.434\t1071.040\t4.230\t12.7\t16.5\t18.2\t0\t0\t0\t17\t0.0\t11\t4880133\t0\t3347\t\r\n');
         });
 
     });

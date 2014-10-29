@@ -132,7 +132,8 @@ describe('Specification', function() {
                     'fr': 'Température Départ'
                 },
                 'type': 'Number_0_1_DegreesCelsius',
-                'getRawValue': '_0010_7722_0100_000_2_0'
+                'getRawValue': '_0010_7722_0100_000_2_0',
+                'setRawValue': '_0010_7722_0100_000_2_0'
             }]
         };
 
@@ -1041,6 +1042,15 @@ describe('Specification', function() {
             frameData: new Buffer('000048dd', 'hex'),
         });
 
+        var header3 = new Packet({
+            channel: 3,
+            destinationAddress: 0x0010,
+            sourceAddress: 0x7E31,
+            command: 0x0100,
+            frameCount: 4,
+            frameData: new Buffer('2211221122112211221122112211221122112211', 'hex'), // data for five frames, but only four advertised
+        });
+
         var rawSpecificationData1 = {
             'filteredPacketFieldSpecs': [{
                 'filteredPacketFieldId': 'DemoValue1',
@@ -1185,6 +1195,25 @@ describe('Specification', function() {
             expect(pfs [0].formatTextValue()).to.equal('32.0 °F');
         });
 
+        it('should work correctly for partial packets', function() {
+            var spec = new Specification({
+            });
+
+            var pfs = spec.getPacketFieldsForHeaders([ header3 ]);
+
+            expect(pfs).to.be.an('array');
+            expect(pfs.length).to.equal(4);
+            expect(pfs [3]).to.be.an('object');
+            expect(pfs [3].id).to.equal('03_0010_7E31_10_0100_016_4_0');
+            expect(pfs [3].packet).to.be.an('object');
+            expect(pfs [3].packetSpec).to.be.an('object');
+            expect(pfs [3].packetFieldSpec).to.be.an('object');
+            expect(pfs [3].origPacketFieldSpec).to.be.an('object');
+            expect(pfs [3].name).to.equal('Gesamtvolumen');
+            expect(pfs [3].rawValue).to.equal(null);
+            expect(pfs [3].formatTextValue).to.be.a('function');
+            expect(pfs [3].formatTextValue()).to.equal('');
+        });
     });
 
     describe('#getFilteredPacketFieldSpecificationsForHeaders', function() {
