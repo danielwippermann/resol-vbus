@@ -257,6 +257,15 @@ var Specification = extend(null, /** @lends Specification# */ {
             } else {
                 throw new Error('Invalid arguments');
             }
+        } else if (typeof selfAddress === 'string') {
+            var md = selfAddress.match(/^(?:([0-9a-f]{2})_)?([0-9a-f]{4})(?:_([0-9a-f]{4})(?:_.*)?)?$/i);
+            if (!md) {
+                throw new Error('Invalid device ID');
+            }
+
+            selfAddress = parseInt(md [2], 16);
+            peerAddress = parseInt(md [3], 16);
+            channel = parseInt(md [1], 16);
         }
 
         if (channel === undefined) {
