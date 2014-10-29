@@ -19,6 +19,7 @@ var optionKeys = [
     'port',
     'viaTag',
     'password',
+    'channel',
     'rawVBusDataOnly',
 ];
 
@@ -49,6 +50,12 @@ var TcpConnection = Connection.extend( /** @lends TcpConnection# */ {
      * @type {string}
      */
     password: null,
+
+    /**
+     * Channel number to connect to.
+     * @type {string|number}
+     */
+    channel: 0,
 
     /**
      * Indicates that connection does not need to perform login handshake.

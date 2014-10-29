@@ -30,6 +30,12 @@ var TcpDataSource = DataSource.extend(/** @lends TcpDataSource# */ {
     host: null,
 
     /**
+     * The port to connect to.
+     * @type {number}
+     */
+    port: 7053,
+
+    /**
      * The channel to connect to live.
      * @type {number}
      */
@@ -57,8 +63,11 @@ var TcpDataSource = DataSource.extend(/** @lends TcpDataSource# */ {
 
     connectLive: function(options) {
         var defaultOptions = {
-            channel: this.liveChannel,
+            host: this.host,
+            port: this.port,
+            viaTag: this.viaTag,
             password: this.livePassword,
+            channel: this.liveChannel,
         };
 
         options = _.extend(defaultOptions, options, {
