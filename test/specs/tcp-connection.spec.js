@@ -167,7 +167,7 @@ describe('TcpConnection', function() {
 
                 _.extend(connection, options);
                 connection.channelListCallback = sinon.spy(function(channels, done) {
-                    done(null, 'Ä');
+                    done(null, '9:Test');
                 });
 
                 connection.on('connectionState', onConnectionState);
@@ -186,7 +186,7 @@ describe('TcpConnection', function() {
 
                     expect(epi.viaTag).to.equal(options.viaTag);
                     expect(epi.password).to.equal(options.password);
-                    expect(epi.channel).to.equal('Ä');
+                    expect(epi.channel).to.equal('9');
 
                     expect(connection.channelListCallback.callCount).to.equal(1);
                 }).finally(function() {
