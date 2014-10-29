@@ -127,7 +127,7 @@ var Connection = extend(Duplex, /** @lends Connection# */ {
      * @abstract
      * @returns {Promise} A promise that resolves once the connection has been established.
      */
-    connect: function() {
+    connect: function(force) {
         throw new Error('Must be implemented by sub-class');
     },
 

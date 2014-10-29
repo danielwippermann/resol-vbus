@@ -101,14 +101,14 @@ var TcpConnection = Connection.extend( /** @lends TcpConnection# */ {
         _.extend(this, _.pick(options, optionKeys));
     },
 
-    connect: function() {
+    connect: function(force) {
         if (this.connectionState !== TcpConnection.STATE_DISCONNECTED) {
             throw new Error('Connection is not disconnected (' + this.connectionState + ')');
         }
 
         this._setConnectionState(TcpConnection.STATE_CONNECTING);
 
-        return this._connect();
+        return this._connect(force);
     },
 
     disconnect: function() {
@@ -131,7 +131,7 @@ var TcpConnection = Connection.extend( /** @lends TcpConnection# */ {
         }
     },
 
-    _connect: function() {
+    _connect: function(force) {
         var _this = this;
 
         var deferred = Q.defer();
@@ -203,8 +203,23 @@ var TcpConnection = Connection.extend( /** @lends TcpConnection# */ {
                         if (err) {
                             done(err);
                         } else {
-                            _this.channel = channel.substring(0, 1);
-                            newPhase = 80;
+                            if (channel !== undefined) {
+                                if (_.isNumber(channel)) {
+                                    _this.channel = channel;
+                                } else if (_.isString(channel)) {
+                                    _this.channel = parseInt(channel);
+                                } else if (_.isObject(channel) && _.has(channel, 'channel')) {
+                                    _this.channel = channel.channel;
+                                } else {
+                                    done(new Error('Invalid channel selection ' + JSON.stringify(channel)));
+                                }
+                            }
+
+                            if (_this.channel) {
+                                newPhase = 80;
+                            } else {
+                                newPhase = 900;
+                            }
                         }
                     });
                 } else if (phase === 80) {
@@ -217,7 +232,13 @@ var TcpConnection = Connection.extend( /** @lends TcpConnection# */ {
                 done(new Error('Remote side responded with ' + JSON.stringify(line)));
             } else if (line [0] === '*') {
                 if (phase === 60) {
-                    channelList.push(line.substring(1).trim());
+                    var md = /^\*([\d]+):(.*)$/.exec(line);
+                    if (md) {
+                        channelList.push({
+                            channel: md [1],
+                            name: md [2],
+                        });
+                    }
                 }
             } else {
 
@@ -302,7 +323,7 @@ var TcpConnection = Connection.extend( /** @lends TcpConnection# */ {
 
             if (_this.socket !== socket) {
                 // nop
-            } else if (_this.connectionState === TcpConnection.STATE_CONNECTING) {
+            } else if (!force && (_this.connectionState === TcpConnection.STATE_CONNECTING)) {
                 // failed to connect
                 _this._setConnectionState(TcpConnection.STATE_DISCONNECTED);
 
