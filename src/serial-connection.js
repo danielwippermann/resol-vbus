@@ -167,12 +167,27 @@ var SerialConnection = Connection.extend(/** @lends SerialConnection# */ {
 
         this.on('data', onConnectionData);
 
-        var serialPort = new serialport.SerialPort(this.path, {
+        var onCompletion = function(err) {
+            if (err) {
+                throw new Error(_this.id + ' || onCompletion returned with error: ' + err.toString());
+            }
+        };
+
+        var onDisconnect = function() {
+            console.log(_this.id);
+            console.log(new Error().toString());
+            onError();
+        };
+
+        var options = {
             baudrate: 9600,
             databits: 8,
             stopbits: 1,
             parity: 'none',
-        });
+            disconnectedCallback: onDisconnect,
+        };
+
+        var serialPort = new serialport.SerialPort(this.path, options, null, onCompletion);
 
         serialPort.once('open', function() {
             serialPort.on('data', onSerialPortData);
