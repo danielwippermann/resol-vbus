@@ -95,7 +95,9 @@ gulp.task('mocha', function() {
         .pipe(plugins.mocha({
             ui: 'bdd',
             reporter: 'dot',
-        }));
+        })).on('error', function() {
+            process.exit(1);
+        });
 });
 
 
