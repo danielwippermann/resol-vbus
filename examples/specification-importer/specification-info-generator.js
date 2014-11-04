@@ -116,11 +116,22 @@ var generateSpecInfo = function(spec) {
                 fields = [ field ];
             }
 
+            var lowestFactor = null;
+            _.forEach(fields, function(field) {
+                if ((lowestFactor === null) || (lowestFactor > field.factor)) {
+                    lowestFactor = field.factor;
+                }
+            });
+
+            if (lowestFactor === null) {
+                lowestFactor = 1.0;
+            }
+
             var parts = [];
             _.forEach(fields, function(field) {
                 var size = (field.bitSize + 7) >> 3;
 
-                var factor = field.factor;
+                var factor = Math.round(field.factor / lowestFactor);
 
                 var mask;
                 if (field.bitSize === 1) {
@@ -222,6 +233,7 @@ var generateSpecInfo = function(spec) {
                 offset: firstPart.offset,
                 size: size,
                 mask: mask,
+                factor: lowestFactor,
                 typeId: typeId,
                 rootTypeId: rootTypeId,
                 precision: precision,

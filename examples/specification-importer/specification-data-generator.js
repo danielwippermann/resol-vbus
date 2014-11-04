@@ -100,6 +100,7 @@ var generateVBusSpecificationData = function(spec) {
     fieldTemplates = sortedMap(fieldTemplates, function(field, packetFieldId) {
         return {
             packetFieldId: packetFieldId,
+            factor: field.factor,
             parts: field.parts
         };
     });
@@ -120,6 +121,7 @@ var generateVBusSpecificationData = function(spec) {
                 fieldId: field.fieldId,
                 name: field.name,
                 typeId: field.typeId,
+                factor: field.factor,
                 parts: parts,
             };
         });

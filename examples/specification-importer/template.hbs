@@ -40,7 +40,12 @@ var createVBusSpecificationData = function() {
                 valid = true;
             }
             {{/each}}
-            return (valid ? rawValue : null);
+            if (valid) {
+                rawValue = rawValue * {{factor}};
+            } else {
+                rawValue = null;
+            }
+            return rawValue;
         },
 {{/each}}
     };
@@ -50,6 +55,7 @@ var createVBusSpecificationData = function() {
     var setRawValueFunctions = {
 {{#each fieldTemplates}}
         _{{packetFieldId}}: function(newValue, buffer, start, end) {
+            newValue = Math.round(newValue / {{factor}});
             var rawValue;
             {{#each parts}}if (start + {{offset}} < end) {
                 rawValue = (newValue / {{factor}}) & 255;
@@ -89,6 +95,7 @@ var createVBusSpecificationData = function() {
             fieldId: {{stringify fieldId}},
             name: {{stringify name}},
             type: types.{{typeId}},
+            factor: {{factor}},
             getRawValue: getRawValueFunctions._{{packetFieldId}},
             setRawValue: setRawValueFunctions._{{packetFieldId}},
             parts: [{{#each parts}}{
