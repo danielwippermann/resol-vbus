@@ -4,11 +4,12 @@
 
 <iframe src="http://ghbtns.com/github-btn.html?user=danielwippermann&repo=resol-vbus&type=watch&size=large" allowtransparency="true" frameborder="0" scrolling="0" width="77" height="30"></iframe>
 
-[![NPM version](https://badge.fury.io/js/resol-vbus.png)](https://npmjs.org/package/resol-vbus)
-[![Build Status](https://travis-ci.org/danielwippermann/resol-vbus.png?branch=master)](https://travis-ci.org/danielwippermann/resol-vbus)
-[![Coverage Status](https://coveralls.io/repos/danielwippermann/resol-vbus/badge.png)](https://coveralls.io/r/danielwippermann/resol-vbus)
-[![Dependency Status](https://david-dm.org/danielwippermann/resol-vbus.png?theme=shields.io)](https://david-dm.org/danielwippermann/resol-vbus)
-[![devDependency Status](https://david-dm.org/danielwippermann/resol-vbus/dev-status.png?theme=shields.io)](https://david-dm.org/danielwippermann/resol-vbus#info=devDependencies)
+[![NPM version](https://img.shields.io/npm/v/resol-vbus.svg)](https://npmjs.org/package/resol-vbus)
+[![Build Status](https://img.shields.io/travis/danielwippermann/resol-vbus.svg)](https://travis-ci.org/danielwippermann/resol-vbus)
+[![Coverage Status](https://img.shields.io/coveralls/danielwippermann/resol-vbus.svg)](https://coveralls.io/r/danielwippermann/resol-vbus)
+[![Dependency Status](https://img.shields.io/david/danielwippermann/resol-vbus.svg)](https://david-dm.org/danielwippermann/resol-vbus)
+[![devDependency Status](https://img.shields.io/david/dev/danielwippermann/resol-vbus.svg)](https://david-dm.org/danielwippermann/resol-vbus#info=devDependencies)
+[![License](https://img.shields.io/npm/l/resol-vbus.svg)](https://david-dm.org/danielwippermann/resol-vbus#info=devDependencies)
 
 
 
