@@ -174,7 +174,7 @@ describe('FileSystemRecorder', function() {
 
         var testFixturesPath = path.join(fixturesPath, '0a008f5b8c77c121d0fd39ae985593ba78ae5d85');
 
-        promiseIt('should work correctly', function() {
+        xpromiseIt('should work correctly for multiple HeaderSets', function() {
             this.timeout(testUtils.adaptTimeout(3000));
 
             var options = {
@@ -194,8 +194,10 @@ describe('FileSystemRecorder', function() {
                 return createDeleteFilesInPathPromise(testFixturesPath);
             }).then(function() {
                 var sourceConverter = new Converter({ objectMode: true });
+                sourceConverter.pause();
 
                 var targetConverter = new Converter({ objectMode: true });
+                targetConverter.pause();
 
                 sourceConverter.on('headerSet', function(headerSet) {
                     targetConverter.convertHeaderSet(headerSet);
@@ -225,7 +227,7 @@ describe('FileSystemRecorder', function() {
                 expect(targetRanges [0].maxTimestamp.toISOString()).equal('2014-02-16T23:55:00.805Z');
 
                 var expectedFilenames = [
-                    // 'SyncState.json',
+                    'SyncState.json',
                     '300000_20140214000000983.vbus',
                     '300000_20140215000001077.vbus',
                     '300000_20140216000002271.vbus',

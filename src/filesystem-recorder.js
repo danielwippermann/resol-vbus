@@ -150,10 +150,10 @@ var FileSystemRecorder = Recorder.extend({
 
         options = _.defaults({}, options, this._getOptions(), {
             interval: this.interval,
-            syncState: [],
+            syncState: {},
         });
 
-        var syncState = options.syncState;
+        var syncState = this._getOwnSyncState(options.syncState, options);
 
         var lastTimestamp = null;
 
@@ -277,13 +277,43 @@ var FileSystemRecorder = Recorder.extend({
         return Q.fcall(function() {
             return _this._makeDirectories();
         }).then(function() {
+            return _this._getCurrentSyncState(recordingJob);
+        }).then(function(syncState) {
             var options = {
                 interval: recordingJob.interval,
+                syncState: syncState,
             };
 
             var recording = _this._startRecordingInternal(options);
 
-            headerSetConsolidator.on('headerSet', recording.onHeaderSet);
+            var flush = function() {
+                return _this._setCurrentSyncState(syncState, recordingJob);
+            };
+
+            var flushTimer = null;
+            headerSetConsolidator.on('headerSet', function(headerSet) {
+                if (flushTimer) {
+                    clearTimeout(flushTimer);
+                    flushTimer = null;
+                }
+                flushTimer = setTimeout(flush, 5000);
+
+                return recording.onHeaderSet(headerSet);
+            });
+
+            var origFinish = recording.finish;
+
+            recording.finish = function() {
+                return Q.fcall(function() {
+                    if (flushTimer) {
+                        clearTimeout(flushTimer);
+                        flushTimer = null;
+                    }
+                    return flush();
+                }).then(function() {
+                    return origFinish.call(recording);
+                });
+            };
 
             return recording;
         });
@@ -304,7 +334,7 @@ var FileSystemRecorder = Recorder.extend({
 
         var recording = this._startRecordingInternal({
             interval: syncJob.interval,
-            syncState: syncState,
+            syncState: syncJob.syncState,
         });
 
         var inConverter = new VBusRecordingConverter({
