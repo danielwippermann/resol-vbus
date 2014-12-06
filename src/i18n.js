@@ -161,7 +161,7 @@ var I18N = extend(null, /** @lends I18N# */ {
      * @see http://momentjs.com/docs/
      */
     moment: function() {
-        var m = moment.apply(null, arguments).lang(this.languageData.moment);
+        var m = moment.apply(null, arguments).locale(this.languageData.moment);
         if (this.timezone) {
             m = m.tz(this.timezone);
         }

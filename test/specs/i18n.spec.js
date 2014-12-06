@@ -130,7 +130,7 @@ describe('I18N', function() {
 
             expect(m).to.be.an('object');
             expect(m.format).to.be.a('function');
-            expect(m.format('L LT')).to.equal('24.12.2013 13:29 Uhr');
+            expect(m.format('L LT')).to.equal('24.12.2013 13:29');
         });
 
         it('should work correctly in an unknown language', function() {
