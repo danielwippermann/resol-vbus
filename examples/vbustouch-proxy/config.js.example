@@ -1,0 +1,45 @@
+/*! resol-vbus | Copyright (c) 2013-2014, Daniel Wippermann | MIT license */
+'use strict';
+
+
+
+var path = require('path');
+
+
+
+module.exports = {
+
+    /**
+     * Name of the Connection class to use to connect.
+     */
+    connectionClassName: 'TcpConnection',
+
+    /**
+     * Options for the Connection instance.
+     */
+    connectionOptions: {
+        host: '192.168.14.100',
+        password: 'vbus',
+    },
+
+    /**
+     * Logging interval in milliseconds.
+     */
+    loggingInterval: 10000,
+
+    /**
+     * Logging time to live in milliseconds.
+     */
+    loggingTimeToLive: 60000,
+
+    /**
+     * Logging directory.
+     */
+    loggingPath: path.resolve(__dirname, 'cache'),
+
+    /**
+     * Port number to bind the web server to.
+     */
+    webServerPort: 3000,
+
+};
