@@ -9,6 +9,7 @@ A simple VBus data logger and webserver, implemented to trick the iOS "VBusTouch
     $ cd resol-vbus
     $ npm install
     $ cd examples/vbustouch-proxy
+    $ npm install
     $ cp config.js.example config.js
 
 
