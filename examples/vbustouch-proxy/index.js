@@ -278,6 +278,70 @@ var startHeaderSetConsolidatorTimer = function() {
 };
 
 
+var startXivelyClient = function() {
+    var onHeaderSet = function(headerSet) {
+        return Q.fcall(function() {
+            // debugLog('Updating Xively feed...');
+
+            var x = new XivelyClient();
+
+            x.setKey(config.xivelyApiKey);
+
+            var headers = headerSet.getSortedHeaders();
+            var packetFields = specification.getPacketFieldsForHeaders(headers);
+
+            var valuesById = _.reduce(packetFields, function(memo, pf) {
+                // debugLog('ID = ' + JSON.stringify(pf.id) + ', Name = ' + JSON.stringify(pf.name) + ', Value = ' + pf.rawValue);
+
+                memo [pf.id] = pf.rawValue;
+                return memo;
+            });
+
+            var dataStreams = _.map(config.xivelyPacketFieldMap, function(packetFieldId, dataPointId) {
+                return {
+                    id: dataPointId,
+                    current_value: valuesById [packetFieldId],
+                };
+            });
+
+            // debugLog(dataStreams);
+
+            var dp = {
+                version: '1.0.0',
+                datastreams: dataStreams,
+            };
+
+            x.feed.new(config.xivelyFeedId, {
+                data_point: dp,
+                callback: function(err) {
+                    if (err) {
+                        // debugLog('Failed updating Xively feed...', err);
+                    } else {
+                        // debugLog('Done updating Xively feed...');
+                    }
+                },
+            });
+        });
+    };
+
+    return Q.fcall(function() {
+        if (config.xivelyInterval) {
+            debugLog('Starting Xively client');
+
+            var hsc = new vbus.HeaderSetConsolidator({
+                interval: config.xivelyInterval,
+            });
+
+            hsc.on('headerSet', function() {
+                onHeaderSet(headerSetConsolidator);
+            });
+
+            hsc.startTimer();
+        }
+    });
+};
+
+
 var startRecorder = function() {
     var converter = new vbus.Converter({ objectMode: true });
 
@@ -307,6 +371,8 @@ var main = function() {
         return startWebServer();
     }).then(function() {
         return startHeaderSetConsolidatorTimer();
+    }).then(function() {
+        return startXivelyClient();
     }).then(function() {
         return startRecorder();
     });
