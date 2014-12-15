@@ -295,7 +295,7 @@ var startXivelyClient = function() {
 
                 memo [pf.id] = pf.rawValue;
                 return memo;
-            });
+            }, {});
 
             var dataStreams = _.map(config.xivelyPacketFieldMap, function(packetFieldId, dataPointId) {
                 return {
