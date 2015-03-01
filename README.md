@@ -97,6 +97,23 @@ into your shell:
 
 ## Changelog
 
+### Version 0.12.0 (2015-02-28)
+
+- Add `vbustouch-proxy` example
+- Add support for rounding floating point numbers
+
+
+### Version 0.11.1 (2014-11-04)
+
+- Fix a floating point bug caused by `setRawValue`
+
+
+### Version 0.11.0 (2014-10-29)
+
+- Added support for setting packet field values
+- Several bug fixes
+
+
 ### Version 0.10.0 (2014-04-26)
 
 - Finalized support for customizing controller configuration.
@@ -136,7 +153,7 @@ All other trademarks are the property of their respective owners.
 
 The MIT License (MIT)
 
-Copyright (c) 2013-2014, Daniel Wippermann.
+Copyright (c) 2013-2015, Daniel Wippermann.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
