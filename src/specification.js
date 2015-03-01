@@ -9,6 +9,7 @@ var sprintf = require('sprintf').sprintf;
 
 var extend = require('./extend');
 var I18N = require('./i18n');
+var utils = require('./utils');
 
 var createVBusSpecificationData = require('./specification-data');
 
@@ -599,6 +600,16 @@ var Specification = extend(null, /** @lends Specification# */ {
         }
 
         return rawValue;
+    },
+
+    getRoundedRawValue: function(packetField, buffer, start, end) {
+        var rawValue = this.getRawValue(packetField, buffer, start, end);
+
+        var precision = packetField && packetField.type && packetField.type.precision || 0;
+
+        var roundedRawValue = utils.roundNumber(rawValue, -precision);
+
+        return roundedRawValue;
     },
 
     setRawValue: function(packetField, rawValue, buffer, start, end) {
