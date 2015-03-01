@@ -291,9 +291,13 @@ var startXivelyClient = function() {
             var packetFields = specification.getPacketFieldsForHeaders(headers);
 
             var valuesById = _.reduce(packetFields, function(memo, pf) {
-                // debugLog('ID = ' + JSON.stringify(pf.id) + ', Name = ' + JSON.stringify(pf.name) + ', Value = ' + pf.rawValue);
+                var precision = pf.packetFieldSpec.type.precision;
 
-                memo [pf.id] = pf.rawValue;
+                var roundedRawValue = vbus.utils.roundNumber(pf.rawValue, -precision);
+
+                // debugLog('ID = ' + JSON.stringify(pf.id) + ', Name = ' + JSON.stringify(pf.name) + ', Value = ' + pf.rawValue + ', RoundedValue = ' + roundedRawValue);
+
+                memo [pf.id] = roundedRawValue;
                 return memo;
             }, {});
 
