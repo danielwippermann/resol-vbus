@@ -3,6 +3,7 @@
 
 
 
+var _ = require('lodash');
 var Q = require('q');
 
 
@@ -110,6 +111,31 @@ var utils = {
         promise.cancel = cancel;
 
         return promise;
+    },
+
+    roundNumber: function(value, exp) {
+        if ((value === undefined) || (exp === undefined) || (+exp === 0)) {
+            return value;
+        }
+
+        value = +value;
+        exp = +exp;
+
+        if (_.isNaN(value) || (exp % 1 !== 0)) {
+            return NaN;
+        }
+
+        var valueParts = value.toString().split('e');
+        var baseExp = valueParts [1] ? +valueParts [1] : 0;
+
+        value = Math.round(+(valueParts [0] + 'e' + (baseExp - exp)));
+
+        valueParts = value.toString().split('e');
+        baseExp = valueParts [1] ? +valueParts [1] : 0;
+
+        value = +(valueParts [0] + 'e' + (baseExp + exp));
+
+        return value;
     },
 
 };
