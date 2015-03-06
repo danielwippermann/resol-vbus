@@ -140,6 +140,12 @@ First release to the NPM registry.
 
 
 
+## Contributors
+
+* Thorsten Müller
+* Paul Hanna
+
+
 ## Legal Notices
 
 RESOL, VBus, VBus.net and others are trademarks or registered trademarks
