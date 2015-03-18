@@ -382,7 +382,7 @@ var ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# */
                             return connection.releaseBus(state.masterAddress);
                         }
                     }).then(check).then(function() {
-                        if (state.masterLastContacted === null) {
+                        if ((state.masterLastContacted === null) && (options.masterTimeout !== null)) {
                             reportProgress('WAITING_FOR_FREE_BUS');
 
                             return connection.waitForFreeBus().then(function(datagram) { // TODO: optional timeout?
