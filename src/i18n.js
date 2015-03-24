@@ -178,7 +178,7 @@ var I18N = extend(null, /** @lends I18N# */ {
      * @see http://momentjs.com/docs/
      */
     momentUtc: function() {
-        var m = moment.utc.apply(null, arguments).lang(this.languageData.moment);
+        var m = moment.utc.apply(null, arguments).locale(this.languageData.moment);
         return m;
     },
 

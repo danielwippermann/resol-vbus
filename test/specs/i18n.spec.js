@@ -146,6 +146,47 @@ describe('I18N', function() {
 
     });
 
+    describe('#momentUtc', function() {
+
+        it('should be a method', function() {
+            expect(I18N.prototype.momentUtc).to.be.a('function');
+        });
+
+        it('should work correctly', function() {
+            var i18n = new I18N();
+            i18n.timezone = 'Europe/Berlin';
+
+            var m = i18n.momentUtc(1387888153828);
+
+            expect(m).to.be.an('object');
+            expect(m.format).to.be.a('function');
+            expect(m.format('L LT')).to.equal('12/24/2013 12:29 PM');
+        });
+
+        it('should work correctly in German', function() {
+            var i18n = new I18N('de');
+            i18n.timezone = 'Europe/Berlin';
+
+            var m = i18n.momentUtc(1387888153828);
+
+            expect(m).to.be.an('object');
+            expect(m.format).to.be.a('function');
+            expect(m.format('L LT')).to.equal('24.12.2013 12:29');
+        });
+
+        it('should work correctly in an unknown language', function() {
+            var i18n = new I18N('?');
+            i18n.timezone = 'Europe/Berlin';
+
+            var m = i18n.momentUtc(1387888153828);
+
+            expect(m).to.be.an('object');
+            expect(m.format).to.be.a('function');
+            expect(m.format('L LT')).to.equal('12/24/2013 12:29 PM');
+        });
+
+    });
+
     describe('#numeral', function() {
 
         it('should be a method', function() {
