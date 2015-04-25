@@ -127,18 +127,18 @@ gulp.task('publish', [ 'jekyll', 'jsdoc' ], function() {
 });
 
 
-gulp.task('coverage-prepare', function() {
-    return gulp.src(patterns.coverage)
-        .pipe(plugins.istanbul());
-});
-
-
-gulp.task('coverage', [ 'coverage-prepare' ], function(done) {
-    return gulp.src(patterns.test)
-        .pipe(plugins.mocha({
-            ui: 'bdd',
-        }))
-        .pipe(plugins.istanbul.writeReports());
+gulp.task('coverage', function(done) {
+    gulp.src(patterns.coverage)
+        .pipe(plugins.istanbul())
+        .pipe(plugins.istanbul.hookRequire())
+        .on('finish', function() {
+            gulp.src(patterns.test)
+                .pipe(plugins.mocha({
+                    ui: 'bdd',
+                }))
+                .pipe(plugins.istanbul.writeReports())
+                .on('end', done);
+        });
 });
 
 
