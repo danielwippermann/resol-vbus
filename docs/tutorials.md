@@ -20,3 +20,9 @@ This tutorial covers the basic steps to receive and decode live VBus data receiv
 ## [Load and Save Configuration](customizer-tutorial.html)
 
 This tutorial covers the steps to customize a controller's configuration by loading and saving it from and to a controller.
+
+
+## [Process recorded VBus data](vbus-recording-converter-tutorial.html)
+
+This tutorial covers the basic steps to read and decode recorded VBus data stored in files by a datalogger or the RESOL ServiceCenter (RSC) software.
+
