@@ -3,6 +3,7 @@
 
 
 
+var _ = require('lodash');
 var Q = require('q');
 
 
@@ -22,6 +23,27 @@ describe('ConfigurationOptimizerFactory', function() {
             expect(ConfigurationOptimizerFactory).property('createOptimizerByDeviceAddress').a('function');
         });
 
+        promiseIt('should have unique addresses for registered optimizers', function() {
+            var knownAddresses = {};
+
+            return _.reduce(ConfigurationOptimizerFactory._optimizerClasses, function(promise, OptimizerClass) {
+                return promise.then(function() {
+                    var address = OptimizerClass.deviceAddress;
+                    var addressKey = address.toString(16);
+
+                    expect(address).not.equal(0);
+
+                    expect(knownAddresses).not.property(addressKey);
+
+                    knownAddresses [addressKey] = true;
+
+                    return ConfigurationOptimizerFactory.createOptimizerByDeviceAddress(address);
+                }).then(function(optimizer) {
+                    expect(optimizer).an('object');
+                });
+            }, Q());
+        });
+
         promiseIt('should work correctly for unknown devices', function() {
             return Q.fcall(function() {
                 return ConfigurationOptimizerFactory.createOptimizerByDeviceAddress(0x0050);
@@ -37,6 +59,32 @@ describe('ConfigurationOptimizerFactory', function() {
                 expect(optimizer).a('object');
             });
         });
+
+        promiseIt('should work correctly for RESOL DeltaSol CS Plus', function() {
+            return Q.fcall(function() {
+                return ConfigurationOptimizerFactory.createOptimizerByDeviceAddress(0x2211);
+            }).then(function(optimizer) {
+                expect(optimizer).a('object');
+            });
+        });
+
+        promiseIt('should work correctly for RESOL DeltaSol MX', function() {
+            return Q.fcall(function() {
+                return ConfigurationOptimizerFactory.createOptimizerByDeviceAddress(0x7E11);
+            }).then(function(optimizer) {
+                expect(optimizer).a('object');
+            });
+        });
+
+        promiseIt('should work correctly for RESOL DeltaTherm HC', function() {
+            return Q.fcall(function() {
+                return ConfigurationOptimizerFactory.createOptimizerByDeviceAddress(0x5400);
+            }).then(function(optimizer) {
+                expect(optimizer).a('object');
+            });
+        });
+
+
 
     });
 

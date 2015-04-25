@@ -14,11 +14,17 @@ var optimizerClasses = [
     // RESOL
     // ======================================================================
 
+    // DeltaSol BS4 v2
+    require('./configuration-optimizers/resol-deltasol-bs4v2-103-configuration-optimizer'),
+
     // DeltaSol BX Plus
     require('./configuration-optimizers/resol-deltasol-bx-plus-xxx-configuration-optimizer'),
 
     // DeltaSol CS Plus
     require('./configuration-optimizers/resol-deltasol-cs-plus-xxx-configuration-optimizer'),
+
+    // DeltaSol MX
+    require('./configuration-optimizers/resol-deltasol-mx-112-configuration-optimizer'),
 
     // DeltaTherm HC
     require('./configuration-optimizers/resol-deltatherm-hc-xxx-configuration-optimizer'),
@@ -49,6 +55,8 @@ var ConfigurationOptimizerFactory = {
             return result;
         });
     },
+
+    _optimizerClasses: optimizerClasses,
 
 };
 
