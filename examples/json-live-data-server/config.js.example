@@ -1,0 +1,54 @@
+/*! resol-vbus | Copyright (c) 2013-2015, Daniel Wippermann | MIT license */
+'use strict';
+
+
+
+var path = require('path');
+
+
+
+var config = {
+
+	/**
+	 * The port number for the HTTP server to listen to.
+	 * @type {Number}
+	 */
+	httpPort: 3333,
+
+	/**
+	 * The inteval in milliseconds between two writes of the logging file.
+	 * @type {Number}
+	 */
+	loggingInterval: 10000,
+
+	/**
+	 * The filename of the logging file.
+	 * @type {String}
+	 */
+	loggingFilename: path.resolve(__dirname, 'live-data.json'),
+
+	/**
+	 * The name of the `Connection` subclass to use for connecting to the VBus.
+	 * @type {String}
+	 */
+	connectionClassName: 'TcpConnection',
+
+	connectionOptions: {
+		/**
+		 * The host name / IP address of the VBus/LAN or Datalogger device.
+		 * @type {String}
+		 */
+		host: '192.168.13.21',
+
+		/**
+		 * The password for the VBus/LAN or Datalogger device.
+		 * @type {String}
+		 */
+		password: 'vbus',
+	},
+
+};
+
+
+
+module.exports = config;
