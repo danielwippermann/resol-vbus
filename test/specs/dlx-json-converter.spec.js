@@ -206,6 +206,123 @@ describe('DLxJsonConverter', function() {
             });
         });
 
+        promiseIt('should work correctly with filtered specifications', function() {
+            var buffer2 = new Buffer(rawPacket2, 'hex');
+            var packet2 = Packet.fromLiveBuffer(buffer2, 0, buffer2.length);
+            packet2.timestamp = new Date(1387893003303);
+            packet2.channel = 1;
+
+            var rawSpecificationData1 = {
+                'filteredPacketFieldSpecs': [{
+                    'filteredPacketFieldId': 'DemoValue1',
+                    'packetId': '01_0010_7E21_10_0100',
+                    'fieldId': '000_2_0',
+                    'name': {
+                        'ref': 'Vorlauf-Soll-Temperatur',
+                    },
+                    'type': 'Number_0_1_DegreesCelsius',
+                    'getRawValue': '_0010_7E20_0100_000_2_0'
+                }, {
+                    'filteredPacketFieldId': 'DemoValue2',
+                    'packetId': '00_0010_7722_10_0100',
+                    'fieldId': '000_2_0',
+                    'name': {
+                        'ref': 'Flow temperatureL',
+                        'en': 'Flow temperature',
+                        'de': 'T-VL',
+                        'fr': 'Température Départ'
+                    },
+                    'type': 'Number_0_1_DegreesCelsius',
+                    'getRawValue': '_0010_7722_0100_000_2_0'
+                }]
+            };
+
+            var spec = new vbus.Specification({
+                specificationData: rawSpecificationData1
+            });
+
+            var outConv = new DLxJsonConverter({
+                specification: spec,
+            });
+
+
+            var dataChunks = [];
+
+            return vbus.utils.promise(function(resolve, reject) {
+                var headerSet;
+
+                headerSet = new HeaderSet({
+                    timestamp: new Date(1387893006829),
+                    headers: [ packet2 ]
+                });
+
+                outConv.on('data', function(chunk) {
+                    dataChunks.push(chunk);
+                });
+
+                outConv.on('end', function() {
+                    resolve();
+                });
+
+                outConv.convertHeaderSet(headerSet);
+
+                outConv.finish();
+            }).then(function() {
+                var buffer = Buffer.concat(dataChunks);
+
+                var string = buffer.toString();
+
+                var jsonRecording;
+
+                expect(function() {
+                    jsonRecording = JSON.parse(string);
+                }).to.not.throw();
+
+                expect(jsonRecording).to.be.an('object');
+
+                expect(jsonRecording).to.eql({
+                    'headers': [{
+                        'channel': 1,
+                        'command': 256,
+                        'description': 'VBus 1: DeltaSol MX [Heizkreis #1]',
+                        'destination_address': 16,
+                        'destination_name': 'DFA',
+                        'fields': [{
+                            'filteredId': 'DemoValue1',
+                            'id': '000_2_0',
+                            'name': 'Vorlauf-Soll-Temperatur',
+                            'unit': ' °C',
+                            'unit_code': 'DegreesCelsius'
+                        }],
+                        'id': '01_0010_7E21_0100',
+                        'info': 0,
+                        'protocol_version': 16,
+                        'source_address': 32289,
+                        'source_name': 'DeltaSol MX [Heizkreis #1]'
+                    }],
+                    'headerset_stats': {
+                        'headerset_count': 1,
+                        'max_timestamp': 1387893006.829,
+                        'min_timestamp': 1387893006.829
+                    },
+                    'headersets': [{
+                        'packets': [{
+                            'field_values': [{
+                                'field_index': 0,
+                                'raw_value': 0,
+                                'value': '0.0',
+                            }],
+                            'header_index': 0,
+                            'timestamp': 1387893003.303,
+                        }],
+                        'timestamp': 1387893006.829
+                    }],
+                    'language': 'en'
+                });
+
+            });
+        });
+
     });
 
 });

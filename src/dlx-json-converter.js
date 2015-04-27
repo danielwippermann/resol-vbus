@@ -112,8 +112,10 @@ var DLxJsonConverter = Converter.extend(/** @lends DLxJsonConverter# */ {
 
         _.forEach(packetFields, function(packetField) {
             var headerIndex = allHeaders.indexOf(packetField.packet);
-            var packetInfo = packetInfoList [headerIndex];
-            packetInfo.packetFields.push(packetField);
+            if (headerIndex >= 0) {
+                var packetInfo = packetInfoList [headerIndex];
+                packetInfo.packetFields.push(packetField);
+            }
         });
 
         var noneUnit = spec.getUnitById('None');
@@ -196,8 +198,10 @@ var DLxJsonConverter = Converter.extend(/** @lends DLxJsonConverter# */ {
 
         _.forEach(allPacketFields, function(packetField) {
             var headerIndex = allHeaders.indexOf(packetField.packet);
-            var packetInfo = packetInfoList [headerIndex];
-            packetInfo.packetFields.push(packetField);
+            if (headerIndex >= 0) {
+                var packetInfo = packetInfoList [headerIndex];
+                packetInfo.packetFields.push(packetField);
+            }
         });
 
         var headersData = _.reduce(packetInfoList, function(memo, packetInfo, packetInfoIndex) {
