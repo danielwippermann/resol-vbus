@@ -97,6 +97,19 @@ into your shell:
 
 ## Changelog
 
+### Version 0.12.2 (2015-05-05)
+
+- Update VBus specification data
+
+
+### Version 0.12.1 (2015-04-27)
+
+- Add configuration optimizers for RESOL DeltaSol MX and BS/4 v2
+- Add a simple JSON live data server example
+- Add some documentation
+- Several bug fixes
+
+
 ### Version 0.12.0 (2015-02-28)
 
 - Add `vbustouch-proxy` example
