@@ -18,7 +18,7 @@ Just install the dependencies for the resol-vbus library and this tool:
 
 	$ cd .../resol-vbus
 	$ npm install
-	$ cd examples/configuration-importer
+	$ cd tools/configuration-importer
 	$ npm install
 	$ mkdir rpt-files
 
@@ -30,12 +30,12 @@ To add `Customizer` support for a new controller you need to follow these steps.
 
 ### Get the XML file from the RPT
 
-Simply extract (or install) the RPT installer to get access to the `<product>-Menu.xml` of the controller you want to add. Copy that file over to the `.../resol-vbus/examples/configuration-importer/rpt-files` directory you created above.
+Simply extract (or install) the RPT installer to get access to the `<product>-Menu.xml` of the controller you want to add. Copy that file over to the `.../resol-vbus/tools/configuration-importer/rpt-files` directory you created above.
 
 
 ### Modify the importer tool
 
-Inside the `main` function of the `.../resol-vbus/examples/configuration-importer/index.js` you find a sequence of commands that basically look like this:
+Inside the `main` function of the `.../resol-vbus/tools/configuration-importer/index.js` you find a sequence of commands that basically look like this:
 
 
 	// ...
@@ -45,7 +45,7 @@ Inside the `main` function of the `.../resol-vbus/examples/configuration-importe
         });
     // ...
 
-A call to the `convertMenuXmlFile` function converts a single RPT XML file to a JavaScript data source file. The function assumes that the XML file is located under `.../resol-vbus/examples/configuration-importer/rpt-files` and it stores the JavaScript data source file under `.../resol-vbus/src/configuration-optimizers`.
+A call to the `convertMenuXmlFile` function converts a single RPT XML file to a JavaScript data source file. The function assumes that the XML file is located under `.../resol-vbus/tools/configuration-importer/rpt-files` and it stores the JavaScript data source file under `.../resol-vbus/src/configuration-optimizers`.
 
 Just comment out all the controllers you do not want to create a new data file for and then add a block describing your new controller.
 
@@ -54,7 +54,7 @@ Just comment out all the controllers you do not want to create a new data file f
 
 After copying the RPT XML file and modifying the `index.js` simply run the tool:
 
-	$ cd .../resol-vbus/examples/configuration-importer
+	$ cd .../resol-vbus/tools/configuration-importer
 	$ node index.js
 	.../resol-vbus/src/configuration-optimizers/resol-deltasol-bs4v2-103-data.js
 

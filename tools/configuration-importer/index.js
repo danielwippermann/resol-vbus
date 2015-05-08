@@ -231,7 +231,7 @@ var convertMenuXmlFile = function(inputFilename, outputFilename, convert) {
         return JSON.stringify(menuSystem, null, '    ');
     }).then(function(content) {
         return [
-            '/*! resol-vbus | Copyright (c) 2013-2014, Daniel Wippermann | MIT license */',
+            '/*! resol-vbus | Copyright (c) 2013-2015, Daniel Wippermann | MIT license */',
             '\'use strict\';',
             '',
             '',
@@ -251,50 +251,87 @@ var convertMenuXmlFile = function(inputFilename, outputFilename, convert) {
 
 var main = function() {
     return Q.fcall(function() {
-        return convertMenuXmlFile('BS2-Menu.xml', 'resol-deltasol-bs2v2-xxx-data.js', function(menuSystem) {
-            return menuSystem;
-        });
-    }).then(function() {
-        return convertMenuXmlFile('BS4-Menu.xml', 'resol-deltasol-bs4v2-xxx-data.js', function(menuSystem) {
-            return menuSystem;
-        });
-    }).then(function() {
-        return convertMenuXmlFile('BSPlus-Menu.xml', 'resol-deltasol-bsplusv2-xxx-data.js', function(menuSystem) {
-            return menuSystem;
-        });
-    }).then(function() {
-        return convertMenuXmlFile('BX-Menu.xml', 'resol-deltasol-bx-xxx-data.js', function(menuSystem) {
-            return menuSystem;
-        });
-    }).then(function() {
-        return convertMenuXmlFile('BXPlus-Menu.xml', 'resol-deltasol-bx-plus-xxx-data.js', function(menuSystem) {
-            return menuSystem;
-        });
-    }).then(function() {
-        return convertMenuXmlFile('MX-Menu.xml', 'resol-deltasol-mx-xxx-data.js', function(menuSystem) {
-            return menuSystem;
-        });
-    }).then(function() {
-        return convertMenuXmlFile('HC-Menu.xml', 'resol-deltasol-hc-xxx-data.js', function(menuSystem) {
-            return menuSystem;
-        });
-    }).then(function() {
-        return convertMenuXmlFile('CSPlus-Menu.xml', 'resol-deltasol-cs-plus-110-data.js', function(menuSystem) {
-            menuSystem = removeNamedValues(menuSystem, [
-                /^S[0-9]+(_C|_F)?$/,
-                /^Emv_DDS_Temperatur(_C|_F)?$/,
-                /^Save$/,
-                /^UnitSensor$/,
-                /^Variantenummer$/,
-                /^Wmz1_TemperatureSensor[12](_C|_F)?$/,
-            ]);
-            return menuSystem;
-        });
+    //     return convertMenuXmlFile('BS4-Menu.xml', 'resol-deltasol-bs4v2-xxx-data.js', function(menuSystem) {
+    //         return menuSystem;
+    //     });
     // }).then(function() {
-    //     var filename = process.argv [2];
-    //     // var filename = '/Users/daniel/Projects/RESOL/DeltaSol_SLT/DeltaSol_SLT/src/Menu_output.xml';
+    //     return convertMenuXmlFile('BXPlus-Menu.xml', 'resol-deltasol-bx-plus-xxx-data.js', function(menuSystem) {
+    //         return menuSystem;
+    //     });
+    // }).then(function() {
+    //     return convertMenuXmlFile('CSPlus-Menu.xml', 'resol-deltasol-cs-plus-110-data.js', function(menuSystem) {
+    //         menuSystem = removeNamedValues(menuSystem, [
+    //             /^S[0-9]+(_C|_F)?$/,
+    //             /^Emv_DDS_Temperatur(_C|_F)?$/,
+    //             /^Save$/,
+    //             /^UnitSensor$/,
+    //             /^Variantenummer$/,
+    //             /^Wmz1_TemperatureSensor[12](_C|_F)?$/,
+    //         ]);
+    //         return menuSystem;
+    //     });
+    // }).then(function() {
+    //     return convertMenuXmlFile('MX-112-Menu.xml', 'resol-deltasol-mx-112-data.js', function(menuSystem) {
+    //         return menuSystem;
+    //     });
+    // }).then(function() {
+    //     return convertMenuXmlFile('HC-Menu.xml', 'resol-deltatherm-hc-xxx-data.js', function(menuSystem) {
+    //         return menuSystem;
+    //     });
 
-    //     return loadMenuXmlFile(filename);
+
+    // ==== CURRENTLY NOT SUPPORTED CONTROLLERS BELOW ====
+
+    // }).then(function() {
+    //     return convertMenuXmlFile('BS2-Menu.xml', 'resol-deltasol-bs2v2-xxx-data.js', function(menuSystem) {
+    //         return menuSystem;
+    //     });
+    // }).then(function() {
+    //     return convertMenuXmlFile('BSPlus-Menu.xml', 'resol-deltasol-bsplusv2-xxx-data.js', function(menuSystem) {
+    //         return menuSystem;
+    //     });
+    // }).then(function() {
+    //     return convertMenuXmlFile('BX-Menu.xml', 'resol-deltasol-bx-xxx-data.js', function(menuSystem) {
+    //         return menuSystem;
+    //     });
+    // }).then(function() {
+    //     return convertMenuXmlFile('MX-Menu.xml', 'resol-deltasol-mx-xxx-data.js', function(menuSystem) {
+    //         return menuSystem;
+    //     });
+    // }).then(function() {
+    //     return convertMenuXmlFile('BS4-103-Menu.xml', 'resol-deltasol-bs4v2-103-data.js', function(menuSystem) {
+    //         return menuSystem;
+    //     });
+    // }).then(function() {
+    //     return convertMenuXmlFile('SL-Menu.xml', 'resol-deltasol-sl-xxx-data.js', function(menuSystem) {
+    //         return menuSystem;
+    //     });
+    // }).then(function() {
+    //     return convertMenuXmlFile('HCMini-100-Menu.xml', 'resol-deltatherm-hc-mini-100-data.js', function(menuSystem) {
+    //         return menuSystem;
+    //     });
+    // }).then(function() {
+    //     return convertMenuXmlFile('E-Menu.xml', 'resol-deltasol-e-xxx-data.js', function(menuSystem) {
+    //         return menuSystem;
+    //     });
+
+
+    }).then(function() {
+        var inputFilename = process.argv [2];
+        var outputFilename = process.argv [3];
+        var filterFilename = process.argv [4];
+        if (inputFilename && outputFilename) {
+            var filter;
+            if (filterFilename) {
+                filter = require(filterFilename);
+            } else {
+                filter = function(menuSystem) {
+                    return menuSystem;
+                };
+            }
+
+            return convertMenuXmlFile(inputFilename, outputFilename, filter);
+        }
     });
 };
 
