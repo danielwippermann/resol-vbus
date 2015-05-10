@@ -3,6 +3,9 @@
 
 
 
+var crypto = require('crypto');
+
+
 var _ = require('lodash');
 var sprintf = require('sprintf').sprintf;
 
@@ -127,6 +130,21 @@ var numberFormatCache = {};
  * @property {string} getRawValue
  */
 
+/**
+ * @typedef BlockTypeSection
+ * @type {object}
+ * @property {string} sectionId Section identifier
+ * @property {string} surrogatePacketId Surrogate packet identifier
+ * @property {Packet} packet Packet object
+ * @property {PacketSpecification} packetSpec PacketSpecification object
+ * @property {number} startOffset Offset of section start within Packet frame data
+ * @property {number} endOffset Offset of section end within Packet frame data
+ * @property {number} type Section type
+ * @property {number} payloadCount Count of payload elements
+ * @property {number} frameCount Count of frames
+ * @property {Buffer} frameData Frame data
+ */
+
 
 
 var Specification = extend(null, /** @lends Specification# */ {
@@ -140,6 +158,8 @@ var Specification = extend(null, /** @lends Specification# */ {
     deviceSpecCache: null,
 
     packetSpecCache: null,
+
+    blockTypePacketSpecCache: null,
 
     /**
      * I18N instance
@@ -170,6 +190,7 @@ var Specification = extend(null, /** @lends Specification# */ {
 
         this.deviceSpecCache = {};
         this.packetSpecCache = {};
+        this.blockTypePacketSpecCache = {};
 
         this.specificationData = Specification.loadSpecificationData(options && options.specificationData);
     },
@@ -1164,6 +1185,403 @@ var Specification = extend(null, /** @lends Specification# */ {
         });
 
         return filteredPacketFieldSpecs;
+    },
+
+    /**
+     * Gets an array of BlockType sections from a collection of headers.
+     *
+     * @param  {Header[]} headers Array of Header objects
+     * @return {BlockTypeSection[]} Array of BlockTypeSection objects
+     */
+    getBlockTypeSectionsForHeaders: function(headers) {
+        var _this = this;
+
+        return _.reduce(headers, function(memo, header) {
+            if (((header.getProtocolVersion() & 0xF0) === 0x10) && (header.destinationAddress === 0x0015) && (header.command === 0x0100)) {
+                var packetSpec = _this.getPacketSpecification(header);
+
+                var startOffset = 0, length = header.frameCount * 4, frameData = header.frameData;
+                while (startOffset + 4 <= length) {
+                    var frameCount = frameData [startOffset] & 255;
+                    var endOffset = startOffset + 4 + 4 * frameCount;
+
+                    if (endOffset <= length) {
+                        var type = frameData [startOffset + 1] & 255;
+
+                        var payloadSize = null, payloadCount = null;
+                        // TODO(daniel): refine the payload count based on the type
+                        if (type === 1) {
+                            payloadSize = 2;
+                        } else if (type === 5) {
+                            payloadSize = 4;
+                        } else if (type === 8) {
+                            payloadSize = 1;
+                        } else if (type === 10) {
+                            payloadSize = 8;
+                        } else if (type === 11) {
+                            payloadSize = 4;
+                        } else if (type === 12) {
+                            payloadSize = 4;
+                        } else if (type === 13) {
+                            payloadSize = 4;
+                        } else if (type === 14) {
+                            payloadSize = 1;
+                        } else {
+                            payloadSize = 1;
+                        }
+
+                        if (!payloadCount && payloadSize) {
+                            payloadCount = Math.floor((endOffset - startOffset - 4) / payloadSize);
+                        }
+
+                        var sectionId = sprintf('%s_%02X_%02X_%d', packetSpec.packetId, frameCount, type, payloadCount);
+
+                        var shasum = crypto.createHash('sha1');
+                        shasum.update(new Buffer(sectionId, 'utf8'));
+                        var surrogatePacketIdHash = shasum.digest('hex').toUpperCase();
+
+                        var surrogatePacketIdHashPart1 = surrogatePacketIdHash.slice(0, 4);
+                        var surrogatePacketIdHashPart2 = surrogatePacketIdHash.slice(4, 8);
+
+                        var surrogatePacketId = sprintf('%02X_%04X_%s_%02X_%s', header.channel, header.destinationAddress | 0x8000, surrogatePacketIdHashPart1, 0x10, surrogatePacketIdHashPart2);
+
+                        memo.push({
+                            sectionId: sectionId,
+                            surrogatePacketId: surrogatePacketId,
+                            packet: header,
+                            packetSpec: packetSpec,
+                            startOffset: startOffset,
+                            endOffset: endOffset,
+                            type: type,
+                            payloadCount: payloadCount,
+                            frameCount: frameCount,
+                            frameData: frameData.slice(startOffset, endOffset),
+                        });
+                    }
+
+                    startOffset = endOffset;
+                }
+
+                if (startOffset !== length) {
+                    throw new Error('Malformed block type packet, ending prematurely at offset ' + startOffset);
+                }
+            }
+            return memo;
+        }, []);
+    },
+
+    _createUInt8BlockTypeFieldSpecification: function(fieldIdPrefix, offset, name, typeId, factor) {
+        return {
+            fieldId: sprintf('%s_%03d_1_0', fieldIdPrefix, offset),
+            name: name,
+            type: this.getTypeById(typeId),
+            factor: factor,
+            parts: [{
+                offset: offset,
+                mask: 255,
+                isSigned: false,
+                factor: 1,
+            }],
+
+            getRawValue: function(buffer, start, end) {
+                var rawValue = 0, valid = false;
+                if (start + offset < end) {
+                    rawValue += buffer.readUInt8(start + offset);
+                    valid = true;
+                }
+                if (valid) {
+                    rawValue = rawValue * factor;
+                } else {
+                    rawValue = null;
+                }
+                return rawValue;
+            },
+
+            setRawValue: function(newValue, buffer, start, end) {
+                newValue = Math.round(newValue / factor);
+                var rawValue;
+                if (start + offset < end) {
+                    rawValue = newValue & 255;
+                    buffer.writeUInt8(rawValue, start + offset);
+                }
+            },
+        };
+    },
+
+    _createInt16BlockTypeFieldSpecification: function(fieldIdPrefix, offset, name, typeId, factor) {
+        return {
+            fieldId: sprintf('%s_%03d_2_0', fieldIdPrefix, offset),
+            name: name,
+            type: this.getTypeById(typeId),
+            factor: factor,
+            parts: [{
+                offset: offset,
+                mask: 255,
+                isSigned: false,
+                factor: 1,
+            }, {
+                offset: offset + 1,
+                mask: 255,
+                isSigned: true,
+                factor: 256,
+            }],
+
+            getRawValue: function(buffer, start, end) {
+                var rawValue = 0, valid = false;
+                if (start + offset < end) {
+                    rawValue += buffer.readUInt8(start + offset);
+                    valid = true;
+                }
+                if (start + offset + 1 < end) {
+                    rawValue += buffer.readInt8(start + offset + 1) * 256;
+                    valid = true;
+                }
+                if (valid) {
+                    rawValue = rawValue * factor;
+                } else {
+                    rawValue = null;
+                }
+                return rawValue;
+            },
+
+            setRawValue: function(newValue, buffer, start, end) {
+                newValue = Math.round(newValue / factor);
+                var rawValue;
+                if (start + offset < end) {
+                    rawValue = newValue & 255;
+                    buffer.writeUInt8(rawValue, start + offset);
+                }
+                if (start + offset + 1 < end) {
+                    rawValue = (newValue / 256) & 255;
+                    buffer.writeUInt8(rawValue, start + offset + 1);
+                }
+            },
+        };
+    },
+
+    _createUInt32BlockTypeFieldSpecification: function(fieldIdPrefix, offset, name, typeId, factor) {
+        return {
+            fieldId: sprintf('%s_%03d_4_0', fieldIdPrefix, offset),
+            name: name,
+            type: this.getTypeById(typeId),
+            factor: factor,
+            parts: [{
+                offset: offset,
+                mask: 255,
+                isSigned: false,
+                factor: 1,
+            }, {
+                offset: offset + 1,
+                mask: 255,
+                isSigned: false,
+                factor: 256,
+            }, {
+                offset: offset + 2,
+                mask: 255,
+                isSigned: false,
+                factor: 65536,
+            }, {
+                offset: offset + 3,
+                mask: 255,
+                isSigned: false,
+                factor: 16777216,
+            }],
+
+            getRawValue: function(buffer, start, end) {
+                var rawValue = 0, valid = false;
+                if (start + offset < end) {
+                    rawValue += buffer.readUInt8(start + offset);
+                    valid = true;
+                }
+                if (start + offset + 1 < end) {
+                    rawValue += buffer.readUInt8(start + offset + 1) * 256;
+                    valid = true;
+                }
+                if (start + offset + 2 < end) {
+                    rawValue += buffer.readUInt8(start + offset + 2) * 65536;
+                    valid = true;
+                }
+                if (start + offset + 3 < end) {
+                    rawValue += buffer.readUInt8(start + offset + 3) * 16777216;
+                    valid = true;
+                }
+                if (valid) {
+                    rawValue = rawValue * factor;
+                } else {
+                    rawValue = null;
+                }
+                return rawValue;
+            },
+
+            setRawValue: function(newValue, buffer, start, end) {
+                newValue = Math.round(newValue / factor);
+                var rawValue;
+                if (start + offset < end) {
+                    rawValue = newValue & 255;
+                    buffer.writeUInt8(rawValue, start + offset);
+                }
+                if (start + offset + 1 < end) {
+                    rawValue = (newValue / 256) & 255;
+                    buffer.writeUInt8(rawValue, start + offset + 1);
+                }
+                if (start + offset + 2 < end) {
+                    rawValue = (newValue / 65536) & 255;
+                    buffer.writeUInt8(rawValue, start + offset + 2);
+                }
+                if (start + offset + 3 < end) {
+                    rawValue = (newValue / 16777216) & 255;
+                    buffer.writeUInt8(rawValue, start + offset + 3);
+                }
+            },
+        };
+    },
+
+    /**
+     * Gets the PacketSpecification objects matching the given BlockTypeSection objects.
+     *
+     * @param  {BlockTypeSection[]} sections Array of BlockTypeSection objects
+     * @return {PacketSpecification[]} Array of PacketSpecificationObjects
+     */
+    getBlockTypePacketSpecificationsForSections: function(sections) {
+        var _this = this;
+
+        return _.reduce(sections, function(memo, section) {
+            var sectionId = section.sectionId;
+
+            if (!_.has(_this.blockTypePacketSpecCache, sectionId)) {
+                var fieldIdPrefix = section.sectionId;
+
+                var forEachPayload = function(iterator) {
+                    var count = section.payloadCount;
+                    for (var i = 0; i < count; i++) {
+                        var suffix = (count > 1) ? (' ' + (i + 1)) : '';
+                        iterator(i, suffix);
+                    }
+                };
+
+                var packetFieldSpecs = [];
+
+                if (section.type === 1) {
+                    // temperatures
+                    forEachPayload(function(index, suffix) {
+                        packetFieldSpecs.push(_this._createInt16BlockTypeFieldSpecification(fieldIdPrefix, 4 + index * 2, 'Temperatur Sensor' + suffix, 'Number_0_1_DegreesCelsius', 0.1));
+                    });
+                } else if (section.type === 5) {
+                    forEachPayload(function(index, suffix) {
+                        packetFieldSpecs.push(_this._createUInt32BlockTypeFieldSpecification(fieldIdPrefix, 4 + index * 4, 'Wärmemenge' + suffix, 'Number_1_WattHours', 1));
+                    });
+                } else if (section.type === 8) {
+                    // Relais speeds
+                    forEachPayload(function(index, suffix) {
+                        packetFieldSpecs.push(_this._createUInt8BlockTypeFieldSpecification(fieldIdPrefix, 4 + index, 'Drehzahl Relais' + suffix, 'Number_1_Percent', 1));
+                    });
+                } else if (section.type === 10) {
+                    // SmartDisplay
+                    forEachPayload(function(index, suffix) {
+                        packetFieldSpecs.push(_this._createInt16BlockTypeFieldSpecification(fieldIdPrefix, 4 + index * 8, 'Temperatur Kollektor' + suffix, 'Number_0_1_DegreesCelsius', 0.1));
+                        packetFieldSpecs.push(_this._createInt16BlockTypeFieldSpecification(fieldIdPrefix, 6 + index * 8, 'Temperatur Speicher' + suffix, 'Number_0_1_DegreesCelsius', 0.1));
+                        packetFieldSpecs.push(_this._createUInt32BlockTypeFieldSpecification(fieldIdPrefix, 8 + index * 8, 'Wärmemenge' + suffix, 'Number_1_WattHours', 1));
+                    });
+                } else if (section.type === 11) {
+                    forEachPayload(function(index, suffix) {
+                        packetFieldSpecs.push(_this._createUInt32BlockTypeFieldSpecification(fieldIdPrefix, 4 + index * 4, 'Fehlermaske' + suffix, 'Number_1_None', 1));
+                    });
+                } else if (section.type === 12) {
+                    forEachPayload(function(index, suffix) {
+                        packetFieldSpecs.push(_this._createUInt32BlockTypeFieldSpecification(fieldIdPrefix, 4 + index * 4, 'Warnungsmaske' + suffix, 'Number_1_None', 1));
+                    });
+                } else if (section.type === 13) {
+                    forEachPayload(function(index, suffix) {
+                        packetFieldSpecs.push(_this._createUInt32BlockTypeFieldSpecification(fieldIdPrefix, 4 + index * 4, 'Statusmaske' + suffix, 'Number_1_None', 1));
+                    });
+                } else if (section.type === 14) {
+                    forEachPayload(function(index, suffix) {
+                        packetFieldSpecs.push(_this._createUInt8BlockTypeFieldSpecification(fieldIdPrefix, 4 + index, 'Segmentmaske' + suffix, 'Number_1_None', 1));
+                    });
+                }
+
+                _this.blockTypePacketSpecCache [sectionId] = _.extend({}, section.packetSpec, {
+                    packetId: section.surrogatePacketId,
+                    sectionId: sectionId,
+                    packetFields: packetFieldSpecs,
+                });
+            }
+
+            var packetSpec = _this.blockTypePacketSpecCache [sectionId];
+            memo.push(packetSpec);
+
+            return memo;
+        }, []);
+    },
+
+    /**
+     * Gets an array of PacketField objects for the provided BlockTypeSection objects.
+     *
+     * @param  {BlockTypeSection[]} sections Array of BlockTypeSection objects.
+     * @return {PacketField[]} Array of PacketField objects
+     */
+    getBlockTypeFieldsForSections: function(sections) {
+        var _this = this;
+
+        var sectionByBlockTypeId = _.reduce(sections, function(memo, section) {
+            memo [section.sectionId] = section;
+            return memo;
+        }, {});
+
+        var packetSpecs = this.getBlockTypePacketSpecificationsForSections(sections);
+
+        var packetFields = [];
+        _.forEach(packetSpecs, function(packetSpec) {
+            _.forEach(packetSpec.packetFields, function(packetFieldSpec) {
+                var section = sectionByBlockTypeId [packetSpec.sectionId];
+
+                var packetField = {
+                    id: packetSpec.packetId + '_' + packetFieldSpec.fieldId,
+                    section: section,
+                    packet: section.packet,
+                    packetSpec: packetSpec,
+                    packetFieldSpec: packetFieldSpec,
+                    origPacketFieldSpec: packetFieldSpec,
+                };
+                packetFields.push(packetField);
+            });
+        });
+
+        var language = this.language;
+
+        _.forEach(packetFields, function(packetField) {
+            var pfsName = packetField.packetFieldSpec.name;
+            var name;
+            if (_.isString(pfsName)) {
+                var key = 'specificationData.packetFieldName.' + pfsName;
+                name = _this.i18n.t(key);
+                if (name === key) {
+                    name = pfsName;
+                }
+            } else if (_.isObject(pfsName)) {
+                name = pfsName [language] || pfsName.en || pfsName.de || pfsName.ref;
+            }
+
+            var rawValue;
+            if (packetField.packetFieldSpec && packetField.section) {
+                var frameData = packetField.section.frameData;
+                rawValue = _this.getRawValue(packetField.packetFieldSpec, frameData);
+            }
+
+            _.extend(packetField, {
+
+                name: name,
+
+                rawValue: rawValue,
+
+                formatTextValue: function(unit) {
+                    return _this.formatTextValueFromRawValue(packetField.packetFieldSpec, rawValue, unit);
+                },
+
+            });
+        });
+
+        return packetFields;
     },
 
 }, {
