@@ -17,7 +17,7 @@ global.sinon = require('sinon');
 var jsdoc = require('./lib/gulp-jsdoc');
 
 
-chai.Assertion.includeStack = true;
+chai.config.includeStack = true;
 
 global.expect = chai.expect;
 
