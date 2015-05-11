@@ -51,10 +51,6 @@ var ResolDeltaSolBxPlusXxxConfigurationOptimizer = BaseConfigurationOptimizer.ex
             $(/^Solar_Kol2_.*/).ignore();
             $(/^Solar_Wf2_(Roehrenkollektor|Bypass|Frostschutz)_.*/).ignore();
         });
-        $('^Solar_OKollektor3$').isFalse(function() {
-            $(/^Solar_Kol3_.*/).ignore();
-            $(/^Solar_Wf3_(Roehrenkollektor|Bypass|Frostschutz)_.*/).ignore();
-        });
 
         value.lt(10, function() {
             $(/^Solar_Sp1_.*/).ignore();
@@ -72,10 +68,6 @@ var ResolDeltaSolBxPlusXxxConfigurationOptimizer = BaseConfigurationOptimizer.ex
         value.lt(70, function() {
             $(/^Solar_Sp4_.*/).ignore();
             $(/^Solar_Wf4_(ExtWT)_.*/).ignore();
-        });
-        value.lt(90, function() {
-            $(/^Solar_Sp5_.*/).ignore();
-            $(/^Solar_Wf5_(ExtWT)_.*/).ignore();
         });
 
         value.lt(10, function() {

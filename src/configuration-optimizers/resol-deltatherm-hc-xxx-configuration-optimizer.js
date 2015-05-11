@@ -44,9 +44,11 @@ var ResolDeltaThermHcXxxConfigurationOptimizer = BaseConfigurationOptimizer.exte
             var wfTypes = _.keys(value.values [0].valueTextById);
 
             _.forEach(wfTypes, function(wfType) {
-                value.notEql('#' + wfType, function() {
-                    $(prefix + wfType + '_.*').ignore();
-                });
+                if ((wfType !== 'Frei') && (wfType !== 'Fehlerrelais')) {
+                    value.notEql('#' + wfType, function() {
+                        $(prefix + wfType + '_.*').ignore();
+                    });
+                }
             });
         });
     },
@@ -66,9 +68,11 @@ var ResolDeltaThermHcXxxConfigurationOptimizer = BaseConfigurationOptimizer.exte
             var wfTypes = _.keys(value.values [0].valueTextById);
 
             _.forEach(wfTypes, function(wfType) {
-                value.notEql('#' + wfType, function() {
-                    $(prefix + wfType + '_.*').ignore();
-                });
+                if (wfType !== 'Frei') {
+                    value.notEql('#' + wfType, function() {
+                        $(prefix + wfType + '_.*').ignore();
+                    });
+                }
             });
         });
     },
