@@ -146,8 +146,9 @@ describe('BaseConfigurationOptimizer', function() {
                 values = values.$('^C');
                 expect(values.length).equal(1);
 
-                values = values.$('NotHere');
-                expect(values.length).equal(0);
+                expect(function() {
+                    values = values.$('NotHere');
+                }).throw(Error, 'WARNING: No values matching /NotHere/i found');
             };
 
             values = optimizer._optimizeConfiguration(config, values);

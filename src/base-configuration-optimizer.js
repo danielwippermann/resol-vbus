@@ -44,6 +44,10 @@ var ValuesWrapper = extend(null, {
             return memo;
         }, []);
 
+        if ((matchingValues.length === 0) && (values.length > 0)) {
+            this._reportNoMatchingValues(pattern, values);
+        }
+
         var wrapper = new ValuesWrapper(pattern, matchingValues);
 
         return wrapper;
@@ -210,6 +214,10 @@ var ValuesWrapper = extend(null, {
         });
 
         return values;
+    },
+
+    _reportNoMatchingValues: function(pattern, values) {
+        throw new Error('WARNING: No values matching ' + pattern + ' found');
     },
 
 });
