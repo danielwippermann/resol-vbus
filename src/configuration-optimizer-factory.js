@@ -26,6 +26,9 @@ var optimizerClasses = [
     // DeltaSol MX
     require('./configuration-optimizers/resol-deltasol-mx-112-configuration-optimizer'),
 
+    // DeltaSol SLT
+    require('./configuration-optimizers/resol-deltasol-slt-102-configuration-optimizer'),
+
     // DeltaTherm HC
     require('./configuration-optimizers/resol-deltatherm-hc-xxx-configuration-optimizer'),
 

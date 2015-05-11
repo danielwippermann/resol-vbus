@@ -76,6 +76,14 @@ describe('ConfigurationOptimizerFactory', function() {
             });
         });
 
+        promiseIt('should work correctly for RESOL DeltaSol SLT', function() {
+            return Q.fcall(function() {
+                return ConfigurationOptimizerFactory.createOptimizerByDeviceAddress(0x1001);
+            }).then(function(optimizer) {
+                expect(optimizer).a('object');
+            });
+        });
+
         promiseIt('should work correctly for RESOL DeltaTherm HC', function() {
             return Q.fcall(function() {
                 return ConfigurationOptimizerFactory.createOptimizerByDeviceAddress(0x5400);
