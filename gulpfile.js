@@ -90,6 +90,23 @@ gulp.task('jscs', function() {
 });
 
 
+gulp.task('browserify', function() {
+    return gulp.src('src/browser-index.js', { read: false })
+        .pipe(plugins.browserify({
+            standalone: 'vbus',
+            insertGlobals: true,
+            shim: {
+                request: {
+                    path: 'src/browser-shims/request.js',
+                    exports: 'request',
+                },
+            },
+        }))
+        .pipe(plugins.rename('resol-vbus.js'))
+        .pipe(gulp.dest('./dist/browser'));
+});
+
+
 gulp.task('mocha', function() {
     return gulp.src(patterns.test)
         .pipe(plugins.mocha({
