@@ -97,6 +97,12 @@ into your shell:
 
 ## Changelog
 
+### Version 0.13.0 (2015-05-14)
+
+- Add configuration optimizers for RESOL DeltaSol SLT
+- Add BlockType support
+
+
 ### Version 0.12.2 (2015-05-05)
 
 - Update VBus specification data
