@@ -14,6 +14,7 @@ var xml2js = require('xml2js');
 
 
 var checkSpec = require('./checker');
+var cleanupSpec = require('./cleanup');
 var VBusSpecDeserializer = require('./deserializer');
 var models = require('./models');
 var generateVBusSpecificationData = require('./specification-data-generator');
@@ -48,8 +49,6 @@ var main = function() {
 
         var spec = new models.VBusSpecification();
 
-        var deserializer = new VBusSpecDeserializer();
-
         _.forEach(filenames, function(filename) {
             promise = promise.then(function() {
                 return Q.npost(fs, 'readFile', [ filename ]);
@@ -59,6 +58,12 @@ var main = function() {
                 var specRoot = xmlRoot.vbusSpecification;
 
                 if (specRoot) {
+                    var deserializer = new VBusSpecDeserializer();
+
+                    deserializer._modelAnnotations = {
+                        _filename: filename,
+                    };
+
                     deserializer.deserializeVBusSpecification(specRoot, spec);
                 } else {
                     throw new Error('Unknown root element');
@@ -69,6 +74,8 @@ var main = function() {
         return promise.then(function() {
             return spec;
         });
+    }).then(function(spec) {
+        return cleanupSpec(spec);
     }).then(function(spec) {
         return checkSpec(spec);
     }).then(function(spec) {

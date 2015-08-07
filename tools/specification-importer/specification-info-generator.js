@@ -133,11 +133,13 @@ var generateSpecInfo = function(spec) {
 
                 var factor = Math.round(field.factor / lowestFactor);
 
-                var offset, mask;
+                var bitPos, offset, mask;
                 if (field.bitSize === 1) {
-                    offset = field.offset + (field.bitPos >> 3);
+                    bitPos = field.bitPos;
+                    offset = field.offset + (bitPos >> 3);
                     mask = (1 << (field.bitPos & 7));
                 } else {
+                    bitPos = 0;
                     offset = field.offset;
                     mask = 0xFF;
                 }
@@ -147,6 +149,7 @@ var generateSpecInfo = function(spec) {
 
                     parts.push({
                         offset: offset + i,
+                        bitPos: bitPos,
                         mask: mask,
                         isSigned: isSigned,
                         factor: factor,
@@ -172,7 +175,7 @@ var generateSpecInfo = function(spec) {
                 mask = 0;
             }
 
-            var fieldIdPrefix = sprintf('%03d_%d_%d', firstPart.offset, size, mask);
+            var fieldIdPrefix = sprintf('%03d_%d_%d', firstField.offset, size, mask);
             var fieldIdVariant = 0;
             var fieldId;
             do {

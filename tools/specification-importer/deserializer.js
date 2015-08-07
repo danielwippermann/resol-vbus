@@ -16,6 +16,8 @@ var models = require('./models');
 var VBusSpecDeserializer = extend(null, {
 
     _deserializeText: function(parent, model) {
+        this._annotateModel(model);
+
         this._filterProperties(parent, function(key, child) {
             if (key === 'lang') {
                 model.lang = this._getStringValue(child);
@@ -30,6 +32,8 @@ var VBusSpecDeserializer = extend(null, {
     },
 
     _deserializeVBusPacketField: function(parent, model) {
+        this._annotateModel(model);
+
         this._filterProperties(parent, function(key, child) {
             if (key === 'offset') {
                 model.offset = this._getIntegerValue(child);
@@ -63,6 +67,8 @@ var VBusSpecDeserializer = extend(null, {
     },
 
     _deserializeVBusPacket: function(parent, model) {
+        this._annotateModel(model);
+
         this._filterProperties(parent, function(key, child) {
             if (key === 'destination') {
                 model.destinationAddress = this._getIntegerValue(child);
@@ -85,6 +91,8 @@ var VBusSpecDeserializer = extend(null, {
     },
 
     _deserializeVBusDevice: function(parent, model) {
+        this._annotateModel(model);
+
         this._filterProperties(parent, function(key, child) {
             if (key === 'address') {
                 model.selfAddress = this._getIntegerValue(child);
@@ -103,6 +111,8 @@ var VBusSpecDeserializer = extend(null, {
     },
 
     _deserializeVBusSpecification: function(parent, model) {
+        this._annotateModel(model);
+
         this._filterProperties(parent, function(key, child) {
             if (key === 'device') {
                 model.devices.push(this._deserializeVBusDevice(child, new models.VBusSpecDevice()));
@@ -175,6 +185,10 @@ var VBusSpecDeserializer = extend(null, {
 
     _reportUnexpectedProperty: function(parent, key) {
         throw new Error('Unexpected property ' + JSON.stringify(key));
+    },
+
+    _annotateModel: function(model) {
+        _.extend(model, this._modelAnnotations);
     },
 
     deserializeVBusSpecification: function(parent, model) {

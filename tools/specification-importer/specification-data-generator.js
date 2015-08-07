@@ -98,19 +98,38 @@ var generateVBusSpecificationData = function(spec) {
     });
 
     fieldTemplates = sortedMap(fieldTemplates, function(field, packetFieldId) {
+        var parts = _.map(field.parts, function(part) {
+            var bitPos = (part.bitPos | 0) & 7;
+
+            return {
+                offset: part.offset | 0,
+                mask: part.mask | 0,
+                hasMask: part.mask !== 0xFF,
+                bitPos: bitPos,
+                hasBitPos: bitPos !== 0,
+                isSigned: part.isSigned,
+                factor: part.factor,
+            };
+        });
+
         return {
             packetFieldId: packetFieldId,
             factor: field.factor,
-            parts: field.parts
+            parts: parts
         };
     });
 
     var packetTemplates = sortedMap(info.packetTemplates, function(packet, packetId) {
         var fields = _.map(packet.fields, function(field) {
             var parts = _.map(field.parts, function(part) {
+                var bitPos = (part.bitPos | 0) & 7;
+
                 return {
                     offset: part.offset | 0,
                     mask: part.mask | 0,
+                    hasMask: part.mask !== 0xFF,
+                    bitPos: bitPos,
+                    hasBitPos: bitPos !== 0,
                     isSigned: JSON.stringify(part.isSigned),
                     factor: part.factor,
                 };

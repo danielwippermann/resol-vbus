@@ -11,20 +11,6 @@ var utils = require('./utils');
 
 
 
-var cleanupSpec = function(spec) {
-    _.forEach(spec.devices, function(device) {
-        device.selfAddress &= device.selfMask;
-    });
-
-    _.forEach(spec.packets, function(packet) {
-        packet.destinationAddress &= packet.destinationMask;
-        packet.sourceAddress &= packet.sourceMask;
-    });
-
-    return spec;
-};
-
-
 var sortSpec = function(spec) {
     spec.devices.sort(function(left, right) {
         return left.selfAddress - right.selfAddress;
@@ -56,8 +42,6 @@ var isAddressOverlapping = function(addressA, maskA, addressB, maskB) {
 
 
 var checkSpec = function(spec) {
-    spec = cleanupSpec(spec);
-
     spec = sortSpec(spec);
 
     _.forEach(spec.devices, function(deviceA) {

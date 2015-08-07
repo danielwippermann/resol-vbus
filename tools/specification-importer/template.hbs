@@ -36,7 +36,7 @@ var createVBusSpecificationData = function() {
         _{{packetFieldId}}: function(buffer, start, end) {
             var rawValue = 0, valid = false;
             {{#each parts}}if (start + {{offset}} < end) {
-                rawValue += buffer.read{{#unless isSigned}}U{{/unless}}Int8(start + {{offset}}) * {{factor}};
+                rawValue += {{#if hasBitPos}}({{/if}}{{#if hasMask}}({{/if}}buffer.read{{#unless isSigned}}U{{/unless}}Int8(start + {{offset}}){{#if hasMask}} & {{mask}}){{/if}}{{#if hasBitPos}} >> {{bitPos}}){{/if}} * {{factor}};
                 valid = true;
             }
             {{/each}}
@@ -58,8 +58,10 @@ var createVBusSpecificationData = function() {
             newValue = Math.round(newValue / {{factor}});
             var rawValue;
             {{#each parts}}if (start + {{offset}} < end) {
-                rawValue = (newValue / {{factor}}) & 255;
-                buffer.writeUInt8(rawValue, start + {{offset}});
+                {{#if hasMask}}rawValue = buffer.readUInt8(start + {{offset}}) & (~({{mask}}));
+                rawValue |= {{#if hasBitPos}}({{/if}}newValue{{#if hasBitPos}} << {{bitPos}}){{/if}} & {{mask}};
+                {{else}}rawValue = (newValue / {{factor}}) & 255;
+                {{/if}}buffer.writeUInt8(rawValue, start + {{offset}});
             }
             {{/each}}
         },
