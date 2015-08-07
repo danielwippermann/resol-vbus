@@ -706,6 +706,26 @@ refJsonRecording1 = {
             'unit': '%',
             'unit_code': 'Percent'
         }, {
+            'id': '100_1_0',
+            'name': 'Ausgang A',
+            'unit': '%',
+            'unit_code': 'Percent'
+        }, {
+            'id': '101_1_0',
+            'name': 'Ausgang B',
+            'unit': '%',
+            'unit_code': 'Percent'
+        }, {
+            'id': '102_1_0',
+            'name': 'Ausgang C',
+            'unit': '%',
+            'unit_code': 'Percent'
+        }, {
+            'id': '103_1_0',
+            'name': 'Ausgang D',
+            'unit': '%',
+            'unit_code': 'Percent'
+        }, {
             'id': '092_4_0',
             'name': 'System date',
             'unit': '',
@@ -2065,10 +2085,26 @@ refJsonRecording1 = {
                 'value': '0'
             }, {
                 'field_index': 45,
+                'raw_value': 0,
+                'value': ''
+            }, {
+                'field_index': 46,
+                'raw_value': 0,
+                'value': ''
+            }, {
+                'field_index': 47,
+                'raw_value': 0,
+                'value': ''
+            }, {
+                'field_index': 48,
+                'raw_value': 0,
+                'value': '',
+            }, {
+                'field_index': 49,
                 'raw_value': 410021413.000000,
                 'value': '12/29/2013 14:50:13'
             }, {
-                'field_index': 46,
+                'field_index': 50,
                 'raw_value': 0.000000,
                 'value': '0'
             }]
