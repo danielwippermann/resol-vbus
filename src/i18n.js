@@ -182,6 +182,11 @@ var I18N = extend(null, /** @lends I18N# */ {
         return m;
     },
 
+    momentTz: function() {
+        var m = moment.tz.apply(moment, arguments).locale(this.languageData.moment);
+        return m;
+    },
+
     /**
      * Wrapper for a numeral.js number object that is setup to use this
      * instance's language code.
