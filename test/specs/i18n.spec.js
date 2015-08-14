@@ -242,6 +242,29 @@ describe('I18N', function() {
 
     });
 
+    describe('#momentTzZone', function() {
+
+        it('should be a method', function() {
+            expect(I18N.prototype.momentTzZone).to.be.a('function');
+        });
+
+        it('should work correctly', function() {
+            var i18n = new I18N();
+
+            var m = i18n.momentTz(1387888153828, 'Europe/Berlin');
+
+            var z = i18n.momentTzZone('Europe/Berlin');
+
+            expect(z).to.be.an('object');
+            expect(z).property('abbr').a('function');
+            expect(z).property('offset').a('function');
+
+            expect(z.abbr(m)).equal('CET');
+            expect(z.offset(m)).equal(-60);
+        });
+
+    });
+
     describe('#numeral', function() {
 
         it('should be a method', function() {

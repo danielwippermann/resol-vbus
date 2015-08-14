@@ -187,6 +187,11 @@ var I18N = extend(null, /** @lends I18N# */ {
         return m;
     },
 
+    momentTzZone: function() {
+        var z = moment.tz.zone.apply(moment.tz, arguments);
+        return z;
+    },
+
     /**
      * Wrapper for a numeral.js number object that is setup to use this
      * instance's language code.
