@@ -3,6 +3,9 @@
 
 
 
+var Q = require('q');
+
+
 var vbus = require('./resol-vbus');
 
 
@@ -57,11 +60,73 @@ describe('Customizer', function() {
             expect(Customizer.prototype).property('loadConfiguration').a('function');
         });
 
+        promiseIt('should work correctly without an optimizer', function() {
+            var customizer = new Customizer({
+                optimizer: null,
+            });
+
+            customizer._loadConfiguration = sinon.spy(function(configuration) {
+                return Q(configuration);
+            });
+
+            var inConfig = [{
+                valueIndex: 0x0001,
+            }, {
+                valueIndex: 0x0001,
+            }];
+
+            return Q.fcall(function() {
+                return customizer.loadConfiguration(inConfig);
+            }).then(function(outConfig) {
+                expect(customizer._loadConfiguration).property('callCount').equal(1);
+
+                expect(outConfig).equal(inConfig);
+            });
+        });
+
+        promiseIt('should work correctly with an optimizer', function() {
+            var optimizer = {
+                completeConfiguration: function(config) {
+                    return Q(config);
+                },
+            };
+
+            var customizer = new Customizer({
+                optimizer: optimizer,
+            });
+
+            customizer._loadConfiguration = sinon.spy(function(configuration) {
+                return Q(configuration);
+            });
+
+            var inConfig = [{
+                valueIndex: 0x0001,
+            }, {
+                valueIndex: 0x0001,
+            }];
+
+            return Q.fcall(function() {
+                return customizer.loadConfiguration(inConfig);
+            }).then(function(outConfig) {
+                expect(customizer._loadConfiguration).property('callCount').equal(1);
+
+                expect(outConfig).equal(inConfig);
+            });
+        });
+
+    });
+
+    describe('#_loadConfiguration', function() {
+
+        it('should be a method', function() {
+            expect(Customizer.prototype).property('_loadConfiguration').a('function');
+        });
+
         it('should be an abstract method', function() {
             var customizer = new Customizer();
 
             expect(function() {
-                customizer.loadConfiguration();
+                customizer._loadConfiguration();
             }).to.throw();
         });
 
@@ -73,11 +138,73 @@ describe('Customizer', function() {
             expect(Customizer.prototype).property('saveConfiguration').a('function');
         });
 
+        promiseIt('should work correctly without an optimizer', function() {
+            var customizer = new Customizer({
+                optimizer: null,
+            });
+
+            customizer._saveConfiguration = sinon.spy(function(configuration) {
+                return Q(configuration);
+            });
+
+            var inConfig = [{
+                valueIndex: 0x0001,
+            }, {
+                valueIndex: 0x0001,
+            }];
+
+            return Q.fcall(function() {
+                return customizer.saveConfiguration(inConfig);
+            }).then(function(outConfig) {
+                expect(customizer._saveConfiguration).property('callCount').equal(1);
+
+                expect(outConfig).equal(inConfig);
+            });
+        });
+
+        promiseIt('should work correctly with an optimizer', function() {
+            var optimizer = {
+                completeConfiguration: function(config) {
+                    return Q(config);
+                },
+            };
+
+            var customizer = new Customizer({
+                optimizer: optimizer,
+            });
+
+            customizer._saveConfiguration = sinon.spy(function(configuration) {
+                return Q(configuration);
+            });
+
+            var inConfig = [{
+                valueIndex: 0x0001,
+            }, {
+                valueIndex: 0x0001,
+            }];
+
+            return Q.fcall(function() {
+                return customizer.saveConfiguration(inConfig);
+            }).then(function(outConfig) {
+                expect(customizer._saveConfiguration).property('callCount').equal(1);
+
+                expect(outConfig).equal(inConfig);
+            });
+        });
+
+    });
+
+    describe('#_saveConfiguration', function() {
+
+        it('should be a method', function() {
+            expect(Customizer.prototype).property('_saveConfiguration').a('function');
+        });
+
         it('should be an abstract method', function() {
             var customizer = new Customizer();
 
             expect(function() {
-                customizer.saveConfiguration();
+                customizer._saveConfiguration();
             }).to.throw();
         });
 
