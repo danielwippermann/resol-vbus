@@ -464,7 +464,8 @@ var Connection = extend(Duplex, /** @lends Connection# */ {
      * @param {number} valueId The ID of the value to read from the device.
      * @param {object} options
      * @param {number} options.timeout=500 Time in milliseconds between tries.
-     * @param {number} options.tries=2 Number of tries to get the value.
+     * @param {number} options.timeoutIncr=500 Additional time in milliseconds to increase the timeout per try.
+     * @param {number} options.tries=3 Number of tries to get the value.
      * @returns {Promise} A promise that resolves to the received Datagram or `null` on timeout.
      */
     getValueById: function(address, valueId, options) {
@@ -510,7 +511,8 @@ var Connection = extend(Duplex, /** @lends Connection# */ {
      * @param {number} value The value to write to the device.
      * @param {object} options
      * @param {number} options.timeout=500 Time in milliseconds between tries.
-     * @param {number} options.tries=2 Number of tries to get the value.
+     * @param {number} options.timeoutIncr=500 Additional time in milliseconds to increase the timeout per try.
+     * @param {number} options.tries=3 Number of tries to get the value.
      * @returns {Promise} A promise that resolves to the received Datagram or `null` on timeout.
      */
     setValueById: function(address, valueId, value, options) {
