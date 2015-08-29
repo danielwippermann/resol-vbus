@@ -43,10 +43,12 @@ var promiseTestContext = function(options, callback) {
 
         var TestableConnectionCustomizer = ConnectionCustomizer.extend({
 
-            transceiveValue: function(valueIndex, value, options, state) {
+            transceiveValue: function(inValueInfo, value, options, state) {
                 var _this = this;
 
                 return Q.fcall(function() {
+                    var valueIndex = inValueInfo.valueIndex;
+
                     var valueInfo = context.testConfigValueByIndex [valueIndex];
 
                     if ((value !== undefined) && valueInfo) {
@@ -945,6 +947,90 @@ describe('ConnectionCustomizer', function() {
                         .to.have.a.property('value')
                             .that.is.equal(value);
                 });
+            });
+        });
+
+        promiseIt('should get a value with a value ID hash', function() {
+            var deviceAddress = 0x1111;
+            var valueId = 0x2222;
+            var value = 0x12345678;
+
+            var connection = new Connection();
+
+            connection.pipe(connection);
+
+            var request, response;
+            var onDatagram = sinon.spy(function(datagram) {
+                if (datagram.destinationAddress !== deviceAddress) {
+                    // nop, ignore
+                } else if (datagram.command === 0x1100) {
+                    var txDatagram = new Datagram({
+                        channel: datagram.channel,
+                        destinationAddress: datagram.sourceAddress,
+                        sourceAddress: deviceAddress,
+                        command: 0x0100,
+                        valueId: valueId,
+                        value: datagram.value,
+                    });
+
+                    connection.send(txDatagram);
+                } else if (datagram.command === 0x0300) {
+                    request = datagram;
+
+                    response = new Datagram({
+                        channel: request.channel,
+                        destinationAddress: request.sourceAddress,
+                        sourceAddress: deviceAddress,
+                        command: 0x0100,
+                        valueId: request.valueId,
+                        value: value,
+                    });
+
+                    connection.send(response);
+                }
+            });
+
+            connection.on('datagram', onDatagram);
+
+            connection._setConnectionState(Connection.STATE_CONNECTED);
+
+            var customizer = new ConnectionCustomizer({
+                deviceAddress: deviceAddress,
+                connection: connection,
+            });
+
+            var valueInfo = {
+                valueIdHash: 0x76543210,
+            };
+
+            var options = {
+                action: 'get',
+            };
+
+            return customizer.transceiveValue(valueInfo, 0, options).then(function(datagram) {
+                expect(onDatagram).property('callCount').equal(4);
+
+                expect(datagram.toLiveBuffer()).to.eql(response.toLiveBuffer());
+
+                expect(request).to.be.instanceOf(Datagram);
+                expect(request.getId())
+                    .to.equal('00_1111_0020_20_0300_0000');
+                expect(request)
+                    .to.have.a.property('valueId')
+                        .that.is.equal(valueId);
+                expect(request)
+                    .to.have.a.property('value')
+                        .that.is.equal(0);
+
+                expect(response).to.be.instanceOf(Datagram);
+                expect(response.getId())
+                    .to.equal('00_0020_1111_20_0100_0000');
+                expect(response)
+                    .to.have.a.property('valueId')
+                        .that.is.equal(valueId);
+                expect(response)
+                    .to.have.a.property('value')
+                        .that.is.equal(value);
             });
         });
 

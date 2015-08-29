@@ -246,7 +246,7 @@ var ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# */
                                 var valueInfo = pendingValues [index++];
 
                                 Q.fcall(check).then(function() {
-                                    return _this.transceiveValue(valueInfo.valueIndex, valueInfo.value, {
+                                    return _this.transceiveValue(valueInfo, valueInfo.value, {
                                         triesPerValue: options.triesPerValue,
                                         timeoutPerValue: options.timeoutPerValue,
                                         action: options.action,
@@ -255,6 +255,7 @@ var ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# */
                                         progress = _.extend({}, progress, {
                                             valueId: valueInfo.valueId,
                                             valueIndex: valueInfo.valueIndex,
+                                            valueIdHash: valueInfo.valueIdHash,
                                             valueNr: index,
                                             valueCount: pendingValues.length,
                                         });
@@ -303,7 +304,9 @@ var ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# */
      * Transceive a controller value over this connection, handling
      * timeouts, retries etc.
      *
-     * @param {number} valueIndex Value index
+     * @param {object|number} valueInfoOrIndex Value info object or value index
+     * @param {number} valueInfo.valueIndex Value index
+     * @param {number} valueInfo.valueIdHash Value ID hash
      * @param {number} value Value
      * @param {object} options Options
      * @param {number} options.triesPerValue {@link ConnectionCustomizer#triesPerValue}
@@ -312,7 +315,13 @@ var ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# */
      * @param {object} state State to share between multiple calls to this method.
      * @returns {object} Promise that resolves with the datagram received or `null` on timeout.
      */
-    transceiveValue: function(valueIndex, value, options, state) {
+    transceiveValue: function(valueInfo, value, options, state) {
+        if (!_.isObject(valueInfo)) {
+            valueInfo = {
+                valueIndex: valueInfo,
+            };
+        }
+
         if (state === undefined) {
             state = {};
         }
@@ -369,7 +378,8 @@ var ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# */
                 notify({
                     message: message,
                     tries: tries,
-                    valueIndex: valueIndex,
+                    valueIndex: valueInfo.valueIndex,
+                    valueInfo: valueInfo,
                 });
             };
 
@@ -425,14 +435,34 @@ var ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# */
                             state.masterLastContacted = Date.now();
                         }
 
-                        if (options.action === 'get') {
+                        if (_.isNumber(valueInfo.valueIndex)) {
+                            // nop
+                        } else if (_.isNumber(valueInfo.valueIdHash)) {
+                            reportProgress('LOOKING_UP_VALUE');
+
+                            return Q.fcall(function() {
+                                return connection.getValueIdByIdHash(address, valueInfo.valueIdHash, options.actionOptions);
+                            }).then(function(datagram) {
+                                if (datagram && datagram.valueId) {
+                                    valueInfo.valueIndex = datagram.valueId;
+                                }
+                            });
+                        }
+                    }).then(check).then(function() {
+                        if (state.masterAddress === address) {
+                            state.masterLastContacted = Date.now();
+                        }
+
+                        if (!_.isNumber(valueInfo.valueIndex)) {
+                            return null;
+                        } else if (options.action === 'get') {
                             reportProgress('GETTING_VALUE');
 
-                            return connection.getValueById(address, valueIndex, options.actionOptions);
+                            return connection.getValueById(address, valueInfo.valueIndex, options.actionOptions);
                         } else if (options.action === 'set') {
                             reportProgress('SETTING_VALUE');
 
-                            return connection.setValueById(address, valueIndex, value, options.actionOptions);
+                            return connection.setValueById(address, valueInfo.valueIndex, value, options.actionOptions);
                         } else {
                             throw new Error('Unknown action "' + options.action + '"');
                         }
