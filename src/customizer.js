@@ -98,7 +98,11 @@ var Customizer = extend(EventEmitter, /** @lends Customizer# */ {
      * @returns {Promise} A Promise that resolves to the completed array of values.
      */
     _completeConfiguration: function(config) {
-        return this.optimizer.completeConfiguration(config);
+        if (this.optimizer) {
+            return this.optimizer.completeConfiguration(config);
+        } else {
+            return Q(config);
+        }
     },
 
     /**
