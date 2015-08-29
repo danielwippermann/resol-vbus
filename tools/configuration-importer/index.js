@@ -78,6 +78,10 @@ var mergeTypes = function(menuSystem) {
         if (type.unit) {
             info.unit = type.unit;
         }
+
+        if (type.size) {
+            info.size = type.size;
+        }
     };
 
     _.forEach(menuSystem.values, function(value) {
