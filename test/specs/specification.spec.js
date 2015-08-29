@@ -403,6 +403,19 @@ describe('Specification', function() {
             expect(packetSpec.packetFields.length).to.equal(0);
         });
 
+        it('should work correctly with a packet field ID string', function() {
+            var spec = new Specification();
+
+            var packetSpec = spec.getPacketSpecification('01_0010_7721_10_0100_000_2_0');
+
+            expect(packetSpec).to.be.an('object');
+            expect(packetSpec.packetId).to.be.a('string');
+            expect(packetSpec.destinationDevice).to.be.an('object');
+            expect(packetSpec.sourceDevice).to.be.an('object');
+            expect(packetSpec.packetFields).to.be.an('array');
+            expect(packetSpec.packetFields.length).to.be.above(0);
+        });
+
     });
 
     describe('#getPacketFieldSpecification', function() {
