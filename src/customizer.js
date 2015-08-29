@@ -68,16 +68,51 @@ var Customizer = extend(EventEmitter, /** @lends Customizer# */ {
     /**
      * Load a set of configuration values from a device.
      *
+     * If the `Customizer` has an `optimizer` set, the `configuration` parameter
+     * is passed to the optimizer's `completeConfiguration` method. Otherwise it must be an
+     * array of `ConfigurationValue` objects.
+     *
+     * If `options.optimize` is "truthy" the list of `ConfigurationValue` objects is passed
+     * into the optimizer's `optimizeLoadConfiguration` method to determine the minimal
+     * set of values to transfer. If `options.optimize` is "falsy" all of the
+     * `ConfigurationValue` objects will be loaded.
+     *
      * @param {array} configuration The set of values to transfer.
      * @param {object} options
      * @returns {Promise} A Promise that resolves to the set of values transfered.
      */
     loadConfiguration: function(configuration, options) {
+        var _this = this;
+
+        options = _.defaults({}, options, {
+            optimize: true,
+        });
+
+        return Q.fcall(function() {
+            return _this._completeConfiguration(configuration);
+        }).then(function(configuration) {
+            return _this._loadConfiguration(configuration, options);
+        });
+    },
+
+    _loadConfiguration: function(configuration, options) {
         throw new Error('Must be implemented by sub-class');
     },
 
     /**
      * Save a set of configuration values to a device.
+     *
+     * If the `Customizer` has an `optimizer` set, the `newConfiguration` parameter
+     * is passed to the optimizer's `completeConfiguration` method. Otherwise it must be an
+     * array of `ConfigurationValue` objects.
+     *
+     * If a `oldConfiguration` parameter is given, the same procedure as for the
+     * `newConfiguration` is applied to it as well.
+     *
+     * If `options.optimize` is "truthy" the list of `ConfigurationValue` objects is passed
+     * into the optimizer's `optimizeLoadConfiguration` method to determine the minimal
+     * set of values to transfer. If `options.optimize` is "falsy" all of the
+     * `ConfigurationValue` objects will be loaded.
      *
      * @param {array} newConfiguration The set of values to transfer.
      * @param {array} oldConfiguration The set of values to assume to be stored in the device.
@@ -85,6 +120,28 @@ var Customizer = extend(EventEmitter, /** @lends Customizer# */ {
      * @returns {Promise} A Promise that resolves to the set of values transfered.
      */
     saveConfiguration: function(newConfiguration, oldConfiguration, options) {
+        var _this = this;
+
+        options = _.defaults({}, options, {
+            optimize: true,
+        });
+
+        return Q.fcall(function() {
+            return _this._completeConfiguration(newConfiguration);
+        }).then(function(newConfiguration) {
+            return Q.fcall(function() {
+                if (oldConfiguration) {
+                    return _this._completeConfiguration(oldConfiguration);
+                } else {
+                    return null;
+                }
+            }).then(function(oldConfiguration) {
+                return _this._saveConfiguration(newConfiguration, oldConfiguration, options);
+            });
+        });
+    },
+
+    _saveConfiguration: function(newConfiguration, oldConfiguration, options) {
         throw new Error('Must be implemented by sub-class');
     },
 

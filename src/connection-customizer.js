@@ -85,17 +85,19 @@ var ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# */
         _.extend(this, _.pick(options, optionKeys));
     },
 
-    loadConfiguration: function(configuration, options) {
+    /**
+     * Load a set of configuration values from a device.
+     *
+     * See {@link Customizer#loadConfiguration} for details.
+     */
+    _loadConfiguration: function(configuration, options) {
         var _this = this;
 
         options = _.defaults({}, options, {
-            optimize: true,
             action: 'get',
         });
 
         return Q.fcall(function() {
-            return _this._completeConfiguration(configuration);
-        }).then(function(configuration) {
             var callback = function(config, round) {
                 if (options.optimize) {
                     return _this._optimizeLoadConfiguration(config);
@@ -116,11 +118,15 @@ var ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# */
         });
     },
 
-    saveConfiguration: function(newConfiguration, oldConfigurstion, options) {
+    /**
+     * Save a set of configuration values to a device.
+     *
+     * See {@link Customizer#saveConfiguration} for details.
+     */
+    _saveConfiguration: function(newConfiguration, oldConfigurstion, options) {
         var _this = this;
 
         options = _.defaults({}, options, {
-            optimize: true,
             action: 'set',
             actionOptions: {
                 save: true,
@@ -128,8 +134,6 @@ var ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# */
         });
 
         return Q.fcall(function() {
-            return _this._completeConfiguration(newConfiguration);
-        }).then(function(newConfiguration) {
             var callback = function(config, round) {
                 if (options.optimize) {
                     if (round === 1) {

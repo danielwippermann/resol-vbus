@@ -3,6 +3,10 @@
 
 
 
+var _ = require('lodash');
+var Q = require('q');
+
+
 var vbus = require('./resol-vbus');
 var testUtils = require('./test-utils');
 
@@ -13,6 +17,101 @@ var Connection = vbus.Connection;
 var ConnectionCustomizer = vbus.ConnectionCustomizer;
 var Datagram = vbus.Datagram;
 var Packet = vbus.Packet;
+
+
+
+var optimizerPromise = vbus.ConfigurationOptimizerFactory.createOptimizerByDeviceAddress(0x7E11);
+
+
+
+var promiseTestContext = function(options, callback) {
+    return Q.fcall(function() {
+        return optimizerPromise;
+    }).then(function(optimizer) {
+        var context = {};
+
+        var TestableOptimizer = function() {
+        };
+
+        TestableOptimizer.prototype = optimizer;
+
+        optimizer = new TestableOptimizer();
+
+        optimizer.completeConfiguration = sinon.spy(optimizer.completeConfiguration);
+        optimizer.optimizeLoadConfiguration = sinon.spy(optimizer.optimizeLoadConfiguration);
+        optimizer.optimizeSaveConfiguration = sinon.spy(optimizer.optimizeSaveConfiguration);
+
+        var TestableConnectionCustomizer = ConnectionCustomizer.extend({
+
+            transceiveValue: function(valueIndex, value, options, state) {
+                var _this = this;
+
+                return Q.fcall(function() {
+                    var valueInfo = context.testConfigValueByIndex [valueIndex];
+
+                    if ((value !== undefined) && valueInfo) {
+                        valueInfo.value = value;
+                    }
+
+                    var dgram = new Datagram({
+                        destinationAddress: 0x0020,
+                        sourceAddress: _this.deviceAddress,
+                        command: 0x0100,
+                        valueIndex: valueIndex,
+                        value: valueInfo && valueInfo.value,
+                    });
+
+                    return dgram;
+                });
+            },
+
+        });
+
+        var connection = new Connection();
+
+        connection._setConnectionState(Connection.STATE_CONNECTED);
+
+        options = _.defaults({}, options, {
+            deviceAddress: 0x7E11,
+            connection: connection,
+        });
+
+        if (options.optimizer === true) {
+            options.optimizer = optimizer;
+        }
+
+        var customizer = new TestableConnectionCustomizer(options);
+
+        customizer.transceiveValue = sinon.spy(customizer.transceiveValue);
+
+        _.extend(context, {
+            optimizer: optimizer,
+            connection: connection,
+            customizer: customizer,
+        });
+
+        return Q.fcall(function() {
+            return optimizer.completeConfiguration(options.testConfig);
+        }).then(function(testConfig) {
+            _.forEach(testConfig, function(valueInfo) {
+                if (valueInfo.value === undefined) {
+                    valueInfo.value = null;
+                }
+            });
+
+            context.testConfig = testConfig;
+
+            context.testConfigValueByIndex = _.reduce(testConfig, function(memo, valueInfo) {
+                memo [valueInfo.valueIndex] = valueInfo;
+                return memo;
+            }, {});
+
+            return callback(customizer, optimizer, context);
+        }).then(function() {
+            // cleanup
+        });
+    });
+};
 
 
 
@@ -94,6 +193,264 @@ describe('ConnectionCustomizer', function() {
             expect(customizer)
                 .to.have.a.property('masterTimeout')
                     .that.is.equal(options.masterTimeout);
+        });
+
+    });
+
+    describe('#loadConfiguration', function() {
+
+        it('should be a method', function() {
+            expect(ConnectionCustomizer.prototype).property('loadConfiguration').a('function');
+        });
+
+        promiseIt('should work correctly without optimizer and optimization', function() {
+            var options = {
+                optimizer: null,
+                testConfig: {
+                    'Relais_Regler_R1_Handbetrieb': -1285,
+                    'Relais_Regler_R2_Handbetrieb': -1297,
+                },
+            };
+
+            return promiseTestContext(options, function(customizer, optimizer, context) {
+                var refConfig = [{
+                    id: 'Relais_Regler_R1_Handbetrieb',
+                }, {
+                    id: 'Relais_Regler_R2_Handbetrieb',
+                }];
+
+                return Q.fcall(function() {
+                    // manually complete configuration, don't let the customizer do it...
+                    return optimizer.completeConfiguration(refConfig);
+                }).then(function(config) {
+                    var value;
+                    expect(config).an('array').lengthOf(2);
+
+                    value = config [0];
+                    expect(value).an('object');
+                    expect(value).property('valueIndex').equal(1285);
+
+                    value = config [1];
+                    expect(value).an('object');
+                    expect(value).property('valueIndex').equal(1297);
+
+                    return customizer.loadConfiguration(config, {
+                        optimize: false,
+                    });
+                }).then(function(config) {
+                    var value;
+                    expect(config).an('array').lengthOf(2);
+
+                    value = config [0];
+                    expect(value).an('object');
+                    expect(value).property('valueIndex').equal(1285);
+                    expect(value).property('value').equal(-1285);
+                    expect(value).property('pending').equal(false);
+                    expect(value).property('transceived').equal(true);
+
+                    value = config [1];
+                    expect(value).an('object');
+                    expect(value).property('valueIndex').equal(1297);
+                    expect(value).property('value').equal(-1297);
+                    expect(value).property('pending').equal(false);
+                    expect(value).property('transceived').equal(true);
+
+                    expect(customizer.transceiveValue).property('callCount').equal(2);
+                });
+
+            });
+        });
+
+        promiseIt('should work correctly with optimizer and without optimization', function() {
+            var options = {
+                optimizer: true,  // will be replaced with an object by `promiseTestContext`
+                testConfig: {
+                    'Relais_Regler_R1_Handbetrieb': -1285,
+                    'Relais_Regler_R2_Handbetrieb': -1297,
+                },
+            };
+
+            return promiseTestContext(options, function(customizer, optimizer, context) {
+                var refConfig = [{
+                    id: 'Relais_Regler_R1_Handbetrieb',
+                }, {
+                    id: 'Relais_Regler_R2_Handbetrieb',
+                }];
+
+                return Q.fcall(function() {
+                    return customizer.loadConfiguration(refConfig, {
+                        optimize: false,
+                    });
+                }).then(function(config) {
+                    var value;
+                    expect(config).an('array').lengthOf(2);
+
+                    value = config [0];
+                    expect(value).an('object');
+                    expect(value).property('valueIndex').equal(1285);
+                    expect(value).property('value').equal(-1285);
+                    expect(value).property('pending').equal(false);
+                    expect(value).property('transceived').equal(true);
+
+                    value = config [1];
+                    expect(value).an('object');
+                    expect(value).property('valueIndex').equal(1297);
+                    expect(value).property('value').equal(-1297);
+                    expect(value).property('pending').equal(false);
+                    expect(value).property('transceived').equal(true);
+
+                    expect(customizer.transceiveValue).property('callCount').equal(2);
+                });
+
+            });
+        });
+
+        promiseIt('should work correctly with optimization', function() {
+            var options = {
+                optimizer: true,  // will be replaced with an object by `promiseTestContext`
+            };
+
+            return promiseTestContext(options, function(customizer, optimizer, context) {
+                return Q.fcall(function() {
+                    return customizer.loadConfiguration(null, {
+                        optimize: true,
+                    });
+                }).then(function(config) {
+                    var value;
+                    expect(config).an('array').lengthOf(6291);
+
+                    value = config [64];
+                    expect(value).an('object');
+                    expect(value).property('valueIndex').equal(1285);
+                    expect(value).property('value').equal(null);
+                    expect(value).property('pending').equal(false);
+                    expect(value).property('transceived').equal(true);
+
+                    value = config [71];
+                    expect(value).an('object');
+                    expect(value).property('valueIndex').equal(1297);
+                    expect(value).property('value').equal(null);
+                    expect(value).property('pending').equal(false);
+                    expect(value).property('transceived').equal(true);
+
+                    expect(customizer.transceiveValue).property('callCount').equal(263);
+                });
+
+            });
+        });
+
+    });
+
+    describe('#saveConfiguration', function() {
+
+        it('should be a method', function() {
+            expect(ConnectionCustomizer.prototype).property('saveConfiguration').a('function');
+        });
+
+        promiseIt('should work correctly without optimizer and optimization', function() {
+            var options = {
+                optimizer: null,
+            };
+
+            return promiseTestContext(options, function(customizer, optimizer, context) {
+                var refConfig = [{
+                    id: 'Relais_Regler_R1_Handbetrieb',
+                    value: 1,
+                }, {
+                    id: 'Relais_Regler_R2_Handbetrieb',
+                    value: 3,
+                }];
+
+                return Q.fcall(function() {
+                    // manually complete configuration, don't let the customizer do it...
+                    return optimizer.completeConfiguration(refConfig);
+                }).then(function(config) {
+                    var value;
+                    expect(config).an('array').lengthOf(2);
+
+                    value = config [0];
+                    expect(value).an('object');
+                    expect(value).property('valueIndex').equal(1285);
+                    expect(value).property('value').equal(1);
+
+                    value = config [1];
+                    expect(value).an('object');
+                    expect(value).property('valueIndex').equal(1297);
+                    expect(value).property('value').equal(3);
+
+                    return customizer.saveConfiguration(config, null, {
+                        optimize: false,
+                    });
+                }).then(function(config) {
+                    var value;
+                    expect(config).an('array').lengthOf(2);
+
+                    value = config [0];
+                    expect(value).an('object');
+                    expect(value).property('valueIndex').equal(1285);
+                    expect(value).property('value').equal(1);
+                    expect(value).property('pending').equal(false);
+                    expect(value).property('transceived').equal(true);
+
+                    value = config [1];
+                    expect(value).an('object');
+                    expect(value).property('valueIndex').equal(1297);
+                    expect(value).property('value').equal(3);
+                    expect(value).property('pending').equal(false);
+                    expect(value).property('transceived').equal(true);
+                });
+
+            });
+        });
+
+        promiseIt('should work correctly with optimizer and without optimization', function() {
+            var options = {
+                optimizer: true,  // will be replaced with an object by `promiseTestContext`
+            };
+
+            return promiseTestContext(options, function(customizer, optimizer, context) {
+                var refConfig = [{
+                    id: 'Relais_Regler_R1_Handbetrieb',
+                    value: 1,
+                }, {
+                    id: 'Relais_Regler_R2_Handbetrieb',
+                    value: 3,
+                }];
+
+                return Q.fcall(function() {
+                    return customizer.saveConfiguration(refConfig, null, {
+                        optimize: false,
+                    });
+                }).then(function(config) {
+                    var value;
+                    expect(config).an('array').lengthOf(2);
+
+                    value = config [0];
+                    expect(value).an('object');
+                    expect(value).property('valueIndex').equal(1285);
+                    expect(value).property('value').equal(1);
+                    expect(value).property('pending').equal(false);
+                    expect(value).property('transceived').equal(true);
+
+                    value = config [1];
+                    expect(value).an('object');
+                    expect(value).property('valueIndex').equal(1297);
+                    expect(value).property('value').equal(3);
+                    expect(value).property('pending').equal(false);
+                    expect(value).property('transceived').equal(true);
+
+                    expect(customizer.transceiveValue).property('callCount').equal(2);
+                });
+
+            });
+        });
+
+        xpromiseIt('should work correctly with optimization but without old config (NYI)', function() {
+            throw new Error('NYI');
+        });
+
+        xpromiseIt('should work correctly with optimization and old config (NYI)', function() {
+            throw new Error('NYI');
         });
 
     });
