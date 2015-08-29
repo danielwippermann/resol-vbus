@@ -1130,6 +1130,314 @@ describe('Connection', function() {
 
     });
 
+    describe('#getValueIdHashById', function() {
+
+        it('should be a method', function() {
+            expect(Connection.prototype.getValueIdHashById).to.be.a('function');
+        });
+
+        it('should work correctly with address and value ID', function(doneTesting) {
+            parseRawData(function(conn, stats, doneParsing) {
+                var startTimestamp = Date.now();
+
+                var datagramResult;
+
+                conn.on('datagram', function(rxDatagram) {
+                    if (rxDatagram.command === 0x1000) {
+                        datagramResult = rxDatagram;
+
+                        var txDatagram = new Datagram({
+                            destinationAddress: rxDatagram.sourceAddress,
+                            sourceAddress: rxDatagram.destinationAddress,
+                            command: 0x0100,
+                            valueId: rxDatagram.valueId,
+                            value: 0x12345678,
+                        });
+
+                        conn.send(txDatagram);
+                    }
+                });
+
+                var promise = conn.getValueIdHashById(0x7721, 0x1234);
+
+                expect(promise).to.be.an('object');
+                expect(promise.then).to.be.a('function');
+
+                promise.done(function(result) {
+                    expect(datagramResult).to.be.an('object');
+                    expect(datagramResult.getId()).to.equal('00_7721_0020_20_1000_0000');
+                    expect(result).to.be.an('object');
+                    expect(result.getId()).to.equal('00_0020_7721_20_0100_0000');
+                    expect(Date.now() - startTimestamp).to.be.within(0 * minTimeoutFactor, 20 * maxTimeoutFactor);
+                    expect(stats.txDataCount).to.equal(32);
+                    expect(stats.rawDataCount).to.equal(32);
+                    expect(stats.junkDataCount).to.equal(0);
+                    expect(stats.packetCount).to.equal(0);
+                    expect(stats.datagramCount).to.equal(2);
+
+                    doneParsing();
+                    doneTesting();
+                });
+            });
+        });
+
+        it('should work correctly with timeout', function(doneTesting) {
+            parseRawData(function(conn, stats, doneParsing) {
+                var startTimestamp = Date.now();
+
+                var datagramResult;
+
+                conn.on('datagram', function(rxDatagram) {
+                    if ((rxDatagram.command === 0x1000) && (stats.datagramCount === 2)) {
+                        datagramResult = rxDatagram;
+
+                        var txDatagram = new Datagram({
+                            destinationAddress: rxDatagram.sourceAddress,
+                            sourceAddress: rxDatagram.destinationAddress,
+                            command: 0x0100,
+                            valueId: rxDatagram.valueId,
+                            value: rxDatagram.value,
+                        });
+
+                        conn.send(txDatagram);
+                    }
+                });
+
+                var promise = conn.getValueIdHashById(0x7721, 0x1234, {
+                    timeout: 10
+                });
+
+                expect(promise).to.be.an('object');
+                expect(promise.then).to.be.a('function');
+
+                promise.done(function(result) {
+                    expect(datagramResult).to.be.an('object');
+                    expect(datagramResult.getId()).to.equal('00_7721_0020_20_1000_0000');
+                    expect(result).to.be.an('object');
+                    expect(result.getId()).to.equal('00_0020_7721_20_0100_0000');
+                    expect(Date.now() - startTimestamp).to.be.within(10 * minTimeoutFactor, 30 * maxTimeoutFactor);
+                    expect(stats.txDataCount).to.equal(48);
+                    expect(stats.rawDataCount).to.equal(48);
+                    expect(stats.junkDataCount).to.equal(0);
+                    expect(stats.packetCount).to.equal(0);
+                    expect(stats.datagramCount).to.equal(3);
+
+                    doneParsing();
+                    doneTesting();
+                });
+            });
+        });
+
+        it('should work correctly with timeoutIncr', function(doneTesting) {
+            parseRawData(function(conn, stats, doneParsing) {
+                var startTimestamp = Date.now();
+
+                var promise = conn.getValueIdHashById(0x7721, 0x1234, {
+                    timeout: 10,
+                    timeoutIncr: 10,
+                });
+
+                expect(promise).to.be.an('object');
+                expect(promise.then).to.be.a('function');
+
+                promise.done(function(result) {
+                    expect(result).to.equal(null);
+                    expect(Date.now() - startTimestamp).to.be.within(60 * minTimeoutFactor, 80 * maxTimeoutFactor);
+                    expect(stats.txDataCount).to.equal(48);
+                    expect(stats.rawDataCount).to.equal(48);
+                    expect(stats.junkDataCount).to.equal(0);
+                    expect(stats.packetCount).to.equal(0);
+                    expect(stats.datagramCount).to.equal(3);
+
+                    doneParsing();
+                    doneTesting();
+                });
+            });
+        });
+
+        it('should work correctly with tries', function(doneTesting) {
+            parseRawData(function(conn, stats, doneParsing) {
+                var startTimestamp = Date.now();
+
+                var promise = conn.getValueIdHashById(0x7721, 0x1234, {
+                    timeout: 10,
+                    tries: 1,
+                });
+
+                expect(promise).to.be.an('object');
+                expect(promise.then).to.be.a('function');
+
+                promise.done(function(result) {
+                    expect(result).to.equal(null);
+                    expect(Date.now() - startTimestamp).to.be.within(10 * minTimeoutFactor, 30 * maxTimeoutFactor);
+                    expect(stats.txDataCount).to.equal(16);
+                    expect(stats.rawDataCount).to.equal(16);
+                    expect(stats.junkDataCount).to.equal(0);
+                    expect(stats.packetCount).to.equal(0);
+                    expect(stats.datagramCount).to.equal(1);
+
+                    doneParsing();
+                    doneTesting();
+                });
+            });
+        });
+
+    });
+
+    describe('#getValueIdByIdHash', function() {
+
+        it('should be a method', function() {
+            expect(Connection.prototype.getValueIdByIdHash).to.be.a('function');
+        });
+
+        it('should work correctly with address and value ID', function(doneTesting) {
+            parseRawData(function(conn, stats, doneParsing) {
+                var startTimestamp = Date.now();
+
+                var datagramResult;
+
+                conn.on('datagram', function(rxDatagram) {
+                    if (rxDatagram.command === 0x1100) {
+                        datagramResult = rxDatagram;
+
+                        var txDatagram = new Datagram({
+                            destinationAddress: rxDatagram.sourceAddress,
+                            sourceAddress: rxDatagram.destinationAddress,
+                            command: 0x0100,
+                            valueId: 0x1234,
+                            value: rxDatagram.value,
+                        });
+
+                        conn.send(txDatagram);
+                    }
+                });
+
+                var promise = conn.getValueIdByIdHash(0x7721, 0x12345678);
+
+                expect(promise).to.be.an('object');
+                expect(promise.then).to.be.a('function');
+
+                promise.done(function(result) {
+                    expect(datagramResult).to.be.an('object');
+                    expect(datagramResult.getId()).to.equal('00_7721_0020_20_1100_0000');
+                    expect(result).to.be.an('object');
+                    expect(result.getId()).to.equal('00_0020_7721_20_0100_0000');
+                    expect(Date.now() - startTimestamp).to.be.within(0 * minTimeoutFactor, 20 * maxTimeoutFactor);
+                    expect(stats.txDataCount).to.equal(32);
+                    expect(stats.rawDataCount).to.equal(32);
+                    expect(stats.junkDataCount).to.equal(0);
+                    expect(stats.packetCount).to.equal(0);
+                    expect(stats.datagramCount).to.equal(2);
+
+                    doneParsing();
+                    doneTesting();
+                });
+            });
+        });
+
+        it('should work correctly with timeout', function(doneTesting) {
+            parseRawData(function(conn, stats, doneParsing) {
+                var startTimestamp = Date.now();
+
+                var datagramResult;
+
+                conn.on('datagram', function(rxDatagram) {
+                    if ((rxDatagram.command === 0x1100) && (stats.datagramCount === 2)) {
+                        datagramResult = rxDatagram;
+
+                        var txDatagram = new Datagram({
+                            destinationAddress: rxDatagram.sourceAddress,
+                            sourceAddress: rxDatagram.destinationAddress,
+                            command: 0x0100,
+                            valueId: 0x1234,
+                            value: rxDatagram.value,
+                        });
+
+                        conn.send(txDatagram);
+                    }
+                });
+
+                var promise = conn.getValueIdByIdHash(0x7721, 0x12345678, {
+                    timeout: 10
+                });
+
+                expect(promise).to.be.an('object');
+                expect(promise.then).to.be.a('function');
+
+                promise.done(function(result) {
+                    expect(datagramResult).to.be.an('object');
+                    expect(datagramResult.getId()).to.equal('00_7721_0020_20_1100_0000');
+                    expect(result).to.be.an('object');
+                    expect(result.getId()).to.equal('00_0020_7721_20_0100_0000');
+                    expect(Date.now() - startTimestamp).to.be.within(10 * minTimeoutFactor, 30 * maxTimeoutFactor);
+                    expect(stats.txDataCount).to.equal(48);
+                    expect(stats.rawDataCount).to.equal(48);
+                    expect(stats.junkDataCount).to.equal(0);
+                    expect(stats.packetCount).to.equal(0);
+                    expect(stats.datagramCount).to.equal(3);
+
+                    doneParsing();
+                    doneTesting();
+                });
+            });
+        });
+
+        it('should work correctly with timeoutIncr', function(doneTesting) {
+            parseRawData(function(conn, stats, doneParsing) {
+                var startTimestamp = Date.now();
+
+                var promise = conn.getValueIdByIdHash(0x7721, 0x12345678, {
+                    timeout: 10,
+                    timeoutIncr: 10,
+                });
+
+                expect(promise).to.be.an('object');
+                expect(promise.then).to.be.a('function');
+
+                promise.done(function(result) {
+                    expect(result).to.equal(null);
+                    expect(Date.now() - startTimestamp).to.be.within(60 * minTimeoutFactor, 80 * maxTimeoutFactor);
+                    expect(stats.txDataCount).to.equal(48);
+                    expect(stats.rawDataCount).to.equal(48);
+                    expect(stats.junkDataCount).to.equal(0);
+                    expect(stats.packetCount).to.equal(0);
+                    expect(stats.datagramCount).to.equal(3);
+
+                    doneParsing();
+                    doneTesting();
+                });
+            });
+        });
+
+        it('should work correctly with tries', function(doneTesting) {
+            parseRawData(function(conn, stats, doneParsing) {
+                var startTimestamp = Date.now();
+
+                var promise = conn.getValueIdByIdHash(0x7721, 0x12345678, {
+                    timeout: 10,
+                    tries: 1,
+                });
+
+                expect(promise).to.be.an('object');
+                expect(promise.then).to.be.a('function');
+
+                promise.done(function(result) {
+                    expect(result).to.equal(null);
+                    expect(Date.now() - startTimestamp).to.be.within(10 * minTimeoutFactor, 30 * maxTimeoutFactor);
+                    expect(stats.txDataCount).to.equal(16);
+                    expect(stats.rawDataCount).to.equal(16);
+                    expect(stats.junkDataCount).to.equal(0);
+                    expect(stats.packetCount).to.equal(0);
+                    expect(stats.datagramCount).to.equal(1);
+
+                    doneParsing();
+                    doneTesting();
+                });
+            });
+        });
+
+    });
+
 });
 
 

@@ -551,6 +551,98 @@ var Connection = extend(Duplex, /** @lends Connection# */ {
     },
 
     /**
+     * Sends a Datagram to lookup a value ID hash in a device.
+     * Returns a Promise that resolves to the answer Datagram or `null` on timeout.
+     *
+     * @param  {number} address The VBus address of the device to lookup the value in.
+     * @param  {number} valueId The ID of the value to lookup in the device.
+     * @param  {object} options
+     * @param  {number} options.timeout=500 Time in milliseconds between tries.
+     * @param {number} options.timeoutIncr=500 Additional time in milliseconds to increase the timeout per try.
+     * @param  {number} options.tries=3 Number of tries to lookup the value.
+     * @return {Promise} A Promise the resolves to the received Datagram or `null` on timeout.
+     */
+    getValueIdHashById: function(address, valueId, options) {
+        var _this = this;
+
+        options = _.defaults({}, options, {
+            timeout: 500,
+            timeoutIncr: 500,
+            tries: 3,
+        });
+
+        var txDatagram = new Datagram({
+            destinationAddress: address,
+            sourceAddress: this.selfAddress,
+            command: 0x1000,
+            valueId: valueId,
+            value: 0
+        }).toLiveBuffer();
+
+        options.filterDatagram = function(rxDatagram, done) {
+            if (rxDatagram.destinationAddress !== _this.selfAddress) {
+
+            } else if (rxDatagram.sourceAddress !== address) {
+
+            } else if (rxDatagram.command !== 0x0100) {
+
+            } else if (rxDatagram.valueId !== valueId) {
+
+            } else {
+                done(null, rxDatagram);
+            }
+        };
+
+        return this.transceive(txDatagram, options);
+    },
+
+    /**
+     * Sends a Datagram to lookup a value ID in a device.
+     * Returns a Promise that resolves to the answer Datagram or `null` on timeout.
+     *
+     * @param  {number} address The VBus address of the device to lookup the value in.
+     * @param  {number} valueIdHash The ID hash of the value to lookup in the device.
+     * @param  {object} options
+     * @param  {number} options.timeout=500 Time in milliseconds between tries.
+     * @param {number} options.timeoutIncr=500 Additional time in milliseconds to increase the timeout per try.
+     * @param  {number} options.tries=3 Number of tries to lookup the value.
+     * @return {Promise} A Promise the resolves to the received Datagram or `null` on timeout.
+     */
+    getValueIdByIdHash: function(address, valueIdHash, options) {
+        var _this = this;
+
+        options = _.defaults({}, options, {
+            timeout: 500,
+            timeoutIncr: 500,
+            tries: 3,
+        });
+
+        var txDatagram = new Datagram({
+            destinationAddress: address,
+            sourceAddress: this.selfAddress,
+            command: 0x1100,
+            valueId: 0,
+            value: valueIdHash
+        }).toLiveBuffer();
+
+        options.filterDatagram = function(rxDatagram, done) {
+            if (rxDatagram.destinationAddress !== _this.selfAddress) {
+
+            } else if (rxDatagram.sourceAddress !== address) {
+
+            } else if (rxDatagram.command !== 0x0100) {
+
+            } else if (rxDatagram.value !== valueIdHash) {
+
+            } else {
+                done(null, rxDatagram);
+            }
+        };
+
+        return this.transceive(txDatagram, options);
+    },
+
+    /**
      * Creates a promise that resolves when this Connection
      * instance is connected and rejects if it is disconnected.
      * If it is neither connected nor disconnected the promise
