@@ -120,6 +120,7 @@ var parseRawData = function(rawDataOrCallback, start, end, ignoreEvents) {
 
 
 
+var minTimeoutFactor = process.env.TRAVIS ? 0.9 : 1;
 var maxTimeoutFactor = process.env.TRAVIS ? 1000 : 1;
 
 
@@ -475,7 +476,7 @@ describe('Connection', function() {
 
                 promise.done(function(result) {
                     expect(result).to.equal(null, 'result');
-                    expect(Date.now() - startTimestamp).to.be.within(490, 520 * maxTimeoutFactor);
+                    expect(Date.now() - startTimestamp).to.be.within(500 * minTimeoutFactor, 520 * maxTimeoutFactor);
                     expect(stats.txDataCount).to.equal(0);
                     expect(stats.rawDataCount).to.equal(0);
                     expect(stats.junkDataCount).to.equal(0);
@@ -501,7 +502,7 @@ describe('Connection', function() {
 
                 promise.done(function(result) {
                     expect(result).to.equal(null, 'result');
-                    expect(Date.now() - startTimestamp).to.be.within(9, 30 * maxTimeoutFactor);
+                    expect(Date.now() - startTimestamp).to.be.within(10 * minTimeoutFactor, 30 * maxTimeoutFactor);
                     expect(stats.txDataCount).to.equal(0);
                     expect(stats.rawDataCount).to.equal(0);
                     expect(stats.junkDataCount).to.equal(0);
@@ -527,7 +528,7 @@ describe('Connection', function() {
 
                 promise.done(function(result) {
                     expect(result).to.equal(null, 'result');
-                    expect(Date.now() - startTimestamp).to.be.within(9, 30 * maxTimeoutFactor);
+                    expect(Date.now() - startTimestamp).to.be.within(10 * minTimeoutFactor, 30 * maxTimeoutFactor);
                     expect(stats.txDataCount).to.equal(16);
                     expect(stats.rawDataCount).to.equal(16);
                     expect(stats.junkDataCount).to.equal(0);
@@ -554,7 +555,7 @@ describe('Connection', function() {
 
                 promise.done(function(result) {
                     expect(result).to.equal(null, 'result');
-                    expect(Date.now() - startTimestamp).to.be.within(18, 40 * maxTimeoutFactor);
+                    expect(Date.now() - startTimestamp).to.be.within(20 * minTimeoutFactor, 40 * maxTimeoutFactor);
                     expect(stats.txDataCount).to.equal(32);
                     expect(stats.rawDataCount).to.equal(32);
                     expect(stats.junkDataCount).to.equal(0);
@@ -582,7 +583,7 @@ describe('Connection', function() {
 
                 promise.done(function(result) {
                     expect(result).to.equal(null, 'result');
-                    expect(Date.now() - startTimestamp).to.be.within(27, 50 * maxTimeoutFactor);
+                    expect(Date.now() - startTimestamp).to.be.within(30 * minTimeoutFactor, 50 * maxTimeoutFactor);
                     expect(stats.txDataCount).to.equal(0);
                     expect(stats.rawDataCount).to.equal(0);
                     expect(stats.junkDataCount).to.equal(0);
@@ -618,7 +619,7 @@ describe('Connection', function() {
 
                 promise.done(function(result) {
                     expect(result).to.equal(datagramResult);
-                    expect(Date.now() - startTimestamp).to.be.within(0, 20 * maxTimeoutFactor);
+                    expect(Date.now() - startTimestamp).to.be.within(0 * minTimeoutFactor, 20 * maxTimeoutFactor);
                     expect(stats.txDataCount).to.equal(16);
                     expect(stats.rawDataCount).to.equal(16);
                     expect(stats.junkDataCount).to.equal(0);
@@ -654,7 +655,7 @@ describe('Connection', function() {
 
                 promise.done(function(result) {
                     expect(result).to.equal(packetResult);
-                    expect(Date.now() - startTimestamp).to.be.within(0, 20 * maxTimeoutFactor);
+                    expect(Date.now() - startTimestamp).to.be.within(0 * minTimeoutFactor, 20 * maxTimeoutFactor);
                     expect(stats.txDataCount).to.equal(112);
                     expect(stats.rawDataCount).to.equal(112);
                     expect(stats.junkDataCount).to.equal(0);
@@ -687,7 +688,7 @@ describe('Connection', function() {
                 promise.done(function(result) {
                     expect(result).to.be.an('object');
                     expect(result.getId()).to.equal('00_0000_7721_20_0500_0000');
-                    expect(Date.now() - startTimestamp).to.be.within(0, 20 * maxTimeoutFactor);
+                    expect(Date.now() - startTimestamp).to.be.within(0 * minTimeoutFactor, 20 * maxTimeoutFactor);
                     expect(stats.txDataCount).to.equal(16);
                     expect(stats.rawDataCount).to.equal(16);
                     expect(stats.junkDataCount).to.equal(0);
@@ -715,7 +716,7 @@ describe('Connection', function() {
 
                 promise.done(function(result) {
                     expect(result).to.equal(null);
-                    expect(Date.now() - startTimestamp).to.be.within(9, 30 * maxTimeoutFactor);
+                    expect(Date.now() - startTimestamp).to.be.within(10 * minTimeoutFactor, 30 * maxTimeoutFactor);
                     expect(stats.txDataCount).to.equal(0);
                     expect(stats.rawDataCount).to.equal(0);
                     expect(stats.junkDataCount).to.equal(0);
@@ -754,7 +755,7 @@ describe('Connection', function() {
                 promise.done(function(result) {
                     expect(result).to.be.an('object');
                     expect(result.getId()).to.equal('00_0010_7721_10_0100');
-                    expect(Date.now() - startTimestamp).to.be.within(0, 20 * maxTimeoutFactor);
+                    expect(Date.now() - startTimestamp).to.be.within(0 * minTimeoutFactor, 20 * maxTimeoutFactor);
                     expect(stats.txDataCount).to.equal(16 + 112);
                     expect(stats.rawDataCount).to.equal(16 + 112);
                     expect(stats.junkDataCount).to.equal(0);
@@ -780,7 +781,7 @@ describe('Connection', function() {
 
                 promise.done(function(result) {
                     expect(result).to.equal(null);
-                    expect(Date.now() - startTimestamp).to.be.within(18, 40 * maxTimeoutFactor);
+                    expect(Date.now() - startTimestamp).to.be.within(20 * minTimeoutFactor, 40 * maxTimeoutFactor);
                     expect(stats.txDataCount).to.equal(32);
                     expect(stats.rawDataCount).to.equal(32);
                     expect(stats.junkDataCount).to.equal(0);
@@ -807,7 +808,7 @@ describe('Connection', function() {
 
                 promise.done(function(result) {
                     expect(result).to.equal(null);
-                    expect(Date.now() - startTimestamp).to.be.within(9, 30 * maxTimeoutFactor);
+                    expect(Date.now() - startTimestamp).to.be.within(10 * minTimeoutFactor, 30 * maxTimeoutFactor);
                     expect(stats.txDataCount).to.equal(16);
                     expect(stats.rawDataCount).to.equal(16);
                     expect(stats.junkDataCount).to.equal(0);
@@ -860,7 +861,7 @@ describe('Connection', function() {
                     expect(datagramResult.getId()).to.equal('00_7721_0020_20_0300_0000');
                     expect(result).to.be.an('object');
                     expect(result.getId()).to.equal('00_0020_7721_20_0100_0000');
-                    expect(Date.now() - startTimestamp).to.be.within(0, 20 * maxTimeoutFactor);
+                    expect(Date.now() - startTimestamp).to.be.within(0 * minTimeoutFactor, 20 * maxTimeoutFactor);
                     expect(stats.txDataCount).to.equal(32);
                     expect(stats.rawDataCount).to.equal(32);
                     expect(stats.junkDataCount).to.equal(0);
@@ -907,7 +908,7 @@ describe('Connection', function() {
                     expect(datagramResult.getId()).to.equal('00_7721_0020_20_0300_0000');
                     expect(result).to.be.an('object');
                     expect(result.getId()).to.equal('00_0020_7721_20_0100_0000');
-                    expect(Date.now() - startTimestamp).to.be.within(9, 30 * maxTimeoutFactor);
+                    expect(Date.now() - startTimestamp).to.be.within(10 * minTimeoutFactor, 30 * maxTimeoutFactor);
                     expect(stats.txDataCount).to.equal(48);
                     expect(stats.rawDataCount).to.equal(48);
                     expect(stats.junkDataCount).to.equal(0);
@@ -934,7 +935,7 @@ describe('Connection', function() {
 
                 promise.done(function(result) {
                     expect(result).to.equal(null);
-                    expect(Date.now() - startTimestamp).to.be.within(54, 80 * maxTimeoutFactor);
+                    expect(Date.now() - startTimestamp).to.be.within(60 * minTimeoutFactor, 80 * maxTimeoutFactor);
                     expect(stats.txDataCount).to.equal(48);
                     expect(stats.rawDataCount).to.equal(48);
                     expect(stats.junkDataCount).to.equal(0);
@@ -961,7 +962,7 @@ describe('Connection', function() {
 
                 promise.done(function(result) {
                     expect(result).to.equal(null);
-                    expect(Date.now() - startTimestamp).to.be.within(9, 30 * maxTimeoutFactor);
+                    expect(Date.now() - startTimestamp).to.be.within(10 * minTimeoutFactor, 30 * maxTimeoutFactor);
                     expect(stats.txDataCount).to.equal(16);
                     expect(stats.rawDataCount).to.equal(16);
                     expect(stats.junkDataCount).to.equal(0);
@@ -1014,7 +1015,7 @@ describe('Connection', function() {
                     expect(datagramResult.getId()).to.equal('00_7721_0020_20_0200_0000');
                     expect(result).to.be.an('object');
                     expect(result.getId()).to.equal('00_0020_7721_20_0100_0000');
-                    expect(Date.now() - startTimestamp).to.be.within(0, 20 * maxTimeoutFactor);
+                    expect(Date.now() - startTimestamp).to.be.within(0 * minTimeoutFactor, 20 * maxTimeoutFactor);
                     expect(stats.txDataCount).to.equal(32);
                     expect(stats.rawDataCount).to.equal(32);
                     expect(stats.junkDataCount).to.equal(0);
@@ -1061,7 +1062,7 @@ describe('Connection', function() {
                     expect(datagramResult.getId()).to.equal('00_7721_0020_20_0200_0000');
                     expect(result).to.be.an('object');
                     expect(result.getId()).to.equal('00_0020_7721_20_0100_0000');
-                    expect(Date.now() - startTimestamp).to.be.within(9, 30 * maxTimeoutFactor);
+                    expect(Date.now() - startTimestamp).to.be.within(10 * minTimeoutFactor, 30 * maxTimeoutFactor);
                     expect(stats.txDataCount).to.equal(48);
                     expect(stats.rawDataCount).to.equal(48);
                     expect(stats.junkDataCount).to.equal(0);
@@ -1088,7 +1089,7 @@ describe('Connection', function() {
 
                 promise.done(function(result) {
                     expect(result).to.equal(null);
-                    expect(Date.now() - startTimestamp).to.be.within(54, 80 * maxTimeoutFactor);
+                    expect(Date.now() - startTimestamp).to.be.within(60 * minTimeoutFactor, 80 * maxTimeoutFactor);
                     expect(stats.txDataCount).to.equal(48);
                     expect(stats.rawDataCount).to.equal(48);
                     expect(stats.junkDataCount).to.equal(0);
@@ -1115,7 +1116,7 @@ describe('Connection', function() {
 
                 promise.done(function(result) {
                     expect(result).to.equal(null);
-                    expect(Date.now() - startTimestamp).to.be.within(9, 30 * maxTimeoutFactor);
+                    expect(Date.now() - startTimestamp).to.be.within(10 * minTimeoutFactor, 30 * maxTimeoutFactor);
                     expect(stats.txDataCount).to.equal(16);
                     expect(stats.rawDataCount).to.equal(16);
                     expect(stats.junkDataCount).to.equal(0);
