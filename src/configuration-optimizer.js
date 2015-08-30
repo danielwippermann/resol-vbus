@@ -76,9 +76,31 @@ var ConfigurationOptimizer = extend(null, /** @lends ConfigurationOptimizer# */ 
     deviceAddress: null,
 
     /**
-     * [matchOptimizer description]
-     * @param  {[type]} options [description]
-     * @return {[type]}         [description]
+     * Get an array of possible options for calling this `ConfigurationOptimizer`'s constructor.
+     *
+     * @return {Promise} A promise that resolves to an array of constructor options.
+     */
+    getOptimizerOptions: function() {
+        var _this = this;
+
+        return Q.fcall(function() {
+            if (_this.deviceAddress !== null) {
+                return [ null ];
+            } else {
+                throw new Error('Must be implemented by sub-class');
+            }
+        });
+    },
+
+    /**
+     * Find settings for this `ConfigurationOptimizer`'s constructor that matches the given options best.
+     *
+     * @param  {object} options Options to look for while searching a matching configuration optimizer.
+     * @param  {string} options.id The identifier for the `ConfigurationOptimizer`.
+     * @param  {number} options.deviceAddress The VBus address of the controller.
+     * @param  {string} options.version The version of the controller.
+     * @param  {string|object} options.customizer A `Customizer` instance to query additional information with.
+     * @return {Promise} A Promise that resolves to the best matching optimizer result or `null` if no match was found.
      */
     matchOptimizer: function(options) {
         var _this = this;

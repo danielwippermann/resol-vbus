@@ -13,6 +13,38 @@ var ConfigurationOptimizer = vbus.ConfigurationOptimizer;
 
 describe('ConfigurationOptimizer', function() {
 
+    describe('.getOptimizerOptions', function() {
+
+        it('should be a function', function() {
+            expect(ConfigurationOptimizer).property('getOptimizerOptions').a('function');
+        });
+
+        promiseIt('should reject if no deviceAddress is given', function() {
+            return ConfigurationOptimizer.getOptimizerOptions().then(function() {
+                throw new Error('Should have thrown an error, but resolved');
+            }, function(err) {
+                expect(err).instanceOf(Error);
+                expect(err).property('message').equal('Must be implemented by sub-class');
+            });
+        });
+
+        promiseIt('should return single match if a deviceAddress is given', function() {
+            var TestableConfigurationOptimizer = ConfigurationOptimizer.extend({}, {
+
+                deviceAddress: 0x1111,
+
+            });
+
+            return TestableConfigurationOptimizer.getOptimizerOptions().then(function(matches) {
+                expect(matches).an('array').lengthOf(1);
+
+                var match = matches [0];
+                expect(match).equal(null);
+            });
+        });
+
+    });
+
     describe('.matchOptimizer', function() {
 
         it('should be a function', function() {
