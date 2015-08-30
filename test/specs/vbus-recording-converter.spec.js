@@ -171,6 +171,34 @@ describe('VBusRecordingConverter', function() {
             converter.end();
         });
 
+        it('should work correctly in object mode', function(done) {
+            var converter = new VBusRecordingConverter({
+                objectMode: true,
+            });
+
+            var refHeaderSet = new HeaderSet();
+
+            var onHeaderSet = sinon.spy();
+            converter.on('headerSet', onHeaderSet);
+
+            converter.on('finish', function() {
+                try {
+                    expect(onHeaderSet.callCount).to.equal(1, '"headerSet" events triggered');
+
+                    var headerSet = onHeaderSet.firstCall.args [0];
+                    expect(headerSet).to.be.an('object');
+                    expect(headerSet).equal(refHeaderSet);
+
+                    done();
+                } catch (ex) {
+                    done(ex);
+                }
+            });
+
+            converter.write(refHeaderSet);
+            converter.end();
+        });
+
     });
 
     describe('readable stream', function() {
@@ -242,6 +270,34 @@ describe('VBusRecordingConverter', function() {
             };
 
             // setImmediate(check);
+            check();
+        });
+
+        it('should work correctly in object mode', function(done) {
+            var refHeaderSet = new HeaderSet();
+
+            var converter = new VBusRecordingConverter({
+                objectMode: true,
+            });
+
+            var onData = sinon.spy();
+            converter.on('data', onData);
+
+            var check = function() {
+                try {
+                    expect(onData.callCount).to.equal(1, '"data" events triggered');
+
+                    var headerSet = onData.firstCall.args [0];
+                    expect(headerSet).to.be.an('object');
+                    expect(headerSet).equal(refHeaderSet);
+
+                    done();
+                } catch (ex) {
+                    done(ex);
+                }
+            };
+
+            converter.convertHeaderSet(refHeaderSet);
             check();
         });
 

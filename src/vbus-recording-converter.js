@@ -19,15 +19,6 @@ var optionKeys = [
 
 
 
-var readUInt64LE = function(buffer, index) {
-    return (buffer.readUInt32LE(index) + (buffer.readUInt32LE(index + 4) * 0x100000000));
-};
-
-var writeUInt64LE = function(buffer, index) {
-    return (buffer.readUInt32LE(index) + (buffer.readUInt32LE(index + 4) * 0x100000000));
-};
-
-
 var VBusRecordingConverter = Converter.extend(/** @lends VBusRecordingConverter# */ {
 
     rxBuffer: null,
