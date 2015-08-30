@@ -33,6 +33,10 @@ var utils = require('./utils');
 
 var ConfigurationOptimizer = extend(null, /** @lends ConfigurationOptimizer# */ {
 
+    constructor: function(options) {
+        // nop
+    },
+
     /**
      * Converts the configurations provided into an array of {@see ConfigurationValue} objects.
      * The provided configurations can be either an array of partially initialized ConfigurationValue
@@ -65,6 +69,33 @@ var ConfigurationOptimizer = extend(null, /** @lends ConfigurationOptimizer# */ 
      */
     optimizeSaveConfiguration: function(newConfig, oldConfig) {
         throw new Error('Must be implemented by sub-class');
+    },
+
+}, {
+
+    deviceAddress: null,
+
+    /**
+     * [matchOptimizer description]
+     * @param  {[type]} options [description]
+     * @return {[type]}         [description]
+     */
+    matchOptimizer: function(options) {
+        var _this = this;
+
+        return Q.fcall(function() {
+            if (_this.deviceAddress !== null) {
+                var match = (options.deviceAddress === _this.deviceAddress) ? 1 : 0;
+
+                return {
+                    match: match,
+                    Optimizer: _this,
+                    options: null,
+                };
+            } else {
+                throw new Error('Must be implemented by sub-class');
+            }
+        });
     },
 
 });

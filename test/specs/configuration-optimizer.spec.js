@@ -13,6 +13,63 @@ var ConfigurationOptimizer = vbus.ConfigurationOptimizer;
 
 describe('ConfigurationOptimizer', function() {
 
+    describe('.matchOptimizer', function() {
+
+        it('should be a function', function() {
+            expect(ConfigurationOptimizer).property('matchOptimizer').a('function');
+        });
+
+        promiseIt('should reject if no deviceAddress is given', function() {
+            var options = {
+                deviceAddress: 0x1111,
+            };
+
+            return ConfigurationOptimizer.matchOptimizer(options).then(function() {
+                throw new Error('Should have thrown an error, but resolved');
+            }, function(err) {
+                expect(err).instanceOf(Error);
+                expect(err).property('message').equal('Must be implemented by sub-class');
+            });
+        });
+
+        promiseIt('should match if the right deviceAddress is given', function() {
+            var TestableConfigurationOptimizer = ConfigurationOptimizer.extend({}, {
+
+                deviceAddress: 0x1111,
+
+            });
+
+            var options = {
+                deviceAddress: 0x1111,
+            };
+
+            return TestableConfigurationOptimizer.matchOptimizer(options).then(function(result) {
+                expect(result).property('match').equal(1);
+                expect(result).property('Optimizer').equal(TestableConfigurationOptimizer);
+                expect(result).property('options').equal(null);
+            });
+        });
+
+        promiseIt('should not match if the wrong deviceAddress is given', function() {
+            var TestableConfigurationOptimizer = ConfigurationOptimizer.extend({}, {
+
+                deviceAddress: 0x1111,
+
+            });
+
+            var options = {
+                deviceAddress: 0x2222,
+            };
+
+            return TestableConfigurationOptimizer.matchOptimizer(options).then(function(result) {
+                expect(result).property('match').equal(0);
+                expect(result).property('Optimizer').equal(TestableConfigurationOptimizer);
+                expect(result).property('options').equal(null);
+            });
+        });
+
+    });
+
     describe('#completeConfiguration', function() {
 
         it('should be a method', function() {
