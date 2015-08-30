@@ -7,6 +7,14 @@ var _ = require('lodash');
 var Q = require('q');
 
 
+var extend = require('./extend');
+var utils = require('./utils');
+
+
+
+var Promise = utils.promise;
+
+
 
 var optimizerClasses = [
 
@@ -39,23 +47,81 @@ var optimizerClasses = [
 var ConfigurationOptimizerFactory = {
 
     /**
+     * Find a `ConfigurationOptimizer` sub-class that matches the given options best.
+     *
+     * @param  {object} options Options to look for while searching a matching configuration optimizer.
+     * @param  {number} options.deviceAddress The VBus address of the controller.
+     * @param  {string} options.version The version of the controller.
+     * @param  {string|object} options.customizer A `Customizer` instance to query additional information with.
+     * @return {Promise} A Promise that resolves to the best matching optimizer result or `null` if no match was found.
+     */
+    matchOptimizer: function(options) {
+        return new Promise(function(resolve, reject) {
+            options = _.defaults({}, options);
+
+            var result = {
+                match: 0,
+                Optimizer: null,
+                options: null,
+            };
+
+            var index = 0;
+
+            var nextOptimizer = function() {
+                if (index < optimizerClasses.length) {
+                    var Optimizer = optimizerClasses [index++];
+
+                    Q.fcall(function() {
+                        return Optimizer.matchOptimizer(options);
+                    }).then(function(refResult) {
+                        if ((refResult.match > 0) && (refResult.match > result.match)) {
+                            result = refResult;
+                        }
+
+                        nextOptimizer();
+                    }).then(null, reject).done();
+                } else {
+                    if (result.match > 0) {
+                        resolve(result);
+                    } else {
+                        resolve(null);
+                    }
+                }
+            };
+
+            nextOptimizer();
+        });
+    },
+
+    /**
+     * Find and create an instance of a `ConfigurationOptimizer` sub-class that matches the given options best.
+     *
+     * @param  {object} options See {@link ConfigurationOptimizerFactory.matchOptimizer} for details.
+     * @return {Promise} A promise that resolves to the `ConfigurationOptimizer` instance or `null` if no matching optimizer was found.
+     */
+    createOptimizer: function(options) {
+        return Q.fcall(function() {
+            return ConfigurationOptimizerFactory.matchOptimizer(options);
+        }).then(function(result) {
+            var optimizer;
+            if (result) {
+                optimizer = new result.Optimizer(result.options);
+            } else {
+                optimizer = null;
+            }
+            return optimizer;
+        });
+    },
+
+    /**
      * Get the configuration optimizer for the given device (identified by its address).
      *
      * @param {number} deviceAddress VBus address of the device
      * @returns {Promise} A Promise that resolvs to the optimizer for the given device or `null` if no optimizer was found.
      */
     createOptimizerByDeviceAddress: function(deviceAddress) {
-        return Q.fcall(function() {
-            var result = null;
-
-            _.forEach(optimizerClasses, function(Optimizer) {
-                if (Optimizer.deviceAddress === deviceAddress) {
-                    result = new Optimizer();
-                }
-                return !result;
-            });
-
-            return result;
+        return ConfigurationOptimizerFactory.createOptimizer({
+            deviceAddress: deviceAddress,
         });
     },
 

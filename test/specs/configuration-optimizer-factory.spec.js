@@ -11,6 +11,8 @@ var vbus = require('./resol-vbus');
 
 
 
+var Promise = vbus.utils.promise;
+
 var ConfigurationOptimizerFactory = vbus.ConfigurationOptimizerFactory;
 
 
@@ -24,24 +26,46 @@ describe('ConfigurationOptimizerFactory', function() {
         });
 
         promiseIt('should have unique addresses for registered optimizers', function() {
-            var knownAddresses = {};
+            return new Promise(function(resolve, reject) {
+                var knownAddresses = {};
 
-            return _.reduce(ConfigurationOptimizerFactory._optimizerClasses, function(promise, OptimizerClass) {
-                return promise.then(function() {
-                    var address = OptimizerClass.deviceAddress;
-                    var addressKey = address.toString(16);
+                var optimizerClasses = ConfigurationOptimizerFactory._optimizerClasses;
 
-                    expect(address).not.equal(0);
+                var index = 0;
 
-                    expect(knownAddresses).not.property(addressKey);
+                var nextOptimizer = function() {
+                    if (index < optimizerClasses.length) {
+                        var OptimizerClass = optimizerClasses [index++];
 
-                    knownAddresses [addressKey] = true;
+                        var address = OptimizerClass.deviceAddress;
+                        if (address !== null) {
+                            var addressKey = address.toString(16);
 
-                    return ConfigurationOptimizerFactory.createOptimizerByDeviceAddress(address);
-                }).then(function(optimizer) {
-                    expect(optimizer).an('object');
-                });
-            }, Q());
+                            Q.fcall(function() {
+                                expect(address).a('number').above(0);
+
+                                expect(knownAddresses).not.property(addressKey);
+
+                                knownAddresses [addressKey] = true;
+
+                                return ConfigurationOptimizerFactory.createOptimizerByDeviceAddress(address);
+                            }).then(function(optimizer) {
+                                expect(optimizer).an('object');
+
+                                nextOptimizer();
+                            }).then(null, function(err) {
+                                reject(err);
+                            }).done();
+                        } else {
+                            nextOptimizer();
+                        }
+                    } else {
+                        resolve();
+                    }
+                };
+
+                nextOptimizer();
+            });
         });
 
         promiseIt('should work correctly for unknown devices', function() {
