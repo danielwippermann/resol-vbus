@@ -52,7 +52,7 @@ var ConfigurationOptimizerFactory = {
      * @param  {object} options Options to look for while searching a matching configuration optimizer.
      * @param  {number} options.deviceAddress The VBus address of the controller.
      * @param  {string} options.version The version of the controller.
-     * @param  {string|object} options.customizer A `Customizer` instance to query additional information with.
+     * @param  {Customizer} options.customizer A `Customizer` instance to query additional information with.
      * @return {Promise} A Promise that resolves to the best matching optimizer result or `null` if no match was found.
      */
     matchOptimizer: function(options) {
