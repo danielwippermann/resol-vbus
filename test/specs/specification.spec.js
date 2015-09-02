@@ -1262,9 +1262,9 @@ describe('Specification', function() {
 
             var pfs = spec.getPacketFieldsForHeaders([ header1, header2 ]);
 
-            console.log(_.map(pfs, function(pf) {
-                return '\'' + pf.id + '\':' + pf.rawValue + ',  // ' + pf.name;
-            }).join('\n'));
+            // console.log(_.map(pfs, function(pf) {
+            //     return '\'' + pf.id + '\':' + pf.rawValue + ',  // ' + pf.name;
+            // }).join('\n'));
 
             spec.setPacketFieldRawValues(pfs, {
                 '01_0010_7722_10_0100_000_2_0':123.4,   // Flow temperature
