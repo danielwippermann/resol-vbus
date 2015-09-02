@@ -1121,6 +1121,11 @@ var Specification = extend(null, /** @lends Specification# */ {
                 rawValue = _this.getRawValue(packetField.packetFieldSpec, frameData);
             }
 
+            var precision;
+            if (packetField.packetFieldSpec && packetField.packetFieldSpec.type) {
+                precision = packetField.packetFieldSpec.type.precision || 0;
+            }
+
             _.extend(packetField, {
 
                 name: name,
@@ -1129,6 +1134,10 @@ var Specification = extend(null, /** @lends Specification# */ {
 
                 formatTextValue: function(unit) {
                     return _this.formatTextValueFromRawValue(packetField.packetFieldSpec, rawValue, unit);
+                },
+
+                getRoundedRawValue: function() {
+                    return utils.roundNumber(rawValue, -precision);
                 },
 
             });

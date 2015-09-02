@@ -1113,6 +1113,8 @@ describe('Specification', function() {
             expect(pfs [0].rawValue).to.be.closeTo(888.8, 0.05);
             expect(pfs [0].formatTextValue).to.be.a('function');
             expect(pfs [0].formatTextValue()).to.equal('888.8 °C');
+            expect(pfs [0].getRoundedRawValue).to.be.a('function');
+            expect(pfs [0].getRoundedRawValue()).to.equal(888.8);
             expect(pfs [5]).to.be.an('object');
             expect(pfs [5].id).to.equal('02_0010_7722_10_0100_002_2_0');
             expect(pfs [5].packet).to.be.an('object');
@@ -1123,6 +1125,8 @@ describe('Specification', function() {
             expect(pfs [5].rawValue).to.be.closeTo( -888.8, 0.05);
             expect(pfs [5].formatTextValue).to.be.a('function');
             expect(pfs [5].formatTextValue()).to.equal('-888.8 °C');
+            expect(pfs [5].getRoundedRawValue).to.be.a('function');
+            expect(pfs [5].getRoundedRawValue()).to.equal(-888.8);
         });
 
         it('should work correctly with a filtered spec', function() {
