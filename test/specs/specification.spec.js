@@ -1229,6 +1229,76 @@ describe('Specification', function() {
         });
     });
 
+    describe('#setPacketFieldRawValues', function() {
+
+        it('should be a method', function() {
+            expect(Specification.prototype.setPacketFieldRawValues).to.be.a('function');
+        });
+
+        it('should work correctly with an unfiltered spec', function() {
+            var spec = new Specification();
+
+            var header1 = new Packet({
+                channel: 1,
+                destinationAddress: 0x0010,
+                sourceAddress: 0x7722,
+                command: 0x0100,
+                frameCount: 1,
+                frameData: new Buffer('b8220000', 'hex'),
+            });
+
+            var header2 = new Packet({
+                channel: 2,
+                destinationAddress: 0x0010,
+                sourceAddress: 0x7722,
+                command: 0x0100,
+                frameCount: 1,
+                frameData: new Buffer('000048dd', 'hex'),
+            });
+
+            var pfs = spec.getPacketFieldsForHeaders([ header1, header2 ]);
+
+            console.log(_.map(pfs, function(pf) {
+                return '\'' + pf.id + '\':' + pf.rawValue + ',  // ' + pf.name;
+            }).join('\n'));
+
+            spec.setPacketFieldRawValues(pfs, {
+                '01_0010_7722_10_0100_000_2_0':123.4,   // Flow temperature
+                '01_0010_7722_10_0100_002_2_0':-234.5,  // Return temperature
+                '02_0010_7722_10_0100_000_2_0':12.3,    // Flow temperature
+                '02_0010_7722_10_0100_002_2_0':-23.4,   // Return temperature
+            });
+
+            expect(header1.frameData.slice(0, 4).toString('hex')).equal('d204d7f6');
+            expect(header2.frameData.slice(0, 4).toString('hex')).equal('7b0016ff');
+
+            pfs = spec.getPacketFieldsForHeaders([ header1, header2 ]);
+
+            expect(pfs).an('array').lengthOf(8);
+
+            var pf = pfs [0];
+            expect(pf).an('object');
+            expect(pf).property('id').equal('01_0010_7722_10_0100_000_2_0');
+            expect(pf).property('rawValue').closeTo(123.4, 0.05);
+
+            pf = pfs [1];
+            expect(pf).an('object');
+            expect(pf).property('id').equal('01_0010_7722_10_0100_002_2_0');
+            expect(pf).property('rawValue').closeTo(-234.5, 0.05);
+
+            pf = pfs [4];
+            expect(pf).an('object');
+            expect(pf).property('id').equal('02_0010_7722_10_0100_000_2_0');
+            expect(pf).property('rawValue').closeTo(12.3, 0.05);
+
+            pf = pfs [5];
+            expect(pf).an('object');
+            expect(pf).property('id').equal('02_0010_7722_10_0100_002_2_0');
+            expect(pf).property('rawValue').closeTo(-23.4, 0.05);
+        });
+
+    });
+
     describe('#getFilteredPacketFieldSpecificationsForHeaders', function() {
 
         var header1 = new Packet({
