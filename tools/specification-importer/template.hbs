@@ -60,7 +60,7 @@ var createVBusSpecificationData = function() {
             {{#each parts}}if (start + {{offset}} < end) {
                 {{#if hasMask}}rawValue = buffer.readUInt8(start + {{offset}}) & (~({{mask}}));
                 rawValue |= {{#if hasBitPos}}({{/if}}newValue{{#if hasBitPos}} << {{bitPos}}){{/if}} & {{mask}};
-                {{else}}rawValue = (newValue / {{factor}}) & 255;
+                {{else}}rawValue = Math.floor(newValue / {{factor}}) & 255;
                 {{/if}}buffer.writeUInt8(rawValue, start + {{offset}});
             }
             {{/each}}

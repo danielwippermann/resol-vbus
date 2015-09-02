@@ -36,4 +36,4 @@ To update the `Specification` data you need to follow these steps.
 
 ### Run the tool
 
-	$ node .../resol-vbus/tools/specification-import/index.js
+	$ node .../resol-vbus/tools/specification-importer/index.js
