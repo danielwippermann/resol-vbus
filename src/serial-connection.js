@@ -80,9 +80,11 @@ var SerialConnection = Connection.extend(/** @lends SerialConnection# */ {
 
     disconnect: function() {
         if (this.connectionState !== SerialConnection.STATE_DISCONNECTED) {
+            var previousConnectionState = this.connectionState;
+
             this._setConnectionState(SerialConnection.STATE_DISCONNECTING);
 
-            if (this.serialPort) {
+            if (this.serialPort && (previousConnectionState !== SerialConnection.STATE_CONNECTING)) {
                 this.serialPort.close();
             } else {
                 this._setConnectionState(SerialConnection.STATE_DISCONNECTED);
@@ -169,7 +171,7 @@ var SerialConnection = Connection.extend(/** @lends SerialConnection# */ {
 
         var onCompletion = function(err) {
             if (err) {
-                throw new Error(_this.id + ' || onCompletion returned with error: ' + err.toString());
+                done(err);
             }
         };
 
@@ -187,7 +189,7 @@ var SerialConnection = Connection.extend(/** @lends SerialConnection# */ {
             disconnectedCallback: onDisconnect,
         };
 
-        var serialPort = new serialport.SerialPort(this.path, options, null, onCompletion);
+        var serialPort = this._createSerialPort(this.path, options, onCompletion);
 
         serialPort.once('open', function() {
             serialPort.on('data', onSerialPortData);
@@ -200,7 +202,15 @@ var SerialConnection = Connection.extend(/** @lends SerialConnection# */ {
         this.serialPort = serialPort;
 
         return promise;
+    },
+
+    _createSerialPort: function(path, options, onCompletion) {
+        return new serialport.SerialPort(path, options, null, onCompletion);
     }
+
+}, {
+
+    hasSerialPortSupport: !!serialport,
 
 });
 

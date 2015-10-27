@@ -55,7 +55,7 @@ var SerialDataSourceProvider = DataSourceProvider.extend({
             }
         };
 
-        serialport.list(function(err, ports) {
+        this._listSerialPorts(function(err, ports) {
             if (err) {
                 done(err);
             } else {
@@ -78,6 +78,14 @@ var SerialDataSourceProvider = DataSourceProvider.extend({
     createDataSource: function(options) {
         return new SerialDataSource(options);
     },
+
+    _listSerialPorts: function() {
+        return serialport.list.apply(serialport, arguments);
+    },
+
+}, {
+
+    hasSerialPortSupport: !!serialport,
 
 });
 

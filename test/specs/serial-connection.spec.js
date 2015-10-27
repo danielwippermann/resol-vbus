@@ -7,10 +7,10 @@ var Duplex = require('stream').Duplex;
 
 
 var Q = require('q');
-var serialPort = require('serialport');
 
 
 var vbus = require('./resol-vbus');
+var testUtils = require('./test-utils');
 
 
 
@@ -20,13 +20,15 @@ var SerialConnection = vbus.SerialConnection;
 
 var SerialPortStub = vbus.extend(Duplex, {
 
-    constructor: function() {
+    constructor: function(path, options, onCompletion) {
         var _this = this;
 
         Duplex.call(this);
 
         process.nextTick(function() {
             _this.emit('open');
+
+            onCompletion(null);
         });
     },
 
@@ -42,20 +44,26 @@ var SerialPortStub = vbus.extend(Duplex, {
 
 
 
+var TestableSerialConnection = SerialConnection.extend({
+
+    createSerialPort: function(path, options, onCompletion) {
+        return new SerialPortStub(path, options, onCompletion);
+    }
+
+});
+
+
+
 var testConnection = function(done, callback) {
-    var connection = new SerialConnection({
+    var connection = new TestableSerialConnection({
+        path: testUtils.serialPortPath,
     });
-
-    var originalSerialPort = serialPort.SerialPort;
-
-    serialPort.SerialPort = sinon.spy(SerialPortStub);
 
     Q.fcall(function() {
         expect(connection.connectionState).to.equal(SerialConnection.STATE_DISCONNECTED);
 
         return callback(connection);
     }).finally(function() {
-        serialPort.SerialPort = originalSerialPort;
         connection.disconnect();
     }).done(function() {
         done();
@@ -63,6 +71,10 @@ var testConnection = function(done, callback) {
         done(err);
     });
 };
+
+
+
+var ifHasSerialPortIt = testUtils.ifHasSerialPortIt;
 
 
 
@@ -99,7 +111,7 @@ describe('SerialConnection', function() {
             expect(SerialConnection.prototype).to.have.a.property('connect').that.is.a('function');
         });
 
-        it('should work correctly if disconnected', function(done) {
+        ifHasSerialPortIt('should work correctly if disconnected', function(done) {
             testConnection(done, function(connection, endpoint) {
                 var onConnectionState = sinon.spy();
 
@@ -118,7 +130,7 @@ describe('SerialConnection', function() {
             });
         });
 
-        it('should throw if not disconnected', function(done) {
+        ifHasSerialPortIt('should throw if not disconnected', function(done) {
             testConnection(done, function(connection, endpoint) {
                 return Q.fcall(function() {
                     return connection.connect();
@@ -138,7 +150,7 @@ describe('SerialConnection', function() {
             expect(SerialConnection.prototype).to.have.a.property('disconnect').that.is.a('function');
         });
 
-        it('should work correctly if disconnected', function(done) {
+        ifHasSerialPortIt('should work correctly if disconnected', function(done) {
             testConnection(done, function(connection) {
                 connection.disconnect();
 
@@ -146,7 +158,7 @@ describe('SerialConnection', function() {
             });
         });
 
-        it('should work correctly if connected', function(done) {
+        ifHasSerialPortIt('should work correctly if connected', function(done) {
             testConnection(done, function(connection) {
                 var onConnectionState = sinon.spy();
 
@@ -166,7 +178,7 @@ describe('SerialConnection', function() {
 
     describe('Automatic reconnection', function() {
 
-        it('should reconnect when connected', function(done) {
+        ifHasSerialPortIt('should reconnect when connected', function(done) {
             testConnection(done, function(connection) {
                 var onConnectionState = sinon.spy();
 

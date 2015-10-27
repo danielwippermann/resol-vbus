@@ -7,6 +7,17 @@ var _ = require('lodash');
 var Q = require('q');
 
 
+var vbus = require('./resol-vbus');
+
+
+
+var SerialDataSourceProvider = vbus.SerialDataSourceProvider;
+
+
+
+var serialPortPath = process.env.RESOL_VBUS_SERIALPORT;
+
+
 
 var testUtils = {
 
@@ -40,6 +51,18 @@ var testUtils = {
     adaptTimeout: function(timeout) {
         var factor = process.env.TRAVIS ? 1000 : 1;
         return timeout * factor;
+    },
+
+    serialPortPath: serialPortPath,
+
+    ifHasSerialPortIt: function(msg) {
+        if (!SerialDataSourceProvider.hasSerialPortSupport) {
+            xit.call(null, msg + ' (missing serial port support)');
+        } else if (!serialPortPath) {
+            xit.call(null, msg + ' (missing serial port path)');
+        } else {
+            it.apply(null, arguments);
+        }
     },
 
 };

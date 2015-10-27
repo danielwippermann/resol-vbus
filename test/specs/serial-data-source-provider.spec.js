@@ -4,7 +4,6 @@
 
 
 var Q = require('q');
-var serialport = require('serialport');
 
 
 var vbus = require('./resol-vbus');
@@ -14,6 +13,16 @@ var testUtils = require('./test-utils');
 
 var SerialDataSource = vbus.SerialDataSource;
 var SerialDataSourceProvider = vbus.SerialDataSourceProvider;
+
+
+
+var TestableSerialDataSourceProvider = SerialDataSourceProvider.extend({
+
+});
+
+
+
+var ifHasSerialPortIt = testUtils.ifHasSerialPortIt;
 
 
 
@@ -38,19 +47,17 @@ describe('SerialDataSourceProvider', function() {
                     .that.is.a('function');
         });
 
-        it('should work correctly', function(done) {
-            var originalList = serialport.list;
-
+        ifHasSerialPortIt('should work correctly', function(done) {
             var ports = [
                 { comName: 'SERIALPORT1' },
                 { comName: 'SERIALPORT2' },
             ];
 
-            serialport.list = sinon.spy(function(callback) {
+            TestableSerialDataSourceProvider.prototype._listSerialPorts = sinon.spy(function(callback) {
                 callback(null, ports);
             });
 
-            var dsp = new SerialDataSourceProvider();
+            var dsp = new TestableSerialDataSourceProvider();
 
             testUtils.performAsyncTest(done, function() {
                 return Q.fcall(function() {
@@ -61,20 +68,16 @@ describe('SerialDataSourceProvider', function() {
                     expect(dataSources)
                         .to.be.an('array')
                         .lengthOf(ports.length);
-                }).finally(function() {
-                    serialport.list = originalList;
                 });
             });
         });
 
-        it('should reject if an error occurs', function(done) {
-            var originalList = serialport.list;
-
-            serialport.list = sinon.spy(function(callback) {
+        ifHasSerialPortIt('should reject if an error occurs', function(done) {
+            TestableSerialDataSourceProvider.prototype._listSerialPorts = sinon.spy(function(callback) {
                 callback(new Error('ERROR'));
             });
 
-            var dsp = new SerialDataSourceProvider();
+            var dsp = new TestableSerialDataSourceProvider();
 
             var callback = function(err) {
                 if (err) {
@@ -89,8 +92,6 @@ describe('SerialDataSourceProvider', function() {
                     var promise = dsp.discoverDataSources();
 
                     return testUtils.expectPromise(promise);
-                }).finally(function() {
-                    serialport.list = originalList;
                 });
             });
         });
