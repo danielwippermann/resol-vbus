@@ -104,6 +104,8 @@ var checkSpec = function(spec) {
         });
     });
 
+    // console.log(JSON.stringify(spec.devices, null, 4));
+
     return spec;
 };
 
