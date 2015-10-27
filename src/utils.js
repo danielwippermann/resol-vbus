@@ -36,41 +36,6 @@ var utils = {
         return guid;
     },
 
-    promise: function(callback, thisArg) {
-        var deferred = Q.defer();
-        var promise = deferred.promise;
-
-        var resolve = function(result) {
-            if (deferred) {
-                deferred.resolve(result);
-
-                deferred = null;
-            }
-        };
-
-        var reject = function(reason) {
-            if (deferred) {
-                deferred.reject(reason);
-
-                deferred = null;
-            }
-        };
-
-        var notify = function(value) {
-            if (deferred) {
-                deferred.notify(value);
-            }
-        };
-
-        try {
-            callback.call(thisArg, resolve, reject, notify);
-        } catch (ex) {
-            reject(ex);
-        }
-
-        return promise;
-    },
-
     cancelablePromise: function(callback, thisArg) {
         var cancelDeferred = Q.defer();
         var cancelPromise = cancelDeferred.promise;
@@ -139,6 +104,63 @@ var utils = {
     },
 
 };
+
+
+
+var Promise = function(callback, thisArg) {
+    var deferred = Q.defer();
+    var promise = deferred.promise;
+
+    var resolve = function(result) {
+        if (deferred) {
+            deferred.resolve(result);
+
+            deferred = null;
+        }
+    };
+
+    var reject = function(reason) {
+        if (deferred) {
+            deferred.reject(reason);
+
+            deferred = null;
+        }
+    };
+
+    var notify = function(value) {
+        if (deferred) {
+            deferred.notify(value);
+        }
+    };
+
+    try {
+        callback.call(thisArg, resolve, reject, notify);
+    } catch (ex) {
+        reject(ex);
+    }
+
+    return promise;
+};
+
+
+Promise.resolve = function(value) {
+    return new Promise(function(resolve) {
+        resolve(value);
+    });
+};
+
+
+Promise.reject = function(reason) {
+    return new Promise(function(resolve, reject) {
+        reject(reason);
+    });
+};
+
+
+utils.Promise = Promise;
+
+// NOTE(daniel): Legacy naming
+utils.promise = Promise;
 
 
 
