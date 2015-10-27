@@ -30,7 +30,6 @@ To update the `Specification` data you need to follow these steps.
 	$ cp -a \$_OUTDIR/plugins/de.resol* resol/
 	$ cd resol
 	$ for NAME in *.jar; do DIR="$(basename $NAME .jar)"; mkdir $DIR; (cd $DIR; 7z x ../$NAME); done
-	$ rm ./de.resol.servicecenter.vbus.sortech_2.0.0/VBusSpecificationSorTech_eCoo-MX.xml
 	$ find . -iname VBus*.xml
 
 
