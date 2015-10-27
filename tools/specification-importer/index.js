@@ -81,7 +81,7 @@ var main = function() {
     }).then(function(spec) {
         if (args.docs) {
             return generateVBusSpecificationDocs(spec);
-        } else {
+        } else if (!args.nop) {
             return generateVBusSpecificationData(spec);
         }
     }).then(function(output) {
