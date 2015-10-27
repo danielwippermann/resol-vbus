@@ -94,7 +94,9 @@ var VBusSpecDeserializer = extend(null, {
         this._annotateModel(model);
 
         this._filterProperties(parent, function(key, child) {
-            if (key === 'address') {
+            if (key === 'vendor') {
+                // ignore for now
+            } else if (key === 'address') {
                 model.selfAddress = this._getIntegerValue(child);
             } else if (key === 'mask') {
                 model.selfMask = this._getIntegerValue(child);
