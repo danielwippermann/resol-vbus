@@ -112,7 +112,21 @@ gulp.task('mocha', function() {
         .pipe(plugins.mocha({
             ui: 'bdd',
             reporter: 'dot',
-        })).on('error', function() {
+        })).on('error', function(err) {
+            console.log(err);
+            process.exit(1);
+        });
+});
+
+
+gulp.task('quick-mocha', function() {
+    return gulp.src(patterns.test)
+        .pipe(plugins.mocha({
+            ui: 'bdd',
+            reporter: 'spec',
+            // grep: 'setPacketFieldRawValues',
+        })).on('error', function(err) {
+            console.log(err);
             process.exit(1);
         });
 });
