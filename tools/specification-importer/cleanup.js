@@ -113,6 +113,29 @@ var cleanupSpec = function(spec) {
 	// 	_.remove(packetField.packet.fields, packetField.field);
 	// }
 
+	// Sortech eCoo
+	var packets = packetsById ['0010_1100_0100'];
+	if (packets && (packets.length === 1)) {
+		var packet = packets [0];
+		packet.fields = _.reduce(packet.fields, function(memo, field) {
+			if (field.unit === '********************') {
+				// nop
+			} else {
+				switch (field.unit) {
+					case ' - (0 = AUS; 1 = EIN)':
+					case ' - (0 = Fehler; 1 = Ok)':
+					case ' - (0 = Kühlen; 1 = Heizen)':
+					case ' - Zyklen':
+						field.unit = '';
+						break;
+				}
+
+				memo.push(field);
+			}
+			return memo;
+		}, []);
+	}
+
     return spec;
 };
 
