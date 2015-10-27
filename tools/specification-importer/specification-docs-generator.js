@@ -54,7 +54,19 @@ var generateVBusSpecificationDocs = function(spec) {
         '|:-:|:-:|:--|',
     ]);
 
-    _.forEach(info.deviceTemplates, function(device) {
+    var deviceTemplateKeys = _.keys(info.deviceTemplates).sort(function(lKey, rKey) {
+        var l = info.deviceTemplates [lKey];
+        var r = info.deviceTemplates [rKey];
+
+        var result = (l.selfAddress & l.selfMask) - (r.selfAddress & l.selfMask);
+        if (result === 0) {
+            result = l.selfMask - r.selfMask;
+        }
+        return result;
+    });
+
+    _.forEach(deviceTemplateKeys, function(deviceKey) {
+        var device = info.deviceTemplates [deviceKey];
         lines.push(sprintf('| 0x%04X | 0x%04X | %s |', device.selfAddress, device.selfMask, escapeString(device.name)));
     });
 
