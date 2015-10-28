@@ -8,6 +8,7 @@ var Q = require('q');
 
 
 var vbus = require('./resol-vbus');
+var testUtils = require('./test-utils');
 
 
 
@@ -103,37 +104,37 @@ describe('DLxJsonConverter', function() {
 
                 var chunk = onData.firstCall.args [0];
 
-                expect(chunk).to.be.an('object');
+                testUtils.expectToBeABuffer(chunk);
                 expect(chunk.toString()).to.equal('{\"headersets\":[');
 
                 chunk = onData.secondCall.args [0];
 
-                expect(chunk).to.be.an('object');
+                testUtils.expectToBeABuffer(chunk);
                 expect(chunk.toString()).to.equal('{\"timestamp\":1387893006.829,\"packets\":[]}');
 
                 chunk = onData.thirdCall.args [0];
 
-                expect(chunk).to.be.an('object');
+                testUtils.expectToBeABuffer(chunk);
                 expect(chunk.toString()).to.equal(',{\"timestamp\":1387893006.829,\"packets\":[{\"header_index\":0,\"timestamp\":1387893003.303,\"field_values\":[{\"field_index\":0,\"raw_value\":0,\"value\":\"0.0\"},{\"field_index\":1,\"raw_value\":11,\"value\":\"11\"}]},{\"header_index\":1,\"timestamp\":1387893003.454,\"field_values\":[{\"field_index\":0,\"raw_value\":4880133,\"value\":\"4880133\"},{\"field_index\":1,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":2,\"raw_value\":3347,\"value\":\"3347\"},{\"field_index\":3,\"raw_value\":0,\"value\":\"0\"}]}]}');
 
                 chunk = onData.getCall(3).args [0];
 
-                expect(chunk).to.be.an('object');
+                testUtils.expectToBeABuffer(chunk);
                 expect(chunk.toString()).to.equal(',{\"timestamp\":1387893006.829,\"packets\":[{\"header_index\":0,\"timestamp\":1387893003.303,\"field_values\":[{\"field_index\":0,\"raw_value\":0,\"value\":\"0.0\"},{\"field_index\":1,\"raw_value\":11,\"value\":\"11\"}]},{\"header_index\":1,\"timestamp\":1387893003.454,\"field_values\":[{\"field_index\":0,\"raw_value\":4880133,\"value\":\"4880133\"},{\"field_index\":1,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":2,\"raw_value\":3347,\"value\":\"3347\"},{\"field_index\":3,\"raw_value\":0,\"value\":\"0\"}]},{\"header_index\":2,\"timestamp\":1387893006.778,\"field_values\":[{\"field_index\":0,\"raw_value\":1049.888,\"value\":\"1049.888\"},{\"field_index\":1,\"raw_value\":1064.434,\"value\":\"1064.434\"},{\"field_index\":2,\"raw_value\":1071.04,\"value\":\"1071.040\"},{\"field_index\":3,\"raw_value\":4.23,\"value\":\"4.230\"},{\"field_index\":4,\"raw_value\":12.7,\"value\":\"12.7\"},{\"field_index\":5,\"raw_value\":16.5,\"value\":\"16.5\"},{\"field_index\":6,\"raw_value\":18.2,\"value\":\"18.2\"},{\"field_index\":7,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":8,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":9,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":10,\"raw_value\":17,\"value\":\"17\"}]}]}');
 
                 chunk = onData.getCall(4).args [0];
 
-                expect(chunk).to.be.an('object');
+                testUtils.expectToBeABuffer(chunk);
                 expect(chunk.toString()).to.equal(',{\"timestamp\":1387893006.829,\"packets\":[{\"header_index\":0,\"timestamp\":1387893003.303,\"field_values\":[{\"field_index\":0,\"raw_value\":0,\"value\":\"0.0\"},{\"field_index\":1,\"raw_value\":11,\"value\":\"11\"}]},{\"header_index\":1,\"timestamp\":1387893003.454,\"field_values\":[{\"field_index\":0,\"raw_value\":4880133,\"value\":\"4880133\"},{\"field_index\":1,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":2,\"raw_value\":3347,\"value\":\"3347\"},{\"field_index\":3,\"raw_value\":0,\"value\":\"0\"}]},{\"header_index\":2,\"timestamp\":1387893006.778,\"field_values\":[{\"field_index\":0,\"raw_value\":1049.888,\"value\":\"1049.888\"},{\"field_index\":1,\"raw_value\":1064.434,\"value\":\"1064.434\"},{\"field_index\":2,\"raw_value\":1071.04,\"value\":\"1071.040\"},{\"field_index\":3,\"raw_value\":4.23,\"value\":\"4.230\"},{\"field_index\":4,\"raw_value\":12.7,\"value\":\"12.7\"},{\"field_index\":5,\"raw_value\":16.5,\"value\":\"16.5\"},{\"field_index\":6,\"raw_value\":18.2,\"value\":\"18.2\"},{\"field_index\":7,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":8,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":9,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":10,\"raw_value\":17,\"value\":\"17\"}]}]}');
 
                 chunk = onData.getCall(5).args [0];
 
-                expect(chunk).to.be.an('object');
+                testUtils.expectToBeABuffer(chunk);
                 expect(chunk.toString()).to.equal(',{\"timestamp\":1387893006.829,\"packets\":[{\"header_index\":0,\"timestamp\":1387893003.303,\"field_values\":[{\"field_index\":0,\"raw_value\":0,\"value\":\"0.0\"},{\"field_index\":1,\"raw_value\":11,\"value\":\"11\"}]},{\"header_index\":1,\"timestamp\":1387893003.454,\"field_values\":[{\"field_index\":0,\"raw_value\":4880133,\"value\":\"4880133\"},{\"field_index\":1,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":2,\"raw_value\":3347,\"value\":\"3347\"},{\"field_index\":3,\"raw_value\":0,\"value\":\"0\"}]},{\"header_index\":2,\"timestamp\":1387893006.778,\"field_values\":[{\"field_index\":0,\"raw_value\":1049.888,\"value\":\"1049.888\"},{\"field_index\":1,\"raw_value\":1064.434,\"value\":\"1064.434\"},{\"field_index\":2,\"raw_value\":1071.04,\"value\":\"1071.040\"},{\"field_index\":3,\"raw_value\":4.23,\"value\":\"4.230\"},{\"field_index\":4,\"raw_value\":12.7,\"value\":\"12.7\"},{\"field_index\":5,\"raw_value\":16.5,\"value\":\"16.5\"},{\"field_index\":6,\"raw_value\":18.2,\"value\":\"18.2\"},{\"field_index\":7,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":8,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":9,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":10,\"raw_value\":17,\"value\":\"17\"}]}]}');
 
                 chunk = onData.getCall(6).args [0];
 
-                expect(chunk).to.be.an('object');
+                testUtils.expectToBeABuffer(chunk);
                 expect(chunk.toString()).to.equal('],"headerset_stats":{\"headerset_count\":5,\"min_timestamp\":1387893006.829,\"max_timestamp\":1387893006.829},"headers":[{\"id\":\"01_0010_7E21_0100\",\"description\":\"VBus 1: DeltaSol MX [Heizkreis #1]\",\"channel\":1,\"destination_address\":16,\"source_address\":32289,\"protocol_version\":16,\"command\":256,\"info\":0,\"destination_name\":\"DFA\",\"source_name\":\"DeltaSol MX [Heizkreis #1]\",\"fields\":[{\"id\":\"000_2_0\",\"name\":\"Flow set temperature\",\"unit\":\" °C\",\"unit_code\":\"DegreesCelsius\"},{\"id\":\"002_1_0\",\"name\":\"Operating status\",\"unit\":\"\",\"unit_code\":\"None\"}]},{\"id\":\"01_0010_7E31_0100\",\"description\":\"VBus 1: DeltaSol MX [WMZ #1]\",\"channel\":1,\"destination_address\":16,\"source_address\":32305,\"protocol_version\":16,\"command\":256,\"info\":0,\"destination_name\":\"DFA\",\"source_name\":\"DeltaSol MX [WMZ #1]\",\"fields\":[{\"id\":\"000_4_0\",\"name\":\"Heat quantity\",\"unit\":\" Wh\",\"unit_code\":\"WattHours\"},{\"id\":\"008_4_0\",\"name\":\"Heat quantity today\",\"unit\":\" Wh\",\"unit_code\":\"WattHours\"},{\"id\":\"012_4_0\",\"name\":\"Heat quantity week\",\"unit\":\" Wh\",\"unit_code\":\"WattHours\"},{\"id\":\"016_4_0\",\"name\":\"Gesamtvolumen\",\"unit\":\" l\",\"unit_code\":\"Liters\"}]},{\"id\":\"00_0010_0053_0100\",\"description\":\"VBus 0: DL3\",\"channel\":0,\"destination_address\":16,\"source_address\":83,\"protocol_version\":16,\"command\":256,\"info\":0,\"destination_name\":\"DFA\",\"source_name\":\"DL3\",\"fields\":[{\"id\":\"000_4_0\",\"name\":\"Resistor sensor 1\",\"unit\":\" Ω\",\"unit_code\":\"Ohms\"},{\"id\":\"004_4_0\",\"name\":\"Resistor sensor 2\",\"unit\":\" Ω\",\"unit_code\":\"Ohms\"},{\"id\":\"008_4_0\",\"name\":\"Resistor sensor 3\",\"unit\":\" Ω\",\"unit_code\":\"Ohms\"},{\"id\":\"012_4_0\",\"name\":\"Current sensor 4\",\"unit\":\" mA\",\"unit_code\":\"Milliamperes\"},{\"id\":\"034_2_0\",\"name\":\"Temperature Sensor 1\",\"unit\":\" °C\",\"unit_code\":\"DegreesCelsius\"},{\"id\":\"036_2_0\",\"name\":\"Temperature Sensor 2\",\"unit\":\" °C\",\"unit_code\":\"DegreesCelsius\"},{\"id\":\"038_2_0\",\"name\":\"Temperature Sensor 3\",\"unit\":\" °C\",\"unit_code\":\"DegreesCelsius\"},{\"id\":\"016_4_0\",\"name\":\"Impulse Counter Sensor 1\",\"unit\":\"\",\"unit_code\":\"None\"},{\"id\":\"020_4_0\",\"name\":\"Impulse Counter Sensor 2\",\"unit\":\"\",\"unit_code\":\"None\"},{\"id\":\"024_4_0\",\"name\":\"Impulse Counter Sensor 3\",\"unit\":\"\",\"unit_code\":\"None\"},{\"id\":\"040_2_0\",\"name\":\"Irradiation Sensor 4\",\"unit\":\" W/m²\",\"unit_code\":\"WattsPerSquareMeter\"}]}],"language":"en"}');
             });
         });

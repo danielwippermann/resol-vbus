@@ -13,6 +13,16 @@ var Packet = vbus.Packet;
 
 
 
+var TestableConverter = Converter.extend({
+
+    _read: function() {
+        // nop
+    },
+
+});
+
+
+
 describe('Converter', function() {
 
     describe('constructor', function() {
@@ -20,13 +30,13 @@ describe('Converter', function() {
         it('should be a constructor function', function() {
             expect(Converter).to.be.a('function');
 
-            var converter = new Converter();
+            var converter = new TestableConverter();
 
             expect(converter).to.be.an.instanceOf(Converter);
         });
 
         it('should reasonable defaults', function() {
-            var converter = new Converter();
+            var converter = new TestableConverter();
 
             expect(converter).property('objectMode').to.equal(false);
         });
@@ -37,7 +47,7 @@ describe('Converter', function() {
                 junk: 'JUNK',
             };
 
-            var converter = new Converter(options);
+            var converter = new TestableConverter(options);
 
             expect(converter).property('objectMode').to.equal(options.objectMode);
             expect(converter).not.property('junk');
@@ -60,7 +70,7 @@ describe('Converter', function() {
         });
 
         it('should be fire an end event', function(done) {
-            var converter = new Converter({
+            var converter = new TestableConverter({
                 objectMode: true,
             });
 
@@ -80,7 +90,7 @@ describe('Converter', function() {
         });
 
         it('should be abstract', function() {
-            var converter = new Converter();
+            var converter = new TestableConverter();
 
             expect(function() {
                 converter.convertHeader();
@@ -96,7 +106,7 @@ describe('Converter', function() {
         });
 
         it('should be abstract', function() {
-            var converter = new Converter();
+            var converter = new TestableConverter();
 
             expect(function() {
                 converter.convertHeaderSet();
@@ -112,10 +122,10 @@ describe('Converter', function() {
         });
 
         it('should be abstract', function() {
-            var converter = new Converter();
+            var converter = new TestableConverter();
 
             expect(function() {
-                converter._read();
+                Converter.prototype._read.call(converter);
             }).to.throw(Error, 'Must be implemented by sub-class');
         });
 
@@ -128,7 +138,7 @@ describe('Converter', function() {
         });
 
         it('should be abstract', function() {
-            var converter = new Converter();
+            var converter = new TestableConverter();
 
             expect(function() {
                 converter._write();
@@ -164,7 +174,7 @@ describe('Converter', function() {
                 headers: [ packet1, packet2, packet3 ]
             });
 
-            var converter = new Converter({
+            var converter = new TestableConverter({
                 objectMode: true,
             });
 
@@ -230,7 +240,7 @@ describe('Converter', function() {
                 headers: [ packet1, packet2, packet3 ]
             });
 
-            var converter = new Converter({
+            var converter = new TestableConverter({
                 objectMode: true,
             });
 

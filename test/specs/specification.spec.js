@@ -6,8 +6,13 @@
 var _ = require('lodash');
 
 
-var Packet = require('./resol-vbus').Packet;
-var Specification = require('./resol-vbus').Specification;
+var vbus = require('./resol-vbus');
+var testUtils = require('./test-utils');
+
+
+
+var Packet = vbus.Packet;
+var Specification = vbus.Specification;
 
 
 
@@ -1466,7 +1471,8 @@ describe('Specification', function() {
             expect(section).property('type').a('number').equal(8);
             expect(section).property('payloadCount').a('number').equal(4);
             expect(section).property('frameCount').a('number').equal(1);
-            expect(section).property('frameData').an('object');
+            expect(section).property('frameData');
+            testUtils.expectToBeABuffer(section.frameData);
 
             var frameData = section.frameData;
             expect(frameData).property('length').a('number').equal(8);
@@ -1484,7 +1490,8 @@ describe('Specification', function() {
             expect(section).property('type').a('number').equal(10);
             expect(section).property('payloadCount').a('number').equal(1);
             expect(section).property('frameCount').a('number').equal(2);
-            expect(section).property('frameData').an('object');
+            expect(section).property('frameData');
+            testUtils.expectToBeABuffer(section.frameData);
 
             frameData = section.frameData;
             expect(frameData).property('length').a('number').equal(12);
@@ -1502,7 +1509,8 @@ describe('Specification', function() {
             expect(section).property('type').a('number').equal(11);
             expect(section).property('payloadCount').a('number').equal(1);
             expect(section).property('frameCount').a('number').equal(1);
-            expect(section).property('frameData').an('object');
+            expect(section).property('frameData');
+            testUtils.expectToBeABuffer(section.frameData);
 
             frameData = section.frameData;
             expect(frameData).property('length').a('number').equal(8);
@@ -1550,7 +1558,8 @@ describe('Specification', function() {
                 expect(section).property('type').a('number').equal(type);
                 expect(section).property('payloadCount').a('number').equal(payloadCount);
                 expect(section).property('frameCount').a('number').equal(frameCount);
-                expect(section).property('frameData').an('object');
+                expect(section).property('frameData');
+                testUtils.expectToBeABuffer(section.frameData);
 
                 expect(section.frameData.toString('hex')).equal(frameData);
             });

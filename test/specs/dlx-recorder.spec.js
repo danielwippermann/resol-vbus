@@ -367,7 +367,10 @@ describe('DLxRecorder', function() {
                     expect(stub.firstCall.args [1]).to.equal(urlOptions);
 
                     expect(stream._write.callCount).to.equal(1);
-                    expect(stream._write.firstCall.args [0]).to.equal(data);
+
+                    var chunk = stream._write.firstCall.args [0];
+                    testUtils.expectToBeABuffer(chunk);
+                    expect(chunk.toString('hex')).equal(data.toString('hex'));
                 });
             });
         });

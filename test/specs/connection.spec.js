@@ -3,11 +3,16 @@
 
 
 
-var Header = require('./resol-vbus').Header;
-var Packet = require('./resol-vbus').Packet;
-var Datagram = require('./resol-vbus').Datagram;
-var Telegram = require('./resol-vbus').Telegram;
-var Connection = require('./resol-vbus').Connection;
+var vbus = require('./resol-vbus');
+
+
+
+var Header = vbus.Header;
+var Packet = vbus.Packet;
+var Datagram = vbus.Datagram;
+var Telegram = vbus.Telegram;
+var Connection = vbus.Connection;
+var Promise = vbus.utils.Promise;
 
 
 
@@ -393,14 +398,26 @@ describe('Connection', function() {
     describe('readable stream', function() {
 
         it('should process outgoing stream correctly', function() {
-            parseRawData(function(conn, stats) {
-                conn.push(rawDataPacket);
+            parseRawData(function(conn, stats, done) {
+                var check = function() {
+                    try {
+                        expect(stats.txDataCount).to.equal(112);
+                        expect(stats.rawDataCount).to.equal(112);
+                        expect(stats.junkDataCount).to.equal(0);
+                        expect(stats.packetCount).to.equal(1);
+                        expect(stats.datagramCount).to.equal(0);
 
-                expect(stats.txDataCount).to.equal(112);
-                expect(stats.rawDataCount).to.equal(112);
-                expect(stats.junkDataCount).to.equal(0);
-                expect(stats.packetCount).to.equal(1);
-                expect(stats.datagramCount).to.equal(0);
+                        done();
+                    } catch (ex) {
+                        done(ex);
+                    }
+                };
+
+                conn.on('data', function() {
+                    process.nextTick(check);
+                });
+
+                conn.push(rawDataPacket);
             });
         });
 
@@ -442,16 +459,28 @@ describe('Connection', function() {
         });
 
         it('should work correctly with a header object', function() {
-            parseRawData(function(conn, stats) {
+            parseRawData(function(conn, stats, done) {
                 var packet = Packet.fromLiveBuffer(rawDataPacket, 0, rawDataPacket.length);
 
-                conn.send(packet);
+                var check = function() {
+                    try {
+                        expect(stats.txDataCount).to.equal(112);
+                        expect(stats.rawDataCount).to.equal(112);
+                        expect(stats.junkDataCount).to.equal(0);
+                        expect(stats.packetCount).to.equal(1);
+                        expect(stats.datagramCount).to.equal(0);
 
-                expect(stats.txDataCount).to.equal(112);
-                expect(stats.rawDataCount).to.equal(112);
-                expect(stats.junkDataCount).to.equal(0);
-                expect(stats.packetCount).to.equal(1);
-                expect(stats.datagramCount).to.equal(0);
+                        done();
+                    } catch (ex) {
+                        done(ex);
+                    }
+                };
+
+                conn.once('data', function() {
+                    process.nextTick(check);
+                });
+
+                conn.send(packet);
             });
         });
 

@@ -65,6 +65,10 @@ var testUtils = {
         }
     },
 
+    expectToBeABuffer: function(buffer) {
+        expect(buffer).instanceOf(Buffer);
+    },
+
 };
 
 

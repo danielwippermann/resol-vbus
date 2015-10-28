@@ -7,6 +7,7 @@ var _ = require('lodash');
 
 
 var vbus = require('./resol-vbus');
+var testUtils = require('./test-utils');
 
 
 
@@ -221,7 +222,7 @@ describe('VBusRecordingConverter', function() {
             '05774a000000000000000000130d0000',
         ].join('');
 
-        it('should work correctly', function(done) {
+        promiseIt('should work correctly', function() {
             var buffer1 = new Buffer(rawPacket1, 'hex');
             var packet1 = Packet.fromLiveBuffer(buffer1, 0, buffer1.length);
             packet1.timestamp = new Date(1387893006778);
@@ -249,12 +250,14 @@ describe('VBusRecordingConverter', function() {
 
             converter.convertHeaderSet(headerSet);
 
-            var check = function() {
+            return converter.finish().then(function() {
+                converter.removeListener('data', onData);
+
                 expect(onData.callCount).to.equal(1);
 
                 var chunk = onData.firstCall.args [0];
 
-                expect(chunk).to.be.an('object');
+                testUtils.expectToBeABuffer(chunk);
                 expect(chunk.length).to.equal(172);
 
                 var hexDump = chunk.toString('hex');
@@ -265,15 +268,10 @@ describe('VBusRecordingConverter', function() {
                 }
 
                 expect(hexDump).to.equal(rawVBusRecordingHexDump);
-
-                done();
-            };
-
-            // setImmediate(check);
-            check();
+            });
         });
 
-        it('should work correctly in object mode', function(done) {
+        promiseIt('should work correctly in object mode', function() {
             var refHeaderSet = new HeaderSet();
 
             var converter = new VBusRecordingConverter({
@@ -283,22 +281,17 @@ describe('VBusRecordingConverter', function() {
             var onData = sinon.spy();
             converter.on('data', onData);
 
-            var check = function() {
-                try {
-                    expect(onData.callCount).to.equal(1, '"data" events triggered');
-
-                    var headerSet = onData.firstCall.args [0];
-                    expect(headerSet).to.be.an('object');
-                    expect(headerSet).equal(refHeaderSet);
-
-                    done();
-                } catch (ex) {
-                    done(ex);
-                }
-            };
-
             converter.convertHeaderSet(refHeaderSet);
-            check();
+
+            return converter.finish().then(function() {
+                converter.removeListener('data', onData);
+
+                expect(onData.callCount).to.equal(1, '"data" events triggered');
+
+                var headerSet = onData.firstCall.args [0];
+                expect(headerSet).to.be.an('object');
+                expect(headerSet).equal(refHeaderSet);
+            });
         });
 
     });

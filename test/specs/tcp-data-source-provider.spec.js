@@ -99,7 +99,12 @@ describe('TCP Data Source Provider', function() {
             var onListening = function() {
                 var address = server.address();
 
-                TcpDataSourceProvider.fetchDeviceInformation(address.address, address.port).done(onFetch);
+                var host = address.address;
+                if ((address.family === 'IPv6') && (host.indexOf(':') >= 0)) {
+                    host = '[' + host + ']';
+                }
+
+                TcpDataSourceProvider.fetchDeviceInformation(host, address.port).done(onFetch);
             };
 
             var onRequest = function(req, res) {
