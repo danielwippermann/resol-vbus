@@ -97,6 +97,12 @@ into your shell:
 
 ## Changelog
 
+### Version 0.14.0 (2015-10-29)
+
+- Improve configuration optimizers and their discovery
+- Update VBus specification data
+
+
 ### Version 0.13.0 (2015-05-14)
 
 - Add configuration optimizers for RESOL DeltaSol SLT
