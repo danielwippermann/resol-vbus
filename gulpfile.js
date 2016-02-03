@@ -4,17 +4,35 @@
 
 
 var exec = require('child_process').exec;
+var path = require('path');
 
 
 require('better-stack-traces').install();
 var chai = require('chai');
 var gulp = require('gulp');
 var plugins = require('gulp-load-plugins')();
+var _ = require('lodash');
 var Q = require('q');
 global.sinon = require('sinon');
 
 
 var jsdoc = require('./lib/gulp-jsdoc');
+
+
+var localConfig;
+try {
+    localConfig = require('./.local-config.json');
+} catch (ex) {
+    // nop
+}
+
+
+
+var config = _.defaults({}, localConfig, {
+    jekyllPath: 'jekyll',
+    docsOutputPath: path.resolve(__dirname, '../danielwippermann.github.io/resol-vbus/'),
+});
+
 
 
 chai.config.includeStack = true;
@@ -139,7 +157,7 @@ gulp.task('jsdoc', function() {
 
 
 gulp.task('jekyll', function(done) {
-    exec('jekyll build', { cwd: 'docs' }, function(err) {
+    exec(config.jekyllPath + ' build', { cwd: 'docs' }, function(err) {
         if (err) {
             done(err);
         } else {
@@ -154,7 +172,7 @@ gulp.task('jekyll', function(done) {
 
 gulp.task('publish', [ 'jekyll', 'jsdoc' ], function() {
     return gulp.src('.docs/**/*', { base: './.docs' })
-        .pipe(gulp.dest('../danielwippermann.github.io/resol-vbus'));
+        .pipe(gulp.dest(config.docsOutputPath));
 });
 
 
