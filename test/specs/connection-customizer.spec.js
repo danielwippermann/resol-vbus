@@ -308,7 +308,7 @@ describe('ConnectionCustomizer', function() {
         });
 
         promiseIt('should work correctly with optimization', function() {
-            this.timeout(testUtils.adaptTimeout(1000));
+            this.timeout(testUtils.adaptTimeout(2000));
 
             var options = {
                 optimizer: true,  // will be replaced with an object by `promiseTestContext`
