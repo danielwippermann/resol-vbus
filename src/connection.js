@@ -153,6 +153,8 @@ var Connection = extend(Duplex, /** @lends Connection# */ {
             buffer = chunk;
         }
 
+        var processed = 0;
+
         var reportJunk = function(index) {
             if (index > processed) {
                 if (EventEmitter.listenerCount(_this, 'junkData') > 0) {
@@ -164,7 +166,7 @@ var Connection = extend(Duplex, /** @lends Connection# */ {
 
         // console.log('_write (start):', this.rxBuffer, chunk);
 
-        var index = 0, start = null, processed = 0;
+        var index = 0, start = null;
         while (index < buffer.length) {
             var b = buffer [index] & 255;
             if (b === 0xAA) {

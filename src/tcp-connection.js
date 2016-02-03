@@ -141,6 +141,8 @@ var TcpConnection = Connection.extend( /** @lends TcpConnection# */ {
     _connect: function(force) {
         var _this = this;
 
+        var socket;
+
         var deferred = Q.defer();
         var promise = deferred.promise;
 
@@ -375,7 +377,7 @@ var TcpConnection = Connection.extend( /** @lends TcpConnection# */ {
 
         this.on('data', onConnectionData);
 
-        var socket = net.connect(options, onConnect);
+        socket = net.connect(options, onConnect);
         socket.on('data', onSocketData);
         socket.on('end', onEnd);
         socket.on('error', onError);

@@ -95,6 +95,8 @@ var SerialConnection = Connection.extend(/** @lends SerialConnection# */ {
     _connect: function() {
         var _this = this;
 
+        var serialPort;
+
         var deferred = Q.defer();
         var promise = deferred.promise;
 
@@ -189,7 +191,7 @@ var SerialConnection = Connection.extend(/** @lends SerialConnection# */ {
             disconnectedCallback: onDisconnect,
         };
 
-        var serialPort = this._createSerialPort(this.path, options, onCompletion);
+        serialPort = this._createSerialPort(this.path, options, onCompletion);
 
         serialPort.once('open', function() {
             serialPort.on('data', onSerialPortData);
