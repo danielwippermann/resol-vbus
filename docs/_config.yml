@@ -1,5 +1,4 @@
 name: resol-vbus Documentation
-markdown: redcarpet
-pygments: true
-redcarpet:
-  extensions: [tables, with_toc_data]
+markdown: kramdown
+kramdown:
+  input: GFM
