@@ -150,4 +150,20 @@ describe('ConfigurationOptimizer', function() {
 
     });
 
+    describe('#generateClockConfiguration', function() {
+
+        it('should be a method', function() {
+            expect(ConfigurationOptimizer.prototype).property('generateClockConfiguration').a('function');
+        });
+
+        it('should be an abstract method', function() {
+            var optimizer = new ConfigurationOptimizer();
+
+            expect(function() {
+                return optimizer.generateClockConfiguration();
+            }).throw(Error, 'Must be implemented by sub-class');
+        });
+
+    });
+
 });

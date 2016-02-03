@@ -71,6 +71,16 @@ var ConfigurationOptimizer = extend(null, /** @lends ConfigurationOptimizer# */ 
         throw new Error('Must be implemented by sub-class');
     },
 
+    /**
+     * Get the array of `ConfigurationValue` objects to set the current date / time to the controller.
+     *
+     * @param  {string} timezone Timezone the controller is in
+     * @return {Promise} A Promise that resolves to the array of values to set the clock.
+     */
+    generateClockConfiguration: function(timezone) {
+        throw new Error('Must be implemented by sub-class');
+    },
+
 }, {
 
     deviceAddress: null,
