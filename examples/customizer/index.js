@@ -317,7 +317,9 @@ var runSingleShot = function(argv) {
     }).finally(function() {
         reportProgress('Disconnecting...');
 
-        context.connection.disconnect();
+        if (context.connection != null) {
+            context.connection.disconnect();
+        }
     });
 };
 
