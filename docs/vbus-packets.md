@@ -9,12 +9,13 @@ title: VBus Packets
 
 - [Broadcast (0x0000) <= WMZ #0 (0x4010), command 0x0100](#0000_4010_0100)
 - [Broadcast (0x0000) <= HKM1 #0 (0x4420), command 0x0100](#0000_4420_0100)
-- [Broadcast (0x0000) <= HKM2 (0x6510), command 0x0100](#0000_6510_0100)
+- [Broadcast (0x0000) <= HKM2 #0 (0x6510), command 0x0100](#0000_6510_0100)
 - [Broadcast (0x0000) <= MSR65 #0 (0x6520), command 0x0100](#0000_6520_0100)
 - [Broadcast (0x0000) <= EM #0 (0x6650), command 0x0100](#0000_6650_0100)
 - [DFA (0x0010) <= DL3 (0x0053), command 0x0100](#0010_0053_0100)
 - [DFA (0x0010) <= DeltaSol SLT \[Regler\] (0x1001), command 0x0100](#0010_1001_0100)
 - [DFA (0x0010) <= DeltaSol SLT \[WMZ #0\] (0x1010), command 0x0100](#0010_1010_0100)
+- [DFA (0x0010) <= Noventec Übergabestation \[Regler\] (0x1020), command 0x0100](#0010_1020_0100)
 - [DFA (0x0010) <= DeltaSol E V2 HK 1 Estrichtrockung \[Modul 1\] (0x1040), command 0x0100](#0010_1040_0100)
 - [DFA (0x0010) <= DeltaSol E V2 \[Regler\] (0x1050), command 0x0100](#0010_1050_0100)
 - [DFA (0x0010) <= DeltaSol E V2 \[WMZ\] (0x1051), command 0x0100](#0010_1051_0100)
@@ -25,16 +26,28 @@ title: VBus Packets
 - [DFA (0x0010) <= Kioto BX Plus V2 \[WMZ 1\] (0x1056), command 0x0100](#0010_1056_0100)
 - [DFA (0x0010) <= Kioto BX Plus V2 \[WMZ 2\] (0x1057), command 0x0100](#0010_1057_0100)
 - [DFA (0x0010) <= Caleffi Biomassa (0x1058), command 0x0100](#0010_1058_0100)
+- [DFA (0x0010) <= DeltaTherm HC mini \[Regler\] (0x1059), command 0x0100](#0010_1059_0100)
+- [DFA (0x0010) <= Atlantic SOLERIO V3 (0x105B), command 0x0100](#0010_105B_0100)
+- [DFA (0x0010) <= DeDietrich Sol Plus ER 709 (0x105D), command 0x0100](#0010_105D_0100)
 - [DFA (0x0010) <= Vitosolic 200 \[Regler\] (0x1060), command 0x0100](#0010_1060_0100)
 - [DFA (0x0010) <= Unknown device (0x1064), command 0x0100](#0010_1064_0100)
+- [DFA (0x0010) <= DeltaSol MX - SorTech - eCoo \[Regler\] (0x1100), command 0x0100](#0010_1100_0100)
 - [DFA (0x0010) <= DeltaSol AL-E (0x1120), command 0x0100](#0010_1120_0100)
+- [DFA (0x0010) <= DeltaSol CS2 (0x1121), command 0x0100](#0010_1121_0100)
+- [DFA (0x0010) <= DeltaSol CS4 (0x1122), command 0x0100](#0010_1122_0100)
+- [DFA (0x0010) <= DeltaTherm HC mini \[Heizkreis 1\] (0x1140), command 0x0100](#0010_1140_0100)
 - [DFA (0x0010) <= DeltaSol CS Plus (0x2211), command 0x0100](#0010_2211_0100)
 - [DFA (0x0010) <= Oranier HK \[Regler\] (0x2231), command 0x0100](#0010_2231_0100)
 - [DFA (0x0010) <= Oranier HK \[WMZ1\] (0x2232), command 0x0100](#0010_2232_0100)
+- [DFA (0x0010) <= Frischwasserregler (0x2241), command 0x0100](#0010_2241_0100)
 - [DFA (0x0010) <= DeltaSol SL \[Regler\] (0x2251), command 0x0100](#0010_2251_0100)
 - [DFA (0x0010) <= DeltaSol SL \[WMZ1\] (0x2252), command 0x0100](#0010_2252_0100)
+- [DFA (0x0010) <= HR Solar BASIC controller \[Regler\] (0x2261), command 0x0100](#0010_2261_0100)
+- [DFA (0x0010) <= HR Solar BASIC controller \[WMZ 1\] (0x2262), command 0x0100](#0010_2262_0100)
 - [DFA (0x0010) <= DeltaSol SLL \[Regler\] (0x2271), command 0x0100](#0010_2271_0100)
 - [DFA (0x0010) <= DeltaSol SLL \[WMZ1\] (0x2272), command 0x0100](#0010_2272_0100)
+- [DFA (0x0010) <= HR Solar ADVANCED controller \[Regler\] (0x2360), command 0x0100](#0010_2360_0100)
+- [DFA (0x0010) <= HR Solar ADVANCED controller \[WMZ 1\] (0x2362), command 0x0100](#0010_2362_0100)
 - [DFA (0x0010) <= WMZ-L10 (0x3011), command 0x0100](#0010_3011_0100)
 - [DFA (0x0010) <= EL1 (0x3211), command 0x0100](#0010_3211_0100)
 - [DFA (0x0010) <= DeltaSol Pro (0x3221), command 0x0100](#0010_3221_0100)
@@ -46,8 +59,8 @@ title: VBus Packets
 - [DFA (0x0010) <= DeltaSol AL (0x4111), command 0x0100](#0010_4111_0100)
 - [DFA (0x0010) <= SKSC1/2 (0x4211), command 0x0100](#0010_4211_0100)
 - [DFA (0x0010) <= DeltaSol C (0x4212), command 0x0100](#0010_4212_0100)
-- [DFA (0x0010) <= SKSC2 HE (0x4213), command 0x0100](#0010_4213_0100)
-- [DFA (0x0010) <= SKSC2 HE (0x4214), command 0x0100](#0010_4214_0100)
+- [DFA (0x0010) <= SKSC2 HE \[Regler\] (0x4213), command 0x0100](#0010_4213_0100)
+- [DFA (0x0010) <= SKSC2 HE \[Regler\] (0x4214), command 0x0100](#0010_4214_0100)
 - [DFA (0x0010) <= DeltaSol BS Plus (0x4221), command 0x0100](#0010_4221_0100)
 - [DFA (0x0010) <= DeltaSol BS Plus BTU (0x4223), command 0x0100](#0010_4223_0100)
 - [DFA (0x0010) <= CS2.2 (0x4224), command 0x0100](#0010_4224_0100)
@@ -55,6 +68,7 @@ title: VBus Packets
 - [DFA (0x0010) <= Huber - REGLOfresh / Felix \[Regler\] (0x4241), command 0x0100](#0010_4241_0100)
 - [DFA (0x0010) <= DSPlus UMSYS \[Regler\] (0x4251), command 0x0100](#0010_4251_0100)
 - [DFA (0x0010) <= BS Solex US (0x4252), command 0x0100](#0010_4252_0100)
+- [DFA (0x0010) <= DeltaSol E SorTech \[Regler\] (0x4261), command 0x0100](#0010_4261_0100)
 - [DFA (0x0010) <= Aton DeltaSol BS (0x4265), command 0x0100](#0010_4265_0100)
 - [DFA (0x0010) <= DeltaSol BS/DrainBack (0x4278), command 0x0100](#0010_4278_0100)
 - [DFA (0x0010) <= DeltaSol BS/DrainBack \(Fahrenheit\) (0x4279), command 0x0100](#0010_4279_0100)
@@ -70,6 +84,7 @@ title: VBus Packets
 - [DFA (0x0010) <= nemux (0x5231), command 0x0100](#0010_5231_0100)
 - [DFA (0x0010) <= Frischwasserregler (0x5251), command 0x0100](#0010_5251_0100)
 - [DFA (0x0010) <= X-Control (0x5311), command 0x0100](#0010_5311_0100)
+- [DFA (0x0010) <= Frischwasserregler (0x5351), command 0x0100](#0010_5351_0100)
 - [DFA (0x0010) <= DeltaTherm HC \[Regler\] (0x5400), command 0x0100](#0010_5400_0100)
 - [DFA (0x0010) <= DeltaTherm HC \[Heizkreis #0\] (0x5410), command 0x0100](#0010_5410_0100)
 - [DFA (0x0010) <= DeltaTherm HC \[WMZ #0\] (0x5420), command 0x0100](#0010_5420_0100)
@@ -88,6 +103,12 @@ title: VBus Packets
 - [DFA (0x0010) <= SKSC3HE \[HK1\] (0x7161), command 0x0100](#0010_7161_0100)
 - [DFA (0x0010) <= SKSC3HE \[HK2\] (0x7162), command 0x0100](#0010_7162_0100)
 - [DFA (0x0010) <= SKSC3HE \[HK3\] (0x7163), command 0x0100](#0010_7163_0100)
+- [DFA (0x0010) <= DeltaSol BX Plus V2A \[Regler\] (0x7176), command 0x0100](#0010_7176_0100)
+- [DFA (0x0010) <= DeltaSol BX Plus V2A \[Module\] (0x7177), command 0x0100](#0010_7177_0100)
+- [DFA (0x0010) <= DeltaSol BX Plus V2A \[Heizkreis 1\] (0x7178), command 0x0100](#0010_7178_0100)
+- [DFA (0x0010) <= DeltaSol BX Plus V2A \[Heizkreis 2\] (0x7179), command 0x0100](#0010_7179_0100)
+- [DFA (0x0010) <= DeltaSol BX Plus V2A \[WMZ 1\] (0x717A), command 0x0100](#0010_717A_0100)
+- [DFA (0x0010) <= DeltaSol BX Plus V2A \[WMZ 2\] (0x717B), command 0x0100](#0010_717B_0100)
 - [DFA (0x0010) <= SKSR 1/2/3 (0x7210), command 0x0100](#0010_7210_0100)
 - [DFA (0x0010) <= SKSC3 \[HK1\] (0x7211), command 0x0100](#0010_7211_0100)
 - [DFA (0x0010) <= SKSC3 \[HK2\] (0x7212), command 0x0100](#0010_7212_0100)
@@ -122,6 +143,7 @@ title: VBus Packets
 - [DFA (0x0010) <= Regtronic RX-B \[Regler\] (0x7522), command 0x0100](#0010_7522_0100)
 - [DFA (0x0010) <= Regtronic RX-B \[Module\] (0x7523), command 0x0100](#0010_7523_0100)
 - [DFA (0x0010) <= Regtronic RX-B \[WMZ #0\] (0x7530), command 0x0100](#0010_7530_0100)
+- [DFA (0x0010) <= Oventrop RQ-B XXL (0x7541), command 0x0100](#0010_7541_0100)
 - [DFA (0x0010) <= Friwa (0x7611), command 0x0100](#0010_7611_0100)
 - [DFA (0x0010) <= SOLEX \[Regler\] (0x7621), command 0x0100](#0010_7621_0100)
 - [DFA (0x0010) <= SOLEX \[WMZ\] (0x7622), command 0x0100](#0010_7622_0100)
@@ -140,6 +162,8 @@ title: VBus Packets
 - [DFA (0x0010) <= COSMO Multi \[Regler\] (0x7821), command 0x0100](#0010_7821_0100)
 - [DFA (0x0010) <= COSMO Multi \[WMZ\] (0x7822), command 0x0100](#0010_7822_0100)
 - [DFA (0x0010) <= Unknown device (0x7830), command 0x0100](#0010_7830_0100)
+- [DFA (0x0010) <= COSMO UNO (0x7840), command 0x0100](#0010_7840_0100)
+- [DFA (0x0010) <= COSMO UNO \[WMZ1\] (0x7841), command 0x0100](#0010_7841_0100)
 - [DFA (0x0010) <= PAW SOLEX SC5.14 \[Regler\] (0x7910), command 0x0100](#0010_7910_0100)
 - [DFA (0x0010) <= PAW SOLEX SC5.14 \[Module\] (0x7911), command 0x0100](#0010_7911_0100)
 - [DFA (0x0010) <= PAW SOLEX SC5.14 \[Heizkreis #0\] (0x7920), command 0x0100](#0010_7920_0100)
@@ -156,7 +180,7 @@ title: VBus Packets
 - [DFA (0x0010) <= IOC-Modul \[Messwerte_1s\] (0x7F65), command 0x0100](#0010_7F65_0100)
 - [DFA (0x0010) <= DeltaSol FCS (0x7F71), command 0x0100](#0010_7F71_0100)
 - [HKM1 #0 (0x4420) <= Broadcast (0x0000), command 0x0200](#4420_0000_0200)
-- [HKM2 (0x6510) <= Broadcast (0x0000), command 0x0200](#6510_0000_0200)
+- [HKM2 #0 (0x6510) <= Broadcast (0x0000), command 0x0200](#6510_0000_0200)
 - [MSR65 #0 (0x6520) <= Broadcast (0x0000), command 0x0200](#6520_0000_0200)
 - [EM #0 (0x6650) <= Broadcast (0x0000), command 0x0200](#6650_0000_0200)
 
@@ -166,8 +190,16 @@ title: VBus Packets
 
 | Address | Mask | Name |
 |:-:|:-:|:--|
+| 0x0000 | 0xFFFF | Broadcast |
+| 0x0010 | 0xFFFF | DFA |
+| 0x0015 | 0xFFFF | Standard-Infos |
+| 0x0020 | 0xFFFF | Computer |
+| 0x0040 | 0xFFFF | SD3 / GAx |
+| 0x0050 | 0xFFFF | DL2 |
+| 0x0053 | 0xFFFF | DL3 |
 | 0x1001 | 0xFFFF | DeltaSol SLT \[Regler\] |
 | 0x1010 | 0xFFF0 | DeltaSol SLT \[WMZ #\] |
+| 0x1020 | 0xFFFF | Noventec Übergabestation \[Regler\] |
 | 0x1040 | 0xFFFF | DeltaSol E V2 HK 1 Estrichtrockung \[Modul 1\] |
 | 0x1041 | 0xFFFF | DeltaSol E V2 HK 2 Estrichtrockung \[Modul 2\] |
 | 0x1042 | 0xFFFF | DeltaSol E V2 HK 3 Estrichtrockung \[Modul 3\] |
@@ -181,20 +213,32 @@ title: VBus Packets
 | 0x1056 | 0xFFFF | Kioto BX Plus V2 \[WMZ 1\] |
 | 0x1057 | 0xFFFF | Kioto BX Plus V2 \[WMZ 2\] |
 | 0x1058 | 0xFFFF | Caleffi Biomassa |
+| 0x1059 | 0xFFFF | DeltaTherm HC mini \[Regler\] |
+| 0x105B | 0xFFFF | Atlantic SOLERIO V3 |
+| 0x105D | 0xFFFF | DeDietrich Sol Plus ER 709 |
 | 0x1060 | 0xFFFF | Vitosolic 200 \[Regler\] |
 | 0x1065 | 0xFFFF | Vitosolic 200 \[WMZ 1\] |
 | 0x1066 | 0xFFFF | Vitosolic 200 \[WMZ 2\] |
+| 0x1100 | 0xFFFF | DeltaSol MX - SorTech - eCoo \[Regler\] |
 | 0x1111 | 0xFFFF | EC1 |
 | 0x1120 | 0xFFFF | DeltaSol AL-E |
+| 0x1121 | 0xFFFF | DeltaSol CS2 |
+| 0x1122 | 0xFFFF | DeltaSol CS4 |
+| 0x1140 | 0xFFFF | DeltaTherm HC mini \[Heizkreis 1\] |
 | 0x2000 | 0xFF00 | Digital Sensor # |
 | 0x2111 | 0xFFFF | TLR2 |
 | 0x2211 | 0xFFFF | DeltaSol CS Plus |
 | 0x2231 | 0xFFFF | Oranier HK \[Regler\] |
 | 0x2232 | 0xFFFF | Oranier HK \[WMZ1\] |
+| 0x2241 | 0xFFFF | Frischwasserregler |
 | 0x2251 | 0xFFFF | DeltaSol SL \[Regler\] |
 | 0x2252 | 0xFFFF | DeltaSol SL \[WMZ1\] |
+| 0x2261 | 0xFFFF | HR Solar BASIC controller \[Regler\] |
+| 0x2262 | 0xFFFF | HR Solar BASIC controller \[WMZ 1\] |
 | 0x2271 | 0xFFFF | DeltaSol SLL \[Regler\] |
 | 0x2272 | 0xFFFF | DeltaSol SLL \[WMZ1\] |
+| 0x2360 | 0xFFFF | HR Solar ADVANCED controller \[Regler\] |
+| 0x2362 | 0xFFFF | HR Solar ADVANCED controller \[WMZ 1\] |
 | 0x3011 | 0xFFFF | WMZ-L10 |
 | 0x3112 | 0xFFFF | Diemasol A |
 | 0x3211 | 0xFFFF | EL1 |
@@ -210,8 +254,8 @@ title: VBus Packets
 | 0x4111 | 0xFFFF | DeltaSol AL |
 | 0x4211 | 0xFFFF | SKSC1/2 |
 | 0x4212 | 0xFFFF | DeltaSol C |
-| 0x4213 | 0xFFFF | SKSC2 HE |
-| 0x4214 | 0xFFFF | SKSC2 HE |
+| 0x4213 | 0xFFFF | SKSC2 HE \[Regler\] |
+| 0x4214 | 0xFFFF | SKSC2 HE \[Regler\] |
 | 0x4221 | 0xFFFF | DeltaSol BS Plus |
 | 0x4223 | 0xFFFF | DeltaSol BS Plus BTU |
 | 0x4224 | 0xFFFF | CS2.2 |
@@ -221,9 +265,12 @@ title: VBus Packets
 | 0x4251 | 0xFFFF | DSPlus UMSYS \[Regler\] |
 | 0x4252 | 0xFFFF | BS Solex US |
 | 0x4258 | 0xFFFF | SolarNor Drainback |
+| 0x4261 | 0xFFFF | DeltaSol E SorTech \[Regler\] |
 | 0x4265 | 0xFFFF | Aton DeltaSol BS |
 | 0x4278 | 0xFFFF | DeltaSol BS/DrainBack |
 | 0x4279 | 0xFFFF | DeltaSol BS/DrainBack \(Fahrenheit\) |
+| 0x427A | 0xFFFF | DeltaSol BS/DrainBack \(Fahrenheit/BTU\) |
+| 0x427B | 0xFFFF | DeltaSol BS 2009 |
 | 0x4311 | 0xFFFF | Drainback DeDietrich |
 | 0x4312 | 0xFFFF | DeDietrich Drainback \(Control\) |
 | 0x4321 | 0xFFFF | DeltaSol MiniPool |
@@ -238,12 +285,13 @@ title: VBus Packets
 | 0x5231 | 0xFFFF | nemux |
 | 0x5251 | 0xFFFF | Frischwasserregler |
 | 0x5311 | 0xFFFF | X-Control |
+| 0x5351 | 0xFFFF | Frischwasserregler |
 | 0x5400 | 0xFFFF | DeltaTherm HC \[Regler\] |
 | 0x5410 | 0xFFF0 | DeltaTherm HC \[Heizkreis #\] |
 | 0x5420 | 0xFFF0 | DeltaTherm HC \[WMZ #\] |
 | 0x5510 | 0xFFFF | EL2/3 |
 | 0x5611 | 0xFFFF | DeltaTherm FK |
-| 0x6510 | 0xFFFF | HKM2 |
+| 0x6510 | 0xFFF0 | HKM2 # |
 | 0x6520 | 0xFFF0 | MSR65 # |
 | 0x6610 | 0xFFFF | Midi Pro |
 | 0x6620 | 0xFFFF | SunGo XL |
@@ -259,6 +307,12 @@ title: VBus Packets
 | 0x7161 | 0xFFFF | SKSC3HE \[HK1\] |
 | 0x7162 | 0xFFFF | SKSC3HE \[HK2\] |
 | 0x7163 | 0xFFFF | SKSC3HE \[HK3\] |
+| 0x7176 | 0xFFFF | DeltaSol BX Plus V2A \[Regler\] |
+| 0x7177 | 0xFFFF | DeltaSol BX Plus V2A \[Module\] |
+| 0x7178 | 0xFFFF | DeltaSol BX Plus V2A \[Heizkreis 1\] |
+| 0x7179 | 0xFFFF | DeltaSol BX Plus V2A \[Heizkreis 2\] |
+| 0x717A | 0xFFFF | DeltaSol BX Plus V2A \[WMZ 1\] |
+| 0x717B | 0xFFFF | DeltaSol BX Plus V2A \[WMZ 2\] |
 | 0x7210 | 0xFFFF | SKSR 1/2/3 |
 | 0x7211 | 0xFFFF | SKSC3 \[HK1\] |
 | 0x7212 | 0xFFFF | SKSC3 \[HK2\] |
@@ -298,6 +352,7 @@ title: VBus Packets
 | 0x7522 | 0xFFFF | Regtronic RX-B \[Regler\] |
 | 0x7523 | 0xFFFF | Regtronic RX-B \[Module\] |
 | 0x7530 | 0xFFF0 | Regtronic RX-B \[WMZ #\] |
+| 0x7541 | 0xFFFF | Oventrop RQ-B XXL |
 | 0x7611 | 0xFFFF | Friwa |
 | 0x7621 | 0xFFFF | SOLEX \[Regler\] |
 | 0x7622 | 0xFFFF | SOLEX \[WMZ\] |
@@ -307,6 +362,7 @@ title: VBus Packets
 | 0x7721 | 0xFFFF | DeltaSol E \[Regler\] |
 | 0x7722 | 0xFFFF | DeltaSol E \[WMZ\] |
 | 0x7729 | 0xFFFF | DeltaSol E Fahrenheit \[Regler\] |
+| 0x772A | 0xFFFF | DeltaSol E Fahrenheit \[WMZ\] |
 | 0x7731 | 0xFFFF | SOLTOP DeltaSol S2/S3 |
 | 0x7751 | 0xFFFF | DeDietrich Diemasol C v2007 |
 | 0x7761 | 0xFFFF | DeltaSol Pool |
@@ -321,21 +377,13 @@ title: VBus Packets
 | 0x7832 | 0xFFFF | COSMO Multi HK 2 Estrichtrockung \[Modul 2\] |
 | 0x7833 | 0xFFFF | COSMO Multi HK 3 Estrichtrockung \[Modul 3\] |
 | 0x7834 | 0xFFFF | COSMO Multi HK Estrichtrockung \[Lokal\] |
+| 0x7840 | 0xFFFF | COSMO UNO |
+| 0x7841 | 0xFFFF | COSMO UNO \[WMZ1\] |
 | 0x7900 | 0xFFFF | R-Wandler |
 | 0x7910 | 0xFFFF | PAW SOLEX SC5.14 \[Regler\] |
 | 0x7911 | 0xFFFF | PAW SOLEX SC5.14 \[Module\] |
 | 0x7920 | 0xFFF0 | PAW SOLEX SC5.14 \[Heizkreis #\] |
 | 0x7930 | 0xFFF0 | PAW SOLEX SC5.14 \[WMZ #\] |
-| 0x0000 | 0xFFFF | Broadcast |
-| 0x0010 | 0xFFFF | DFA |
-| 0x0015 | 0xFFFF | Standard-Infos |
-| 0x0020 | 0xFFFF | Computer |
-| 0x0040 | 0xFFFF | SD3 / GAx |
-| 0x0050 | 0xFFFF | DL2 |
-| 0x0053 | 0xFFFF | DL3 |
-| 0x427A | 0xFFFF | DeltaSol BS/DrainBack \(Fahrenheit/BTU\) |
-| 0x427B | 0xFFFF | DeltaSol BS 2009 |
-| 0x772A | 0xFFFF | DeltaSol E Fahrenheit \[WMZ\] |
 | 0x7D04 | 0xFFFF | FRISTA-mix |
 | 0x7E11 | 0xFFFF | DeltaSol MX \[Regler\] |
 | 0x7E12 | 0xFFFF | DeltaSol MX \[Module\] |
@@ -361,19 +409,19 @@ title: VBus Packets
 | 1 |  | Wärme | 256000 |  Wh |
 | 2 |  | Wärme | 1 |  Wh |
 | 3 |  | Wärme | 256 |  Wh |
-| 4 |  | Volumenstrom | 0.01 |  m³/h |
-| 5 |  | Volumenstrom | 2.56 |  m³/h |
-| 6 |  | Leistung | 10 |  W |
-| 8 |  | Vorlauftemperatur | 0.1 |  °C |
-| 9 |  | Vorlauftemperatur | 25.6 |  °C |
-| 10 |  | Rücklauftemperatur | 0.1 |  °C |
-| 11 |  | Rücklauftemperatur | 25.6 |  °C |
+| 4 |  | Volumenstrom | 1.00 |  m³/h |
+| 5 |  | Volumenstrom | 256.00 |  m³/h |
+| 6 |  | Leistung | 1 |  W |
+| 8 |  | Vorlauftemperatur | 1.0 |  °C |
+| 9 |  | Vorlauftemperatur | 256.0 |  °C |
+| 10 |  | Rücklauftemperatur | 1.0 |  °C |
+| 11 |  | Rücklauftemperatur | 256.0 |  °C |
 | 12 |  | Wärme | 1000000 |  Wh |
 | 13 |  | Wärme | 256000000 |  Wh |
-| 14 |  | Leistung | 2560 |  W |
+| 14 |  | Leistung | 256 |  W |
 | 15 |  | Glykol | 1 |  |
-| 16 |  | Druck | 0.01 |  bar |
-| 17 |  | Druck | 2.56 |  bar |
+| 16 |  | Druck | 1.00 |  bar |
+| 17 |  | Druck | 256.00 |  bar |
 
 
 
@@ -387,20 +435,20 @@ title: VBus Packets
 | 3 |  | Relaisstatus | 1 |  |
 | 4 |  | Fehler-Info | 1 |  |
 | 5 |  | Fehler-Info | 256 |  |
-| 8 |  | Vorlauftemperatur | 0.1 |  °C |
-| 9 |  | Vorlauftemperatur | 25.6 |  °C |
-| 10 |  | Fernversteller | 0.1 |  °C |
-| 11 |  | Fernversteller | 25.6 |  °C |
-| 12 |  | Aussentemperatur | 0.1 |  °C |
-| 13 |  | Aussentemperatur | 25.6 |  °C |
-| 16 |  | Vorlaufsolltemperatur | 0.1 |  °C |
-| 17 |  | Vorlaufsolltemperatur | 25.6 |  °C |
+| 8 |  | Vorlauftemperatur | 1.0 |  °C |
+| 9 |  | Vorlauftemperatur | 256.0 |  °C |
+| 10 |  | Fernversteller | 1.0 |  °C |
+| 11 |  | Fernversteller | 256.0 |  °C |
+| 12 |  | Aussentemperatur | 1.0 |  °C |
+| 13 |  | Aussentemperatur | 256.0 |  °C |
+| 16 |  | Vorlaufsolltemperatur | 1.0 |  °C |
+| 17 |  | Vorlaufsolltemperatur | 256.0 |  °C |
 | 18 |  | Modulversion | 1 |  |
 | 19 |  | Modulversion | 256 |  |
 
 
 
-### <a name="0000_6510_0100"></a>Broadcast (0x0000) <= HKM2 (0x6510), command 0x0100
+### <a name="0000_6510_0100"></a>Broadcast (0x0000) <= HKM2 #0 (0x6510), command 0x0100
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
@@ -416,22 +464,22 @@ title: VBus Packets
 | 3 |  | Relaisstatus | 1 |  |
 | 4 |  | Fehler-Info | 1 |  |
 | 5 |  | Fehler-Info | 256 |  |
-| 8 |  | Vorlauftemperatur | 0.1 |  °C |
-| 9 |  | Vorlauftemperatur | 25.6 |  °C |
-| 10 |  | Fernversteller | 0.1 |  °C |
-| 11 |  | Fernversteller | 25.6 |  °C |
-| 12 |  | Aussentemperatur | 0.1 |  °C |
-| 13 |  | Aussentemperatur | 25.6 |  °C |
-| 14 |  | Speichertemperatur 1 | 0.1 |  °C |
-| 15 |  | Speichertemperatur 1 | 25.6 |  °C |
-| 16 |  | Vorlaufsolltemperatur | 0.1 |  °C |
-| 17 |  | Vorlaufsolltemperatur | 25.6 |  °C |
+| 8 |  | Vorlauftemperatur | 1.0 |  °C |
+| 9 |  | Vorlauftemperatur | 256.0 |  °C |
+| 10 |  | Fernversteller | 1.0 |  °C |
+| 11 |  | Fernversteller | 256.0 |  °C |
+| 12 |  | Aussentemperatur | 1.0 |  °C |
+| 13 |  | Aussentemperatur | 256.0 |  °C |
+| 14 |  | Speichertemperatur 1 | 1.0 |  °C |
+| 15 |  | Speichertemperatur 1 | 256.0 |  °C |
+| 16 |  | Vorlaufsolltemperatur | 1.0 |  °C |
+| 17 |  | Vorlaufsolltemperatur | 256.0 |  °C |
 | 18 |  | Modulversion | 1 |  |
 | 19 |  | Modulversion | 256 |  |
-| 20 |  | Speichertemperatur 2 | 0.1 |  °C |
-| 21 |  | Speichertemperatur 2 | 25.6 |  °C |
-| 22 |  | Temperatur Sensor 6 | 0.1 |  °C |
-| 23 |  | Temperatur Sensor 6 | 25.6 |  °C |
+| 20 |  | Speichertemperatur 2 | 1.0 |  °C |
+| 21 |  | Speichertemperatur 2 | 256.0 |  °C |
+| 22 |  | Temperatur Sensor 6 | 1.0 |  °C |
+| 23 |  | Temperatur Sensor 6 | 256.0 |  °C |
 
 
 
@@ -439,18 +487,18 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 4 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 4 | 25.6 |  °C |
-| 8 |  | Temperatur Sensor 5 | 0.1 |  °C |
-| 9 |  | Temperatur Sensor 5 | 25.6 |  °C |
-| 10 |  | Temperatur Sensor 6 | 0.1 |  °C |
-| 11 |  | Temperatur Sensor 6 | 25.6 |  °C |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
+| 8 |  | Temperatur Sensor 5 | 1.0 |  °C |
+| 9 |  | Temperatur Sensor 5 | 256.0 |  °C |
+| 10 |  | Temperatur Sensor 6 | 1.0 |  °C |
+| 11 |  | Temperatur Sensor 6 | 256.0 |  °C |
 
 
 
@@ -458,30 +506,30 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Resistor 1 | 0.001 |  Ω |
-| 1 |  | Resistor 1 | 0.256 |  Ω |
-| 2 |  | Resistor 1 | 65.536 |  Ω |
-| 3 |  | Resistor 1 | 16777.216 |  Ω |
-| 4 |  | Resistor 2 | 0.001 |  Ω |
-| 5 |  | Resistor 2 | 0.256 |  Ω |
-| 6 |  | Resistor 2 | 65.536 |  Ω |
-| 7 |  | Resistor 2 | 16777.216 |  Ω |
-| 8 |  | Resistor 3 | 0.001 |  Ω |
-| 9 |  | Resistor 3 | 0.256 |  Ω |
-| 10 |  | Resistor 3 | 65.536 |  Ω |
-| 11 |  | Resistor 3 | 16777.216 |  Ω |
-| 12 |  | Resistor 4 | 0.001 |  Ω |
-| 13 |  | Resistor 4 | 0.256 |  Ω |
-| 14 |  | Resistor 4 | 65.536 |  Ω |
-| 15 |  | Resistor 4 | 16777.216 |  Ω |
-| 16 |  | Resistor 5 | 0.001 |  Ω |
-| 17 |  | Resistor 5 | 0.256 |  Ω |
-| 18 |  | Resistor 5 | 65.536 |  Ω |
-| 19 |  | Resistor 5 | 16777.216 |  Ω |
-| 20 |  | Resistor 6 | 0.001 |  Ω |
-| 21 |  | Resistor 6 | 0.256 |  Ω |
-| 22 |  | Resistor 6 | 65.536 |  Ω |
-| 23 |  | Resistor 6 | 16777.216 |  Ω |
+| 0 |  | Resistor 1 | 1.000 |  Ω |
+| 1 |  | Resistor 1 | 256.000 |  Ω |
+| 2 |  | Resistor 1 | 65536.000 |  Ω |
+| 3 |  | Resistor 1 | 16777216.000 |  Ω |
+| 4 |  | Resistor 2 | 1.000 |  Ω |
+| 5 |  | Resistor 2 | 256.000 |  Ω |
+| 6 |  | Resistor 2 | 65536.000 |  Ω |
+| 7 |  | Resistor 2 | 16777216.000 |  Ω |
+| 8 |  | Resistor 3 | 1.000 |  Ω |
+| 9 |  | Resistor 3 | 256.000 |  Ω |
+| 10 |  | Resistor 3 | 65536.000 |  Ω |
+| 11 |  | Resistor 3 | 16777216.000 |  Ω |
+| 12 |  | Resistor 4 | 1.000 |  Ω |
+| 13 |  | Resistor 4 | 256.000 |  Ω |
+| 14 |  | Resistor 4 | 65536.000 |  Ω |
+| 15 |  | Resistor 4 | 16777216.000 |  Ω |
+| 16 |  | Resistor 5 | 1.000 |  Ω |
+| 17 |  | Resistor 5 | 256.000 |  Ω |
+| 18 |  | Resistor 5 | 65536.000 |  Ω |
+| 19 |  | Resistor 5 | 16777216.000 |  Ω |
+| 20 |  | Resistor 6 | 1.000 |  Ω |
+| 21 |  | Resistor 6 | 256.000 |  Ω |
+| 22 |  | Resistor 6 | 65536.000 |  Ω |
+| 23 |  | Resistor 6 | 16777216.000 |  Ω |
 
 
 
@@ -489,22 +537,22 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Resistor Sensor 1 | 0.001 |  Ω |
-| 1 |  | Resistor Sensor 1 | 0.256 |  Ω |
-| 2 |  | Resistor Sensor 1 | 65.536 |  Ω |
-| 3 |  | Resistor Sensor 1 | 16777.216 |  Ω |
-| 4 |  | Resistor Sensor 2 | 0.001 |  Ω |
-| 5 |  | Resistor Sensor 2 | 0.256 |  Ω |
-| 6 |  | Resistor Sensor 2 | 65.536 |  Ω |
-| 7 |  | Resistor Sensor 2 | 16777.216 |  Ω |
-| 8 |  | Resistor Sensor 3 | 0.001 |  Ω |
-| 9 |  | Resistor Sensor 3 | 0.256 |  Ω |
-| 10 |  | Resistor Sensor 3 | 65.536 |  Ω |
-| 11 |  | Resistor Sensor 3 | 16777.216 |  Ω |
-| 12 |  | Current Sensor 4 | 0.001 |  mA |
-| 13 |  | Current Sensor 4 | 0.256 |  mA |
-| 14 |  | Current Sensor 4 | 65.536 |  mA |
-| 15 |  | Current Sensor 4 | 16777.216 |  mA |
+| 0 |  | Resistor Sensor 1 | 1.000 |  Ω |
+| 1 |  | Resistor Sensor 1 | 256.000 |  Ω |
+| 2 |  | Resistor Sensor 1 | 65536.000 |  Ω |
+| 3 |  | Resistor Sensor 1 | 16777216.000 |  Ω |
+| 4 |  | Resistor Sensor 2 | 1.000 |  Ω |
+| 5 |  | Resistor Sensor 2 | 256.000 |  Ω |
+| 6 |  | Resistor Sensor 2 | 65536.000 |  Ω |
+| 7 |  | Resistor Sensor 2 | 16777216.000 |  Ω |
+| 8 |  | Resistor Sensor 3 | 1.000 |  Ω |
+| 9 |  | Resistor Sensor 3 | 256.000 |  Ω |
+| 10 |  | Resistor Sensor 3 | 65536.000 |  Ω |
+| 11 |  | Resistor Sensor 3 | 16777216.000 |  Ω |
+| 12 |  | Current Sensor 4 | 1.000 |  mA |
+| 13 |  | Current Sensor 4 | 256.000 |  mA |
+| 14 |  | Current Sensor 4 | 65536.000 |  mA |
+| 15 |  | Current Sensor 4 | 16777216.000 |  mA |
 | 16 |  | Impulse Counter Sensor 1 | 1 |  |
 | 17 |  | Impulse Counter Sensor 1 | 256 |  |
 | 18 |  | Impulse Counter Sensor 1 | 65536 |  |
@@ -517,12 +565,12 @@ title: VBus Packets
 | 25 |  | Impulse Counter Sensor 3 | 256 |  |
 | 26 |  | Impulse Counter Sensor 3 | 65536 |  |
 | 27 |  | Impulse Counter Sensor 3 | 16777216 |  |
-| 34 |  | Temperature Sensor 1 | 0.1 |  °C |
-| 35 |  | Temperature Sensor 1 | 25.6 |  °C |
-| 36 |  | Temperature Sensor 2 | 0.1 |  °C |
-| 37 |  | Temperature Sensor 2 | 25.6 |  °C |
-| 38 |  | Temperature Sensor 3 | 0.1 |  °C |
-| 39 |  | Temperature Sensor 3 | 25.6 |  °C |
+| 34 |  | Temperature Sensor 1 | 1.0 |  °C |
+| 35 |  | Temperature Sensor 1 | 256.0 |  °C |
+| 36 |  | Temperature Sensor 2 | 1.0 |  °C |
+| 37 |  | Temperature Sensor 2 | 256.0 |  °C |
+| 38 |  | Temperature Sensor 3 | 1.0 |  °C |
+| 39 |  | Temperature Sensor 3 | 256.0 |  °C |
 | 40 |  | Irradiation Sensor 4 | 1 |  W/m² |
 | 41 |  | Irradiation Sensor 4 | 256 |  W/m² |
 
@@ -536,18 +584,18 @@ title: VBus Packets
 | 1 |  | Systemdatum | 256 |  |
 | 2 |  | Systemdatum | 65536 |  |
 | 3 |  | Systemdatum | 16777216 |  |
-| 4 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 8 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 9 |  | Temperatur Sensor 3 | 25.6 |  °C |
-| 10 |  | Temperatur Sensor 4 | 0.1 |  °C |
-| 11 |  | Temperatur Sensor 4 | 25.6 |  °C |
-| 12 |  | Temperatur Sensor 5 | 0.1 |  °C |
-| 13 |  | Temperatur Sensor 5 | 25.6 |  °C |
-| 14 |  | Temperatur VFS/RPS \(S6\) | 0.1 |  °C |
-| 15 |  | Temperatur VFS/RPS \(S6\) | 25.6 |  °C |
+| 4 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 8 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 9 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 10 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 11 |  | Temperatur Sensor 4 | 256.0 |  °C |
+| 12 |  | Temperatur Sensor 5 | 1.0 |  °C |
+| 13 |  | Temperatur Sensor 5 | 256.0 |  °C |
+| 14 |  | Temperatur VFS/RPS \(S6\) | 1.0 |  °C |
+| 15 |  | Temperatur VFS/RPS \(S6\) | 256.0 |  °C |
 | 16 |  | Volumenstrom V40 | 1 |  l/h |
 | 17 |  | Volumenstrom V40 | 256 |  l/h |
 | 18 |  | Volumenstrom V40 | 65536 |  l/h |
@@ -560,8 +608,8 @@ title: VBus Packets
 | 25 |  | Volumenstrom Flowrotor \(S7\) | 256 |  l/h |
 | 26 |  | Volumenstrom Flowrotor \(S7\) | 65536 |  l/h |
 | 27 |  | Volumenstrom Flowrotor \(S7\) | 16777216 |  l/h |
-| 28 |  | Druck RPS \(S6\) | 0.01 |  bar |
-| 29 |  | Druck RPS \(S6\) | 2.56 |  bar |
+| 28 |  | Druck RPS \(S6\) | 1.00 |  bar |
+| 29 |  | Druck RPS \(S6\) | 256.00 |  bar |
 | 30 |  | Drehzahl Relais 1 | 1 | % |
 | 31 |  | Drehzahl Relais 2 | 1 | % |
 | 32 |  | Drehzahl Relais 3 | 1 | % |
@@ -655,10 +703,47 @@ title: VBus Packets
 | 69 |  | Volumen Vorjahr | 256 |  l/h |
 | 70 |  | Volumen Vorjahr | 65536 |  l/h |
 | 71 |  | Volumen Vorjahr | 16777216 |  l/h |
-| 72 |  | Leistung | 0.001 |  kW |
-| 73 |  | Leistung | 0.256 |  kW |
-| 74 |  | Leistung | 65.536 |  kW |
-| 75 |  | Leistung | 16777.216 |  kW |
+| 72 |  | Leistung | 1.000 |  kW |
+| 73 |  | Leistung | 256.000 |  kW |
+| 74 |  | Leistung | 65536.000 |  kW |
+| 75 |  | Leistung | 16777216.000 |  kW |
+
+
+
+### <a name="0010_1020_0100"></a>DFA (0x0010) <= Noventec Übergabestation \[Regler\] (0x1020), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Systemdatum | 1 |  |
+| 1 |  | Systemdatum | 256 |  |
+| 2 |  | Systemdatum | 65536 |  |
+| 3 |  | Systemdatum | 16777216 |  |
+| 4 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 8 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 9 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 10 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 11 |  | Temperatur Sensor 4 | 256.0 |  °C |
+| 12 |  | Temperatur Sensor 5 | 1.0 |  °C |
+| 13 |  | Temperatur Sensor 5 | 256.0 |  °C |
+| 14 |  | Temperatur Sensor 6 | 1.0 |  °C |
+| 15 |  | Temperatur Sensor 6 | 256.0 |  °C |
+| 16 |  | Temperatur Sensor 7 | 1.0 |  °C |
+| 17 |  | Temperatur Sensor 7 | 256.0 |  °C |
+| 18 |  | Zustand Sensor 8 | 1 |  |
+| 19 |  | Drehzahl Relais 1 | 1 | % |
+| 20 |  | Drehzahl Relais 2 | 1 | % |
+| 21 |  | Drehzahl Relais 3 | 1 | % |
+| 22 |  | Drehzahl Relais 4 | 1 | % |
+| 23 |  | Drehzahl Relais pot_frei | 1 | % |
+| 24 |  | Drehzahl Ausgang PWM 1 | 1 | % |
+| 25 |  | Drehzahl Ausgang PWM 2 | 1 | % |
+| 28 |  | Fehler | 1 |  |
+| 29 |  | Fehler | 256 |  |
+| 30 |  | Fehler | 65536 |  |
+| 31 |  | Fehler | 16777216 |  |
 
 
 
@@ -674,10 +759,10 @@ title: VBus Packets
 | 5 |  | Systemzeit | 256 |  |
 | 6 |  | Status | 1 |  |
 | 7 |  | Fehlermeldung | 1 |  |
-| 8 |  | Vorlauf-Soll-Temperatur | 0.1 |  °C |
-| 9 |  | Vorlauf-Soll-Temperatur | 25.6 |  °C |
-| 10 |  | Vorlauftemperatur | 0.1 |  °C |
-| 11 |  | Vorlauftemperatur | 25.6 |  °C |
+| 8 |  | Vorlauf-Soll-Temperatur | 1.0 |  °C |
+| 9 |  | Vorlauf-Soll-Temperatur | 256.0 |  °C |
+| 10 |  | Vorlauftemperatur | 1.0 |  °C |
+| 11 |  | Vorlauftemperatur | 256.0 |  °C |
 | 12 |  | Relais Pumpe | 1 | % |
 | 13 |  | Relais Mischer Auf | 1 | % |
 | 14 |  | Relais Mischer Zu | 1 | % |
@@ -686,12 +771,12 @@ title: VBus Packets
 | 17 |  | Handebetrieb Relais Mischer Zu | 1 |  |
 | 18 |  | NH-Anforderung | 1 |  |
 | 19 |  | Parameter Start | 1 |  |
-| 20 |  | Parameter TStart | 0.1 |  °C |
-| 21 |  | Parameter TStart | 25.6 |  °C |
-| 22 |  | Parameter TMax | 0.1 |  °C |
-| 23 |  | Parameter TMax | 25.6 |  °C |
-| 24 |  | Parameter Anstieg | 0.1 |  °C |
-| 25 |  | Parameter Anstieg | 25.6 |  °C |
+| 20 |  | Parameter TStart | 1.0 |  °C |
+| 21 |  | Parameter TStart | 256.0 |  °C |
+| 22 |  | Parameter TMax | 1.0 |  °C |
+| 23 |  | Parameter TMax | 256.0 |  °C |
+| 24 |  | Parameter Anstieg | 1.0 |  °C |
+| 25 |  | Parameter Anstieg | 256.0 |  °C |
 | 26 |  | Parameter Anstiegszeit | 1 |  h |
 | 27 |  | Parameter Haltezeit | 1 |  d |
 
@@ -701,26 +786,26 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 4 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 4 | 25.6 |  °C |
-| 8 |  | Temperatur Sensor 5 | 0.1 |  °C |
-| 9 |  | Temperatur Sensor 5 | 25.6 |  °C |
-| 10 |  | Temperatur Sensor 6 | 0.1 |  °C |
-| 11 |  | Temperatur Sensor 6 | 25.6 |  °C |
-| 12 |  | Temperatur Sensor 7 | 0.1 |  °C |
-| 13 |  | Temperatur Sensor 7 | 25.6 |  °C |
-| 14 |  | Temperatur Sensor 8 | 0.1 |  °C |
-| 15 |  | Temperatur Sensor 8 | 25.6 |  °C |
-| 16 |  | Temperatur Sensor 9 | 0.1 |  °C |
-| 17 |  | Temperatur Sensor 9 | 25.6 |  °C |
-| 18 |  | Temperatur Sensor 10 | 0.1 |  °C |
-| 19 |  | Temperatur Sensor 10 | 25.6 |  °C |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
+| 8 |  | Temperatur Sensor 5 | 1.0 |  °C |
+| 9 |  | Temperatur Sensor 5 | 256.0 |  °C |
+| 10 |  | Temperatur Sensor 6 | 1.0 |  °C |
+| 11 |  | Temperatur Sensor 6 | 256.0 |  °C |
+| 12 |  | Temperatur Sensor 7 | 1.0 |  °C |
+| 13 |  | Temperatur Sensor 7 | 256.0 |  °C |
+| 14 |  | Temperatur Sensor 8 | 1.0 |  °C |
+| 15 |  | Temperatur Sensor 8 | 256.0 |  °C |
+| 16 |  | Temperatur Sensor 9 | 1.0 |  °C |
+| 17 |  | Temperatur Sensor 9 | 256.0 |  °C |
+| 18 |  | Temperatur Sensor 10 | 1.0 |  °C |
+| 19 |  | Temperatur Sensor 10 | 256.0 |  °C |
 | 20 |  | Einstrahlung CS | 1 |  W/m² |
 | 21 |  | Einstrahlung CS | 256 |  W/m² |
 | 22 |  | Impulse 1 V40 | 1 |  |
@@ -741,24 +826,24 @@ title: VBus Packets
 | 40 |  | System | 1 |  |
 | 42 |  | Schema | 1 |  |
 | 43 |  | Schema | 256 |  |
-| 44 |  | Vorlauf Soll HK1 Modul Sensor 18 | 0.1 |  °C |
-| 45 |  | Vorlauf Soll HK1 Modul Sensor 18 | 25.6 |  °C |
+| 44 |  | Vorlauf Soll HK1 Modul Sensor 18 | 1.0 |  °C |
+| 45 |  | Vorlauf Soll HK1 Modul Sensor 18 | 256.0 |  °C |
 | 46 |  | Status HK1 Modul | 1 |  |
 | 47 |  | Status HK1 Modul | 256 |  |
-| 48 |  | Vorlauf Soll HK2 Modul Sensor 25 | 0.1 |  °C |
-| 49 |  | Vorlauf Soll HK2 Modul Sensor 25 | 25.6 |  °C |
+| 48 |  | Vorlauf Soll HK2 Modul Sensor 25 | 1.0 |  °C |
+| 49 |  | Vorlauf Soll HK2 Modul Sensor 25 | 256.0 |  °C |
 | 50 |  | Status HK2 Modul | 1 |  |
 | 51 |  | Status HK2 Modul | 256 |  |
-| 52 |  | Vorlauf Soll HK3 Modul Sensor 32 | 0.1 |  °C |
-| 53 |  | Vorlauf Soll HK3 Modul Sensor 32 | 25.6 |  °C |
+| 52 |  | Vorlauf Soll HK3 Modul Sensor 32 | 1.0 |  °C |
+| 53 |  | Vorlauf Soll HK3 Modul Sensor 32 | 256.0 |  °C |
 | 54 |  | Status HK3 Modul | 1 |  |
 | 55 |  | Status HK3 Modul | 256 |  |
-| 56 |  | Vorlauf Soll Heizkreis Sensor 11 | 0.1 |  °C |
-| 57 |  | Vorlauf Soll Heizkreis Sensor 11 | 25.6 |  °C |
+| 56 |  | Vorlauf Soll Heizkreis Sensor 11 | 1.0 |  °C |
+| 57 |  | Vorlauf Soll Heizkreis Sensor 11 | 256.0 |  °C |
 | 58 |  | Status Heizkreis | 1 |  |
 | 59 |  | Status Heizkreis | 256 |  |
-| 60 |  | Version | 1.00 |  |
-| 61 |  | Version | 0.01 |  |
+| 60 |  | Version | 100.00 |  |
+| 61 |  | Version | 1.00 |  |
 | 62 |  | Systemzeit | 1 |  |
 | 63 |  | Systemzeit | 256 |  |
 | 64 |  | Jahr | 1 |  |
@@ -775,10 +860,10 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Vorlauf | 0.1 |  °C |
-| 1 |  | Temperatur Vorlauf | 25.6 |  °C |
-| 2 |  | Temperatur Rücklauf | 0.1 |  °C |
-| 3 |  | Temperatur Rücklauf | 25.6 |  °C |
+| 0 |  | Temperatur Vorlauf | 1.0 |  °C |
+| 1 |  | Temperatur Vorlauf | 256.0 |  °C |
+| 2 |  | Temperatur Rücklauf | 1.0 |  °C |
+| 3 |  | Temperatur Rücklauf | 256.0 |  °C |
 | 4 |  | Durchfluss Sensor 8 | 1 |  l/h |
 | 5 |  | Durchfluss Sensor 8 | 256 |  l/h |
 | 6 |  | Wärmemenge | 1 |  Wh |
@@ -794,30 +879,30 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 4 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 4 | 25.6 |  °C |
-| 8 |  | Temperatur Sensor 5 | 0.1 |  °C |
-| 9 |  | Temperatur Sensor 5 | 25.6 |  °C |
-| 10 |  | Temperatur Sensor 6 | 0.1 |  °C |
-| 11 |  | Temperatur Sensor 6 | 25.6 |  °C |
-| 12 |  | Temperatur Sensor 7 | 0.1 |  °C |
-| 13 |  | Temperatur Sensor 7 | 25.6 |  °C |
-| 14 |  | Temperatur Sensor 8 | 0.1 |  °C |
-| 15 |  | Temperatur Sensor 8 | 25.6 |  °C |
-| 16 |  | Temperatur Sensor 9 | 0.1 |  °C |
-| 17 |  | Temperatur Sensor 9 | 25.6 |  °C |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
+| 8 |  | Temperatur Sensor 5 | 1.0 |  °C |
+| 9 |  | Temperatur Sensor 5 | 256.0 |  °C |
+| 10 |  | Temperatur Sensor 6 | 1.0 |  °C |
+| 11 |  | Temperatur Sensor 6 | 256.0 |  °C |
+| 12 |  | Temperatur Sensor 7 | 1.0 |  °C |
+| 13 |  | Temperatur Sensor 7 | 256.0 |  °C |
+| 14 |  | Temperatur Sensor 8 | 1.0 |  °C |
+| 15 |  | Temperatur Sensor 8 | 256.0 |  °C |
+| 16 |  | Temperatur Sensor 9 | 1.0 |  °C |
+| 17 |  | Temperatur Sensor 9 | 256.0 |  °C |
 | 18 |  | Einstrahlung Sensor 10 | 1 |  W/m² |
 | 19 |  | Einstrahlung Sensor 10 | 256 |  W/m² |
-| 20 |  | Temperatur Sensor 11 | 0.1 |  °C |
-| 21 |  | Temperatur Sensor 11 | 25.6 |  °C |
-| 22 |  | Temperatur Sensor 12 | 0.1 |  °C |
-| 23 |  | Temperatur Sensor 12 | 25.6 |  °C |
+| 20 |  | Temperatur Sensor 11 | 1.0 |  °C |
+| 21 |  | Temperatur Sensor 11 | 256.0 |  °C |
+| 22 |  | Temperatur Sensor 12 | 1.0 |  °C |
+| 23 |  | Temperatur Sensor 12 | 256.0 |  °C |
 | 24 |  | Volumenstrom Sensor 9 | 1 |  l/h |
 | 25 |  | Volumenstrom Sensor 9 | 256 |  l/h |
 | 26 |  | Volumenstrom Sensor 9 | 65536 |  l/h |
@@ -830,10 +915,10 @@ title: VBus Packets
 | 33 |  | Volumenstrom Sensor 12 | 256 |  l/h |
 | 34 |  | Volumenstrom Sensor 12 | 65536 |  l/h |
 | 35 |  | Volumenstrom Sensor 12 | 16777216 |  l/h |
-| 36 |  | Druck Sensor 11 | 0.01 |  bar |
-| 37 |  | Druck Sensor 11 | 2.56 |  bar |
-| 38 |  | Druck Sensor 12 | 0.01 |  bar |
-| 39 |  | Druck Sensor 12 | 2.56 |  bar |
+| 36 |  | Druck Sensor 11 | 1.00 |  bar |
+| 37 |  | Druck Sensor 11 | 256.00 |  bar |
+| 38 |  | Druck Sensor 12 | 1.00 |  bar |
+| 39 |  | Druck Sensor 12 | 256.00 |  bar |
 | 40 |  | Drehzahl Relais 1 | 1 | % |
 | 41 |  | Drehzahl Relais 2 | 1 | % |
 | 42 |  | Drehzahl Relais 3 | 1 | % |
@@ -854,30 +939,30 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Modul 1 Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Modul 1 Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Modul 1 Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Modul 1 Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Modul 1 Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Modul 1 Sensor 3 | 25.6 |  °C |
-| 6 |  | Temperatur Modul 1 Sensor 4 | 0.1 |  °C |
-| 7 |  | Temperatur Modul 1 Sensor 4 | 25.6 |  °C |
-| 8 |  | Temperatur Modul 1 Sensor 5 | 0.1 |  °C |
-| 9 |  | Temperatur Modul 1 Sensor 5 | 25.6 |  °C |
-| 10 |  | Temperatur Modul 1 Sensor 6 | 0.1 |  °C |
-| 11 |  | Temperatur Modul 1 Sensor 6 | 25.6 |  °C |
-| 12 |  | Temperatur Modul 2 Sensor 1 | 0.1 |  °C |
-| 13 |  | Temperatur Modul 2 Sensor 1 | 25.6 |  °C |
-| 14 |  | Temperatur Modul 2 Sensor 2 | 0.1 |  °C |
-| 15 |  | Temperatur Modul 2 Sensor 2 | 25.6 |  °C |
-| 16 |  | Temperatur Modul 2 Sensor 3 | 0.1 |  °C |
-| 17 |  | Temperatur Modul 2 Sensor 3 | 25.6 |  °C |
-| 18 |  | Temperatur Modul 2 Sensor 4 | 0.1 |  °C |
-| 19 |  | Temperatur Modul 2 Sensor 4 | 25.6 |  °C |
-| 20 |  | Temperatur Modul 2 Sensor 5 | 0.1 |  °C |
-| 21 |  | Temperatur Modul 2 Sensor 5 | 25.6 |  °C |
-| 22 |  | Temperatur Modul 2 Sensor 6 | 0.1 |  °C |
-| 23 |  | Temperatur Modul 2 Sensor 6 | 25.6 |  °C |
+| 0 |  | Temperatur Modul 1 Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Modul 1 Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Modul 1 Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Modul 1 Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Modul 1 Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Modul 1 Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Modul 1 Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Modul 1 Sensor 4 | 256.0 |  °C |
+| 8 |  | Temperatur Modul 1 Sensor 5 | 1.0 |  °C |
+| 9 |  | Temperatur Modul 1 Sensor 5 | 256.0 |  °C |
+| 10 |  | Temperatur Modul 1 Sensor 6 | 1.0 |  °C |
+| 11 |  | Temperatur Modul 1 Sensor 6 | 256.0 |  °C |
+| 12 |  | Temperatur Modul 2 Sensor 1 | 1.0 |  °C |
+| 13 |  | Temperatur Modul 2 Sensor 1 | 256.0 |  °C |
+| 14 |  | Temperatur Modul 2 Sensor 2 | 1.0 |  °C |
+| 15 |  | Temperatur Modul 2 Sensor 2 | 256.0 |  °C |
+| 16 |  | Temperatur Modul 2 Sensor 3 | 1.0 |  °C |
+| 17 |  | Temperatur Modul 2 Sensor 3 | 256.0 |  °C |
+| 18 |  | Temperatur Modul 2 Sensor 4 | 1.0 |  °C |
+| 19 |  | Temperatur Modul 2 Sensor 4 | 256.0 |  °C |
+| 20 |  | Temperatur Modul 2 Sensor 5 | 1.0 |  °C |
+| 21 |  | Temperatur Modul 2 Sensor 5 | 256.0 |  °C |
+| 22 |  | Temperatur Modul 2 Sensor 6 | 1.0 |  °C |
+| 23 |  | Temperatur Modul 2 Sensor 6 | 256.0 |  °C |
 
 
 
@@ -885,8 +970,8 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Vorlauf-Soll-Temperatur | 0.1 |  °C |
-| 1 |  | Vorlauf-Soll-Temperatur | 25.6 |  °C |
+| 0 |  | Vorlauf-Soll-Temperatur | 1.0 |  °C |
+| 1 |  | Vorlauf-Soll-Temperatur | 256.0 |  °C |
 | 2 |  | Betriebsstatus | 1 |  |
 
 
@@ -895,8 +980,8 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Vorlauf-Soll-Temperatur | 0.1 |  °C |
-| 1 |  | Vorlauf-Soll-Temperatur | 25.6 |  °C |
+| 0 |  | Vorlauf-Soll-Temperatur | 1.0 |  °C |
+| 1 |  | Vorlauf-Soll-Temperatur | 256.0 |  °C |
 | 2 |  | Betriebsstatus | 1 |  |
 
 
@@ -943,12 +1028,12 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
 | 6 |  | Sensor 3 Zustand \(FS\) | 1 |  |
 | 7 |  | Sensor 4 Zustand \(TA\) | 1 |  |
 | 8 |  | Drehzahl Relais 1 | 1 | % |
@@ -983,38 +1068,149 @@ title: VBus Packets
 
 
 
+### <a name="0010_1059_0100"></a>DFA (0x0010) <= DeltaTherm HC mini \[Regler\] (0x1059), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
+| 8 |  | Temperatur Sensor 5 | 1.0 |  °C |
+| 9 |  | Temperatur Sensor 5 | 256.0 |  °C |
+| 12 |  | Drehzahl Relais 1 | 1 | % |
+| 13 |  | Drehzahl Relais 2 | 1 | % |
+| 14 |  | Drehzahl Relais 3 | 1 | % |
+| 15 |  | Drehzahl Relais 4 | 1 | % |
+| 17 |  | Regler Ausgang 1 | 1 | % |
+| 18 |  | Regler Ausgang 2 | 1 | % |
+| 20 |  | Systemdatum | 1 |  |
+| 21 |  | Systemdatum | 256 |  |
+| 22 |  | Systemdatum | 65536 |  |
+| 23 |  | Systemdatum | 16777216 |  |
+| 24 |  | Fehlermaske | 1 |  |
+| 25 |  | Fehlermaske | 256 |  |
+| 26 |  | Fehlermaske | 65536 |  |
+| 27 |  | Fehlermaske | 16777216 |  |
+| 28 |  | Warnungmaske | 1 |  |
+| 29 |  | Warnungmaske | 256 |  |
+| 30 |  | Warnungmaske | 65536 |  |
+| 31 |  | Warnungmaske | 16777216 |  |
+
+
+
+### <a name="0010_105B_0100"></a>DFA (0x0010) <= Atlantic SOLERIO V3 (0x105B), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | TRB | 1.0 |  °C |
+| 1 |  | TRB | 256.0 |  °C |
+| 2 |  | TRH | 1.0 |  °C |
+| 3 |  | TRH | 256.0 |  °C |
+| 4 |  | TCAP | 1.0 |  °C |
+| 5 |  | TCAP | 256.0 |  °C |
+| 6 |  | R1 | 1 | % |
+| 7 |  | R2 | 1 | % |
+| 12 |  | h P1 | 1 |  h |
+| 13 |  | h P1 | 256 |  h |
+| 14 |  | h P2 | 1 |  h |
+| 15 |  | h P2 | 256 |  h |
+| 16 |  | kWh | 1 |  kWh |
+| 17 |  | kWh | 256 |  kWh |
+| 18 |  | kWh | 65536 |  kWh |
+| 19 |  | kWh | 16777216 |  kWh |
+| 20 |  | MWh | 1 |  MWh |
+| 21 |  | MWh | 256 |  MWh |
+| 22 |  | MWh | 65536 |  MWh |
+| 23 |  | MWh | 16777216 |  MWh |
+| 24 |  | Systemdatum | 1 |  |
+| 25 |  | Systemdatum | 256 |  |
+| 26 |  | Systemdatum | 65536 |  |
+| 27 |  | Systemdatum | 16777216 |  |
+
+
+
+### <a name="0010_105D_0100"></a>DFA (0x0010) <= DeDietrich Sol Plus ER 709 (0x105D), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
+| 8 |  | Drehzahl Relais 1 | 1 | % |
+| 10 |  | Betriebsstunden Relais 1 | 1 |  h |
+| 11 |  | Betriebsstunden Relais 1 | 256 |  h |
+| 12 |  | Drehzahl Relais 2 | 1 | % |
+| 14 |  | Betriebsstunden Relais 2 | 1 |  h |
+| 15 |  | Betriebsstunden Relais 2 | 256 |  h |
+| 16 |  | UnitType | 1 |  |
+| 17 |  | System | 1 |  |
+| 20 | 0x01 | Sensor 1 defekt | 1 |  |
+| 20 | 0x02 | Sensor 2 defekt | 1 |  |
+| 20 | 0x04 | Sensor 3 defekt | 1 |  |
+| 20 | 0x08 | Sensor 4 defekt | 1 |  |
+| 20 |  | ErrorMask | 1 |  |
+| 21 |  | ErrorMask | 256 |  |
+| 22 |  | Systemzeit | 1 |  |
+| 23 |  | Systemzeit | 256 |  |
+| 24 |  | Statusmask | 1 |  |
+| 25 |  | Statusmask | 256 |  |
+| 26 |  | Statusmask | 65536 |  |
+| 27 |  | Statusmask | 16777216 |  |
+| 28 |  | Wärmemenge | 1 |  Wh |
+| 29 |  | Wärmemenge | 256 |  Wh |
+| 30 |  | Wärmemenge | 65536 |  Wh |
+| 31 |  | Wärmemenge | 16777216 |  Wh |
+| 32 |  | SW Version | 1.00 |  |
+| 33 |  | SW Version | 256.00 |  |
+| 36 |  | Temperatur VFD1 | 1.0 |  °C |
+| 37 |  | Temperatur VFD1 | 256.0 |  °C |
+| 38 |  | Volumenstrom VFD1 | 1 |  l/h |
+| 39 |  | Volumenstrom VFD1 | 256 |  l/h |
+
+
+
 ### <a name="0010_1060_0100"></a>DFA (0x0010) <= Vitosolic 200 \[Regler\] (0x1060), command 0x0100
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 4 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 4 | 25.6 |  °C |
-| 8 |  | Temperatur Sensor 5 | 0.1 |  °C |
-| 9 |  | Temperatur Sensor 5 | 25.6 |  °C |
-| 10 |  | Temperatur Sensor 6 | 0.1 |  °C |
-| 11 |  | Temperatur Sensor 6 | 25.6 |  °C |
-| 12 |  | Temperatur Sensor 7 | 0.1 |  °C |
-| 13 |  | Temperatur Sensor 7 | 25.6 |  °C |
-| 14 |  | Temperatur Sensor 8 | 0.1 |  °C |
-| 15 |  | Temperatur Sensor 8 | 25.6 |  °C |
-| 16 |  | Temperatur Sensor 9 | 0.1 |  °C |
-| 17 |  | Temperatur Sensor 9 | 25.6 |  °C |
-| 18 |  | Temperatur Sensor 10 | 0.1 |  °C |
-| 19 |  | Temperatur Sensor 10 | 25.6 |  °C |
-| 20 |  | Temperatur Sensor 11 | 0.1 |  °C |
-| 21 |  | Temperatur Sensor 11 | 25.6 |  °C |
-| 22 |  | Temperatur Sensor 12 | 0.1 |  °C |
-| 23 |  | Temperatur Sensor 12 | 25.6 |  °C |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
+| 8 |  | Temperatur Sensor 5 | 1.0 |  °C |
+| 9 |  | Temperatur Sensor 5 | 256.0 |  °C |
+| 10 |  | Temperatur Sensor 6 | 1.0 |  °C |
+| 11 |  | Temperatur Sensor 6 | 256.0 |  °C |
+| 12 |  | Temperatur Sensor 7 | 1.0 |  °C |
+| 13 |  | Temperatur Sensor 7 | 256.0 |  °C |
+| 14 |  | Temperatur Sensor 8 | 1.0 |  °C |
+| 15 |  | Temperatur Sensor 8 | 256.0 |  °C |
+| 16 |  | Temperatur Sensor 9 | 1.0 |  °C |
+| 17 |  | Temperatur Sensor 9 | 256.0 |  °C |
+| 18 |  | Temperatur Sensor 10 | 1.0 |  °C |
+| 19 |  | Temperatur Sensor 10 | 256.0 |  °C |
+| 20 |  | Temperatur Sensor 11 | 1.0 |  °C |
+| 21 |  | Temperatur Sensor 11 | 256.0 |  °C |
+| 22 |  | Temperatur Sensor 12 | 1.0 |  °C |
+| 23 |  | Temperatur Sensor 12 | 256.0 |  °C |
 | 24 |  | SZ Einstrahlung | 1 |  W/m² |
 | 25 |  | SZ Einstrahlung | 256 |  W/m² |
-| 26 |  | SZ Spannung | 0.001 |  V |
-| 27 |  | SZ Spannung | 0.256 |  V |
+| 26 |  | SZ Spannung | 1.000 |  V |
+| 27 |  | SZ Spannung | 256.000 |  V |
 | 28 |  | Impulszähler 1 | 1 |  l/min |
 | 29 |  | Impulszähler 1 | 256 |  l/min |
 | 30 |  | Impulszähler 1 | 65536 |  l/min |
@@ -1032,10 +1228,10 @@ title: VBus Packets
 | 36 | 0x40 | Sensor Unterbrechung S7 | 1 |  |
 | 36 | 0x80 | Sensor Unterbrechung S8 | 1 |  |
 | 36 |  | Sensor Unterbrechung | 1 |  |
-| 36 | 0x100 | Sensor Unterbrechung S9 | 1 |  |
-| 36 | 0x200 | Sensor Unterbrechung S10 | 1 |  |
-| 36 | 0x400 | Sensor Unterbrechung S11 | 1 |  |
-| 36 | 0x800 | Sensor Unterbrechung S12 | 1 |  |
+| 37 | 0x01 | Sensor Unterbrechung S9 | 1 |  |
+| 37 | 0x02 | Sensor Unterbrechung S10 | 1 |  |
+| 37 | 0x04 | Sensor Unterbrechung S11 | 1 |  |
+| 37 | 0x08 | Sensor Unterbrechung S12 | 1 |  |
 | 37 |  | Sensor Unterbrechung | 256 |  |
 | 38 | 0x01 | Sensor Kurzschluss | 1 |  |
 | 38 | 0x01 | Sensor Kurzschluss S1 | 1 |  |
@@ -1046,10 +1242,10 @@ title: VBus Packets
 | 38 | 0x20 | Sensor Kurzschluss S6 | 1 |  |
 | 38 | 0x40 | Sensor Kurzschluss S7 | 1 |  |
 | 38 | 0x80 | Sensor Kurzschluss S8 | 1 |  |
-| 38 | 0x100 | Sensor Kurzschluss S9 | 1 |  |
-| 38 | 0x200 | Sensor Kurzschluss S10 | 1 |  |
-| 38 | 0x400 | Sensor Kurzschluss S11 | 1 |  |
-| 38 | 0x800 | Sensor Kurzschluss S12 | 1 |  |
+| 39 | 0x01 | Sensor Kurzschluss S9 | 1 |  |
+| 39 | 0x02 | Sensor Kurzschluss S10 | 1 |  |
+| 39 | 0x04 | Sensor Kurzschluss S11 | 1 |  |
+| 39 | 0x08 | Sensor Kurzschluss S12 | 1 |  |
 | 40 | 0x01 | Sensor 1 benutzt | 1 |  |
 | 40 | 0x02 | Sensor 2 benutzt | 1 |  |
 | 40 | 0x04 | Sensor 3 benutzt | 1 |  |
@@ -1059,10 +1255,10 @@ title: VBus Packets
 | 40 | 0x40 | Sensor 7 benutzt | 1 |  |
 | 40 | 0x80 | Sensor 8 benutzt | 1 |  |
 | 40 |  | Sensor benutzt | 1 |  |
-| 40 | 0x100 | Sensor 9 benutzt | 1 |  |
-| 40 | 0x200 | Sensor 10 benutzt | 1 |  |
-| 40 | 0x400 | Sensor 11 benutzt | 1 |  |
-| 40 | 0x800 | Sensor 12 benutzt | 1 |  |
+| 41 | 0x01 | Sensor 9 benutzt | 1 |  |
+| 41 | 0x02 | Sensor 10 benutzt | 1 |  |
+| 41 | 0x04 | Sensor 11 benutzt | 1 |  |
+| 41 | 0x08 | Sensor 12 benutzt | 1 |  |
 | 44 |  | Drehzahl Relais 1 | 1 | % |
 | 45 |  | Drehzahl Relais 2 | 1 | % |
 | 46 |  | Drehzahl Relais 3 | 1 | % |
@@ -1093,7 +1289,7 @@ title: VBus Packets
 | 61 |  | Fehlermaske | 256 |  |
 | 62 |  | Warnmaske | 1 |  |
 | 63 |  | Warnmaske | 256 |  |
-| 64 |  | SW-Version | 0.1 |  |
+| 64 |  | SW-Version | 1.0 |  |
 | 65 |  | Minorversion | 1 |  |
 | 66 |  | Systemzeit | 1 |  |
 | 67 |  | Systemzeit | 256 |  |
@@ -1105,10 +1301,10 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Vorlauftemperatur | 0.1 |  °C |
-| 1 |  | Vorlauftemperatur | 25.6 |  °C |
-| 2 |  | Rücklauftemperatur | 0.1 |  °C |
-| 3 |  | Rücklauftemperatur | 25.6 |  °C |
+| 0 |  | Vorlauftemperatur | 1.0 |  °C |
+| 1 |  | Vorlauftemperatur | 256.0 |  °C |
+| 2 |  | Rücklauftemperatur | 1.0 |  °C |
+| 3 |  | Rücklauftemperatur | 256.0 |  °C |
 | 4 |  | Volumenstrom | 1 |  l/h |
 | 5 |  | Volumenstrom | 256 |  l/h |
 | 6 |  | Wärme Wh | 1 |  Wh |
@@ -1126,16 +1322,110 @@ title: VBus Packets
 
 
 
+### <a name="0010_1100_0100"></a>DFA (0x0010) <= DeltaSol MX - SorTech - eCoo \[Regler\] (0x1100), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | T E1 OUT: | 1.0 |  °C |
+| 1 |  | T E1 OUT: | 256.0 |  °C |
+| 2 |  | T E2 OUT: | 1.0 |  °C |
+| 3 |  | T E2 OUT: | 256.0 |  °C |
+| 4 |  | T A1 OUT: | 1.0 |  °C |
+| 5 |  | T A1 OUT: | 256.0 |  °C |
+| 6 |  | T A2 OUT: | 1.0 |  °C |
+| 7 |  | T A2 OUT: | 256.0 |  °C |
+| 8 |  | T LT IN: | 1.0 |  °C |
+| 9 |  | T LT IN: | 256.0 |  °C |
+| 10 |  | T LT OUT: | 1.0 |  °C |
+| 11 |  | T LT OUT: | 256.0 |  °C |
+| 12 |  | T MT OUT: | 1.0 |  °C |
+| 13 |  | T MT OUT: | 256.0 |  °C |
+| 14 |  | T HT OUT: | 1.0 |  °C |
+| 15 |  | T HT OUT: | 256.0 |  °C |
+| 16 |  | T AMB: | 1.0 |  °C |
+| 17 |  | T AMB: | 256.0 |  °C |
+| 18 |  | T HT Ext: | 1.0 |  °C |
+| 19 |  | T HT Ext: | 256.0 |  °C |
+| 20 |  | T LT Ext: | 1.0 |  °C |
+| 21 |  | T LT Ext: | 256.0 |  °C |
+| 22 |  | EXT-Volt \(T-SET\): | 1 |  V |
+| 22 |  | T MT IN: | 1.0 |  °C |
+| 23 |  | T MT IN: | 256.0 |  °C |
+| 23 |  | EXT-Volt \(T-SET\): | 256 |  V |
+| 25 | 0x01 | M1_A_OUT: | 1 |  |
+| 25 | 0x02 | M2_A_OUT: | 1 |  |
+| 25 | 0x04 | M1_E_OUT: | 1 |  |
+| 25 | 0x08 | M2_E_OUT: | 1 |  |
+| 25 | 0x08 | SPR Relais: | 1 |  |
+| 25 | 0x10 | Sammelstörmeldung | 1 |  |
+| 25 | 0x20 | Betriebsmeldung | 1 |  |
+| 25 | 0x40 | Betriebsart \(Kühlen/Heizen\) | 1 |  |
+| 26 | 0x01 | Anlage: | 1 |  |
+| 26 | 0x02 | Heizmodus: | 1 |  |
+| 26 | 0x04 | Strömungswächter LT-Kreis: | 1 |  |
+| 26 | 0x10 | M1_A_IN: | 1 |  |
+| 26 | 0x20 | M2_A_IN: | 1 |  |
+| 26 | 0x40 | M1_E_IN: | 1 |  |
+| 26 | 0x80 | M2_E_IN: | 1 |  |
+| 27 |  | LT-Pumpe | 1 | % |
+| 28 |  | MT-Pumpe | 1 | % |
+| 29 |  | HT-Pumpe | 1 | % |
+| 30 |  | Phase: | 1 |  |
+| 31 |  | Systemcode: | 1 |  |
+| 32 |  | RCS %: | 1 | % |
+| 36 |  | Aufsummierte Besprühungzeit: | 1 |  |
+| 36 |  | T LTS OUT AVG | 1.0 |  °C |
+| 37 |  | Aufsummierte Besprühungzeit: | 256 |  |
+| 37 |  | T LTS OUT AVG | 256.0 |  °C |
+| 38 |  | Aufsummierte Besprühungzeit: | 65536 |  |
+| 38 |  | T MT OUT AVG | 1.0 |  °C |
+| 39 |  | Aufsummierte Besprühungzeit: | 16777216 |  |
+| 39 |  | T MT OUT AVG | 256.0 |  °C |
+| 40 |  | Aktuellen Sollwert \(T-SET\): | 1.0 |  °C |
+| 41 |  | Aktuellen Sollwert \(T-SET\): | 256.0 |  °C |
+| 42 |  | Externe Solltemperatur \(T-SET-EXT\): | 1.0 |  °C |
+| 43 |  | Externe Solltemperatur \(T-SET-EXT\): | 256.0 |  °C |
+| 44 |  | Anzahl Zyklen \(seit Start\): | 1 |  |
+| 45 |  | Anzahl Zyklen \(seit Start\): | 256 |  |
+| 46 |  | Anzahl Zyklen \(seit Start\): | 65536 |  |
+| 47 |  | Anzahl Zyklen \(seit Start\): | 16777216 |  |
+| 48 |  | Anzahl Zyklen \(Summe\): | 1 |  |
+| 49 |  | Anzahl Zyklen \(Summe\): | 256 |  |
+| 50 |  | Anzahl Zyklen \(Summe\): | 65536 |  |
+| 51 |  | Anzahl Zyklen \(Summe\): | 16777216 |  |
+| 52 |  | T LT IN AVG | 1.0 |  °C |
+| 53 |  | T LT IN AVG | 256.0 |  °C |
+| 54 |  | T LT IN Cycle | 1.0 |  °C |
+| 55 |  | T LT IN Cycle | 256.0 |  °C |
+| 56 |  | T LT OUT Cycle | 1.0 |  °C |
+| 57 |  | T LT OUT Cycle | 256.0 |  °C |
+| 58 |  | T MT OUT Cycle | 1.0 |  °C |
+| 59 |  | T MT OUT Cycle | 256.0 |  °C |
+| 60 |  | Kälteleistung letzter Zyklus | 1.0 |  kW |
+| 61 |  | Kälteleistung letzter Zyklus | 256.0 |  kW |
+| 62 |  | Volumenstrom Kaltwasserkreis \(dV_LT\) | 1 |  l/h |
+| 63 |  | Volumenstrom Kaltwasserkreis \(dV_LT\) | 256 |  l/h |
+| 64 |  | Systemzeit: | 1 |  |
+| 65 |  | Systemzeit: | 256 |  |
+| 66 |  | Jahr: | 1 |  |
+| 67 |  | Jahr: | 256 |  |
+| 68 |  | Monat: | 1 |  |
+| 69 |  | Tag: | 1 |  |
+| 70 |  | Kern: | 100.00 |  |
+| 71 |  | Kern: | 1.00 |  |
+
+
+
 ### <a name="0010_1120_0100"></a>DFA (0x0010) <= DeltaSol AL-E (0x1120), command 0x0100
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
 | 6 |  | Drehzahl Relais 1 | 1 | % |
 | 7 |  | Drehzahl Relais 2 | 1 | % |
 | 8 |  | Anzeige-Status | 1 |  |
@@ -1153,18 +1443,57 @@ title: VBus Packets
 
 
 
-### <a name="0010_2211_0100"></a>DFA (0x0010) <= DeltaSol CS Plus (0x2211), command 0x0100
+### <a name="0010_1121_0100"></a>DFA (0x0010) <= DeltaSol CS2 (0x1121), command 0x0100
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 4 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 4 | 25.6 |  °C |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
+| 8 |  | Temperatur Sensor 5 | 1.0 |  °C |
+| 9 |  | Temperatur Sensor 5 | 256.0 |  °C |
+| 10 |  | Volumenstrom | 1.0 |  l/min |
+| 11 |  | Volumenstrom | 256.0 |  l/min |
+| 12 |  | Drehzahl Relais | 1 | % |
+| 14 |  | Betriebsstunden Relais | 1 |  h |
+| 15 |  | Betriebsstunden Relais | 256 |  h |
+| 16 |  | UnitType | 1 |  |
+| 18 | 0x01 | Sensor 1 defekt | 1 |  |
+| 18 | 0x02 | Sensor 2 defekt | 1 |  |
+| 18 | 0x04 | Sensor 3 defekt | 1 |  |
+| 18 | 0x08 | Sensor 4 defekt | 1 |  |
+| 18 |  | ErrorMask | 1 |  |
+| 19 |  | ErrorMask | 256 |  |
+| 20 |  | Statusmask | 1 |  |
+| 21 |  | Statusmask | 256 |  |
+| 22 |  | Statusmask | 65536 |  |
+| 23 |  | Statusmask | 16777216 |  |
+| 24 |  | Wärmemenge | 1 |  Wh |
+| 25 |  | Wärmemenge | 256 |  Wh |
+| 26 |  | Wärmemenge | 65536 |  Wh |
+| 27 |  | Wärmemenge | 16777216 |  Wh |
+| 28 |  | SW-Version | 1.00 |  |
+| 29 |  | SW-Version | 256.00 |  |
+
+
+
+### <a name="0010_1122_0100"></a>DFA (0x0010) <= DeltaSol CS4 (0x1122), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
 | 8 |  | Drehzahl Relais 1 | 1 | % |
 | 10 |  | Betriebsstunden Relais 1 | 1 |  h |
 | 11 |  | Betriebsstunden Relais 1 | 256 |  h |
@@ -1189,8 +1518,64 @@ title: VBus Packets
 | 29 |  | Wärmemenge | 256 |  Wh |
 | 30 |  | Wärmemenge | 65536 |  Wh |
 | 31 |  | Wärmemenge | 16777216 |  Wh |
-| 32 |  | SW-Version | 0.01 |  |
-| 33 |  | SW-Version | 2.56 |  |
+| 32 |  | SW-Version | 1.00 |  |
+| 33 |  | SW-Version | 256.00 |  |
+
+
+
+### <a name="0010_1140_0100"></a>DFA (0x0010) <= DeltaTherm HC mini \[Heizkreis 1\] (0x1140), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Heizung_Heizkreis1_TVorlaufSoll_C | 1.0 |  °C |
+| 1 |  | Heizung_Heizkreis1_TVorlaufSoll_C | 256.0 |  °C |
+| 2 |  | Heizung_Heizkreis1_Betriebsstatus | 1 |  |
+| 3 |  | Heizung_Heizkreis1_Betriebsart | 1 |  |
+| 4 |  | Heizung_Heizkreis1_Brennerstarts | 1 |  |
+| 5 |  | Heizung_Heizkreis1_Brennerstarts | 256 |  |
+| 6 |  | Heizung_Heizkreis1_Brennerstarts | 65536 |  |
+| 7 |  | Heizung_Heizkreis1_Brennerstarts | 16777216 |  |
+
+
+
+### <a name="0010_2211_0100"></a>DFA (0x0010) <= DeltaSol CS Plus (0x2211), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
+| 8 |  | Drehzahl Relais 1 | 1 | % |
+| 10 |  | Betriebsstunden Relais 1 | 1 |  h |
+| 11 |  | Betriebsstunden Relais 1 | 256 |  h |
+| 12 |  | Drehzahl Relais 2 | 1 | % |
+| 14 |  | Betriebsstunden Relais 2 | 1 |  h |
+| 15 |  | Betriebsstunden Relais 2 | 256 |  h |
+| 16 |  | UnitType | 1 |  |
+| 17 |  | System | 1 |  |
+| 20 | 0x01 | Sensor 1 defekt | 1 |  |
+| 20 | 0x02 | Sensor 2 defekt | 1 |  |
+| 20 | 0x04 | Sensor 3 defekt | 1 |  |
+| 20 | 0x08 | Sensor 4 defekt | 1 |  |
+| 20 |  | ErrorMask | 1 |  |
+| 21 |  | ErrorMask | 256 |  |
+| 22 |  | Systemzeit | 1 |  |
+| 23 |  | Systemzeit | 256 |  |
+| 24 |  | Statusmask | 1 |  |
+| 25 |  | Statusmask | 256 |  |
+| 26 |  | Statusmask | 65536 |  |
+| 27 |  | Statusmask | 16777216 |  |
+| 28 |  | Wärmemenge | 1 |  Wh |
+| 29 |  | Wärmemenge | 256 |  Wh |
+| 30 |  | Wärmemenge | 65536 |  Wh |
+| 31 |  | Wärmemenge | 16777216 |  Wh |
+| 32 |  | SW-Version | 1.00 |  |
+| 33 |  | SW-Version | 256.00 |  |
 
 
 
@@ -1198,38 +1583,38 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Kollektor | 0.1 |  °C |
-| 1 |  | Kollektor | 25.6 |  °C |
-| 2 |  | Speicher Solar | 0.1 |  °C |
-| 3 |  | Speicher Solar | 25.6 |  °C |
-| 4 |  | Ofen Kesseltemp | 0.1 |  °C |
-| 5 |  | Ofen Kesseltemp | 25.6 |  °C |
-| 6 |  | Speicher unten | 0.1 |  °C |
-| 7 |  | Speicher unten | 25.6 |  °C |
-| 8 |  | Rücklauf Heizkreis | 0.1 |  °C |
-| 9 |  | Rücklauf Heizkreis | 25.6 |  °C |
-| 10 |  | Speicher Entnahme | 0.1 |  °C |
-| 11 |  | Speicher Entnahme | 25.6 |  °C |
-| 12 |  | Brauchwasserspeicher | 0.1 |  °C |
-| 13 |  | Brauchwasserspeicher | 25.6 |  °C |
-| 14 |  | Zirkulation-Fühler | 0.1 |  °C |
-| 15 |  | Zirkulation-Fühler | 25.6 |  °C |
-| 16 |  | Sensor 9 | 0.1 |  °C |
-| 17 |  | Sensor 9 | 25.6 |  °C |
-| 18 |  | Sensor 10 | 0.1 |  °C |
-| 19 |  | Sensor 10 | 25.6 |  °C |
-| 20 |  | Sensor 11 | 0.1 |  °C |
-| 21 |  | Sensor 11 | 25.6 |  °C |
-| 22 |  | Sensor 12 | 0.1 |  °C |
-| 23 |  | Sensor 12 | 25.6 |  °C |
-| 24 |  | Sensor 13 | 0.1 |  °C |
-| 25 |  | Sensor 13 | 25.6 |  °C |
-| 26 |  | Vorlauftemperatur HK1 | 0.1 |  °C |
-| 27 |  | Vorlauftemperatur HK1 | 25.6 |  °C |
-| 28 |  | Aussentemperatur | 0.1 |  °C |
-| 29 |  | Aussentemperatur | 25.6 |  °C |
-| 30 |  | Abgastemperatur | 0.1 |  °C |
-| 31 |  | Abgastemperatur | 25.6 |  °C |
+| 0 |  | Kollektor | 1.0 |  °C |
+| 1 |  | Kollektor | 256.0 |  °C |
+| 2 |  | Speicher Solar | 1.0 |  °C |
+| 3 |  | Speicher Solar | 256.0 |  °C |
+| 4 |  | Ofen Kesseltemp | 1.0 |  °C |
+| 5 |  | Ofen Kesseltemp | 256.0 |  °C |
+| 6 |  | Speicher unten | 1.0 |  °C |
+| 7 |  | Speicher unten | 256.0 |  °C |
+| 8 |  | Rücklauf Heizkreis | 1.0 |  °C |
+| 9 |  | Rücklauf Heizkreis | 256.0 |  °C |
+| 10 |  | Speicher Entnahme | 1.0 |  °C |
+| 11 |  | Speicher Entnahme | 256.0 |  °C |
+| 12 |  | Brauchwasserspeicher | 1.0 |  °C |
+| 13 |  | Brauchwasserspeicher | 256.0 |  °C |
+| 14 |  | Zirkulation-Fühler | 1.0 |  °C |
+| 15 |  | Zirkulation-Fühler | 256.0 |  °C |
+| 16 |  | Sensor 9 | 1.0 |  °C |
+| 17 |  | Sensor 9 | 256.0 |  °C |
+| 18 |  | Sensor 10 | 1.0 |  °C |
+| 19 |  | Sensor 10 | 256.0 |  °C |
+| 20 |  | Sensor 11 | 1.0 |  °C |
+| 21 |  | Sensor 11 | 256.0 |  °C |
+| 22 |  | Sensor 12 | 1.0 |  °C |
+| 23 |  | Sensor 12 | 256.0 |  °C |
+| 24 |  | Sensor 13 | 1.0 |  °C |
+| 25 |  | Sensor 13 | 256.0 |  °C |
+| 26 |  | Vorlauftemperatur HK1 | 1.0 |  °C |
+| 27 |  | Vorlauftemperatur HK1 | 256.0 |  °C |
+| 28 |  | Aussentemperatur | 1.0 |  °C |
+| 29 |  | Aussentemperatur | 256.0 |  °C |
+| 30 |  | Abgastemperatur | 1.0 |  °C |
+| 31 |  | Abgastemperatur | 256.0 |  °C |
 | 36 |  | Einstrahlung | 1 |  W/m² |
 | 37 |  | Einstrahlung | 256 |  W/m² |
 | 38 |  | Impulseingang 1 | 1 |  |
@@ -1280,10 +1665,10 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Vorlauftemperatur | 0.1 |  °C |
-| 1 |  | Vorlauftemperatur | 25.6 |  °C |
-| 2 |  | Rücklauftemperatur | 0.1 |  °C |
-| 3 |  | Rücklauftemperatur | 25.6 |  °C |
+| 0 |  | Vorlauftemperatur | 1.0 |  °C |
+| 1 |  | Vorlauftemperatur | 256.0 |  °C |
+| 2 |  | Rücklauftemperatur | 1.0 |  °C |
+| 3 |  | Rücklauftemperatur | 256.0 |  °C |
 | 4 |  | Volumenstrom | 1 |  l/h |
 | 5 |  | Volumenstrom | 256 |  l/h |
 | 6 |  | Wärme | 1 |  Wh |
@@ -1295,6 +1680,55 @@ title: VBus Packets
 
 
 
+### <a name="0010_2241_0100"></a>DFA (0x0010) <= Frischwasserregler (0x2241), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | S1 | 1.0 |  °C |
+| 1 |  | S1 | 256.0 |  °C |
+| 2 |  | S2 | 1.0 |  °C |
+| 3 |  | S2 | 256.0 |  °C |
+| 4 |  | S3 | 1.0 |  °C |
+| 5 |  | S3 | 256.0 |  °C |
+| 6 |  | S4 | 1.0 |  °C |
+| 7 |  | S4 | 256.0 |  °C |
+| 8 |  | S5 | 1.0 |  l/min |
+| 9 |  | S5 | 256.0 |  l/min |
+| 10 |  | Primärpumpe | 1.0 | % |
+| 11 |  | Primärpumpe | 256.0 | % |
+| 12 |  | Drehzahl Relais 2 | 1 | % |
+| 13 |  | errorMask | 1 |  |
+| 14 |  | warningMask | 1 |  |
+| 15 |  | statusMask | 1 |  |
+| 16 |  | Bilanz Wärmemenge | 1 |  Wh |
+| 17 |  | Bilanz Wärmemenge | 256 |  Wh |
+| 18 |  | Bilanz Wärmemenge | 65536 |  Wh |
+| 19 |  | Bilanz Wärmemenge | 16777216 |  Wh |
+| 20 |  | Bilanz Dauer P1 an | 1 |  h |
+| 21 |  | Bilanz Dauer P1 an | 256 |  h |
+| 22 |  | Bilanz Dauer P1 an | 65536 |  h |
+| 23 |  | Bilanz Dauer P1 an | 16777216 |  h |
+| 24 |  | Bilanz Dauer P2 an | 1 |  h |
+| 25 |  | Bilanz Dauer P2 an | 256 |  h |
+| 26 |  | Bilanz Dauer P2 an | 65536 |  h |
+| 27 |  | Bilanz Dauer P2 an | 16777216 |  h |
+| 28 |  | Zapfmenge | 1.0 |  m³ |
+| 29 |  | Zapfmenge | 256.0 |  m³ |
+| 30 |  | Zapfmenge | 65536.0 |  m³ |
+| 31 |  | Zapfmenge | 16777216.0 |  m³ |
+| 32 |  | Systemdatum | 1 |  |
+| 33 |  | Systemdatum | 256 |  |
+| 34 |  | Systemdatum | 65536 |  |
+| 35 |  | Systemdatum | 16777216 |  |
+| 36 |  | Systemzeit | 1 |  |
+| 37 |  | Systemzeit | 256 |  |
+| 38 |  | Version | 100 |  |
+| 39 |  | Version | 1 |  |
+| 40 |  | Drehzahl Relais 1 | 1.0 | % |
+| 41 |  | Drehzahl Relais 1 | 256.0 | % |
+
+
+
 ### <a name="0010_2251_0100"></a>DFA (0x0010) <= DeltaSol SL \[Regler\] (0x2251), command 0x0100
 
 | Offset | Mask | Name | Factor | Unit |
@@ -1303,18 +1737,18 @@ title: VBus Packets
 | 1 |  | Systemdatum | 256 |  |
 | 2 |  | Systemdatum | 65536 |  |
 | 3 |  | Systemdatum | 16777216 |  |
-| 4 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 8 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 9 |  | Temperatur Sensor 3 | 25.6 |  °C |
-| 10 |  | Temperatur Sensor 4 | 0.1 |  °C |
-| 11 |  | Temperatur Sensor 4 | 25.6 |  °C |
-| 12 |  | Temperatur Sensor 5 | 0.1 |  °C |
-| 13 |  | Temperatur Sensor 5 | 25.6 |  °C |
-| 14 |  | Temperatur VFS/RPS \(S6\) | 0.1 |  °C |
-| 15 |  | Temperatur VFS/RPS \(S6\) | 25.6 |  °C |
+| 4 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 8 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 9 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 10 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 11 |  | Temperatur Sensor 4 | 256.0 |  °C |
+| 12 |  | Temperatur Sensor 5 | 1.0 |  °C |
+| 13 |  | Temperatur Sensor 5 | 256.0 |  °C |
+| 14 |  | Temperatur VFS/RPS \(S6\) | 1.0 |  °C |
+| 15 |  | Temperatur VFS/RPS \(S6\) | 256.0 |  °C |
 | 20 |  | Volumenstrom V40 | 1 |  l/h |
 | 21 |  | Volumenstrom V40 | 256 |  l/h |
 | 22 |  | Volumenstrom V40 | 65536 |  l/h |
@@ -1327,8 +1761,8 @@ title: VBus Packets
 | 29 |  | Volumenstrom Flowrotor \(S7\) | 256 |  l/h |
 | 30 |  | Volumenstrom Flowrotor \(S7\) | 65536 |  l/h |
 | 31 |  | Volumenstrom Flowrotor \(S7\) | 16777216 |  l/h |
-| 32 |  | Druck RPS \(S6\) | 0.01 |  bar |
-| 33 |  | Druck RPS \(S6\) | 2.56 |  bar |
+| 32 |  | Druck RPS \(S6\) | 1.00 |  bar |
+| 33 |  | Druck RPS \(S6\) | 256.00 |  bar |
 | 34 |  | Drehzahl Relais 1 | 1 | % |
 | 35 |  | Drehzahl Relais 2 | 1 | % |
 | 36 |  | Drehzahl Relais 3 | 1 | % |
@@ -1417,6 +1851,104 @@ title: VBus Packets
 
 
 
+### <a name="0010_2261_0100"></a>DFA (0x0010) <= HR Solar BASIC controller \[Regler\] (0x2261), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Systemdatum | 1 |  |
+| 1 |  | Systemdatum | 256 |  |
+| 2 |  | Systemdatum | 65536 |  |
+| 3 |  | Systemdatum | 16777216 |  |
+| 4 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 8 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 9 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 10 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 11 |  | Temperatur Sensor 4 | 256.0 |  °C |
+| 12 |  | TAGE | 1 |  |
+| 13 |  | TAGE | 256 |  |
+| 16 |  | Volumenstrom Sensor V40 | 1 |  l/h |
+| 17 |  | Volumenstrom Sensor V40 | 256 |  l/h |
+| 18 |  | Volumenstrom Sensor V40 | 65536 |  l/h |
+| 19 |  | Volumenstrom Sensor V40 | 16777216 |  l/h |
+| 20 |  | Volumenstrom Sensor VFS | 1 |  l/h |
+| 21 |  | Volumenstrom Sensor VFS | 256 |  l/h |
+| 22 |  | Volumenstrom Sensor VFS | 65536 |  l/h |
+| 23 |  | Volumenstrom Sensor VFS | 16777216 |  l/h |
+| 24 |  | Temperatur Sensor VFS | 1.0 |  °C |
+| 25 |  | Temperatur Sensor VFS | 256.0 |  °C |
+| 26 |  | Drehzahl Relais 1 | 1 | % |
+| 27 |  | Drehzahl Relais 2 | 1 | % |
+| 28 |  | Regler Ausgang 1 | 1 | % |
+| 32 |  | Wmz1_Wert_Wh | 1 |  Wh |
+| 33 |  | Wmz1_Wert_Wh | 256 |  Wh |
+| 34 |  | Wmz1_Wert_Wh | 65536 |  Wh |
+| 35 |  | Wmz1_Wert_Wh | 16777216 |  Wh |
+| 36 |  | SW-Version | 1.00 |  |
+| 37 |  | SW-Version | 256.00 |  |
+| 40 |  | Betriebsstunden Relais1 | 1 |  h |
+| 41 |  | Betriebsstunden Relais1 | 256 |  h |
+| 42 |  | Betriebsstunden Relais1 | 65536 |  h |
+| 43 |  | Betriebsstunden Relais1 | 16777216 |  h |
+| 44 |  | Betriebsstunden Relais2 | 1 |  h |
+| 45 |  | Betriebsstunden Relais2 | 256 |  h |
+| 46 |  | Betriebsstunden Relais2 | 65536 |  h |
+| 47 |  | Betriebsstunden Relais2 | 16777216 |  h |
+| 48 | 0x01 | Urlaubsfunktion | 1 |  |
+| 49 | 0x01 | Blockierschutz 1 | 1 |  |
+| 52 |  | Initalisieren | 1 |  |
+| 53 |  | Initalisieren | 256 |  |
+| 54 |  | Initalisieren | 65536 |  |
+| 55 |  | Initalisieren | 16777216 |  |
+| 56 |  | Befüllung | 1 |  |
+| 57 |  | Befüllung | 256 |  |
+| 58 |  | Befüllung | 65536 |  |
+| 59 |  | Befüllung | 16777216 |  |
+| 60 |  | Stabilisieren | 1 |  |
+| 61 |  | Stabilisieren | 256 |  |
+| 62 |  | Stabilisieren | 65536 |  |
+| 63 |  | Stabilisieren | 16777216 |  |
+| 64 |  | Pumpenverzögerung | 1 |  |
+| 65 | 0x01 | Überwärmeabfuhr | 1 |  |
+| 66 |  | Nachlauf | 1 |  |
+| 67 | 0x01 | Speicherkühlung | 1 |  |
+| 68 |  | Frostschutz | 1 |  |
+| 69 | 0x01 | Kollektorkühlung | 1 |  |
+| 70 | 0x01 | Einheit Temperatur | 1 |  |
+| 71 | 0x01 | Speichermaximaltemperatur | 1 |  |
+| 72 | 0x01 | Neustarts | 1 |  |
+| 76 |  | Fehlermaske | 1 |  |
+| 77 |  | Fehlermaske | 256 |  |
+| 78 |  | Fehlermaske | 65536 |  |
+| 79 |  | Fehlermaske | 16777216 |  |
+
+
+
+### <a name="0010_2262_0100"></a>DFA (0x0010) <= HR Solar BASIC controller \[WMZ 1\] (0x2262), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Wmz1_Wert_Wh | 1 |  Wh |
+| 1 |  | Wmz1_Wert_Wh | 256 |  Wh |
+| 2 |  | Wmz1_Wert_Wh | 65536 |  Wh |
+| 3 |  | Wmz1_Wert_Wh | 16777216 |  Wh |
+| 4 |  | Wmz1_Leistung_W | 1 |  W |
+| 5 |  | Wmz1_Leistung_W | 256 |  W |
+| 6 |  | Wmz1_Leistung_W | 65536 |  W |
+| 7 |  | Wmz1_Leistung_W | 16777216 |  W |
+| 8 |  | Wmz1_WertHeute_Wh | 1 |  Wh |
+| 9 |  | Wmz1_WertHeute_Wh | 256 |  Wh |
+| 10 |  | Wmz1_WertHeute_Wh | 65536 |  Wh |
+| 11 |  | Wmz1_WertHeute_Wh | 16777216 |  Wh |
+| 12 |  | Wmz1_WertWoche_Wh | 1 |  Wh |
+| 13 |  | Wmz1_WertWoche_Wh | 256 |  Wh |
+| 14 |  | Wmz1_WertWoche_Wh | 65536 |  Wh |
+| 15 |  | Wmz1_WertWoche_Wh | 16777216 |  Wh |
+
+
+
 ### <a name="0010_2271_0100"></a>DFA (0x0010) <= DeltaSol SLL \[Regler\] (0x2271), command 0x0100
 
 | Offset | Mask | Name | Factor | Unit |
@@ -1425,14 +1957,14 @@ title: VBus Packets
 | 1 |  | Systemdatum | 256 |  |
 | 2 |  | Systemdatum | 65536 |  |
 | 3 |  | Systemdatum | 16777216 |  |
-| 4 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 8 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 9 |  | Temperatur Sensor 3 | 25.6 |  °C |
-| 10 |  | Temperatur Sensor 4 | 0.1 |  °C |
-| 11 |  | Temperatur Sensor 4 | 25.6 |  °C |
+| 4 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 8 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 9 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 10 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 11 |  | Temperatur Sensor 4 | 256.0 |  °C |
 | 12 |  | TAGE | 1 |  |
 | 13 |  | TAGE | 256 |  |
 | 16 |  | Volumenstrom V40 | 1 |  l/h |
@@ -1446,8 +1978,8 @@ title: VBus Packets
 | 25 |  | Wärmemenge | 256 |  Wh |
 | 26 |  | Wärmemenge | 65536 |  Wh |
 | 27 |  | Wärmemenge | 16777216 |  Wh |
-| 28 |  | SW-Version | 0.01 |  |
-| 29 |  | SW-Version | 2.56 |  |
+| 28 |  | SW-Version | 1.00 |  |
+| 29 |  | SW-Version | 256.00 |  |
 | 32 |  | Betriebsstunden Relais 1 | 1 |  h |
 | 33 |  | Betriebsstunden Relais 1 | 256 |  h |
 | 34 |  | Betriebsstunden Relais 1 | 65536 |  h |
@@ -1517,20 +2049,152 @@ title: VBus Packets
 
 
 
+### <a name="0010_2360_0100"></a>DFA (0x0010) <= HR Solar ADVANCED controller \[Regler\] (0x2360), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Systemdatum | 1 |  |
+| 1 |  | Systemdatum | 256 |  |
+| 2 |  | Systemdatum | 65536 |  |
+| 3 |  | Systemdatum | 16777216 |  |
+| 4 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 8 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 9 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 10 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 11 |  | Temperatur Sensor 4 | 256.0 |  °C |
+| 12 |  | Temperatur Sensor 5 | 1.0 |  °C |
+| 13 |  | Temperatur Sensor 5 | 256.0 |  °C |
+| 14 |  | Temperatur VFS/RPS \(S6\) | 1.0 |  °C |
+| 15 |  | Temperatur VFS/RPS \(S6\) | 256.0 |  °C |
+| 16 |  | TAGE | 1 |  |
+| 17 |  | TAGE | 256 |  |
+| 20 |  | Volumenstrom V40 | 1 |  l/h |
+| 21 |  | Volumenstrom V40 | 256 |  l/h |
+| 22 |  | Volumenstrom V40 | 65536 |  l/h |
+| 23 |  | Volumenstrom V40 | 16777216 |  l/h |
+| 24 |  | Volumenstrom VFS \(S6\) | 1 |  l/h |
+| 25 |  | Volumenstrom VFS \(S6\) | 256 |  l/h |
+| 26 |  | Volumenstrom VFS \(S6\) | 65536 |  l/h |
+| 27 |  | Volumenstrom VFS \(S6\) | 16777216 |  l/h |
+| 28 |  | Volumenstrom Flowrotor \(S7\) | 1 |  l/h |
+| 29 |  | Volumenstrom Flowrotor \(S7\) | 256 |  l/h |
+| 30 |  | Volumenstrom Flowrotor \(S7\) | 65536 |  l/h |
+| 31 |  | Volumenstrom Flowrotor \(S7\) | 16777216 |  l/h |
+| 32 |  | Druck RPS \(S6\) | 1.00 |  bar |
+| 33 |  | Druck RPS \(S6\) | 256.00 |  bar |
+| 34 |  | Drehzahl Relais 1 | 1 | % |
+| 35 |  | Drehzahl Relais 2 | 1 | % |
+| 36 |  | Drehzahl Relais 3 | 1 | % |
+| 37 |  | Drehzahl Relais 4 | 1 | % |
+| 38 |  | PWM A | 1 | % |
+| 39 |  | PWM B | 1 | % |
+| 40 |  | Wärmemenge | 1 |  Wh |
+| 41 |  | Wärmemenge | 256 |  Wh |
+| 42 |  | Wärmemenge | 65536 |  Wh |
+| 43 |  | Wärmemenge | 16777216 |  Wh |
+| 44 |  | SW-Version | 1.00 |  |
+| 45 |  | SW-Version | 256.00 |  |
+| 48 |  | Betriebssekunden Relais 1 | 1 |  s |
+| 49 |  | Betriebssekunden Relais 1 | 256 |  s |
+| 50 |  | Betriebssekunden Relais 1 | 65536 |  s |
+| 51 |  | Betriebssekunden Relais 1 | 16777216 |  s |
+| 52 |  | Betriebssekunden Relais 2 | 1 |  s |
+| 53 |  | Betriebssekunden Relais 2 | 256 |  s |
+| 54 |  | Betriebssekunden Relais 2 | 65536 |  s |
+| 55 |  | Betriebssekunden Relais 2 | 16777216 |  s |
+| 56 |  | Betriebssekunden Relais 3 | 1 |  s |
+| 57 |  | Betriebssekunden Relais 3 | 256 |  s |
+| 58 |  | Betriebssekunden Relais 3 | 65536 |  s |
+| 59 |  | Betriebssekunden Relais 3 | 16777216 |  s |
+| 60 |  | Betriebssekunden Relais 4 | 1 |  s |
+| 61 |  | Betriebssekunden Relais 4 | 256 |  s |
+| 62 |  | Betriebssekunden Relais 4 | 65536 |  s |
+| 63 |  | Betriebssekunden Relais 4 | 16777216 |  s |
+| 64 | 0x01 | Urlaubsfunktion | 1 |  |
+| 65 |  | Blockierschutz 1 | 1 | % |
+| 66 |  | Blockierschutz 2 | 1 | % |
+| 67 |  | Blockierschutz 3 | 1 | % |
+| 68 |  | Initalisieren | 1 |  |
+| 69 |  | Initalisieren | 256 |  |
+| 70 |  | Initalisieren | 65536 |  |
+| 71 |  | Initalisieren | 16777216 |  |
+| 72 |  | Befüllung | 1 |  |
+| 73 |  | Befüllung | 256 |  |
+| 74 |  | Befüllung | 65536 |  |
+| 75 |  | Befüllung | 16777216 |  |
+| 76 |  | Stabilisieren | 1 |  |
+| 77 |  | Stabilisieren | 256 |  |
+| 78 |  | Stabilisieren | 65536 |  |
+| 79 |  | Stabilisieren | 16777216 |  |
+| 80 |  | Pumpenverzögerung | 1 |  |
+| 81 | 0x01 | Überwärmeabfuhr | 1 |  |
+| 82 |  | Nachlauf | 1 |  |
+| 83 |  | Thermische Desinfektion | 1 |  |
+| 84 | 0x01 | Speicherkühlung | 1 |  |
+| 85 | 0x01 | Systemkühlung | 1 |  |
+| 86 |  | Spreizung | 1 |  |
+| 87 |  | Frostschutz | 1 |  |
+| 88 | 0x01 | Kollektorkühlung | 1 |  |
+| 89 | 0x01 | Einheit Temperatur | 1 |  |
+| 90 | 0x01 | Einheit Durchfluss | 1 |  |
+| 91 | 0x01 | Einheit Druck | 1 |  |
+| 92 | 0x01 | Eingeit Leistung | 1 |  |
+| 93 | 0x01 | Einheit Energie | 1 |  |
+| 94 | 0x01 | Speichermaximaltemperatur | 1 |  |
+| 95 | 0x01 | Neustarts | 1 |  |
+| 96 |  | Fehlermaske | 1 |  |
+| 97 |  | Fehlermaske | 256 |  |
+| 98 |  | Fehlermaske | 65536 |  |
+| 99 |  | Fehlermaske | 16777216 |  |
+| 100 |  | WAMA \(Counter\) | 1 |  |
+| 101 |  | WAMA \(Counter\) | 256 |  |
+| 102 |  | WAMA \(Counter\) | 65536 |  |
+| 103 |  | WAMA \(Counter\) | 16777216 |  |
+| 104 |  | TWAMA | 1.0 |  °C |
+| 105 |  | TWAMA | 256.0 |  °C |
+
+
+
+### <a name="0010_2362_0100"></a>DFA (0x0010) <= HR Solar ADVANCED controller \[WMZ 1\] (0x2362), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Wmz1_Wert_Wh | 1 |  Wh |
+| 1 |  | Wmz1_Wert_Wh | 256 |  Wh |
+| 2 |  | Wmz1_Wert_Wh | 65536 |  Wh |
+| 3 |  | Wmz1_Wert_Wh | 16777216 |  Wh |
+| 4 |  | Wmz1_Leistung_W | 1 |  W |
+| 5 |  | Wmz1_Leistung_W | 256 |  W |
+| 6 |  | Wmz1_Leistung_W | 65536 |  W |
+| 7 |  | Wmz1_Leistung_W | 16777216 |  W |
+| 8 |  | Wmz1_WertHeute_Wh | 1 |  Wh |
+| 9 |  | Wmz1_WertHeute_Wh | 256 |  Wh |
+| 10 |  | Wmz1_WertHeute_Wh | 65536 |  Wh |
+| 11 |  | Wmz1_WertHeute_Wh | 16777216 |  Wh |
+| 12 |  | Wmz1_WertWoche_Wh | 1 |  Wh |
+| 13 |  | Wmz1_WertWoche_Wh | 256 |  Wh |
+| 14 |  | Wmz1_WertWoche_Wh | 65536 |  Wh |
+| 15 |  | Wmz1_WertWoche_Wh | 16777216 |  Wh |
+
+
+
 ### <a name="0010_3011_0100"></a>DFA (0x0010) <= WMZ-L10 (0x3011), command 0x0100
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Vorlauftemperatur | 0.1 |  °C |
-| 1 |  | Vorlauftemperatur | 25.6 |  °C |
-| 2 |  | Rücklauftemperatur | 0.1 |  °C |
-| 3 |  | Rücklauftemperatur | 25.6 |  °C |
-| 4 |  | Strömungsgeschwindigkeit | 0.01 |  m/s |
-| 5 |  | Strömungsgeschwindigkeit | 2.56 |  m/s |
+| 0 |  | Vorlauftemperatur | 1.0 |  °C |
+| 1 |  | Vorlauftemperatur | 256.0 |  °C |
+| 2 |  | Rücklauftemperatur | 1.0 |  °C |
+| 3 |  | Rücklauftemperatur | 256.0 |  °C |
+| 4 |  | Strömungsgeschwindigkeit | 1.00 |  m/s |
+| 5 |  | Strömungsgeschwindigkeit | 256.00 |  m/s |
 | 6 |  | Betriebstage | 1 |  |
 | 7 |  | Betriebstage | 256 |  |
-| 10 |  | Luftkanal-Querschnitt | 0.01 |  m² |
-| 11 |  | Luftkanal-Querschnitt | 2.56 |  m² |
+| 10 |  | Luftkanal-Querschnitt | 1.00 |  m² |
+| 11 |  | Luftkanal-Querschnitt | 256.00 |  m² |
 | 12 |  | Luftstrom-Volumen | 1 |  m³/h |
 | 13 |  | Luftstrom-Volumen | 256 |  m³/h |
 | 14 |  | Luftstrom-Volumen | 65536 |  m³/h |
@@ -1539,10 +2203,10 @@ title: VBus Packets
 | 17 |  | Luftstrom-Masse | 256 |  kg/h |
 | 18 |  | Luftstrom-Masse | 65536 |  kg/h |
 | 19 |  | Luftstrom-Masse | 16777216 |  kg/h |
-| 20 |  | Luftdichte | 0.0001 |  kg/m³ |
-| 21 |  | Luftdichte | 0.0256 |  kg/m³ |
-| 22 |  | Leistung | 0.1 |  kW |
-| 23 |  | Leistung | 25.6 |  kW |
+| 20 |  | Luftdichte | 1.0000 |  kg/m³ |
+| 21 |  | Luftdichte | 256.0000 |  kg/m³ |
+| 22 |  | Leistung | 1.0 |  kW |
+| 23 |  | Leistung | 256.0 |  kW |
 | 24 |  | Luftdruck | 1 |  hPa |
 | 25 |  | Luftdruck | 256 |  hPa |
 | 28 |  | Wärmemenge kWh | 1 |  kWh |
@@ -1556,12 +2220,12 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
 | 6 |  | Drehzahl R1 | 1 | % |
 | 7 |  | Fehlercode | 1 |  |
 | 8 |  | Pumpenlaufzeit R1 | 1 |  h |
@@ -1575,12 +2239,12 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
 | 6 |  | Drehzahl Relais 1 | 1 | % |
 | 7 |  | Drehzahl Relais 2 | 1 | % |
 | 8 |  | Regelflags | 1 |  |
@@ -1597,12 +2261,12 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
 | 6 |  | Drehzahl Relais 1 | 1 | % |
 | 7 |  | Fehlermaske | 1 |  |
 | 8 |  | Betriebsstunden Relais 1 | 1 |  h |
@@ -1617,12 +2281,12 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
 | 6 |  | Drehzahl Relais 1 | 1 | % |
 | 7 |  | Fehlermaske | 1 |  |
 | 10 |  | Relaismaske | 1 |  |
@@ -1633,12 +2297,12 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
 | 6 |  | Drehzahl Relais 1 | 1 | % |
 | 7 |  | Fehlermaske | 1 |  |
 | 8 |  | Betriebsstunden Relais 1 | 1 |  h |
@@ -1650,14 +2314,14 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 4 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 4 | 25.6 |  °C |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
 | 8 |  | Drehzahl Pumpe 1 | 1 | % |
 | 9 |  | Drehzahl Pumpe 2 | 1 | % |
 | 10 |  | Relaismaske | 1 |  |
@@ -1678,8 +2342,8 @@ title: VBus Packets
 | 23 |  | Wärmemenge | 256000 |  Wh |
 | 24 |  | Wärmemenge | 1000000 |  Wh |
 | 25 |  | Wärmemenge | 256000000 |  Wh |
-| 26 |  | Version | 0.01 |  |
-| 27 |  | Version | 2.56 |  |
+| 26 |  | Version | 1.00 |  |
+| 27 |  | Version | 256.00 |  |
 
 
 
@@ -1687,24 +2351,24 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
 | 6 |  | Wärmemenge \(<= v1_01\) | 1 |  kWh |
-| 6 |  | Temperatur Sensor 4 \(>= v1_02\) | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 4 \(>= v1_02\) | 25.6 |  °C |
+| 6 |  | Temperatur Sensor 4 \(>= v1_02\) | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 \(>= v1_02\) | 256.0 |  °C |
 | 7 |  | Wärmemenge \(<= v1_01\) | 256 |  kWh |
 | 8 |  | Drehzahl Relais 1 \(>= v1_02\) | 1 | % |
-| 8 |  | Drehzahl Relais 1 \(<= v1_01\) | 0.1 | % |
-| 9 |  | Drehzahl Relais 1 \(<= v1_01\) | 25.6 | % |
+| 8 |  | Drehzahl Relais 1 \(<= v1_01\) | 1.0 | % |
+| 9 |  | Drehzahl Relais 1 \(<= v1_01\) | 256.0 | % |
 | 9 |  | Drehzahl Relais 2 \(>= v1_02\) | 1 | % |
 | 10 |  | Fehlermaske \(>= v1_02\) | 1 |  |
-| 10 |  | Drehzahl Relais 2 \(<= v1_01\) | 0.1 | % |
+| 10 |  | Drehzahl Relais 2 \(<= v1_01\) | 1.0 | % |
 | 11 |  | Relaismaske \(>= v1_02\) | 1 |  |
-| 11 |  | Drehzahl Relais 2 \(<= v1_01\) | 25.6 | % |
+| 11 |  | Drehzahl Relais 2 \(<= v1_01\) | 256.0 | % |
 | 12 |  | Wärmemenge \(>= v1_02\) | 1 |  kWh |
 | 13 |  | Wärmemenge \(>= v1_02\) | 256 |  kWh |
 
@@ -1714,14 +2378,14 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 4 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 4 | 25.6 |  °C |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
 | 8 |  | Drehzahl Relais 1 | 1 | % |
 | 10 |  | Anzeige-Status | 1 |  |
 | 11 |  | Anzeige-Status | 256 |  |
@@ -1738,14 +2402,14 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur S1 | 0.1 |  °C |
-| 1 |  | Temperatur S1 | 25.6 |  °C |
-| 2 |  | Temperatur S2 | 0.1 |  °C |
-| 3 |  | Temperatur S2 | 25.6 |  °C |
-| 4 |  | Temperatur S3 | 0.1 |  °C |
-| 5 |  | Temperatur S3 | 25.6 |  °C |
-| 6 |  | Temperatur S4 | 0.1 |  °C |
-| 7 |  | Temperatur S4 | 25.6 |  °C |
+| 0 |  | Temperatur S1 | 1.0 |  °C |
+| 1 |  | Temperatur S1 | 256.0 |  °C |
+| 2 |  | Temperatur S2 | 1.0 |  °C |
+| 3 |  | Temperatur S2 | 256.0 |  °C |
+| 4 |  | Temperatur S3 | 1.0 |  °C |
+| 5 |  | Temperatur S3 | 256.0 |  °C |
+| 6 |  | Temperatur S4 | 1.0 |  °C |
+| 7 |  | Temperatur S4 | 256.0 |  °C |
 | 8 |  | Drehzahl Relais 1 | 1 | % |
 | 9 |  | Drehzahl Relais 2 | 1 | % |
 | 10 |  | Fehlermaske | 1 |  |
@@ -1766,14 +2430,14 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur S1 | 0.1 |  °C |
-| 1 |  | Temperatur S1 | 25.6 |  °C |
-| 2 |  | Temperatur S2 | 0.1 |  °C |
-| 3 |  | Temperatur S2 | 25.6 |  °C |
-| 4 |  | Temperatur S3 | 0.1 |  °C |
-| 5 |  | Temperatur S3 | 25.6 |  °C |
-| 6 |  | Temperatur S4 | 0.1 |  °C |
-| 7 |  | Temperatur S4 | 25.6 |  °C |
+| 0 |  | Temperatur S1 | 1.0 |  °C |
+| 1 |  | Temperatur S1 | 256.0 |  °C |
+| 2 |  | Temperatur S2 | 1.0 |  °C |
+| 3 |  | Temperatur S2 | 256.0 |  °C |
+| 4 |  | Temperatur S3 | 1.0 |  °C |
+| 5 |  | Temperatur S3 | 256.0 |  °C |
+| 6 |  | Temperatur S4 | 1.0 |  °C |
+| 7 |  | Temperatur S4 | 256.0 |  °C |
 | 8 |  | Drehzahl R1 | 1 | % |
 | 9 |  | Drehzahl R2 | 1 | % |
 | 10 |  | Fehlermaske | 1 |  |
@@ -1793,18 +2457,18 @@ title: VBus Packets
 
 
 
-### <a name="0010_4213_0100"></a>DFA (0x0010) <= SKSC2 HE (0x4213), command 0x0100
+### <a name="0010_4213_0100"></a>DFA (0x0010) <= SKSC2 HE \[Regler\] (0x4213), command 0x0100
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur S1 | 0.1 |  °C |
-| 1 |  | Temperatur S1 | 25.6 |  °C |
-| 2 |  | Temperatur S2 | 0.1 |  °C |
-| 3 |  | Temperatur S2 | 25.6 |  °C |
-| 4 |  | Temperatur S3 | 0.1 |  °C |
-| 5 |  | Temperatur S3 | 25.6 |  °C |
-| 6 |  | Temperatur S4 | 0.1 |  °C |
-| 7 |  | Temperatur S4 | 25.6 |  °C |
+| 0 |  | Temperatur S1 | 1.0 |  °C |
+| 1 |  | Temperatur S1 | 256.0 |  °C |
+| 2 |  | Temperatur S2 | 1.0 |  °C |
+| 3 |  | Temperatur S2 | 256.0 |  °C |
+| 4 |  | Temperatur S3 | 1.0 |  °C |
+| 5 |  | Temperatur S3 | 256.0 |  °C |
+| 6 |  | Temperatur S4 | 1.0 |  °C |
+| 7 |  | Temperatur S4 | 256.0 |  °C |
 | 8 |  | Drehzahl Relais 1 | 1 | % |
 | 9 |  | Drehzahl Relais 2 | 1 | % |
 | 10 |  | Fehlermaske | 1 |  |
@@ -1818,26 +2482,26 @@ title: VBus Packets
 | 19 |  | Wärmemenge | 256000 |  Wh |
 | 20 |  | Wärmemenge | 1000000 |  Wh |
 | 21 |  | Wärmemenge | 256000000 |  Wh |
-| 24 |  | Temperatur VFD1 | 0.1 |  °C |
-| 25 |  | Temperatur VFD1 | 25.6 |  °C |
+| 24 |  | Temperatur VFD1 | 1.0 |  °C |
+| 25 |  | Temperatur VFD1 | 256.0 |  °C |
 | 26 |  | Volumenstrom VFD1 | 1 |  l/h |
 | 27 |  | Volumenstrom VFD1 | 256 |  l/h |
-| 32 |  | Spannung 10V | 0.1 |  V |
+| 32 |  | Spannung 10V | 1.0 |  V |
 
 
 
-### <a name="0010_4214_0100"></a>DFA (0x0010) <= SKSC2 HE (0x4214), command 0x0100
+### <a name="0010_4214_0100"></a>DFA (0x0010) <= SKSC2 HE \[Regler\] (0x4214), command 0x0100
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur S1 | 0.1 |  °C |
-| 1 |  | Temperatur S1 | 25.6 |  °C |
-| 2 |  | Temperatur S2 | 0.1 |  °C |
-| 3 |  | Temperatur S2 | 25.6 |  °C |
-| 4 |  | Temperatur S3 | 0.1 |  °C |
-| 5 |  | Temperatur S3 | 25.6 |  °C |
-| 6 |  | Temperatur S4 | 0.1 |  °C |
-| 7 |  | Temperatur S4 | 25.6 |  °C |
+| 0 |  | Temperatur S1 | 1.0 |  °C |
+| 1 |  | Temperatur S1 | 256.0 |  °C |
+| 2 |  | Temperatur S2 | 1.0 |  °C |
+| 3 |  | Temperatur S2 | 256.0 |  °C |
+| 4 |  | Temperatur S3 | 1.0 |  °C |
+| 5 |  | Temperatur S3 | 256.0 |  °C |
+| 6 |  | Temperatur S4 | 1.0 |  °C |
+| 7 |  | Temperatur S4 | 256.0 |  °C |
 | 8 |  | Drehzahl Relais 1 | 1 | % |
 | 9 |  | Drehzahl Relais 2 | 1 | % |
 | 10 |  | Fehlermaske | 1 |  |
@@ -1851,11 +2515,11 @@ title: VBus Packets
 | 19 |  | Wärmemenge | 256000 |  Wh |
 | 20 |  | Wärmemenge | 1000000 |  Wh |
 | 21 |  | Wärmemenge | 256000000 |  Wh |
-| 24 |  | Temperatur VFD1 | 0.1 |  °C |
-| 25 |  | Temperatur VFD1 | 25.6 |  °C |
+| 24 |  | Temperatur VFD1 | 1.0 |  °C |
+| 25 |  | Temperatur VFD1 | 256.0 |  °C |
 | 26 |  | Volumenstrom VFD1 | 1 |  l/h |
 | 27 |  | Volumenstrom VFD1 | 256 |  l/h |
-| 32 |  | Spannung 10V | 0.1 |  V |
+| 32 |  | Spannung 10V | 1.0 |  V |
 
 
 
@@ -1863,14 +2527,14 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 4 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 4 | 25.6 |  °C |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
 | 8 |  | Drehzahl Pumpe 1 | 1 | % |
 | 9 |  | Drehzahl Pumpe 2 | 1 | % |
 | 10 |  | Relaismaske | 1 |  |
@@ -1894,8 +2558,8 @@ title: VBus Packets
 | 23 |  | Wärmemenge | 256000 |  Wh |
 | 24 |  | Wärmemenge | 1000000 |  Wh |
 | 25 |  | Wärmemenge | 256000000 |  Wh |
-| 26 |  | Version | 0.01 |  |
-| 27 |  | Version | 2.56 |  |
+| 26 |  | Version | 1.00 |  |
+| 27 |  | Version | 256.00 |  |
 
 
 
@@ -1903,14 +2567,14 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °F |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °F |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °F |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °F |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °F |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °F |
-| 6 |  | Temperatur Sensor 4 | 0.1 |  °F |
-| 7 |  | Temperatur Sensor 4 | 25.6 |  °F |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °F |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °F |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °F |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °F |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °F |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °F |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °F |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °F |
 | 8 |  | Drehzahl Pumpe 1 | 1 | % |
 | 9 |  | Drehzahl Pumpe 2 | 1 | % |
 | 10 |  | Relaismaske | 1 |  |
@@ -1934,8 +2598,8 @@ title: VBus Packets
 | 23 |  | Wärmemenge | 256000 |  BTU |
 | 24 |  | Wärmemenge | 1000000 |  BTU |
 | 25 |  | Wärmemenge | 256000000 |  BTU |
-| 26 |  | Version | 0.01 |  |
-| 27 |  | Version | 2.56 |  |
+| 26 |  | Version | 1.00 |  |
+| 27 |  | Version | 256.00 |  |
 
 
 
@@ -1943,14 +2607,14 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 4 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 4 | 25.6 |  °C |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
 | 8 |  | Drehzahl Pumpe 1 | 1 | % |
 | 9 |  | Drehzahl Pumpe 2 | 1 | % |
 | 10 |  | Relaismaske | 1 |  |
@@ -1974,8 +2638,8 @@ title: VBus Packets
 | 23 |  | Wärmemenge | 256000 |  Wh |
 | 24 |  | Wärmemenge | 1000000 |  Wh |
 | 25 |  | Wärmemenge | 256000000 |  Wh |
-| 26 |  | Version | 0.01 |  |
-| 27 |  | Version | 2.56 |  |
+| 26 |  | Version | 1.00 |  |
+| 27 |  | Version | 256.00 |  |
 
 
 
@@ -1983,14 +2647,14 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Warmwasser | 0.1 |  °C |
-| 1 |  | Temperatur Warmwasser | 25.6 |  °C |
-| 2 |  | Temperatur Kaltwasser | 0.1 |  °C |
-| 3 |  | Temperatur Kaltwasser | 25.6 |  °C |
-| 4 |  | Temperatur Zirkulation | 0.1 |  °C |
-| 5 |  | Temperatur Zirkulation | 25.6 |  °C |
-| 6 |  | Volumenstrom | 0.1 |  l/min |
-| 7 |  | Volumenstrom | 25.6 |  l/min |
+| 0 |  | Temperatur Warmwasser | 1.0 |  °C |
+| 1 |  | Temperatur Warmwasser | 256.0 |  °C |
+| 2 |  | Temperatur Kaltwasser | 1.0 |  °C |
+| 3 |  | Temperatur Kaltwasser | 256.0 |  °C |
+| 4 |  | Temperatur Zirkulation | 1.0 |  °C |
+| 5 |  | Temperatur Zirkulation | 256.0 |  °C |
+| 6 |  | Volumenstrom | 1.0 |  l/min |
+| 7 |  | Volumenstrom | 256.0 |  l/min |
 | 8 |  | Drehzahl Relais 1 | 1 | % |
 | 9 |  | Drehzahl Relais 2 | 1 | % |
 | 10 |  | Systemzeit | 1 |  |
@@ -2012,16 +2676,16 @@ title: VBus Packets
 | 27 |  | Wärmemenge | 256000 |  Wh |
 | 28 |  | Wärmemenge | 1000000 |  Wh |
 | 29 |  | Wärmemenge | 256000000 |  Wh |
-| 30 |  | Version | 1 |  |
-| 31 |  | Version | 0 |  |
-| 32 |  | max_ Temperatur Kaltwasser | 0.1 |  °C |
-| 33 |  | max_ Temperatur Kaltwasser | 25.6 |  °C |
-| 34 |  | min_ Temperatur Kaltwasser | 0.1 |  °C |
-| 35 |  | min_ Temperatur Kaltwasser | 25.6 |  °C |
+| 30 |  | Version | 100 |  |
+| 31 |  | Version | 1 |  |
+| 32 |  | max_ Temperatur Kaltwasser | 1.0 |  °C |
+| 33 |  | max_ Temperatur Kaltwasser | 256.0 |  °C |
+| 34 |  | min_ Temperatur Kaltwasser | 1.0 |  °C |
+| 35 |  | min_ Temperatur Kaltwasser | 256.0 |  °C |
 | 36 |  | max_ Volumenstrom | 1 |  l/h |
 | 37 |  | max_ Volumenstrom | 256 |  l/h |
-| 38 |  | Zapfmenge | 0.1 |  m³ |
-| 39 |  | Zapfmenge | 25.6 |  m³ |
+| 38 |  | Zapfmenge | 1.0 |  m³ |
+| 39 |  | Zapfmenge | 256.0 |  m³ |
 
 
 
@@ -2029,14 +2693,14 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Warmwasser \(Anzeige\) | 0.1 |  °C |
-| 1 |  | Temperatur Warmwasser \(Anzeige\) | 25.6 |  °C |
-| 2 |  | Temperatur Kaltwasser | 0.1 |  °C |
-| 3 |  | Temperatur Kaltwasser | 25.6 |  °C |
-| 4 |  | Temperatur Puffer | 0.1 |  °C |
-| 5 |  | Temperatur Puffer | 25.6 |  °C |
-| 6 |  | Volumenstrom | 0.01 |  l/h |
-| 7 |  | Volumenstrom | 2.56 |  l/h |
+| 0 |  | Temperatur Warmwasser \(Anzeige\) | 1.0 |  °C |
+| 1 |  | Temperatur Warmwasser \(Anzeige\) | 256.0 |  °C |
+| 2 |  | Temperatur Kaltwasser | 1.0 |  °C |
+| 3 |  | Temperatur Kaltwasser | 256.0 |  °C |
+| 4 |  | Temperatur Puffer | 1.0 |  °C |
+| 5 |  | Temperatur Puffer | 256.0 |  °C |
+| 6 |  | Volumenstrom | 1.00 |  l/h |
+| 7 |  | Volumenstrom | 256.00 |  l/h |
 | 8 |  | Drehzahl1 | 1 | % |
 | 9 |  | Drehzahl2 | 1 | % |
 | 10 |  | Systemzeit | 1 |  |
@@ -2059,7 +2723,7 @@ title: VBus Packets
 | 15 | 0x08 | Sensor 4 defekt | 1 |  |
 | 16 |  | Warmwassersolltemperatur | 1 |  °C |
 | 17 |  | Temperatur Mischer | 1 |  °C |
-| 18 |  | dT Puffer | 0.1 |  K |
+| 18 |  | dT Puffer | 1.0 |  K |
 | 19 |  | Verbleibende Zirkulationsdauer | 1 |  min |
 | 20 |  | Anzahl Schaltspiele | 1 |  |
 | 21 |  | Anzahl Schaltspiele | 256 |  |
@@ -2073,18 +2737,18 @@ title: VBus Packets
 | 29 |  | Wärmemenge | 256000000 |  Wh |
 | 30 |  | Softwareversion major | 1 |  |
 | 31 |  | Softwareversion minor | 1 |  |
-| 32 |  | Temperatur max_ Kaltwasser | 0.1 |  °C |
-| 33 |  | Temperatur max_ Kaltwasser | 25.6 |  °C |
-| 34 |  | Temperatur min_ Kaltwasser | 0.1 |  °C |
-| 35 |  | Temperatur min_ Kaltwasser | 25.6 |  °C |
+| 32 |  | Temperatur max_ Kaltwasser | 1.0 |  °C |
+| 33 |  | Temperatur max_ Kaltwasser | 256.0 |  °C |
+| 34 |  | Temperatur min_ Kaltwasser | 1.0 |  °C |
+| 35 |  | Temperatur min_ Kaltwasser | 256.0 |  °C |
 | 36 |  | Volumenstrom max_ | 1 |  l/h |
 | 37 |  | Volumenstrom max_ | 256 |  l/h |
 | 38 |  | Zapfmenge max_ | 1 |  m³ |
 | 39 |  | Zapfmenge max_ | 256 |  m³ |
-| 40 |  | Temperatur Warmwasser \(Regel\) | 0.1 |  °C |
-| 41 |  | Temperatur Warmwasser \(Regel\) | 25.6 |  °C |
-| 42 |  | Temperatur Quelle \(Regel\) | 0.1 |  °C |
-| 43 |  | Temperatur Quelle \(Regel\) | 25.6 |  °C |
+| 40 |  | Temperatur Warmwasser \(Regel\) | 1.0 |  °C |
+| 41 |  | Temperatur Warmwasser \(Regel\) | 256.0 |  °C |
+| 42 |  | Temperatur Quelle \(Regel\) | 1.0 |  °C |
+| 43 |  | Temperatur Quelle \(Regel\) | 256.0 |  °C |
 | 44 |  | Interner Wert | 1 |  |
 | 45 |  | Interner Wert | 1 |  |
 | 46 |  | Interner Wert | 1 |  |
@@ -2100,28 +2764,28 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Absorbertemperatur \(S1\) | 0.1 |  °C |
-| 1 |  | Absorbertemperatur \(S1\) | 25.6 |  °C |
-| 2 |  | Temperatur hinter Wärmepumpe \(S2\) | 0.1 |  °C |
-| 3 |  | Temperatur hinter Wärmepumpe \(S2\) | 25.6 |  °C |
-| 4 |  | Temperatur hinter Erdspeicher \(S3\) | 0.1 |  °C |
-| 5 |  | Temperatur hinter Erdspeicher \(S3\) | 25.6 |  °C |
-| 6 |  | Ann_ Temperatur Erdspeicher | 0.1 |  °C |
-| 7 |  | Ann_ Temperatur Erdspeicher | 25.6 |  °C |
-| 8 |  | Temperatur hinter Pumpe 1 \(S4\) | 0.1 |  °C |
-| 9 |  | Temperatur hinter Pumpe 1 \(S4\) | 25.6 |  °C |
+| 0 |  | Absorbertemperatur \(S1\) | 1.0 |  °C |
+| 1 |  | Absorbertemperatur \(S1\) | 256.0 |  °C |
+| 2 |  | Temperatur hinter Wärmepumpe \(S2\) | 1.0 |  °C |
+| 3 |  | Temperatur hinter Wärmepumpe \(S2\) | 256.0 |  °C |
+| 4 |  | Temperatur hinter Erdspeicher \(S3\) | 1.0 |  °C |
+| 5 |  | Temperatur hinter Erdspeicher \(S3\) | 256.0 |  °C |
+| 6 |  | Ann_ Temperatur Erdspeicher | 1.0 |  °C |
+| 7 |  | Ann_ Temperatur Erdspeicher | 256.0 |  °C |
+| 8 |  | Temperatur hinter Pumpe 1 \(S4\) | 1.0 |  °C |
+| 9 |  | Temperatur hinter Pumpe 1 \(S4\) | 256.0 |  °C |
 | 10 |  | Systemzeit | 1 |  |
 | 11 |  | Systemzeit | 256 |  |
-| 12 |  | Einschalttemperaturdifferenz | 0.1 |  K |
-| 13 |  | Einschalttemperaturdifferenz | 25.6 |  K |
-| 14 |  | Ausschalttemperaturdifferenz | 0.1 |  K |
-| 15 |  | Ausschalttemperaturdifferenz | 25.6 |  K |
-| 16 |  | dT Wärmepumpe an | 0.1 |  K |
-| 17 |  | dT Wärmepumpe an | 25.6 |  K |
-| 18 |  | dT Wärmepumpe aus | 0.1 |  K |
-| 19 |  | dT Wärmepumpe aus | 25.6 |  K |
-| 20 |  | Erdspeicher Maximaltemperatur | 0.1 |  °C |
-| 21 |  | Erdspeicher Maximaltemperatur | 25.6 |  °C |
+| 12 |  | Einschalttemperaturdifferenz | 1.0 |  K |
+| 13 |  | Einschalttemperaturdifferenz | 256.0 |  K |
+| 14 |  | Ausschalttemperaturdifferenz | 1.0 |  K |
+| 15 |  | Ausschalttemperaturdifferenz | 256.0 |  K |
+| 16 |  | dT Wärmepumpe an | 1.0 |  K |
+| 17 |  | dT Wärmepumpe an | 256.0 |  K |
+| 18 |  | dT Wärmepumpe aus | 1.0 |  K |
+| 19 |  | dT Wärmepumpe aus | 256.0 |  K |
+| 20 |  | Erdspeicher Maximaltemperatur | 1.0 |  °C |
+| 21 |  | Erdspeicher Maximaltemperatur | 256.0 |  °C |
 | 22 | 0x01 | S1 defekt | 1 |  |
 | 22 | 0x02 | S2 defekt | 1 |  |
 | 22 | 0x04 | S3 defekt | 1 |  |
@@ -2130,9 +2794,9 @@ title: VBus Packets
 | 22 | 0x20 | Wärmepumpe an | 1 |  |
 | 22 | 0x40 | Erdspeicher voll | 1 |  |
 | 22 | 0x80 | Relais 1 an | 1 |  |
-| 22 | 0x100 | Relais 2 an | 1 |  |
-| 24 |  | Version | 0.01 |  |
-| 25 |  | Version | 2.56 |  |
+| 23 | 0x01 | Relais 2 an | 1 |  |
+| 24 |  | Version | 1.00 |  |
+| 25 |  | Version | 256.00 |  |
 
 
 
@@ -2140,14 +2804,14 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 4 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 4 | 25.6 |  °C |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
 | 8 |  | Einheit | 1 |  |
 | 10 |  | Drehzahl Relais 1 | 1 | % |
 | 11 |  | Drehzahl Relais 2 | 1 | % |
@@ -2181,8 +2845,79 @@ title: VBus Packets
 | 27 |  | Wärmemenge | 16777216 |  Wh |
 | 28 |  | Uhrzeit | 1 |  |
 | 29 |  | Uhrzeit | 256 |  |
-| 30 |  | Version | 0.01 |  |
-| 31 |  | Version | 2.56 |  |
+| 30 |  | Version | 1.00 |  |
+| 31 |  | Version | 256.00 |  |
+
+
+
+### <a name="0010_4261_0100"></a>DFA (0x0010) <= DeltaSol E SorTech \[Regler\] (0x4261), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | T LT OUT: | 1.0 |  °C |
+| 1 |  | T LT OUT: | 256.0 |  °C |
+| 2 |  | T MT OUT: | 1.0 |  °C |
+| 3 |  | T MT OUT: | 256.0 |  °C |
+| 4 |  | T A1 OUT: | 1.0 |  °C |
+| 5 |  | T A1 OUT: | 256.0 |  °C |
+| 6 |  | T A2 OUT: | 1.0 |  °C |
+| 7 |  | T A2 OUT: | 256.0 |  °C |
+| 8 |  | T HT Ext: | 1.0 |  °C |
+| 9 |  | T HT Ext: | 256.0 |  °C |
+| 10 |  | T LT Ext: | 1.0 |  °C |
+| 11 |  | T LT Ext: | 256.0 |  °C |
+| 12 |  | T LT IN: | 1.0 |  °C |
+| 13 |  | T LT IN: | 256.0 |  °C |
+| 14 | 0x01 | Anlage: | 1 |  |
+| 14 | 0x02 | Heizmodus: | 1 |  |
+| 14 | 0x04 | Strömungswächter LT-Kreis: | 1 |  |
+| 14 | 0x08 | HV_A1_IN: | 1 |  |
+| 14 | 0x10 | HV_A2_IN: | 1 |  |
+| 14 | 0x20 | HV_OUT: | 1 |  |
+| 14 | 0x40 | Melderelais | 1 |  |
+| 15 |  | RCS %: | 1 | % |
+| 16 |  | Pumpenrelais: | 1 | % |
+| 17 |  | SPR Relais: | 1 | % |
+| 18 |  | Phase: | 1 |  |
+| 19 |  | Systemcode: | 1 |  |
+| 22 |  | W Soll: | 1 |  Hz |
+| 23 |  | W Soll: | 256 |  Hz |
+| 24 |  | T LTS OUT AVG | 1.0 |  °C |
+| 25 |  | T LTS OUT AVG | 256.0 |  °C |
+| 26 |  | T MT OUT AVG | 1.0 |  °C |
+| 27 |  | T MT OUT AVG | 256.0 |  °C |
+| 30 |  | Externe Solltemperatur: | 1.0 |  °C |
+| 31 |  | Externe Solltemperatur: | 256.0 |  °C |
+| 32 |  | Anzahl Zyklen: | 1 |  |
+| 33 |  | Anzahl Zyklen: | 256 |  |
+| 34 |  | Anzahl Zyklen: | 65536 |  |
+| 35 |  | Anzahl Zyklen: | 16777216 |  |
+| 36 |  | Aufsummierte Besprühungzeit: | 1 |  |
+| 37 |  | Aufsummierte Besprühungzeit: | 256 |  |
+| 38 |  | Aufsummierte Besprühungzeit: | 65536 |  |
+| 39 |  | Aufsummierte Besprühungzeit: | 16777216 |  |
+| 40 |  | Systemzeit: | 1 |  |
+| 41 |  | Systemzeit: | 256 |  |
+| 42 |  | Jahr: | 1 |  |
+| 43 |  | Jahr: | 256 |  |
+| 44 |  | Monat: | 1 |  |
+| 45 |  | Tag: | 1 |  |
+| 46 |  | Kern: | 100.00 |  |
+| 47 |  | Kern: | 1.00 |  |
+| 48 |  | T LT IN AVG | 1.0 |  °C |
+| 49 |  | T LT IN AVG | 256.0 |  °C |
+| 50 |  | T LT IN Cycle | 1.0 |  °C |
+| 51 |  | T LT IN Cycle | 256.0 |  °C |
+| 52 |  | T LT OUT Cycle | 1.0 |  °C |
+| 52 |  | Aktuellen Sollwert: | 1.0 |  °C |
+| 53 |  | Aktuellen Sollwert: | 256.0 |  °C |
+| 53 |  | T LT OUT Cycle | 256.0 |  °C |
+| 54 |  | T MT OUT Cycle | 1.0 |  °C |
+| 55 |  | T MT OUT Cycle | 256.0 |  °C |
+| 56 |  | dQ LT Cycle | 1.0 |  kW |
+| 57 |  | dQ LT Cycle | 256.0 |  kW |
+| 58 |  | dV LT | 1 |  l/h |
+| 59 |  | dV LT | 256 |  l/h |
 
 
 
@@ -2190,14 +2925,14 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 4 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 4 | 25.6 |  °C |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
 | 8 |  | Drehzahl Relais 1 | 1 | % |
 | 9 |  | Drehzahl Relais 2 | 1 | % |
 | 10 | 0x01 | Sensor 1 defekt | 1 |  |
@@ -2214,8 +2949,8 @@ title: VBus Packets
 | 19 |  | Wärmemenge | 256000 |  Wh |
 | 20 |  | Wärmemenge | 1000000 |  Wh |
 | 21 |  | Wärmemenge | 256000000 |  Wh |
-| 24 |  | Version | 0.01 |  |
-| 25 |  | Version | 2.56 |  |
+| 24 |  | Version | 1.00 |  |
+| 25 |  | Version | 256.00 |  |
 
 
 
@@ -2223,14 +2958,14 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 4 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 4 | 25.6 |  °C |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
 | 8 |  | Drehzahl Relais 1 | 1 | % |
 | 9 |  | Drehzahl Relais 2 | 1 | % |
 | 10 | 0x01 | Sensor 1 defekt | 1 |  |
@@ -2253,8 +2988,8 @@ title: VBus Packets
 | 21 |  | Wärmemenge | 256000000 |  Wh |
 | 22 |  | Status | 1 |  |
 | 23 |  | Programm | 1 |  |
-| 24 |  | Version | 0.01 |  |
-| 25 |  | Version | 2.56 |  |
+| 24 |  | Version | 1.00 |  |
+| 25 |  | Version | 256.00 |  |
 
 
 
@@ -2262,14 +2997,14 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °F |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °F |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °F |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °F |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °F |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °F |
-| 6 |  | Temperatur Sensor 4 | 0.1 |  °F |
-| 7 |  | Temperatur Sensor 4 | 25.6 |  °F |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °F |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °F |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °F |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °F |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °F |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °F |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °F |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °F |
 | 8 |  | Drehzahl Relais 1 | 1 | % |
 | 9 |  | Drehzahl Relais 2 | 1 | % |
 | 10 | 0x01 | Sensor 1 defekt | 1 |  |
@@ -2292,8 +3027,8 @@ title: VBus Packets
 | 21 |  | Wärmemenge | 256000000 |  Wh |
 | 22 |  | Status | 1 |  |
 | 23 |  | Programm | 1 |  |
-| 24 |  | Version | 0.01 |  |
-| 25 |  | Version | 2.56 |  |
+| 24 |  | Version | 1.00 |  |
+| 25 |  | Version | 256.00 |  |
 
 
 
@@ -2301,14 +3036,14 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 4 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 4 | 25.6 |  °C |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
 | 8 |  | Drehzahl Relais 1 | 1 | % |
 | 10 |  | Betriebsstunden Relais 1 | 1 |  h |
 | 11 |  | Betriebsstunden Relais 1 | 256 |  h |
@@ -2333,8 +3068,8 @@ title: VBus Packets
 | 29 |  | Wärmemenge | 256 |  Wh |
 | 30 |  | Wärmemenge | 65536 |  Wh |
 | 31 |  | Wärmemenge | 16777216 |  Wh |
-| 32 |  | SW-Version | 0.01 |  |
-| 33 |  | SW-Version | 2.56 |  |
+| 32 |  | SW-Version | 1.00 |  |
+| 33 |  | SW-Version | 256.00 |  |
 | 34 |  | Variante | 1 |  |
 | 35 |  | Variante | 256 |  |
 
@@ -2344,22 +3079,22 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | TC | 0.1 |  °C |
-| 1 |  | TC | 25.6 |  °C |
-| 2 |  | CD | 0.1 |  °C |
-| 3 |  | CD | 25.6 |  °C |
-| 4 |  | CU | 0.1 |  °C |
-| 5 |  | CU | 25.6 |  °C |
+| 0 |  | TC | 1.0 |  °C |
+| 1 |  | TC | 256.0 |  °C |
+| 2 |  | CD | 1.0 |  °C |
+| 3 |  | CD | 256.0 |  °C |
+| 4 |  | CU | 1.0 |  °C |
+| 5 |  | CU | 256.0 |  °C |
 | 6 |  | P1 | 1 | % |
 | 7 |  | P2 | 1 | % |
-| 10 |  | LS | 0.1 |  |
-| 11 |  | LS | 25.6 |  |
+| 10 |  | LS | 1.0 |  |
+| 11 |  | LS | 256.0 |  |
 | 12 |  | Ph | 1 |  |
 | 13 |  | P1S | 1 |  |
-| 16 |  | KWH | 0.1 |  kWh |
-| 17 |  | KWH | 25.6 |  kWh |
-| 18 |  | KWH | 6553.6 |  kWh |
-| 19 |  | KWH | 1677721.6 |  kWh |
+| 16 |  | KWH | 1.0 |  kWh |
+| 17 |  | KWH | 256.0 |  kWh |
+| 18 |  | KWH | 65536.0 |  kWh |
+| 19 |  | KWH | 16777216.0 |  kWh |
 
 
 
@@ -2367,14 +3102,14 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 4 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 4 | 25.6 |  °C |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
 | 8 |  | Drehzahl Relais 1 | 1 | % |
 | 9 |  | Drehzahl Relais 2 | 1 | % |
 | 10 |  | Systemzeit | 1 |  |
@@ -2398,18 +3133,18 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 4 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 4 | 25.6 |  °C |
-| 8 |  | Temperatur Sensor 5 | 0.1 |  °C |
-| 9 |  | Temperatur Sensor 5 | 25.6 |  °C |
-| 10 |  | Systemdruck | 0.1 |  bar |
-| 11 |  | Systemdruck | 25.6 |  bar |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
+| 8 |  | Temperatur Sensor 5 | 1.0 |  °C |
+| 9 |  | Temperatur Sensor 5 | 256.0 |  °C |
+| 10 |  | Systemdruck | 1.0 |  bar |
+| 11 |  | Systemdruck | 256.0 |  bar |
 | 12 |  | Volumenstrom | 1 |  l/h |
 | 13 |  | Volumenstrom | 256 |  l/h |
 | 14 |  | Drehzahl Relais 1 | 1 | % |
@@ -2431,22 +3166,22 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 4 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 4 | 25.6 |  °C |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
 | 8 |  | Volumenstrom | 1 |  l/h |
 | 9 |  | Volumenstrom | 256 |  l/h |
 | 10 |  | Drehzahl Relais 1 | 1 | % |
 | 11 |  | Systemmeldung | 1 |  |
-| 12 |  | Leistung | 0.001 |  kW |
-| 13 |  | Leistung | 0.256 |  kW |
-| 14 |  | Leistung | 65.536 |  kW |
-| 15 |  | Leistung | 16777.216 |  kW |
+| 12 |  | Leistung | 1.000 |  kW |
+| 13 |  | Leistung | 256.000 |  kW |
+| 14 |  | Leistung | 65536.000 |  kW |
+| 15 |  | Leistung | 16777216.000 |  kW |
 | 16 |  | Wärmemenge | 1 |  Wh |
 | 17 |  | Wärmemenge | 256 |  Wh |
 | 18 |  | Wärmemenge | 65536 |  Wh |
@@ -2464,22 +3199,22 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Kaltwassertemperatur | 0.1 |  °C |
-| 1 |  | Kaltwassertemperatur | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
-| 6 |  | Sollwert | 0.01 |  °C |
-| 7 |  | Sollwert | 2.56 |  °C |
-| 8 |  | Ladetemperatur | 0.01 |  °C |
-| 9 |  | Ladetemperatur | 2.56 |  °C |
-| 10 |  | Ladevolumenstrom | 0.01 |  l/min |
-| 11 |  | Ladevolumenstrom | 2.56 |  l/min |
-| 12 |  | Warmwassertemperatur | 0.01 |  °C |
-| 13 |  | Warmwassertemperatur | 2.56 |  °C |
-| 14 |  | Zapfvolumenstrom | 0.01 |  l/min |
-| 15 |  | Zapfvolumenstrom | 2.56 |  l/min |
+| 0 |  | Kaltwassertemperatur | 1.0 |  °C |
+| 1 |  | Kaltwassertemperatur | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Sollwert | 1.00 |  °C |
+| 7 |  | Sollwert | 256.00 |  °C |
+| 8 |  | Ladetemperatur | 1.00 |  °C |
+| 9 |  | Ladetemperatur | 256.00 |  °C |
+| 10 |  | Ladevolumenstrom | 1.00 |  l/min |
+| 11 |  | Ladevolumenstrom | 256.00 |  l/min |
+| 12 |  | Warmwassertemperatur | 1.00 |  °C |
+| 13 |  | Warmwassertemperatur | 256.00 |  °C |
+| 14 |  | Zapfvolumenstrom | 1.00 |  l/min |
+| 15 |  | Zapfvolumenstrom | 256.00 |  l/min |
 | 16 |  | PWM1 | 1 | % |
 | 17 |  | Relais 1 | 1 | % |
 | 18 |  | Status | 1 |  |
@@ -2498,18 +3233,18 @@ title: VBus Packets
 | 31 |  | Wärmemenge | 256000 |  Wh |
 | 32 |  | Wärmemenge | 1000000 |  Wh |
 | 33 |  | Wärmemenge | 256000000 |  Wh |
-| 36 |  | Zapfmenge | 0.1 |  |
-| 37 |  | Zapfmenge | 25.6 |  |
-| 38 |  | Zapfmenge | 6553.6 |  |
-| 39 |  | Zapfmenge | 1677721.6 |  |
+| 36 |  | Zapfmenge | 1.0 |  |
+| 37 |  | Zapfmenge | 256.0 |  |
+| 38 |  | Zapfmenge | 65536.0 |  |
+| 39 |  | Zapfmenge | 16777216.0 |  |
 | 40 |  | Datum | 1 |  |
 | 41 |  | Datum | 256 |  |
 | 42 |  | Datum | 65536 |  |
 | 43 |  | Datum | 16777216 |  |
 | 44 |  | Systemzeit | 1 |  |
 | 45 |  | Systemzeit | 256 |  |
-| 46 |  | Version | 0.01 |  |
-| 47 |  | Version | 2.56 |  |
+| 46 |  | Version | 1.00 |  |
+| 47 |  | Version | 256.00 |  |
 
 
 
@@ -2517,12 +3252,12 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
 | 6 |  | Drehzahl Relais 1 | 1 | % |
 | 7 |  | Drehzahl Relais 2 | 1 | % |
 | 8 |  | Systemmeldung | 1 |  |
@@ -2541,16 +3276,16 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 4 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 4 | 25.6 |  °C |
-| 8 |  | Temperatur Sensor 5 | 0.1 |  °C |
-| 9 |  | Temperatur Sensor 5 | 25.6 |  °C |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
+| 8 |  | Temperatur Sensor 5 | 1.0 |  °C |
+| 9 |  | Temperatur Sensor 5 | 256.0 |  °C |
 | 10 |  | Drehzahl Relais 1 | 1 | % |
 | 11 |  | Drehzahl Relais 2 | 1 | % |
 | 12 |  | Volumenstrom | 1 |  l/h |
@@ -2578,21 +3313,21 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
 | 6 |  | Drehzahl Relais 1 | 1 | % |
 | 7 |  | Fehlermaske | 1 |  |
 | 10 |  | Relaismaske | 1 |  |
-| 12 |  | Temperatur Sensor 4 | 0.1 |  °C |
-| 13 |  | Temperatur Sensor 4 | 25.6 |  °C |
-| 14 |  | Temperatur Sensor 5 | 0.1 |  °C |
-| 15 |  | Temperatur Sensor 5 | 25.6 |  °C |
-| 16 |  | Volumenstrom | 0.1 |  l/min |
-| 17 |  | Volumenstrom | 25.6 |  l/min |
+| 12 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 13 |  | Temperatur Sensor 4 | 256.0 |  °C |
+| 14 |  | Temperatur Sensor 5 | 1.0 |  °C |
+| 15 |  | Temperatur Sensor 5 | 256.0 |  °C |
+| 16 |  | Volumenstrom | 1.0 |  l/min |
+| 17 |  | Volumenstrom | 256.0 |  l/min |
 | 18 |  | Wärmemenge | 1 |  Wh |
 | 19 |  | Wärmemenge | 256 |  Wh |
 | 20 |  | Wärmemenge | 1000 |  Wh |
@@ -2606,18 +3341,18 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 4 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 4 | 25.6 |  °C |
-| 8 |  | Durchfluss Sensor 5 | 0.1 |  l/min |
-| 9 |  | Durchfluss Sensor 5 | 25.6 |  l/min |
-| 10 |  | Drehzahl 1 | 0.1 | % |
-| 11 |  | Drehzahl 1 | 25.6 | % |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
+| 8 |  | Durchfluss Sensor 5 | 1.0 |  l/min |
+| 9 |  | Durchfluss Sensor 5 | 256.0 |  l/min |
+| 10 |  | Drehzahl 1 | 1.0 | % |
+| 11 |  | Drehzahl 1 | 256.0 | % |
 | 12 |  | Drehzahl 2 | 1 | % |
 | 13 |  | Fehlermaske | 1 |  |
 | 14 |  | Warnungsmaske | 1 |  |
@@ -2634,18 +3369,18 @@ title: VBus Packets
 | 25 |  | Betriebssekunden Relais 2 | 256 |  s |
 | 26 |  | Betriebssekunden Relais 2 | 65536 |  s |
 | 27 |  | Betriebssekunden Relais 2 | 16777216 |  s |
-| 28 |  | Zapfmenge | 0.001 |  m³ |
-| 29 |  | Zapfmenge | 0.256 |  m³ |
-| 30 |  | Zapfmenge | 65.536 |  m³ |
-| 31 |  | Zapfmenge | 16777.216 |  m³ |
+| 28 |  | Zapfmenge | 1.000 |  m³ |
+| 29 |  | Zapfmenge | 256.000 |  m³ |
+| 30 |  | Zapfmenge | 65536.000 |  m³ |
+| 31 |  | Zapfmenge | 16777216.000 |  m³ |
 | 32 |  | Datum | 1 |  |
 | 33 |  | Datum | 256 |  |
 | 34 |  | Datum | 65536 |  |
 | 35 |  | Datum | 16777216 |  |
 | 36 |  | Systemzeit | 1 |  |
 | 37 |  | Systemzeit | 256 |  |
-| 38 |  | Version | 0.01 |  |
-| 39 |  | Version | 2.56 |  |
+| 38 |  | Version | 1.00 |  |
+| 39 |  | Version | 256.00 |  |
 
 
 
@@ -2653,30 +3388,64 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 4 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 4 | 25.6 |  °C |
-| 8 |  | Temperatur Sensor 5 | 0.1 |  °C |
-| 9 |  | Temperatur Sensor 5 | 25.6 |  °C |
-| 10 |  | Temperatur Sensor 6 | 0.1 |  °C |
-| 11 |  | Temperatur Sensor 6 | 25.6 |  °C |
-| 22 |  | Temperatur VFS | 0.1 |  °C |
-| 23 |  | Temperatur VFS | 25.6 |  °C |
-| 36 |  | Volumenstrom VFS / FlowSonic | 1 |  l/h |
-| 37 |  | Volumenstrom VFS / FlowSonic | 256 |  l/h |
-| 38 |  | Volumenstrom VFS / FlowSonic | 65536 |  l/h |
-| 39 |  | Volumenstrom VFS / FlowSonic | 16777216 |  l/h |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
+| 8 |  | Temperatur Sensor 5 | 1.0 |  °C |
+| 9 |  | Temperatur Sensor 5 | 256.0 |  °C |
+| 10 |  | Temperatur Sensor 6 | 1.0 |  °C |
+| 11 |  | Temperatur Sensor 6 | 256.0 |  °C |
+| 22 |  | Temperatur Sensor VFS/US | 1.0 |  °C |
+| 23 |  | Temperatur Sensor VFS/US | 256.0 |  °C |
+| 36 |  | Durchfluss Sensor VFS/US | 1 |  l/h |
+| 37 |  | Durchfluss Sensor VFS/US | 256 |  l/h |
+| 38 |  | Durchfluss Sensor VFS/US | 65536 |  l/h |
+| 39 |  | Durchfluss Sensor VFS/US | 16777216 |  l/h |
 | 49 |  | Drehzahl Relais 1 | 1 | % |
 | 50 |  | Drehzahl Relais 2 | 1 | % |
 | 51 |  | Drehzahl Relais 3 | 1 | % |
-| 52 |  | Drehzahl Relais 4 | 1 | % |
+| 52 |  | Drehzahl Relais pot__frei | 1 | % |
 | 56 |  | Drehzahl Ausgang PWM 1 | 1 | % |
 | 57 |  | Drehzahl Ausgang PWM 2 | 1 | % |
+| 64 |  | Betriebssekunden Relais 1 | 1 |  s |
+| 65 |  | Betriebssekunden Relais 1 | 256 |  s |
+| 66 |  | Betriebssekunden Relais 1 | 65536 |  s |
+| 67 |  | Betriebssekunden Relais 1 | 16777216 |  s |
+| 68 |  | Betriebssekunden Relais 2 | 1 |  s |
+| 69 |  | Betriebssekunden Relais 2 | 256 |  s |
+| 70 |  | Betriebssekunden Relais 2 | 65536 |  s |
+| 71 |  | Betriebssekunden Relais 2 | 16777216 |  s |
+| 72 |  | Betriebssekunden Relais 3 | 1 |  s |
+| 73 |  | Betriebssekunden Relais 3 | 256 |  s |
+| 74 |  | Betriebssekunden Relais 3 | 65536 |  s |
+| 75 |  | Betriebssekunden Relais 3 | 16777216 |  s |
+| 76 |  | Betriebssekunden Relais pot__frei | 1 |  s |
+| 77 |  | Betriebssekunden Relais pot__frei | 256 |  s |
+| 78 |  | Betriebssekunden Relais pot__frei | 65536 |  s |
+| 79 |  | Betriebssekunden Relais pot__frei | 16777216 |  s |
+| 80 |  | Betriebssekunden Ausgang PWM 1 | 1 |  s |
+| 81 |  | Betriebssekunden Ausgang PWM 1 | 256 |  s |
+| 82 |  | Betriebssekunden Ausgang PWM 1 | 65536 |  s |
+| 83 |  | Betriebssekunden Ausgang PWM 1 | 16777216 |  s |
+| 84 |  | Betriebssekunden Ausgang PWM 2 | 1 |  s |
+| 85 |  | Betriebssekunden Ausgang PWM 2 | 256 |  s |
+| 86 |  | Betriebssekunden Ausgang PWM 2 | 65536 |  s |
+| 87 |  | Betriebssekunden Ausgang PWM 2 | 16777216 |  s |
+| 96 |  | Wärmemenge | 1 |  Wh |
+| 97 |  | Wärmemenge | 256 |  Wh |
+| 98 |  | Wärmemenge | 65536 |  Wh |
+| 99 |  | Wärmemenge | 16777216 |  Wh |
+| 100 |  | Fehler | 1 |  |
+| 101 |  | Fehler | 256 |  |
+| 102 |  | Fehler | 65536 |  |
+| 103 |  | Fehler | 16777216 |  |
+| 108 |  | Version | 1.00 |  |
+| 109 |  | Version | 256.00 |  |
 | 112 |  | Systemdatum | 1 |  |
 | 113 |  | Systemdatum | 256 |  |
 | 114 |  | Systemdatum | 65536 |  |
@@ -2688,14 +3457,14 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 4 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 4 | 25.6 |  °C |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
 | 8 |  | Einstrahlung Sensor 5 | 1 |  W/m² |
 | 9 |  | Einstrahlung Sensor 5 | 256 |  W/m² |
 | 10 |  | Drehzahl R1 | 1 | % |
@@ -2716,12 +3485,12 @@ title: VBus Packets
 | 22 | 0x20 | Optionen: Externer WT | 1 |  |
 | 22 | 0x40 | Optionen: Nachheizung | 1 |  |
 | 22 | 0x80 | Optionen: Rücklaufanhebung | 1 |  |
-| 22 | 0x100 | Optionen: Ventil | 1 |  |
-| 22 | 0x200 | Optionen: Minimal | 1 |  |
-| 22 | 0x400 | Optionen: WMZ | 1 |  |
-| 22 | 0x800 | Optionen: Boilerladung | 1 |  |
-| 22 | 0x1000 | Optionen: Solarzelle | 1 |  |
-| 22 | 0x2000 | Optionen: 2_ Kollektor-Ventil | 1 |  |
+| 23 | 0x01 | Optionen: Ventil | 1 |  |
+| 23 | 0x02 | Optionen: Minimal | 1 |  |
+| 23 | 0x04 | Optionen: WMZ | 1 |  |
+| 23 | 0x08 | Optionen: Boilerladung | 1 |  |
+| 23 | 0x10 | Optionen: Solarzelle | 1 |  |
+| 23 | 0x20 | Optionen: 2_ Kollektor-Ventil | 1 |  |
 | 24 |  | Fehlermaske | 1 |  |
 | 25 |  | Sensorbruch-Maske | 1 |  |
 | 26 |  | Sensorkurzschluss-Maske | 1 |  |
@@ -2730,34 +3499,92 @@ title: VBus Packets
 
 
 
+### <a name="0010_5351_0100"></a>DFA (0x0010) <= Frischwasserregler (0x5351), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | TSpVL \(S1\) | 1.0 |  °C |
+| 1 |  | TSpVL \(S1\) | 256.0 |  °C |
+| 4 |  | S3 | 1.0 |  °C |
+| 5 |  | S3 | 256.0 |  °C |
+| 6 |  | TKW \(S4\) | 1.0 |  °C |
+| 7 |  | TKW \(S4\) | 256.0 |  °C |
+| 8 |  | S5 | 1.0 |  °C |
+| 9 |  | S5 | 256.0 |  °C |
+| 10 |  | S6 | 1.0 |  °C |
+| 11 |  | S6 | 256.0 |  °C |
+| 12 |  | S7 | 1.0 |  °C |
+| 13 |  | S7 | 256.0 |  °C |
+| 14 |  | S8 | 1.0 |  °C |
+| 15 |  | S8 | 256.0 |  °C |
+| 16 |  | S9 | 1.0 |  °C |
+| 17 |  | S9 | 256.0 |  °C |
+| 50 |  | R2 | 1 | % |
+| 51 |  | R3 | 1 | % |
+| 52 |  | R4 | 1 | % |
+| 56 |  | Drehzahl Primaerpumpe | 1 | % |
+| 96 |  | Wärmemenge | 1 |  Wh |
+| 97 |  | Wärmemenge | 256 |  Wh |
+| 98 |  | Wärmemenge | 65536 |  Wh |
+| 99 |  | Wärmemenge | 16777216 |  Wh |
+| 108 |  | Version | 1.00 |  |
+| 109 |  | Version | 256.00 |  |
+| 110 |  | Hydraulik | 1 |  |
+| 112 |  | Datum/Uhrzeit | 1 |  |
+| 113 |  | Datum/Uhrzeit | 256 |  |
+| 114 |  | Datum/Uhrzeit | 65536 |  |
+| 115 |  | Datum/Uhrzeit | 16777216 |  |
+| 116 |  | TWW | 1.0 |  °C |
+| 117 |  | TWW | 256.0 |  °C |
+| 118 |  | Drehzahl Sekundaerpumpe | 1 | % |
+| 119 |  | Drehzahl Zirkulationspumpe | 1 | % |
+| 120 |  | Volumenstrom US1 | 1 |  l/h |
+| 121 |  | Volumenstrom US1 | 256 |  l/h |
+| 122 |  | Volumenstrom US1 | 65536 |  l/h |
+| 123 |  | Volumenstrom US1 | 16777216 |  l/h |
+| 124 |  | Volumenstrom US2 | 1 |  l/h |
+| 125 |  | Volumenstrom US2 | 256 |  l/h |
+| 126 |  | Volumenstrom US2 | 65536 |  l/h |
+| 127 |  | Volumenstrom US2 | 16777216 |  l/h |
+| 128 |  | Volumenstrom US gesamt | 1 |  l/h |
+| 129 |  | Volumenstrom US gesamt | 256 |  l/h |
+| 130 |  | Volumenstrom US gesamt | 65536 |  l/h |
+| 131 |  | Volumenstrom US gesamt | 16777216 |  l/h |
+| 132 |  | Volumenstrom | 1 |  l/h |
+| 133 |  | Volumenstrom | 256 |  l/h |
+| 134 |  | Volumenstrom | 65536 |  l/h |
+| 135 |  | Volumenstrom | 16777216 |  l/h |
+
+
+
 ### <a name="0010_5400_0100"></a>DFA (0x0010) <= DeltaTherm HC \[Regler\] (0x5400), command 0x0100
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 4 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 4 | 25.6 |  °C |
-| 8 |  | Temperatur Sensor 5 | 0.1 |  °C |
-| 9 |  | Temperatur Sensor 5 | 25.6 |  °C |
-| 10 |  | Temperatur Sensor 6 | 0.1 |  °C |
-| 11 |  | Temperatur Sensor 6 | 25.6 |  °C |
-| 12 |  | Temperatur Sensor 7 | 0.1 |  °C |
-| 13 |  | Temperatur Sensor 7 | 25.6 |  °C |
-| 14 |  | Temperatur Sensor 8 | 0.1 |  °C |
-| 15 |  | Temperatur Sensor 8 | 25.6 |  °C |
-| 16 |  | Temperatur Sensor 9 | 0.1 |  °C |
-| 17 |  | Temperatur Sensor 9 | 25.6 |  °C |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
+| 8 |  | Temperatur Sensor 5 | 1.0 |  °C |
+| 9 |  | Temperatur Sensor 5 | 256.0 |  °C |
+| 10 |  | Temperatur Sensor 6 | 1.0 |  °C |
+| 11 |  | Temperatur Sensor 6 | 256.0 |  °C |
+| 12 |  | Temperatur Sensor 7 | 1.0 |  °C |
+| 13 |  | Temperatur Sensor 7 | 256.0 |  °C |
+| 14 |  | Temperatur Sensor 8 | 1.0 |  °C |
+| 15 |  | Temperatur Sensor 8 | 256.0 |  °C |
+| 16 |  | Temperatur Sensor 9 | 1.0 |  °C |
+| 17 |  | Temperatur Sensor 9 | 256.0 |  °C |
 | 18 |  | Einstrahlung Sensor | 1 |  W/m² |
 | 19 |  | Einstrahlung Sensor | 256 |  W/m² |
-| 20 |  | Temperatur Sensor 11 | 0.1 |  °C |
-| 21 |  | Temperatur Sensor 11 | 25.6 |  °C |
-| 22 |  | Temperatur Sensor 12 | 0.1 |  °C |
-| 23 |  | Temperatur Sensor 12 | 25.6 |  °C |
+| 20 |  | Temperatur Sensor 11 | 1.0 |  °C |
+| 21 |  | Temperatur Sensor 11 | 256.0 |  °C |
+| 22 |  | Temperatur Sensor 12 | 1.0 |  °C |
+| 23 |  | Temperatur Sensor 12 | 256.0 |  °C |
 | 24 |  | Volumenstrom Sensor 1 | 1 |  l/h |
 | 25 |  | Volumenstrom Sensor 1 | 256 |  l/h |
 | 26 |  | Volumenstrom Sensor 1 | 65536 |  l/h |
@@ -2770,10 +3597,10 @@ title: VBus Packets
 | 33 |  | Volumenstrom Sensor 3 | 256 |  l/h |
 | 34 |  | Volumenstrom Sensor 3 | 65536 |  l/h |
 | 35 |  | Volumenstrom Sensor 3 | 16777216 |  l/h |
-| 36 |  | Druck Sensor 11 | 0.01 |  bar |
-| 37 |  | Druck Sensor 11 | 2.56 |  bar |
-| 38 |  | Druck Sensor 12 | 0.01 |  bar |
-| 39 |  | Druck Sensor 12 | 2.56 |  bar |
+| 36 |  | Druck Sensor 11 | 1.00 |  bar |
+| 37 |  | Druck Sensor 11 | 256.00 |  bar |
+| 38 |  | Druck Sensor 12 | 1.00 |  bar |
+| 39 |  | Druck Sensor 12 | 256.00 |  bar |
 | 40 |  | Drehzahl Relais 1 | 1 | % |
 | 41 |  | Drehzahl Relais 2 | 1 | % |
 | 42 |  | Drehzahl Relais 3 | 1 | % |
@@ -2800,8 +3627,8 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | TVorlaufSoll | 0.1 |  °C |
-| 1 |  | TVorlaufSoll | 25.6 |  °C |
+| 0 |  | TVorlaufSoll | 1.0 |  °C |
+| 1 |  | TVorlaufSoll | 256.0 |  °C |
 | 2 |  | Betriebsstatus | 1 |  |
 | 3 |  | Betriebsart | 1 |  |
 | 4 |  | Brennerstarts | 1 |  |
@@ -2838,14 +3665,14 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 4 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 4 | 25.6 |  °C |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
 | 8 |  | Betriebsstunden | 1 |  h |
 | 9 |  | Betriebsstunden | 256 |  h |
 | 10 |  | Drehzahl Relais 1 | 1 | % |
@@ -2858,14 +3685,14 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 4 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 4 | 25.6 |  °C |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
 | 8 |  | Drehzahl Relais 1 | 1 | % |
 | 9 |  | Drehzahl Relais 2 | 1 | % |
 | 10 |  | Mischer auf | 1 | % |
@@ -2884,18 +3711,18 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 4 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 4 | 25.6 |  °C |
-| 8 |  | Temperatur Sensor 5 | 0.1 |  °C |
-| 9 |  | Temperatur Sensor 5 | 25.6 |  °C |
-| 10 |  | Temperatur Sensor 6 | 0.1 |  °C |
-| 11 |  | Temperatur Sensor 6 | 25.6 |  °C |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
+| 8 |  | Temperatur Sensor 5 | 1.0 |  °C |
+| 9 |  | Temperatur Sensor 5 | 256.0 |  °C |
+| 10 |  | Temperatur Sensor 6 | 1.0 |  °C |
+| 11 |  | Temperatur Sensor 6 | 256.0 |  °C |
 | 12 | 0x01 | Relaisstatus 1 | 1 |  |
 | 12 | 0x02 | Relaisstatus 2 | 1 |  |
 | 12 | 0x04 | Relaisstatus 3 | 1 |  |
@@ -2931,18 +3758,18 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 4 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 4 | 25.6 |  °C |
-| 8 |  | Temperatur Sensor 5 | 0.1 |  °C |
-| 9 |  | Temperatur Sensor 5 | 25.6 |  °C |
-| 10 |  | Temperatur Sensor 6 | 0.1 |  °C |
-| 11 |  | Temperatur Sensor 6 | 25.6 |  °C |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
+| 8 |  | Temperatur Sensor 5 | 1.0 |  °C |
+| 9 |  | Temperatur Sensor 5 | 256.0 |  °C |
+| 10 |  | Temperatur Sensor 6 | 1.0 |  °C |
+| 11 |  | Temperatur Sensor 6 | 256.0 |  °C |
 | 12 | 0x01 | Relaisstatus 1 | 1 |  |
 | 12 | 0x02 | Relaisstatus 2 | 1 |  |
 | 12 | 0x04 | Relaisstatus 3 | 1 |  |
@@ -2974,22 +3801,22 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 4 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 4 | 25.6 |  °C |
-| 8 |  | Temperatur Sensor 5 | 0.1 |  °C |
-| 9 |  | Temperatur Sensor 5 | 25.6 |  °C |
-| 10 |  | Temperatur RPS | 0.1 |  °C |
-| 11 |  | Temperatur RPS | 25.6 |  °C |
-| 12 |  | Druck RPS | 0.1 |  bar |
-| 13 |  | Druck RPS | 25.6 |  bar |
-| 14 |  | Temperatur VFS | 0.1 |  °C |
-| 15 |  | Temperatur VFS | 25.6 |  °C |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
+| 8 |  | Temperatur Sensor 5 | 1.0 |  °C |
+| 9 |  | Temperatur Sensor 5 | 256.0 |  °C |
+| 10 |  | Temperatur RPS | 1.0 |  °C |
+| 11 |  | Temperatur RPS | 256.0 |  °C |
+| 12 |  | Druck RPS | 1.0 |  bar |
+| 13 |  | Druck RPS | 256.0 |  bar |
+| 14 |  | Temperatur VFS | 1.0 |  °C |
+| 15 |  | Temperatur VFS | 256.0 |  °C |
 | 16 |  | Durchfluss VFS | 1 |  l/h |
 | 16 |  | Durchfluss VFS | 1 |  l/h |
 | 17 |  | Durchfluss VFS | 256 |  l/h |
@@ -3056,8 +3883,8 @@ title: VBus Packets
 | 49 |  | Wärmemenge | 256 |  Wh |
 | 50 |  | Wärmemenge | 65536 |  Wh |
 | 51 |  | Wärmemenge | 16777216 |  Wh |
-| 52 |  | Version | 0.01 |  |
-| 53 |  | Version | 2.56 |  |
+| 52 |  | Version | 1.00 |  |
+| 53 |  | Version | 256.00 |  |
 | 54 |  | Systemzeit | 1 |  |
 | 55 |  | Systemzeit | 256 |  |
 | 56 |  | Datum | 1 |  |
@@ -3073,30 +3900,30 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 4 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 4 | 25.6 |  °C |
-| 8 |  | Temperatur Sensor 5 | 0.1 |  °C |
-| 9 |  | Temperatur Sensor 5 | 25.6 |  °C |
-| 10 |  | Temperatur Sensor 6 | 0.1 |  °C |
-| 11 |  | Temperatur Sensor 6 | 25.6 |  °C |
-| 12 |  | Temperatur Sensor 7 | 0.1 |  °C |
-| 13 |  | Temperatur Sensor 7 | 25.6 |  °C |
-| 14 |  | Temperatur Sensor 8 | 0.1 |  °C |
-| 15 |  | Temperatur Sensor 8 | 25.6 |  °C |
-| 16 |  | Temperatur Sensor 9 | 0.1 |  °C |
-| 17 |  | Temperatur Sensor 9 | 25.6 |  °C |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
+| 8 |  | Temperatur Sensor 5 | 1.0 |  °C |
+| 9 |  | Temperatur Sensor 5 | 256.0 |  °C |
+| 10 |  | Temperatur Sensor 6 | 1.0 |  °C |
+| 11 |  | Temperatur Sensor 6 | 256.0 |  °C |
+| 12 |  | Temperatur Sensor 7 | 1.0 |  °C |
+| 13 |  | Temperatur Sensor 7 | 256.0 |  °C |
+| 14 |  | Temperatur Sensor 8 | 1.0 |  °C |
+| 15 |  | Temperatur Sensor 8 | 256.0 |  °C |
+| 16 |  | Temperatur Sensor 9 | 1.0 |  °C |
+| 17 |  | Temperatur Sensor 9 | 256.0 |  °C |
 | 18 |  | Einstrahlung Sensor 10 | 1 |  W/m² |
 | 19 |  | Einstrahlung Sensor 10 | 256 |  W/m² |
-| 20 |  | Temperatur Sensor 11 | 0.1 |  °C |
-| 21 |  | Temperatur Sensor 11 | 25.6 |  °C |
-| 22 |  | Temperatur Sensor 12 | 0.1 |  °C |
-| 23 |  | Temperatur Sensor 12 | 25.6 |  °C |
+| 20 |  | Temperatur Sensor 11 | 1.0 |  °C |
+| 21 |  | Temperatur Sensor 11 | 256.0 |  °C |
+| 22 |  | Temperatur Sensor 12 | 1.0 |  °C |
+| 23 |  | Temperatur Sensor 12 | 256.0 |  °C |
 | 24 |  | Volumenstrom Sensor 9 | 1 |  l/h |
 | 25 |  | Volumenstrom Sensor 9 | 256 |  l/h |
 | 26 |  | Volumenstrom Sensor 9 | 65536 |  l/h |
@@ -3109,10 +3936,10 @@ title: VBus Packets
 | 33 |  | Volumenstrom Sensor 12 | 256 |  l/h |
 | 34 |  | Volumenstrom Sensor 12 | 65536 |  l/h |
 | 35 |  | Volumenstrom Sensor 12 | 16777216 |  l/h |
-| 36 |  | Druck Sensor 11 | 0.01 |  bar |
-| 37 |  | Druck Sensor 11 | 2.56 |  bar |
-| 38 |  | Druck Sensor 12 | 0.01 |  bar |
-| 39 |  | Druck Sensor 12 | 2.56 |  bar |
+| 36 |  | Druck Sensor 11 | 1.00 |  bar |
+| 37 |  | Druck Sensor 11 | 256.00 |  bar |
+| 38 |  | Druck Sensor 12 | 1.00 |  bar |
+| 39 |  | Druck Sensor 12 | 256.00 |  bar |
 | 40 |  | Relais 1 | 1 | % |
 | 41 |  | Relais 2 | 1 | % |
 | 42 |  | Relais 3 | 1 | % |
@@ -3135,30 +3962,30 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Modul 1 Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Modul 1 Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Modul 1 Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Modul 1 Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Modul 1 Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Modul 1 Sensor 3 | 25.6 |  °C |
-| 6 |  | Temperatur Modul 1 Sensor 4 | 0.1 |  °C |
-| 7 |  | Temperatur Modul 1 Sensor 4 | 25.6 |  °C |
-| 8 |  | Temperatur Modul 1 Sensor 5 | 0.1 |  °C |
-| 9 |  | Temperatur Modul 1 Sensor 5 | 25.6 |  °C |
-| 10 |  | Temperatur Modul 1 Sensor 6 | 0.1 |  °C |
-| 11 |  | Temperatur Modul 1 Sensor 6 | 25.6 |  °C |
-| 12 |  | Temperatur Modul 2 Sensor 1 | 0.1 |  °C |
-| 13 |  | Temperatur Modul 2 Sensor 1 | 25.6 |  °C |
-| 14 |  | Temperatur Modul 2 Sensor 2 | 0.1 |  °C |
-| 15 |  | Temperatur Modul 2 Sensor 2 | 25.6 |  °C |
-| 16 |  | Temperatur Modul 2 Sensor 3 | 0.1 |  °C |
-| 17 |  | Temperatur Modul 2 Sensor 3 | 25.6 |  °C |
-| 18 |  | Temperatur Modul 2 Sensor 4 | 0.1 |  °C |
-| 19 |  | Temperatur Modul 2 Sensor 4 | 25.6 |  °C |
-| 20 |  | Temperatur Modul 2 Sensor 5 | 0.1 |  °C |
-| 21 |  | Temperatur Modul 2 Sensor 5 | 25.6 |  °C |
-| 22 |  | Temperatur Modul 2 Sensor 6 | 0.1 |  °C |
-| 23 |  | Temperatur Modul 2 Sensor 6 | 25.6 |  °C |
+| 0 |  | Temperatur Modul 1 Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Modul 1 Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Modul 1 Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Modul 1 Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Modul 1 Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Modul 1 Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Modul 1 Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Modul 1 Sensor 4 | 256.0 |  °C |
+| 8 |  | Temperatur Modul 1 Sensor 5 | 1.0 |  °C |
+| 9 |  | Temperatur Modul 1 Sensor 5 | 256.0 |  °C |
+| 10 |  | Temperatur Modul 1 Sensor 6 | 1.0 |  °C |
+| 11 |  | Temperatur Modul 1 Sensor 6 | 256.0 |  °C |
+| 12 |  | Temperatur Modul 2 Sensor 1 | 1.0 |  °C |
+| 13 |  | Temperatur Modul 2 Sensor 1 | 256.0 |  °C |
+| 14 |  | Temperatur Modul 2 Sensor 2 | 1.0 |  °C |
+| 15 |  | Temperatur Modul 2 Sensor 2 | 256.0 |  °C |
+| 16 |  | Temperatur Modul 2 Sensor 3 | 1.0 |  °C |
+| 17 |  | Temperatur Modul 2 Sensor 3 | 256.0 |  °C |
+| 18 |  | Temperatur Modul 2 Sensor 4 | 1.0 |  °C |
+| 19 |  | Temperatur Modul 2 Sensor 4 | 256.0 |  °C |
+| 20 |  | Temperatur Modul 2 Sensor 5 | 1.0 |  °C |
+| 21 |  | Temperatur Modul 2 Sensor 5 | 256.0 |  °C |
+| 22 |  | Temperatur Modul 2 Sensor 6 | 1.0 |  °C |
+| 23 |  | Temperatur Modul 2 Sensor 6 | 256.0 |  °C |
 
 
 
@@ -3166,8 +3993,8 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Vorlauf-Soll-Temperatur | 0.1 |  °C |
-| 1 |  | Vorlauf-Soll-Temperatur | 25.6 |  °C |
+| 0 |  | Vorlauf-Soll-Temperatur | 1.0 |  °C |
+| 1 |  | Vorlauf-Soll-Temperatur | 256.0 |  °C |
 | 2 |  | Betriebsstatus | 1 |  |
 
 
@@ -3199,24 +4026,24 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 4 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 4 | 25.6 |  °C |
-| 8 |  | Temperatur Sensor 5 | 0.1 |  °C |
-| 9 |  | Temperatur Sensor 5 | 25.6 |  °C |
-| 10 |  | Temperatur Sensor 6 | 0.1 |  °C |
-| 11 |  | Temperatur Sensor 6 | 25.6 |  °C |
-| 12 |  | Temperatur Sensor 7 | 0.1 |  °C |
-| 13 |  | Temperatur Sensor 7 | 25.6 |  °C |
-| 14 |  | Temperatur Sensor 8 | 0.1 |  °C |
-| 15 |  | Temperatur Sensor 8 | 25.6 |  °C |
-| 16 |  | Temperatur Sensor 9 | 0.1 |  °C |
-| 17 |  | Temperatur Sensor 9 | 25.6 |  °C |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
+| 8 |  | Temperatur Sensor 5 | 1.0 |  °C |
+| 9 |  | Temperatur Sensor 5 | 256.0 |  °C |
+| 10 |  | Temperatur Sensor 6 | 1.0 |  °C |
+| 11 |  | Temperatur Sensor 6 | 256.0 |  °C |
+| 12 |  | Temperatur Sensor 7 | 1.0 |  °C |
+| 13 |  | Temperatur Sensor 7 | 256.0 |  °C |
+| 14 |  | Temperatur Sensor 8 | 1.0 |  °C |
+| 15 |  | Temperatur Sensor 8 | 256.0 |  °C |
+| 16 |  | Temperatur Sensor 9 | 1.0 |  °C |
+| 17 |  | Temperatur Sensor 9 | 256.0 |  °C |
 | 18 |  | Einstrahlung Sensor 10 | 1 |  W/m² |
 | 19 |  | Einstrahlung Sensor 10 | 256 |  W/m² |
 | 20 |  | Volumenstrom Sensor 10 | 1 |  l/h |
@@ -3260,22 +4087,22 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 4 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 4 | 25.6 |  °C |
-| 8 |  | Temperatur Sensor 5 | 0.1 |  °C |
-| 9 |  | Temperatur Sensor 5 | 25.6 |  °C |
-| 10 |  | Temperatur Sensor 6 | 0.1 |  °C |
-| 11 |  | Temperatur Sensor 6 | 25.6 |  °C |
-| 12 |  | Temperatur Sensor 7 | 0.1 |  °C |
-| 13 |  | Temperatur Sensor 7 | 25.6 |  °C |
-| 14 |  | Temperatur Sensor 8 | 0.1 |  °C |
-| 15 |  | Temperatur Sensor 8 | 25.6 |  °C |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
+| 8 |  | Temperatur Sensor 5 | 1.0 |  °C |
+| 9 |  | Temperatur Sensor 5 | 256.0 |  °C |
+| 10 |  | Temperatur Sensor 6 | 1.0 |  °C |
+| 11 |  | Temperatur Sensor 6 | 256.0 |  °C |
+| 12 |  | Temperatur Sensor 7 | 1.0 |  °C |
+| 13 |  | Temperatur Sensor 7 | 256.0 |  °C |
+| 14 |  | Temperatur Sensor 8 | 1.0 |  °C |
+| 15 |  | Temperatur Sensor 8 | 256.0 |  °C |
 | 16 |  | Einstrahlung | 1 |  W/m² |
 | 17 |  | Einstrahlung | 256 |  W/m² |
 | 18 |  | Volumenstrom | 1 |  l/h |
@@ -3295,10 +4122,10 @@ title: VBus Packets
 | 32 |  | Fehlermaske | 1 |  |
 | 33 |  | Sensorbruch-Nummer | 1 |  |
 | 34 |  | Sensorkurzschluss-Nummer | 1 |  |
-| 36 |  | Temperatur GFD1 | 0.1 |  °C |
-| 37 |  | Temperatur GFD1 | 25.6 |  °C |
-| 38 |  | Temperatur GFD2 | 0.1 |  °C |
-| 39 |  | Temperatur GFD2 | 25.6 |  °C |
+| 36 |  | Temperatur GFD1 | 1.0 |  °C |
+| 37 |  | Temperatur GFD1 | 256.0 |  °C |
+| 38 |  | Temperatur GFD2 | 1.0 |  °C |
+| 39 |  | Temperatur GFD2 | 256.0 |  °C |
 | 42 |  | Systemzeit2 | 1 |  |
 | 42 |  | Systemzeit | 1 |  |
 | 43 |  | Systemzeit | 256 |  |
@@ -3311,14 +4138,14 @@ title: VBus Packets
 | 49 |  | Volumenstrom 3 | 256 |  l/h |
 | 50 |  | Volumenstrom 3 | 65536 |  l/h |
 | 51 |  | Volumenstrom 3 | 16777216 |  l/h |
-| 52 |  | Leistung 2 | 0.001 |  kW |
-| 53 |  | Leistung 2 | 0.256 |  kW |
-| 54 |  | Leistung 2 | 65.536 |  kW |
-| 55 |  | Leistung 2 | 16777.216 |  kW |
-| 56 |  | Leistung 3 | 0.001 |  kW |
-| 57 |  | Leistung 3 | 0.256 |  kW |
-| 58 |  | Leistung 3 | 65.536 |  kW |
-| 59 |  | Leistung 3 | 16777.216 |  kW |
+| 52 |  | Leistung 2 | 1.000 |  kW |
+| 53 |  | Leistung 2 | 256.000 |  kW |
+| 54 |  | Leistung 2 | 65536.000 |  kW |
+| 55 |  | Leistung 2 | 16777216.000 |  kW |
+| 56 |  | Leistung 3 | 1.000 |  kW |
+| 57 |  | Leistung 3 | 256.000 |  kW |
+| 58 |  | Leistung 3 | 65536.000 |  kW |
+| 59 |  | Leistung 3 | 16777216.000 |  kW |
 | 60 |  | Wärme 2 | 1 |  Wh |
 | 61 |  | Wärme 2 | 256 |  Wh |
 | 62 |  | Wärme 2 | 1000 |  Wh |
@@ -3342,8 +4169,8 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Vorlaufsolltemperatur | 0.1 |  °C |
-| 1 |  | Vorlaufsolltemperatur | 25.6 |  °C |
+| 0 |  | Vorlaufsolltemperatur | 1.0 |  °C |
+| 1 |  | Vorlaufsolltemperatur | 256.0 |  °C |
 | 2 |  | Mischerlaufzeit | 1 |  s |
 | 3 |  | Mischerpausenzeit | 1 |  s |
 | 4 |  | HK-Status | 1 |  |
@@ -3355,8 +4182,8 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Vorlaufsolltemperatur | 0.1 |  °C |
-| 1 |  | Vorlaufsolltemperatur | 25.6 |  °C |
+| 0 |  | Vorlaufsolltemperatur | 1.0 |  °C |
+| 1 |  | Vorlaufsolltemperatur | 256.0 |  °C |
 | 2 |  | Mischerlaufzeit | 1 |  s |
 | 3 |  | Mischerpausenzeit | 1 |  s |
 | 4 |  | HK-Status | 1 |  |
@@ -3368,8 +4195,8 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Vorlaufsolltemperatur | 0.1 |  °C |
-| 1 |  | Vorlaufsolltemperatur | 25.6 |  °C |
+| 0 |  | Vorlaufsolltemperatur | 1.0 |  °C |
+| 1 |  | Vorlaufsolltemperatur | 256.0 |  °C |
 | 2 |  | Mischerlaufzeit | 1 |  s |
 | 3 |  | Mischerpausenzeit | 1 |  s |
 | 4 |  | HK-Status | 1 |  |
@@ -3377,26 +4204,193 @@ title: VBus Packets
 
 
 
+### <a name="0010_7176_0100"></a>DFA (0x0010) <= DeltaSol BX Plus V2A \[Regler\] (0x7176), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
+| 8 |  | Temperatur Sensor 5 | 1.0 |  °C |
+| 9 |  | Temperatur Sensor 5 | 256.0 |  °C |
+| 10 |  | Temperatur Sensor 6 | 1.0 |  °C |
+| 11 |  | Temperatur Sensor 6 | 256.0 |  °C |
+| 12 |  | Temperatur Sensor 7 | 1.0 |  °C |
+| 13 |  | Temperatur Sensor 7 | 256.0 |  °C |
+| 14 |  | Temperatur Sensor 8 | 1.0 |  °C |
+| 15 |  | Temperatur Sensor 8 | 256.0 |  °C |
+| 16 |  | Temperatur Sensor 9 | 1.0 |  °C |
+| 17 |  | Temperatur Sensor 9 | 256.0 |  °C |
+| 18 |  | Temperatur Sensor 10 | 1.0 |  °C |
+| 19 |  | Temperatur Sensor 10 | 256.0 |  °C |
+| 20 |  | Einstrahlung Sensor 11 | 1 |  W/m² |
+| 21 |  | Einstrahlung Sensor 11 | 256 |  W/m² |
+| 24 |  | Temperatur Sensor Ga1 | 1.0 |  °C |
+| 25 |  | Temperatur Sensor Ga1 | 256.0 |  °C |
+| 26 |  | Temperatur Sensor Ga2 | 1.0 |  °C |
+| 27 |  | Temperatur Sensor Ga2 | 256.0 |  °C |
+| 28 |  | Volumenstrom Sensor 9 | 1 |  l/h |
+| 29 |  | Volumenstrom Sensor 9 | 256 |  l/h |
+| 30 |  | Volumenstrom Sensor 9 | 65536 |  l/h |
+| 31 |  | Volumenstrom Sensor 9 | 16777216 |  l/h |
+| 32 |  | Volumenstrom Sensor 10 | 1 |  l/h |
+| 33 |  | Volumenstrom Sensor 10 | 256 |  l/h |
+| 34 |  | Volumenstrom Sensor 10 | 65536 |  l/h |
+| 35 |  | Volumenstrom Sensor 10 | 16777216 |  l/h |
+| 36 |  | Volumenstrom Sensor Ga1 | 1 |  l/h |
+| 37 |  | Volumenstrom Sensor Ga1 | 256 |  l/h |
+| 38 |  | Volumenstrom Sensor Ga1 | 65536 |  l/h |
+| 39 |  | Volumenstrom Sensor Ga1 | 16777216 |  l/h |
+| 40 |  | Volumenstrom Sensor Ga2 | 1 |  l/h |
+| 41 |  | Volumenstrom Sensor Ga2 | 256 |  l/h |
+| 42 |  | Volumenstrom Sensor Ga2 | 65536 |  l/h |
+| 43 |  | Volumenstrom Sensor Ga2 | 16777216 |  l/h |
+| 44 |  | Druck Sensor Ga1 | 1.00 |  bar |
+| 45 |  | Druck Sensor Ga1 | 256.00 |  bar |
+| 46 |  | Druck Sensor Ga2 | 1.00 |  bar |
+| 47 |  | Druck Sensor Ga2 | 256.00 |  bar |
+| 48 |  | Relais 1 | 1 | % |
+| 49 |  | Relais 2 | 1 | % |
+| 50 |  | Relais 3 | 1 | % |
+| 51 |  | Relais 4 | 1 | % |
+| 52 |  | Relais 5 | 1 | % |
+| 56 |  | Systemdatum | 1 |  |
+| 57 |  | Systemdatum | 256 |  |
+| 58 |  | Systemdatum | 65536 |  |
+| 59 |  | Systemdatum | 16777216 |  |
+| 60 |  | Fehlermaske | 1 |  |
+| 61 |  | Fehlermaske | 256 |  |
+| 62 |  | Fehlermaske | 65536 |  |
+| 63 |  | Fehlermaske | 16777216 |  |
+| 72 |  | PWM/0-10V A | 1 | % |
+| 73 |  | PWM/0-10V B | 1 | % |
+| 74 |  | PWM/0-10V C | 1 | % |
+| 75 |  | PWM/0-10V D | 1 | % |
+
+
+
+### <a name="0010_7177_0100"></a>DFA (0x0010) <= DeltaSol BX Plus V2A \[Module\] (0x7177), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Temperatur Modul 1 Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Modul 1 Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Modul 1 Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Modul 1 Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Modul 1 Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Modul 1 Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Modul 1 Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Modul 1 Sensor 4 | 256.0 |  °C |
+| 8 |  | Temperatur Modul 1 Sensor 5 | 1.0 |  °C |
+| 9 |  | Temperatur Modul 1 Sensor 5 | 256.0 |  °C |
+| 10 |  | Temperatur Modul 1 Sensor 6 | 1.0 |  °C |
+| 11 |  | Temperatur Modul 1 Sensor 6 | 256.0 |  °C |
+| 12 |  | Temperatur Modul 2 Sensor 1 | 1.0 |  °C |
+| 13 |  | Temperatur Modul 2 Sensor 1 | 256.0 |  °C |
+| 14 |  | Temperatur Modul 2 Sensor 2 | 1.0 |  °C |
+| 15 |  | Temperatur Modul 2 Sensor 2 | 256.0 |  °C |
+| 16 |  | Temperatur Modul 2 Sensor 3 | 1.0 |  °C |
+| 17 |  | Temperatur Modul 2 Sensor 3 | 256.0 |  °C |
+| 18 |  | Temperatur Modul 2 Sensor 4 | 1.0 |  °C |
+| 19 |  | Temperatur Modul 2 Sensor 4 | 256.0 |  °C |
+| 20 |  | Temperatur Modul 2 Sensor 5 | 1.0 |  °C |
+| 21 |  | Temperatur Modul 2 Sensor 5 | 256.0 |  °C |
+| 22 |  | Temperatur Modul 2 Sensor 6 | 1.0 |  °C |
+| 23 |  | Temperatur Modul 2 Sensor 6 | 256.0 |  °C |
+
+
+
+### <a name="0010_7178_0100"></a>DFA (0x0010) <= DeltaSol BX Plus V2A \[Heizkreis 1\] (0x7178), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Vorlauf-Soll-Temperatur | 1.0 |  °C |
+| 1 |  | Vorlauf-Soll-Temperatur | 256.0 |  °C |
+| 2 |  | Betriebsstatus | 1 |  |
+
+
+
+### <a name="0010_7179_0100"></a>DFA (0x0010) <= DeltaSol BX Plus V2A \[Heizkreis 2\] (0x7179), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Vorlauf-Soll-Temperatur | 1.0 |  °C |
+| 1 |  | Vorlauf-Soll-Temperatur | 256.0 |  °C |
+| 2 |  | Betriebsstatus | 1 |  |
+
+
+
+### <a name="0010_717A_0100"></a>DFA (0x0010) <= DeltaSol BX Plus V2A \[WMZ 1\] (0x717A), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Wärmemenge | 1 |  Wh |
+| 1 |  | Wärmemenge | 256 |  Wh |
+| 2 |  | Wärmemenge | 65536 |  Wh |
+| 3 |  | Wärmemenge | 16777216 |  Wh |
+| 8 |  | Wärmemenge heute | 1 |  Wh |
+| 9 |  | Wärmemenge heute | 256 |  Wh |
+| 10 |  | Wärmemenge heute | 65536 |  Wh |
+| 11 |  | Wärmemenge heute | 16777216 |  Wh |
+| 12 |  | Wärmemenge Woche | 1 |  Wh |
+| 13 |  | Wärmemenge Woche | 256 |  Wh |
+| 14 |  | Wärmemenge Woche | 65536 |  Wh |
+| 15 |  | Wärmemenge Woche | 16777216 |  Wh |
+| 16 |  | Gesamtvolumen | 1 |  l |
+| 17 |  | Gesamtvolumen | 256 |  l |
+| 18 |  | Gesamtvolumen | 65536 |  l |
+| 19 |  | Gesamtvolumen | 16777216 |  l |
+
+
+
+### <a name="0010_717B_0100"></a>DFA (0x0010) <= DeltaSol BX Plus V2A \[WMZ 2\] (0x717B), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Wärmemenge | 1 |  Wh |
+| 1 |  | Wärmemenge | 256 |  Wh |
+| 2 |  | Wärmemenge | 65536 |  Wh |
+| 3 |  | Wärmemenge | 16777216 |  Wh |
+| 8 |  | Wärmemenge heute | 1 |  Wh |
+| 9 |  | Wärmemenge heute | 256 |  Wh |
+| 10 |  | Wärmemenge heute | 65536 |  Wh |
+| 11 |  | Wärmemenge heute | 16777216 |  Wh |
+| 12 |  | Wärmemenge Woche | 1 |  Wh |
+| 13 |  | Wärmemenge Woche | 256 |  Wh |
+| 14 |  | Wärmemenge Woche | 65536 |  Wh |
+| 15 |  | Wärmemenge Woche | 16777216 |  Wh |
+| 16 |  | Gesamtvolumen | 1 |  l |
+| 17 |  | Gesamtvolumen | 256 |  l |
+| 18 |  | Gesamtvolumen | 65536 |  l |
+| 19 |  | Gesamtvolumen | 16777216 |  l |
+
+
+
 ### <a name="0010_7210_0100"></a>DFA (0x0010) <= SKSR 1/2/3 (0x7210), command 0x0100
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 4 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 4 | 25.6 |  °C |
-| 8 |  | Temperatur Sensor 5 | 0.1 |  °C |
-| 9 |  | Temperatur Sensor 5 | 25.6 |  °C |
-| 10 |  | Temperatur Sensor 6 | 0.1 |  °C |
-| 11 |  | Temperatur Sensor 6 | 25.6 |  °C |
-| 12 |  | Temperatur Sensor 7 | 0.1 |  °C |
-| 13 |  | Temperatur Sensor 7 | 25.6 |  °C |
-| 14 |  | Temperatur Sensor 8 | 0.1 |  °C |
-| 15 |  | Temperatur Sensor 8 | 25.6 |  °C |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
+| 8 |  | Temperatur Sensor 5 | 1.0 |  °C |
+| 9 |  | Temperatur Sensor 5 | 256.0 |  °C |
+| 10 |  | Temperatur Sensor 6 | 1.0 |  °C |
+| 11 |  | Temperatur Sensor 6 | 256.0 |  °C |
+| 12 |  | Temperatur Sensor 7 | 1.0 |  °C |
+| 13 |  | Temperatur Sensor 7 | 256.0 |  °C |
+| 14 |  | Temperatur Sensor 8 | 1.0 |  °C |
+| 15 |  | Temperatur Sensor 8 | 256.0 |  °C |
 | 16 |  | Einstrahlung | 1 |  W/m² |
 | 17 |  | Einstrahlung | 256 |  W/m² |
 | 18 |  | Volumenstrom | 1 |  l/h |
@@ -3427,8 +4421,8 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Vorlaufsolltemperatur | 0.1 |  °C |
-| 1 |  | Vorlaufsolltemperatur | 25.6 |  °C |
+| 0 |  | Vorlaufsolltemperatur | 1.0 |  °C |
+| 1 |  | Vorlaufsolltemperatur | 256.0 |  °C |
 | 2 |  | Mischerlaufzeit | 1 |  s |
 | 3 |  | Mischerpausenzeit | 1 |  s |
 | 4 |  | HK-Status | 1 |  |
@@ -3440,8 +4434,8 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Vorlaufsolltemperatur | 0.1 |  °C |
-| 1 |  | Vorlaufsolltemperatur | 25.6 |  °C |
+| 0 |  | Vorlaufsolltemperatur | 1.0 |  °C |
+| 1 |  | Vorlaufsolltemperatur | 256.0 |  °C |
 | 2 |  | Mischerlaufzeit | 1 |  s |
 | 3 |  | Mischerpausenzeit | 1 |  s |
 | 4 |  | HK-Status | 1 |  |
@@ -3453,8 +4447,8 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Vorlaufsolltemperatur | 0.1 |  °C |
-| 1 |  | Vorlaufsolltemperatur | 25.6 |  °C |
+| 0 |  | Vorlaufsolltemperatur | 1.0 |  °C |
+| 1 |  | Vorlaufsolltemperatur | 256.0 |  °C |
 | 2 |  | Mischerlaufzeit | 1 |  s |
 | 3 |  | Mischerpausenzeit | 1 |  s |
 | 4 |  | HK-Status | 1 |  |
@@ -3466,20 +4460,20 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 4 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 4 | 25.6 |  °C |
-| 8 |  | Temperatur Sensor 5 | 0.1 |  °C |
-| 9 |  | Temperatur Sensor 5 | 25.6 |  °C |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
+| 8 |  | Temperatur Sensor 5 | 1.0 |  °C |
+| 9 |  | Temperatur Sensor 5 | 256.0 |  °C |
 | 10 |  | Volumenstrom | 1 |  l/h |
 | 11 |  | Volumenstrom | 256 |  l/h |
-| 12 |  | Systemdruck | 0.1 |  bar |
-| 13 |  | Systemdruck | 25.6 |  bar |
+| 12 |  | Systemdruck | 1.0 |  bar |
+| 13 |  | Systemdruck | 256.0 |  bar |
 | 14 |  | Ansteuerung 1 | 1 | % |
 | 15 |  | Ansteuerung 2 | 1 | % |
 | 16 |  | Drehzahl Relais 1 | 1 | % |
@@ -3490,7 +4484,7 @@ title: VBus Packets
 | 21 |  | Wärmemenge | 256 |  Wh |
 | 22 |  | Wärmemenge | 65536 |  Wh |
 | 23 |  | Wärmemenge | 16777216 |  Wh |
-| 36 |  | Version | 0.01 |  |
+| 36 |  | Version | 1.00 |  |
 | 38 |  | Uhrzeit | 1 |  |
 | 39 |  | Uhrzeit | 256 |  |
 | 40 |  | Datum | 1 |  |
@@ -3504,22 +4498,22 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 4 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 4 | 25.6 |  °C |
-| 8 |  | Temperatur Sensor 5 | 0.1 |  °C |
-| 9 |  | Temperatur Sensor 5 | 25.6 |  °C |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
+| 8 |  | Temperatur Sensor 5 | 1.0 |  °C |
+| 9 |  | Temperatur Sensor 5 | 256.0 |  °C |
 | 10 |  | Volumenstrom | 1 |  l/h |
 | 11 |  | Volumenstrom | 256 |  l/h |
-| 12 |  | Systemdruck | 0.1 |  bar |
-| 13 |  | Systemdruck | 25.6 |  bar |
-| 14 |  | Temperatur Sensor 8 | 0.1 |  °C |
-| 15 |  | Temperatur Sensor 8 | 25.6 |  °C |
+| 12 |  | Systemdruck | 1.0 |  bar |
+| 13 |  | Systemdruck | 256.0 |  bar |
+| 14 |  | Temperatur Sensor 8 | 1.0 |  °C |
+| 15 |  | Temperatur Sensor 8 | 256.0 |  °C |
 | 16 |  | Ansteuerung 1 | 1 | % |
 | 17 |  | Ansteuerung 2 | 1 | % |
 | 18 |  | Drehzahl Relais 1 | 1 | % |
@@ -3556,8 +4550,8 @@ title: VBus Packets
 | 36 | 0x40 | Volumenstrom\(S7\) defekt | 1 |  |
 | 36 | 0x80 | Durchfluss | 1 |  |
 | 37 | 0x01 | Leckage | 1 |  |
-| 40 |  | Version | 0.01 |  |
-| 41 |  | Version | 2.56 |  |
+| 40 |  | Version | 1.00 |  |
+| 41 |  | Version | 256.00 |  |
 | 42 |  | Uhrzeit | 1 |  |
 | 43 |  | Uhrzeit | 256 |  |
 | 44 |  | Datum | 1 |  |
@@ -3571,30 +4565,30 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 4 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 4 | 25.6 |  °C |
-| 8 |  | Temperatur Sensor 5 | 0.1 |  °C |
-| 9 |  | Temperatur Sensor 5 | 25.6 |  °C |
-| 10 |  | Temperatur Sensor 6 | 0.1 |  °C |
-| 11 |  | Temperatur Sensor 6 | 25.6 |  °C |
-| 12 |  | Temperatur Sensor 7 | 0.1 |  °C |
-| 13 |  | Temperatur Sensor 7 | 25.6 |  °C |
-| 14 |  | Temperatur Sensor 8 | 0.1 |  °C |
-| 15 |  | Temperatur Sensor 8 | 25.6 |  °C |
-| 16 |  | Temperatur Sensor 9 | 0.1 |  °C |
-| 17 |  | Temperatur Sensor 9 | 25.6 |  °C |
-| 18 |  | Temperatur Sensor 10 | 0.1 |  °C |
-| 19 |  | Temperatur Sensor 10 | 25.6 |  °C |
-| 20 |  | Temperatur Sensor 11 | 0.1 |  °C |
-| 21 |  | Temperatur Sensor 11 | 25.6 |  °C |
-| 22 |  | Temperatur Sensor 12 | 0.1 |  °C |
-| 23 |  | Temperatur Sensor 12 | 25.6 |  °C |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
+| 8 |  | Temperatur Sensor 5 | 1.0 |  °C |
+| 9 |  | Temperatur Sensor 5 | 256.0 |  °C |
+| 10 |  | Temperatur Sensor 6 | 1.0 |  °C |
+| 11 |  | Temperatur Sensor 6 | 256.0 |  °C |
+| 12 |  | Temperatur Sensor 7 | 1.0 |  °C |
+| 13 |  | Temperatur Sensor 7 | 256.0 |  °C |
+| 14 |  | Temperatur Sensor 8 | 1.0 |  °C |
+| 15 |  | Temperatur Sensor 8 | 256.0 |  °C |
+| 16 |  | Temperatur Sensor 9 | 1.0 |  °C |
+| 17 |  | Temperatur Sensor 9 | 256.0 |  °C |
+| 18 |  | Temperatur Sensor 10 | 1.0 |  °C |
+| 19 |  | Temperatur Sensor 10 | 256.0 |  °C |
+| 20 |  | Temperatur Sensor 11 | 1.0 |  °C |
+| 21 |  | Temperatur Sensor 11 | 256.0 |  °C |
+| 22 |  | Temperatur Sensor 12 | 1.0 |  °C |
+| 23 |  | Temperatur Sensor 12 | 256.0 |  °C |
 | 24 |  | Einstrahlung | 1 |  W/m² |
 | 25 |  | Einstrahlung | 256 |  W/m² |
 | 28 |  | Impulseingang 1 | 1 |  |
@@ -3637,16 +4631,16 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Vorlauftemperatur | 0.1 |  °C |
-| 1 |  | Vorlauftemperatur | 25.6 |  °C |
-| 2 |  | Fernversteller | 0.1 |  K |
-| 3 |  | Fernversteller | 25.6 |  K |
-| 4 |  | Aussentemperatur | 0.1 |  °C |
-| 5 |  | Aussentemperatur | 25.6 |  °C |
-| 6 |  | Speichertemperatur | 0.1 |  °C |
-| 7 |  | Speichertemperatur | 25.6 |  °C |
-| 8 |  | Vorlaufsolltemperatur | 0.1 |  °C |
-| 9 |  | Vorlaufsolltemperatur | 25.6 |  °C |
+| 0 |  | Vorlauftemperatur | 1.0 |  °C |
+| 1 |  | Vorlauftemperatur | 256.0 |  °C |
+| 2 |  | Fernversteller | 1.0 |  K |
+| 3 |  | Fernversteller | 256.0 |  K |
+| 4 |  | Aussentemperatur | 1.0 |  °C |
+| 5 |  | Aussentemperatur | 256.0 |  °C |
+| 6 |  | Speichertemperatur | 1.0 |  °C |
+| 7 |  | Speichertemperatur | 256.0 |  °C |
+| 8 |  | Vorlaufsolltemperatur | 1.0 |  °C |
+| 9 |  | Vorlaufsolltemperatur | 256.0 |  °C |
 | 10 |  | Relaismaske | 1 |  |
 
 
@@ -3691,14 +4685,14 @@ title: VBus Packets
 | 33 |  | Betriebssekunden R9 | 256 |  s |
 | 34 |  | Betriebssekunden R9 | 65536 |  s |
 | 35 |  | Betriebssekunden R9 | 16777216 |  s |
-| 36 |  | Volumen 1 | 0.1 |  l |
-| 37 |  | Volumen 1 | 25.6 |  l |
-| 38 |  | Volumen 1 | 6553.6 |  l |
-| 39 |  | Volumen 1 | 1677721.6 |  l |
-| 40 |  | Volumen 2 | 0.1 |  l |
-| 41 |  | Volumen 2 | 25.6 |  l |
-| 42 |  | Volumen 2 | 6553.6 |  l |
-| 43 |  | Volumen 2 | 1677721.6 |  l |
+| 36 |  | Volumen 1 | 1.0 |  l |
+| 37 |  | Volumen 1 | 256.0 |  l |
+| 38 |  | Volumen 1 | 65536.0 |  l |
+| 39 |  | Volumen 1 | 16777216.0 |  l |
+| 40 |  | Volumen 2 | 1.0 |  l |
+| 41 |  | Volumen 2 | 256.0 |  l |
+| 42 |  | Volumen 2 | 65536.0 |  l |
+| 43 |  | Volumen 2 | 16777216.0 |  l |
 
 
 
@@ -3706,10 +4700,10 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Vorlauftemperatur | 0.1 |  °C |
-| 1 |  | Vorlauftemperatur | 25.6 |  °C |
-| 2 |  | Rücklauftemperatur | 0.1 |  °C |
-| 3 |  | Rücklauftemperatur | 25.6 |  °C |
+| 0 |  | Vorlauftemperatur | 1.0 |  °C |
+| 1 |  | Vorlauftemperatur | 256.0 |  °C |
+| 2 |  | Rücklauftemperatur | 1.0 |  °C |
+| 3 |  | Rücklauftemperatur | 256.0 |  °C |
 | 4 |  | Volumenstrom | 1 |  l/h |
 | 5 |  | Volumenstrom | 256 |  l/h |
 | 6 |  | Wärme | 1 |  Wh |
@@ -3725,30 +4719,30 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 4 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 4 | 25.6 |  °C |
-| 8 |  | Temperatur Sensor 5 | 0.1 |  °C |
-| 9 |  | Temperatur Sensor 5 | 25.6 |  °C |
-| 10 |  | Temperatur Sensor 6 | 0.1 |  °C |
-| 11 |  | Temperatur Sensor 6 | 25.6 |  °C |
-| 12 |  | Temperatur Sensor 7 | 0.1 |  °C |
-| 13 |  | Temperatur Sensor 7 | 25.6 |  °C |
-| 14 |  | Temperatur Sensor 8 | 0.1 |  °C |
-| 15 |  | Temperatur Sensor 8 | 25.6 |  °C |
-| 16 |  | Temperatur Sensor 9 | 0.1 |  °C |
-| 17 |  | Temperatur Sensor 9 | 25.6 |  °C |
-| 18 |  | Temperatur Sensor 10 | 0.1 |  °C |
-| 19 |  | Temperatur Sensor 10 | 25.6 |  °C |
-| 20 |  | Temperatur Sensor 11 | 0.1 |  °C |
-| 21 |  | Temperatur Sensor 11 | 25.6 |  °C |
-| 22 |  | Temperatur Sensor 12 | 0.1 |  °C |
-| 23 |  | Temperatur Sensor 12 | 25.6 |  °C |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
+| 8 |  | Temperatur Sensor 5 | 1.0 |  °C |
+| 9 |  | Temperatur Sensor 5 | 256.0 |  °C |
+| 10 |  | Temperatur Sensor 6 | 1.0 |  °C |
+| 11 |  | Temperatur Sensor 6 | 256.0 |  °C |
+| 12 |  | Temperatur Sensor 7 | 1.0 |  °C |
+| 13 |  | Temperatur Sensor 7 | 256.0 |  °C |
+| 14 |  | Temperatur Sensor 8 | 1.0 |  °C |
+| 15 |  | Temperatur Sensor 8 | 256.0 |  °C |
+| 16 |  | Temperatur Sensor 9 | 1.0 |  °C |
+| 17 |  | Temperatur Sensor 9 | 256.0 |  °C |
+| 18 |  | Temperatur Sensor 10 | 1.0 |  °C |
+| 19 |  | Temperatur Sensor 10 | 256.0 |  °C |
+| 20 |  | Temperatur Sensor 11 | 1.0 |  °C |
+| 21 |  | Temperatur Sensor 11 | 256.0 |  °C |
+| 22 |  | Temperatur Sensor 12 | 1.0 |  °C |
+| 23 |  | Temperatur Sensor 12 | 256.0 |  °C |
 | 24 |  | Einstrahlung | 1 |  W/m² |
 | 25 |  | Einstrahlung | 256 |  W/m² |
 | 28 |  | Impulseingang 1 | 1 |  |
@@ -3791,10 +4785,10 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Vorlauftemperatur | 0.1 |  °C |
-| 1 |  | Vorlauftemperatur | 25.6 |  °C |
-| 2 |  | Rücklauftemperatur | 0.1 |  °C |
-| 3 |  | Rücklauftemperatur | 25.6 |  °C |
+| 0 |  | Vorlauftemperatur | 1.0 |  °C |
+| 1 |  | Vorlauftemperatur | 256.0 |  °C |
+| 2 |  | Rücklauftemperatur | 1.0 |  °C |
+| 3 |  | Rücklauftemperatur | 256.0 |  °C |
 | 4 |  | Volumenstrom | 1 |  l/h |
 | 5 |  | Volumenstrom | 256 |  l/h |
 | 6 |  | Wärme | 1 |  Wh |
@@ -3810,50 +4804,50 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 4 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 4 | 25.6 |  °C |
-| 8 |  | Temperatur Sensor 5 | 0.1 |  °C |
-| 9 |  | Temperatur Sensor 5 | 25.6 |  °C |
-| 10 |  | Temperatur Sensor 6 | 0.1 |  °C |
-| 11 |  | Temperatur Sensor 6 | 25.6 |  °C |
-| 12 |  | Temperatur Sensor 7 | 0.1 |  °C |
-| 13 |  | Temperatur Sensor 7 | 25.6 |  °C |
-| 14 |  | Temperatur Sensor 8 | 0.1 |  °C |
-| 15 |  | Temperatur Sensor 8 | 25.6 |  °C |
-| 16 |  | Temperatur Sensor 9 | 0.1 |  °C |
-| 17 |  | Temperatur Sensor 9 | 25.6 |  °C |
-| 18 |  | Temperatur Sensor 10 | 0.1 |  °C |
-| 19 |  | Temperatur Sensor 10 | 25.6 |  °C |
-| 20 |  | Temperatur Sensor 11 | 0.1 |  °C |
-| 21 |  | Temperatur Sensor 11 | 25.6 |  °C |
-| 22 |  | Temperatur Sensor 12 | 0.1 |  °C |
-| 23 |  | Temperatur Sensor 12 | 25.6 |  °C |
-| 24 |  | Temperatur Sensor 13 | 0.1 |  °C |
-| 25 |  | Temperatur Sensor 13 | 25.6 |  °C |
-| 26 |  | Temperatur Sensor 14 | 0.1 |  °C |
-| 27 |  | Temperatur Sensor 14 | 25.6 |  °C |
-| 28 |  | Temperatur Sensor 15 | 0.1 |  °C |
-| 29 |  | Temperatur Sensor 15 | 25.6 |  °C |
-| 30 |  | Temperatur Sensor 16 | 0.1 |  °C |
-| 31 |  | Temperatur Sensor 16 | 25.6 |  °C |
-| 32 |  | Temperatur Sensor 17 | 0.1 |  °C |
-| 33 |  | Temperatur Sensor 17 | 25.6 |  °C |
-| 34 |  | Temperatur Sensor 18 | 0.1 |  °C |
-| 35 |  | Temperatur Sensor 18 | 25.6 |  °C |
-| 36 |  | Temperatur Sensor 19 | 0.1 |  °C |
-| 37 |  | Temperatur Sensor 19 | 25.6 |  °C |
-| 38 |  | Temperatur Sensor 20 | 0.1 |  °C |
-| 39 |  | Temperatur Sensor 20 | 25.6 |  °C |
-| 40 |  | Temperatur Sensor 21 | 0.1 |  °C |
-| 41 |  | Temperatur Sensor 21 | 25.6 |  °C |
-| 42 |  | Temperatur Sensor 22 | 0.1 |  °C |
-| 43 |  | Temperatur Sensor 22 | 25.6 |  °C |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
+| 8 |  | Temperatur Sensor 5 | 1.0 |  °C |
+| 9 |  | Temperatur Sensor 5 | 256.0 |  °C |
+| 10 |  | Temperatur Sensor 6 | 1.0 |  °C |
+| 11 |  | Temperatur Sensor 6 | 256.0 |  °C |
+| 12 |  | Temperatur Sensor 7 | 1.0 |  °C |
+| 13 |  | Temperatur Sensor 7 | 256.0 |  °C |
+| 14 |  | Temperatur Sensor 8 | 1.0 |  °C |
+| 15 |  | Temperatur Sensor 8 | 256.0 |  °C |
+| 16 |  | Temperatur Sensor 9 | 1.0 |  °C |
+| 17 |  | Temperatur Sensor 9 | 256.0 |  °C |
+| 18 |  | Temperatur Sensor 10 | 1.0 |  °C |
+| 19 |  | Temperatur Sensor 10 | 256.0 |  °C |
+| 20 |  | Temperatur Sensor 11 | 1.0 |  °C |
+| 21 |  | Temperatur Sensor 11 | 256.0 |  °C |
+| 22 |  | Temperatur Sensor 12 | 1.0 |  °C |
+| 23 |  | Temperatur Sensor 12 | 256.0 |  °C |
+| 24 |  | Temperatur Sensor 13 | 1.0 |  °C |
+| 25 |  | Temperatur Sensor 13 | 256.0 |  °C |
+| 26 |  | Temperatur Sensor 14 | 1.0 |  °C |
+| 27 |  | Temperatur Sensor 14 | 256.0 |  °C |
+| 28 |  | Temperatur Sensor 15 | 1.0 |  °C |
+| 29 |  | Temperatur Sensor 15 | 256.0 |  °C |
+| 30 |  | Temperatur Sensor 16 | 1.0 |  °C |
+| 31 |  | Temperatur Sensor 16 | 256.0 |  °C |
+| 32 |  | Temperatur Sensor 17 | 1.0 |  °C |
+| 33 |  | Temperatur Sensor 17 | 256.0 |  °C |
+| 34 |  | Temperatur Sensor 18 | 1.0 |  °C |
+| 35 |  | Temperatur Sensor 18 | 256.0 |  °C |
+| 36 |  | Temperatur Sensor 19 | 1.0 |  °C |
+| 37 |  | Temperatur Sensor 19 | 256.0 |  °C |
+| 38 |  | Temperatur Sensor 20 | 1.0 |  °C |
+| 39 |  | Temperatur Sensor 20 | 256.0 |  °C |
+| 40 |  | Temperatur Sensor 21 | 1.0 |  °C |
+| 41 |  | Temperatur Sensor 21 | 256.0 |  °C |
+| 42 |  | Temperatur Sensor 22 | 1.0 |  °C |
+| 43 |  | Temperatur Sensor 22 | 256.0 |  °C |
 | 44 |  | Drehzahl R1 | 1 | % |
 | 45 |  | Drehzahl R2 | 1 | % |
 | 46 |  | Drehzahl R3 | 1 | % |
@@ -3896,18 +4890,18 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 17 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 17 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 18 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 18 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 19 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 19 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 20 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 20 | 25.6 |  °C |
-| 8 |  | Temperatur Sensor 21 | 0.1 |  °C |
-| 9 |  | Temperatur Sensor 21 | 25.6 |  °C |
-| 10 |  | Temperatur Sensor 22 | 0.1 |  °C |
-| 11 |  | Temperatur Sensor 22 | 25.6 |  °C |
+| 0 |  | Temperatur Sensor 17 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 17 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 18 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 18 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 19 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 19 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 20 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 20 | 256.0 |  °C |
+| 8 |  | Temperatur Sensor 21 | 1.0 |  °C |
+| 9 |  | Temperatur Sensor 21 | 256.0 |  °C |
+| 10 |  | Temperatur Sensor 22 | 1.0 |  °C |
+| 11 |  | Temperatur Sensor 22 | 256.0 |  °C |
 | 12 |  | Drehzahl R14 | 1 | % |
 | 13 |  | Drehzahl R15 | 1 | % |
 | 14 |  | Drehzahl R16 | 1 | % |
@@ -3920,18 +4914,18 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 23 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 23 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 24 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 24 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 25 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 25 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 26 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 26 | 25.6 |  °C |
-| 8 |  | Temperatur Sensor 27 | 0.1 |  °C |
-| 9 |  | Temperatur Sensor 27 | 25.6 |  °C |
-| 10 |  | Temperatur Sensor 28 | 0.1 |  °C |
-| 11 |  | Temperatur Sensor 28 | 25.6 |  °C |
+| 0 |  | Temperatur Sensor 23 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 23 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 24 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 24 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 25 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 25 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 26 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 26 | 256.0 |  °C |
+| 8 |  | Temperatur Sensor 27 | 1.0 |  °C |
+| 9 |  | Temperatur Sensor 27 | 256.0 |  °C |
+| 10 |  | Temperatur Sensor 28 | 1.0 |  °C |
+| 11 |  | Temperatur Sensor 28 | 256.0 |  °C |
 | 12 |  | Drehzahl R19 | 1 | % |
 | 13 |  | Drehzahl R20 | 1 | % |
 | 14 |  | Drehzahl R21 | 1 | % |
@@ -3944,18 +4938,18 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 29 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 29 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 30 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 30 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 31 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 31 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 32 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 32 | 25.6 |  °C |
-| 8 |  | Temperatur Sensor 33 | 0.1 |  °C |
-| 9 |  | Temperatur Sensor 33 | 25.6 |  °C |
-| 10 |  | Temperatur Sensor 34 | 0.1 |  °C |
-| 11 |  | Temperatur Sensor 34 | 25.6 |  °C |
+| 0 |  | Temperatur Sensor 29 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 29 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 30 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 30 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 31 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 31 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 32 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 32 | 256.0 |  °C |
+| 8 |  | Temperatur Sensor 33 | 1.0 |  °C |
+| 9 |  | Temperatur Sensor 33 | 256.0 |  °C |
+| 10 |  | Temperatur Sensor 34 | 1.0 |  °C |
+| 11 |  | Temperatur Sensor 34 | 256.0 |  °C |
 | 12 |  | Drehzahl R24 | 1 | % |
 | 13 |  | Drehzahl R25 | 1 | % |
 | 14 |  | Drehzahl R26 | 1 | % |
@@ -3968,18 +4962,18 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 35 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 35 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 36 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 36 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 37 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 37 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 38 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 38 | 25.6 |  °C |
-| 8 |  | Temperatur Sensor 39 | 0.1 |  °C |
-| 9 |  | Temperatur Sensor 39 | 25.6 |  °C |
-| 10 |  | Temperatur Sensor 40 | 0.1 |  °C |
-| 11 |  | Temperatur Sensor 40 | 25.6 |  °C |
+| 0 |  | Temperatur Sensor 35 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 35 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 36 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 36 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 37 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 37 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 38 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 38 | 256.0 |  °C |
+| 8 |  | Temperatur Sensor 39 | 1.0 |  °C |
+| 9 |  | Temperatur Sensor 39 | 256.0 |  °C |
+| 10 |  | Temperatur Sensor 40 | 1.0 |  °C |
+| 11 |  | Temperatur Sensor 40 | 256.0 |  °C |
 | 12 |  | Drehzahl R29 | 1 | % |
 | 13 |  | Drehzahl R30 | 1 | % |
 | 14 |  | Drehzahl R31 | 1 | % |
@@ -3992,38 +4986,38 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | S1-SF-K | 0.1 |  °C |
-| 1 |  | S1-SF-K | 25.6 |  °C |
-| 2 |  | S2-SF-1 | 0.1 |  °C |
-| 3 |  | S2-SF-1 | 25.6 |  °C |
-| 4 |  | S3-SF-2 | 0.1 |  °C |
-| 5 |  | S3-SF-2 | 25.6 |  °C |
-| 6 |  | S4-SF-3/WT/F-RLA1/RLU1 | 0.1 |  °C |
-| 7 |  | S4-SF-3/WT/F-RLA1/RLU1 | 25.6 |  °C |
-| 8 |  | S5-FN-HK/F-RLA2 | 0.1 |  °C |
-| 9 |  | S5-FN-HK/F-RLA2 | 25.6 |  °C |
-| 10 |  | S6-FN-WW/BF/SF-WT | 0.1 |  °C |
-| 11 |  | S6-FN-WW/BF/SF-WT | 25.6 |  °C |
-| 12 |  | S7-FN-K2 | 0.1 |  °C |
-| 13 |  | S7-FN-K2 | 25.6 |  °C |
-| 14 |  | S8-FZ | 0.1 |  °C |
-| 15 |  | S8-FZ | 25.6 |  °C |
-| 16 |  | S9-AF | 0.1 |  °C |
-| 17 |  | S9-AF | 25.6 |  °C |
-| 18 |  | S10-VL-F1 | 0.1 |  °C |
-| 19 |  | S10-VL-F1 | 25.6 |  °C |
-| 20 |  | S11-FV-1 | 0.1 |  °C |
-| 21 |  | S11-FV-1 | 25.6 |  °C |
-| 22 |  | S12-VL-F2/WA-1/SF-4/F-RLU1 | 0.1 |  °C |
-| 23 |  | S12-VL-F2/WA-1/SF-4/F-RLU1 | 25.6 |  °C |
-| 24 |  | S13-FV-2/WA-2/SF-WT | 0.1 |  °C |
-| 25 |  | S13-FV-2/WA-2/SF-WT | 25.6 |  °C |
-| 26 |  | S14-KF-1/KF-NH | 0.1 |  °C |
-| 27 |  | S14-KF-1/KF-NH | 25.6 |  °C |
-| 28 |  | S15-KF-2/SF-K2 | 0.1 |  °C |
-| 29 |  | S15-KF-2/SF-K2 | 25.6 |  °C |
-| 30 |  | S16-BF/BF-1/F-RLU2 | 0.1 |  °C |
-| 31 |  | S16-BF/BF-1/F-RLU2 | 25.6 |  °C |
+| 0 |  | S1-SF-K | 1.0 |  °C |
+| 1 |  | S1-SF-K | 256.0 |  °C |
+| 2 |  | S2-SF-1 | 1.0 |  °C |
+| 3 |  | S2-SF-1 | 256.0 |  °C |
+| 4 |  | S3-SF-2 | 1.0 |  °C |
+| 5 |  | S3-SF-2 | 256.0 |  °C |
+| 6 |  | S4-SF-3/WT/F-RLA1/RLU1 | 1.0 |  °C |
+| 7 |  | S4-SF-3/WT/F-RLA1/RLU1 | 256.0 |  °C |
+| 8 |  | S5-FN-HK/F-RLA2 | 1.0 |  °C |
+| 9 |  | S5-FN-HK/F-RLA2 | 256.0 |  °C |
+| 10 |  | S6-FN-WW/BF/SF-WT | 1.0 |  °C |
+| 11 |  | S6-FN-WW/BF/SF-WT | 256.0 |  °C |
+| 12 |  | S7-FN-K2 | 1.0 |  °C |
+| 13 |  | S7-FN-K2 | 256.0 |  °C |
+| 14 |  | S8-FZ | 1.0 |  °C |
+| 15 |  | S8-FZ | 256.0 |  °C |
+| 16 |  | S9-AF | 1.0 |  °C |
+| 17 |  | S9-AF | 256.0 |  °C |
+| 18 |  | S10-VL-F1 | 1.0 |  °C |
+| 19 |  | S10-VL-F1 | 256.0 |  °C |
+| 20 |  | S11-FV-1 | 1.0 |  °C |
+| 21 |  | S11-FV-1 | 256.0 |  °C |
+| 22 |  | S12-VL-F2/WA-1/SF-4/F-RLU1 | 1.0 |  °C |
+| 23 |  | S12-VL-F2/WA-1/SF-4/F-RLU1 | 256.0 |  °C |
+| 24 |  | S13-FV-2/WA-2/SF-WT | 1.0 |  °C |
+| 25 |  | S13-FV-2/WA-2/SF-WT | 256.0 |  °C |
+| 26 |  | S14-KF-1/KF-NH | 1.0 |  °C |
+| 27 |  | S14-KF-1/KF-NH | 256.0 |  °C |
+| 28 |  | S15-KF-2/SF-K2 | 1.0 |  °C |
+| 29 |  | S15-KF-2/SF-K2 | 256.0 |  °C |
+| 30 |  | S16-BF/BF-1/F-RLU2 | 1.0 |  °C |
+| 31 |  | S16-BF/BF-1/F-RLU2 | 256.0 |  °C |
 | 32 |  | SensorVolumenstrom_Regler_GAS1_TotalWert_L | 1 |  l |
 | 33 |  | SensorVolumenstrom_Regler_GAS1_TotalWert_L | 256 |  l |
 | 34 |  | SensorVolumenstrom_Regler_GAS1_TotalWert_L | 65536 |  l |
@@ -4040,14 +5034,14 @@ title: VBus Packets
 | 45 |  | SensorVolumenstrom_Regler_GDS2_TotalWert_L | 256 |  l |
 | 46 |  | SensorVolumenstrom_Regler_GDS2_TotalWert_L | 65536 |  l |
 | 47 |  | SensorVolumenstrom_Regler_GDS2_TotalWert_L | 16777216 |  l |
-| 48 |  | Sensor_Regler_Druck_GAS1_Wert_Bar | 0.01 |  bar |
-| 49 |  | Sensor_Regler_Druck_GAS1_Wert_Bar | 2.56 |  bar |
-| 50 |  | Sensor_Regler_Druck_GAS2_Wert_Bar | 0.01 |  bar |
-| 51 |  | Sensor_Regler_Druck_GAS2_Wert_Bar | 2.56 |  bar |
-| 52 |  | Sensor_Regler_Druck_GDS1_Wert_Bar | 0.01 |  bar |
-| 53 |  | Sensor_Regler_Druck_GDS1_Wert_Bar | 2.56 |  bar |
-| 54 |  | Sensor_Regler_Druck_GDS2_Wert_Bar | 0.01 |  bar |
-| 55 |  | Sensor_Regler_Druck_GDS2_Wert_Bar | 2.56 |  bar |
+| 48 |  | Sensor_Regler_Druck_GAS1_Wert_Bar | 1.00 |  bar |
+| 49 |  | Sensor_Regler_Druck_GAS1_Wert_Bar | 256.00 |  bar |
+| 50 |  | Sensor_Regler_Druck_GAS2_Wert_Bar | 1.00 |  bar |
+| 51 |  | Sensor_Regler_Druck_GAS2_Wert_Bar | 256.00 |  bar |
+| 52 |  | Sensor_Regler_Druck_GDS1_Wert_Bar | 1.00 |  bar |
+| 53 |  | Sensor_Regler_Druck_GDS1_Wert_Bar | 256.00 |  bar |
+| 54 |  | Sensor_Regler_Druck_GDS2_Wert_Bar | 1.00 |  bar |
+| 55 |  | Sensor_Regler_Druck_GDS2_Wert_Bar | 256.00 |  bar |
 | 56 |  | R1-SP-1 | 1 | % |
 | 57 |  | R2-SP-2 | 1 | % |
 | 58 |  | R3-BLP/1 | 1 | % |
@@ -4062,18 +5056,18 @@ title: VBus Packets
 | 67 |  | R12-MV-2 zu/SV-3/V-RLU | 1 | % |
 | 68 |  | R13-ZP | 1 | % |
 | 69 |  | R14-RP | 1 | % |
-| 72 |  | Hk1_T_VorlSoll | 0.1 |  °C |
-| 73 |  | Hk1_T_VorlSoll | 25.6 |  °C |
-| 74 |  | Hk2_T_VorlSoll | 0.1 |  °C |
-| 75 |  | Hk2_T_VorlSoll | 25.6 |  °C |
-| 76 |  | Hk3_T_VorlSoll | 0.1 |  °C |
-| 77 |  | Hk3_T_VorlSoll | 25.6 |  °C |
-| 78 |  | Hk4_T_VorlSoll | 0.1 |  °C |
-| 79 |  | Hk4_T_VorlSoll | 25.6 |  °C |
-| 80 |  | Hk5_T_VorlSoll | 0.1 |  °C |
-| 81 |  | Hk5_T_VorlSoll | 25.6 |  °C |
-| 82 |  | SW_VL_Soll | 0.1 |  °C |
-| 83 |  | SW_VL_Soll | 25.6 |  °C |
+| 72 |  | Hk1_T_VorlSoll | 1.0 |  °C |
+| 73 |  | Hk1_T_VorlSoll | 256.0 |  °C |
+| 74 |  | Hk2_T_VorlSoll | 1.0 |  °C |
+| 75 |  | Hk2_T_VorlSoll | 256.0 |  °C |
+| 76 |  | Hk3_T_VorlSoll | 1.0 |  °C |
+| 77 |  | Hk3_T_VorlSoll | 256.0 |  °C |
+| 78 |  | Hk4_T_VorlSoll | 1.0 |  °C |
+| 79 |  | Hk4_T_VorlSoll | 256.0 |  °C |
+| 80 |  | Hk5_T_VorlSoll | 1.0 |  °C |
+| 81 |  | Hk5_T_VorlSoll | 256.0 |  °C |
+| 82 |  | SW_VL_Soll | 1.0 |  °C |
+| 83 |  | SW_VL_Soll | 256.0 |  °C |
 | 84 |  | Wmz1_Wert_Wh | 1 |  Wh |
 | 85 |  | Wmz1_Wert_Wh | 256 |  Wh |
 | 86 |  | Wmz1_Wert_Wh | 65536 |  Wh |
@@ -4123,18 +5117,18 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 4 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 4 | 25.6 |  °C |
-| 8 |  | Temperatur Sensor 5 | 0.1 |  °C |
-| 9 |  | Temperatur Sensor 5 | 25.6 |  °C |
-| 10 |  | Temperatur Sensor 6 | 0.1 |  °C |
-| 11 |  | Temperatur Sensor 6 | 25.6 |  °C |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
+| 8 |  | Temperatur Sensor 5 | 1.0 |  °C |
+| 9 |  | Temperatur Sensor 5 | 256.0 |  °C |
+| 10 |  | Temperatur Sensor 6 | 1.0 |  °C |
+| 11 |  | Temperatur Sensor 6 | 256.0 |  °C |
 | 12 |  | Drehzahl R1 | 1 | % |
 | 13 |  | Drehzahl R2 | 1 | % |
 | 14 |  | Drehzahl R3 | 1 | % |
@@ -4147,18 +5141,18 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 4 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 4 | 25.6 |  °C |
-| 8 |  | Temperatur Sensor 5 | 0.1 |  °C |
-| 9 |  | Temperatur Sensor 5 | 25.6 |  °C |
-| 10 |  | Temperatur Sensor 6 | 0.1 |  °C |
-| 11 |  | Temperatur Sensor 6 | 25.6 |  °C |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
+| 8 |  | Temperatur Sensor 5 | 1.0 |  °C |
+| 9 |  | Temperatur Sensor 5 | 256.0 |  °C |
+| 10 |  | Temperatur Sensor 6 | 1.0 |  °C |
+| 11 |  | Temperatur Sensor 6 | 256.0 |  °C |
 | 12 |  | Drehzahl R1 | 1 | % |
 | 13 |  | Drehzahl R2 | 1 | % |
 | 14 |  | Drehzahl R3 | 1 | % |
@@ -4171,18 +5165,18 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 4 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 4 | 25.6 |  °C |
-| 8 |  | Temperatur Sensor 5 | 0.1 |  °C |
-| 9 |  | Temperatur Sensor 5 | 25.6 |  °C |
-| 10 |  | Temperatur Sensor 6 | 0.1 |  °C |
-| 11 |  | Temperatur Sensor 6 | 25.6 |  °C |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
+| 8 |  | Temperatur Sensor 5 | 1.0 |  °C |
+| 9 |  | Temperatur Sensor 5 | 256.0 |  °C |
+| 10 |  | Temperatur Sensor 6 | 1.0 |  °C |
+| 11 |  | Temperatur Sensor 6 | 256.0 |  °C |
 | 12 |  | Drehzahl R1 | 1 | % |
 | 13 |  | Drehzahl R2 | 1 | % |
 | 14 |  | Drehzahl R3 | 1 | % |
@@ -4195,18 +5189,18 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 4 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 4 | 25.6 |  °C |
-| 8 |  | Temperatur Sensor 5 | 0.1 |  °C |
-| 9 |  | Temperatur Sensor 5 | 25.6 |  °C |
-| 10 |  | Temperatur Sensor 6 | 0.1 |  °C |
-| 11 |  | Temperatur Sensor 6 | 25.6 |  °C |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
+| 8 |  | Temperatur Sensor 5 | 1.0 |  °C |
+| 9 |  | Temperatur Sensor 5 | 256.0 |  °C |
+| 10 |  | Temperatur Sensor 6 | 1.0 |  °C |
+| 11 |  | Temperatur Sensor 6 | 256.0 |  °C |
 | 12 |  | Drehzahl R1 | 1 | % |
 | 13 |  | Drehzahl R2 | 1 | % |
 | 14 |  | Drehzahl R3 | 1 | % |
@@ -4219,18 +5213,18 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 4 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 4 | 25.6 |  °C |
-| 8 |  | Temperatur Sensor 5 | 0.1 |  °C |
-| 9 |  | Temperatur Sensor 5 | 25.6 |  °C |
-| 10 |  | Temperatur Sensor 6 | 0.1 |  °C |
-| 11 |  | Temperatur Sensor 6 | 25.6 |  °C |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
+| 8 |  | Temperatur Sensor 5 | 1.0 |  °C |
+| 9 |  | Temperatur Sensor 5 | 256.0 |  °C |
+| 10 |  | Temperatur Sensor 6 | 1.0 |  °C |
+| 11 |  | Temperatur Sensor 6 | 256.0 |  °C |
 | 12 |  | Drehzahl R1 | 1 | % |
 | 13 |  | Drehzahl R2 | 1 | % |
 | 14 |  | Drehzahl R3 | 1 | % |
@@ -4243,24 +5237,24 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 4 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 4 | 25.6 |  °C |
-| 8 |  | Temperatur Sensor 5 | 0.1 |  °C |
-| 9 |  | Temperatur Sensor 5 | 25.6 |  °C |
-| 10 |  | Temperatur Sensor 6 | 0.1 |  °C |
-| 11 |  | Temperatur Sensor 6 | 25.6 |  °C |
-| 12 |  | Temperatur Sensor 7 | 0.1 |  °C |
-| 13 |  | Temperatur Sensor 7 | 25.6 |  °C |
-| 14 |  | Temperatur Sensor 8 | 0.1 |  °C |
-| 15 |  | Temperatur Sensor 8 | 25.6 |  °C |
-| 16 |  | Volumenstrom | 0.01 |  m³/h |
-| 17 |  | Volumenstrom | 2.56 |  m³/h |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
+| 8 |  | Temperatur Sensor 5 | 1.0 |  °C |
+| 9 |  | Temperatur Sensor 5 | 256.0 |  °C |
+| 10 |  | Temperatur Sensor 6 | 1.0 |  °C |
+| 11 |  | Temperatur Sensor 6 | 256.0 |  °C |
+| 12 |  | Temperatur Sensor 7 | 1.0 |  °C |
+| 13 |  | Temperatur Sensor 7 | 256.0 |  °C |
+| 14 |  | Temperatur Sensor 8 | 1.0 |  °C |
+| 15 |  | Temperatur Sensor 8 | 256.0 |  °C |
+| 16 |  | Volumenstrom | 1.00 |  m³/h |
+| 17 |  | Volumenstrom | 256.00 |  m³/h |
 | 18 |  | Einstrahlung | 1 |  W/m² |
 | 19 |  | Einstrahlung | 256 |  W/m² |
 | 20 | 0x08 | Relais 4 | 1 |  |
@@ -4303,22 +5297,22 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 4 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 4 | 25.6 |  °C |
-| 8 |  | Temperatur Sensor 5 | 0.1 |  °C |
-| 9 |  | Temperatur Sensor 5 | 25.6 |  °C |
-| 10 |  | Temperatur RPS | 0.1 |  °C |
-| 11 |  | Temperatur RPS | 25.6 |  °C |
-| 12 |  | Druck RPS | 0.1 |  bar |
-| 13 |  | Druck RPS | 25.6 |  bar |
-| 14 |  | Temperatur VFS | 0.1 |  °C |
-| 15 |  | Temperatur VFS | 25.6 |  °C |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
+| 8 |  | Temperatur Sensor 5 | 1.0 |  °C |
+| 9 |  | Temperatur Sensor 5 | 256.0 |  °C |
+| 10 |  | Temperatur RPS | 1.0 |  °C |
+| 11 |  | Temperatur RPS | 256.0 |  °C |
+| 12 |  | Druck RPS | 1.0 |  bar |
+| 13 |  | Druck RPS | 256.0 |  bar |
+| 14 |  | Temperatur VFS | 1.0 |  °C |
+| 15 |  | Temperatur VFS | 256.0 |  °C |
 | 16 |  | Durchfluss VFS | 1 |  l/h |
 | 16 |  | Durchfluss VFS | 1 |  l/h |
 | 17 |  | Durchfluss VFS | 256 |  l/h |
@@ -4385,8 +5379,8 @@ title: VBus Packets
 | 49 |  | Wärmemenge | 256 |  Wh |
 | 50 |  | Wärmemenge | 65536 |  Wh |
 | 51 |  | Wärmemenge | 16777216 |  Wh |
-| 52 |  | Version | 0.01 |  |
-| 53 |  | Version | 2.56 |  |
+| 52 |  | Version | 1.00 |  |
+| 53 |  | Version | 256.00 |  |
 | 54 |  | Systemzeit | 1 |  |
 | 55 |  | Systemzeit | 256 |  |
 | 56 |  | Datum | 1 |  |
@@ -4400,16 +5394,16 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | S1 | 0.1 |  °C |
-| 1 |  | S1 | 25.6 |  °C |
-| 2 |  | S2 | 0.1 |  °C |
-| 3 |  | S2 | 25.6 |  °C |
-| 4 |  | S3 | 0.1 |  °C |
-| 5 |  | S3 | 25.6 |  °C |
-| 6 |  | S4 | 0.1 |  °C |
-| 7 |  | S4 | 25.6 |  °C |
-| 8 |  | S5 | 0.1 |  °C |
-| 9 |  | S5 | 25.6 |  °C |
+| 0 |  | S1 | 1.0 |  °C |
+| 1 |  | S1 | 256.0 |  °C |
+| 2 |  | S2 | 1.0 |  °C |
+| 3 |  | S2 | 256.0 |  °C |
+| 4 |  | S3 | 1.0 |  °C |
+| 5 |  | S3 | 256.0 |  °C |
+| 6 |  | S4 | 1.0 |  °C |
+| 7 |  | S4 | 256.0 |  °C |
+| 8 |  | S5 | 1.0 |  °C |
+| 9 |  | S5 | 256.0 |  °C |
 | 18 |  | Flow V40 | 1 |  l/h |
 | 19 |  | Flow V40 | 256 |  l/h |
 | 20 |  | Einheit | 1 |  |
@@ -4461,8 +5455,8 @@ title: VBus Packets
 | 49 |  | Wärme | 256 |  Wh |
 | 50 |  | Wärme | 65536 |  Wh |
 | 51 |  | Wärme | 16777216 |  Wh |
-| 52 |  | Version | 0.01 |  |
-| 53 |  | Version | 2.56 |  |
+| 52 |  | Version | 1.00 |  |
+| 53 |  | Version | 256.00 |  |
 | 54 |  | Zeit | 1 |  |
 | 55 |  | Zeit | 256 |  |
 | 56 |  | Datum | 1 |  |
@@ -4476,14 +5470,14 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 4 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 8 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 9 |  | Temperatur Sensor 3 | 25.6 |  °C |
-| 10 |  | Temperatur Sensor 4 | 0.1 |  °C |
-| 11 |  | Temperatur Sensor 4 | 25.6 |  °C |
+| 4 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 8 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 9 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 10 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 11 |  | Temperatur Sensor 4 | 256.0 |  °C |
 | 12 |  | Drehzahl Relais 1 | 1 | % |
 | 13 |  | Drehzahl Relais 2 | 1 | % |
 | 14 |  | Regler Ausgang 1 | 1 | % |
@@ -4556,22 +5550,22 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Kollektoren | 0.1 |  °C |
-| 1 |  | Temperatur Kollektoren | 25.6 |  °C |
-| 2 |  | Temperatur S,p | 0.1 |  °C |
-| 3 |  | Temperatur S,p | 25.6 |  °C |
-| 4 |  | Temperatur S,s | 0.1 |  °C |
-| 5 |  | Temperatur S,s | 25.6 |  °C |
-| 6 |  | Temperatur WP-VL | 0.1 |  °C |
-| 7 |  | Temperatur WP-VL | 25.6 |  °C |
-| 8 |  | Temperatur WP-RL | 0.1 |  °C |
-| 9 |  | Temperatur WP-RL | 25.6 |  °C |
-| 10 |  | Temperatur Verdampf | 0.1 |  °C |
-| 11 |  | Temperatur Verdampf | 25.6 |  °C |
-| 12 |  | Temperatur Erde | 0.1 |  °C |
-| 13 |  | Temperatur Erde | 25.6 |  °C |
-| 14 |  | Volumenstrom Ko | 0.1 |  l/min |
-| 15 |  | Volumenstrom Ko | 25.6 |  l/min |
+| 0 |  | Temperatur Kollektoren | 1.0 |  °C |
+| 1 |  | Temperatur Kollektoren | 256.0 |  °C |
+| 2 |  | Temperatur S,p | 1.0 |  °C |
+| 3 |  | Temperatur S,p | 256.0 |  °C |
+| 4 |  | Temperatur S,s | 1.0 |  °C |
+| 5 |  | Temperatur S,s | 256.0 |  °C |
+| 6 |  | Temperatur WP-VL | 1.0 |  °C |
+| 7 |  | Temperatur WP-VL | 256.0 |  °C |
+| 8 |  | Temperatur WP-RL | 1.0 |  °C |
+| 9 |  | Temperatur WP-RL | 256.0 |  °C |
+| 10 |  | Temperatur Verdampf | 1.0 |  °C |
+| 11 |  | Temperatur Verdampf | 256.0 |  °C |
+| 12 |  | Temperatur Erde | 1.0 |  °C |
+| 13 |  | Temperatur Erde | 256.0 |  °C |
+| 14 |  | Volumenstrom Ko | 1.0 |  l/min |
+| 15 |  | Volumenstrom Ko | 256.0 |  l/min |
 | 16 | 0x04 | Relais P,H | 1 |  |
 | 16 | 0x08 | Relais WP | 1 |  |
 | 16 | 0x10 | Ventil WP | 1 |  |
@@ -4586,22 +5580,22 @@ title: VBus Packets
 | 22 |  | Fehlermaske | 65536 |  |
 | 23 |  | Fehlermaske | 16777216 |  |
 | 25 |  | P,Ko Nennleistung | 1 | % |
-| 26 |  | T_Wabs | 0.1 |  °C |
-| 27 |  | T_Wabs | 25.6 |  °C |
-| 28 |  | Wärmemenge S,p | 0.1 |  kWh |
-| 29 |  | Wärmemenge S,p | 25.6 |  kWh |
-| 30 |  | Wärmemenge S,p | 6553.6 |  kWh |
-| 31 |  | Wärmemenge S,p | 1677721.6 |  kWh |
-| 32 |  | Wärmemenge S,s | 0.1 |  kWh |
-| 33 |  | Wärmemenge S,s | 25.6 |  kWh |
-| 34 |  | Wärmemenge S,s | 6553.6 |  kWh |
-| 35 |  | Wärmemenge S,s | 1677721.6 |  kWh |
-| 36 |  | Diff_ TUmg/24h | 0.1 |  K |
-| 37 |  | Diff_ TUmg/24h | 25.6 |  K |
-| 38 |  | Diff_ TSs/8h | 0.1 |  K |
-| 39 |  | Diff_ TSs/8h | 25.6 |  K |
-| 40 |  | Diff_ TSs/1h | 0.1 |  K |
-| 41 |  | Diff_ TSs/1h | 25.6 |  K |
+| 26 |  | T_Wabs | 1.0 |  °C |
+| 27 |  | T_Wabs | 256.0 |  °C |
+| 28 |  | Wärmemenge S,p | 1.0 |  kWh |
+| 29 |  | Wärmemenge S,p | 256.0 |  kWh |
+| 30 |  | Wärmemenge S,p | 65536.0 |  kWh |
+| 31 |  | Wärmemenge S,p | 16777216.0 |  kWh |
+| 32 |  | Wärmemenge S,s | 1.0 |  kWh |
+| 33 |  | Wärmemenge S,s | 256.0 |  kWh |
+| 34 |  | Wärmemenge S,s | 65536.0 |  kWh |
+| 35 |  | Wärmemenge S,s | 16777216.0 |  kWh |
+| 36 |  | Diff_ TUmg/24h | 1.0 |  K |
+| 37 |  | Diff_ TUmg/24h | 256.0 |  K |
+| 38 |  | Diff_ TSs/8h | 1.0 |  K |
+| 39 |  | Diff_ TSs/8h | 256.0 |  K |
+| 40 |  | Diff_ TSs/1h | 1.0 |  K |
+| 41 |  | Diff_ TSs/1h | 256.0 |  K |
 | 42 |  | Betriebssekunden WP | 1 |  s |
 | 43 |  | Betriebssekunden WP | 256 |  s |
 | 44 |  | Zeitraum WP / 24h | 1 |  s |
@@ -4612,8 +5606,8 @@ title: VBus Packets
 | 49 |  | Laufzeit WP / 24h | 256 |  s |
 | 50 |  | Laufzeit WP / 24h | 65536 |  s |
 | 51 |  | Laufzeit WP / 24h | 16777216 |  s |
-| 56 |  | Temperatur T,H | 0.1 |  °C |
-| 57 |  | Temperatur T,H | 25.6 |  °C |
+| 56 |  | Temperatur T,H | 1.0 |  °C |
+| 57 |  | Temperatur T,H | 256.0 |  °C |
 | 58 |  | Systemzeit | 1 |  |
 | 59 |  | Systemzeit | 256 |  |
 
@@ -4647,14 +5641,14 @@ title: VBus Packets
 | 21 |  | t-Ps | 256 |  s |
 | 22 |  | t-Ps | 65536 |  s |
 | 23 |  | t-Ps | 16777216 |  s |
-| 24 |  | Temperatur T-x | 0.1 |  °C |
-| 25 |  | Temperatur T-x | 25.6 |  °C |
-| 26 |  | Temperatur T-xx | 0.1 |  °C |
-| 27 |  | Temperatur T-xx | 25.6 |  °C |
-| 28 |  | C1 | 0.01 |  |
-| 29 |  | C1 | 2.56 |  |
-| 30 |  | Version | 0.01 |  |
-| 31 |  | Version | 2.56 |  |
+| 24 |  | Temperatur T-x | 1.0 |  °C |
+| 25 |  | Temperatur T-x | 256.0 |  °C |
+| 26 |  | Temperatur T-xx | 1.0 |  °C |
+| 27 |  | Temperatur T-xx | 256.0 |  °C |
+| 28 |  | C1 | 1.00 |  |
+| 29 |  | C1 | 256.00 |  |
+| 30 |  | Version | 1.00 |  |
+| 31 |  | Version | 256.00 |  |
 
 
 
@@ -4662,32 +5656,32 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 4 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 4 | 25.6 |  °C |
-| 8 |  | Temperatur Sensor 5 | 0.1 |  °C |
-| 9 |  | Temperatur Sensor 5 | 25.6 |  °C |
-| 10 |  | Temperatur Sensor 6 | 0.1 |  °C |
-| 11 |  | Temperatur Sensor 6 | 25.6 |  °C |
-| 12 |  | Temperatur Sensor 7 | 0.1 |  °C |
-| 13 |  | Temperatur Sensor 7 | 25.6 |  °C |
-| 14 |  | Temperatur Sensor 8 | 0.1 |  °C |
-| 15 |  | Temperatur Sensor 8 | 25.6 |  °C |
-| 16 |  | Temperatur Sensor 9 | 0.1 |  °C |
-| 17 |  | Temperatur Sensor 9 | 25.6 |  °C |
-| 18 |  | Durchfluss Sensor 10 | 0.1 |  l/min |
-| 19 |  | Durchfluss Sensor 10 | 25.6 |  l/min |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
+| 8 |  | Temperatur Sensor 5 | 1.0 |  °C |
+| 9 |  | Temperatur Sensor 5 | 256.0 |  °C |
+| 10 |  | Temperatur Sensor 6 | 1.0 |  °C |
+| 11 |  | Temperatur Sensor 6 | 256.0 |  °C |
+| 12 |  | Temperatur Sensor 7 | 1.0 |  °C |
+| 13 |  | Temperatur Sensor 7 | 256.0 |  °C |
+| 14 |  | Temperatur Sensor 8 | 1.0 |  °C |
+| 15 |  | Temperatur Sensor 8 | 256.0 |  °C |
+| 16 |  | Temperatur Sensor 9 | 1.0 |  °C |
+| 17 |  | Temperatur Sensor 9 | 256.0 |  °C |
+| 18 |  | Durchfluss Sensor 10 | 1.0 |  l/min |
+| 19 |  | Durchfluss Sensor 10 | 256.0 |  l/min |
 | 20 |  | Drehzahl Relais 1 | 1 | % |
 | 21 |  | Drehzahl Relais 2 | 1 | % |
 | 22 |  | Drehzahl Relais 3 | 1 | % |
 | 23 |  | Drehzahl Relais 5 | 1 | % |
-| 24 |  | Drehzahl Relais 4 | 0.1 | % |
-| 25 |  | Drehzahl Relais 4 | 25.6 | % |
+| 24 |  | Drehzahl Relais 4 | 1.0 | % |
+| 25 |  | Drehzahl Relais 4 | 256.0 | % |
 | 26 | 0x01 | Fehler | 1 |  |
 | 27 |  | Desinf_ Phase | 1 |  |
 | 28 |  | Betriebssekunden Relais 1 | 1 |  s |
@@ -4736,8 +5730,8 @@ title: VBus Packets
 | 53 |  | Wärmemenge | 256 |  Wh |
 | 54 |  | Wärmemenge | 65536 |  Wh |
 | 55 |  | Wärmemenge | 16777216 |  Wh |
-| 56 |  | Version | 0.01 |  |
-| 57 |  | Version | 2.56 |  |
+| 56 |  | Version | 1.00 |  |
+| 57 |  | Version | 256.00 |  |
 | 58 |  | Systemzeit | 1 |  |
 | 59 |  | Systemzeit | 256 |  |
 | 60 |  | Datum | 1 |  |
@@ -4751,30 +5745,30 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 4 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 4 | 25.6 |  °C |
-| 8 |  | Temperatur Sensor 5 | 0.1 |  °C |
-| 9 |  | Temperatur Sensor 5 | 25.6 |  °C |
-| 10 |  | Temperatur Sensor 6 | 0.1 |  °C |
-| 11 |  | Temperatur Sensor 6 | 25.6 |  °C |
-| 12 |  | Temperatur Sensor 7 | 0.1 |  °C |
-| 13 |  | Temperatur Sensor 7 | 25.6 |  °C |
-| 14 |  | Temperatur Sensor 8 | 0.1 |  °C |
-| 15 |  | Temperatur Sensor 8 | 25.6 |  °C |
-| 16 |  | Temperatur Sensor 9 | 0.1 |  °C |
-| 17 |  | Temperatur Sensor 9 | 25.6 |  °C |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
+| 8 |  | Temperatur Sensor 5 | 1.0 |  °C |
+| 9 |  | Temperatur Sensor 5 | 256.0 |  °C |
+| 10 |  | Temperatur Sensor 6 | 1.0 |  °C |
+| 11 |  | Temperatur Sensor 6 | 256.0 |  °C |
+| 12 |  | Temperatur Sensor 7 | 1.0 |  °C |
+| 13 |  | Temperatur Sensor 7 | 256.0 |  °C |
+| 14 |  | Temperatur Sensor 8 | 1.0 |  °C |
+| 15 |  | Temperatur Sensor 8 | 256.0 |  °C |
+| 16 |  | Temperatur Sensor 9 | 1.0 |  °C |
+| 17 |  | Temperatur Sensor 9 | 256.0 |  °C |
 | 18 |  | Einstrahlung Sensor | 1 |  W/m² |
 | 19 |  | Einstrahlung Sensor | 256 |  W/m² |
-| 20 |  | Temperatur Sensor Gds1 | 0.1 |  °C |
-| 21 |  | Temperatur Sensor Gds1 | 25.6 |  °C |
-| 22 |  | Temperatur Sensor Gds2 | 0.1 |  °C |
-| 23 |  | Temperatur Sensor Gds2 | 25.6 |  °C |
+| 20 |  | Temperatur Sensor Gds1 | 1.0 |  °C |
+| 21 |  | Temperatur Sensor Gds1 | 256.0 |  °C |
+| 22 |  | Temperatur Sensor Gds2 | 1.0 |  °C |
+| 23 |  | Temperatur Sensor Gds2 | 256.0 |  °C |
 | 24 |  | Volumenstrom Sensor V40 | 1 |  l/h |
 | 25 |  | Volumenstrom Sensor V40 | 256 |  l/h |
 | 26 |  | Volumenstrom Sensor V40 | 65536 |  l/h |
@@ -4787,10 +5781,10 @@ title: VBus Packets
 | 33 |  | Volumenstrom Sensor Gds2 | 256 |  l/h |
 | 34 |  | Volumenstrom Sensor Gds2 | 65536 |  l/h |
 | 35 |  | Volumenstrom Sensor Gds2 | 16777216 |  l/h |
-| 36 |  | Druck Sensor Gds1 | 0.01 |  bar |
-| 37 |  | Druck Sensor Gds1 | 2.56 |  bar |
-| 38 |  | Druck Sensor Gds2 | 0.01 |  bar |
-| 39 |  | Druck Sensor Gds2 | 2.56 |  bar |
+| 36 |  | Druck Sensor Gds1 | 1.00 |  bar |
+| 37 |  | Druck Sensor Gds1 | 256.00 |  bar |
+| 38 |  | Druck Sensor Gds2 | 1.00 |  bar |
+| 39 |  | Druck Sensor Gds2 | 256.00 |  bar |
 | 40 |  | Drehzahl Relais 1 | 1 | % |
 | 41 |  | Drehzahl Relais 2 | 1 | % |
 | 42 |  | Drehzahl Relais 3 | 1 | % |
@@ -4811,66 +5805,66 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Modul 1 Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Modul 1 Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Modul 1 Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Modul 1 Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Modul 1 Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Modul 1 Sensor 3 | 25.6 |  °C |
-| 6 |  | Temperatur Modul 1 Sensor 4 | 0.1 |  °C |
-| 7 |  | Temperatur Modul 1 Sensor 4 | 25.6 |  °C |
-| 8 |  | Temperatur Modul 1 Sensor 5 | 0.1 |  °C |
-| 9 |  | Temperatur Modul 1 Sensor 5 | 25.6 |  °C |
-| 10 |  | Temperatur Modul 1 Sensor 6 | 0.1 |  °C |
-| 11 |  | Temperatur Modul 1 Sensor 6 | 25.6 |  °C |
-| 12 |  | Temperatur Modul 2 Sensor 1 | 0.1 |  °C |
-| 13 |  | Temperatur Modul 2 Sensor 1 | 25.6 |  °C |
-| 14 |  | Temperatur Modul 2 Sensor 2 | 0.1 |  °C |
-| 15 |  | Temperatur Modul 2 Sensor 2 | 25.6 |  °C |
-| 16 |  | Temperatur Modul 2 Sensor 3 | 0.1 |  °C |
-| 17 |  | Temperatur Modul 2 Sensor 3 | 25.6 |  °C |
-| 18 |  | Temperatur Modul 2 Sensor 4 | 0.1 |  °C |
-| 19 |  | Temperatur Modul 2 Sensor 4 | 25.6 |  °C |
-| 20 |  | Temperatur Modul 2 Sensor 5 | 0.1 |  °C |
-| 21 |  | Temperatur Modul 2 Sensor 5 | 25.6 |  °C |
-| 22 |  | Temperatur Modul 2 Sensor 6 | 0.1 |  °C |
-| 23 |  | Temperatur Modul 2 Sensor 6 | 25.6 |  °C |
-| 24 |  | Temperatur Modul 3 Sensor 1 | 0.1 |  °C |
-| 25 |  | Temperatur Modul 3 Sensor 1 | 25.6 |  °C |
-| 26 |  | Temperatur Modul 3 Sensor 2 | 0.1 |  °C |
-| 27 |  | Temperatur Modul 3 Sensor 2 | 25.6 |  °C |
-| 28 |  | Temperatur Modul 3 Sensor 3 | 0.1 |  °C |
-| 29 |  | Temperatur Modul 3 Sensor 3 | 25.6 |  °C |
-| 30 |  | Temperatur Modul 3 Sensor 4 | 0.1 |  °C |
-| 31 |  | Temperatur Modul 3 Sensor 4 | 25.6 |  °C |
-| 32 |  | Temperatur Modul 3 Sensor 5 | 0.1 |  °C |
-| 33 |  | Temperatur Modul 3 Sensor 5 | 25.6 |  °C |
-| 34 |  | Temperatur Modul 3 Sensor 6 | 0.1 |  °C |
-| 35 |  | Temperatur Modul 3 Sensor 6 | 25.6 |  °C |
-| 36 |  | Temperatur Modul 4 Sensor 1 | 0.1 |  °C |
-| 37 |  | Temperatur Modul 4 Sensor 1 | 25.6 |  °C |
-| 38 |  | Temperatur Modul 4 Sensor 2 | 0.1 |  °C |
-| 39 |  | Temperatur Modul 4 Sensor 2 | 25.6 |  °C |
-| 40 |  | Temperatur Modul 4 Sensor 3 | 0.1 |  °C |
-| 41 |  | Temperatur Modul 4 Sensor 3 | 25.6 |  °C |
-| 42 |  | Temperatur Modul 4 Sensor 4 | 0.1 |  °C |
-| 43 |  | Temperatur Modul 4 Sensor 4 | 25.6 |  °C |
-| 44 |  | Temperatur Modul 4 Sensor 5 | 0.1 |  °C |
-| 45 |  | Temperatur Modul 4 Sensor 5 | 25.6 |  °C |
-| 46 |  | Temperatur Modul 4 Sensor 6 | 0.1 |  °C |
-| 47 |  | Temperatur Modul 4 Sensor 6 | 25.6 |  °C |
-| 48 |  | Temperatur Modul 5 Sensor 1 | 0.1 |  °C |
-| 49 |  | Temperatur Modul 5 Sensor 1 | 25.6 |  °C |
-| 50 |  | Temperatur Modul 5 Sensor 2 | 0.1 |  °C |
-| 51 |  | Temperatur Modul 5 Sensor 2 | 25.6 |  °C |
-| 52 |  | Temperatur Modul 5 Sensor 3 | 0.1 |  °C |
-| 53 |  | Temperatur Modul 5 Sensor 3 | 25.6 |  °C |
-| 54 |  | Temperatur Modul 5 Sensor 4 | 0.1 |  °C |
-| 55 |  | Temperatur Modul 5 Sensor 4 | 25.6 |  °C |
-| 56 |  | Temperatur Modul 5 Sensor 5 | 0.1 |  °C |
-| 57 |  | Temperatur Modul 5 Sensor 5 | 25.6 |  °C |
-| 58 |  | Temperatur Modul 5 Sensor 6 | 0.1 |  °C |
-| 59 |  | Temperatur Modul 5 Sensor 6 | 25.6 |  °C |
+| 0 |  | Temperatur Modul 1 Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Modul 1 Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Modul 1 Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Modul 1 Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Modul 1 Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Modul 1 Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Modul 1 Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Modul 1 Sensor 4 | 256.0 |  °C |
+| 8 |  | Temperatur Modul 1 Sensor 5 | 1.0 |  °C |
+| 9 |  | Temperatur Modul 1 Sensor 5 | 256.0 |  °C |
+| 10 |  | Temperatur Modul 1 Sensor 6 | 1.0 |  °C |
+| 11 |  | Temperatur Modul 1 Sensor 6 | 256.0 |  °C |
+| 12 |  | Temperatur Modul 2 Sensor 1 | 1.0 |  °C |
+| 13 |  | Temperatur Modul 2 Sensor 1 | 256.0 |  °C |
+| 14 |  | Temperatur Modul 2 Sensor 2 | 1.0 |  °C |
+| 15 |  | Temperatur Modul 2 Sensor 2 | 256.0 |  °C |
+| 16 |  | Temperatur Modul 2 Sensor 3 | 1.0 |  °C |
+| 17 |  | Temperatur Modul 2 Sensor 3 | 256.0 |  °C |
+| 18 |  | Temperatur Modul 2 Sensor 4 | 1.0 |  °C |
+| 19 |  | Temperatur Modul 2 Sensor 4 | 256.0 |  °C |
+| 20 |  | Temperatur Modul 2 Sensor 5 | 1.0 |  °C |
+| 21 |  | Temperatur Modul 2 Sensor 5 | 256.0 |  °C |
+| 22 |  | Temperatur Modul 2 Sensor 6 | 1.0 |  °C |
+| 23 |  | Temperatur Modul 2 Sensor 6 | 256.0 |  °C |
+| 24 |  | Temperatur Modul 3 Sensor 1 | 1.0 |  °C |
+| 25 |  | Temperatur Modul 3 Sensor 1 | 256.0 |  °C |
+| 26 |  | Temperatur Modul 3 Sensor 2 | 1.0 |  °C |
+| 27 |  | Temperatur Modul 3 Sensor 2 | 256.0 |  °C |
+| 28 |  | Temperatur Modul 3 Sensor 3 | 1.0 |  °C |
+| 29 |  | Temperatur Modul 3 Sensor 3 | 256.0 |  °C |
+| 30 |  | Temperatur Modul 3 Sensor 4 | 1.0 |  °C |
+| 31 |  | Temperatur Modul 3 Sensor 4 | 256.0 |  °C |
+| 32 |  | Temperatur Modul 3 Sensor 5 | 1.0 |  °C |
+| 33 |  | Temperatur Modul 3 Sensor 5 | 256.0 |  °C |
+| 34 |  | Temperatur Modul 3 Sensor 6 | 1.0 |  °C |
+| 35 |  | Temperatur Modul 3 Sensor 6 | 256.0 |  °C |
+| 36 |  | Temperatur Modul 4 Sensor 1 | 1.0 |  °C |
+| 37 |  | Temperatur Modul 4 Sensor 1 | 256.0 |  °C |
+| 38 |  | Temperatur Modul 4 Sensor 2 | 1.0 |  °C |
+| 39 |  | Temperatur Modul 4 Sensor 2 | 256.0 |  °C |
+| 40 |  | Temperatur Modul 4 Sensor 3 | 1.0 |  °C |
+| 41 |  | Temperatur Modul 4 Sensor 3 | 256.0 |  °C |
+| 42 |  | Temperatur Modul 4 Sensor 4 | 1.0 |  °C |
+| 43 |  | Temperatur Modul 4 Sensor 4 | 256.0 |  °C |
+| 44 |  | Temperatur Modul 4 Sensor 5 | 1.0 |  °C |
+| 45 |  | Temperatur Modul 4 Sensor 5 | 256.0 |  °C |
+| 46 |  | Temperatur Modul 4 Sensor 6 | 1.0 |  °C |
+| 47 |  | Temperatur Modul 4 Sensor 6 | 256.0 |  °C |
+| 48 |  | Temperatur Modul 5 Sensor 1 | 1.0 |  °C |
+| 49 |  | Temperatur Modul 5 Sensor 1 | 256.0 |  °C |
+| 50 |  | Temperatur Modul 5 Sensor 2 | 1.0 |  °C |
+| 51 |  | Temperatur Modul 5 Sensor 2 | 256.0 |  °C |
+| 52 |  | Temperatur Modul 5 Sensor 3 | 1.0 |  °C |
+| 53 |  | Temperatur Modul 5 Sensor 3 | 256.0 |  °C |
+| 54 |  | Temperatur Modul 5 Sensor 4 | 1.0 |  °C |
+| 55 |  | Temperatur Modul 5 Sensor 4 | 256.0 |  °C |
+| 56 |  | Temperatur Modul 5 Sensor 5 | 1.0 |  °C |
+| 57 |  | Temperatur Modul 5 Sensor 5 | 256.0 |  °C |
+| 58 |  | Temperatur Modul 5 Sensor 6 | 1.0 |  °C |
+| 59 |  | Temperatur Modul 5 Sensor 6 | 256.0 |  °C |
 
 
 
@@ -4893,28 +5887,108 @@ title: VBus Packets
 
 
 
+### <a name="0010_7541_0100"></a>DFA (0x0010) <= Oventrop RQ-B XXL (0x7541), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
+| 8 |  | Temperatur Sensor 5 | 1.0 |  °C |
+| 9 |  | Temperatur Sensor 5 | 256.0 |  °C |
+| 10 |  | Temperatur Sensor 6 | 1.0 |  °C |
+| 11 |  | Temperatur Sensor 6 | 256.0 |  °C |
+| 12 |  | Temperatur Sensor 7 | 1.0 |  °C |
+| 13 |  | Temperatur Sensor 7 | 256.0 |  °C |
+| 14 |  | Temperatur Sensor 8 | 1.0 |  °C |
+| 15 |  | Temperatur Sensor 8 | 256.0 |  °C |
+| 22 |  | Temperatur Sensor DDS | 1.0 |  °C |
+| 23 |  | Temperatur Sensor DDS | 256.0 |  °C |
+| 36 |  | Durchfluss Sensor DDS | 1 |  l/h |
+| 37 |  | Durchfluss Sensor DDS | 256 |  l/h |
+| 38 |  | Durchfluss Sensor DDS | 65536 |  l/h |
+| 39 |  | Durchfluss Sensor DDS | 16777216 |  l/h |
+| 44 |  | Drehzahl Relais 1 | 1 | % |
+| 45 |  | Drehzahl Relais 2 | 1 | % |
+| 46 |  | Drehzahl Relais 3 | 1 | % |
+| 47 |  | Drehzahl Relais 4 | 1 | % |
+| 48 |  | Drehzahl Relais 5 | 1 | % |
+| 56 |  | Betriebssekunden Relais 1 | 1 |  s |
+| 57 |  | Betriebssekunden Relais 1 | 256 |  s |
+| 58 |  | Betriebssekunden Relais 1 | 65536 |  s |
+| 59 |  | Betriebssekunden Relais 1 | 16777216 |  s |
+| 60 |  | Betriebssekunden Relais 2 | 1 |  s |
+| 61 |  | Betriebssekunden Relais 2 | 256 |  s |
+| 62 |  | Betriebssekunden Relais 2 | 65536 |  s |
+| 63 |  | Betriebssekunden Relais 2 | 16777216 |  s |
+| 64 |  | Betriebssekunden Relais 3 | 1 |  s |
+| 65 |  | Betriebssekunden Relais 3 | 256 |  s |
+| 66 |  | Betriebssekunden Relais 3 | 65536 |  s |
+| 67 |  | Betriebssekunden Relais 3 | 16777216 |  s |
+| 68 |  | Betriebssekunden Relais 4 | 1 |  s |
+| 69 |  | Betriebssekunden Relais 4 | 256 |  s |
+| 70 |  | Betriebssekunden Relais 4 | 65536 |  s |
+| 71 |  | Betriebssekunden Relais 4 | 16777216 |  s |
+| 72 |  | Betriebssekunden Relais 5 | 1 |  s |
+| 73 |  | Betriebssekunden Relais 5 | 256 |  s |
+| 74 |  | Betriebssekunden Relais 5 | 65536 |  s |
+| 75 |  | Betriebssekunden Relais 5 | 16777216 |  s |
+| 92 |  | Wärmemenge | 1 |  Wh |
+| 93 |  | Wärmemenge | 256 |  Wh |
+| 94 |  | Wärmemenge | 65536 |  Wh |
+| 95 |  | Wärmemenge | 16777216 |  Wh |
+| 96 | 0x01 | Sensorfehler S1 | 1 |  |
+| 96 | 0x02 | Sensorfehler S2 | 1 |  |
+| 96 | 0x04 | Sensorfehler S3 | 1 |  |
+| 96 | 0x08 | Sensorfehler S4 | 1 |  |
+| 96 | 0x10 | Sensorfehler S5 | 1 |  |
+| 96 | 0x20 | Sensorfehler S6 | 1 |  |
+| 96 | 0x40 | Sensorfehler S7 | 1 |  |
+| 96 | 0x80 | Sensorfehler S8 | 1 |  |
+| 96 |  | Fehler | 1 |  |
+| 97 | 0x08 | Sensorfehler S12 VFD | 1 |  |
+| 97 |  | Fehler | 256 |  |
+| 98 | 0x01 | Desinfektion: Vorlauf zu niedrig | 1 |  |
+| 98 | 0x02 | Desinfektion: Fehlgeschlagen | 1 |  |
+| 98 | 0x04 | Uebertemperaturschutz aktiv | 1 |  |
+| 98 |  | Fehler | 65536 |  |
+| 99 |  | Fehler | 16777216 |  |
+| 104 |  | Version | 1.00 |  |
+| 105 |  | Version | 256.00 |  |
+| 108 |  | Systemdatum | 1 |  |
+| 109 |  | Systemdatum | 256 |  |
+| 110 |  | Systemdatum | 65536 |  |
+| 111 |  | Systemdatum | 16777216 |  |
+
+
+
 ### <a name="0010_7611_0100"></a>DFA (0x0010) <= Friwa (0x7611), command 0x0100
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 4 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 4 | 25.6 |  °C |
-| 8 |  | Temperatur Sensor 5 | 0.1 |  °C |
-| 9 |  | Temperatur Sensor 5 | 25.6 |  °C |
-| 10 |  | Temperatur Sensor 6 | 0.1 |  °C |
-| 11 |  | Temperatur Sensor 6 | 25.6 |  °C |
-| 12 |  | Temperatur Sensor 7 | 0.1 |  °C |
-| 13 |  | Temperatur Sensor 7 | 25.6 |  °C |
-| 14 |  | Temperatur Sensor 8 | 0.1 |  °C |
-| 15 |  | Temperatur Sensor 8 | 25.6 |  °C |
-| 16 |  | Temperatur Sensor 9 | 0.1 |  °C |
-| 17 |  | Temperatur Sensor 9 | 25.6 |  °C |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
+| 8 |  | Temperatur Sensor 5 | 1.0 |  °C |
+| 9 |  | Temperatur Sensor 5 | 256.0 |  °C |
+| 10 |  | Temperatur Sensor 6 | 1.0 |  °C |
+| 11 |  | Temperatur Sensor 6 | 256.0 |  °C |
+| 12 |  | Temperatur Sensor 7 | 1.0 |  °C |
+| 13 |  | Temperatur Sensor 7 | 256.0 |  °C |
+| 14 |  | Temperatur Sensor 8 | 1.0 |  °C |
+| 15 |  | Temperatur Sensor 8 | 256.0 |  °C |
+| 16 |  | Temperatur Sensor 9 | 1.0 |  °C |
+| 17 |  | Temperatur Sensor 9 | 256.0 |  °C |
 | 18 |  | Systemzeit | 1 |  |
 | 19 |  | Systemzeit | 256 |  |
 | 20 |  | Drehzahl Relais 1 | 1 | % |
@@ -4931,8 +6005,8 @@ title: VBus Packets
 | 31 |  | Wärmemenge | 256000 |  Wh |
 | 32 |  | Wärmemenge | 1000000 |  Wh |
 | 33 |  | Wärmemenge | 256000000 |  Wh |
-| 34 |  | Version | 1 |  |
-| 35 |  | Version | 0 |  |
+| 34 |  | Version | 100 |  |
+| 35 |  | Version | 1 |  |
 
 
 
@@ -4940,20 +6014,20 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 4 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 4 | 25.6 |  °C |
-| 8 |  | Temperatur Sensor 5 | 0.1 |  °C |
-| 9 |  | Temperatur Sensor 5 | 25.6 |  °C |
-| 10 |  | Temperatur Sensor 6 | 0.1 |  °C |
-| 11 |  | Temperatur Sensor 6 | 25.6 |  °C |
-| 12 |  | Temperatur Sensor 7 | 0.1 |  °C |
-| 13 |  | Temperatur Sensor 7 | 25.6 |  °C |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
+| 8 |  | Temperatur Sensor 5 | 1.0 |  °C |
+| 9 |  | Temperatur Sensor 5 | 256.0 |  °C |
+| 10 |  | Temperatur Sensor 6 | 1.0 |  °C |
+| 11 |  | Temperatur Sensor 6 | 256.0 |  °C |
+| 12 |  | Temperatur Sensor 7 | 1.0 |  °C |
+| 13 |  | Temperatur Sensor 7 | 256.0 |  °C |
 | 14 |  | Durchfluss Sensor 8 | 1 |  l/h |
 | 15 |  | Durchfluss Sensor 8 | 256 |  l/h |
 | 16 |  | Einstrahlung Sensor 9 | 1 |  W/m² |
@@ -4969,8 +6043,8 @@ title: VBus Packets
 | 26 |  | Fehlermaske | 256 |  |
 | 28 |  | Meldungen | 1 |  |
 | 29 |  | Meldungen | 256 |  |
-| 30 |  | Version | 1.00 |  |
-| 31 |  | Version | 0.01 |  |
+| 30 |  | Version | 100.00 |  |
+| 31 |  | Version | 1.00 |  |
 
 
 
@@ -4978,10 +6052,10 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Vorlauf | 0.1 |  °C |
-| 1 |  | Temperatur Vorlauf | 25.6 |  °C |
-| 2 |  | Temperatur Rücklauf | 0.1 |  °C |
-| 3 |  | Temperatur Rücklauf | 25.6 |  °C |
+| 0 |  | Temperatur Vorlauf | 1.0 |  °C |
+| 1 |  | Temperatur Vorlauf | 256.0 |  °C |
+| 2 |  | Temperatur Rücklauf | 1.0 |  °C |
+| 3 |  | Temperatur Rücklauf | 256.0 |  °C |
 | 4 |  | Durchfluss Sensor 8 | 1 |  l/h |
 | 5 |  | Durchfluss Sensor 8 | 256 |  l/h |
 | 6 |  | Wärmemenge | 1 |  Wh |
@@ -4997,22 +6071,22 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 4 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 4 | 25.6 |  °C |
-| 8 |  | Temperatur Sensor 5 | 0.1 |  °C |
-| 9 |  | Temperatur Sensor 5 | 25.6 |  °C |
-| 10 |  | Temperatur Sensor 6 | 0.1 |  °C |
-| 11 |  | Temperatur Sensor 6 | 25.6 |  °C |
-| 12 |  | Temperatur Sensor 7 | 0.1 |  °C |
-| 13 |  | Temperatur Sensor 7 | 25.6 |  °C |
-| 14 |  | Volumenstrom Sensor 8 | 0.1 |  l/min |
-| 15 |  | Volumenstrom Sensor 8 | 25.6 |  l/min |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
+| 8 |  | Temperatur Sensor 5 | 1.0 |  °C |
+| 9 |  | Temperatur Sensor 5 | 256.0 |  °C |
+| 10 |  | Temperatur Sensor 6 | 1.0 |  °C |
+| 11 |  | Temperatur Sensor 6 | 256.0 |  °C |
+| 12 |  | Temperatur Sensor 7 | 1.0 |  °C |
+| 13 |  | Temperatur Sensor 7 | 256.0 |  °C |
+| 14 |  | Volumenstrom Sensor 8 | 1.0 |  l/min |
+| 15 |  | Volumenstrom Sensor 8 | 256.0 |  l/min |
 | 16 |  | Digitaler Eingang 9 | 1 |  |
 | 17 |  | Status Relais 1 | 1 | % |
 | 18 |  | Status Relais 2 | 1 | % |
@@ -5024,8 +6098,8 @@ title: VBus Packets
 | 22 | 0x04 | EEPROM Fehler | 1 |  |
 | 22 | 0x08 | S1 Fehler | 1 |  |
 | 22 | 0x10 | S2 Fehler | 1 |  |
-| 24 |  | Version | 0.01 |  |
-| 25 |  | Version | 2.56 |  |
+| 24 |  | Version | 1.00 |  |
+| 25 |  | Version | 256.00 |  |
 | 26 |  | Systemzeit | 1 |  |
 | 27 |  | Systemzeit | 256 |  |
 
@@ -5035,26 +6109,26 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 4 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 4 | 25.6 |  °C |
-| 8 |  | Temperatur Sensor 5 | 0.1 |  °C |
-| 9 |  | Temperatur Sensor 5 | 25.6 |  °C |
-| 10 |  | Temperatur Sensor 6 | 0.1 |  °C |
-| 11 |  | Temperatur Sensor 6 | 25.6 |  °C |
-| 12 |  | Temperatur Sensor 7 | 0.1 |  °C |
-| 13 |  | Temperatur Sensor 7 | 25.6 |  °C |
-| 14 |  | Temperatur Sensor 8 | 0.1 |  °C |
-| 15 |  | Temperatur Sensor 8 | 25.6 |  °C |
-| 16 |  | Temperatur Sensor 9 | 0.1 |  °C |
-| 17 |  | Temperatur Sensor 9 | 25.6 |  °C |
-| 18 |  | Temperatur Sensor 10 | 0.1 |  °C |
-| 19 |  | Temperatur Sensor 10 | 25.6 |  °C |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
+| 8 |  | Temperatur Sensor 5 | 1.0 |  °C |
+| 9 |  | Temperatur Sensor 5 | 256.0 |  °C |
+| 10 |  | Temperatur Sensor 6 | 1.0 |  °C |
+| 11 |  | Temperatur Sensor 6 | 256.0 |  °C |
+| 12 |  | Temperatur Sensor 7 | 1.0 |  °C |
+| 13 |  | Temperatur Sensor 7 | 256.0 |  °C |
+| 14 |  | Temperatur Sensor 8 | 1.0 |  °C |
+| 15 |  | Temperatur Sensor 8 | 256.0 |  °C |
+| 16 |  | Temperatur Sensor 9 | 1.0 |  °C |
+| 17 |  | Temperatur Sensor 9 | 256.0 |  °C |
+| 18 |  | Temperatur Sensor 10 | 1.0 |  °C |
+| 19 |  | Temperatur Sensor 10 | 256.0 |  °C |
 | 20 |  | Einstrahlung | 1 |  W/m² |
 | 21 |  | Einstrahlung | 256 |  W/m² |
 | 22 |  | Impulseingang 1 | 1 |  |
@@ -5078,16 +6152,16 @@ title: VBus Packets
 | 41 |  | Reglerversion | 256 |  |
 | 42 |  | System | 1 |  |
 | 43 |  | Schema | 1 |  |
-| 44 |  | HK1-VL-Soll | 0.1 |  °C |
-| 45 |  | HK1-VL-Soll | 25.6 |  °C |
+| 44 |  | HK1-VL-Soll | 1.0 |  °C |
+| 45 |  | HK1-VL-Soll | 256.0 |  °C |
 | 46 |  | HK1-Betriebsstatus | 1 |  |
 | 47 |  | HK1-Status | 1 |  |
-| 48 |  | HK2-VL-Soll | 0.1 |  °C |
-| 49 |  | HK2-VL-Soll | 25.6 |  °C |
+| 48 |  | HK2-VL-Soll | 1.0 |  °C |
+| 49 |  | HK2-VL-Soll | 256.0 |  °C |
 | 50 |  | HK2-Betriebsstatus | 1 |  |
 | 51 |  | HK2-Status | 1 |  |
-| 52 |  | HK3-VL-Soll | 0.1 |  °C |
-| 53 |  | HK3-VL-Soll | 25.6 |  °C |
+| 52 |  | HK3-VL-Soll | 1.0 |  °C |
+| 53 |  | HK3-VL-Soll | 256.0 |  °C |
 | 54 |  | HK3-Betriebsstatus | 1 |  |
 | 55 |  | HK3-Status | 1 |  |
 | 56 |  | Sensorbenutzungs-Maske | 1 |  |
@@ -5105,10 +6179,10 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Vorlauftemperatur | 0.1 |  °C |
-| 1 |  | Vorlauftemperatur | 25.6 |  °C |
-| 2 |  | Rücklauftemperatur | 0.1 |  °C |
-| 3 |  | Rücklauftemperatur | 25.6 |  °C |
+| 0 |  | Vorlauftemperatur | 1.0 |  °C |
+| 1 |  | Vorlauftemperatur | 256.0 |  °C |
+| 2 |  | Rücklauftemperatur | 1.0 |  °C |
+| 3 |  | Rücklauftemperatur | 256.0 |  °C |
 | 4 |  | Volumenstrom | 1 |  l/h |
 | 5 |  | Volumenstrom | 256 |  l/h |
 | 6 |  | Wärme | 1 |  Wh |
@@ -5124,26 +6198,26 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 4 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 4 | 25.6 |  °C |
-| 8 |  | Temperatur Sensor 5 | 0.1 |  °C |
-| 9 |  | Temperatur Sensor 5 | 25.6 |  °C |
-| 10 |  | Temperatur Sensor 6 | 0.1 |  °C |
-| 11 |  | Temperatur Sensor 6 | 25.6 |  °C |
-| 12 |  | Temperatur Sensor 7 | 0.1 |  °C |
-| 13 |  | Temperatur Sensor 7 | 25.6 |  °C |
-| 14 |  | Temperatur Sensor 8 | 0.1 |  °C |
-| 15 |  | Temperatur Sensor 8 | 25.6 |  °C |
-| 16 |  | Temperatur Sensor 9 | 0.1 |  °C |
-| 17 |  | Temperatur Sensor 9 | 25.6 |  °C |
-| 18 |  | Temperatur Sensor 10 | 0.1 |  °C |
-| 19 |  | Temperatur Sensor 10 | 25.6 |  °C |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
+| 8 |  | Temperatur Sensor 5 | 1.0 |  °C |
+| 9 |  | Temperatur Sensor 5 | 256.0 |  °C |
+| 10 |  | Temperatur Sensor 6 | 1.0 |  °C |
+| 11 |  | Temperatur Sensor 6 | 256.0 |  °C |
+| 12 |  | Temperatur Sensor 7 | 1.0 |  °C |
+| 13 |  | Temperatur Sensor 7 | 256.0 |  °C |
+| 14 |  | Temperatur Sensor 8 | 1.0 |  °C |
+| 15 |  | Temperatur Sensor 8 | 256.0 |  °C |
+| 16 |  | Temperatur Sensor 9 | 1.0 |  °C |
+| 17 |  | Temperatur Sensor 9 | 256.0 |  °C |
+| 18 |  | Temperatur Sensor 10 | 1.0 |  °C |
+| 19 |  | Temperatur Sensor 10 | 256.0 |  °C |
 | 20 |  | Einstrahlung CS | 1 |  W/m² |
 | 21 |  | Einstrahlung CS | 256 |  W/m² |
 | 22 |  | Impulse 1 V40 | 1 |  |
@@ -5164,24 +6238,24 @@ title: VBus Packets
 | 40 |  | System | 1 |  |
 | 42 |  | Schema | 1 |  |
 | 43 |  | Schema | 256 |  |
-| 44 |  | Vorlauf Soll HK1 Modul Sensor 18 | 0.1 |  °C |
-| 45 |  | Vorlauf Soll HK1 Modul Sensor 18 | 25.6 |  °C |
+| 44 |  | Vorlauf Soll HK1 Modul Sensor 18 | 1.0 |  °C |
+| 45 |  | Vorlauf Soll HK1 Modul Sensor 18 | 256.0 |  °C |
 | 46 |  | Status HK1 Modul | 1 |  |
 | 47 |  | Status HK1 Modul | 256 |  |
-| 48 |  | Vorlauf Soll HK2 Modul Sensor 25 | 0.1 |  °C |
-| 49 |  | Vorlauf Soll HK2 Modul Sensor 25 | 25.6 |  °C |
+| 48 |  | Vorlauf Soll HK2 Modul Sensor 25 | 1.0 |  °C |
+| 49 |  | Vorlauf Soll HK2 Modul Sensor 25 | 256.0 |  °C |
 | 50 |  | Status HK2 Modul | 1 |  |
 | 51 |  | Status HK2 Modul | 256 |  |
-| 52 |  | Vorlauf Soll HK3 Modul Sensor 32 | 0.1 |  °C |
-| 53 |  | Vorlauf Soll HK3 Modul Sensor 32 | 25.6 |  °C |
+| 52 |  | Vorlauf Soll HK3 Modul Sensor 32 | 1.0 |  °C |
+| 53 |  | Vorlauf Soll HK3 Modul Sensor 32 | 256.0 |  °C |
 | 54 |  | Status HK3 Modul | 1 |  |
 | 55 |  | Status HK3 Modul | 256 |  |
-| 56 |  | Vorlauf Soll Heizkreis Sensor 11 | 0.1 |  °C |
-| 57 |  | Vorlauf Soll Heizkreis Sensor 11 | 25.6 |  °C |
+| 56 |  | Vorlauf Soll Heizkreis Sensor 11 | 1.0 |  °C |
+| 57 |  | Vorlauf Soll Heizkreis Sensor 11 | 256.0 |  °C |
 | 58 |  | Status Heizkreis | 1 |  |
 | 59 |  | Status Heizkreis | 256 |  |
-| 60 |  | Version | 1.00 |  |
-| 61 |  | Version | 0.01 |  |
+| 60 |  | Version | 100.00 |  |
+| 61 |  | Version | 1.00 |  |
 | 62 |  | Systemzeit | 1 |  |
 | 63 |  | Systemzeit | 256 |  |
 | 64 |  | Jahr | 1 |  |
@@ -5195,10 +6269,10 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Vorlauf | 0.1 |  °C |
-| 1 |  | Temperatur Vorlauf | 25.6 |  °C |
-| 2 |  | Temperatur Rücklauf | 0.1 |  °C |
-| 3 |  | Temperatur Rücklauf | 25.6 |  °C |
+| 0 |  | Temperatur Vorlauf | 1.0 |  °C |
+| 1 |  | Temperatur Vorlauf | 256.0 |  °C |
+| 2 |  | Temperatur Rücklauf | 1.0 |  °C |
+| 3 |  | Temperatur Rücklauf | 256.0 |  °C |
 | 4 |  | Durchfluss Sensor 8 | 1 |  l/h |
 | 5 |  | Durchfluss Sensor 8 | 256 |  l/h |
 | 6 |  | Wärmemenge | 1 |  Wh |
@@ -5214,26 +6288,26 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °F |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °F |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °F |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °F |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °F |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °F |
-| 6 |  | Temperatur Sensor 4 | 0.1 |  °F |
-| 7 |  | Temperatur Sensor 4 | 25.6 |  °F |
-| 8 |  | Temperatur Sensor 5 | 0.1 |  °F |
-| 9 |  | Temperatur Sensor 5 | 25.6 |  °F |
-| 10 |  | Temperatur Sensor 6 | 0.1 |  °F |
-| 11 |  | Temperatur Sensor 6 | 25.6 |  °F |
-| 12 |  | Temperatur Sensor 7 | 0.1 |  °F |
-| 13 |  | Temperatur Sensor 7 | 25.6 |  °F |
-| 14 |  | Temperatur Sensor 8 | 0.1 |  °F |
-| 15 |  | Temperatur Sensor 8 | 25.6 |  °F |
-| 16 |  | Temperatur Sensor 9 | 0.1 |  °F |
-| 17 |  | Temperatur Sensor 9 | 25.6 |  °F |
-| 18 |  | Temperatur Sensor 10 | 0.1 |  °F |
-| 19 |  | Temperatur Sensor 10 | 25.6 |  °F |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °F |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °F |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °F |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °F |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °F |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °F |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °F |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °F |
+| 8 |  | Temperatur Sensor 5 | 1.0 |  °F |
+| 9 |  | Temperatur Sensor 5 | 256.0 |  °F |
+| 10 |  | Temperatur Sensor 6 | 1.0 |  °F |
+| 11 |  | Temperatur Sensor 6 | 256.0 |  °F |
+| 12 |  | Temperatur Sensor 7 | 1.0 |  °F |
+| 13 |  | Temperatur Sensor 7 | 256.0 |  °F |
+| 14 |  | Temperatur Sensor 8 | 1.0 |  °F |
+| 15 |  | Temperatur Sensor 8 | 256.0 |  °F |
+| 16 |  | Temperatur Sensor 9 | 1.0 |  °F |
+| 17 |  | Temperatur Sensor 9 | 256.0 |  °F |
+| 18 |  | Temperatur Sensor 10 | 1.0 |  °F |
+| 19 |  | Temperatur Sensor 10 | 256.0 |  °F |
 | 20 |  | Einstrahlung CS | 1 |  W/m² |
 | 21 |  | Einstrahlung CS | 256 |  W/m² |
 | 22 |  | Impulse 1 V40 | 1 |  |
@@ -5254,24 +6328,24 @@ title: VBus Packets
 | 40 |  | System | 1 |  |
 | 42 |  | Schema | 1 |  |
 | 43 |  | Schema | 256 |  |
-| 44 |  | Vorlauf Soll HK1 Modul Sensor 18 | 0.1 |  °F |
-| 45 |  | Vorlauf Soll HK1 Modul Sensor 18 | 25.6 |  °F |
+| 44 |  | Vorlauf Soll HK1 Modul Sensor 18 | 1.0 |  °F |
+| 45 |  | Vorlauf Soll HK1 Modul Sensor 18 | 256.0 |  °F |
 | 46 |  | Status HK1 Modul | 1 |  |
 | 47 |  | Status HK1 Modul | 256 |  |
-| 48 |  | Vorlauf Soll HK2 Modul Sensor 25 | 0.1 |  °F |
-| 49 |  | Vorlauf Soll HK2 Modul Sensor 25 | 25.6 |  °F |
+| 48 |  | Vorlauf Soll HK2 Modul Sensor 25 | 1.0 |  °F |
+| 49 |  | Vorlauf Soll HK2 Modul Sensor 25 | 256.0 |  °F |
 | 50 |  | Status HK2 Modul | 1 |  |
 | 51 |  | Status HK2 Modul | 256 |  |
-| 52 |  | Vorlauf Soll HK3 Modul Sensor 32 | 0.1 |  °F |
-| 53 |  | Vorlauf Soll HK3 Modul Sensor 32 | 25.6 |  °F |
+| 52 |  | Vorlauf Soll HK3 Modul Sensor 32 | 1.0 |  °F |
+| 53 |  | Vorlauf Soll HK3 Modul Sensor 32 | 256.0 |  °F |
 | 54 |  | Status HK3 Modul | 1 |  |
 | 55 |  | Status HK3 Modul | 256 |  |
-| 56 |  | Vorlauf Soll Heizkreis Sensor 11 | 0.1 |  °F |
-| 57 |  | Vorlauf Soll Heizkreis Sensor 11 | 25.6 |  °F |
+| 56 |  | Vorlauf Soll Heizkreis Sensor 11 | 1.0 |  °F |
+| 57 |  | Vorlauf Soll Heizkreis Sensor 11 | 256.0 |  °F |
 | 58 |  | Status Heizkreis | 1 |  |
 | 59 |  | Status Heizkreis | 256 |  |
-| 60 |  | Version | 1.00 |  |
-| 61 |  | Version | 0.01 |  |
+| 60 |  | Version | 100.00 |  |
+| 61 |  | Version | 1.00 |  |
 | 62 |  | Systemzeit | 1 |  |
 | 63 |  | Systemzeit | 256 |  |
 | 64 |  | Jahr | 1 |  |
@@ -5285,10 +6359,10 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Vorlauf | 0.1 |  °F |
-| 1 |  | Temperatur Vorlauf | 25.6 |  °F |
-| 2 |  | Temperatur Rücklauf | 0.1 |  °F |
-| 3 |  | Temperatur Rücklauf | 25.6 |  °F |
+| 0 |  | Temperatur Vorlauf | 1.0 |  °F |
+| 1 |  | Temperatur Vorlauf | 256.0 |  °F |
+| 2 |  | Temperatur Rücklauf | 1.0 |  °F |
+| 3 |  | Temperatur Rücklauf | 256.0 |  °F |
 | 4 |  | Durchfluss Sensor 8 | 1 |  l/h |
 | 5 |  | Durchfluss Sensor 8 | 256 |  l/h |
 | 6 |  | Wärmemenge | 1 |  Wh |
@@ -5304,22 +6378,22 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 4 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 4 | 25.6 |  °C |
-| 8 |  | Temperatur Sensor 5 | 0.1 |  °C |
-| 9 |  | Temperatur Sensor 5 | 25.6 |  °C |
-| 10 |  | Temperatur Sensor 6 | 0.1 |  °C |
-| 11 |  | Temperatur Sensor 6 | 25.6 |  °C |
-| 12 |  | Temperatur Sensor 7 | 0.1 |  °C |
-| 13 |  | Temperatur Sensor 7 | 25.6 |  °C |
-| 14 |  | Temperatur Sensor 8 | 0.1 |  °C |
-| 15 |  | Temperatur Sensor 8 | 25.6 |  °C |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
+| 8 |  | Temperatur Sensor 5 | 1.0 |  °C |
+| 9 |  | Temperatur Sensor 5 | 256.0 |  °C |
+| 10 |  | Temperatur Sensor 6 | 1.0 |  °C |
+| 11 |  | Temperatur Sensor 6 | 256.0 |  °C |
+| 12 |  | Temperatur Sensor 7 | 1.0 |  °C |
+| 13 |  | Temperatur Sensor 7 | 256.0 |  °C |
+| 14 |  | Temperatur Sensor 8 | 1.0 |  °C |
+| 15 |  | Temperatur Sensor 8 | 256.0 |  °C |
 | 16 |  | Drehzahl R1 | 1 | % |
 | 17 |  | Drehzahl R2 | 1 | % |
 | 18 |  | Drehzahl R3 | 1 | % |
@@ -5338,30 +6412,30 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 4 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 4 | 25.6 |  °C |
-| 8 |  | Temperatur Sensor 5 | 0.1 |  °C |
-| 9 |  | Temperatur Sensor 5 | 25.6 |  °C |
-| 10 |  | Temperatur Sensor 6 | 0.1 |  °C |
-| 11 |  | Temperatur Sensor 6 | 25.6 |  °C |
-| 12 |  | Temperatur Sensor 7 | 0.1 |  °C |
-| 13 |  | Temperatur Sensor 7 | 25.6 |  °C |
-| 14 |  | Temperatur Sensor 8 | 0.1 |  °C |
-| 15 |  | Temperatur Sensor 8 | 25.6 |  °C |
-| 16 |  | Temperatur Sensor 9 | 0.1 |  °C |
-| 17 |  | Temperatur Sensor 9 | 25.6 |  °C |
-| 18 |  | Temperatur Sensor 10 | 0.1 |  °C |
-| 19 |  | Temperatur Sensor 10 | 25.6 |  °C |
-| 20 |  | Temperatur Sensor 11 | 0.1 |  °C |
-| 21 |  | Temperatur Sensor 11 | 25.6 |  °C |
-| 22 |  | Volumenstrom | 0.1 |  l/min |
-| 23 |  | Volumenstrom | 25.6 |  l/min |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
+| 8 |  | Temperatur Sensor 5 | 1.0 |  °C |
+| 9 |  | Temperatur Sensor 5 | 256.0 |  °C |
+| 10 |  | Temperatur Sensor 6 | 1.0 |  °C |
+| 11 |  | Temperatur Sensor 6 | 256.0 |  °C |
+| 12 |  | Temperatur Sensor 7 | 1.0 |  °C |
+| 13 |  | Temperatur Sensor 7 | 256.0 |  °C |
+| 14 |  | Temperatur Sensor 8 | 1.0 |  °C |
+| 15 |  | Temperatur Sensor 8 | 256.0 |  °C |
+| 16 |  | Temperatur Sensor 9 | 1.0 |  °C |
+| 17 |  | Temperatur Sensor 9 | 256.0 |  °C |
+| 18 |  | Temperatur Sensor 10 | 1.0 |  °C |
+| 19 |  | Temperatur Sensor 10 | 256.0 |  °C |
+| 20 |  | Temperatur Sensor 11 | 1.0 |  °C |
+| 21 |  | Temperatur Sensor 11 | 256.0 |  °C |
+| 22 |  | Volumenstrom | 1.0 |  l/min |
+| 23 |  | Volumenstrom | 256.0 |  l/min |
 | 24 |  | Drehzahl R1 | 1 | % |
 | 25 |  | Drehzahl R2 | 1 | % |
 | 26 |  | Drehzahl R3 | 1 | % |
@@ -5389,26 +6463,26 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 4 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 4 | 25.6 |  °C |
-| 8 |  | Temperatur Sensor 5 | 0.1 |  °C |
-| 9 |  | Temperatur Sensor 5 | 25.6 |  °C |
-| 10 |  | Temperatur Sensor 6 | 0.1 |  °C |
-| 11 |  | Temperatur Sensor 6 | 25.6 |  °C |
-| 12 |  | Temperatur Sensor 7 | 0.1 |  °C |
-| 13 |  | Temperatur Sensor 7 | 25.6 |  °C |
-| 14 |  | Temperatur Sensor 8 | 0.1 |  °C |
-| 15 |  | Temperatur Sensor 8 | 25.6 |  °C |
-| 16 |  | Temperatur Sensor 9 | 0.1 |  °C |
-| 17 |  | Temperatur Sensor 9 | 25.6 |  °C |
-| 18 |  | Temperatur Sensor 10 | 0.1 |  °C |
-| 19 |  | Temperatur Sensor 10 | 25.6 |  °C |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
+| 8 |  | Temperatur Sensor 5 | 1.0 |  °C |
+| 9 |  | Temperatur Sensor 5 | 256.0 |  °C |
+| 10 |  | Temperatur Sensor 6 | 1.0 |  °C |
+| 11 |  | Temperatur Sensor 6 | 256.0 |  °C |
+| 12 |  | Temperatur Sensor 7 | 1.0 |  °C |
+| 13 |  | Temperatur Sensor 7 | 256.0 |  °C |
+| 14 |  | Temperatur Sensor 8 | 1.0 |  °C |
+| 15 |  | Temperatur Sensor 8 | 256.0 |  °C |
+| 16 |  | Temperatur Sensor 9 | 1.0 |  °C |
+| 17 |  | Temperatur Sensor 9 | 256.0 |  °C |
+| 18 |  | Temperatur Sensor 10 | 1.0 |  °C |
+| 19 |  | Temperatur Sensor 10 | 256.0 |  °C |
 | 20 |  | Einstrahlung CS | 1 |  W/m² |
 | 21 |  | Einstrahlung CS | 256 |  W/m² |
 | 22 |  | Impulse 1 V40 | 1 |  |
@@ -5433,32 +6507,32 @@ title: VBus Packets
 | 36 | 0x40 | Nachheizung | 1 |  |
 | 36 | 0x80 | Solar Nachheizung | 1 |  |
 | 36 |  | Meldungen | 1 |  |
-| 36 | 0x100 | dT Solar Nachheizung | 1 |  |
-| 36 | 0x200 | Umwälzung | 1 |  |
-| 36 | 0x400 | Kollektorabschaltung | 1 |  |
-| 36 | 0x800 | Kollektorminimal | 1 |  |
-| 36 | 0x1000 | dT Beckenkühlfkt aus | 1 |  |
-| 36 | 0x2000 | Vorlaufbegrenzung | 1 |  |
-| 36 | 0x4000 | Extra Filterlaufzeit | 1 |  |
-| 36 | 0x8000 | Externe Reglerfreigabe | 1 |  |
-| 36 | 0x10000 | Fehlerrelais | 1 |  |
-| 36 | 0x40000 | T Beckenkühlfkt | 1 |  |
-| 36 | 0x80000 | dT Beckenkühlfkt ein | 1 |  |
-| 36 | 0x80000 | Solarkreis ein | 1 |  |
-| 36 | 0x100000 | Filter eingeschaltet | 1 |  |
-| 36 | 0x200000 | Nachhzg normal | 1 |  |
-| 36 | 0x400000 | Solarkreis aktiv | 1 |  |
-| 36 | 0x800000 | Betriebsrelais ein | 1 |  |
-| 36 | 0x1000000 | Pumpencheck | 1 |  |
-| 36 | 0x4000000 | Solar dTaus | 1 |  |
+| 37 | 0x01 | dT Solar Nachheizung | 1 |  |
+| 37 | 0x02 | Umwälzung | 1 |  |
+| 37 | 0x04 | Kollektorabschaltung | 1 |  |
+| 37 | 0x08 | Kollektorminimal | 1 |  |
+| 37 | 0x10 | dT Beckenkühlfkt aus | 1 |  |
+| 37 | 0x20 | Vorlaufbegrenzung | 1 |  |
+| 37 | 0x40 | Extra Filterlaufzeit | 1 |  |
+| 37 | 0x80 | Externe Reglerfreigabe | 1 |  |
 | 37 |  | Meldungen | 256 |  |
+| 38 | 0x01 | Fehlerrelais | 1 |  |
+| 38 | 0x04 | T Beckenkühlfkt | 1 |  |
+| 38 | 0x08 | Solarkreis ein | 1 |  |
+| 38 | 0x08 | dT Beckenkühlfkt ein | 1 |  |
+| 38 | 0x10 | Filter eingeschaltet | 1 |  |
+| 38 | 0x20 | Nachhzg normal | 1 |  |
+| 38 | 0x40 | Solarkreis aktiv | 1 |  |
+| 38 | 0x80 | Betriebsrelais ein | 1 |  |
 | 38 |  | Meldungen | 65536 |  |
+| 39 | 0x01 | Pumpencheck | 1 |  |
+| 39 | 0x04 | Solar dTaus | 1 |  |
 | 39 |  | Meldungen | 16777216 |  |
 | 40 |  | Filterlaufzeit | 1 |  min |
 | 41 |  | Filterlaufzeit | 256 |  min |
+| 44 |  | Version | 100.00 |  |
 | 44 |  | Solarphase | 1 |  |
-| 44 |  | Version | 1.00 |  |
-| 45 |  | Version | 0.01 |  |
+| 45 |  | Version | 1.00 |  |
 | 46 |  | Systemzeit | 1 |  |
 | 47 |  | Systemzeit | 256 |  |
 | 48 |  | Jahr | 1 |  |
@@ -5496,10 +6570,10 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Vorlauf | 0.1 |  °C |
-| 1 |  | Temperatur Vorlauf | 25.6 |  °C |
-| 2 |  | Temperatur Rücklauf | 0.1 |  °C |
-| 3 |  | Temperatur Rücklauf | 25.6 |  °C |
+| 0 |  | Temperatur Vorlauf | 1.0 |  °C |
+| 1 |  | Temperatur Vorlauf | 256.0 |  °C |
+| 2 |  | Temperatur Rücklauf | 1.0 |  °C |
+| 3 |  | Temperatur Rücklauf | 256.0 |  °C |
 | 4 |  | Durchfluss Sensor 8 | 1 |  l/h |
 | 5 |  | Durchfluss Sensor 8 | 256 |  l/h |
 | 6 |  | Wärmemenge | 1 |  Wh |
@@ -5521,10 +6595,10 @@ title: VBus Packets
 | 3 |  | Datum | 16777216 |  |
 | 4 |  | Uhrzeit | 1 |  |
 | 5 |  | Uhrzeit | 256 |  |
-| 8 |  | TSS | 0.1 |  °C |
-| 9 |  | TSS | 25.6 |  °C |
-| 10 |  | TEF | 0.1 |  °C |
-| 11 |  | TEF | 25.6 |  °C |
+| 8 |  | TSS | 1.0 |  °C |
+| 9 |  | TSS | 256.0 |  °C |
+| 10 |  | TEF | 1.0 |  °C |
+| 11 |  | TEF | 256.0 |  °C |
 | 12 |  | Wärme | 1 |  Wh |
 | 13 |  | Wärme | 256 |  Wh |
 | 14 |  | Wärme | 1000 |  Wh |
@@ -5533,14 +6607,14 @@ title: VBus Packets
 | 17 |  | Wärme | 256000000 |  Wh |
 | 18 |  | Volumenstrom | 1 |  l/h |
 | 19 |  | Volumenstrom | 256 |  l/h |
-| 20 |  | Volumen | 0.01 |  m³ |
-| 21 |  | Volumen | 2.56 |  m³ |
-| 22 |  | Volumen | 655.36 |  m³ |
-| 23 |  | Volumen | 167772.16 |  m³ |
-| 24 |  | TSS | 0.1 |  °C |
-| 25 |  | TSS | 25.6 |  °C |
-| 26 |  | TSA | 0.1 |  °C |
-| 27 |  | TSA | 25.6 |  °C |
+| 20 |  | Volumen | 1.00 |  m³ |
+| 21 |  | Volumen | 256.00 |  m³ |
+| 22 |  | Volumen | 65536.00 |  m³ |
+| 23 |  | Volumen | 16777216.00 |  m³ |
+| 24 |  | TSS | 1.0 |  °C |
+| 25 |  | TSS | 256.0 |  °C |
+| 26 |  | TSA | 1.0 |  °C |
+| 27 |  | TSA | 256.0 |  °C |
 | 28 |  | Wärme2 | 1 |  Wh |
 | 29 |  | Wärme2 | 256 |  Wh |
 | 30 |  | Wärme2 | 1000 |  Wh |
@@ -5549,10 +6623,10 @@ title: VBus Packets
 | 33 |  | Wärme2 | 256000000 |  Wh |
 | 34 |  | Volumenstrom2 | 1 |  l/h |
 | 35 |  | Volumenstrom2 | 256 |  l/h |
-| 36 |  | TAC | 0.1 |  °C |
-| 37 |  | TAC | 25.6 |  °C |
-| 38 |  | TAF | 0.1 |  °C |
-| 39 |  | TAF | 25.6 |  °C |
+| 36 |  | TAC | 1.0 |  °C |
+| 37 |  | TAC | 256.0 |  °C |
+| 38 |  | TAF | 1.0 |  °C |
+| 39 |  | TAF | 256.0 |  °C |
 | 40 |  | Wärme3 | 1 |  Wh |
 | 41 |  | Wärme3 | 256 |  Wh |
 | 42 |  | Wärme3 | 1000 |  Wh |
@@ -5561,10 +6635,10 @@ title: VBus Packets
 | 45 |  | Wärme3 | 256000000 |  Wh |
 | 46 |  | Volumenstrom3 | 1 |  l/h |
 | 47 |  | Volumenstrom3 | 256 |  l/h |
-| 48 |  | TBC | 0.1 |  °C |
-| 49 |  | TBC | 25.6 |  °C |
-| 50 |  | TBF | 0.1 |  °C |
-| 51 |  | TBF | 25.6 |  °C |
+| 48 |  | TBC | 1.0 |  °C |
+| 49 |  | TBC | 256.0 |  °C |
+| 50 |  | TBF | 1.0 |  °C |
+| 51 |  | TBF | 256.0 |  °C |
 | 52 |  | Wärme4 | 1 |  Wh |
 | 53 |  | Wärme4 | 256 |  Wh |
 | 54 |  | Wärme4 | 1000 |  Wh |
@@ -5573,10 +6647,10 @@ title: VBus Packets
 | 57 |  | Wärme4 | 256000000 |  Wh |
 | 58 |  | Volumenstrom4 | 1 |  l/h |
 | 59 |  | Volumenstrom4 | 256 |  l/h |
-| 60 |  | TSC | 0.1 |  °C |
-| 61 |  | TSC | 25.6 |  °C |
-| 62 |  | TSF | 0.1 |  °C |
-| 63 |  | TSF | 25.6 |  °C |
+| 60 |  | TSC | 1.0 |  °C |
+| 61 |  | TSC | 256.0 |  °C |
+| 62 |  | TSF | 1.0 |  °C |
+| 63 |  | TSF | 256.0 |  °C |
 | 64 |  | Wärme5 | 1 |  Wh |
 | 65 |  | Wärme5 | 256 |  Wh |
 | 66 |  | Wärme5 | 1000 |  Wh |
@@ -5597,10 +6671,10 @@ title: VBus Packets
 | 81 |  | Strom2 | 256 |  kWh |
 | 82 |  | Strom2 | 65536 |  kWh |
 | 83 |  | Strom2 | 16777216 |  kWh |
-| 84 |  | Gas1 | 0.01 |  m³ |
-| 85 |  | Gas1 | 2.56 |  m³ |
-| 86 |  | Gas1 | 655.36 |  m³ |
-| 87 |  | Gas1 | 167772.16 |  m³ |
+| 84 |  | Gas1 | 1.00 |  m³ |
+| 85 |  | Gas1 | 256.00 |  m³ |
+| 86 |  | Gas1 | 65536.00 |  m³ |
+| 87 |  | Gas1 | 16777216.00 |  m³ |
 | 88 |  | Therm_ Energie1 | 1 |  kWh |
 | 89 |  | Therm_ Energie1 | 256 |  kWh |
 | 90 |  | Therm_ Energie1 | 65536 |  kWh |
@@ -5692,26 +6766,26 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 4 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 4 | 25.6 |  °C |
-| 8 |  | Temperatur Sensor 5 | 0.1 |  °C |
-| 9 |  | Temperatur Sensor 5 | 25.6 |  °C |
-| 10 |  | Temperatur Sensor 6 | 0.1 |  °C |
-| 11 |  | Temperatur Sensor 6 | 25.6 |  °C |
-| 12 |  | Temperatur Sensor 7 | 0.1 |  °C |
-| 13 |  | Temperatur Sensor 7 | 25.6 |  °C |
-| 14 |  | Temperatur Sensor 8 | 0.1 |  °C |
-| 15 |  | Temperatur Sensor 8 | 25.6 |  °C |
-| 16 |  | Temperatur Sensor 9 | 0.1 |  °C |
-| 17 |  | Temperatur Sensor 9 | 25.6 |  °C |
-| 18 |  | Temperatur Sensor 10 | 0.1 |  °C |
-| 19 |  | Temperatur Sensor 10 | 25.6 |  °C |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
+| 8 |  | Temperatur Sensor 5 | 1.0 |  °C |
+| 9 |  | Temperatur Sensor 5 | 256.0 |  °C |
+| 10 |  | Temperatur Sensor 6 | 1.0 |  °C |
+| 11 |  | Temperatur Sensor 6 | 256.0 |  °C |
+| 12 |  | Temperatur Sensor 7 | 1.0 |  °C |
+| 13 |  | Temperatur Sensor 7 | 256.0 |  °C |
+| 14 |  | Temperatur Sensor 8 | 1.0 |  °C |
+| 15 |  | Temperatur Sensor 8 | 256.0 |  °C |
+| 16 |  | Temperatur Sensor 9 | 1.0 |  °C |
+| 17 |  | Temperatur Sensor 9 | 256.0 |  °C |
+| 18 |  | Temperatur Sensor 10 | 1.0 |  °C |
+| 19 |  | Temperatur Sensor 10 | 256.0 |  °C |
 | 20 |  | Einstrahlung CS | 1 |  W/m² |
 | 21 |  | Einstrahlung CS | 256 |  W/m² |
 | 22 |  | Impulse 1 V40 | 1 |  |
@@ -5732,24 +6806,24 @@ title: VBus Packets
 | 40 |  | System | 1 |  |
 | 42 |  | Schema | 1 |  |
 | 43 |  | Schema | 256 |  |
-| 44 |  | Vorlauf Soll HK1 Modul Sensor 18 | 0.1 |  °C |
-| 45 |  | Vorlauf Soll HK1 Modul Sensor 18 | 25.6 |  °C |
+| 44 |  | Vorlauf Soll HK1 Modul Sensor 18 | 1.0 |  °C |
+| 45 |  | Vorlauf Soll HK1 Modul Sensor 18 | 256.0 |  °C |
 | 46 |  | Status HK1 Modul | 1 |  |
 | 47 |  | Status HK1 Modul | 256 |  |
-| 48 |  | Vorlauf Soll HK2 Modul Sensor 25 | 0.1 |  °C |
-| 49 |  | Vorlauf Soll HK2 Modul Sensor 25 | 25.6 |  °C |
+| 48 |  | Vorlauf Soll HK2 Modul Sensor 25 | 1.0 |  °C |
+| 49 |  | Vorlauf Soll HK2 Modul Sensor 25 | 256.0 |  °C |
 | 50 |  | Status HK2 Modul | 1 |  |
 | 51 |  | Status HK2 Modul | 256 |  |
-| 52 |  | Vorlauf Soll HK3 Modul Sensor 32 | 0.1 |  °C |
-| 53 |  | Vorlauf Soll HK3 Modul Sensor 32 | 25.6 |  °C |
+| 52 |  | Vorlauf Soll HK3 Modul Sensor 32 | 1.0 |  °C |
+| 53 |  | Vorlauf Soll HK3 Modul Sensor 32 | 256.0 |  °C |
 | 54 |  | Status HK3 Modul | 1 |  |
 | 55 |  | Status HK3 Modul | 256 |  |
-| 56 |  | Vorlauf Soll Heizkreis Sensor 11 | 0.1 |  °C |
-| 57 |  | Vorlauf Soll Heizkreis Sensor 11 | 25.6 |  °C |
+| 56 |  | Vorlauf Soll Heizkreis Sensor 11 | 1.0 |  °C |
+| 57 |  | Vorlauf Soll Heizkreis Sensor 11 | 256.0 |  °C |
 | 58 |  | Status Heizkreis | 1 |  |
 | 59 |  | Status Heizkreis | 256 |  |
-| 60 |  | Version | 1.00 |  |
-| 61 |  | Version | 0.01 |  |
+| 60 |  | Version | 100.00 |  |
+| 61 |  | Version | 1.00 |  |
 | 62 |  | Systemzeit | 1 |  |
 | 63 |  | Systemzeit | 256 |  |
 | 64 |  | Jahr | 1 |  |
@@ -5763,10 +6837,10 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Vorlauf | 0.1 |  °C |
-| 1 |  | Temperatur Vorlauf | 25.6 |  °C |
-| 2 |  | Temperatur Rücklauf | 0.1 |  °C |
-| 3 |  | Temperatur Rücklauf | 25.6 |  °C |
+| 0 |  | Temperatur Vorlauf | 1.0 |  °C |
+| 1 |  | Temperatur Vorlauf | 256.0 |  °C |
+| 2 |  | Temperatur Rücklauf | 1.0 |  °C |
+| 3 |  | Temperatur Rücklauf | 256.0 |  °C |
 | 4 |  | Durchfluss Sensor 8 | 1 |  l/h |
 | 5 |  | Durchfluss Sensor 8 | 256 |  l/h |
 | 6 |  | Wärmemenge | 1 |  Wh |
@@ -5790,10 +6864,10 @@ title: VBus Packets
 | 5 |  | Systemzeit | 256 |  |
 | 6 |  | Status | 1 |  |
 | 7 |  | Fehlermeldung | 1 |  |
-| 8 |  | Vorlauf-Soll-Temperatur | 0.1 |  °C |
-| 9 |  | Vorlauf-Soll-Temperatur | 25.6 |  °C |
-| 10 |  | Vorlauftemperatur | 0.1 |  °C |
-| 11 |  | Vorlauftemperatur | 25.6 |  °C |
+| 8 |  | Vorlauf-Soll-Temperatur | 1.0 |  °C |
+| 9 |  | Vorlauf-Soll-Temperatur | 256.0 |  °C |
+| 10 |  | Vorlauftemperatur | 1.0 |  °C |
+| 11 |  | Vorlauftemperatur | 256.0 |  °C |
 | 12 |  | Relais Pumpe | 1 | % |
 | 13 |  | Relais Mischer Auf | 1 | % |
 | 14 |  | Relais Mischer Zu | 1 | % |
@@ -5802,14 +6876,73 @@ title: VBus Packets
 | 17 |  | Handebetrieb Relais Mischer Zu | 1 |  |
 | 18 |  | NH-Anforderung | 1 |  |
 | 19 |  | Parameter Start | 1 |  |
-| 20 |  | Parameter TStart | 0.1 |  °C |
-| 21 |  | Parameter TStart | 25.6 |  °C |
-| 22 |  | Parameter TMax | 0.1 |  °C |
-| 23 |  | Parameter TMax | 25.6 |  °C |
-| 24 |  | Parameter Anstieg | 0.1 |  °C |
-| 25 |  | Parameter Anstieg | 25.6 |  °C |
+| 20 |  | Parameter TStart | 1.0 |  °C |
+| 21 |  | Parameter TStart | 256.0 |  °C |
+| 22 |  | Parameter TMax | 1.0 |  °C |
+| 23 |  | Parameter TMax | 256.0 |  °C |
+| 24 |  | Parameter Anstieg | 1.0 |  °C |
+| 25 |  | Parameter Anstieg | 256.0 |  °C |
 | 26 |  | Parameter Anstiegszeit | 1 |  h |
 | 27 |  | Parameter Haltezeit | 1 |  d |
+
+
+
+### <a name="0010_7840_0100"></a>DFA (0x0010) <= COSMO UNO (0x7840), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Systemdatum | 1 |  |
+| 1 |  | Systemdatum | 256 |  |
+| 2 |  | Systemdatum | 65536 |  |
+| 3 |  | Systemdatum | 16777216 |  |
+| 4 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 8 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 9 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 10 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 11 |  | Temperatur Sensor 4 | 256.0 |  °C |
+| 20 |  | Drehzahl Relais 1 | 1 | % |
+| 21 |  | Drehzahl Relais 2 | 1 | % |
+| 24 |  | Wärmemenge | 1 |  Wh |
+| 25 |  | Wärmemenge | 256 |  Wh |
+| 26 |  | Wärmemenge | 65536 |  Wh |
+| 27 |  | Wärmemenge | 16777216 |  Wh |
+| 28 |  | SW-Version | 1.00 |  |
+| 29 |  | SW-Version | 256.00 |  |
+| 32 |  | Betriebsstunden Relais 1 | 1 |  h |
+| 33 |  | Betriebsstunden Relais 1 | 256 |  h |
+| 34 |  | Betriebsstunden Relais 1 | 65536 |  h |
+| 35 |  | Betriebsstunden Relais 1 | 16777216 |  h |
+| 36 |  | Betriebsstunden Relais 2 | 1 |  h |
+| 37 |  | Betriebsstunden Relais 2 | 256 |  h |
+| 38 |  | Betriebsstunden Relais 2 | 65536 |  h |
+| 39 |  | Betriebsstunden Relais 2 | 16777216 |  h |
+| 64 | 0x01 | Speicherkühlung | 1 |  |
+| 65 | 0x01 | Systemkühlung | 1 |  |
+| 67 |  | Frostschutz | 1 |  |
+| 68 | 0x01 | Kollektorkühlung | 1 |  |
+| 69 | 0x01 | Speichermaximaltemperatur | 1 |  |
+| 72 |  | Fehlermaske | 1 |  |
+| 73 |  | Fehlermaske | 256 |  |
+| 74 |  | Fehlermaske | 65536 |  |
+| 75 |  | Fehlermaske | 16777216 |  |
+
+
+
+### <a name="0010_7841_0100"></a>DFA (0x0010) <= COSMO UNO \[WMZ1\] (0x7841), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Wmz1_Wert_Wh | 1 |  Wh |
+| 1 |  | Wmz1_Wert_Wh | 256 |  Wh |
+| 2 |  | Wmz1_Wert_Wh | 65536 |  Wh |
+| 3 |  | Wmz1_Wert_Wh | 16777216 |  Wh |
+| 4 |  | Wmz1_Leistung_W | 1 |  W |
+| 5 |  | Wmz1_Leistung_W | 256 |  W |
+| 6 |  | Wmz1_Leistung_W | 65536 |  W |
+| 7 |  | Wmz1_Leistung_W | 16777216 |  W |
 
 
 
@@ -5817,34 +6950,34 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 4 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 4 | 25.6 |  °C |
-| 8 |  | Temperatur Sensor 5 | 0.1 |  °C |
-| 9 |  | Temperatur Sensor 5 | 25.6 |  °C |
-| 10 |  | Temperatur Sensor 6 | 0.1 |  °C |
-| 11 |  | Temperatur Sensor 6 | 25.6 |  °C |
-| 12 |  | Temperatur Sensor 7 | 0.1 |  °C |
-| 13 |  | Temperatur Sensor 7 | 25.6 |  °C |
-| 14 |  | Temperatur Sensor 8 | 0.1 |  °C |
-| 15 |  | Temperatur Sensor 8 | 25.6 |  °C |
-| 16 |  | Temperatur Sensor 9 | 0.1 |  °C |
-| 17 |  | Temperatur Sensor 9 | 25.6 |  °C |
-| 18 |  | Temperatur Sensor 10 | 0.1 |  °C |
-| 19 |  | Temperatur Sensor 10 | 25.6 |  °C |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
+| 8 |  | Temperatur Sensor 5 | 1.0 |  °C |
+| 9 |  | Temperatur Sensor 5 | 256.0 |  °C |
+| 10 |  | Temperatur Sensor 6 | 1.0 |  °C |
+| 11 |  | Temperatur Sensor 6 | 256.0 |  °C |
+| 12 |  | Temperatur Sensor 7 | 1.0 |  °C |
+| 13 |  | Temperatur Sensor 7 | 256.0 |  °C |
+| 14 |  | Temperatur Sensor 8 | 1.0 |  °C |
+| 15 |  | Temperatur Sensor 8 | 256.0 |  °C |
+| 16 |  | Temperatur Sensor 9 | 1.0 |  °C |
+| 17 |  | Temperatur Sensor 9 | 256.0 |  °C |
+| 18 |  | Temperatur Sensor 10 | 1.0 |  °C |
+| 19 |  | Temperatur Sensor 10 | 256.0 |  °C |
 | 20 |  | Volumenstrom Sensor S10/V40 | 1 |  l/h |
 | 21 |  | Volumenstrom Sensor S10/V40 | 256 |  l/h |
 | 22 |  | Volumenstrom Sensor S10/V40 | 65536 |  l/h |
 | 23 |  | Volumenstrom Sensor S10/V40 | 16777216 |  l/h |
 | 24 |  | Einstrahlung Sensor CS10 | 1 |  W/m² |
 | 25 |  | Einstrahlung Sensor CS10 | 256 |  W/m² |
-| 26 |  | Druck Sensor RPS | 0.01 |  bar |
-| 27 |  | Druck Sensor RPS | 2.56 |  bar |
+| 26 |  | Druck Sensor RPS | 1.00 |  bar |
+| 27 |  | Druck Sensor RPS | 256.00 |  bar |
 | 28 |  | Volumenstrom Sensor FlowRotor | 1 |  l/h |
 | 29 |  | Volumenstrom Sensor FlowRotor | 256 |  l/h |
 | 30 |  | Volumenstrom Sensor FlowRotor | 65536 |  l/h |
@@ -5869,30 +7002,30 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Modul 1 Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Modul 1 Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Modul 1 Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Modul 1 Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Modul 1 Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Modul 1 Sensor 3 | 25.6 |  °C |
-| 6 |  | Temperatur Modul 1 Sensor 4 | 0.1 |  °C |
-| 7 |  | Temperatur Modul 1 Sensor 4 | 25.6 |  °C |
-| 8 |  | Temperatur Modul 1 Sensor 5 | 0.1 |  °C |
-| 9 |  | Temperatur Modul 1 Sensor 5 | 25.6 |  °C |
-| 10 |  | Temperatur Modul 1 Sensor 6 | 0.1 |  °C |
-| 11 |  | Temperatur Modul 1 Sensor 6 | 25.6 |  °C |
-| 12 |  | Temperatur Modul 2 Sensor 1 | 0.1 |  °C |
-| 13 |  | Temperatur Modul 2 Sensor 1 | 25.6 |  °C |
-| 14 |  | Temperatur Modul 2 Sensor 2 | 0.1 |  °C |
-| 15 |  | Temperatur Modul 2 Sensor 2 | 25.6 |  °C |
-| 16 |  | Temperatur Modul 2 Sensor 3 | 0.1 |  °C |
-| 17 |  | Temperatur Modul 2 Sensor 3 | 25.6 |  °C |
-| 18 |  | Temperatur Modul 2 Sensor 4 | 0.1 |  °C |
-| 19 |  | Temperatur Modul 2 Sensor 4 | 25.6 |  °C |
-| 20 |  | Temperatur Modul 2 Sensor 5 | 0.1 |  °C |
-| 21 |  | Temperatur Modul 2 Sensor 5 | 25.6 |  °C |
-| 22 |  | Temperatur Modul 2 Sensor 6 | 0.1 |  °C |
-| 23 |  | Temperatur Modul 2 Sensor 6 | 25.6 |  °C |
+| 0 |  | Temperatur Modul 1 Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Modul 1 Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Modul 1 Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Modul 1 Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Modul 1 Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Modul 1 Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Modul 1 Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Modul 1 Sensor 4 | 256.0 |  °C |
+| 8 |  | Temperatur Modul 1 Sensor 5 | 1.0 |  °C |
+| 9 |  | Temperatur Modul 1 Sensor 5 | 256.0 |  °C |
+| 10 |  | Temperatur Modul 1 Sensor 6 | 1.0 |  °C |
+| 11 |  | Temperatur Modul 1 Sensor 6 | 256.0 |  °C |
+| 12 |  | Temperatur Modul 2 Sensor 1 | 1.0 |  °C |
+| 13 |  | Temperatur Modul 2 Sensor 1 | 256.0 |  °C |
+| 14 |  | Temperatur Modul 2 Sensor 2 | 1.0 |  °C |
+| 15 |  | Temperatur Modul 2 Sensor 2 | 256.0 |  °C |
+| 16 |  | Temperatur Modul 2 Sensor 3 | 1.0 |  °C |
+| 17 |  | Temperatur Modul 2 Sensor 3 | 256.0 |  °C |
+| 18 |  | Temperatur Modul 2 Sensor 4 | 1.0 |  °C |
+| 19 |  | Temperatur Modul 2 Sensor 4 | 256.0 |  °C |
+| 20 |  | Temperatur Modul 2 Sensor 5 | 1.0 |  °C |
+| 21 |  | Temperatur Modul 2 Sensor 5 | 256.0 |  °C |
+| 22 |  | Temperatur Modul 2 Sensor 6 | 1.0 |  °C |
+| 23 |  | Temperatur Modul 2 Sensor 6 | 256.0 |  °C |
 
 
 
@@ -5900,8 +7033,8 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Vorlauf-Soll-Temperatur | 0.1 |  °C |
-| 1 |  | Vorlauf-Soll-Temperatur | 25.6 |  °C |
+| 0 |  | Vorlauf-Soll-Temperatur | 1.0 |  °C |
+| 1 |  | Vorlauf-Soll-Temperatur | 256.0 |  °C |
 | 2 |  | Betriebsstatus | 1 |  |
 
 
@@ -5929,14 +7062,14 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Warmwasser | 0.1 |  °C |
-| 1 |  | Temperatur Warmwasser | 25.6 |  °C |
-| 2 |  | Temperatur Kaltwasser | 0.1 |  °C |
-| 3 |  | Temperatur Kaltwasser | 25.6 |  °C |
-| 4 |  | Temperatur Zirkulation | 0.1 |  °C |
-| 5 |  | Temperatur Zirkulation | 25.6 |  °C |
-| 6 |  | Volumenstrom | 0.1 |  l/min |
-| 7 |  | Volumenstrom | 25.6 |  l/min |
+| 0 |  | Temperatur Warmwasser | 1.0 |  °C |
+| 1 |  | Temperatur Warmwasser | 256.0 |  °C |
+| 2 |  | Temperatur Kaltwasser | 1.0 |  °C |
+| 3 |  | Temperatur Kaltwasser | 256.0 |  °C |
+| 4 |  | Temperatur Zirkulation | 1.0 |  °C |
+| 5 |  | Temperatur Zirkulation | 256.0 |  °C |
+| 6 |  | Volumenstrom | 1.0 |  l/min |
+| 7 |  | Volumenstrom | 256.0 |  l/min |
 | 8 |  | Drehzahl Relais 1 | 1 | % |
 | 9 |  | Drehzahl Relais 2 | 1 | % |
 | 10 |  | Systemzeit | 1 |  |
@@ -5958,16 +7091,16 @@ title: VBus Packets
 | 27 |  | Wärmemenge | 256000 |  Wh |
 | 28 |  | Wärmemenge | 1000000 |  Wh |
 | 29 |  | Wärmemenge | 256000000 |  Wh |
-| 30 |  | Version | 1 |  |
-| 31 |  | Version | 0 |  |
-| 32 |  | max_ Temperatur Kaltwasser | 0.1 |  °C |
-| 33 |  | max_ Temperatur Kaltwasser | 25.6 |  °C |
-| 34 |  | min_ Temperatur Kaltwasser | 0.1 |  °C |
-| 35 |  | min_ Temperatur Kaltwasser | 25.6 |  °C |
+| 30 |  | Version | 100 |  |
+| 31 |  | Version | 1 |  |
+| 32 |  | max_ Temperatur Kaltwasser | 1.0 |  °C |
+| 33 |  | max_ Temperatur Kaltwasser | 256.0 |  °C |
+| 34 |  | min_ Temperatur Kaltwasser | 1.0 |  °C |
+| 35 |  | min_ Temperatur Kaltwasser | 256.0 |  °C |
 | 36 |  | max_ Volumenstrom | 1 |  l/h |
 | 37 |  | max_ Volumenstrom | 256 |  l/h |
-| 38 |  | Zapfmenge | 0.1 |  m³ |
-| 39 |  | Zapfmenge | 25.6 |  m³ |
+| 38 |  | Zapfmenge | 1.0 |  m³ |
+| 39 |  | Zapfmenge | 256.0 |  m³ |
 
 
 
@@ -5975,46 +7108,46 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 4 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 4 | 25.6 |  °C |
-| 8 |  | Temperatur Sensor 5 | 0.1 |  °C |
-| 9 |  | Temperatur Sensor 5 | 25.6 |  °C |
-| 10 |  | Temperatur Sensor 6 | 0.1 |  °C |
-| 11 |  | Temperatur Sensor 6 | 25.6 |  °C |
-| 12 |  | Temperatur Sensor 7 | 0.1 |  °C |
-| 13 |  | Temperatur Sensor 7 | 25.6 |  °C |
-| 14 |  | Temperatur Sensor 8 | 0.1 |  °C |
-| 15 |  | Temperatur Sensor 8 | 25.6 |  °C |
-| 16 |  | Temperatur Sensor 9 | 0.1 |  °C |
-| 17 |  | Temperatur Sensor 9 | 25.6 |  °C |
-| 18 |  | Temperatur Sensor 10 | 0.1 |  °C |
-| 19 |  | Temperatur Sensor 10 | 25.6 |  °C |
-| 20 |  | Temperatur Sensor 11 | 0.1 |  °C |
-| 21 |  | Temperatur Sensor 11 | 25.6 |  °C |
-| 22 |  | Temperatur Sensor 12 | 0.1 |  °C |
-| 23 |  | Temperatur Sensor 12 | 25.6 |  °C |
-| 24 |  | Temperatur Sensor 13 | 0.1 |  °C |
-| 25 |  | Temperatur Sensor 13 | 25.6 |  °C |
-| 26 |  | Temperatur Sensor 14 | 0.1 |  °C |
-| 27 |  | Temperatur Sensor 14 | 25.6 |  °C |
-| 28 |  | Temperatur Sensor 15 | 0.1 |  °C |
-| 29 |  | Temperatur Sensor 15 | 25.6 |  °C |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
+| 8 |  | Temperatur Sensor 5 | 1.0 |  °C |
+| 9 |  | Temperatur Sensor 5 | 256.0 |  °C |
+| 10 |  | Temperatur Sensor 6 | 1.0 |  °C |
+| 11 |  | Temperatur Sensor 6 | 256.0 |  °C |
+| 12 |  | Temperatur Sensor 7 | 1.0 |  °C |
+| 13 |  | Temperatur Sensor 7 | 256.0 |  °C |
+| 14 |  | Temperatur Sensor 8 | 1.0 |  °C |
+| 15 |  | Temperatur Sensor 8 | 256.0 |  °C |
+| 16 |  | Temperatur Sensor 9 | 1.0 |  °C |
+| 17 |  | Temperatur Sensor 9 | 256.0 |  °C |
+| 18 |  | Temperatur Sensor 10 | 1.0 |  °C |
+| 19 |  | Temperatur Sensor 10 | 256.0 |  °C |
+| 20 |  | Temperatur Sensor 11 | 1.0 |  °C |
+| 21 |  | Temperatur Sensor 11 | 256.0 |  °C |
+| 22 |  | Temperatur Sensor 12 | 1.0 |  °C |
+| 23 |  | Temperatur Sensor 12 | 256.0 |  °C |
+| 24 |  | Temperatur Sensor 13 | 1.0 |  °C |
+| 25 |  | Temperatur Sensor 13 | 256.0 |  °C |
+| 26 |  | Temperatur Sensor 14 | 1.0 |  °C |
+| 27 |  | Temperatur Sensor 14 | 256.0 |  °C |
+| 28 |  | Temperatur Sensor 15 | 1.0 |  °C |
+| 29 |  | Temperatur Sensor 15 | 256.0 |  °C |
 | 30 |  | Einstrahlung Sensor 16 | 1 |  W/m² |
 | 31 |  | Einstrahlung Sensor 16 | 256 |  W/m² |
-| 32 |  | Temperatur Sensor 17 | 0.1 |  °C |
-| 33 |  | Temperatur Sensor 17 | 25.6 |  °C |
-| 34 |  | Temperatur Sensor 18 | 0.1 |  °C |
-| 35 |  | Temperatur Sensor 18 | 25.6 |  °C |
-| 36 |  | Temperatur Sensor 19 | 0.1 |  °C |
-| 37 |  | Temperatur Sensor 19 | 25.6 |  °C |
-| 38 |  | Temperatur Sensor 20 | 0.1 |  °C |
-| 39 |  | Temperatur Sensor 20 | 25.6 |  °C |
+| 32 |  | Temperatur Sensor 17 | 1.0 |  °C |
+| 33 |  | Temperatur Sensor 17 | 256.0 |  °C |
+| 34 |  | Temperatur Sensor 18 | 1.0 |  °C |
+| 35 |  | Temperatur Sensor 18 | 256.0 |  °C |
+| 36 |  | Temperatur Sensor 19 | 1.0 |  °C |
+| 37 |  | Temperatur Sensor 19 | 256.0 |  °C |
+| 38 |  | Temperatur Sensor 20 | 1.0 |  °C |
+| 39 |  | Temperatur Sensor 20 | 256.0 |  °C |
 | 40 |  | Volumenstrom Sensor 13 | 1 |  l/h |
 | 41 |  | Volumenstrom Sensor 13 | 256 |  l/h |
 | 42 |  | Volumenstrom Sensor 13 | 65536 |  l/h |
@@ -6043,14 +7176,14 @@ title: VBus Packets
 | 65 |  | Volumenstrom Sensor 20 | 256 |  l/h |
 | 66 |  | Volumenstrom Sensor 20 | 65536 |  l/h |
 | 67 |  | Volumenstrom Sensor 20 | 16777216 |  l/h |
-| 68 |  | Druck Sensor 17 | 0.01 |  bar |
-| 69 |  | Druck Sensor 17 | 2.56 |  bar |
-| 70 |  | Druck Sensor 18 | 0.01 |  bar |
-| 71 |  | Druck Sensor 18 | 2.56 |  bar |
-| 72 |  | Druck Sensor 19 | 0.01 |  bar |
-| 73 |  | Druck Sensor 19 | 2.56 |  bar |
-| 74 |  | Druck Sensor 20 | 0.01 |  bar |
-| 75 |  | Druck Sensor 20 | 2.56 |  bar |
+| 68 |  | Druck Sensor 17 | 1.00 |  bar |
+| 69 |  | Druck Sensor 17 | 256.00 |  bar |
+| 70 |  | Druck Sensor 18 | 1.00 |  bar |
+| 71 |  | Druck Sensor 18 | 256.00 |  bar |
+| 72 |  | Druck Sensor 19 | 1.00 |  bar |
+| 73 |  | Druck Sensor 19 | 256.00 |  bar |
+| 74 |  | Druck Sensor 20 | 1.00 |  bar |
+| 75 |  | Druck Sensor 20 | 256.00 |  bar |
 | 76 |  | Drehzahl Relais 1 | 1 | % |
 | 77 |  | Drehzahl Relais 2 | 1 | % |
 | 78 |  | Drehzahl Relais 3 | 1 | % |
@@ -6073,6 +7206,10 @@ title: VBus Packets
 | 97 |  | Fehlermaske | 256 |  |
 | 98 |  | Fehlermaske | 65536 |  |
 | 99 |  | Fehlermaske | 16777216 |  |
+| 100 |  | Ausgang A | 1 | % |
+| 101 |  | Ausgang B | 1 | % |
+| 102 |  | Ausgang C | 1 | % |
+| 103 |  | Ausgang D | 1 | % |
 
 
 
@@ -6080,66 +7217,66 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Modul 1 Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Modul 1 Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Modul 1 Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Modul 1 Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Modul 1 Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Modul 1 Sensor 3 | 25.6 |  °C |
-| 6 |  | Temperatur Modul 1 Sensor 4 | 0.1 |  °C |
-| 7 |  | Temperatur Modul 1 Sensor 4 | 25.6 |  °C |
-| 8 |  | Temperatur Modul 1 Sensor 5 | 0.1 |  °C |
-| 9 |  | Temperatur Modul 1 Sensor 5 | 25.6 |  °C |
-| 10 |  | Temperatur Modul 1 Sensor 6 | 0.1 |  °C |
-| 11 |  | Temperatur Modul 1 Sensor 6 | 25.6 |  °C |
-| 12 |  | Temperatur Modul 2 Sensor 1 | 0.1 |  °C |
-| 13 |  | Temperatur Modul 2 Sensor 1 | 25.6 |  °C |
-| 14 |  | Temperatur Modul 2 Sensor 2 | 0.1 |  °C |
-| 15 |  | Temperatur Modul 2 Sensor 2 | 25.6 |  °C |
-| 16 |  | Temperatur Modul 2 Sensor 3 | 0.1 |  °C |
-| 17 |  | Temperatur Modul 2 Sensor 3 | 25.6 |  °C |
-| 18 |  | Temperatur Modul 2 Sensor 4 | 0.1 |  °C |
-| 19 |  | Temperatur Modul 2 Sensor 4 | 25.6 |  °C |
-| 20 |  | Temperatur Modul 2 Sensor 5 | 0.1 |  °C |
-| 21 |  | Temperatur Modul 2 Sensor 5 | 25.6 |  °C |
-| 22 |  | Temperatur Modul 2 Sensor 6 | 0.1 |  °C |
-| 23 |  | Temperatur Modul 2 Sensor 6 | 25.6 |  °C |
-| 24 |  | Temperatur Modul 3 Sensor 1 | 0.1 |  °C |
-| 25 |  | Temperatur Modul 3 Sensor 1 | 25.6 |  °C |
-| 26 |  | Temperatur Modul 3 Sensor 2 | 0.1 |  °C |
-| 27 |  | Temperatur Modul 3 Sensor 2 | 25.6 |  °C |
-| 28 |  | Temperatur Modul 3 Sensor 3 | 0.1 |  °C |
-| 29 |  | Temperatur Modul 3 Sensor 3 | 25.6 |  °C |
-| 30 |  | Temperatur Modul 3 Sensor 4 | 0.1 |  °C |
-| 31 |  | Temperatur Modul 3 Sensor 4 | 25.6 |  °C |
-| 32 |  | Temperatur Modul 3 Sensor 5 | 0.1 |  °C |
-| 33 |  | Temperatur Modul 3 Sensor 5 | 25.6 |  °C |
-| 34 |  | Temperatur Modul 3 Sensor 6 | 0.1 |  °C |
-| 35 |  | Temperatur Modul 3 Sensor 6 | 25.6 |  °C |
-| 36 |  | Temperatur Modul 4 Sensor 1 | 0.1 |  °C |
-| 37 |  | Temperatur Modul 4 Sensor 1 | 25.6 |  °C |
-| 38 |  | Temperatur Modul 4 Sensor 2 | 0.1 |  °C |
-| 39 |  | Temperatur Modul 4 Sensor 2 | 25.6 |  °C |
-| 40 |  | Temperatur Modul 4 Sensor 3 | 0.1 |  °C |
-| 41 |  | Temperatur Modul 4 Sensor 3 | 25.6 |  °C |
-| 42 |  | Temperatur Modul 4 Sensor 4 | 0.1 |  °C |
-| 43 |  | Temperatur Modul 4 Sensor 4 | 25.6 |  °C |
-| 44 |  | Temperatur Modul 4 Sensor 5 | 0.1 |  °C |
-| 45 |  | Temperatur Modul 4 Sensor 5 | 25.6 |  °C |
-| 46 |  | Temperatur Modul 4 Sensor 6 | 0.1 |  °C |
-| 47 |  | Temperatur Modul 4 Sensor 6 | 25.6 |  °C |
-| 48 |  | Temperatur Modul 5 Sensor 1 | 0.1 |  °C |
-| 49 |  | Temperatur Modul 5 Sensor 1 | 25.6 |  °C |
-| 50 |  | Temperatur Modul 5 Sensor 2 | 0.1 |  °C |
-| 51 |  | Temperatur Modul 5 Sensor 2 | 25.6 |  °C |
-| 52 |  | Temperatur Modul 5 Sensor 3 | 0.1 |  °C |
-| 53 |  | Temperatur Modul 5 Sensor 3 | 25.6 |  °C |
-| 54 |  | Temperatur Modul 5 Sensor 4 | 0.1 |  °C |
-| 55 |  | Temperatur Modul 5 Sensor 4 | 25.6 |  °C |
-| 56 |  | Temperatur Modul 5 Sensor 5 | 0.1 |  °C |
-| 57 |  | Temperatur Modul 5 Sensor 5 | 25.6 |  °C |
-| 58 |  | Temperatur Modul 5 Sensor 6 | 0.1 |  °C |
-| 59 |  | Temperatur Modul 5 Sensor 6 | 25.6 |  °C |
+| 0 |  | Temperatur Modul 1 Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Modul 1 Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Modul 1 Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Modul 1 Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Modul 1 Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Modul 1 Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Modul 1 Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Modul 1 Sensor 4 | 256.0 |  °C |
+| 8 |  | Temperatur Modul 1 Sensor 5 | 1.0 |  °C |
+| 9 |  | Temperatur Modul 1 Sensor 5 | 256.0 |  °C |
+| 10 |  | Temperatur Modul 1 Sensor 6 | 1.0 |  °C |
+| 11 |  | Temperatur Modul 1 Sensor 6 | 256.0 |  °C |
+| 12 |  | Temperatur Modul 2 Sensor 1 | 1.0 |  °C |
+| 13 |  | Temperatur Modul 2 Sensor 1 | 256.0 |  °C |
+| 14 |  | Temperatur Modul 2 Sensor 2 | 1.0 |  °C |
+| 15 |  | Temperatur Modul 2 Sensor 2 | 256.0 |  °C |
+| 16 |  | Temperatur Modul 2 Sensor 3 | 1.0 |  °C |
+| 17 |  | Temperatur Modul 2 Sensor 3 | 256.0 |  °C |
+| 18 |  | Temperatur Modul 2 Sensor 4 | 1.0 |  °C |
+| 19 |  | Temperatur Modul 2 Sensor 4 | 256.0 |  °C |
+| 20 |  | Temperatur Modul 2 Sensor 5 | 1.0 |  °C |
+| 21 |  | Temperatur Modul 2 Sensor 5 | 256.0 |  °C |
+| 22 |  | Temperatur Modul 2 Sensor 6 | 1.0 |  °C |
+| 23 |  | Temperatur Modul 2 Sensor 6 | 256.0 |  °C |
+| 24 |  | Temperatur Modul 3 Sensor 1 | 1.0 |  °C |
+| 25 |  | Temperatur Modul 3 Sensor 1 | 256.0 |  °C |
+| 26 |  | Temperatur Modul 3 Sensor 2 | 1.0 |  °C |
+| 27 |  | Temperatur Modul 3 Sensor 2 | 256.0 |  °C |
+| 28 |  | Temperatur Modul 3 Sensor 3 | 1.0 |  °C |
+| 29 |  | Temperatur Modul 3 Sensor 3 | 256.0 |  °C |
+| 30 |  | Temperatur Modul 3 Sensor 4 | 1.0 |  °C |
+| 31 |  | Temperatur Modul 3 Sensor 4 | 256.0 |  °C |
+| 32 |  | Temperatur Modul 3 Sensor 5 | 1.0 |  °C |
+| 33 |  | Temperatur Modul 3 Sensor 5 | 256.0 |  °C |
+| 34 |  | Temperatur Modul 3 Sensor 6 | 1.0 |  °C |
+| 35 |  | Temperatur Modul 3 Sensor 6 | 256.0 |  °C |
+| 36 |  | Temperatur Modul 4 Sensor 1 | 1.0 |  °C |
+| 37 |  | Temperatur Modul 4 Sensor 1 | 256.0 |  °C |
+| 38 |  | Temperatur Modul 4 Sensor 2 | 1.0 |  °C |
+| 39 |  | Temperatur Modul 4 Sensor 2 | 256.0 |  °C |
+| 40 |  | Temperatur Modul 4 Sensor 3 | 1.0 |  °C |
+| 41 |  | Temperatur Modul 4 Sensor 3 | 256.0 |  °C |
+| 42 |  | Temperatur Modul 4 Sensor 4 | 1.0 |  °C |
+| 43 |  | Temperatur Modul 4 Sensor 4 | 256.0 |  °C |
+| 44 |  | Temperatur Modul 4 Sensor 5 | 1.0 |  °C |
+| 45 |  | Temperatur Modul 4 Sensor 5 | 256.0 |  °C |
+| 46 |  | Temperatur Modul 4 Sensor 6 | 1.0 |  °C |
+| 47 |  | Temperatur Modul 4 Sensor 6 | 256.0 |  °C |
+| 48 |  | Temperatur Modul 5 Sensor 1 | 1.0 |  °C |
+| 49 |  | Temperatur Modul 5 Sensor 1 | 256.0 |  °C |
+| 50 |  | Temperatur Modul 5 Sensor 2 | 1.0 |  °C |
+| 51 |  | Temperatur Modul 5 Sensor 2 | 256.0 |  °C |
+| 52 |  | Temperatur Modul 5 Sensor 3 | 1.0 |  °C |
+| 53 |  | Temperatur Modul 5 Sensor 3 | 256.0 |  °C |
+| 54 |  | Temperatur Modul 5 Sensor 4 | 1.0 |  °C |
+| 55 |  | Temperatur Modul 5 Sensor 4 | 256.0 |  °C |
+| 56 |  | Temperatur Modul 5 Sensor 5 | 1.0 |  °C |
+| 57 |  | Temperatur Modul 5 Sensor 5 | 256.0 |  °C |
+| 58 |  | Temperatur Modul 5 Sensor 6 | 1.0 |  °C |
+| 59 |  | Temperatur Modul 5 Sensor 6 | 256.0 |  °C |
 
 
 
@@ -6147,8 +7284,8 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Vorlauf-Soll-Temperatur | 0.1 |  °C |
-| 1 |  | Vorlauf-Soll-Temperatur | 25.6 |  °C |
+| 0 |  | Vorlauf-Soll-Temperatur | 1.0 |  °C |
+| 1 |  | Vorlauf-Soll-Temperatur | 256.0 |  °C |
 | 2 |  | Betriebsstatus | 1 |  |
 
 
@@ -6184,30 +7321,30 @@ title: VBus Packets
 | 1 |  | SekNr | 256 |  s |
 | 2 |  | SekNr | 65536 |  s |
 | 3 |  | SekNr | 16777216 |  s |
-| 4 |  | T-Umgebung | 0.1 |  °C |
-| 5 |  | T-Umgebung | 25.6 |  °C |
-| 6 |  | T-Umgebung | 6553.6 |  °C |
-| 7 |  | T-Umgebung | 1677721.6 |  °C |
-| 8 |  | T-Vorlauf/S1 | 0.1 |  °C |
-| 9 |  | T-Vorlauf/S1 | 25.6 |  °C |
-| 10 |  | T-Vorlauf/S1 | 6553.6 |  °C |
-| 11 |  | T-Vorlauf/S1 | 1677721.6 |  °C |
-| 12 |  | T-Rücklauf/S2 | 0.1 |  °C |
-| 13 |  | T-Rücklauf/S2 | 25.6 |  °C |
-| 14 |  | T-Rücklauf/S2 | 6553.6 |  °C |
-| 15 |  | T-Rücklauf/S2 | 1677721.6 |  °C |
-| 16 |  | TSL | 0.1 |  °C |
-| 17 |  | TSL | 25.6 |  °C |
-| 18 |  | TSL | 6553.6 |  °C |
-| 19 |  | TSL | 1677721.6 |  °C |
-| 20 |  | Tmax-Temp_/S5 | 0.1 |  °C |
-| 21 |  | Tmax-Temp_/S5 | 25.6 |  °C |
-| 22 |  | Tmax-Temp_/S5 | 6553.6 |  °C |
-| 23 |  | Tmax-Temp_/S5 | 1677721.6 |  °C |
-| 24 |  | Einstrahlung | 0.1 |  W/m² |
-| 25 |  | Einstrahlung | 25.6 |  W/m² |
-| 26 |  | Einstrahlung | 6553.6 |  W/m² |
-| 27 |  | Einstrahlung | 1677721.6 |  W/m² |
+| 4 |  | T-Umgebung | 1.0 |  °C |
+| 5 |  | T-Umgebung | 256.0 |  °C |
+| 6 |  | T-Umgebung | 65536.0 |  °C |
+| 7 |  | T-Umgebung | 16777216.0 |  °C |
+| 8 |  | T-Vorlauf/S1 | 1.0 |  °C |
+| 9 |  | T-Vorlauf/S1 | 256.0 |  °C |
+| 10 |  | T-Vorlauf/S1 | 65536.0 |  °C |
+| 11 |  | T-Vorlauf/S1 | 16777216.0 |  °C |
+| 12 |  | T-Rücklauf/S2 | 1.0 |  °C |
+| 13 |  | T-Rücklauf/S2 | 256.0 |  °C |
+| 14 |  | T-Rücklauf/S2 | 65536.0 |  °C |
+| 15 |  | T-Rücklauf/S2 | 16777216.0 |  °C |
+| 16 |  | TSL | 1.0 |  °C |
+| 17 |  | TSL | 256.0 |  °C |
+| 18 |  | TSL | 65536.0 |  °C |
+| 19 |  | TSL | 16777216.0 |  °C |
+| 20 |  | Tmax-Temp_/S5 | 1.0 |  °C |
+| 21 |  | Tmax-Temp_/S5 | 256.0 |  °C |
+| 22 |  | Tmax-Temp_/S5 | 65536.0 |  °C |
+| 23 |  | Tmax-Temp_/S5 | 16777216.0 |  °C |
+| 24 |  | Einstrahlung | 1.0 |  W/m² |
+| 25 |  | Einstrahlung | 256.0 |  W/m² |
+| 26 |  | Einstrahlung | 65536.0 |  W/m² |
+| 27 |  | Einstrahlung | 16777216.0 |  W/m² |
 | 28 |  | Volumenstr_1 | 1 |  l/h |
 | 29 |  | Volumenstr_1 | 256 |  l/h |
 | 30 |  | Volumenstr_1 | 65536 |  l/h |
@@ -6216,34 +7353,34 @@ title: VBus Packets
 | 33 |  | Volumenstr_2 | 256 |  l/h |
 | 34 |  | Volumenstr_2 | 65536 |  l/h |
 | 35 |  | Volumenstr_2 | 16777216 |  l/h |
-| 36 |  | S6 | 0.1 |  °C |
-| 37 |  | S6 | 25.6 |  °C |
-| 38 |  | S6 | 6553.6 |  °C |
-| 39 |  | S6 | 1677721.6 |  °C |
-| 40 |  | S7 | 0.1 |  °C |
-| 41 |  | S7 | 25.6 |  °C |
-| 42 |  | S7 | 6553.6 |  °C |
-| 43 |  | S7 | 1677721.6 |  °C |
-| 44 |  | Stromstärke 1 | 0.01 |  mA |
-| 45 |  | Stromstärke 1 | 2.56 |  mA |
-| 46 |  | Stromstärke 1 | 655.36 |  mA |
-| 47 |  | Stromstärke 1 | 167772.16 |  mA |
-| 48 |  | Stromstärke 2 | 0.01 |  mA |
-| 49 |  | Stromstärke 2 | 2.56 |  mA |
-| 50 |  | Stromstärke 2 | 655.36 |  mA |
-| 51 |  | Stromstärke 2 | 167772.16 |  mA |
+| 36 |  | S6 | 1.0 |  °C |
+| 37 |  | S6 | 256.0 |  °C |
+| 38 |  | S6 | 65536.0 |  °C |
+| 39 |  | S6 | 16777216.0 |  °C |
+| 40 |  | S7 | 1.0 |  °C |
+| 41 |  | S7 | 256.0 |  °C |
+| 42 |  | S7 | 65536.0 |  °C |
+| 43 |  | S7 | 16777216.0 |  °C |
+| 44 |  | Stromstärke 1 | 1.00 |  mA |
+| 45 |  | Stromstärke 1 | 256.00 |  mA |
+| 46 |  | Stromstärke 1 | 65536.00 |  mA |
+| 47 |  | Stromstärke 1 | 16777216.00 |  mA |
+| 48 |  | Stromstärke 2 | 1.00 |  mA |
+| 49 |  | Stromstärke 2 | 256.00 |  mA |
+| 50 |  | Stromstärke 2 | 65536.00 |  mA |
+| 51 |  | Stromstärke 2 | 16777216.00 |  mA |
 | 52 |  | Datum_Messdaten | 1 |  |
 | 53 |  | Datum_Messdaten | 256 |  |
 | 54 |  | Datum_Messdaten | 65536 |  |
 | 55 |  | Datum_Messdaten | 16777216 |  |
-| 56 |  | Wärmemenge 1 | 0.01 |  kWh |
-| 57 |  | Wärmemenge 1 | 2.56 |  kWh |
-| 58 |  | Wärmemenge 1 | 655.36 |  kWh |
-| 59 |  | Wärmemenge 1 | 167772.16 |  kWh |
-| 60 |  | Wärmemenge 2 | 0.01 |  kWh |
-| 61 |  | Wärmemenge 2 | 2.56 |  kWh |
-| 62 |  | Wärmemenge 2 | 655.36 |  kWh |
-| 63 |  | Wärmemenge 2 | 167772.16 |  kWh |
+| 56 |  | Wärmemenge 1 | 1.00 |  kWh |
+| 57 |  | Wärmemenge 1 | 256.00 |  kWh |
+| 58 |  | Wärmemenge 1 | 65536.00 |  kWh |
+| 59 |  | Wärmemenge 1 | 16777216.00 |  kWh |
+| 60 |  | Wärmemenge 2 | 1.00 |  kWh |
+| 61 |  | Wärmemenge 2 | 256.00 |  kWh |
+| 62 |  | Wärmemenge 2 | 65536.00 |  kWh |
+| 63 |  | Wärmemenge 2 | 16777216.00 |  kWh |
 | 64 |  | 5-Min-Fehlercode | 1 |  |
 | 65 |  | 5-Min-Fehlercode | 256 |  |
 | 66 |  | 5-Min-Fehlercode | 65536 |  |
@@ -6267,78 +7404,78 @@ title: VBus Packets
 | 1 |  | Datum | 256 |  |
 | 2 |  | Datum | 65536 |  |
 | 3 |  | Datum | 16777216 |  |
-| 4 |  | H-Day | 0.01 |  kWh/\(m²*d\) |
-| 5 |  | H-Day | 2.56 |  kWh/\(m²*d\) |
-| 6 |  | H-Day | 655.36 |  kWh/\(m²*d\) |
-| 7 |  | H-Day | 167772.16 |  kWh/\(m²*d\) |
-| 8 |  | Q-mess | 0.001 |  kWh/\(m²*d\) |
-| 9 |  | Q-mess | 0.256 |  kWh/\(m²*d\) |
-| 10 |  | Q-mess | 65.536 |  kWh/\(m²*d\) |
-| 11 |  | Q-mess | 16777.216 |  kWh/\(m²*d\) |
-| 12 |  | Q-erw2 | 0.001 |  kWh/\(m²*d\) |
-| 13 |  | Q-erw2 | 0.256 |  kWh/\(m²*d\) |
-| 14 |  | Q-erw2 | 65.536 |  kWh/\(m²*d\) |
-| 15 |  | Q-erw2 | 16777.216 |  kWh/\(m²*d\) |
-| 16 |  | Q-erw | 0.001 |  kWh/\(m²*d\) |
-| 17 |  | Q-erw | 0.256 |  kWh/\(m²*d\) |
-| 18 |  | Q-erw | 65.536 |  kWh/\(m²*d\) |
-| 19 |  | Q-erw | 16777.216 |  kWh/\(m²*d\) |
+| 4 |  | H-Day | 1.00 |  kWh/\(m²*d\) |
+| 5 |  | H-Day | 256.00 |  kWh/\(m²*d\) |
+| 6 |  | H-Day | 65536.00 |  kWh/\(m²*d\) |
+| 7 |  | H-Day | 16777216.00 |  kWh/\(m²*d\) |
+| 8 |  | Q-mess | 1.000 |  kWh/\(m²*d\) |
+| 9 |  | Q-mess | 256.000 |  kWh/\(m²*d\) |
+| 10 |  | Q-mess | 65536.000 |  kWh/\(m²*d\) |
+| 11 |  | Q-mess | 16777216.000 |  kWh/\(m²*d\) |
+| 12 |  | Q-erw2 | 1.000 |  kWh/\(m²*d\) |
+| 13 |  | Q-erw2 | 256.000 |  kWh/\(m²*d\) |
+| 14 |  | Q-erw2 | 65536.000 |  kWh/\(m²*d\) |
+| 15 |  | Q-erw2 | 16777216.000 |  kWh/\(m²*d\) |
+| 16 |  | Q-erw | 1.000 |  kWh/\(m²*d\) |
+| 17 |  | Q-erw | 256.000 |  kWh/\(m²*d\) |
+| 18 |  | Q-erw | 65536.000 |  kWh/\(m²*d\) |
+| 19 |  | Q-erw | 16777216.000 |  kWh/\(m²*d\) |
 | 20 |  | Meldung | 1 |  |
 | 21 |  | Meldung | 256 |  |
 | 22 |  | Meldung | 65536 |  |
 | 23 |  | Meldung | 16777216 |  |
-| 24 |  | dt-mess | 0.01 |  h |
-| 25 |  | dt-mess | 2.56 |  h |
-| 26 |  | dt-mess | 655.36 |  h |
-| 27 |  | dt-mess | 167772.16 |  h |
-| 28 |  | dt-erw2 | 0.01 |  h |
-| 29 |  | dt-erw2 | 2.56 |  h |
-| 30 |  | dt-erw2 | 655.36 |  h |
-| 31 |  | dt-erw2 | 167772.16 |  h |
-| 32 |  | dt-erw | 0.01 |  h |
-| 33 |  | dt-erw | 2.56 |  h |
-| 34 |  | dt-erw | 655.36 |  h |
-| 35 |  | dt-erw | 167772.16 |  h |
-| 36 |  | Qutil-m | 0.01 |  kWh/\(m²*d\) |
-| 37 |  | Qutil-m | 2.56 |  kWh/\(m²*d\) |
-| 38 |  | Qutil-m | 655.36 |  kWh/\(m²*d\) |
-| 39 |  | Qutil-m | 167772.16 |  kWh/\(m²*d\) |
-| 40 |  | Qutil-e2 | 0.01 |  kWh/\(m²*d\) |
-| 41 |  | Qutil-e2 | 2.56 |  kWh/\(m²*d\) |
-| 42 |  | Qutil-e2 | 655.36 |  kWh/\(m²*d\) |
-| 43 |  | Qutil-e2 | 167772.16 |  kWh/\(m²*d\) |
-| 44 |  | Qutil-e | 0.01 |  kWh/\(m²*d\) |
-| 45 |  | Qutil-e | 2.56 |  kWh/\(m²*d\) |
-| 46 |  | Qutil-e | 655.36 |  kWh/\(m²*d\) |
-| 47 |  | Qutil-e | 167772.16 |  kWh/\(m²*d\) |
-| 48 |  | Qtv-e2 | 0.001 |  kWh/\(m²*d\) |
-| 49 |  | Qtv-e2 | 0.256 |  kWh/\(m²*d\) |
-| 50 |  | Qtv-e2 | 65.536 |  kWh/\(m²*d\) |
-| 51 |  | Qtv-e2 | 16777.216 |  kWh/\(m²*d\) |
-| 52 |  | Qtv-e | 0.001 |  kWh/\(m²*d\) |
-| 53 |  | Qtv-e | 0.256 |  kWh/\(m²*d\) |
-| 54 |  | Qtv-e | 65.536 |  kWh/\(m²*d\) |
-| 55 |  | Qtv-e | 16777.216 |  kWh/\(m²*d\) |
-| 56 |  | Qkv-e2 | 0.001 |  kWh/\(m²*d\) |
-| 57 |  | Qkv-e2 | 0.256 |  kWh/\(m²*d\) |
-| 58 |  | Qkv-e2 | 65.536 |  kWh/\(m²*d\) |
-| 59 |  | Qkv-e2 | 16777.216 |  kWh/\(m²*d\) |
-| 60 |  | Qkv-e | 0.001 |  kWh/\(m²*d\) |
-| 61 |  | Qkv-e | 0.256 |  kWh/\(m²*d\) |
-| 62 |  | Qkv-e | 65.536 |  kWh/\(m²*d\) |
-| 63 |  | Qkv-e | 16777.216 |  kWh/\(m²*d\) |
-| 64 |  | Qskv-e2 | 0.001 |  kWh/\(m²*d\) |
-| 65 |  | Qskv-e2 | 0.256 |  kWh/\(m²*d\) |
-| 66 |  | Qskv-e2 | 65.536 |  kWh/\(m²*d\) |
-| 67 |  | Qskv-e2 | 16777.216 |  kWh/\(m²*d\) |
-| 68 |  | Qskv-e | 0.001 |  kWh/\(m²*d\) |
-| 69 |  | Qskv-e | 0.256 |  kWh/\(m²*d\) |
-| 70 |  | Qskv-e | 65.536 |  kWh/\(m²*d\) |
-| 71 |  | Qskv-e | 16777.216 |  kWh/\(m²*d\) |
-| 72 |  | Tsoll-Day | 0.01 |  °C |
-| 73 |  | Tsoll-Day | 2.56 |  °C |
-| 74 |  | Tsoll-Day | 655.36 |  °C |
-| 75 |  | Tsoll-Day | 167772.16 |  °C |
+| 24 |  | dt-mess | 1.00 |  h |
+| 25 |  | dt-mess | 256.00 |  h |
+| 26 |  | dt-mess | 65536.00 |  h |
+| 27 |  | dt-mess | 16777216.00 |  h |
+| 28 |  | dt-erw2 | 1.00 |  h |
+| 29 |  | dt-erw2 | 256.00 |  h |
+| 30 |  | dt-erw2 | 65536.00 |  h |
+| 31 |  | dt-erw2 | 16777216.00 |  h |
+| 32 |  | dt-erw | 1.00 |  h |
+| 33 |  | dt-erw | 256.00 |  h |
+| 34 |  | dt-erw | 65536.00 |  h |
+| 35 |  | dt-erw | 16777216.00 |  h |
+| 36 |  | Qutil-m | 1.00 |  kWh/\(m²*d\) |
+| 37 |  | Qutil-m | 256.00 |  kWh/\(m²*d\) |
+| 38 |  | Qutil-m | 65536.00 |  kWh/\(m²*d\) |
+| 39 |  | Qutil-m | 16777216.00 |  kWh/\(m²*d\) |
+| 40 |  | Qutil-e2 | 1.00 |  kWh/\(m²*d\) |
+| 41 |  | Qutil-e2 | 256.00 |  kWh/\(m²*d\) |
+| 42 |  | Qutil-e2 | 65536.00 |  kWh/\(m²*d\) |
+| 43 |  | Qutil-e2 | 16777216.00 |  kWh/\(m²*d\) |
+| 44 |  | Qutil-e | 1.00 |  kWh/\(m²*d\) |
+| 45 |  | Qutil-e | 256.00 |  kWh/\(m²*d\) |
+| 46 |  | Qutil-e | 65536.00 |  kWh/\(m²*d\) |
+| 47 |  | Qutil-e | 16777216.00 |  kWh/\(m²*d\) |
+| 48 |  | Qtv-e2 | 1.000 |  kWh/\(m²*d\) |
+| 49 |  | Qtv-e2 | 256.000 |  kWh/\(m²*d\) |
+| 50 |  | Qtv-e2 | 65536.000 |  kWh/\(m²*d\) |
+| 51 |  | Qtv-e2 | 16777216.000 |  kWh/\(m²*d\) |
+| 52 |  | Qtv-e | 1.000 |  kWh/\(m²*d\) |
+| 53 |  | Qtv-e | 256.000 |  kWh/\(m²*d\) |
+| 54 |  | Qtv-e | 65536.000 |  kWh/\(m²*d\) |
+| 55 |  | Qtv-e | 16777216.000 |  kWh/\(m²*d\) |
+| 56 |  | Qkv-e2 | 1.000 |  kWh/\(m²*d\) |
+| 57 |  | Qkv-e2 | 256.000 |  kWh/\(m²*d\) |
+| 58 |  | Qkv-e2 | 65536.000 |  kWh/\(m²*d\) |
+| 59 |  | Qkv-e2 | 16777216.000 |  kWh/\(m²*d\) |
+| 60 |  | Qkv-e | 1.000 |  kWh/\(m²*d\) |
+| 61 |  | Qkv-e | 256.000 |  kWh/\(m²*d\) |
+| 62 |  | Qkv-e | 65536.000 |  kWh/\(m²*d\) |
+| 63 |  | Qkv-e | 16777216.000 |  kWh/\(m²*d\) |
+| 64 |  | Qskv-e2 | 1.000 |  kWh/\(m²*d\) |
+| 65 |  | Qskv-e2 | 256.000 |  kWh/\(m²*d\) |
+| 66 |  | Qskv-e2 | 65536.000 |  kWh/\(m²*d\) |
+| 67 |  | Qskv-e2 | 16777216.000 |  kWh/\(m²*d\) |
+| 68 |  | Qskv-e | 1.000 |  kWh/\(m²*d\) |
+| 69 |  | Qskv-e | 256.000 |  kWh/\(m²*d\) |
+| 70 |  | Qskv-e | 65536.000 |  kWh/\(m²*d\) |
+| 71 |  | Qskv-e | 16777216.000 |  kWh/\(m²*d\) |
+| 72 |  | Tsoll-Day | 1.00 |  °C |
+| 73 |  | Tsoll-Day | 256.00 |  °C |
+| 74 |  | Tsoll-Day | 65536.00 |  °C |
+| 75 |  | Tsoll-Day | 16777216.00 |  °C |
 
 
 
@@ -6346,14 +7483,14 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Vlast-Day/Vol2 | 0.1 |  l/\(m²*d\) |
-| 1 |  | Vlast-Day/Vol2 | 25.6 |  l/\(m²*d\) |
-| 2 |  | Vlast-Day/Vol2 | 6553.6 |  l/\(m²*d\) |
-| 3 |  | Vlast-Day/Vol2 | 1677721.6 |  l/\(m²*d\) |
-| 4 |  | Qmess2 | 0.001 |  kWh/\(m²*d\) |
-| 5 |  | Qmess2 | 0.256 |  kWh/\(m²*d\) |
-| 6 |  | Qmess2 | 65.536 |  kWh/\(m²*d\) |
-| 7 |  | Qmess2 | 16777.216 |  kWh/\(m²*d\) |
+| 0 |  | Vlast-Day/Vol2 | 1.0 |  l/\(m²*d\) |
+| 1 |  | Vlast-Day/Vol2 | 256.0 |  l/\(m²*d\) |
+| 2 |  | Vlast-Day/Vol2 | 65536.0 |  l/\(m²*d\) |
+| 3 |  | Vlast-Day/Vol2 | 16777216.0 |  l/\(m²*d\) |
+| 4 |  | Qmess2 | 1.000 |  kWh/\(m²*d\) |
+| 5 |  | Qmess2 | 256.000 |  kWh/\(m²*d\) |
+| 6 |  | Qmess2 | 65536.000 |  kWh/\(m²*d\) |
+| 7 |  | Qmess2 | 16777216.000 |  kWh/\(m²*d\) |
 | 8 |  | Tagesfehlercode | 1 |  |
 | 9 |  | Tagesfehlercode | 256 |  |
 | 10 |  | Tagesfehlercode | 65536 |  |
@@ -6365,10 +7502,10 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Tkol-erw | 0.1 |  °C |
-| 1 |  | Tkol-erw | 25.6 |  °C |
-| 2 |  | Tkol-erw | 6553.6 |  °C |
-| 3 |  | Tkol-erw | 1677721.6 |  °C |
+| 0 |  | Tkol-erw | 1.0 |  °C |
+| 1 |  | Tkol-erw | 256.0 |  °C |
+| 2 |  | Tkol-erw | 65536.0 |  °C |
+| 3 |  | Tkol-erw | 16777216.0 |  °C |
 | 4 |  | Volumenstrom-erw | 1 |  l/h |
 | 5 |  | Volumenstrom-erw | 256 |  l/h |
 | 6 |  | Volumenstrom-erw | 65536 |  l/h |
@@ -6392,18 +7529,18 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | T-Umgebung_1s | 0.1 |  °C |
-| 1 |  | T-Umgebung_1s | 25.6 |  °C |
-| 2 |  | T-Vorlauf/S1_1s | 0.1 |  °C |
-| 3 |  | T-Vorlauf/S1_1s | 25.6 |  °C |
-| 4 |  | T-Rücklauf/S2_1s | 0.1 |  °C |
-| 5 |  | T-Rücklauf/S2_1s | 25.6 |  °C |
-| 6 |  | TSL_1s | 0.1 |  °C |
-| 7 |  | TSL_1s | 25.6 |  °C |
-| 8 |  | Tmax-Temp_/S5_1s | 0.1 |  °C |
-| 9 |  | Tmax-Temp_/S5_1s | 25.6 |  °C |
-| 10 |  | Einstrahlung_1s | 0.1 |  W/m² |
-| 11 |  | Einstrahlung_1s | 25.6 |  W/m² |
+| 0 |  | T-Umgebung_1s | 1.0 |  °C |
+| 1 |  | T-Umgebung_1s | 256.0 |  °C |
+| 2 |  | T-Vorlauf/S1_1s | 1.0 |  °C |
+| 3 |  | T-Vorlauf/S1_1s | 256.0 |  °C |
+| 4 |  | T-Rücklauf/S2_1s | 1.0 |  °C |
+| 5 |  | T-Rücklauf/S2_1s | 256.0 |  °C |
+| 6 |  | TSL_1s | 1.0 |  °C |
+| 7 |  | TSL_1s | 256.0 |  °C |
+| 8 |  | Tmax-Temp_/S5_1s | 1.0 |  °C |
+| 9 |  | Tmax-Temp_/S5_1s | 256.0 |  °C |
+| 10 |  | Einstrahlung_1s | 1.0 |  W/m² |
+| 11 |  | Einstrahlung_1s | 256.0 |  W/m² |
 | 12 |  | Volumenstrom1_1s | 1 |  l/h |
 | 13 |  | Volumenstrom1_1s | 256 |  l/h |
 | 14 |  | Volumenstrom1_1s | 65536 |  l/h |
@@ -6412,14 +7549,14 @@ title: VBus Packets
 | 17 |  | Volumenstrom2_1s | 256 |  l/h |
 | 18 |  | Volumenstrom2_1s | 65536 |  l/h |
 | 19 |  | Volumenstrom2_1s | 16777216 |  l/h |
-| 20 |  | S6_1s | 0.1 |  °C |
-| 21 |  | S6_1s | 25.6 |  °C |
-| 22 |  | S7_1s | 0.1 |  °C |
-| 23 |  | S7_1s | 25.6 |  °C |
-| 24 |  | Stromstärke1_1s | 0.01 |  mA |
-| 25 |  | Stromstärke1_1s | 2.56 |  mA |
-| 26 |  | Stromstärke2_1s | 0.01 |  mA |
-| 27 |  | Stromstärke2_1s | 2.56 |  mA |
+| 20 |  | S6_1s | 1.0 |  °C |
+| 21 |  | S6_1s | 256.0 |  °C |
+| 22 |  | S7_1s | 1.0 |  °C |
+| 23 |  | S7_1s | 256.0 |  °C |
+| 24 |  | Stromstärke1_1s | 1.00 |  mA |
+| 25 |  | Stromstärke1_1s | 256.00 |  mA |
+| 26 |  | Stromstärke2_1s | 1.00 |  mA |
+| 27 |  | Stromstärke2_1s | 256.00 |  mA |
 | 28 |  | Solarwärme_1s | 1 |  Wh |
 | 29 |  | Solarwärme_1s | 256 |  Wh |
 | 30 |  | Solarwärme_1s | 1000 |  Wh |
@@ -6439,18 +7576,18 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
-| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
-| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
-| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
-| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
-| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
-| 6 |  | Temperatur Sensor 4 | 0.1 |  °C |
-| 7 |  | Temperatur Sensor 4 | 25.6 |  °C |
-| 8 |  | Temperatur Sensor 5 | 0.1 |  °C |
-| 9 |  | Temperatur Sensor 5 | 25.6 |  °C |
-| 10 |  | Systemdruck | 0.01 |  bar |
-| 11 |  | Systemdruck | 2.56 |  bar |
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
+| 8 |  | Temperatur Sensor 5 | 1.0 |  °C |
+| 9 |  | Temperatur Sensor 5 | 256.0 |  °C |
+| 10 |  | Systemdruck | 1.00 |  bar |
+| 11 |  | Systemdruck | 256.00 |  bar |
 | 12 |  | Volumenstrom | 1 |  l/h |
 | 13 |  | Volumenstrom | 256 |  l/h |
 | 14 |  | Drehzahl Relais 1 | 1 | % |
@@ -6492,8 +7629,8 @@ title: VBus Packets
 | 51 |  | Debug5 | 16777216 |  |
 | 52 |  | Einstrahlung | 1 |  W/m² |
 | 53 |  | Einstrahlung | 256 |  W/m² |
-| 54 |  | Zelltemperatur | 0.1 |  °C |
-| 55 |  | Zelltemperatur | 25.6 |  °C |
+| 54 |  | Zelltemperatur | 1.0 |  °C |
+| 55 |  | Zelltemperatur | 256.0 |  °C |
 
 
 
@@ -6502,7 +7639,7 @@ title: VBus Packets
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
 | 8 |  | Vorlaufmaximaltemperatur | 1 |  °C |
-| 9 |  | HK-Kennlinie | 0.1 |  |
+| 9 |  | HK-Kennlinie | 1.0 |  |
 | 10 |  | Nachtabsenkung | 1 |  K |
 | 11 |  | Tageskorrektur | 1 |  K |
 | 12 |  | Mischerlaufzeit | 1 |  s |
@@ -6511,36 +7648,36 @@ title: VBus Packets
 
 
 
-### <a name="6510_0000_0200"></a>HKM2 (0x6510) <= Broadcast (0x0000), command 0x0200
+### <a name="6510_0000_0200"></a>HKM2 #0 (0x6510) <= Broadcast (0x0000), command 0x0200
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
 | 0 |  | Steuerregister | 1 |  |
 | 1 |  | Steuerregister | 256 |  |
 | 8 |  | Vorlaufmaximaltemperatur | 1 |  °C |
-| 9 |  | HK-Kennlinie | 0.1 |  |
+| 9 |  | HK-Kennlinie | 1.0 |  |
 | 10 |  | Nachtabsenkung | 1 |  K |
 | 11 |  | Tageskorrektur | 1 |  K |
 | 12 |  | Mischerlaufzeit | 1 |  s |
 | 13 |  | Sommerbetrieb | 1 |  °C |
 | 14 |  | Info Schaltuhr | 1 |  |
 | 15 |  | Option Nachheizung | 1 |  |
-| 16 |  | Speichertemperatur 1 \(Bus\) | 0.1 |  °C |
-| 17 |  | Speichertemperatur 1 \(Bus\) | 25.6 |  °C |
-| 18 |  | Aussentemperatur Bus | 0.1 |  °C |
-| 19 |  | Aussentemperatur Bus | 25.6 |  °C |
-| 20 |  | dT-NH-ein | 0.1 |  K |
-| 21 |  | dT-NH-ein | 25.6 |  K |
-| 22 |  | dT-NH-aus | 0.1 |  K |
-| 23 |  | dT-NH-aus | 25.6 |  K |
+| 16 |  | Speichertemperatur 1 \(Bus\) | 1.0 |  °C |
+| 17 |  | Speichertemperatur 1 \(Bus\) | 256.0 |  °C |
+| 18 |  | Aussentemperatur Bus | 1.0 |  °C |
+| 19 |  | Aussentemperatur Bus | 256.0 |  °C |
+| 20 |  | dT-NH-ein | 1.0 |  K |
+| 21 |  | dT-NH-ein | 256.0 |  K |
+| 22 |  | dT-NH-aus | 1.0 |  K |
+| 23 |  | dT-NH-aus | 256.0 |  K |
 | 24 |  | Speicherminimaltemperatur | 1 |  °C |
 | 25 |  | Speicherkühltemperatur | 1 |  °C |
 | 26 |  | Speicheranforderungstemperatur \(ein\) | 1 |  °C |
 | 27 |  | Speicheranforderungstemperatur \(aus\) | 1 |  °C |
 | 28 |  | WW-Anforderungstemperatur \(ein\) | 1 |  °C |
 | 29 |  | WW-Anforderungstemperatur \(aus\) | 1 |  °C |
-| 30 |  | Speichertemperatur 2 \(Bus\) | 0.1 |  °C |
-| 31 |  | Speichertemperatur 2 \(Bus\) | 25.6 |  °C |
+| 30 |  | Speichertemperatur 2 \(Bus\) | 1.0 |  °C |
+| 31 |  | Speichertemperatur 2 \(Bus\) | 256.0 |  °C |
 
 
 
@@ -6588,12 +7725,12 @@ title: VBus Packets
 | 37 |  | Laufzeit 2 R5 | 1 |  s |
 | 38 |  | Laufzeit 2 R5 | 256 |  s |
 | 39 |  | Laufzeit 2 R5 | 65536 |  s |
-| 40 |  | Offset Sensor 1 | 0.1 |  K |
-| 41 |  | Offset Sensor 2 | 0.1 |  K |
-| 42 |  | Offset Sensor 3 | 0.1 |  K |
-| 43 |  | Offset Sensor 4 | 0.1 |  K |
-| 44 |  | Offset Sensor 5 | 0.1 |  K |
-| 45 |  | Offset Sensor 6 | 0.1 |  K |
+| 40 |  | Offset Sensor 1 | 1.0 |  K |
+| 41 |  | Offset Sensor 2 | 1.0 |  K |
+| 42 |  | Offset Sensor 3 | 1.0 |  K |
+| 43 |  | Offset Sensor 4 | 1.0 |  K |
+| 44 |  | Offset Sensor 5 | 1.0 |  K |
+| 45 |  | Offset Sensor 6 | 1.0 |  K |
 | 46 |  | Sensormaske | 1 |  |
 | 47 |  | Relaismaske | 1 |  |
 
