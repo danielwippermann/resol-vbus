@@ -34,7 +34,7 @@
   "dependencies": {
     "buffer-more-ints": "0.0.2",
     "lodash": "2.4.1",
-    "moment": "^2.11.1",
+    "moment": "^2.11.2",
     "moment-timezone": "^0.5.0",
     "numeral": "^1.5.2",
     "q": "^1.0.0",
