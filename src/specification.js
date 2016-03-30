@@ -641,7 +641,7 @@ var Specification = extend(null, /** @lends Specification# */ {
             end = buffer ? buffer.length : 0;
         }
 
-        if (packetField && packetField.getRawValue) {
+        if (packetField && packetField.setRawValue) {
             packetField.setRawValue(rawValue, buffer, start, end);
         } else if (packetField && packetField.packetFieldSpec) {
             if (_.isNumber(rawValue)) {
