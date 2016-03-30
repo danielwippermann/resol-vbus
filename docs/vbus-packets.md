@@ -27,8 +27,11 @@ title: VBus Packets
 - [DFA (0x0010) <= Kioto BX Plus V2 \[WMZ 2\] (0x1057), command 0x0100](#0010_1057_0100)
 - [DFA (0x0010) <= Caleffi Biomassa (0x1058), command 0x0100](#0010_1058_0100)
 - [DFA (0x0010) <= DeltaTherm HC mini \[Regler\] (0x1059), command 0x0100](#0010_1059_0100)
+- [DFA (0x0010) <= Remeha RemaCal (0x105A), command 0x0100](#0010_105A_0100)
 - [DFA (0x0010) <= Atlantic SOLERIO V3 (0x105B), command 0x0100](#0010_105B_0100)
 - [DFA (0x0010) <= DeDietrich Sol Plus ER 709 (0x105D), command 0x0100](#0010_105D_0100)
+- [DFA (0x0010) <= Caleffi WP (0x105E), command 0x0100](#0010_105E_0100)
+- [DFA (0x0010) <= Tuxhorn BHKW (0x105F), command 0x0100](#0010_105F_0100)
 - [DFA (0x0010) <= Vitosolic 200 \[Regler\] (0x1060), command 0x0100](#0010_1060_0100)
 - [DFA (0x0010) <= Unknown device (0x1064), command 0x0100](#0010_1064_0100)
 - [DFA (0x0010) <= DeltaSol MX - SorTech - eCoo \[Regler\] (0x1100), command 0x0100](#0010_1100_0100)
@@ -36,7 +39,14 @@ title: VBus Packets
 - [DFA (0x0010) <= DeltaSol CS2 (0x1121), command 0x0100](#0010_1121_0100)
 - [DFA (0x0010) <= DeltaSol CS4 (0x1122), command 0x0100](#0010_1122_0100)
 - [DFA (0x0010) <= DeltaTherm HC mini \[Heizkreis 1\] (0x1140), command 0x0100](#0010_1140_0100)
+- [DFA (0x0010) <= Kioto FWS (0x1150), command 0x0100](#0010_1150_0100)
+- [DFA (0x0010) <= MFR \[Regler\] (0x1160), command 0x0100](#0010_1160_0100)
+- [DFA (0x0010) <= MFR \[Module\] (0x1161), command 0x0100](#0010_1161_0100)
+- [DFA (0x0010) <= MFR \[Frischwasser\] (0x1162), command 0x0100](#0010_1162_0100)
+- [DFA (0x0010) <= MFR \[WMZ #0\] (0x1200), command 0x0100](#0010_1200_0100)
+- [DFA (0x0010) <= MFR \[Heizkreis #0\] (0x1210), command 0x0100](#0010_1210_0100)
 - [DFA (0x0010) <= DeltaSol CS Plus (0x2211), command 0x0100](#0010_2211_0100)
+- [DFA (0x0010) <= DeltaSol CS Plus 2.x (0x2213), command 0x0100](#0010_2213_0100)
 - [DFA (0x0010) <= Oranier HK \[Regler\] (0x2231), command 0x0100](#0010_2231_0100)
 - [DFA (0x0010) <= Oranier HK \[WMZ1\] (0x2232), command 0x0100](#0010_2232_0100)
 - [DFA (0x0010) <= Frischwasserregler (0x2241), command 0x0100](#0010_2241_0100)
@@ -49,6 +59,9 @@ title: VBus Packets
 - [DFA (0x0010) <= HR Solar ADVANCED controller \[Regler\] (0x2360), command 0x0100](#0010_2360_0100)
 - [DFA (0x0010) <= HR Solar ADVANCED controller \[WMZ 1\] (0x2362), command 0x0100](#0010_2362_0100)
 - [DFA (0x0010) <= WMZ-L10 (0x3011), command 0x0100](#0010_3011_0100)
+- [DFA (0x0010) <= Remeha RemaSol A (0x3112), command 0x0100](#0010_3112_0100)
+- [DFA (0x0010) <= DeDietrich Diemasol Ai v2 (0x3113), command 0x0100](#0010_3113_0100)
+- [DFA (0x0010) <= DeDietrich Sol Plus Trio (0x3114), command 0x0100](#0010_3114_0100)
 - [DFA (0x0010) <= EL1 (0x3211), command 0x0100](#0010_3211_0100)
 - [DFA (0x0010) <= DeltaSol Pro (0x3221), command 0x0100](#0010_3221_0100)
 - [DFA (0x0010) <= DeltaSol B (0x3231), command 0x0100](#0010_3231_0100)
@@ -75,6 +88,9 @@ title: VBus Packets
 - [DFA (0x0010) <= DeltaSol BS 2009 (0x427B), command 0x0100](#0010_427B_0100)
 - [DFA (0x0010) <= Drainback DeDietrich (0x4311), command 0x0100](#0010_4311_0100)
 - [DFA (0x0010) <= DeltaSol MiniPool (0x4321), command 0x0100](#0010_4321_0100)
+- [DFA (0x0010) <= DeltaSol BS/4 HE (0x4730), command 0x0100](#0010_4730_0100)
+- [DFA (0x0010) <= DeltaSol BS/4 HE \[WMZ\] (0x4731), command 0x0100](#0010_4731_0100)
+- [DFA (0x0010) <= Drainback DeDietrich (0x4A00), command 0x0100](#0010_4A00_0100)
 - [DFA (0x0010) <= DeltaSol D (0x5111), command 0x0100](#0010_5111_0100)
 - [DFA (0x0010) <= Speicherofenregler (0x5112), command 0x0100](#0010_5112_0100)
 - [DFA (0x0010) <= FriwaMini (0x5121), command 0x0100](#0010_5121_0100)
@@ -88,6 +104,7 @@ title: VBus Packets
 - [DFA (0x0010) <= DeltaTherm HC \[Regler\] (0x5400), command 0x0100](#0010_5400_0100)
 - [DFA (0x0010) <= DeltaTherm HC \[Heizkreis #0\] (0x5410), command 0x0100](#0010_5410_0100)
 - [DFA (0x0010) <= DeltaTherm HC \[WMZ #0\] (0x5420), command 0x0100](#0010_5420_0100)
+- [DFA (0x0010) <= DeltaTherm HC \[Modul #0\] (0x5430), command 0x0100](#0010_5430_0100)
 - [DFA (0x0010) <= EL2/3 (0x5510), command 0x0100](#0010_5510_0100)
 - [DFA (0x0010) <= DeltaTherm FK (0x5611), command 0x0100](#0010_5611_0100)
 - [DFA (0x0010) <= Midi Pro (0x6610), command 0x0100](#0010_6610_0100)
@@ -179,6 +196,7 @@ title: VBus Packets
 - [DFA (0x0010) <= IOC-Modul \[Debug-Werte\] (0x7F64), command 0x0100](#0010_7F64_0100)
 - [DFA (0x0010) <= IOC-Modul \[Messwerte_1s\] (0x7F65), command 0x0100](#0010_7F65_0100)
 - [DFA (0x0010) <= DeltaSol FCS (0x7F71), command 0x0100](#0010_7F71_0100)
+- [Standard-Infos (0x0015) <= Tuxhorn BHKW (0x105F), command 0x0100](#0015_105F_0100)
 - [HKM1 #0 (0x4420) <= Broadcast (0x0000), command 0x0200](#4420_0000_0200)
 - [HKM2 #0 (0x6510) <= Broadcast (0x0000), command 0x0200](#6510_0000_0200)
 - [MSR65 #0 (0x6520) <= Broadcast (0x0000), command 0x0200](#6520_0000_0200)
@@ -214,8 +232,11 @@ title: VBus Packets
 | 0x1057 | 0xFFFF | Kioto BX Plus V2 \[WMZ 2\] |
 | 0x1058 | 0xFFFF | Caleffi Biomassa |
 | 0x1059 | 0xFFFF | DeltaTherm HC mini \[Regler\] |
+| 0x105A | 0xFFFF | Remeha RemaCal |
 | 0x105B | 0xFFFF | Atlantic SOLERIO V3 |
 | 0x105D | 0xFFFF | DeDietrich Sol Plus ER 709 |
+| 0x105E | 0xFFFF | Caleffi WP |
+| 0x105F | 0xFFFF | Tuxhorn BHKW |
 | 0x1060 | 0xFFFF | Vitosolic 200 \[Regler\] |
 | 0x1065 | 0xFFFF | Vitosolic 200 \[WMZ 1\] |
 | 0x1066 | 0xFFFF | Vitosolic 200 \[WMZ 2\] |
@@ -225,9 +246,16 @@ title: VBus Packets
 | 0x1121 | 0xFFFF | DeltaSol CS2 |
 | 0x1122 | 0xFFFF | DeltaSol CS4 |
 | 0x1140 | 0xFFFF | DeltaTherm HC mini \[Heizkreis 1\] |
+| 0x1150 | 0xFFFF | Kioto FWS |
+| 0x1160 | 0xFFFF | MFR \[Regler\] |
+| 0x1161 | 0xFFFF | MFR \[Module\] |
+| 0x1162 | 0xFFFF | MFR \[Frischwasser\] |
+| 0x1200 | 0xFFF0 | MFR \[WMZ #\] |
+| 0x1210 | 0xFFF0 | MFR \[Heizkreis #\] |
 | 0x2000 | 0xFF00 | Digital Sensor # |
 | 0x2111 | 0xFFFF | TLR2 |
 | 0x2211 | 0xFFFF | DeltaSol CS Plus |
+| 0x2213 | 0xFFFF | DeltaSol CS Plus 2.x |
 | 0x2231 | 0xFFFF | Oranier HK \[Regler\] |
 | 0x2232 | 0xFFFF | Oranier HK \[WMZ1\] |
 | 0x2241 | 0xFFFF | Frischwasserregler |
@@ -240,7 +268,9 @@ title: VBus Packets
 | 0x2360 | 0xFFFF | HR Solar ADVANCED controller \[Regler\] |
 | 0x2362 | 0xFFFF | HR Solar ADVANCED controller \[WMZ 1\] |
 | 0x3011 | 0xFFFF | WMZ-L10 |
-| 0x3112 | 0xFFFF | Diemasol A |
+| 0x3112 | 0xFFFF | Remeha RemaSol A |
+| 0x3113 | 0xFFFF | DeDietrich Diemasol Ai v2 |
+| 0x3114 | 0xFFFF | DeDietrich Sol Plus Trio |
 | 0x3211 | 0xFFFF | EL1 |
 | 0x3221 | 0xFFFF | DeltaSol Pro |
 | 0x3231 | 0xFFFF | DeltaSol B |
@@ -276,6 +306,9 @@ title: VBus Packets
 | 0x4321 | 0xFFFF | DeltaSol MiniPool |
 | 0x4410 | 0xFFF0 | MSR44 # |
 | 0x4420 | 0xFFF0 | HKM1 # |
+| 0x4730 | 0xFFFF | DeltaSol BS/4 HE |
+| 0x4731 | 0xFFFF | DeltaSol BS/4 HE \[WMZ\] |
+| 0x4A00 | 0xFFFF | Drainback DeDietrich |
 | 0x5111 | 0xFFFF | DeltaSol D |
 | 0x5112 | 0xFFFF | Speicherofenregler |
 | 0x5121 | 0xFFFF | FriwaMini |
@@ -289,6 +322,7 @@ title: VBus Packets
 | 0x5400 | 0xFFFF | DeltaTherm HC \[Regler\] |
 | 0x5410 | 0xFFF0 | DeltaTherm HC \[Heizkreis #\] |
 | 0x5420 | 0xFFF0 | DeltaTherm HC \[WMZ #\] |
+| 0x5430 | 0xFFF0 | DeltaTherm HC \[Modul #\] |
 | 0x5510 | 0xFFFF | EL2/3 |
 | 0x5611 | 0xFFFF | DeltaTherm FK |
 | 0x6510 | 0xFFF0 | HKM2 # |
@@ -667,42 +701,42 @@ title: VBus Packets
 | 33 |  | Wärme Vorjahr | 256 |  Wh |
 | 34 |  | Wärme Vorjahr | 65536 |  Wh |
 | 35 |  | Wärme Vorjahr | 16777216 |  Wh |
-| 36 |  | Volumen gesamt | 1 |  l/h |
-| 37 |  | Volumen gesamt | 256 |  l/h |
-| 38 |  | Volumen gesamt | 65536 |  l/h |
-| 39 |  | Volumen gesamt | 16777216 |  l/h |
-| 40 |  | Volumen Heute | 1 |  l/h |
-| 41 |  | Volumen Heute | 256 |  l/h |
-| 42 |  | Volumen Heute | 65536 |  l/h |
-| 43 |  | Volumen Heute | 16777216 |  l/h |
-| 44 |  | Volumen Gestern | 1 |  l/h |
-| 45 |  | Volumen Gestern | 256 |  l/h |
-| 46 |  | Volumen Gestern | 65536 |  l/h |
-| 47 |  | Volumen Gestern | 16777216 |  l/h |
-| 48 |  | Volumen Woche | 1 |  l/h |
-| 49 |  | Volumen Woche | 256 |  l/h |
-| 50 |  | Volumen Woche | 65536 |  l/h |
-| 51 |  | Volumen Woche | 16777216 |  l/h |
-| 52 |  | Volumen Vorwoche | 1 |  l/h |
-| 53 |  | Volumen Vorwoche | 256 |  l/h |
-| 54 |  | Volumen Vorwoche | 65536 |  l/h |
-| 55 |  | Volumen Vorwoche | 16777216 |  l/h |
-| 56 |  | Volumen Monat | 1 |  l/h |
-| 57 |  | Volumen Monat | 256 |  l/h |
-| 58 |  | Volumen Monat | 65536 |  l/h |
-| 59 |  | Volumen Monat | 16777216 |  l/h |
-| 60 |  | Volumen Vormonat | 1 |  l/h |
-| 61 |  | Volumen Vormonat | 256 |  l/h |
-| 62 |  | Volumen Vormonat | 65536 |  l/h |
-| 63 |  | Volumen Vormonat | 16777216 |  l/h |
-| 64 |  | Volumen Jahr | 1 |  l/h |
-| 65 |  | Volumen Jahr | 256 |  l/h |
-| 66 |  | Volumen Jahr | 65536 |  l/h |
-| 67 |  | Volumen Jahr | 16777216 |  l/h |
-| 68 |  | Volumen Vorjahr | 1 |  l/h |
-| 69 |  | Volumen Vorjahr | 256 |  l/h |
-| 70 |  | Volumen Vorjahr | 65536 |  l/h |
-| 71 |  | Volumen Vorjahr | 16777216 |  l/h |
+| 36 |  | Volumen gesamt | 1 |  l |
+| 37 |  | Volumen gesamt | 256 |  l |
+| 38 |  | Volumen gesamt | 65536 |  l |
+| 39 |  | Volumen gesamt | 16777216 |  l |
+| 40 |  | Volumen Heute | 1 |  l |
+| 41 |  | Volumen Heute | 256 |  l |
+| 42 |  | Volumen Heute | 65536 |  l |
+| 43 |  | Volumen Heute | 16777216 |  l |
+| 44 |  | Volumen Gestern | 1 |  l |
+| 45 |  | Volumen Gestern | 256 |  l |
+| 46 |  | Volumen Gestern | 65536 |  l |
+| 47 |  | Volumen Gestern | 16777216 |  l |
+| 48 |  | Volumen Woche | 1 |  l |
+| 49 |  | Volumen Woche | 256 |  l |
+| 50 |  | Volumen Woche | 65536 |  l |
+| 51 |  | Volumen Woche | 16777216 |  l |
+| 52 |  | Volumen Vorwoche | 1 |  l |
+| 53 |  | Volumen Vorwoche | 256 |  l |
+| 54 |  | Volumen Vorwoche | 65536 |  l |
+| 55 |  | Volumen Vorwoche | 16777216 |  l |
+| 56 |  | Volumen Monat | 1 |  l |
+| 57 |  | Volumen Monat | 256 |  l |
+| 58 |  | Volumen Monat | 65536 |  l |
+| 59 |  | Volumen Monat | 16777216 |  l |
+| 60 |  | Volumen Vormonat | 1 |  l |
+| 61 |  | Volumen Vormonat | 256 |  l |
+| 62 |  | Volumen Vormonat | 65536 |  l |
+| 63 |  | Volumen Vormonat | 16777216 |  l |
+| 64 |  | Volumen Jahr | 1 |  l |
+| 65 |  | Volumen Jahr | 256 |  l |
+| 66 |  | Volumen Jahr | 65536 |  l |
+| 67 |  | Volumen Jahr | 16777216 |  l |
+| 68 |  | Volumen Vorjahr | 1 |  l |
+| 69 |  | Volumen Vorjahr | 256 |  l |
+| 70 |  | Volumen Vorjahr | 65536 |  l |
+| 71 |  | Volumen Vorjahr | 16777216 |  l |
 | 72 |  | Leistung | 1.000 |  kW |
 | 73 |  | Leistung | 256.000 |  kW |
 | 74 |  | Leistung | 65536.000 |  kW |
@@ -1103,6 +1137,49 @@ title: VBus Packets
 
 
 
+### <a name="0010_105A_0100"></a>DFA (0x0010) <= Remeha RemaCal (0x105A), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Außentemperatur | 1.0 |  °C |
+| 1 |  | Außentemperatur | 256.0 |  °C |
+| 2 |  | Temperatur Speicher Unten | 1.0 |  °C |
+| 3 |  | Temperatur Speicher Unten | 256.0 |  °C |
+| 4 |  | Temperatur Speicher Oben | 1.0 |  °C |
+| 5 |  | Temperatur Speicher Oben | 256.0 |  °C |
+| 6 |  | Einstrahlung | 1 |  W/m² |
+| 7 |  | Einstrahlung | 256 |  W/m² |
+| 8 |  | Drehzahl Relais Pumpe | 1 | % |
+| 9 |  | Drehzahl Wärmepumpe | 1 | % |
+| 10 |  | Drehzahl Relais FastOff | 1 | % |
+| 12 |  | Betriebssekunden Relais Pumpe | 1 |  s |
+| 13 |  | Betriebssekunden Relais Pumpe | 256 |  s |
+| 14 |  | Betriebssekunden Relais Pumpe | 65536 |  s |
+| 15 |  | Betriebssekunden Relais Pumpe | 16777216 |  s |
+| 16 |  | Betriebssekunden Relais FastOff | 1 |  s |
+| 17 |  | Betriebssekunden Relais FastOff | 256 |  s |
+| 18 |  | Betriebssekunden Relais FastOff | 65536 |  s |
+| 19 |  | Betriebssekunden Relais FastOff | 16777216 |  s |
+| 20 | 0x01 | Fehler Außensensor | 1 |  |
+| 20 | 0x02 | Fehler Speichersensor | 1 |  |
+| 20 | 0x04 | Fehler Pumpe | 1 |  |
+| 20 | 0x08 | Fehler Wärmepumpe | 1 |  |
+| 20 | 0x10 | Fehler Flußschalter | 1 |  |
+| 20 |  | Fehlermaske | 1 |  |
+| 21 |  | Fehlermaske | 256 |  |
+| 22 |  | Fehlermaske | 65536 |  |
+| 23 |  | Fehlermaske | 16777216 |  |
+| 24 |  | Systemdatum | 1 |  |
+| 25 |  | Systemdatum | 256 |  |
+| 26 |  | Systemdatum | 65536 |  |
+| 27 |  | Systemdatum | 16777216 |  |
+| 28 |  | Version | 1.00 |  |
+| 29 |  | Version | 256.00 |  |
+| 30 |  | Version | 65536.00 |  |
+| 31 |  | Version | 16777216.00 |  |
+
+
+
 ### <a name="0010_105B_0100"></a>DFA (0x0010) <= Atlantic SOLERIO V3 (0x105B), command 0x0100
 
 | Offset | Mask | Name | Factor | Unit |
@@ -1176,6 +1253,86 @@ title: VBus Packets
 | 37 |  | Temperatur VFD1 | 256.0 |  °C |
 | 38 |  | Volumenstrom VFD1 | 1 |  l/h |
 | 39 |  | Volumenstrom VFD1 | 256 |  l/h |
+
+
+
+### <a name="0010_105E_0100"></a>DFA (0x0010) <= Caleffi WP (0x105E), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Sensor 3 Zustand \(FS\) | 1 |  |
+| 7 |  | Sensor 4 Zustand \(TA\) | 1 |  |
+| 8 |  | Drehzahl Relais 1 | 1 | % |
+| 9 |  | Drehzahl Relais 2 | 1 | % |
+| 10 |  | Drehzahl Relais 3 | 1 | % |
+| 11 |  | Drehzahl Relais 4 | 1 | % |
+| 12 |  | Betriebssekunden Relais 1 | 1 |  s |
+| 13 |  | Betriebssekunden Relais 1 | 256 |  s |
+| 14 |  | Betriebssekunden Relais 1 | 65536 |  s |
+| 15 |  | Betriebssekunden Relais 1 | 16777216 |  s |
+| 16 |  | Betriebssekunden Relais 2 | 1 |  s |
+| 17 |  | Betriebssekunden Relais 2 | 256 |  s |
+| 18 |  | Betriebssekunden Relais 2 | 65536 |  s |
+| 19 |  | Betriebssekunden Relais 2 | 16777216 |  s |
+| 20 |  | Betriebssekunden Relais 3 | 1 |  s |
+| 21 |  | Betriebssekunden Relais 3 | 256 |  s |
+| 22 |  | Betriebssekunden Relais 3 | 65536 |  s |
+| 23 |  | Betriebssekunden Relais 3 | 16777216 |  s |
+| 24 |  | Betriebssekunden Relais 4 | 1 |  s |
+| 25 |  | Betriebssekunden Relais 4 | 256 |  s |
+| 26 |  | Betriebssekunden Relais 4 | 65536 |  s |
+| 27 |  | Betriebssekunden Relais 4 | 16777216 |  s |
+| 28 |  | Fehlermaske | 1 |  |
+| 29 |  | Fehlermaske | 256 |  |
+| 30 |  | Fehlermaske | 65536 |  |
+| 31 |  | Fehlermaske | 16777216 |  |
+| 32 |  | Meldungen | 1 |  |
+| 33 |  | Meldungen | 256 |  |
+| 34 |  | Meldungen | 65536 |  |
+| 35 |  | Meldungen | 16777216 |  |
+| 36 |  | Waermepumpe Zustand | 1 |  |
+| 37 |  | Waermepumpe Betriebsmodus | 1 |  |
+| 38 |  | Waermepumpe TProjekt | 1.0 |  °C |
+| 39 |  | Waermepumpe TProjekt | 256.0 |  °C |
+| 40 |  | Mischer Befehl | 1 |  |
+| 41 |  | Mischer dT | 1.0 |  K |
+| 42 |  | Mischer dT | 256.0 |  K |
+| 44 |  | TPlan Timer | 1 |  s |
+| 45 |  | TPlan Timer | 256 |  s |
+
+
+
+### <a name="0010_105F_0100"></a>DFA (0x0010) <= Tuxhorn BHKW (0x105F), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
+| 8 |  | Relais 1 | 1 | % |
+| 9 |  | Relais 2 | 1 | % |
+| 10 |  | Mischer auf | 1 | % |
+| 11 |  | Mischer zu | 1 | % |
+| 12 |  | Datum | 1 |  |
+| 13 |  | Datum | 256 |  |
+| 14 |  | Datum | 65536 |  |
+| 15 |  | Datum | 16777216 |  |
+| 16 |  | Uhrzeit | 1 |  |
+| 17 |  | Uhrzeit | 256 |  |
+| 18 |  | Systemmeldung | 1 |  |
+| 20 |  | PWM A | 1 | % |
+| 21 |  | PWM B | 1 | % |
 
 
 
@@ -1538,6 +1695,296 @@ title: VBus Packets
 
 
 
+### <a name="0010_1150_0100"></a>DFA (0x0010) <= Kioto FWS (0x1150), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Sensor S1 | 1.0 |  °C |
+| 1 |  | Sensor S1 | 256.0 |  °C |
+| 2 |  | Sensor S2 | 1.0 |  °C |
+| 3 |  | Sensor S2 | 256.0 |  °C |
+| 4 |  | Sensor S3 | 1.0 |  °C |
+| 5 |  | Sensor S3 | 256.0 |  °C |
+| 6 |  | Sensor S4 T | 1.0 |  °C |
+| 7 |  | Sensor S4 T | 256.0 |  °C |
+| 8 |  | Sensor S4 / dV | 1 |  l/h |
+| 9 |  | Sensor S4 / dV | 256 |  l/h |
+| 10 |  | Sensor S4 / dV | 65536 |  l/h |
+| 11 |  | Sensor S4 / dV | 16777216 |  l/h |
+| 12 |  | Sensor S5 | 1.0 |  °C |
+| 13 |  | Sensor S5 | 256.0 |  °C |
+| 14 |  | Poti | 1.0 |  °C |
+| 15 |  | Poti | 256.0 |  °C |
+| 16 |  | Primärpumpe | 1.0 | % |
+| 17 |  | Primärpumpe | 256.0 | % |
+| 18 |  | Mischventil | 1 | % |
+| 19 |  | Mischventil | 256 | % |
+| 20 |  | Zirkulationspumpe | 1 | % |
+| 21 |  | WW-Solltemperatur | 1.0 |  °C |
+| 22 |  | WW-Solltemperatur | 256.0 |  °C |
+| 24 |  | Zirkulation Einschaltz_ | 1 |  s |
+| 25 |  | Zirkulation Einschaltz_ | 256 |  s |
+| 26 |  | Zirkulation Sperrzeit | 1 |  s |
+| 27 |  | Zirkulation Sperrzeit | 256 |  s |
+| 28 |  | Therm_ Desinfektion | 1 |  s |
+| 29 |  | Therm_ Desinfektion | 256 |  s |
+| 30 |  | DipSwitch | 1 |  |
+| 32 |  | Betriebszeit Primärp_ | 1 |  s |
+| 33 |  | Betriebszeit Primärp_ | 256 |  s |
+| 34 |  | Betriebszeit Primärp_ | 65536 |  s |
+| 35 |  | Betriebszeit Primärp_ | 16777216 |  s |
+| 36 |  | Betriebszeit Zirkulation | 1 |  s |
+| 37 |  | Betriebszeit Zirkulation | 256 |  s |
+| 38 |  | Betriebszeit Zirkulation | 65536 |  s |
+| 39 |  | Betriebszeit Zirkulation | 16777216 |  s |
+| 40 |  | PWM A | 1 | % |
+| 41 |  | Kennlinie | 1 |  |
+| 42 |  | Kennlinie | 256 |  |
+| 44 |  | PID P-Anteil | 1.000 |  |
+| 45 |  | PID P-Anteil | 256.000 |  |
+| 46 |  | PID P-Anteil | 65536.000 |  |
+| 47 |  | PID P-Anteil | 16777216.000 |  |
+| 48 |  | PID I-Anteil | 1.000 |  |
+| 49 |  | PID I-Anteil | 256.000 |  |
+| 50 |  | PID I-Anteil | 65536.000 |  |
+| 51 |  | PID I-Anteil | 16777216.000 |  |
+| 52 |  | PID D-Anteil | 1.000 |  |
+| 53 |  | PID D-Anteil | 256.000 |  |
+| 54 |  | PID D-Anteil | 65536.000 |  |
+| 55 |  | PID D-Anteil | 16777216.000 |  |
+| 56 |  | Systemdatum | 1 |  |
+| 57 |  | Systemdatum | 256 |  |
+| 58 |  | Systemdatum | 65536 |  |
+| 59 |  | Systemdatum | 16777216 |  |
+
+
+
+### <a name="0010_1160_0100"></a>DFA (0x0010) <= MFR \[Regler\] (0x1160), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
+| 8 |  | Temperatur Sensor 5 | 1.0 |  °C |
+| 9 |  | Temperatur Sensor 5 | 256.0 |  °C |
+| 10 |  | Temperatur Sensor 6 | 1.0 |  °C |
+| 11 |  | Temperatur Sensor 6 | 256.0 |  °C |
+| 12 |  | Temperatur Sensor 7 | 1.0 |  °C |
+| 13 |  | Temperatur Sensor 7 | 256.0 |  °C |
+| 14 |  | Temperatur Sensor 8 | 1.0 |  °C |
+| 15 |  | Temperatur Sensor 8 | 256.0 |  °C |
+| 16 |  | Temperatur Sensor 9 | 1.0 |  °C |
+| 17 |  | Temperatur Sensor 9 | 256.0 |  °C |
+| 18 |  | Temperatur Sensor 10 | 1.0 |  °C |
+| 19 |  | Temperatur Sensor 10 | 256.0 |  °C |
+| 20 |  | Temperatur Sensor 11 | 1.0 |  °C |
+| 21 |  | Temperatur Sensor 11 | 256.0 |  °C |
+| 22 |  | Temperatur Sensor 12 | 1.0 |  °C |
+| 23 |  | Temperatur Sensor 12 | 256.0 |  °C |
+| 24 |  | Temperatur Sensor 13 | 1.0 |  °C |
+| 25 |  | Temperatur Sensor 13 | 256.0 |  °C |
+| 26 |  | Temperatur Sensor 14 | 1.0 |  °C |
+| 27 |  | Temperatur Sensor 14 | 256.0 |  °C |
+| 28 |  | Temperatur Sensor 15 | 1.0 |  °C |
+| 29 |  | Temperatur Sensor 15 | 256.0 |  °C |
+| 30 |  | Einstrahlung Sensor 16 | 1 |  W/m² |
+| 31 |  | Einstrahlung Sensor 16 | 256 |  W/m² |
+| 32 |  | Temperatur Sensor 17 | 1.0 |  °C |
+| 33 |  | Temperatur Sensor 17 | 256.0 |  °C |
+| 34 |  | Temperatur Sensor 18 | 1.0 |  °C |
+| 35 |  | Temperatur Sensor 18 | 256.0 |  °C |
+| 36 |  | Temperatur Sensor 19 | 1.0 |  °C |
+| 37 |  | Temperatur Sensor 19 | 256.0 |  °C |
+| 38 |  | Temperatur Sensor 20 | 1.0 |  °C |
+| 39 |  | Temperatur Sensor 20 | 256.0 |  °C |
+| 40 |  | Volumenstrom Sensor 13 | 1 |  l/h |
+| 41 |  | Volumenstrom Sensor 13 | 256 |  l/h |
+| 42 |  | Volumenstrom Sensor 13 | 65536 |  l/h |
+| 43 |  | Volumenstrom Sensor 13 | 16777216 |  l/h |
+| 44 |  | Volumenstrom Sensor 14 | 1 |  l/h |
+| 45 |  | Volumenstrom Sensor 14 | 256 |  l/h |
+| 46 |  | Volumenstrom Sensor 14 | 65536 |  l/h |
+| 47 |  | Volumenstrom Sensor 14 | 16777216 |  l/h |
+| 48 |  | Volumenstrom Sensor 15 | 1 |  l/h |
+| 49 |  | Volumenstrom Sensor 15 | 256 |  l/h |
+| 50 |  | Volumenstrom Sensor 15 | 65536 |  l/h |
+| 51 |  | Volumenstrom Sensor 15 | 16777216 |  l/h |
+| 52 |  | Volumenstrom Sensor 17 | 1 |  l/h |
+| 53 |  | Volumenstrom Sensor 17 | 256 |  l/h |
+| 54 |  | Volumenstrom Sensor 17 | 65536 |  l/h |
+| 55 |  | Volumenstrom Sensor 17 | 16777216 |  l/h |
+| 56 |  | Volumenstrom Sensor 18 | 1 |  l/h |
+| 57 |  | Volumenstrom Sensor 18 | 256 |  l/h |
+| 58 |  | Volumenstrom Sensor 18 | 65536 |  l/h |
+| 59 |  | Volumenstrom Sensor 18 | 16777216 |  l/h |
+| 60 |  | Volumenstrom Sensor 19 | 1 |  l/h |
+| 61 |  | Volumenstrom Sensor 19 | 256 |  l/h |
+| 62 |  | Volumenstrom Sensor 19 | 65536 |  l/h |
+| 63 |  | Volumenstrom Sensor 19 | 16777216 |  l/h |
+| 64 |  | Volumenstrom Sensor 20 | 1 |  l/h |
+| 65 |  | Volumenstrom Sensor 20 | 256 |  l/h |
+| 66 |  | Volumenstrom Sensor 20 | 65536 |  l/h |
+| 67 |  | Volumenstrom Sensor 20 | 16777216 |  l/h |
+| 68 |  | Druck Sensor 17 | 1.00 |  bar |
+| 69 |  | Druck Sensor 17 | 256.00 |  bar |
+| 70 |  | Druck Sensor 18 | 1.00 |  bar |
+| 71 |  | Druck Sensor 18 | 256.00 |  bar |
+| 72 |  | Druck Sensor 19 | 1.00 |  bar |
+| 73 |  | Druck Sensor 19 | 256.00 |  bar |
+| 74 |  | Druck Sensor 20 | 1.00 |  bar |
+| 75 |  | Druck Sensor 20 | 256.00 |  bar |
+| 76 |  | Drehzahl Relais 1 | 1 | % |
+| 77 |  | Drehzahl Relais 2 | 1 | % |
+| 78 |  | Drehzahl Relais 3 | 1 | % |
+| 79 |  | Drehzahl Relais 4 | 1 | % |
+| 80 |  | Drehzahl Relais 5 | 1 | % |
+| 81 |  | Drehzahl Relais 6 | 1 | % |
+| 82 |  | Drehzahl Relais 7 | 1 | % |
+| 83 |  | Drehzahl Relais 8 | 1 | % |
+| 84 |  | Drehzahl Relais 9 | 1 | % |
+| 85 |  | Drehzahl Relais 10 | 1 | % |
+| 86 |  | Drehzahl Relais 11 | 1 | % |
+| 87 |  | Drehzahl Relais 12 | 1 | % |
+| 88 |  | Drehzahl Relais 13 | 1 | % |
+| 89 |  | Drehzahl Relais 14 | 1 | % |
+| 92 |  | Systemdatum | 1 |  |
+| 93 |  | Systemdatum | 256 |  |
+| 94 |  | Systemdatum | 65536 |  |
+| 95 |  | Systemdatum | 16777216 |  |
+| 96 |  | Fehlermaske | 1 |  |
+| 97 |  | Fehlermaske | 256 |  |
+| 98 |  | Fehlermaske | 65536 |  |
+| 99 |  | Fehlermaske | 16777216 |  |
+
+
+
+### <a name="0010_1161_0100"></a>DFA (0x0010) <= MFR \[Module\] (0x1161), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Temperatur Modul 1 Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Modul 1 Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Modul 1 Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Modul 1 Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Modul 1 Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Modul 1 Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Modul 1 Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Modul 1 Sensor 4 | 256.0 |  °C |
+| 8 |  | Temperatur Modul 1 Sensor 5 | 1.0 |  °C |
+| 9 |  | Temperatur Modul 1 Sensor 5 | 256.0 |  °C |
+| 10 |  | Temperatur Modul 1 Sensor 6 | 1.0 |  °C |
+| 11 |  | Temperatur Modul 1 Sensor 6 | 256.0 |  °C |
+| 12 |  | Temperatur Modul 2 Sensor 1 | 1.0 |  °C |
+| 13 |  | Temperatur Modul 2 Sensor 1 | 256.0 |  °C |
+| 14 |  | Temperatur Modul 2 Sensor 2 | 1.0 |  °C |
+| 15 |  | Temperatur Modul 2 Sensor 2 | 256.0 |  °C |
+| 16 |  | Temperatur Modul 2 Sensor 3 | 1.0 |  °C |
+| 17 |  | Temperatur Modul 2 Sensor 3 | 256.0 |  °C |
+| 18 |  | Temperatur Modul 2 Sensor 4 | 1.0 |  °C |
+| 19 |  | Temperatur Modul 2 Sensor 4 | 256.0 |  °C |
+| 20 |  | Temperatur Modul 2 Sensor 5 | 1.0 |  °C |
+| 21 |  | Temperatur Modul 2 Sensor 5 | 256.0 |  °C |
+| 22 |  | Temperatur Modul 2 Sensor 6 | 1.0 |  °C |
+| 23 |  | Temperatur Modul 2 Sensor 6 | 256.0 |  °C |
+| 24 |  | Temperatur Modul 3 Sensor 1 | 1.0 |  °C |
+| 25 |  | Temperatur Modul 3 Sensor 1 | 256.0 |  °C |
+| 26 |  | Temperatur Modul 3 Sensor 2 | 1.0 |  °C |
+| 27 |  | Temperatur Modul 3 Sensor 2 | 256.0 |  °C |
+| 28 |  | Temperatur Modul 3 Sensor 3 | 1.0 |  °C |
+| 29 |  | Temperatur Modul 3 Sensor 3 | 256.0 |  °C |
+| 30 |  | Temperatur Modul 3 Sensor 4 | 1.0 |  °C |
+| 31 |  | Temperatur Modul 3 Sensor 4 | 256.0 |  °C |
+| 32 |  | Temperatur Modul 3 Sensor 5 | 1.0 |  °C |
+| 33 |  | Temperatur Modul 3 Sensor 5 | 256.0 |  °C |
+| 34 |  | Temperatur Modul 3 Sensor 6 | 1.0 |  °C |
+| 35 |  | Temperatur Modul 3 Sensor 6 | 256.0 |  °C |
+| 36 |  | Temperatur Modul 4 Sensor 1 | 1.0 |  °C |
+| 37 |  | Temperatur Modul 4 Sensor 1 | 256.0 |  °C |
+| 38 |  | Temperatur Modul 4 Sensor 2 | 1.0 |  °C |
+| 39 |  | Temperatur Modul 4 Sensor 2 | 256.0 |  °C |
+| 40 |  | Temperatur Modul 4 Sensor 3 | 1.0 |  °C |
+| 41 |  | Temperatur Modul 4 Sensor 3 | 256.0 |  °C |
+| 42 |  | Temperatur Modul 4 Sensor 4 | 1.0 |  °C |
+| 43 |  | Temperatur Modul 4 Sensor 4 | 256.0 |  °C |
+| 44 |  | Temperatur Modul 4 Sensor 5 | 1.0 |  °C |
+| 45 |  | Temperatur Modul 4 Sensor 5 | 256.0 |  °C |
+| 46 |  | Temperatur Modul 4 Sensor 6 | 1.0 |  °C |
+| 47 |  | Temperatur Modul 4 Sensor 6 | 256.0 |  °C |
+| 48 |  | Temperatur Modul 5 Sensor 1 | 1.0 |  °C |
+| 49 |  | Temperatur Modul 5 Sensor 1 | 256.0 |  °C |
+| 50 |  | Temperatur Modul 5 Sensor 2 | 1.0 |  °C |
+| 51 |  | Temperatur Modul 5 Sensor 2 | 256.0 |  °C |
+| 52 |  | Temperatur Modul 5 Sensor 3 | 1.0 |  °C |
+| 53 |  | Temperatur Modul 5 Sensor 3 | 256.0 |  °C |
+| 54 |  | Temperatur Modul 5 Sensor 4 | 1.0 |  °C |
+| 55 |  | Temperatur Modul 5 Sensor 4 | 256.0 |  °C |
+| 56 |  | Temperatur Modul 5 Sensor 5 | 1.0 |  °C |
+| 57 |  | Temperatur Modul 5 Sensor 5 | 256.0 |  °C |
+| 58 |  | Temperatur Modul 5 Sensor 6 | 1.0 |  °C |
+| 59 |  | Temperatur Modul 5 Sensor 6 | 256.0 |  °C |
+
+
+
+### <a name="0010_1162_0100"></a>DFA (0x0010) <= MFR \[Frischwasser\] (0x1162), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Warmwassertemperatur | 1.0 |  °C |
+| 1 |  | Warmwassertemperatur | 256.0 |  °C |
+| 2 |  | Warmwassersoll | 1.0 |  °C |
+| 3 |  | Warmwassersoll | 256.0 |  °C |
+| 4 |  | Zapfvolumenstrom | 1.0 |  l/min |
+| 5 |  | Zapfvolumenstrom | 256.0 |  l/min |
+| 6 |  | Zapfvolumenstrom | 65536.0 |  l/min |
+| 7 |  | Zapfvolumenstrom | 16777216.0 |  l/min |
+| 8 |  | Speichervorlauf | 1.0 |  °C |
+| 9 |  | Speichervorlauf | 256.0 |  °C |
+| 10 |  | Drehzahl Primärpumpe | 1 | % |
+| 11 |  | Drehzahl Zirkulation | 1 | % |
+| 12 |  | Zapfmenge gesamt | 1.000 |  m³ |
+| 13 |  | Zapfmenge gesamt | 256.000 |  m³ |
+| 14 |  | Zapfmenge gesamt | 65536.000 |  m³ |
+| 15 |  | Zapfmenge gesamt | 16777216.000 |  m³ |
+| 16 |  | Status | 1 |  |
+| 17 |  | Status | 256 |  |
+
+
+
+### <a name="0010_1200_0100"></a>DFA (0x0010) <= MFR \[WMZ #0\] (0x1200), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Wärmemenge | 1 |  Wh |
+| 1 |  | Wärmemenge | 256 |  Wh |
+| 2 |  | Wärmemenge | 65536 |  Wh |
+| 3 |  | Wärmemenge | 16777216 |  Wh |
+| 8 |  | Wärmemenge heute | 1 |  Wh |
+| 9 |  | Wärmemenge heute | 256 |  Wh |
+| 10 |  | Wärmemenge heute | 65536 |  Wh |
+| 11 |  | Wärmemenge heute | 16777216 |  Wh |
+| 12 |  | Wärmemenge Woche | 1 |  Wh |
+| 13 |  | Wärmemenge Woche | 256 |  Wh |
+| 14 |  | Wärmemenge Woche | 65536 |  Wh |
+| 15 |  | Wärmemenge Woche | 16777216 |  Wh |
+
+
+
+### <a name="0010_1210_0100"></a>DFA (0x0010) <= MFR \[Heizkreis #0\] (0x1210), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Vorlauf-Soll-Temperatur | 1.0 |  °C |
+| 1 |  | Vorlauf-Soll-Temperatur | 256.0 |  °C |
+| 2 |  | Betriebsstatus | 1 |  |
+
+
+
 ### <a name="0010_2211_0100"></a>DFA (0x0010) <= DeltaSol CS Plus (0x2211), command 0x0100
 
 | Offset | Mask | Name | Factor | Unit |
@@ -1576,6 +2023,72 @@ title: VBus Packets
 | 31 |  | Wärmemenge | 16777216 |  Wh |
 | 32 |  | SW-Version | 1.00 |  |
 | 33 |  | SW-Version | 256.00 |  |
+
+
+
+### <a name="0010_2213_0100"></a>DFA (0x0010) <= DeltaSol CS Plus 2.x (0x2213), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
+| 8 |  | Drehzahl Relais 1 | 1 | % |
+| 10 |  | Betriebsstunden Relais 1 | 1 |  h |
+| 11 |  | Betriebsstunden Relais 1 | 256 |  h |
+| 12 |  | Drehzahl Relais 2 | 1 | % |
+| 14 |  | Betriebsstunden Relais 2 | 1 |  h |
+| 15 |  | Betriebsstunden Relais 2 | 256 |  h |
+| 16 |  | UnitType | 1 |  |
+| 17 |  | System | 1 |  |
+| 20 | 0x01 | Sensor 1 defekt | 1 |  |
+| 20 | 0x02 | Sensor 2 defekt | 1 |  |
+| 20 | 0x04 | Sensor 3 defekt | 1 |  |
+| 20 | 0x08 | Sensor 4 defekt | 1 |  |
+| 20 | 0x10 | GFD defekt | 1 |  |
+| 20 | 0x20 | PFB1 defekt | 1 |  |
+| 20 | 0x40 | PFB2 defekt | 1 |  |
+| 20 |  | ErrorMask | 1 |  |
+| 21 |  | ErrorMask | 256 |  |
+| 22 |  | Systemzeit | 1 |  |
+| 23 |  | Systemzeit | 256 |  |
+| 24 |  | Statusmask | 1 |  |
+| 25 |  | Statusmask | 256 |  |
+| 26 |  | Statusmask | 65536 |  |
+| 27 |  | Statusmask | 16777216 |  |
+| 28 |  | Wärmemenge | 1 |  Wh |
+| 29 |  | Wärmemenge | 256 |  Wh |
+| 30 |  | Wärmemenge | 65536 |  Wh |
+| 31 |  | Wärmemenge | 16777216 |  Wh |
+| 32 |  | SW Version | 1.00 |  |
+| 33 |  | SW Version | 256.00 |  |
+| 36 |  | Temperatur GFD | 1.0 |  °C |
+| 37 |  | Temperatur GFD | 256.0 |  °C |
+| 38 |  | Volumenstrom 1 | 1 |  l/h |
+| 39 |  | Volumenstrom 1 | 256 |  l/h |
+| 40 |  | Volumenstrom 2 | 1 |  l/h |
+| 41 |  | Volumenstrom 2 | 256 |  l/h |
+| 44 |  | PFB1 Duty | 1.000 | % |
+| 45 |  | PFB1 Duty | 256.000 | % |
+| 46 |  | PFB1 Duty | 65536.000 | % |
+| 47 |  | PFB1 Duty | 16777216.000 | % |
+| 48 |  | PFB1 Freq_ | 1.000 |  Hz |
+| 49 |  | PFB1 Freq_ | 256.000 |  Hz |
+| 50 |  | PFB1 Freq_ | 65536.000 |  Hz |
+| 51 |  | PFB1 Freq_ | 16777216.000 |  Hz |
+| 52 |  | PFB2 Duty | 1.000 | % |
+| 53 |  | PFB2 Duty | 256.000 | % |
+| 54 |  | PFB2 Duty | 65536.000 | % |
+| 55 |  | PFB2 Duty | 16777216.000 | % |
+| 56 |  | PFB2 Freq_ | 1.000 |  Hz |
+| 57 |  | PFB2 Freq_ | 256.000 |  Hz |
+| 58 |  | PFB2 Freq_ | 65536.000 |  Hz |
+| 59 |  | PFB2 Freq_ | 16777216.000 |  Hz |
 
 
 
@@ -2213,6 +2726,77 @@ title: VBus Packets
 | 29 |  | Wärmemenge kWh | 256 |  kWh |
 | 30 |  | Wärmemenge MWh | 1 |  kWh |
 | 31 |  | Wärmemenge MWh | 256 |  kWh |
+
+
+
+### <a name="0010_3112_0100"></a>DFA (0x0010) <= Remeha RemaSol A (0x3112), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Kollektor-Temperatur \(TC\) | 1.0 |  °C |
+| 1 |  | Kollektor-Temperatur \(TC\) | 256.0 |  °C |
+| 2 |  | Speicher-Temperatur \(TS\) | 1.0 |  °C |
+| 3 |  | Speicher-Temperatur \(TS\) | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 8 |  | Wärmemenge | 1 |  Wh |
+| 9 |  | Wärmemenge | 256 |  Wh |
+| 10 |  | Wärmemenge | 65536 |  Wh |
+| 11 |  | Wärmemenge | 16777216 |  Wh |
+| 12 |  | Pumpendrehzahl \(PC\) | 1 | % |
+| 14 |  | Steuerungszeit \(tc\) | 1 | % |
+| 15 |  | Steuerungszeit \(tc\) | 256 | % |
+| 16 |  | Softwareversion | 1.00 |  |
+| 17 |  | Softwareversion | 256.00 |  |
+| 20 |  | Systemzeit | 1 |  |
+| 21 |  | Systemzeit | 256 |  |
+| 22 |  | Timer | 1 |  |
+| 23 |  | Timer | 256 |  |
+
+
+
+### <a name="0010_3113_0100"></a>DFA (0x0010) <= DeDietrich Diemasol Ai v2 (0x3113), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Kollektor-Temperatur \(TC\) | 1.0 |  °C |
+| 1 |  | Kollektor-Temperatur \(TC\) | 256.0 |  °C |
+| 2 |  | Speicher-Temperatur \(TS\) | 1.0 |  °C |
+| 3 |  | Speicher-Temperatur \(TS\) | 256.0 |  °C |
+| 8 |  | Wärmemenge | 1 |  Wh |
+| 9 |  | Wärmemenge | 256 |  Wh |
+| 10 |  | Wärmemenge | 65536 |  Wh |
+| 11 |  | Wärmemenge | 16777216 |  Wh |
+| 12 |  | Pumpendrehzahl \(PC\) | 1 | % |
+| 14 |  | Steuerungszeit \(tc\) | 1 | % |
+| 15 |  | Steuerungszeit \(tc\) | 256 | % |
+| 16 |  | Softwareversion | 1.00 |  |
+| 17 |  | Softwareversion | 256.00 |  |
+
+
+
+### <a name="0010_3114_0100"></a>DFA (0x0010) <= DeDietrich Sol Plus Trio (0x3114), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Kollektor-Temperatur \(TC\) | 1.0 |  °C |
+| 1 |  | Kollektor-Temperatur \(TC\) | 256.0 |  °C |
+| 2 |  | Speicher-Temperatur \(TS\) | 1.0 |  °C |
+| 3 |  | Speicher-Temperatur \(TS\) | 256.0 |  °C |
+| 4 |  | Heizungsrücklauf-Temperatur \(TR\) | 1.0 |  °C |
+| 5 |  | Heizungsrücklauf-Temperatur \(TR\) | 256.0 |  °C |
+| 6 |  | Messfühler-Temperatur \(TM\) | 1.0 |  °C |
+| 7 |  | Messfühler-Temperatur \(TM\) | 256.0 |  °C |
+| 8 |  | Wärmemenge | 1 |  Wh |
+| 9 |  | Wärmemenge | 256 |  Wh |
+| 10 |  | Wärmemenge | 65536 |  Wh |
+| 11 |  | Wärmemenge | 16777216 |  Wh |
+| 12 |  | Pumpendrehzahl \(PC\) | 1 | % |
+| 13 |  | Ventil \(R2\) | 1 | % |
+| 14 |  | Steuerungszeit \(tc\) | 1 | % |
+| 15 |  | Steuerungszeit \(tc\) | 256 | % |
+| 16 |  | Softwareversion | 1.00 |  |
+| 17 |  | Softwareversion | 256.00 |  |
 
 
 
@@ -3129,6 +3713,85 @@ title: VBus Packets
 
 
 
+### <a name="0010_4730_0100"></a>DFA (0x0010) <= DeltaSol BS/4 HE (0x4730), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 4 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 8 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 9 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 16 |  | Drehzahl Relais 1 | 1 | % |
+| 17 |  | Drehzahl Relais 2 | 1 | % |
+| 20 |  | Wärmemenge | 1 |  Wh |
+| 21 |  | Wärmemenge | 256 |  Wh |
+| 22 |  | Wärmemenge | 65536 |  Wh |
+| 23 |  | Wärmemenge | 16777216 |  Wh |
+| 24 |  | SW-Version | 1.00 |  |
+| 25 |  | SW-Version | 256.00 |  |
+| 28 |  | Betriebsstunden Relais 1 | 1 |  h |
+| 29 |  | Betriebsstunden Relais 1 | 256 |  h |
+| 30 |  | Betriebsstunden Relais 1 | 65536 |  h |
+| 31 |  | Betriebsstunden Relais 1 | 16777216 |  h |
+| 32 |  | Betriebsstunden Relais 2 | 1 |  h |
+| 33 |  | Betriebsstunden Relais 2 | 256 |  h |
+| 34 |  | Betriebsstunden Relais 2 | 65536 |  h |
+| 35 |  | Betriebsstunden Relais 2 | 16777216 |  h |
+| 72 |  | Fehlermaske | 1 |  |
+| 73 |  | Fehlermaske | 256 |  |
+| 74 |  | Fehlermaske | 65536 |  |
+| 75 |  | Fehlermaske | 16777216 |  |
+
+
+
+### <a name="0010_4731_0100"></a>DFA (0x0010) <= DeltaSol BS/4 HE \[WMZ\] (0x4731), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Wert | 1 |  Wh |
+| 1 |  | Wert | 256 |  Wh |
+| 2 |  | Wert | 65536 |  Wh |
+| 3 |  | Wert | 16777216 |  Wh |
+| 4 |  | Leistung | 1 |  W |
+| 5 |  | Leistung | 256 |  W |
+| 6 |  | Leistung | 65536 |  W |
+| 7 |  | Leistung | 16777216 |  W |
+| 8 |  | Wert \(heute\) | 1 |  Wh |
+| 9 |  | Wert \(heute\) | 256 |  Wh |
+| 10 |  | Wert \(heute\) | 65536 |  Wh |
+| 11 |  | Wert \(heute\) | 16777216 |  Wh |
+| 12 |  | Wert \(Woche\) | 1 |  Wh |
+| 13 |  | Wert \(Woche\) | 256 |  Wh |
+| 14 |  | Wert \(Woche\) | 65536 |  Wh |
+| 15 |  | Wert \(Woche\) | 16777216 |  Wh |
+
+
+
+### <a name="0010_4A00_0100"></a>DFA (0x0010) <= Drainback DeDietrich (0x4A00), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | TC | 1.0 |  °C |
+| 1 |  | TC | 256.0 |  °C |
+| 2 |  | CD | 1.0 |  °C |
+| 3 |  | CD | 256.0 |  °C |
+| 4 |  | CU | 1.0 |  °C |
+| 5 |  | CU | 256.0 |  °C |
+| 6 |  | P1 | 1 | % |
+| 7 |  | P2 | 1 | % |
+| 10 |  | LS | 1.0 |  |
+| 11 |  | LS | 256.0 |  |
+| 12 |  | Ph | 1 |  |
+| 13 |  | P1S | 1 |  |
+| 16 |  | KWH | 1.0 |  kWh |
+| 17 |  | KWH | 256.0 |  kWh |
+| 18 |  | KWH | 65536.0 |  kWh |
+| 19 |  | KWH | 16777216.0 |  kWh |
+
+
+
 ### <a name="0010_5111_0100"></a>DFA (0x0010) <= DeltaSol D (0x5111), command 0x0100
 
 | Offset | Mask | Name | Factor | Unit |
@@ -3642,22 +4305,46 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Wert | 1 |  kWh |
-| 1 |  | Wert | 256 |  kWh |
-| 2 |  | Wert | 65536 |  kWh |
-| 3 |  | Wert | 16777216 |  kWh |
+| 0 |  | Wert | 1 |  Wh |
+| 1 |  | Wert | 256 |  Wh |
+| 2 |  | Wert | 65536 |  Wh |
+| 3 |  | Wert | 16777216 |  Wh |
 | 4 |  | Leistung | 1 |  W |
 | 5 |  | Leistung | 256 |  W |
 | 6 |  | Leistung | 65536 |  W |
 | 7 |  | Leistung | 16777216 |  W |
-| 8 |  | WertHeute | 1 |  kWh |
-| 9 |  | WertHeute | 256 |  kWh |
-| 10 |  | WertHeute | 65536 |  kWh |
-| 11 |  | WertHeute | 16777216 |  kWh |
-| 12 |  | WertWoche | 1 |  kWh |
-| 13 |  | WertWoche | 256 |  kWh |
-| 14 |  | WertWoche | 65536 |  kWh |
-| 15 |  | WertWoche | 16777216 |  kWh |
+| 8 |  | Wert \(heute\) | 1 |  Wh |
+| 9 |  | Wert \(heute\) | 256 |  Wh |
+| 10 |  | Wert \(heute\) | 65536 |  Wh |
+| 11 |  | Wert \(heute\) | 16777216 |  Wh |
+| 12 |  | Wert \(Woche\) | 1 |  Wh |
+| 13 |  | Wert \(Woche\) | 256 |  Wh |
+| 14 |  | Wert \(Woche\) | 65536 |  Wh |
+| 15 |  | Wert \(Woche\) | 16777216 |  Wh |
+
+
+
+### <a name="0010_5430_0100"></a>DFA (0x0010) <= DeltaTherm HC \[Modul #0\] (0x5430), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Sensor 1 | 1.0 |  °C |
+| 1 |  | Sensor 1 | 256.0 |  °C |
+| 2 |  | Sensor 2 | 1.0 |  °C |
+| 3 |  | Sensor 2 | 256.0 |  °C |
+| 4 |  | Sensor 3 | 1.0 |  °C |
+| 5 |  | Sensor 3 | 256.0 |  °C |
+| 6 |  | Sensor 4 | 1.0 |  °C |
+| 7 |  | Sensor 4 | 256.0 |  °C |
+| 8 |  | Sensor 5 | 1.0 |  °C |
+| 9 |  | Sensor 5 | 256.0 |  °C |
+| 10 |  | Sensor 6 | 1.0 |  °C |
+| 11 |  | Sensor 6 | 256.0 |  °C |
+| 12 |  | Drehzahl Relais 1 | 1 | % |
+| 13 |  | Drehzahl Relais 2 | 1 | % |
+| 14 |  | Drehzahl Relais 3 | 1 | % |
+| 15 |  | Drehzahl Relais 4 | 1 | % |
+| 16 |  | Drehzahl Relais 5 | 1 | % |
 
 
 
@@ -6891,10 +7578,6 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Systemdatum | 1 |  |
-| 1 |  | Systemdatum | 256 |  |
-| 2 |  | Systemdatum | 65536 |  |
-| 3 |  | Systemdatum | 16777216 |  |
 | 4 |  | Temperatur Sensor 1 | 1.0 |  °C |
 | 5 |  | Temperatur Sensor 1 | 256.0 |  °C |
 | 6 |  | Temperatur Sensor 2 | 1.0 |  °C |
@@ -6905,10 +7588,6 @@ title: VBus Packets
 | 11 |  | Temperatur Sensor 4 | 256.0 |  °C |
 | 20 |  | Drehzahl Relais 1 | 1 | % |
 | 21 |  | Drehzahl Relais 2 | 1 | % |
-| 24 |  | Wärmemenge | 1 |  Wh |
-| 25 |  | Wärmemenge | 256 |  Wh |
-| 26 |  | Wärmemenge | 65536 |  Wh |
-| 27 |  | Wärmemenge | 16777216 |  Wh |
 | 28 |  | SW-Version | 1.00 |  |
 | 29 |  | SW-Version | 256.00 |  |
 | 32 |  | Betriebsstunden Relais 1 | 1 |  h |
@@ -6935,14 +7614,14 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Wmz1_Wert_Wh | 1 |  Wh |
-| 1 |  | Wmz1_Wert_Wh | 256 |  Wh |
-| 2 |  | Wmz1_Wert_Wh | 65536 |  Wh |
-| 3 |  | Wmz1_Wert_Wh | 16777216 |  Wh |
-| 4 |  | Wmz1_Leistung_W | 1 |  W |
-| 5 |  | Wmz1_Leistung_W | 256 |  W |
-| 6 |  | Wmz1_Leistung_W | 65536 |  W |
-| 7 |  | Wmz1_Leistung_W | 16777216 |  W |
+| 0 |  | Wärmemenge | 1 |  Wh |
+| 1 |  | Wärmemenge | 256 |  Wh |
+| 2 |  | Wärmemenge | 65536 |  Wh |
+| 3 |  | Wärmemenge | 16777216 |  Wh |
+| 4 |  | Leistung | 1 |  W |
+| 5 |  | Leistung | 256 |  W |
+| 6 |  | Leistung | 65536 |  W |
+| 7 |  | Leistung | 16777216 |  W |
 
 
 
@@ -7631,6 +8310,44 @@ title: VBus Packets
 | 53 |  | Einstrahlung | 256 |  W/m² |
 | 54 |  | Zelltemperatur | 1.0 |  °C |
 | 55 |  | Zelltemperatur | 256.0 |  °C |
+
+
+
+### <a name="0015_105F_0100"></a>Standard-Infos (0x0015) <= Tuxhorn BHKW (0x105F), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 4 |  | SD3: Temperatur Sensor 1 | 1.0 |  °C |
+| 5 |  | SD3: Temperatur Sensor 1 | 256.0 |  °C |
+| 6 |  | SD3: Temperatur Sensor 2 | 1.0 |  °C |
+| 7 |  | SD3: Temperatur Sensor 2 | 256.0 |  °C |
+| 8 |  | SD3: Wärmemenge | 1 |  Wh |
+| 9 |  | SD3: Wärmemenge | 256 |  Wh |
+| 10 |  | SD3: Wärmemenge | 65536 |  Wh |
+| 11 |  | SD3: Wärmemenge | 16777216 |  Wh |
+| 16 |  | DZ: Drehzahl 1 | 1 | % |
+| 17 |  | DZ: Drehzahl 2 | 1 | % |
+| 24 |  | ERR: Errormask | 1 |  |
+| 32 |  | TW: Temperatur Sensor 1 | 1.0 |  °C |
+| 33 |  | TW: Temperatur Sensor 1 | 256.0 |  °C |
+| 34 |  | TW: Temperatur Sensor 2 | 1.0 |  °C |
+| 35 |  | TW: Temperatur Sensor 2 | 256.0 |  °C |
+| 36 |  | TW: Temperatur Sensor 3 | 1.0 |  °C |
+| 37 |  | TW: Temperatur Sensor 3 | 256.0 |  °C |
+| 38 |  | TW: Temperatur Sensor 4 | 1.0 |  °C |
+| 39 |  | TW: Temperatur Sensor 4 | 256.0 |  °C |
+| 44 |  | WM: Wärmemenge | 1 |  Wh |
+| 45 |  | WM: Wärmemenge | 256 |  Wh |
+| 46 |  | WM: Wärmemenge | 65536 |  Wh |
+| 47 |  | WM: Wärmemenge | 16777216 |  Wh |
+| 52 |  | BS: Betriebsstunden Relais 1 | 1 |  h |
+| 53 |  | BS: Betriebsstunden Relais 1 | 256 |  h |
+| 54 |  | BS: Betriebsstunden Relais 1 | 65536 |  h |
+| 55 |  | BS: Betriebsstunden Relais 1 | 16777216 |  h |
+| 56 |  | BS: Betriebsstunden Relais 2 | 1 |  h |
+| 57 |  | BS: Betriebsstunden Relais 2 | 256 |  h |
+| 58 |  | BS: Betriebsstunden Relais 2 | 65536 |  h |
+| 59 |  | BS: Betriebsstunden Relais 2 | 16777216 |  h |
 
 
 
