@@ -131,6 +131,23 @@ describe('utils', function() {
 
             result = utils.roundNumber(-24.700000000000003, -1);
             expect(result).to.equal(-24.7);
+            
+            var number;
+
+            result = utils.roundNumber(number, 10);
+            expect(result).to.equal(undefined);
+
+            result = utils.roundNumber(10, number);
+            expect(result).to.equal(10);
+
+            result = utils.roundNumber(10, 0);
+            expect(result).to.equal(10);
+
+            result = utils.roundNumber(NaN, 0);
+            expect(result).not.to.equal(NaN);
+
+            result = utils.roundNumber(10, 1.2);
+            expect(result).not.to.equal(NaN);
         });
 
     });
