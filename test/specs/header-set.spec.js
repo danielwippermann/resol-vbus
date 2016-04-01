@@ -364,6 +364,30 @@ describe('HeaderSet', function() {
         });
 
     });
+    
+    describe('#getSortedHeaderSet', function() {
+
+        it('should be a method', function() {
+            expect(HeaderSet.prototype.getSortedHeaderSet).to.be.a('function');
+        });
+
+        it('should work correctly', function() {
+            var header1 = new Packet({
+                channel: 1
+            });
+
+            var header2 = new Packet({
+                channel: 2
+            });
+
+            var headerSet = new HeaderSet({
+                headers: [ header2, header1 ]
+            });
+
+            expect(headerSet.getSortedHeaderSet().headerList).to.eql([ header1, header2 ]);
+        });
+
+    });
 
     describe('#getId', function() {
 
