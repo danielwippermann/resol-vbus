@@ -647,6 +647,105 @@ describe('Specification', function() {
 
     });
 
+    describe('#getRoundedRawValue', function() {
+
+        it('should be a method', function() {
+            expect(Specification.prototype.getRoundedRawValue).to.be.a('function');
+        });
+
+        it('should work correctly with all arguments', function() {
+            var spec = new Specification();
+
+            var packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
+
+            var buffer = new Buffer('b822', 'hex');
+
+            var rawValue = spec.getRoundedRawValue(packetFieldSpec, buffer, 0, buffer.length);
+
+            expect(rawValue).to.be.equal(888.8);
+        });
+
+        it('should work correctly without start and end arguments', function() {
+            var spec = new Specification();
+
+            var packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
+
+            var buffer = new Buffer('b822', 'hex');
+
+            var rawValue = spec.getRoundedRawValue(packetFieldSpec, buffer);
+
+            expect(rawValue).to.be.equal(888.8);
+        });
+
+        it('should work correctly with a too small buffer', function() {
+            var spec = new Specification();
+
+            var packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
+
+            var buffer = new Buffer('', 'hex');
+
+            var rawValue = spec.getRoundedRawValue(packetFieldSpec, buffer, 0, buffer.length);
+
+            expect(rawValue).to.equal(0);
+        });
+
+        it('should work correctly with a partial buffer', function() {
+            var spec = new Specification();
+
+            var packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
+
+            var buffer = new Buffer('b8', 'hex');
+
+            var rawValue = spec.getRoundedRawValue(packetFieldSpec, buffer, 0, buffer.length);
+
+            expect(rawValue).to.be.equal(18.4);
+        });
+
+        it('should work correctly for an unknown packet field spec', function() {
+            var spec = new Specification();
+
+            var buffer = new Buffer('b822', 'hex');
+
+            var rawValue = spec.getRoundedRawValue(null, buffer, 0, buffer.length);
+
+            expect(rawValue).to.equal(null);
+        });
+
+        it('should work correctly without a buffer', function() {
+            var spec = new Specification();
+
+            var packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
+
+            var rawValue = spec.getRoundedRawValue(packetFieldSpec);
+
+            expect(rawValue).to.equal(0);
+        });
+
+        it('should work correctly with a filtered spec and conversion', function() {
+            var rawSpecificationData1 = {
+                'filteredPacketFieldSpecs': [{
+                    'filteredPacketFieldId': 'DemoValue1',
+                    'packetId': '01_0010_7721_10_0100',
+                    'fieldId': '000_2_0',
+                    'name': 'T1',
+                    'type': 'Number_0_1_DegreesFahrenheit',
+                }]
+            };
+            var spec = new Specification({
+                specificationData: rawSpecificationData1,
+            });
+
+            var packetFieldSpec = spec.getPacketFieldSpecification('DemoValue1');
+
+            var buffer = new Buffer('0000', 'hex');
+
+            var rawValue = spec.getRoundedRawValue(packetFieldSpec, buffer, 0, buffer.length);
+
+            expect(rawValue).to.be.equal(32);
+        });
+
+    });
+
     describe('#convertRawValue', function() {
 
         var specData = Specification.loadSpecificationData();
