@@ -78,6 +78,8 @@ describe('ResolDeltaThermHcXxxConfigurationOptimizer', function() {
     describe('#optimizeLoadConfiguration', function() {
 
         promiseIt('should work correctly after', function() {
+            this.timeout(10000);
+
             return optimizerPromise.then(function(optimizer) {
                 return Q.fcall(function() {
                     return testUtils.expectPromise(optimizer.completeConfiguration());
