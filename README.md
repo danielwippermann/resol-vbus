@@ -108,6 +108,12 @@ into your shell:
 
 ## Changelog
 
+### Version 0.15.0 (2016-03-30)
+
+- Update VBus specification data
+- Several minor bug fixes
+
+
 ### Version 0.14.0 (2015-10-29)
 
 - Improve configuration optimizers and their discovery
@@ -195,7 +201,7 @@ All other trademarks are the property of their respective owners.
 
 The MIT License (MIT)
 
-Copyright (c) 2013-2015, Daniel Wippermann.
+Copyright (c) 2013-2016, Daniel Wippermann.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
