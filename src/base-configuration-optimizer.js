@@ -243,10 +243,13 @@ var BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
                     };
                 });
             } else {
-                var valueByIndex = {}, valueById = {};
+                var valueByIndex = {}, valueById = {}, valueByIdHash = {};
                 _.forEach(adjustableValues, function(value) {
                     valueByIndex [value.index] = value;
                     valueById [value.id] = value;
+                    if (value.idHash) {
+                        valueByIdHash [value.idHash] = value;
+                    }
                 });
 
                 var configValuesById = {};
@@ -277,6 +280,10 @@ var BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
                             refValue = valueByIndex [value.index];
                         } else if (_.has(value, 'id')) {
                             refValue = valueById [value.id];
+                        } else if (_.has(value, 'valueIdHash')) {
+                            refValue = valueByIdHash [value.valueIdHash];
+                        } else if (_.has(value, 'idHash')) {
+                            refValue = valueByIdHash [value.idHash];
                         } else {
                             refValue = null;
                         }
