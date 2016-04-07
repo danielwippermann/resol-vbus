@@ -4,19 +4,22 @@
     },
     "plugins": ["plugins/markdown"],
     "templates": {
+        "logoFile": "",
         "cleverLinks": false,
         "monospaceLinks": false,
-        "default": {
-            "outputSourceFiles": true
-        },
+        "dateFormat": "ddd MMM Do YYYY",
+        "outputSourceFiles": true,
+        "outputSourcePath": true,
         "systemName": "resol-vbus",
         "footer": "",
-        "copyright": "resol-vbus | Copyright (c) 2013-2014, Daniel Wippermann",
+        "copyright": "resol-vbus | Copyright (c) 2013-2016, Daniel Wippermann",
         "navType": "vertical",
         "theme": "spacelab",
         "linenums": false,
         "collapseSymbols": false,
-        "inverseNav": true
+        "inverseNav": true,
+        "protocol": "html://",
+        "methodHeadingReturns": false
     },
     "markdown": {
         "parser": "gfm",

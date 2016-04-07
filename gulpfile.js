@@ -1,4 +1,4 @@
-/*! resol-vbus | Copyright (c) 2013-2014, Daniel Wippermann | MIT license */
+/*! resol-vbus | Copyright (c) 2013-2016, Daniel Wippermann | MIT license */
 'use strict';
 
 
@@ -151,7 +151,7 @@ gulp.task('quick-mocha', function() {
 
 
 gulp.task('jsdoc', function() {
-    return gulp.src(patterns.jsdoc)
+    return gulp.src(patterns.jsdoc, { read: false })
         .pipe(jsdoc());
 });
 
