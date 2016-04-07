@@ -65,6 +65,27 @@ describe('Specification', function() {
                 },
                 'type': 'Number_0_1_DegreesCelsius',
                 'getRawValue': '_0010_7722_0100_000_2_0'
+            }, {
+                'filteredPacketFieldId': 'DemoValue2',
+                'packetId': '00_0010_7722_10_0100',
+                'fieldId': '000_2_0',
+                'name': {
+                    'ref': 'Flow temperatureL',
+                    'en': 'Flow temperature',
+                    'de': 'T-VL',
+                    'fr': 'Température Départ'
+                },
+                'type': 'Number_0_1_DegreesFahrenheit',
+                'conversions': [{
+                    'factor': 1.8,
+                    'sourceUnit': 'DegreesCelsius',
+                    'targetUnit': 'None'
+                }, {
+                    'offset': 32,
+                    'sourceUnit': 'None',
+                    'targetUnit': 'DegreesFahrenheit'
+                }],
+                'getRawValue': '_0010_7722_0100_000_2_0'
             }]
         };
 
@@ -74,7 +95,7 @@ describe('Specification', function() {
             var fpfs = specData.filteredPacketFieldSpecs;
 
             expect(fpfs).to.be.an('array');
-            expect(fpfs.length).to.equal(1);
+            expect(fpfs.length).to.equal(2);
             expect(fpfs [0].filteredPacketFieldId).to.equal('DemoValue1');
             expect(fpfs [0].packetId).to.equal('00_0010_7722_10_0100');
             expect(fpfs [0].fieldId).to.equal('000_2_0');
@@ -83,6 +104,21 @@ describe('Specification', function() {
             expect(fpfs [0].getRawValue).to.be.a('function');
             expect(fpfs [0].packetSpec).to.be.an('object');
             expect(fpfs [0].packetFieldSpec).to.be.an('object');
+            expect(fpfs [1].filteredPacketFieldId).to.equal('DemoValue2');
+            expect(fpfs [1].packetId).to.equal('00_0010_7722_10_0100');
+            expect(fpfs [1].fieldId).to.equal('000_2_0');
+            expect(fpfs [1].name.de).to.equal('T-VL');
+            expect(fpfs [1].type).to.be.an('object');
+            expect(fpfs [1].conversions).an('array').lengthOf(2);
+            expect(fpfs [1].conversions [0].factor).an('number');
+            expect(fpfs [1].conversions [0].sourceUnit).an('object');
+            expect(fpfs [1].conversions [0].targetUnit).an('object');
+            expect(fpfs [1].conversions [1].offset).an('number');
+            expect(fpfs [1].conversions [1].sourceUnit).an('object');
+            expect(fpfs [1].conversions [1].targetUnit).an('object');
+            expect(fpfs [1].getRawValue).to.be.a('function');
+            expect(fpfs [1].packetSpec).to.be.an('object');
+            expect(fpfs [1].packetFieldSpec).to.be.an('object');
         };
 
         it('should be a function', function() {
@@ -137,6 +173,28 @@ describe('Specification', function() {
                     'fr': 'Température Départ'
                 },
                 'type': 'Number_0_1_DegreesCelsius',
+                'getRawValue': '_0010_7722_0100_000_2_0',
+                'setRawValue': '_0010_7722_0100_000_2_0'
+            }, {
+                'filteredPacketFieldId': 'DemoValue2',
+                'packetId': '00_0010_7722_10_0100',
+                'fieldId': '000_2_0',
+                'name': {
+                    'ref': 'Flow temperatureL',
+                    'en': 'Flow temperature',
+                    'de': 'T-VL',
+                    'fr': 'Température Départ'
+                },
+                'type': 'Number_0_1_DegreesFahrenheit',
+                'conversions': [{
+                    'factor': 1.8,
+                    'sourceUnit': 'DegreesCelsius',
+                    'targetUnit': 'None'
+                }, {
+                    'offset': 32,
+                    'sourceUnit': 'None',
+                    'targetUnit': 'DegreesFahrenheit'
+                }],
                 'getRawValue': '_0010_7722_0100_000_2_0',
                 'setRawValue': '_0010_7722_0100_000_2_0'
             }]
@@ -548,6 +606,108 @@ describe('Specification', function() {
 
     });
 
+    describe('#setRawValue', function() {
+
+        it('should be a method', function() {
+            expect(Specification.prototype.setRawValue).to.be.a('function');
+        });
+
+
+        it('should work correctly with all arguments', function() {
+            var spec = new Specification();
+
+            var packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
+
+            var buffer = new Buffer('b8', 'hex');
+
+            var setRawValue = 20.5;
+
+            spec.setRawValue(packetFieldSpec, setRawValue, buffer, 0, buffer.length);
+
+            var rawValue = spec.getRawValue(packetFieldSpec, buffer, 0, buffer.length);
+
+            expect(rawValue).to.be.closeTo(20.5, 0.05);
+        });
+
+        it('should work correctly without start and end arguments', function() {
+            var spec = new Specification();
+
+            var packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
+
+            var buffer = new Buffer('b822', 'hex');
+
+            var setRawValue = 999.9;
+
+            spec.setRawValue(packetFieldSpec, setRawValue, buffer);
+
+            var rawValue = spec.getRawValue(packetFieldSpec, buffer);
+
+            expect(rawValue).to.be.closeTo(999.9, 0.05);
+        });
+
+        it('should work correctly with a too small buffer', function() {
+            var spec = new Specification();
+
+            var packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
+
+            var buffer = new Buffer('', 'hex');
+
+            var setRawValue = 12.3;
+
+            spec.setRawValue(packetFieldSpec, setRawValue, buffer, 0, buffer.length);
+
+            var rawValue = spec.getRawValue(packetFieldSpec, buffer, 0, buffer.length);
+
+            expect(rawValue).to.equal(null);
+        });
+
+        it('should work correctly with a partial buffer', function() {
+            var spec = new Specification();
+
+            var packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
+
+            var buffer = new Buffer('b8', 'hex');
+
+            var setRawValue = 12.3;
+
+            spec.setRawValue(packetFieldSpec, setRawValue, buffer, 0, buffer.length);
+
+            var rawValue = spec.getRawValue(packetFieldSpec, buffer, 0, buffer.length);
+
+            expect(rawValue).to.be.closeTo(12.3, 0.05);
+        });
+
+        it('should work correctly for an unknown packet field spec', function() {
+            var spec = new Specification();
+
+            var buffer = new Buffer('b822', 'hex');
+
+            var setRawValue = 12.3;
+
+            spec.setRawValue(null, setRawValue, buffer, 0, buffer.length);
+
+            var rawValue = spec.getRawValue(null, buffer, 0, buffer.length);
+
+            expect(rawValue).to.equal(null);
+        });
+
+        it('should work correctly without a buffer', function() {
+            var spec = new Specification();
+
+            var packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
+
+            var setRawValue = 12.3;
+
+            spec.setRawValue(packetFieldSpec, setRawValue);
+
+            var rawValue = spec.getRawValue(packetFieldSpec);
+
+            expect(rawValue).to.equal(null);
+        });
+
+    });
+
+
     describe('#getRawValue', function() {
 
         it('should be a method', function() {
@@ -742,6 +902,163 @@ describe('Specification', function() {
             var rawValue = spec.getRoundedRawValue(packetFieldSpec, buffer, 0, buffer.length);
 
             expect(rawValue).to.be.equal(32);
+        });
+
+    });
+
+    describe('#invertConversions', function() {
+
+        it('should be a method', function() {
+            expect(Specification.prototype.invertConversions).to.be.a('function');
+        });
+
+        it('should work correctly without conversion', function() {
+            var spec = new Specification();
+
+            var invertedConversions = spec.invertConversions();
+
+            expect(invertedConversions).to.equal(undefined);
+        });
+
+        it('should work correctly with conversions are not an array', function() {
+            var spec = new Specification();
+
+            var invertedConversions = spec.invertConversions('string');
+
+            expect(invertedConversions).to.equal('string');
+        });
+
+        it('should work correctly with empty conversions', function() {
+            var spec = new Specification();
+
+            var invertedConversions = spec.invertConversions([]);
+
+            expect(invertedConversions).an('array').lengthOf(0);
+        });
+
+        it('should work correctly with one conversion and a factor greater 1', function() {
+            var spec = new Specification();
+
+            var invertedConversions = spec.invertConversions([{
+                factor: 2
+            }]);
+
+            expect(invertedConversions).an('array').lengthOf(1);
+            expect(invertedConversions[0]).property('factor').equal(0.5);
+        });
+
+        it('should work correctly with one conversion and a factor smaller 1', function() {
+            var spec = new Specification();
+
+            var invertedConversions = spec.invertConversions([{
+                factor: 0.5
+            }]);
+
+            expect(invertedConversions).an('array').lengthOf(1);
+            expect(invertedConversions[0]).property('factor').equal(2);
+        });
+
+        it('should work correctly with one conversion and a factor of 0', function() {
+            var spec = new Specification();
+
+            var invertedConversions = spec.invertConversions([{
+                factor: 0
+            }]);
+
+            expect(invertedConversions).an('array').lengthOf(1);
+            expect(invertedConversions[0]).property('factor').equal(Infinity);
+        });
+
+        it('should work correctly with one conversion and an offset 1000', function() {
+            var spec = new Specification();
+
+            var invertedConversions = spec.invertConversions([{
+                offset: 1000
+            }]);
+
+            expect(invertedConversions).an('array').lengthOf(1);
+            expect(invertedConversions[0]).property('offset').equal(-1000);
+        });
+
+        it('should work correctly with one conversion and an offset -500', function() {
+            var spec = new Specification();
+
+            var invertedConversions = spec.invertConversions([{
+                offset: -500
+            }]);
+
+            expect(invertedConversions).an('array').lengthOf(1);
+            expect(invertedConversions[0]).property('offset').equal(500);
+        });
+
+        it('should work correctly with one conversion and an unit change', function() {
+            var spec = new Specification();
+
+            var celsiusUnit = spec.getUnitById('DegreesCelsius');
+            var fahrenheitUnit = spec.getUnitById('DegreesFahrenheit');
+
+            var invertedConversions = spec.invertConversions([{
+                sourceUnit: celsiusUnit,
+                targetUnit: fahrenheitUnit,
+            }]);
+
+            expect(invertedConversions).an('array').lengthOf(1);
+            expect(invertedConversions[0]).property('sourceUnit').equal(fahrenheitUnit);
+            expect(invertedConversions[0]).property('targetUnit').equal(celsiusUnit);
+        });
+
+        it('should work correctly with multiple conversions using a factor of 2 and an offset -10', function() {
+            var spec = new Specification();
+
+            var invertedConversions = spec.invertConversions([{
+                factor: 2
+            }, {
+                offset: -10
+            }]);
+
+            expect(invertedConversions).an('array').lengthOf(2);
+            expect(invertedConversions[0]).property('offset').equal(10);
+            expect(invertedConversions[1]).property('factor').equal(0.5);
+        });
+
+        it('should work correctly with multiple conversions using an offset 10 and a factor of 0.5', function() {
+            var spec = new Specification();
+
+            var invertedConversions = spec.invertConversions([{
+                offset: 10
+            }, {
+                factor: 0.5
+            }]);
+
+            expect(invertedConversions).an('array').lengthOf(2);
+            expect(invertedConversions[0]).property('factor').equal(2);
+            expect(invertedConversions[1]).property('offset').equal(-10);
+        });
+
+        it('should work correctly with multiple conversions using a manual °C -> °F formula', function() {
+            var spec = new Specification();
+
+            var noneUnit = spec.getUnitById('None');
+            var celsiusUnit = spec.getUnitById('DegreesCelsius');
+            var fahrenheitUnit = spec.getUnitById('DegreesFahrenheit');
+
+            var invertedConversions = spec.invertConversions([{
+                factor: 1.8,
+                sourceUnit: celsiusUnit,
+                targetUnit: noneUnit,
+            }, {
+                offset: 32,
+                sourceUnit: noneUnit,
+                targetUnit: fahrenheitUnit,
+            }]);
+
+            expect(invertedConversions).an('array').lengthOf(2);
+            expect(invertedConversions [0]).property('offset').equal(-32);
+            expect(invertedConversions [0]).property('sourceUnit').equal(fahrenheitUnit);
+            expect(invertedConversions [0]).property('targetUnit').equal(noneUnit);
+            expect(invertedConversions [1]).property('factor').equal(5 / 9);
+            expect(invertedConversions [1]).property('sourceUnit').equal(noneUnit);
+            expect(invertedConversions [1]).property('targetUnit').equal(celsiusUnit);
         });
 
     });
@@ -985,6 +1302,118 @@ describe('Specification', function() {
             it('should convert from "LitersPerMinute" to "CubicMetersPerHour"', function() {
                 expectConversion(0, 'LitersPerMinute', 'CubicMetersPerHour').closeTo(0, delta);
                 expectConversion(1000, 'LitersPerMinute', 'CubicMetersPerHour').closeTo(60, delta);
+            });
+
+        });
+
+        var expectConversions = function(rawValue, conversions) {
+            var spec = new Specification();
+
+            conversions = _.map(conversions, function(conversion) {
+                var sourceUnitCode = conversion.sourceUnitCode;
+                var targetUnitCode = conversion.targetUnitCode;
+
+                var sourceUnit = sourceUnitCode && specData.units [sourceUnitCode];
+                var targetUnit = targetUnitCode && specData.units [targetUnitCode];
+
+                if (sourceUnitCode) {
+                    expect(sourceUnit).a('object').property('unitCode').equal(sourceUnitCode);
+                }
+                if (targetUnitCode) {
+                    expect(targetUnit).a('object').property('unitCode').equal(targetUnitCode);
+                }
+
+                return {
+                    factor: conversion.factor,
+                    offset: conversion.offset,
+                    sourceUnit: sourceUnit,
+                    targetUnit: targetUnit,
+                };
+            });
+
+            var error, result;
+            try {
+                result = spec.convertRawValue(rawValue, conversions);
+            } catch (ex) {
+                error = ex;
+            }
+
+            expect(error).equal(undefined);
+            expect(result).a('object').property('unit').equal(conversions [conversions.length - 1].targetUnit);
+
+            return expect(result).property('rawValue').a('number');
+        };
+
+        describe('Multiple conversions in one step', function() {
+
+            it('should have a better test description', function() {
+                expectConversions(1234, [{
+                    sourceUnitCode: 'WattHours',
+                    targetUnitCode: 'KilowattHours',
+                }]).closeTo(1.234, delta);
+            });
+
+            it('should have a better test description', function() {
+                expectConversions(1234, [{
+                    sourceUnitCode: 'WattHours',
+                    targetUnitCode: 'KilowattHours',
+                }, {
+                    offset: 123,
+                }]).closeTo(124.234, delta);
+            });
+
+            it('should have a better test description', function() {
+                expectConversions(1234, [{
+                    factor: 10,
+                    sourceUnitCode: 'None',
+                    targetUnitCode: 'WattHours',
+                }]).closeTo(12340, delta);
+            });
+
+            it('should have a better test description', function() {
+                expectConversions(1234, [{
+                    factor: 10,
+                    sourceUnitCode: 'None',
+                    targetUnitCode: 'WattHours',
+                }, {
+                    sourceUnitCode: 'WattHours',
+                    targetUnitCode: 'KilowattHours',
+                }, {
+                    offset: 123,
+                }]).closeTo(1234 * 10 / 1000 + 123, delta);
+            });
+
+            it('should have a better test description', function() {
+                expectConversions(100, [{
+                    factor: 1.8,
+                }, {
+                    offset: 32,
+                }, {
+                    factor: 1,
+                    sourceUnitCode: 'DegreesCelsius',
+                    targetUnitCode: 'DegreesFahrenheit',
+                }]).closeTo(212, delta);
+            });
+
+            it('should have a better test description', function() {
+                expectConversions(212, [{
+                    offset: -32,
+                }, {
+                    factor: 1 / 1.8,
+                }, {
+                    factor: 1,
+                    sourceUnitCode: 'DegreesFahrenheit',
+                    targetUnitCode: 'DegreesCelsius',
+                }]).closeTo(100, delta);
+            });
+
+            it('should have a better test description', function() {
+                expectConversions(1234, [{
+                    factor: 10,
+                    offset: 0.5,
+                    sourceUnitCode: 'None',
+                    targetUnitCode: 'WattHours',
+                }]).closeTo(12340.5, delta);
             });
 
         });
@@ -1371,10 +1800,10 @@ describe('Specification', function() {
             // }).join('\n'));
 
             spec.setPacketFieldRawValues(pfs, {
-                '01_0010_7722_10_0100_000_2_0':123.4,   // Flow temperature
-                '01_0010_7722_10_0100_002_2_0':-234.5,  // Return temperature
-                '02_0010_7722_10_0100_000_2_0':12.3,    // Flow temperature
-                '02_0010_7722_10_0100_002_2_0':-23.4,   // Return temperature
+                '01_0010_7722_10_0100_000_2_0': 123.4,   // Flow temperature
+                '01_0010_7722_10_0100_002_2_0': -234.5,  // Return temperature
+                '02_0010_7722_10_0100_000_2_0': 12.3,    // Flow temperature
+                '02_0010_7722_10_0100_002_2_0': -23.4,   // Return temperature
             });
 
             expect(header1.frameData.slice(0, 4).toString('hex')).equal('d204d7f6');
@@ -1403,6 +1832,45 @@ describe('Specification', function() {
             expect(pf).an('object');
             expect(pf).property('id').equal('02_0010_7722_10_0100_002_2_0');
             expect(pf).property('rawValue').closeTo(-23.4, 0.05);
+        });
+
+        xit('should work for a value with many parts', function() {
+            var spec = new Specification();
+
+            var header1 = new Packet({
+                channel: 1,
+                destinationAddress: 0x0000,
+                sourceAddress: 0x4010,
+                command: 0x0100,
+                frameCount: 6,
+            });
+
+            var headers = [ header1 ];
+
+            var pfs = spec.getPacketFieldsForHeaders(headers);
+
+            // console.log(_.map(pfs, function(pf) {
+            //     return '\'' + pf.id + '\':' + pf.rawValue + ',  // ' + pf.name;
+            // }).join('\n'));
+
+            spec.setPacketFieldRawValues(pfs, {
+                '01_0000_4010_10_0100_002_2_0': 123456789,  // Heat
+            });
+
+            console.log(header1.frameData.slice(0, 24).toString('hex').split(/(.{8})/g));
+
+            expect(header1.frameData.readUInt16LE(2)).equal(789);
+            expect(header1.frameData.readUInt16LE(0)).equal(456);
+            expect(header1.frameData.readUInt16LE(12)).equal(123);
+
+            pfs = spec.getPacketFieldsForHeaders(headers);
+
+            expect(pfs).an('array').lengthOf(8);
+
+            var pf = pfs [0];
+            expect(pf).an('object');
+            expect(pf).property('id').equal('01_0000_4010_10_0100_002_2_0');
+            expect(pf).property('rawValue').closeTo(123456789, 0.05);
         });
 
     });

@@ -614,7 +614,11 @@ var Specification = extend(null, /** @lends Specification# */ {
             rawValue = this.getRawValue(packetField.packetFieldSpec, buffer, start, end);
 
             if (_.isNumber(rawValue)) {
-                rawValue = this.convertRawValue(rawValue, packetField.packetFieldSpec.type.unit, packetField.type.unit).rawValue;
+                if (packetField.conversions) {
+                    rawValue = this.convertRawValue(rawValue, packetField.conversions).rawValue;
+                } else {
+                    rawValue = this.convertRawValue(rawValue, packetField.packetFieldSpec.type.unit, packetField.type.unit).rawValue;
+                }
             }
         } else {
             rawValue = null;
@@ -633,6 +637,29 @@ var Specification = extend(null, /** @lends Specification# */ {
         return roundedRawValue;
     },
 
+    invertConversions: function(conversions) {
+        if (!_.isArray(conversions)) {
+            return conversions;
+        }
+
+        return _.map(conversions.reverse(), function(conversion) {
+            var invertedConversion = {};
+            if (_.isNumber(conversion.offset)) {
+                invertedConversion.offset = conversion.offset  * -1;
+            }
+            if (_.isNumber(conversion.factor)) {
+                invertedConversion.factor = 1 / conversion.factor;
+            }
+            if (conversion.sourceUnit) {
+                invertedConversion.targetUnit = conversion.sourceUnit;
+            }
+            if (conversion.targetUnit) {
+                invertedConversion.sourceUnit = conversion.targetUnit;
+            }
+            return invertedConversion;
+        });
+    },
+
     setRawValue: function(packetField, rawValue, buffer, start, end) {
         if (start === undefined) {
             start = 0;
@@ -645,7 +672,11 @@ var Specification = extend(null, /** @lends Specification# */ {
             packetField.setRawValue(rawValue, buffer, start, end);
         } else if (packetField && packetField.packetFieldSpec) {
             if (_.isNumber(rawValue)) {
-                rawValue = this.convertRawValue(rawValue, packetField.type.unit, packetField.packetFieldSpec.type.unit).rawValue;
+                if (packetField.conversions) {
+                    rawValue = this.convertRawValue(rawValue, this.invertConversions(packetField.conversions)).rawValue;
+                } else {
+                    rawValue = this.convertRawValue(rawValue, packetField.type.unit, packetField.packetFieldSpec.type.unit).rawValue;
+                }
             }
 
             this.setRawValue(packetField.packetFieldSpec, rawValue, buffer, start, end);
@@ -660,41 +691,76 @@ var Specification = extend(null, /** @lends Specification# */ {
      * @param {Unit} targetUnit Unit to convert to
      * @return {object} Result containing a `rawValue` property with the conversion result and a `unit` property with the associated unit.
      */
-    convertRawValue: function(rawValue, sourceUnit, targetUnit) {
-        var unitFamily = sourceUnit && sourceUnit.unitFamily;
+    convertRawValue: function(rawValue_, sourceUnit_, targetUnit_) {
+        var that = this;
 
-        if (!sourceUnit) {
-            throw new Error('Must provide a source unit');
-        } else if (!targetUnit) {
-            // nop, no conversion requested
-        } else if (sourceUnit.unitCode === targetUnit.unitCode) {
-            // nop, no conversion for same unit
-        } else if (targetUnit.unitCode === 'None') {
-            // nop, just ignore the unit suffix
-        } else if (unitFamily !== targetUnit.unitFamily) {
-            throw new Error('Unit families of source and target unit must match');
-        } else if (!unitFamily) {
-            // nop, no conversion for unknown unit family
-        } else if (unitFamily === 'Temperature') {
-            rawValue = this._convertTemperatureRawValue(rawValue, sourceUnit.unitCode, targetUnit.unitCode);
-        } else if (unitFamily === 'Volume') {
-            rawValue = this._convertVolumeRawValue(rawValue, sourceUnit.unitCode, targetUnit.unitCode);
-        } else if (unitFamily === 'VolumeFlow') {
-            rawValue = this._convertVolumeFlowRawValue(rawValue, sourceUnit.unitCode, targetUnit.unitCode);
-        } else if (unitFamily === 'Pressure') {
-            rawValue = this._convertPressureRawValue(rawValue, sourceUnit.unitCode, targetUnit.unitCode);
-        } else if (unitFamily === 'Energy') {
-            rawValue = this._convertEnergyRawValue(rawValue, sourceUnit.unitCode, targetUnit.unitCode);
-        } else if (unitFamily === 'Time') {
-            rawValue = this._convertTimeRawValue(rawValue, sourceUnit.unitCode, targetUnit.unitCode);
+        var conversions;
+        if (_.isArray(sourceUnit_)) {
+            conversions = sourceUnit_;
         } else {
-            throw new Error('Unsupported unit family ' + JSON.stringify(sourceUnit.unitFamily));
+            conversions = [{
+                factor: null,
+                offset: null,
+                sourceUnit: sourceUnit_,
+                targetUnit: targetUnit_,
+            }];
         }
 
-        var result = {
-            rawValue: rawValue,
-            unit: targetUnit || sourceUnit,
-        };
+        var result = _.reduce(conversions, function(valueInfo, conversion) {
+            var rawValue = valueInfo.rawValue;
+            var sourceUnit = conversion.sourceUnit;
+            var targetUnit = conversion.targetUnit;
+            var unitFamily = sourceUnit && sourceUnit.unitFamily;
+
+            var hasFactor = _.isNumber(conversion.factor);
+            var hasOffset = _.isNumber(conversion.offset);
+            var autoConvert = !hasFactor && !hasOffset;
+
+            if (hasFactor) {
+                rawValue = rawValue * conversion.factor;
+            }
+            if (hasOffset) {
+                rawValue = rawValue + conversion.offset;
+            }
+
+            if (autoConvert && !sourceUnit) {
+                throw new Error('Must provide a source unit');
+            } else if (!targetUnit) {
+                // nop, no conversion requested
+            } else if (sourceUnit.unitCode === targetUnit.unitCode) {
+                // nop, no conversion for same unit
+            } else if (targetUnit.unitCode === 'None') {
+                // nop, just ignore the unit suffix
+            } else if (!autoConvert) {
+                // nop, already multiplied by factor above and allows to change unit family
+            } else if (unitFamily !== targetUnit.unitFamily) {
+                throw new Error('Unit families of source and target unit must match');
+            } else if (!unitFamily) {
+                // nop, no conversion for unknown unit family
+            } else if (unitFamily === 'Temperature') {
+                rawValue = that._convertTemperatureRawValue(rawValue, sourceUnit.unitCode, targetUnit.unitCode);
+            } else if (unitFamily === 'Volume') {
+                rawValue = that._convertVolumeRawValue(rawValue, sourceUnit.unitCode, targetUnit.unitCode);
+            } else if (unitFamily === 'VolumeFlow') {
+                rawValue = that._convertVolumeFlowRawValue(rawValue, sourceUnit.unitCode, targetUnit.unitCode);
+            } else if (unitFamily === 'Pressure') {
+                rawValue = that._convertPressureRawValue(rawValue, sourceUnit.unitCode, targetUnit.unitCode);
+            } else if (unitFamily === 'Energy') {
+                rawValue = that._convertEnergyRawValue(rawValue, sourceUnit.unitCode, targetUnit.unitCode);
+            } else if (unitFamily === 'Time') {
+                rawValue = that._convertTimeRawValue(rawValue, sourceUnit.unitCode, targetUnit.unitCode);
+            } else {
+                throw new Error('Unsupported unit family ' + JSON.stringify(sourceUnit.unitFamily));
+            }
+
+            return {
+                rawValue: rawValue,
+                unit: targetUnit || sourceUnit,
+            };
+        }, {
+            rawValue: rawValue_,
+            unit: sourceUnit_,
+        });
 
         return result;
     },
@@ -1633,6 +1699,14 @@ var Specification = extend(null, /** @lends Specification# */ {
                     packetFieldSpec: packetFieldSpec,
                     name: name,
                     type: resolve(rfpfs.type, 'types'),
+                    conversions: rfpfs.conversions && _.map(rfpfs.conversions, function(rawConversion) {
+                        return {
+                            factor: rawConversion.factor,
+                            offset: rawConversion.offset,
+                            sourceUnit: rawConversion.sourceUnit && resolve(rawConversion.sourceUnit, 'units'),
+                            targetUnit: rawConversion.targetUnit && resolve(rawConversion.targetUnit, 'units'),
+                        };
+                    }),
                     getRawValue: resolve(rfpfs.getRawValue, 'getRawValueFunctions'),
                     setRawValue: resolve(rfpfs.setRawValue, 'setRawValueFunctions'),
                 });
@@ -1680,7 +1754,7 @@ var Specification = extend(null, /** @lends Specification# */ {
             };
 
             rawFilteredPacketFieldSpecs = _.map(filteredPacketFieldSpecs, function(fpfs) {
-                return {
+                var rfpfs = {
                     filteredPacketFieldId: fpfs.filteredPacketFieldId,
                     packetId: fpfs.packetId,
                     fieldId: fpfs.fieldId,
@@ -1689,6 +1763,27 @@ var Specification = extend(null, /** @lends Specification# */ {
                     getRawValue: link(fpfs.getRawValue, null, 'getRawValueFunctions'),
                     setRawValue: link(fpfs.setRawValue, null, 'setRawValueFunctions'),
                 };
+
+                if (fpfs.conversions) {
+                    rfpfs.conversions = _.map(fpfs.conversions, function(conversion) {
+                        var rawConversion = {};
+                        if (_.isNumber(conversion.factor)) {
+                            rawConversion.factor = conversion.factor;
+                        }
+                        if (_.isNumber(conversion.offset)) {
+                            rawConversion.offset = conversion.offset;
+                        }
+                        if (conversion.sourceUnit) {
+                            rawConversion.sourceUnit = link(conversion.sourceUnit, 'unitId', 'units');
+                        }
+                        if (conversion.targetUnit) {
+                            rawConversion.targetUnit = link(conversion.targetUnit, 'unitId', 'units');
+                        }
+                        return rawConversion;
+                    });
+                }
+
+                return rfpfs;
             });
         }
 
