@@ -747,6 +747,8 @@ var Specification = extend(null, /** @lends Specification# */ {
                 rawValue = that._convertPressureRawValue(rawValue, sourceUnit.unitCode, targetUnit.unitCode);
             } else if (unitFamily === 'Energy') {
                 rawValue = that._convertEnergyRawValue(rawValue, sourceUnit.unitCode, targetUnit.unitCode);
+            } else if (unitFamily === 'Power') {
+                rawValue = that._convertPowerRawValue(rawValue, sourceUnit.unitCode, targetUnit.unitCode);
             } else if (unitFamily === 'Time') {
                 rawValue = that._convertTimeRawValue(rawValue, sourceUnit.unitCode, targetUnit.unitCode);
             } else {
@@ -971,6 +973,32 @@ var Specification = extend(null, /** @lends Specification# */ {
             break;
         case 'TonsCO2Oil':
             rawValue = rawValue / 1000000 * conversionFactors.GramsCO2OilPerWattHour;
+            break;
+        default:
+            throw new Error('Unsupported target unit ' + JSON.stringify(targetUnitCode));
+        }
+
+        return rawValue;
+    },
+
+    _convertPowerRawValue: function(rawValue, sourceUnitCode, targetUnitCode) {
+        switch (sourceUnitCode) {
+        case 'Watts':
+            // nop
+            break;
+        case 'Kilowatts':
+            rawValue = rawValue * 1000;
+            break;
+        default:
+            throw new Error('Unsupported source unit ' + JSON.stringify(sourceUnitCode));
+        }
+
+        switch (targetUnitCode) {
+        case 'Watts':
+            // nop
+            break;
+        case 'Kilowatts':
+            rawValue = rawValue / 1000;
             break;
         default:
             throw new Error('Unsupported target unit ' + JSON.stringify(targetUnitCode));

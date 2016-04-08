@@ -1206,6 +1206,20 @@ describe('Specification', function() {
 
         });
 
+        describe('Unit Family "Power"', function() {
+
+            it('should convert from "Kilowatts" to "Watts"', function() {
+                expectConversion(0, 'Kilowatts', 'Watts').closeTo(0, delta);
+                expectConversion(1000000, 'Kilowatts', 'Watts').closeTo(1000000000, delta);
+            });
+
+            it('should convert from "Watts" to "Kilowatts"', function() {
+                expectConversion(0, 'Watts', 'Kilowatts').closeTo(0, delta);
+                expectConversion(1000000, 'Watts', 'Kilowatts').closeTo(1000, delta);
+            });
+
+        });
+
         describe('Unit Family "Pressure"', function() {
 
             it('should convert from "Bars" to "PoundsForcePerSquareInch"', function() {
