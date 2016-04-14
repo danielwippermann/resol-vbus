@@ -650,6 +650,12 @@ var Specification = extend(null, /** @lends Specification# */ {
             if (_.isNumber(conversion.factor)) {
                 invertedConversion.factor = 1 / conversion.factor;
             }
+            if (_.isNumber(conversion.power)) {
+                invertedConversion.power = conversion.power;
+                if (conversion.power !== 0) {
+                    invertedConversion.power = 1 / conversion.power;          
+                }
+            }
             if (conversion.sourceUnit) {
                 invertedConversion.targetUnit = conversion.sourceUnit;
             }
@@ -699,6 +705,7 @@ var Specification = extend(null, /** @lends Specification# */ {
             conversions = sourceUnit_;
         } else {
             conversions = [{
+                power: null,
                 factor: null,
                 offset: null,
                 sourceUnit: sourceUnit_,
@@ -712,10 +719,16 @@ var Specification = extend(null, /** @lends Specification# */ {
             var targetUnit = conversion.targetUnit;
             var unitFamily = sourceUnit && sourceUnit.unitFamily;
 
+            var hasPower = _.isNumber(conversion.power);
             var hasFactor = _.isNumber(conversion.factor);
             var hasOffset = _.isNumber(conversion.offset);
-            var autoConvert = !hasFactor && !hasOffset;
+            var autoConvert = !hasFactor && !hasOffset && !hasPower;
 
+            if (hasPower) {
+                if (rawValue !== 0) {
+                    rawValue = Math.pow(rawValue, conversion.power);
+                }
+            }
             if (hasFactor) {
                 rawValue = rawValue * conversion.factor;
             }
