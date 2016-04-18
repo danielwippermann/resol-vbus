@@ -1079,7 +1079,7 @@ describe('Specification', function() {
             expect(invertedConversions[1]).property('offset').equal(-10);
         });
 
-        it('should work correctly with multiple conversions using a manual °C -> °F formular', function() {
+        it('should work correctly with multiple conversions using a manual °C -> °F conversion', function() {
             var spec = new Specification();
 
             var noneUnit = spec.getUnitById('None');
