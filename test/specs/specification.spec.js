@@ -1495,6 +1495,15 @@ describe('Specification', function() {
                 }]).closeTo(-0.5, delta);
             });
 
+            it('pow(0, -2) * 10', function() {
+                expectConversions(0, [{
+                    power: -2,
+                    factor: 10,
+                    sourceUnitCode: 'None',
+                    targetUnitCode: 'WattHours',
+                }]).closeTo(0, delta);
+            });
+
             it('pow(1234, 1) * 10 + 0.5', function() {
                 expectConversions(1234, [{
                     power: 1,

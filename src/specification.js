@@ -725,14 +725,15 @@ var Specification = extend(null, /** @lends Specification# */ {
             var autoConvert = !hasFactor && !hasOffset && !hasPower;
 
             if (hasPower) {
-                if (rawValue !== 0) {
+                if (rawValue === 0 && hasPower < 0) {
+                    rawValue = 0; // Infinity
+                } else {
                     rawValue = Math.pow(rawValue, conversion.power);
                 }
             }
             if (hasFactor) {
                 rawValue = rawValue * conversion.factor;
-            }
-            if (hasOffset) {
+            } else if (hasOffset) {
                 rawValue = rawValue + conversion.offset;
             }
 
