@@ -969,6 +969,50 @@ describe('Specification', function() {
             expect(invertedConversions[0]).property('factor').equal(Infinity);
         });
 
+        it('should work correctly with one conversion and a power of 0', function() {
+            var spec = new Specification();
+
+            var invertedConversions = spec.invertConversions([{
+                power: 0
+            }]);
+
+            expect(invertedConversions).an('array').lengthOf(1);
+            expect(invertedConversions[0]).property('power').equal(0);
+        });
+
+        it('should work correctly with one conversion and a power of 2', function() {
+            var spec = new Specification();
+
+            var invertedConversions = spec.invertConversions([{
+                power: 2
+            }]);
+
+            expect(invertedConversions).an('array').lengthOf(1);
+            expect(invertedConversions[0]).property('power').equal(0.5);
+        });
+
+        it('should work correctly with one conversion and a power of 0.5', function() {
+            var spec = new Specification();
+
+            var invertedConversions = spec.invertConversions([{
+                power: 0.5
+            }]);
+
+            expect(invertedConversions).an('array').lengthOf(1);
+            expect(invertedConversions[0]).property('power').equal(2);
+        });
+
+        it('should work correctly with one conversion and a power of -2', function() {
+            var spec = new Specification();
+
+            var invertedConversions = spec.invertConversions([{
+                power: -2
+            }]);
+
+            expect(invertedConversions).an('array').lengthOf(1);
+            expect(invertedConversions[0]).property('power').equal(-0.5);
+        });
+
         it('should work correctly with one conversion and an offset 1000', function() {
             var spec = new Specification();
 
@@ -1035,7 +1079,7 @@ describe('Specification', function() {
             expect(invertedConversions[1]).property('offset').equal(-10);
         });
 
-        it('should work correctly with multiple conversions using a manual °C -> °F formula', function() {
+        it('should work correctly with multiple conversions using a manual °C -> °F conversion', function() {
             var spec = new Specification();
 
             var noneUnit = spec.getUnitById('None');
@@ -1338,6 +1382,7 @@ describe('Specification', function() {
                 }
 
                 return {
+                    power: conversion.power,
                     factor: conversion.factor,
                     offset: conversion.offset,
                     sourceUnit: sourceUnit,
@@ -1360,14 +1405,14 @@ describe('Specification', function() {
 
         describe('Multiple conversions in one step', function() {
 
-            it('should have a better test description', function() {
+            it('should return rawValue converted to rawValue / 1000', function() {
                 expectConversions(1234, [{
                     sourceUnitCode: 'WattHours',
                     targetUnitCode: 'KilowattHours',
                 }]).closeTo(1.234, delta);
             });
 
-            it('should have a better test description', function() {
+            it('should return converted rawValue plus offset', function() {
                 expectConversions(1234, [{
                     sourceUnitCode: 'WattHours',
                     targetUnitCode: 'KilowattHours',
@@ -1376,7 +1421,7 @@ describe('Specification', function() {
                 }]).closeTo(124.234, delta);
             });
 
-            it('should have a better test description', function() {
+            it('should return rawValue * 10', function() {
                 expectConversions(1234, [{
                     factor: 10,
                     sourceUnitCode: 'None',
@@ -1384,7 +1429,7 @@ describe('Specification', function() {
                 }]).closeTo(12340, delta);
             });
 
-            it('should have a better test description', function() {
+            it('should return rawValue * factor converted to rawValue / 1000 plus offset', function() {
                 expectConversions(1234, [{
                     factor: 10,
                     sourceUnitCode: 'None',
@@ -1397,7 +1442,7 @@ describe('Specification', function() {
                 }]).closeTo(1234 * 10 / 1000 + 123, delta);
             });
 
-            it('should have a better test description', function() {
+            it('should return conversion of degrees celsius to degrees fahrenheit', function() {
                 expectConversions(100, [{
                     factor: 1.8,
                 }, {
@@ -1409,7 +1454,7 @@ describe('Specification', function() {
                 }]).closeTo(212, delta);
             });
 
-            it('should have a better test description', function() {
+            it('should return conversion of degrees fahrenheit to degrees celsius', function() {
                 expectConversions(212, [{
                     offset: -32,
                 }, {
@@ -1421,7 +1466,7 @@ describe('Specification', function() {
                 }]).closeTo(100, delta);
             });
 
-            it('should have a better test description', function() {
+            it('should return rawValue * factor plus offset', function() {
                 expectConversions(1234, [{
                     factor: 10,
                     offset: 0.5,
@@ -1430,6 +1475,74 @@ describe('Specification', function() {
                 }]).closeTo(12340.5, delta);
             });
 
+            it('pow(1234, 0) * 10 + 0.5', function() {
+                expectConversions(1234, [{
+                    power: 0,
+                    factor: 10,
+                    offset: 0.5,
+                    sourceUnitCode: 'None',
+                    targetUnitCode: 'WattHours',
+                }]).closeTo(10.5, delta);
+            });
+
+            it('pow(0, 5) * 10 - 0.5', function() {
+                expectConversions(0, [{
+                    power: 5,
+                    factor: 10,
+                    offset: -0.5,
+                    sourceUnitCode: 'None',
+                    targetUnitCode: 'WattHours',
+                }]).closeTo(-0.5, delta);
+            });
+
+            it('pow(0, -2) * 10', function() {
+                expectConversions(0, [{
+                    power: -2,
+                    factor: 10,
+                    sourceUnitCode: 'None',
+                    targetUnitCode: 'WattHours',
+                }]).closeTo(0, delta);
+            });
+
+            it('pow(1234, 1) * 10 + 0.5', function() {
+                expectConversions(1234, [{
+                    power: 1,
+                    factor: 10,
+                    offset: 0.5,
+                    sourceUnitCode: 'None',
+                    targetUnitCode: 'WattHours',
+                }]).closeTo(12340.5, delta);
+            });
+
+            it('pow(10, 2) * 10 + 1000', function() {
+                expectConversions(10, [{
+                    power: 2,
+                    factor: 10,
+                    offset: 1000,
+                    sourceUnitCode: 'None',
+                    targetUnitCode: 'WattHours',
+                }]).closeTo(2000, delta);
+            });
+
+            it('pow(100, 0.5) * 5 + 50', function() {
+                expectConversions(100, [{
+                    power: 0.5,
+                    factor: 5,
+                    offset: 50,
+                    sourceUnitCode: 'None',
+                    targetUnitCode: 'WattHours',
+                }]).closeTo(100, delta);
+            });
+
+            it('pow(100, -1) * 10 + 0.9', function() {
+                expectConversions(100, [{
+                    power: -1,
+                    factor: 10,
+                    offset: 0.9,
+                    sourceUnitCode: 'None',
+                    targetUnitCode: 'WattHours',
+                }]).closeTo(1, delta);
+            });
         });
 
         describe('Units', function() {
