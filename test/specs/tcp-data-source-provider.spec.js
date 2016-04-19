@@ -117,7 +117,7 @@ describe('TCP Data Source Provider', function() {
                 }
             };
 
-            server = http.createServer(onRequest).listen(0, onListening);
+            server = http.createServer(onRequest).listen(0, '127.0.0.1', onListening);
         });
 
     });

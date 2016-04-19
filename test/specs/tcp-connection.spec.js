@@ -76,7 +76,7 @@ var testConnection = function(done, callback) {
     };
 
     var connection = new TcpConnection({
-        host: '0.0.0.0',
+        host: '127.0.0.1',
     });
 
     Q.fcall(function() {
