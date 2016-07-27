@@ -140,6 +140,14 @@ var Connection = extend(Duplex, /** @lends Connection# */ {
     },
 
     _write: function(chunk, encoding, callback) {
+        this.receive(new Date(), chunk);
+
+        if (callback) {
+            callback(null);
+        }
+    },
+
+    receive: function(timestamp, chunk) {
         var _this = this;
 
         if (EventEmitter.listenerCount(this, 'rawData') > 0) {
@@ -240,18 +248,21 @@ var Connection = extend(Duplex, /** @lends Connection# */ {
                         if (majorVersion === 1) {
                             if (EventEmitter.listenerCount(this, 'packet') > 0) {
                                 var packet = Packet.fromLiveBuffer(buffer, start, index);
+                                packet.timestamp = new Date(timestamp);
                                 packet.channel = this.channel;
                                 this.emit('packet', packet);
                             }
                         } else if (majorVersion === 2) {
                             if (EventEmitter.listenerCount(this, 'datagram') > 0) {
                                 var datagram = Datagram.fromLiveBuffer(buffer, start, index);
+                                datagram.timestamp = new Date(timestamp);
                                 datagram.channel = this.channel;
                                 this.emit('datagram', datagram);
                             }
                         } else if (majorVersion === 3) {
                             if (EventEmitter.listenerCount(this, 'telegram') > 0) {
                                 var telegram = Telegram.fromLiveBuffer(buffer, start, index);
+                                telegram.timestamp = new Date(timestamp);
                                 telegram.channel = this.channel;
                                 this.emit('telegram', telegram);
                             }
@@ -278,12 +289,6 @@ var Connection = extend(Duplex, /** @lends Connection# */ {
             this.rxBuffer = buffer.slice(processed);
         } else {
             this.rxBuffer = null;
-        }
-
-        // console.log('_write (end): ', this.rxBuffer);
-
-        if (callback) {
-            callback(null);
         }
     },
 
