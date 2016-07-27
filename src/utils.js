@@ -103,6 +103,37 @@ var utils = {
         return value;
     },
 
+    deepFreezeObjectTree: function(root) {
+        var freezingObjects = [];
+
+        var deepFreezeObject = function(obj) {
+            if (Object.isFrozen(obj)) {
+                return obj;
+            }
+
+            if (freezingObjects.indexOf(obj) >= 0) {
+                throw new Error('Circular reference while deep freezing');
+            }
+
+            freezingObjects.push(obj);
+
+            var keys = Object.getOwnPropertyNames(obj);
+            keys.forEach(function(key) {
+                var value = obj [key];
+
+                if ((typeof value === 'object') && (value !== null)) {
+                    deepFreezeObject(value);
+                }
+            });
+
+            freezingObjects.pop();
+
+            return Object.freeze(obj);
+        };
+
+        return deepFreezeObject(root);
+    },
+
 };
 
 
