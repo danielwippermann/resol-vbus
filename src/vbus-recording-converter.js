@@ -280,6 +280,17 @@ var VBusRecordingConverter = Converter.extend(/** @lends VBusRecordingConverter#
             }
         } else if ((type === 7) && (buffer.length >= 16)) {
             this.currentChannel = buffer [14];
+        } else if ((type === 8) && (buffer.length >= 22)) {
+            var endTimestamp = moreints.readUInt64LE(buffer, 14);
+            var rawBuffer = new Buffer(buffer.length - 22);
+            buffer.copy(rawBuffer, 0, 22, buffer.length);
+
+            this.emit('rawData', {
+                startTimestamp: new Date(timestamp),
+                endTimestamp: new Date(endTimestamp),
+                channel: this.currentChannel,
+                buffer: rawBuffer,
+            });
         }
     },
 
