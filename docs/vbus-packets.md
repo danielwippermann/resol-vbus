@@ -35,6 +35,7 @@ title: VBus Packets
 - [DFA (0x0010) <= Vitosolic 200 \[Regler\] (0x1060), command 0x0100](#0010_1060_0100)
 - [DFA (0x0010) <= Unknown device (0x1064), command 0x0100](#0010_1064_0100)
 - [DFA (0x0010) <= DeltaSol MX - SorTech - eCoo \[Regler\] (0x1100), command 0x0100](#0010_1100_0100)
+- [DFA (0x0010) <= Sol Plus SL (0x1119), command 0x0100](#0010_1119_0100)
 - [DFA (0x0010) <= DeltaSol AL-E (0x1120), command 0x0100](#0010_1120_0100)
 - [DFA (0x0010) <= DeltaSol CS2 (0x1121), command 0x0100](#0010_1121_0100)
 - [DFA (0x0010) <= DeltaSol CS4 (0x1122), command 0x0100](#0010_1122_0100)
@@ -45,6 +46,8 @@ title: VBus Packets
 - [DFA (0x0010) <= MFR \[Frischwasser\] (0x1162), command 0x0100](#0010_1162_0100)
 - [DFA (0x0010) <= MFR \[WMZ #0\] (0x1200), command 0x0100](#0010_1200_0100)
 - [DFA (0x0010) <= MFR \[Heizkreis #0\] (0x1210), command 0x0100](#0010_1210_0100)
+- [DFA (0x0010) <= Wagner Sungo 100 \[Regler\] (0x1240), command 0x0100](#0010_1240_0100)
+- [DFA (0x0010) <= Wagner Sungo 100 \[WMZ1\] (0x1241), command 0x0100](#0010_1241_0100)
 - [DFA (0x0010) <= DeltaSol CS Plus (0x2211), command 0x0100](#0010_2211_0100)
 - [DFA (0x0010) <= DeltaSol CS Plus 2.x (0x2213), command 0x0100](#0010_2213_0100)
 - [DFA (0x0010) <= Oranier HK \[Regler\] (0x2231), command 0x0100](#0010_2231_0100)
@@ -86,7 +89,7 @@ title: VBus Packets
 - [DFA (0x0010) <= DeltaSol BS/DrainBack (0x4278), command 0x0100](#0010_4278_0100)
 - [DFA (0x0010) <= DeltaSol BS/DrainBack \(Fahrenheit\) (0x4279), command 0x0100](#0010_4279_0100)
 - [DFA (0x0010) <= DeltaSol BS 2009 (0x427B), command 0x0100](#0010_427B_0100)
-- [DFA (0x0010) <= Drainback DeDietrich (0x4311), command 0x0100](#0010_4311_0100)
+- [DFA (0x0010) <= DeDietrich DrainBack (0x4311), command 0x0100](#0010_4311_0100)
 - [DFA (0x0010) <= DeltaSol MiniPool (0x4321), command 0x0100](#0010_4321_0100)
 - [DFA (0x0010) <= DeltaSol BS/4 HE (0x4730), command 0x0100](#0010_4730_0100)
 - [DFA (0x0010) <= DeltaSol BS/4 HE \[WMZ\] (0x4731), command 0x0100](#0010_4731_0100)
@@ -114,8 +117,8 @@ title: VBus Packets
 - [DFA (0x0010) <= DeltaSol BX Plus \[Module\] (0x7113), command 0x0100](#0010_7113_0100)
 - [DFA (0x0010) <= DeltaSol BX Plus \[Heizkreis #0\] (0x7120), command 0x0100](#0010_7120_0100)
 - [DFA (0x0010) <= DeltaSol BX Plus \[WMZ #0\] (0x7130), command 0x0100](#0010_7130_0100)
-- [DFA (0x0010) <= DeltaSol BX Pro\[Regler\] (0x7140), command 0x0100](#0010_7140_0100)
-- [DFA (0x0010) <= DeltaSol BX Pro\[WMZ #0\] (0x7150), command 0x0100](#0010_7150_0100)
+- [DFA (0x0010) <= DeltaSol BX Pro \[Regler\] (0x7140), command 0x0100](#0010_7140_0100)
+- [DFA (0x0010) <= DeltaSol BX Pro \[WMZ #0\] (0x7150), command 0x0100](#0010_7150_0100)
 - [DFA (0x0010) <= SKSC3HE (0x7160), command 0x0100](#0010_7160_0100)
 - [DFA (0x0010) <= SKSC3HE \[HK1\] (0x7161), command 0x0100](#0010_7161_0100)
 - [DFA (0x0010) <= SKSC3HE \[HK2\] (0x7162), command 0x0100](#0010_7162_0100)
@@ -198,6 +201,8 @@ title: VBus Packets
 - [DFA (0x0010) <= DeltaSol FCS (0x7F71), command 0x0100](#0010_7F71_0100)
 - [Standard-Infos (0x0015) <= Tuxhorn BHKW (0x105F), command 0x0100](#0015_105F_0100)
 - [HKM1 #0 (0x4420) <= Broadcast (0x0000), command 0x0200](#4420_0000_0200)
+- [PAW Kaskade BasisAdr (0x5360) <= PAW Kaskade BasisAdr (0x5360), command 0x0102](#5360_5360_0102)
+- [PAW Kaskade Master (0x5361) <= PAW Kaskade BasisAdr (0x5360), command 0x0301](#5361_5360_0301)
 - [HKM2 #0 (0x6510) <= Broadcast (0x0000), command 0x0200](#6510_0000_0200)
 - [MSR65 #0 (0x6520) <= Broadcast (0x0000), command 0x0200](#6520_0000_0200)
 - [EM #0 (0x6650) <= Broadcast (0x0000), command 0x0200](#6650_0000_0200)
@@ -242,6 +247,7 @@ title: VBus Packets
 | 0x1066 | 0xFFFF | Vitosolic 200 \[WMZ 2\] |
 | 0x1100 | 0xFFFF | DeltaSol MX - SorTech - eCoo \[Regler\] |
 | 0x1111 | 0xFFFF | EC1 |
+| 0x1119 | 0xFFFF | Sol Plus SL |
 | 0x1120 | 0xFFFF | DeltaSol AL-E |
 | 0x1121 | 0xFFFF | DeltaSol CS2 |
 | 0x1122 | 0xFFFF | DeltaSol CS4 |
@@ -252,6 +258,8 @@ title: VBus Packets
 | 0x1162 | 0xFFFF | MFR \[Frischwasser\] |
 | 0x1200 | 0xFFF0 | MFR \[WMZ #\] |
 | 0x1210 | 0xFFF0 | MFR \[Heizkreis #\] |
+| 0x1240 | 0xFFFF | Wagner Sungo 100 \[Regler\] |
+| 0x1241 | 0xFFFF | Wagner Sungo 100 \[WMZ1\] |
 | 0x2000 | 0xFF00 | Digital Sensor # |
 | 0x2111 | 0xFFFF | TLR2 |
 | 0x2211 | 0xFFFF | DeltaSol CS Plus |
@@ -301,7 +309,7 @@ title: VBus Packets
 | 0x4279 | 0xFFFF | DeltaSol BS/DrainBack \(Fahrenheit\) |
 | 0x427A | 0xFFFF | DeltaSol BS/DrainBack \(Fahrenheit/BTU\) |
 | 0x427B | 0xFFFF | DeltaSol BS 2009 |
-| 0x4311 | 0xFFFF | Drainback DeDietrich |
+| 0x4311 | 0xFFFF | DeDietrich DrainBack |
 | 0x4312 | 0xFFFF | DeDietrich Drainback \(Control\) |
 | 0x4321 | 0xFFFF | DeltaSol MiniPool |
 | 0x4410 | 0xFFF0 | MSR44 # |
@@ -319,6 +327,22 @@ title: VBus Packets
 | 0x5251 | 0xFFFF | Frischwasserregler |
 | 0x5311 | 0xFFFF | X-Control |
 | 0x5351 | 0xFFFF | Frischwasserregler |
+| 0x5360 | 0xFFFF | PAW Kaskade BasisAdr |
+| 0x5361 | 0xFFFF | PAW Kaskade Master |
+| 0x5362 | 0xFFFF | PAW Kaskade Slave  1 |
+| 0x5363 | 0xFFFF | PAW Kaskade Slave  2 |
+| 0x5364 | 0xFFFF | PAW Kaskade Slave  3 |
+| 0x5365 | 0xFFFF | PAW Kaskade Slave  4 |
+| 0x5366 | 0xFFFF | PAW Kaskade Slave  5 |
+| 0x5367 | 0xFFFF | PAW Kaskade Slave  6 |
+| 0x5368 | 0xFFFF | PAW Kaskade Slave  7 |
+| 0x5369 | 0xFFFF | PAW Kaskade Slave  8 |
+| 0x536A | 0xFFFF | PAW Kaskade Slave  9 |
+| 0x536B | 0xFFFF | PAW Kaskade Slave 10 |
+| 0x536C | 0xFFFF | PAW Kaskade Slave 11 |
+| 0x536D | 0xFFFF | PAW Kaskade Slave 12 |
+| 0x536E | 0xFFFF | PAW Kaskade Slave 13 |
+| 0x536F | 0xFFFF | PAW Kaskade Slave 14 |
 | 0x5400 | 0xFFFF | DeltaTherm HC \[Regler\] |
 | 0x5410 | 0xFFF0 | DeltaTherm HC \[Heizkreis #\] |
 | 0x5420 | 0xFFF0 | DeltaTherm HC \[WMZ #\] |
@@ -335,8 +359,8 @@ title: VBus Packets
 | 0x7113 | 0xFFFF | DeltaSol BX Plus \[Module\] |
 | 0x7120 | 0xFFF0 | DeltaSol BX Plus \[Heizkreis #\] |
 | 0x7130 | 0xFFF0 | DeltaSol BX Plus \[WMZ #\] |
-| 0x7140 | 0xFFFF | DeltaSol BX Pro\[Regler\] |
-| 0x7150 | 0xFFF0 | DeltaSol BX Pro\[WMZ #\] |
+| 0x7140 | 0xFFFF | DeltaSol BX Pro \[Regler\] |
+| 0x7150 | 0xFFF0 | DeltaSol BX Pro \[WMZ #\] |
 | 0x7160 | 0xFFFF | SKSC3HE |
 | 0x7161 | 0xFFFF | SKSC3HE \[HK1\] |
 | 0x7162 | 0xFFFF | SKSC3HE \[HK2\] |
@@ -607,6 +631,30 @@ title: VBus Packets
 | 39 |  | Temperature Sensor 3 | 256.0 |  °C |
 | 40 |  | Irradiation Sensor 4 | 1 |  W/m² |
 | 41 |  | Irradiation Sensor 4 | 256 |  W/m² |
+| 44 |  | Last Impulse Interval Sensor 1 | 1 |  ms |
+| 45 |  | Last Impulse Interval Sensor 1 | 256 |  ms |
+| 46 |  | Last Impulse Interval Sensor 1 | 65536 |  ms |
+| 47 |  | Last Impulse Interval Sensor 1 | 16777216 |  ms |
+| 48 |  | Last Impulse Interval Sensor 2 | 1 |  ms |
+| 49 |  | Last Impulse Interval Sensor 2 | 256 |  ms |
+| 50 |  | Last Impulse Interval Sensor 2 | 65536 |  ms |
+| 51 |  | Last Impulse Interval Sensor 2 | 16777216 |  ms |
+| 52 |  | Last Impulse Interval Sensor 3 | 1 |  ms |
+| 53 |  | Last Impulse Interval Sensor 3 | 256 |  ms |
+| 54 |  | Last Impulse Interval Sensor 3 | 65536 |  ms |
+| 55 |  | Last Impulse Interval Sensor 3 | 16777216 |  ms |
+| 56 |  | Current Impulse Interval Sensor 1 | 1 |  ms |
+| 57 |  | Current Impulse Interval Sensor 1 | 256 |  ms |
+| 58 |  | Current Impulse Interval Sensor 1 | 65536 |  ms |
+| 59 |  | Current Impulse Interval Sensor 1 | 16777216 |  ms |
+| 60 |  | Current Impulse Interval Sensor 2 | 1 |  ms |
+| 61 |  | Current Impulse Interval Sensor 2 | 256 |  ms |
+| 62 |  | Current Impulse Interval Sensor 2 | 65536 |  ms |
+| 63 |  | Current Impulse Interval Sensor 2 | 16777216 |  ms |
+| 64 |  | Current Impulse Interval Sensor 3 | 1 |  ms |
+| 65 |  | Current Impulse Interval Sensor 3 | 256 |  ms |
+| 66 |  | Current Impulse Interval Sensor 3 | 65536 |  ms |
+| 67 |  | Current Impulse Interval Sensor 3 | 16777216 |  ms |
 
 
 
@@ -1573,6 +1621,26 @@ title: VBus Packets
 
 
 
+### <a name="0010_1119_0100"></a>DFA (0x0010) <= Sol Plus SL (0x1119), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Kollektor-Temperatur \(TC\) | 1.0 |  °C |
+| 1 |  | Kollektor-Temperatur \(TC\) | 256.0 |  °C |
+| 2 |  | Speicher-Temperatur \(TS\) | 1.0 |  °C |
+| 3 |  | Speicher-Temperatur \(TS\) | 256.0 |  °C |
+| 8 |  | Wärmemenge | 1 |  Wh |
+| 9 |  | Wärmemenge | 256 |  Wh |
+| 10 |  | Wärmemenge | 65536 |  Wh |
+| 11 |  | Wärmemenge | 16777216 |  Wh |
+| 12 |  | Pumpendrehzahl \(PC\) | 1 | % |
+| 14 |  | Steuerungszeit \(tc\) | 1 | % |
+| 15 |  | Steuerungszeit \(tc\) | 256 | % |
+| 16 |  | Softwareversion | 1.00 |  |
+| 17 |  | Softwareversion | 256.00 |  |
+
+
+
 ### <a name="0010_1120_0100"></a>DFA (0x0010) <= DeltaSol AL-E (0x1120), command 0x0100
 
 | Offset | Mask | Name | Factor | Unit |
@@ -1982,6 +2050,106 @@ title: VBus Packets
 | 0 |  | Vorlauf-Soll-Temperatur | 1.0 |  °C |
 | 1 |  | Vorlauf-Soll-Temperatur | 256.0 |  °C |
 | 2 |  | Betriebsstatus | 1 |  |
+
+
+
+### <a name="0010_1240_0100"></a>DFA (0x0010) <= Wagner Sungo 100 \[Regler\] (0x1240), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Systemdatum | 1 |  |
+| 1 |  | Systemdatum | 256 |  |
+| 2 |  | Systemdatum | 65536 |  |
+| 3 |  | Systemdatum | 16777216 |  |
+| 4 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 8 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 9 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 10 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 11 |  | Temperatur Sensor 4 | 256.0 |  °C |
+| 12 |  | TAGE | 1 |  |
+| 13 |  | TAGE | 256 |  |
+| 16 |  | Volumenstrom V40 | 1 |  l/h |
+| 17 |  | Volumenstrom V40 | 256 |  l/h |
+| 18 |  | Volumenstrom V40 | 65536 |  l/h |
+| 19 |  | Volumenstrom V40 | 16777216 |  l/h |
+| 20 |  | Drehzahl Relais 1 | 1 | % |
+| 21 |  | Drehzahl Relais 2 | 1 | % |
+| 22 |  | Drehzahl Relais 3 | 1 | % |
+| 24 |  | Wärmemenge | 1 |  Wh |
+| 25 |  | Wärmemenge | 256 |  Wh |
+| 26 |  | Wärmemenge | 65536 |  Wh |
+| 27 |  | Wärmemenge | 16777216 |  Wh |
+| 28 |  | SW-Version | 1.00 |  |
+| 29 |  | SW-Version | 256.00 |  |
+| 32 |  | Betriebsstunden Relais 1 | 1 |  h |
+| 33 |  | Betriebsstunden Relais 1 | 256 |  h |
+| 34 |  | Betriebsstunden Relais 1 | 65536 |  h |
+| 35 |  | Betriebsstunden Relais 1 | 16777216 |  h |
+| 36 |  | Betriebsstunden Relais 2 | 1 |  h |
+| 37 |  | Betriebsstunden Relais 2 | 256 |  h |
+| 38 |  | Betriebsstunden Relais 2 | 65536 |  h |
+| 39 |  | Betriebsstunden Relais 2 | 16777216 |  h |
+| 40 |  | Betriebsstunden Relais 3 | 1 |  h |
+| 41 |  | Betriebsstunden Relais 3 | 256 |  h |
+| 42 |  | Betriebsstunden Relais 3 | 65536 |  h |
+| 43 |  | Betriebsstunden Relais 3 | 16777216 |  h |
+| 44 | 0x01 | Urlaubsfunktion | 1 |  |
+| 45 |  | Blockierschutz 1 | 1 | % |
+| 46 |  | Blockierschutz 2 | 1 | % |
+| 47 |  | Blockierschutz 3 | 1 | % |
+| 48 |  | Initalisieren | 1 |  |
+| 49 |  | Initalisieren | 256 |  |
+| 50 |  | Initalisieren | 65536 |  |
+| 51 |  | Initalisieren | 16777216 |  |
+| 52 |  | Befüllung | 1 |  |
+| 53 |  | Befüllung | 256 |  |
+| 54 |  | Befüllung | 65536 |  |
+| 54 |  | Stabilisieren | 1 |  |
+| 55 |  | Befüllung | 16777216 |  |
+| 55 |  | Stabilisieren | 256 |  |
+| 56 |  | Stabilisieren | 65536 |  |
+| 57 |  | Stabilisieren | 16777216 |  |
+| 60 |  | Pumpenverzögerung | 1 |  |
+| 61 | 0x01 | Überwärmeabfuhr | 1 |  |
+| 62 |  | Nachlauf | 1 |  |
+| 63 |  | Thermische Desinfektion | 1 |  |
+| 64 | 0x01 | Speicherkühlung | 1 |  |
+| 65 | 0x01 | Systemkühlung | 1 |  |
+| 66 |  | Spreizung | 1 |  |
+| 67 |  | Frostschutz | 1 |  |
+| 68 | 0x01 | Kollektorkühlung | 1 |  |
+| 69 | 0x01 | Speichermaximaltemperatur | 1 |  |
+| 70 | 0x01 | Neustarts | 1 |  |
+| 72 |  | Fehlermaske | 1 |  |
+| 73 |  | Fehlermaske | 256 |  |
+| 74 |  | Fehlermaske | 65536 |  |
+| 75 |  | Fehlermaske | 16777216 |  |
+
+
+
+### <a name="0010_1241_0100"></a>DFA (0x0010) <= Wagner Sungo 100 \[WMZ1\] (0x1241), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Wmz1_Wert_Wh | 1 |  Wh |
+| 1 |  | Wmz1_Wert_Wh | 256 |  Wh |
+| 2 |  | Wmz1_Wert_Wh | 65536 |  Wh |
+| 3 |  | Wmz1_Wert_Wh | 16777216 |  Wh |
+| 4 |  | Wmz1_Leistung_W | 1 |  W |
+| 5 |  | Wmz1_Leistung_W | 256 |  W |
+| 6 |  | Wmz1_Leistung_W | 65536 |  W |
+| 7 |  | Wmz1_Leistung_W | 16777216 |  W |
+| 8 |  | Wmz1_WertHeute_Wh | 1 |  Wh |
+| 9 |  | Wmz1_WertHeute_Wh | 256 |  Wh |
+| 10 |  | Wmz1_WertHeute_Wh | 65536 |  Wh |
+| 11 |  | Wmz1_WertHeute_Wh | 16777216 |  Wh |
+| 12 |  | Wmz1_WertWoche_Wh | 1 |  Wh |
+| 13 |  | Wmz1_WertWoche_Wh | 256 |  Wh |
+| 14 |  | Wmz1_WertWoche_Wh | 65536 |  Wh |
+| 15 |  | Wmz1_WertWoche_Wh | 16777216 |  Wh |
 
 
 
@@ -3659,7 +3827,7 @@ title: VBus Packets
 
 
 
-### <a name="0010_4311_0100"></a>DFA (0x0010) <= Drainback DeDietrich (0x4311), command 0x0100
+### <a name="0010_4311_0100"></a>DFA (0x0010) <= DeDietrich DrainBack (0x4311), command 0x0100
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
@@ -4709,7 +4877,7 @@ title: VBus Packets
 
 
 
-### <a name="0010_7140_0100"></a>DFA (0x0010) <= DeltaSol BX Pro\[Regler\] (0x7140), command 0x0100
+### <a name="0010_7140_0100"></a>DFA (0x0010) <= DeltaSol BX Pro \[Regler\] (0x7140), command 0x0100
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
@@ -4751,7 +4919,7 @@ title: VBus Packets
 
 
 
-### <a name="0010_7150_0100"></a>DFA (0x0010) <= DeltaSol BX Pro\[WMZ #0\] (0x7150), command 0x0100
+### <a name="0010_7150_0100"></a>DFA (0x0010) <= DeltaSol BX Pro \[WMZ #0\] (0x7150), command 0x0100
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
@@ -7889,6 +8057,10 @@ title: VBus Packets
 | 101 |  | Ausgang B | 1 | % |
 | 102 |  | Ausgang C | 1 | % |
 | 103 |  | Ausgang D | 1 | % |
+| 104 |  | Volumenstrom Sensor 21 | 1 |  l/h |
+| 105 |  | Volumenstrom Sensor 21 | 256 |  l/h |
+| 106 |  | Volumenstrom Sensor 21 | 65536 |  l/h |
+| 107 |  | Volumenstrom Sensor 21 | 16777216 |  l/h |
 
 
 
@@ -7989,6 +8161,26 @@ title: VBus Packets
 | 17 |  | Gesamtvolumen | 256 |  l |
 | 18 |  | Gesamtvolumen | 65536 |  l |
 | 19 |  | Gesamtvolumen | 16777216 |  l |
+| 20 |  | Wärmemenge Monat | 1 |  Wh |
+| 21 |  | Wärmemenge Monat | 256 |  Wh |
+| 22 |  | Wärmemenge Monat | 65536 |  Wh |
+| 23 |  | Wärmemenge Monat | 16777216 |  Wh |
+| 24 |  | Volumen heute | 1 |  l |
+| 25 |  | Volumen heute | 256 |  l |
+| 26 |  | Volumen heute | 65536 |  l |
+| 27 |  | Volumen heute | 16777216 |  l |
+| 28 |  | Volumen Woche | 1 |  l |
+| 29 |  | Volumen Woche | 256 |  l |
+| 30 |  | Volumen Woche | 65536 |  l |
+| 31 |  | Volumen Woche | 16777216 |  l |
+| 32 |  | Volumen Monat | 1 |  l |
+| 33 |  | Volumen Monat | 256 |  l |
+| 34 |  | Volumen Monat | 65536 |  l |
+| 35 |  | Volumen Monat | 16777216 |  l |
+| 36 |  | Wärmemenge | 1000000000 |  Wh |
+| 37 |  | Wärmemenge | 256000000000 |  Wh |
+| 38 |  | Wärmemenge | 65536000000000 |  Wh |
+| 39 |  | Wärmemenge | 16777216000000000 |  Wh |
 
 
 
@@ -8365,6 +8557,70 @@ title: VBus Packets
 
 
 
+### <a name="5360_5360_0102"></a>PAW Kaskade BasisAdr (0x5360) <= PAW Kaskade BasisAdr (0x5360), command 0x0102
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 4 |  | mStationEin | 1 |  |
+| 5 |  | mStationEin | 256 |  |
+| 6 |  | mStationAus | 1 |  |
+| 7 |  | mStationAus | 256 |  |
+| 8 |  | mStationAlive | 1 |  |
+| 9 |  | mStationAlive | 256 |  |
+| 10 |  | mStationFehler | 1 |  |
+| 11 |  | mStationFehler | 256 |  |
+| 12 |  | Version | 1 |  |
+| 13 |  | Version | 256 |  |
+| 14 |  | Reglervariante | 1 |  |
+| 15 |  | Durchfluss erwartet | 1 |  |
+| 16 |  | DurchschnittsDrehzahl | 1.0 | % |
+| 17 |  | DurchschnittsDrehzahl | 256.0 | % |
+
+
+
+### <a name="5361_5360_0301"></a>PAW Kaskade Master (0x5361) <= PAW Kaskade BasisAdr (0x5360), command 0x0301
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Version | 1 |  |
+| 1 |  | Version | 256 |  |
+| 2 |  | Status | 1 |  |
+| 3 |  | Status | 256 |  |
+| 4 |  | Fehler | 1 |  |
+| 5 |  | Fehler | 256 |  |
+| 6 |  | Fehler | 65536 |  |
+| 7 |  | Fehler | 16777216 |  |
+| 8 |  | TWW | 1.0 |  °C |
+| 9 |  | TWW | 256.0 |  °C |
+| 10 |  | TKW | 1.0 |  °C |
+| 11 |  | TKW | 256.0 |  °C |
+| 12 |  | TSpVL | 1.0 |  °C |
+| 13 |  | TSpVL | 256.0 |  °C |
+| 14 |  | Volumenstrom | 1 |  l/h |
+| 15 |  | Volumenstrom | 256 |  l/h |
+| 16 |  | Wärmemenge | 1 |  Wh |
+| 17 |  | Wärmemenge | 256 |  Wh |
+| 18 |  | Wärmemenge | 65536 |  Wh |
+| 19 |  | Wärmemenge | 16777216 |  Wh |
+| 20 |  | Betriebssekunden | 1 |  s |
+| 21 |  | Betriebssekunden | 256 |  s |
+| 22 |  | Betriebssekunden | 65536 |  s |
+| 23 |  | Betriebssekunden | 16777216 |  s |
+| 24 |  | Stationsbetriebssekunden | 1 |  s |
+| 25 |  | Stationsbetriebssekunden | 256 |  s |
+| 26 |  | Stationsbetriebssekunden | 65536 |  s |
+| 27 |  | Stationsbetriebssekunden | 16777216 |  s |
+| 28 |  | Gesamtbetriebsstunden | 1 |  s |
+| 29 |  | Gesamtbetriebsstunden | 256 |  s |
+| 30 |  | Gesamtbetriebsstunden | 65536 |  s |
+| 31 |  | Gesamtbetriebsstunden | 16777216 |  s |
+| 32 |  | Reglervariante | 1 |  |
+| 33 |  | Drehzahl | 1.0 | % |
+| 34 |  | Handbetrieb Relais Kaskade | 1 |  |
+| 35 |  | Handbetrieb PWM1 | 1 |  |
+
+
+
 ### <a name="6510_0000_0200"></a>HKM2 #0 (0x6510) <= Broadcast (0x0000), command 0x0200
 
 | Offset | Mask | Name | Factor | Unit |
@@ -8503,6 +8759,5 @@ title: VBus Packets
 | 43 |  | SensorOutputType4 | 1 |  |
 | 44 |  | SensorOutputType5 | 1 |  |
 | 45 |  | SensorOutputType6 | 1 |  |
-
 
 
