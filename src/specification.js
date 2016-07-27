@@ -18,7 +18,7 @@ var createVBusSpecificationData = require('./specification-data');
 
 
 
-var globalSpecificationData = createVBusSpecificationData();
+var globalSpecificationData = utils.deepFreezeObjectTree(createVBusSpecificationData());
 var globalSpecification;
 
 
@@ -326,7 +326,7 @@ var Specification = extend(null, /** @lends Specification# */ {
                 deviceSpec.fullName = this.i18n.t(fullNameFormatter, channel, deviceSpec.name);
             }
 
-            this.deviceSpecCache [deviceId] = deviceSpec;
+            this.deviceSpecCache [deviceId] = Object.freeze(deviceSpec);
         }
 
         return this.deviceSpecCache [deviceId];
@@ -489,7 +489,7 @@ var Specification = extend(null, /** @lends Specification# */ {
                 packetSpec.packetFields = [];
             }
 
-            this.packetSpecCache [packetId] = packetSpec;
+            this.packetSpecCache [packetId] = Object.freeze(packetSpec);
         }
 
         return this.packetSpecCache [packetId];
@@ -652,7 +652,7 @@ var Specification = extend(null, /** @lends Specification# */ {
             }
             if (_.isNumber(conversion.power)) {
                 if (conversion.power !== 0) {
-                    invertedConversion.power = 1 / conversion.power;          
+                    invertedConversion.power = 1 / conversion.power;
                 } else {
                     invertedConversion.power = conversion.power;
                 }
