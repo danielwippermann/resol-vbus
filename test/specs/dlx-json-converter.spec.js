@@ -115,27 +115,27 @@ describe('DLxJsonConverter', function() {
                 chunk = onData.thirdCall.args [0];
 
                 testUtils.expectToBeABuffer(chunk);
-                expect(chunk.toString()).to.equal(',{\"timestamp\":1387893006.829,\"packets\":[{\"header_index\":0,\"timestamp\":1387893003.303,\"field_values\":[{\"field_index\":0,\"raw_value\":0,\"value\":\"0.0\"},{\"field_index\":1,\"raw_value\":11,\"value\":\"11\"}]},{\"header_index\":1,\"timestamp\":1387893003.454,\"field_values\":[{\"field_index\":0,\"raw_value\":4880133,\"value\":\"4880133\"},{\"field_index\":1,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":2,\"raw_value\":3347,\"value\":\"3347\"},{\"field_index\":3,\"raw_value\":0,\"value\":\"0\"}]}]}');
+                expect(chunk.toString()).to.equal(',{\"timestamp\":1387893006.829,\"packets\":[{\"header_index\":0,\"timestamp\":1387893003.303,\"field_values\":[{\"field_index\":0,\"raw_value\":0,\"value\":\"0.0\"},{\"field_index\":1,\"raw_value\":11,\"value\":\"11\"}]},{\"header_index\":1,\"timestamp\":1387893003.454,\"field_values\":[{\"field_index\":0,\"raw_value\":4880133,\"value\":\"4880133\"},{\"field_index\":1,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":2,\"raw_value\":3347,\"value\":\"3347\"},{\"field_index\":3,\"raw_value\":0,\"value\":\"\"},{\"field_index\":4,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":5,\"raw_value\":0,\"value\":\"\"},{\"field_index\":6,\"raw_value\":0,\"value\":\"\"},{\"field_index\":7,\"raw_value\":0,\"value\":\"\"}]}]}');
 
                 chunk = onData.getCall(3).args [0];
 
                 testUtils.expectToBeABuffer(chunk);
-                expect(chunk.toString()).to.equal(',{\"timestamp\":1387893006.829,\"packets\":[{\"header_index\":0,\"timestamp\":1387893003.303,\"field_values\":[{\"field_index\":0,\"raw_value\":0,\"value\":\"0.0\"},{\"field_index\":1,\"raw_value\":11,\"value\":\"11\"}]},{\"header_index\":1,\"timestamp\":1387893003.454,\"field_values\":[{\"field_index\":0,\"raw_value\":4880133,\"value\":\"4880133\"},{\"field_index\":1,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":2,\"raw_value\":3347,\"value\":\"3347\"},{\"field_index\":3,\"raw_value\":0,\"value\":\"0\"}]},{\"header_index\":2,\"timestamp\":1387893006.778,\"field_values\":[{\"field_index\":0,\"raw_value\":1049.888,\"value\":\"1049.888\"},{\"field_index\":1,\"raw_value\":1064.434,\"value\":\"1064.434\"},{\"field_index\":2,\"raw_value\":1071.04,\"value\":\"1071.040\"},{\"field_index\":3,\"raw_value\":4.23,\"value\":\"4.230\"},{\"field_index\":4,\"raw_value\":12.7,\"value\":\"12.7\"},{\"field_index\":5,\"raw_value\":16.5,\"value\":\"16.5\"},{\"field_index\":6,\"raw_value\":18.2,\"value\":\"18.2\"},{\"field_index\":7,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":8,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":9,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":10,\"raw_value\":17,\"value\":\"17\"}]}]}');
+                expect(chunk.toString()).to.equal(',{\"timestamp\":1387893006.829,\"packets\":[{\"header_index\":0,\"timestamp\":1387893003.303,\"field_values\":[{\"field_index\":0,\"raw_value\":0,\"value\":\"0.0\"},{\"field_index\":1,\"raw_value\":11,\"value\":\"11\"}]},{\"header_index\":1,\"timestamp\":1387893003.454,\"field_values\":[{\"field_index\":0,\"raw_value\":4880133,\"value\":\"4880133\"},{\"field_index\":1,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":2,\"raw_value\":3347,\"value\":\"3347\"},{\"field_index\":3,\"raw_value\":0,\"value\":\"\"},{\"field_index\":4,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":5,\"raw_value\":0,\"value\":\"\"},{\"field_index\":6,\"raw_value\":0,\"value\":\"\"},{\"field_index\":7,\"raw_value\":0,\"value\":\"\"}]},{\"header_index\":2,\"timestamp\":1387893006.778,\"field_values\":[{\"field_index\":0,\"raw_value\":1049.888,\"value\":\"1049.888\"},{\"field_index\":1,\"raw_value\":1064.434,\"value\":\"1064.434\"},{\"field_index\":2,\"raw_value\":1071.04,\"value\":\"1071.040\"},{\"field_index\":3,\"raw_value\":4.23,\"value\":\"4.230\"},{\"field_index\":4,\"raw_value\":12.7,\"value\":\"12.7\"},{\"field_index\":5,\"raw_value\":16.5,\"value\":\"16.5\"},{\"field_index\":6,\"raw_value\":18.2,\"value\":\"18.2\"},{\"field_index\":7,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":8,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":9,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":10,\"raw_value\":17,\"value\":\"17\"},{\"field_index\":11,\"raw_value\":0,\"value\":\"\"},{\"field_index\":12,\"raw_value\":0,\"value\":\"\"},{\"field_index\":13,\"raw_value\":0,\"value\":\"\"},{\"field_index\":14,\"raw_value\":0,\"value\":\"\"},{\"field_index\":15,\"raw_value\":0,\"value\":\"\"},{\"field_index\":16,\"raw_value\":0,\"value\":\"\"}]}]}');
 
                 chunk = onData.getCall(4).args [0];
 
                 testUtils.expectToBeABuffer(chunk);
-                expect(chunk.toString()).to.equal(',{\"timestamp\":1387893006.829,\"packets\":[{\"header_index\":0,\"timestamp\":1387893003.303,\"field_values\":[{\"field_index\":0,\"raw_value\":0,\"value\":\"0.0\"},{\"field_index\":1,\"raw_value\":11,\"value\":\"11\"}]},{\"header_index\":1,\"timestamp\":1387893003.454,\"field_values\":[{\"field_index\":0,\"raw_value\":4880133,\"value\":\"4880133\"},{\"field_index\":1,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":2,\"raw_value\":3347,\"value\":\"3347\"},{\"field_index\":3,\"raw_value\":0,\"value\":\"0\"}]},{\"header_index\":2,\"timestamp\":1387893006.778,\"field_values\":[{\"field_index\":0,\"raw_value\":1049.888,\"value\":\"1049.888\"},{\"field_index\":1,\"raw_value\":1064.434,\"value\":\"1064.434\"},{\"field_index\":2,\"raw_value\":1071.04,\"value\":\"1071.040\"},{\"field_index\":3,\"raw_value\":4.23,\"value\":\"4.230\"},{\"field_index\":4,\"raw_value\":12.7,\"value\":\"12.7\"},{\"field_index\":5,\"raw_value\":16.5,\"value\":\"16.5\"},{\"field_index\":6,\"raw_value\":18.2,\"value\":\"18.2\"},{\"field_index\":7,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":8,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":9,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":10,\"raw_value\":17,\"value\":\"17\"}]}]}');
+                expect(chunk.toString()).to.equal(',{\"timestamp\":1387893006.829,\"packets\":[{\"header_index\":0,\"timestamp\":1387893003.303,\"field_values\":[{\"field_index\":0,\"raw_value\":0,\"value\":\"0.0\"},{\"field_index\":1,\"raw_value\":11,\"value\":\"11\"}]},{\"header_index\":1,\"timestamp\":1387893003.454,\"field_values\":[{\"field_index\":0,\"raw_value\":4880133,\"value\":\"4880133\"},{\"field_index\":1,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":2,\"raw_value\":3347,\"value\":\"3347\"},{\"field_index\":3,\"raw_value\":0,\"value\":\"\"},{\"field_index\":4,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":5,\"raw_value\":0,\"value\":\"\"},{\"field_index\":6,\"raw_value\":0,\"value\":\"\"},{\"field_index\":7,\"raw_value\":0,\"value\":\"\"}]},{\"header_index\":2,\"timestamp\":1387893006.778,\"field_values\":[{\"field_index\":0,\"raw_value\":1049.888,\"value\":\"1049.888\"},{\"field_index\":1,\"raw_value\":1064.434,\"value\":\"1064.434\"},{\"field_index\":2,\"raw_value\":1071.04,\"value\":\"1071.040\"},{\"field_index\":3,\"raw_value\":4.23,\"value\":\"4.230\"},{\"field_index\":4,\"raw_value\":12.7,\"value\":\"12.7\"},{\"field_index\":5,\"raw_value\":16.5,\"value\":\"16.5\"},{\"field_index\":6,\"raw_value\":18.2,\"value\":\"18.2\"},{\"field_index\":7,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":8,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":9,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":10,\"raw_value\":17,\"value\":\"17\"},{\"field_index\":11,\"raw_value\":0,\"value\":\"\"},{\"field_index\":12,\"raw_value\":0,\"value\":\"\"},{\"field_index\":13,\"raw_value\":0,\"value\":\"\"},{\"field_index\":14,\"raw_value\":0,\"value\":\"\"},{\"field_index\":15,\"raw_value\":0,\"value\":\"\"},{\"field_index\":16,\"raw_value\":0,\"value\":\"\"}]}]}');
 
                 chunk = onData.getCall(5).args [0];
 
                 testUtils.expectToBeABuffer(chunk);
-                expect(chunk.toString()).to.equal(',{\"timestamp\":1387893006.829,\"packets\":[{\"header_index\":0,\"timestamp\":1387893003.303,\"field_values\":[{\"field_index\":0,\"raw_value\":0,\"value\":\"0.0\"},{\"field_index\":1,\"raw_value\":11,\"value\":\"11\"}]},{\"header_index\":1,\"timestamp\":1387893003.454,\"field_values\":[{\"field_index\":0,\"raw_value\":4880133,\"value\":\"4880133\"},{\"field_index\":1,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":2,\"raw_value\":3347,\"value\":\"3347\"},{\"field_index\":3,\"raw_value\":0,\"value\":\"0\"}]},{\"header_index\":2,\"timestamp\":1387893006.778,\"field_values\":[{\"field_index\":0,\"raw_value\":1049.888,\"value\":\"1049.888\"},{\"field_index\":1,\"raw_value\":1064.434,\"value\":\"1064.434\"},{\"field_index\":2,\"raw_value\":1071.04,\"value\":\"1071.040\"},{\"field_index\":3,\"raw_value\":4.23,\"value\":\"4.230\"},{\"field_index\":4,\"raw_value\":12.7,\"value\":\"12.7\"},{\"field_index\":5,\"raw_value\":16.5,\"value\":\"16.5\"},{\"field_index\":6,\"raw_value\":18.2,\"value\":\"18.2\"},{\"field_index\":7,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":8,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":9,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":10,\"raw_value\":17,\"value\":\"17\"}]}]}');
+                expect(chunk.toString()).to.equal(',{\"timestamp\":1387893006.829,\"packets\":[{\"header_index\":0,\"timestamp\":1387893003.303,\"field_values\":[{\"field_index\":0,\"raw_value\":0,\"value\":\"0.0\"},{\"field_index\":1,\"raw_value\":11,\"value\":\"11\"}]},{\"header_index\":1,\"timestamp\":1387893003.454,\"field_values\":[{\"field_index\":0,\"raw_value\":4880133,\"value\":\"4880133\"},{\"field_index\":1,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":2,\"raw_value\":3347,\"value\":\"3347\"},{\"field_index\":3,\"raw_value\":0,\"value\":\"\"},{\"field_index\":4,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":5,\"raw_value\":0,\"value\":\"\"},{\"field_index\":6,\"raw_value\":0,\"value\":\"\"},{\"field_index\":7,\"raw_value\":0,\"value\":\"\"}]},{\"header_index\":2,\"timestamp\":1387893006.778,\"field_values\":[{\"field_index\":0,\"raw_value\":1049.888,\"value\":\"1049.888\"},{\"field_index\":1,\"raw_value\":1064.434,\"value\":\"1064.434\"},{\"field_index\":2,\"raw_value\":1071.04,\"value\":\"1071.040\"},{\"field_index\":3,\"raw_value\":4.23,\"value\":\"4.230\"},{\"field_index\":4,\"raw_value\":12.7,\"value\":\"12.7\"},{\"field_index\":5,\"raw_value\":16.5,\"value\":\"16.5\"},{\"field_index\":6,\"raw_value\":18.2,\"value\":\"18.2\"},{\"field_index\":7,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":8,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":9,\"raw_value\":0,\"value\":\"0\"},{\"field_index\":10,\"raw_value\":17,\"value\":\"17\"},{\"field_index\":11,\"raw_value\":0,\"value\":\"\"},{\"field_index\":12,\"raw_value\":0,\"value\":\"\"},{\"field_index\":13,\"raw_value\":0,\"value\":\"\"},{\"field_index\":14,\"raw_value\":0,\"value\":\"\"},{\"field_index\":15,\"raw_value\":0,\"value\":\"\"},{\"field_index\":16,\"raw_value\":0,\"value\":\"\"}]}]}');
 
                 chunk = onData.getCall(6).args [0];
 
                 testUtils.expectToBeABuffer(chunk);
-                expect(chunk.toString()).to.equal('],"headerset_stats":{\"headerset_count\":5,\"min_timestamp\":1387893006.829,\"max_timestamp\":1387893006.829},"headers":[{\"id\":\"01_0010_7E21_0100\",\"description\":\"VBus 1: DeltaSol MX [Heizkreis #1]\",\"channel\":1,\"destination_address\":16,\"source_address\":32289,\"protocol_version\":16,\"command\":256,\"info\":0,\"destination_name\":\"DFA\",\"source_name\":\"DeltaSol MX [Heizkreis #1]\",\"fields\":[{\"id\":\"000_2_0\",\"name\":\"Flow set temperature\",\"unit\":\" °C\",\"unit_code\":\"DegreesCelsius\"},{\"id\":\"002_1_0\",\"name\":\"Operating status\",\"unit\":\"\",\"unit_code\":\"None\"}]},{\"id\":\"01_0010_7E31_0100\",\"description\":\"VBus 1: DeltaSol MX [WMZ #1]\",\"channel\":1,\"destination_address\":16,\"source_address\":32305,\"protocol_version\":16,\"command\":256,\"info\":0,\"destination_name\":\"DFA\",\"source_name\":\"DeltaSol MX [WMZ #1]\",\"fields\":[{\"id\":\"000_4_0\",\"name\":\"Heat quantity\",\"unit\":\" Wh\",\"unit_code\":\"WattHours\"},{\"id\":\"008_4_0\",\"name\":\"Heat quantity today\",\"unit\":\" Wh\",\"unit_code\":\"WattHours\"},{\"id\":\"012_4_0\",\"name\":\"Heat quantity week\",\"unit\":\" Wh\",\"unit_code\":\"WattHours\"},{\"id\":\"016_4_0\",\"name\":\"Gesamtvolumen\",\"unit\":\" l\",\"unit_code\":\"Liters\"}]},{\"id\":\"00_0010_0053_0100\",\"description\":\"VBus 0: DL3\",\"channel\":0,\"destination_address\":16,\"source_address\":83,\"protocol_version\":16,\"command\":256,\"info\":0,\"destination_name\":\"DFA\",\"source_name\":\"DL3\",\"fields\":[{\"id\":\"000_4_0\",\"name\":\"Resistor sensor 1\",\"unit\":\" Ω\",\"unit_code\":\"Ohms\"},{\"id\":\"004_4_0\",\"name\":\"Resistor sensor 2\",\"unit\":\" Ω\",\"unit_code\":\"Ohms\"},{\"id\":\"008_4_0\",\"name\":\"Resistor sensor 3\",\"unit\":\" Ω\",\"unit_code\":\"Ohms\"},{\"id\":\"012_4_0\",\"name\":\"Current sensor 4\",\"unit\":\" mA\",\"unit_code\":\"Milliamperes\"},{\"id\":\"034_2_0\",\"name\":\"Temperature Sensor 1\",\"unit\":\" °C\",\"unit_code\":\"DegreesCelsius\"},{\"id\":\"036_2_0\",\"name\":\"Temperature Sensor 2\",\"unit\":\" °C\",\"unit_code\":\"DegreesCelsius\"},{\"id\":\"038_2_0\",\"name\":\"Temperature Sensor 3\",\"unit\":\" °C\",\"unit_code\":\"DegreesCelsius\"},{\"id\":\"016_4_0\",\"name\":\"Impulse Counter Sensor 1\",\"unit\":\"\",\"unit_code\":\"None\"},{\"id\":\"020_4_0\",\"name\":\"Impulse Counter Sensor 2\",\"unit\":\"\",\"unit_code\":\"None\"},{\"id\":\"024_4_0\",\"name\":\"Impulse Counter Sensor 3\",\"unit\":\"\",\"unit_code\":\"None\"},{\"id\":\"040_2_0\",\"name\":\"Irradiation Sensor 4\",\"unit\":\" W/m²\",\"unit_code\":\"WattsPerSquareMeter\"}]}],"language":"en"}');
+                expect(chunk.toString()).to.equal('],\"headerset_stats\":{\"headerset_count\":5,\"min_timestamp\":1387893006.829,\"max_timestamp\":1387893006.829},\"headers\":[{\"id\":\"01_0010_7E21_0100\",\"description\":\"VBus 1: DeltaSol MX [Heizkreis #1]\",\"channel\":1,\"destination_address\":16,\"source_address\":32289,\"protocol_version\":16,\"command\":256,\"info\":0,\"destination_name\":\"DFA\",\"source_name\":\"DeltaSol MX [Heizkreis #1]\",\"fields\":[{\"id\":\"000_2_0\",\"name\":\"Flow set temperature\",\"unit\":\" °C\",\"unit_code\":\"DegreesCelsius\"},{\"id\":\"002_1_0\",\"name\":\"Operating status\",\"unit\":\"\",\"unit_code\":\"None\"}]},{\"id\":\"01_0010_7E31_0100\",\"description\":\"VBus 1: DeltaSol MX [WMZ #1]\",\"channel\":1,\"destination_address\":16,\"source_address\":32305,\"protocol_version\":16,\"command\":256,\"info\":0,\"destination_name\":\"DFA\",\"source_name\":\"DeltaSol MX [WMZ #1]\",\"fields\":[{\"id\":\"000_4_0\",\"name\":\"Heat quantity\",\"unit\":\" Wh\",\"unit_code\":\"WattHours\"},{\"id\":\"008_4_0\",\"name\":\"Heat quantity today\",\"unit\":\" Wh\",\"unit_code\":\"WattHours\"},{\"id\":\"012_4_0\",\"name\":\"Heat quantity week\",\"unit\":\" Wh\",\"unit_code\":\"WattHours\"},{\"id\":\"020_4_0\",\"name\":\"Wärmemenge Monat\",\"unit\":\" Wh\",\"unit_code\":\"WattHours\"},{\"id\":\"016_4_0\",\"name\":\"Gesamtvolumen\",\"unit\":\" l\",\"unit_code\":\"Liters\"},{\"id\":\"024_4_0\",\"name\":\"Volumen heute\",\"unit\":\" l\",\"unit_code\":\"Liters\"},{\"id\":\"028_4_0\",\"name\":\"Volumen Woche\",\"unit\":\" l\",\"unit_code\":\"Liters\"},{\"id\":\"032_4_0\",\"name\":\"Volumen Monat\",\"unit\":\" l\",\"unit_code\":\"Liters\"}]},{\"id\":\"00_0010_0053_0100\",\"description\":\"VBus 0: DL3\",\"channel\":0,\"destination_address\":16,\"source_address\":83,\"protocol_version\":16,\"command\":256,\"info\":0,\"destination_name\":\"DFA\",\"source_name\":\"DL3\",\"fields\":[{\"id\":\"000_4_0\",\"name\":\"Resistor sensor 1\",\"unit\":\" Ω\",\"unit_code\":\"Ohms\"},{\"id\":\"004_4_0\",\"name\":\"Resistor sensor 2\",\"unit\":\" Ω\",\"unit_code\":\"Ohms\"},{\"id\":\"008_4_0\",\"name\":\"Resistor sensor 3\",\"unit\":\" Ω\",\"unit_code\":\"Ohms\"},{\"id\":\"012_4_0\",\"name\":\"Current sensor 4\",\"unit\":\" mA\",\"unit_code\":\"Milliamperes\"},{\"id\":\"034_2_0\",\"name\":\"Temperature Sensor 1\",\"unit\":\" °C\",\"unit_code\":\"DegreesCelsius\"},{\"id\":\"036_2_0\",\"name\":\"Temperature Sensor 2\",\"unit\":\" °C\",\"unit_code\":\"DegreesCelsius\"},{\"id\":\"038_2_0\",\"name\":\"Temperature Sensor 3\",\"unit\":\" °C\",\"unit_code\":\"DegreesCelsius\"},{\"id\":\"016_4_0\",\"name\":\"Impulse Counter Sensor 1\",\"unit\":\"\",\"unit_code\":\"None\"},{\"id\":\"020_4_0\",\"name\":\"Impulse Counter Sensor 2\",\"unit\":\"\",\"unit_code\":\"None\"},{\"id\":\"024_4_0\",\"name\":\"Impulse Counter Sensor 3\",\"unit\":\"\",\"unit_code\":\"None\"},{\"id\":\"040_2_0\",\"name\":\"Irradiation Sensor 4\",\"unit\":\" W/m²\",\"unit_code\":\"WattsPerSquareMeter\"},{\"id\":\"044_4_0\",\"name\":\"Last Impulse Interval Sensor 1\",\"unit\":\" ms\",\"unit_code\":\"Milliseconds\"},{\"id\":\"048_4_0\",\"name\":\"Last Impulse Interval Sensor 2\",\"unit\":\" ms\",\"unit_code\":\"Milliseconds\"},{\"id\":\"052_4_0\",\"name\":\"Last Impulse Interval Sensor 3\",\"unit\":\" ms\",\"unit_code\":\"Milliseconds\"},{\"id\":\"056_4_0\",\"name\":\"Current Impulse Interval Sensor 1\",\"unit\":\" ms\",\"unit_code\":\"Milliseconds\"},{\"id\":\"060_4_0\",\"name\":\"Current Impulse Interval Sensor 2\",\"unit\":\" ms\",\"unit_code\":\"Milliseconds\"},{\"id\":\"064_4_0\",\"name\":\"Current Impulse Interval Sensor 3\",\"unit\":\" ms\",\"unit_code\":\"Milliseconds\"}]}],\"language\":\"en\"}');
             });
         });
 
@@ -324,6 +324,147 @@ describe('DLxJsonConverter', function() {
             });
         });
 
+        promiseIt('should work correctly with filtered specifications and conversions', function() {
+            var buffer2 = new Buffer(rawPacket2, 'hex');
+            var packet2 = Packet.fromLiveBuffer(buffer2, 0, buffer2.length);
+            packet2.timestamp = new Date(1387893003303);
+            packet2.channel = 1;
+
+            var rawSpecificationData1 = {
+                'filteredPacketFieldSpecs': [{
+                    'filteredPacketFieldId': 'DemoValue1',
+                    'packetId': '01_0010_7E21_10_0100',
+                    'fieldId': '000_2_0',
+                    'name': {
+                        'ref': 'Vorlauf-Soll-Temperatur',
+                    },
+                    'type': 'Number_0_1_DegreesCelsius',
+                    'conversions':[{
+                        'factor': 1.8
+                    }, {
+                        'offset': 32
+                    }, {
+                        'factor': 1,
+                        'sourceUnitCode': 'DegreesCelsius',
+                        'targetUnitCode': 'DegreesFahrenheit'
+                    }]
+                }, {
+                    'filteredPacketFieldId': 'DemoValue2',
+                    'packetId': '01_0010_7E21_10_0100',
+                    'fieldId': '000_2_0',
+                    'name': {
+                        'ref': 'Flow temperatureL',
+                        'en': 'Flow temperature',
+                        'de': 'T-VL',
+                        'fr': 'Température Départ'
+                    },
+                    'type': 'Number_0_1_DegreesCelsius',
+                    'conversions':[{
+                        'offset': -32
+                    }, {
+                        'factor': 0.55555556
+                    }, {
+                        'factor': 1,
+                        'sourceUnitCode': 'DegreesFahrenheit',
+                        'targetUnitCode': 'DegreesCelsius'
+                    }]
+                }]
+            };
+
+            var spec = new vbus.Specification({
+                specificationData: rawSpecificationData1
+            });
+
+            var outConv = new DLxJsonConverter({
+                specification: spec,
+            });
+
+
+            var dataChunks = [];
+
+            return vbus.utils.promise(function(resolve, reject) {
+                var headerSet;
+
+                headerSet = new HeaderSet({
+                    timestamp: new Date(1387893006829),
+                    headers: [ packet2 ]
+                });
+
+                outConv.on('data', function(chunk) {
+                    dataChunks.push(chunk);
+                });
+
+                outConv.on('end', function() {
+                    resolve();
+                });
+
+                outConv.convertHeaderSet(headerSet);
+
+                outConv.finish();
+            }).then(function() {
+                var buffer = Buffer.concat(dataChunks);
+
+                var string = buffer.toString();
+
+                var jsonRecording;
+
+                expect(function() {
+                    jsonRecording = JSON.parse(string);
+                }).to.not.throw();
+
+                expect(jsonRecording).to.be.an('object');
+
+                expect(jsonRecording).to.eql({
+                    'headers': [{
+                        'channel': 1,
+                        'command': 256,
+                        'description': 'VBus 1: DeltaSol MX [Heizkreis #1]',
+                        'destination_address': 16,
+                        'destination_name': 'DFA',
+                        'fields': [{
+                            'filteredId': 'DemoValue1',
+                            'id': '000_2_0',
+                            'name': 'Vorlauf-Soll-Temperatur',
+                            'unit': ' °C',
+                            'unit_code': 'DegreesCelsius'
+                        },{
+                            'filteredId': 'DemoValue2',
+                            'id': '000_2_0',
+                            'name': 'Flow temperature',
+                            'unit': ' °C',
+                            'unit_code': 'DegreesCelsius'
+                        }],
+                        'id': '01_0010_7E21_0100',
+                        'info': 0,
+                        'protocol_version': 16,
+                        'source_address': 32289,
+                        'source_name': 'DeltaSol MX [Heizkreis #1]'
+                    }],
+                    'headerset_stats': {
+                        'headerset_count': 1,
+                        'max_timestamp': 1387893006.829,
+                        'min_timestamp': 1387893006.829
+                    },
+                    'headersets': [{
+                        'packets': [{
+                            'field_values': [{
+                                'field_index': 0,
+                                'raw_value': 32,
+                                'value': '32.0',
+                            },{
+                                'field_index': 1,
+                                'raw_value': -17.8,
+                                'value': '-17.8',
+                            }],
+                            'header_index': 0,
+                            'timestamp': 1387893003.303,
+                        }],
+                        'timestamp': 1387893006.829
+                    }],
+                    'language': 'en'
+                });
+            });
+        });
     });
 
 });
@@ -469,6 +610,36 @@ refJsonRecording1 = {
             'name': 'Irradiation Sensor 4',
             'unit': ' W/m\u00B2',
             'unit_code': 'WattsPerSquareMeter'
+        }, {
+            'id': '044_4_0',
+            'name': 'Last Impulse Interval Sensor 1',
+            'unit': ' ms',
+            'unit_code': 'Milliseconds',
+        }, {
+            'id': '048_4_0',
+            'name': 'Last Impulse Interval Sensor 2',
+            'unit': ' ms',
+            'unit_code': 'Milliseconds',
+        }, {
+            'id': '052_4_0',
+            'name': 'Last Impulse Interval Sensor 3',
+            'unit': ' ms',
+            'unit_code': 'Milliseconds',
+        }, {
+            'id': '056_4_0',
+            'name': 'Current Impulse Interval Sensor 1',
+            'unit': ' ms',
+            'unit_code': 'Milliseconds',
+        }, {
+            'id': '060_4_0',
+            'name': 'Current Impulse Interval Sensor 2',
+            'unit': ' ms',
+            'unit_code': 'Milliseconds',
+        }, {
+            'id': '064_4_0',
+            'name': 'Current Impulse Interval Sensor 3',
+            'unit': ' ms',
+            'unit_code': 'Milliseconds',
         }]
     }, {
         'id': '01_0010_7E11_0100',
@@ -616,6 +787,11 @@ refJsonRecording1 = {
             'name': 'Flow rate sensor 20',
             'unit': ' l/h',
             'unit_code': 'LitersPerHour'
+        }, {
+            'id': '104_4_0',
+            'name': 'Volumenstrom Sensor 21',
+            'unit': ' l/h',
+            'unit_code': 'LitersPerHour',
         }, {
             'id': '068_2_0',
             'name': 'Pressure sensor 17',
@@ -948,10 +1124,30 @@ refJsonRecording1 = {
             'unit': ' Wh',
             'unit_code': 'WattHours'
         }, {
+            'id': '020_4_0',
+            'name': 'Wärmemenge Monat',
+            'unit': ' Wh',
+            'unit_code': 'WattHours',
+        }, {
             'id': '016_4_0',
             'name': 'Gesamtvolumen',
             'unit': ' l',
             'unit_code': 'Liters'
+        }, {
+            'id': '024_4_0',
+            'name': 'Volumen heute',
+            'unit': ' l',
+            'unit_code': 'Liters',
+        }, {
+            'id': '028_4_0',
+            'name': 'Volumen Woche',
+            'unit': ' l',
+            'unit_code': 'Liters',
+        }, {
+            'id': '032_4_0',
+            'name': 'Volumen Monat',
+            'unit': ' l',
+            'unit_code': 'Liters',
         }]
     }, {
         'id': '01_0010_7E32_0100',
@@ -980,10 +1176,30 @@ refJsonRecording1 = {
             'unit': ' Wh',
             'unit_code': 'WattHours'
         }, {
+            'id': '020_4_0',
+            'name': 'Wärmemenge Monat',
+            'unit': ' Wh',
+            'unit_code': 'WattHours',
+        }, {
             'id': '016_4_0',
             'name': 'Gesamtvolumen',
             'unit': ' l',
             'unit_code': 'Liters'
+        }, {
+            'id': '024_4_0',
+            'name': 'Volumen heute',
+            'unit': ' l',
+            'unit_code': 'Liters',
+        }, {
+            'id': '028_4_0',
+            'name': 'Volumen Woche',
+            'unit': ' l',
+            'unit_code': 'Liters',
+        }, {
+            'id': '032_4_0',
+            'name': 'Volumen Monat',
+            'unit': ' l',
+            'unit_code': 'Liters',
         }]
     }, {
         'id': '01_0010_7E33_0100',
@@ -1012,10 +1228,30 @@ refJsonRecording1 = {
             'unit': ' Wh',
             'unit_code': 'WattHours'
         }, {
+            'id': '020_4_0',
+            'name': 'Wärmemenge Monat',
+            'unit': ' Wh',
+            'unit_code': 'WattHours',
+        }, {
             'id': '016_4_0',
             'name': 'Gesamtvolumen',
             'unit': ' l',
             'unit_code': 'Liters'
+        }, {
+            'id': '024_4_0',
+            'name': 'Volumen heute',
+            'unit': ' l',
+            'unit_code': 'Liters',
+        }, {
+            'id': '028_4_0',
+            'name': 'Volumen Woche',
+            'unit': ' l',
+            'unit_code': 'Liters',
+        }, {
+            'id': '032_4_0',
+            'name': 'Volumen Monat',
+            'unit': ' l',
+            'unit_code': 'Liters',
         }]
     }, {
         'id': '01_0010_7E34_0100',
@@ -1044,10 +1280,30 @@ refJsonRecording1 = {
             'unit': ' Wh',
             'unit_code': 'WattHours'
         }, {
+            'id': '020_4_0',
+            'name': 'Wärmemenge Monat',
+            'unit': ' Wh',
+            'unit_code': 'WattHours',
+        }, {
             'id': '016_4_0',
             'name': 'Gesamtvolumen',
             'unit': ' l',
             'unit_code': 'Liters'
+        }, {
+            'id': '024_4_0',
+            'name': 'Volumen heute',
+            'unit': ' l',
+            'unit_code': 'Liters',
+        }, {
+            'id': '028_4_0',
+            'name': 'Volumen Woche',
+            'unit': ' l',
+            'unit_code': 'Liters',
+        }, {
+            'id': '032_4_0',
+            'name': 'Volumen Monat',
+            'unit': ' l',
+            'unit_code': 'Liters',
         }]
     }, {
         'id': '01_0010_7E35_0100',
@@ -1076,10 +1332,30 @@ refJsonRecording1 = {
             'unit': ' Wh',
             'unit_code': 'WattHours'
         }, {
+            'id': '020_4_0',
+            'name': 'Wärmemenge Monat',
+            'unit': ' Wh',
+            'unit_code': 'WattHours',
+        }, {
             'id': '016_4_0',
             'name': 'Gesamtvolumen',
             'unit': ' l',
             'unit_code': 'Liters'
+        }, {
+            'id': '024_4_0',
+            'name': 'Volumen heute',
+            'unit': ' l',
+            'unit_code': 'Liters',
+        }, {
+            'id': '028_4_0',
+            'name': 'Volumen Woche',
+            'unit': ' l',
+            'unit_code': 'Liters',
+        }, {
+            'id': '032_4_0',
+            'name': 'Volumen Monat',
+            'unit': ' l',
+            'unit_code': 'Liters',
         }]
     }, {
         'id': '01_0015_7E11_0100',
@@ -1900,6 +2176,30 @@ refJsonRecording1 = {
                 'field_index': 10,
                 'raw_value': 220.000000,
                 'value': '220'
+            }, {
+                'field_index': 11,
+                'raw_value': 0,
+                'value': '',
+            }, {
+                'field_index': 12,
+                'raw_value': 0,
+                'value': '',
+            }, {
+                'field_index': 13,
+                'raw_value': 0,
+                'value': '',
+            }, {
+                'field_index': 14,
+                'raw_value': 0,
+                'value': '',
+            }, {
+                'field_index': 15,
+                'raw_value': 0,
+                'value': '',
+            }, {
+                'field_index': 16,
+                'raw_value': 0,
+                'value': '',
             }]
         }, {
             'header_index': 1,
@@ -2014,40 +2314,40 @@ refJsonRecording1 = {
                 'value': '0'
             }, {
                 'field_index': 27,
-                'raw_value': 99.990000,
-                'value': '99.99'
+                'raw_value': 0.000000,
+                'value': '',
             }, {
                 'field_index': 28,
-                'raw_value': 2.520000,
-                'value': '2.52'
-            }, {
-                'field_index': 29,
                 'raw_value': 99.990000,
                 'value': '99.99'
+            }, {
+                'field_index': 29,
+                'raw_value': 2.520000,
+                'value': '2.52'
             }, {
                 'field_index': 30,
                 'raw_value': 99.990000,
                 'value': '99.99'
             }, {
                 'field_index': 31,
-                'raw_value': 30.000000,
-                'value': '30'
+                'raw_value': 99.990000,
+                'value': '99.99'
             }, {
                 'field_index': 32,
-                'raw_value': 0.000000,
-                'value': '0'
+                'raw_value': 30.000000,
+                'value': '30'
             }, {
                 'field_index': 33,
                 'raw_value': 0.000000,
                 'value': '0'
             }, {
                 'field_index': 34,
-                'raw_value': 100.000000,
-                'value': '100'
-            }, {
-                'field_index': 35,
                 'raw_value': 0.000000,
                 'value': '0'
+            }, {
+                'field_index': 35,
+                'raw_value': 100.000000,
+                'value': '100'
             }, {
                 'field_index': 36,
                 'raw_value': 0.000000,
@@ -2070,24 +2370,24 @@ refJsonRecording1 = {
                 'value': '0'
             }, {
                 'field_index': 41,
-                'raw_value': 100.000000,
-                'value': '100'
+                'raw_value': 0.000000,
+                'value': '0'
             }, {
                 'field_index': 42,
                 'raw_value': 100.000000,
                 'value': '100'
             }, {
                 'field_index': 43,
-                'raw_value': 0.000000,
-                'value': '0'
+                'raw_value': 100.000000,
+                'value': '100'
             }, {
                 'field_index': 44,
                 'raw_value': 0.000000,
                 'value': '0'
             }, {
                 'field_index': 45,
-                'raw_value': 0,
-                'value': ''
+                'raw_value': 0.000000,
+                'value': '0'
             }, {
                 'field_index': 46,
                 'raw_value': 0,
@@ -2099,13 +2399,17 @@ refJsonRecording1 = {
             }, {
                 'field_index': 48,
                 'raw_value': 0,
-                'value': '',
+                'value': ''
             }, {
                 'field_index': 49,
+                'raw_value': 0,
+                'value': '',
+            }, {
+                'field_index': 50,
                 'raw_value': 410021413.000000,
                 'value': '12/29/2013 14:50:13'
             }, {
-                'field_index': 50,
+                'field_index': 51,
                 'raw_value': 0.000000,
                 'value': '0'
             }]
@@ -2264,6 +2568,22 @@ refJsonRecording1 = {
                 'field_index': 3,
                 'raw_value': 0,
                 'value': ''
+            }, {
+                'field_index': 4,
+                'raw_value': 0,
+                'value': '',
+            }, {
+                'field_index': 5,
+                'raw_value': 0,
+                'value': '',
+            }, {
+                'field_index': 6,
+                'raw_value': 0,
+                'value': '',
+            }, {
+                'field_index': 7,
+                'raw_value': 0,
+                'value': '',
             }]
         }, {
             'header_index': 5,
@@ -2284,6 +2604,22 @@ refJsonRecording1 = {
                 'field_index': 3,
                 'raw_value': 0,
                 'value': ''
+            }, {
+                'field_index': 4,
+                'raw_value': 0,
+                'value': '',
+            }, {
+                'field_index': 5,
+                'raw_value': 0,
+                'value': '',
+            }, {
+                'field_index': 6,
+                'raw_value': 0,
+                'value': '',
+            }, {
+                'field_index': 7,
+                'raw_value': 0,
+                'value': '',
             }]
         }, {
             'header_index': 6,
@@ -2304,6 +2640,22 @@ refJsonRecording1 = {
                 'field_index': 3,
                 'raw_value': 0,
                 'value': ''
+            }, {
+                'field_index': 4,
+                'raw_value': 0,
+                'value': '',
+            }, {
+                'field_index': 5,
+                'raw_value': 0,
+                'value': '',
+            }, {
+                'field_index': 6,
+                'raw_value': 0,
+                'value': '',
+            }, {
+                'field_index': 7,
+                'raw_value': 0,
+                'value': '',
             }]
         }, {
             'header_index': 7,
@@ -2324,6 +2676,22 @@ refJsonRecording1 = {
                 'field_index': 3,
                 'raw_value': 0,
                 'value': ''
+            }, {
+                'field_index': 4,
+                'raw_value': 0,
+                'value': '',
+            }, {
+                'field_index': 5,
+                'raw_value': 0,
+                'value': '',
+            }, {
+                'field_index': 6,
+                'raw_value': 0,
+                'value': '',
+            }, {
+                'field_index': 7,
+                'raw_value': 0,
+                'value': '',
             }]
         }, {
             'header_index': 8,
@@ -2344,6 +2712,22 @@ refJsonRecording1 = {
                 'field_index': 3,
                 'raw_value': 0,
                 'value': ''
+            }, {
+                'field_index': 4,
+                'raw_value': 0,
+                'value': '',
+            }, {
+                'field_index': 5,
+                'raw_value': 0,
+                'value': '',
+            }, {
+                'field_index': 6,
+                'raw_value': 0,
+                'value': '',
+            }, {
+                'field_index': 7,
+                'raw_value': 0,
+                'value': '',
             }]
         }, {
             'header_index': 9,

@@ -1879,17 +1879,17 @@ describe('Specification', function() {
             var pfs = spec.getPacketFieldsForHeaders([ header3 ]);
 
             expect(pfs).to.be.an('array');
-            expect(pfs.length).to.equal(4);
-            expect(pfs [3]).to.be.an('object');
-            expect(pfs [3].id).to.equal('03_0010_7E31_10_0100_016_4_0');
-            expect(pfs [3].packet).to.be.an('object');
-            expect(pfs [3].packetSpec).to.be.an('object');
-            expect(pfs [3].packetFieldSpec).to.be.an('object');
-            expect(pfs [3].origPacketFieldSpec).to.be.an('object');
-            expect(pfs [3].name).to.equal('Gesamtvolumen');
-            expect(pfs [3].rawValue).to.equal(null);
-            expect(pfs [3].formatTextValue).to.be.a('function');
-            expect(pfs [3].formatTextValue()).to.equal('');
+            expect(pfs.length).to.equal(8);
+            expect(pfs [4]).to.be.an('object');
+            expect(pfs [4].id).to.equal('03_0010_7E31_10_0100_016_4_0');
+            expect(pfs [4].packet).to.be.an('object');
+            expect(pfs [4].packetSpec).to.be.an('object');
+            expect(pfs [4].packetFieldSpec).to.be.an('object');
+            expect(pfs [4].origPacketFieldSpec).to.be.an('object');
+            expect(pfs [4].name).to.equal('Gesamtvolumen');
+            expect(pfs [4].rawValue).to.equal(null);
+            expect(pfs [4].formatTextValue).to.be.a('function');
+            expect(pfs [4].formatTextValue()).to.equal('');
         });
     });
 
