@@ -3,9 +3,6 @@
 
 
 
-var _ = require('lodash');
-
-
 var utils = require('./resol-vbus').utils;
 
 
@@ -131,7 +128,7 @@ describe('utils', function() {
 
             result = utils.roundNumber(-24.700000000000003, -1);
             expect(result).to.equal(-24.7);
-            
+
             var number;
 
             result = utils.roundNumber(number, 10);

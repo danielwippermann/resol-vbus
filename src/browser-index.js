@@ -78,7 +78,7 @@ module.exports = {
     HeaderSet: HeaderSet,
     HeaderSetConsolidator: HeaderSetConsolidator,
 
-    // Connection: Connection,
+    Connection: Connection,
     // SerialConnection: SerialConnection,
     // TcpConnection: TcpConnection,
 
@@ -95,8 +95,8 @@ module.exports = {
     TextConverter: TextConverter,
     DLxJsonConverter: DLxJsonConverter,
 
-    // Recorder: Recorder,
-    // DLxRecorder: DLxRecorder,
+    Recorder: Recorder,
+    DLxRecorder: DLxRecorder,
     // FileSystemRecorder: FileSystemRecorder,
 
     // ConfigurationOptimizer: ConfigurationOptimizer,

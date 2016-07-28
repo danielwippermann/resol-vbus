@@ -3,9 +3,6 @@
 
 
 
-var _ = require('lodash');
-
-
 var configurationData = require('./resol-deltasol-bs4v2-103-data');
 
 var BaseConfigurationOptimizer = require('../base-configuration-optimizer');

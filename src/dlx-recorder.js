@@ -3,19 +3,12 @@
 
 
 
-var crypto = require('crypto');
-var fs = require('fs');
-var path = require('path');
-
-
 var _ = require('lodash');
 var moment = require('moment');
 var Q = require('q');
 var request = require('request');
 
 
-var HeaderSet = require('./header-set');
-var HeaderSetConsolidator = require('./header-set-consolidator');
 var utils = require('./utils');
 var VBusRecordingConverter = require('./vbus-recording-converter');
 
@@ -163,7 +156,7 @@ var DLxRecorder = Recorder.extend( /** @lends DLxRecorder# */ {
             throw new Error('Stream must be in object mode');
         }
 
-        var syncState = this._getSyncState(syncJob, 'source', 'DLxRecorder');
+        /*var syncState =*/ this._getSyncState(syncJob, 'source', 'DLxRecorder');
 
         return Q.fcall(function() {
             return _this.getLazyRecordingRanges();

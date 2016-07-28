@@ -7,7 +7,6 @@ var _ = require('lodash');
 var Q = require('q');
 
 
-var extend = require('./extend');
 var utils = require('./utils');
 
 

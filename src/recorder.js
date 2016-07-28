@@ -15,7 +15,6 @@ var Header = require('./header');
 var HeaderSet = require('./header-set');
 var HeaderSetConsolidator = require('./header-set-consolidator');
 var utils = require('./utils');
-var VBusRecordingConverter = require('./vbus-recording-converter');
 
 
 

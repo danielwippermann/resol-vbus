@@ -156,8 +156,6 @@ var HeaderSet = extend(EventEmitter, /** @lends HeaderSet# */ {
      * @param {number|Date} timestamp Timestamp to compare Header instances against.
      */
     removeHeadersOlderThan: function(timestamp) {
-        var _this = this;
-
         var time;
         if (typeof timestamp === 'number') {
             time = timestamp;
@@ -199,8 +197,6 @@ var HeaderSet = extend(EventEmitter, /** @lends HeaderSet# */ {
      * @returns {Header[]} List of headers stored in this set.
      */
     getSortedHeaders: function() {
-        var _this = this;
-
         var sortedHeaders = this.headerList.slice(0).sort(function(left, right) {
             return left.compareTo(right);
         });

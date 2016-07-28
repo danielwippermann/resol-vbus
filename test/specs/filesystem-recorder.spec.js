@@ -8,7 +8,6 @@ var path = require('path');
 
 
 var _ = require('lodash');
-var moment = require('moment');
 var Q = require('q');
 
 
@@ -21,7 +20,6 @@ var testUtils = require('./test-utils');
 var Converter = vbus.Converter;
 var FileSystemRecorder = vbus.FileSystemRecorder;
 var HeaderSet = vbus.HeaderSet;
-var HeaderSetConsolidator = vbus.HeaderSetConsolidator;
 var Packet = vbus.Packet;
 var Recorder = vbus.Recorder;
 var VBusRecordingConverter = vbus.VBusRecordingConverter;
@@ -263,11 +261,6 @@ describe('FileSystemRecorder', function() {
                 interval: 300000,
                 path: fixturesPath,
             };
-
-            var sourceRecorder = new TestRecorder({
-                id: 'Test',
-                interval: 300000,
-            });
 
             var targetRecorder = new FileSystemRecorder(options);
 

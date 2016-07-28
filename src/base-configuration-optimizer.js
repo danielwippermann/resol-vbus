@@ -487,8 +487,6 @@ var BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
     },
 
     _optimizeConfiguration: function(config, adjustableValues) {
-        var _this = this;
-
         var configValueById = _.reduce(config, function(memo, configValue) {
             memo [configValue.valueId] = configValue;
             return memo;

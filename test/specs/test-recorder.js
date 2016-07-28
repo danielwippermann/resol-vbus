@@ -116,7 +116,7 @@ var TestRecorder = Recorder.extend({
             throw new Error('Stream must be in object mode');
         }
 
-        var syncState = this._getSyncState(syncJob, 'source', 'TestRecorder');
+        /*var syncState =*/ this._getSyncState(syncJob, 'source', 'TestRecorder');
 
         return Q.fcall(function() {
             return vbus.utils.promise(function(resolve, reject) {
@@ -208,7 +208,7 @@ var TestRecorder = Recorder.extend({
             syncState.infoListByInterval [syncJob.interval] = [];
         }
 
-        var infoList = syncState.infoListByInterval [syncJob.interval];
+        /*var infoList =*/ syncState.infoListByInterval [syncJob.interval];
 
         var recordedRanges = [];
 
@@ -224,7 +224,7 @@ var TestRecorder = Recorder.extend({
             if (lastTimestamp && (timestamp < lastTimestamp)) {
                 // headersets are assumed to be played back in a chronological order,
                 // so discard any headersets that are not...
-                console.log('SKIPPING unlinear header sets');
+                global.console.log('SKIPPING unlinear header sets');
                 return;
             }
             lastTimestamp = timestamp;

@@ -7,12 +7,9 @@ var vbus = require('./resol-vbus');
 
 
 
-var Header = vbus.Header;
 var Packet = vbus.Packet;
 var Datagram = vbus.Datagram;
-var Telegram = vbus.Telegram;
 var Connection = vbus.Connection;
-var Promise = vbus.utils.Promise;
 
 
 

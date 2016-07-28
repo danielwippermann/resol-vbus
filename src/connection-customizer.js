@@ -7,7 +7,6 @@ var _ = require('lodash');
 var Q = require('q');
 
 
-var Connection = require('./connection');
 var utils = require('./utils');
 
 var Customizer = require('./customizer');

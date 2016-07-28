@@ -178,8 +178,6 @@ var SerialConnection = Connection.extend(/** @lends SerialConnection# */ {
         };
 
         var onDisconnect = function() {
-            console.log(_this.id);
-            console.log(new Error().toString());
             onError();
         };
 

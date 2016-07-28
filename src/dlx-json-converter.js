@@ -4,8 +4,6 @@
 
 
 var _ = require('lodash');
-var moment = require('moment');
-var sprintf = require('sprintf').sprintf;
 
 
 var HeaderSet = require('./header-set');
@@ -53,8 +51,6 @@ var DLxJsonConverter = Converter.extend(/** @lends DLxJsonConverter# */ {
      * writable stream side).
      */
     constructor: function(options) {
-        var _this = this;
-
         Converter.call(this, options);
 
         _.extend(this, _.pick(options, optionKeys));

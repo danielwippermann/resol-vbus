@@ -41,8 +41,6 @@ var VBusRecordingConverter = Converter.extend(/** @lends VBusRecordingConverter#
      * Datalogger devices).
      */
     constructor: function(options) {
-        var _this = this;
-
         Converter.call(this, options);
 
         _.extend(this, _.pick(options, optionKeys));

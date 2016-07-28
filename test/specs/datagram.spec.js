@@ -9,9 +9,6 @@ var _ = require('lodash');
 var Datagram = require('./resol-vbus').Datagram;
 
 
-var connectionSpec = require('./connection.spec');
-
-
 
 describe('Datagram', function() {
 

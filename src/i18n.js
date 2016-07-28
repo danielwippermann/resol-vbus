@@ -52,8 +52,6 @@ var I18N = extend(null, /** @lends I18N# */ {
      * @param {string} [language='en'] Language code (ISO 639-1)
      */
     constructor: function(language) {
-        var _this = this;
-
         if (!language || !_.has(knownLanguages, language)) {
             language = 'en';
         }

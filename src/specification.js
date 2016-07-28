@@ -182,8 +182,6 @@ var Specification = extend(null, /** @lends Specification# */ {
      * @param {string} options.specificationData {@link Specification#specificationData}
      */
     constructor: function(options) {
-        var _this = this;
-
         _.extend(this, _.pick(options, optionKeys));
 
         this.i18n = new I18N(this.language);
@@ -773,7 +771,7 @@ var Specification = extend(null, /** @lends Specification# */ {
 
             return {
                 rawValue: rawValue,
-                unit: targetUnit || sourceUnit,
+                unit: targetUnit || sourceUnit,
             };
         }, {
             rawValue: rawValue_,

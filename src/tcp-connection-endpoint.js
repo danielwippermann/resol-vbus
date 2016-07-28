@@ -11,8 +11,6 @@ var _ = require('lodash');
 var Q = require('q');
 
 
-var Connection = require('./connection');
-
 var extend = require('./extend');
 
 

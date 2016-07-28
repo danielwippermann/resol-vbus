@@ -250,7 +250,7 @@ var TcpConnection = Connection.extend( /** @lends TcpConnection# */ {
                     }
                 }
             } else {
-
+                // nop
             }
 
             if (newPhase >= 0) {

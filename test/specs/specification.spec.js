@@ -126,8 +126,6 @@ describe('Specification', function() {
         });
 
         it('should work correctly without arguments', function() {
-            var spec = new Specification();
-
             var specData = Specification.loadSpecificationData();
 
             expect(specData).to.be.an('object');
@@ -205,8 +203,6 @@ describe('Specification', function() {
         });
 
         it('should work correctly without arguments', function() {
-            var spec = new Specification();
-
             var rawSpecData = Specification.storeSpecificationData();
 
             expect(rawSpecData).to.be.an('object');
@@ -1984,7 +1980,7 @@ describe('Specification', function() {
                 '01_0000_4010_10_0100_002_2_0': 123456789,  // Heat
             });
 
-            console.log(header1.frameData.slice(0, 24).toString('hex').split(/(.{8})/g));
+            // console.log(header1.frameData.slice(0, 24).toString('hex').split(/(.{8})/g));
 
             expect(header1.frameData.readUInt16LE(2)).equal(789);
             expect(header1.frameData.readUInt16LE(0)).equal(456);

@@ -3,9 +3,6 @@
 
 
 
-var EventEmitter = require('events').EventEmitter;
-
-
 var _ = require('lodash');
 
 
@@ -164,8 +161,6 @@ var HeaderSetConsolidator = HeaderSet.extend(/** @lends HeaderSetConsolidator# *
      * @param {HeaderSet} headerSet The HeaderSet instance to process.
      */
     processHeaderSet: function(headerSet) {
-        var _this = this;
-
         var now = headerSet.timestamp.getTime();
 
         this.addHeaders(headerSet.getHeaders());

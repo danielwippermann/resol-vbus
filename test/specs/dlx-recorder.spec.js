@@ -419,7 +419,7 @@ describe('DLxRecorder', function() {
                     } else if (url === '/log/20140216_packets.vbus') {
                         bodyStream = fs.createReadStream(path.join(fixturesPath, '20140216_packets.vbus'));
                     } else {
-                        console.log(url);
+                        global.console.log(url);
                     }
 
                     stream.emit('response', response);

@@ -31,34 +31,34 @@ describe('SpecificationData', function() {
     });
 
     it('should calc multi-byte masks correctly', function() {
-    	var buffer = new Buffer(76);
-    	buffer.fill(0);
+        var buffer = new Buffer(76);
+        buffer.fill(0);
 
-    	var spec = Specification.getDefaultSpecification();
+        var spec = Specification.getDefaultSpecification();
 
-    	var pfs = spec.getPacketFieldSpecification('00_0010_7761_0100_036_1_8388608');
+        var pfs = spec.getPacketFieldSpecification('00_0010_7761_0100_036_1_8388608');
 
-    	spec.setRawValue(pfs, 3, buffer);
+        spec.setRawValue(pfs, 3, buffer);
 
-    	expect(buffer [36]).equal(0);
-    	expect(buffer [37]).equal(0);
-    	expect(buffer [38]).equal(128);
-    	expect(buffer [39]).equal(0);
+        expect(buffer [36]).equal(0);
+        expect(buffer [37]).equal(0);
+        expect(buffer [38]).equal(128);
+        expect(buffer [39]).equal(0);
 
-    	var rv = spec.getRawValue(pfs, buffer);
+        var rv = spec.getRawValue(pfs, buffer);
 
-    	expect(rv).equal(1);
+        expect(rv).equal(1);
 
-    	spec.setRawValue(pfs, 4, buffer);
+        spec.setRawValue(pfs, 4, buffer);
 
-    	expect(buffer [36]).equal(0);
-    	expect(buffer [37]).equal(0);
-    	expect(buffer [38]).equal(0);
-    	expect(buffer [39]).equal(0);
+        expect(buffer [36]).equal(0);
+        expect(buffer [37]).equal(0);
+        expect(buffer [38]).equal(0);
+        expect(buffer [39]).equal(0);
 
-    	rv = spec.getRawValue(pfs, buffer);
+        rv = spec.getRawValue(pfs, buffer);
 
-    	expect(rv).equal(0);
+        expect(rv).equal(0);
     });
 
 });

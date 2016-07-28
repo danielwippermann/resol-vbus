@@ -12,7 +12,6 @@ var testUtils = require('./test-utils');
 
 
 
-var ConfigurationOptimizer = vbus.ConfigurationOptimizer;
 var Connection = vbus.Connection;
 var ConnectionCustomizer = vbus.ConnectionCustomizer;
 var Datagram = vbus.Datagram;
@@ -469,7 +468,6 @@ describe('ConnectionCustomizer', function() {
 
         it('should get values correctly', function(done) {
             var deviceAddress = 0x1111;
-            var valueId = 0x2222;
             var value = 0x12345678;
 
             var connection = new Connection();

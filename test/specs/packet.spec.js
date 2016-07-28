@@ -9,9 +9,6 @@ var _ = require('lodash');
 var Packet = require('./resol-vbus').Packet;
 
 
-var connectionSpec = require('./connection.spec');
-
-
 
 describe('Packet', function() {
 

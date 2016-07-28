@@ -11,10 +11,8 @@ var path = require('path');
 var _ = require('lodash');
 var moment = require('moment');
 var Q = require('q');
-var request = require('request');
 
 
-var HeaderSet = require('./header-set');
 var utils = require('./utils');
 var VBusRecordingConverter = require('./vbus-recording-converter');
 
@@ -173,7 +171,7 @@ var FileSystemRecorder = Recorder.extend({
             if (lastTimestamp && (timestamp < lastTimestamp)) {
                 // headersets are assumed to be played back in a chronological order,
                 // so discard any headersets that are not...
-                console.log('SKIPPING unlinear header sets');
+                global.console.log('SKIPPING unlinear header sets');
                 return;
             }
             lastTimestamp = timestamp;
@@ -330,7 +328,7 @@ var FileSystemRecorder = Recorder.extend({
     _recordSyncJob: function(recorder, syncJob) {
         var _this = this;
 
-        var syncState = _this._getOwnSyncState(syncJob, syncJob);
+        /*var syncState =*/ _this._getOwnSyncState(syncJob, syncJob);
 
         var recording = this._startRecordingInternal({
             interval: syncJob.interval,

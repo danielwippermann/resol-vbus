@@ -4,8 +4,6 @@
 
 
 var _ = require('lodash');
-var moment = require('moment');
-var sprintf = require('sprintf').sprintf;
 
 
 var Converter = require('./converter');

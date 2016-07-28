@@ -4,7 +4,6 @@
 
 
 var _ = require('lodash');
-var Q = require('q');
 
 
 var vbus = require('./resol-vbus');
@@ -213,7 +212,7 @@ describe('ValuesWrapper', function() {
     describe('#_check', function() {
 
         it('should be a function', function() {
-            var values = testValuesWrapper(function($, setValue) {
+            testValuesWrapper(function($, setValue) {
                 var values = $(/^TestValue[1-5]$/);
 
                 expect(values._check).a('function');
@@ -221,7 +220,7 @@ describe('ValuesWrapper', function() {
         });
 
         it('should work correctly for ignored values', function() {
-            var values = testValuesWrapper(function($, setValue) {
+            testValuesWrapper(function($, setValue) {
                 var values = $(/^TestValue1$/);
 
                 values.values [0].ignored = true;
@@ -247,7 +246,7 @@ describe('ValuesWrapper', function() {
         });
 
         it('should work correctly for undefined values', function() {
-            var values = testValuesWrapper(function($, setValue) {
+            testValuesWrapper(function($, setValue) {
                 setValue('TestValue1', undefined);
 
                 var values = $(/^TestValue1$/);
@@ -283,7 +282,7 @@ describe('ValuesWrapper', function() {
         });
 
         it('should work correctly for failed values', function() {
-            var values = testValuesWrapper(function($, setValue) {
+            testValuesWrapper(function($, setValue) {
                 setValue('TestValue1', null);
 
                 var values = $(/^TestValue1$/);
@@ -319,7 +318,7 @@ describe('ValuesWrapper', function() {
         });
 
         it('should work correctly for checker approved values', function() {
-            var values = testValuesWrapper(function($, setValue) {
+            testValuesWrapper(function($, setValue) {
                 setValue('TestValue1', 7353);
                 setValue('TestValue2', 1337);
 
@@ -347,7 +346,7 @@ describe('ValuesWrapper', function() {
         });
 
         it('should work correctly with argument-less action callback', function() {
-            var values = testValuesWrapper(function($, setValue) {
+            testValuesWrapper(function($, setValue) {
                 setValue('TestValue1', undefined);
 
                 var values = $(/^TestValue1$/);
@@ -372,7 +371,7 @@ describe('ValuesWrapper', function() {
         });
 
         it('should work correctly with argument-having action callback', function() {
-            var values = testValuesWrapper(function($, setValue) {
+            testValuesWrapper(function($, setValue) {
                 setValue('TestValue1', undefined);
 
                 var values = $(/^TestValue(1)$/);
@@ -404,7 +403,7 @@ describe('ValuesWrapper', function() {
     describe('#check', function() {
 
         it('should work correctly', function() {
-            var values = testValuesWrapper(function($, setValue) {
+            testValuesWrapper(function($, setValue) {
                 var values = $(/^TestValue1$/);
 
                 var checker = 'CHECKER';
@@ -427,7 +426,7 @@ describe('ValuesWrapper', function() {
     describe('#forEach', function() {
 
         it('should work correctly', function() {
-            var values = testValuesWrapper(function($, setValue) {
+            testValuesWrapper(function($, setValue) {
                 setValue('TestValue1', undefined);
                 setValue('TestValue2', null);
                 setValue('TestValue3', 0);
@@ -448,7 +447,7 @@ describe('ValuesWrapper', function() {
     describe('#isFalse', function() {
 
         it('should work correctly', function() {
-            var values = testValuesWrapper(function($, setValue) {
+            testValuesWrapper(function($, setValue) {
                 setValue('TestValue1', undefined);
                 setValue('TestValue2', null);
                 setValue('TestValue3', 0);
@@ -473,7 +472,7 @@ describe('ValuesWrapper', function() {
     describe('#isTrue', function() {
 
         it('should work correctly', function() {
-            var values = testValuesWrapper(function($, setValue) {
+            testValuesWrapper(function($, setValue) {
                 setValue('TestValue1', undefined);
                 setValue('TestValue2', null);
                 setValue('TestValue3', 0);
@@ -498,7 +497,7 @@ describe('ValuesWrapper', function() {
     describe('#eql', function() {
 
         it('should work correctly for numbers', function() {
-            var values = testValuesWrapper(function($, setValue) {
+            testValuesWrapper(function($, setValue) {
                 setValue('TestValue1', undefined);
                 setValue('TestValue2', null);
                 setValue('TestValue3', 0);
@@ -519,7 +518,7 @@ describe('ValuesWrapper', function() {
         });
 
         it('should work correctly for valid strings', function() {
-            var values = testValuesWrapper(function($, setValue) {
+            testValuesWrapper(function($, setValue) {
                 setValue('TestValue1', undefined);
                 setValue('TestValue2', null);
                 setValue('TestValue3', 0);
@@ -540,7 +539,7 @@ describe('ValuesWrapper', function() {
         });
 
         it('should work correctly for invalid strings', function() {
-            var values = testValuesWrapper(function($, setValue) {
+            testValuesWrapper(function($, setValue) {
                 setValue('TestValue1', undefined);
                 setValue('TestValue2', null);
                 setValue('TestValue3', 0);
@@ -564,7 +563,7 @@ describe('ValuesWrapper', function() {
     describe('#notEql', function() {
 
         it('should work correctly for numbers', function() {
-            var values = testValuesWrapper(function($, setValue) {
+            testValuesWrapper(function($, setValue) {
                 setValue('TestValue1', undefined);
                 setValue('TestValue2', null);
                 setValue('TestValue3', 0);
@@ -585,7 +584,7 @@ describe('ValuesWrapper', function() {
         });
 
         it('should work correctly for valid strings', function() {
-            var values = testValuesWrapper(function($, setValue) {
+            testValuesWrapper(function($, setValue) {
                 setValue('TestValue1', undefined);
                 setValue('TestValue2', null);
                 setValue('TestValue3', 0);
@@ -606,7 +605,7 @@ describe('ValuesWrapper', function() {
         });
 
         it('should work correctly for invalid strings', function() {
-            var values = testValuesWrapper(function($, setValue) {
+            testValuesWrapper(function($, setValue) {
                 setValue('TestValue1', undefined);
                 setValue('TestValue2', null);
                 setValue('TestValue3', 0);
@@ -632,7 +631,7 @@ describe('ValuesWrapper', function() {
     describe('#lt', function() {
 
         it('should work correctly for numbers', function() {
-            var values = testValuesWrapper(function($, setValue) {
+            testValuesWrapper(function($, setValue) {
                 setValue('TestValue1', undefined);
                 setValue('TestValue2', null);
                 setValue('TestValue3', 0);
@@ -658,7 +657,7 @@ describe('ValuesWrapper', function() {
     describe('#lte', function() {
 
         it('should work correctly for numbers', function() {
-            var values = testValuesWrapper(function($, setValue) {
+            testValuesWrapper(function($, setValue) {
                 setValue('TestValue1', undefined);
                 setValue('TestValue2', null);
                 setValue('TestValue3', 0);
@@ -685,7 +684,7 @@ describe('ValuesWrapper', function() {
     describe('#gt', function() {
 
         it('should work correctly for numbers', function() {
-            var values = testValuesWrapper(function($, setValue) {
+            testValuesWrapper(function($, setValue) {
                 setValue('TestValue1', undefined);
                 setValue('TestValue2', null);
                 setValue('TestValue3', 0);
@@ -711,7 +710,7 @@ describe('ValuesWrapper', function() {
     describe('#gte', function() {
 
         it('should work correctly for numbers', function() {
-            var values = testValuesWrapper(function($, setValue) {
+            testValuesWrapper(function($, setValue) {
                 setValue('TestValue1', undefined);
                 setValue('TestValue2', null);
                 setValue('TestValue3', 0);
@@ -738,7 +737,7 @@ describe('ValuesWrapper', function() {
     describe('#in', function() {
 
         it('should work correctly', function() {
-            var values = testValuesWrapper(function($, setValue) {
+            testValuesWrapper(function($, setValue) {
                 setValue('TestValue1', undefined);
                 setValue('TestValue2', null);
                 setValue('TestValue3', 0);
@@ -766,7 +765,7 @@ describe('ValuesWrapper', function() {
     describe('#notIn', function() {
 
         it('should work correctly', function() {
-            var values = testValuesWrapper(function($, setValue) {
+            testValuesWrapper(function($, setValue) {
                 setValue('TestValue1', undefined);
                 setValue('TestValue2', null);
                 setValue('TestValue3', 0);
@@ -794,7 +793,7 @@ describe('ValuesWrapper', function() {
     describe('#isChanged', function() {
 
         it('should work correctly', function() {
-            var values = testValuesWrapper(function($, setValue) {
+            testValuesWrapper(function($, setValue) {
                 setValue('TestValue1', undefined);
                 setValue('TestValue2', null);
                 setValue('TestValue3', 0);
@@ -816,7 +815,7 @@ describe('ValuesWrapper', function() {
     describe('#ignore', function() {
 
         it('should work correctly', function() {
-            var values = testValuesWrapper(function($, setValue) {
+            testValuesWrapper(function($, setValue) {
                 setValue('TestValue1', undefined);
                 setValue('TestValue2', null);
                 setValue('TestValue3', 0);
@@ -842,7 +841,7 @@ describe('ValuesWrapper', function() {
     describe('#invalidate', function() {
 
         it('should work correctly', function() {
-            var values = testValuesWrapper(function($, setValue) {
+            testValuesWrapper(function($, setValue) {
                 setValue('TestValue1', undefined);
                 setValue('TestValue2', null);
                 setValue('TestValue3', 0);

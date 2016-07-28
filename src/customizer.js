@@ -10,9 +10,6 @@ var _ = require('lodash');
 var Q = require('q');
 
 
-var ConfigurationOptimizer = require('./configuration-optimizer');
-var utils = require('./utils');
-
 var extend = require('./extend');
 
 

@@ -494,13 +494,13 @@ var Connection = extend(Duplex, /** @lends Connection# */ {
 
         options.filterDatagram = function(rxDatagram, done) {
             if (rxDatagram.destinationAddress !== _this.selfAddress) {
-
+                // nop
             } else if (rxDatagram.sourceAddress !== address) {
-
+                // nop
             } else if (rxDatagram.command !== 0x0100) {
-
+                // nop
             } else if (rxDatagram.valueId !== valueId) {
-
+                // nop
             } else {
                 done(null, rxDatagram);
             }
@@ -542,13 +542,13 @@ var Connection = extend(Duplex, /** @lends Connection# */ {
 
         options.filterDatagram = function(rxDatagram, done) {
             if (rxDatagram.destinationAddress !== _this.selfAddress) {
-
+                // nop
             } else if (rxDatagram.sourceAddress !== address) {
-
+                // nop
             } else if (rxDatagram.command !== 0x0100) {
-
+                // nop
             } else if (rxDatagram.valueId !== valueId) {
-
+                // nop
             } else {
                 done(null, rxDatagram);
             }
@@ -588,13 +588,13 @@ var Connection = extend(Duplex, /** @lends Connection# */ {
 
         options.filterDatagram = function(rxDatagram, done) {
             if (rxDatagram.destinationAddress !== _this.selfAddress) {
-
+                // nop
             } else if (rxDatagram.sourceAddress !== address) {
-
+                // nop
             } else if (rxDatagram.command !== 0x0100) {
-
+                // nop
             } else if (rxDatagram.valueId !== valueId) {
-
+                // nop
             } else {
                 done(null, rxDatagram);
             }
@@ -634,13 +634,13 @@ var Connection = extend(Duplex, /** @lends Connection# */ {
 
         options.filterDatagram = function(rxDatagram, done) {
             if (rxDatagram.destinationAddress !== _this.selfAddress) {
-
+                // nop
             } else if (rxDatagram.sourceAddress !== address) {
-
+                // nop
             } else if (rxDatagram.command !== 0x0100) {
-
+                // nop
             } else if (rxDatagram.value !== valueIdHash) {
-
+                // nop
             } else {
                 done(null, rxDatagram);
             }
