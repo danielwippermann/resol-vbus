@@ -95,16 +95,11 @@ var patterns = {
 
 
 
-gulp.task('jshint', function() {
+gulp.task('eslint', function() {
     return gulp.src(patterns.all)
-        .pipe(plugins.jshint('.jshintrc'))
-        .pipe(plugins.jshint.reporter('default'));
-});
-
-
-gulp.task('jscs', function() {
-    return gulp.src(patterns.all);
-        // .pipe(plugins.jscs());
+        .pipe(plugins.eslint())
+        .pipe(plugins.eslint.format())
+        .pipe(plugins.eslint.failAfterError());
 });
 
 
@@ -202,7 +197,7 @@ gulp.task('watch', function() {
 });
 
 
-gulp.task('test-force-exit', [ 'jshint', 'jscs', 'mocha' ], function() {
+gulp.task('test-force-exit', [ 'eslint', 'mocha' ], function() {
     process.exit(0);
 }).on('error', function(err) {
     process.exit(1);
@@ -214,7 +209,7 @@ gulp.task('coverage-force-exit', [ 'coverage' ], function() {
 });
 
 
-gulp.task('default', [ 'jshint', 'jscs', 'mocha' ]);
+gulp.task('default', [ 'eslint', 'mocha' ]);
 
 
-gulp.task('nodemon', [ 'coverage', 'jsdoc' ]);
+gulp.task('nodemon', [ 'eslint', 'coverage', 'jsdoc' ]);
