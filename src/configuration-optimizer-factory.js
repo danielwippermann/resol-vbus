@@ -65,6 +65,11 @@ var ConfigurationOptimizerFactory = {
                 options: null,
             };
 
+            var cache = {
+                masterAddress: null,
+                masterConfiguration: [],
+            };
+
             var index = 0;
 
             var nextOptimizer = function() {
@@ -72,7 +77,7 @@ var ConfigurationOptimizerFactory = {
                     var Optimizer = optimizerClasses [index++];
 
                     Q.fcall(function() {
-                        return Optimizer.matchOptimizer(options);
+                        return Optimizer.matchOptimizer(options, cache);
                     }).then(function(refResult) {
                         if ((refResult.match > 0) && (refResult.match > result.match)) {
                             result = refResult;
