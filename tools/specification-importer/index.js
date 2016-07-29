@@ -128,7 +128,11 @@ var main = function() {
     }).then(function(spec) {
         return checkSpec(spec);
     }).then(function(spec) {
-        if (args.docs) {
+        if (args.plugin) {
+            var pluginFilename = path.resolve(args.plugin);
+            var plugin = require(pluginFilename);
+            return plugin(spec);
+        } else if (args.docs) {
             return generateVBusSpecificationDocs(spec);
         } else if (!args.nop) {
             return generateVBusSpecificationData(spec);
