@@ -4,6 +4,7 @@
 
 
 var fs = require('fs');
+var path = require('path');
 
 
 var glob = require('glob');
@@ -41,9 +42,57 @@ var main = function() {
     var args = minimist(process.argv.slice(2));
 
     return Q.fcall(function() {
+        if (args.fileList) {
+            return Q.fcall(function() {
+                return Q.npost(fs, 'readFile', [ args.fileList ]);
+            }).then(function(contentsAsBuffer) {
+                var contentsAsString = contentsAsBuffer.toString('utf-8');
+                var lines = contentsAsString.split(/\r?\n/g);
+                return lines;
+            });
+        } else if (args.files) {
+            return Q([ args.files ]);
+        } else if (args.allXmls) {
+            return Q([ '**/*.xml' ]);
+        } else {
+            return Q([ '**/VBus*.xml' ]);
+        }
+    }).then(function(globList) {
         var rscExtractPath = args._ [0] || '.';
 
-        return Q.nfapply(glob, [ rscExtractPath + '/**/VBus*.xml' ]);
+        return _.reduce(globList, function(promise, pattern) {
+            return promise.then(function(files) {
+                if (!pattern) {
+                    return files;
+                } else if (/^#/.test(pattern)) {
+                    return files;
+                } else {
+                    var negatedMd = /^!(.*)$/.exec(pattern);
+                    var isNegated;
+                    if (negatedMd) {
+                        isNegated = true;
+                        pattern = negatedMd [1];
+                    } else {
+                        isNegated = false;
+                    }
+
+
+                    return Q.fcall(function() {
+                        return Q.nfapply(glob, [ path.join(rscExtractPath, pattern) ]);
+                    }).then(function(foundFiles) {
+                        if (isNegated) {
+                            files = _.difference(files, foundFiles);
+                        } else {
+                            files = _.union(files, foundFiles);
+                        }
+
+                        return files;
+                    });
+                }
+            });
+        }, Q([])).then(function(files) {
+            return files.sort();
+        });
     }).then(function(filenames) {
         var promise = Q();
 
