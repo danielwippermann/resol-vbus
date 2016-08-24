@@ -15,11 +15,14 @@ var Converter = require('./converter');
 
 
 var optionKeys = [
+    'topologyScanOnly',
 ];
 
 
 
 var VBusRecordingConverter = Converter.extend(/** @lends VBusRecordingConverter# */ {
+
+    topologyScanOnly: false,
 
     rxBuffer: null,
 
@@ -28,6 +31,8 @@ var VBusRecordingConverter = Converter.extend(/** @lends VBusRecordingConverter#
     headerSetTimestamp: null,
 
     currentChannel: 0,
+
+    knownHeaderIds: null,
 
     /**
      * Creates a new VBusRecordingConverter instance.
@@ -44,6 +49,8 @@ var VBusRecordingConverter = Converter.extend(/** @lends VBusRecordingConverter#
         Converter.call(this, options);
 
         _.extend(this, _.pick(options, optionKeys));
+
+        this.knownHeaderIds = {};
     },
 
     reset: function() {
@@ -51,8 +58,20 @@ var VBusRecordingConverter = Converter.extend(/** @lends VBusRecordingConverter#
     },
 
     end: function() {
-        if (!this.objectMode) {
-            this._processBuffer(new Buffer(0), true);
+        var _this = this;
+
+        if (this.objectMode) {
+            // nop
+        } else if (this.topologyScanOnly) {
+            this._processBuffer(new Buffer(0), true, function(record) {
+                _this._processRecordForTopologyScan(record);
+            });
+
+            this._constructTopologyHeaderSet();
+        } else {
+            this._processBuffer(new Buffer(0), true, function(record) {
+                _this._processRecord(record);
+            });
         }
 
         this._emitHeaderSet();
@@ -145,15 +164,24 @@ var VBusRecordingConverter = Converter.extend(/** @lends VBusRecordingConverter#
     },
 
     _write: function(chunk, encoding, callback) {
+        var _this = this;
+
         if (this.objectMode) {
             return Converter.prototype._write.apply(this, arguments);
+        } else if (this.topologyScanOnly) {
+            this._processBuffer(chunk, false, function(record) {
+                _this._processRecordForTopologyScan(record);
+            });
+            callback();
         } else {
-            this._processBuffer(chunk);
+            this._processBuffer(chunk, false, function(record) {
+                _this._processRecord(record);
+            });
             callback();
         }
     },
 
-    _processBuffer: function(chunk, endOfStream) {
+    _processBuffer: function(chunk, endOfStream, processRecord) {
         var buffer;
         if (this.rxBuffer) {
             buffer = Buffer.concat([ this.rxBuffer, chunk ]);
@@ -200,7 +228,7 @@ var VBusRecordingConverter = Converter.extend(/** @lends VBusRecordingConverter#
             if ((currentLength > 0) && ((nextLength > 0) || (nextIndex === buffer.length))) {
                 var record = buffer.slice(currentIndex, nextIndex);
 
-                this._processRecord(record);
+                processRecord(record);
 
                 start = nextIndex;
             } else if (nextIndex !== (currentIndex + 1)) {
@@ -348,7 +376,77 @@ var VBusRecordingConverter = Converter.extend(/** @lends VBusRecordingConverter#
 
             this.headerSet = null;
         }
-    }
+    },
+
+    _processRecordForTopologyScan: function(buffer) {
+        var type = buffer [1] & 0x0F;
+
+        var destinationAddress = 0, sourceAddress = 0, protocolVersion = 0, command = 0, hasHeader = false;
+        if (((type === 3) || (type === 6)) && (buffer.length >= 20)) {
+            destinationAddress = buffer.readUInt16LE(14);
+            sourceAddress = buffer.readUInt16LE(16);
+            protocolVersion = buffer.readUInt16LE(18);
+
+            var majorVersion = protocolVersion >> 4;
+            if ((majorVersion === 1) && (buffer.length >= 26)) {
+                command = buffer.readUInt16LE(20);
+                hasHeader = true;
+            }
+        } else if (type === 4) {
+            this.currentChannel = 0;
+        } else if ((type === 7) && (buffer.length >= 16)) {
+            this.currentChannel = buffer [14];
+        }
+
+        if (hasHeader) {
+            var headerIdBuffer = new Buffer(8);
+            headerIdBuffer [0] = this.currentChannel;
+            headerIdBuffer.writeUInt16LE(destinationAddress, 1);
+            headerIdBuffer.writeUInt16LE(sourceAddress, 3);
+            headerIdBuffer [5] = protocolVersion;
+            headerIdBuffer.writeUInt16LE(command, 6);
+
+            var headerId = headerIdBuffer.toString('hex');
+
+            this.knownHeaderIds [headerId] = true;
+        }
+    },
+
+    _constructTopologyHeaderSet: function() {
+        var headerSet = new HeaderSet();
+
+        var timestamp = new Date(0);
+
+        _.forEach(_.keys(this.knownHeaderIds), function(headerId) {
+            var headerIdBuffer = new Buffer(headerId, 'hex');
+
+            var channel = headerIdBuffer [0];
+            var destinationAddress = headerIdBuffer.readUInt16LE(1);
+            var sourceAddress = headerIdBuffer.readUInt16LE(3);
+            var protocolVersion = headerIdBuffer [5];
+            var command = headerIdBuffer.readUInt16LE(6);
+
+            var majorVersion = (protocolVersion >> 4);
+            if (majorVersion === 1) {
+                var packet = new Packet({
+                    timestamp: timestamp,
+                    channel: channel,
+                    destinationAddress: destinationAddress,
+                    sourceAddress: sourceAddress,
+                    command: command,
+                    frameCount: 0,
+                });
+
+                headerSet.addHeader(packet);
+            } else {
+                throw new Error('Unsupported major version');
+            }
+        });
+
+        headerSet.timestamp = timestamp;
+
+        this.headerSet = headerSet;
+    },
 
 });
 
