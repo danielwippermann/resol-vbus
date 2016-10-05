@@ -5,9 +5,9 @@
 
 var _ = require('lodash');
 var Q = require('q');
-var serialport;
+var SerialPort;
 try {
-    serialport = require('serialport');
+    SerialPort = require('serialport');
 } catch (ex) {
     // eat it
 }
@@ -205,12 +205,12 @@ var SerialConnection = Connection.extend(/** @lends SerialConnection# */ {
     },
 
     _createSerialPort: function(path, options, onCompletion) {
-        return new serialport.SerialPort(path, options, null, onCompletion);
+        return new SerialPort(path, options, null, onCompletion);
     }
 
 }, {
 
-    hasSerialPortSupport: !!serialport,
+    hasSerialPortSupport: !!SerialPort,
 
 });
 

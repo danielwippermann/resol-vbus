@@ -5,9 +5,9 @@
 
 var _ = require('lodash');
 var Q = require('q');
-var serialport;
+var SerialPort;
 try {
-    serialport = require('serialport');
+    SerialPort = require('serialport');
 } catch (ex) {
     // eat it
 }
@@ -80,12 +80,12 @@ var SerialDataSourceProvider = DataSourceProvider.extend({
     },
 
     _listSerialPorts: function() {
-        return serialport.list.apply(serialport, arguments);
+        return SerialPort.list.apply(SerialPort, arguments);
     },
 
 }, {
 
-    hasSerialPortSupport: !!serialport,
+    hasSerialPortSupport: !!SerialPort,
 
 });
 
