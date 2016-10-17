@@ -79,6 +79,44 @@ var VBusRecordingConverter = Converter.extend(/** @lends VBusRecordingConverter#
         return Converter.prototype.end.apply(this, arguments);
     },
 
+    convertRawData: function(rawData) {
+        if (this.objectMode) {
+            return Converter.prototype.convertRawData.apply(this, arguments);
+        } else {
+            var buffers = [];
+
+            var createBuffer = function(type, length, timestamp) {
+                var buffer = new Buffer(length);
+                buffer.fill(0);
+
+                buffer [0] = 0xA5;
+                buffer [1] = (type & 0x0F) | ((type & 0x0F) << 4);
+                buffer.writeUInt16LE(length, 2);
+                buffer.writeUInt16LE(length, 4);
+                moreints.writeUInt64LE(buffer, timestamp.getTime(), 6);
+
+                return buffer;
+            };
+
+            var buffer;
+            if (rawData.channel !== this.currentChannel) {
+                buffer = createBuffer(7, 16, new Date(0));
+                buffer.writeUInt16LE(rawData.channel, 14);
+                buffers.push(buffer);
+
+                this.currentChannel = rawData.channel;
+            }
+
+            buffer = createBuffer(8, 22 + rawData.buffer.length, rawData.startTimestamp);
+            moreints.writeUInt64LE(buffer, rawData.endTimestamp.getTime(), 14);
+            rawData.buffer.copy(buffer, 22, 0, rawData.buffer.length);
+            buffers.push(buffer);
+
+            buffer = Buffer.concat(buffers);
+            return this.push(buffer);
+        }
+    },
+
     convertHeader: function(header) {
         if (this.objectMode) {
             return Converter.prototype.convertHeader.apply(this, arguments);

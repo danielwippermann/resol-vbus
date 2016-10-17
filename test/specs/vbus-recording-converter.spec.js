@@ -294,7 +294,43 @@ describe('VBusRecordingConverter', function() {
             });
         });
 
+        promiseIt('should work correctly with raw data', function() {
+            var rawData = {
+                channel: 1,
+                startTimestamp: new Date(1387893003287),
+                endTimestamp: new Date(1387893003303),
+                buffer: new Buffer('aa1000217e100001013e00000b000074', 'hex'),
+            };
+
+            var rawDataHexDump = [
+                'a5771000100000000000000000000100',
+                'a58826002600',
+                '1794de2443010000',
+                '2794de2443010000',
+                'aa1000217e100001013e00000b000074',
+            ].join('');
+
+            var converter = new VBusRecordingConverter({
+            });
+
+            var onData = sinon.spy();
+            converter.on('data', onData);
+
+            converter.convertRawData(rawData);
+
+            return converter.finish().then(function() {
+                converter.removeListener('data', onData);
+
+                expect(onData.callCount).to.equal(1, '"data" events triggered');
+
+                var chunk = onData.firstCall.args [0];
+                testUtils.expectToBeABuffer(chunk);
+                expect(chunk.length).to.equal(54);
+
+                expect(chunk.toString('hex')).equal(rawDataHexDump);
+            });
+        });
+
     });
 
 });
-
