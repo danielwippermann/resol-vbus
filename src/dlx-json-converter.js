@@ -15,6 +15,7 @@ var Converter = require('./converter');
 
 var optionKeys = [
     'specification',
+    'statsOnly',
 ];
 
 
@@ -26,6 +27,8 @@ var DLxJsonConverter = Converter.extend(/** @lends DLxJsonConverter# */ {
      * @type {Specification}
      */
     specification: null,
+
+    statsOnly: false,
 
     allHeaderSet: null,
 
@@ -85,6 +88,33 @@ var DLxJsonConverter = Converter.extend(/** @lends DLxJsonConverter# */ {
     },
 
     convertHeaderSet: function(headerSet) {
+        var headers = headerSet.getHeaders();
+
+        this.allHeaderSet.addHeaders(headers);
+
+        if (!this.statsOnly) {
+            this._convertHeaderSetToJson(headerSet);
+        }
+
+        var spec = this.specification;
+
+        var i18n = spec.i18n;
+
+        var now = i18n.moment(headerSet.timestamp);
+
+        var timestamp = now.valueOf();
+
+        this.stats.headerSetCount++;
+
+        if ((this.stats.minTimestamp === null) || (this.stats.minTimestamp > timestamp)) {
+            this.stats.minTimestamp = timestamp;
+        }
+        if ((this.stats.maxTimestamp === null) || (this.stats.maxTimestamp < timestamp)) {
+            this.stats.maxTimestamp = timestamp;
+        }
+    },
+
+    _convertHeaderSetToJson: function(headerSet) {
         var spec = this.specification;
 
         var i18n = spec.i18n;
@@ -95,7 +125,6 @@ var DLxJsonConverter = Converter.extend(/** @lends DLxJsonConverter# */ {
 
         var now = i18n.moment(headerSet.timestamp);
 
-        this.allHeaderSet.addHeaders(headers);
         var allHeaders = this.allHeaderSet.getHeaders();
 
         var packetInfoList = _.map(allHeaders, function(header, headerIndex) {
@@ -157,15 +186,6 @@ var DLxJsonConverter = Converter.extend(/** @lends DLxJsonConverter# */ {
         ].join('');
 
         this.push(content);
-
-        this.stats.headerSetCount++;
-
-        if ((this.stats.minTimestamp === null) || (this.stats.minTimestamp > timestamp)) {
-            this.stats.minTimestamp = timestamp;
-        }
-        if ((this.stats.maxTimestamp === null) || (this.stats.maxTimestamp < timestamp)) {
-            this.stats.maxTimestamp = timestamp;
-        }
     },
 
     _emitStart: function() {
