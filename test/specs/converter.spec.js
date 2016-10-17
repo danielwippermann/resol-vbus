@@ -83,6 +83,22 @@ describe('Converter', function() {
 
     });
 
+    describe('#convertRawData', function() {
+
+        it('should be a method', function() {
+            expect(Converter.prototype.convertRawData).to.be.a('function');
+        });
+
+        it('should be abstract', function() {
+            var converter = new TestableConverter();
+
+            expect(function() {
+                converter.convertRawData();
+            }).to.throw(Error, 'Must be implemented by sub-class');
+        });
+
+    });
+
     describe('#convertHeader', function() {
 
         it('should be a method', function() {

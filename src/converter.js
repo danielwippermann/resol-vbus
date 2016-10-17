@@ -27,6 +27,17 @@ var optionKeys = [
 
 
 
+/**
+ * @typedef RawData
+ * @type {object}
+ * @property {Number} channel VBus Channel number
+ * @property {Date} startTimestamp Timestamp of the start of reception of this data
+ * @property {Date} endTimestamp Timestamp of the end of reception of this data
+ * @property {Buffer} buffer The VBus raw data buffer
+ */
+
+
+
 var Converter = extend(Duplex, /** @lends Converter# */ {
 
     /**
@@ -100,6 +111,20 @@ var Converter = extend(Duplex, /** @lends Converter# */ {
 
             return _this.finishedPromise;
         });
+    },
+
+    /**
+     * This method queues a VBus raw data chunk from conversion.
+     * Not all Converter sub-classes support this method.
+     *
+     * @param {RawData} rawData The VBus raw data chunk to queue for conversion.
+     */
+    convertRawData: function(rawData) {
+        if (this.objectMode) {
+            this.push(rawData);
+        } else {
+            throw new Error('Must be implemented by sub-class');
+        }
     },
 
     /**
