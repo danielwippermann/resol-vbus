@@ -151,7 +151,7 @@ var Connection = extend(Duplex, /** @lends Connection# */ {
         var _this = this;
 
         if (EventEmitter.listenerCount(this, 'rawData') > 0) {
-            this.emit('rawData', chunk);
+            this.emit('rawData', chunk, timestamp);
         }
 
         var buffer;
@@ -167,7 +167,7 @@ var Connection = extend(Duplex, /** @lends Connection# */ {
             if (index > processed) {
                 if (EventEmitter.listenerCount(_this, 'junkData') > 0) {
                     var junkData = buffer.slice(processed, index);
-                    _this.emit('junkData', junkData);
+                    _this.emit('junkData', junkData, timestamp);
                 }
             }
         };
