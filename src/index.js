@@ -17,6 +17,7 @@ var extend = require('./extend');
 
 var I18N = require('./i18n');
 
+var SpecificationFile = require('./specification-file');
 var Specification = require('./specification');
 
 var Header = require('./header');
@@ -68,6 +69,7 @@ module.exports = {
 
     I18N: I18N,
 
+    SpecificationFile: SpecificationFile,
     Specification: Specification,
 
     Header: Header,
