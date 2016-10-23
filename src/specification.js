@@ -14,11 +14,19 @@ var extend = require('./extend');
 var I18N = require('./i18n');
 var utils = require('./utils');
 
-var createVBusSpecificationData = require('./specification-data');
+// var createVBusSpecificationData = require('./specification-data');
+
+var SpecificationFile = require('./specification-file');
 
 
 
-var globalSpecificationData = utils.deepFreezeObjectTree(createVBusSpecificationData());
+// var globalSpecificationData = utils.deepFreezeObjectTree(createVBusSpecificationData());
+var globalSpecificationFile = SpecificationFile.getDefaultSpecificationFile()
+var globalSpecificationData = null;
+if (globalSpecificationFile) {
+    globalSpecificationData = utils.deepFreezeObjectTree(globalSpecificationFile.getSpecificationData());
+}
+
 var globalSpecification;
 
 
@@ -190,7 +198,17 @@ var Specification = extend(null, /** @lends Specification# */ {
         this.packetSpecCache = {};
         this.blockTypePacketSpecCache = {};
 
-        this.specificationData = Specification.loadSpecificationData(options && options.specificationData);
+        var specificationData;
+        if (!options) {
+            // nop
+        } else if (options.specificationData) {
+            specificationData = options.specificationData;
+        } else if (options.specificationFile) {
+            specificationData = {
+                specificationData: options.specificationFile.getSpecificationData(),
+            };
+        }
+        this.specificationData = Specification.loadSpecificationData(specificationData);
     },
 
     /**
