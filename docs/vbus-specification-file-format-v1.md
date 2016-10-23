@@ -37,7 +37,7 @@ All multi-byte values are stored in Little-Endian order (least significant byte 
 The FILEHEADER block is the only block in the VSF structure that is located at a fixed position: the beginning of the file. The FILEHEADER block contains structural integrity information as well as the VSF offset of the SPECIFICATION block that then contains references to most other information.
 
 | Offset | Type | Name | Description |
-|--:|:--|
+|--:|--:|:--|:--|
 | 0x00000000 | U16 | `ChecksumA` | CRC16 checksum from VSF offset 0x00000004 to the one stored in `TotalLength` |
 | 0x00000002 | U16 | `ChecksumB` | CRC16 checksum from VSF offset 0x00000004 to the one stored in `TotalLength` |
 | 0x00000004 | I32 | `TotalLength` | Total length of the VSF in bytes |
@@ -56,7 +56,7 @@ The SPECIFICATION block contains references to several other block types:
 - PACKETTEMPLATE
 
 | Offset | Type | Name | Description |
-|--:|:--|:--|
+|--:|--:|:--|:--|
 | Offset + 0x00 | I32 | `Datecode` | Date code (format "YYYYMMDD") of VSF creation |
 | Offset + 0x04 | I32 | `TextCount` | Number of TEXT blocks starting at VSF offset `TextTableOffset` |
 | Offset + 0x08 | I32 | `TextTableOffset` | VSF offset of the first TEXT block |
