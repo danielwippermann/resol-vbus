@@ -13,6 +13,12 @@ Before the VSF format was designed this information was provided in form of mult
 
 The VSF format intends to replace those different application-specific formats with one well supported format that combines small overall size and an easy to parse structure to allow as many applications as possible to adapt it.
 
+The following RESOL products currently support the VSF format:
+
+- RESOL DL2 / DL3 / KM1 (starting with version 2.2.0)
+- RESOL KM2 (starting with version 1.0.1)
+
+
 
 ## The file structure
 
@@ -131,6 +137,59 @@ The `UnitCodeTextIndex` field references a machine readable representation for t
 The `UnitTextTextIndex` field references a TEXT block containing a human readable representation for this physical unit. Examples include: `"%"`, `" °C"`, `" W/m²"` etc.
 
 Other blocks reference UNIT blocks using a "Unit Identifier". This identifier can be used to lookup the corresponding UNIT block that uses the same value in its `UnitId` field.
+
+The following units are currently known:
+
+| `UnitId` | `UnitFamilyId` | `UnitCode` | `UnitText` |
+|--:|--:|:--|:--|
+| -1 | 0 | None |  |
+| 0 | 0 | SquareMeters |  m² |
+| 2 | 0 | Milliamperes |  mA |
+| 4 | 0 | Ohms |  Ω |
+| 5 | 0 | Volts |  V |
+| 18 | 1 | WattHours |  Wh |
+| 19 | 1 | KilowattHours |  kWh |
+| 20 | 1 | Btus |  BTU |
+| 27 | 0 | Hertz |  Hz |
+| 35 | 0 | WattsPerSquareMeter |  W/m² |
+| 44 | 0 | KilogramsPerHour |  kg/h |
+| 47 | 6 | Watts |  W |
+| 48 | 6 | Kilowatts |  kW |
+| 55 | 3 | Bars |  bar |
+| 56 | 3 | PoundsForcePerSquareInch |  psi |
+| 62 | 0 | DegreesCelsius |  °C |
+| 63 | 0 | DegreesKelvin |  K |
+| 64 | 0 | DegreesFahrenheit |  °F |
+| 70 | 5 | Days |  d |
+| 71 | 5 | Hours |  h |
+| 72 | 5 | Minutes |  min |
+| 73 | 5 | Seconds |  s |
+| 74 | 0 | MetersPerSecond |  m/s |
+| 80 | 4 | CubicMeters |  m³ |
+| 82 | 4 | Liters |  l |
+| 88 | 2 | LitersPerMinute |  l/min |
+| 90 | 0 | DegreesAngular |  ° |
+| 98 | 0 | Percent | % |
+| 133 | 0 | Hectopascals |  hPa |
+| 135 | 2 | CubicMetersPerHour |  m³/h |
+| 136 | 2 | LitersPerHour |  l/h |
+| 146 | 1 | MegawattHours |  MWh |
+| 159 | 0 | Milliseconds |  ms |
+| 186 | 0 | KilogramsPerCubicMeter |  kg/m³ |
+| 1024 | 0 | KiloWattHoursPerSquareMeterPerDay |  kWh/(m²*d) |
+| 1025 | 0 | LitersPerSquareMeterPerDay |  l/(m²*d) |
+| 1030 | 1 | KiloBtus |  MBTU |
+| 1031 | 1 | MegaBtus |  MMBTU |
+| 1032 | 1 | GramsCO2Oil |  g CO₂ (Oil) |
+| 1033 | 1 | KilogramsCO2Oil |  kg CO₂ (Oil) |
+| 1034 | 1 | TonsCO2Oil |  t CO₂ (Oil) |
+| 1035 | 1 | GramsCO2Gas |  g CO₂ (Gas) |
+| 1036 | 1 | KilogramsCO2Gas |  kg CO₂ (Gas) |
+| 1037 | 1 | TonsCO2Gas |  t CO₂ (Gas) |
+| 1040 | 2 | GallonsPerMinute |  gal/min |
+| 1041 | 2 | GallonsPerHour |  gal/h |
+| 1042 | 4 | Gallons |  gal |
+| 1043 | 0 | Microvolts |  µV |
 
 
 ### The DEVICETEMPLATE block
@@ -926,7 +985,7 @@ It contains the following values:
 | 0x00001b9c | `PartCount` | 0x00000008 (8) |
 | 0x00001ba0 | `PartTableOffset` | 0x00001908 |
 
-The `IdTextIndex` field references the string `"068\_2\_0"`. The `NameLocalizedTextIndex` field references the strings `"Solar heat"`, `"Solarwärme"` and `"Chaleur solaire"`. The `UnitId` field references the unit `"WattHours"`.
+The `IdTextIndex` field references the string `"068_2_0"`. The `NameLocalizedTextIndex` field references the strings `"Solar heat"`, `"Solarwärme"` and `"Chaleur solaire"`. The `UnitId` field references the unit `"WattHours"`.
 
 
 ### The PACKETTEMPLATEFIELDPART blocks
