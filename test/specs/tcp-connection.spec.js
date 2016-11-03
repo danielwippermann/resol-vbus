@@ -243,6 +243,8 @@ describe('TcpConnection', function() {
                     expect(onConnectionState.callCount).to.equal(4);
                     expect(onConnectionState.getCall(2).args [0]).to.equal(TcpConnection.STATE_INTERRUPTED);
                     expect(onConnectionState.getCall(3).args [0]).to.equal(TcpConnection.STATE_RECONNECTING);
+
+                    return connection.disconnect();
                 }).finally(function() {
                     connection.removeListener('connectionState', onConnectionState);
                 });

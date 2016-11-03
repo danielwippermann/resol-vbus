@@ -102,6 +102,8 @@ describe('HeaderSetConsolidator', function() {
                 expect(onHeaderSet.firstCall.args [0].getHeaders).lengthOf(0);
 
                 hsc.removeListener('headerSet', onHeaderSet);
+
+                hsc.stopTimer();
             });
         });
 
