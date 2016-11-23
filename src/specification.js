@@ -1131,7 +1131,9 @@ var Specification = extend(null, /** @lends Specification# */ {
         var unitText = unit ? unit.unitText : defaultUnit ? defaultUnit.unitText : '';
 
         var result, textValue, format;
-        if (rootType === 'Time') {
+        if ((rawValue === undefined) || (rawValue === null)) {
+            result = '';
+        } else if (rootType === 'Time') {
             textValue = this.i18n.moment(rawValue * 60000).utc().format('HH:mm');
             result = textValue + unitText;
         } else if (rootType === 'Weektime') {
