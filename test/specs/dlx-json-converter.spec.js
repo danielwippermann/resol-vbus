@@ -793,7 +793,7 @@ refJsonRecording1 = {
             'unit_code': 'LitersPerHour'
         }, {
             'id': '104_4_0',
-            'name': 'Volumenstrom Sensor 21',
+            'name': 'Flow rate sensor 21',
             'unit': ' l/h',
             'unit_code': 'LitersPerHour',
         }, {
@@ -888,22 +888,22 @@ refJsonRecording1 = {
             'unit_code': 'Percent'
         }, {
             'id': '100_1_0',
-            'name': 'Ausgang A',
+            'name': 'Output A',
             'unit': '%',
             'unit_code': 'Percent'
         }, {
             'id': '101_1_0',
-            'name': 'Ausgang B',
+            'name': 'Output B',
             'unit': '%',
             'unit_code': 'Percent'
         }, {
             'id': '102_1_0',
-            'name': 'Ausgang C',
+            'name': 'Output C',
             'unit': '%',
             'unit_code': 'Percent'
         }, {
             'id': '103_1_0',
-            'name': 'Ausgang D',
+            'name': 'Output D',
             'unit': '%',
             'unit_code': 'Percent'
         }, {
@@ -1152,6 +1152,11 @@ refJsonRecording1 = {
             'name': 'Volumen Monat',
             'unit': ' l',
             'unit_code': 'Liters',
+        }, {
+            'id': '004_4_0',
+            'name': 'Power',
+            'unit': ' W',
+            'unit_code': 'Watts',
         }]
     }, {
         'id': '01_0010_7E32_0100',
@@ -1204,6 +1209,11 @@ refJsonRecording1 = {
             'name': 'Volumen Monat',
             'unit': ' l',
             'unit_code': 'Liters',
+        }, {
+            'id': '004_4_0',
+            'name': 'Power',
+            'unit': ' W',
+            'unit_code': 'Watts',
         }]
     }, {
         'id': '01_0010_7E33_0100',
@@ -1256,6 +1266,11 @@ refJsonRecording1 = {
             'name': 'Volumen Monat',
             'unit': ' l',
             'unit_code': 'Liters',
+        }, {
+            'id': '004_4_0',
+            'name': 'Power',
+            'unit': ' W',
+            'unit_code': 'Watts',
         }]
     }, {
         'id': '01_0010_7E34_0100',
@@ -1308,6 +1323,11 @@ refJsonRecording1 = {
             'name': 'Volumen Monat',
             'unit': ' l',
             'unit_code': 'Liters',
+        }, {
+            'id': '004_4_0',
+            'name': 'Power',
+            'unit': ' W',
+            'unit_code': 'Watts',
         }]
     }, {
         'id': '01_0010_7E35_0100',
@@ -1360,6 +1380,11 @@ refJsonRecording1 = {
             'name': 'Volumen Monat',
             'unit': ' l',
             'unit_code': 'Liters',
+        }, {
+            'id': '004_4_0',
+            'name': 'Power',
+            'unit': ' W',
+            'unit_code': 'Watts',
         }]
     }, {
         'id': '01_0015_7E11_0100',
@@ -2592,6 +2617,10 @@ refJsonRecording1 = {
                 'field_index': 7,
                 'raw_value': 0,
                 'value': '',
+            }, {
+                'field_index': 8,
+                'raw_value': 0,
+                'value': '0',
             }]
         }, {
             'header_index': 5,
@@ -2628,6 +2657,10 @@ refJsonRecording1 = {
                 'field_index': 7,
                 'raw_value': 0,
                 'value': '',
+            }, {
+                'field_index': 8,
+                'raw_value': 0,
+                'value': '0',
             }]
         }, {
             'header_index': 6,
@@ -2664,6 +2697,10 @@ refJsonRecording1 = {
                 'field_index': 7,
                 'raw_value': 0,
                 'value': '',
+            }, {
+                'field_index': 8,
+                'raw_value': 0,
+                'value': '0',
             }]
         }, {
             'header_index': 7,
@@ -2700,6 +2737,10 @@ refJsonRecording1 = {
                 'field_index': 7,
                 'raw_value': 0,
                 'value': '',
+            }, {
+                'field_index': 8,
+                'raw_value': 0,
+                'value': '0',
             }]
         }, {
             'header_index': 8,
@@ -2736,6 +2777,10 @@ refJsonRecording1 = {
                 'field_index': 7,
                 'raw_value': 0,
                 'value': '',
+            }, {
+                'field_index': 8,
+                'raw_value': 0,
+                'value': '0',
             }]
         }, {
             'header_index': 9,
