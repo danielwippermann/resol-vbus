@@ -12,7 +12,7 @@
         "outputSourcePath": true,
         "systemName": "resol-vbus",
         "footer": "",
-        "copyright": "resol-vbus | Copyright (c) 2013-2016, Daniel Wippermann",
+        "copyright": "resol-vbus | Copyright (c) 2013-2017, Daniel Wippermann",
         "navType": "vertical",
         "theme": "spacelab",
         "linenums": false,

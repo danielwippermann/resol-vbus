@@ -1,4 +1,4 @@
-/*! resol-menuparser | Copyright (c) 2013-2014, RESOL GmbH. All rights reserverd. */
+/*! resol-vbus | Copyright (c) 2013-2017, Daniel Wippermann | MIT license */
 'use strict';
 
 
