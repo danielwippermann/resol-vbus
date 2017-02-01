@@ -508,7 +508,10 @@ describe('Specification', function() {
 
             expect(packetFieldSpec).to.be.an('object');
             expect(packetFieldSpec.fieldId).to.be.a('string');
-            expect(packetFieldSpec.name).to.be.a('string');
+            expect(packetFieldSpec.name).to.be.an('object');
+            expect(packetFieldSpec.name.de).to.be.a('string');
+            expect(packetFieldSpec.name.en).to.be.a('string');
+            expect(packetFieldSpec.name.fr).to.be.a('string');
             expect(packetFieldSpec.type).to.be.an('object');
             expect(packetFieldSpec.type.typeId).to.be.a('string');
             expect(packetFieldSpec.type.rootTypeId).to.be.a('string');
@@ -525,7 +528,10 @@ describe('Specification', function() {
 
             expect(packetFieldSpec).to.be.an('object');
             expect(packetFieldSpec.fieldId).to.be.a('string');
-            expect(packetFieldSpec.name).to.be.a('string');
+            expect(packetFieldSpec.name).to.be.an('object');
+            expect(packetFieldSpec.name.de).to.be.a('string');
+            expect(packetFieldSpec.name.en).to.be.a('string');
+            expect(packetFieldSpec.name.fr).to.be.a('string');
             expect(packetFieldSpec.type).to.be.an('object');
             expect(packetFieldSpec.type.typeId).to.be.a('string');
             expect(packetFieldSpec.type.rootTypeId).to.be.a('string');
@@ -542,7 +548,10 @@ describe('Specification', function() {
 
             expect(packetFieldSpec).to.be.an('object');
             expect(packetFieldSpec.fieldId).to.be.a('string');
-            expect(packetFieldSpec.name).to.be.a('string');
+            expect(packetFieldSpec.name).to.be.an('object');
+            expect(packetFieldSpec.name.de).to.be.a('string');
+            expect(packetFieldSpec.name.en).to.be.a('string');
+            expect(packetFieldSpec.name.fr).to.be.a('string');
             expect(packetFieldSpec.type).to.be.an('object');
             expect(packetFieldSpec.type.typeId).to.be.a('string');
             expect(packetFieldSpec.type.rootTypeId).to.be.a('string');

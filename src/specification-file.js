@@ -294,7 +294,7 @@ var SpecificationFile = extend(null, {
 
 				return {
 					fieldId: ptf.id,
-					name: ptf.name.de,
+                    name: ptf.name,
 					type: types [typeId],
 					factor: factor,
 					getRawValue: getRawValueFunctions [funcId],

@@ -1234,11 +1234,7 @@ var Specification = extend(null, /** @lends Specification# */ {
             var pfsName = packetField.packetFieldSpec.name;
             var name;
             if (_.isString(pfsName)) {
-                var key = 'specificationData.packetFieldName.' + pfsName;
-                name = _this.i18n.t(key);
-                if (name === key) {
                     name = pfsName;
-                }
             } else if (_.isObject(pfsName)) {
                 name = pfsName [language] || pfsName.en || pfsName.de || pfsName.ref;
             }

@@ -4558,7 +4558,10 @@ var testSpecificationData = function(source, specificationData) {
                 'type',
             ]);
             expect(pfs).property('fieldId').equal('000_2_0');
-            expect(pfs).property('name').equal('Temperatur Sensor 1');
+            expect(pfs).property('name').an('object');
+            expect(pfs.name).property('de').equal('Temperatur Sensor 1');
+            expect(pfs.name).property('en').equal('Temperature sensor 1');
+            expect(pfs.name).property('fr').equal('Température sonde 1');
             expect(pfs).property('type').equal(specificationData.types.Number_0_1_DegreesCelsius);
             expect(pfs).property('factor').equal(0.1);
             expect(pfs).property('getRawValue').equal(specificationData.getRawValueFunctions._0010_7E11_0100_000_2_0);
