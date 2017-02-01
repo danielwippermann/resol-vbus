@@ -1884,7 +1884,7 @@ describe('Specification', function() {
             var pfs = spec.getPacketFieldsForHeaders([ header3 ]);
 
             expect(pfs).to.be.an('array');
-            expect(pfs.length).to.equal(8);
+            expect(pfs.length).to.equal(9);
             expect(pfs [4]).to.be.an('object');
             expect(pfs [4].id).to.equal('03_0010_7E31_10_0100_016_4_0');
             expect(pfs [4].packet).to.be.an('object');
