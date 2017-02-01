@@ -109,6 +109,15 @@ into your shell:
 
 ## Changelog
 
+### Version 0.16.0 (2016-02-01)
+
+- Use VSF binary file to load VBus specification data
+- Add support to read and write raw data in VBus recordings
+- Extend `VBusRecordingConverter` to support fast topology-only scan
+- Code clean up
+- Several minor bug fixes
+
+
 ### Version 0.15.0 (2016-03-30)
 
 - Update VBus specification data
