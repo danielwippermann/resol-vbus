@@ -21,7 +21,7 @@ var SpecificationFile = require('./specification-file');
 
 
 // var globalSpecificationData = utils.deepFreezeObjectTree(createVBusSpecificationData());
-var globalSpecificationFile = SpecificationFile.getDefaultSpecificationFile()
+var globalSpecificationFile = SpecificationFile.getDefaultSpecificationFile();
 var globalSpecificationData = null;
 if (globalSpecificationFile) {
     globalSpecificationData = utils.deepFreezeObjectTree(globalSpecificationFile.getSpecificationData());
@@ -1234,7 +1234,7 @@ var Specification = extend(null, /** @lends Specification# */ {
             var pfsName = packetField.packetFieldSpec.name;
             var name;
             if (_.isString(pfsName)) {
-                    name = pfsName;
+                name = pfsName;
             } else if (_.isObject(pfsName)) {
                 name = pfsName [language] || pfsName.en || pfsName.de || pfsName.ref;
             }
