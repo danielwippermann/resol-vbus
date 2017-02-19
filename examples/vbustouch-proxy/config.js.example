@@ -38,6 +38,30 @@ module.exports = {
     loggingPath: path.resolve(__dirname, 'cache'),
 
     /**
+     * Text file logging interval in milliseconds. A value of zero disables this functionality.
+     */
+    textLoggingInterval: 0,
+
+    /**
+     * Text file logging time to live in milliseconds.
+     */
+    textLoggingTimeToLive: 60000,
+
+    /**
+     * Text file logging directory.
+     */
+    textLoggingPath: path.resolve(__dirname, 'log'),
+
+    /**
+     * Text file logging options, passed to the `TextConverter` constructor.
+     */
+    textLoggingOptions: {
+        columnSeparator: '\t',
+        lineSeparator: '\r\n',
+        separateDateAndTime: false,
+    },
+
+    /**
      * Port number to bind the web server to.
      */
     webServerPort: 3000,

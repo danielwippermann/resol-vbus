@@ -3,6 +3,7 @@
 
 
 
+var fs = require('fs');
 var os = require('os');
 var path = require('path');
 
@@ -11,7 +12,6 @@ var express = require('express');
 var _ = require('lodash');
 var morgan = require('morgan');
 var Q = require('q');
-var Qs = require('qs');
 var XivelyClient = require('xively');
 
 
@@ -47,6 +47,11 @@ var fsRecorder = new vbus.FileSystemRecorder({
 });
 
 
+var textHeaderSetConsolidator = new vbus.HeaderSetConsolidator({
+    timeToLive: config.textLoggingTimeToLive,
+});
+
+
 /**
  * Connect to the VBus and store the packets into the global HeaderSetConsolidator.
  */
@@ -62,6 +67,7 @@ var connectToVBus = function() {
         // debugLog('Packet received...', packet);
 
         headerSetConsolidator.addHeader(packet);
+        textHeaderSetConsolidator.addHeader(packet);
     });
 
     return Q.fcall(function() {
@@ -346,6 +352,60 @@ var startXivelyClient = function() {
 };
 
 
+var startTextLogging = function() {
+    var currentDatecode = null;
+
+    var currentConverter = null;
+
+    var onHeaderSet = function(headerSet) {
+        return Q.fcall(function() {
+            var datecode = specification.i18n.moment(headerSet.timestamp).format('YYYYMMDD');
+            if (currentDatecode !== datecode) {
+                currentDatecode = datecode;
+
+                if (currentConverter) {
+                    currentConverter.finish();
+                    currentConverter = null;
+                }
+
+                var filename = path.resolve(config.textLoggingPath, datecode + '.csv');
+
+                var file = fs.createWriteStream(filename, { flags: 'a' });
+
+                var options = _.extend({}, config.textLoggingOptions, {
+                    specification: specification,
+                });
+
+                var converter = new vbus.TextConverter(options);
+                converter.pipe(file);
+
+                currentConverter = converter;
+            }
+
+            if (currentConverter) {
+                currentConverter.convertHeaderSet(headerSet);
+            }
+        });
+    };
+
+    return Q.fcall(function() {
+        if (config.textLoggingInterval) {
+            debugLog('Starting text logging');
+
+            var hsc = new vbus.HeaderSetConsolidator({
+                interval: config.textLoggingInterval,
+            });
+
+            hsc.on('headerSet', function() {
+                onHeaderSet(textHeaderSetConsolidator);
+            });
+
+            hsc.startTimer();
+        }
+    });
+};
+
+
 var startRecorder = function() {
     var converter = new vbus.Converter({ objectMode: true });
 
@@ -377,6 +437,8 @@ var main = function() {
         return startHeaderSetConsolidatorTimer();
     }).then(function() {
         return startXivelyClient();
+    }).then(function() {
+        return startTextLogging();
     }).then(function() {
         return startRecorder();
     });
