@@ -198,17 +198,15 @@ var Specification = extend(null, /** @lends Specification# */ {
         this.packetSpecCache = {};
         this.blockTypePacketSpecCache = {};
 
-        var specificationData;
+        var rawSpecificationData, loadSpecificationDataOptions = {};
         if (!options) {
             // nop
         } else if (options.specificationData) {
-            specificationData = options.specificationData;
+            rawSpecificationData = options.specificationData;
         } else if (options.specificationFile) {
-            specificationData = {
-                specificationData: options.specificationFile.getSpecificationData(),
-            };
+            loadSpecificationDataOptions.specificationData = options.specificationFile.getSpecificationData();
         }
-        this.specificationData = Specification.loadSpecificationData(specificationData);
+        this.specificationData = Specification.loadSpecificationData(rawSpecificationData, loadSpecificationDataOptions);
     },
 
     /**
