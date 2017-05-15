@@ -561,6 +561,8 @@ var SpecificationFile = extend(null, {
             });
         });
 
+        this.dataVersion = fileHeaderBlock.dataVersion;
+        this.datecode = specificationBlock.datecode;
         this.texts = texts;
         this.localizedTexts = localizedTexts;
         this.units = units;
