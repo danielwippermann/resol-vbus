@@ -3,8 +3,11 @@
 
 
 
+require('better-stack-traces').install();
+var chai = require('chai');
 var _ = require('lodash');
 var Q = require('q');
+var sinon = require('sinon');
 
 
 var vbus = require('./resol-vbus');
@@ -16,6 +19,36 @@ var SerialDataSourceProvider = vbus.SerialDataSourceProvider;
 
 
 var serialPortPath = process.env.RESOL_VBUS_SERIALPORT;
+
+
+
+chai.config.includeStack = true;
+
+global.expect = chai.expect;
+
+global.sinon = sinon;
+
+
+
+global.promiseIt = function(message, callback) {
+    it(message, function(done) {
+        var _this = this;
+
+        Q.fcall(function() {
+            return callback.call(_this);
+        }).then(function() {
+            done();
+        }, function(err) {
+            done(err);
+        }).done();
+    });
+};
+
+global.xpromiseIt = function(message, callback) {
+    xit(message, function() {
+        // x-ed test
+    });
+};
 
 
 

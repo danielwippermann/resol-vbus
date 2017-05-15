@@ -7,13 +7,9 @@ var exec = require('child_process').exec;
 var path = require('path');
 
 
-require('better-stack-traces').install();
-var chai = require('chai');
 var gulp = require('gulp');
 var plugins = require('gulp-load-plugins')();
 var _ = require('lodash');
-var Q = require('q');
-global.sinon = require('sinon');
 
 
 var jsdoc = require('./lib/gulp-jsdoc');
@@ -32,34 +28,6 @@ var config = _.defaults({}, localConfig, {
     jekyllPath: 'jekyll',
     docsOutputPath: path.resolve(__dirname, '../danielwippermann.github.io/resol-vbus/'),
 });
-
-
-
-chai.config.includeStack = true;
-
-global.expect = chai.expect;
-
-
-
-global.promiseIt = function(message, callback) {
-    it(message, function(done) {
-        var _this = this;
-
-        Q.fcall(function() {
-            return callback.call(_this);
-        }).then(function() {
-            done();
-        }, function(err) {
-            done(err);
-        }).done();
-    });
-};
-
-global.xpromiseIt = function(message, callback) {
-    xit(message, function() {
-        // x-ed test
-    });
-};
 
 
 

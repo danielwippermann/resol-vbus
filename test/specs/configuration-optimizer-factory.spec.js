@@ -7,6 +7,7 @@ var Q = require('q');
 
 
 var vbus = require('./resol-vbus');
+require('./test-utils');
 
 
 
