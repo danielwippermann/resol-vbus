@@ -35,7 +35,33 @@ describe('SpecificationFile', function() {
             var specFile = new SpecificationFile(testVsf1);
 
             expect(specFile).an('object');
+            expect(_.keys(specFile).sort()).eql([
+                'buffer',
+                'dataVersion',
+                'datecode',
+                'deviceTemplates',
+                'knownUnits',
+                'knownUnitsByCode',
+                'knownUnitsById',
+                'localizedTexts',
+                'packetTemplates',
+                'specificationData',
+                'texts',
+                'typeByCode',
+                'typeById',
+                'types',
+                'unitByCode',
+                'unitById',
+                'unitFamilies',
+                'unitFamilyByCode',
+                'unitFamilyById',
+                'units',
+            ]);
+
             expect(specFile).property('buffer').equal(testVsf1);
+
+            expect(specFile).property('dataVersion').equal(1);
+            expect(specFile).property('datecode').equal(20161007);
 
             expect(specFile).property('unitFamilyByCode').an('object');
 
