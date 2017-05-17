@@ -117,6 +117,37 @@ var VBusRecordingConverter = Converter.extend(/** @lends VBusRecordingConverter#
         }
     },
 
+    convertComment: function(timestamp, comment) {
+        if (this.objectMode) {
+            return Converter.prototype.convertRawData.apply(this, arguments);
+        } else {
+            var buffers = [];
+
+            var createBuffer = function(type, length, timestamp) {
+                var buffer = new Buffer(length);
+                buffer.fill(0);
+
+                buffer [0] = 0xA5;
+                buffer [1] = (type & 0x0F) | ((type & 0x0F) << 4);
+                buffer.writeUInt16LE(length, 2);
+                buffer.writeUInt16LE(length, 4);
+                moreints.writeUInt64LE(buffer, timestamp.getTime(), 6);
+
+                return buffer;
+            };
+
+            const rawData = Buffer.from(comment.toString());
+
+            var buffer;
+            buffer = createBuffer(9, 14 + rawData.length, timestamp);
+            rawData.copy(buffer, 14, 0, rawData.length);
+            buffers.push(buffer);
+
+            buffer = Buffer.concat(buffers);
+            return this.push(buffer);
+        }
+    },
+
     convertHeader: function(header) {
         if (this.objectMode) {
             return Converter.prototype.convertHeader.apply(this, arguments);
