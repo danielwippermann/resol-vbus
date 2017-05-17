@@ -11,6 +11,7 @@ var testUtils = require('./test-utils');
 
 
 
+var Promise = vbus.utils.Promise;
 var HeaderSet = vbus.HeaderSet;
 var Packet = vbus.Packet;
 
@@ -200,6 +201,46 @@ describe('VBusRecordingConverter', function() {
 
             converter.write(refHeaderSet);
             converter.end();
+        });
+
+        promiseIt('should parse comment records', function() {
+            var rawDataHexDump = [
+                'a5993b003b00',
+                '1794de2443010000',
+                '436f6d6d656e7420',
+                '73657269616c697a',
+                '656420746f205642',
+                '75732066696c6520',
+                '666f726d61742072',
+                '65636f7264',
+            ].join('');
+
+            var buffer = new Buffer(rawDataHexDump, 'hex');
+
+            var converter = new VBusRecordingConverter({
+            });
+
+            var onComment = sinon.spy();
+            converter.on('comment', onComment);
+
+            return new Promise(function(resolve) {
+                converter.once('finish', function() {
+                    resolve();
+                });
+
+                converter.write(buffer);
+                converter.end();
+            }).then(function() {
+                converter.removeListener('comment', onComment);
+
+                expect(onComment.callCount).to.equal(1, '"comment" events triggered');
+
+                var info = onComment.firstCall.args [0];
+                expect(info).an('object');
+                expect(info).property('timestamp').instanceOf(Date);
+                expect(info.timestamp.valueOf()).equal(1387893003287);
+                expect(info).property('comment').equal('Comment serialized to VBus file format record');
+            });
         });
 
     });

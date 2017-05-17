@@ -386,6 +386,13 @@ var VBusRecordingConverter = Converter.extend(/** @lends VBusRecordingConverter#
                 channel: this.currentChannel,
                 buffer: rawBuffer,
             });
+        } else if ((type === 9) && (buffer.length >= 14)) {
+            var comment = buffer.slice(14).toString();
+
+            this.emit('comment', {
+                timestamp: new Date(timestamp),
+                comment: comment,
+            });
         }
     },
 
