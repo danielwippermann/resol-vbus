@@ -102,6 +102,14 @@ var testUtils = {
         expect(buffer).instanceOf(Buffer);
     },
 
+    itShouldBeAClass: function(Class) {
+        it('should be a class', function() {
+            expect(Class).a('function')
+                .property('prototype').an('object')
+                .property('constructor').equal(Class);
+        });
+    },
+
 };
 
 

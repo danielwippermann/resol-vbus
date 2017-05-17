@@ -20,6 +20,8 @@ var VBusRecordingConverter = vbus.VBusRecordingConverter;
 
 describe('VBusRecordingConverter', function() {
 
+    testUtils.itShouldBeAClass(VBusRecordingConverter);
+
     describe('constructor', function() {
 
         it('should be a constructor function', function() {
@@ -326,6 +328,42 @@ describe('VBusRecordingConverter', function() {
                 var chunk = onData.firstCall.args [0];
                 testUtils.expectToBeABuffer(chunk);
                 expect(chunk.length).to.equal(54);
+
+                expect(chunk.toString('hex')).equal(rawDataHexDump);
+            });
+        });
+
+        promiseIt('should work correctly with comment data', function() {
+            var timestamp = new Date(1387893003287);
+            var comment = 'Comment serialized to VBus file format record';
+
+            var rawDataHexDump = [
+                'a5993b003b00',
+                '1794de2443010000',
+                '436f6d6d656e7420',
+                '73657269616c697a',
+                '656420746f205642',
+                '75732066696c6520',
+                '666f726d61742072',
+                '65636f7264',
+            ].join('');
+
+            var converter = new VBusRecordingConverter({
+            });
+
+            var onData = sinon.spy();
+            converter.on('data', onData);
+
+            converter.convertComment(timestamp, comment);
+
+            return converter.finish().then(function() {
+                converter.removeListener('data', onData);
+
+                expect(onData.callCount).to.equal(1, '"data" events triggered');
+
+                var chunk = onData.firstCall.args [0];
+                testUtils.expectToBeABuffer(chunk);
+                expect(chunk.length).to.equal(59);
 
                 expect(chunk.toString('hex')).equal(rawDataHexDump);
             });

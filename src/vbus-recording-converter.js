@@ -136,7 +136,7 @@ var VBusRecordingConverter = Converter.extend(/** @lends VBusRecordingConverter#
                 return buffer;
             };
 
-            const rawData = Buffer.from(comment.toString());
+            var rawData = Buffer.from(comment.toString());
 
             var buffer;
             buffer = createBuffer(9, 14 + rawData.length, timestamp);
