@@ -127,11 +127,41 @@ var generateSpecInfo = function(spec) {
                 lowestFactor = 1.0;
             }
 
+            var rootTypeId, precision;
+            if (field.format === null) {
+                rootTypeId = 'Number';
+                precision = - Math.round(Math.log(lowestFactor) / Math.log(10));
+            } else if (field.format.charAt(0) === 'F') {
+                rootTypeId = 'Number';
+                precision = + field.format.substring(1);
+            } else if (field.format === 't') {
+                rootTypeId = 'Time';
+                precision = 0;
+            } else if (field.format === 'T') {
+                rootTypeId = 'Weektime';
+                precision = 0;
+            } else if (field.format === 'r') {
+                rootTypeId = 'DateTime';
+                precision = 0;
+            } else {
+                throw new Error('Unknown format ' + JSON.stringify(field.format));
+            }
+
+            if (_.isNaN(precision)) {
+                precision = 0;
+            } else if (precision === Infinity) {
+                precision = 0;
+            } else if (precision < 0) {
+                precision = 0;
+            }
+
+            var precisionFactor = Math.pow(10, - precision);
+
             var parts = [];
             _.forEach(fields, function(field) {
                 var size = (field.bitSize + 7) >> 3;
 
-                var factor = Math.round(field.factor / lowestFactor);
+                var factor = Math.round(field.factor / precisionFactor);
 
                 var bitPos, offset, mask;
                 if (field.bitSize === 1) {
@@ -189,7 +219,7 @@ var generateSpecInfo = function(spec) {
             fieldIds.push(fieldId);
 
             var origName = utils.getRefText(field.name);
-            var name = origName.replace(/\./g, '_');
+            var name = origName; // .replace(/\./g, '_');
             if (!_.has(fieldNames, name)) {
                 fieldNames [name] = origName;
             } else if (fieldNames [name] !== origName) {
@@ -199,34 +229,6 @@ var generateSpecInfo = function(spec) {
             var unitCode = utils.getUnitCodeByUnit(field.unit);
             var unitText = utils.getUnitByUnitCode(unitCode);
             var unitFamily = utils.getUnitFamilyByUnitCode(unitCode);
-
-            var rootTypeId, precision;
-            if (field.format === null) {
-                rootTypeId = 'Number';
-                precision = - Math.round(Math.log(firstField.factor) / Math.log(10));
-            } else if (field.format.charAt(0) === 'F') {
-                rootTypeId = 'Number';
-                precision = + field.format.substring(1);
-            } else if (field.format === 't') {
-                rootTypeId = 'Time';
-                precision = 0;
-            } else if (field.format === 'T') {
-                rootTypeId = 'Weektime';
-                precision = 0;
-            } else if (field.format === 'r') {
-                rootTypeId = 'DateTime';
-                precision = 0;
-            } else {
-                throw new Error('Unknown format ' + JSON.stringify(field.format));
-            }
-
-            if (_.isNaN(precision)) {
-                precision = 0;
-            } else if (precision === Infinity) {
-                precision = 0;
-            } else if (precision < 0) {
-                precision = 0;
-            }
 
             var typeId = rootTypeId + '_';
             typeId += sprintf('%.' + precision + 'f', Math.pow(10, - precision)).replace(/[^0-9]/g, '_');
@@ -238,7 +240,7 @@ var generateSpecInfo = function(spec) {
                 offset: firstPart.offset,
                 size: size,
                 mask: mask,
-                factor: lowestFactor,
+                factor: precisionFactor,
                 typeId: typeId,
                 rootTypeId: rootTypeId,
                 precision: precision,
