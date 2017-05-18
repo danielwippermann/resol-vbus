@@ -2,8 +2,6 @@
 
 #### A JavaScript library for processing RESOL VBus data.
 
-<iframe src="http://ghbtns.com/github-btn.html?user=danielwippermann&repo=resol-vbus&type=watch&size=large" allowtransparency="true" frameborder="0" scrolling="0" width="77" height="30"></iframe>
-
 [![NPM version](https://img.shields.io/npm/v/resol-vbus.svg)](https://npmjs.org/package/resol-vbus)
 [![Build Status](https://img.shields.io/travis/danielwippermann/resol-vbus.svg)](https://travis-ci.org/danielwippermann/resol-vbus)
 [![Coverage Status](https://img.shields.io/coveralls/danielwippermann/resol-vbus.svg)](https://coveralls.io/r/danielwippermann/resol-vbus)
@@ -109,7 +107,15 @@ into your shell:
 
 ## Changelog
 
-### Version 0.16.0 (2016-02-01)
+## Work in progress
+
+- Add support to generate and parse "type 9" comment records using `VBusRecordingConverter`.
+- Make it easier to create a `Specification` from a `SpecificationFile`.
+- Update dependencies.
+- Some minor bug fixes.
+
+
+### Version 0.16.0 (2017-02-01)
 
 - Use VSF binary file to load VBus specification data
 - Add support to read and write raw data in VBus recordings
@@ -196,6 +202,7 @@ First release to the NPM registry.
 
 * Thorsten Müller
 * Paul Hanna
+* Sabine Käß
 
 
 ## Legal Notices
