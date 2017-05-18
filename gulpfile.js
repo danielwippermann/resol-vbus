@@ -94,7 +94,6 @@ gulp.task('mocha', function() {
             ui: 'bdd',
             reporter: 'dot',
         })).on('error', function(err) {
-            console.log(err);
             process.exit(1);
         });
 });
@@ -107,7 +106,6 @@ gulp.task('quick-mocha', function() {
             reporter: 'spec',
             // grep: 'setPacketFieldRawValues',
         })).on('error', function(err) {
-            console.log(err);
             process.exit(1);
         });
 });
