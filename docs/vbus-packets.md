@@ -35,7 +35,9 @@ title: VBus Packets
 - [DFA (0x0010) <= Vitosolic 200 \[Regler\] (0x1060), command 0x0100](#0010_1060_0100)
 - [DFA (0x0010) <= Unknown device (0x1064), command 0x0100](#0010_1064_0100)
 - [DFA (0x0010) <= DeltaSol MX - SorTech - eCoo \[Regler\] (0x1100), command 0x0100](#0010_1100_0100)
+- [DFA (0x0010) <= Kioto Laderegler (0x1117), command 0x0100](#0010_1117_0100)
 - [DFA (0x0010) <= Sol Plus SL (0x1119), command 0x0100](#0010_1119_0100)
+- [DFA (0x0010) <= ETHERM (0x111F), command 0x0100](#0010_111F_0100)
 - [DFA (0x0010) <= DeltaSol AL-E (0x1120), command 0x0100](#0010_1120_0100)
 - [DFA (0x0010) <= DeltaSol CS2 (0x1121), command 0x0100](#0010_1121_0100)
 - [DFA (0x0010) <= DeltaSol CS4 (0x1122), command 0x0100](#0010_1122_0100)
@@ -48,6 +50,8 @@ title: VBus Packets
 - [DFA (0x0010) <= MFR \[Heizkreis #0\] (0x1210), command 0x0100](#0010_1210_0100)
 - [DFA (0x0010) <= Wagner Sungo 100 \[Regler\] (0x1240), command 0x0100](#0010_1240_0100)
 - [DFA (0x0010) <= Wagner Sungo 100 \[WMZ1\] (0x1241), command 0x0100](#0010_1241_0100)
+- [DFA (0x0010) <= Viessmann Vitotrans 353 2017 (0x1250), command 0x0100](#0010_1250_0100)
+- [DFA (0x0010) <= Viessmann Vitotrans 353 2017 Broadcast (0x1260), command 0x0100](#0010_1260_0100)
 - [DFA (0x0010) <= DeltaSol CS Plus (0x2211), command 0x0100](#0010_2211_0100)
 - [DFA (0x0010) <= DeltaSol CS Plus 2.x (0x2213), command 0x0100](#0010_2213_0100)
 - [DFA (0x0010) <= Oranier HK \[Regler\] (0x2231), command 0x0100](#0010_2231_0100)
@@ -114,6 +118,7 @@ title: VBus Packets
 - [DFA (0x0010) <= SunGo XL (0x6620), command 0x0100](#0010_6620_0100)
 - [DFA (0x0010) <= DeltaSol BX WMZ (0x7101), command 0x0100](#0010_7101_0100)
 - [DFA (0x0010) <= DeltaSol BX Plus \[Regler\] (0x7112), command 0x0100](#0010_7112_0100)
+- [DFA (0x0010) <= DeltaSol BX Plus \[Regler\] (0x7112), command 0x0140](#0010_7112_0140)
 - [DFA (0x0010) <= DeltaSol BX Plus \[Module\] (0x7113), command 0x0100](#0010_7113_0100)
 - [DFA (0x0010) <= DeltaSol BX Plus \[Heizkreis #0\] (0x7120), command 0x0100](#0010_7120_0100)
 - [DFA (0x0010) <= DeltaSol BX Plus \[WMZ #0\] (0x7130), command 0x0100](#0010_7130_0100)
@@ -190,9 +195,13 @@ title: VBus Packets
 - [DFA (0x0010) <= PAW SOLEX SC5.14 \[WMZ #0\] (0x7930), command 0x0100](#0010_7930_0100)
 - [DFA (0x0010) <= FRISTA-mix (0x7D04), command 0x0100](#0010_7D04_0100)
 - [DFA (0x0010) <= DeltaSol MX \[Regler\] (0x7E11), command 0x0100](#0010_7E11_0100)
+- [DFA (0x0010) <= DeltaSol MX \[Regler\] (0x7E11), command 0x0101](#0010_7E11_0101)
+- [DFA (0x0010) <= DeltaSol MX \[Regler\] (0x7E11), command 0x0140](#0010_7E11_0140)
 - [DFA (0x0010) <= DeltaSol MX \[Module\] (0x7E12), command 0x0100](#0010_7E12_0100)
 - [DFA (0x0010) <= DeltaSol MX \[Heizkreis #0\] (0x7E20), command 0x0100](#0010_7E20_0100)
 - [DFA (0x0010) <= DeltaSol MX \[WMZ #0\] (0x7E30), command 0x0100](#0010_7E30_0100)
+- [DFA (0x0010) <= DeltaSol MX \[Modul #0\] (0x7E40), command 0x0100](#0010_7E40_0100)
+- [DFA (0x0010) <= DeltaSol BX Plus \[Modul #0\] (0x7E60), command 0x0100](#0010_7E60_0100)
 - [DFA (0x0010) <= IOC-Modul \[Messwerte\] (0x7F61), command 0x0100](#0010_7F61_0100)
 - [DFA (0x0010) <= IOC-Modul \[Tagesbilanz\] (0x7F62), command 0x0100](#0010_7F62_0100)
 - [DFA (0x0010) <= IOC-Modul \[Entnahmekreis\] (0x7F63), command 0x0100](#0010_7F63_0100)
@@ -200,7 +209,26 @@ title: VBus Packets
 - [DFA (0x0010) <= IOC-Modul \[Messwerte_1s\] (0x7F65), command 0x0100](#0010_7F65_0100)
 - [DFA (0x0010) <= DeltaSol FCS (0x7F71), command 0x0100](#0010_7F71_0100)
 - [Standard-Infos (0x0015) <= Tuxhorn BHKW (0x105F), command 0x0100](#0015_105F_0100)
+- [Viessmann Vitotrans 353 2017 Broadcast (0x1260) <= Viessmann Vitotrans 353 2017 Broadcast (0x1260), command 0x0101](#1260_1260_0101)
+- [Viessmann Vitotrans 353 2017 Master (0x1261) <= Viessmann Vitotrans 353 2017 Master (0x1261), command 0x0301](#1261_1261_0301)
+- [Viessmann Vitotrans 353 2017 Master (0x1261) <= Viessmann Vitotrans 353 2017 Slave 1 (0x1262), command 0x0301](#1261_1262_0301)
+- [Viessmann Vitotrans 353 2017 Master (0x1261) <= Viessmann Vitotrans 353 2017 Slave 2 (0x1263), command 0x0301](#1261_1263_0301)
+- [Viessmann Vitotrans 353 2017 Master (0x1261) <= Viessmann Vitotrans 353 2017 Slave 3 (0x1264), command 0x0301](#1261_1264_0301)
+- [Viessmann Vitotrans 353 2017 Slave 1 (0x1262) <= Viessmann Vitotrans 353 2017 Master (0x1261), command 0x0301](#1262_1261_0301)
+- [Viessmann Vitotrans 353 2017 Slave 1 (0x1262) <= Viessmann Vitotrans 353 2017 Slave 1 (0x1262), command 0x0301](#1262_1262_0301)
+- [Viessmann Vitotrans 353 2017 Slave 1 (0x1262) <= Viessmann Vitotrans 353 2017 Slave 2 (0x1263), command 0x0301](#1262_1263_0301)
+- [Viessmann Vitotrans 353 2017 Slave 1 (0x1262) <= Viessmann Vitotrans 353 2017 Slave 3 (0x1264), command 0x0301](#1262_1264_0301)
+- [Viessmann Vitotrans 353 2017 Slave 2 (0x1263) <= Viessmann Vitotrans 353 2017 Master (0x1261), command 0x0301](#1263_1261_0301)
+- [Viessmann Vitotrans 353 2017 Slave 2 (0x1263) <= Viessmann Vitotrans 353 2017 Slave 1 (0x1262), command 0x0301](#1263_1262_0301)
+- [Viessmann Vitotrans 353 2017 Slave 2 (0x1263) <= Viessmann Vitotrans 353 2017 Slave 2 (0x1263), command 0x0301](#1263_1263_0301)
+- [Viessmann Vitotrans 353 2017 Slave 2 (0x1263) <= Viessmann Vitotrans 353 2017 Slave 3 (0x1264), command 0x0301](#1263_1264_0301)
+- [Viessmann Vitotrans 353 2017 Slave 3 (0x1264) <= Viessmann Vitotrans 353 2017 Master (0x1261), command 0x0301](#1264_1261_0301)
+- [Viessmann Vitotrans 353 2017 Slave 3 (0x1264) <= Viessmann Vitotrans 353 2017 Slave 1 (0x1262), command 0x0301](#1264_1262_0301)
+- [Viessmann Vitotrans 353 2017 Slave 3 (0x1264) <= Viessmann Vitotrans 353 2017 Slave 2 (0x1263), command 0x0301](#1264_1263_0301)
+- [Viessmann Vitotrans 353 2017 Slave 3 (0x1264) <= Viessmann Vitotrans 353 2017 Slave 3 (0x1264), command 0x0301](#1264_1264_0301)
 - [HKM1 #0 (0x4420) <= Broadcast (0x0000), command 0x0200](#4420_0000_0200)
+- [Kaskade BasisAdr (0x5260) <= Kaskade BasisAdr (0x5260), command 0x0102](#5260_5260_0102)
+- [Kaskade Master (0x5261) <= Kaskade BasisAdr (0x5260), command 0x0301](#5261_5260_0301)
 - [PAW Kaskade BasisAdr (0x5360) <= PAW Kaskade BasisAdr (0x5360), command 0x0102](#5360_5360_0102)
 - [PAW Kaskade Master (0x5361) <= PAW Kaskade BasisAdr (0x5360), command 0x0301](#5361_5360_0301)
 - [HKM2 #0 (0x6510) <= Broadcast (0x0000), command 0x0200](#6510_0000_0200)
@@ -247,7 +275,9 @@ title: VBus Packets
 | 0x1066 | 0xFFFF | Vitosolic 200 \[WMZ 2\] |
 | 0x1100 | 0xFFFF | DeltaSol MX - SorTech - eCoo \[Regler\] |
 | 0x1111 | 0xFFFF | EC1 |
+| 0x1117 | 0xFFFF | Kioto Laderegler |
 | 0x1119 | 0xFFFF | Sol Plus SL |
+| 0x111F | 0xFFFF | ETHERM |
 | 0x1120 | 0xFFFF | DeltaSol AL-E |
 | 0x1121 | 0xFFFF | DeltaSol CS2 |
 | 0x1122 | 0xFFFF | DeltaSol CS4 |
@@ -260,6 +290,12 @@ title: VBus Packets
 | 0x1210 | 0xFFF0 | MFR \[Heizkreis #\] |
 | 0x1240 | 0xFFFF | Wagner Sungo 100 \[Regler\] |
 | 0x1241 | 0xFFFF | Wagner Sungo 100 \[WMZ1\] |
+| 0x1250 | 0xFFFF | Viessmann Vitotrans 353 2017 |
+| 0x1260 | 0xFFFF | Viessmann Vitotrans 353 2017 Broadcast |
+| 0x1261 | 0xFFFF | Viessmann Vitotrans 353 2017 Master |
+| 0x1262 | 0xFFFF | Viessmann Vitotrans 353 2017 Slave 1 |
+| 0x1263 | 0xFFFF | Viessmann Vitotrans 353 2017 Slave 2 |
+| 0x1264 | 0xFFFF | Viessmann Vitotrans 353 2017 Slave 3 |
 | 0x2000 | 0xFF00 | Digital Sensor # |
 | 0x2111 | 0xFFFF | TLR2 |
 | 0x2211 | 0xFFFF | DeltaSol CS Plus |
@@ -325,6 +361,22 @@ title: VBus Packets
 | 0x5221 | 0xFFFF | DT4 \(MS\) |
 | 0x5231 | 0xFFFF | nemux |
 | 0x5251 | 0xFFFF | Frischwasserregler |
+| 0x5260 | 0xFFFF | Kaskade BasisAdr |
+| 0x5261 | 0xFFFF | Kaskade Master |
+| 0x5262 | 0xFFFF | Kaskade Slave  1 |
+| 0x5263 | 0xFFFF | Kaskade Slave  2 |
+| 0x5264 | 0xFFFF | Kaskade Slave  3 |
+| 0x5265 | 0xFFFF | Kaskade Slave  4 |
+| 0x5266 | 0xFFFF | Kaskade Slave  5 |
+| 0x5267 | 0xFFFF | Kaskade Slave  6 |
+| 0x5268 | 0xFFFF | Kaskade Slave  7 |
+| 0x5269 | 0xFFFF | Kaskade Slave  8 |
+| 0x526A | 0xFFFF | Kaskade Slave  9 |
+| 0x526B | 0xFFFF | Kaskade Slave 10 |
+| 0x526C | 0xFFFF | Kaskade Slave 11 |
+| 0x526D | 0xFFFF | Kaskade Slave 12 |
+| 0x526E | 0xFFFF | Kaskade Slave 13 |
+| 0x526F | 0xFFFF | Kaskade Slave 14 |
 | 0x5311 | 0xFFFF | X-Control |
 | 0x5351 | 0xFFFF | Frischwasserregler |
 | 0x5360 | 0xFFFF | PAW Kaskade BasisAdr |
@@ -447,6 +499,8 @@ title: VBus Packets
 | 0x7E12 | 0xFFFF | DeltaSol MX \[Module\] |
 | 0x7E20 | 0xFFF0 | DeltaSol MX \[Heizkreis #\] |
 | 0x7E30 | 0xFFF0 | DeltaSol MX \[WMZ #\] |
+| 0x7E40 | 0xFFF0 | DeltaSol MX \[Modul #\] |
+| 0x7E60 | 0xFFF0 | DeltaSol BX Plus \[Modul #\] |
 | 0x7E71 | 0xFFFF | EMV-Software |
 | 0x7F61 | 0xFFFF | IOC-Modul \[Messwerte\] |
 | 0x7F62 | 0xFFFF | IOC-Modul \[Tagesbilanz\] |
@@ -469,14 +523,14 @@ title: VBus Packets
 | 3 |  | Wärme | 256 |  Wh |
 | 4 |  | Volumenstrom | 1.00 |  m³/h |
 | 5 |  | Volumenstrom | 256.00 |  m³/h |
-| 6 |  | Leistung | 1 |  W |
+| 6 |  | Leistung | 10 |  W |
 | 8 |  | Vorlauftemperatur | 1.0 |  °C |
 | 9 |  | Vorlauftemperatur | 256.0 |  °C |
 | 10 |  | Rücklauftemperatur | 1.0 |  °C |
 | 11 |  | Rücklauftemperatur | 256.0 |  °C |
 | 12 |  | Wärme | 1000000 |  Wh |
 | 13 |  | Wärme | 256000000 |  Wh |
-| 14 |  | Leistung | 256 |  W |
+| 14 |  | Leistung | 2560 |  W |
 | 15 |  | Glykol | 1 |  |
 | 16 |  | Druck | 1.00 |  bar |
 | 17 |  | Druck | 256.00 |  bar |
@@ -513,13 +567,13 @@ title: VBus Packets
 | 0 |  | Fehlerstatus | 1 |  |
 | 1 |  | Modulstatus | 1 |  |
 | 2 |  | Modulstatus | 256 |  |
+| 3 |  | Relaisstatus | 1 |  |
 | 3 | 0x01 | Relais 1 | 1 |  |
 | 3 | 0x02 | Relais 2 | 1 |  |
 | 3 | 0x04 | Relais 3 | 1 |  |
 | 3 | 0x08 | Relais 4 | 1 |  |
 | 3 | 0x10 | Relais 5 | 1 |  |
 | 3 | 0x20 | Relais 6 | 1 |  |
-| 3 |  | Relaisstatus | 1 |  |
 | 4 |  | Fehler-Info | 1 |  |
 | 5 |  | Fehler-Info | 256 |  |
 | 8 |  | Vorlauftemperatur | 1.0 |  °C |
@@ -655,6 +709,10 @@ title: VBus Packets
 | 65 |  | Current Impulse Interval Sensor 3 | 256 |  ms |
 | 66 |  | Current Impulse Interval Sensor 3 | 65536 |  ms |
 | 67 |  | Current Impulse Interval Sensor 3 | 16777216 |  ms |
+| 80 |  | Wärmemenge | 1 |  Wh |
+| 81 |  | Wärmemenge | 256 |  Wh |
+| 82 |  | Wärmemenge | 65536 |  Wh |
+| 83 |  | Wärmemenge | 16777216 |  Wh |
 
 
 
@@ -699,11 +757,24 @@ title: VBus Packets
 | 34 |  | PWM A | 1 | % |
 | 35 |  | PWM B | 1 | % |
 | 36 |  | Fehlermaske | 1 |  |
+| 36 | 0x01 | Fehler: Sensorleitung unterbrochen | 1 |  |
+| 36 | 0x02 | Fehler: Sensorleitung kurzgeschlossen | 1 |  |
+| 36 | 0x20 | Fehler: Volumstromüberwachung | 1 |  |
+| 36 | 0x40 | Fehler: Überdruck | 1 |  |
+| 36 | 0x80 | Fehler: Minderdruck | 1 |  |
 | 37 |  | Fehlermaske | 256 |  |
+| 37 | 0x02 | Fehler: Datenspeicher | 1 |  |
+| 37 | 0x04 | Fehler: Echtzeituhr | 1 |  |
+| 37 | 0x10 | Fehler: Zwillingspumpe | 1 |  |
 | 38 |  | Fehlermaske | 65536 |  |
 | 39 |  | Fehlermaske | 16777216 |  |
 | 40 |  | Warnmaske | 1 |  |
+| 40 | 0x04 | Warnung: ΔT zu hoch | 1 |  |
+| 40 | 0x08 | Warnung: Nachtzirkulation | 1 |  |
+| 40 | 0x10 | Warnung: Vorlauf/Rücklauf vertauscht | 1 |  |
 | 41 |  | Warnmaske | 256 |  |
+| 41 | 0x04 | Warnung: Speichermaximaltemperatur | 1 |  |
+| 41 | 0x08 | Fehler: SD-Karte | 1 |  |
 | 42 |  | Warnmaske | 65536 |  |
 | 43 |  | Warnmaske | 16777216 |  |
 
@@ -819,7 +890,7 @@ title: VBus Packets
 | 20 |  | Drehzahl Relais 2 | 1 | % |
 | 21 |  | Drehzahl Relais 3 | 1 | % |
 | 22 |  | Drehzahl Relais 4 | 1 | % |
-| 23 |  | Drehzahl Relais pot_frei | 1 | % |
+| 23 |  | Drehzahl Relais pot.frei | 1 | % |
 | 24 |  | Drehzahl Ausgang PWM 1 | 1 | % |
 | 25 |  | Drehzahl Ausgang PWM 2 | 1 | % |
 | 28 |  | Fehler | 1 |  |
@@ -1208,12 +1279,12 @@ title: VBus Packets
 | 17 |  | Betriebssekunden Relais FastOff | 256 |  s |
 | 18 |  | Betriebssekunden Relais FastOff | 65536 |  s |
 | 19 |  | Betriebssekunden Relais FastOff | 16777216 |  s |
+| 20 |  | Fehlermaske | 1 |  |
 | 20 | 0x01 | Fehler Außensensor | 1 |  |
 | 20 | 0x02 | Fehler Speichersensor | 1 |  |
 | 20 | 0x04 | Fehler Pumpe | 1 |  |
 | 20 | 0x08 | Fehler Wärmepumpe | 1 |  |
-| 20 | 0x10 | Fehler Flußschalter | 1 |  |
-| 20 |  | Fehlermaske | 1 |  |
+| 20 | 0x10 | Fehler Flussschalter | 1 |  |
 | 21 |  | Fehlermaske | 256 |  |
 | 22 |  | Fehlermaske | 65536 |  |
 | 23 |  | Fehlermaske | 16777216 |  |
@@ -1279,11 +1350,11 @@ title: VBus Packets
 | 15 |  | Betriebsstunden Relais 2 | 256 |  h |
 | 16 |  | UnitType | 1 |  |
 | 17 |  | System | 1 |  |
+| 20 |  | ErrorMask | 1 |  |
 | 20 | 0x01 | Sensor 1 defekt | 1 |  |
 | 20 | 0x02 | Sensor 2 defekt | 1 |  |
 | 20 | 0x04 | Sensor 3 defekt | 1 |  |
 | 20 | 0x08 | Sensor 4 defekt | 1 |  |
-| 20 |  | ErrorMask | 1 |  |
 | 21 |  | ErrorMask | 256 |  |
 | 22 |  | Systemzeit | 1 |  |
 | 23 |  | Systemzeit | 256 |  |
@@ -1424,6 +1495,7 @@ title: VBus Packets
 | 33 |  | Impulszähler 2 | 256 |  l/min |
 | 34 |  | Impulszähler 2 | 65536 |  l/min |
 | 35 |  | Impulszähler 2 | 16777216 |  l/min |
+| 36 |  | Sensor Unterbrechung | 1 |  |
 | 36 | 0x01 | Sensor Unterbrechung S1 | 1 |  |
 | 36 | 0x02 | Sensor Unterbrechung S2 | 1 |  |
 | 36 | 0x04 | Sensor Unterbrechung S3 | 1 |  |
@@ -1432,14 +1504,13 @@ title: VBus Packets
 | 36 | 0x20 | Sensor Unterbrechung S6 | 1 |  |
 | 36 | 0x40 | Sensor Unterbrechung S7 | 1 |  |
 | 36 | 0x80 | Sensor Unterbrechung S8 | 1 |  |
-| 36 |  | Sensor Unterbrechung | 1 |  |
+| 37 |  | Sensor Unterbrechung | 256 |  |
 | 37 | 0x01 | Sensor Unterbrechung S9 | 1 |  |
 | 37 | 0x02 | Sensor Unterbrechung S10 | 1 |  |
 | 37 | 0x04 | Sensor Unterbrechung S11 | 1 |  |
 | 37 | 0x08 | Sensor Unterbrechung S12 | 1 |  |
-| 37 |  | Sensor Unterbrechung | 256 |  |
-| 38 | 0x01 | Sensor Kurzschluss | 1 |  |
 | 38 | 0x01 | Sensor Kurzschluss S1 | 1 |  |
+| 38 | 0x01 | Sensor Kurzschluss | 1 |  |
 | 38 | 0x02 | Sensor Kurzschluss S2 | 1 |  |
 | 38 | 0x04 | Sensor Kurzschluss S3 | 1 |  |
 | 38 | 0x08 | Sensor Kurzschluss S4 | 1 |  |
@@ -1451,6 +1522,7 @@ title: VBus Packets
 | 39 | 0x02 | Sensor Kurzschluss S10 | 1 |  |
 | 39 | 0x04 | Sensor Kurzschluss S11 | 1 |  |
 | 39 | 0x08 | Sensor Kurzschluss S12 | 1 |  |
+| 40 |  | Sensor benutzt | 1 |  |
 | 40 | 0x01 | Sensor 1 benutzt | 1 |  |
 | 40 | 0x02 | Sensor 2 benutzt | 1 |  |
 | 40 | 0x04 | Sensor 3 benutzt | 1 |  |
@@ -1459,7 +1531,6 @@ title: VBus Packets
 | 40 | 0x20 | Sensor 6 benutzt | 1 |  |
 | 40 | 0x40 | Sensor 7 benutzt | 1 |  |
 | 40 | 0x80 | Sensor 8 benutzt | 1 |  |
-| 40 |  | Sensor benutzt | 1 |  |
 | 41 | 0x01 | Sensor 9 benutzt | 1 |  |
 | 41 | 0x02 | Sensor 10 benutzt | 1 |  |
 | 41 | 0x04 | Sensor 11 benutzt | 1 |  |
@@ -1471,16 +1542,17 @@ title: VBus Packets
 | 48 |  | Drehzahl Relais 5 | 1 | % |
 | 49 |  | Drehzahl Relais 6 | 1 | % |
 | 50 |  | Drehzahl Relais 7 | 1 | % |
+| 56 |  | Lasterkennung Relais | 1 |  |
 | 56 | 0x01 | Lasterkennung R1 | 1 |  |
 | 56 | 0x02 | Lasterkennung R2 | 1 |  |
 | 56 | 0x04 | Lasterkennung R3 | 1 |  |
 | 56 | 0x08 | Lasterkennung R4 | 1 |  |
-| 56 |  | Lasterkennung Relais | 1 |  |
+| 57 |  | Fehler Lasterkennung Relais | 1 |  |
 | 57 | 0x01 | Fehler Lasterkennung R1 | 1 |  |
 | 57 | 0x02 | Fehler Lasterkennung R2 | 1 |  |
 | 57 | 0x04 | Fehler Lasterkennung R3 | 1 |  |
 | 57 | 0x08 | Fehler Lasterkennung R4 | 1 |  |
-| 57 |  | Fehler Lasterkennung Relais | 1 |  |
+| 58 |  | Relaisbenutzungsmaske | 1 |  |
 | 58 | 0x01 | Relais 1 benutzt | 1 |  |
 | 58 | 0x02 | Relais 2 benutzt | 1 |  |
 | 58 | 0x04 | Relais 3 benutzt | 1 |  |
@@ -1488,7 +1560,6 @@ title: VBus Packets
 | 58 | 0x10 | Relais 5 benutzt | 1 |  |
 | 58 | 0x20 | Relais 6 benutzt | 1 |  |
 | 58 | 0x40 | Relais 7 benutzt | 1 |  |
-| 58 |  | Relaisbenutzungsmaske | 1 |  |
 | 59 |  | Relaisbenutzungsmaske | 256 |  |
 | 60 |  | Fehlermaske | 1 |  |
 | 61 |  | Fehlermaske | 256 |  |
@@ -1621,6 +1692,51 @@ title: VBus Packets
 
 
 
+### <a name="0010_1117_0100"></a>DFA (0x0010) <= Kioto Laderegler (0x1117), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
+| 8 |  | Drehzahl Relais 1 | 1 | % |
+| 10 |  | Betriebsstunden Relais 1 | 1 |  h |
+| 11 |  | Betriebsstunden Relais 1 | 256 |  h |
+| 12 |  | Drehzahl Relais 2 | 1 | % |
+| 14 |  | Betriebsstunden Relais 2 | 1 |  h |
+| 15 |  | Betriebsstunden Relais 2 | 256 |  h |
+| 16 |  | UnitType | 1 |  |
+| 17 |  | System | 1 |  |
+| 20 |  | ErrorMask | 1 |  |
+| 20 | 0x01 | Sensor 1 defekt | 1 |  |
+| 20 | 0x02 | Sensor 2 defekt | 1 |  |
+| 20 | 0x04 | Sensor 3 defekt | 1 |  |
+| 20 | 0x08 | Sensor 4 defekt | 1 |  |
+| 21 |  | ErrorMask | 256 |  |
+| 22 |  | Systemzeit | 1 |  |
+| 23 |  | Systemzeit | 256 |  |
+| 24 |  | Statusmask | 1 |  |
+| 25 |  | Statusmask | 256 |  |
+| 26 |  | Statusmask | 65536 |  |
+| 27 |  | Statusmask | 16777216 |  |
+| 28 |  | Wärmemenge | 1 |  Wh |
+| 29 |  | Wärmemenge | 256 |  Wh |
+| 30 |  | Wärmemenge | 65536 |  Wh |
+| 31 |  | Wärmemenge | 16777216 |  Wh |
+| 32 |  | SW Version | 1.00 |  |
+| 33 |  | SW Version | 256.00 |  |
+| 36 |  | Temperatur VFD1 | 1.0 |  °C |
+| 37 |  | Temperatur VFD1 | 256.0 |  °C |
+| 38 |  | Volumenstrom VFD1 | 1 |  l/h |
+| 39 |  | Volumenstrom VFD1 | 256 |  l/h |
+
+
+
 ### <a name="0010_1119_0100"></a>DFA (0x0010) <= Sol Plus SL (0x1119), command 0x0100
 
 | Offset | Mask | Name | Factor | Unit |
@@ -1638,6 +1754,73 @@ title: VBus Packets
 | 15 |  | Steuerungszeit \(tc\) | 256 | % |
 | 16 |  | Softwareversion | 1.00 |  |
 | 17 |  | Softwareversion | 256.00 |  |
+
+
+
+### <a name="0010_111F_0100"></a>DFA (0x0010) <= ETHERM (0x111F), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 | 0x01 | Funktionsstatus Aus | 1 |  |
+| 0 | 0x02 | Funktionsstatus Fehler | 1 |  |
+| 0 | 0x04 | Funktionsstatus Bereit | 1 |  |
+| 0 | 0x08 | Funktionsstatus Heizung | 1 |  |
+| 0 | 0x10 | Funktionsstatus Max. Temp. RL | 1 |  |
+| 0 | 0x20 | Funktionsstatus Max. Temp. VL | 1 |  |
+| 0 | 0x40 | Funktionsstatus Spülen | 1 |  |
+| 0 | 0x80 | Funktionsstatus Nachheizung | 1 |  |
+| 1 |  | Countdown Sperrung | 1 |  |
+| 2 |  | Countdown Sperrung | 256 |  |
+| 3 |  | Drehzahl Ladepumpe | 1 | % |
+| 4 |  | Leistung Überschuss | 1.000 |  W |
+| 5 |  | Leistung Überschuss | 256.000 |  W |
+| 6 |  | Leistung Überschuss | 65536.000 |  W |
+| 7 |  | Leistung Überschuss | 16777216.000 |  W |
+| 8 |  | Leistung Heizung | 1.000 |  W |
+| 9 |  | Leistung Heizung | 256.000 |  W |
+| 10 |  | Leistung Heizung | 65536.000 |  W |
+| 11 |  | Leistung Heizung | 16777216.000 |  W |
+| 12 |  | Temperatur Vorlauf \(Sensor 1\) | 1.0 |  °C |
+| 13 |  | Temperatur Vorlauf \(Sensor 1\) | 256.0 |  °C |
+| 14 |  | Temperatur Rücklauf \(Sensor 2\) | 1.0 |  °C |
+| 15 |  | Temperatur Rücklauf \(Sensor 2\) | 256.0 |  °C |
+| 16 |  | Temperatur Speicher oben \(Sensor 3\) | 1.0 |  °C |
+| 17 |  | Temperatur Speicher oben \(Sensor 3\) | 256.0 |  °C |
+| 18 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 19 |  | Temperatur Sensor 4 | 256.0 |  °C |
+| 20 |  | Überschuss Wh | 1 |  Wh |
+| 21 |  | Überschuss Wh | 256 |  Wh |
+| 22 |  | Überschuss Wh | 65536 |  Wh |
+| 23 |  | Überschuss Wh | 16777216 |  Wh |
+| 28 |  | Heizung Wh | 1 |  Wh |
+| 29 |  | Heizung Wh | 256 |  Wh |
+| 30 |  | Heizung Wh | 65536 |  Wh |
+| 31 |  | Heizung Wh | 16777216 |  Wh |
+| 36 |  | Betriebsstunden Heizung | 1 |  h |
+| 37 |  | Betriebsstunden Heizung | 256 |  h |
+| 38 |  | Betriebsstunden Heizung | 65536 |  h |
+| 39 |  | Betriebsstunden Heizung | 16777216 |  h |
+| 40 |  | Parameter Zieltemperatur | 1.0 |  °C |
+| 41 |  | Parameter Zieltemperatur | 256.0 |  °C |
+| 42 |  | Drehzahl Relais 2 | 1 | % |
+| 44 |  | Parameter Reserve | 1 |  W |
+| 45 |  | Parameter Reserve | 256 |  W |
+| 48 | 0x01 | !Sensorfehler Leitungsbruch | 1 |  |
+| 48 | 0x02 | !Sensorfehler Kurzschluss | 1 |  |
+| 49 | 0x20 | !Sensormodul Bus-Kommunikation gestört | 1 |  |
+| 49 | 0x40 | !Powermodul Bus-Kommunikation gestört | 1 |  |
+| 52 |  | Systemdatum | 1 |  |
+| 53 |  | Systemdatum | 256 |  |
+| 54 |  | Systemdatum | 65536 |  |
+| 55 |  | Systemdatum | 16777216 |  |
+| 56 |  | Betriebsstunden Relais 2 | 1 |  h |
+| 57 |  | Betriebsstunden Relais 2 | 256 |  h |
+| 58 |  | Betriebsstunden Relais 2 | 65536 |  h |
+| 59 |  | Betriebsstunden Relais 2 | 16777216 |  h |
+| 60 |  | Betriebsstunden Nachheizung | 1 |  h |
+| 61 |  | Betriebsstunden Nachheizung | 256 |  h |
+| 62 |  | Betriebsstunden Nachheizung | 65536 |  h |
+| 63 |  | Betriebsstunden Nachheizung | 16777216 |  h |
 
 
 
@@ -1688,11 +1871,11 @@ title: VBus Packets
 | 14 |  | Betriebsstunden Relais | 1 |  h |
 | 15 |  | Betriebsstunden Relais | 256 |  h |
 | 16 |  | UnitType | 1 |  |
+| 18 |  | ErrorMask | 1 |  |
 | 18 | 0x01 | Sensor 1 defekt | 1 |  |
 | 18 | 0x02 | Sensor 2 defekt | 1 |  |
 | 18 | 0x04 | Sensor 3 defekt | 1 |  |
 | 18 | 0x08 | Sensor 4 defekt | 1 |  |
-| 18 |  | ErrorMask | 1 |  |
 | 19 |  | ErrorMask | 256 |  |
 | 20 |  | Statusmask | 1 |  |
 | 21 |  | Statusmask | 256 |  |
@@ -1727,11 +1910,11 @@ title: VBus Packets
 | 15 |  | Betriebsstunden Relais 2 | 256 |  h |
 | 16 |  | UnitType | 1 |  |
 | 17 |  | System | 1 |  |
+| 20 |  | ErrorMask | 1 |  |
 | 20 | 0x01 | Sensor 1 defekt | 1 |  |
 | 20 | 0x02 | Sensor 2 defekt | 1 |  |
 | 20 | 0x04 | Sensor 3 defekt | 1 |  |
 | 20 | 0x08 | Sensor 4 defekt | 1 |  |
-| 20 |  | ErrorMask | 1 |  |
 | 21 |  | ErrorMask | 256 |  |
 | 22 |  | Systemzeit | 1 |  |
 | 23 |  | Systemzeit | 256 |  |
@@ -1790,17 +1973,17 @@ title: VBus Packets
 | 20 |  | Zirkulationspumpe | 1 | % |
 | 21 |  | WW-Solltemperatur | 1.0 |  °C |
 | 22 |  | WW-Solltemperatur | 256.0 |  °C |
-| 24 |  | Zirkulation Einschaltz_ | 1 |  s |
-| 25 |  | Zirkulation Einschaltz_ | 256 |  s |
+| 24 |  | Zirkulation Einschaltz. | 1 |  s |
+| 25 |  | Zirkulation Einschaltz. | 256 |  s |
 | 26 |  | Zirkulation Sperrzeit | 1 |  s |
 | 27 |  | Zirkulation Sperrzeit | 256 |  s |
-| 28 |  | Therm_ Desinfektion | 1 |  s |
-| 29 |  | Therm_ Desinfektion | 256 |  s |
+| 28 |  | Therm. Desinfektion | 1 |  s |
+| 29 |  | Therm. Desinfektion | 256 |  s |
 | 30 |  | DipSwitch | 1 |  |
-| 32 |  | Betriebszeit Primärp_ | 1 |  s |
-| 33 |  | Betriebszeit Primärp_ | 256 |  s |
-| 34 |  | Betriebszeit Primärp_ | 65536 |  s |
-| 35 |  | Betriebszeit Primärp_ | 16777216 |  s |
+| 32 |  | Betriebszeit Primärp. | 1 |  s |
+| 33 |  | Betriebszeit Primärp. | 256 |  s |
+| 34 |  | Betriebszeit Primärp. | 65536 |  s |
+| 35 |  | Betriebszeit Primärp. | 16777216 |  s |
 | 36 |  | Betriebszeit Zirkulation | 1 |  s |
 | 37 |  | Betriebszeit Zirkulation | 256 |  s |
 | 38 |  | Betriebszeit Zirkulation | 65536 |  s |
@@ -2153,6 +2336,108 @@ title: VBus Packets
 
 
 
+### <a name="0010_1250_0100"></a>DFA (0x0010) <= Viessmann Vitotrans 353 2017 (0x1250), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Systemdatum | 1 |  |
+| 1 |  | Systemdatum | 256 |  |
+| 2 |  | Systemdatum | 65536 |  |
+| 3 |  | Systemdatum | 16777216 |  |
+| 4 |  | T-VL | 1.0 |  °C |
+| 5 |  | T-VL | 256.0 |  °C |
+| 6 |  | T-WW | 1.0 |  °C |
+| 7 |  | T-WW | 256.0 |  °C |
+| 8 |  | T-KW | 1.0 |  °C |
+| 9 |  | T-KW | 256.0 |  °C |
+| 10 |  | S4 | 1.0 |  °C |
+| 11 |  | S4 | 256.0 |  °C |
+| 12 |  | S5 | 1.0 |  °C |
+| 13 |  | S5 | 256.0 |  °C |
+| 16 |  | V-US | 1 |  l/h |
+| 17 |  | V-US | 256 |  l/h |
+| 18 |  | V-US | 65536 |  l/h |
+| 19 |  | V-US | 16777216 |  l/h |
+| 20 |  | V-Impuls | 1 |  l/h |
+| 21 |  | V-Impuls | 256 |  l/h |
+| 22 |  | V-Impuls | 65536 |  l/h |
+| 23 |  | V-Impuls | 16777216 |  l/h |
+| 24 |  | PWM P | 1 | % |
+| 25 |  | PWM 28 | 1 | % |
+| 26 |  | Relais 157 | 1 |  |
+| 27 |  | Relais 28 | 1 |  |
+| 28 |  | PWM P | 1 |  s |
+| 29 |  | PWM P | 256 |  s |
+| 30 |  | PWM P | 65536 |  s |
+| 31 |  | PWM P | 16777216 |  s |
+| 32 |  | PWM 28 | 1 |  s |
+| 33 |  | PWM 28 | 256 |  s |
+| 34 |  | PWM 28 | 65536 |  s |
+| 35 |  | PWM 28 | 16777216 |  s |
+| 36 |  | R2 | 1 |  |
+| 44 |  | Energie Heute | 1 |  Wh |
+| 45 |  | Energie Heute | 256 |  Wh |
+| 46 |  | Energie Heute | 65536 |  Wh |
+| 47 |  | Energie Heute | 16777216 |  Wh |
+| 48 |  | Energie Gesamt | 1 |  Wh |
+| 49 |  | Energie Gesamt | 256 |  Wh |
+| 50 |  | Energie Gesamt | 65536 |  Wh |
+| 51 |  | Energie Gesamt | 16777216 |  Wh |
+| 64 |  | Version | 1.00 |  |
+| 65 |  | Version | 256.00 |  |
+| 66 |  | Reglervariante | 1 |  |
+| 80 |  | Fehler | 1 |  |
+| 81 |  | Fehler | 256 |  |
+| 82 |  | Fehler | 65536 |  |
+| 83 |  | Fehler | 16777216 |  |
+| 84 |  | Zapfmenge Gesamt | 1 |  l |
+| 85 |  | Zapfmenge Gesamt | 256 |  l |
+| 86 |  | Zapfmenge Gesamt | 65536 |  l |
+| 87 |  | Zapfmenge Gesamt | 16777216 |  l |
+| 88 |  | Gesamtbetrieb | 1 |  s |
+| 89 |  | Gesamtbetrieb | 256 |  s |
+| 90 |  | Gesamtbetrieb | 65536 |  s |
+| 91 |  | Gesamtbetrieb | 16777216 |  s |
+
+
+
+### <a name="0010_1260_0100"></a>DFA (0x0010) <= Viessmann Vitotrans 353 2017 Broadcast (0x1260), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | KS3 | 1.0 |  °C |
+| 1 |  | KS3 | 256.0 |  °C |
+| 2 |  | S4 | 1.0 |  °C |
+| 3 |  | S4 | 256.0 |  °C |
+| 4 |  | PWM 28 | 1 | % |
+| 5 |  | Relais 157 | 1 |  |
+| 6 |  | Relais 28 | 1 |  |
+| 8 |  | PWM 28 | 1 |  s |
+| 9 |  | PWM 28 | 256 |  s |
+| 10 |  | PWM 28 | 65536 |  s |
+| 11 |  | PWM 28 | 16777216 |  s |
+| 12 |  | R2 | 1 |  |
+| 16 |  | Energie Gesamt | 1 |  Wh |
+| 17 |  | Energie Gesamt | 256 |  Wh |
+| 18 |  | Energie Gesamt | 65536 |  Wh |
+| 19 |  | Energie Gesamt | 16777216 |  Wh |
+| 20 |  | Zapfmenge Gesamt | 1 |  l |
+| 21 |  | Zapfmenge Gesamt | 256 |  l |
+| 22 |  | Zapfmenge Gesamt | 65536 |  l |
+| 23 |  | Zapfmenge Gesamt | 16777216 |  l |
+| 24 |  | Betriebszeit Gesamt | 1 |  s |
+| 25 |  | Betriebszeit Gesamt | 256 |  s |
+| 26 |  | Betriebszeit Gesamt | 65536 |  s |
+| 27 |  | Betriebszeit Gesamt | 16777216 |  s |
+| 28 |  | Systemdatum | 1 |  |
+| 29 |  | Systemdatum | 256 |  |
+| 30 |  | Systemdatum | 65536 |  |
+| 31 |  | Systemdatum | 16777216 |  |
+| 32 |  | S5 | 1.0 |  °C |
+| 33 |  | S5 | 256.0 |  °C |
+
+
+
 ### <a name="0010_2211_0100"></a>DFA (0x0010) <= DeltaSol CS Plus (0x2211), command 0x0100
 
 | Offset | Mask | Name | Factor | Unit |
@@ -2173,11 +2458,11 @@ title: VBus Packets
 | 15 |  | Betriebsstunden Relais 2 | 256 |  h |
 | 16 |  | UnitType | 1 |  |
 | 17 |  | System | 1 |  |
+| 20 |  | ErrorMask | 1 |  |
 | 20 | 0x01 | Sensor 1 defekt | 1 |  |
 | 20 | 0x02 | Sensor 2 defekt | 1 |  |
 | 20 | 0x04 | Sensor 3 defekt | 1 |  |
 | 20 | 0x08 | Sensor 4 defekt | 1 |  |
-| 20 |  | ErrorMask | 1 |  |
 | 21 |  | ErrorMask | 256 |  |
 | 22 |  | Systemzeit | 1 |  |
 | 23 |  | Systemzeit | 256 |  |
@@ -2214,6 +2499,7 @@ title: VBus Packets
 | 15 |  | Betriebsstunden Relais 2 | 256 |  h |
 | 16 |  | UnitType | 1 |  |
 | 17 |  | System | 1 |  |
+| 20 |  | ErrorMask | 1 |  |
 | 20 | 0x01 | Sensor 1 defekt | 1 |  |
 | 20 | 0x02 | Sensor 2 defekt | 1 |  |
 | 20 | 0x04 | Sensor 3 defekt | 1 |  |
@@ -2221,7 +2507,6 @@ title: VBus Packets
 | 20 | 0x10 | GFD defekt | 1 |  |
 | 20 | 0x20 | PFB1 defekt | 1 |  |
 | 20 | 0x40 | PFB2 defekt | 1 |  |
-| 20 |  | ErrorMask | 1 |  |
 | 21 |  | ErrorMask | 256 |  |
 | 22 |  | Systemzeit | 1 |  |
 | 23 |  | Systemzeit | 256 |  |
@@ -2245,18 +2530,18 @@ title: VBus Packets
 | 45 |  | PFB1 Duty | 256.000 | % |
 | 46 |  | PFB1 Duty | 65536.000 | % |
 | 47 |  | PFB1 Duty | 16777216.000 | % |
-| 48 |  | PFB1 Freq_ | 1.000 |  Hz |
-| 49 |  | PFB1 Freq_ | 256.000 |  Hz |
-| 50 |  | PFB1 Freq_ | 65536.000 |  Hz |
-| 51 |  | PFB1 Freq_ | 16777216.000 |  Hz |
+| 48 |  | PFB1 Freq. | 1.000 |  Hz |
+| 49 |  | PFB1 Freq. | 256.000 |  Hz |
+| 50 |  | PFB1 Freq. | 65536.000 |  Hz |
+| 51 |  | PFB1 Freq. | 16777216.000 |  Hz |
 | 52 |  | PFB2 Duty | 1.000 | % |
 | 53 |  | PFB2 Duty | 256.000 | % |
 | 54 |  | PFB2 Duty | 65536.000 | % |
 | 55 |  | PFB2 Duty | 16777216.000 | % |
-| 56 |  | PFB2 Freq_ | 1.000 |  Hz |
-| 57 |  | PFB2 Freq_ | 256.000 |  Hz |
-| 58 |  | PFB2 Freq_ | 65536.000 |  Hz |
-| 59 |  | PFB2 Freq_ | 16777216.000 |  Hz |
+| 56 |  | PFB2 Freq. | 1.000 |  Hz |
+| 57 |  | PFB2 Freq. | 256.000 |  Hz |
+| 58 |  | PFB2 Freq. | 65536.000 |  Hz |
+| 59 |  | PFB2 Freq. | 16777216.000 |  Hz |
 
 
 
@@ -2309,7 +2594,7 @@ title: VBus Packets
 | 43 |  | Impulseingang 2 | 16777216 |  |
 | 43 |  | Pumpe Ofen | 1 | % |
 | 44 |  | Umschaltventil Kessel | 1 | % |
-| 45 |  | BW Ladepumpe | 1 | % |
+| 45 |  | BW-Ladepumpe | 1 | % |
 | 46 |  | Zirkulationspumpe | 1 | % |
 | 47 |  | Relais 6 | 1 | % |
 | 48 |  | Relais 7 | 1 | % |
@@ -2317,7 +2602,7 @@ title: VBus Packets
 | 50 |  | Brennersperre 2 | 1 | % |
 | 51 |  | Mischer Auf | 1 | % |
 | 52 |  | Mischer Zu | 1 | % |
-| 53 |  | HK - Pumpe | 1 | % |
+| 53 |  | HK-Pumpe | 1 | % |
 | 54 |  | Gas/ÖL/Pelletofen | 1 | % |
 | 56 |  | Fehlermaske | 1 |  |
 | 57 |  | Fehlermaske | 256 |  |
@@ -2403,8 +2688,8 @@ title: VBus Packets
 | 35 |  | Systemdatum | 16777216 |  |
 | 36 |  | Systemzeit | 1 |  |
 | 37 |  | Systemzeit | 256 |  |
-| 38 |  | Version | 100 |  |
-| 39 |  | Version | 1 |  |
+| 38 |  | Version | 100.00 |  |
+| 39 |  | Version | 1.00 |  |
 | 40 |  | Drehzahl Relais 1 | 1.0 | % |
 | 41 |  | Drehzahl Relais 1 | 256.0 | % |
 
@@ -2701,6 +2986,7 @@ title: VBus Packets
 | 69 | 0x01 | Speichermaximaltemperatur | 1 |  |
 | 70 | 0x01 | Neustarts | 1 |  |
 | 72 |  | Fehlermaske | 1 |  |
+| 72 | 0x01 | Fehler: Sensorfehler | 1 |  |
 | 73 |  | Fehlermaske | 256 |  |
 | 74 |  | Fehlermaske | 65536 |  |
 | 75 |  | Fehlermaske | 16777216 |  |
@@ -2822,7 +3108,7 @@ title: VBus Packets
 | 89 | 0x01 | Einheit Temperatur | 1 |  |
 | 90 | 0x01 | Einheit Durchfluss | 1 |  |
 | 91 | 0x01 | Einheit Druck | 1 |  |
-| 92 | 0x01 | Eingeit Leistung | 1 |  |
+| 92 | 0x01 | Einheit Leistung | 1 |  |
 | 93 | 0x01 | Einheit Energie | 1 |  |
 | 94 | 0x01 | Speichermaximaltemperatur | 1 |  |
 | 95 | 0x01 | Neustarts | 1 |  |
@@ -3023,9 +3309,9 @@ title: VBus Packets
 | 7 |  | Fehlermaske | 1 |  |
 | 8 |  | Betriebsstunden Relais 1 | 1 |  h |
 | 9 |  | Betriebsstunden Relais 1 | 256 |  h |
+| 10 |  | Relaismaske | 1 |  |
 | 10 | 0x01 | Relaisstatus Relais 1 | 1 |  |
 | 10 | 0x02 | Relaisstatus Relais 2 | 1 |  |
-| 10 |  | Relaismaske | 1 |  |
 
 
 
@@ -3109,20 +3395,20 @@ title: VBus Packets
 | 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
 | 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
 | 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
-| 6 |  | Wärmemenge \(<= v1_01\) | 1 |  kWh |
-| 6 |  | Temperatur Sensor 4 \(>= v1_02\) | 1.0 |  °C |
-| 7 |  | Temperatur Sensor 4 \(>= v1_02\) | 256.0 |  °C |
-| 7 |  | Wärmemenge \(<= v1_01\) | 256 |  kWh |
-| 8 |  | Drehzahl Relais 1 \(>= v1_02\) | 1 | % |
-| 8 |  | Drehzahl Relais 1 \(<= v1_01\) | 1.0 | % |
-| 9 |  | Drehzahl Relais 1 \(<= v1_01\) | 256.0 | % |
-| 9 |  | Drehzahl Relais 2 \(>= v1_02\) | 1 | % |
-| 10 |  | Fehlermaske \(>= v1_02\) | 1 |  |
-| 10 |  | Drehzahl Relais 2 \(<= v1_01\) | 1.0 | % |
-| 11 |  | Relaismaske \(>= v1_02\) | 1 |  |
-| 11 |  | Drehzahl Relais 2 \(<= v1_01\) | 256.0 | % |
-| 12 |  | Wärmemenge \(>= v1_02\) | 1 |  kWh |
-| 13 |  | Wärmemenge \(>= v1_02\) | 256 |  kWh |
+| 6 |  | Wärmemenge \(<= v1.01\) | 1 |  kWh |
+| 6 |  | Temperatur Sensor 4 \(>= v1.02\) | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 \(>= v1.02\) | 256.0 |  °C |
+| 7 |  | Wärmemenge \(<= v1.01\) | 256 |  kWh |
+| 8 |  | Drehzahl Relais 1 \(>= v1.02\) | 1 | % |
+| 8 |  | Drehzahl Relais 1 \(<= v1.01\) | 1.0 | % |
+| 9 |  | Drehzahl Relais 1 \(<= v1.01\) | 256.0 | % |
+| 9 |  | Drehzahl Relais 2 \(>= v1.02\) | 1 | % |
+| 10 |  | Fehlermaske \(>= v1.02\) | 1 |  |
+| 10 |  | Drehzahl Relais 2 \(<= v1.01\) | 1.0 | % |
+| 11 |  | Relaismaske \(>= v1.02\) | 1 |  |
+| 11 |  | Drehzahl Relais 2 \(<= v1.01\) | 256.0 | % |
+| 12 |  | Wärmemenge \(>= v1.02\) | 1 |  kWh |
+| 13 |  | Wärmemenge \(>= v1.02\) | 256 |  kWh |
 
 
 
@@ -3294,8 +3580,8 @@ title: VBus Packets
 | 12 |  | Systemzeit | 1 |  |
 | 13 |  | Systemzeit | 256 |  |
 | 14 |  | Schema | 1 |  |
-| 15 | 0x01 | Option Kollektor Max_ | 1 |  |
-| 15 | 0x02 | Option Kollektor Min_ | 1 |  |
+| 15 | 0x01 | Option Kollektor Max. | 1 |  |
+| 15 | 0x02 | Option Kollektor Min. | 1 |  |
 | 15 | 0x04 | Option Kollektor Frost | 1 |  |
 | 15 | 0x08 | Option Röhrenkollektor | 1 |  |
 | 15 | 0x10 | Option Rückkühlung | 1 |  |
@@ -3334,8 +3620,8 @@ title: VBus Packets
 | 12 |  | Systemzeit | 1 |  |
 | 13 |  | Systemzeit | 256 |  |
 | 14 |  | Schema | 1 |  |
-| 15 | 0x01 | Option Kollektor Max_ | 1 |  |
-| 15 | 0x02 | Option Kollektor Min_ | 1 |  |
+| 15 | 0x01 | Option Kollektor Max. | 1 |  |
+| 15 | 0x02 | Option Kollektor Min. | 1 |  |
 | 15 | 0x04 | Option Kollektor Frost | 1 |  |
 | 15 | 0x08 | Option Röhrenkollektor | 1 |  |
 | 15 | 0x10 | Option Rückkühlung | 1 |  |
@@ -3374,8 +3660,8 @@ title: VBus Packets
 | 12 |  | Systemzeit | 1 |  |
 | 13 |  | Systemzeit | 256 |  |
 | 14 |  | Schema | 1 |  |
-| 15 | 0x01 | Option Kollektor Max_ | 1 |  |
-| 15 | 0x02 | Option Kollektor Min_ | 1 |  |
+| 15 | 0x01 | Option Kollektor Max. | 1 |  |
+| 15 | 0x02 | Option Kollektor Min. | 1 |  |
 | 15 | 0x04 | Option Kollektor Frost | 1 |  |
 | 15 | 0x08 | Option Röhrenkollektor | 1 |  |
 | 15 | 0x10 | Option Rückkühlung | 1 |  |
@@ -3417,7 +3703,7 @@ title: VBus Packets
 | 15 |  | SensorDefekt | 1 |  |
 | 16 |  | Temperatur WW-Soll | 1 |  °C |
 | 17 |  | Temperatur Quelle | 1 |  °C |
-| 19 |  | verbl_ Zapfung | 1 |  min |
+| 19 |  | verbl. Zapfung | 1 |  min |
 | 20 |  | Schaltspiele | 1 |  |
 | 21 |  | Schaltspiele | 256 |  |
 | 22 |  | Schaltspiele | 65536 |  |
@@ -3428,14 +3714,14 @@ title: VBus Packets
 | 27 |  | Wärmemenge | 256000 |  Wh |
 | 28 |  | Wärmemenge | 1000000 |  Wh |
 | 29 |  | Wärmemenge | 256000000 |  Wh |
-| 30 |  | Version | 100 |  |
-| 31 |  | Version | 1 |  |
-| 32 |  | max_ Temperatur Kaltwasser | 1.0 |  °C |
-| 33 |  | max_ Temperatur Kaltwasser | 256.0 |  °C |
-| 34 |  | min_ Temperatur Kaltwasser | 1.0 |  °C |
-| 35 |  | min_ Temperatur Kaltwasser | 256.0 |  °C |
-| 36 |  | max_ Volumenstrom | 1 |  l/h |
-| 37 |  | max_ Volumenstrom | 256 |  l/h |
+| 30 |  | Version | 100.00 |  |
+| 31 |  | Version | 1.00 |  |
+| 32 |  | max. Temperatur Kaltwasser | 1.0 |  °C |
+| 33 |  | max. Temperatur Kaltwasser | 256.0 |  °C |
+| 34 |  | min. Temperatur Kaltwasser | 1.0 |  °C |
+| 35 |  | min. Temperatur Kaltwasser | 256.0 |  °C |
+| 36 |  | max. Volumenstrom | 1 |  l/h |
+| 37 |  | max. Volumenstrom | 256 |  l/h |
 | 38 |  | Zapfmenge | 1.0 |  m³ |
 | 39 |  | Zapfmenge | 256.0 |  m³ |
 
@@ -3489,14 +3775,14 @@ title: VBus Packets
 | 29 |  | Wärmemenge | 256000000 |  Wh |
 | 30 |  | Softwareversion major | 1 |  |
 | 31 |  | Softwareversion minor | 1 |  |
-| 32 |  | Temperatur max_ Kaltwasser | 1.0 |  °C |
-| 33 |  | Temperatur max_ Kaltwasser | 256.0 |  °C |
-| 34 |  | Temperatur min_ Kaltwasser | 1.0 |  °C |
-| 35 |  | Temperatur min_ Kaltwasser | 256.0 |  °C |
-| 36 |  | Volumenstrom max_ | 1 |  l/h |
-| 37 |  | Volumenstrom max_ | 256 |  l/h |
-| 38 |  | Zapfmenge max_ | 1 |  m³ |
-| 39 |  | Zapfmenge max_ | 256 |  m³ |
+| 32 |  | Temperatur max. Kaltwasser | 1.0 |  °C |
+| 33 |  | Temperatur max. Kaltwasser | 256.0 |  °C |
+| 34 |  | Temperatur min. Kaltwasser | 1.0 |  °C |
+| 35 |  | Temperatur min. Kaltwasser | 256.0 |  °C |
+| 36 |  | Volumenstrom max. | 1 |  l/h |
+| 37 |  | Volumenstrom max. | 256 |  l/h |
+| 38 |  | Zapfmenge max. | 1 |  m³ |
+| 39 |  | Zapfmenge max. | 256 |  m³ |
 | 40 |  | Temperatur Warmwasser \(Regel\) | 1.0 |  °C |
 | 41 |  | Temperatur Warmwasser \(Regel\) | 256.0 |  °C |
 | 42 |  | Temperatur Quelle \(Regel\) | 1.0 |  °C |
@@ -3522,8 +3808,8 @@ title: VBus Packets
 | 3 |  | Temperatur hinter Wärmepumpe \(S2\) | 256.0 |  °C |
 | 4 |  | Temperatur hinter Erdspeicher \(S3\) | 1.0 |  °C |
 | 5 |  | Temperatur hinter Erdspeicher \(S3\) | 256.0 |  °C |
-| 6 |  | Ann_ Temperatur Erdspeicher | 1.0 |  °C |
-| 7 |  | Ann_ Temperatur Erdspeicher | 256.0 |  °C |
+| 6 |  | Ann. Temperatur Erdspeicher | 1.0 |  °C |
+| 7 |  | Ann. Temperatur Erdspeicher | 256.0 |  °C |
 | 8 |  | Temperatur hinter Pumpe 1 \(S4\) | 1.0 |  °C |
 | 9 |  | Temperatur hinter Pumpe 1 \(S4\) | 256.0 |  °C |
 | 10 |  | Systemzeit | 1 |  |
@@ -3579,13 +3865,13 @@ title: VBus Packets
 | 20 | 0x02 | Sensor 2 defekt | 1 |  |
 | 20 | 0x04 | Sensor 3 defekt | 1 |  |
 | 20 | 0x08 | Sensor 4 defekt | 1 |  |
-| 22 | 0x01 | Kollektor Nottemperatur | 1 |  |
-| 22 | 0x02 | Kollektor Minimaltemperatur | 1 |  |
+| 22 | 0x01 | Kollektor-Nottemperatur | 1 |  |
+| 22 | 0x02 | Kollektor-Minimaltemperatur | 1 |  |
 | 22 | 0x04 | Wärmetauscher Nottemperatur | 1 |  |
 | 22 | 0x08 | Speichernottemperatur | 1 |  |
 | 22 | 0x10 | Speicher leer | 1 |  |
 | 22 | 0x20 | Speichermaximaltemperatur | 1 |  |
-| 22 | 0x40 | Kollektor Frostschutz | 1 |  |
+| 22 | 0x40 | Kollektor-Frostschutz | 1 |  |
 | 22 | 0x80 | Wärmetauscher Frostschutz | 1 |  |
 | 23 | 0x01 | Röhrenkollektor | 1 |  |
 | 23 | 0x02 | Beladung | 1 |  |
@@ -3725,7 +4011,7 @@ title: VBus Packets
 | 10 | 0x04 | Sensor 3 defekt | 1 |  |
 | 10 | 0x08 | Sensor 4 defekt | 1 |  |
 | 10 | 0x10 | Speichernottemperatur | 1 |  |
-| 10 | 0x20 | Kollektor Nottemperatur | 1 |  |
+| 10 | 0x20 | Kollektor-Nottemperatur | 1 |  |
 | 11 | 0x01 | R1 - Handbetrieb | 1 |  |
 | 11 | 0x02 | R2 - Handbetrieb | 1 |  |
 | 12 |  | Betriebsstunden Relais 1 | 1 |  h |
@@ -3764,7 +4050,7 @@ title: VBus Packets
 | 10 | 0x04 | Sensor 3 defekt | 1 |  |
 | 10 | 0x08 | Sensor 4 defekt | 1 |  |
 | 10 | 0x10 | Speichernottemperatur | 1 |  |
-| 10 | 0x20 | Kollektor Nottemperatur | 1 |  |
+| 10 | 0x20 | Kollektor-Nottemperatur | 1 |  |
 | 11 | 0x01 | R1 - Handbetrieb | 1 |  |
 | 11 | 0x02 | R2 - Handbetrieb | 1 |  |
 | 12 |  | Betriebsstunden Relais 1 | 1 |  h |
@@ -3804,11 +4090,11 @@ title: VBus Packets
 | 15 |  | Betriebsstunden Relais 2 | 256 |  h |
 | 16 |  | UnitType | 1 |  |
 | 17 |  | System | 1 |  |
+| 20 |  | ErrorMask | 1 |  |
 | 20 | 0x01 | Sensor 1 defekt | 1 |  |
 | 20 | 0x02 | Sensor 2 defekt | 1 |  |
 | 20 | 0x04 | Sensor 3 defekt | 1 |  |
 | 20 | 0x08 | Sensor 4 defekt | 1 |  |
-| 20 |  | ErrorMask | 1 |  |
 | 21 |  | ErrorMask | 256 |  |
 | 22 |  | Systemzeit | 1 |  |
 | 23 |  | Systemzeit | 256 |  |
@@ -3843,10 +4129,10 @@ title: VBus Packets
 | 11 |  | LS | 256.0 |  |
 | 12 |  | Ph | 1 |  |
 | 13 |  | P1S | 1 |  |
-| 16 |  | KWH | 1.0 |  kWh |
-| 17 |  | KWH | 256.0 |  kWh |
-| 18 |  | KWH | 65536.0 |  kWh |
-| 19 |  | KWH | 16777216.0 |  kWh |
+| 16 |  | kWh | 1.0 |  kWh |
+| 17 |  | kWh | 256.0 |  kWh |
+| 18 |  | kWh | 65536.0 |  kWh |
+| 19 |  | kWh | 16777216.0 |  kWh |
 
 
 
@@ -3953,10 +4239,10 @@ title: VBus Packets
 | 11 |  | LS | 256.0 |  |
 | 12 |  | Ph | 1 |  |
 | 13 |  | P1S | 1 |  |
-| 16 |  | KWH | 1.0 |  kWh |
-| 17 |  | KWH | 256.0 |  kWh |
-| 18 |  | KWH | 65536.0 |  kWh |
-| 19 |  | KWH | 16777216.0 |  kWh |
+| 16 |  | kWh | 1.0 |  kWh |
+| 17 |  | kWh | 256.0 |  kWh |
+| 18 |  | kWh | 65536.0 |  kWh |
+| 19 |  | kWh | 16777216.0 |  kWh |
 
 
 
@@ -4240,7 +4526,7 @@ title: VBus Packets
 | 49 |  | Drehzahl Relais 1 | 1 | % |
 | 50 |  | Drehzahl Relais 2 | 1 | % |
 | 51 |  | Drehzahl Relais 3 | 1 | % |
-| 52 |  | Drehzahl Relais pot__frei | 1 | % |
+| 52 |  | Drehzahl Relais pot.frei | 1 | % |
 | 56 |  | Drehzahl Ausgang PWM 1 | 1 | % |
 | 57 |  | Drehzahl Ausgang PWM 2 | 1 | % |
 | 64 |  | Betriebssekunden Relais 1 | 1 |  s |
@@ -4255,10 +4541,10 @@ title: VBus Packets
 | 73 |  | Betriebssekunden Relais 3 | 256 |  s |
 | 74 |  | Betriebssekunden Relais 3 | 65536 |  s |
 | 75 |  | Betriebssekunden Relais 3 | 16777216 |  s |
-| 76 |  | Betriebssekunden Relais pot__frei | 1 |  s |
-| 77 |  | Betriebssekunden Relais pot__frei | 256 |  s |
-| 78 |  | Betriebssekunden Relais pot__frei | 65536 |  s |
-| 79 |  | Betriebssekunden Relais pot__frei | 16777216 |  s |
+| 76 |  | Betriebssekunden Relais pot.frei | 1 |  s |
+| 77 |  | Betriebssekunden Relais pot.frei | 256 |  s |
+| 78 |  | Betriebssekunden Relais pot.frei | 65536 |  s |
+| 79 |  | Betriebssekunden Relais pot.frei | 16777216 |  s |
 | 80 |  | Betriebssekunden Ausgang PWM 1 | 1 |  s |
 | 81 |  | Betriebssekunden Ausgang PWM 1 | 256 |  s |
 | 82 |  | Betriebssekunden Ausgang PWM 1 | 65536 |  s |
@@ -4321,7 +4607,7 @@ title: VBus Packets
 | 23 | 0x04 | Optionen: WMZ | 1 |  |
 | 23 | 0x08 | Optionen: Boilerladung | 1 |  |
 | 23 | 0x10 | Optionen: Solarzelle | 1 |  |
-| 23 | 0x20 | Optionen: 2_ Kollektor-Ventil | 1 |  |
+| 23 | 0x20 | Optionen: 2. Kollektor-Ventil | 1 |  |
 | 24 |  | Fehlermaske | 1 |  |
 | 25 |  | Sensorbruch-Maske | 1 |  |
 | 26 |  | Sensorkurzschluss-Maske | 1 |  |
@@ -4444,6 +4730,8 @@ title: VBus Packets
 | 50 |  | Systemdatum | 65536 |  |
 | 51 |  | Systemdatum | 16777216 |  |
 | 52 |  | Fehlermaske | 1 |  |
+| 52 | 0x01 | Fehler: Sensorfehler | 1 |  |
+| 52 | 0x02 | Fehler: Modulfehler | 1 |  |
 | 53 |  | Fehlermaske | 256 |  |
 | 54 |  | Fehlermaske | 65536 |  |
 | 55 |  | Fehlermaske | 16777216 |  |
@@ -4701,6 +4989,7 @@ title: VBus Packets
 | 41 |  | Betriebssekunden Relais 4 | 256 |  s |
 | 42 |  | Betriebssekunden Relais 4 | 65536 |  s |
 | 43 |  | Betriebssekunden Relais 4 | 16777216 |  s |
+| 44 |  | Fehler | 1 |  |
 | 44 | 0x01 | Fehler S1 | 1 |  |
 | 44 | 0x02 | Fehler S2 | 1 |  |
 | 44 | 0x04 | Fehler S3 | 1 |  |
@@ -4709,13 +4998,13 @@ title: VBus Packets
 | 44 | 0x20 | Fehler S6 | 1 |  |
 | 44 | 0x40 | Fehler S7 | 1 |  |
 | 44 | 0x80 | Fehler S8 | 1 |  |
-| 44 |  | Fehler | 1 |  |
+| 45 |  | Fehler | 256 |  |
 | 45 | 0x01 | Fehler S9 | 1 |  |
 | 45 | 0x02 | Fehler V40 | 1 |  |
 | 45 | 0x04 | Leckage | 1 |  |
 | 45 | 0x08 | Überdruck | 1 |  |
 | 45 | 0x10 | Durchflussfehler | 1 |  |
-| 45 |  | Fehler | 256 |  |
+| 46 |  | Status | 1 |  |
 | 46 | 0x01 | Blockierschutz 1 | 1 |  |
 | 46 | 0x02 | Blockierschutz 2 | 1 |  |
 | 46 | 0x04 | Blockierschutz 3 | 1 |  |
@@ -4724,7 +5013,7 @@ title: VBus Packets
 | 46 | 0x20 | Befüllung | 1 |  |
 | 46 | 0x40 | Stabilisierung | 1 |  |
 | 46 | 0x80 | Pumpenverzögerung | 1 |  |
-| 46 |  | Status | 1 |  |
+| 47 |  | Status | 256 |  |
 | 47 | 0x01 | Überwärmeabfuhr | 1 |  |
 | 47 | 0x02 | Nachlauf | 1 |  |
 | 47 | 0x04 | Thermische Desinfektion | 1 |  |
@@ -4733,7 +5022,6 @@ title: VBus Packets
 | 47 | 0x20 | Spreizung | 1 |  |
 | 47 | 0x40 | Frostschutz | 1 |  |
 | 47 | 0x80 | Kollektorkühlung | 1 |  |
-| 47 |  | Status | 256 |  |
 | 48 |  | Wärmemenge | 1 |  Wh |
 | 49 |  | Wärmemenge | 256 |  Wh |
 | 50 |  | Wärmemenge | 65536 |  Wh |
@@ -4810,6 +5098,32 @@ title: VBus Packets
 | 55 |  | Fehlermaske | 16777216 |  |
 | 64 |  | PWM/0-10V A | 1 | % |
 | 65 |  | PWM/0-10V B | 1 | % |
+| 68 |  | Warnungsmaske | 1 |  |
+| 69 |  | Warnungsmaske | 256 |  |
+| 70 |  | Warnungsmaske | 65536 |  |
+| 71 |  | Warnungsmaske | 16777216 |  |
+
+
+
+### <a name="0010_7112_0140"></a>DFA (0x0010) <= DeltaSol BX Plus \[Regler\] (0x7112), command 0x0140
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Anzahl TD-Funktionen | 1 |  |
+| 1 |  | Nummer letzte erfolgreiche TD | 1 |  |
+| 2 |  | Nummer letzte abgebrochene TD | 1 |  |
+| 4 |  | Maske erfolgreiche TD | 1 |  |
+| 5 |  | Maske erfolgreiche TD | 256 |  |
+| 6 |  | Maske abgebrochene TD | 1 |  |
+| 7 |  | Maske abgebrochene TD | 256 |  |
+| 8 |  | Zeitstempel letzte erfolgreiche TD | 1 |  |
+| 9 |  | Zeitstempel letzte erfolgreiche TD | 256 |  |
+| 10 |  | Zeitstempel letzte erfolgreiche TD | 65536 |  |
+| 11 |  | Zeitstempel letzte erfolgreiche TD | 16777216 |  |
+| 12 |  | Zeitstempel letzte abgebrochene TD | 1 |  |
+| 13 |  | Zeitstempel letzte abgebrochene TD | 256 |  |
+| 14 |  | Zeitstempel letzte abgebrochene TD | 65536 |  |
+| 15 |  | Zeitstempel letzte abgebrochene TD | 16777216 |  |
 
 
 
@@ -5935,36 +6249,36 @@ title: VBus Packets
 | 93 |  | Systemdatum | 256 |  |
 | 94 |  | Systemdatum | 65536 |  |
 | 95 |  | Systemdatum | 16777216 |  |
-| 96 |  | SensorBenutzt bit 0__31 | 1 |  |
-| 97 |  | SensorBenutzt bit 0__31 | 256 |  |
-| 98 |  | SensorBenutzt bit 0__31 | 65536 |  |
-| 99 |  | SensorBenutzt bit 0__31 | 16777216 |  |
-| 100 |  | SensorBenutzt bit 31__63 | 1 |  |
-| 101 |  | SensorBenutzt bit 31__63 | 256 |  |
-| 102 |  | SensorBenutzt bit 31__63 | 65536 |  |
-| 103 |  | SensorBenutzt bit 31__63 | 16777216 |  |
-| 104 |  | Error SensorBruch bit 0__31 | 1 |  |
-| 105 |  | Error SensorBruch bit 0__31 | 256 |  |
-| 106 |  | Error SensorBruch bit 0__31 | 65536 |  |
-| 107 |  | Error SensorBruch bit 0__31 | 16777216 |  |
-| 108 |  | Error SensorBruch bit 31__63 | 1 |  |
-| 109 |  | Error SensorBruch bit 31__63 | 256 |  |
-| 110 |  | Error SensorBruch bit 31__63 | 65536 |  |
-| 111 |  | Error SensorBruch bit 31__63 | 16777216 |  |
-| 112 |  | Error SensorKurzschluss bit 0__31 | 1 |  |
-| 113 |  | Error SensorKurzschluss bit 0__31 | 256 |  |
-| 114 |  | Error SensorKurzschluss bit 0__31 | 65536 |  |
-| 115 |  | Error SensorKurzschluss bit 0__31 | 16777216 |  |
-| 116 |  | Error SensorKurzschluss bit 31__63 | 1 |  |
-| 117 |  | Error SensorKurzschluss bit 31__63 | 256 |  |
-| 118 |  | Error SensorKurzschluss bit 31__63 | 65536 |  |
-| 119 |  | Error SensorKurzschluss bit 31__63 | 16777216 |  |
+| 96 |  | SensorBenutzt bit 0..31 | 1 |  |
+| 97 |  | SensorBenutzt bit 0..31 | 256 |  |
+| 98 |  | SensorBenutzt bit 0..31 | 65536 |  |
+| 99 |  | SensorBenutzt bit 0..31 | 16777216 |  |
+| 100 |  | SensorBenutzt bit 31..63 | 1 |  |
+| 101 |  | SensorBenutzt bit 31..63 | 256 |  |
+| 102 |  | SensorBenutzt bit 31..63 | 65536 |  |
+| 103 |  | SensorBenutzt bit 31..63 | 16777216 |  |
+| 104 |  | Error SensorBruch bit 0..31 | 1 |  |
+| 105 |  | Error SensorBruch bit 0..31 | 256 |  |
+| 106 |  | Error SensorBruch bit 0..31 | 65536 |  |
+| 107 |  | Error SensorBruch bit 0..31 | 16777216 |  |
+| 108 |  | Error SensorBruch bit 31..63 | 1 |  |
+| 109 |  | Error SensorBruch bit 31..63 | 256 |  |
+| 110 |  | Error SensorBruch bit 31..63 | 65536 |  |
+| 111 |  | Error SensorBruch bit 31..63 | 16777216 |  |
+| 112 |  | Error SensorKurzschluss bit 0..31 | 1 |  |
+| 113 |  | Error SensorKurzschluss bit 0..31 | 256 |  |
+| 114 |  | Error SensorKurzschluss bit 0..31 | 65536 |  |
+| 115 |  | Error SensorKurzschluss bit 0..31 | 16777216 |  |
+| 116 |  | Error SensorKurzschluss bit 31..63 | 1 |  |
+| 117 |  | Error SensorKurzschluss bit 31..63 | 256 |  |
+| 118 |  | Error SensorKurzschluss bit 31..63 | 65536 |  |
+| 119 |  | Error SensorKurzschluss bit 31..63 | 16777216 |  |
 | 120 |  | Errormask | 1 |  |
 | 121 |  | Errormask | 256 |  |
 | 122 |  | Warningmask | 1 |  |
 | 123 |  | Warningmask | 256 |  |
-| 124 |  | Systemflow_Parameteraenderungen | 1 |  |
-| 125 |  | Systemflow_Parameteraenderungen | 256 |  |
+| 124 |  | Systemflow.Parameteraenderungen | 1 |  |
+| 125 |  | Systemflow.Parameteraenderungen | 256 |  |
 
 
 
@@ -6197,6 +6511,7 @@ title: VBus Packets
 | 41 |  | Betriebssekunden Relais 4 | 256 |  s |
 | 42 |  | Betriebssekunden Relais 4 | 65536 |  s |
 | 43 |  | Betriebssekunden Relais 4 | 16777216 |  s |
+| 44 |  | Fehler | 1 |  |
 | 44 | 0x01 | Fehler S1 | 1 |  |
 | 44 | 0x02 | Fehler S2 | 1 |  |
 | 44 | 0x04 | Fehler S3 | 1 |  |
@@ -6205,13 +6520,13 @@ title: VBus Packets
 | 44 | 0x20 | Fehler S6 | 1 |  |
 | 44 | 0x40 | Fehler S7 | 1 |  |
 | 44 | 0x80 | Fehler S8 | 1 |  |
-| 44 |  | Fehler | 1 |  |
+| 45 |  | Fehler | 256 |  |
 | 45 | 0x01 | Fehler S9 | 1 |  |
 | 45 | 0x02 | Fehler V40 | 1 |  |
 | 45 | 0x04 | Leckage | 1 |  |
 | 45 | 0x08 | Überdruck | 1 |  |
 | 45 | 0x10 | Durchflussfehler | 1 |  |
-| 45 |  | Fehler | 256 |  |
+| 46 |  | Status | 1 |  |
 | 46 | 0x01 | Blockierschutz 1 | 1 |  |
 | 46 | 0x02 | Blockierschutz 2 | 1 |  |
 | 46 | 0x04 | Blockierschutz 3 | 1 |  |
@@ -6220,7 +6535,7 @@ title: VBus Packets
 | 46 | 0x20 | Befüllung | 1 |  |
 | 46 | 0x40 | Stabilisierung | 1 |  |
 | 46 | 0x80 | Pumpenverzögerung | 1 |  |
-| 46 |  | Status | 1 |  |
+| 47 |  | Status | 256 |  |
 | 47 | 0x01 | Überwärmeabfuhr | 1 |  |
 | 47 | 0x02 | Nachlauf | 1 |  |
 | 47 | 0x04 | Thermische Desinfektion | 1 |  |
@@ -6229,7 +6544,6 @@ title: VBus Packets
 | 47 | 0x20 | Spreizung | 1 |  |
 | 47 | 0x40 | Frostschutz | 1 |  |
 | 47 | 0x80 | Kollektorkühlung | 1 |  |
-| 47 |  | Status | 256 |  |
 | 48 |  | Wärmemenge | 1 |  Wh |
 | 49 |  | Wärmemenge | 256 |  Wh |
 | 50 |  | Wärmemenge | 65536 |  Wh |
@@ -6282,14 +6596,15 @@ title: VBus Packets
 | 41 |  | BSR 4 | 256 |  s |
 | 42 |  | BSR 4 | 65536 |  s |
 | 43 |  | BSR 4 | 16777216 |  s |
+| 44 |  | Fehler | 1 |  |
 | 44 | 0x01 | Fehler S1 | 1 |  |
 | 44 | 0x02 | Fehler S2 | 1 |  |
 | 44 | 0x04 | Fehler S3 | 1 |  |
 | 44 | 0x08 | Fehler S4 | 1 |  |
 | 44 | 0x10 | Fehler S5 | 1 |  |
-| 44 |  | Fehler | 1 |  |
-| 45 | 0x02 | Fehler V40 | 1 |  |
 | 45 |  | Fehler | 256 |  |
+| 45 | 0x02 | Fehler V40 | 1 |  |
+| 46 |  | Regelstatus | 1 |  |
 | 46 | 0x01 | BLSC 1 | 1 |  |
 | 46 | 0x02 | BLSC 2 | 1 |  |
 | 46 | 0x04 | BLSC 3 | 1 |  |
@@ -6297,7 +6612,7 @@ title: VBus Packets
 | 46 | 0x20 | DeltaT-FKT | 1 |  |
 | 46 | 0x40 | Thermostat | 1 |  |
 | 46 | 0x80 | Pumpenverzögerung | 1 |  |
-| 46 |  | Regelstatus | 1 |  |
+| 47 |  | Regelstatus | 256 |  |
 | 47 | 0x01 | Überwärmeabfuhr | 1 |  |
 | 47 | 0x04 | Thermische Desinfektion | 1 |  |
 | 47 | 0x08 | Systemkühlung | 1 |  |
@@ -6305,7 +6620,6 @@ title: VBus Packets
 | 47 | 0x20 | Spreizung | 1 |  |
 | 47 | 0x40 | Frostschutz | 1 |  |
 | 47 | 0x80 | Kollektorkühlung | 1 |  |
-| 47 |  | Regelstatus | 256 |  |
 | 48 |  | Wärme | 1 |  Wh |
 | 49 |  | Wärme | 256 |  Wh |
 | 50 |  | Wärme | 65536 |  Wh |
@@ -6445,12 +6759,12 @@ title: VBus Packets
 | 33 |  | Wärmemenge S,s | 256.0 |  kWh |
 | 34 |  | Wärmemenge S,s | 65536.0 |  kWh |
 | 35 |  | Wärmemenge S,s | 16777216.0 |  kWh |
-| 36 |  | Diff_ TUmg/24h | 1.0 |  K |
-| 37 |  | Diff_ TUmg/24h | 256.0 |  K |
-| 38 |  | Diff_ TSs/8h | 1.0 |  K |
-| 39 |  | Diff_ TSs/8h | 256.0 |  K |
-| 40 |  | Diff_ TSs/1h | 1.0 |  K |
-| 41 |  | Diff_ TSs/1h | 256.0 |  K |
+| 36 |  | Diff. TUmg/24h | 1.0 |  K |
+| 37 |  | Diff. TUmg/24h | 256.0 |  K |
+| 38 |  | Diff. TSs/8h | 1.0 |  K |
+| 39 |  | Diff. TSs/8h | 256.0 |  K |
+| 40 |  | Diff. TSs/1h | 1.0 |  K |
+| 41 |  | Diff. TSs/1h | 256.0 |  K |
 | 42 |  | Betriebssekunden WP | 1 |  s |
 | 43 |  | Betriebssekunden WP | 256 |  s |
 | 44 |  | Zeitraum WP / 24h | 1 |  s |
@@ -6538,7 +6852,7 @@ title: VBus Packets
 | 24 |  | Drehzahl Relais 4 | 1.0 | % |
 | 25 |  | Drehzahl Relais 4 | 256.0 | % |
 | 26 | 0x01 | Fehler | 1 |  |
-| 27 |  | Desinf_ Phase | 1 |  |
+| 27 |  | Desinf. Phase | 1 |  |
 | 28 |  | Betriebssekunden Relais 1 | 1 |  s |
 | 29 |  | Betriebssekunden Relais 1 | 256 |  s |
 | 30 |  | Betriebssekunden Relais 1 | 65536 |  s |
@@ -6559,6 +6873,7 @@ title: VBus Packets
 | 45 |  | Betriebssekunden Relais 5 | 256 |  s |
 | 46 |  | Betriebssekunden Relais 5 | 65536 |  s |
 | 47 |  | Betriebssekunden Relais 5 | 16777216 |  s |
+| 48 |  | Funktionen | 1 |  |
 | 48 | 0x01 | WW-Bereitung | 1 |  |
 | 48 | 0x02 | Blockierschutz R4 | 1 |  |
 | 48 | 0x04 | Blockierschutz R2 | 1 |  |
@@ -6567,7 +6882,7 @@ title: VBus Packets
 | 48 | 0x20 | Warmstart | 1 |  |
 | 48 | 0x40 | Dauerzirkulation | 1 |  |
 | 48 | 0x80 | Thermische Zirkulation | 1 |  |
-| 48 |  | Funktionen | 1 |  |
+| 49 |  | Funktionen | 256 |  |
 | 49 | 0x01 | Anforderungszirkulation | 1 |  |
 | 49 | 0x02 | Nachheizung | 1 |  |
 | 49 | 0x04 | Desinfektionsnachheizung | 1 |  |
@@ -6576,7 +6891,6 @@ title: VBus Packets
 | 49 | 0x20 | Fehlerrelais | 1 |  |
 | 49 | 0x40 | Rücklaufeinschichtung | 1 |  |
 | 49 | 0x80 | Funktionsblock 1 | 1 |  |
-| 49 |  | Funktionen | 256 |  |
 | 50 | 0x01 | Funktionsblock 2 | 1 |  |
 | 51 | 0x01 | Kaltstart | 1 |  |
 | 51 | 0x02 | Wärmepumpe | 1 |  |
@@ -6650,6 +6964,11 @@ title: VBus Packets
 | 50 |  | Systemdatum | 65536 |  |
 | 51 |  | Systemdatum | 16777216 |  |
 | 52 |  | Fehlermaske | 1 |  |
+| 52 | 0x01 | Fehler: Sensorfehler oder Volumenstromüberwachung | 1 |  |
+| 52 | 0x02 | Fehler: Modulfehler | 1 |  |
+| 52 | 0x04 | Fehler: ΔT zu hoch | 1 |  |
+| 52 | 0x08 | Fehler: Überladeschutz | 1 |  |
+| 52 | 0x10 | Fehler: Abbruch Überwärmeabfuhr | 1 |  |
 | 53 |  | Fehlermaske | 256 |  |
 | 54 |  | Fehlermaske | 65536 |  |
 | 55 |  | Fehlermaske | 16777216 |  |
@@ -6797,6 +7116,7 @@ title: VBus Packets
 | 93 |  | Wärmemenge | 256 |  Wh |
 | 94 |  | Wärmemenge | 65536 |  Wh |
 | 95 |  | Wärmemenge | 16777216 |  Wh |
+| 96 |  | Fehler | 1 |  |
 | 96 | 0x01 | Sensorfehler S1 | 1 |  |
 | 96 | 0x02 | Sensorfehler S2 | 1 |  |
 | 96 | 0x04 | Sensorfehler S3 | 1 |  |
@@ -6805,13 +7125,12 @@ title: VBus Packets
 | 96 | 0x20 | Sensorfehler S6 | 1 |  |
 | 96 | 0x40 | Sensorfehler S7 | 1 |  |
 | 96 | 0x80 | Sensorfehler S8 | 1 |  |
-| 96 |  | Fehler | 1 |  |
-| 97 | 0x08 | Sensorfehler S12 VFD | 1 |  |
 | 97 |  | Fehler | 256 |  |
+| 97 | 0x08 | Sensorfehler S12 VFD | 1 |  |
+| 98 |  | Fehler | 65536 |  |
 | 98 | 0x01 | Desinfektion: Vorlauf zu niedrig | 1 |  |
 | 98 | 0x02 | Desinfektion: Fehlgeschlagen | 1 |  |
 | 98 | 0x04 | Uebertemperaturschutz aktiv | 1 |  |
-| 98 |  | Fehler | 65536 |  |
 | 99 |  | Fehler | 16777216 |  |
 | 104 |  | Version | 1.00 |  |
 | 105 |  | Version | 256.00 |  |
@@ -6860,8 +7179,8 @@ title: VBus Packets
 | 31 |  | Wärmemenge | 256000 |  Wh |
 | 32 |  | Wärmemenge | 1000000 |  Wh |
 | 33 |  | Wärmemenge | 256000000 |  Wh |
-| 34 |  | Version | 100 |  |
-| 35 |  | Version | 1 |  |
+| 34 |  | Version | 100.00 |  |
+| 35 |  | Version | 1.00 |  |
 
 
 
@@ -6950,7 +7269,7 @@ title: VBus Packets
 | 21 |  | Status Relais 5 | 1 | % |
 | 22 | 0x01 | T-Sensor Fehler | 1 |  |
 | 22 | 0x02 | V-Sensor Fehler | 1 |  |
-| 22 | 0x04 | EEPROM Fehler | 1 |  |
+| 22 | 0x04 | EEPROM-Fehler | 1 |  |
 | 22 | 0x08 | S1 Fehler | 1 |  |
 | 22 | 0x10 | S2 Fehler | 1 |  |
 | 24 |  | Version | 1.00 |  |
@@ -7353,15 +7672,16 @@ title: VBus Packets
 | 32 |  | Drehzahl Relais 7 | 1 | % |
 | 33 |  | Fehlermaske | 1 |  |
 | 34 |  | Fehlermaske | 256 |  |
+| 36 |  | Meldungen | 1 |  |
 | 36 | 0x01 | Solar dTein | 1 |  |
 | 36 | 0x02 | CS ein | 1 |  |
 | 36 | 0x04 | Solar Mindestein | 1 |  |
 | 36 | 0x08 | Solar Mindestaus | 1 |  |
-| 36 | 0x10 | Beckenmax_ | 1 |  |
-| 36 | 0x20 | Filtermin_ | 1 |  |
+| 36 | 0x10 | Beckenmax. | 1 |  |
+| 36 | 0x20 | Filtermin. | 1 |  |
 | 36 | 0x40 | Nachheizung | 1 |  |
 | 36 | 0x80 | Solar Nachheizung | 1 |  |
-| 36 |  | Meldungen | 1 |  |
+| 37 |  | Meldungen | 256 |  |
 | 37 | 0x01 | dT Solar Nachheizung | 1 |  |
 | 37 | 0x02 | Umwälzung | 1 |  |
 | 37 | 0x04 | Kollektorabschaltung | 1 |  |
@@ -7370,7 +7690,7 @@ title: VBus Packets
 | 37 | 0x20 | Vorlaufbegrenzung | 1 |  |
 | 37 | 0x40 | Extra Filterlaufzeit | 1 |  |
 | 37 | 0x80 | Externe Reglerfreigabe | 1 |  |
-| 37 |  | Meldungen | 256 |  |
+| 38 |  | Meldungen | 65536 |  |
 | 38 | 0x01 | Fehlerrelais | 1 |  |
 | 38 | 0x04 | T Beckenkühlfkt | 1 |  |
 | 38 | 0x08 | Solarkreis ein | 1 |  |
@@ -7379,10 +7699,9 @@ title: VBus Packets
 | 38 | 0x20 | Nachhzg normal | 1 |  |
 | 38 | 0x40 | Solarkreis aktiv | 1 |  |
 | 38 | 0x80 | Betriebsrelais ein | 1 |  |
-| 38 |  | Meldungen | 65536 |  |
+| 39 |  | Meldungen | 16777216 |  |
 | 39 | 0x01 | Pumpencheck | 1 |  |
 | 39 | 0x04 | Solar dTaus | 1 |  |
-| 39 |  | Meldungen | 16777216 |  |
 | 40 |  | Filterlaufzeit | 1 |  min |
 | 41 |  | Filterlaufzeit | 256 |  min |
 | 44 |  | Version | 100.00 |  |
@@ -7406,10 +7725,10 @@ title: VBus Packets
 | 61 |  | Pumpenüberwachung | 256 |  s |
 | 62 |  | Pumpenüberwachung | 65536 |  s |
 | 63 |  | Pumpenüberwachung | 16777216 |  s |
-| 64 |  | Solar Min_ Ein/Aus | 1 |  s |
-| 65 |  | Solar Min_ Ein/Aus | 256 |  s |
-| 66 |  | Solar Min_ Ein/Aus | 65536 |  s |
-| 67 |  | Solar Min_ Ein/Aus | 16777216 |  s |
+| 64 |  | Solar Min. Ein/Aus | 1 |  s |
+| 65 |  | Solar Min. Ein/Aus | 256 |  s |
+| 66 |  | Solar Min. Ein/Aus | 65536 |  s |
+| 67 |  | Solar Min. Ein/Aus | 16777216 |  s |
 | 68 |  | Sim5 | 1 |  |
 | 69 |  | Sim5 | 256 |  |
 | 70 |  | Sim5 | 65536 |  |
@@ -7530,14 +7849,14 @@ title: VBus Packets
 | 85 |  | Gas1 | 256.00 |  m³ |
 | 86 |  | Gas1 | 65536.00 |  m³ |
 | 87 |  | Gas1 | 16777216.00 |  m³ |
-| 88 |  | Therm_ Energie1 | 1 |  kWh |
-| 89 |  | Therm_ Energie1 | 256 |  kWh |
-| 90 |  | Therm_ Energie1 | 65536 |  kWh |
-| 91 |  | Therm_ Energie1 | 16777216 |  kWh |
-| 92 |  | Therm_ Energie2 | 1 |  kWh |
-| 93 |  | Therm_ Energie2 | 256 |  kWh |
-| 94 |  | Therm_ Energie2 | 65536 |  kWh |
-| 95 |  | Therm_ Energie2 | 16777216 |  kWh |
+| 88 |  | Therm. Energie1 | 1 |  kWh |
+| 89 |  | Therm. Energie1 | 256 |  kWh |
+| 90 |  | Therm. Energie1 | 65536 |  kWh |
+| 91 |  | Therm. Energie1 | 16777216 |  kWh |
+| 92 |  | Therm. Energie2 | 1 |  kWh |
+| 93 |  | Therm. Energie2 | 256 |  kWh |
+| 94 |  | Therm. Energie2 | 65536 |  kWh |
+| 95 |  | Therm. Energie2 | 16777216 |  kWh |
 | 96 |  | Impulse | 1 |  |
 | 96 |  | Impulse | 1 |  |
 | 96 |  | Impulszähler 1 \(Volumen 1/2\) | 1 |  |
@@ -7590,22 +7909,22 @@ title: VBus Packets
 | 118 |  | Impulse | 65536 |  |
 | 119 |  | Impulszähler 6 \(Strom 2\) | 16777216 |  |
 | 119 |  | Impulse | 16777216 |  |
-| 120 |  | Impulszähler 7 \(th_ Energie 1\) | 1 |  |
+| 120 |  | Impulszähler 7 \(th. Energie 1\) | 1 |  |
 | 120 |  | Impulse | 1 |  |
-| 121 |  | Impulszähler 7 \(th_ Energie 1\) | 256 |  |
+| 121 |  | Impulszähler 7 \(th. Energie 1\) | 256 |  |
 | 121 |  | Impulse | 256 |  |
 | 122 |  | Impulse | 65536 |  |
-| 122 |  | Impulszähler 7 \(th_ Energie 1\) | 65536 |  |
+| 122 |  | Impulszähler 7 \(th. Energie 1\) | 65536 |  |
 | 123 |  | Impulse | 16777216 |  |
-| 123 |  | Impulszähler 7 \(th_ Energie 1\) | 16777216 |  |
+| 123 |  | Impulszähler 7 \(th. Energie 1\) | 16777216 |  |
 | 124 |  | Impulse | 1 |  |
-| 124 |  | Impulszähler 8 \(th_ Energie 2\) | 1 |  |
+| 124 |  | Impulszähler 8 \(th. Energie 2\) | 1 |  |
 | 125 |  | Impulse | 256 |  |
-| 125 |  | Impulszähler 8 \(th_ Energie 2\) | 256 |  |
-| 126 |  | Impulszähler 8 \(th_ Energie 2\) | 65536 |  |
+| 125 |  | Impulszähler 8 \(th. Energie 2\) | 256 |  |
+| 126 |  | Impulszähler 8 \(th. Energie 2\) | 65536 |  |
 | 126 |  | Impulse | 65536 |  |
 | 127 |  | Impulse | 16777216 |  |
-| 127 |  | Impulszähler 8 \(th_ Energie 2\) | 16777216 |  |
+| 127 |  | Impulszähler 8 \(th. Energie 2\) | 16777216 |  |
 | 128 |  | Impulse | 1 |  |
 | 128 |  | Impulszähler 9 \(Gas 1\) | 1 |  |
 | 129 |  | Impulse | 256 |  |
@@ -7927,7 +8246,7 @@ title: VBus Packets
 | 15 |  | SensorDefekt | 1 |  |
 | 16 |  | Temperatur WW-Soll | 1 |  °C |
 | 17 |  | Temperatur Quelle | 1 |  °C |
-| 19 |  | verbl_ Zapfung | 1 |  min |
+| 19 |  | verbl. Zapfung | 1 |  min |
 | 20 |  | Schaltspiele | 1 |  |
 | 21 |  | Schaltspiele | 256 |  |
 | 22 |  | Schaltspiele | 65536 |  |
@@ -7938,14 +8257,14 @@ title: VBus Packets
 | 27 |  | Wärmemenge | 256000 |  Wh |
 | 28 |  | Wärmemenge | 1000000 |  Wh |
 | 29 |  | Wärmemenge | 256000000 |  Wh |
-| 30 |  | Version | 100 |  |
-| 31 |  | Version | 1 |  |
-| 32 |  | max_ Temperatur Kaltwasser | 1.0 |  °C |
-| 33 |  | max_ Temperatur Kaltwasser | 256.0 |  °C |
-| 34 |  | min_ Temperatur Kaltwasser | 1.0 |  °C |
-| 35 |  | min_ Temperatur Kaltwasser | 256.0 |  °C |
-| 36 |  | max_ Volumenstrom | 1 |  l/h |
-| 37 |  | max_ Volumenstrom | 256 |  l/h |
+| 30 |  | Version | 100.00 |  |
+| 31 |  | Version | 1.00 |  |
+| 32 |  | max. Temperatur Kaltwasser | 1.0 |  °C |
+| 33 |  | max. Temperatur Kaltwasser | 256.0 |  °C |
+| 34 |  | min. Temperatur Kaltwasser | 1.0 |  °C |
+| 35 |  | min. Temperatur Kaltwasser | 256.0 |  °C |
+| 36 |  | max. Volumenstrom | 1 |  l/h |
+| 37 |  | max. Volumenstrom | 256 |  l/h |
 | 38 |  | Zapfmenge | 1.0 |  m³ |
 | 39 |  | Zapfmenge | 256.0 |  m³ |
 
@@ -8050,7 +8369,17 @@ title: VBus Packets
 | 94 |  | Systemdatum | 65536 |  |
 | 95 |  | Systemdatum | 16777216 |  |
 | 96 |  | Fehlermaske | 1 |  |
+| 96 | 0x01 | Fehler: Sensorleitung unterbrochen | 1 |  |
+| 96 | 0x02 | Fehler: Sensorleitung kurzgeschlossen | 1 |  |
+| 96 | 0x20 | Fehler: Volumstromüberwachung | 1 |  |
+| 96 | 0x40 | Fehler: Überdruck | 1 |  |
+| 96 | 0x80 | Fehler: Minderdruck | 1 |  |
 | 97 |  | Fehlermaske | 256 |  |
+| 97 | 0x02 | Fehler: Datenspeicher | 1 |  |
+| 97 | 0x04 | Fehler: Echtzeituhr | 1 |  |
+| 97 | 0x10 | Fehler: Zwillingspumpe | 1 |  |
+| 97 | 0x20 | Fehler: HK-Kühlung unter Vorlaufminimaltemperatur | 1 |  |
+| 97 | 0x40 | Fehler: Thermische Desinfektion abgebrochen | 1 |  |
 | 98 |  | Fehlermaske | 65536 |  |
 | 99 |  | Fehlermaske | 16777216 |  |
 | 100 |  | Ausgang A | 1 | % |
@@ -8061,6 +8390,43 @@ title: VBus Packets
 | 105 |  | Volumenstrom Sensor 21 | 256 |  l/h |
 | 106 |  | Volumenstrom Sensor 21 | 65536 |  l/h |
 | 107 |  | Volumenstrom Sensor 21 | 16777216 |  l/h |
+
+
+
+### <a name="0010_7E11_0101"></a>DFA (0x0010) <= DeltaSol MX \[Regler\] (0x7E11), command 0x0101
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Warnungsmaske | 1 |  |
+| 0 | 0x04 | Warnung: ΔT zu hoch | 1 |  |
+| 0 | 0x08 | Warnung: Nachtzirkulation | 1 |  |
+| 0 | 0x10 | Warnung: Vorlauf/Rücklauf vertauscht | 1 |  |
+| 1 |  | Warnungsmaske | 256 |  |
+| 1 | 0x08 | Warnung: SD-Karte | 1 |  |
+| 2 |  | Warnungsmaske | 65536 |  |
+| 3 |  | Warnungsmaske | 16777216 |  |
+
+
+
+### <a name="0010_7E11_0140"></a>DFA (0x0010) <= DeltaSol MX \[Regler\] (0x7E11), command 0x0140
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Anzahl TD-Funktionen | 1 |  |
+| 1 |  | Nummer letzte erfolgreiche TD | 1 |  |
+| 2 |  | Nummer letzte abgebrochene TD | 1 |  |
+| 4 |  | Maske erfolgreiche TD | 1 |  |
+| 5 |  | Maske erfolgreiche TD | 256 |  |
+| 6 |  | Maske abgebrochene TD | 1 |  |
+| 7 |  | Maske abgebrochene TD | 256 |  |
+| 8 |  | Zeitstempel letzte erfolgreiche TD | 1 |  |
+| 9 |  | Zeitstempel letzte erfolgreiche TD | 256 |  |
+| 10 |  | Zeitstempel letzte erfolgreiche TD | 65536 |  |
+| 11 |  | Zeitstempel letzte erfolgreiche TD | 16777216 |  |
+| 12 |  | Zeitstempel letzte abgebrochene TD | 1 |  |
+| 13 |  | Zeitstempel letzte abgebrochene TD | 256 |  |
+| 14 |  | Zeitstempel letzte abgebrochene TD | 65536 |  |
+| 15 |  | Zeitstempel letzte abgebrochene TD | 16777216 |  |
 
 
 
@@ -8149,6 +8515,10 @@ title: VBus Packets
 | 1 |  | Wärmemenge | 256 |  Wh |
 | 2 |  | Wärmemenge | 65536 |  Wh |
 | 3 |  | Wärmemenge | 16777216 |  Wh |
+| 4 |  | Leistung | 1 |  W |
+| 5 |  | Leistung | 256 |  W |
+| 6 |  | Leistung | 65536 |  W |
+| 7 |  | Leistung | 16777216 |  W |
 | 8 |  | Wärmemenge heute | 1 |  Wh |
 | 9 |  | Wärmemenge heute | 256 |  Wh |
 | 10 |  | Wärmemenge heute | 65536 |  Wh |
@@ -8184,6 +8554,54 @@ title: VBus Packets
 
 
 
+### <a name="0010_7E40_0100"></a>DFA (0x0010) <= DeltaSol MX \[Modul #0\] (0x7E40), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
+| 8 |  | Temperatur Sensor 5 | 1.0 |  °C |
+| 9 |  | Temperatur Sensor 5 | 256.0 |  °C |
+| 10 |  | Temperatur Sensor 6 | 1.0 |  °C |
+| 11 |  | Temperatur Sensor 6 | 256.0 |  °C |
+| 12 |  | Drehzahl Relais 1 | 1 | % |
+| 13 |  | Drehzahl Relais 2 | 1 | % |
+| 14 |  | Drehzahl Relais 3 | 1 | % |
+| 15 |  | Drehzahl Relais 4 | 1 | % |
+| 16 |  | Drehzahl Relais 5 | 1 | % |
+
+
+
+### <a name="0010_7E60_0100"></a>DFA (0x0010) <= DeltaSol BX Plus \[Modul #0\] (0x7E60), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Temperatur Sensor 1 | 1.0 |  °C |
+| 1 |  | Temperatur Sensor 1 | 256.0 |  °C |
+| 2 |  | Temperatur Sensor 2 | 1.0 |  °C |
+| 3 |  | Temperatur Sensor 2 | 256.0 |  °C |
+| 4 |  | Temperatur Sensor 3 | 1.0 |  °C |
+| 5 |  | Temperatur Sensor 3 | 256.0 |  °C |
+| 6 |  | Temperatur Sensor 4 | 1.0 |  °C |
+| 7 |  | Temperatur Sensor 4 | 256.0 |  °C |
+| 8 |  | Temperatur Sensor 5 | 1.0 |  °C |
+| 9 |  | Temperatur Sensor 5 | 256.0 |  °C |
+| 10 |  | Temperatur Sensor 6 | 1.0 |  °C |
+| 11 |  | Temperatur Sensor 6 | 256.0 |  °C |
+| 12 |  | Drehzahl Relais 1 | 1 | % |
+| 13 |  | Drehzahl Relais 2 | 1 | % |
+| 14 |  | Drehzahl Relais 3 | 1 | % |
+| 15 |  | Drehzahl Relais 4 | 1 | % |
+| 16 |  | Drehzahl Relais 5 | 1 | % |
+
+
+
 ### <a name="0010_7F61_0100"></a>DFA (0x0010) <= IOC-Modul \[Messwerte\] (0x7F61), command 0x0100
 
 | Offset | Mask | Name | Factor | Unit |
@@ -8208,22 +8626,22 @@ title: VBus Packets
 | 17 |  | TSL | 256.0 |  °C |
 | 18 |  | TSL | 65536.0 |  °C |
 | 19 |  | TSL | 16777216.0 |  °C |
-| 20 |  | Tmax-Temp_/S5 | 1.0 |  °C |
-| 21 |  | Tmax-Temp_/S5 | 256.0 |  °C |
-| 22 |  | Tmax-Temp_/S5 | 65536.0 |  °C |
-| 23 |  | Tmax-Temp_/S5 | 16777216.0 |  °C |
+| 20 |  | Tmax-Temp./S5 | 1.0 |  °C |
+| 21 |  | Tmax-Temp./S5 | 256.0 |  °C |
+| 22 |  | Tmax-Temp./S5 | 65536.0 |  °C |
+| 23 |  | Tmax-Temp./S5 | 16777216.0 |  °C |
 | 24 |  | Einstrahlung | 1.0 |  W/m² |
 | 25 |  | Einstrahlung | 256.0 |  W/m² |
 | 26 |  | Einstrahlung | 65536.0 |  W/m² |
 | 27 |  | Einstrahlung | 16777216.0 |  W/m² |
-| 28 |  | Volumenstr_1 | 1 |  l/h |
-| 29 |  | Volumenstr_1 | 256 |  l/h |
-| 30 |  | Volumenstr_1 | 65536 |  l/h |
-| 31 |  | Volumenstr_1 | 16777216 |  l/h |
-| 32 |  | Volumenstr_2 | 1 |  l/h |
-| 33 |  | Volumenstr_2 | 256 |  l/h |
-| 34 |  | Volumenstr_2 | 65536 |  l/h |
-| 35 |  | Volumenstr_2 | 16777216 |  l/h |
+| 28 |  | Volumenstr.1 | 1 |  l/h |
+| 29 |  | Volumenstr.1 | 256 |  l/h |
+| 30 |  | Volumenstr.1 | 65536 |  l/h |
+| 31 |  | Volumenstr.1 | 16777216 |  l/h |
+| 32 |  | Volumenstr.2 | 1 |  l/h |
+| 33 |  | Volumenstr.2 | 256 |  l/h |
+| 34 |  | Volumenstr.2 | 65536 |  l/h |
+| 35 |  | Volumenstr.2 | 16777216 |  l/h |
 | 36 |  | S6 | 1.0 |  °C |
 | 37 |  | S6 | 256.0 |  °C |
 | 38 |  | S6 | 65536.0 |  °C |
@@ -8408,8 +8826,8 @@ title: VBus Packets
 | 5 |  | T-Rücklauf/S2_1s | 256.0 |  °C |
 | 6 |  | TSL_1s | 1.0 |  °C |
 | 7 |  | TSL_1s | 256.0 |  °C |
-| 8 |  | Tmax-Temp_/S5_1s | 1.0 |  °C |
-| 9 |  | Tmax-Temp_/S5_1s | 256.0 |  °C |
+| 8 |  | Tmax-Temp./S5_1s | 1.0 |  °C |
+| 9 |  | Tmax-Temp./S5_1s | 256.0 |  °C |
 | 10 |  | Einstrahlung_1s | 1.0 |  W/m² |
 | 11 |  | Einstrahlung_1s | 256.0 |  W/m² |
 | 12 |  | Volumenstrom1_1s | 1 |  l/h |
@@ -8543,6 +8961,599 @@ title: VBus Packets
 
 
 
+### <a name="1260_1260_0101"></a>Viessmann Vitotrans 353 2017 Broadcast (0x1260) <= Viessmann Vitotrans 353 2017 Broadcast (0x1260), command 0x0101
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 2 |  | Einschaltschwelle | 1 | % |
+| 3 |  | Ausschaltschwelle | 1 | % |
+| 8 | 0x02 | Master / Station 1 vorhanden | 1 |  |
+| 8 | 0x04 | Station 2 vorhanden | 1 |  |
+| 8 | 0x08 | Station 3 vorhanden | 1 |  |
+| 8 | 0x10 | Station 4 vorhanden | 1 |  |
+| 40 |  | Systemdatum | 1 |  |
+| 41 |  | Systemdatum | 256 |  |
+| 42 |  | Systemdatum | 65536 |  |
+| 43 |  | Systemdatum | 16777216 |  |
+
+
+
+### <a name="1261_1261_0301"></a>Viessmann Vitotrans 353 2017 Master (0x1261) <= Viessmann Vitotrans 353 2017 Master (0x1261), command 0x0301
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Master: Version | 1 |  |
+| 1 |  | Master: Version | 256 |  |
+| 2 |  | Master: Status | 1 |  |
+| 3 |  | Master: Status | 256 |  |
+| 4 |  | Master: Fehlermaske | 1 |  |
+| 5 |  | Master: Fehlermaske | 256 |  |
+| 6 |  | Master: Fehlermaske | 65536 |  |
+| 7 |  | Master: Fehlermaske | 16777216 |  |
+| 8 |  | Master: T-WW | 1.0 |  °C |
+| 9 |  | Master: T-WW | 256.0 |  °C |
+| 10 |  | Master: T-KW | 1.0 |  °C |
+| 11 |  | Master: T-KW | 256.0 |  °C |
+| 12 |  | Master: T-SpVL | 1.0 |  °C |
+| 13 |  | Master: T-SpVL | 256.0 |  °C |
+| 16 |  | Master: Volumenstrom | 1.0 |  l/min |
+| 17 |  | Master: Volumenstrom | 256.0 |  l/min |
+| 18 |  | Master: Volumenstrom | 65536.0 |  l/min |
+| 19 |  | Master: Volumenstrom | 16777216.0 |  l/min |
+| 24 |  | Master: Stationsbetriebssekunden | 1 |  s |
+| 25 |  | Master: Stationsbetriebssekunden | 256 |  s |
+| 26 |  | Master: Stationsbetriebssekunden | 65536 |  s |
+| 27 |  | Master: Stationsbetriebssekunden | 16777216 |  s |
+| 28 |  | Master: Reglervariante | 1 |  |
+| 49 |  | Master: Primärpumpe Drehzahl | 1 | % |
+| 52 |  | Master: Primärpumpe Betriebssekunden | 1 |  s |
+| 53 |  | Master: Primärpumpe Betriebssekunden | 256 |  s |
+| 54 |  | Master: Primärpumpe Betriebssekunden | 65536 |  s |
+| 55 |  | Master: Primärpumpe Betriebssekunden | 16777216 |  s |
+| 56 |  | Master: Strangventil Zustand | 1 |  |
+
+
+
+### <a name="1261_1262_0301"></a>Viessmann Vitotrans 353 2017 Master (0x1261) <= Viessmann Vitotrans 353 2017 Slave 1 (0x1262), command 0x0301
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Slave 1: Version | 1 |  |
+| 1 |  | Slave 1: Version | 256 |  |
+| 2 |  | Slave 1: Status | 1 |  |
+| 3 |  | Slave 1: Status | 256 |  |
+| 4 |  | Slave 1: Fehlermaske | 1 |  |
+| 5 |  | Slave 1: Fehlermaske | 256 |  |
+| 6 |  | Slave 1: Fehlermaske | 65536 |  |
+| 7 |  | Slave 1: Fehlermaske | 16777216 |  |
+| 8 |  | Slave 1: T-WW | 1.0 |  °C |
+| 9 |  | Slave 1: T-WW | 256.0 |  °C |
+| 10 |  | Slave 1: T-KW | 1.0 |  °C |
+| 11 |  | Slave 1: T-KW | 256.0 |  °C |
+| 12 |  | Slave 1: T-SpVL | 1.0 |  °C |
+| 13 |  | Slave 1: T-SpVL | 256.0 |  °C |
+| 16 |  | Slave 1: Volumenstrom | 1.0 |  l/min |
+| 17 |  | Slave 1: Volumenstrom | 256.0 |  l/min |
+| 18 |  | Slave 1: Volumenstrom | 65536.0 |  l/min |
+| 19 |  | Slave 1: Volumenstrom | 16777216.0 |  l/min |
+| 24 |  | Slave 1: Stationsbetriebssekunden | 1 |  s |
+| 25 |  | Slave 1: Stationsbetriebssekunden | 256 |  s |
+| 26 |  | Slave 1: Stationsbetriebssekunden | 65536 |  s |
+| 27 |  | Slave 1: Stationsbetriebssekunden | 16777216 |  s |
+| 28 |  | Slave 1: Reglervariante | 1 |  |
+| 49 |  | Slave 1: Primärpumpe Drehzahl | 1 | % |
+| 52 |  | Slave 1: Primärpumpe Betriebssekunden | 1 |  s |
+| 53 |  | Slave 1: Primärpumpe Betriebssekunden | 256 |  s |
+| 54 |  | Slave 1: Primärpumpe Betriebssekunden | 65536 |  s |
+| 55 |  | Slave 1: Primärpumpe Betriebssekunden | 16777216 |  s |
+| 56 |  | Slave 1: Strangventil Zustand | 1 |  |
+
+
+
+### <a name="1261_1263_0301"></a>Viessmann Vitotrans 353 2017 Master (0x1261) <= Viessmann Vitotrans 353 2017 Slave 2 (0x1263), command 0x0301
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Slave 2: Version | 1 |  |
+| 1 |  | Slave 2: Version | 256 |  |
+| 2 |  | Slave 2: Status | 1 |  |
+| 3 |  | Slave 2: Status | 256 |  |
+| 4 |  | Slave 2: Fehlermaske | 1 |  |
+| 5 |  | Slave 2: Fehlermaske | 256 |  |
+| 6 |  | Slave 2: Fehlermaske | 65536 |  |
+| 7 |  | Slave 2: Fehlermaske | 16777216 |  |
+| 8 |  | Slave 2: T-WW | 1.0 |  °C |
+| 9 |  | Slave 2: T-WW | 256.0 |  °C |
+| 10 |  | Slave 2: T-KW | 1.0 |  °C |
+| 11 |  | Slave 2: T-KW | 256.0 |  °C |
+| 12 |  | Slave 2: T-SpVL | 1.0 |  °C |
+| 13 |  | Slave 2: T-SpVL | 256.0 |  °C |
+| 16 |  | Slave 2: Volumenstrom | 1.0 |  l/min |
+| 17 |  | Slave 2: Volumenstrom | 256.0 |  l/min |
+| 18 |  | Slave 2: Volumenstrom | 65536.0 |  l/min |
+| 19 |  | Slave 2: Volumenstrom | 16777216.0 |  l/min |
+| 24 |  | Slave 2: Stationsbetriebssekunden | 1 |  s |
+| 25 |  | Slave 2: Stationsbetriebssekunden | 256 |  s |
+| 26 |  | Slave 2: Stationsbetriebssekunden | 65536 |  s |
+| 27 |  | Slave 2: Stationsbetriebssekunden | 16777216 |  s |
+| 28 |  | Slave 2: Reglervariante | 1 |  |
+| 49 |  | Slave 2: Primärpumpe Drehzahl | 1 | % |
+| 52 |  | Slave 2: Primärpumpe Betriebssekunden | 1 |  s |
+| 53 |  | Slave 2: Primärpumpe Betriebssekunden | 256 |  s |
+| 54 |  | Slave 2: Primärpumpe Betriebssekunden | 65536 |  s |
+| 55 |  | Slave 2: Primärpumpe Betriebssekunden | 16777216 |  s |
+| 56 |  | Slave 2: Strangventil Zustand | 1 |  |
+
+
+
+### <a name="1261_1264_0301"></a>Viessmann Vitotrans 353 2017 Master (0x1261) <= Viessmann Vitotrans 353 2017 Slave 3 (0x1264), command 0x0301
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Slave 3: Version | 1 |  |
+| 1 |  | Slave 3: Version | 256 |  |
+| 2 |  | Slave 3: Status | 1 |  |
+| 3 |  | Slave 3: Status | 256 |  |
+| 4 |  | Slave 3: Fehlermaske | 1 |  |
+| 5 |  | Slave 3: Fehlermaske | 256 |  |
+| 6 |  | Slave 3: Fehlermaske | 65536 |  |
+| 7 |  | Slave 3: Fehlermaske | 16777216 |  |
+| 8 |  | Slave 3: T-WW | 1.0 |  °C |
+| 9 |  | Slave 3: T-WW | 256.0 |  °C |
+| 10 |  | Slave 3: T-KW | 1.0 |  °C |
+| 11 |  | Slave 3: T-KW | 256.0 |  °C |
+| 12 |  | Slave 3: T-SpVL | 1.0 |  °C |
+| 13 |  | Slave 3: T-SpVL | 256.0 |  °C |
+| 16 |  | Slave 3: Volumenstrom | 1.0 |  l/min |
+| 17 |  | Slave 3: Volumenstrom | 256.0 |  l/min |
+| 18 |  | Slave 3: Volumenstrom | 65536.0 |  l/min |
+| 19 |  | Slave 3: Volumenstrom | 16777216.0 |  l/min |
+| 24 |  | Slave 3: Stationsbetriebssekunden | 1 |  s |
+| 25 |  | Slave 3: Stationsbetriebssekunden | 256 |  s |
+| 26 |  | Slave 3: Stationsbetriebssekunden | 65536 |  s |
+| 27 |  | Slave 3: Stationsbetriebssekunden | 16777216 |  s |
+| 28 |  | Slave 3: Reglervariante | 1 |  |
+| 49 |  | Slave 3: Primärpumpe Drehzahl | 1 | % |
+| 52 |  | Slave 3: Primärpumpe Betriebssekunden | 1 |  s |
+| 53 |  | Slave 3: Primärpumpe Betriebssekunden | 256 |  s |
+| 54 |  | Slave 3: Primärpumpe Betriebssekunden | 65536 |  s |
+| 55 |  | Slave 3: Primärpumpe Betriebssekunden | 16777216 |  s |
+| 56 |  | Slave 3: Strangventil Zustand | 1 |  |
+
+
+
+### <a name="1262_1261_0301"></a>Viessmann Vitotrans 353 2017 Slave 1 (0x1262) <= Viessmann Vitotrans 353 2017 Master (0x1261), command 0x0301
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Master: Version | 1 |  |
+| 1 |  | Master: Version | 256 |  |
+| 2 |  | Master: Status | 1 |  |
+| 3 |  | Master: Status | 256 |  |
+| 4 |  | Master: Fehlermaske | 1 |  |
+| 5 |  | Master: Fehlermaske | 256 |  |
+| 6 |  | Master: Fehlermaske | 65536 |  |
+| 7 |  | Master: Fehlermaske | 16777216 |  |
+| 8 |  | Master: T-WW | 1.0 |  °C |
+| 9 |  | Master: T-WW | 256.0 |  °C |
+| 10 |  | Master: T-KW | 1.0 |  °C |
+| 11 |  | Master: T-KW | 256.0 |  °C |
+| 12 |  | Master: T-SpVL | 1.0 |  °C |
+| 13 |  | Master: T-SpVL | 256.0 |  °C |
+| 16 |  | Master: Volumenstrom | 1.0 |  l/min |
+| 17 |  | Master: Volumenstrom | 256.0 |  l/min |
+| 18 |  | Master: Volumenstrom | 65536.0 |  l/min |
+| 19 |  | Master: Volumenstrom | 16777216.0 |  l/min |
+| 24 |  | Master: Stationsbetriebssekunden | 1 |  s |
+| 25 |  | Master: Stationsbetriebssekunden | 256 |  s |
+| 26 |  | Master: Stationsbetriebssekunden | 65536 |  s |
+| 27 |  | Master: Stationsbetriebssekunden | 16777216 |  s |
+| 28 |  | Master: Reglervariante | 1 |  |
+| 49 |  | Master: Primärpumpe Drehzahl | 1 | % |
+| 52 |  | Master: Primärpumpe Betriebssekunden | 1 |  s |
+| 53 |  | Master: Primärpumpe Betriebssekunden | 256 |  s |
+| 54 |  | Master: Primärpumpe Betriebssekunden | 65536 |  s |
+| 55 |  | Master: Primärpumpe Betriebssekunden | 16777216 |  s |
+| 56 |  | Master: Strangventil Zustand | 1 |  |
+
+
+
+### <a name="1262_1262_0301"></a>Viessmann Vitotrans 353 2017 Slave 1 (0x1262) <= Viessmann Vitotrans 353 2017 Slave 1 (0x1262), command 0x0301
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Slave 1: Version | 1 |  |
+| 1 |  | Slave 1: Version | 256 |  |
+| 2 |  | Slave 1: Status | 1 |  |
+| 3 |  | Slave 1: Status | 256 |  |
+| 4 |  | Slave 1: Fehlermaske | 1 |  |
+| 5 |  | Slave 1: Fehlermaske | 256 |  |
+| 6 |  | Slave 1: Fehlermaske | 65536 |  |
+| 7 |  | Slave 1: Fehlermaske | 16777216 |  |
+| 8 |  | Slave 1: T-WW | 1.0 |  °C |
+| 9 |  | Slave 1: T-WW | 256.0 |  °C |
+| 10 |  | Slave 1: T-KW | 1.0 |  °C |
+| 11 |  | Slave 1: T-KW | 256.0 |  °C |
+| 12 |  | Slave 1: T-SpVL | 1.0 |  °C |
+| 13 |  | Slave 1: T-SpVL | 256.0 |  °C |
+| 16 |  | Slave 1: Volumenstrom | 1.0 |  l/min |
+| 17 |  | Slave 1: Volumenstrom | 256.0 |  l/min |
+| 18 |  | Slave 1: Volumenstrom | 65536.0 |  l/min |
+| 19 |  | Slave 1: Volumenstrom | 16777216.0 |  l/min |
+| 24 |  | Slave 1: Stationsbetriebssekunden | 1 |  s |
+| 25 |  | Slave 1: Stationsbetriebssekunden | 256 |  s |
+| 26 |  | Slave 1: Stationsbetriebssekunden | 65536 |  s |
+| 27 |  | Slave 1: Stationsbetriebssekunden | 16777216 |  s |
+| 28 |  | Slave 1: Reglervariante | 1 |  |
+| 49 |  | Slave 1: Primärpumpe Drehzahl | 1 | % |
+| 52 |  | Slave 1: Primärpumpe Betriebssekunden | 1 |  s |
+| 53 |  | Slave 1: Primärpumpe Betriebssekunden | 256 |  s |
+| 54 |  | Slave 1: Primärpumpe Betriebssekunden | 65536 |  s |
+| 55 |  | Slave 1: Primärpumpe Betriebssekunden | 16777216 |  s |
+| 56 |  | Slave 1: Strangventil Zustand | 1 |  |
+
+
+
+### <a name="1262_1263_0301"></a>Viessmann Vitotrans 353 2017 Slave 1 (0x1262) <= Viessmann Vitotrans 353 2017 Slave 2 (0x1263), command 0x0301
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Slave 2: Version | 1 |  |
+| 1 |  | Slave 2: Version | 256 |  |
+| 2 |  | Slave 2: Status | 1 |  |
+| 3 |  | Slave 2: Status | 256 |  |
+| 4 |  | Slave 2: Fehlermaske | 1 |  |
+| 5 |  | Slave 2: Fehlermaske | 256 |  |
+| 6 |  | Slave 2: Fehlermaske | 65536 |  |
+| 7 |  | Slave 2: Fehlermaske | 16777216 |  |
+| 8 |  | Slave 2: T-WW | 1.0 |  °C |
+| 9 |  | Slave 2: T-WW | 256.0 |  °C |
+| 10 |  | Slave 2: T-KW | 1.0 |  °C |
+| 11 |  | Slave 2: T-KW | 256.0 |  °C |
+| 12 |  | Slave 2: T-SpVL | 1.0 |  °C |
+| 13 |  | Slave 2: T-SpVL | 256.0 |  °C |
+| 16 |  | Slave 2: Volumenstrom | 1.0 |  l/min |
+| 17 |  | Slave 2: Volumenstrom | 256.0 |  l/min |
+| 18 |  | Slave 2: Volumenstrom | 65536.0 |  l/min |
+| 19 |  | Slave 2: Volumenstrom | 16777216.0 |  l/min |
+| 24 |  | Slave 2: Stationsbetriebssekunden | 1 |  s |
+| 25 |  | Slave 2: Stationsbetriebssekunden | 256 |  s |
+| 26 |  | Slave 2: Stationsbetriebssekunden | 65536 |  s |
+| 27 |  | Slave 2: Stationsbetriebssekunden | 16777216 |  s |
+| 28 |  | Slave 2: Reglervariante | 1 |  |
+| 49 |  | Slave 2: Primärpumpe Drehzahl | 1 | % |
+| 52 |  | Slave 2: Primärpumpe Betriebssekunden | 1 |  s |
+| 53 |  | Slave 2: Primärpumpe Betriebssekunden | 256 |  s |
+| 54 |  | Slave 2: Primärpumpe Betriebssekunden | 65536 |  s |
+| 55 |  | Slave 2: Primärpumpe Betriebssekunden | 16777216 |  s |
+| 56 |  | Slave 2: Strangventil Zustand | 1 |  |
+
+
+
+### <a name="1262_1264_0301"></a>Viessmann Vitotrans 353 2017 Slave 1 (0x1262) <= Viessmann Vitotrans 353 2017 Slave 3 (0x1264), command 0x0301
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Slave 3: Version | 1 |  |
+| 1 |  | Slave 3: Version | 256 |  |
+| 2 |  | Slave 3: Status | 1 |  |
+| 3 |  | Slave 3: Status | 256 |  |
+| 4 |  | Slave 3: Fehlermaske | 1 |  |
+| 5 |  | Slave 3: Fehlermaske | 256 |  |
+| 6 |  | Slave 3: Fehlermaske | 65536 |  |
+| 7 |  | Slave 3: Fehlermaske | 16777216 |  |
+| 8 |  | Slave 3: T-WW | 1.0 |  °C |
+| 9 |  | Slave 3: T-WW | 256.0 |  °C |
+| 10 |  | Slave 3: T-KW | 1.0 |  °C |
+| 11 |  | Slave 3: T-KW | 256.0 |  °C |
+| 12 |  | Slave 3: T-SpVL | 1.0 |  °C |
+| 13 |  | Slave 3: T-SpVL | 256.0 |  °C |
+| 16 |  | Slave 3: Volumenstrom | 1.0 |  l/min |
+| 17 |  | Slave 3: Volumenstrom | 256.0 |  l/min |
+| 18 |  | Slave 3: Volumenstrom | 65536.0 |  l/min |
+| 19 |  | Slave 3: Volumenstrom | 16777216.0 |  l/min |
+| 24 |  | Slave 3: Stationsbetriebssekunden | 1 |  s |
+| 25 |  | Slave 3: Stationsbetriebssekunden | 256 |  s |
+| 26 |  | Slave 3: Stationsbetriebssekunden | 65536 |  s |
+| 27 |  | Slave 3: Stationsbetriebssekunden | 16777216 |  s |
+| 28 |  | Slave 3: Reglervariante | 1 |  |
+| 49 |  | Slave 3: Primärpumpe Drehzahl | 1 | % |
+| 52 |  | Slave 3: Primärpumpe Betriebssekunden | 1 |  s |
+| 53 |  | Slave 3: Primärpumpe Betriebssekunden | 256 |  s |
+| 54 |  | Slave 3: Primärpumpe Betriebssekunden | 65536 |  s |
+| 55 |  | Slave 3: Primärpumpe Betriebssekunden | 16777216 |  s |
+| 56 |  | Slave 3: Strangventil Zustand | 1 |  |
+
+
+
+### <a name="1263_1261_0301"></a>Viessmann Vitotrans 353 2017 Slave 2 (0x1263) <= Viessmann Vitotrans 353 2017 Master (0x1261), command 0x0301
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Master: Version | 1 |  |
+| 1 |  | Master: Version | 256 |  |
+| 2 |  | Master: Status | 1 |  |
+| 3 |  | Master: Status | 256 |  |
+| 4 |  | Master: Fehlermaske | 1 |  |
+| 5 |  | Master: Fehlermaske | 256 |  |
+| 6 |  | Master: Fehlermaske | 65536 |  |
+| 7 |  | Master: Fehlermaske | 16777216 |  |
+| 8 |  | Master: T-WW | 1.0 |  °C |
+| 9 |  | Master: T-WW | 256.0 |  °C |
+| 10 |  | Master: T-KW | 1.0 |  °C |
+| 11 |  | Master: T-KW | 256.0 |  °C |
+| 12 |  | Master: T-SpVL | 1.0 |  °C |
+| 13 |  | Master: T-SpVL | 256.0 |  °C |
+| 16 |  | Master: Volumenstrom | 1.0 |  l/min |
+| 17 |  | Master: Volumenstrom | 256.0 |  l/min |
+| 18 |  | Master: Volumenstrom | 65536.0 |  l/min |
+| 19 |  | Master: Volumenstrom | 16777216.0 |  l/min |
+| 24 |  | Master: Stationsbetriebssekunden | 1 |  s |
+| 25 |  | Master: Stationsbetriebssekunden | 256 |  s |
+| 26 |  | Master: Stationsbetriebssekunden | 65536 |  s |
+| 27 |  | Master: Stationsbetriebssekunden | 16777216 |  s |
+| 28 |  | Master: Reglervariante | 1 |  |
+| 49 |  | Master: Primärpumpe Drehzahl | 1 | % |
+| 52 |  | Master: Primärpumpe Betriebssekunden | 1 |  s |
+| 53 |  | Master: Primärpumpe Betriebssekunden | 256 |  s |
+| 54 |  | Master: Primärpumpe Betriebssekunden | 65536 |  s |
+| 55 |  | Master: Primärpumpe Betriebssekunden | 16777216 |  s |
+| 56 |  | Master: Strangventil Zustand | 1 |  |
+
+
+
+### <a name="1263_1262_0301"></a>Viessmann Vitotrans 353 2017 Slave 2 (0x1263) <= Viessmann Vitotrans 353 2017 Slave 1 (0x1262), command 0x0301
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Slave 1: Version | 1 |  |
+| 1 |  | Slave 1: Version | 256 |  |
+| 2 |  | Slave 1: Status | 1 |  |
+| 3 |  | Slave 1: Status | 256 |  |
+| 4 |  | Slave 1: Fehlermaske | 1 |  |
+| 5 |  | Slave 1: Fehlermaske | 256 |  |
+| 6 |  | Slave 1: Fehlermaske | 65536 |  |
+| 7 |  | Slave 1: Fehlermaske | 16777216 |  |
+| 8 |  | Slave 1: T-WW | 1.0 |  °C |
+| 9 |  | Slave 1: T-WW | 256.0 |  °C |
+| 10 |  | Slave 1: T-KW | 1.0 |  °C |
+| 11 |  | Slave 1: T-KW | 256.0 |  °C |
+| 12 |  | Slave 1: T-SpVL | 1.0 |  °C |
+| 13 |  | Slave 1: T-SpVL | 256.0 |  °C |
+| 16 |  | Slave 1: Volumenstrom | 1.0 |  l/min |
+| 17 |  | Slave 1: Volumenstrom | 256.0 |  l/min |
+| 18 |  | Slave 1: Volumenstrom | 65536.0 |  l/min |
+| 19 |  | Slave 1: Volumenstrom | 16777216.0 |  l/min |
+| 24 |  | Slave 1: Stationsbetriebssekunden | 1 |  s |
+| 25 |  | Slave 1: Stationsbetriebssekunden | 256 |  s |
+| 26 |  | Slave 1: Stationsbetriebssekunden | 65536 |  s |
+| 27 |  | Slave 1: Stationsbetriebssekunden | 16777216 |  s |
+| 28 |  | Slave 1: Reglervariante | 1 |  |
+| 49 |  | Slave 1: Primärpumpe Drehzahl | 1 | % |
+| 52 |  | Slave 1: Primärpumpe Betriebssekunden | 1 |  s |
+| 53 |  | Slave 1: Primärpumpe Betriebssekunden | 256 |  s |
+| 54 |  | Slave 1: Primärpumpe Betriebssekunden | 65536 |  s |
+| 55 |  | Slave 1: Primärpumpe Betriebssekunden | 16777216 |  s |
+| 56 |  | Slave 1: Strangventil Zustand | 1 |  |
+
+
+
+### <a name="1263_1263_0301"></a>Viessmann Vitotrans 353 2017 Slave 2 (0x1263) <= Viessmann Vitotrans 353 2017 Slave 2 (0x1263), command 0x0301
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Slave 2: Version | 1 |  |
+| 1 |  | Slave 2: Version | 256 |  |
+| 2 |  | Slave 2: Status | 1 |  |
+| 3 |  | Slave 2: Status | 256 |  |
+| 4 |  | Slave 2: Fehlermaske | 1 |  |
+| 5 |  | Slave 2: Fehlermaske | 256 |  |
+| 6 |  | Slave 2: Fehlermaske | 65536 |  |
+| 7 |  | Slave 2: Fehlermaske | 16777216 |  |
+| 8 |  | Slave 2: T-WW | 1.0 |  °C |
+| 9 |  | Slave 2: T-WW | 256.0 |  °C |
+| 10 |  | Slave 2: T-KW | 1.0 |  °C |
+| 11 |  | Slave 2: T-KW | 256.0 |  °C |
+| 12 |  | Slave 2: T-SpVL | 1.0 |  °C |
+| 13 |  | Slave 2: T-SpVL | 256.0 |  °C |
+| 16 |  | Slave 2: Volumenstrom | 1.0 |  l/min |
+| 17 |  | Slave 2: Volumenstrom | 256.0 |  l/min |
+| 18 |  | Slave 2: Volumenstrom | 65536.0 |  l/min |
+| 19 |  | Slave 2: Volumenstrom | 16777216.0 |  l/min |
+| 24 |  | Slave 2: Stationsbetriebssekunden | 1 |  s |
+| 25 |  | Slave 2: Stationsbetriebssekunden | 256 |  s |
+| 26 |  | Slave 2: Stationsbetriebssekunden | 65536 |  s |
+| 27 |  | Slave 2: Stationsbetriebssekunden | 16777216 |  s |
+| 28 |  | Slave 2: Reglervariante | 1 |  |
+| 49 |  | Slave 2: Primärpumpe Drehzahl | 1 | % |
+| 52 |  | Slave 2: Primärpumpe Betriebssekunden | 1 |  s |
+| 53 |  | Slave 2: Primärpumpe Betriebssekunden | 256 |  s |
+| 54 |  | Slave 2: Primärpumpe Betriebssekunden | 65536 |  s |
+| 55 |  | Slave 2: Primärpumpe Betriebssekunden | 16777216 |  s |
+| 56 |  | Slave 2: Strangventil Zustand | 1 |  |
+
+
+
+### <a name="1263_1264_0301"></a>Viessmann Vitotrans 353 2017 Slave 2 (0x1263) <= Viessmann Vitotrans 353 2017 Slave 3 (0x1264), command 0x0301
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Slave 3: Version | 1 |  |
+| 1 |  | Slave 3: Version | 256 |  |
+| 2 |  | Slave 3: Status | 1 |  |
+| 3 |  | Slave 3: Status | 256 |  |
+| 4 |  | Slave 3: Fehlermaske | 1 |  |
+| 5 |  | Slave 3: Fehlermaske | 256 |  |
+| 6 |  | Slave 3: Fehlermaske | 65536 |  |
+| 7 |  | Slave 3: Fehlermaske | 16777216 |  |
+| 8 |  | Slave 3: T-WW | 1.0 |  °C |
+| 9 |  | Slave 3: T-WW | 256.0 |  °C |
+| 10 |  | Slave 3: T-KW | 1.0 |  °C |
+| 11 |  | Slave 3: T-KW | 256.0 |  °C |
+| 12 |  | Slave 3: T-SpVL | 1.0 |  °C |
+| 13 |  | Slave 3: T-SpVL | 256.0 |  °C |
+| 16 |  | Slave 3: Volumenstrom | 1.0 |  l/min |
+| 17 |  | Slave 3: Volumenstrom | 256.0 |  l/min |
+| 18 |  | Slave 3: Volumenstrom | 65536.0 |  l/min |
+| 19 |  | Slave 3: Volumenstrom | 16777216.0 |  l/min |
+| 24 |  | Slave 3: Stationsbetriebssekunden | 1 |  s |
+| 25 |  | Slave 3: Stationsbetriebssekunden | 256 |  s |
+| 26 |  | Slave 3: Stationsbetriebssekunden | 65536 |  s |
+| 27 |  | Slave 3: Stationsbetriebssekunden | 16777216 |  s |
+| 28 |  | Slave 3: Reglervariante | 1 |  |
+| 49 |  | Slave 3: Primärpumpe Drehzahl | 1 | % |
+| 52 |  | Slave 3: Primärpumpe Betriebssekunden | 1 |  s |
+| 53 |  | Slave 3: Primärpumpe Betriebssekunden | 256 |  s |
+| 54 |  | Slave 3: Primärpumpe Betriebssekunden | 65536 |  s |
+| 55 |  | Slave 3: Primärpumpe Betriebssekunden | 16777216 |  s |
+| 56 |  | Slave 3: Strangventil Zustand | 1 |  |
+
+
+
+### <a name="1264_1261_0301"></a>Viessmann Vitotrans 353 2017 Slave 3 (0x1264) <= Viessmann Vitotrans 353 2017 Master (0x1261), command 0x0301
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Master: Version | 1 |  |
+| 1 |  | Master: Version | 256 |  |
+| 2 |  | Master: Status | 1 |  |
+| 3 |  | Master: Status | 256 |  |
+| 4 |  | Master: Fehlermaske | 1 |  |
+| 5 |  | Master: Fehlermaske | 256 |  |
+| 6 |  | Master: Fehlermaske | 65536 |  |
+| 7 |  | Master: Fehlermaske | 16777216 |  |
+| 8 |  | Master: T-WW | 1.0 |  °C |
+| 9 |  | Master: T-WW | 256.0 |  °C |
+| 10 |  | Master: T-KW | 1.0 |  °C |
+| 11 |  | Master: T-KW | 256.0 |  °C |
+| 12 |  | Master: T-SpVL | 1.0 |  °C |
+| 13 |  | Master: T-SpVL | 256.0 |  °C |
+| 16 |  | Master: Volumenstrom | 1.0 |  l/min |
+| 17 |  | Master: Volumenstrom | 256.0 |  l/min |
+| 18 |  | Master: Volumenstrom | 65536.0 |  l/min |
+| 19 |  | Master: Volumenstrom | 16777216.0 |  l/min |
+| 24 |  | Master: Stationsbetriebssekunden | 1 |  s |
+| 25 |  | Master: Stationsbetriebssekunden | 256 |  s |
+| 26 |  | Master: Stationsbetriebssekunden | 65536 |  s |
+| 27 |  | Master: Stationsbetriebssekunden | 16777216 |  s |
+| 28 |  | Master: Reglervariante | 1 |  |
+| 49 |  | Master: Primärpumpe Drehzahl | 1 | % |
+| 52 |  | Master: Primärpumpe Betriebssekunden | 1 |  s |
+| 53 |  | Master: Primärpumpe Betriebssekunden | 256 |  s |
+| 54 |  | Master: Primärpumpe Betriebssekunden | 65536 |  s |
+| 55 |  | Master: Primärpumpe Betriebssekunden | 16777216 |  s |
+| 56 |  | Master: Strangventil Zustand | 1 |  |
+
+
+
+### <a name="1264_1262_0301"></a>Viessmann Vitotrans 353 2017 Slave 3 (0x1264) <= Viessmann Vitotrans 353 2017 Slave 1 (0x1262), command 0x0301
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Slave 1: Version | 1 |  |
+| 1 |  | Slave 1: Version | 256 |  |
+| 2 |  | Slave 1: Status | 1 |  |
+| 3 |  | Slave 1: Status | 256 |  |
+| 4 |  | Slave 1: Fehlermaske | 1 |  |
+| 5 |  | Slave 1: Fehlermaske | 256 |  |
+| 6 |  | Slave 1: Fehlermaske | 65536 |  |
+| 7 |  | Slave 1: Fehlermaske | 16777216 |  |
+| 8 |  | Slave 1: T-WW | 1.0 |  °C |
+| 9 |  | Slave 1: T-WW | 256.0 |  °C |
+| 10 |  | Slave 1: T-KW | 1.0 |  °C |
+| 11 |  | Slave 1: T-KW | 256.0 |  °C |
+| 12 |  | Slave 1: T-SpVL | 1.0 |  °C |
+| 13 |  | Slave 1: T-SpVL | 256.0 |  °C |
+| 16 |  | Slave 1: Volumenstrom | 1.0 |  l/min |
+| 17 |  | Slave 1: Volumenstrom | 256.0 |  l/min |
+| 18 |  | Slave 1: Volumenstrom | 65536.0 |  l/min |
+| 19 |  | Slave 1: Volumenstrom | 16777216.0 |  l/min |
+| 24 |  | Slave 1: Stationsbetriebssekunden | 1 |  s |
+| 25 |  | Slave 1: Stationsbetriebssekunden | 256 |  s |
+| 26 |  | Slave 1: Stationsbetriebssekunden | 65536 |  s |
+| 27 |  | Slave 1: Stationsbetriebssekunden | 16777216 |  s |
+| 28 |  | Slave 1: Reglervariante | 1 |  |
+| 49 |  | Slave 1: Primärpumpe Drehzahl | 1 | % |
+| 52 |  | Slave 1: Primärpumpe Betriebssekunden | 1 |  s |
+| 53 |  | Slave 1: Primärpumpe Betriebssekunden | 256 |  s |
+| 54 |  | Slave 1: Primärpumpe Betriebssekunden | 65536 |  s |
+| 55 |  | Slave 1: Primärpumpe Betriebssekunden | 16777216 |  s |
+| 56 |  | Slave 1: Strangventil Zustand | 1 |  |
+
+
+
+### <a name="1264_1263_0301"></a>Viessmann Vitotrans 353 2017 Slave 3 (0x1264) <= Viessmann Vitotrans 353 2017 Slave 2 (0x1263), command 0x0301
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Slave 2: Version | 1 |  |
+| 1 |  | Slave 2: Version | 256 |  |
+| 2 |  | Slave 2: Status | 1 |  |
+| 3 |  | Slave 2: Status | 256 |  |
+| 4 |  | Slave 2: Fehlermaske | 1 |  |
+| 5 |  | Slave 2: Fehlermaske | 256 |  |
+| 6 |  | Slave 2: Fehlermaske | 65536 |  |
+| 7 |  | Slave 2: Fehlermaske | 16777216 |  |
+| 8 |  | Slave 2: T-WW | 1.0 |  °C |
+| 9 |  | Slave 2: T-WW | 256.0 |  °C |
+| 10 |  | Slave 2: T-KW | 1.0 |  °C |
+| 11 |  | Slave 2: T-KW | 256.0 |  °C |
+| 12 |  | Slave 2: T-SpVL | 1.0 |  °C |
+| 13 |  | Slave 2: T-SpVL | 256.0 |  °C |
+| 16 |  | Slave 2: Volumenstrom | 1.0 |  l/min |
+| 17 |  | Slave 2: Volumenstrom | 256.0 |  l/min |
+| 18 |  | Slave 2: Volumenstrom | 65536.0 |  l/min |
+| 19 |  | Slave 2: Volumenstrom | 16777216.0 |  l/min |
+| 24 |  | Slave 2: Stationsbetriebssekunden | 1 |  s |
+| 25 |  | Slave 2: Stationsbetriebssekunden | 256 |  s |
+| 26 |  | Slave 2: Stationsbetriebssekunden | 65536 |  s |
+| 27 |  | Slave 2: Stationsbetriebssekunden | 16777216 |  s |
+| 28 |  | Slave 2: Reglervariante | 1 |  |
+| 49 |  | Slave 2: Primärpumpe Drehzahl | 1 | % |
+| 52 |  | Slave 2: Primärpumpe Betriebssekunden | 1 |  s |
+| 53 |  | Slave 2: Primärpumpe Betriebssekunden | 256 |  s |
+| 54 |  | Slave 2: Primärpumpe Betriebssekunden | 65536 |  s |
+| 55 |  | Slave 2: Primärpumpe Betriebssekunden | 16777216 |  s |
+| 56 |  | Slave 2: Strangventil Zustand | 1 |  |
+
+
+
+### <a name="1264_1264_0301"></a>Viessmann Vitotrans 353 2017 Slave 3 (0x1264) <= Viessmann Vitotrans 353 2017 Slave 3 (0x1264), command 0x0301
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Slave 3: Version | 1 |  |
+| 1 |  | Slave 3: Version | 256 |  |
+| 2 |  | Slave 3: Status | 1 |  |
+| 3 |  | Slave 3: Status | 256 |  |
+| 4 |  | Slave 3: Fehlermaske | 1 |  |
+| 5 |  | Slave 3: Fehlermaske | 256 |  |
+| 6 |  | Slave 3: Fehlermaske | 65536 |  |
+| 7 |  | Slave 3: Fehlermaske | 16777216 |  |
+| 8 |  | Slave 3: T-WW | 1.0 |  °C |
+| 9 |  | Slave 3: T-WW | 256.0 |  °C |
+| 10 |  | Slave 3: T-KW | 1.0 |  °C |
+| 11 |  | Slave 3: T-KW | 256.0 |  °C |
+| 12 |  | Slave 3: T-SpVL | 1.0 |  °C |
+| 13 |  | Slave 3: T-SpVL | 256.0 |  °C |
+| 16 |  | Slave 3: Volumenstrom | 1.0 |  l/min |
+| 17 |  | Slave 3: Volumenstrom | 256.0 |  l/min |
+| 18 |  | Slave 3: Volumenstrom | 65536.0 |  l/min |
+| 19 |  | Slave 3: Volumenstrom | 16777216.0 |  l/min |
+| 24 |  | Slave 3: Stationsbetriebssekunden | 1 |  s |
+| 25 |  | Slave 3: Stationsbetriebssekunden | 256 |  s |
+| 26 |  | Slave 3: Stationsbetriebssekunden | 65536 |  s |
+| 27 |  | Slave 3: Stationsbetriebssekunden | 16777216 |  s |
+| 28 |  | Slave 3: Reglervariante | 1 |  |
+| 49 |  | Slave 3: Primärpumpe Drehzahl | 1 | % |
+| 52 |  | Slave 3: Primärpumpe Betriebssekunden | 1 |  s |
+| 53 |  | Slave 3: Primärpumpe Betriebssekunden | 256 |  s |
+| 54 |  | Slave 3: Primärpumpe Betriebssekunden | 65536 |  s |
+| 55 |  | Slave 3: Primärpumpe Betriebssekunden | 16777216 |  s |
+| 56 |  | Slave 3: Strangventil Zustand | 1 |  |
+
+
+
 ### <a name="4420_0000_0200"></a>HKM1 #0 (0x4420) <= Broadcast (0x0000), command 0x0200
 
 | Offset | Mask | Name | Factor | Unit |
@@ -8554,6 +9565,70 @@ title: VBus Packets
 | 12 |  | Mischerlaufzeit | 1 |  s |
 | 13 |  | Sommerbetrieb | 1 |  °C |
 | 14 |  | Info Schaltuhr | 1 |  |
+
+
+
+### <a name="5260_5260_0102"></a>Kaskade BasisAdr (0x5260) <= Kaskade BasisAdr (0x5260), command 0x0102
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 4 |  | mStationEin | 1 |  |
+| 5 |  | mStationEin | 256 |  |
+| 6 |  | mStationAus | 1 |  |
+| 7 |  | mStationAus | 256 |  |
+| 8 |  | mStationAlive | 1 |  |
+| 9 |  | mStationAlive | 256 |  |
+| 10 |  | mStationFehler | 1 |  |
+| 11 |  | mStationFehler | 256 |  |
+| 12 |  | Version | 1 |  |
+| 13 |  | Version | 256 |  |
+| 14 |  | Reglervariante | 1 |  |
+| 15 |  | Durchfluss erwartet | 1 |  |
+| 16 |  | DurchschnittsDrehzahl | 1.0 | % |
+| 17 |  | DurchschnittsDrehzahl | 256.0 | % |
+
+
+
+### <a name="5261_5260_0301"></a>Kaskade Master (0x5261) <= Kaskade BasisAdr (0x5260), command 0x0301
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Version | 1 |  |
+| 1 |  | Version | 256 |  |
+| 2 |  | Status | 1 |  |
+| 3 |  | Status | 256 |  |
+| 4 |  | Fehler | 1 |  |
+| 5 |  | Fehler | 256 |  |
+| 6 |  | Fehler | 65536 |  |
+| 7 |  | Fehler | 16777216 |  |
+| 8 |  | TWW | 1.0 |  °C |
+| 9 |  | TWW | 256.0 |  °C |
+| 10 |  | TKW | 1.0 |  °C |
+| 11 |  | TKW | 256.0 |  °C |
+| 12 |  | TSpVL | 1.0 |  °C |
+| 13 |  | TSpVL | 256.0 |  °C |
+| 14 |  | Volumenstrom | 1 |  l/h |
+| 15 |  | Volumenstrom | 256 |  l/h |
+| 16 |  | Wärmemenge | 1 |  Wh |
+| 17 |  | Wärmemenge | 256 |  Wh |
+| 18 |  | Wärmemenge | 65536 |  Wh |
+| 19 |  | Wärmemenge | 16777216 |  Wh |
+| 20 |  | Betriebssekunden | 1 |  s |
+| 21 |  | Betriebssekunden | 256 |  s |
+| 22 |  | Betriebssekunden | 65536 |  s |
+| 23 |  | Betriebssekunden | 16777216 |  s |
+| 24 |  | Stationsbetriebssekunden | 1 |  s |
+| 25 |  | Stationsbetriebssekunden | 256 |  s |
+| 26 |  | Stationsbetriebssekunden | 65536 |  s |
+| 27 |  | Stationsbetriebssekunden | 16777216 |  s |
+| 28 |  | Gesamtbetriebsstunden | 1 |  s |
+| 29 |  | Gesamtbetriebsstunden | 256 |  s |
+| 30 |  | Gesamtbetriebsstunden | 65536 |  s |
+| 31 |  | Gesamtbetriebsstunden | 16777216 |  s |
+| 32 |  | Reglervariante | 1 |  |
+| 33 |  | Drehzahl | 1.0 | % |
+| 34 |  | Handbetrieb Relais Kaskade | 1 |  |
+| 35 |  | Handbetrieb PWM1 | 1 |  |
 
 
 
@@ -8713,46 +9788,46 @@ title: VBus Packets
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
-| 0 |  | Drehzahl Relais 1_1 | 1 | % |
-| 1 |  | Timer 1_1 | 1 |  s |
-| 2 |  | Timer 1_1 | 256 |  s |
-| 3 |  | Timer 1_1 | 65536 |  s |
-| 4 |  | Drehzahl Relais 1_2 | 1 | % |
-| 5 |  | Timer 1_2 | 1 |  s |
-| 6 |  | Timer 1_2 | 256 |  s |
-| 7 |  | Timer 1_2 | 65536 |  s |
-| 8 |  | Drehzahl Relais 2_1 | 1 | % |
-| 9 |  | Timer 2_1 | 1 |  s |
-| 10 |  | Timer 2_1 | 256 |  s |
-| 11 |  | Timer 2_1 | 65536 |  s |
-| 12 |  | Drehzahl Relais 2_2 | 1 | % |
-| 13 |  | Timer 2_2 | 1 |  s |
-| 14 |  | Timer 2_2 | 256 |  s |
-| 15 |  | Timer 2_2 | 65536 |  s |
-| 16 |  | Drehzahl Relais 3_1 | 1 | % |
-| 17 |  | Timer 3_1 | 1 |  s |
-| 18 |  | Timer 3_1 | 256 |  s |
-| 19 |  | Timer 3_1 | 65536 |  s |
-| 20 |  | Drehzahl Relais 3_2 | 1 | % |
-| 21 |  | Timer 3_2 | 1 |  s |
-| 22 |  | Timer 3_2 | 256 |  s |
-| 23 |  | Timer 3_2 | 65536 |  s |
-| 24 |  | Drehzahl Relais 4_1 | 1 | % |
-| 25 |  | Timer 4_1 | 1 |  s |
-| 26 |  | Timer 4_1 | 256 |  s |
-| 27 |  | Timer 4_1 | 65536 |  s |
-| 28 |  | Drehzahl Relais 4_2 | 1 | % |
-| 29 |  | Timer 4_2 | 1 |  s |
-| 30 |  | Timer 4_2 | 256 |  s |
-| 31 |  | Timer 4_2 | 65536 |  s |
-| 32 |  | Drehzahl Relais 5_1 | 1 | % |
-| 33 |  | Timer 5_1 | 1 |  s |
-| 34 |  | Timer 5_1 | 256 |  s |
-| 35 |  | Timer 5_1 | 65536 |  s |
-| 36 |  | Drehzahl Relais 5_2 | 1 | % |
-| 37 |  | Timer 5_2 | 1 |  s |
-| 38 |  | Timer 5_2 | 256 |  s |
-| 39 |  | Timer 5_2 | 65536 |  s |
+| 0 |  | Drehzahl Relais 1.1 | 1 | % |
+| 1 |  | Timer 1.1 | 1 |  s |
+| 2 |  | Timer 1.1 | 256 |  s |
+| 3 |  | Timer 1.1 | 65536 |  s |
+| 4 |  | Drehzahl Relais 1.2 | 1 | % |
+| 5 |  | Timer 1.2 | 1 |  s |
+| 6 |  | Timer 1.2 | 256 |  s |
+| 7 |  | Timer 1.2 | 65536 |  s |
+| 8 |  | Drehzahl Relais 2.1 | 1 | % |
+| 9 |  | Timer 2.1 | 1 |  s |
+| 10 |  | Timer 2.1 | 256 |  s |
+| 11 |  | Timer 2.1 | 65536 |  s |
+| 12 |  | Drehzahl Relais 2.2 | 1 | % |
+| 13 |  | Timer 2.2 | 1 |  s |
+| 14 |  | Timer 2.2 | 256 |  s |
+| 15 |  | Timer 2.2 | 65536 |  s |
+| 16 |  | Drehzahl Relais 3.1 | 1 | % |
+| 17 |  | Timer 3.1 | 1 |  s |
+| 18 |  | Timer 3.1 | 256 |  s |
+| 19 |  | Timer 3.1 | 65536 |  s |
+| 20 |  | Drehzahl Relais 3.2 | 1 | % |
+| 21 |  | Timer 3.2 | 1 |  s |
+| 22 |  | Timer 3.2 | 256 |  s |
+| 23 |  | Timer 3.2 | 65536 |  s |
+| 24 |  | Drehzahl Relais 4.1 | 1 | % |
+| 25 |  | Timer 4.1 | 1 |  s |
+| 26 |  | Timer 4.1 | 256 |  s |
+| 27 |  | Timer 4.1 | 65536 |  s |
+| 28 |  | Drehzahl Relais 4.2 | 1 | % |
+| 29 |  | Timer 4.2 | 1 |  s |
+| 30 |  | Timer 4.2 | 256 |  s |
+| 31 |  | Timer 4.2 | 65536 |  s |
+| 32 |  | Drehzahl Relais 5.1 | 1 | % |
+| 33 |  | Timer 5.1 | 1 |  s |
+| 34 |  | Timer 5.1 | 256 |  s |
+| 35 |  | Timer 5.1 | 65536 |  s |
+| 36 |  | Drehzahl Relais 5.2 | 1 | % |
+| 37 |  | Timer 5.2 | 1 |  s |
+| 38 |  | Timer 5.2 | 256 |  s |
+| 39 |  | Timer 5.2 | 65536 |  s |
 | 40 |  | SensorOutputType1 | 1 |  |
 | 41 |  | SensorOutputType2 | 1 |  |
 | 42 |  | SensorOutputType3 | 1 |  |
