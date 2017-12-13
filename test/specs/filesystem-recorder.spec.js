@@ -117,7 +117,7 @@ describe('FileSystemRecorder', function() {
     describe('#playback', function() {
 
         it('should be a method', function() {
-            expect(FileSystemRecorder.prototype).ownProperty('_playback').property('_playback').a('function');
+            expect(FileSystemRecorder.prototype).ownProperty('_playback').a('function');
         });
 
         promiseIt('should work correctly', function() {

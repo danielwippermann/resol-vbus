@@ -23,7 +23,7 @@ describe('TcpDataSource', function() {
             expect(TcpDataSource)
                 .to.be.a('function')
                 .that.has.a.property('extend')
-                    .that.is.a('function');
+                .that.is.a('function');
         });
 
         it('should have reasonable defaults', function() {
@@ -31,13 +31,13 @@ describe('TcpDataSource', function() {
 
             expect(ds)
                 .to.have.a.property('host')
-                    .that.equals(null);
+                .that.equals(null);
             expect(ds)
                 .to.have.a.property('liveChannel')
-                    .that.equals(0);
+                .that.equals(0);
             expect(ds)
                 .to.have.a.property('livePassword')
-                    .that.equals('vbus');
+                .that.equals('vbus');
         });
 
     });
@@ -47,7 +47,7 @@ describe('TcpDataSource', function() {
         it('should be a method', function() {
             expect(TcpDataSource.prototype)
                 .to.have.a.property('connectLive')
-                    .that.is.a('function');
+                .that.is.a('function');
         });
 
         promiseIt('should work correctly', function() {

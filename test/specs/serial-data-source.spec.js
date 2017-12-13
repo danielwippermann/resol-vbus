@@ -29,7 +29,7 @@ describe('SerialDataSource', function() {
 
             expect(ds)
                 .to.have.a.property('path')
-                    .that.equal(null);
+                .that.equal(null);
         });
 
     });
@@ -39,7 +39,7 @@ describe('SerialDataSource', function() {
         it('should be a method', function() {
             expect(SerialDataSource.prototype)
                 .to.have.a.property('connectLive')
-                    .that.is.a('function');
+                .that.is.a('function');
         });
 
         it('should work correctly', function(done) {

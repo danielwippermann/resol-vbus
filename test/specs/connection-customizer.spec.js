@@ -124,7 +124,7 @@ describe('ConnectionCustomizer', function() {
             expect(ConnectionCustomizer)
                 .to.be.a('function')
                 .that.has.a.property('extend')
-                    .that.is.a('function');
+                .that.is.a('function');
         });
 
         it('should have reasonable defaults', function() {
@@ -132,28 +132,28 @@ describe('ConnectionCustomizer', function() {
 
             expect(customizer)
                 .to.have.a.property('id')
-                    .that.is.equal(null);
+                .that.is.equal(null);
             expect(customizer)
                 .to.have.a.property('deviceAddress')
-                    .that.is.equal(0);
+                .that.is.equal(0);
             expect(customizer)
                 .to.have.a.property('optimizer')
-                    .that.is.equal(null);
+                .that.is.equal(null);
             expect(customizer)
                 .to.have.a.property('connection')
-                    .that.is.equal(null);
+                .that.is.equal(null);
             expect(customizer)
                 .to.have.a.property('maxRounds')
-                    .that.is.equal(10);
+                .that.is.equal(10);
             expect(customizer)
                 .to.have.a.property('triesPerValue')
-                    .that.is.equal(2);
+                .that.is.equal(2);
             expect(customizer)
                 .to.have.a.property('timeoutPerValue')
-                    .that.is.equal(30000);
+                .that.is.equal(30000);
             expect(customizer)
                 .to.have.a.property('masterTimeout')
-                    .that.is.equal(8000);
+                .that.is.equal(8000);
         });
 
         it('should copy selected properties', function() {
@@ -172,28 +172,28 @@ describe('ConnectionCustomizer', function() {
 
             expect(customizer)
                 .to.have.a.property('id')
-                    .that.is.equal(options.id);
+                .that.is.equal(options.id);
             expect(customizer)
                 .to.have.a.property('deviceAddress')
-                    .that.is.equal(options.deviceAddress);
+                .that.is.equal(options.deviceAddress);
             expect(customizer)
                 .to.have.a.property('optimizer')
-                    .that.is.equal(options.optimizer);
+                .that.is.equal(options.optimizer);
             expect(customizer)
                 .to.have.a.property('connection')
-                    .that.is.equal(options.connection);
+                .that.is.equal(options.connection);
             expect(customizer)
                 .to.have.a.property('maxRounds')
-                    .that.is.equal(options.maxRounds);
+                .that.is.equal(options.maxRounds);
             expect(customizer)
                 .to.have.a.property('triesPerValue')
-                    .that.is.equal(options.triesPerValue);
+                .that.is.equal(options.triesPerValue);
             expect(customizer)
                 .to.have.a.property('timeoutPerValue')
-                    .that.is.equal(options.timeoutPerValue);
+                .that.is.equal(options.timeoutPerValue);
             expect(customizer)
                 .to.have.a.property('masterTimeout')
-                    .that.is.equal(options.masterTimeout);
+                .that.is.equal(options.masterTimeout);
         });
 
     });
@@ -463,7 +463,7 @@ describe('ConnectionCustomizer', function() {
         it('should be a method', function() {
             expect(ConnectionCustomizer.prototype)
                 .to.have.a.property('transceiveConfiguration')
-                    .that.is.a('function');
+                .that.is.a('function');
         });
 
         it('should get values correctly', function(done) {
@@ -550,7 +550,7 @@ describe('ConnectionCustomizer', function() {
         it('should be a method', function() {
             expect(ConnectionCustomizer.prototype)
                 .has.a.property('transceiveValue')
-                    .that.is.a('function');
+                .that.is.a('function');
         });
 
         it('should get value correctly', function(done) {
@@ -600,20 +600,20 @@ describe('ConnectionCustomizer', function() {
                         .to.equal('00_1111_0020_20_0300_0000');
                     expect(request)
                         .to.have.a.property('valueId')
-                            .that.is.equal(valueId);
+                        .that.is.equal(valueId);
                     expect(request)
                         .to.have.a.property('value')
-                            .that.is.equal(0);
+                        .that.is.equal(0);
 
                     expect(response).to.be.instanceOf(Datagram);
                     expect(response.getId())
                         .to.equal('00_0020_1111_20_0100_0000');
                     expect(response)
                         .to.have.a.property('valueId')
-                            .that.is.equal(valueId);
+                        .that.is.equal(valueId);
                     expect(response)
                         .to.have.a.property('value')
-                            .that.is.equal(value);
+                        .that.is.equal(value);
                 });
             });
         });
@@ -665,20 +665,20 @@ describe('ConnectionCustomizer', function() {
                         .to.equal('00_1111_0020_20_0200_0000');
                     expect(request)
                         .to.have.a.property('valueId')
-                            .that.is.equal(valueId);
+                        .that.is.equal(valueId);
                     expect(request)
                         .to.have.a.property('value')
-                            .that.is.equal(value);
+                        .that.is.equal(value);
 
                     expect(response).to.be.instanceOf(Datagram);
                     expect(response.getId())
                         .to.equal('00_0020_1111_20_0100_0000');
                     expect(response)
                         .to.have.a.property('valueId')
-                            .that.is.equal(valueId);
+                        .that.is.equal(valueId);
                     expect(response)
                         .to.have.a.property('value')
-                            .that.is.equal(value);
+                        .that.is.equal(value);
                 });
             });
         });
@@ -735,20 +735,20 @@ describe('ConnectionCustomizer', function() {
                         .to.equal('00_1111_0020_20_0300_0000');
                     expect(request)
                         .to.have.a.property('valueId')
-                            .that.is.equal(valueId);
+                        .that.is.equal(valueId);
                     expect(request)
                         .to.have.a.property('value')
-                            .that.is.equal(0);
+                        .that.is.equal(0);
 
                     expect(response).to.be.instanceOf(Datagram);
                     expect(response.getId())
                         .to.equal('00_0020_1111_20_0100_0000');
                     expect(response)
                         .to.have.a.property('valueId')
-                            .that.is.equal(valueId);
+                        .that.is.equal(valueId);
                     expect(response)
                         .to.have.a.property('value')
-                            .that.is.equal(value);
+                        .that.is.equal(value);
                 });
             });
         });
@@ -833,20 +833,20 @@ describe('ConnectionCustomizer', function() {
                         .to.equal('00_1111_0020_20_0300_0000');
                     expect(request)
                         .to.have.a.property('valueId')
-                            .that.is.equal(valueId);
+                        .that.is.equal(valueId);
                     expect(request)
                         .to.have.a.property('value')
-                            .that.is.equal(0);
+                        .that.is.equal(0);
 
                     expect(response).to.be.instanceOf(Datagram);
                     expect(response.getId())
                         .to.equal('00_0020_1111_20_0100_0000');
                     expect(response)
                         .to.have.a.property('valueId')
-                            .that.is.equal(valueId);
+                        .that.is.equal(valueId);
                     expect(response)
                         .to.have.a.property('value')
-                            .that.is.equal(value);
+                        .that.is.equal(value);
                 });
             });
         });
@@ -932,20 +932,20 @@ describe('ConnectionCustomizer', function() {
                         .to.equal('00_1111_0020_20_0300_0000');
                     expect(request)
                         .to.have.a.property('valueId')
-                            .that.is.equal(valueId);
+                        .that.is.equal(valueId);
                     expect(request)
                         .to.have.a.property('value')
-                            .that.is.equal(0);
+                        .that.is.equal(0);
 
                     expect(response).to.be.instanceOf(Datagram);
                     expect(response.getId())
                         .to.equal('00_0020_1111_20_0100_0000');
                     expect(response)
                         .to.have.a.property('valueId')
-                            .that.is.equal(valueId);
+                        .that.is.equal(valueId);
                     expect(response)
                         .to.have.a.property('value')
-                            .that.is.equal(value);
+                        .that.is.equal(value);
                 });
             });
         });
@@ -1017,20 +1017,20 @@ describe('ConnectionCustomizer', function() {
                     .to.equal('00_1111_0020_20_0300_0000');
                 expect(request)
                     .to.have.a.property('valueId')
-                        .that.is.equal(valueId);
+                    .that.is.equal(valueId);
                 expect(request)
                     .to.have.a.property('value')
-                        .that.is.equal(0);
+                    .that.is.equal(0);
 
                 expect(response).to.be.instanceOf(Datagram);
                 expect(response.getId())
                     .to.equal('00_0020_1111_20_0100_0000');
                 expect(response)
                     .to.have.a.property('valueId')
-                        .that.is.equal(valueId);
+                    .that.is.equal(valueId);
                 expect(response)
                     .to.have.a.property('value')
-                        .that.is.equal(value);
+                    .that.is.equal(value);
             });
         });
 

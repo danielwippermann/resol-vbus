@@ -100,7 +100,7 @@ describe('DLxRecorder', function() {
             expect(DLxRecorder)
                 .to.be.a('function')
                 .that.has.a.property('extend')
-                    .that.is.a('function');
+                .that.is.a('function');
         });
 
         it('should have reasonable defaults', function() {
@@ -108,26 +108,26 @@ describe('DLxRecorder', function() {
 
             expect(recorder)
                 .to.have.a.property('id')
-                    .that.is.a('string');
+                .that.is.a('string');
             expect(recorder)
                 .to.have.a.property('minTimestamp')
-                    .that.is.instanceOf(Date);
+                .that.is.instanceOf(Date);
             expect(recorder.minTimestamp.toISOString())
                 .to.equal('2001-01-01T00:00:00.000Z');
             expect(recorder)
                 .to.have.a.property('maxTimestamp')
-                    .that.is.instanceOf(Date);
+                .that.is.instanceOf(Date);
             expect(recorder.maxTimestamp.toISOString())
                 .to.equal('2038-01-01T00:00:00.000Z');
             expect(recorder)
                 .to.have.a.property('urlPrefix')
-                    .that.equals(null);
+                .that.equals(null);
             expect(recorder)
                 .to.have.a.property('username')
-                    .that.equals('admin');
+                .that.equals('admin');
             expect(recorder)
                 .to.have.a.property('password')
-                    .that.equals('admin');
+                .that.equals('admin');
         });
 
         it('should copy selected options', function() {
@@ -145,22 +145,22 @@ describe('DLxRecorder', function() {
 
             expect(recorder)
                 .to.have.a.property('id')
-                    .that.is.equal(options.id);
+                .that.is.equal(options.id);
             expect(recorder)
                 .to.have.a.property('minTimestamp')
-                    .that.is.equal(options.minTimestamp);
+                .that.is.equal(options.minTimestamp);
             expect(recorder)
                 .to.have.a.property('maxTimestamp')
-                    .that.is.equal(options.maxTimestamp);
+                .that.is.equal(options.maxTimestamp);
             expect(recorder)
                 .to.have.a.property('urlPrefix')
-                    .that.equals(options.urlPrefix);
+                .that.equals(options.urlPrefix);
             expect(recorder)
                 .to.have.a.property('username')
-                    .that.equals(options.username);
+                .that.equals(options.username);
             expect(recorder)
                 .to.have.a.property('password')
-                    .that.equals(options.password);
+                .that.equals(options.password);
             expect(recorder)
                 .to.not.have.a.property('junk');
         });
@@ -172,7 +172,7 @@ describe('DLxRecorder', function() {
         it('should be a method', function() {
             expect(DLxRecorder.prototype)
                 .to.have.a.property('getLazyRecordingRanges')
-                    .that.is.a('function');
+                .that.is.a('function');
         });
 
         it('should work correctly', function(done) {
@@ -194,7 +194,7 @@ describe('DLxRecorder', function() {
                 return testUtils.expectPromise(promise).then(function(result) {
                     expect(stub)
                         .to.have.a.property('callCount')
-                            .that.is.equal(1);
+                        .that.is.equal(1);
 
                     expect(stub.firstCall.args [0]).to.equal('URLPREFIX/log/');
                     expect(stub.firstCall.args [1]).to.eql({
@@ -206,14 +206,14 @@ describe('DLxRecorder', function() {
 
                     expect(result)
                         .to.be.an('array')
-                            .that.has.lengthOf(1);
+                        .that.has.lengthOf(1);
                     expect(result [0])
                         .to.have.a.property('minTimestamp')
-                            .that.is.instanceOf(Date);
+                        .that.is.instanceOf(Date);
                     expect(result [0].minTimestamp.toISOString()).is.equal('2014-02-10T00:00:00.000Z');
                     expect(result [0])
                         .to.have.a.property('maxTimestamp')
-                            .that.is.instanceOf(Date);
+                        .that.is.instanceOf(Date);
                     expect(result [0].maxTimestamp.toISOString()).is.equal('2014-02-16T00:00:00.000Z');
                 });
             });
@@ -226,7 +226,7 @@ describe('DLxRecorder', function() {
         it('should be a method', function() {
             expect(DLxRecorder.prototype)
                 .to.have.a.property('getRecordingFilenames')
-                    .that.is.a('function');
+                .that.is.a('function');
         });
 
         it('should work correctly', function(done) {
@@ -248,7 +248,7 @@ describe('DLxRecorder', function() {
                 return testUtils.expectPromise(promise).then(function(result) {
                     expect(stub)
                         .to.have.a.property('callCount')
-                            .that.is.equal(1);
+                        .that.is.equal(1);
 
                     expect(stub.firstCall.args [0]).to.equal('URLPREFIX/log/');
                     expect(stub.firstCall.args [1]).to.eql({
@@ -260,7 +260,7 @@ describe('DLxRecorder', function() {
 
                     expect(result)
                         .to.be.an('array')
-                            .that.has.lengthOf(6);
+                        .that.has.lengthOf(6);
                     expect(result).to.eql([
                         '/log/20140210_packets.vbus',
                         '/log/20140211_packets.vbus',
@@ -280,7 +280,7 @@ describe('DLxRecorder', function() {
         it('should be a method', function() {
             expect(DLxRecorder.prototype)
                 .to.have.a.property('getRecordingInfo')
-                    .that.is.a('function');
+                .that.is.a('function');
         });
 
         it('should work correctly', function(done) {
@@ -309,7 +309,7 @@ describe('DLxRecorder', function() {
                 return testUtils.expectPromise(promise).then(function(result) {
                     expect(stub)
                         .to.have.a.property('callCount')
-                            .that.is.equal(1);
+                        .that.is.equal(1);
 
                     expect(stub.firstCall.args [0]).to.equal('URLPREFIX/FILENAME');
                     expect(stub.firstCall.args [1]).to.eql({
@@ -322,10 +322,10 @@ describe('DLxRecorder', function() {
 
                     expect(result)
                         .to.have.a.property('size')
-                            .that.is.equal(1234);
+                        .that.is.equal(1234);
                     expect(result)
                         .to.have.a.property('etag')
-                            .that.is.equal('ETAG');
+                        .that.is.equal('ETAG');
                 });
             });
         });
@@ -336,7 +336,7 @@ describe('DLxRecorder', function() {
         it('should be a method', function() {
             expect(DLxRecorder.prototype)
                 .to.have.a.property('downloadToStream')
-                    .that.is.a('function');
+                .that.is.a('function');
         });
 
         it('should work correctly', function(done) {

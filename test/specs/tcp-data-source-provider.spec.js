@@ -56,7 +56,7 @@ describe('TCP Data Source Provider', function() {
         });
 
         it('should work correctly', function() {
-            var string = 'vendor = \"RESOL\"\r\nproduct = \"DL3\"\r\nserial = \"001E660300F0\"\r\nversion = \"2.1.0\"\r\nbuild = \"201311280853\"\r\nname = \"DL3-001E660300F0\"\r\nfeatures = \"vbus,dl2,dl3\"\r\n';
+            var string = 'vendor = "RESOL"\r\nproduct = "DL3"\r\nserial = "001E660300F0"\r\nversion = "2.1.0"\r\nbuild = "201311280853"\r\nname = "DL3-001E660300F0"\r\nfeatures = "vbus,dl2,dl3"\r\n';
 
             var info = TcpDataSourceProvider.parseDeviceInformation(string);
 
@@ -110,7 +110,7 @@ describe('TCP Data Source Provider', function() {
             var onRequest = function(req, res) {
                 if (req.url === '/cgi-bin/get_resol_device_information') {
                     res.statusCode = 200;
-                    res.end('vendor = \"RESOL\"\r\nproduct = \"DL3\"\r\nserial = \"001E660300F0\"\r\nversion = \"2.1.0\"\r\nbuild = \"201311280853\"\r\nname = \"DL3-001E660300F0\"\r\nfeatures = \"vbus,dl2,dl3\"\r\n');
+                    res.end('vendor = "RESOL"\r\nproduct = "DL3"\r\nserial = "001E660300F0"\r\nversion = "2.1.0"\r\nbuild = "201311280853"\r\nname = "DL3-001E660300F0"\r\nfeatures = "vbus,dl2,dl3"\r\n');
                 } else {
                     res.statusCode = 404;
                     res.end();
@@ -127,7 +127,7 @@ describe('TCP Data Source Provider', function() {
         it('should be a function', function() {
             expect(TcpDataSourceProvider)
                 .to.have.a.property('sendBroadcast')
-                    .that.is.a('function');
+                .that.is.a('function');
         });
 
         promiseIt('should work correctly', function() {
@@ -167,7 +167,7 @@ describe('TCP Data Source Provider', function() {
         it('should be a function', function() {
             expect(TcpDataSourceProvider)
                 .to.have.a.property('discoverDevices')
-                    .that.is.a('function');
+                .that.is.a('function');
         });
 
         promiseIt('should work correctly', function() {

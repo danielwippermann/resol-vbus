@@ -87,7 +87,6 @@ describe('extend', function() {
         var instance = new ChildClass();
 
         expect(instance).to.be.an('object');
-        expect(instance).to.be.an.instanceOf(ChildClass);
         expect(childClassConstructor.callCount).to.equal(1);
     });
 
@@ -116,11 +115,6 @@ describe('extend', function() {
         expect(ChildClass.staticProp2).to.equal(true);
         expect(ChildClass.prototype.protoProp1).to.equal(true);
         expect(ChildClass.prototype.protoProp2).to.equal(true);
-
-        var instance = new ChildClass();
-
-        expect(instance).to.be.an('object');
-        expect(instance).to.be.an.instanceOf(ChildClass);
     });
 
     it('should work with parent class and constructors', function() {
@@ -162,7 +156,6 @@ describe('extend', function() {
         var instance = new ChildClass();
 
         expect(instance).to.be.an('object');
-        expect(instance).to.be.an.instanceOf(ChildClass);
         expect(childClassConstructor.callCount).to.equal(1);
         expect(parentClassConstructor.callCount).to.equal(1);
     });

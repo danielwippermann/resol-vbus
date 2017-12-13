@@ -101,7 +101,7 @@ describe('Packet', function() {
             expect(buffer.length).to.equal(88);
             expect(buffer.toString('hex')).to.equal('aa362335331034430d2a0004080c00671014181c00272024282c00673034383c00274044484c00675054585c00276064686c00677074787c00270004080c0f581014181c0f182024282c0f583034383c0f184044484c0f58');
 
-    /*
+            /*
             var stats = connectionSpec.parseRawDataOnce(buffer);
             expect(stats.rawDataCount).to.equal(buffer.length);
             expect(stats.junkDataCount).to.equal(0);
@@ -121,7 +121,7 @@ describe('Packet', function() {
 
                 expect(value).to.equal(refValue, key);
             });
-    */
+            */
         });
 
         it('should work correctly with a buffer', function() {

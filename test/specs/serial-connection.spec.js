@@ -86,7 +86,7 @@ describe('SerialConnection', function() {
             expect(SerialConnection)
                 .to.be.a('function')
                 .that.has.a.property('extend')
-                    .that.is.a('function');
+                .that.is.a('function');
         });
 
         it('should have reasonable defaults', function() {
@@ -94,13 +94,13 @@ describe('SerialConnection', function() {
 
             expect(connection)
                 .to.have.a.property('channel')
-                    .that.is.equal(0);
+                .that.is.equal(0);
             expect(connection)
                 .to.have.a.property('selfAddress')
-                    .that.is.equal(0x0020);
+                .that.is.equal(0x0020);
             expect(connection)
                 .to.have.a.property('path')
-                    .that.is.equal(null);
+                .that.is.equal(null);
         });
 
     });

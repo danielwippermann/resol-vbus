@@ -260,7 +260,7 @@ describe('I18N', function() {
             expect(z).property('offset').a('function');
 
             expect(z.abbr(m)).equal('CET');
-            expect(z.offset(m)).equal(-60);
+            expect(z.utcOffset(m)).equal(-60);
         });
 
     });

@@ -34,7 +34,7 @@ describe('SerialDataSourceProvider', function() {
             expect(SerialDataSourceProvider)
                 .to.be.a('function')
                 .that.has.a.property('extend')
-                    .that.is.a('function');
+                .that.is.a('function');
         });
 
     });
@@ -44,7 +44,7 @@ describe('SerialDataSourceProvider', function() {
         it('should be a method', function() {
             expect(SerialDataSourceProvider.prototype)
                 .to.have.a.property('discoverDataSources')
-                    .that.is.a('function');
+                .that.is.a('function');
         });
 
         ifHasSerialPortIt('should work correctly', function(done) {
@@ -103,7 +103,7 @@ describe('SerialDataSourceProvider', function() {
         it('should be a method', function() {
             expect(SerialDataSourceProvider.prototype)
                 .to.have.a.property('createDataSource')
-                    .that.is.a('function');
+                .that.is.a('function');
         });
 
         it('should work correctly', function() {
