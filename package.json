@@ -42,6 +42,6 @@
     "sprintf": "^0.1.5"
   },
   "optionalDependencies": {
-    "serialport": "^4.0.7"
+    "serialport": "^6.0.4"
   }
 }
