@@ -1891,7 +1891,7 @@ describe('Specification', function() {
             expect(pfs [4].packetSpec).to.be.an('object');
             expect(pfs [4].packetFieldSpec).to.be.an('object');
             expect(pfs [4].origPacketFieldSpec).to.be.an('object');
-            expect(pfs [4].name).to.equal('Gesamtvolumen');
+            expect(pfs [4].name).to.equal('Volume in total');
             expect(pfs [4].rawValue).to.equal(null);
             expect(pfs [4].formatTextValue).to.be.a('function');
             expect(pfs [4].formatTextValue()).to.equal('');

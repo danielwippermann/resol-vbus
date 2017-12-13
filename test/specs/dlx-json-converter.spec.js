@@ -134,7 +134,7 @@ describe('DLxJsonConverter', function() {
                 chunk = onData.getCall(6).args [0];
 
                 testUtils.expectToBeABuffer(chunk);
-                expect(chunk.toString()).to.equal('],\"headerset_stats\":{\"headerset_count\":5,\"min_timestamp\":1387893006.829,\"max_timestamp\":1387893006.829},\"headers\":[{\"id\":\"01_0010_7E21_0100\",\"description\":\"VBus 1: DeltaSol MX [Heizkreis #1]\",\"channel\":1,\"destination_address\":16,\"source_address\":32289,\"protocol_version\":16,\"command\":256,\"info\":0,\"destination_name\":\"DFA\",\"source_name\":\"DeltaSol MX [Heizkreis #1]\",\"fields\":[{\"id\":\"000_2_0\",\"name\":\"Flow set temperature\",\"unit\":\" °C\",\"unit_code\":\"DegreesCelsius\"},{\"id\":\"002_1_0\",\"name\":\"Operating status\",\"unit\":\"\",\"unit_code\":\"None\"}]},{\"id\":\"01_0010_7E31_0100\",\"description\":\"VBus 1: DeltaSol MX [WMZ #1]\",\"channel\":1,\"destination_address\":16,\"source_address\":32305,\"protocol_version\":16,\"command\":256,\"info\":0,\"destination_name\":\"DFA\",\"source_name\":\"DeltaSol MX [WMZ #1]\",\"fields\":[{\"id\":\"000_4_0\",\"name\":\"Heat quantity\",\"unit\":\" Wh\",\"unit_code\":\"WattHours\"},{\"id\":\"008_4_0\",\"name\":\"Heat quantity today\",\"unit\":\" Wh\",\"unit_code\":\"WattHours\"},{\"id\":\"012_4_0\",\"name\":\"Heat quantity week\",\"unit\":\" Wh\",\"unit_code\":\"WattHours\"},{\"id\":\"020_4_0\",\"name\":\"Wärmemenge Monat\",\"unit\":\" Wh\",\"unit_code\":\"WattHours\"},{\"id\":\"016_4_0\",\"name\":\"Gesamtvolumen\",\"unit\":\" l\",\"unit_code\":\"Liters\"},{\"id\":\"024_4_0\",\"name\":\"Volumen heute\",\"unit\":\" l\",\"unit_code\":\"Liters\"},{\"id\":\"028_4_0\",\"name\":\"Volumen Woche\",\"unit\":\" l\",\"unit_code\":\"Liters\"},{\"id\":\"032_4_0\",\"name\":\"Volumen Monat\",\"unit\":\" l\",\"unit_code\":\"Liters\"},{"id":"004_4_0","name":"Power","unit":" W","unit_code":"Watts"}]},{\"id\":\"00_0010_0053_0100\",\"description\":\"VBus 0: DL3\",\"channel\":0,\"destination_address\":16,\"source_address\":83,\"protocol_version\":16,\"command\":256,\"info\":0,\"destination_name\":\"DFA\",\"source_name\":\"DL3\",\"fields\":[{\"id\":\"000_4_0\",\"name\":\"Resistor sensor 1\",\"unit\":\" Ω\",\"unit_code\":\"Ohms\"},{\"id\":\"004_4_0\",\"name\":\"Resistor sensor 2\",\"unit\":\" Ω\",\"unit_code\":\"Ohms\"},{\"id\":\"008_4_0\",\"name\":\"Resistor sensor 3\",\"unit\":\" Ω\",\"unit_code\":\"Ohms\"},{\"id\":\"012_4_0\",\"name\":\"Current sensor 4\",\"unit\":\" mA\",\"unit_code\":\"Milliamperes\"},{\"id\":\"034_2_0\",\"name\":\"Temperature Sensor 1\",\"unit\":\" °C\",\"unit_code\":\"DegreesCelsius\"},{\"id\":\"036_2_0\",\"name\":\"Temperature Sensor 2\",\"unit\":\" °C\",\"unit_code\":\"DegreesCelsius\"},{\"id\":\"038_2_0\",\"name\":\"Temperature Sensor 3\",\"unit\":\" °C\",\"unit_code\":\"DegreesCelsius\"},{\"id\":\"016_4_0\",\"name\":\"Impulse Counter Sensor 1\",\"unit\":\"\",\"unit_code\":\"None\"},{\"id\":\"020_4_0\",\"name\":\"Impulse Counter Sensor 2\",\"unit\":\"\",\"unit_code\":\"None\"},{\"id\":\"024_4_0\",\"name\":\"Impulse Counter Sensor 3\",\"unit\":\"\",\"unit_code\":\"None\"},{\"id\":\"040_2_0\",\"name\":\"Irradiation Sensor 4\",\"unit\":\" W/m²\",\"unit_code\":\"WattsPerSquareMeter\"},{\"id\":\"044_4_0\",\"name\":\"Last Impulse Interval Sensor 1\",\"unit\":\" ms\",\"unit_code\":\"Milliseconds\"},{\"id\":\"048_4_0\",\"name\":\"Last Impulse Interval Sensor 2\",\"unit\":\" ms\",\"unit_code\":\"Milliseconds\"},{\"id\":\"052_4_0\",\"name\":\"Last Impulse Interval Sensor 3\",\"unit\":\" ms\",\"unit_code\":\"Milliseconds\"},{\"id\":\"056_4_0\",\"name\":\"Current Impulse Interval Sensor 1\",\"unit\":\" ms\",\"unit_code\":\"Milliseconds\"},{\"id\":\"060_4_0\",\"name\":\"Current Impulse Interval Sensor 2\",\"unit\":\" ms\",\"unit_code\":\"Milliseconds\"},{\"id\":\"064_4_0\",\"name\":\"Current Impulse Interval Sensor 3\",\"unit\":\" ms\",\"unit_code\":\"Milliseconds\"},{"id":"080_4_0","name":"Heat quantity","unit":" Wh","unit_code":"WattHours"}]}],\"language\":\"en\"}');
+                expect(chunk.toString()).to.equal('],\"headerset_stats\":{\"headerset_count\":5,\"min_timestamp\":1387893006.829,\"max_timestamp\":1387893006.829},\"headers\":[{\"id\":\"01_0010_7E21_0100\",\"description\":\"VBus 1: DeltaSol MX [Heizkreis #1]\",\"channel\":1,\"destination_address\":16,\"source_address\":32289,\"protocol_version\":16,\"command\":256,\"info\":0,\"destination_name\":\"DFA\",\"source_name\":\"DeltaSol MX [Heizkreis #1]\",\"fields\":[{\"id\":\"000_2_0\",\"name\":\"Flow set temperature\",\"unit\":\" °C\",\"unit_code\":\"DegreesCelsius\"},{\"id\":\"002_1_0\",\"name\":\"Operating state\",\"unit\":\"\",\"unit_code\":\"None\"}]},{\"id\":\"01_0010_7E31_0100\",\"description\":\"VBus 1: DeltaSol MX [WMZ #1]\",\"channel\":1,\"destination_address\":16,\"source_address\":32305,\"protocol_version\":16,\"command\":256,\"info\":0,\"destination_name\":\"DFA\",\"source_name\":\"DeltaSol MX [WMZ #1]\",\"fields\":[{\"id\":\"000_4_0\",\"name\":\"Heat quantity\",\"unit\":\" Wh\",\"unit_code\":\"WattHours\"},{\"id\":\"008_4_0\",\"name\":\"Heat quantity today\",\"unit\":\" Wh\",\"unit_code\":\"WattHours\"},{\"id\":\"012_4_0\",\"name\":\"Heat quantity week\",\"unit\":\" Wh\",\"unit_code\":\"WattHours\"},{\"id\":\"020_4_0\",\"name\":\"Heat quantity month\",\"unit\":\" Wh\",\"unit_code\":\"WattHours\"},{\"id\":\"016_4_0\",\"name\":\"Volume in total\",\"unit\":\" l\",\"unit_code\":\"Liters\"},{\"id\":\"024_4_0\",\"name\":\"Volume today\",\"unit\":\" l\",\"unit_code\":\"Liters\"},{\"id\":\"028_4_0\",\"name\":\"Volume week\",\"unit\":\" l\",\"unit_code\":\"Liters\"},{\"id\":\"032_4_0\",\"name\":\"Volume month\",\"unit\":\" l\",\"unit_code\":\"Liters\"},{"id":"004_4_0","name":"Power","unit":" W","unit_code":"Watts"}]},{\"id\":\"00_0010_0053_0100\",\"description\":\"VBus 0: DL3\",\"channel\":0,\"destination_address\":16,\"source_address\":83,\"protocol_version\":16,\"command\":256,\"info\":0,\"destination_name\":\"DFA\",\"source_name\":\"DL3\",\"fields\":[{\"id\":\"000_4_0\",\"name\":\"Resistor sensor 1\",\"unit\":\" Ω\",\"unit_code\":\"Ohms\"},{\"id\":\"004_4_0\",\"name\":\"Resistor sensor 2\",\"unit\":\" Ω\",\"unit_code\":\"Ohms\"},{\"id\":\"008_4_0\",\"name\":\"Resistor sensor 3\",\"unit\":\" Ω\",\"unit_code\":\"Ohms\"},{\"id\":\"012_4_0\",\"name\":\"Current sensor 4\",\"unit\":\" mA\",\"unit_code\":\"Milliamperes\"},{\"id\":\"034_2_0\",\"name\":\"Temperature Sensor 1\",\"unit\":\" °C\",\"unit_code\":\"DegreesCelsius\"},{\"id\":\"036_2_0\",\"name\":\"Temperature Sensor 2\",\"unit\":\" °C\",\"unit_code\":\"DegreesCelsius\"},{\"id\":\"038_2_0\",\"name\":\"Temperature Sensor 3\",\"unit\":\" °C\",\"unit_code\":\"DegreesCelsius\"},{\"id\":\"016_4_0\",\"name\":\"Impulse Counter Sensor 1\",\"unit\":\"\",\"unit_code\":\"None\"},{\"id\":\"020_4_0\",\"name\":\"Impulse Counter Sensor 2\",\"unit\":\"\",\"unit_code\":\"None\"},{\"id\":\"024_4_0\",\"name\":\"Impulse Counter Sensor 3\",\"unit\":\"\",\"unit_code\":\"None\"},{\"id\":\"040_2_0\",\"name\":\"Irradiation Sensor 4\",\"unit\":\" W/m²\",\"unit_code\":\"WattsPerSquareMeter\"},{\"id\":\"044_4_0\",\"name\":\"Last Impulse Interval Sensor 1\",\"unit\":\" ms\",\"unit_code\":\"Milliseconds\"},{\"id\":\"048_4_0\",\"name\":\"Last Impulse Interval Sensor 2\",\"unit\":\" ms\",\"unit_code\":\"Milliseconds\"},{\"id\":\"052_4_0\",\"name\":\"Last Impulse Interval Sensor 3\",\"unit\":\" ms\",\"unit_code\":\"Milliseconds\"},{\"id\":\"056_4_0\",\"name\":\"Current Impulse Interval Sensor 1\",\"unit\":\" ms\",\"unit_code\":\"Milliseconds\"},{\"id\":\"060_4_0\",\"name\":\"Current Impulse Interval Sensor 2\",\"unit\":\" ms\",\"unit_code\":\"Milliseconds\"},{\"id\":\"064_4_0\",\"name\":\"Current Impulse Interval Sensor 3\",\"unit\":\" ms\",\"unit_code\":\"Milliseconds\"},{"id":"080_4_0","name":"Heat quantity","unit":" Wh","unit_code":"WattHours"}]}],\"language\":\"en\"}');
             });
         });
 
@@ -916,6 +916,56 @@ refJsonRecording1 = {
             'name': 'Error mask',
             'unit': '',
             'unit_code': 'None'
+        }, {
+            'id': '096_1_1',
+            'name': 'Error: Sensor line broken',
+            'unit': '',
+            'unit_code': 'None',
+        }, {
+            'id': '096_1_2',
+            'name': 'Error: Sensor line short-circuited',
+            'unit': '',
+            'unit_code': 'None',
+        }, {
+            'id': '096_1_32',
+            'name': 'Error: Flow rate monitoring',
+            'unit': '',
+            'unit_code': 'None',
+        }, {
+            'id': '096_1_64',
+            'name': 'Error: Overpressure',
+            'unit': '',
+            'unit_code': 'None',
+        }, {
+            'id': '096_1_128',
+            'name': 'Error: Low pressure',
+            'unit': '',
+            'unit_code': 'None',
+        }, {
+            'id': '096_1_512',
+            'name': 'Error: Data memory',
+            'unit': '',
+            'unit_code': 'None',
+        }, {
+            'id': '096_1_1024',
+            'name': 'Error: Real-time clock',
+            'unit': '',
+            'unit_code': 'None',
+        }, {
+            'id': '096_1_4096',
+            'name': 'Error: Twin pump',
+            'unit': '',
+            'unit_code': 'None',
+        }, {
+            'id': '096_1_8192',
+            'name': 'Error: HC cooling below flow minimum temperature',
+            'unit': '',
+            'unit_code': 'None',
+        }, {
+            'id': '096_1_16384',
+            'name': 'Error: Thermal disinfection cancelled',
+            'unit': '',
+            'unit_code': 'None',
         }]
     }, {
         'id': '01_0010_7E12_0100',
@@ -930,152 +980,152 @@ refJsonRecording1 = {
         'source_name': 'DeltaSol MX [Module]',
         'fields': [{
             'id': '000_2_0',
-            'name': 'Temperatur Modul 1 Sensor 1',
+            'name': 'Temperature Module 1 Sensor 1',
             'unit': ' \u00B0C',
             'unit_code': 'DegreesCelsius'
         }, {
             'id': '002_2_0',
-            'name': 'Temperatur Modul 1 Sensor 2',
+            'name': 'Temperature Module 1 Sensor 2',
             'unit': ' \u00B0C',
             'unit_code': 'DegreesCelsius'
         }, {
             'id': '004_2_0',
-            'name': 'Temperatur Modul 1 Sensor 3',
+            'name': 'Temperature Module 1 Sensor 3',
             'unit': ' \u00B0C',
             'unit_code': 'DegreesCelsius'
         }, {
             'id': '006_2_0',
-            'name': 'Temperatur Modul 1 Sensor 4',
+            'name': 'Temperature Module 1 Sensor 4',
             'unit': ' \u00B0C',
             'unit_code': 'DegreesCelsius'
         }, {
             'id': '008_2_0',
-            'name': 'Temperatur Modul 1 Sensor 5',
+            'name': 'Temperature Module 1 Sensor 5',
             'unit': ' \u00B0C',
             'unit_code': 'DegreesCelsius'
         }, {
             'id': '010_2_0',
-            'name': 'Temperatur Modul 1 Sensor 6',
+            'name': 'Temperature Module 1 Sensor 6',
             'unit': ' \u00B0C',
             'unit_code': 'DegreesCelsius'
         }, {
             'id': '012_2_0',
-            'name': 'Temperatur Modul 2 Sensor 1',
+            'name': 'Temperature Module 2 Sensor 1',
             'unit': ' \u00B0C',
             'unit_code': 'DegreesCelsius'
         }, {
             'id': '014_2_0',
-            'name': 'Temperatur Modul 2 Sensor 2',
+            'name': 'Temperature Module 2 Sensor 2',
             'unit': ' \u00B0C',
             'unit_code': 'DegreesCelsius'
         }, {
             'id': '016_2_0',
-            'name': 'Temperatur Modul 2 Sensor 3',
+            'name': 'Temperature Module 2 Sensor 3',
             'unit': ' \u00B0C',
             'unit_code': 'DegreesCelsius'
         }, {
             'id': '018_2_0',
-            'name': 'Temperatur Modul 2 Sensor 4',
+            'name': 'Temperature Module 2 Sensor 4',
             'unit': ' \u00B0C',
             'unit_code': 'DegreesCelsius'
         }, {
             'id': '020_2_0',
-            'name': 'Temperatur Modul 2 Sensor 5',
+            'name': 'Temperature Module 2 Sensor 5',
             'unit': ' \u00B0C',
             'unit_code': 'DegreesCelsius'
         }, {
             'id': '022_2_0',
-            'name': 'Temperatur Modul 2 Sensor 6',
+            'name': 'Temperature Module 2 Sensor 6',
             'unit': ' \u00B0C',
             'unit_code': 'DegreesCelsius'
         }, {
             'id': '024_2_0',
-            'name': 'Temperatur Modul 3 Sensor 1',
+            'name': 'Temperature Module 3 Sensor 1',
             'unit': ' \u00B0C',
             'unit_code': 'DegreesCelsius'
         }, {
             'id': '026_2_0',
-            'name': 'Temperatur Modul 3 Sensor 2',
+            'name': 'Temperature Module 3 Sensor 2',
             'unit': ' \u00B0C',
             'unit_code': 'DegreesCelsius'
         }, {
             'id': '028_2_0',
-            'name': 'Temperatur Modul 3 Sensor 3',
+            'name': 'Temperature Module 3 Sensor 3',
             'unit': ' \u00B0C',
             'unit_code': 'DegreesCelsius'
         }, {
             'id': '030_2_0',
-            'name': 'Temperatur Modul 3 Sensor 4',
+            'name': 'Temperature Module 3 Sensor 4',
             'unit': ' \u00B0C',
             'unit_code': 'DegreesCelsius'
         }, {
             'id': '032_2_0',
-            'name': 'Temperatur Modul 3 Sensor 5',
+            'name': 'Temperature Module 3 Sensor 5',
             'unit': ' \u00B0C',
             'unit_code': 'DegreesCelsius'
         }, {
             'id': '034_2_0',
-            'name': 'Temperatur Modul 3 Sensor 6',
+            'name': 'Temperature Module 3 Sensor 6',
             'unit': ' \u00B0C',
             'unit_code': 'DegreesCelsius'
         }, {
             'id': '036_2_0',
-            'name': 'Temperatur Modul 4 Sensor 1',
+            'name': 'Temperature Module 4 Sensor 1',
             'unit': ' \u00B0C',
             'unit_code': 'DegreesCelsius'
         }, {
             'id': '038_2_0',
-            'name': 'Temperatur Modul 4 Sensor 2',
+            'name': 'Temperature Module 4 Sensor 2',
             'unit': ' \u00B0C',
             'unit_code': 'DegreesCelsius'
         }, {
             'id': '040_2_0',
-            'name': 'Temperatur Modul 4 Sensor 3',
+            'name': 'Temperature Module 4 Sensor 3',
             'unit': ' \u00B0C',
             'unit_code': 'DegreesCelsius'
         }, {
             'id': '042_2_0',
-            'name': 'Temperatur Modul 4 Sensor 4',
+            'name': 'Temperature Module 4 Sensor 4',
             'unit': ' \u00B0C',
             'unit_code': 'DegreesCelsius'
         }, {
             'id': '044_2_0',
-            'name': 'Temperatur Modul 4 Sensor 5',
+            'name': 'Temperature Module 4 Sensor 5',
             'unit': ' \u00B0C',
             'unit_code': 'DegreesCelsius'
         }, {
             'id': '046_2_0',
-            'name': 'Temperatur Modul 4 Sensor 6',
+            'name': 'Temperature Module 4 Sensor 6',
             'unit': ' \u00B0C',
             'unit_code': 'DegreesCelsius'
         }, {
             'id': '048_2_0',
-            'name': 'Temperatur Modul 5 Sensor 1',
+            'name': 'Temperature Module 5 Sensor 1',
             'unit': ' \u00B0C',
             'unit_code': 'DegreesCelsius'
         }, {
             'id': '050_2_0',
-            'name': 'Temperatur Modul 5 Sensor 2',
+            'name': 'Temperature Module 5 Sensor 2',
             'unit': ' \u00B0C',
             'unit_code': 'DegreesCelsius'
         }, {
             'id': '052_2_0',
-            'name': 'Temperatur Modul 5 Sensor 3',
+            'name': 'Temperature Module 5 Sensor 3',
             'unit': ' \u00B0C',
             'unit_code': 'DegreesCelsius'
         }, {
             'id': '054_2_0',
-            'name': 'Temperatur Modul 5 Sensor 4',
+            'name': 'Temperature Module 5 Sensor 4',
             'unit': ' \u00B0C',
             'unit_code': 'DegreesCelsius'
         }, {
             'id': '056_2_0',
-            'name': 'Temperatur Modul 5 Sensor 5',
+            'name': 'Temperature Module 5 Sensor 5',
             'unit': ' \u00B0C',
             'unit_code': 'DegreesCelsius'
         }, {
             'id': '058_2_0',
-            'name': 'Temperatur Modul 5 Sensor 6',
+            'name': 'Temperature Module 5 Sensor 6',
             'unit': ' \u00B0C',
             'unit_code': 'DegreesCelsius'
         }]
@@ -1097,7 +1147,7 @@ refJsonRecording1 = {
             'unit_code': 'DegreesCelsius'
         }, {
             'id': '002_1_0',
-            'name': 'Operating status',
+            'name': 'Operating state',
             'unit': '',
             'unit_code': 'None'
         }]
@@ -1129,27 +1179,27 @@ refJsonRecording1 = {
             'unit_code': 'WattHours'
         }, {
             'id': '020_4_0',
-            'name': 'Wärmemenge Monat',
+            'name': 'Heat quantity month',
             'unit': ' Wh',
             'unit_code': 'WattHours',
         }, {
             'id': '016_4_0',
-            'name': 'Gesamtvolumen',
+            'name': 'Volume in total',
             'unit': ' l',
             'unit_code': 'Liters'
         }, {
             'id': '024_4_0',
-            'name': 'Volumen heute',
+            'name': 'Volume today',
             'unit': ' l',
             'unit_code': 'Liters',
         }, {
             'id': '028_4_0',
-            'name': 'Volumen Woche',
+            'name': 'Volume week',
             'unit': ' l',
             'unit_code': 'Liters',
         }, {
             'id': '032_4_0',
-            'name': 'Volumen Monat',
+            'name': 'Volume month',
             'unit': ' l',
             'unit_code': 'Liters',
         }, {
@@ -1186,27 +1236,27 @@ refJsonRecording1 = {
             'unit_code': 'WattHours'
         }, {
             'id': '020_4_0',
-            'name': 'Wärmemenge Monat',
+            'name': 'Heat quantity month',
             'unit': ' Wh',
             'unit_code': 'WattHours',
         }, {
             'id': '016_4_0',
-            'name': 'Gesamtvolumen',
+            'name': 'Volume in total',
             'unit': ' l',
             'unit_code': 'Liters'
         }, {
             'id': '024_4_0',
-            'name': 'Volumen heute',
+            'name': 'Volume today',
             'unit': ' l',
             'unit_code': 'Liters',
         }, {
             'id': '028_4_0',
-            'name': 'Volumen Woche',
+            'name': 'Volume week',
             'unit': ' l',
             'unit_code': 'Liters',
         }, {
             'id': '032_4_0',
-            'name': 'Volumen Monat',
+            'name': 'Volume month',
             'unit': ' l',
             'unit_code': 'Liters',
         }, {
@@ -1243,27 +1293,27 @@ refJsonRecording1 = {
             'unit_code': 'WattHours'
         }, {
             'id': '020_4_0',
-            'name': 'Wärmemenge Monat',
+            'name': 'Heat quantity month',
             'unit': ' Wh',
             'unit_code': 'WattHours',
         }, {
             'id': '016_4_0',
-            'name': 'Gesamtvolumen',
+            'name': 'Volume in total',
             'unit': ' l',
             'unit_code': 'Liters'
         }, {
             'id': '024_4_0',
-            'name': 'Volumen heute',
+            'name': 'Volume today',
             'unit': ' l',
             'unit_code': 'Liters',
         }, {
             'id': '028_4_0',
-            'name': 'Volumen Woche',
+            'name': 'Volume week',
             'unit': ' l',
             'unit_code': 'Liters',
         }, {
             'id': '032_4_0',
-            'name': 'Volumen Monat',
+            'name': 'Volume month',
             'unit': ' l',
             'unit_code': 'Liters',
         }, {
@@ -1300,27 +1350,27 @@ refJsonRecording1 = {
             'unit_code': 'WattHours'
         }, {
             'id': '020_4_0',
-            'name': 'Wärmemenge Monat',
+            'name': 'Heat quantity month',
             'unit': ' Wh',
             'unit_code': 'WattHours',
         }, {
             'id': '016_4_0',
-            'name': 'Gesamtvolumen',
+            'name': 'Volume in total',
             'unit': ' l',
             'unit_code': 'Liters'
         }, {
             'id': '024_4_0',
-            'name': 'Volumen heute',
+            'name': 'Volume today',
             'unit': ' l',
             'unit_code': 'Liters',
         }, {
             'id': '028_4_0',
-            'name': 'Volumen Woche',
+            'name': 'Volume week',
             'unit': ' l',
             'unit_code': 'Liters',
         }, {
             'id': '032_4_0',
-            'name': 'Volumen Monat',
+            'name': 'Volume month',
             'unit': ' l',
             'unit_code': 'Liters',
         }, {
@@ -1357,27 +1407,27 @@ refJsonRecording1 = {
             'unit_code': 'WattHours'
         }, {
             'id': '020_4_0',
-            'name': 'Wärmemenge Monat',
+            'name': 'Heat quantity month',
             'unit': ' Wh',
             'unit_code': 'WattHours',
         }, {
             'id': '016_4_0',
-            'name': 'Gesamtvolumen',
+            'name': 'Volume in total',
             'unit': ' l',
             'unit_code': 'Liters'
         }, {
             'id': '024_4_0',
-            'name': 'Volumen heute',
+            'name': 'Volume today',
             'unit': ' l',
             'unit_code': 'Liters',
         }, {
             'id': '028_4_0',
-            'name': 'Volumen Woche',
+            'name': 'Volume week',
             'unit': ' l',
             'unit_code': 'Liters',
         }, {
             'id': '032_4_0',
-            'name': 'Volumen Monat',
+            'name': 'Volume month',
             'unit': ' l',
             'unit_code': 'Liters',
         }, {
@@ -2443,6 +2493,46 @@ refJsonRecording1 = {
                 'value': '12/29/2013 14:50:13'
             }, {
                 'field_index': 51,
+                'raw_value': 0.000000,
+                'value': '0'
+            }, {
+                'field_index': 52,
+                'raw_value': 0.000000,
+                'value': '0'
+            }, {
+                'field_index': 53,
+                'raw_value': 0.000000,
+                'value': '0'
+            }, {
+                'field_index': 54,
+                'raw_value': 0.000000,
+                'value': '0'
+            }, {
+                'field_index': 55,
+                'raw_value': 0.000000,
+                'value': '0'
+            }, {
+                'field_index': 56,
+                'raw_value': 0.000000,
+                'value': '0'
+            }, {
+                'field_index': 57,
+                'raw_value': 0.000000,
+                'value': '0'
+            }, {
+                'field_index': 58,
+                'raw_value': 0.000000,
+                'value': '0'
+            }, {
+                'field_index': 59,
+                'raw_value': 0.000000,
+                'value': '0'
+            }, {
+                'field_index': 60,
+                'raw_value': 0.000000,
+                'value': '0'
+            }, {
+                'field_index': 61,
                 'raw_value': 0.000000,
                 'value': '0'
             }]
