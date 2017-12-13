@@ -29,7 +29,7 @@ The `path` option is used to specify the serial port to use. On Windows you can 
 If you want to receive data from a TCP enabled data source (e.g. VBus/LAN interface adapter or one of the dataloggers), you can use the `TcpConnection` class to do so:
 
 	var connection = new vbus.TcpConnection({
-		host: 'mydl3.via.vbus.net',
+		host: 'mydl3.vbus.io',
 		viaTag: 'mydl3',             // only necessary if connected using VBus.net
 		password: 'secret',
 		channel: 1,                  // only necessary if connected to a DL3
@@ -49,5 +49,3 @@ The call to the `connect` method returns a promise that resolves when the connec
 	}, function() {
 		console.log('Connection failed');
 	});
-
-
