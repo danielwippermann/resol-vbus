@@ -484,10 +484,13 @@ var Connection = extend(Duplex, /** @lends Connection# */ {
             tries: 3,
         });
 
+        var subIndex = (valueId >> 16) & 0x7F;
+        valueId = valueId & 0xFFFF;
+
         var txDatagram = new Datagram({
             destinationAddress: address,
             sourceAddress: this.selfAddress,
-            command: 0x0300,
+            command: 0x0300 | subIndex,
             valueId: valueId,
             value: 0
         }).toLiveBuffer();
@@ -497,7 +500,7 @@ var Connection = extend(Duplex, /** @lends Connection# */ {
                 // nop
             } else if (rxDatagram.sourceAddress !== address) {
                 // nop
-            } else if (rxDatagram.command !== 0x0100) {
+            } else if (rxDatagram.command !== (0x0100 | subIndex)) {
                 // nop
             } else if (rxDatagram.valueId !== valueId) {
                 // nop
@@ -529,13 +532,16 @@ var Connection = extend(Duplex, /** @lends Connection# */ {
             timeout: 500,
             timeoutIncr: 500,
             tries: 3,
-            save: false
+            save: false,
         });
+
+        var subIndex = (valueId >> 16) & 0x7F;
+        valueId = valueId & 0xFFFF;
 
         var txDatagram = new Datagram({
             destinationAddress: address,
             sourceAddress: this.selfAddress,
-            command: options.save ? 0x0400 : 0x0200,
+            command: (options.save ? 0x0400 : 0x0200) | subIndex,
             valueId: valueId,
             value: value
         }).toLiveBuffer();
@@ -545,7 +551,7 @@ var Connection = extend(Duplex, /** @lends Connection# */ {
                 // nop
             } else if (rxDatagram.sourceAddress !== address) {
                 // nop
-            } else if (rxDatagram.command !== 0x0100) {
+            } else if (rxDatagram.command !== (0x0100 | subIndex)) {
                 // nop
             } else if (rxDatagram.valueId !== valueId) {
                 // nop
@@ -640,6 +646,229 @@ var Connection = extend(Duplex, /** @lends Connection# */ {
             } else if (rxDatagram.command !== 0x0100) {
                 // nop
             } else if (rxDatagram.value !== valueIdHash) {
+                // nop
+            } else {
+                done(null, rxDatagram);
+            }
+        };
+
+        return this.transceive(txDatagram, options);
+    },
+
+    /**
+     * Sends a Datagram to lookup the controller's capabilities (part 1).
+     * Returns a Promise that resolves to the answer Datagram or `null` on timeout.
+     *
+     * @param  {number} address The VBus address of the device to get the capabilities from.
+     * @param  {object} options
+     * @param  {number} options.timeout=500 Time in milliseconds between tries.
+     * @param  {number} options.timeoutIncr=500 Additional time in milliseconds to increase the timeout per try.
+     * @param  {number} options.tries=3 Number of tries to lookup the value.
+     * @return {Promise} A Promise the resolves to the received Datagram or `null` on timeout.
+     */
+    getCaps1: function(address, options) {
+        var _this = this;
+
+        options = _.defaults({}, options, {
+            timeout: 500,
+            timeoutIncr: 500,
+            tries: 3,
+        });
+
+        var txDatagram = new Datagram({
+            destinationAddress: address,
+            sourceAddress: this.selfAddress,
+            command: 0x1300,
+            valueId: 0,
+            value: 0,
+        }).toLiveBuffer();
+
+        options.filterDatagram = function(rxDatagram, done) {
+            if (rxDatagram.destinationAddress !== _this.selfAddress) {
+                // nop
+            } else if (rxDatagram.sourceAddress !== address) {
+                // nop
+            } else if (rxDatagram.command !== 0x1301) {
+                // nop
+            } else {
+                done(null, rxDatagram);
+            }
+        };
+
+        return this.transceive(txDatagram, options);
+    },
+
+    /**
+     * Sends a Datagram to begin a bulk valke transaction.
+     * Returns a Promise that resolves to the answer Datagram or `null` on timeout.
+     *
+     * @param  {number} address The VBus address of the device to begin the transaction on.
+     * @param  {number} txTimeout The number of seconds of inactivity after which the transaction is rolled back.
+     * @param  {object} options
+     * @param  {number} options.timeout=500 Time in milliseconds between tries.
+     * @param  {number} options.timeoutIncr=500 Additional time in milliseconds to increase the timeout per try.
+     * @param  {number} options.tries=3 Number of tries to lookup the value.
+     * @return {Promise} A Promise the resolves to the received Datagram or `null` on timeout.
+     */
+    beginBulkValueTransaction: function(address, txTimeout, options) {
+        var _this = this;
+
+        options = _.defaults({}, options, {
+            timeout: 500,
+            timeoutIncr: 500,
+            tries: 3,
+        });
+
+        var txDatagram = new Datagram({
+            destinationAddress: address,
+            sourceAddress: this.selfAddress,
+            command: 0x1400,
+            valueId: 0,
+            value: txTimeout
+        }).toLiveBuffer();
+
+        options.filterDatagram = function(rxDatagram, done) {
+            if (rxDatagram.destinationAddress !== _this.selfAddress) {
+                // nop
+            } else if (rxDatagram.sourceAddress !== address) {
+                // nop
+            } else if (rxDatagram.command !== 0x1401) {
+                // nop
+            } else {
+                done(null, rxDatagram);
+            }
+        };
+
+        return this.transceive(txDatagram, options);
+    },
+
+    /**
+     * Sends a Datagram to commit a bulk valke transaction.
+     * Returns a Promise that resolves to the answer Datagram or `null` on timeout.
+     *
+     * @param  {number} address The VBus address of the device to commit the transaction on.
+     * @param  {object} options
+     * @param  {number} options.timeout=500 Time in milliseconds between tries.
+     * @param  {number} options.timeoutIncr=500 Additional time in milliseconds to increase the timeout per try.
+     * @param  {number} options.tries=3 Number of tries to lookup the value.
+     * @return {Promise} A Promise the resolves to the received Datagram or `null` on timeout.
+     */
+    commitBulkValueTransaction: function(address, options) {
+        var _this = this;
+
+        options = _.defaults({}, options, {
+            timeout: 500,
+            timeoutIncr: 500,
+            tries: 3,
+        });
+
+        var txDatagram = new Datagram({
+            destinationAddress: address,
+            sourceAddress: this.selfAddress,
+            command: 0x1402,
+            valueId: 0,
+            value: 0
+        }).toLiveBuffer();
+
+        options.filterDatagram = function(rxDatagram, done) {
+            if (rxDatagram.destinationAddress !== _this.selfAddress) {
+                // nop
+            } else if (rxDatagram.sourceAddress !== address) {
+                // nop
+            } else if (rxDatagram.command !== 0x1403) {
+                // nop
+            } else {
+                done(null, rxDatagram);
+            }
+        };
+
+        return this.transceive(txDatagram, options);
+    },
+
+    /**
+     * Sends a Datagram to rollback a bulk valke transaction.
+     * Returns a Promise that resolves to the answer Datagram or `null` on timeout.
+     *
+     * @param  {number} address The VBus address of the device to perform the rollback on.
+     * @param  {object} options
+     * @param  {number} options.timeout=500 Time in milliseconds between tries.
+     * @param  {number} options.timeoutIncr=500 Additional time in milliseconds to increase the timeout per try.
+     * @param  {number} options.tries=3 Number of tries to lookup the value.
+     * @return {Promise} A Promise the resolves to the received Datagram or `null` on timeout.
+     */
+    rollbackBulkValueTransaction: function(address, options) {
+        var _this = this;
+
+        options = _.defaults({}, options, {
+            timeout: 500,
+            timeoutIncr: 500,
+            tries: 3,
+        });
+
+        var txDatagram = new Datagram({
+            destinationAddress: address,
+            sourceAddress: this.selfAddress,
+            command: 0x1404,
+            valueId: 0,
+            value: 0
+        }).toLiveBuffer();
+
+        options.filterDatagram = function(rxDatagram, done) {
+            if (rxDatagram.destinationAddress !== _this.selfAddress) {
+                // nop
+            } else if (rxDatagram.sourceAddress !== address) {
+                // nop
+            } else if (rxDatagram.command !== 0x1405) {
+                // nop
+            } else {
+                done(null, rxDatagram);
+            }
+        };
+
+        return this.transceive(txDatagram, options);
+    },
+
+    /**
+     * Sends a Datagram to set a value during a bulk value transaction.
+     * Returns a Promise that resolves to the answer Datagram or `null` on timeout.
+     *
+     * @param  {number} address The VBus address of the device to set the value on.
+     * @param  {number} valueId The ID of the value to write to the device.
+     * @param  {number} value The value to write to the device.
+     * @param  {object} options
+     * @param  {number} options.timeout=500 Time in milliseconds between tries.
+     * @param  {number} options.timeoutIncr=500 Additional time in milliseconds to increase the timeout per try.
+     * @param  {number} options.tries=3 Number of tries to lookup the value.
+     * @return {Promise} A Promise the resolves to the received Datagram or `null` on timeout.
+     */
+    setBulkValueById: function(address, valueId, value, options) {
+        var _this = this;
+
+        options = _.defaults({}, options, {
+            timeout: 500,
+            timeoutIncr: 500,
+            tries: 3,
+        });
+
+        var subIndex = (valueId >> 16) & 0x7F;
+        valueId = valueId & 0xFFFF;
+
+        var txDatagram = new Datagram({
+            destinationAddress: address,
+            sourceAddress: this.selfAddress,
+            command: 0x1500 | subIndex,
+            valueId: valueId,
+            value: value
+        }).toLiveBuffer();
+
+        options.filterDatagram = function(rxDatagram, done) {
+            if (rxDatagram.destinationAddress !== _this.selfAddress) {
+                // nop
+            } else if (rxDatagram.sourceAddress !== address) {
+                // nop
+            } else if (rxDatagram.command !== (0x1600 | subIndex)) {
+                // nop
+            } else if (rxDatagram.valueId !== valueId) {
                 // nop
             } else {
                 done(null, rxDatagram);
