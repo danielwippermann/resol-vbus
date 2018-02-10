@@ -268,8 +268,8 @@ describe('ValuesWrapper', function() {
                 expect(action.callCount).equal(1);
                 expect(action.getCall(0).args [0].md [0]).equal('TestValue1');
 
-                checker.reset();
-                action.reset();
+                checker.resetHistory();
+                action.resetHistory();
 
                 values._check(actionWrapper, checker, {
                     includeUndefined: false,
@@ -304,8 +304,8 @@ describe('ValuesWrapper', function() {
                 expect(action.callCount).equal(1);
                 expect(action.getCall(0).args [0].md [0]).equal('TestValue1');
 
-                checker.reset();
-                action.reset();
+                checker.resetHistory();
+                action.resetHistory();
 
                 values._check(actionWrapper, checker, {
                     includeFailed: false,
