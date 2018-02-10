@@ -1,4 +1,4 @@
-/*! resol-vbus | Copyright (c) 2013-2017, Daniel Wippermann | MIT license */
+/*! resol-vbus | Copyright (c) 2013-2018, Daniel Wippermann | MIT license */
 'use strict';
 
 
@@ -235,7 +235,7 @@ var convertMenuXmlFile = function(inputFilename, outputFilename, convert) {
         return JSON.stringify(menuSystem, null, '    ');
     }).then(function(content) {
         return [
-            '/*! resol-vbus | Copyright (c) 2013-2017, Daniel Wippermann | MIT license */',
+            '/*! resol-vbus | Copyright (c) 2013-2018, Daniel Wippermann | MIT license */',
             '\'use strict\';',
             '',
             '',

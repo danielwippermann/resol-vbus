@@ -1,4 +1,4 @@
-/*! resol-vbus | Copyright (c) 2016-2017, Daniel Wippermann | MIT license */
+/*! resol-vbus | Copyright (c) 2016-2018, Daniel Wippermann | MIT license */
 'use strict';
 
 
