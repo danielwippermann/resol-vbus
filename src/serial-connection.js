@@ -182,9 +182,9 @@ var SerialConnection = Connection.extend(/** @lends SerialConnection# */ {
         };
 
         var options = {
-            baudrate: 9600,
-            databits: 8,
-            stopbits: 1,
+            baudRate: 9600,
+            dataBits: 8,
+            stopBits: 1,
             parity: 'none',
             disconnectedCallback: onDisconnect,
         };
