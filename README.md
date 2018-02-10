@@ -75,6 +75,7 @@ into your shell:
 * [All current RESOL controllers with VBus](http://www.resol.de/index/produkte/sprache/en)
 * [RESOL DL2 Datalogger](http://www.resol.de/index/produktdetail/kategorie/2/sprache/en/id/12)
 * [RESOL DL3 Datalogger](http://www.resol.de/index/produktdetail/kategorie/2/sprache/en/id/86)
+* [RESOL KM2 Communication module](http://www.resol.de/index/produktdetail/kategorie/2/id/209/sprache/en)
 * [RESOL VBus/LAN interface adapter](http://www.resol.de/index/produktdetail/kategorie/2/id/76/sprache/en)
 * [RESOL VBus/USB interface adapter](http://www.resol.de/index/produktdetail/kategorie/2/id/13/sprache/en)
 * [RESOL VBus.net](http://www.vbus.net/)
@@ -105,12 +106,25 @@ into your shell:
 
 
 
+## Short-term plans
+
+- Remove current `ConfigurationOptimizer` constructs in favor of RESOL's official support.
+- Refactor code to adapt it to ES2015.
+
+
 ## Changelog
 
 ## Work in progress
 
+
+## Version 0.17.0 (2018-02-10)
+
+- Add `Buffer` support to `Connection#(get|set)ValueById` for values larger than 32-bit.
+- Add `Connection#getCaps1`.
+- Add bulk value transaction support to `Connection` class.
 - Add support to generate and parse "type 9" comment records using `VBusRecordingConverter`.
 - Make it easier to create a `Specification` from a `SpecificationFile`.
+- Extend `vbustouch-proxy` example with text data logging feature.
 - Update dependencies.
 - Some minor bug fixes.
 
