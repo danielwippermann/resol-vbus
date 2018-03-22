@@ -49,6 +49,26 @@ describe('VBusRecordingConverter', function() {
 
     });
 
+    describe('#reset', function() {
+
+        it('should be a method', function() {
+            expect(typeof VBusRecordingConverter.prototype.reset).equal('function');
+        });
+
+        it('should work correctly', function() {
+            var converter = new VBusRecordingConverter();
+
+            converter.write(Buffer.from('A5', 'hex'));
+
+            expect(converter.rxBuffer.length).equal(1);
+
+            converter.reset();
+
+            expect(converter.rxBuffer).equal(null);
+        });
+
+    });
+
     describe('writable stream', function() {
 
         var rawVBusRecordingHexDump = [
@@ -203,6 +223,46 @@ describe('VBusRecordingConverter', function() {
             converter.end();
         });
 
+        promiseIt('should work correctly with raw data', function() {
+            var rawDataHexDump = [
+                'a5771000100000000000000000000100',
+                'a58826002600',
+                '1794de2443010000',
+                '2794de2443010000',
+                'aa1000217e100001013e00000b000074',
+            ].join('');
+
+            var buffer = new Buffer(rawDataHexDump, 'hex');
+
+            var converter = new VBusRecordingConverter({
+            });
+
+            var onRawData = sinon.spy();
+            converter.on('rawData', onRawData);
+
+            return new Promise(function(resolve) {
+                converter.once('finish', function() {
+                    resolve();
+                });
+
+                converter.write(buffer);
+                converter.end();
+            }).then(function() {
+                converter.on('rawData', onRawData);
+
+                expect(onRawData.callCount).to.equal(1, '"rawData" events triggered');
+
+                var info = onRawData.firstCall.args [0];
+                expect(info).an('object');
+                expect(info).property('channel').equal(1);
+                expect(info).property('startTimestamp').instanceOf(Date);
+                expect(info.startTimestamp.valueOf()).equal(1387893003287);
+                expect(info).property('endTimestamp').instanceOf(Date);
+                expect(info.endTimestamp.valueOf()).equal(1387893003303);
+                expect(info.buffer.toString('hex')).equal('aa1000217e100001013e00000b000074');
+            });
+        });
+
         promiseIt('should parse comment records', function() {
             var rawDataHexDump = [
                 'a5993b003b00',
@@ -240,6 +300,69 @@ describe('VBusRecordingConverter', function() {
                 expect(info).property('timestamp').instanceOf(Date);
                 expect(info.timestamp.valueOf()).equal(1387893003287);
                 expect(info).property('comment').equal('Comment serialized to VBus file format record');
+            });
+        });
+
+        promiseIt('should support topology scan only', function() {
+            var buffer = new Buffer(rawVBusRecordingHexDump, 'hex');
+
+            var converter = new VBusRecordingConverter({
+                topologyScanOnly: true,
+            });
+
+            var onHeader = sinon.spy();
+            converter.on('header', onHeader);
+
+            var onHeaderSet = sinon.spy();
+            converter.on('headerSet', onHeaderSet);
+
+            return new Promise(function(resolve) {
+                converter.on('finish', function() {
+                    resolve();
+                });
+
+                converter.write(buffer);
+                converter.write(buffer);
+                converter.write(buffer);
+                converter.end();
+            }).then(function() {
+                expect(onHeader.callCount).to.equal(0, '"header" events triggered');
+                expect(onHeaderSet.callCount).to.equal(1, '"headerSet" events triggered');
+
+                var headerSet = onHeaderSet.firstCall.args [0];
+                expect(headerSet).to.be.an('object');
+                expect(headerSet.timestamp.getTime()).to.equal(0);
+
+                var headers = headerSet.getSortedHeaders();
+
+                expect(headers.length).to.equal(16);
+
+                _.forEach(headers, function(header) {
+                    expect(header.frameCount).equal(0);
+                });
+
+                var headerIds = _.map(headers, function(header) {
+                    return header.getId();
+                });
+
+                expect(headerIds).to.eql([
+                    '00_0010_0053_10_0100',
+                    '01_0010_7E11_10_0100',
+                    '01_0010_7E12_10_0100',
+                    '01_0010_7E21_10_0100',
+                    '01_0010_7E31_10_0100',
+                    '01_0010_7E32_10_0100',
+                    '01_0010_7E33_10_0100',
+                    '01_0010_7E34_10_0100',
+                    '01_0010_7E35_10_0100',
+                    '01_0015_7E11_10_0100',
+                    '01_6651_7E11_10_0200',
+                    '01_6652_7E11_10_0200',
+                    '01_6653_7E11_10_0200',
+                    '01_6654_7E11_10_0200',
+                    '01_6655_7E11_10_0200',
+                    '01_7E11_6651_10_0100'
+                ]);
             });
         });
 
