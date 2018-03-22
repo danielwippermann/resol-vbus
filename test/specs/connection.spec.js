@@ -107,7 +107,14 @@ var parseRawData = function(rawDataOrCallback, start, end, ignoreEvents) {
             result = callback(connection, stats, done);
         } else {
             result = callback(connection, stats);
-            done();
+
+            if (result && result.then && (typeof result.then === 'function')) {
+                result = result.then(function() {
+                    done();
+                });
+            } else {
+                done();
+            }
         }
     } else if (rawData) {
         var buffer = rawData.slice(start, end);
@@ -1459,6 +1466,251 @@ describe('Connection', function() {
 
                     doneParsing();
                     doneTesting();
+                });
+            });
+        });
+
+    });
+
+    describe('#getCaps1', function() {
+
+        it('should be a method', function() {
+            expect(typeof Connection.prototype.getCaps1).equal('function');
+        });
+
+        promiseIt('should work correctly', function() {
+            return parseRawData(function(conn, stats) {
+                var startTimestamp = Date.now();
+
+                var datagramResult;
+
+                conn.on('datagram', function(rxDatagram) {
+                    if (rxDatagram.command === 0x1300) {
+                        datagramResult = rxDatagram;
+
+                        var txDatagram = new Datagram({
+                            destinationAddress: rxDatagram.sourceAddress,
+                            sourceAddress: rxDatagram.destinationAddress,
+                            command: 0x1301,
+                            valueId: 0,
+                            value: 0x12345678,
+                        });
+
+                        conn.send(txDatagram);
+                    }
+                });
+
+                return conn.getCaps1(0x7721).then(function (result) {
+                    expect(typeof datagramResult).equal('object');
+                    expect(datagramResult.getId()).equal('00_7721_0020_20_1300_0000');
+
+                    expect(typeof result).equal('object');
+                    expect(result.getId()).equal('00_0020_7721_20_1301_0000');
+
+                    expect(Date.now() - startTimestamp).within(0 * minTimeoutFactor, 20 * maxTimeoutFactor);
+
+                    expect(stats.txDataCount).equal(32);
+                    expect(stats.rawDataCount).equal(32);
+                    expect(stats.junkDataCount).equal(0);
+                    expect(stats.packetCount).equal(0);
+                    expect(stats.datagramCount).equal(2);
+                });
+            });
+        });
+
+    });
+
+    describe('#beginBulkValueTransaction', function() {
+
+        it('should be a method', function() {
+            expect(typeof Connection.prototype.beginBulkValueTransaction).equal('function');
+        });
+
+        promiseIt('should work correctly', function() {
+            return parseRawData(function(conn, stats) {
+                var startTimestamp = Date.now();
+
+                var datagramResult;
+
+                conn.on('datagram', function(rxDatagram) {
+                    if (rxDatagram.command === 0x1400) {
+                        datagramResult = rxDatagram;
+
+                        var txDatagram = new Datagram({
+                            destinationAddress: rxDatagram.sourceAddress,
+                            sourceAddress: rxDatagram.destinationAddress,
+                            command: 0x1401,
+                            valueId: 0,
+                            value: 0,
+                        });
+
+                        conn.send(txDatagram);
+                    }
+                });
+
+                return conn.beginBulkValueTransaction(0x7721, 10).then(function (result) {
+                    expect(typeof datagramResult).equal('object');
+                    expect(datagramResult.getId()).equal('00_7721_0020_20_1400_0000');
+                    expect(datagramResult.value).equal(10);
+
+                    expect(typeof result).equal('object');
+                    expect(result.getId()).equal('00_0020_7721_20_1401_0000');
+
+                    expect(Date.now() - startTimestamp).within(0 * minTimeoutFactor, 20 * maxTimeoutFactor);
+
+                    expect(stats.txDataCount).equal(32);
+                    expect(stats.rawDataCount).equal(32);
+                    expect(stats.junkDataCount).equal(0);
+                    expect(stats.packetCount).equal(0);
+                    expect(stats.datagramCount).equal(2);
+                });
+            });
+        });
+
+    });
+
+    describe('#commitBulkValueTransaction', function() {
+
+        it('should be a method', function() {
+            expect(typeof Connection.prototype.commitBulkValueTransaction).equal('function');
+        });
+
+        promiseIt('should work correctly', function() {
+            return parseRawData(function(conn, stats) {
+                var startTimestamp = Date.now();
+
+                var datagramResult;
+
+                conn.on('datagram', function(rxDatagram) {
+                    if (rxDatagram.command === 0x1402) {
+                        datagramResult = rxDatagram;
+
+                        var txDatagram = new Datagram({
+                            destinationAddress: rxDatagram.sourceAddress,
+                            sourceAddress: rxDatagram.destinationAddress,
+                            command: 0x1403,
+                            valueId: 0,
+                            value: 0,
+                        });
+
+                        conn.send(txDatagram);
+                    }
+                });
+
+                return conn.commitBulkValueTransaction(0x7721).then(function (result) {
+                    expect(typeof datagramResult).equal('object');
+                    expect(datagramResult.getId()).equal('00_7721_0020_20_1402_0000');
+
+                    expect(typeof result).equal('object');
+                    expect(result.getId()).equal('00_0020_7721_20_1403_0000');
+
+                    expect(Date.now() - startTimestamp).within(0 * minTimeoutFactor, 20 * maxTimeoutFactor);
+
+                    expect(stats.txDataCount).equal(32);
+                    expect(stats.rawDataCount).equal(32);
+                    expect(stats.junkDataCount).equal(0);
+                    expect(stats.packetCount).equal(0);
+                    expect(stats.datagramCount).equal(2);
+                });
+            });
+        });
+
+    });
+
+    describe('#rollbackBulkValueTransaction', function() {
+
+        it('should be a method', function() {
+            expect(typeof Connection.prototype.rollbackBulkValueTransaction).equal('function');
+        });
+
+        promiseIt('should work correctly', function() {
+            return parseRawData(function(conn, stats) {
+                var startTimestamp = Date.now();
+
+                var datagramResult;
+
+                conn.on('datagram', function(rxDatagram) {
+                    if (rxDatagram.command === 0x1404) {
+                        datagramResult = rxDatagram;
+
+                        var txDatagram = new Datagram({
+                            destinationAddress: rxDatagram.sourceAddress,
+                            sourceAddress: rxDatagram.destinationAddress,
+                            command: 0x1405,
+                            valueId: 0,
+                            value: 0,
+                        });
+
+                        conn.send(txDatagram);
+                    }
+                });
+
+                return conn.rollbackBulkValueTransaction(0x7721).then(function (result) {
+                    expect(typeof datagramResult).equal('object');
+                    expect(datagramResult.getId()).equal('00_7721_0020_20_1404_0000');
+
+                    expect(typeof result).equal('object');
+                    expect(result.getId()).equal('00_0020_7721_20_1405_0000');
+
+                    expect(Date.now() - startTimestamp).within(0 * minTimeoutFactor, 20 * maxTimeoutFactor);
+
+                    expect(stats.txDataCount).equal(32);
+                    expect(stats.rawDataCount).equal(32);
+                    expect(stats.junkDataCount).equal(0);
+                    expect(stats.packetCount).equal(0);
+                    expect(stats.datagramCount).equal(2);
+                });
+            });
+        });
+
+    });
+
+    describe('#setBulkValueById', function() {
+
+        it('should be a method', function() {
+            expect(typeof Connection.prototype.setBulkValueById).equal('function');
+        });
+
+        promiseIt('should work correctly', function() {
+            return parseRawData(function(conn, stats) {
+                var startTimestamp = Date.now();
+
+                var datagramResult;
+
+                conn.on('datagram', function(rxDatagram) {
+                    if (rxDatagram.command === 0x1512) {
+                        datagramResult = rxDatagram;
+
+                        var txDatagram = new Datagram({
+                            destinationAddress: rxDatagram.sourceAddress,
+                            sourceAddress: rxDatagram.destinationAddress,
+                            command: 0x1612,
+                            valueId: 0x3456,
+                            value: 0,
+                        });
+
+                        conn.send(txDatagram);
+                    }
+                });
+
+                return conn.setBulkValueById(0x7721, 0x123456, 0x789abcde).then(function (result) {
+                    expect(typeof datagramResult).equal('object');
+                    expect(datagramResult.getId()).equal('00_7721_0020_20_1512_0000');
+                    expect(datagramResult.valueId).equal(0x3456);
+                    expect(datagramResult.value).equal(0x789abcde);
+
+                    expect(typeof result).equal('object');
+                    expect(result.getId()).equal('00_0020_7721_20_1612_0000');
+                    expect(result.valueId).equal(0x3456);
+                    expect(result.value).equal(0);
+
+                    expect(Date.now() - startTimestamp).within(0 * minTimeoutFactor, 20 * maxTimeoutFactor);
+
+                    expect(stats.txDataCount).equal(32);
+                    expect(stats.rawDataCount).equal(32);
+                    expect(stats.junkDataCount).equal(0);
+                    expect(stats.packetCount).equal(0);
+                    expect(stats.datagramCount).equal(2);
                 });
             });
         });
