@@ -9,7 +9,7 @@ var path = require('path');
 
 var moreints = require('buffer-more-ints');
 var _ = require('lodash');
-var sprintf = require('sprintf');
+var sprintf = require('sprintf-js').sprintf;
 
 
 var extend = require('./extend');

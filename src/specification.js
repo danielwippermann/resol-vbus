@@ -7,7 +7,7 @@ var crypto = require('crypto');
 
 
 var _ = require('lodash');
-var sprintf = require('sprintf').sprintf;
+var sprintf = require('sprintf-js').sprintf;
 
 
 var extend = require('./extend');

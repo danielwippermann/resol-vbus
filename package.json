@@ -39,7 +39,7 @@
     "numeral": "1.5.6",
     "q": "^1.5.1",
     "request": "^2.83.0",
-    "sprintf": "^0.1.5"
+    "sprintf-js": "^1.1.1"
   },
   "optionalDependencies": {
     "serialport": "^6.0.5"

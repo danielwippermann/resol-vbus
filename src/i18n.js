@@ -6,7 +6,7 @@
 var _ = require('lodash');
 var moment = require('moment-timezone');
 var numeral = require('numeral');
-var sprintf = require('sprintf').sprintf;
+var sprintf = require('sprintf-js').sprintf;
 
 
 var extend = require('./extend');
