@@ -523,40 +523,6 @@ var rawConfiguration = {
                 "rootTypeId": "Number",
                 "storeFactors": "0,1",
                 "displayFactors": "1",
-                "minimums": "-40,0",
-                "maximums": "250,0",
-                "defaults": "95"
-            },
-            "valueTexts": [],
-            "id": "TSp1Not",
-            "idHash": 197070105,
-            "index": 416
-        },
-        {
-            "type": {
-                "quants": [
-                    "1"
-                ],
-                "rootTypeId": "Number",
-                "storeFactors": "0,1",
-                "displayFactors": "1",
-                "minimums": "-40,0",
-                "maximums": "250,0",
-                "defaults": "95"
-            },
-            "valueTexts": [],
-            "id": "TSp2Not",
-            "idHash": 197106042,
-            "index": 417
-        },
-        {
-            "type": {
-                "quants": [
-                    "1"
-                ],
-                "rootTypeId": "Number",
-                "storeFactors": "0,1",
-                "displayFactors": "1",
                 "minimums": "4",
                 "maximums": "95",
                 "defaults": "60"
@@ -582,23 +548,6 @@ var rawConfiguration = {
             "id": "TSp2Max",
             "idHash": 197104495,
             "index": 433
-        },
-        {
-            "type": {
-                "quants": [
-                    "1"
-                ],
-                "rootTypeId": "Number",
-                "storeFactors": "0,1",
-                "displayFactors": "1",
-                "minimums": "4",
-                "maximums": "95",
-                "defaults": "60"
-            },
-            "valueTexts": [],
-            "id": "TSp3Max",
-            "idHash": 197140432,
-            "index": 434
         },
         {
             "type": {
@@ -737,23 +686,6 @@ var rawConfiguration = {
             "id": "TKol2Min",
             "idHash": 496327440,
             "index": 497
-        },
-        {
-            "type": {
-                "quants": [
-                    "0,5"
-                ],
-                "rootTypeId": "Number",
-                "storeFactors": "0,1",
-                "displayFactors": "0,1",
-                "minimums": "10,0",
-                "maximums": "90,0",
-                "defaults": "10,0"
-            },
-            "valueTexts": [],
-            "id": "TKol3Min",
-            "idHash": 496363377,
-            "index": 498
         },
         {
             "type": {
@@ -1181,7 +1113,7 @@ var rawConfiguration = {
     "menus": null,
     "implHeaders": null,
     "implInitializers": null
-}
+};
 
 
 
