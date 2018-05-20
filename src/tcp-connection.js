@@ -4,6 +4,7 @@
 
 
 var net = require('net');
+var tls = require('tls');
 
 
 var _ = require('lodash');
@@ -21,6 +22,7 @@ var optionKeys = [
     'password',
     'channel',
     'rawVBusDataOnly',
+    'tlsOptions',
 ];
 
 
@@ -37,7 +39,7 @@ var TcpConnection = Connection.extend( /** @lends TcpConnection# */ {
      * Port number of the connection target.
      * @type {number}
      */
-    port: 7053,
+    port: null,
 
     /**
      * Via tag if connection target is accessed using the VBus.net service.
@@ -63,6 +65,8 @@ var TcpConnection = Connection.extend( /** @lends TcpConnection# */ {
      * @type {boolean}
      */
     rawVBusDataOnly: false,
+
+    tlsOptions: null,
 
     /**
      * Timeout in milliseconds to way between reconnection retries.
@@ -104,6 +108,12 @@ var TcpConnection = Connection.extend( /** @lends TcpConnection# */ {
      */
     constructor: function(options) {
         Connection.call(this, options);
+
+        if (options.tlsOptions) {
+            this.port = 57053;
+        } else {
+            this.port = 7053;
+        }
 
         _.extend(this, _.pick(options, optionKeys));
     },
@@ -377,7 +387,12 @@ var TcpConnection = Connection.extend( /** @lends TcpConnection# */ {
 
         this.on('data', onConnectionData);
 
-        socket = net.connect(options, onConnect);
+        if (this.tlsOptions) {
+            options = _.extend(options, this.tlsOptions);
+            socket = tls.connect(options, onConnect);
+        } else {
+            socket = net.connect(options, onConnect);
+        }
         socket.on('data', onSocketData);
         socket.on('end', onEnd);
         socket.on('error', onError);
