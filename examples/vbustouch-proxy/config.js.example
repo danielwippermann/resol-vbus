@@ -67,6 +67,12 @@ module.exports = {
     webServerPort: 3000,
 
     /**
+     * If your controller is not supported by the VBusTouch app directly, enable this
+     * option and implement the rewrite behavoiur in the `rewriteHeaderSet` function.
+     */
+    rewriteWebHeaderSets: false,
+
+    /**
      * Interval in which data will be uploaded to Xively.com. A value of zero disables this functionality.
      */
     xivelyInterval: 0,

@@ -30,7 +30,7 @@ var debugEnabled = true;
 
 var debugLog = function() {
     if (debugEnabled) {
-        console.log.apply(console, arguments);
+        global.console.log.apply(global.console, arguments);
     }
 };
 
@@ -53,6 +53,22 @@ var textHeaderSetConsolidator = new vbus.HeaderSetConsolidator({
 
 
 /**
+ * This function is called once the header set is considered "settled".
+ * That means that the amount of unique packets in the header set has
+ * been stable for a certain amount of time.
+ * 
+ * @param {HeaderSet} headerSet 
+ */
+var headerSetHasSettled = function(headerSet) {
+    const packetFields = specification.getPacketFieldsForHeaders(headerSet.getHeaders());
+
+    debugLog(_.map(packetFields, function(packetField) {
+        return packetField.id + ': ' + packetField.name;
+    }).join('\n'));
+};
+
+
+/**
  * Connect to the VBus and store the packets into the global HeaderSetConsolidator.
  */
 var connectToVBus = function() {
@@ -63,8 +79,29 @@ var connectToVBus = function() {
         debugLog('Connection state changed to ' + connectionState);
     });
 
+    var hasSettled = false;
+    var headerSet = new vbus.HeaderSet();
+    var settledCountdown = 0;
+
     connection.on('packet', function(packet) {
         // debugLog('Packet received...', packet);
+
+        if (!hasSettled) {
+            var headerCountBefore = headerSet.getHeaderCount();
+            headerSet.addHeader(packet);
+            var headerCountAfter = headerSet.getHeaderCount();
+
+            if (headerCountBefore != headerCountAfter) {
+                settledCountdown = headerCountAfter * 2;
+            } else if (settledCountdown > 0) {
+                settledCountdown -= 1;
+            } else {
+                hasSettled = true;
+
+                headerSetHasSettled(headerSet);
+                headerSet = null;
+            }
+        }
 
         headerSetConsolidator.addHeader(packet);
         textHeaderSetConsolidator.addHeader(packet);
@@ -103,8 +140,103 @@ var processGetResolDeviceInformationRequest = function(req, res) {
 
 /**
  * Allows rewriting a HeaderSet read from the file system before it is send over the network.
+ * 
+ * The example below converts the information from a DeltaSol MX to a Vitosolic 200.
+ * 
+ * @param headerSet A `HeaderSet` instance containing the received `Packet` instances.
+ * @returns A `HeaderSet` instance containing the forged `Packet` instances.
  */
-var rewriteHeaderSet = function(headerSet) {
+var rewriteWebHeaderSet = function(headerSet) {
+    var timestamp = headerSet.timestamp;
+
+    /*
+     * Get list of packet fields in the received packets.
+     */
+    var packetFields = specification.getPacketFieldsForHeaders(headerSet.getHeaders());
+
+    /*
+     * Map all existing packet fields into an object for easier access.
+     */
+    var origRawValueById = _.reduce(packetFields, function(memo, packetField) {
+        memo [packetField.id] = packetField.rawValue;
+        return memo;
+    }, {});
+
+    /*
+     * Pick the interesting fields from the raw values.
+     */
+    var tempCollector = origRawValueById ['00_0010_7E11_10_0100_000_2_0'];
+    var tempStoreBottom = origRawValueById ['00_0010_7E11_10_0100_002_2_0'];
+    var tempStoreTop = origRawValueById ['00_0010_7E11_10_0100_004_2_0'];
+    var pumpSpeed = origRawValueById ['00_0010_7E11_10_0100_076_1_0'];
+    var info1 = origRawValueById ['00_0010_7E11_10_0100_077_1_0'];
+    var info2 = origRawValueById ['00_0010_7E11_10_0100_078_1_0'];
+    var errorMask = origRawValueById ['00_0010_7E11_10_0100_096_4_0'];
+    var tempFlow = origRawValueById ['00_0010_7E11_10_0100_006_2_0'];
+    var tempReturn = origRawValueById ['00_0010_7E11_10_0100_008_2_0'];
+    var flow = origRawValueById ['00_0010_7E11_10_0100_040_4_0'];
+    var heat = origRawValueById ['00_0010_7E31_10_0100_000_4_0'];
+
+    /*
+     * Create an empty packet of the supported Vitosolic 200.
+     */
+    var supportedPacket1 = new vbus.Packet({
+        timestamp: timestamp,
+        channel: 0,
+        destinationAddress: 0x0010,  // DFA
+        sourceAddress: 0x1060,  // Vitosolic 200 [Regler]
+        command: 0x0100,
+        frameCount: 20,
+    });
+
+    /*
+     * Create an empty packet for the heat quantity information.
+     */
+    var supportedPacket2 = new vbus.Packet({
+        timestamp: timestamp,
+        channel: 0,
+        destinationAddress: 0x0010,  // DFA
+        sourceAddress: 0x1064,  // Vitosolic 200 [WMZ1]
+        command: 0x0100,
+        frameCount: 3,
+    });
+
+    /*
+     * Create a new header set and add the forged packets to it.
+     */
+    headerSet = new vbus.HeaderSet({
+        timestamp: timestamp,
+    });
+    headerSet.addHeader(supportedPacket1);
+    headerSet.addHeader(supportedPacket2);
+
+    /*
+     * Get list of packet fields in the forged packets.
+     */
+    packetFields = specification.getPacketFieldsForHeaders(headerSet.getHeaders());
+
+    /*
+     * Transfered the information picked from the received packets into the forged ones.
+     */
+    specification.setPacketFieldRawValues(packetFields, {
+        '00_0010_1060_10_0100_000_2_0': tempCollector,
+        '00_0010_1060_10_0100_002_2_0': tempStoreBottom,
+        '00_0010_1060_10_0100_004_2_0': tempStoreTop,
+        '00_0010_1060_10_0100_044_1_0': pumpSpeed,
+        '00_0010_1060_10_0100_045_1_0': info1,
+        '00_0010_1060_10_0100_046_1_0': info2,
+        '00_0010_1060_10_0100_060_2_0': errorMask,
+        '00_0010_1064_10_0100_000_2_0': tempFlow,
+        '00_0010_1064_10_0100_002_2_0': tempReturn,
+        '00_0010_1064_10_0100_004_2_0': flow,
+        '00_0010_1064_10_0100_006_2_0': heat % 1000,
+        '00_0010_1064_10_0100_008_2_0': (heat / 1000) % 1000,
+        '00_0010_1064_10_0100_010_2_0': heat / 1000000,
+    });
+
+    /*
+     * Return the forged header set.
+     */
     return headerSet;
 };
 
@@ -167,7 +299,9 @@ var processDownloadDownloadRequest = function(req, res) {
         converter1.on('finish', onC1Finish);
 
         var onHscHeaderSet = function(headerSet) {
-            headerSet = rewriteHeaderSet(headerSet);
+            if (config.rewriteWebHeaderSets) {
+                headerSet = rewriteWebHeaderSet(headerSet);
+            }
 
             converter2.convertHeaderSet(headerSet);
         };
@@ -236,7 +370,7 @@ var processDownloadDownloadRequest = function(req, res) {
         res.set('content-type', contentType);
         res.send(buffer);
     }).catch(function(err) {
-        console.log(err, err.toString(), err.stack);
+        global.console.log(err, err.toString(), err.stack);
 
         res.status(500);
         res.set('content-type', 'text/plain');
@@ -450,7 +584,7 @@ if (require.main === module) {
     Q.fcall(function() {
         return main(process.argv.slice(2));
     }).done(function() {
-        console.log('DONE!');
+        global.console.log('DONE!');
     });
 } else {
     module.exports = main;
