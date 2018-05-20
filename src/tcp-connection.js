@@ -109,7 +109,7 @@ var TcpConnection = Connection.extend( /** @lends TcpConnection# */ {
     constructor: function(options) {
         Connection.call(this, options);
 
-        if (options.tlsOptions) {
+        if (options && options.tlsOptions) {
             this.port = 57053;
         } else {
             this.port = 7053;
