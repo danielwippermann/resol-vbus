@@ -7,10 +7,9 @@ var crypto = require('crypto');
 var EventEmitter = require('events').EventEmitter;
 
 
-var _ = require('lodash');
-
 
 var extend = require('./extend');
+var _ = require('./lodash');
 
 
 

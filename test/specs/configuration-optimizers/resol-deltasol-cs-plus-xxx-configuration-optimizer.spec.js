@@ -3,10 +3,10 @@
 
 
 
-var _ = require('lodash');
 var Q = require('q');
 
 
+var _ = require('../lodash');
 var vbus = require('../resol-vbus');
 
 var testUtils = require('../test-utils');
@@ -54,7 +54,13 @@ describe('ResolDeltaSolCsPlusXxxConfigurationOptimizer', function() {
                 }).then(function(config) {
                     expect(config).an('array');
 
-                    var valueIds = _.pluck(_.where(config, { pending: true }), 'valueId');
+                    var valueIds = _.reduce(config, (memo, value) => {
+                        if (value.pending) {
+                            memo.push(value.valueId);
+                        }
+                        return memo;
+                    }, []);
+
                     expect(valueIds).lengthOf(49);
 
                     _.forEach(config, function(value) {
@@ -69,7 +75,13 @@ describe('ResolDeltaSolCsPlusXxxConfigurationOptimizer', function() {
                 }).then(function(config) {
                     expect(config).an('array');
 
-                    var valueIds = _.pluck(_.where(config, { pending: true }), 'valueId');
+                    var valueIds = _.reduce(config, (memo, value) => {
+                        if (value.pending) {
+                            memo.push(value.valueId);
+                        }
+                        return memo;
+                    }, []);
+
                     expect(valueIds).lengthOf(33);
                 });
             });

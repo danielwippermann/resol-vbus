@@ -3,11 +3,11 @@
 
 
 
-var _ = require('lodash');
 var Q = require('q');
 
 
 var DataSource = require('./data-source');
+var _ = require('./lodash');
 
 var SerialConnection = require('./serial-connection');
 

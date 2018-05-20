@@ -7,11 +7,11 @@ var net = require('net');
 var tls = require('tls');
 
 
-var _ = require('lodash');
 var Q = require('q');
 
 
 var Connection = require('./connection');
+var _ = require('./lodash');
 
 
 

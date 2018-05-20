@@ -3,9 +3,7 @@
 
 
 
-var _ = require('lodash');
-
-
+var _ = require('./lodash');
 var Packet = require('./resol-vbus').Packet;
 
 

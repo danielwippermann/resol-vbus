@@ -8,10 +8,10 @@ var http = require('http');
 var url = require('url');
 
 
-var _ = require('lodash');
 var Q = require('q');
 
 
+var _ = require('./lodash');
 var TcpDataSource = require('./tcp-data-source');
 var utils = require('./utils');
 

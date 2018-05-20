@@ -3,10 +3,8 @@
 
 
 
-var _ = require('lodash');
-
-
 var extend = require('./extend');
+var _ = require('./lodash');
 
 
 

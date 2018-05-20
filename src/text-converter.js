@@ -3,10 +3,8 @@
 
 
 
-var _ = require('lodash');
-
-
 var Converter = require('./converter');
+var _ = require('./lodash');
 var Specification = require('./specification');
 
 
@@ -104,7 +102,7 @@ var TextConverter = Converter.extend(/** @lends TextConverter# */ {
 
         var now = i18n.moment(headerSet.timestamp);
 
-        var idList = _.pluck(packetFields, 'id').join(',');
+        var idList = _.map(packetFields, 'id').join(',');
 
         var content = '', columns;
 

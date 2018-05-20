@@ -3,12 +3,12 @@
 
 
 
-var _ = require('lodash');
 var moment = require('moment');
 var Q = require('q');
 var request = require('request');
 
 
+var _ = require('./lodash');
 var utils = require('./utils');
 var VBusRecordingConverter = require('./vbus-recording-converter');
 

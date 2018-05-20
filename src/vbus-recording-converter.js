@@ -3,11 +3,11 @@
 
 
 
-var _ = require('lodash');
 var moreints = require('buffer-more-ints');
 
 
 var HeaderSet = require('./header-set');
+var _ = require('./lodash');
 var Packet = require('./packet');
 
 var Converter = require('./converter');

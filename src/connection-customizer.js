@@ -3,13 +3,13 @@
 
 
 
-var _ = require('lodash');
 var Q = require('q');
 
 
 var utils = require('./utils');
 
 var Customizer = require('./customizer');
+var _ = require('./lodash');
 
 
 

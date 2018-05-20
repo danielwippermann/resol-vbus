@@ -3,10 +3,8 @@
 
 
 
-var _ = require('lodash');
-
-
 var HeaderSet = require('./header-set');
+var _ = require('./lodash');
 var Specification = require('./specification');
 
 var Converter = require('./converter');

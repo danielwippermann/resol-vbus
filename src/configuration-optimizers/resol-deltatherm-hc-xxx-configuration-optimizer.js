@@ -3,12 +3,12 @@
 
 
 
-var _ = require('lodash');
 
 
 var configurationData = require('./resol-deltatherm-hc-xxx-data');
 
 var BaseConfigurationOptimizer = require('../base-configuration-optimizer');
+var _ = require('../lodash');
 
 
 

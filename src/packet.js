@@ -3,11 +3,11 @@
 
 
 
-var _ = require('lodash');
 var sprintf = require('sprintf-js').sprintf;
 
 
 var Header = require('./header');
+var _ = require('./lodash');
 
 
 

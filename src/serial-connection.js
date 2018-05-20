@@ -3,7 +3,6 @@
 
 
 
-var _ = require('lodash');
 var Q = require('q');
 var SerialPort;
 try {
@@ -14,6 +13,7 @@ try {
 
 
 var Connection = require('./connection');
+var _ = require('./lodash');
 
 
 

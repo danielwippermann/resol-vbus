@@ -7,11 +7,11 @@ var EventEmitter = require('events').EventEmitter;
 var net = require('net');
 
 
-var _ = require('lodash');
 var Q = require('q');
 
 
 var extend = require('./extend');
+var _ = require('./lodash');
 
 
 

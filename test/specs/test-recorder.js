@@ -7,11 +7,11 @@ var fs = require('fs');
 var path = require('path');
 
 
-var _ = require('lodash');
 var moment = require('moment');
 var Q = require('q');
 
 
+var _ = require('./lodash');
 var vbus = require('./resol-vbus');
 
 

@@ -7,10 +7,10 @@ var fs = require('fs');
 var path = require('path');
 
 
-var _ = require('lodash');
 var Q = require('q');
 
 
+var _ = require('./lodash');
 var vbus = require('./resol-vbus');
 var TestRecorder = require('./test-recorder');
 var testUtils = require('./test-utils');

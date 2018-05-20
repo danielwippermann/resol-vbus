@@ -3,10 +3,10 @@
 
 
 
-var _ = require('lodash');
 var moment = require('moment');
 
 
+var _ = require('./lodash');
 var vbus = require('./resol-vbus');
 
 var Recorder = vbus.Recorder;

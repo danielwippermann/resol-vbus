@@ -8,11 +8,11 @@ var fs = require('fs');
 var path = require('path');
 
 
-var _ = require('lodash');
 var moment = require('moment');
 var Q = require('q');
 
 
+var _ = require('./lodash');
 var utils = require('./utils');
 var VBusRecordingConverter = require('./vbus-recording-converter');
 

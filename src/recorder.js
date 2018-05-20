@@ -6,7 +6,6 @@
 var EventEmitter = require('events').EventEmitter;
 
 
-var _ = require('lodash');
 var Q = require('q');
 
 
@@ -14,6 +13,7 @@ var extend = require('./extend');
 var Header = require('./header');
 var HeaderSet = require('./header-set');
 var HeaderSetConsolidator = require('./header-set-consolidator');
+var _ = require('./lodash');
 var utils = require('./utils');
 
 

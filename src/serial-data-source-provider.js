@@ -3,7 +3,6 @@
 
 
 
-var _ = require('lodash');
 var Q = require('q');
 var SerialPort;
 try {
@@ -13,6 +12,7 @@ try {
 }
 
 
+var _ = require('./lodash');
 var SerialDataSource = require('./serial-data-source');
 
 var DataSourceProvider = require('./data-source-provider');

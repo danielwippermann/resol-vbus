@@ -3,12 +3,12 @@
 
 
 
-var _ = require('lodash');
 var Q = require('q');
 
 
 var ConfigurationOptimizer = require('./configuration-optimizer');
 var extend = require('./extend');
+var _ = require('./lodash');
 
 
 
@@ -116,14 +116,14 @@ var ValuesWrapper = extend(null, {
     in: function(refValues, callback) {
         return this._check(callback, function(value, valueInfo) {
             var normalizedRefValues = this._normalizeValues(refValues, valueInfo);
-            return _.contains(normalizedRefValues, value);
+            return _.includes(normalizedRefValues, value);
         });
     },
 
     notIn: function(refValues, callback) {
         return this._check(callback, function(value, valueInfo) {
             var normalizedRefValues = this._normalizeValues(refValues, valueInfo);
-            return !_.contains(normalizedRefValues, value);
+            return !_.includes(normalizedRefValues, value);
         });
     },
 

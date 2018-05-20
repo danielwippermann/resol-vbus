@@ -5,11 +5,11 @@
 
 require('better-stack-traces').install();
 var chai = require('chai');
-var _ = require('lodash');
 var Q = require('q');
 var sinon = require('sinon');
 
 
+var _ = require('./lodash');
 var vbus = require('./resol-vbus');
 
 

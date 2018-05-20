@@ -6,9 +6,7 @@
 var fs = require('fs');
 
 
-var _ = require('lodash');
-
-
+var _ = require('./lodash');
 var vbus = require('./resol-vbus');
 
 

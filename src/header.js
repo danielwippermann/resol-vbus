@@ -3,11 +3,11 @@
 
 
 
-var _ = require('lodash');
 var sprintf = require('sprintf-js').sprintf;
 
 
 var extend = require('./extend');
+var _ = require('./lodash');
 
 
 

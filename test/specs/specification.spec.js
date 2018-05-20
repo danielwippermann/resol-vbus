@@ -3,9 +3,7 @@
 
 
 
-var _ = require('lodash');
-
-
+var _ = require('./lodash');
 var vbus = require('./resol-vbus');
 var testUtils = require('./test-utils');
 

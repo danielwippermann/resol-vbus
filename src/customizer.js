@@ -6,11 +6,11 @@
 var EventEmitter = require('events').EventEmitter;
 
 
-var _ = require('lodash');
 var Q = require('q');
 
 
 var extend = require('./extend');
+var _ = require('./lodash');
 
 
 

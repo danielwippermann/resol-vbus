@@ -7,12 +7,12 @@ var EventEmitter = require('events').EventEmitter;
 var Duplex = require('stream').Duplex;
 
 
-var _ = require('lodash');
 var Q = require('q');
 
 
 var extend = require('./extend');
 
+var _ = require('./lodash');
 var Header = require('./header');
 var Packet = require('./packet');
 var Datagram = require('./datagram');

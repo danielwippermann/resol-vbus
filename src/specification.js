@@ -6,12 +6,12 @@
 var crypto = require('crypto');
 
 
-var _ = require('lodash');
 var sprintf = require('sprintf-js').sprintf;
 
 
 var extend = require('./extend');
 var I18N = require('./i18n');
+var _ = require('./lodash');
 var utils = require('./utils');
 
 // var createVBusSpecificationData = require('./specification-data');

@@ -9,12 +9,12 @@ var util = require('util');
 var Duplex = require('stream').Duplex;
 
 
-var _ = require('lodash');
 var Q = require('q');
 
 
 var Header = require('./header');
 var HeaderSet = require('./header-set');
+var _ = require('./lodash');
 var utils = require('./utils');
 
 var extend = require('./extend');

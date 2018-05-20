@@ -3,7 +3,7 @@
 
 
 
-var _ = require('lodash');
+var _ = require('./lodash');
 
 
 

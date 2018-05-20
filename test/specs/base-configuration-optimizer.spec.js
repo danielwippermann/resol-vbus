@@ -3,7 +3,7 @@
 
 
 
-var _ = require('lodash');
+var _ = require('./lodash');
 
 
 var vbus = require('./resol-vbus');
@@ -63,7 +63,7 @@ describe('BaseConfigurationOptimizer', function() {
 
             var values = optimizer._getAdjustableValues();
 
-            var ids = _.pluck(values, 'id');
+            var ids = _.map(values, 'id');
 
             expect(ids).eql([
                 'LowestPriorityValue',
@@ -152,7 +152,12 @@ describe('BaseConfigurationOptimizer', function() {
 
             values = optimizer._optimizeConfiguration(config, values);
 
-            var ids = _.pluck(_.where(values, { ignored: true }), 'valueId');
+            var ids = _.reduce(values, (memo, value) => {
+                if (value.ignored) {
+                    memo.push(value.valueId);
+                }
+                return memo;
+            }, []);
 
             expect(ids).eql([
                 'DependsOnUnknownOptionValue',
