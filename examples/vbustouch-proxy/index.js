@@ -12,6 +12,7 @@ var express = require('express');
 var _ = require('lodash');
 var morgan = require('morgan');
 var Q = require('q');
+var request = require('request');
 var XivelyClient = require('xively');
 
 
@@ -486,6 +487,73 @@ var startXivelyClient = function() {
 };
 
 
+var startPvOutputOrgLogging = function() {
+    var onHeaderSet = function(headerSet) {
+        return Q.fcall(function() {
+            var headers = headerSet.getSortedHeaders();
+            var packetFields = specification.getPacketFieldsForHeaders(headers);
+
+            var valuesById = _.reduce(packetFields, function(memo, pf) {
+                var precision = pf.packetFieldSpec.type.precision;
+
+                var roundedRawValue = pf.rawValue.toFixed(precision);
+
+                // debugLog('ID = ' + JSON.stringify(pf.id) + ', Name = ' + JSON.stringify(pf.name) + ', Value = ' + pf.rawValue + ', RoundedValue = ' + roundedRawValue);
+
+                memo [pf.id] = roundedRawValue;
+                return memo;
+            }, {});
+
+            var timestamp = specification.i18n.moment(headerSet.timestamp);
+
+            var params = _.reduce(config.pvOutputOrgPacketFieldMap, function(memo, packetFieldId, key) {
+                var value;
+                if (typeof packetFieldId === 'function') {
+                    value = packetFieldId(valuesById);
+                } else {
+                    value = valuesById [packetFieldId];
+                }
+                if (typeof value === 'number') {
+                    value = value.toString();
+                }
+                if (typeof value === 'string') {
+                    memo [key] = value;
+                }
+                return memo;
+            }, {
+                key: config.pvOutputOrgApiKey,
+                sid: config.pvOutputOrgSystemId,
+                d: timestamp.format('YYYYMMDD'),
+                t: timestamp.format('HH:mm'),
+            });
+
+            request({
+                url: 'http://pvoutput.org/service/r2/addstatus.jsp',
+                qs: params,
+            }, function(error, response, body) {
+                debugLog(error, response, body);
+            });
+        });
+    };
+
+    return Q.fcall(function() {
+        if (config.pvOutputOrgInterval) {
+            debugLog('Starting PvOutput.org logging');
+
+            var hsc = new vbus.HeaderSetConsolidator({
+                interval: config.pvOutputOrgInterval,
+            });
+
+            hsc.on('headerSet', function() {
+                onHeaderSet(headerSetConsolidator);
+            });
+
+            hsc.startTimer();
+        }
+    });
+};
+
+
 var startTextLogging = function() {
     var currentDatecode = null;
 
@@ -571,6 +639,8 @@ var main = function() {
         return startHeaderSetConsolidatorTimer();
     }).then(function() {
         return startXivelyClient();
+    }).then(function() {
+        return startPvOutputOrgLogging();
     }).then(function() {
         return startTextLogging();
     }).then(function() {

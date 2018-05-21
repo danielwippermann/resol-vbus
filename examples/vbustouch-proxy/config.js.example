@@ -95,4 +95,31 @@ module.exports = {
         'TankBottom': '00_0015_427B_0100_002_2_0',
     },
 
+    /**
+     * Interval (milliseconds) in which data will be uploaded to PvOutput.org. A value of zero disables this functionality.
+     */
+    pvOutputOrgInterval: 0,
+
+    /**
+     * PvOutput.org API key
+     */
+    pvOutputOrgApiKey: 'secret',
+
+    /**
+     * PvOutput.org System ID
+     */
+    pvOutputOrgSystemId: 'insert here',
+
+    /**
+     * A map of PvOutput.org parameters to VBus packet field IDs.
+     * 
+     * See https://pvoutput.org/help.html#api-addstatus for possible keys.
+     */
+    pvOutputOrgPacketFieldMap: {
+        v1: '00_0010_111F_10_0100_020_4_0',
+        v2: '00_0010_111F_10_0100_004_4_0',
+        v3: '00_0010_111F_10_0100_028_4_0',
+        v4: '00_0010_111F_10_0100_008_4_0',
+    },
+
 };
