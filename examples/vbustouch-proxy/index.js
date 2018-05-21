@@ -185,7 +185,7 @@ var rewriteWebHeaderSet = function(headerSet) {
         timestamp: timestamp,
         channel: 0,
         destinationAddress: 0x0010,  // DFA
-        sourceAddress: 0x1060,  // Vitosolic 200 [Regler]
+        sourceAddress: 0x7321,  // Vitosolic 200 [Regler]
         command: 0x0100,
         frameCount: 20,
     });
@@ -197,7 +197,7 @@ var rewriteWebHeaderSet = function(headerSet) {
         timestamp: timestamp,
         channel: 0,
         destinationAddress: 0x0010,  // DFA
-        sourceAddress: 0x1064,  // Vitosolic 200 [WMZ1]
+        sourceAddress: 0x7326,  // Vitosolic 200 [WMZ1]
         command: 0x0100,
         frameCount: 3,
     });
@@ -220,20 +220,21 @@ var rewriteWebHeaderSet = function(headerSet) {
      * Transfered the information picked from the received packets into the forged ones.
      */
     specification.setPacketFieldRawValues(packetFields, {
-        '00_0010_1060_10_0100_000_2_0': tempCollector,
-        '00_0010_1060_10_0100_002_2_0': tempStoreBottom,
-        '00_0010_1060_10_0100_004_2_0': tempStoreTop,
-        '00_0010_1060_10_0100_044_1_0': pumpSpeed,
-        '00_0010_1060_10_0100_045_1_0': info1,
-        '00_0010_1060_10_0100_046_1_0': info2,
-        '00_0010_1060_10_0100_060_2_0': errorMask,
-        '00_0010_1064_10_0100_000_2_0': tempFlow,
-        '00_0010_1064_10_0100_002_2_0': tempReturn,
-        '00_0010_1064_10_0100_004_2_0': flow,
-        '00_0010_1064_10_0100_006_2_0': heat % 1000,
-        '00_0010_1064_10_0100_008_2_0': (heat / 1000) % 1000,
-        '00_0010_1064_10_0100_010_2_0': heat / 1000000,
+        '00_0010_7321_10_0100_000_2_0': tempCollector,
+        '00_0010_7321_10_0100_002_2_0': tempStoreBottom,
+        '00_0010_7321_10_0100_004_2_0': tempStoreTop,
+        '00_0010_7321_10_0100_044_1_0': pumpSpeed,
+        '00_0010_7321_10_0100_045_1_0': info1,
+        '00_0010_7321_10_0100_046_1_0': info2,
+        '00_0010_7321_10_0100_060_2_0': errorMask,
+        '00_0010_7326_10_0100_000_2_0': tempFlow,
+        '00_0010_7326_10_0100_002_2_0': tempReturn,
+        '00_0010_7326_10_0100_004_2_0': flow,
     });
+
+    supportedPacket2.frameData.writeUInt16LE(heat % 1000, 6);
+    supportedPacket2.frameData.writeUInt16LE((heat / 1000) % 1000, 8);
+    supportedPacket2.frameData.writeUInt16LE((heat / 1000000) % 1000, 10);
 
     /*
      * Return the forged header set.
