@@ -51,7 +51,7 @@ const I18N = extend(null, /** @lends I18N# */ {
      * @constructs
      * @param {string} [language='en'] Language code (ISO 639-1)
      */
-    constructor: function(language) {
+    constructor(language) {
         if (!language || !_.has(knownLanguages, language)) {
             language = 'en';
         }
@@ -78,7 +78,7 @@ const I18N = extend(null, /** @lends I18N# */ {
      * // outputs: DeltaSol MX
      * console.log(i18n.sprintf('%2$s', 3, 'DeltaSol MX'));
      */
-    sprintf: function() {
+    sprintf() {
         return sprintf.apply(null, arguments);
     },
 
@@ -97,7 +97,7 @@ const I18N = extend(null, /** @lends I18N# */ {
      * // outputs: DeltaSol MX
      * console.log(i18n.vsprintf('%2$s', [ 3, 'DeltaSol MX' ]));
      */
-    vsprintf: function(fmt, argv) {
+    vsprintf(fmt, argv) {
         const args = argv.slice(0);
         args.splice(0, 0, fmt);
         return sprintf.apply(null, args);
@@ -121,7 +121,7 @@ const I18N = extend(null, /** @lends I18N# */ {
      * // outputs: Unbekanntes Gerät (0x7E11)
      * console.log(i18n.t('specification.unknownDevice', 0x7e11));
      */
-    t: function(key) {
+    t(key) {
         const parts = key.split('.');
 
         const languages = [ this.language, 'dev' ];
@@ -158,7 +158,7 @@ const I18N = extend(null, /** @lends I18N# */ {
      *
      * @see http://momentjs.com/docs/
      */
-    moment: function() {
+    moment() {
         let m = moment.apply(null, arguments).locale(this.languageData.moment);
         if (this.timezone) {
             m = m.tz(this.timezone);
@@ -175,17 +175,17 @@ const I18N = extend(null, /** @lends I18N# */ {
      *
      * @see http://momentjs.com/docs/
      */
-    momentUtc: function() {
+    momentUtc() {
         const m = moment.utc.apply(null, arguments).locale(this.languageData.moment);
         return m;
     },
 
-    momentTz: function() {
+    momentTz() {
         const m = moment.tz.apply(moment, arguments).locale(this.languageData.moment);
         return m;
     },
 
-    momentTzZone: function() {
+    momentTzZone() {
         const z = moment.tz.zone.apply(moment.tz, arguments);
         return z;
     },
@@ -199,7 +199,7 @@ const I18N = extend(null, /** @lends I18N# */ {
      *
      * @see http://numeraljs.com/
      */
-    numeral: function() {
+    numeral() {
         numeral.language(this.languageData.numeral);
 
         return numeral.apply(null, arguments);

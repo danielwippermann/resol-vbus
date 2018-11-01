@@ -8,15 +8,15 @@ const utils = require('./resol-vbus').utils;
 
 
 
-describe('utils', function() {
+describe('utils', () => {
 
-    describe('roundNumber', function() {
+    describe('roundNumber', () => {
 
-        it('should be a function', function() {
+        it('should be a function', () => {
             expect(utils.roundNumber).to.be.a('function');
         });
 
-        it('should work correctly', function() {
+        it('should work correctly', () => {
             let result = utils.roundNumber(55.55, -1);
             expect(result).to.equal(55.6);
 

@@ -73,27 +73,27 @@ const parseRawData = function(rawDataOrCallback, start, end, ignoreEvents) {
             this.write(chunk);
         });
 
-        connection.on('rawData', function(chunk) {
+        connection.on('rawData', (chunk) => {
             // console.log(new Error('DEBUG rawData').stack);
 
             stats.rawDataCount += chunk.length;
         });
 
-        connection.on('junkData', function(chunk) {
+        connection.on('junkData', (chunk) => {
             stats.junkDataCount += chunk.length;
         });
 
-        connection.on('packet', function(packet) {
+        connection.on('packet', (packet) => {
             stats.packetCount++;
             stats.lastPacket = packet;
         });
 
-        connection.on('datagram', function(datagram) {
+        connection.on('datagram', (datagram) => {
             stats.datagramCount++;
             stats.lastDatagram = datagram;
         });
 
-        connection.on('telegram', function(telegram) {
+        connection.on('telegram', (telegram) => {
             stats.telegramCount++;
             stats.lastTelegram = telegram;
         });
@@ -111,7 +111,7 @@ const parseRawData = function(rawDataOrCallback, start, end, ignoreEvents) {
             result = callback(connection, stats);
 
             if (result && result.then && (typeof result.then === 'function')) {
-                result = result.then(function() {
+                result = result.then(() => {
                     done();
                 });
             } else {
@@ -136,20 +136,20 @@ const maxTimeoutFactor = process.env.TRAVIS ? 1000 : 1;
 
 
 
-describe('Connection', function() {
+describe('Connection', () => {
 
-    describe('constructor', function() {
+    describe('constructor', () => {
 
-        it('should be a constructor', function() {
+        it('should be a constructor', () => {
             expect(Connection).to.be.a('function');
             expect(Connection.extend).to.be.a('function');
         });
 
     });
 
-    describe('.STATE_...', function() {
+    describe('.STATE_...', () => {
 
-        it('should define states', function() {
+        it('should define states', () => {
             expect(Connection.STATE_DISCONNECTED).to.be.a('string');
             expect(Connection.STATE_CONNECTING).to.be.a('string');
             expect(Connection.STATE_CONNECTED).to.be.a('string');
@@ -160,34 +160,34 @@ describe('Connection', function() {
 
     });
 
-    describe('#connect', function() {
+    describe('#connect', () => {
 
-        it('should have abstract connect method', function() {
+        it('should have abstract connect method', () => {
             const conn = new Connection();
 
-            expect(function() {
+            expect(() => {
                 conn.connect();
             }).to.throw(Error, 'Must be implemented by sub-class');
         });
 
     });
 
-    describe('#disconnect', function() {
+    describe('#disconnect', () => {
 
-        it('should have abstract disconnect method', function() {
+        it('should have abstract disconnect method', () => {
             const conn = new Connection();
 
-            expect(function() {
+            expect(() => {
                 conn.disconnect();
             }).to.throw(Error, 'Must be implemented by sub-class');
         });
 
     });
 
-    describe('writable stream', function() {
+    describe('writable stream', () => {
 
-        it('should work correctly without event listeners', function() {
-            parseRawData(function(conn, stats) {
+        it('should work correctly without event listeners', () => {
+            parseRawData((conn, stats) => {
                 conn.write(rawDataPacket);
 
                 conn.write(rawDataDatagram);
@@ -196,8 +196,8 @@ describe('Connection', function() {
             }, null, null, true);
         });
 
-        it('should parse valid v1 data correctly', function() {
-            parseRawData(function(conn, stats) {
+        it('should parse valid v1 data correctly', () => {
+            parseRawData((conn, stats) => {
                 conn.write(rawDataPacket);
 
                 expect(stats.txDataCount).to.equal(0);
@@ -216,8 +216,8 @@ describe('Connection', function() {
             });
         });
 
-        it('should parse valid v2 data correctly', function() {
-            parseRawData(function(conn, stats) {
+        it('should parse valid v2 data correctly', () => {
+            parseRawData((conn, stats) => {
                 conn.write(rawDataDatagram);
 
                 expect(stats.txDataCount).to.equal(0);
@@ -236,8 +236,8 @@ describe('Connection', function() {
             });
         });
 
-        it('should parse valid v3 data correctly', function() {
-            parseRawData(function(conn, stats) {
+        it('should parse valid v3 data correctly', () => {
+            parseRawData((conn, stats) => {
                 conn.write(rawDataTelegram1);
 
                 expect(stats.txDataCount).to.equal(0);
@@ -258,8 +258,8 @@ describe('Connection', function() {
             });
         });
 
-        it('should parse fragmented data correctly', function() {
-            parseRawData(function(conn, stats) {
+        it('should parse fragmented data correctly', () => {
+            parseRawData((conn, stats) => {
                 conn.write(rawDataDatagram.slice(0, 15));
 
                 expect(stats.txDataCount).to.equal(0);
@@ -278,8 +278,8 @@ describe('Connection', function() {
             });
         });
 
-        it('should handle large junk data correctly', function() {
-            parseRawData(function(conn, stats) {
+        it('should handle large junk data correctly', () => {
+            parseRawData((conn, stats) => {
                 const buffer = Buffer.alloc(2048);
                 buffer.fill(0);
 
@@ -293,8 +293,8 @@ describe('Connection', function() {
             });
         });
 
-        it('should report incomplete data correctly', function() {
-            parseRawData(function(conn, stats) {
+        it('should report incomplete data correctly', () => {
+            parseRawData((conn, stats) => {
                 conn.write(rawDataDatagram.slice(0, 15));
 
                 expect(stats.txDataCount).to.equal(0);
@@ -313,8 +313,8 @@ describe('Connection', function() {
             });
         });
 
-        it('should report MSB errors correctly', function() {
-            parseRawData(function(conn, stats) {
+        it('should report MSB errors correctly', () => {
+            parseRawData((conn, stats) => {
                 conn.write(Buffer.from('80aa', 'hex'));
 
                 expect(stats.txDataCount).to.equal(0);
@@ -325,8 +325,8 @@ describe('Connection', function() {
             });
         });
 
-        it('should report unknown protocol data correctly', function() {
-            parseRawData(function(conn, stats) {
+        it('should report unknown protocol data correctly', () => {
+            parseRawData((conn, stats) => {
                 conn.write(Buffer.from('aa100021770000010056aa', 'hex'));
 
                 expect(stats.txDataCount).to.equal(0);
@@ -337,8 +337,8 @@ describe('Connection', function() {
             });
         });
 
-        it('should report v1 header checksum errors correctly', function() {
-            parseRawData(function(conn, stats) {
+        it('should report v1 header checksum errors correctly', () => {
+            parseRawData((conn, stats) => {
                 conn.write(Buffer.from('aa100021771000010000', 'hex'));
 
                 expect(stats.txDataCount).to.equal(0);
@@ -349,8 +349,8 @@ describe('Connection', function() {
             });
         });
 
-        it('should report v1 frame checksum errors correctly', function() {
-            parseRawData(function(conn, stats) {
+        it('should report v1 frame checksum errors correctly', () => {
+            parseRawData((conn, stats) => {
                 conn.write(Buffer.from('aa10002177100001014502032e020000', 'hex'));
 
                 expect(stats.txDataCount).to.equal(0);
@@ -361,8 +361,8 @@ describe('Connection', function() {
             });
         });
 
-        it('should report v2 checksum errors correctly', function() {
-            parseRawData(function(conn, stats) {
+        it('should report v2 checksum errors correctly', () => {
+            parseRawData((conn, stats) => {
                 conn.write(Buffer.from('aa000021772000050000000000000000', 'hex'));
 
                 expect(stats.txDataCount).to.equal(0);
@@ -373,8 +373,8 @@ describe('Connection', function() {
             });
         });
 
-        it('should report v3 header checksum errors correctly', function() {
-            parseRawData(function(conn, stats) {
+        it('should report v3 header checksum errors correctly', () => {
+            parseRawData((conn, stats) => {
                 conn.write(Buffer.from('AA11207177300400', 'hex'));
 
                 expect(stats.txDataCount).to.equal(0);
@@ -386,8 +386,8 @@ describe('Connection', function() {
             });
         });
 
-        it('should report v3 frame checksum errors correctly', function() {
-            parseRawData(function(conn, stats) {
+        it('should report v3 frame checksum errors correctly', () => {
+            parseRawData((conn, stats) => {
                 conn.write(Buffer.from('AA7177112030251160182B040000000400', 'hex'));
 
                 expect(stats.txDataCount).to.equal(0);
@@ -401,10 +401,10 @@ describe('Connection', function() {
 
     });
 
-    describe('readable stream', function() {
+    describe('readable stream', () => {
 
-        it('should process outgoing stream correctly', function() {
-            parseRawData(function(conn, stats, done) {
+        it('should process outgoing stream correctly', () => {
+            parseRawData((conn, stats, done) => {
                 const check = function() {
                     try {
                         expect(stats.txDataCount).to.equal(112);
@@ -419,7 +419,7 @@ describe('Connection', function() {
                     }
                 };
 
-                conn.on('data', function() {
+                conn.on('data', () => {
                     process.nextTick(check);
                 });
 
@@ -429,13 +429,13 @@ describe('Connection', function() {
 
     });
 
-    describe('#_setConnectionState', function() {
+    describe('#_setConnectionState', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(Connection.prototype._setConnectionState).to.be.a('function');
         });
 
-        it('should work correctly', function() {
+        it('should work correctly', () => {
             const conn = new Connection();
 
             const onConnectionState = sinon.spy();
@@ -458,14 +458,14 @@ describe('Connection', function() {
 
     });
 
-    describe('#send', function() {
+    describe('#send', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(Connection.prototype.send).to.be.a('function');
         });
 
-        it('should work correctly with a header object', function() {
-            return parseRawData(function(conn, stats, done) {
+        it('should work correctly with a header object', () => {
+            return parseRawData((conn, stats, done) => {
                 const packet = Packet.fromLiveBuffer(rawDataPacket, 0, rawDataPacket.length);
 
                 const check = function() {
@@ -482,7 +482,7 @@ describe('Connection', function() {
                     }
                 };
 
-                conn.once('data', function() {
+                conn.once('data', () => {
                     process.nextTick(check);
                 });
 
@@ -492,21 +492,21 @@ describe('Connection', function() {
 
     });
 
-    describe('#transceive', function() {
+    describe('#transceive', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(Connection.prototype.transceive).to.be.a('function');
         });
 
-        it('should work correctly without arguments', function() {
-            return parseRawData(function(conn, stats) {
+        it('should work correctly without arguments', () => {
+            return parseRawData((conn, stats) => {
                 const startTimestamp = Date.now();
 
                 const promise = conn.transceive();
 
                 expectPromise(promise);
 
-                return promise.then(function(result) {
+                return promise.then((result) => {
                     expect(result).to.equal(null, 'result');
                     expect(Date.now() - startTimestamp).to.be.within(500 * minTimeoutFactor, 520 * maxTimeoutFactor);
                     expect(stats.txDataCount).to.equal(0);
@@ -518,8 +518,8 @@ describe('Connection', function() {
             });
         });
 
-        it('should work correctly with timeout option', function() {
-            return parseRawData(function(conn, stats) {
+        it('should work correctly with timeout option', () => {
+            return parseRawData((conn, stats) => {
                 const startTimestamp = Date.now();
 
                 const promise = conn.transceive(null, {
@@ -528,7 +528,7 @@ describe('Connection', function() {
 
                 expectPromise(promise);
 
-                return promise.then(function(result) {
+                return promise.then((result) => {
                     expect(result).to.equal(null, 'result');
                     expect(Date.now() - startTimestamp).to.be.within(10 * minTimeoutFactor, 30 * maxTimeoutFactor);
                     expect(stats.txDataCount).to.equal(0);
@@ -540,8 +540,8 @@ describe('Connection', function() {
             });
         });
 
-        it('should work correctly with TX data', function() {
-            return parseRawData(function(conn, stats) {
+        it('should work correctly with TX data', () => {
+            return parseRawData((conn, stats) => {
                 const startTimestamp = Date.now();
 
                 const promise = conn.transceive(rawDataDatagram, {
@@ -550,7 +550,7 @@ describe('Connection', function() {
 
                 expectPromise(promise);
 
-                return promise.then(function(result) {
+                return promise.then((result) => {
                     expect(result).to.equal(null, 'result');
                     expect(Date.now() - startTimestamp).to.be.within(10 * minTimeoutFactor, 30 * maxTimeoutFactor);
                     expect(stats.txDataCount).to.equal(16);
@@ -562,8 +562,8 @@ describe('Connection', function() {
             });
         });
 
-        it('should work correctly with tries option', function() {
-            return parseRawData(function(conn, stats) {
+        it('should work correctly with tries option', () => {
+            return parseRawData((conn, stats) => {
                 const startTimestamp = Date.now();
 
                 const promise = conn.transceive(rawDataDatagram, {
@@ -573,7 +573,7 @@ describe('Connection', function() {
 
                 expectPromise(promise);
 
-                return promise.then(function(result) {
+                return promise.then((result) => {
                     expect(result).to.equal(null, 'result');
                     expect(Date.now() - startTimestamp).to.be.within(20 * minTimeoutFactor, 40 * maxTimeoutFactor);
                     expect(stats.txDataCount).to.equal(32);
@@ -585,8 +585,8 @@ describe('Connection', function() {
             });
         });
 
-        it('should work correctly with timeoutIncr option', function() {
-            return parseRawData(function(conn, stats) {
+        it('should work correctly with timeoutIncr option', () => {
+            return parseRawData((conn, stats) => {
                 const startTimestamp = Date.now();
 
                 const promise = conn.transceive(null, {
@@ -597,7 +597,7 @@ describe('Connection', function() {
 
                 expectPromise(promise);
 
-                return promise.then(function(result) {
+                return promise.then((result) => {
                     expect(result).to.equal(null, 'result');
                     expect(Date.now() - startTimestamp).to.be.within(30 * minTimeoutFactor, 50 * maxTimeoutFactor);
                     expect(stats.txDataCount).to.equal(0);
@@ -609,8 +609,8 @@ describe('Connection', function() {
             });
         });
 
-        it('should work correctly with filterDatagram option', function() {
-            return parseRawData(function(conn, stats) {
+        it('should work correctly with filterDatagram option', () => {
+            return parseRawData((conn, stats) => {
                 const startTimestamp = Date.now();
 
                 let datagramResult;
@@ -629,7 +629,7 @@ describe('Connection', function() {
 
                 expectPromise(promise);
 
-                return promise.then(function(result) {
+                return promise.then((result) => {
                     expect(result).to.equal(datagramResult);
                     expect(Date.now() - startTimestamp).to.be.within(0 * minTimeoutFactor, 20 * maxTimeoutFactor);
                     expect(stats.txDataCount).to.equal(16);
@@ -641,8 +641,8 @@ describe('Connection', function() {
             });
         });
 
-        it('should work correctly with filterPacket option', function() {
-            return parseRawData(function(conn, stats) {
+        it('should work correctly with filterPacket option', () => {
+            return parseRawData((conn, stats) => {
                 const startTimestamp = Date.now();
 
                 let packetResult;
@@ -661,7 +661,7 @@ describe('Connection', function() {
 
                 expectPromise(promise);
 
-                return promise.then(function(result) {
+                return promise.then((result) => {
                     expect(result).to.equal(packetResult);
                     expect(Date.now() - startTimestamp).to.be.within(0 * minTimeoutFactor, 20 * maxTimeoutFactor);
                     expect(stats.txDataCount).to.equal(112);
@@ -675,25 +675,25 @@ describe('Connection', function() {
 
     });
 
-    describe('#waitForFreeBus', function() {
+    describe('#waitForFreeBus', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(Connection.prototype.waitForFreeBus).to.be.a('function');
         });
 
-        it('should work correctly without arguments', function() {
-            return parseRawData(function(conn, stats) {
+        it('should work correctly without arguments', () => {
+            return parseRawData((conn, stats) => {
                 const startTimestamp = Date.now();
 
                 const promise = conn.waitForFreeBus();
 
                 expectPromise(promise);
 
-                process.nextTick(function() {
+                process.nextTick(() => {
                     conn.send(rawDataDatagram);
                 });
 
-                return promise.then(function(result) {
+                return promise.then((result) => {
                     expect(result).to.be.an('object');
                     expect(result.getId()).to.equal('00_0000_7721_20_0500_0000');
                     expect(Date.now() - startTimestamp).to.be.within(0 * minTimeoutFactor, 20 * maxTimeoutFactor);
@@ -706,15 +706,15 @@ describe('Connection', function() {
             });
         });
 
-        it('should work correctly with timeout', function() {
-            return parseRawData(function(conn, stats) {
+        it('should work correctly with timeout', () => {
+            return parseRawData((conn, stats) => {
                 const startTimestamp = Date.now();
 
                 const promise = conn.waitForFreeBus(10);
 
                 expectPromise(promise);
 
-                return promise.then(function(result) {
+                return promise.then((result) => {
                     expect(result).to.equal(null);
                     expect(Date.now() - startTimestamp).to.be.within(10 * minTimeoutFactor, 30 * maxTimeoutFactor);
                     expect(stats.txDataCount).to.equal(0);
@@ -728,17 +728,17 @@ describe('Connection', function() {
 
     });
 
-    describe('#releaseBus', function() {
+    describe('#releaseBus', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(Connection.prototype.releaseBus).to.be.a('function');
         });
 
-        it('should work correctly with address', function() {
-            return parseRawData(function(conn, stats) {
+        it('should work correctly with address', () => {
+            return parseRawData((conn, stats) => {
                 const startTimestamp = Date.now();
 
-                conn.on('datagram', function(datagram) {
+                conn.on('datagram', (datagram) => {
                     expect(datagram.getId()).to.equal('00_7721_0020_20_0600_0000');
 
                     conn.send(rawDataPacket);
@@ -748,7 +748,7 @@ describe('Connection', function() {
 
                 expectPromise(promise);
 
-                return promise.then(function(result) {
+                return promise.then((result) => {
                     expect(result).to.be.an('object');
                     expect(result.getId()).to.equal('00_0010_7721_10_0100');
                     expect(Date.now() - startTimestamp).to.be.within(0 * minTimeoutFactor, 20 * maxTimeoutFactor);
@@ -761,8 +761,8 @@ describe('Connection', function() {
             });
         });
 
-        it('should work correctly with timeout', function() {
-            return parseRawData(function(conn, stats) {
+        it('should work correctly with timeout', () => {
+            return parseRawData((conn, stats) => {
                 const startTimestamp = Date.now();
 
                 const promise = conn.releaseBus(0, {
@@ -771,7 +771,7 @@ describe('Connection', function() {
 
                 expectPromise(promise);
 
-                return promise.then(function(result) {
+                return promise.then((result) => {
                     expect(result).to.equal(null);
                     expect(Date.now() - startTimestamp).to.be.within(20 * minTimeoutFactor, 40 * maxTimeoutFactor);
                     expect(stats.txDataCount).to.equal(32);
@@ -783,8 +783,8 @@ describe('Connection', function() {
             });
         });
 
-        it('should work correctly with tries', function() {
-            return parseRawData(function(conn, stats) {
+        it('should work correctly with tries', () => {
+            return parseRawData((conn, stats) => {
                 const startTimestamp = Date.now();
 
                 const promise = conn.releaseBus(0, {
@@ -794,7 +794,7 @@ describe('Connection', function() {
 
                 expectPromise(promise);
 
-                return promise.then(function(result) {
+                return promise.then((result) => {
                     expect(result).to.equal(null);
                     expect(Date.now() - startTimestamp).to.be.within(10 * minTimeoutFactor, 30 * maxTimeoutFactor);
                     expect(stats.txDataCount).to.equal(16);
@@ -808,19 +808,19 @@ describe('Connection', function() {
 
     });
 
-    describe('#getValueById', function() {
+    describe('#getValueById', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(Connection.prototype.getValueById).to.be.a('function');
         });
 
-        it('should work correctly with address and value index', function() {
-            return parseRawData(function(conn, stats) {
+        it('should work correctly with address and value index', () => {
+            return parseRawData((conn, stats) => {
                 const startTimestamp = Date.now();
 
                 let datagramResult;
 
-                conn.on('datagram', function(rxDatagram) {
+                conn.on('datagram', (rxDatagram) => {
                     if (rxDatagram.command === 0x0300) {
                         datagramResult = rxDatagram;
 
@@ -840,7 +840,7 @@ describe('Connection', function() {
 
                 expectPromise(promise);
 
-                return promise.then(function(result) {
+                return promise.then((result) => {
                     expect(datagramResult).to.be.an('object');
                     expect(datagramResult.getId()).to.equal('00_7721_0020_20_0300_0000');
                     expect(result).to.be.an('object');
@@ -855,13 +855,13 @@ describe('Connection', function() {
             });
         });
 
-        it('should work correctly with timeout', function() {
-            return parseRawData(function(conn, stats) {
+        it('should work correctly with timeout', () => {
+            return parseRawData((conn, stats) => {
                 const startTimestamp = Date.now();
 
                 let datagramResult;
 
-                conn.on('datagram', function(rxDatagram) {
+                conn.on('datagram', (rxDatagram) => {
                     if ((rxDatagram.command === 0x0300) && (stats.datagramCount === 2)) {
                         datagramResult = rxDatagram;
 
@@ -883,7 +883,7 @@ describe('Connection', function() {
 
                 expectPromise(promise);
 
-                return promise.then(function(result) {
+                return promise.then((result) => {
                     expect(datagramResult).to.be.an('object');
                     expect(datagramResult.getId()).to.equal('00_7721_0020_20_0300_0000');
                     expect(result).to.be.an('object');
@@ -898,8 +898,8 @@ describe('Connection', function() {
             });
         });
 
-        it('should work correctly with timeoutIncr', function() {
-            return parseRawData(function(conn, stats) {
+        it('should work correctly with timeoutIncr', () => {
+            return parseRawData((conn, stats) => {
                 const startTimestamp = Date.now();
 
                 const promise = conn.getValueById(0x7721, 0x1234, {
@@ -909,7 +909,7 @@ describe('Connection', function() {
 
                 expectPromise(promise);
 
-                return promise.then(function(result) {
+                return promise.then((result) => {
                     expect(result).to.equal(null);
                     expect(Date.now() - startTimestamp).to.be.within(60 * minTimeoutFactor, 80 * maxTimeoutFactor);
                     expect(stats.txDataCount).to.equal(48);
@@ -921,8 +921,8 @@ describe('Connection', function() {
             });
         });
 
-        it('should work correctly with tries', function() {
-            return parseRawData(function(conn, stats) {
+        it('should work correctly with tries', () => {
+            return parseRawData((conn, stats) => {
                 const startTimestamp = Date.now();
 
                 const promise = conn.getValueById(0x7721, 0x1234, {
@@ -932,7 +932,7 @@ describe('Connection', function() {
 
                 expectPromise(promise);
 
-                return promise.then(function(result) {
+                return promise.then((result) => {
                     expect(result).to.equal(null);
                     expect(Date.now() - startTimestamp).to.be.within(10 * minTimeoutFactor, 30 * maxTimeoutFactor);
                     expect(stats.txDataCount).to.equal(16);
@@ -946,19 +946,19 @@ describe('Connection', function() {
 
     });
 
-    describe('#setValueById', function() {
+    describe('#setValueById', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(Connection.prototype.setValueById).to.be.a('function');
         });
 
-        it('should work correctly with address, value ID and value', function() {
-            return parseRawData(function(conn, stats) {
+        it('should work correctly with address, value ID and value', () => {
+            return parseRawData((conn, stats) => {
                 const startTimestamp = Date.now();
 
                 let datagramResult;
 
-                conn.on('datagram', function(rxDatagram) {
+                conn.on('datagram', (rxDatagram) => {
                     if (rxDatagram.command === 0x0200) {
                         datagramResult = rxDatagram;
 
@@ -978,7 +978,7 @@ describe('Connection', function() {
 
                 expectPromise(promise);
 
-                return promise.then(function(result) {
+                return promise.then((result) => {
                     expect(datagramResult).to.be.an('object');
                     expect(datagramResult.getId()).to.equal('00_7721_0020_20_0200_0000');
                     expect(result).to.be.an('object');
@@ -993,13 +993,13 @@ describe('Connection', function() {
             });
         });
 
-        it('should work correctly with timeout', function() {
-            return parseRawData(function(conn, stats) {
+        it('should work correctly with timeout', () => {
+            return parseRawData((conn, stats) => {
                 const startTimestamp = Date.now();
 
                 let datagramResult;
 
-                conn.on('datagram', function(rxDatagram) {
+                conn.on('datagram', (rxDatagram) => {
                     if ((rxDatagram.command === 0x0200) && (stats.datagramCount === 2)) {
                         datagramResult = rxDatagram;
 
@@ -1021,7 +1021,7 @@ describe('Connection', function() {
 
                 expectPromise(promise);
 
-                return promise.then(function(result) {
+                return promise.then((result) => {
                     expect(datagramResult).to.be.an('object');
                     expect(datagramResult.getId()).to.equal('00_7721_0020_20_0200_0000');
                     expect(result).to.be.an('object');
@@ -1036,8 +1036,8 @@ describe('Connection', function() {
             });
         });
 
-        it('should work correctly with timeoutIncr', function() {
-            return parseRawData(function(conn, stats) {
+        it('should work correctly with timeoutIncr', () => {
+            return parseRawData((conn, stats) => {
                 const startTimestamp = Date.now();
 
                 const promise = conn.setValueById(0x7721, 0x1234, 0x12345678, {
@@ -1047,7 +1047,7 @@ describe('Connection', function() {
 
                 expectPromise(promise);
 
-                return promise.then(function(result) {
+                return promise.then((result) => {
                     expect(result).to.equal(null);
                     expect(Date.now() - startTimestamp).to.be.within(60 * minTimeoutFactor, 80 * maxTimeoutFactor);
                     expect(stats.txDataCount).to.equal(48);
@@ -1059,8 +1059,8 @@ describe('Connection', function() {
             });
         });
 
-        it('should work correctly with tries', function() {
-            return parseRawData(function(conn, stats) {
+        it('should work correctly with tries', () => {
+            return parseRawData((conn, stats) => {
                 const startTimestamp = Date.now();
 
                 const promise = conn.setValueById(0x7721, 0x1234, 0x12345678, {
@@ -1070,7 +1070,7 @@ describe('Connection', function() {
 
                 expectPromise(promise);
 
-                return promise.then(function(result) {
+                return promise.then((result) => {
                     expect(result).to.equal(null);
                     expect(Date.now() - startTimestamp).to.be.within(10 * minTimeoutFactor, 30 * maxTimeoutFactor);
                     expect(stats.txDataCount).to.equal(16);
@@ -1084,19 +1084,19 @@ describe('Connection', function() {
 
     });
 
-    describe('#getValueIdHashById', function() {
+    describe('#getValueIdHashById', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(Connection.prototype.getValueIdHashById).to.be.a('function');
         });
 
-        it('should work correctly with address and value ID', function() {
-            return parseRawData(function(conn, stats) {
+        it('should work correctly with address and value ID', () => {
+            return parseRawData((conn, stats) => {
                 const startTimestamp = Date.now();
 
                 let datagramResult;
 
-                conn.on('datagram', function(rxDatagram) {
+                conn.on('datagram', (rxDatagram) => {
                     if (rxDatagram.command === 0x1000) {
                         datagramResult = rxDatagram;
 
@@ -1116,7 +1116,7 @@ describe('Connection', function() {
 
                 expectPromise(promise);
 
-                return promise.then(function(result) {
+                return promise.then((result) => {
                     expect(datagramResult).to.be.an('object');
                     expect(datagramResult.getId()).to.equal('00_7721_0020_20_1000_0000');
                     expect(result).to.be.an('object');
@@ -1131,13 +1131,13 @@ describe('Connection', function() {
             });
         });
 
-        it('should work correctly with timeout', function() {
-            return parseRawData(function(conn, stats) {
+        it('should work correctly with timeout', () => {
+            return parseRawData((conn, stats) => {
                 const startTimestamp = Date.now();
 
                 let datagramResult;
 
-                conn.on('datagram', function(rxDatagram) {
+                conn.on('datagram', (rxDatagram) => {
                     if ((rxDatagram.command === 0x1000) && (stats.datagramCount === 2)) {
                         datagramResult = rxDatagram;
 
@@ -1159,7 +1159,7 @@ describe('Connection', function() {
 
                 expectPromise(promise);
 
-                return promise.then(function(result) {
+                return promise.then((result) => {
                     expect(datagramResult).to.be.an('object');
                     expect(datagramResult.getId()).to.equal('00_7721_0020_20_1000_0000');
                     expect(result).to.be.an('object');
@@ -1174,8 +1174,8 @@ describe('Connection', function() {
             });
         });
 
-        it('should work correctly with timeoutIncr', function() {
-            return parseRawData(function(conn, stats) {
+        it('should work correctly with timeoutIncr', () => {
+            return parseRawData((conn, stats) => {
                 const startTimestamp = Date.now();
 
                 const promise = conn.getValueIdHashById(0x7721, 0x1234, {
@@ -1185,7 +1185,7 @@ describe('Connection', function() {
 
                 expectPromise(promise);
 
-                return promise.then(function(result) {
+                return promise.then((result) => {
                     expect(result).to.equal(null);
                     expect(Date.now() - startTimestamp).to.be.within(60 * minTimeoutFactor, 80 * maxTimeoutFactor);
                     expect(stats.txDataCount).to.equal(48);
@@ -1197,8 +1197,8 @@ describe('Connection', function() {
             });
         });
 
-        it('should work correctly with tries', function() {
-            return parseRawData(function(conn, stats) {
+        it('should work correctly with tries', () => {
+            return parseRawData((conn, stats) => {
                 const startTimestamp = Date.now();
 
                 const promise = conn.getValueIdHashById(0x7721, 0x1234, {
@@ -1208,7 +1208,7 @@ describe('Connection', function() {
 
                 expectPromise(promise);
 
-                return promise.then(function(result) {
+                return promise.then((result) => {
                     expect(result).to.equal(null);
                     expect(Date.now() - startTimestamp).to.be.within(10 * minTimeoutFactor, 30 * maxTimeoutFactor);
                     expect(stats.txDataCount).to.equal(16);
@@ -1222,19 +1222,19 @@ describe('Connection', function() {
 
     });
 
-    describe('#getValueIdByIdHash', function() {
+    describe('#getValueIdByIdHash', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(Connection.prototype.getValueIdByIdHash).to.be.a('function');
         });
 
-        it('should work correctly with address and value ID', function() {
-            return parseRawData(function(conn, stats) {
+        it('should work correctly with address and value ID', () => {
+            return parseRawData((conn, stats) => {
                 const startTimestamp = Date.now();
 
                 let datagramResult;
 
-                conn.on('datagram', function(rxDatagram) {
+                conn.on('datagram', (rxDatagram) => {
                     if (rxDatagram.command === 0x1100) {
                         datagramResult = rxDatagram;
 
@@ -1254,7 +1254,7 @@ describe('Connection', function() {
 
                 expectPromise(promise);
 
-                return promise.then(function(result) {
+                return promise.then((result) => {
                     expect(datagramResult).to.be.an('object');
                     expect(datagramResult.getId()).to.equal('00_7721_0020_20_1100_0000');
                     expect(result).to.be.an('object');
@@ -1269,13 +1269,13 @@ describe('Connection', function() {
             });
         });
 
-        it('should work correctly with timeout', function() {
-            return parseRawData(function(conn, stats) {
+        it('should work correctly with timeout', () => {
+            return parseRawData((conn, stats) => {
                 const startTimestamp = Date.now();
 
                 let datagramResult;
 
-                conn.on('datagram', function(rxDatagram) {
+                conn.on('datagram', (rxDatagram) => {
                     if ((rxDatagram.command === 0x1100) && (stats.datagramCount === 2)) {
                         datagramResult = rxDatagram;
 
@@ -1297,7 +1297,7 @@ describe('Connection', function() {
 
                 expectPromise(promise);
 
-                return promise.then(function(result) {
+                return promise.then((result) => {
                     expect(datagramResult).to.be.an('object');
                     expect(datagramResult.getId()).to.equal('00_7721_0020_20_1100_0000');
                     expect(result).to.be.an('object');
@@ -1312,8 +1312,8 @@ describe('Connection', function() {
             });
         });
 
-        it('should work correctly with timeoutIncr', function() {
-            return parseRawData(function(conn, stats) {
+        it('should work correctly with timeoutIncr', () => {
+            return parseRawData((conn, stats) => {
                 const startTimestamp = Date.now();
 
                 const promise = conn.getValueIdByIdHash(0x7721, 0x12345678, {
@@ -1323,7 +1323,7 @@ describe('Connection', function() {
 
                 expectPromise(promise);
 
-                return promise.then(function(result) {
+                return promise.then((result) => {
                     expect(result).to.equal(null);
                     expect(Date.now() - startTimestamp).to.be.within(60 * minTimeoutFactor, 80 * maxTimeoutFactor);
                     expect(stats.txDataCount).to.equal(48);
@@ -1335,8 +1335,8 @@ describe('Connection', function() {
             });
         });
 
-        it('should work correctly with tries', function() {
-            return parseRawData(function(conn, stats) {
+        it('should work correctly with tries', () => {
+            return parseRawData((conn, stats) => {
                 const startTimestamp = Date.now();
 
                 const promise = conn.getValueIdByIdHash(0x7721, 0x12345678, {
@@ -1346,7 +1346,7 @@ describe('Connection', function() {
 
                 expectPromise(promise);
 
-                return promise.then(function(result) {
+                return promise.then((result) => {
                     expect(result).to.equal(null);
                     expect(Date.now() - startTimestamp).to.be.within(10 * minTimeoutFactor, 30 * maxTimeoutFactor);
                     expect(stats.txDataCount).to.equal(16);
@@ -1360,19 +1360,19 @@ describe('Connection', function() {
 
     });
 
-    describe('#getCaps1', function() {
+    describe('#getCaps1', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(typeof Connection.prototype.getCaps1).equal('function');
         });
 
-        it('should work correctly', function() {
-            return parseRawData(function(conn, stats) {
+        it('should work correctly', () => {
+            return parseRawData((conn, stats) => {
                 const startTimestamp = Date.now();
 
                 let datagramResult;
 
-                conn.on('datagram', function(rxDatagram) {
+                conn.on('datagram', (rxDatagram) => {
                     if (rxDatagram.command === 0x1300) {
                         datagramResult = rxDatagram;
 
@@ -1392,7 +1392,7 @@ describe('Connection', function() {
 
                 expectPromise(promise);
 
-                return promise.then(function (result) {
+                return promise.then((result) => {
                     expect(typeof datagramResult).equal('object');
                     expect(datagramResult.getId()).equal('00_7721_0020_20_1300_0000');
 
@@ -1412,19 +1412,19 @@ describe('Connection', function() {
 
     });
 
-    describe('#beginBulkValueTransaction', function() {
+    describe('#beginBulkValueTransaction', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(typeof Connection.prototype.beginBulkValueTransaction).equal('function');
         });
 
-        it('should work correctly', function() {
-            return parseRawData(function(conn, stats) {
+        it('should work correctly', () => {
+            return parseRawData((conn, stats) => {
                 const startTimestamp = Date.now();
 
                 let datagramResult;
 
-                conn.on('datagram', function(rxDatagram) {
+                conn.on('datagram', (rxDatagram) => {
                     if (rxDatagram.command === 0x1400) {
                         datagramResult = rxDatagram;
 
@@ -1440,7 +1440,7 @@ describe('Connection', function() {
                     }
                 });
 
-                return conn.beginBulkValueTransaction(0x7721, 10).then(function (result) {
+                return conn.beginBulkValueTransaction(0x7721, 10).then((result) => {
                     expect(typeof datagramResult).equal('object');
                     expect(datagramResult.getId()).equal('00_7721_0020_20_1400_0000');
                     expect(datagramResult.value).equal(10);
@@ -1461,19 +1461,19 @@ describe('Connection', function() {
 
     });
 
-    describe('#commitBulkValueTransaction', function() {
+    describe('#commitBulkValueTransaction', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(typeof Connection.prototype.commitBulkValueTransaction).equal('function');
         });
 
-        it('should work correctly', function() {
-            return parseRawData(function(conn, stats) {
+        it('should work correctly', () => {
+            return parseRawData((conn, stats) => {
                 const startTimestamp = Date.now();
 
                 let datagramResult;
 
-                conn.on('datagram', function(rxDatagram) {
+                conn.on('datagram', (rxDatagram) => {
                     if (rxDatagram.command === 0x1402) {
                         datagramResult = rxDatagram;
 
@@ -1489,7 +1489,7 @@ describe('Connection', function() {
                     }
                 });
 
-                return conn.commitBulkValueTransaction(0x7721).then(function (result) {
+                return conn.commitBulkValueTransaction(0x7721).then((result) => {
                     expect(typeof datagramResult).equal('object');
                     expect(datagramResult.getId()).equal('00_7721_0020_20_1402_0000');
 
@@ -1509,19 +1509,19 @@ describe('Connection', function() {
 
     });
 
-    describe('#rollbackBulkValueTransaction', function() {
+    describe('#rollbackBulkValueTransaction', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(typeof Connection.prototype.rollbackBulkValueTransaction).equal('function');
         });
 
-        it('should work correctly', function() {
-            return parseRawData(function(conn, stats) {
+        it('should work correctly', () => {
+            return parseRawData((conn, stats) => {
                 const startTimestamp = Date.now();
 
                 let datagramResult;
 
-                conn.on('datagram', function(rxDatagram) {
+                conn.on('datagram', (rxDatagram) => {
                     if (rxDatagram.command === 0x1404) {
                         datagramResult = rxDatagram;
 
@@ -1537,7 +1537,7 @@ describe('Connection', function() {
                     }
                 });
 
-                return conn.rollbackBulkValueTransaction(0x7721).then(function (result) {
+                return conn.rollbackBulkValueTransaction(0x7721).then((result) => {
                     expect(typeof datagramResult).equal('object');
                     expect(datagramResult.getId()).equal('00_7721_0020_20_1404_0000');
 
@@ -1557,19 +1557,19 @@ describe('Connection', function() {
 
     });
 
-    describe('#setBulkValueById', function() {
+    describe('#setBulkValueById', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(typeof Connection.prototype.setBulkValueById).equal('function');
         });
 
-        it('should work correctly', function() {
-            return parseRawData(function(conn, stats) {
+        it('should work correctly', () => {
+            return parseRawData((conn, stats) => {
                 const startTimestamp = Date.now();
 
                 let datagramResult;
 
-                conn.on('datagram', function(rxDatagram) {
+                conn.on('datagram', (rxDatagram) => {
                     if (rxDatagram.command === 0x1512) {
                         datagramResult = rxDatagram;
 
@@ -1585,7 +1585,7 @@ describe('Connection', function() {
                     }
                 });
 
-                return conn.setBulkValueById(0x7721, 0x123456, 0x789abcde).then(function (result) {
+                return conn.setBulkValueById(0x7721, 0x123456, 0x789abcde).then((result) => {
                     expect(typeof datagramResult).equal('object');
                     expect(datagramResult.getId()).equal('00_7721_0020_20_1512_0000');
                     expect(datagramResult.valueId).equal(0x3456);
@@ -1614,5 +1614,5 @@ describe('Connection', function() {
 
 
 module.exports = {
-    parseRawData: parseRawData,
+    parseRawData,
 };

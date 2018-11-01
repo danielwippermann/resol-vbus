@@ -16,31 +16,31 @@ const TextConverter = vbus.TextConverter;
 
 
 
-describe('TextConverter', function() {
+describe('TextConverter', () => {
 
-    describe('constructor', function() {
+    describe('constructor', () => {
 
-        it('should be a constructor function', function() {
+        it('should be a constructor function', () => {
             expect(TextConverter).to.be.a('function');
         });
 
     });
 
-    describe('#reset', function() {
+    describe('#reset', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(TextConverter.prototype.reset).to.be.a('function');
         });
 
     });
 
-    describe('readable stream', function() {
+    describe('readable stream', () => {
 
         const rawPacket1 = 'aa100053001000010b0020051000004a723d1000013f40571000015706100000016800000000007f00000000007f00000000007f00000000007f00007f00000025003600051f11000000006e';
         const rawPacket2 = 'aa1000217e100001013e00000b000074';
         const rawPacket3 = 'aa1000317e100001042b05774a00003900000000007f00000000007f130d0000005f';
 
-        it('should work correctly', function() {
+        it('should work correctly', () => {
             const buffer1 = Buffer.from(rawPacket1, 'hex');
             const packet1 = Packet.fromLiveBuffer(buffer1, 0, buffer1.length);
             packet1.timestamp = new Date(1387893006778);
@@ -89,7 +89,7 @@ describe('TextConverter', function() {
 
             converter.convertHeaderSet(headerSet);
 
-            return converter.finish().then(function() {
+            return converter.finish().then(() => {
                 converter.removeListener('data', onData);
 
                 expect(onData.callCount).to.equal(5);

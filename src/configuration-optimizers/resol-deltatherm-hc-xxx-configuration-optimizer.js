@@ -14,7 +14,7 @@ const _ = require('../lodash');
 
 const ResolDeltaThermHcXxxConfigurationOptimizer = BaseConfigurationOptimizer.extend({
 
-    optimizeConfiguration: function($) {
+    optimizeConfiguration($) {
         this.optimizeModuleConfiguration($);
         // TODO?
         this.optimizeAnlageWfConfiguration($);
@@ -23,29 +23,29 @@ const ResolDeltaThermHcXxxConfigurationOptimizer = BaseConfigurationOptimizer.ex
         this.optimizeWmzConfiguration($);
     },
 
-    optimizeModuleConfiguration: function($) {
-        $(/^Modul([0-9]+)_Aktiviert$/).isFalse(function(value) {
+    optimizeModuleConfiguration($) {
+        $(/^Modul([0-9]+)_Aktiviert$/).isFalse((value) => {
             $('^(Sensor|Relais)[^_]*_Modul' + value.md [1] + '_.*$').ignore();
         });
     },
 
-    optimizeAnlageWfConfiguration: function($) {
-        $(/^(Anlage_Wf[0-9]+)_Type$/).forEach(function(value) {
+    optimizeAnlageWfConfiguration($) {
+        $(/^(Anlage_Wf[0-9]+)_Type$/).forEach((value) => {
             const prefix = '^' + value.md [1] + '_';
 
-            value.eql('#Frei', function() {
+            value.eql('#Frei', () => {
                 $(prefix + '(?!Type).*').ignore();
             });
 
-            $(prefix + 'OSchaltuhr').isFalse(function() {
+            $(prefix + 'OSchaltuhr').isFalse(() => {
                 $(prefix + 'Schaltuhr_.*').ignore();
             });
 
             const wfTypes = _.keys(value.values [0].valueTextById);
 
-            _.forEach(wfTypes, function(wfType) {
+            _.forEach(wfTypes, (wfType) => {
                 if ((wfType !== 'Frei') && (wfType !== 'Fehlerrelais')) {
-                    value.notEql('#' + wfType, function() {
+                    value.notEql('#' + wfType, () => {
                         $(prefix + wfType + '_.*').ignore();
                     });
                 }
@@ -53,23 +53,23 @@ const ResolDeltaThermHcXxxConfigurationOptimizer = BaseConfigurationOptimizer.ex
         });
     },
 
-    optimizeHeizungWfConfiguration: function($) {
-        $(/^(Heizung_Wf[0-9]+)_Type$/).forEach(function(value) {
+    optimizeHeizungWfConfiguration($) {
+        $(/^(Heizung_Wf[0-9]+)_Type$/).forEach((value) => {
             const prefix = '^' + value.md [1] + '_';
 
-            value.eql('#Frei', function() {
+            value.eql('#Frei', () => {
                 $(prefix + '(?!Type).*').ignore();
             });
 
-            $(prefix + 'OSchaltuhr').isFalse(function() {
+            $(prefix + 'OSchaltuhr').isFalse(() => {
                 $(prefix + 'Schaltuhr_.*').ignore();
             });
 
             const wfTypes = _.keys(value.values [0].valueTextById);
 
-            _.forEach(wfTypes, function(wfType) {
+            _.forEach(wfTypes, (wfType) => {
                 if (wfType !== 'Frei') {
-                    value.notEql('#' + wfType, function() {
+                    value.notEql('#' + wfType, () => {
                         $(prefix + wfType + '_.*').ignore();
                     });
                 }
@@ -77,37 +77,37 @@ const ResolDeltaThermHcXxxConfigurationOptimizer = BaseConfigurationOptimizer.ex
         });
     },
 
-    optimizeHeizungHeizkreisConfiguration: function($) {
-        $(/^(Heizung_Heizkreis[0-9]+)_Type$/).forEach(function(value) {
+    optimizeHeizungHeizkreisConfiguration($) {
+        $(/^(Heizung_Heizkreis[0-9]+)_Type$/).forEach((value) => {
             const prefix = '^' + value.md [1] + '_';
 
-            value.eql('#Frei', function() {
+            value.eql('#Frei', () => {
                 $(prefix + '(?!Type).*').ignore();
             });
 
-            $(prefix + 'OSchaltuhr').isFalse(function() {
+            $(prefix + 'OSchaltuhr').isFalse(() => {
                 $(prefix + 'Schaltuhr_.*').ignore();
             });
 
-            $(prefix + '(Raumthermostat[0-9]+)_Option$').forEach(function(value) {
+            $(prefix + '(Raumthermostat[0-9]+)_Option$').forEach((value) => {
                 const rthPrefix = prefix + value.md [1] + '_';
 
-                value.eql(0, function() {
+                value.eql(0, () => {
                     $(rthPrefix + '(?!Option).*').ignore();
                 });
 
-                $(rthPrefix + 'OSchaltuhr').isFalse(function() {
+                $(rthPrefix + 'OSchaltuhr').isFalse(() => {
                     $(rthPrefix + 'Schaltuhr_.*').ignore();
                 });
             });
         });
     },
 
-    optimizeWmzConfiguration: function($) {
-        $(/^(Wmz[0-9]+)_Type$/).forEach(function(value) {
+    optimizeWmzConfiguration($) {
+        $(/^(Wmz[0-9]+)_Type$/).forEach((value) => {
             const prefix = '^' + value.md [1] + '_';
 
-            value.eql(0, function() {
+            value.eql(0, () => {
                 $(prefix + '(?!Type).*').ignore();
             });
         });
@@ -117,7 +117,7 @@ const ResolDeltaThermHcXxxConfigurationOptimizer = BaseConfigurationOptimizer.ex
 
     deviceAddress: 0x5400,
 
-    configurationData: configurationData,
+    configurationData,
 
 });
 

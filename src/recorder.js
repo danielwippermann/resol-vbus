@@ -86,7 +86,7 @@ const Recorder = extend(EventEmitter, /** @lends Recorder# */ {
      * The storage mechanism and format of the Recorder sub-classes is
      * implementation-specific to this class.
      */
-    constructor: function(options) {
+    constructor(options) {
         EventEmitter.call(this);
 
         _.extend(this, _.pick(options, optionKeys));
@@ -102,7 +102,7 @@ const Recorder = extend(EventEmitter, /** @lends Recorder# */ {
         }
     },
 
-    _getOptions: function() {
+    _getOptions() {
         return _.extend({}, _.pick(this, optionKeys));
     },
 
@@ -116,7 +116,7 @@ const Recorder = extend(EventEmitter, /** @lends Recorder# */ {
      * @param {number} [options.interval] {@link Recorder#interval}
      * @param {boolean} [options.end=true] Whether the stream should be `end()`ed when the playback is complete
      */
-    playback: function(stream, options) {
+    playback(stream, options) {
         const _this = this;
 
         options = _.defaults({}, options, this._getOptions(), {
@@ -135,7 +135,7 @@ const Recorder = extend(EventEmitter, /** @lends Recorder# */ {
 
         let playedBackRanges = [];
 
-        headerSetConsolidator.on('headerSet', function(headerSet) {
+        headerSetConsolidator.on('headerSet', (headerSet) => {
             const timestamp = headerSet.timestamp;
 
             const headerSetRange = {
@@ -148,22 +148,22 @@ const Recorder = extend(EventEmitter, /** @lends Recorder# */ {
             stream.write(headerSet);
         });
 
-        return Q.fcall(function() {
+        return Q.fcall(() => {
             return _this._playback(headerSetConsolidator, options);
-        }).then(function() {
+        }).then(() => {
             if (options.end) {
-                return new Promise(function(resolve) {
-                    stream.end(function() {
+                return new Promise((resolve) => {
+                    stream.end(() => {
                         resolve();
                     });
                 });
             }
-        }).then(function() {
+        }).then(() => {
             return playedBackRanges;
         });
     },
 
-    _playback: function(headerSetConsolidator, options) {
+    _playback(headerSetConsolidator, options) {
         throw new Error('Must be implemented by sub-class');
     },
 
@@ -177,7 +177,7 @@ const Recorder = extend(EventEmitter, /** @lends Recorder# */ {
      * @param {number} [options.interval] See {@link Recorder#interval}
      * @return {Promise} A Promise that resolves to the recorded ranges.
      */
-    record: function(stream, options) {
+    record(stream, options) {
         const _this = this;
 
         options = _.defaults({}, options, this._getOptions(), {
@@ -196,7 +196,7 @@ const Recorder = extend(EventEmitter, /** @lends Recorder# */ {
 
         let recordedRanges = [];
 
-        headerSetConsolidator.on('headerSet', function(headerSet) {
+        headerSetConsolidator.on('headerSet', (headerSet) => {
             const timestamp = headerSet.timestamp;
 
             const headerSetRange = {
@@ -208,14 +208,14 @@ const Recorder = extend(EventEmitter, /** @lends Recorder# */ {
         });
 
         const recordingJob = _.defaults({}, options, {
-            recordedRanges: recordedRanges,
+            recordedRanges,
         });
 
-        return Q.fcall(function() {
+        return Q.fcall(() => {
             return _this._startRecording(headerSetConsolidator, recordingJob);
-        }).then(function(recording) {
-            const promise = Q.fcall(function() {
-                return utils.promise(function(resolve, reject) {
+        }).then((recording) => {
+            const promise = Q.fcall(() => {
+                return utils.promise((resolve, reject) => {
                     let onData = undefined, onEnd = undefined, onError = undefined;
 
                     const cleanup = function() {
@@ -256,16 +256,16 @@ const Recorder = extend(EventEmitter, /** @lends Recorder# */ {
             return utils.promiseFinally(promise, () => {
                 return _this._endRecording(headerSetConsolidator, recordingJob, recording);
             });
-        }).then(function() {
+        }).then(() => {
             return recordedRanges;
         });
     },
 
-    _startRecording: function(headerSetConsolidator, recordingJob) {
+    _startRecording(headerSetConsolidator, recordingJob) {
         throw new Error('Must be implemented by sub-class');
     },
 
-    _endRecording: function(headerSetConsolidator, recordingJob, recording) {
+    _endRecording(headerSetConsolidator, recordingJob, recording) {
         throw new Error('Must be implemented by sub-class');
     },
 
@@ -279,14 +279,14 @@ const Recorder = extend(EventEmitter, /** @lends Recorder# */ {
      * @param {number} [options.interval] {@link Recorder#interval}
      * @returns {Promise} Promise resolving with a list of ranges that were synchronized.
      */
-    synchronizeTo: function(recorder, options) {
+    synchronizeTo(recorder, options) {
         const _this = this;
 
         options = _.extend({}, this._getOptions(), options);
 
-        return Q.fcall(function() {
+        return Q.fcall(() => {
             return recorder._getCurrentSyncState(options);
-        }).then(function(oldSyncState) {
+        }).then((oldSyncState) => {
             oldSyncState = _.cloneDeep(oldSyncState);
 
             if (!oldSyncState.sourceSyncState) {
@@ -297,16 +297,16 @@ const Recorder = extend(EventEmitter, /** @lends Recorder# */ {
             }
 
             return _this._getSyncJob(oldSyncState, options);
-        }).then(function(syncJob) {
+        }).then((syncJob) => {
             return recorder._recordSyncJob(_this, syncJob);
         });
     },
 
-    _getCurrentSyncState: function(options) {
+    _getCurrentSyncState(options) {
         throw new Error('Must be implemented by sub-class');
     },
 
-    _getSyncJob: function(oldSyncState, options) {
+    _getSyncJob(oldSyncState, options) {
         const syncJob = _.extend({}, options, {
             syncId: utils.generateGUID(),
             syncState: oldSyncState,
@@ -334,10 +334,10 @@ const Recorder = extend(EventEmitter, /** @lends Recorder# */ {
             maxTimestamp: options.maxTimestamp,
         });
 
-        _.forEach(syncState.rangesByInterval, function(ranges, rangesKey) {
+        _.forEach(syncState.rangesByInterval, (ranges, rangesKey) => {
             const interval = rangesKey | 0;
             if ((options.interval % interval) === 0) {
-                ranges = _.map(ranges, function(range) {
+                ranges = _.map(ranges, (range) => {
                     return {
                         minTimestamp: Recorder.alignTimestampToInterval(range.minTimestamp, interval),
                         maxTimestamp: Recorder.alignTimestampToInterval(range.maxTimestamp, interval) + interval,
@@ -361,7 +361,7 @@ const Recorder = extend(EventEmitter, /** @lends Recorder# */ {
      * @param {RecorderSyncJob} syncJob The synchronization job to perform.
      * @returns {Promise} Promise resolving with a list of ranges that were synchronized.
      */
-    _recordSyncJob: function(recorder, syncJob) {
+    _recordSyncJob(recorder, syncJob) {
         throw new Error('Must be implemented by sub-class');
     },
 
@@ -373,11 +373,11 @@ const Recorder = extend(EventEmitter, /** @lends Recorder# */ {
      * @param {RecorderSyncJob} syncJob The synchronization job to perform.
      * @returns {Promise} Promise resolving with a list of ranges that were synchronized.
      */
-    _playbackSyncJob: function(stream, syncJob) {
+    _playbackSyncJob(stream, syncJob) {
         throw new Error('Must be implemented by sub-class');
     },
 
-    _getSyncState: function(syncJobOrState, which, type) {
+    _getSyncState(syncJobOrState, which, type) {
         let syncState;
         if (_.has(syncJobOrState, 'syncState') && _.has(syncJobOrState, 'syncId')) {
             syncState = syncJobOrState.syncState;
@@ -400,7 +400,7 @@ const Recorder = extend(EventEmitter, /** @lends Recorder# */ {
         return syncStateRoot [type];
     },
 
-    _markSourceSyncRanges: function(ranges, syncJob) {
+    _markSourceSyncRanges(ranges, syncJob) {
         const syncState = this._getSyncState(syncJob, 'source', 'Recorder');
 
         let handledRanges = syncState.rangesByInterval [syncJob.interval];
@@ -412,7 +412,7 @@ const Recorder = extend(EventEmitter, /** @lends Recorder# */ {
 
 }, /** @lends Recorder. */ {
 
-    alignTimestampToInterval: function(timestamp, interval) {
+    alignTimestampToInterval(timestamp, interval) {
         if (typeof timestamp.getTime === 'function') {
             timestamp = timestamp.getTime();
         } else if (typeof timestamp === 'string') {
@@ -444,7 +444,7 @@ const Recorder = extend(EventEmitter, /** @lends Recorder# */ {
      * @param {string} operation Operation to perform, can be `'union'`, `'difference'` or `'intersection'`
      * @returns {Array} Set containing timestamp ranges after the operation
      */
-    performRangeSetOperation: function(rangesA, rangesB, interval, operation) {
+    performRangeSetOperation(rangesA, rangesB, interval, operation) {
         let newInfos = [];
 
         const calcBaseTimestamp = function(timestamp) {
@@ -478,10 +478,10 @@ const Recorder = extend(EventEmitter, /** @lends Recorder# */ {
             const maxBaseTimestamp = calcBaseTimestamp(maxTimestamp + interval);
 
             return {
-                minTimestamp: minTimestamp,
-                maxTimestamp: maxTimestamp,
-                minBaseTimestamp: minBaseTimestamp,
-                maxBaseTimestamp: maxBaseTimestamp,
+                minTimestamp,
+                maxTimestamp,
+                minBaseTimestamp,
+                maxBaseTimestamp,
                 valid: true,
             };
         };
@@ -601,7 +601,7 @@ const Recorder = extend(EventEmitter, /** @lends Recorder# */ {
         };
 
         const processInfos = function(infos, operation) {
-            _.forEach(_.clone(infos), function(info, index) {
+            _.forEach(_.clone(infos), (info, index) => {
                 processInfo(info, operation);
             });
         };
@@ -629,17 +629,17 @@ const Recorder = extend(EventEmitter, /** @lends Recorder# */ {
             processInfos(infosAMinusB, 'difference');
             processInfos(infosBMinusA, 'difference');
         } else {
-            _.forEach(infosA, function(info) {
+            _.forEach(infosA, (info) => {
                 processInfo(info, 'union');
             });
 
-            _.forEach(infosB, function(info) {
+            _.forEach(infosB, (info) => {
                 processInfo(info, operation);
             });
         }
 
         const newRanges = [];
-        _.forEach(newInfos, function(newInfo) {
+        _.forEach(newInfos, (newInfo) => {
             const newRange = infoToRange(newInfo);
             if (newRange) {
                 newRanges.push(newRange);

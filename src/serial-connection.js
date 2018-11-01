@@ -62,13 +62,13 @@ const SerialConnection = Connection.extend(/** @lends SerialConnection# */ {
      * @classdesc
      * The SerialConnection class provides asscess to a VBus live data stream using a serial port.
      */
-    constructor: function(options) {
+    constructor(options) {
         Connection.call(this, options);
 
         _.extend(this, _.pick(options, optionKeys));
     },
 
-    connect: function() {
+    connect() {
         if (this.connectionState !== SerialConnection.STATE_DISCONNECTED) {
             throw new Error('Connection is not disconnected (' + this.connectionState + ')');
         }
@@ -78,7 +78,7 @@ const SerialConnection = Connection.extend(/** @lends SerialConnection# */ {
         return this._connect();
     },
 
-    disconnect: function() {
+    disconnect() {
         if (this.connectionState !== SerialConnection.STATE_DISCONNECTED) {
             const previousConnectionState = this.connectionState;
 
@@ -92,7 +92,7 @@ const SerialConnection = Connection.extend(/** @lends SerialConnection# */ {
         }
     },
 
-    _connect: function() {
+    _connect() {
         const _this = this;
 
         let serialPort = undefined;
@@ -144,7 +144,7 @@ const SerialConnection = Connection.extend(/** @lends SerialConnection# */ {
                     _this.reconnectTimeout += _this.reconnectTimeoutIncr;
                 }
 
-                setTimeout(function() {
+                setTimeout(() => {
                     _this._setConnectionState(SerialConnection.STATE_RECONNECTING);
 
                     _this._connect();
@@ -191,7 +191,7 @@ const SerialConnection = Connection.extend(/** @lends SerialConnection# */ {
 
         serialPort = this._createSerialPort(this.path, options, onCompletion);
 
-        serialPort.once('open', function() {
+        serialPort.once('open', () => {
             serialPort.on('data', onSerialPortData);
             serialPort.on('end', onEnd);
             serialPort.on('error', onError);
@@ -204,7 +204,7 @@ const SerialConnection = Connection.extend(/** @lends SerialConnection# */ {
         return promise;
     },
 
-    _createSerialPort: function(path, options, onCompletion) {
+    _createSerialPort(path, options, onCompletion) {
         return new SerialPort(path, options, null, onCompletion);
     }
 

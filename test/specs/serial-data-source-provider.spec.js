@@ -25,11 +25,11 @@ const ifHasSerialPortIt = testUtils.ifHasSerialPortIt;
 
 
 
-describe('SerialDataSourceProvider', function() {
+describe('SerialDataSourceProvider', () => {
 
-    describe('constructor', function() {
+    describe('constructor', () => {
 
-        it('should be a constructor function', function() {
+        it('should be a constructor function', () => {
             expect(SerialDataSourceProvider)
                 .to.be.a('function')
                 .that.has.a.property('extend')
@@ -38,45 +38,45 @@ describe('SerialDataSourceProvider', function() {
 
     });
 
-    describe('#discoverDataSources', function() {
+    describe('#discoverDataSources', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(SerialDataSourceProvider.prototype)
                 .to.have.a.property('discoverDataSources')
                 .that.is.a('function');
         });
 
-        ifHasSerialPortIt('should work correctly', function() {
+        ifHasSerialPortIt('should work correctly', () => {
             const ports = [
                 { comName: 'SERIALPORT1' },
                 { comName: 'SERIALPORT2' },
             ];
 
-            TestableSerialDataSourceProvider.prototype._listSerialPorts = sinon.spy(function(callback) {
+            TestableSerialDataSourceProvider.prototype._listSerialPorts = sinon.spy((callback) => {
                 callback(null, ports);
             });
 
             const dsp = new TestableSerialDataSourceProvider();
 
-            return Q.fcall(function() {
+            return Q.fcall(() => {
                 const promise = dsp.discoverDataSources();
 
                 return testUtils.expectPromise(promise);
-            }).then(function(dataSources) {
+            }).then((dataSources) => {
                 expect(dataSources)
                     .to.be.an('array')
                     .lengthOf(ports.length);
             });
         });
 
-        ifHasSerialPortIt('should reject if an error occurs', function() {
-            TestableSerialDataSourceProvider.prototype._listSerialPorts = sinon.spy(function(callback) {
+        ifHasSerialPortIt('should reject if an error occurs', () => {
+            TestableSerialDataSourceProvider.prototype._listSerialPorts = sinon.spy((callback) => {
                 callback(new Error('ERROR'));
             });
 
             const dsp = new TestableSerialDataSourceProvider();
 
-            return Q.fcall(function() {
+            return Q.fcall(() => {
                 const promise = dsp.discoverDataSources();
 
                 return testUtils.expectPromise(promise);
@@ -89,15 +89,15 @@ describe('SerialDataSourceProvider', function() {
 
     });
 
-    describe('#createDataSource', function() {
+    describe('#createDataSource', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(SerialDataSourceProvider.prototype)
                 .to.have.a.property('createDataSource')
                 .that.is.a('function');
         });
 
-        it('should work correctly', function() {
+        it('should work correctly', () => {
             const dsp = new SerialDataSourceProvider();
 
             const ds = dsp.createDataSource();

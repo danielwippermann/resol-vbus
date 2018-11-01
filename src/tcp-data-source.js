@@ -51,7 +51,7 @@ const TcpDataSource = DataSource.extend(/** @lends TcpDataSource# */ {
      * @constructs
      * @augments DataSource
      */
-    constructor: function(options) {
+    constructor(options) {
         DataSource.call(this, options);
 
         _.extend(this, _.pick(options, optionKeys));
@@ -59,7 +59,7 @@ const TcpDataSource = DataSource.extend(/** @lends TcpDataSource# */ {
         this.options = options;
     },
 
-    connectLive: function(options) {
+    connectLive(options) {
         const defaultOptions = {
             host: this.host,
             port: this.port,
@@ -75,9 +75,9 @@ const TcpDataSource = DataSource.extend(/** @lends TcpDataSource# */ {
 
         const connection = new TcpConnection(options);
 
-        return Q.fcall(function() {
+        return Q.fcall(() => {
             return connection.connect();
-        }).then(function() {
+        }).then(() => {
             return connection;
         });
     }

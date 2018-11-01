@@ -8,9 +8,9 @@ const index = require('./resol-vbus');
 
 
 
-describe('RESOL VBus', function() {
+describe('RESOL VBus', () => {
 
-    it('should be an object', function() {
+    it('should be an object', () => {
         expect(index).to.be.an('object');
     });
 

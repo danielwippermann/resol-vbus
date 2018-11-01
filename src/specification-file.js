@@ -117,41 +117,41 @@ const knownUnits = [];
 
 const SpecificationFile = extend(null, {
 
-    constructor: function(buffer, language) {
+    constructor(buffer, language) {
         this.buffer = buffer;
 
         this.types = types;
 
-        this.typeById = _.reduce(types, function(memo, type) {
+        this.typeById = _.reduce(types, (memo, type) => {
             memo [type.typeId] = type;
             return memo;
         }, {});
 
-        this.typeByCode = _.reduce(types, function(memo, type) {
+        this.typeByCode = _.reduce(types, (memo, type) => {
             memo [type.typeCode] = type;
             return memo;
         }, {});
 
         this.unitFamilies = unitFamilies;
 
-        this.unitFamilyById = _.reduce(unitFamilies, function(memo, unitFamily) {
+        this.unitFamilyById = _.reduce(unitFamilies, (memo, unitFamily) => {
             memo [unitFamily.unitFamilyId] = unitFamily;
             return memo;
         }, {});
 
-        this.unitFamilyByCode = _.reduce(unitFamilies, function(memo, unitFamily) {
+        this.unitFamilyByCode = _.reduce(unitFamilies, (memo, unitFamily) => {
             memo [unitFamily.unitFamilyCode] = unitFamily;
             return memo;
         }, {});
 
         this.knownUnits = knownUnits;
 
-        this.knownUnitsById = _.reduce(knownUnits, function(memo, unit) {
+        this.knownUnitsById = _.reduce(knownUnits, (memo, unit) => {
             memo [unit.unitId] = unit;
             return memo;
         }, {});
 
-        this.knownUnitsByCode = _.reduce(knownUnits, function(memo, unit) {
+        this.knownUnitsByCode = _.reduce(knownUnits, (memo, unit) => {
             memo [unit.unitCode] = unit;
             return memo;
         }, {});
@@ -161,16 +161,16 @@ const SpecificationFile = extend(null, {
         this._generateSpecificationData(language);
     },
 
-    getSpecificationData: function() {
+    getSpecificationData() {
         return this.specificationData;
     },
 
-    _generateSpecificationData: function(language) {
+    _generateSpecificationData(language) {
         const that = this;
 
         let units = _.extend({}, this.knownUnitsByCode);
 
-        units = _.reduce(this.units, function(memo, unit) {
+        units = _.reduce(this.units, (memo, unit) => {
             memo [unit.unitCode] = {
                 unitId: unit.unitCode,
                 unitCode: unit.unitCode,
@@ -180,8 +180,8 @@ const SpecificationFile = extend(null, {
             return memo;
         }, units);
 
-        const types = _.reduce(this.packetTemplates, function(memo, pt) {
-            return _.reduce(pt.fields, function(memo, ptf) {
+        const types = _.reduce(this.packetTemplates, (memo, pt) => {
+            return _.reduce(pt.fields, (memo, ptf) => {
                 const rootTypeId = ptf.type && ptf.type.typeCode;
                 const precision = ptf.precision;
                 const unitCode = (ptf.unit && ptf.unit.unitCode) || 'None';
@@ -191,9 +191,9 @@ const SpecificationFile = extend(null, {
                 typeId += '_' + unitCode;
 
                 memo [typeId] = {
-                    typeId: typeId,
-                    rootTypeId: rootTypeId,
-                    precision: precision,
+                    typeId,
+                    rootTypeId,
+                    precision,
                     unit: units [unitCode],
                 };
 
@@ -201,8 +201,8 @@ const SpecificationFile = extend(null, {
             }, memo);
         }, {});
 
-        const getRawValueFunctions = _.reduce(this.packetTemplates, function(memo, pt) {
-            return _.reduce(pt.fields, function(memo, ptf) {
+        const getRawValueFunctions = _.reduce(this.packetTemplates, (memo, pt) => {
+            return _.reduce(pt.fields, (memo, ptf) => {
                 const funcId = sprintf('_%04X_%04X_%04X_%s', pt.destinationAddress, pt.sourceAddress, pt.command, ptf.id);
 
                 memo [funcId] = function(buffer, start, end) {
@@ -213,8 +213,8 @@ const SpecificationFile = extend(null, {
             }, memo);
         }, {});
 
-        const setRawValueFunctions = _.reduce(this.packetTemplates, function(memo, pt) {
-            return _.reduce(pt.fields, function(memo, ptf) {
+        const setRawValueFunctions = _.reduce(this.packetTemplates, (memo, pt) => {
+            return _.reduce(pt.fields, (memo, ptf) => {
                 const funcId = sprintf('_%04X_%04X_%04X_%s', pt.destinationAddress, pt.sourceAddress, pt.command, ptf.id);
 
                 memo [funcId] = function(newValue, buffer, start, end) {
@@ -225,7 +225,7 @@ const SpecificationFile = extend(null, {
             }, memo);
         }, {});
 
-        const deviceSpecs = _.reduce(this.deviceTemplates, function(memo, dt) {
+        const deviceSpecs = _.reduce(this.deviceTemplates, (memo, dt) => {
             const deviceId = sprintf('_%04X', dt.selfAddress);
 
             memo [deviceId] = {
@@ -244,7 +244,7 @@ const SpecificationFile = extend(null, {
             if (_.has(deviceSpecCache, deviceSpecId)) {
                 deviceSpec = deviceSpecCache [deviceSpecId];
             } else {
-                const dt = _.find(that.deviceTemplates, function(dt) {
+                const dt = _.find(that.deviceTemplates, (dt) => {
                     if ((selfAddress & dt.selfMask) !== (dt.selfAddress & dt.selfMask)) {
                         // nop
                     } else if ((peerAddress & dt.peerMask) !== (dt.peerAddress & dt.peerMask)) {
@@ -266,10 +266,10 @@ const SpecificationFile = extend(null, {
             return deviceSpec;
         };
 
-        const packetFieldSpecs = _.reduce(this.packetTemplates, function(memo, pt) {
+        const packetFieldSpecs = _.reduce(this.packetTemplates, (memo, pt) => {
             const packetId = sprintf('_%04X_%04X_%04X', pt.destinationAddress, pt.sourceAddress, pt.command);
 
-            memo [packetId] = _.map(pt.fields, function(ptf) {
+            memo [packetId] = _.map(pt.fields, (ptf) => {
                 const rootTypeId = ptf.type && ptf.type.typeCode;
                 const precision = ptf.precision;
                 const unitCode = (ptf.unit && ptf.unit.unitCode) || 'None';
@@ -282,7 +282,7 @@ const SpecificationFile = extend(null, {
 
                 const funcId = sprintf('_%04X_%04X_%04X_%s', pt.destinationAddress, pt.sourceAddress, pt.command, ptf.id);
 
-                const parts = _.map(ptf.parts, function(ptfp) {
+                const parts = _.map(ptf.parts, (ptfp) => {
                     return {
                         offset: ptfp.offset,
                         mask: ptfp.mask,
@@ -296,17 +296,17 @@ const SpecificationFile = extend(null, {
                     fieldId: ptf.id,
                     name: ptf.name,
                     type: types [typeId],
-                    factor: factor,
+                    factor,
                     getRawValue: getRawValueFunctions [funcId],
                     setRawValue: setRawValueFunctions [funcId],
-                    parts: parts,
+                    parts,
                 };
             });
 
             return memo;
         }, {});
 
-        const packetSpecs = _.reduce(this.packetTemplates, function(memo, pt) {
+        const packetSpecs = _.reduce(this.packetTemplates, (memo, pt) => {
             const packetId = sprintf('_%04X_%04X_%04X', pt.destinationAddress, pt.sourceAddress, pt.command);
 
             memo [packetId] = {
@@ -325,7 +325,7 @@ const SpecificationFile = extend(null, {
             if (_.has(packetSpecCache, packetSpecId)) {
                 packetSpec = packetSpecCache [packetSpecId];
             } else {
-                const pt = _.find(that.packetTemplates, function(pt) {
+                const pt = _.find(that.packetTemplates, (pt) => {
                     if ((destinationAddress & pt.destinationMask) !== (pt.destinationAddress & pt.destinationMask)) {
                         // nop
                     } else if ((sourceAddress & pt.sourceMask) !== (pt.sourceAddress & pt.sourceMask)) {
@@ -351,18 +351,18 @@ const SpecificationFile = extend(null, {
         };
 
         this.specificationData = {
-            units: units,
-            types: types,
-            getRawValueFunctions: getRawValueFunctions,
-            deviceSpecs: deviceSpecs,
-            getDeviceSpecification: getDeviceSpecification,
-            packetFieldSpecs: packetFieldSpecs,
-            packetSpecs: packetSpecs,
-            getPacketSpecification: getPacketSpecification,
+            units,
+            types,
+            getRawValueFunctions,
+            deviceSpecs,
+            getDeviceSpecification,
+            packetFieldSpecs,
+            packetSpecs,
+            getPacketSpecification,
         };
     },
 
-    _parseBuffer: function(buffer) {
+    _parseBuffer(buffer) {
         const that = this;
 
         const sliceBlock = function(name, offset, size) {
@@ -423,7 +423,7 @@ const SpecificationFile = extend(null, {
         };
 
         const texts = [];
-        processBlockTable('TEXT', specificationBlock.textCount, specificationBlock.textTableOffset, 0x04, function(textBuffer) {
+        processBlockTable('TEXT', specificationBlock.textCount, specificationBlock.textTableOffset, 0x04, (textBuffer) => {
             const textBlock = {
                 stringOffset: textBuffer.readInt32LE(0x00),
             };
@@ -438,7 +438,7 @@ const SpecificationFile = extend(null, {
         });
 
         const localizedTexts = [];
-        processBlockTable('LOCALIZEDTEXT', specificationBlock.localizedTextCount, specificationBlock.localizedTextTableOffset, 0x0c, function(locTextBuffer) {
+        processBlockTable('LOCALIZEDTEXT', specificationBlock.localizedTextCount, specificationBlock.localizedTextTableOffset, 0x0c, (locTextBuffer) => {
             const locTextBlock = {
                 textIndexEN: locTextBuffer.readInt32LE(0x00),
                 textIndexDE: locTextBuffer.readInt32LE(0x04),
@@ -453,7 +453,7 @@ const SpecificationFile = extend(null, {
         });
 
         const units = [];
-        processBlockTable('UNIT', specificationBlock.unitCount, specificationBlock.unitTableOffset, 0x10, function(unitBuffer) {
+        processBlockTable('UNIT', specificationBlock.unitCount, specificationBlock.unitTableOffset, 0x10, (unitBuffer) => {
             const unitBlock = {
                 unitId: unitBuffer.readInt32LE(0x00),
                 unitFamilyId: unitBuffer.readInt32LE(0x04),
@@ -469,18 +469,18 @@ const SpecificationFile = extend(null, {
             });
         });
 
-        const unitById = _.reduce(units, function(memo, unit) {
+        const unitById = _.reduce(units, (memo, unit) => {
             memo [unit.unitId] = unit;
             return memo;
         }, {});
 
-        const unitByCode = _.reduce(units, function(memo, unit) {
+        const unitByCode = _.reduce(units, (memo, unit) => {
             memo [unit.unitCode] = unit;
             return memo;
         }, {});
 
         const deviceTemplates = [];
-        processBlockTable('DEVICETEMPLATE', specificationBlock.deviceTemplateCount, specificationBlock.deviceTemplateTableOffset, 0x0c, function(dtBuffer) {
+        processBlockTable('DEVICETEMPLATE', specificationBlock.deviceTemplateCount, specificationBlock.deviceTemplateTableOffset, 0x0c, (dtBuffer) => {
             const dtBlock = {
                 selfAddress: dtBuffer.readUInt16LE(0x00),
                 selfMask: dtBuffer.readUInt16LE(0x02),
@@ -499,7 +499,7 @@ const SpecificationFile = extend(null, {
         });
 
         const packetTemplates = [];
-        processBlockTable('PACKETTEMPLATE', specificationBlock.packetTemplateCount, specificationBlock.packetTemplateTableOffset, 0x14, function(ptBuffer) {
+        processBlockTable('PACKETTEMPLATE', specificationBlock.packetTemplateCount, specificationBlock.packetTemplateTableOffset, 0x14, (ptBuffer) => {
             const ptBlock = {
                 destinationAddress: ptBuffer.readUInt16LE(0x00),
                 destinationMask: ptBuffer.readUInt16LE(0x02),
@@ -511,7 +511,7 @@ const SpecificationFile = extend(null, {
             };
 
             const fields = [];
-            processBlockTable('PACKETTEMPLATEFIELD', ptBlock.fieldCount, ptBlock.fieldTableOffset, 0x1c, function(ptfBuffer) {
+            processBlockTable('PACKETTEMPLATEFIELD', ptBlock.fieldCount, ptBlock.fieldTableOffset, 0x1c, (ptfBuffer) => {
                 const ptfBlock = {
                     idTextIndex: ptfBuffer.readInt32LE(0x00),
                     nameLocalizedTextIndex: ptfBuffer.readInt32LE(0x04),
@@ -523,7 +523,7 @@ const SpecificationFile = extend(null, {
                 };
 
                 const parts = [];
-                processBlockTable('PACKETTEMPLATEFIELDPART', ptfBlock.partCount, ptfBlock.partTableOffset, 0x10, function(ptfpBuffer) {
+                processBlockTable('PACKETTEMPLATEFIELDPART', ptfBlock.partCount, ptfBlock.partTableOffset, 0x10, (ptfpBuffer) => {
                     const ptfpBlock = {
                         offset: ptfpBuffer.readUInt32LE(0x00),
                         bitPos: ptfpBuffer.readInt8(0x04),
@@ -547,7 +547,7 @@ const SpecificationFile = extend(null, {
                     unit: unitById [ptfBlock.unitId],
                     precision: ptfBlock.precision,
                     type: that.typeById [ptfBlock.typeId],
-                    parts: parts,
+                    parts,
                 });
             });
 
@@ -557,7 +557,7 @@ const SpecificationFile = extend(null, {
                 sourceAddress: ptBlock.sourceAddress,
                 sourceMask: ptBlock.sourceMask,
                 command: ptBlock.command,
-                fields: fields,
+                fields,
             });
         });
 
@@ -572,9 +572,9 @@ const SpecificationFile = extend(null, {
         this.packetTemplates = packetTemplates;
     },
 
-    getRawValue: function(pt, ptf, buffer, start, end) {
+    getRawValue(pt, ptf, buffer, start, end) {
         let rawValue = 0, valid = false;
-        _.forEach(ptf.parts, function(part) {
+        _.forEach(ptf.parts, (part) => {
             if (start + part.offset < end) {
                 let partValue;
                 if (part.isSigned) {
@@ -601,13 +601,13 @@ const SpecificationFile = extend(null, {
         return rawValue;
     },
 
-    setRawValue: function(pt, ptf, newValue, buffer, start, end) {
+    setRawValue(pt, ptf, newValue, buffer, start, end) {
         if (ptf.precision > 0) {
             newValue = newValue * Math.pow(10, ptf.precision);
         }
         newValue = Math.round(newValue);
 
-        _.forEach(ptf.parts, function(part) {
+        _.forEach(ptf.parts, (part) => {
             if (start + part.offset < end) {
                 let partValue = Math.floor(newValue / part.factor) & 255;
                 if (part.bitPos > 0) {
@@ -623,20 +623,20 @@ const SpecificationFile = extend(null, {
 
 }, {
 
-    getDefaultSpecificationFile: function() {
+    getDefaultSpecificationFile() {
         return defaultSpecificationFile;
     },
 
-    loadFromFile: function(filename) {
-        return new Promise(function(resolve, reject) {
-            fs.readFile(filename, function(err, contents) {
+    loadFromFile(filename) {
+        return new Promise((resolve, reject) => {
+            fs.readFile(filename, (err, contents) => {
                 if (err) {
                     reject(err);
                 } else {
                     resolve(contents);
                 }
             });
-        }).then(function(contents) {
+        }).then((contents) => {
             return new SpecificationFile(contents);
         });
     },

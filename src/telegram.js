@@ -34,7 +34,7 @@ const Telegram = Header.extend(/** @lends Telegram# */ {
      * @augments Header
      * @param {object} options Initialization options.
      */
-    constructor: function(options) {
+    constructor(options) {
         Header.call(this, options);
 
         _.extend(this, _.pick(options, optionKeys));
@@ -52,7 +52,7 @@ const Telegram = Header.extend(/** @lends Telegram# */ {
         }
     },
 
-    toLiveBuffer: function(origBuffer, start, end) {
+    toLiveBuffer(origBuffer, start, end) {
         const frameCount = this.getFrameCount();
         const length = 8 + frameCount * 9;
 
@@ -82,16 +82,16 @@ const Telegram = Header.extend(/** @lends Telegram# */ {
         return buffer;
     },
 
-    getProtocolVersion: function() {
+    getProtocolVersion() {
         return 0x30;
     },
 
-    getId: function() {
+    getId() {
         const baseId = Header.prototype.getId.call(this);
         return sprintf('%s_%02X', baseId, this.command);
     },
 
-    compareTo: function(that) {
+    compareTo(that) {
         let result = Header.prototype.compareTo.apply(this, arguments);
         if (result === 0) {
             result = this.command - that.command;
@@ -99,13 +99,13 @@ const Telegram = Header.extend(/** @lends Telegram# */ {
         return result;
     },
 
-    getFrameCount: function() {
+    getFrameCount() {
         return Telegram.getFrameCountForCommand(this.command);
     },
 
 }, /** @lends Telegram */ {
 
-    fromLiveBuffer: function(buffer, start, end) {
+    fromLiveBuffer(buffer, start, end) {
         const frameCount = this.getFrameCountForCommand(buffer [start + 6]);
 
         const frameData = Buffer.alloc(3 * 7);
@@ -121,12 +121,12 @@ const Telegram = Header.extend(/** @lends Telegram# */ {
             destinationAddress: buffer.readUInt16LE(start + 1),
             sourceAddress: buffer.readUInt16LE(start + 3),
             command: buffer [start + 6],
-            frameData: frameData,
+            frameData,
             dontCopyFrameData: true
         });
     },
 
-    getFrameCountForCommand: function(command) {
+    getFrameCountForCommand(command) {
         return ((command >> 5) & 0x03);
     }
 

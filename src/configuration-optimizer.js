@@ -29,7 +29,7 @@ const Q = require('./q');
 
 const ConfigurationOptimizer = extend(null, /** @lends ConfigurationOptimizer# */ {
 
-    constructor: function(options) {
+    constructor(options) {
         // nop
     },
 
@@ -42,7 +42,7 @@ const ConfigurationOptimizer = extend(null, /** @lends ConfigurationOptimizer# *
      * @param {array|object} configs... Configurations to complete.
      * @returns {Promise} A Promise that resolves to the completed array of values.
      */
-    completeConfiguration: function(config) {
+    completeConfiguration(config) {
         throw new Error('Must be implemented by sub-class');
     },
 
@@ -52,7 +52,7 @@ const ConfigurationOptimizer = extend(null, /** @lends ConfigurationOptimizer# *
      * @param {array} config The array of values that has already been loaded.
      * @returns {Promise} A Promise that resolves to the array of values to load next.
      */
-    optimizeLoadConfiguration: function(config) {
+    optimizeLoadConfiguration(config) {
         throw new Error('Must be implemented by sub-class');
     },
 
@@ -63,7 +63,7 @@ const ConfigurationOptimizer = extend(null, /** @lends ConfigurationOptimizer# *
      * @param {array} oldConfig The array of values that are assumed to be currently stored in the device.
      * @returns {Promise} A Promise that resolves to the array of values to save.
      */
-    optimizeSaveConfiguration: function(newConfig, oldConfig) {
+    optimizeSaveConfiguration(newConfig, oldConfig) {
         throw new Error('Must be implemented by sub-class');
     },
 
@@ -73,7 +73,7 @@ const ConfigurationOptimizer = extend(null, /** @lends ConfigurationOptimizer# *
      * @param  {string} timezone Timezone the controller is in
      * @return {Promise} A Promise that resolves to the array of values to set the clock.
      */
-    generateClockConfiguration: function(timezone) {
+    generateClockConfiguration(timezone) {
         throw new Error('Must be implemented by sub-class');
     },
 
@@ -86,10 +86,10 @@ const ConfigurationOptimizer = extend(null, /** @lends ConfigurationOptimizer# *
      *
      * @return {Promise} A promise that resolves to an array of constructor options.
      */
-    getOptimizerOptions: function() {
+    getOptimizerOptions() {
         const _this = this;
 
-        return Q.fcall(function() {
+        return Q.fcall(() => {
             if (_this.deviceAddress !== null) {
                 return [ null ];
             } else {
@@ -108,15 +108,15 @@ const ConfigurationOptimizer = extend(null, /** @lends ConfigurationOptimizer# *
      * @param  {Customizer} options.customizer A `Customizer` instance to query additional information with.
      * @return {Promise} A Promise that resolves to the best matching optimizer result or `null` if no match was found.
      */
-    matchOptimizer: function(options) {
+    matchOptimizer(options) {
         const _this = this;
 
-        return Q.fcall(function() {
+        return Q.fcall(() => {
             if (_this.deviceAddress !== null) {
                 const match = (options.deviceAddress === _this.deviceAddress) ? 1 : 0;
 
                 return {
-                    match: match,
+                    match,
                     Optimizer: _this,
                     options: null,
                 };

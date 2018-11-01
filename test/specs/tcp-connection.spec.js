@@ -52,9 +52,9 @@ const testConnection = function(callback) {
         host: '127.0.0.1',
     });
 
-    const promise = Q.fcall(function() {
+    const promise = Q.fcall(() => {
         return endpoint.start();
-    }).then(function() {
+    }).then(() => {
         connection.port = endpoint.port;
 
         expect(connection.connectionState).to.equal(TcpConnection.STATE_DISCONNECTED);
@@ -62,11 +62,11 @@ const testConnection = function(callback) {
         return callback(connection, endpoint, createEndpointInfoPromise);
     });
 
-    return vbus.utils.promiseFinally(promise, function() {
+    return vbus.utils.promiseFinally(promise, () => {
         connection.disconnect();
         endpoint.stop();
 
-        _.forEach(infos, function(info) {
+        _.forEach(infos, (info) => {
             info.socket.end();
         });
 
@@ -80,16 +80,16 @@ const testConnection = function(callback) {
 
 
 
-describe('TcpConnection', function() {
+describe('TcpConnection', () => {
 
-    describe('constructor', function() {
+    describe('constructor', () => {
 
-        it('should be a constructor function', function() {
+        it('should be a constructor function', () => {
             expect(TcpConnection).to.be.a('function');
             expect(TcpConnection.extend).to.be.a('function');
         });
 
-        it('should have reasonable defaults', function() {
+        it('should have reasonable defaults', () => {
             const connection = new TcpConnection();
 
             expect(connection.host).to.equal(null);
@@ -99,7 +99,7 @@ describe('TcpConnection', function() {
             expect(connection.rawVBusDataOnly).to.equal(false);
         });
 
-        it('should copy selected options', function() {
+        it('should copy selected options', () => {
             const options = {
                 host: 'HOST',
                 port: 12345,
@@ -121,14 +121,14 @@ describe('TcpConnection', function() {
 
     });
 
-    describe('#connect', function() {
+    describe('#connect', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(TcpConnection.prototype).to.have.a.property('connect').that.is.a('function');
         });
 
-        it('should work correctly if disconnected', function() {
-            return testConnection(function(connection, endpoint, createEndpointInfoPromise) {
+        it('should work correctly if disconnected', () => {
+            return testConnection((connection, endpoint, createEndpointInfoPromise) => {
                 const onConnectionState = sinon.spy();
 
                 const options = {
@@ -137,7 +137,7 @@ describe('TcpConnection', function() {
                 };
 
                 _.extend(connection, options);
-                connection.channelListCallback = sinon.spy(function(channels, done) {
+                connection.channelListCallback = sinon.spy((channels, done) => {
                     done(null, '9:Test');
                 });
 
@@ -145,11 +145,11 @@ describe('TcpConnection', function() {
 
                 const epiPromise = createEndpointInfoPromise();
 
-                const promise = Q.fcall(function() {
+                const promise = Q.fcall(() => {
                     return connection.connect();
-                }).then(function() {
+                }).then(() => {
                     return epiPromise;
-                }).then(function(epi) {
+                }).then((epi) => {
                     expect(connection.connectionState).to.equal(TcpConnection.STATE_CONNECTED);
                     expect(onConnectionState.callCount).to.equal(2);
                     expect(onConnectionState.firstCall.args [0]).to.equal(TcpConnection.STATE_CONNECTING);
@@ -162,18 +162,18 @@ describe('TcpConnection', function() {
                     expect(connection.channelListCallback.callCount).to.equal(1);
                 });
 
-                return vbus.utils.promiseFinally(promise, function() {
+                return vbus.utils.promiseFinally(promise, () => {
                     connection.removeListener('connectionState', onConnectionState);
                 });
             });
         });
 
-        it('should throw if not disconnected', function() {
-            return testConnection(function(connection, endpoint) {
-                return Q.fcall(function() {
+        it('should throw if not disconnected', () => {
+            return testConnection((connection, endpoint) => {
+                return Q.fcall(() => {
                     return connection.connect();
-                }).then(function() {
-                    expect(function() {
+                }).then(() => {
+                    expect(() => {
                         connection.connect();
                     }).to.throw();
                 });
@@ -182,33 +182,33 @@ describe('TcpConnection', function() {
 
     });
 
-    describe('#disconnect', function() {
+    describe('#disconnect', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(TcpConnection.prototype).to.have.a.property('disconnect').that.is.a('function');
         });
 
-        it('should work correctly if disconnected', function() {
-            return testConnection(function(connection) {
+        it('should work correctly if disconnected', () => {
+            return testConnection((connection) => {
                 connection.disconnect();
 
                 expect(connection.connectionState).to.equal(TcpConnection.STATE_DISCONNECTED);
             });
         });
 
-        it('should work correctly if connected', function() {
-            return testConnection(function(connection) {
+        it('should work correctly if connected', () => {
+            return testConnection((connection) => {
                 const onConnectionState = sinon.spy();
 
                 connection.on('connectionState', onConnectionState);
 
-                const promise = Q.fcall(function() {
+                const promise = Q.fcall(() => {
                     return connection.connect();
-                }).then(function() {
+                }).then(() => {
                     return connection.disconnect();
                 });
 
-                return vbus.utils.promiseFinally(promise, function() {
+                return vbus.utils.promiseFinally(promise, () => {
                     connection.removeListener('connectionState', onConnectionState);
                 });
             });
@@ -216,21 +216,21 @@ describe('TcpConnection', function() {
 
     });
 
-    describe('Automatic reconnection', function() {
+    describe('Automatic reconnection', () => {
 
-        it('should reconnect when connected', function() {
-            return testConnection(function(connection, endpoint, createEndpointInfoPromise) {
+        it('should reconnect when connected', () => {
+            return testConnection((connection, endpoint, createEndpointInfoPromise) => {
                 const onConnectionState = sinon.spy();
 
                 connection.on('connectionState', onConnectionState);
 
                 let epiPromise = createEndpointInfoPromise();
 
-                const promise = Q.fcall(function() {
+                const promise = Q.fcall(() => {
                     return connection.connect();
-                }).then(function() {
+                }).then(() => {
                     return epiPromise;
-                }).then(function(epi) {
+                }).then((epi) => {
                     expect(onConnectionState.callCount).to.equal(2);
                     expect(onConnectionState.firstCall.args [0]).to.equal(TcpConnection.STATE_CONNECTING);
                     expect(onConnectionState.secondCall.args [0]).to.equal(TcpConnection.STATE_CONNECTED);
@@ -238,9 +238,9 @@ describe('TcpConnection', function() {
                     epiPromise = createEndpointInfoPromise();
 
                     epi.socket.end();
-                }).then(function() {
+                }).then(() => {
                     return epiPromise;
-                }).then(function() {
+                }).then(() => {
                     expect(onConnectionState.callCount).to.equal(4);
                     expect(onConnectionState.getCall(2).args [0]).to.equal(TcpConnection.STATE_INTERRUPTED);
                     expect(onConnectionState.getCall(3).args [0]).to.equal(TcpConnection.STATE_RECONNECTING);
@@ -248,7 +248,7 @@ describe('TcpConnection', function() {
                     return connection.disconnect();
                 });
 
-                return vbus.utils.promiseFinally(promise, function() {
+                return vbus.utils.promiseFinally(promise, () => {
                     connection.removeListener('connectionState', onConnectionState);
                 });
             });

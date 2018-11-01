@@ -8,9 +8,9 @@ const extend = require('./resol-vbus').extend;
 
 
 
-describe('extend', function() {
+describe('extend', () => {
 
-    it('should be a function', function() {
+    it('should be a function', () => {
         expect(extend).to.be.a('function');
     });
 
@@ -38,7 +38,7 @@ describe('extend', function() {
         return child;
     };
 
-    it('should work without prototype properties', function() {
+    it('should work without prototype properties', () => {
         const ChildClass = testExtend(null, null, null);
 
         const instance = new ChildClass();
@@ -47,7 +47,7 @@ describe('extend', function() {
         expect(instance).to.be.an.instanceOf(ChildClass);
     });
 
-    it('should work without parent class', function() {
+    it('should work without parent class', () => {
         const ChildClass = testExtend(null, {
 
             protoProp1: true
@@ -67,7 +67,7 @@ describe('extend', function() {
         expect(instance).to.be.an.instanceOf(ChildClass);
     });
 
-    it('should work without parent class but with a constructor', function() {
+    it('should work without parent class but with a constructor', () => {
         const childClassConstructor = sinon.spy();
 
         const ChildClass = testExtend(null, {
@@ -91,7 +91,7 @@ describe('extend', function() {
         expect(childClassConstructor.callCount).to.equal(1);
     });
 
-    it('should work with parent class', function() {
+    it('should work with parent class', () => {
         const ParentClass = testExtend(null, {
 
             protoProp1: true
@@ -118,7 +118,7 @@ describe('extend', function() {
         expect(ChildClass.prototype.protoProp2).to.equal(true);
     });
 
-    it('should work with parent class and constructors', function() {
+    it('should work with parent class and constructors', () => {
         const parentClassConstructor = sinon.spy();
 
         const ParentClass = testExtend(null, {

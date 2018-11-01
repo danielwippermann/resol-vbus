@@ -17,22 +17,22 @@ const TcpDataSourceProvider = vbus.TcpDataSourceProvider;
 
 
 
-describe('TCP Data Source Provider', function() {
+describe('TCP Data Source Provider', () => {
 
-    describe('constructor', function() {
+    describe('constructor', () => {
 
-        it('should be a constructor', function() {
+        it('should be a constructor', () => {
             expect(TcpDataSourceProvider).to.be.a('function');
         });
 
-        it('should have reasonable defaults', function() {
+        it('should have reasonable defaults', () => {
             const dsp = new TcpDataSourceProvider();
 
             expect(dsp).property('broadcastAddress').equals('255.255.255.255');
             expect(dsp).property('broadcastPort').equals(7053);
         });
 
-        it('should copy selected options', function() {
+        it('should copy selected options', () => {
             const options = {
                 broadcastAddress: '0.0.0.0',
                 broadcastPort: 3507,
@@ -48,13 +48,13 @@ describe('TCP Data Source Provider', function() {
 
     });
 
-    describe('.parseDeviceInformation', function() {
+    describe('.parseDeviceInformation', () => {
 
-        it('should be a function', function() {
+        it('should be a function', () => {
             expect(TcpDataSourceProvider.parseDeviceInformation).to.be.a('function');
         });
 
-        it('should work correctly', function() {
+        it('should work correctly', () => {
             const string = 'vendor = "RESOL"\r\nproduct = "DL3"\r\nserial = "001E660300F0"\r\nversion = "2.1.0"\r\nbuild = "201311280853"\r\nname = "DL3-001E660300F0"\r\nfeatures = "vbus,dl2,dl3"\r\n';
 
             const info = TcpDataSourceProvider.parseDeviceInformation(string);
@@ -71,13 +71,13 @@ describe('TCP Data Source Provider', function() {
 
     });
 
-    describe('.fetchDeviceInformation', function() {
+    describe('.fetchDeviceInformation', () => {
 
-        it('should be a function', function() {
+        it('should be a function', () => {
             expect(TcpDataSourceProvider.fetchDeviceInformation).to.be.a('function');
         });
 
-        it('should work correctly', function(done) {
+        it('should work correctly', (done) => {
             let server = undefined;
 
             const onFetch = function(info) {
@@ -121,15 +121,15 @@ describe('TCP Data Source Provider', function() {
 
     });
 
-    describe('.sendBroadcast', function() {
+    describe('.sendBroadcast', () => {
 
-        it('should be a function', function() {
+        it('should be a function', () => {
             expect(TcpDataSourceProvider)
                 .to.have.a.property('sendBroadcast')
                 .that.is.a('function');
         });
 
-        it('should work correctly', function() {
+        it('should work correctly', () => {
             const originalSend = dgram.Socket.prototype.send;
             const originalFDI = TcpDataSourceProvider.fetchDeviceInformation;
 
@@ -141,21 +141,21 @@ describe('TCP Data Source Provider', function() {
                 });
             });
 
-            TcpDataSourceProvider.fetchDeviceInformation = sinon.spy(function() {
+            TcpDataSourceProvider.fetchDeviceInformation = sinon.spy(() => {
                 return {};
             });
 
-            const promise = Q.fcall(function() {
+            const promise = Q.fcall(() => {
                 return TcpDataSourceProvider.sendBroadcast({
                     timeout: 50,
                 });
-            }).then(function(infos) {
+            }).then((infos) => {
                 expect(infos).lengthOf(1);
                 expect(dgram.Socket.prototype.send.callCount).equal(3);
                 expect(TcpDataSourceProvider.fetchDeviceInformation).property('callCount').equal(1);
             });
 
-            return vbus.utils.promiseFinally(promise, function() {
+            return vbus.utils.promiseFinally(promise, () => {
                 dgram.Socket.prototype.send = originalSend;
                 TcpDataSourceProvider.fetchDeviceInformation = originalFDI;
             });
@@ -163,49 +163,49 @@ describe('TCP Data Source Provider', function() {
 
     });
 
-    describe('.discoverDevices', function() {
+    describe('.discoverDevices', () => {
 
-        it('should be a function', function() {
+        it('should be a function', () => {
             expect(TcpDataSourceProvider)
                 .to.have.a.property('discoverDevices')
                 .that.is.a('function');
         });
 
-        it('should work correctly', function() {
+        it('should work correctly', () => {
             const originalSendBroadcast = TcpDataSourceProvider.sendBroadcast;
 
-            TcpDataSourceProvider.sendBroadcast = sinon.spy(function() {
+            TcpDataSourceProvider.sendBroadcast = sinon.spy(() => {
                 return Q([
                     Promise.reject(new Error('Failed')),
                     Promise.resolve({ address: 'ADDRESS' }),
                 ]);
             });
 
-            const promise = Q.fcall(function() {
+            const promise = Q.fcall(() => {
                 return TcpDataSourceProvider.discoverDevices();
-            }).then(function(infos) {
+            }).then((infos) => {
                 expect(infos).lengthOf(1);
                 expect(infos [0]).property('address').equals('ADDRESS');
                 expect(TcpDataSourceProvider.sendBroadcast).property('callCount').equal(1);
             });
 
-            return vbus.utils.promiseFinally(promise, function() {
+            return vbus.utils.promiseFinally(promise, () => {
                 TcpDataSourceProvider.sendBroadcast = originalSendBroadcast;
             });
         });
 
     });
 
-    describe('#discoverDataSources', function() {
+    describe('#discoverDataSources', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(TcpDataSourceProvider.prototype).property('discoverDataSources').a('function');
         });
 
-        it('should work correctly', function() {
+        it('should work correctly', () => {
             const originalDiscoverDevices = TcpDataSourceProvider.discoverDevices;
 
-            TcpDataSourceProvider.discoverDevices = sinon.spy(function() {
+            TcpDataSourceProvider.discoverDevices = sinon.spy(() => {
                 return Q([
                     { __address__: 'ADDRESS' },
                 ]);
@@ -213,14 +213,14 @@ describe('TCP Data Source Provider', function() {
 
             const dsp = new TcpDataSourceProvider();
 
-            const promise = Q.fcall(function() {
+            const promise = Q.fcall(() => {
                 return dsp.discoverDataSources();
-            }).then(function(dataSources) {
+            }).then((dataSources) => {
                 expect(dataSources).a('array').lengthOf(1);
                 expect(TcpDataSourceProvider.discoverDevices).property('callCount').equals(1);
             });
 
-            return vbus.utils.promiseFinally(promise, function() {
+            return vbus.utils.promiseFinally(promise, () => {
                 TcpDataSourceProvider.discoverDevices = originalDiscoverDevices;
             });
         });

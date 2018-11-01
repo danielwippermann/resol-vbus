@@ -35,26 +35,26 @@ const TestRecorder = Recorder.extend({
 
     recordedRanges: null,
 
-    constructor: function() {
+    constructor() {
         Recorder.apply(this, arguments);
         this.syncState = {};
     },
 
-    _playback: function(headerSetConsolidator, options) {
+    _playback(headerSetConsolidator, options) {
         const _this = this;
 
         const converter = new VBusRecordingConverter();
 
-        converter.on('headerSet', function(headerSet) {
+        converter.on('headerSet', (headerSet) => {
             headerSetConsolidator.processHeaderSet(headerSet);
         });
 
         const minFilename = moment.utc(options.minTimestamp).format('YYYYMMDD');
         const maxFilename = moment.utc(options.maxTimestamp).format('YYYYMMDD');
 
-        return Q.fcall(function() {
-            return vbus.utils.promise(function(resolve, reject) {
-                fs.readdir(_this.fixturesPath, function(err, files) {
+        return Q.fcall(() => {
+            return vbus.utils.promise((resolve, reject) => {
+                fs.readdir(_this.fixturesPath, (err, files) => {
                     if (err) {
                         reject(err);
                     } else {
@@ -62,8 +62,8 @@ const TestRecorder = Recorder.extend({
                     }
                 });
             });
-        }).then(function(filenames) {
-            return _.reduce(filenames, function(memo, filename) {
+        }).then((filenames) => {
+            return _.reduce(filenames, (memo, filename) => {
                 const filenamePrefix = filename.slice(0, minFilename.length);
 
                 if ((filenamePrefix >= minFilename) && (filenamePrefix <= maxFilename)) {
@@ -72,23 +72,23 @@ const TestRecorder = Recorder.extend({
 
                 return memo;
             }, []);
-        }).then(function(filenames) {
+        }).then((filenames) => {
             let promise = Q();
 
-            _.forEach(filenames, function(filename) {
-                promise = promise.then(function() {
-                    return vbus.utils.promise(function(resolve, reject) {
+            _.forEach(filenames, (filename) => {
+                promise = promise.then(() => {
+                    return vbus.utils.promise((resolve, reject) => {
                         const fullFilename = path.join(_this.fixturesPath, filename);
 
                         const stream = fs.createReadStream(fullFilename);
 
                         stream.pipe(converter, { end: false });
 
-                        stream.on('end', function() {
+                        stream.on('end', () => {
                             resolve();
                         });
 
-                        stream.on('error', function(err) {
+                        stream.on('error', (err) => {
                             reject(err);
                         });
                     });
@@ -96,20 +96,20 @@ const TestRecorder = Recorder.extend({
             });
 
             return promise;
-        }).then(function() {
+        }).then(() => {
             converter.end();
         });
     },
 
-    _getCurrentSyncState: function(options) {
+    _getCurrentSyncState(options) {
         return this.syncState;
     },
 
-    _setCurrentSyncState: function(syncState, options) {
+    _setCurrentSyncState(syncState, options) {
         this.syncState = syncState;
     },
 
-    _playbackSyncJob: function(stream, syncJob) {
+    _playbackSyncJob(stream, syncJob) {
         const _this = this;
 
         if (!stream.objectMode) {
@@ -118,13 +118,13 @@ const TestRecorder = Recorder.extend({
 
         /* var syncState = */ this._getSyncState(syncJob, 'source', 'TestRecorder');
 
-        return Q.fcall(function() {
-            return vbus.utils.promise(function(resolve, reject) {
-                fs.readdir(_this.fixturesPath, function(err, filenames) {
+        return Q.fcall(() => {
+            return vbus.utils.promise((resolve, reject) => {
+                fs.readdir(_this.fixturesPath, (err, filenames) => {
                     if (err) {
                         reject(err);
                     } else {
-                        let ranges = _.reduce(filenames, function(memo, filename) {
+                        let ranges = _.reduce(filenames, (memo, filename) => {
                             if (/^[0-9]{8}/.test(filename)) {
                                 const minTimestamp = moment.utc(filename.slice(0, 8), 'YYYYMMDD');
                                 const maxTimestamp = moment.utc(minTimestamp).add({ hours: 24 });
@@ -142,7 +142,7 @@ const TestRecorder = Recorder.extend({
                     }
                 });
             });
-        }).then(function(availableRanges) {
+        }).then((availableRanges) => {
             _this.availableRanges = availableRanges;
 
             const ranges = Recorder.performRangeSetOperation(availableRanges, syncJob.syncStateDiffs, syncJob.interval, 'intersection');
@@ -151,21 +151,21 @@ const TestRecorder = Recorder.extend({
 
             let promise = Q();
 
-            _.forEach(ranges, function(range) {
+            _.forEach(ranges, (range) => {
                 const options = _.extend({}, syncJob, {
                     minTimestamp: range.minTimestamp,
                     maxTimestamp: range.maxTimestamp,
                     end: false,
                 });
 
-                promise = promise.then(function() {
+                promise = promise.then(() => {
                     return _this.playback(stream, options);
-                }).then(function(ranges) {
+                }).then((ranges) => {
                     playedBackRanges = Recorder.performRangeSetOperation(playedBackRanges, ranges, syncJob.interval, 'union');
                 });
             });
 
-            promise = promise.then(function() {
+            promise = promise.then(() => {
                 let handledRanges = playedBackRanges;
 
                 if (availableRanges.length > 0) {
@@ -182,7 +182,7 @@ const TestRecorder = Recorder.extend({
                 return playedBackRanges;
             });
 
-            promise = promise.then(function(playedBackRanges) {
+            promise = promise.then((playedBackRanges) => {
                 _this.playedBackRanges = playedBackRanges;
 
                 return playedBackRanges;
@@ -192,7 +192,7 @@ const TestRecorder = Recorder.extend({
         });
     },
 
-    _recordSyncJob: function(recorder, syncJob) {
+    _recordSyncJob(recorder, syncJob) {
         const _this = this;
 
         const syncState = this._getSyncState(syncJob, 'destination', 'TestRecorder');
@@ -218,7 +218,7 @@ const TestRecorder = Recorder.extend({
             objectMode: true,
         });
 
-        inConverter.on('headerSet', function(headerSet) {
+        inConverter.on('headerSet', (headerSet) => {
             const timestamp = headerSet.timestamp;
 
             if (lastTimestamp && (timestamp < lastTimestamp)) {
@@ -237,22 +237,22 @@ const TestRecorder = Recorder.extend({
             recordedRanges = Recorder.performRangeSetOperation(recordedRanges, thisRanges, syncJob.interval, 'union');
         });
 
-        return Q.fcall(function() {
+        return Q.fcall(() => {
             return recorder._playbackSyncJob(inConverter, syncJob);
-        }).then(function(playedBackRanges) {
-            return vbus.utils.promise(function(resolve) {
-                inConverter.end(function() {
+        }).then((playedBackRanges) => {
+            return vbus.utils.promise((resolve) => {
+                inConverter.end(() => {
                     resolve();
                 });
-            }).then(function() {
+            }).then(() => {
                 return _this._setCurrentSyncState(syncJob.syncState, syncJob);
-            }).then(function() {
+            }).then(() => {
                 return playedBackRanges;
             });
         });
     },
 
-    resetCounters: function() {
+    resetCounters() {
 
     },
 

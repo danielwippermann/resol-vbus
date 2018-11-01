@@ -8,42 +8,42 @@ const DataSourceProvider = require('./resol-vbus').DataSourceProvider;
 
 
 
-describe('DataSourceProvider', function() {
+describe('DataSourceProvider', () => {
 
-    describe('constructor', function() {
+    describe('constructor', () => {
 
-        it('should be a constructor function', function() {
+        it('should be a constructor function', () => {
             expect(DataSourceProvider).to.be.a('function');
         });
 
     });
 
-    describe('#discoverDataSources', function() {
+    describe('#discoverDataSources', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(DataSourceProvider.prototype.discoverDataSources).to.be.a('function');
         });
 
-        it('should be abstract', function() {
+        it('should be abstract', () => {
             const converter = new DataSourceProvider();
 
-            expect(function() {
+            expect(() => {
                 converter.discoverDataSources();
             }).to.throw(Error, 'Must be implemented by sub-class');
         });
 
     });
 
-    describe('#createDataSource', function() {
+    describe('#createDataSource', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(DataSourceProvider.prototype.createDataSource).to.be.a('function');
         });
 
-        it('should be abstract', function() {
+        it('should be abstract', () => {
             const converter = new DataSourceProvider();
 
-            expect(function() {
+            expect(() => {
                 converter.createDataSource();
             }).to.throw(Error, 'Must be implemented by sub-class');
         });

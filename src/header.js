@@ -74,7 +74,7 @@ const Header = extend(null, /** @lends Header# */ {
      * @see Datagram
      * @see Telegram
      */
-    constructor: function(options) {
+    constructor(options) {
         _.extend(this, _.pick(options, optionKeys));
 
         if (!this.timestamp) {
@@ -96,7 +96,7 @@ const Header = extend(null, /** @lends Header# */ {
      * @param {number} [end] End index in the buffer
      * @returns {Buffer} Buffer object containing the data
      */
-    toLiveBuffer: function(/* buffer, start, end */) {
+    toLiveBuffer(/* buffer, start, end */) {
         throw new Error('Must be implemented by sub-class');
     },
 
@@ -111,7 +111,7 @@ const Header = extend(null, /** @lends Header# */ {
      * @abstract
      * @returns {number} Protocol version
      */
-    getProtocolVersion: function() {
+    getProtocolVersion() {
         throw new Error('Must be implemented by sub-class');
     },
 
@@ -122,7 +122,7 @@ const Header = extend(null, /** @lends Header# */ {
      *
      * @returns {number} Info value
      */
-    getInfo: function() {
+    getInfo() {
         return 0;
     },
 
@@ -140,7 +140,7 @@ const Header = extend(null, /** @lends Header# */ {
      *
      * @returns {string} Identifier
      */
-    getId: function() {
+    getId() {
         return sprintf('%02X_%04X_%04X_%02X', this.channel, this.destinationAddress, this.sourceAddress, this.getProtocolVersion());
     },
 
@@ -157,7 +157,7 @@ const Header = extend(null, /** @lends Header# */ {
      *   - greater than 0 if `this > that`
      *   - equal to to if `this == that`
      */
-    compareTo: function(that) {
+    compareTo(that) {
         let result = this.channel - that.channel;
         if (result === 0) {
             result = this.destinationAddress - that.destinationAddress;
@@ -185,7 +185,7 @@ const Header = extend(null, /** @lends Header# */ {
      * @param {number} end End index in the buffer
      * @returns {Header} Header instance created from the representation
      */
-    fromLiveBuffer: function(/* buffer, start, end */) {
+    fromLiveBuffer(/* buffer, start, end */) {
         throw new Error('Must be implemented by sub-class');
     },
 
@@ -198,7 +198,7 @@ const Header = extend(null, /** @lends Header# */ {
      * @param {number} end End index in the buffer
      * @returns {number} Calculated checksum
      */
-    calcChecksumV0: function(buffer, start, end) {
+    calcChecksumV0(buffer, start, end) {
         let checksum = 0;
         for (let index = start; index < end; index++) {
             checksum = (checksum + buffer [index]) & 0x7F;
@@ -217,7 +217,7 @@ const Header = extend(null, /** @lends Header# */ {
      * @param {number} end End index in the buffer
      * @returns {boolean} Result whether calculated and stored checksum match
      */
-    calcAndCompareChecksumV0: function(buffer, start, end) {
+    calcAndCompareChecksumV0(buffer, start, end) {
         const checksum = this.calcChecksumV0(buffer, start, end);
         return (buffer [end] === checksum);
     },
@@ -231,7 +231,7 @@ const Header = extend(null, /** @lends Header# */ {
      * @param {number} end End index in the buffer
      * @returns {number} Calculated checksum
      */
-    calcAndSetChecksumV0: function(buffer, start, end) {
+    calcAndSetChecksumV0(buffer, start, end) {
         const checksum = this.calcChecksumV0(buffer, start, end);
         buffer [end] = checksum;
         return checksum;
@@ -247,7 +247,7 @@ const Header = extend(null, /** @lends Header# */ {
      * @param {Buffer} dstBuffer Buffer to copy to
      * @param {number} dstStart Start index in the destination buffer
      */
-    injectSeptett: function(srcBuffer, srcStart, srcEnd, dstBuffer, dstStart) {
+    injectSeptett(srcBuffer, srcStart, srcEnd, dstBuffer, dstStart) {
         const septett = srcBuffer [srcEnd];
         let srcIndex = srcStart, dstIndex = dstStart, mask = 1;
         while (srcIndex < srcEnd) {
@@ -274,7 +274,7 @@ const Header = extend(null, /** @lends Header# */ {
      * @param {Buffer} dstBuffer Buffer to copy to
      * @param {number} dstStart Start index in the destination buffer
      */
-    extractSeptett: function(srcBuffer, srcStart, srcEnd, dstBuffer, dstStart) {
+    extractSeptett(srcBuffer, srcStart, srcEnd, dstBuffer, dstStart) {
         let srcIndex = srcStart, dstIndex = dstStart, mask = 1, septett = 0;
         while (srcIndex < srcEnd) {
             let b = srcBuffer [srcIndex];

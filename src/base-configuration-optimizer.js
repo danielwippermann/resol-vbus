@@ -20,13 +20,13 @@ const ValuesWrapper = extend(null, {
 
     md: null,
 
-    constructor: function(pattern, values) {
+    constructor(pattern, values) {
         this.pattern = pattern;
         this.values = values;
         this.length = values.length;
     },
 
-    $: function(pattern, values) {
+    $(pattern, values) {
         if (values === undefined) {
             values = this.values;
         }
@@ -35,7 +35,7 @@ const ValuesWrapper = extend(null, {
             pattern = new RegExp(pattern, 'i');
         }
 
-        const matchingValues = _.reduce(values, function(memo, value) {
+        const matchingValues = _.reduce(values, (memo, value) => {
             if (pattern.test(value.valueId)) {
                 memo.push(value);
             }
@@ -51,82 +51,82 @@ const ValuesWrapper = extend(null, {
         return wrapper;
     },
 
-    forEach: function(callback) {
-        return this._check(callback, function() {
+    forEach(callback) {
+        return this._check(callback, () => {
             return true;
         });
     },
 
-    isFalse: function(callback) {
-        return this._check(callback, function(value, valueInfo) {
+    isFalse(callback) {
+        return this._check(callback, (value, valueInfo) => {
             return !value;
         });
     },
 
-    isTrue: function(callback) {
-        return this._check(callback, function(value, valueInfo) {
+    isTrue(callback) {
+        return this._check(callback, (value, valueInfo) => {
             return !!value;
         });
     },
 
-    eql: function(refValue, callback) {
+    eql(refValue, callback) {
         return this._check(callback, function(value, valueInfo) {
             const normalizedRefValue = this._normalizeValue(refValue, valueInfo);
             return (value === normalizedRefValue);
         });
     },
 
-    notEql: function(refValue, callback) {
+    notEql(refValue, callback) {
         return this._check(callback, function(value, valueInfo) {
             const normalizedRefValue = this._normalizeValue(refValue, valueInfo);
             return (value !== normalizedRefValue);
         });
     },
 
-    lt: function(refValue, callback) {
+    lt(refValue, callback) {
         return this._check(callback, function(value, valueInfo) {
             const normalizedRefValue = this._normalizeValue(refValue, valueInfo);
             return (value < normalizedRefValue);
         });
     },
 
-    lte: function(refValue, callback) {
+    lte(refValue, callback) {
         return this._check(callback, function(value, valueInfo) {
             const normalizedRefValue = this._normalizeValue(refValue, valueInfo);
             return (value <= normalizedRefValue);
         });
     },
 
-    gt: function(refValue, callback) {
+    gt(refValue, callback) {
         return this._check(callback, function(value, valueInfo) {
             const normalizedRefValue = this._normalizeValue(refValue, valueInfo);
             return (value > normalizedRefValue);
         });
     },
 
-    gte: function(refValue, callback) {
+    gte(refValue, callback) {
         return this._check(callback, function(value, valueInfo) {
             const normalizedRefValue = this._normalizeValue(refValue, valueInfo);
             return (value >= normalizedRefValue);
         });
     },
 
-    in: function(refValues, callback) {
+    in(refValues, callback) {
         return this._check(callback, function(value, valueInfo) {
             const normalizedRefValues = this._normalizeValues(refValues, valueInfo);
             return _.includes(normalizedRefValues, value);
         });
     },
 
-    notIn: function(refValues, callback) {
+    notIn(refValues, callback) {
         return this._check(callback, function(value, valueInfo) {
             const normalizedRefValues = this._normalizeValues(refValues, valueInfo);
             return !_.includes(normalizedRefValues, value);
         });
     },
 
-    isChanged: function(callback) {
-        return this._check(callback, function(value, valueInfo) {
+    isChanged(callback) {
+        return this._check(callback, (value, valueInfo) => {
             return (_.isNumber(value) && valueInfo.changed);
         }, {
             includeUndefined: false,
@@ -134,27 +134,27 @@ const ValuesWrapper = extend(null, {
         });
     },
 
-    ignore: function() {
-        _.forEach(this.values, function(value) {
+    ignore() {
+        _.forEach(this.values, (value) => {
             value.ignored = true;
         });
 
         return this;
     },
 
-    invalidate: function() {
-        _.forEach(this.values, function(value) {
+    invalidate() {
+        _.forEach(this.values, (value) => {
             value.invalidated = true;
         });
 
         return this;
     },
 
-    check: function(checker, action, options) {
+    check(checker, action, options) {
         return this._check(action, checker, options);
     },
 
-    _check: function(action, checker, options) {
+    _check(action, checker, options) {
         const _this = this;
 
         options = _.defaults({}, options, {
@@ -162,7 +162,7 @@ const ValuesWrapper = extend(null, {
             includeFailed: true,
         });
 
-        _.forEach(this.values, function(value) {
+        _.forEach(this.values, (value) => {
             value.checked = true;
 
             let result;
@@ -192,7 +192,7 @@ const ValuesWrapper = extend(null, {
         return this;
     },
 
-    _normalizeValue: function(value, valueInfo) {
+    _normalizeValue(value, valueInfo) {
         if (_.isString(value) && (value.charAt(0) === '#')) {
             const valueTextId = value.slice(1);
             const valueText = valueInfo.valueTextById [valueTextId];
@@ -204,17 +204,17 @@ const ValuesWrapper = extend(null, {
         return value;
     },
 
-    _normalizeValues: function(values, valueInfo) {
+    _normalizeValues(values, valueInfo) {
         const _this = this;
 
-        values = _.map(values, function(value) {
+        values = _.map(values, (value) => {
             return _this._normalizeValue(value, valueInfo);
         });
 
         return values;
     },
 
-    _reportNoMatchingValues: function(pattern, values) {
+    _reportNoMatchingValues(pattern, values) {
         throw new Error('WARNING: No values matching ' + pattern + ' found');
     },
 
@@ -224,17 +224,17 @@ const ValuesWrapper = extend(null, {
 
 const BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
 
-    completeConfiguration: function(config) {
+    completeConfiguration(config) {
         const _this = this;
 
         const args = _.toArray(arguments);
 
-        return promisify(function() {
+        return promisify(() => {
             const adjustableValues = _this._getAdjustableValues();
 
             let result;
             if (!config) {
-                result = _.map(adjustableValues, function(value) {
+                result = _.map(adjustableValues, (value) => {
                     return {
                         valueId: value.id,
                         valueIndex: value.index,
@@ -242,7 +242,7 @@ const BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
                 });
             } else {
                 const valueByIndex = {}, valueById = {}, valueByIdHash = {};
-                _.forEach(adjustableValues, function(value) {
+                _.forEach(adjustableValues, (value) => {
                     valueByIndex [value.index] = value;
                     valueById [value.id] = value;
                     if (value.idHash) {
@@ -253,14 +253,14 @@ const BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
                 const configValuesById = {};
 
                 const mergeConfig = function(config) {
-                    _.forEach(config, function(value, key) {
+                    _.forEach(config, (value, key) => {
                         if (_.isArray(config)) {
                             // nop
                         } else if (_.isObject(config)) {
                             if (_.has(valueById, key)) {
                                 value = {
                                     valueId: key,
-                                    value: value,
+                                    value,
                                 };
                             } else {
                                 value = null;
@@ -287,7 +287,7 @@ const BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
                         }
 
                         if (!refValue) {
-                            throw new Error('Unable to complete value ' + JSON.stringify({ key: key, value: value }));
+                            throw new Error('Unable to complete value ' + JSON.stringify({ key, value }));
                         }
 
                         let numericValue = value.value;
@@ -319,7 +319,7 @@ const BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
 
                 _.forEachRight(args, mergeConfig);
 
-                result = _.reduce(adjustableValues, function(memo, value) {
+                result = _.reduce(adjustableValues, (memo, value) => {
                     const configValue = configValuesById [value.id];
                     if (configValue) {
                         memo.push(configValue);
@@ -332,13 +332,13 @@ const BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
         });
     },
 
-    optimizeLoadConfiguration: function(config) {
+    optimizeLoadConfiguration(config) {
         const _this = this;
 
-        return promisify(function() {
+        return promisify(() => {
             return _this._buildConfiguration(config);
-        }).then(function(config) {
-            _.forEach(config, function(value) {
+        }).then((config) => {
+            _.forEach(config, (value) => {
                 if (value.previousValue !== undefined) {
                     value.value = value.previousValue;
                 } else if (value.ignored) {
@@ -352,23 +352,23 @@ const BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
         });
     },
 
-    optimizeSaveConfiguration: function(newConfig, oldConfig) {
+    optimizeSaveConfiguration(newConfig, oldConfig) {
         throw new Error('NYI');
     },
 
-    _buildConfiguration: function(oldConfig) {
+    _buildConfiguration(oldConfig) {
         if (oldConfig === undefined) {
             oldConfig = [];
         }
 
         const adjustableValues = this._getAdjustableValues();
 
-        const oldConfigValueById = _.reduce(oldConfig, function(memo, value) {
+        const oldConfigValueById = _.reduce(oldConfig, (memo, value) => {
             memo [value.valueId] = value;
             return memo;
         }, {});
 
-        let newConfig = _.map(adjustableValues, function(value) {
+        let newConfig = _.map(adjustableValues, (value) => {
             let oldConfigValue;
             if (_.has(oldConfigValueById, value.id)) {
                 oldConfigValue = oldConfigValueById [value.id];
@@ -390,7 +390,7 @@ const BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
 
         newConfig = this._optimizeConfiguration(newConfig, adjustableValues);
 
-        newConfig.sort(function(l, r) {
+        newConfig.sort((l, r) => {
             let result = r.priority - l.priority;
             if (result === 0) {
                 result = l.valueIndex - r.valueIndex;
@@ -401,15 +401,15 @@ const BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
         return newConfig;
     },
 
-    _getAdjustableValues: function() {
+    _getAdjustableValues() {
         const data = this.constructor.configurationData;
 
-        const typeById = _.reduce(data.types, function(memo, type) {
+        const typeById = _.reduce(data.types, (memo, type) => {
             memo [type.id] = type;
             return memo;
         }, {});
 
-        const valueById = _.reduce(data.values, function(memo, value) {
+        const valueById = _.reduce(data.values, (memo, value) => {
             memo [value.id] = value;
             return memo;
         }, {});
@@ -436,13 +436,13 @@ const BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
             }
         };
 
-        _.forEach(data.values, function(value) {
+        _.forEach(data.values, (value) => {
             if (!value.storage || value.allowParameterization) {
                 markValueIdAsAdjustable(value.id);
             }
         });
 
-        const adjustableValues = _.reduce(data.values, function(memo, value) {
+        const adjustableValues = _.reduce(data.values, (memo, value) => {
             if (adjustableValueIds [value.id]) {
                 const valueTextById = {};
                 const addValueText = function(valueText, index) {
@@ -472,8 +472,8 @@ const BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
                 }
 
                 const adjustableValue = _.extend({}, value, {
-                    valueTextById: valueTextById,
-                    dependsOnValueIds: dependsOnValueIds,
+                    valueTextById,
+                    dependsOnValueIds,
                 });
 
                 memo.push(adjustableValue);
@@ -484,13 +484,13 @@ const BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
         return adjustableValues;
     },
 
-    _optimizeConfiguration: function(config, adjustableValues) {
-        const configValueById = _.reduce(config, function(memo, configValue) {
+    _optimizeConfiguration(config, adjustableValues) {
+        const configValueById = _.reduce(config, (memo, configValue) => {
             memo [configValue.valueId] = configValue;
             return memo;
         }, {});
 
-        adjustableValues = _.map(adjustableValues, function(value) {
+        adjustableValues = _.map(adjustableValues, (value) => {
             const configValue = configValueById [value.id];
 
             let changed;
@@ -503,7 +503,7 @@ const BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
             }
 
             let ignored = false;
-            _.forEach(value.dependsOnValueIds, function(dependsOnValueId) {
+            _.forEach(value.dependsOnValueIds, (dependsOnValueId) => {
                 const dependsOnConfigValue = configValueById [dependsOnValueId];
 
                 if (dependsOnConfigValue && (dependsOnConfigValue.value === undefined)) {
@@ -512,9 +512,9 @@ const BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
             });
 
             const valueInfo = _.extend({}, configValue, {
-                changed: changed,
+                changed,
                 checked: false,
-                ignored: ignored,
+                ignored,
                 invalidated: false,
             });
 

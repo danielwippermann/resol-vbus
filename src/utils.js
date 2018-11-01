@@ -8,7 +8,7 @@ const utils = {
     /**
      * @see http://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid-in-javascript
      */
-    generateGUID: function() {
+    generateGUID() {
         const s4 = function() {
             return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
         };
@@ -31,7 +31,7 @@ const utils = {
         return guid;
     },
 
-    roundNumber: function(value, exp) {
+    roundNumber(value, exp) {
         if ((value === undefined) || (exp === undefined) || (+exp === 0)) {
             return value;
         }
@@ -56,7 +56,7 @@ const utils = {
         return value;
     },
 
-    deepFreezeObjectTree: function(root) {
+    deepFreezeObjectTree(root) {
         const freezingObjects = [];
 
         const deepFreezeObject = function(obj) {
@@ -71,7 +71,7 @@ const utils = {
             freezingObjects.push(obj);
 
             const keys = Object.getOwnPropertyNames(obj);
-            keys.forEach(function(key) {
+            keys.forEach((key) => {
                 const value = obj [key];
 
                 if ((typeof value === 'object') && (value !== null)) {

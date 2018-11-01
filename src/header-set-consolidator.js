@@ -125,7 +125,7 @@ const HeaderSetConsolidator = HeaderSet.extend(/** @lends HeaderSetConsolidator#
      * // start the conversion
      * stream.pipe(converter);
      */
-    constructor: function(options) {
+    constructor(options) {
         HeaderSet.call(this, options);
 
         _.extend(this, _.pick(options, optionKeys));
@@ -134,7 +134,7 @@ const HeaderSetConsolidator = HeaderSet.extend(/** @lends HeaderSetConsolidator#
     /**
      * Starts a timer that processes live HeaderSets automatically.
      */
-    startTimer: function() {
+    startTimer() {
         this.stopTimer();
 
         this.lastIntervalTime = Date.now();
@@ -145,7 +145,7 @@ const HeaderSetConsolidator = HeaderSet.extend(/** @lends HeaderSetConsolidator#
     /**
      * Stops the timer that was started by `startTimer`.
      */
-    stopTimer: function() {
+    stopTimer() {
         if (this.timer) {
             clearTimeout(this.timer);
             this.timer = null;
@@ -158,7 +158,7 @@ const HeaderSetConsolidator = HeaderSet.extend(/** @lends HeaderSetConsolidator#
      *
      * @param {HeaderSet} headerSet The HeaderSet instance to process.
      */
-    processHeaderSet: function(headerSet) {
+    processHeaderSet(headerSet) {
         const now = headerSet.timestamp.getTime();
 
         this.addHeaders(headerSet.getHeaders());
@@ -166,7 +166,7 @@ const HeaderSetConsolidator = HeaderSet.extend(/** @lends HeaderSetConsolidator#
         this._processHeaderSet(now);
     },
 
-    _handleInterval: function() {
+    _handleInterval() {
         const _this = this;
 
         const now = Date.now();
@@ -174,12 +174,12 @@ const HeaderSetConsolidator = HeaderSet.extend(/** @lends HeaderSetConsolidator#
         this._processHeaderSet(now);
 
         const interval = 1000 - (now % 1000);
-        this.timer = setTimeout(function() {
+        this.timer = setTimeout(() => {
             _this._handleInterval();
         }, interval);
     },
 
-    _processHeaderSet: function(now) {
+    _processHeaderSet(now) {
         let include = true;
 
         if (this.minTimestamp) {

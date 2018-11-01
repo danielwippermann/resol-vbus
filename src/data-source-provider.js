@@ -15,11 +15,11 @@ const DataSourceProvider = extend(null, {
 
     description: null,
 
-    discoverDataSources: function() {
+    discoverDataSources() {
         throw new Error('Must be implemented by sub-class');
     },
 
-    createDataSource: function(options) {
+    createDataSource(options) {
         throw new Error('Must be implemented by sub-class');
     }
 

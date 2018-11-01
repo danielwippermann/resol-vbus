@@ -19,23 +19,23 @@ const SerialConnection = vbus.SerialConnection;
 
 const SerialPortStub = vbus.extend(Duplex, {
 
-    constructor: function(path, options, onCompletion) {
+    constructor(path, options, onCompletion) {
         const _this = this;
 
         Duplex.call(this);
 
-        process.nextTick(function() {
+        process.nextTick(() => {
             _this.emit('open');
 
             onCompletion(null);
         });
     },
 
-    close: function() {
+    close() {
         // nop
     },
 
-    _read: function() {
+    _read() {
         // nop
     },
 
@@ -45,7 +45,7 @@ const SerialPortStub = vbus.extend(Duplex, {
 
 const TestableSerialConnection = SerialConnection.extend({
 
-    createSerialPort: function(path, options, onCompletion) {
+    createSerialPort(path, options, onCompletion) {
         return new SerialPortStub(path, options, onCompletion);
     }
 
@@ -58,15 +58,15 @@ const testConnection = function(done, callback) {
         path: testUtils.serialPortPath,
     });
 
-    Q.fcall(function() {
+    Q.fcall(() => {
         expect(connection.connectionState).to.equal(SerialConnection.STATE_DISCONNECTED);
 
         return callback(connection);
-    }).finally(function() {
+    }).finally(() => {
         connection.disconnect();
-    }).then(function() {
+    }).then(() => {
         done();
-    }, function(err) {
+    }, (err) => {
         done(err);
     });
 };
@@ -77,18 +77,18 @@ const ifHasSerialPortIt = testUtils.ifHasSerialPortIt;
 
 
 
-describe('SerialConnection', function() {
+describe('SerialConnection', () => {
 
-    describe('constructor', function() {
+    describe('constructor', () => {
 
-        it('should be a constructor function', function() {
+        it('should be a constructor function', () => {
             expect(SerialConnection)
                 .to.be.a('function')
                 .that.has.a.property('extend')
                 .that.is.a('function');
         });
 
-        it('should have reasonable defaults', function() {
+        it('should have reasonable defaults', () => {
             const connection = new SerialConnection();
 
             expect(connection)
@@ -104,37 +104,37 @@ describe('SerialConnection', function() {
 
     });
 
-    describe('#connect', function() {
+    describe('#connect', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(SerialConnection.prototype).to.have.a.property('connect').that.is.a('function');
         });
 
-        ifHasSerialPortIt('should work correctly if disconnected', function(done) {
-            testConnection(done, function(connection, endpoint) {
+        ifHasSerialPortIt('should work correctly if disconnected', (done) => {
+            testConnection(done, (connection, endpoint) => {
                 const onConnectionState = sinon.spy();
 
                 connection.on('connectionState', onConnectionState);
 
-                return Q.fcall(function() {
+                return Q.fcall(() => {
                     return connection.connect();
-                }).then(function() {
+                }).then(() => {
                     expect(connection.connectionState).to.equal(SerialConnection.STATE_CONNECTED);
                     expect(onConnectionState.callCount).to.equal(2);
                     expect(onConnectionState.firstCall.args [0]).to.equal(SerialConnection.STATE_CONNECTING);
                     expect(onConnectionState.secondCall.args [0]).to.equal(SerialConnection.STATE_CONNECTED);
-                }).finally(function() {
+                }).finally(() => {
                     connection.removeListener('connectionState', onConnectionState);
                 });
             });
         });
 
-        ifHasSerialPortIt('should throw if not disconnected', function(done) {
-            testConnection(done, function(connection, endpoint) {
-                return Q.fcall(function() {
+        ifHasSerialPortIt('should throw if not disconnected', (done) => {
+            testConnection(done, (connection, endpoint) => {
+                return Q.fcall(() => {
                     return connection.connect();
-                }).then(function() {
-                    expect(function() {
+                }).then(() => {
+                    expect(() => {
                         connection.connect();
                     }).to.throw();
                 });
@@ -143,31 +143,31 @@ describe('SerialConnection', function() {
 
     });
 
-    describe('#disconnect', function() {
+    describe('#disconnect', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(SerialConnection.prototype).to.have.a.property('disconnect').that.is.a('function');
         });
 
-        ifHasSerialPortIt('should work correctly if disconnected', function(done) {
-            testConnection(done, function(connection) {
+        ifHasSerialPortIt('should work correctly if disconnected', (done) => {
+            testConnection(done, (connection) => {
                 connection.disconnect();
 
                 expect(connection.connectionState).to.equal(SerialConnection.STATE_DISCONNECTED);
             });
         });
 
-        ifHasSerialPortIt('should work correctly if connected', function(done) {
-            testConnection(done, function(connection) {
+        ifHasSerialPortIt('should work correctly if connected', (done) => {
+            testConnection(done, (connection) => {
                 const onConnectionState = sinon.spy();
 
                 connection.on('connectionState', onConnectionState);
 
-                return Q.fcall(function() {
+                return Q.fcall(() => {
                     return connection.connect();
-                }).then(function() {
+                }).then(() => {
                     return connection.disconnect();
-                }).finally(function() {
+                }).finally(() => {
                     connection.removeListener('connectionState', onConnectionState);
                 });
             });
@@ -175,19 +175,19 @@ describe('SerialConnection', function() {
 
     });
 
-    describe('Automatic reconnection', function() {
+    describe('Automatic reconnection', () => {
 
-        ifHasSerialPortIt('should reconnect when connected', function(done) {
-            testConnection(done, function(connection) {
+        ifHasSerialPortIt('should reconnect when connected', (done) => {
+            testConnection(done, (connection) => {
                 const onConnectionState = sinon.spy();
 
                 connection.on('connectionState', onConnectionState);
 
-                return Q.fcall(function() {
+                return Q.fcall(() => {
                     return connection.connect();
-                }).then(function() {
+                }).then(() => {
                     return connection.createConnectedPromise();
-                }).then(function(socket) {
+                }).then((socket) => {
                     expect(onConnectionState.callCount).to.equal(2);
                     expect(onConnectionState.firstCall.args [0]).to.equal(SerialConnection.STATE_CONNECTING);
                     expect(onConnectionState.secondCall.args [0]).to.equal(SerialConnection.STATE_CONNECTED);
@@ -195,14 +195,14 @@ describe('SerialConnection', function() {
                     onConnectionState.reset();
 
                     connection.serialPort.emit('error');
-                }).then(function() {
+                }).then(() => {
                     return connection.createConnectedPromise();
-                }).then(function() {
+                }).then(() => {
                     expect(onConnectionState.callCount).to.equal(3);
                     expect(onConnectionState.firstCall.args [0]).to.equal(SerialConnection.STATE_INTERRUPTED);
                     expect(onConnectionState.secondCall.args [0]).to.equal(SerialConnection.STATE_RECONNECTING);
                     expect(onConnectionState.thirdCall.args [0]).to.equal(SerialConnection.STATE_CONNECTED);
-                }).finally(function() {
+                }).finally(() => {
                     connection.removeListener('connectionState', onConnectionState);
                 });
             });

@@ -51,7 +51,7 @@ const DLxJsonConverter = Converter.extend(/** @lends DLxJsonConverter# */ {
      * It does not support parsing JSON content back into HeaderSet instances (the
      * writable stream side).
      */
-    constructor: function(options) {
+    constructor(options) {
         Converter.call(this, options);
 
         _.extend(this, _.pick(options, optionKeys));
@@ -67,7 +67,7 @@ const DLxJsonConverter = Converter.extend(/** @lends DLxJsonConverter# */ {
         this.reset();
     },
 
-    reset: function() {
+    reset() {
         this.allHeaderSet.removeAllHeaders();
 
         this.emittedStart = false;
@@ -79,13 +79,13 @@ const DLxJsonConverter = Converter.extend(/** @lends DLxJsonConverter# */ {
         };
     },
 
-    finish: function() {
+    finish() {
         this._emitEnd();
 
         return Converter.prototype.finish.apply(this, arguments);
     },
 
-    convertHeaderSet: function(headerSet) {
+    convertHeaderSet(headerSet) {
         const headers = headerSet.getHeaders();
 
         this.allHeaderSet.addHeaders(headers);
@@ -112,7 +112,7 @@ const DLxJsonConverter = Converter.extend(/** @lends DLxJsonConverter# */ {
         }
     },
 
-    _convertHeaderSetToJson: function(headerSet) {
+    _convertHeaderSetToJson(headerSet) {
         const spec = this.specification;
 
         const i18n = spec.i18n;
@@ -125,15 +125,15 @@ const DLxJsonConverter = Converter.extend(/** @lends DLxJsonConverter# */ {
 
         const allHeaders = this.allHeaderSet.getHeaders();
 
-        const packetInfoList = _.map(allHeaders, function(header, headerIndex) {
+        const packetInfoList = _.map(allHeaders, (header, headerIndex) => {
             return {
-                header: header,
-                headerIndex: headerIndex,
+                header,
+                headerIndex,
                 packetFields: [],
             };
         });
 
-        _.forEach(packetFields, function(packetField) {
+        _.forEach(packetFields, (packetField) => {
             const headerIndex = allHeaders.indexOf(packetField.packet);
             if (headerIndex >= 0) {
                 const packetInfo = packetInfoList [headerIndex];
@@ -144,9 +144,9 @@ const DLxJsonConverter = Converter.extend(/** @lends DLxJsonConverter# */ {
         const noneUnit = spec.getUnitById('None');
         const numberType = spec.getTypeById('Number');
 
-        const packetData = _.reduce(packetInfoList, function(memo, packetInfo) {
+        const packetData = _.reduce(packetInfoList, (memo, packetInfo) => {
             if (packetInfo.packetFields.length >= 0) {
-                const fieldData = _.map(packetInfo.packetFields, function(packetField, packetFieldIndex) {
+                const fieldData = _.map(packetInfo.packetFields, (packetField, packetFieldIndex) => {
                     let rawValue = packetField.rawValue;
                     const precision = packetField.packetFieldSpec.type.precision;
                     const numberValue = spec.formatTextValueFromRawValueInternal(rawValue, noneUnit, numberType, precision, noneUnit);
@@ -186,7 +186,7 @@ const DLxJsonConverter = Converter.extend(/** @lends DLxJsonConverter# */ {
         this.push(content);
     },
 
-    _emitStart: function() {
+    _emitStart() {
         if (!this.emittedStart) {
             this.emittedStart = true;
 
@@ -194,23 +194,23 @@ const DLxJsonConverter = Converter.extend(/** @lends DLxJsonConverter# */ {
         }
     },
 
-    _emitEnd: function() {
+    _emitEnd() {
         const spec = this.specification;
 
         const allHeaders = this.allHeaderSet.getHeaders();
 
         const allPacketFields = spec.getPacketFieldsForHeaders(allHeaders);
 
-        const packetInfoList = _.map(allHeaders, function(header, headerIndex) {
+        const packetInfoList = _.map(allHeaders, (header, headerIndex) => {
             return {
-                header: header,
-                headerIndex: headerIndex,
+                header,
+                headerIndex,
                 packetSpec: spec.getPacketSpecification(header),
                 packetFields: [],
             };
         });
 
-        _.forEach(allPacketFields, function(packetField) {
+        _.forEach(allPacketFields, (packetField) => {
             const headerIndex = allHeaders.indexOf(packetField.packet);
             if (headerIndex >= 0) {
                 const packetInfo = packetInfoList [headerIndex];
@@ -218,9 +218,9 @@ const DLxJsonConverter = Converter.extend(/** @lends DLxJsonConverter# */ {
             }
         });
 
-        const headersData = _.reduce(packetInfoList, function(memo, packetInfo, packetInfoIndex) {
+        const headersData = _.reduce(packetInfoList, (memo, packetInfo, packetInfoIndex) => {
             if (packetInfo.packetFields.length >= 0) {
-                const fieldsData = _.map(packetInfo.packetFields, function(packetField, packetFieldIndex) {
+                const fieldsData = _.map(packetInfo.packetFields, (packetField, packetFieldIndex) => {
                     return {
                         id: packetField.packetFieldSpec.fieldId,
                         filteredId: packetField.packetFieldSpec.filteredPacketFieldId,
@@ -246,8 +246,8 @@ const DLxJsonConverter = Converter.extend(/** @lends DLxJsonConverter# */ {
                 }
 
                 memo.push({
-                    id: id,
-                    description: description,
+                    id,
+                    description,
                     channel: packetSpec.channel,
                     destination_address: packetSpec.destinationAddress,
                     source_address: packetSpec.sourceAddress,
@@ -286,7 +286,7 @@ const DLxJsonConverter = Converter.extend(/** @lends DLxJsonConverter# */ {
         this.push(null);
     },
 
-    _read: function() {
+    _read() {
         // nop
     },
 

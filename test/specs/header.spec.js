@@ -12,7 +12,7 @@ const DebugHeader = Header.extend({
 
     protocolVersion: 0x37,
 
-    constructor: function(options) {
+    constructor(options) {
         Header.call(this, options);
 
         if (options.protocolVersion !== undefined) {
@@ -20,7 +20,7 @@ const DebugHeader = Header.extend({
         }
     },
 
-    getProtocolVersion: function() {
+    getProtocolVersion() {
         return this.protocolVersion;
     },
 
@@ -28,31 +28,31 @@ const DebugHeader = Header.extend({
 
 
 
-describe('Header', function() {
+describe('Header', () => {
 
-    describe('.fromLiveBuffer', function() {
+    describe('.fromLiveBuffer', () => {
 
-        it('should be a function', function() {
+        it('should be a function', () => {
             expect(Header.fromLiveBuffer).to.be.a('function');
         });
 
-        it('should be abstract', function() {
+        it('should be abstract', () => {
             const buffer = Buffer.from('aa000021772000050000000000000042', 'hex');
 
-            expect(function() {
+            expect(() => {
                 Header.fromLiveBuffer(buffer);
             }).to.throw(Error, 'Must be implemented by sub-class');
         });
 
     });
 
-    describe('.calcChecksumV0', function() {
+    describe('.calcChecksumV0', () => {
 
-        it('should be a function', function() {
+        it('should be a function', () => {
             expect(Header.calcChecksumV0).to.be.a('function');
         });
 
-        it('should work correctly', function() {
+        it('should work correctly', () => {
             const buffer = Buffer.from('aa000021772000050000000000000042', 'hex');
 
             const checksum = Header.calcChecksumV0(buffer, 1, 15);
@@ -61,13 +61,13 @@ describe('Header', function() {
 
     });
 
-    describe('.calcAndCompareChecksumV0', function() {
+    describe('.calcAndCompareChecksumV0', () => {
 
-        it('should be a function', function() {
+        it('should be a function', () => {
             expect(Header.calcAndCompareChecksumV0).to.be.a('function');
         });
 
-        it('should work correctly', function() {
+        it('should work correctly', () => {
             const buffer = Buffer.from('aa000021772000050000000000000042', 'hex');
 
             let result = Header.calcAndCompareChecksumV0(buffer, 1, 15);
@@ -81,13 +81,13 @@ describe('Header', function() {
 
     });
 
-    describe('.calcAndSetChecksumV0', function() {
+    describe('.calcAndSetChecksumV0', () => {
 
-        it('should be a function', function() {
+        it('should be a function', () => {
             expect(Header.calcAndSetChecksumV0).to.be.a('function');
         });
 
-        it('should work correctly', function() {
+        it('should work correctly', () => {
             const buffer = Buffer.from('aa000021772000050000000000000000', 'hex');
 
             const checksum = Header.calcAndSetChecksumV0(buffer, 1, 15);
@@ -97,13 +97,13 @@ describe('Header', function() {
 
     });
 
-    describe('.injectSeptett', function() {
+    describe('.injectSeptett', () => {
 
-        it('should be a function', function() {
+        it('should be a function', () => {
             expect(Header.injectSeptett).to.be.a('function');
         });
 
-        it('should work correctly', function() {
+        it('should work correctly', () => {
             const srcBuffer = Buffer.from('aa21772165100001044c07014c00002b02017f00057838227600052a00000000007f', 'hex');
             const dstBuffer = Buffer.alloc(16);
 
@@ -117,13 +117,13 @@ describe('Header', function() {
 
     });
 
-    describe('.extractSeptett', function() {
+    describe('.extractSeptett', () => {
 
-        it('should be a function', function() {
+        it('should be a function', () => {
             expect(Header.extractSeptett).to.be.a('function');
         });
 
-        it('should work correctly', function() {
+        it('should work correctly', () => {
             const srcBuffer = Buffer.from('07014c008201ff00b822f60000000000', 'hex');
             const dstBuffer = Buffer.alloc(34);
 
@@ -139,14 +139,14 @@ describe('Header', function() {
 
     });
 
-    describe('constructor', function() {
+    describe('constructor', () => {
 
-        it('should be a constructor function', function() {
+        it('should be a constructor function', () => {
             expect(Header).to.be.a('function');
             expect(Header.extend).to.be.a('function');
         });
 
-        it('should have reasonable defaults', function() {
+        it('should have reasonable defaults', () => {
             const before = new Date();
             const header = new Header();
             const after = new Date();
@@ -159,7 +159,7 @@ describe('Header', function() {
             expect(header.sourceAddress).to.equal(0);
         });
 
-        it('should copy selected options', function() {
+        it('should copy selected options', () => {
             const options = {
                 timestamp: new Date(0),
                 channel: 0x1337,
@@ -180,45 +180,45 @@ describe('Header', function() {
 
     });
 
-    describe('#toLiveBuffer', function() {
+    describe('#toLiveBuffer', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(Header.prototype.toLiveBuffer).to.be.a('function');
         });
 
-        it('should be abstract', function() {
+        it('should be abstract', () => {
             const header = new Header();
 
-            expect(function() {
+            expect(() => {
                 header.toLiveBuffer();
             }).to.throw(Error, 'Must be implemented by sub-class');
         });
 
     });
 
-    describe('#getProtocolVersion', function() {
+    describe('#getProtocolVersion', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(Header.prototype.getProtocolVersion).to.be.a('function');
         });
 
-        it('should be abstract', function() {
+        it('should be abstract', () => {
             const header = new Header();
 
-            expect(function() {
+            expect(() => {
                 header.getProtocolVersion();
             }).to.throw(Error, 'Must be implemented by sub-class');
         });
 
     });
 
-    describe('#getInfo', function() {
+    describe('#getInfo', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(Header.prototype.getInfo).to.be.a('function');
         });
 
-        it('should work correctly', function() {
+        it('should work correctly', () => {
             const header = new Header();
 
             expect(header.getInfo()).to.equal(0);
@@ -226,13 +226,13 @@ describe('Header', function() {
 
     });
 
-    describe('#getId', function() {
+    describe('#getId', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(Header.prototype.getId).to.be.a('function');
         });
 
-        it('should work correctly', function() {
+        it('should work correctly', () => {
             const options = {
                 timestamp: new Date(0),
                 channel: 0x13,
@@ -248,13 +248,13 @@ describe('Header', function() {
 
     });
 
-    describe('#compareTo', function() {
+    describe('#compareTo', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(Header.prototype.compareTo).to.be.a('function');
         });
 
-        it('should work correctly for channel', function() {
+        it('should work correctly for channel', () => {
             const options = {
                 timestamp: new Date(0),
                 channel: 0x13,
@@ -276,7 +276,7 @@ describe('Header', function() {
             expect(datagram.compareTo(new DebugHeader(options))).to.be.below(0);
         });
 
-        it('should work correctly for destinationAddress', function() {
+        it('should work correctly for destinationAddress', () => {
             const options = {
                 timestamp: new Date(0),
                 channel: 0x13,
@@ -298,7 +298,7 @@ describe('Header', function() {
             expect(datagram.compareTo(new DebugHeader(options))).to.be.below(0);
         });
 
-        it('should work correctly for sourceAddress', function() {
+        it('should work correctly for sourceAddress', () => {
             const options = {
                 timestamp: new Date(0),
                 channel: 0x13,
@@ -320,7 +320,7 @@ describe('Header', function() {
             expect(datagram.compareTo(new DebugHeader(options))).to.be.below(0);
         });
 
-        it('should work correctly for protocol version', function() {
+        it('should work correctly for protocol version', () => {
             const options = {
                 timestamp: new Date(0),
                 channel: 0x13,

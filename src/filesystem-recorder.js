@@ -30,18 +30,18 @@ const FileSystemRecorder = Recorder.extend({
 
     path: '.',
 
-    constructor: function(options) {
+    constructor(options) {
         Recorder.call(this, options);
 
         _.extend(this, _.pick(options, optionKeys));
     },
 
-    _getOptions: function() {
+    _getOptions() {
         const options = Recorder.prototype._getOptions.call(this);
         return _.extend(options, _.pick(this, optionKeys));
     },
 
-    _getAbsoluteFilename: function(filename) {
+    _getAbsoluteFilename(filename) {
         let result;
         if (filename !== undefined) {
             result = path.resolve(this.path, this.getHash(this.id), filename);
@@ -51,11 +51,11 @@ const FileSystemRecorder = Recorder.extend({
         return result;
     },
 
-    _getCurrentSyncStateFilename: function(options) {
+    _getCurrentSyncStateFilename(options) {
         return this._getAbsoluteFilename('SyncState.json');
     },
 
-    _getCurrentSyncState: function(options) {
+    _getCurrentSyncState(options) {
         const filename = this._getCurrentSyncStateFilename(options);
 
         return new Promise((resolve, reject) => {
@@ -70,17 +70,17 @@ const FileSystemRecorder = Recorder.extend({
                     resolve(contents);
                 }
             });
-        }).then(function(data) {
+        }).then((data) => {
             return JSON.parse(data);
         });
     },
 
-    _setCurrentSyncState: function(syncState, options) {
+    _setCurrentSyncState(syncState, options) {
         const filename = this._getCurrentSyncStateFilename(options);
 
-        return Q.fcall(function() {
+        return Q.fcall(() => {
             return JSON.stringify(syncState, null, '    ');
-        }).then(function(data) {
+        }).then((data) => {
             return new Promise((resolve, reject) => {
                 fs.writeFile(filename, data, (err) => {
                     if (err) {
@@ -93,7 +93,7 @@ const FileSystemRecorder = Recorder.extend({
         });
     },
 
-    _getOwnSyncState: function(syncState, options) {
+    _getOwnSyncState(syncState, options) {
         const dstSyncState = this._getSyncState(syncState, 'destination', 'FileSystemRecorder');
 
         let syncVersion = dstSyncState.version || 0;
@@ -112,12 +112,12 @@ const FileSystemRecorder = Recorder.extend({
         return infoList;
     },
 
-    _playback: function(headerSetConsolidator, options) {
+    _playback(headerSetConsolidator, options) {
         const _this = this;
 
         const converter = new VBusRecordingConverter();
 
-        converter.on('headerSet', function(headerSet) {
+        converter.on('headerSet', (headerSet) => {
             headerSetConsolidator.processHeaderSet(headerSet);
         });
 
@@ -126,12 +126,12 @@ const FileSystemRecorder = Recorder.extend({
             maxTimestamp: options.maxTimestamp,
         }];
 
-        return Q.fcall(function() {
+        return Q.fcall(() => {
             return _this._getCurrentSyncState(options);
-        }).then(function(syncState) {
+        }).then((syncState) => {
             const infoList = _this._getOwnSyncState(syncState, options);
 
-            return _.reduce(infoList, function(memo, info) {
+            return _.reduce(infoList, (memo, info) => {
                 const commonRanges = Recorder.performRangeSetOperation(requestedRanges, info.ranges, options.interval, 'intersection');
 
                 if (commonRanges.length > 0) {
@@ -140,22 +140,22 @@ const FileSystemRecorder = Recorder.extend({
 
                 return memo;
             }, []);
-        }).then(function(filenames) {
+        }).then((filenames) => {
             let promise = Q();
 
-            _.forEach(filenames, function(filename) {
-                promise = promise.then(function() {
+            _.forEach(filenames, (filename) => {
+                promise = promise.then(() => {
                     return _this._readToStream(filename, converter);
                 });
             });
 
             return promise;
-        }).then(function() {
+        }).then(() => {
             converter.end();
         });
     },
 
-    _startRecordingInternal: function(options) {
+    _startRecordingInternal(options) {
         const _this = this;
 
         options = _.defaults({}, options, this._getOptions(), {
@@ -234,8 +234,8 @@ const FileSystemRecorder = Recorder.extend({
 
                 currentInfo = {
                     ranges: thisRanges,
-                    filename: filename,
-                    datecode: datecode,
+                    filename,
+                    datecode,
                 };
 
                 syncState.push(currentInfo);
@@ -267,7 +267,7 @@ const FileSystemRecorder = Recorder.extend({
         };
 
         const finish = function() {
-            return Q.fcall(function() {
+            return Q.fcall(() => {
                 if (outConverter) {
                     return outConverter.finish();
                 }
@@ -275,24 +275,24 @@ const FileSystemRecorder = Recorder.extend({
         };
 
         const recording = {
-            onHeaderSet: onHeaderSet,
-            finish: finish,
+            onHeaderSet,
+            finish,
         };
 
         return recording;
     },
 
-    _startRecording: function(headerSetConsolidator, recordingJob) {
+    _startRecording(headerSetConsolidator, recordingJob) {
         const _this = this;
 
-        return Q.fcall(function() {
+        return Q.fcall(() => {
             return _this._makeDirectories();
-        }).then(function() {
+        }).then(() => {
             return _this._getCurrentSyncState(recordingJob);
-        }).then(function(syncState) {
+        }).then((syncState) => {
             const options = {
                 interval: recordingJob.interval,
-                syncState: syncState,
+                syncState,
             };
 
             const recording = _this._startRecordingInternal(options);
@@ -302,7 +302,7 @@ const FileSystemRecorder = Recorder.extend({
             };
 
             let flushTimer = null;
-            headerSetConsolidator.on('headerSet', function(headerSet) {
+            headerSetConsolidator.on('headerSet', (headerSet) => {
                 if (flushTimer) {
                     clearTimeout(flushTimer);
                     flushTimer = null;
@@ -315,13 +315,13 @@ const FileSystemRecorder = Recorder.extend({
             const origFinish = recording.finish;
 
             recording.finish = function() {
-                return Q.fcall(function() {
+                return Q.fcall(() => {
                     if (flushTimer) {
                         clearTimeout(flushTimer);
                         flushTimer = null;
                     }
                     return flush();
-                }).then(function() {
+                }).then(() => {
                     return origFinish.call(recording);
                 });
             };
@@ -330,8 +330,8 @@ const FileSystemRecorder = Recorder.extend({
         });
     },
 
-    _endRecording: function(headerSetConsolidator, recordingJob, recording) {
-        const promise = Q.fcall(function() {
+    _endRecording(headerSetConsolidator, recordingJob, recording) {
+        const promise = Q.fcall(() => {
             return recording.finish();
         });
 
@@ -340,7 +340,7 @@ const FileSystemRecorder = Recorder.extend({
         });
     },
 
-    _recordSyncJob: function(recorder, syncJob) {
+    _recordSyncJob(recorder, syncJob) {
         const _this = this;
 
         /* var syncState = */ _this._getOwnSyncState(syncJob, syncJob);
@@ -360,22 +360,22 @@ const FileSystemRecorder = Recorder.extend({
             inConverter.removeListener('headerSet', recording.onHeaderSet);
         }
 
-        return Q.fcall(function() {
+        return Q.fcall(() => {
             return _this._makeDirectories();
-        }).then(function() {
+        }).then(() => {
             return recorder._playbackSyncJob(inConverter, syncJob);
-        }).then(function(playedBackRanges) {
+        }).then((playedBackRanges) => {
             return new Promise((resolve) => {
-                inConverter.end(function() {
+                inConverter.end(() => {
                     resolve();
                 });
-            }).then(function() {
+            }).then(() => {
                 return recording.finish();
-            }).then(function() {
+            }).then(() => {
                 return _this._setCurrentSyncState(syncJob.syncState, syncJob);
-            }).then(function() {
+            }).then(() => {
                 return playedBackRanges;
-            }).then(function(result) {
+            }).then((result) => {
                 cleanup();
                 return Promise.resolve(result);
             }, err => {
@@ -417,7 +417,7 @@ const FileSystemRecorder = Recorder.extend({
     //     });
     // },
 
-    getHash: function(filename) {
+    getHash(filename) {
         const url = this.urlPrefix + filename;
 
         const shasum = crypto.createHash('sha1');
@@ -427,7 +427,7 @@ const FileSystemRecorder = Recorder.extend({
         return shasum.digest('hex');
     },
 
-    _readToStream: function(filename, stream) {
+    _readToStream(filename, stream) {
         return new Promise((resolve, reject) => {
             const onEnd = function() {
                 resolve();
@@ -446,11 +446,11 @@ const FileSystemRecorder = Recorder.extend({
         });
     },
 
-    _makeDirectory: function(directory) {
+    _makeDirectory(directory) {
         return new Promise((resolve, reject) => {
-            fs.access(directory, function(err) {
+            fs.access(directory, (err) => {
                 if (err) {
-                    fs.mkdir(directory, function(err) {
+                    fs.mkdir(directory, (err) => {
                         if (err) {
                             reject(err);
                         } else {
@@ -464,12 +464,12 @@ const FileSystemRecorder = Recorder.extend({
         });
     },
 
-    _makeDirectories: function() {
+    _makeDirectories() {
         const _this = this;
 
-        return Q.fcall(function() {
+        return Q.fcall(() => {
             return _this._makeDirectory(_this.path);
-        }).then(function() {
+        }).then(() => {
             const directory = _this._getAbsoluteFilename();
 
             return _this._makeDirectory(directory);

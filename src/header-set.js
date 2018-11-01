@@ -46,7 +46,7 @@ const HeaderSet = extend(EventEmitter, /** @lends HeaderSet# */ {
      * @param {Date} options.timestamp {@link HeaderSet#timestamp}
      * @param {Header[]} options.headers Array of Headers to add to this instance
      */
-    constructor: function(options) {
+    constructor(options) {
         EventEmitter.call(this);
 
         this.headerList = [];
@@ -62,8 +62,8 @@ const HeaderSet = extend(EventEmitter, /** @lends HeaderSet# */ {
         }
     },
 
-    _findIndex: function(header) {
-        return _.findIndex(this.headerList, function(refHeader) {
+    _findIndex(header) {
+        return _.findIndex(this.headerList, (refHeader) => {
             return (refHeader.compareTo(header) === 0);
         });
     },
@@ -74,7 +74,7 @@ const HeaderSet = extend(EventEmitter, /** @lends HeaderSet# */ {
      * @params {Header} header The Header instance to check for.
      * @returns {boolean} `true` if a Header of the same kind is already in the HeaderSet, `false` otherwise.
      */
-    containsHeader: function(header) {
+    containsHeader(header) {
         const index = this._findIndex(header);
 
         return (index >= 0);
@@ -85,7 +85,7 @@ const HeaderSet = extend(EventEmitter, /** @lends HeaderSet# */ {
      *
      * @param {Header} header The Header instance to add to this set.
      */
-    addHeader: function(header) {
+    addHeader(header) {
         const index = this._findIndex(header);
         if (index >= 0) {
             this.headerList [index] = header;
@@ -111,15 +111,15 @@ const HeaderSet = extend(EventEmitter, /** @lends HeaderSet# */ {
      *
      * @param {Header[]} headers The list of Header instances to add.
      */
-    addHeaders: function(headers) {
+    addHeaders(headers) {
         const _this = this;
 
-        _.forEach(headers, function(header) {
+        _.forEach(headers, (header) => {
             _this.addHeader(header);
         });
     },
 
-    _removeHeader: function(header) {
+    _removeHeader(header) {
         const index = this._findIndex(header);
         if (index >= 0) {
             /**
@@ -134,10 +134,10 @@ const HeaderSet = extend(EventEmitter, /** @lends HeaderSet# */ {
         }
     },
 
-    _removeHeaders: function(headers) {
+    _removeHeaders(headers) {
         const _this = this;
 
-        _.forEach(headers, function(header) {
+        _.forEach(headers, (header) => {
             _this._removeHeader(header);
         });
     },
@@ -145,7 +145,7 @@ const HeaderSet = extend(EventEmitter, /** @lends HeaderSet# */ {
     /**
      * Removes all Header instances from this set.
      */
-    removeAllHeaders: function() {
+    removeAllHeaders() {
         this._removeHeaders(this.headerList.slice(0));
     },
 
@@ -154,7 +154,7 @@ const HeaderSet = extend(EventEmitter, /** @lends HeaderSet# */ {
      *
      * @param {number|Date} timestamp Timestamp to compare Header instances against.
      */
-    removeHeadersOlderThan: function(timestamp) {
+    removeHeadersOlderThan(timestamp) {
         let time;
         if (typeof timestamp === 'number') {
             time = timestamp;
@@ -163,7 +163,7 @@ const HeaderSet = extend(EventEmitter, /** @lends HeaderSet# */ {
         }
 
         const headers = [];
-        _.forEach(this.headerList, function(header) {
+        _.forEach(this.headerList, (header) => {
             if (header.timestamp.getTime() < time) {
                 headers.push(header);
             }
@@ -177,7 +177,7 @@ const HeaderSet = extend(EventEmitter, /** @lends HeaderSet# */ {
      *
      * @returns {number} Number of Header instances in this set.
      */
-    getHeaderCount: function() {
+    getHeaderCount() {
         return this.headerList.length;
     },
 
@@ -186,7 +186,7 @@ const HeaderSet = extend(EventEmitter, /** @lends HeaderSet# */ {
      *
      * @returns {Header[]} List of headers stored in this set.
      */
-    getHeaders: function() {
+    getHeaders() {
         return this.headerList.slice(0);
     },
 
@@ -195,15 +195,15 @@ const HeaderSet = extend(EventEmitter, /** @lends HeaderSet# */ {
      *
      * @returns {Header[]} List of headers stored in this set.
      */
-    getSortedHeaders: function() {
-        const sortedHeaders = this.headerList.slice(0).sort(function(left, right) {
+    getSortedHeaders() {
+        const sortedHeaders = this.headerList.slice(0).sort((left, right) => {
             return left.compareTo(right);
         });
 
         return sortedHeaders;
     },
 
-    getSortedHeaderSet: function() {
+    getSortedHeaderSet() {
         const headerSet = new HeaderSet({
             headers: this.getSortedHeaders(),
         });
@@ -218,10 +218,10 @@ const HeaderSet = extend(EventEmitter, /** @lends HeaderSet# */ {
      *
      * @returns {string} ID of this HeaderSet.
      */
-    getId: function() {
+    getId() {
         const sortedHeaders = this.getSortedHeaders();
 
-        const sortedIds = _.map(sortedHeaders, function(header) {
+        const sortedIds = _.map(sortedHeaders, (header) => {
             return header.getId();
         });
 
@@ -235,7 +235,7 @@ const HeaderSet = extend(EventEmitter, /** @lends HeaderSet# */ {
      *
      * @returns {string} ID hash for this HeaderSet
      */
-    getIdHash: function() {
+    getIdHash() {
         const id = this.getId();
 
         if (!_.has(idHashes, id)) {

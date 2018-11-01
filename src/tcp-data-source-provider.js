@@ -42,13 +42,13 @@ const TcpDataSourceProvider = DataSourceProvider.extend(/** @lends TcpDataSource
      * @constructs
      * @augments DataSourceProvider
      */
-    constructor: function(options) {
+    constructor(options) {
         DataSourceProvider.call(this, options);
 
         _.extend(this, _.pick(options, optionKeys));
     },
 
-    discoverDataSources: function() {
+    discoverDataSources() {
         const _this = this;
 
         const options = {
@@ -56,10 +56,10 @@ const TcpDataSourceProvider = DataSourceProvider.extend(/** @lends TcpDataSource
             broadcastPort: this.broadcastPort,
         };
 
-        return Q.fcall(function() {
+        return Q.fcall(() => {
             return TcpDataSourceProvider.discoverDevices(options);
-        }).then(function(results) {
-            return _.map(results, function(result) {
+        }).then((results) => {
+            return _.map(results, (result) => {
                 const options = _.extend({}, result, {
                     host: result.__address__
                 });
@@ -69,7 +69,7 @@ const TcpDataSourceProvider = DataSourceProvider.extend(/** @lends TcpDataSource
         });
     },
 
-    createDataSource: function(options) {
+    createDataSource(options) {
         options = _.extend({}, options, {
             provider: this.id,
             id: options.__address__,
@@ -90,8 +90,8 @@ const TcpDataSourceProvider = DataSourceProvider.extend(/** @lends TcpDataSource
      * @params {number} options.broadcastPort Port number to broadcast to.
      * @returns {Promise} A Promise that resolves to an array of device information objects.
      */
-    discoverDevices: function(options) {
-        return TcpDataSourceProvider.sendBroadcast(options).then(function(promises) {
+    discoverDevices(options) {
+        return TcpDataSourceProvider.sendBroadcast(options).then((promises) => {
             return new Promise(resolve => {
                 const results = [];
                 let promiseIndex = 0;
@@ -117,7 +117,7 @@ const TcpDataSourceProvider = DataSourceProvider.extend(/** @lends TcpDataSource
         });
     },
 
-    sendBroadcast: function(options) {
+    sendBroadcast(options) {
         let deferred = Q.defer();
         const promise = deferred.promise;
 
@@ -168,7 +168,7 @@ const TcpDataSourceProvider = DataSourceProvider.extend(/** @lends TcpDataSource
             } else {
                 const keys = _.keys(addressMap).sort();
 
-                const result = _.map(keys, function(key) {
+                const result = _.map(keys, (key) => {
                     return addressMap [key];
                 });
 
@@ -178,13 +178,13 @@ const TcpDataSourceProvider = DataSourceProvider.extend(/** @lends TcpDataSource
             }
         };
 
-        socket.bind(0, function() {
+        socket.bind(0, () => {
             socket.setBroadcast(true);
 
             sendQuery();
         });
 
-        socket.on('message', function(msg, rinfo) {
+        socket.on('message', (msg, rinfo) => {
             if ((rinfo.family === 'IPv4') && (rinfo.port === 7053) && (msg.length >= replyString.length)) {
                 const msgString = msg.slice(0, replyString.length).toString();
                 if (msgString === replyString) {
@@ -196,7 +196,7 @@ const TcpDataSourceProvider = DataSourceProvider.extend(/** @lends TcpDataSource
             }
         });
 
-        socket.on('error', function(err) {
+        socket.on('error', (err) => {
             socket.close();
 
             done(err);
@@ -205,15 +205,15 @@ const TcpDataSourceProvider = DataSourceProvider.extend(/** @lends TcpDataSource
         return promise;
     },
 
-    fetchDeviceInformation: function(address, port) {
+    fetchDeviceInformation(address, port) {
         if (port === undefined) {
-            return Q.fcall(function() {
+            return Q.fcall(() => {
                 return TcpDataSourceProvider.fetchDeviceInformation(address, 80);
-            }).fail(function() {
+            }).fail(() => {
                 return TcpDataSourceProvider.fetchDeviceInformation(address, 3000);
             });
         } else {
-            return utils.promise(function(resolve, reject) {
+            return utils.promise((resolve, reject) => {
                 let portSuffix;
                 if (port !== 80) {
                     portSuffix = ':' + port;
@@ -223,15 +223,15 @@ const TcpDataSourceProvider = DataSourceProvider.extend(/** @lends TcpDataSource
 
                 const reqUrl = new url.URL('http://' + address + portSuffix + '/cgi-bin/get_resol_device_information');
 
-                const req = http.get(reqUrl, function(res) {
+                const req = http.get(reqUrl, (res) => {
                     if (res.statusCode === 200) {
                         let buffer = Buffer.alloc(0);
 
-                        res.on('data', function(chunk) {
+                        res.on('data', (chunk) => {
                             buffer = Buffer.concat([ buffer, chunk ]);
                         });
 
-                        res.on('end', function() {
+                        res.on('end', () => {
                             const bodyString = buffer.toString();
                             const info = _.extend(TcpDataSourceProvider.parseDeviceInformation(bodyString), {
                                 __address__: address,
@@ -239,7 +239,7 @@ const TcpDataSourceProvider = DataSourceProvider.extend(/** @lends TcpDataSource
                             resolve(info);
                         });
 
-                        res.on('error', function(err) {
+                        res.on('error', (err) => {
                             reject(err);
                         });
                     } else {
@@ -247,18 +247,18 @@ const TcpDataSourceProvider = DataSourceProvider.extend(/** @lends TcpDataSource
                     }
                 });
 
-                req.on('error', function(err) {
+                req.on('error', (err) => {
                     reject(err);
                 });
 
-                req.setTimeout(10000, function() {
+                req.setTimeout(10000, () => {
                     reject(new Error('HTTP request timed out'));
                 });
             });
         }
     },
 
-    parseDeviceInformation: function(string) {
+    parseDeviceInformation(string) {
         const result = {};
 
         const re = /([\w]+)[\s]*=[\s]*"([^"\r\n]*)"/g;

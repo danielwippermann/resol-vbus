@@ -17,47 +17,47 @@ let TestConfigurationOptimizer = undefined;
 
 
 
-describe('BaseConfigurationOptimizer', function() {
+describe('BaseConfigurationOptimizer', () => {
 
-    describe('constructor', function() {
+    describe('constructor', () => {
 
-        it('should be a constructor', function() {
+        it('should be a constructor', () => {
             expect(BaseConfigurationOptimizer).a('function');
         });
 
     });
 
-    describe('#completeConfiguration', function() {
+    describe('#completeConfiguration', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(BaseConfigurationOptimizer.prototype).property('completeConfiguration').a('function');
         });
 
     });
 
-    describe('#optimizeLoadConfiguration', function() {
+    describe('#optimizeLoadConfiguration', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(BaseConfigurationOptimizer.prototype).property('optimizeLoadConfiguration').a('function');
         });
 
     });
 
-    describe('#optimizeSaveConfiguration', function() {
+    describe('#optimizeSaveConfiguration', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(BaseConfigurationOptimizer.prototype).property('optimizeSaveConfiguration').a('function');
         });
 
     });
 
-    describe('_getAdjustableValues', function() {
+    describe('_getAdjustableValues', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(BaseConfigurationOptimizer.prototype).property('_getAdjustableValues').a('function');
         });
 
-        it('should work correctly', function() {
+        it('should work correctly', () => {
             const optimizer = new TestConfigurationOptimizer();
 
             const values = optimizer._getAdjustableValues();
@@ -102,18 +102,18 @@ describe('BaseConfigurationOptimizer', function() {
         });
     });
 
-    describe('_optimizeConfiguration', function() {
+    describe('_optimizeConfiguration', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(BaseConfigurationOptimizer.prototype).property('_optimizeConfiguration').a('function');
         });
 
-        it('should work correctly', function() {
+        it('should work correctly', () => {
             const optimizer = new TestConfigurationOptimizer();
 
             let values = optimizer._getAdjustableValues();
 
-            const config = _.map(values, function(value) {
+            const config = _.map(values, (value) => {
                 const configValue = {
                     valueId: value.id,
                     valueIndex: value.index,
@@ -144,7 +144,7 @@ describe('BaseConfigurationOptimizer', function() {
                 values = values.$('^C');
                 expect(values.length).equal(1);
 
-                expect(function() {
+                expect(() => {
                     values = values.$('NotHere');
                 }).throw(Error, 'WARNING: No values matching /NotHere/i found');
             };
@@ -178,14 +178,14 @@ describe('BaseConfigurationOptimizer', function() {
 
 
 
-describe('ValuesWrapper', function() {
+describe('ValuesWrapper', () => {
 
     const testValuesWrapper = function(optimize) {
         const optimizer = new TestConfigurationOptimizer();
 
         let values = optimizer._getAdjustableValues();
 
-        const config = _.map(values, function(value) {
+        const config = _.map(values, (value) => {
             const configValue = {
                 valueId: value.id,
                 valueIndex: value.index,
@@ -213,23 +213,23 @@ describe('ValuesWrapper', function() {
         return values;
     };
 
-    describe('#_check', function() {
+    describe('#_check', () => {
 
-        it('should be a function', function() {
-            testValuesWrapper(function($, setValue) {
+        it('should be a function', () => {
+            testValuesWrapper(($, setValue) => {
                 const values = $(/^TestValue[1-5]$/);
 
                 expect(values._check).a('function');
             });
         });
 
-        it('should work correctly for ignored values', function() {
-            testValuesWrapper(function($, setValue) {
+        it('should work correctly for ignored values', () => {
+            testValuesWrapper(($, setValue) => {
                 const values = $(/^TestValue1$/);
 
                 values.values [0].ignored = true;
 
-                const checker = sinon.spy(function(value) {
+                const checker = sinon.spy((value) => {
                     return true;
                 });
 
@@ -249,13 +249,13 @@ describe('ValuesWrapper', function() {
             });
         });
 
-        it('should work correctly for undefined values', function() {
-            testValuesWrapper(function($, setValue) {
+        it('should work correctly for undefined values', () => {
+            testValuesWrapper(($, setValue) => {
                 setValue('TestValue1', undefined);
 
                 const values = $(/^TestValue1$/);
 
-                const checker = sinon.spy(function(value) {
+                const checker = sinon.spy((value) => {
                     return false;
                 });
 
@@ -285,13 +285,13 @@ describe('ValuesWrapper', function() {
             });
         });
 
-        it('should work correctly for failed values', function() {
-            testValuesWrapper(function($, setValue) {
+        it('should work correctly for failed values', () => {
+            testValuesWrapper(($, setValue) => {
                 setValue('TestValue1', null);
 
                 const values = $(/^TestValue1$/);
 
-                const checker = sinon.spy(function(value) {
+                const checker = sinon.spy((value) => {
                     return false;
                 });
 
@@ -321,14 +321,14 @@ describe('ValuesWrapper', function() {
             });
         });
 
-        it('should work correctly for checker approved values', function() {
-            testValuesWrapper(function($, setValue) {
+        it('should work correctly for checker approved values', () => {
+            testValuesWrapper(($, setValue) => {
                 setValue('TestValue1', 7353);
                 setValue('TestValue2', 1337);
 
                 const values = $(/^TestValue[1-2]$/);
 
-                const checker = sinon.spy(function(value) {
+                const checker = sinon.spy((value) => {
                     return (value === 1337);
                 });
 
@@ -349,13 +349,13 @@ describe('ValuesWrapper', function() {
             });
         });
 
-        it('should work correctly with argument-less action callback', function() {
-            testValuesWrapper(function($, setValue) {
+        it('should work correctly with argument-less action callback', () => {
+            testValuesWrapper(($, setValue) => {
                 setValue('TestValue1', undefined);
 
                 const values = $(/^TestValue1$/);
 
-                const checker = sinon.spy(function(value) {
+                const checker = sinon.spy((value) => {
                     return false;
                 });
 
@@ -374,13 +374,13 @@ describe('ValuesWrapper', function() {
             });
         });
 
-        it('should work correctly with argument-having action callback', function() {
-            testValuesWrapper(function($, setValue) {
+        it('should work correctly with argument-having action callback', () => {
+            testValuesWrapper(($, setValue) => {
                 setValue('TestValue1', undefined);
 
                 const values = $(/^TestValue(1)$/);
 
-                const checker = sinon.spy(function(value) {
+                const checker = sinon.spy((value) => {
                     return false;
                 });
 
@@ -404,10 +404,10 @@ describe('ValuesWrapper', function() {
 
     });
 
-    describe('#check', function() {
+    describe('#check', () => {
 
-        it('should work correctly', function() {
-            testValuesWrapper(function($, setValue) {
+        it('should work correctly', () => {
+            testValuesWrapper(($, setValue) => {
                 const values = $(/^TestValue1$/);
 
                 const checker = 'CHECKER';
@@ -427,10 +427,10 @@ describe('ValuesWrapper', function() {
 
     });
 
-    describe('#forEach', function() {
+    describe('#forEach', () => {
 
-        it('should work correctly', function() {
-            testValuesWrapper(function($, setValue) {
+        it('should work correctly', () => {
+            testValuesWrapper(($, setValue) => {
                 setValue('TestValue1', undefined);
                 setValue('TestValue2', null);
                 setValue('TestValue3', 0);
@@ -438,7 +438,7 @@ describe('ValuesWrapper', function() {
 
                 let count = 0;
 
-                $(/^TestValue[\d]$/).forEach(function() {
+                $(/^TestValue[\d]$/).forEach(() => {
                     count++;
                 });
 
@@ -448,10 +448,10 @@ describe('ValuesWrapper', function() {
 
     });
 
-    describe('#isFalse', function() {
+    describe('#isFalse', () => {
 
-        it('should work correctly', function() {
-            testValuesWrapper(function($, setValue) {
+        it('should work correctly', () => {
+            testValuesWrapper(($, setValue) => {
                 setValue('TestValue1', undefined);
                 setValue('TestValue2', null);
                 setValue('TestValue3', 0);
@@ -459,7 +459,7 @@ describe('ValuesWrapper', function() {
 
                 const valueIds = [];
 
-                $(/^TestValue[1-4]$/).isFalse(function(value) {
+                $(/^TestValue[1-4]$/).isFalse((value) => {
                     valueIds.push(value.md [0]);
                 });
 
@@ -473,10 +473,10 @@ describe('ValuesWrapper', function() {
 
     });
 
-    describe('#isTrue', function() {
+    describe('#isTrue', () => {
 
-        it('should work correctly', function() {
-            testValuesWrapper(function($, setValue) {
+        it('should work correctly', () => {
+            testValuesWrapper(($, setValue) => {
                 setValue('TestValue1', undefined);
                 setValue('TestValue2', null);
                 setValue('TestValue3', 0);
@@ -484,7 +484,7 @@ describe('ValuesWrapper', function() {
 
                 const valueIds = [];
 
-                $(/^TestValue[1-4]$/).isTrue(function(value) {
+                $(/^TestValue[1-4]$/).isTrue((value) => {
                     valueIds.push(value.md [0]);
                 });
 
@@ -498,10 +498,10 @@ describe('ValuesWrapper', function() {
 
     });
 
-    describe('#eql', function() {
+    describe('#eql', () => {
 
-        it('should work correctly for numbers', function() {
-            testValuesWrapper(function($, setValue) {
+        it('should work correctly for numbers', () => {
+            testValuesWrapper(($, setValue) => {
                 setValue('TestValue1', undefined);
                 setValue('TestValue2', null);
                 setValue('TestValue3', 0);
@@ -509,7 +509,7 @@ describe('ValuesWrapper', function() {
 
                 const valueIds = [];
 
-                $(/^TestValue[1-4]$/).eql(1, function(value) {
+                $(/^TestValue[1-4]$/).eql(1, (value) => {
                     valueIds.push(value.md [0]);
                 });
 
@@ -521,8 +521,8 @@ describe('ValuesWrapper', function() {
             });
         });
 
-        it('should work correctly for valid strings', function() {
-            testValuesWrapper(function($, setValue) {
+        it('should work correctly for valid strings', () => {
+            testValuesWrapper(($, setValue) => {
                 setValue('TestValue1', undefined);
                 setValue('TestValue2', null);
                 setValue('TestValue3', 0);
@@ -530,7 +530,7 @@ describe('ValuesWrapper', function() {
 
                 const valueIds = [];
 
-                $(/^TestValue[1-4]$/).eql('#False', function(value) {
+                $(/^TestValue[1-4]$/).eql('#False', (value) => {
                     valueIds.push(value.md [0]);
                 });
 
@@ -542,8 +542,8 @@ describe('ValuesWrapper', function() {
             });
         });
 
-        it('should work correctly for invalid strings', function() {
-            testValuesWrapper(function($, setValue) {
+        it('should work correctly for invalid strings', () => {
+            testValuesWrapper(($, setValue) => {
                 setValue('TestValue1', undefined);
                 setValue('TestValue2', null);
                 setValue('TestValue3', 0);
@@ -551,7 +551,7 @@ describe('ValuesWrapper', function() {
 
                 const valueIds = [];
 
-                $(/^TestValue[1-4]$/).eql('#Unknown', function(value) {
+                $(/^TestValue[1-4]$/).eql('#Unknown', (value) => {
                     valueIds.push(value.md [0]);
                 });
 
@@ -564,10 +564,10 @@ describe('ValuesWrapper', function() {
 
     });
 
-    describe('#notEql', function() {
+    describe('#notEql', () => {
 
-        it('should work correctly for numbers', function() {
-            testValuesWrapper(function($, setValue) {
+        it('should work correctly for numbers', () => {
+            testValuesWrapper(($, setValue) => {
                 setValue('TestValue1', undefined);
                 setValue('TestValue2', null);
                 setValue('TestValue3', 0);
@@ -575,7 +575,7 @@ describe('ValuesWrapper', function() {
 
                 const valueIds = [];
 
-                $(/^TestValue[1-4]$/).notEql(1, function(value) {
+                $(/^TestValue[1-4]$/).notEql(1, (value) => {
                     valueIds.push(value.md [0]);
                 });
 
@@ -587,8 +587,8 @@ describe('ValuesWrapper', function() {
             });
         });
 
-        it('should work correctly for valid strings', function() {
-            testValuesWrapper(function($, setValue) {
+        it('should work correctly for valid strings', () => {
+            testValuesWrapper(($, setValue) => {
                 setValue('TestValue1', undefined);
                 setValue('TestValue2', null);
                 setValue('TestValue3', 0);
@@ -596,7 +596,7 @@ describe('ValuesWrapper', function() {
 
                 const valueIds = [];
 
-                $(/^TestValue[1-4]$/).notEql('#False', function(value) {
+                $(/^TestValue[1-4]$/).notEql('#False', (value) => {
                     valueIds.push(value.md [0]);
                 });
 
@@ -608,8 +608,8 @@ describe('ValuesWrapper', function() {
             });
         });
 
-        it('should work correctly for invalid strings', function() {
-            testValuesWrapper(function($, setValue) {
+        it('should work correctly for invalid strings', () => {
+            testValuesWrapper(($, setValue) => {
                 setValue('TestValue1', undefined);
                 setValue('TestValue2', null);
                 setValue('TestValue3', 0);
@@ -617,7 +617,7 @@ describe('ValuesWrapper', function() {
 
                 const valueIds = [];
 
-                $(/^TestValue[1-4]$/).notEql('#Unknown', function(value) {
+                $(/^TestValue[1-4]$/).notEql('#Unknown', (value) => {
                     valueIds.push(value.md [0]);
                 });
 
@@ -632,10 +632,10 @@ describe('ValuesWrapper', function() {
 
     });
 
-    describe('#lt', function() {
+    describe('#lt', () => {
 
-        it('should work correctly for numbers', function() {
-            testValuesWrapper(function($, setValue) {
+        it('should work correctly for numbers', () => {
+            testValuesWrapper(($, setValue) => {
                 setValue('TestValue1', undefined);
                 setValue('TestValue2', null);
                 setValue('TestValue3', 0);
@@ -644,7 +644,7 @@ describe('ValuesWrapper', function() {
 
                 const valueIds = [];
 
-                $(/^TestValue[1-5]$/).lt(1, function(value) {
+                $(/^TestValue[1-5]$/).lt(1, (value) => {
                     valueIds.push(value.md [0]);
                 });
 
@@ -658,10 +658,10 @@ describe('ValuesWrapper', function() {
 
     });
 
-    describe('#lte', function() {
+    describe('#lte', () => {
 
-        it('should work correctly for numbers', function() {
-            testValuesWrapper(function($, setValue) {
+        it('should work correctly for numbers', () => {
+            testValuesWrapper(($, setValue) => {
                 setValue('TestValue1', undefined);
                 setValue('TestValue2', null);
                 setValue('TestValue3', 0);
@@ -670,7 +670,7 @@ describe('ValuesWrapper', function() {
 
                 const valueIds = [];
 
-                $(/^TestValue[1-5]$/).lte(1, function(value) {
+                $(/^TestValue[1-5]$/).lte(1, (value) => {
                     valueIds.push(value.md [0]);
                 });
 
@@ -685,10 +685,10 @@ describe('ValuesWrapper', function() {
 
     });
 
-    describe('#gt', function() {
+    describe('#gt', () => {
 
-        it('should work correctly for numbers', function() {
-            testValuesWrapper(function($, setValue) {
+        it('should work correctly for numbers', () => {
+            testValuesWrapper(($, setValue) => {
                 setValue('TestValue1', undefined);
                 setValue('TestValue2', null);
                 setValue('TestValue3', 0);
@@ -697,7 +697,7 @@ describe('ValuesWrapper', function() {
 
                 const valueIds = [];
 
-                $(/^TestValue[1-5]$/).gt(1, function(value) {
+                $(/^TestValue[1-5]$/).gt(1, (value) => {
                     valueIds.push(value.md [0]);
                 });
 
@@ -711,10 +711,10 @@ describe('ValuesWrapper', function() {
 
     });
 
-    describe('#gte', function() {
+    describe('#gte', () => {
 
-        it('should work correctly for numbers', function() {
-            testValuesWrapper(function($, setValue) {
+        it('should work correctly for numbers', () => {
+            testValuesWrapper(($, setValue) => {
                 setValue('TestValue1', undefined);
                 setValue('TestValue2', null);
                 setValue('TestValue3', 0);
@@ -723,7 +723,7 @@ describe('ValuesWrapper', function() {
 
                 const valueIds = [];
 
-                $(/^TestValue[1-5]$/).gte(1, function(value) {
+                $(/^TestValue[1-5]$/).gte(1, (value) => {
                     valueIds.push(value.md [0]);
                 });
 
@@ -738,10 +738,10 @@ describe('ValuesWrapper', function() {
 
     });
 
-    describe('#in', function() {
+    describe('#in', () => {
 
-        it('should work correctly', function() {
-            testValuesWrapper(function($, setValue) {
+        it('should work correctly', () => {
+            testValuesWrapper(($, setValue) => {
                 setValue('TestValue1', undefined);
                 setValue('TestValue2', null);
                 setValue('TestValue3', 0);
@@ -751,7 +751,7 @@ describe('ValuesWrapper', function() {
 
                 const valueIds = [];
 
-                $(/^TestValue[1-6]$/).in([ '#True', 3, 4, 5 ], function(value) {
+                $(/^TestValue[1-6]$/).in([ '#True', 3, 4, 5 ], (value) => {
                     valueIds.push(value.md [0]);
                 });
 
@@ -766,10 +766,10 @@ describe('ValuesWrapper', function() {
 
     });
 
-    describe('#notIn', function() {
+    describe('#notIn', () => {
 
-        it('should work correctly', function() {
-            testValuesWrapper(function($, setValue) {
+        it('should work correctly', () => {
+            testValuesWrapper(($, setValue) => {
                 setValue('TestValue1', undefined);
                 setValue('TestValue2', null);
                 setValue('TestValue3', 0);
@@ -779,7 +779,7 @@ describe('ValuesWrapper', function() {
 
                 const valueIds = [];
 
-                $(/^TestValue[1-6]$/).notIn([ '#True', 3, 4, 5 ], function(value) {
+                $(/^TestValue[1-6]$/).notIn([ '#True', 3, 4, 5 ], (value) => {
                     valueIds.push(value.md [0]);
                 });
 
@@ -794,17 +794,17 @@ describe('ValuesWrapper', function() {
 
     });
 
-    describe('#isChanged', function() {
+    describe('#isChanged', () => {
 
-        it('should work correctly', function() {
-            testValuesWrapper(function($, setValue) {
+        it('should work correctly', () => {
+            testValuesWrapper(($, setValue) => {
                 setValue('TestValue1', undefined);
                 setValue('TestValue2', null);
                 setValue('TestValue3', 0);
 
                 const valueIds = [];
 
-                $(/^TestValue[1-3]$/).isChanged(function(value) {
+                $(/^TestValue[1-3]$/).isChanged((value) => {
                     valueIds.push(value.md [0]);
                 });
 
@@ -816,17 +816,17 @@ describe('ValuesWrapper', function() {
 
     });
 
-    describe('#ignore', function() {
+    describe('#ignore', () => {
 
-        it('should work correctly', function() {
-            testValuesWrapper(function($, setValue) {
+        it('should work correctly', () => {
+            testValuesWrapper(($, setValue) => {
                 setValue('TestValue1', undefined);
                 setValue('TestValue2', null);
                 setValue('TestValue3', 0);
 
                 const values = $(/^TestValue[1-3]$/);
 
-                _.forEach(values.values, function(value) {
+                _.forEach(values.values, (value) => {
                     expect(value.ignored).equal(false);
                 });
 
@@ -834,7 +834,7 @@ describe('ValuesWrapper', function() {
 
                 expect(result).equal(values);
 
-                _.forEach(values.values, function(value) {
+                _.forEach(values.values, (value) => {
                     expect(value.ignored).equal(true);
                 });
             });
@@ -842,17 +842,17 @@ describe('ValuesWrapper', function() {
 
     });
 
-    describe('#invalidate', function() {
+    describe('#invalidate', () => {
 
-        it('should work correctly', function() {
-            testValuesWrapper(function($, setValue) {
+        it('should work correctly', () => {
+            testValuesWrapper(($, setValue) => {
                 setValue('TestValue1', undefined);
                 setValue('TestValue2', null);
                 setValue('TestValue3', 0);
 
                 const values = $(/^TestValue[1-3]$/);
 
-                _.forEach(values.values, function(value) {
+                _.forEach(values.values, (value) => {
                     expect(value.invalidated).equal(false);
                 });
 
@@ -860,7 +860,7 @@ describe('ValuesWrapper', function() {
 
                 expect(result).equal(values);
 
-                _.forEach(values.values, function(value) {
+                _.forEach(values.values, (value) => {
                     expect(value.invalidated).equal(true);
                 });
             });

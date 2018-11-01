@@ -54,7 +54,7 @@ const Customizer = extend(EventEmitter, /** @lends Customizer# */ {
      * A Customizer provides functionality to transfer a set of configuration
      * values from or to a device.
      */
-    constructor: function(options) {
+    constructor(options) {
         EventEmitter.call(this);
 
         _.extend(this, _.pick(options, optionKeys));
@@ -76,21 +76,21 @@ const Customizer = extend(EventEmitter, /** @lends Customizer# */ {
      * @param {object} options
      * @returns {Promise} A Promise that resolves to the set of values transfered.
      */
-    loadConfiguration: function(configuration, options) {
+    loadConfiguration(configuration, options) {
         const _this = this;
 
         options = _.defaults({}, options, {
             optimize: true,
         });
 
-        return Q.fcall(function() {
+        return Q.fcall(() => {
             return _this._completeConfiguration(configuration);
-        }).then(function(configuration) {
+        }).then((configuration) => {
             return _this._loadConfiguration(configuration, options);
         });
     },
 
-    _loadConfiguration: function(configuration, options) {
+    _loadConfiguration(configuration, options) {
         throw new Error('Must be implemented by sub-class');
     },
 
@@ -114,29 +114,29 @@ const Customizer = extend(EventEmitter, /** @lends Customizer# */ {
      * @param {object} options
      * @returns {Promise} A Promise that resolves to the set of values transfered.
      */
-    saveConfiguration: function(newConfiguration, oldConfiguration, options) {
+    saveConfiguration(newConfiguration, oldConfiguration, options) {
         const _this = this;
 
         options = _.defaults({}, options, {
             optimize: true,
         });
 
-        return Q.fcall(function() {
+        return Q.fcall(() => {
             return _this._completeConfiguration(newConfiguration);
-        }).then(function(newConfiguration) {
-            return Q.fcall(function() {
+        }).then((newConfiguration) => {
+            return Q.fcall(() => {
                 if (oldConfiguration) {
                     return _this._completeConfiguration(oldConfiguration);
                 } else {
                     return null;
                 }
-            }).then(function(oldConfiguration) {
+            }).then((oldConfiguration) => {
                 return _this._saveConfiguration(newConfiguration, oldConfiguration, options);
             });
         });
     },
 
-    _saveConfiguration: function(newConfiguration, oldConfiguration, options) {
+    _saveConfiguration(newConfiguration, oldConfiguration, options) {
         throw new Error('Must be implemented by sub-class');
     },
 
@@ -149,7 +149,7 @@ const Customizer = extend(EventEmitter, /** @lends Customizer# */ {
      * @param {undefined|null|array|object} config Configuration to complete.
      * @returns {Promise} A Promise that resolves to the completed array of values.
      */
-    _completeConfiguration: function(config) {
+    _completeConfiguration(config) {
         if (this.optimizer) {
             return this.optimizer.completeConfiguration(config);
         } else {
@@ -163,7 +163,7 @@ const Customizer = extend(EventEmitter, /** @lends Customizer# */ {
      * @param {array} config The array of values that has already been loaded.
      * @returns {Promise} A Promise that resolves to the array of values to load next.
      */
-    _optimizeLoadConfiguration: function(config) {
+    _optimizeLoadConfiguration(config) {
         return this.optimizer.optimizeLoadConfiguration(config);
     },
 
@@ -174,7 +174,7 @@ const Customizer = extend(EventEmitter, /** @lends Customizer# */ {
      * @param {array} oldConfig The array of values that are assumed to be currently stored in the device.
      * @returns {Promise} A Promise that resolves to the array of values to save.
      */
-    _optimizeSaveConfiguration: function(newConfig, oldConfig) {
+    _optimizeSaveConfiguration(newConfig, oldConfig) {
         return this.optimizer.optimizeSaveConfiguration(newConfig, oldConfig);
     },
 

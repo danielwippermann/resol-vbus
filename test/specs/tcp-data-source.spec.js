@@ -14,18 +14,18 @@ const TcpDataSource = vbus.TcpDataSource;
 
 
 
-describe('TcpDataSource', function() {
+describe('TcpDataSource', () => {
 
-    describe('constructor', function() {
+    describe('constructor', () => {
 
-        it('should be a constructor function', function() {
+        it('should be a constructor function', () => {
             expect(TcpDataSource)
                 .to.be.a('function')
                 .that.has.a.property('extend')
                 .that.is.a('function');
         });
 
-        it('should have reasonable defaults', function() {
+        it('should have reasonable defaults', () => {
             const ds = new TcpDataSource();
 
             expect(ds)
@@ -41,31 +41,31 @@ describe('TcpDataSource', function() {
 
     });
 
-    describe('#connectLive', function() {
+    describe('#connectLive', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(TcpDataSource.prototype)
                 .to.have.a.property('connectLive')
                 .that.is.a('function');
         });
 
-        it('should work correctly', function() {
+        it('should work correctly', () => {
             const originalConnect = TcpConnection.prototype.connect;
 
-            TcpConnection.prototype.connect = sinon.spy(function() {
+            TcpConnection.prototype.connect = sinon.spy(() => {
                 return Q();
             });
 
-            const promise = Q.fcall(function() {
+            const promise = Q.fcall(() => {
                 const ds = new TcpDataSource();
 
                 return ds.connectLive();
-            }).then(function(connection) {
+            }).then((connection) => {
                 expect(connection)
                     .to.be.instanceOf(TcpConnection);
             });
 
-            return vbus.utils.promiseFinally(promise, function() {
+            return vbus.utils.promiseFinally(promise, () => {
                 TcpConnection.prototype.connect = originalConnect;
             });
         });

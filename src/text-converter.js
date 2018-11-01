@@ -64,7 +64,7 @@ const TextConverter = Converter.extend(/** @lends TextConverter# */ {
      * It does not support parsing text content back into header sets (the
      * writable stream side).
      */
-    constructor: function(options) {
+    constructor(options) {
         Converter.call(this, options);
 
         _.extend(this, _.pick(options, optionKeys));
@@ -80,7 +80,7 @@ const TextConverter = Converter.extend(/** @lends TextConverter# */ {
      * Resets the converter, resulting in a ne pair of header lines
      * generated on next header set conversion.
      */
-    reset: function() {
+    reset() {
         this.lastIdList = null;
     },
 
@@ -89,7 +89,7 @@ const TextConverter = Converter.extend(/** @lends TextConverter# */ {
      *
      * @param {HeaderSet} headerSet
      */
-    convertHeaderSet: function(headerSet) {
+    convertHeaderSet(headerSet) {
         const _this = this;
 
         const spec = this.specification;
@@ -132,7 +132,7 @@ const TextConverter = Converter.extend(/** @lends TextConverter# */ {
 
             appendDateAndTimeColumns('', '', '');
 
-            _.forEach(packetFields, function(packetField) {
+            _.forEach(packetFields, (packetField) => {
                 let packetDesc;
                 if (lastPacketSpec !== packetField.packetSpec) {
                     lastPacketSpec = packetField.packetSpec;
@@ -153,7 +153,7 @@ const TextConverter = Converter.extend(/** @lends TextConverter# */ {
             // packet field spec header line
             appendDateAndTimeColumns(i18n.t('textConverter.date'), i18n.t('textConverter.time'), ' / ');
 
-            _.forEach(packetFields, function(packetField) {
+            _.forEach(packetFields, (packetField) => {
                 let columnDesc = packetField.name;
                 if (packetField.packetFieldSpec) {
                     const type = packetField.packetFieldSpec.type;
@@ -172,7 +172,7 @@ const TextConverter = Converter.extend(/** @lends TextConverter# */ {
         // value line
         appendDateAndTimeColumns(now.format('L'), now.format('HH:mm:ss'), ' ');
 
-        _.forEach(packetFields, function(packetField) {
+        _.forEach(packetFields, (packetField) => {
             const textValue = packetField.formatTextValue('None');
             columns.push(textValue);
         });
@@ -182,7 +182,7 @@ const TextConverter = Converter.extend(/** @lends TextConverter# */ {
         return this.push(content);
     },
 
-    _read: function() {
+    _read() {
         // nop
     },
 

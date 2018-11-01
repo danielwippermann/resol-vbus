@@ -16,25 +16,25 @@ const optimizerPromise = vbus.ConfigurationOptimizerFactory.createOptimizerByDev
 
 
 
-describe('ResolDeltaSolBxPlusXxxConfigurationOptimizer', function() {
+describe('ResolDeltaSolBxPlusXxxConfigurationOptimizer', () => {
 
-    describe('using ConfigurationOptimizerFactory', function() {
+    describe('using ConfigurationOptimizerFactory', () => {
 
-        it('should work correctly', function() {
-            return testUtils.expectPromise(optimizerPromise).then(function(optimizer) {
+        it('should work correctly', () => {
+            return testUtils.expectPromise(optimizerPromise).then((optimizer) => {
                 expect(optimizer).an('object');
             });
         });
 
     });
 
-    describe('#completeConfiguration', function() {
+    describe('#completeConfiguration', () => {
 
-        it('should work correctly', function() {
-            return optimizerPromise.then(function(optimizer) {
-                return Q.fcall(function() {
+        it('should work correctly', () => {
+            return optimizerPromise.then((optimizer) => {
+                return Q.fcall(() => {
                     return testUtils.expectPromise(optimizer.completeConfiguration());
-                }).then(function(config) {
+                }).then((config) => {
                     expect(config).an('array').lengthOf(4351);
                 });
             });
@@ -42,15 +42,15 @@ describe('ResolDeltaSolBxPlusXxxConfigurationOptimizer', function() {
 
     });
 
-    describe('#optimizeLoadConfiguration', function() {
+    describe('#optimizeLoadConfiguration', () => {
 
-        it('should work correctly after', function() {
-            return optimizerPromise.then(function(optimizer) {
-                return Q.fcall(function() {
+        it('should work correctly after', () => {
+            return optimizerPromise.then((optimizer) => {
+                return Q.fcall(() => {
                     return testUtils.expectPromise(optimizer.completeConfiguration());
-                }).then(function(config) {
+                }).then((config) => {
                     return testUtils.expectPromise(optimizer.optimizeLoadConfiguration(config));
-                }).then(function(config) {
+                }).then((config) => {
                     expect(config).an('array');
 
                     const valueIds = _.reduce(config, (memo, value) => {
@@ -61,7 +61,7 @@ describe('ResolDeltaSolBxPlusXxxConfigurationOptimizer', function() {
                     }, []);
                     expect(valueIds).lengthOf(159);
 
-                    _.forEach(config, function(value) {
+                    _.forEach(config, (value) => {
                         if (value.pending) {
                             value.pending = false;
                             value.transceived = true;
@@ -70,7 +70,7 @@ describe('ResolDeltaSolBxPlusXxxConfigurationOptimizer', function() {
                     });
 
                     return testUtils.expectPromise(optimizer.optimizeLoadConfiguration(config));
-                }).then(function(config) {
+                }).then((config) => {
                     expect(config).an('array');
 
                     const valueIds = _.reduce(config, (memo, value) => {

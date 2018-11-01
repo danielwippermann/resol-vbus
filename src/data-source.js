@@ -36,11 +36,11 @@ const DataSource = extend(null, {
 
     isSupportingCustomization: false,
 
-    constructor: function(options) {
+    constructor(options) {
         _.extend(this, _.pick(options, optionKeys));
     },
 
-    connectLive: function(options) {
+    connectLive(options) {
         if (this.isSupportingLiveData) {
             throw new Error('Must be implemented by sub-class');
         } else {
@@ -48,7 +48,7 @@ const DataSource = extend(null, {
         }
     },
 
-    openRecorder: function(options) {
+    openRecorder(options) {
         if (this.isSupportingRecordedData) {
             throw new Error('Must be implemented by sub-class');
         } else {
@@ -56,7 +56,7 @@ const DataSource = extend(null, {
         }
     },
 
-    createCustomizer: function(deviceAddress, options) {
+    createCustomizer(deviceAddress, options) {
         if (this.isSupportingCustomization) {
             throw new Error('Must be implemented by sub-class');
         } else {

@@ -21,14 +21,14 @@ const DLxRecorder = vbus.DLxRecorder;
 
 
 const createRequestStub = function(recorder, response, data) {
-    const stub = sinon.spy(function(url, options) {
+    const stub = sinon.spy((url, options) => {
         const stream = new Duplex();
 
         stream._read = function() {
             // nop;
         };
 
-        process.nextTick(function() {
+        process.nextTick(() => {
             stream.emit('response', response);
             if (data) {
                 stream.push(data);
@@ -90,18 +90,18 @@ const recordingFileListHtml = Buffer.from([
 
 
 
-describe('DLxRecorder', function() {
+describe('DLxRecorder', () => {
 
-    describe('constructor', function() {
+    describe('constructor', () => {
 
-        it('should be a constructor function', function() {
+        it('should be a constructor function', () => {
             expect(DLxRecorder)
                 .to.be.a('function')
                 .that.has.a.property('extend')
                 .that.is.a('function');
         });
 
-        it('should have reasonable defaults', function() {
+        it('should have reasonable defaults', () => {
             const recorder = new DLxRecorder();
 
             expect(recorder)
@@ -128,7 +128,7 @@ describe('DLxRecorder', function() {
                 .that.equals('admin');
         });
 
-        it('should copy selected options', function() {
+        it('should copy selected options', () => {
             const options = {
                 id: 'ID',
                 minTimestamp: new Date(Date.UTC(2013, 0, 1)),
@@ -165,15 +165,15 @@ describe('DLxRecorder', function() {
 
     });
 
-    describe('#getLazyRecordingRanges', function() {
+    describe('#getLazyRecordingRanges', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(DLxRecorder.prototype)
                 .to.have.a.property('getLazyRecordingRanges')
                 .that.is.a('function');
         });
 
-        it('should work correctly', function() {
+        it('should work correctly', () => {
             const recorder = new DLxRecorder({
                 urlPrefix: 'URLPREFIX',
                 username: 'USERNAME',
@@ -188,7 +188,7 @@ describe('DLxRecorder', function() {
 
             const promise = recorder.getLazyRecordingRanges();
 
-            return testUtils.expectPromise(promise).then(function(result) {
+            return testUtils.expectPromise(promise).then((result) => {
                 expect(stub)
                     .to.have.a.property('callCount')
                     .that.is.equal(1);
@@ -217,15 +217,15 @@ describe('DLxRecorder', function() {
 
     });
 
-    describe('#getRecordingFilenames', function() {
+    describe('#getRecordingFilenames', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(DLxRecorder.prototype)
                 .to.have.a.property('getRecordingFilenames')
                 .that.is.a('function');
         });
 
-        it('should work correctly', function() {
+        it('should work correctly', () => {
             const recorder = new DLxRecorder({
                 urlPrefix: 'URLPREFIX',
                 username: 'USERNAME',
@@ -240,7 +240,7 @@ describe('DLxRecorder', function() {
 
             const promise = recorder.getRecordingFilenames();
 
-            return testUtils.expectPromise(promise).then(function(result) {
+            return testUtils.expectPromise(promise).then((result) => {
                 expect(stub)
                     .to.have.a.property('callCount')
                     .that.is.equal(1);
@@ -269,15 +269,15 @@ describe('DLxRecorder', function() {
 
     });
 
-    describe('#getRecordingInfo', function() {
+    describe('#getRecordingInfo', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(DLxRecorder.prototype)
                 .to.have.a.property('getRecordingInfo')
                 .that.is.a('function');
         });
 
-        it('should work correctly', function() {
+        it('should work correctly', () => {
             const recorder = new DLxRecorder({
                 urlPrefix: 'URLPREFIX',
                 username: 'USERNAME',
@@ -299,7 +299,7 @@ describe('DLxRecorder', function() {
 
             const promise = recorder.getRecordingInfo(filename);
 
-            return testUtils.expectPromise(promise).then(function(result) {
+            return testUtils.expectPromise(promise).then((result) => {
                 expect(stub)
                     .to.have.a.property('callCount')
                     .that.is.equal(1);
@@ -323,15 +323,15 @@ describe('DLxRecorder', function() {
         });
     });
 
-    describe('#downloadToStream', function() {
+    describe('#downloadToStream', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(DLxRecorder.prototype)
                 .to.have.a.property('downloadToStream')
                 .that.is.a('function');
         });
 
-        it('should work correctly', function() {
+        it('should work correctly', () => {
             const recorder = new DLxRecorder();
 
             const response = null;
@@ -346,13 +346,13 @@ describe('DLxRecorder', function() {
 
             const stream = new Duplex();
 
-            stream._write = sinon.spy(function(chunk, enc, callback) {
+            stream._write = sinon.spy((chunk, enc, callback) => {
                 callback();
             });
 
             const promise = recorder.downloadToStream(urlString, urlOptions, stream);
 
-            return testUtils.expectPromise(promise).then(function() {
+            return testUtils.expectPromise(promise).then(() => {
                 expect(stub.callCount).to.equal(1);
                 expect(stub.firstCall.args [0]).to.equal(urlString);
                 expect(stub.firstCall.args [1]).to.equal(urlOptions);
@@ -367,11 +367,11 @@ describe('DLxRecorder', function() {
 
     });
 
-    describe('synchronization source', function() {
+    describe('synchronization source', () => {
 
         const fixturesPath = path.join(__dirname, '../fixtures/dlx-recorder-1');
 
-        it('should work correctly', function() {
+        it('should work correctly', () => {
             const options = {
                 id: 'DLx',
                 interval: 300000,
@@ -380,7 +380,7 @@ describe('DLxRecorder', function() {
 
             const sourceRecorder = new DLxRecorder(options);
 
-            sourceRecorder._request = sinon.spy(function(url, options) {
+            sourceRecorder._request = sinon.spy((url, options) => {
                 const stream = new Duplex();
 
                 stream._read = function() {
@@ -392,11 +392,11 @@ describe('DLxRecorder', function() {
                     callback();
                 };
 
-                stream.once('finish', function() {
+                stream.once('finish', () => {
                     stream.push(null);
                 });
 
-                process.nextTick(function() {
+                process.nextTick(() => {
                     let response, bodyStream, bodyData;
                     if (url === '/log/') {
                         bodyStream = fs.createReadStream(path.join(fixturesPath, 'index.html'));
@@ -430,9 +430,9 @@ describe('DLxRecorder', function() {
                 interval: 300000,
             });
 
-            return Q.fcall(function() {
+            return Q.fcall(() => {
                 return sourceRecorder.synchronizeTo(targetRecorder);
-            }).then(function(ranges) {
+            }).then((ranges) => {
                 expect(ranges).a('array').lengthOf(1);
                 expect(ranges [0]).property('minTimestamp').instanceOf(Date);
                 expect(ranges [0].minTimestamp.toISOString()).equal('2014-02-14T00:00:00.983Z');
@@ -440,7 +440,7 @@ describe('DLxRecorder', function() {
                 expect(ranges [0].maxTimestamp.toISOString()).equal('2014-02-16T23:55:00.805Z');
 
                 return sourceRecorder.synchronizeTo(targetRecorder);
-            }).then(function(ranges) {
+            }).then((ranges) => {
                 expect(ranges).a('array').lengthOf(0);
 
             });

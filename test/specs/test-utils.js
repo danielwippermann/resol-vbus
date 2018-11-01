@@ -19,16 +19,16 @@ const serialPortPath = process.env.RESOL_VBUS_SERIALPORT;
 
 const testUtils = {
 
-    expectPromise: function(promise) {
+    expectPromise(promise) {
         // expect(promise).to.be.instanceOf(Promise);
         expect(promise).to.have.a.property('then').that.is.a('function');
         return promise;
     },
 
-    expectRanges: function(ranges) {
+    expectRanges(ranges) {
         expect(ranges).a('array');
 
-        const comparableRanges = _.map(ranges, function(range) {
+        const comparableRanges = _.map(ranges, (range) => {
             return {
                 minTimestamp: range.minTimestamp.toISOString(),
                 maxTimestamp: range.maxTimestamp.toISOString(),
@@ -38,14 +38,14 @@ const testUtils = {
         return expect(comparableRanges);
     },
 
-    adaptTimeout: function(timeout) {
+    adaptTimeout(timeout) {
         const factor = process.env.TRAVIS ? 1000 : 1;
         return timeout * factor;
     },
 
-    serialPortPath: serialPortPath,
+    serialPortPath,
 
-    ifHasSerialPortIt: function(msg) {
+    ifHasSerialPortIt(msg) {
         if (!SerialDataSourceProvider.hasSerialPortSupport) {
             xit(msg + ' (missing serial port support)', () => {});
         } else if (!serialPortPath) {
@@ -55,12 +55,12 @@ const testUtils = {
         }
     },
 
-    expectToBeABuffer: function(buffer) {
+    expectToBeABuffer(buffer) {
         expect(buffer).instanceOf(Buffer);
     },
 
-    itShouldBeAClass: function(Class) {
-        it('should be a class', function() {
+    itShouldBeAClass(Class) {
+        it('should be a class', () => {
             expect(Class).a('function')
                 .property('prototype').an('object')
                 .property('constructor').equal(Class);

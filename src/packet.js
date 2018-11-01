@@ -57,7 +57,7 @@ const Packet = Header.extend(/** @lends Packet# */ {
      *
      * @see Specification
      */
-    constructor: function(options) {
+    constructor(options) {
         Header.call(this, options);
 
         _.extend(this, _.pick(options, optionKeys));
@@ -75,7 +75,7 @@ const Packet = Header.extend(/** @lends Packet# */ {
         }
     },
 
-    toLiveBuffer: function(origBuffer, start, end) {
+    toLiveBuffer(origBuffer, start, end) {
         const length = 10 + this.frameCount * 6;
 
         let buffer;
@@ -105,16 +105,16 @@ const Packet = Header.extend(/** @lends Packet# */ {
         return buffer;
     },
 
-    getProtocolVersion: function() {
+    getProtocolVersion() {
         return 0x10;
     },
 
-    getId: function() {
+    getId() {
         const baseId = Header.prototype.getId.call(this);
         return sprintf('%s_%04X', baseId, this.command);
     },
 
-    compareTo: function(that) {
+    compareTo(that) {
         let result = Header.prototype.compareTo.apply(this, arguments);
         if (result === 0) {
             result = this.command - that.command;
@@ -124,7 +124,7 @@ const Packet = Header.extend(/** @lends Packet# */ {
 
 }, /** @lends Packet */ {
 
-    fromLiveBuffer: function(buffer, start, end) {
+    fromLiveBuffer(buffer, start, end) {
         const frameCount = buffer [start + 8];
 
         const frameData = Buffer.alloc(127 * 4);
@@ -140,8 +140,8 @@ const Packet = Header.extend(/** @lends Packet# */ {
             destinationAddress: buffer.readUInt16LE(start + 1),
             sourceAddress: buffer.readUInt16LE(start + 3),
             command: buffer.readUInt16LE(start + 6),
-            frameCount: frameCount,
-            frameData: frameData,
+            frameCount,
+            frameData,
             dontCopyFrameData: true
         });
     }

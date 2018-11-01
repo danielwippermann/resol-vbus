@@ -104,7 +104,7 @@ const TcpConnection = Connection.extend(/** @lends TcpConnection# */ {
      * In addition to that it can be used to connect to a raw VBus data stream using TCP
      * (for example provided by a serial-to-LAN gateway).
      */
-    constructor: function(options) {
+    constructor(options) {
         Connection.call(this, options);
 
         if (options && options.tlsOptions) {
@@ -116,7 +116,7 @@ const TcpConnection = Connection.extend(/** @lends TcpConnection# */ {
         _.extend(this, _.pick(options, optionKeys));
     },
 
-    connect: function(force) {
+    connect(force) {
         if (this.connectionState !== TcpConnection.STATE_DISCONNECTED) {
             throw new Error('Connection is not disconnected (' + this.connectionState + ')');
         }
@@ -126,7 +126,7 @@ const TcpConnection = Connection.extend(/** @lends TcpConnection# */ {
         return this._connect(force);
     },
 
-    disconnect: function() {
+    disconnect() {
         if (this.connectionState === TcpConnection.STATE_DISCONNECTING) {
             if (this.socket) {
                 this.socket.destroy();
@@ -146,7 +146,7 @@ const TcpConnection = Connection.extend(/** @lends TcpConnection# */ {
         }
     },
 
-    _connect: function(force) {
+    _connect(force) {
         const _this = this;
 
         let socket;
@@ -216,7 +216,7 @@ const TcpConnection = Connection.extend(/** @lends TcpConnection# */ {
                     }
                 } else if (phase === 60) {
                     newPhase = 70;
-                    _this.channelListCallback(channelList, function(err, channel) {
+                    _this.channelListCallback(channelList, (err, channel) => {
                         if (err) {
                             done(err);
                         } else {
@@ -361,7 +361,7 @@ const TcpConnection = Connection.extend(/** @lends TcpConnection# */ {
                     _this.reconnectTimeout += _this.reconnectTimeoutIncr;
                 }
 
-                setTimeout(function() {
+                setTimeout(() => {
                     _this._setConnectionState(TcpConnection.STATE_RECONNECTING);
 
                     _this._connect();

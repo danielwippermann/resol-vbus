@@ -12,31 +12,31 @@ const ConfigurationOptimizer = vbus.ConfigurationOptimizer;
 
 
 
-describe('ConfigurationOptimizer', function() {
+describe('ConfigurationOptimizer', () => {
 
-    describe('.getOptimizerOptions', function() {
+    describe('.getOptimizerOptions', () => {
 
-        it('should be a function', function() {
+        it('should be a function', () => {
             expect(ConfigurationOptimizer).property('getOptimizerOptions').a('function');
         });
 
-        it('should reject if no deviceAddress is given', function() {
-            return ConfigurationOptimizer.getOptimizerOptions().then(function() {
+        it('should reject if no deviceAddress is given', () => {
+            return ConfigurationOptimizer.getOptimizerOptions().then(() => {
                 throw new Error('Should have thrown an error, but resolved');
-            }, function(err) {
+            }, (err) => {
                 expect(err).instanceOf(Error);
                 expect(err).property('message').equal('Must be implemented by sub-class');
             });
         });
 
-        it('should return single match if a deviceAddress is given', function() {
+        it('should return single match if a deviceAddress is given', () => {
             const TestableConfigurationOptimizer = ConfigurationOptimizer.extend({}, {
 
                 deviceAddress: 0x1111,
 
             });
 
-            return TestableConfigurationOptimizer.getOptimizerOptions().then(function(matches) {
+            return TestableConfigurationOptimizer.getOptimizerOptions().then((matches) => {
                 expect(matches).an('array').lengthOf(1);
 
                 const match = matches [0];
@@ -46,26 +46,26 @@ describe('ConfigurationOptimizer', function() {
 
     });
 
-    describe('.matchOptimizer', function() {
+    describe('.matchOptimizer', () => {
 
-        it('should be a function', function() {
+        it('should be a function', () => {
             expect(ConfigurationOptimizer).property('matchOptimizer').a('function');
         });
 
-        it('should reject if no deviceAddress is given', function() {
+        it('should reject if no deviceAddress is given', () => {
             const options = {
                 deviceAddress: 0x1111,
             };
 
-            return ConfigurationOptimizer.matchOptimizer(options).then(function() {
+            return ConfigurationOptimizer.matchOptimizer(options).then(() => {
                 throw new Error('Should have thrown an error, but resolved');
-            }, function(err) {
+            }, (err) => {
                 expect(err).instanceOf(Error);
                 expect(err).property('message').equal('Must be implemented by sub-class');
             });
         });
 
-        it('should match if the right deviceAddress is given', function() {
+        it('should match if the right deviceAddress is given', () => {
             const TestableConfigurationOptimizer = ConfigurationOptimizer.extend({}, {
 
                 deviceAddress: 0x1111,
@@ -76,14 +76,14 @@ describe('ConfigurationOptimizer', function() {
                 deviceAddress: 0x1111,
             };
 
-            return TestableConfigurationOptimizer.matchOptimizer(options).then(function(result) {
+            return TestableConfigurationOptimizer.matchOptimizer(options).then((result) => {
                 expect(result).property('match').equal(1);
                 expect(result).property('Optimizer').equal(TestableConfigurationOptimizer);
                 expect(result).property('options').equal(null);
             });
         });
 
-        it('should not match if the wrong deviceAddress is given', function() {
+        it('should not match if the wrong deviceAddress is given', () => {
             const TestableConfigurationOptimizer = ConfigurationOptimizer.extend({}, {
 
                 deviceAddress: 0x1111,
@@ -94,7 +94,7 @@ describe('ConfigurationOptimizer', function() {
                 deviceAddress: 0x2222,
             };
 
-            return TestableConfigurationOptimizer.matchOptimizer(options).then(function(result) {
+            return TestableConfigurationOptimizer.matchOptimizer(options).then((result) => {
                 expect(result).property('match').equal(0);
                 expect(result).property('Optimizer').equal(TestableConfigurationOptimizer);
                 expect(result).property('options').equal(null);
@@ -103,64 +103,64 @@ describe('ConfigurationOptimizer', function() {
 
     });
 
-    describe('#completeConfiguration', function() {
+    describe('#completeConfiguration', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(ConfigurationOptimizer.prototype).property('completeConfiguration').a('function');
         });
 
-        it('should be an abstract method', function() {
+        it('should be an abstract method', () => {
             const optimizer = new ConfigurationOptimizer();
 
-            expect(function() {
+            expect(() => {
                 return optimizer.completeConfiguration();
             }).throw(Error, 'Must be implemented by sub-class');
         });
 
     });
 
-    describe('#optimizeLoadConfiguration', function() {
+    describe('#optimizeLoadConfiguration', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(ConfigurationOptimizer.prototype).property('optimizeLoadConfiguration').a('function');
         });
 
-        it('should be an abstract method', function() {
+        it('should be an abstract method', () => {
             const optimizer = new ConfigurationOptimizer();
 
-            expect(function() {
+            expect(() => {
                 return optimizer.optimizeLoadConfiguration();
             }).throw(Error, 'Must be implemented by sub-class');
         });
 
     });
 
-    describe('#optimizeSaveConfiguration', function() {
+    describe('#optimizeSaveConfiguration', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(ConfigurationOptimizer.prototype).property('optimizeSaveConfiguration').a('function');
         });
 
-        it('should be an abstract method', function() {
+        it('should be an abstract method', () => {
             const optimizer = new ConfigurationOptimizer();
 
-            expect(function() {
+            expect(() => {
                 return optimizer.optimizeSaveConfiguration();
             }).throw(Error, 'Must be implemented by sub-class');
         });
 
     });
 
-    describe('#generateClockConfiguration', function() {
+    describe('#generateClockConfiguration', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(ConfigurationOptimizer.prototype).property('generateClockConfiguration').a('function');
         });
 
-        it('should be an abstract method', function() {
+        it('should be an abstract method', () => {
             const optimizer = new ConfigurationOptimizer();
 
-            expect(function() {
+            expect(() => {
                 return optimizer.generateClockConfiguration();
             }).throw(Error, 'Must be implemented by sub-class');
         });

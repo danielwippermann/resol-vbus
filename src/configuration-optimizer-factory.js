@@ -51,7 +51,7 @@ const ConfigurationOptimizerFactory = {
      * @param  {Customizer} options.customizer A `Customizer` instance to query additional information with.
      * @return {Promise} A Promise that resolves to the best matching optimizer result or `null` if no match was found.
      */
-    matchOptimizer: function(options) {
+    matchOptimizer(options) {
         return new Promise((resolve, reject) => {
             options = _.defaults({}, options);
 
@@ -72,9 +72,9 @@ const ConfigurationOptimizerFactory = {
                 if (index < optimizerClasses.length) {
                     const Optimizer = optimizerClasses [index++];
 
-                    Q.fcall(function() {
+                    Q.fcall(() => {
                         return Optimizer.matchOptimizer(options, cache);
-                    }).then(function(refResult) {
+                    }).then((refResult) => {
                         if ((refResult.match > 0) && (refResult.match > result.match)) {
                             result = refResult;
                         }
@@ -100,10 +100,10 @@ const ConfigurationOptimizerFactory = {
      * @param  {object} options See {@link ConfigurationOptimizerFactory.matchOptimizer} for details.
      * @return {Promise} A promise that resolves to the `ConfigurationOptimizer` instance or `null` if no matching optimizer was found.
      */
-    createOptimizer: function(options) {
-        return promisify(function() {
+    createOptimizer(options) {
+        return promisify(() => {
             return ConfigurationOptimizerFactory.matchOptimizer(options);
-        }).then(function(result) {
+        }).then((result) => {
             let optimizer;
             if (result) {
                 optimizer = new result.Optimizer(result.options);
@@ -120,9 +120,9 @@ const ConfigurationOptimizerFactory = {
      * @param {number} deviceAddress VBus address of the device
      * @returns {Promise} A Promise that resolvs to the optimizer for the given device or `null` if no optimizer was found.
      */
-    createOptimizerByDeviceAddress: function(deviceAddress) {
+    createOptimizerByDeviceAddress(deviceAddress) {
         return ConfigurationOptimizerFactory.createOptimizer({
-            deviceAddress: deviceAddress,
+            deviceAddress,
         });
     },
 

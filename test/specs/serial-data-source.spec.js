@@ -14,15 +14,15 @@ const SerialDataSource = vbus.SerialDataSource;
 
 
 
-describe('SerialDataSource', function() {
+describe('SerialDataSource', () => {
 
-    describe('constructor', function() {
+    describe('constructor', () => {
 
-        it('should be a constructor function', function() {
+        it('should be a constructor function', () => {
             expect(SerialDataSource).to.be.a('function');
         });
 
-        it('should have reasonable defaults', function() {
+        it('should have reasonable defaults', () => {
             const ds = new SerialDataSource();
 
             expect(ds)
@@ -32,15 +32,15 @@ describe('SerialDataSource', function() {
 
     });
 
-    describe('#connectLive', function() {
+    describe('#connectLive', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(SerialDataSource.prototype)
                 .to.have.a.property('connectLive')
                 .that.is.a('function');
         });
 
-        it('should work correctly', function() {
+        it('should work correctly', () => {
             const originalConnect = SerialConnection.prototype.connect;
 
             SerialConnection.prototype.connect = function() {
@@ -49,14 +49,14 @@ describe('SerialDataSource', function() {
 
             const ds = new SerialDataSource();
 
-            const promise = Q.fcall(function() {
+            const promise = Q.fcall(() => {
                 return ds.connectLive();
-            }).then(function(connection) {
+            }).then((connection) => {
                 expect(connection)
                     .to.be.instanceOf(SerialConnection);
             });
 
-            return vbus.utils.promiseFinally(promise, function() {
+            return vbus.utils.promiseFinally(promise, () => {
                 SerialConnection.prototype.connect = originalConnect;
             });
         });

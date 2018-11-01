@@ -3,7 +3,6 @@
 
 
 
-const EventEmitter = require('events').EventEmitter;
 const Duplex = require('stream').Duplex;
 
 
@@ -25,7 +24,7 @@ const states = _.reduce([
     'INTERRUPTED',
     'RECONNECTING',
     'DISCONNECTING',
-], function(memo, state) {
+], (memo, state) => {
     memo ['STATE_' + state] = state;
     return memo;
 }, {});
@@ -79,7 +78,7 @@ const Connection = extend(Duplex, /** @lends Connection# */ {
      * });
      * connection.connect();
      */
-    constructor: function(options) {
+    constructor(options) {
         Duplex.call(this);
 
         _.extend(this, _.pick(options, optionKeys));
@@ -124,7 +123,7 @@ const Connection = extend(Duplex, /** @lends Connection# */ {
      * @abstract
      * @returns {Promise} A promise that resolves once the connection has been established.
      */
-    connect: function(force) {
+    connect(force) {
         throw new Error('Must be implemented by sub-class');
     },
 
@@ -132,11 +131,11 @@ const Connection = extend(Duplex, /** @lends Connection# */ {
      * Diconnect this instance.
      * @abstract
      */
-    disconnect: function() {
+    disconnect() {
         throw new Error('Must be implemented by sub-class');
     },
 
-    _write: function(chunk, encoding, callback) {
+    _write(chunk, encoding, callback) {
         this.receive(new Date(), chunk);
 
         if (callback) {
@@ -144,7 +143,7 @@ const Connection = extend(Duplex, /** @lends Connection# */ {
         }
     },
 
-    receive: function(timestamp, chunk) {
+    receive(timestamp, chunk) {
         const _this = this;
 
         if (this.listenerCount('rawData') > 0) {
@@ -289,11 +288,11 @@ const Connection = extend(Duplex, /** @lends Connection# */ {
         }
     },
 
-    _read: function() {
+    _read() {
         // nop
     },
 
-    _setConnectionState: function(newState) {
+    _setConnectionState(newState) {
         if (this.connectionState !== newState) {
             this.connectionState = newState;
 
@@ -310,7 +309,7 @@ const Connection = extend(Duplex, /** @lends Connection# */ {
      *
      * @param {Header|Buffer} data The Header or Buffer instance to be sent.
      */
-    send: function(data) {
+    send(data) {
         if (data instanceof Header) {
             data = data.toLiveBuffer();
         }
@@ -329,7 +328,7 @@ const Connection = extend(Duplex, /** @lends Connection# */ {
      * @param {?function} options.filterDatagram Will be called when a Datagram has been received with the Datagram and a callback as arguments.
      * @returns {Promise} A Promise that either resolves to the VBus data selected by one of the filter callbacks or `null` on timeout.
      */
-    transceive: function(txData, options) {
+    transceive(txData, options) {
         const _this = this;
 
         options = _.defaults({}, options, {
@@ -415,7 +414,7 @@ const Connection = extend(Duplex, /** @lends Connection# */ {
      * @param {number} timeout=20000 Timeout in milliseconds
      * @returns {Promise} A Promise that resolves to the bus offering Datagram or `null` on timeout.
      */
-    waitForFreeBus: function(timeout) {
+    waitForFreeBus(timeout) {
         const options = {
             tries: 1,
             timeout: timeout || 20000,
@@ -439,7 +438,7 @@ const Connection = extend(Duplex, /** @lends Connection# */ {
      * @param {number} options.tries=2 Number of tries to give the bus ownership back.
      * @param {number} options.timeout=1500 Time in milliseconds to wait between tries.
      */
-    releaseBus: function(address, options) {
+    releaseBus(address, options) {
         options = _.defaults({}, options, {
             tries: 2,
             timeout: 1500
@@ -472,7 +471,7 @@ const Connection = extend(Duplex, /** @lends Connection# */ {
      * @param {number} options.tries=3 Number of tries to get the value.
      * @returns {Promise} A promise that resolves to the received Datagram or `null` on timeout.
      */
-    getValueById: function(address, valueId, options) {
+    getValueById(address, valueId, options) {
         const _this = this;
 
         options = _.defaults({}, options, {
@@ -488,7 +487,7 @@ const Connection = extend(Duplex, /** @lends Connection# */ {
             destinationAddress: address,
             sourceAddress: this.selfAddress,
             command: 0x0300 | subIndex,
-            valueId: valueId,
+            valueId,
             value: 0
         }).toLiveBuffer();
 
@@ -522,7 +521,7 @@ const Connection = extend(Duplex, /** @lends Connection# */ {
      * @param {number} options.tries=3 Number of tries to get the value.
      * @returns {Promise} A promise that resolves to the received Datagram or `null` on timeout.
      */
-    setValueById: function(address, valueId, value, options) {
+    setValueById(address, valueId, value, options) {
         const _this = this;
 
         options = _.defaults({}, options, {
@@ -539,8 +538,8 @@ const Connection = extend(Duplex, /** @lends Connection# */ {
             destinationAddress: address,
             sourceAddress: this.selfAddress,
             command: (options.save ? 0x0400 : 0x0200) | subIndex,
-            valueId: valueId,
-            value: value
+            valueId,
+            value
         }).toLiveBuffer();
 
         options.filterDatagram = function(rxDatagram, done) {
@@ -572,7 +571,7 @@ const Connection = extend(Duplex, /** @lends Connection# */ {
      * @param  {number} options.tries=3 Number of tries to lookup the value.
      * @return {Promise} A Promise the resolves to the received Datagram or `null` on timeout.
      */
-    getValueIdHashById: function(address, valueId, options) {
+    getValueIdHashById(address, valueId, options) {
         const _this = this;
 
         options = _.defaults({}, options, {
@@ -585,7 +584,7 @@ const Connection = extend(Duplex, /** @lends Connection# */ {
             destinationAddress: address,
             sourceAddress: this.selfAddress,
             command: 0x1000,
-            valueId: valueId,
+            valueId,
             value: 0
         }).toLiveBuffer();
 
@@ -618,7 +617,7 @@ const Connection = extend(Duplex, /** @lends Connection# */ {
      * @param  {number} options.tries=3 Number of tries to lookup the value.
      * @return {Promise} A Promise the resolves to the received Datagram or `null` on timeout.
      */
-    getValueIdByIdHash: function(address, valueIdHash, options) {
+    getValueIdByIdHash(address, valueIdHash, options) {
         const _this = this;
 
         options = _.defaults({}, options, {
@@ -663,7 +662,7 @@ const Connection = extend(Duplex, /** @lends Connection# */ {
      * @param  {number} options.tries=3 Number of tries to lookup the value.
      * @return {Promise} A Promise the resolves to the received Datagram or `null` on timeout.
      */
-    getCaps1: function(address, options) {
+    getCaps1(address, options) {
         const _this = this;
 
         options = _.defaults({}, options, {
@@ -707,7 +706,7 @@ const Connection = extend(Duplex, /** @lends Connection# */ {
      * @param  {number} options.tries=3 Number of tries to lookup the value.
      * @return {Promise} A Promise the resolves to the received Datagram or `null` on timeout.
      */
-    beginBulkValueTransaction: function(address, txTimeout, options) {
+    beginBulkValueTransaction(address, txTimeout, options) {
         const _this = this;
 
         options = _.defaults({}, options, {
@@ -750,7 +749,7 @@ const Connection = extend(Duplex, /** @lends Connection# */ {
      * @param  {number} options.tries=3 Number of tries to lookup the value.
      * @return {Promise} A Promise the resolves to the received Datagram or `null` on timeout.
      */
-    commitBulkValueTransaction: function(address, options) {
+    commitBulkValueTransaction(address, options) {
         const _this = this;
 
         options = _.defaults({}, options, {
@@ -793,7 +792,7 @@ const Connection = extend(Duplex, /** @lends Connection# */ {
      * @param  {number} options.tries=3 Number of tries to lookup the value.
      * @return {Promise} A Promise the resolves to the received Datagram or `null` on timeout.
      */
-    rollbackBulkValueTransaction: function(address, options) {
+    rollbackBulkValueTransaction(address, options) {
         const _this = this;
 
         options = _.defaults({}, options, {
@@ -838,7 +837,7 @@ const Connection = extend(Duplex, /** @lends Connection# */ {
      * @param  {number} options.tries=3 Number of tries to lookup the value.
      * @return {Promise} A Promise the resolves to the received Datagram or `null` on timeout.
      */
-    setBulkValueById: function(address, valueId, value, options) {
+    setBulkValueById(address, valueId, value, options) {
         const _this = this;
 
         options = _.defaults({}, options, {
@@ -854,8 +853,8 @@ const Connection = extend(Duplex, /** @lends Connection# */ {
             destinationAddress: address,
             sourceAddress: this.selfAddress,
             command: 0x1500 | subIndex,
-            valueId: valueId,
-            value: value
+            valueId,
+            value
         }).toLiveBuffer();
 
         options.filterDatagram = function(rxDatagram, done) {
@@ -883,7 +882,7 @@ const Connection = extend(Duplex, /** @lends Connection# */ {
      *
      * @returns {Promise}
      */
-    createConnectedPromise: function() {
+    createConnectedPromise() {
         const _this = this;
 
         return new Promise((resolve, reject) => {

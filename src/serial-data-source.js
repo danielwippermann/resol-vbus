@@ -30,13 +30,13 @@ const SerialDataSource = DataSource.extend(/** @lends SerialDataSource# */ {
      * @constructs
      * @augments DataSource
      */
-    constructor: function(options) {
+    constructor(options) {
         DataSource.call(this, options);
 
         _.extend(this, _.pick(options, optionKeys));
     },
 
-    connectLive: function(options) {
+    connectLive(options) {
         const defaultOptions = {
             path: this.path,
         };
@@ -48,9 +48,9 @@ const SerialDataSource = DataSource.extend(/** @lends SerialDataSource# */ {
 
         const connection = new SerialConnection(options);
 
-        return Q.fcall(function() {
+        return Q.fcall(() => {
             return connection.connect();
-        }).then(function() {
+        }).then(() => {
             return connection;
         });
     }

@@ -13,16 +13,16 @@ const Telegram = vbus.Telegram;
 
 
 
-describe('Telegram', function() {
+describe('Telegram', () => {
 
-    describe('constructor', function() {
+    describe('constructor', () => {
 
-        it('should be a constructor function', function() {
+        it('should be a constructor function', () => {
             expect(Telegram).to.be.a('function');
             expect(Telegram).to.have.a.property('extend').that.is.a('function');
         });
 
-        it('should have reasonable defaults', function() {
+        it('should have reasonable defaults', () => {
             const telegram = new Telegram();
 
             expect(telegram).to.have.a.property('destinationAddress').that.is.equal(0);
@@ -31,7 +31,7 @@ describe('Telegram', function() {
             expect(telegram).to.have.a.property('frameData').that.is.an.instanceOf(Buffer).that.has.a.lengthOf(21);
         });
 
-        it('should copy selected options', function() {
+        it('should copy selected options', () => {
             const options = {
                 destinationAddress: 0x1111,
                 sourceAddress: 0x2222,
@@ -47,7 +47,7 @@ describe('Telegram', function() {
             expect(telegram).to.have.a.property('frameData').that.is.eql(options.frameData).that.is.not.equal(options.frameData);
         });
 
-        it('should not copy frameData', function() {
+        it('should not copy frameData', () => {
             const options = {
                 destinationAddress: 0x1111,
                 sourceAddress: 0x2222,
@@ -66,13 +66,13 @@ describe('Telegram', function() {
 
     });
 
-    describe('#toLiveBuffer', function() {
+    describe('#toLiveBuffer', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(Telegram.prototype).to.have.a.property('toLiveBuffer').that.is.a('function');
         });
 
-        it('should work correctly without a buffer', function() {
+        it('should work correctly without a buffer', () => {
             const frameData = Buffer.alloc(21);
             for (let i = 0; i < frameData.length; i++) {
                 frameData [i] = i * 12;
@@ -82,7 +82,7 @@ describe('Telegram', function() {
                 destinationAddress: 0x1122,
                 sourceAddress: 0x3344,
                 command: 0x77,
-                frameData: frameData,
+                frameData,
             });
 
             const buffer = telegram.toLiveBuffer();
@@ -90,7 +90,7 @@ describe('Telegram', function() {
             expect(buffer.toString('hex')).to.equal('aa2211443330772e000c1824303c48000354606c7804101c70472834404c5864707f6c');
         });
 
-        it('should work correctly with a buffer', function() {
+        it('should work correctly with a buffer', () => {
             const frameData = Buffer.alloc(21);
             for (let i = 0; i < frameData.length; i++) {
                 frameData [i] = i * 12;
@@ -100,7 +100,7 @@ describe('Telegram', function() {
                 destinationAddress: 0x1122,
                 sourceAddress: 0x3344,
                 command: 0x77,
-                frameData: frameData,
+                frameData,
             });
 
             const bigBuffer = Buffer.alloc(800);
@@ -110,7 +110,7 @@ describe('Telegram', function() {
             expect(buffer.toString('hex')).to.equal('aa2211443330772e000c1824303c48000354606c7804101c70472834404c5864707f6c');
         });
 
-        it('should throw if buffer is too small', function() {
+        it('should throw if buffer is too small', () => {
             const frameData = Buffer.alloc(21);
             for (let i = 0; i < frameData.length; i++) {
                 frameData [i] = i * 12;
@@ -120,25 +120,25 @@ describe('Telegram', function() {
                 destinationAddress: 0x1122,
                 sourceAddress: 0x3344,
                 command: 0x77,
-                frameData: frameData,
+                frameData,
             });
 
             const bigBuffer = Buffer.alloc(800);
 
-            expect(function() {
+            expect(() => {
                 telegram.toLiveBuffer(bigBuffer, 100, 10);
             }).to.throw();
         });
 
     });
 
-    describe('.fromLiveBuffer', function() {
+    describe('.fromLiveBuffer', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(Telegram).to.have.a.property('fromLiveBuffer').that.is.a('function');
         });
 
-        it('should work correctly', function() {
+        it('should work correctly', () => {
             const options = {
                 destinationAddress: 0x7771,
                 sourceAddress: 0x2011,
@@ -152,7 +152,7 @@ describe('Telegram', function() {
 
             expect(telegram).to.be.an.instanceOf(Telegram);
 
-            _.forEach(options, function(refValue, key) {
+            _.forEach(options, (refValue, key) => {
                 let value = telegram [key];
 
                 if ((value instanceof Buffer) && (refValue instanceof Buffer)) {
@@ -166,13 +166,13 @@ describe('Telegram', function() {
 
     });
 
-    describe('#getId', function() {
+    describe('#getId', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(Telegram.prototype).to.have.a.property('getId').that.is.a('function');
         });
 
-        it('should work correctly', function() {
+        it('should work correctly', () => {
             const frameData = Buffer.alloc(21);
             for (let i = 0; i < frameData.length; i++) {
                 frameData [i] = i * 12;
@@ -183,7 +183,7 @@ describe('Telegram', function() {
                 destinationAddress: 0x1122,
                 sourceAddress: 0x3344,
                 command: 0x77,
-                frameData: frameData,
+                frameData,
             });
 
             expect(telegram).to.be.an('object');

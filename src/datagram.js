@@ -55,13 +55,13 @@ const Datagram = Header.extend(/** @lends Datagram# */ {
      * In addition to the packet header it may contain a command, a value ID and a value.
      * The value ID is a device-specific reference to one of the values presented in the device's menu interface.
      */
-    constructor: function(options) {
+    constructor(options) {
         Header.call(this, options);
 
         _.extend(this, _.pick(options, optionKeys));
     },
 
-    toLiveBuffer: function(origBuffer, start, end) {
+    toLiveBuffer(origBuffer, start, end) {
         const length = 16;
 
         let buffer;
@@ -90,11 +90,11 @@ const Datagram = Header.extend(/** @lends Datagram# */ {
         return buffer;
     },
 
-    getProtocolVersion: function() {
+    getProtocolVersion() {
         return 0x20;
     },
 
-    getInfo: function() {
+    getInfo() {
         let info;
         if (this.command === 0x0900) {
             info = this.valueId;
@@ -104,13 +104,13 @@ const Datagram = Header.extend(/** @lends Datagram# */ {
         return info;
     },
 
-    getId: function() {
+    getId() {
         const baseId = Header.prototype.getId.call(this);
         const info = this.getInfo();
         return sprintf('%s_%04X_%04X', baseId, this.command, info);
     },
 
-    compareTo: function(that) {
+    compareTo(that) {
         let result = Header.prototype.compareTo.apply(this, arguments);
         if (result === 0) {
             result = this.command - that.command;
@@ -123,7 +123,7 @@ const Datagram = Header.extend(/** @lends Datagram# */ {
 
 }, {
 
-    fromLiveBuffer: function(buffer, start, end) {
+    fromLiveBuffer(buffer, start, end) {
         const frameData = Buffer.alloc(6);
         Header.injectSeptett(buffer, start + 8, start + 14, frameData, 0);
 

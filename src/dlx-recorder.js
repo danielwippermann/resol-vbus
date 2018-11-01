@@ -51,47 +51,47 @@ const DLxRecorder = Recorder.extend(/** @lends DLxRecorder# */ {
      * @classdesc
      * DLxRecorder is a recorder that can play back data recorded by a Datalogger.
      */
-    constructor: function(options) {
+    constructor(options) {
         Recorder.call(this, options);
 
         _.extend(this, _.pick(options, optionKeys));
     },
 
-    _getOptions: function() {
+    _getOptions() {
         const options = Recorder.prototype._getOptions.call(this);
         return _.extend(options, _.pick(this, optionKeys));
     },
 
-    _playback: function(headerSetConsolidator, options) {
+    _playback(headerSetConsolidator, options) {
         const _this = this;
 
         const converter = new VBusRecordingConverter();
 
-        converter.on('headerSet', function(headerSet) {
+        converter.on('headerSet', (headerSet) => {
             headerSetConsolidator.processHeaderSet(headerSet);
         });
 
-        return Q.fcall(function() {
+        return Q.fcall(() => {
             if (options.apiAccess) {
                 return _this._playbackApi(converter, options);
             } else {
                 return _this._playbackRaw(converter, options);
             }
-        }).then(function() {
+        }).then(() => {
             converter.end();
         });
     },
 
-    _playbackRaw: function(converter, options) {
+    _playbackRaw(converter, options) {
         const _this = this;
 
         const minFilename = moment.utc(options.minTimestamp).format('[/log/]YYYYMMDD');
         const maxFilename = moment.utc(options.maxTimestamp).format('[/log/]YYYYMMDD');
 
-        return Q.fcall(function() {
+        return Q.fcall(() => {
             return _this.getRecordingFilenames(options);
-        }).then(function(filenames) {
-            return _.reduce(filenames, function(memo, filename) {
+        }).then((filenames) => {
+            return _.reduce(filenames, (memo, filename) => {
                 const filenamePrefix = filename.slice(0, minFilename.length);
 
                 if ((filenamePrefix >= minFilename) && (filenamePrefix <= maxFilename)) {
@@ -100,11 +100,11 @@ const DLxRecorder = Recorder.extend(/** @lends DLxRecorder# */ {
 
                 return memo;
             }, []);
-        }).then(function(filenames) {
+        }).then((filenames) => {
             let promise = Q();
 
-            _.forEach(filenames, function(filename) {
-                promise = promise.then(function() {
+            _.forEach(filenames, (filename) => {
+                promise = promise.then(() => {
                     const urlString = options.urlPrefix + filename;
 
                     const urlOptions = {
@@ -122,7 +122,7 @@ const DLxRecorder = Recorder.extend(/** @lends DLxRecorder# */ {
         });
     },
 
-    _playbackApi: function(converter, options) {
+    _playbackApi(converter, options) {
         const urlString = options.urlPrefix + '/dlx/download/download';
 
         const urlOptions = {
@@ -148,7 +148,7 @@ const DLxRecorder = Recorder.extend(/** @lends DLxRecorder# */ {
         });
     },
 
-    _playbackSyncJob: function(stream, syncJob) {
+    _playbackSyncJob(stream, syncJob) {
         const _this = this;
 
         if (!stream.objectMode) {
@@ -157,30 +157,30 @@ const DLxRecorder = Recorder.extend(/** @lends DLxRecorder# */ {
 
         /* var syncState = */ this._getSyncState(syncJob, 'source', 'DLxRecorder');
 
-        return Q.fcall(function() {
+        return Q.fcall(() => {
             return _this.getLazyRecordingRanges();
-        }).then(function(availableRanges) {
+        }).then((availableRanges) => {
             const ranges = Recorder.performRangeSetOperation(availableRanges, syncJob.syncStateDiffs, syncJob.interval, 'intersection');
 
             let playedBackRanges = [];
 
             let promise = Q();
 
-            _.forEach(ranges, function(range) {
+            _.forEach(ranges, (range) => {
                 const options = _.extend({}, syncJob, {
                     minTimestamp: range.minTimestamp,
                     maxTimestamp: range.maxTimestamp,
                     end: false,
                 });
 
-                promise = promise.then(function() {
+                promise = promise.then(() => {
                     return _this.playback(stream, options);
-                }).then(function(ranges) {
+                }).then((ranges) => {
                     playedBackRanges = Recorder.performRangeSetOperation(playedBackRanges, ranges, syncJob.interval, 'union');
                 });
             });
 
-            promise = promise.then(function() {
+            promise = promise.then(() => {
                 let handledRanges = playedBackRanges;
 
                 if (handledRanges.length > 0) {
@@ -193,7 +193,7 @@ const DLxRecorder = Recorder.extend(/** @lends DLxRecorder# */ {
 
                     const notAvailableRanges = [{
                         minTimestamp: new Date(Date.UTC(2001, 0)),
-                        maxTimestamp: maxTimestamp,
+                        maxTimestamp,
                     }];
 
                     handledRanges = Recorder.performRangeSetOperation(handledRanges, notAvailableRanges, syncJob.interval, 'union');
@@ -208,13 +208,13 @@ const DLxRecorder = Recorder.extend(/** @lends DLxRecorder# */ {
         });
     },
 
-    getLazyRecordingRanges: function() {
+    getLazyRecordingRanges() {
         const _this = this;
 
-        return Q.fcall(function() {
+        return Q.fcall(() => {
             return _this.getRecordingFilenames();
-        }).then(function(filenames) {
-            let ranges = _.map(filenames, function(filename) {
+        }).then((filenames) => {
+            let ranges = _.map(filenames, (filename) => {
                 const minTimestamp = moment.utc(filename.slice(5, 13), 'YYYYMMDD');
                 const maxTimestamp = moment.utc(minTimestamp).add({ hours: 24 });
                 return {
@@ -229,7 +229,7 @@ const DLxRecorder = Recorder.extend(/** @lends DLxRecorder# */ {
         });
     },
 
-    getRecordingFilenames: function() {
+    getRecordingFilenames() {
         return new Promise((resolve, reject) => {
             let rxBuffer = null;
 
@@ -284,7 +284,7 @@ const DLxRecorder = Recorder.extend(/** @lends DLxRecorder# */ {
         });
     },
 
-    getRecordingInfo: function(filename) {
+    getRecordingInfo(filename) {
         return new Promise((resolve, reject) => {
             const info = {};
 
@@ -317,7 +317,7 @@ const DLxRecorder = Recorder.extend(/** @lends DLxRecorder# */ {
         });
     },
 
-    downloadToStream: function(urlString, urlOptions, stream) {
+    downloadToStream(urlString, urlOptions, stream) {
         return new Promise((resolve, reject) => {
             const onEnd = function() {
                 resolve();
@@ -334,7 +334,7 @@ const DLxRecorder = Recorder.extend(/** @lends DLxRecorder# */ {
         });
     },
 
-    _request: function() {
+    _request() {
         return request.apply(undefined, arguments);
     },
 

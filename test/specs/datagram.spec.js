@@ -9,15 +9,15 @@ const Datagram = require('./resol-vbus').Datagram;
 
 
 
-describe('Datagram', function() {
+describe('Datagram', () => {
 
-    describe('.fromLiveBuffer', function() {
+    describe('.fromLiveBuffer', () => {
 
-        it('should be a function', function() {
+        it('should be a function', () => {
             expect(Datagram.fromLiveBuffer).to.be.a('function');
         });
 
-        it('should have a fromLiveBuffer function', function() {
+        it('should have a fromLiveBuffer function', () => {
             const options = {
                 destinationAddress: 0x2336,
                 sourceAddress: 0x3335,
@@ -32,7 +32,7 @@ describe('Datagram', function() {
 
             expect(datagram).to.be.an.instanceOf(Datagram);
 
-            _.forEach(options, function(refValue, key) {
+            _.forEach(options, (refValue, key) => {
                 const value = datagram [key];
 
                 expect(value).to.equal(refValue, key);
@@ -41,14 +41,14 @@ describe('Datagram', function() {
 
     });
 
-    describe('constructor', function() {
+    describe('constructor', () => {
 
-        it('should be a constructor function', function() {
+        it('should be a constructor function', () => {
             expect(Datagram).to.be.a('function');
             expect(Datagram.extend).to.be.a('function');
         });
 
-        it('should have reasonable defaults', function() {
+        it('should have reasonable defaults', () => {
             const before = new Date();
             const datagram = new Datagram();
             const after = new Date();
@@ -64,7 +64,7 @@ describe('Datagram', function() {
             expect(datagram.value).to.equal(0);
         });
 
-        it('should copy certain options', function() {
+        it('should copy certain options', () => {
             const options = {
                 timestamp: new Date(0),
                 channel: 0x1337,
@@ -79,7 +79,7 @@ describe('Datagram', function() {
             const datagram = new Datagram(options);
 
             expect(datagram).to.be.an('object');
-            _.forEach(options, function(refValue, key) {
+            _.forEach(options, (refValue, key) => {
                 const value = datagram [key];
 
                 if (key === 'junk') {
@@ -92,13 +92,13 @@ describe('Datagram', function() {
 
     });
 
-    describe('#toLiveBuffer', function() {
+    describe('#toLiveBuffer', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(Datagram.prototype.toLiveBuffer).to.be.a('function');
         });
 
-        it('should work correctly', function() {
+        it('should work correctly', () => {
             const options = {
                 destinationAddress: 0x2336,
                 sourceAddress: 0x3335,
@@ -118,13 +118,13 @@ describe('Datagram', function() {
 
     });
 
-    describe('#getProtocolVersion', function() {
+    describe('#getProtocolVersion', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(Datagram.prototype.getProtocolVersion).to.be.a('function');
         });
 
-        it('should work correctly', function() {
+        it('should work correctly', () => {
             const options = {
                 destinationAddress: 0x2336,
                 sourceAddress: 0x3335,
@@ -140,13 +140,13 @@ describe('Datagram', function() {
 
     });
 
-    describe('#getInfo', function() {
+    describe('#getInfo', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(Datagram.prototype.getInfo).to.be.a('function');
         });
 
-        it('should work correctly for non-notifications', function() {
+        it('should work correctly for non-notifications', () => {
             const options = {
                 destinationAddress: 0x2336,
                 sourceAddress: 0x3335,
@@ -160,7 +160,7 @@ describe('Datagram', function() {
             expect(datagram.getInfo()).to.equal(0);
         });
 
-        it('should work correctly for notifications', function() {
+        it('should work correctly for notifications', () => {
             const options = {
                 destinationAddress: 0x2336,
                 sourceAddress: 0x3335,
@@ -176,13 +176,13 @@ describe('Datagram', function() {
 
     });
 
-    describe('#getId', function() {
+    describe('#getId', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(Datagram.prototype.getId).to.be.a('function');
         });
 
-        it('should work correctly for non-notifications', function() {
+        it('should work correctly for non-notifications', () => {
             const options = {
                 timestamp: new Date(0),
                 channel: 0x13,
@@ -198,7 +198,7 @@ describe('Datagram', function() {
             expect(datagram.getId()).to.equal('13_2336_3335_20_4334_0000');
         });
 
-        it('should work correctly for notifications', function() {
+        it('should work correctly for notifications', () => {
             const options = {
                 timestamp: new Date(0),
                 channel: 0x13,
@@ -216,13 +216,13 @@ describe('Datagram', function() {
 
     });
 
-    describe('#compareTo', function() {
+    describe('#compareTo', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(Datagram.prototype.compareTo).to.be.a('function');
         });
 
-        it('should work correctly for channel', function() {
+        it('should work correctly for channel', () => {
             const options = {
                 timestamp: new Date(0),
                 channel: 0x13,
@@ -246,7 +246,7 @@ describe('Datagram', function() {
             expect(datagram.compareTo(new Datagram(options))).to.be.below(0);
         });
 
-        it('should work correctly for destinationAddress', function() {
+        it('should work correctly for destinationAddress', () => {
             const options = {
                 timestamp: new Date(0),
                 channel: 0x13,
@@ -270,7 +270,7 @@ describe('Datagram', function() {
             expect(datagram.compareTo(new Datagram(options))).to.be.below(0);
         });
 
-        it('should work correctly for sourceAddress', function() {
+        it('should work correctly for sourceAddress', () => {
             const options = {
                 timestamp: new Date(0),
                 channel: 0x13,
@@ -294,7 +294,7 @@ describe('Datagram', function() {
             expect(datagram.compareTo(new Datagram(options))).to.be.below(0);
         });
 
-        it('should work correctly for command', function() {
+        it('should work correctly for command', () => {
             const options = {
                 timestamp: new Date(0),
                 channel: 0x13,
@@ -318,7 +318,7 @@ describe('Datagram', function() {
             expect(datagram.compareTo(new Datagram(options))).to.be.below(0);
         });
 
-        it('should work correctly for info', function() {
+        it('should work correctly for info', () => {
             const options = {
                 timestamp: new Date(0),
                 channel: 0x13,

@@ -60,7 +60,7 @@ const Converter = extend(Duplex, /** @lends Converter# */ {
      * parsing and generating according to the VBus Recording File Format) and TextConverter that creates
      * character-separated text representations.
      */
-    constructor: function(options) {
+    constructor(options) {
         const _this = this;
 
         options = _.defaults({}, options);
@@ -77,7 +77,7 @@ const Converter = extend(Duplex, /** @lends Converter# */ {
 
             _this.on('data', onData);
 
-            _this.once('end', function() {
+            _this.once('end', () => {
                 _this.removeListener('data', onData);
 
                 resolve();
@@ -89,7 +89,7 @@ const Converter = extend(Duplex, /** @lends Converter# */ {
      * This method resets the converter. It should be used e.g. if the converter output switches between files (allows
      * some Converter sub-classes to correctly write a header).
      */
-    reset: function() {
+    reset() {
         // nop
     },
 
@@ -100,10 +100,10 @@ const Converter = extend(Duplex, /** @lends Converter# */ {
      *
      * @return {Promise} A Promise that resolves when all data has been consumed.
      */
-    finish: function() {
+    finish() {
         const _this = this;
 
-        return Q.fcall(function() {
+        return Q.fcall(() => {
             _this.push(null);
 
             return _this.finishedPromise;
@@ -116,7 +116,7 @@ const Converter = extend(Duplex, /** @lends Converter# */ {
      *
      * @param {RawData} rawData The VBus raw data chunk to queue for conversion.
      */
-    convertRawData: function(rawData) {
+    convertRawData(rawData) {
         if (this.objectMode) {
             this.push(rawData);
         } else {
@@ -130,7 +130,7 @@ const Converter = extend(Duplex, /** @lends Converter# */ {
      *
      * @param {Header} header The Header to queue for conversion.
      */
-    convertHeader: function(header) {
+    convertHeader(header) {
         if (this.objectMode) {
             this.push(header);
         } else {
@@ -144,7 +144,7 @@ const Converter = extend(Duplex, /** @lends Converter# */ {
      *
      * @param {HeaderSet} headerSet The HeaderSet to queue for conversion.
      */
-    convertHeaderSet: function(headerSet) {
+    convertHeaderSet(headerSet) {
         if (this.objectMode) {
             this.push(headerSet);
         } else {
@@ -152,7 +152,7 @@ const Converter = extend(Duplex, /** @lends Converter# */ {
         }
     },
 
-    _read: function() {
+    _read() {
         if (this.objectMode) {
             // nop
         } else {
@@ -160,7 +160,7 @@ const Converter = extend(Duplex, /** @lends Converter# */ {
         }
     },
 
-    _write: function(chunk, encoding, callback) {
+    _write(chunk, encoding, callback) {
         if (this.objectMode) {
             if (chunk instanceof HeaderSet) {
                 this.emit('headerSet', chunk);

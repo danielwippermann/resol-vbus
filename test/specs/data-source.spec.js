@@ -8,15 +8,15 @@ const DataSource = require('./resol-vbus').DataSource;
 
 
 
-describe('DataSource', function() {
+describe('DataSource', () => {
 
-    describe('constructor', function() {
+    describe('constructor', () => {
 
-        it('should be a constructor function', function() {
+        it('should be a constructor function', () => {
             expect(DataSource).to.be.a('function');
         });
 
-        it('should have reasonable defaults', function() {
+        it('should have reasonable defaults', () => {
             const dataSource = new DataSource();
 
             expect(dataSource).to.be.an('object');
@@ -29,7 +29,7 @@ describe('DataSource', function() {
             expect(dataSource.isSupportingCustomization).to.equal(false);
         });
 
-        it('should copy selected options', function() {
+        it('should copy selected options', () => {
             const dataSource = new DataSource({
                 provider: 'provider',
                 id: 'id',
@@ -54,78 +54,78 @@ describe('DataSource', function() {
 
     });
 
-    describe('#connectLive', function() {
+    describe('#connectLive', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(DataSource.prototype.connectLive).to.be.a('function');
         });
 
-        it('should report if not supported', function() {
+        it('should report if not supported', () => {
             const converter = new DataSource();
 
-            expect(function() {
+            expect(() => {
                 converter.connectLive();
             }).to.throw(Error, 'Does not support live data');
         });
 
-        it('should be abstract', function() {
+        it('should be abstract', () => {
             const converter = new DataSource({
                 isSupportingLiveData: true,
             });
 
-            expect(function() {
+            expect(() => {
                 converter.connectLive();
             }).to.throw(Error, 'Must be implemented by sub-class');
         });
 
     });
 
-    describe('#openRecorder', function() {
+    describe('#openRecorder', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(DataSource.prototype.openRecorder).to.be.a('function');
         });
 
-        it('should report if not supported', function() {
+        it('should report if not supported', () => {
             const converter = new DataSource();
 
-            expect(function() {
+            expect(() => {
                 converter.openRecorder();
             }).to.throw(Error, 'Does not support recorded data');
         });
 
-        it('should be abstract', function() {
+        it('should be abstract', () => {
             const converter = new DataSource({
                 isSupportingRecordedData: true,
             });
 
-            expect(function() {
+            expect(() => {
                 converter.openRecorder();
             }).to.throw(Error, 'Must be implemented by sub-class');
         });
 
     });
 
-    describe('#createCustomizer', function() {
+    describe('#createCustomizer', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(DataSource.prototype).property('createCustomizer').to.be.a('function');
         });
 
-        it('should report if not supported', function() {
+        it('should report if not supported', () => {
             const converter = new DataSource();
 
-            expect(function() {
+            expect(() => {
                 converter.createCustomizer();
             }).to.throw(Error, 'Does not support customization');
         });
 
-        it('should be abstract', function() {
+        it('should be abstract', () => {
             const converter = new DataSource({
                 isSupportingCustomization: true,
             });
 
-            expect(function() {
+            expect(() => {
                 converter.createCustomizer();
             }).to.throw(Error, 'Must be implemented by sub-class');
         });

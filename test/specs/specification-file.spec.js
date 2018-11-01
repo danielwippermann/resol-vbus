@@ -21,17 +21,17 @@ const testVsf1 = fs.readFileSync(path.join(__dirname, '../fixtures/vbus-specific
 
 
 
-describe('SpecificationFile', function() {
+describe('SpecificationFile', () => {
 
-    it('should be a class', function() {
+    it('should be a class', () => {
         expect(SpecificationFile).a('function')
             .property('prototype').an('object')
             .property('constructor').equal(SpecificationFile);
     });
 
-    describe('#constructor', function() {
+    describe('#constructor', () => {
 
-        it('should work correctly for fixtures file #1', function() {
+        it('should work correctly for fixtures file #1', () => {
             const specFile = new SpecificationFile(testVsf1);
 
             expect(specFile).an('object');

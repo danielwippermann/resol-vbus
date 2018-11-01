@@ -74,7 +74,7 @@ const ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# 
      * A ConnectionCustomizer uses an established connection to a device
      * to transfer sets of configuration values over it.
      */
-    constructor: function(options) {
+    constructor(options) {
         Customizer.apply(this, arguments);
 
         _.extend(this, _.pick(options, optionKeys));
@@ -85,20 +85,20 @@ const ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# 
      *
      * See {@link Customizer#loadConfiguration} for details.
      */
-    _loadConfiguration: function(configuration, options) {
+    _loadConfiguration(configuration, options) {
         const _this = this;
 
         options = _.defaults({}, options, {
             action: 'get',
         });
 
-        return Q.fcall(function() {
+        return Q.fcall(() => {
             const callback = function(config, round) {
                 if (options.optimize) {
                     return _this._optimizeLoadConfiguration(config);
                 } else {
                     if (round === 1) {
-                        _.forEach(configuration, function(value) {
+                        _.forEach(configuration, (value) => {
                             value.pending = true;
                         });
 
@@ -118,7 +118,7 @@ const ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# 
      *
      * See {@link Customizer#saveConfiguration} for details.
      */
-    _saveConfiguration: function(newConfiguration, oldConfigurstion, options) {
+    _saveConfiguration(newConfiguration, oldConfigurstion, options) {
         const _this = this;
 
         options = _.defaults({}, options, {
@@ -128,7 +128,7 @@ const ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# 
             },
         });
 
-        return Q.fcall(function() {
+        return Q.fcall(() => {
             const callback = function(config, round) {
                 if (options.optimize) {
                     if (round === 1) {
@@ -138,7 +138,7 @@ const ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# 
                     }
                 } else {
                     if (round === 1) {
-                        _.forEach(newConfiguration, function(value) {
+                        _.forEach(newConfiguration, (value) => {
                             value.pending = true;
                         });
 
@@ -165,7 +165,7 @@ const ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# 
      * @param {number} [options.actionOptions] Options object to forward to the action to perform.
      * @return {object} Promise that resolves to the configuration or `null` on timeout.
      */
-    transceiveConfiguration: function(options, callback) {
+    transceiveConfiguration(options, callback) {
         const _this = this;
 
         if (_.isFunction(options)) {
@@ -187,7 +187,7 @@ const ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# 
         const connection = this.connection;
         const address = this.deviceAddress;
 
-        return new Promise(function(resolve, reject) {
+        return new Promise((resolve, reject) => {
             function notify(progress) {
                 if (options.reportProgress) {
                     options.reportProgress(progress);
@@ -203,11 +203,11 @@ const ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# 
             }
 
             const check = function(result) {
-                return Q.fcall(function() {
+                return Q.fcall(() => {
                     return checkCanceled();
-                }).then(function() {
+                }).then(() => {
                     return connection.createConnectedPromise();
-                }).then(function() {
+                }).then(() => {
                     return result;
                 });
             };
@@ -229,7 +229,7 @@ const ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# 
                 }
 
                 _.extend(progress, {
-                    round: round,
+                    round,
                 });
 
                 notify(progress);
@@ -239,14 +239,14 @@ const ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# 
                 if (round < options.maxRounds) {
                     round++;
 
-                    Q.fcall(check).then(function() {
+                    Q.fcall(check).then(() => {
                         reportProgress('OPTIMIZING_VALUES');
 
                         return callback(config, round);
-                    }).then(check).then(function(newConfig) {
+                    }).then(check).then((newConfig) => {
                         config = newConfig;
 
-                        const pendingValues = _.filter(config, function(value) {
+                        const pendingValues = _.filter(config, (value) => {
                             return value.pending;
                         });
 
@@ -271,7 +271,7 @@ const ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# 
                                     };
                                 }
 
-                                Q.fcall(check).then(function() {
+                                Q.fcall(check).then(() => {
                                     return _this.transceiveValue(valueInfo, valueInfo.value, {
                                         triesPerValue: options.triesPerValue,
                                         timeoutPerValue: options.timeoutPerValue,
@@ -279,7 +279,7 @@ const ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# 
                                         actionOptions: options.actionOptions,
                                         reportProgress,
                                     }, state);
-                                }).then(function(datagram) {
+                                }).then((datagram) => {
                                     valueInfo.pending = false;
                                     valueInfo.transceived = !!datagram;
 
@@ -297,13 +297,13 @@ const ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# 
                         if (pendingValues.length > 0) {
                             process.nextTick(nextValue);
                         } else {
-                            Q.fcall(function() {
+                            Q.fcall(() => {
                                 if (state.masterLastContacted !== null) {
                                     reportProgress('RELEASING_BUS');
 
                                     return connection.releaseBus(address);
                                 }
-                            }).then(function() {
+                            }).then(() => {
                                 resolve(config);
                             }, reject);
                         }
@@ -332,7 +332,7 @@ const ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# 
      * @param {object} state State to share between multiple calls to this method.
      * @returns {object} Promise that resolves with the datagram received or `null` on timeout.
      */
-    transceiveValue: function(valueInfo, value, options, state) {
+    transceiveValue(valueInfo, value, options, state) {
         if (!_.isObject(valueInfo)) {
             valueInfo = {
                 valueIndex: valueInfo,
@@ -361,7 +361,7 @@ const ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# 
         const connection = this.connection;
         const address = this.deviceAddress;
 
-        return new Promise(function(resolve, reject) {
+        return new Promise((resolve, reject) => {
             function notify(progress) {
                 if (options.reportProgress) {
                     options.reportProgress(progress);
@@ -396,11 +396,11 @@ const ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# 
             };
 
             const check = function(result) {
-                return Q.fcall(function() {
+                return Q.fcall(() => {
                     return checkCanceled();
-                }).then(function() {
+                }).then(() => {
                     return connection.createConnectedPromise();
-                }).then(function() {
+                }).then(() => {
                     return result;
                 });
             };
@@ -409,10 +409,10 @@ const ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# 
 
             const reportProgress = function(message) {
                 notify({
-                    message: message,
-                    tries: tries,
+                    message,
+                    tries,
                     valueIndex: valueInfo.valueIndex,
-                    valueInfo: valueInfo,
+                    valueInfo,
                 });
             };
 
@@ -420,7 +420,7 @@ const ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# 
                 if (tries < options.triesPerValue) {
                     tries++;
 
-                    Q.fcall(check).then(function() {
+                    Q.fcall(check).then(() => {
                         if ((tries > 1) && (state.masterLastContacted !== null)) {
                             reportProgress('RELEASING_BUS');
 
@@ -428,11 +428,11 @@ const ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# 
 
                             return connection.releaseBus(state.masterAddress);
                         }
-                    }).then(check).then(function() {
+                    }).then(check).then(() => {
                         if ((state.masterLastContacted === null) && (options.masterTimeout !== null)) {
                             reportProgress('WAITING_FOR_FREE_BUS');
 
-                            return connection.waitForFreeBus().then(function(datagram) { // TODO: optional timeout?
+                            return connection.waitForFreeBus().then((datagram) => { // TODO: optional timeout?
                                 if (datagram) {
                                     state.masterAddress = datagram.sourceAddress;
                                 } else {
@@ -440,7 +440,7 @@ const ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# 
                                 }
                             });
                         }
-                    }).then(check).then(function() {
+                    }).then(check).then(() => {
                         let contactMaster;
                         if (state.masterAddress === null) {
                             contactMaster = false;
@@ -463,7 +463,7 @@ const ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# 
                                 tries: 1,
                             });
                         }
-                    }).then(check).then(function() {
+                    }).then(check).then(() => {
                         if (state.masterAddress === address) {
                             state.masterLastContacted = Date.now();
                         }
@@ -473,15 +473,15 @@ const ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# 
                         } else if (_.isNumber(valueInfo.valueIdHash)) {
                             reportProgress('LOOKING_UP_VALUE');
 
-                            return Q.fcall(function() {
+                            return Q.fcall(() => {
                                 return connection.getValueIdByIdHash(address, valueInfo.valueIdHash, options.actionOptions);
-                            }).then(function(datagram) {
+                            }).then((datagram) => {
                                 if (datagram && datagram.valueId) {
                                     valueInfo.valueIndex = datagram.valueId;
                                 }
                             });
                         }
-                    }).then(check).then(function() {
+                    }).then(check).then(() => {
                         if (state.masterAddress === address) {
                             state.masterLastContacted = Date.now();
                         }
@@ -499,7 +499,7 @@ const ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# 
                         } else {
                             throw new Error('Unknown action "' + options.action + '"');
                         }
-                    }).then(function(datagram) {
+                    }).then((datagram) => {
                         if (datagram) {
                             done(null, datagram);
                         } else {

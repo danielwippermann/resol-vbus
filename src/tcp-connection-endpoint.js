@@ -57,7 +57,7 @@ const TcpConnectionEndpoint = extend(EventEmitter, /** @lends TcpConnectionEndpo
      * A `connection` event is emitted whenever an incoming connection passes
      * the VBus-over-TCP handshake.
      */
-    constructor: function(options) {
+    constructor(options) {
         EventEmitter.call(this);
 
         _.extend(this, _.pick(options, optionKeys));
@@ -72,7 +72,7 @@ const TcpConnectionEndpoint = extend(EventEmitter, /** @lends TcpConnectionEndpo
      *
      * @return {Promise} A promise that resolves when the server is started.
      */
-    start: function() {
+    start() {
         const _this = this;
 
         let deferred = Q.defer();
@@ -89,18 +89,18 @@ const TcpConnectionEndpoint = extend(EventEmitter, /** @lends TcpConnectionEndpo
             }
         };
 
-        const server = net.createServer(function(socket) {
+        const server = net.createServer((socket) => {
             _this._onConnection(socket);
         });
 
-        server.listen(this.port, function() {
+        server.listen(this.port, () => {
             if (_this.port === 0) {
                 _this.port = server.address().port;
             }
             done(null, true);
         });
 
-        server.on('error', function(err) {
+        server.on('error', (err) => {
             done(err);
         });
 
@@ -109,7 +109,7 @@ const TcpConnectionEndpoint = extend(EventEmitter, /** @lends TcpConnectionEndpo
         return promise;
     },
 
-    stop: function() {
+    stop() {
         if (this.server) {
             this.server.close();
 
@@ -117,11 +117,11 @@ const TcpConnectionEndpoint = extend(EventEmitter, /** @lends TcpConnectionEndpo
         }
     },
 
-    _onConnection: function(socket) {
+    _onConnection(socket) {
         const _this = this;
 
         const connectionInfo = {
-            socket: socket,
+            socket,
         };
 
         let phase = 0;
@@ -172,7 +172,7 @@ const TcpConnectionEndpoint = extend(EventEmitter, /** @lends TcpConnectionEndpo
                         connectionInfo.password = md [1];
                         callback(null, '+OK');
                     } else if ((md = /^CHANNELLIST$/.exec(line))) {
-                        const response = _.reduce(_this.channels, function(memo, channel, index) {
+                        const response = _.reduce(_this.channels, (memo, channel, index) => {
                             if (channel) {
                                 memo.push('*' + index + ':' + channel);
                             }

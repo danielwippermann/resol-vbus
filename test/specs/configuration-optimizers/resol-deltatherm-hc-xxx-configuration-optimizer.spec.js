@@ -16,48 +16,48 @@ const optimizerPromise = vbus.ConfigurationOptimizerFactory.createOptimizerByDev
 
 
 
-describe('ResolDeltaThermHcXxxConfigurationOptimizer', function() {
+describe('ResolDeltaThermHcXxxConfigurationOptimizer', () => {
 
-    describe('using ConfigurationOptimizerFactory', function() {
+    describe('using ConfigurationOptimizerFactory', () => {
 
-        it('should work correctly', function() {
-            return testUtils.expectPromise(optimizerPromise).then(function(optimizer) {
+        it('should work correctly', () => {
+            return testUtils.expectPromise(optimizerPromise).then((optimizer) => {
                 expect(optimizer).an('object');
             });
         });
 
     });
 
-    describe('#completeConfiguration', function() {
+    describe('#completeConfiguration', () => {
 
-        it('should work correctly without provided config', function() {
-            return optimizerPromise.then(function(optimizer) {
-                return Q.fcall(function() {
+        it('should work correctly without provided config', () => {
+            return optimizerPromise.then((optimizer) => {
+                return Q.fcall(() => {
                     return testUtils.expectPromise(optimizer.completeConfiguration());
-                }).then(function(config) {
+                }).then((config) => {
                     expect(config).an('array').lengthOf(5753);
                 });
             });
         });
 
-        it('should work correctly with provided config object', function() {
-            return optimizerPromise.then(function(optimizer) {
-                return Q.fcall(function() {
+        it('should work correctly with provided config object', () => {
+            return optimizerPromise.then((optimizer) => {
+                return Q.fcall(() => {
                     const config = {
                         Language: 0,
                         TemperatureHysteresisSelector: 0,
                     };
 
                     return testUtils.expectPromise(optimizer.completeConfiguration(config));
-                }).then(function(config) {
+                }).then((config) => {
                     expect(config).an('array').lengthOf(2);
                 });
             });
         });
 
-        it('should work correctly with provided config array', function() {
-            return optimizerPromise.then(function(optimizer) {
-                return Q.fcall(function() {
+        it('should work correctly with provided config array', () => {
+            return optimizerPromise.then((optimizer) => {
+                return Q.fcall(() => {
                     const config = [{
                         valueId: 'Language',
                     }, {
@@ -66,7 +66,7 @@ describe('ResolDeltaThermHcXxxConfigurationOptimizer', function() {
                     }];
 
                     return testUtils.expectPromise(optimizer.completeConfiguration(config));
-                }).then(function(config) {
+                }).then((config) => {
                     expect(config).an('array').lengthOf(2);
                 });
             });
@@ -74,15 +74,15 @@ describe('ResolDeltaThermHcXxxConfigurationOptimizer', function() {
 
     });
 
-    describe('#optimizeLoadConfiguration', function() {
+    describe('#optimizeLoadConfiguration', () => {
 
-        it('should work correctly after', function() {
-            return optimizerPromise.then(function(optimizer) {
-                return Q.fcall(function() {
+        it('should work correctly after', () => {
+            return optimizerPromise.then((optimizer) => {
+                return Q.fcall(() => {
                     return testUtils.expectPromise(optimizer.completeConfiguration());
-                }).then(function(config) {
+                }).then((config) => {
                     return testUtils.expectPromise(optimizer.optimizeLoadConfiguration(config));
-                }).then(function(config) {
+                }).then((config) => {
                     expect(config).a('array');
 
                     const valueIds = _.reduce(config, (memo, value) => {
@@ -94,7 +94,7 @@ describe('ResolDeltaThermHcXxxConfigurationOptimizer', function() {
 
                     expect(valueIds).lengthOf(164);
 
-                    _.forEach(config, function(value) {
+                    _.forEach(config, (value) => {
                         if (value.pending) {
                             value.pending = false;
                             value.transceived = true;
@@ -103,7 +103,7 @@ describe('ResolDeltaThermHcXxxConfigurationOptimizer', function() {
                     });
 
                     return testUtils.expectPromise(optimizer.optimizeLoadConfiguration(config));
-                }).then(function(config) {
+                }).then((config) => {
                     expect(config).an('array');
 
                     const valueIds = _.reduce(config, (memo, value) => {

@@ -189,7 +189,7 @@ const Specification = extend(null, /** @lends Specification# */ {
      * @param {string} options.language {@link Specification#language}
      * @param {string} options.specificationData {@link Specification#specificationData}
      */
-    constructor: function(options) {
+    constructor(options) {
         _.extend(this, _.pick(options, optionKeys));
 
         this.i18n = new I18N(this.language);
@@ -224,7 +224,7 @@ const Specification = extend(null, /** @lends Specification# */ {
      * undefined
      * >
      */
-    getUnitById: function(id) {
+    getUnitById(id) {
         return this.specificationData.units [id];
     },
 
@@ -246,7 +246,7 @@ const Specification = extend(null, /** @lends Specification# */ {
      * undefined
      * >
      */
-    getTypeById: function(id) {
+    getTypeById(id) {
         return this.specificationData.types [id];
     },
 
@@ -281,7 +281,7 @@ const Specification = extend(null, /** @lends Specification# */ {
      * @param {string} which Either `'source'` or `'destination'`
      * @returns {DeviceSpecification} DeviceSpecification object
      */
-    getDeviceSpecification: function(selfAddress, peerAddress, channel) {
+    getDeviceSpecification(selfAddress, peerAddress, channel) {
         if (typeof selfAddress === 'object') {
             if (peerAddress === 'source') {
                 channel = selfAddress.channel;
@@ -321,10 +321,10 @@ const Specification = extend(null, /** @lends Specification# */ {
             }
 
             const deviceSpec = _.extend({}, origDeviceSpec, {
-                deviceId: deviceId,
-                channel: channel,
-                selfAddress: selfAddress,
-                peerAddress: peerAddress,
+                deviceId,
+                channel,
+                selfAddress,
+                peerAddress,
             });
 
             if (!_.has(deviceSpec, 'name')) {
@@ -450,7 +450,7 @@ const Specification = extend(null, /** @lends Specification# */ {
      * @param {Packet} packet VBus packet
      * @returns {PacketSpecification} PacketSpecification object
      */
-    getPacketSpecification: function(headerOrChannel, destinationAddress, sourceAddress, command) {
+    getPacketSpecification(headerOrChannel, destinationAddress, sourceAddress, command) {
         if (typeof headerOrChannel === 'object') {
             command = headerOrChannel.command;
             sourceAddress = headerOrChannel.sourceAddress;
@@ -488,16 +488,16 @@ const Specification = extend(null, /** @lends Specification# */ {
             }
 
             const packetSpec = _.extend({}, origPacketSpec, {
-                packetId: packetId,
+                packetId,
                 channel: headerOrChannel,
-                destinationAddress: destinationAddress,
-                sourceAddress: sourceAddress,
+                destinationAddress,
+                sourceAddress,
                 protocolVersion: 0x10,
-                command: command,
+                command,
                 info: 0,
                 destinationDevice: destinationDeviceSpec,
                 sourceDevice: sourceDeviceSpec,
-                fullName: fullName,
+                fullName,
             });
 
             if (!_.has(packetSpec, 'packetFields')) {
@@ -570,7 +570,7 @@ const Specification = extend(null, /** @lends Specification# */ {
      * undefined
      * >
      */
-    getPacketFieldSpecification: function(packetSpecOrId, fieldId) {
+    getPacketFieldSpecification(packetSpecOrId, fieldId) {
         let packetFieldSpec;
         if (typeof packetSpecOrId === 'string') {
             if (this.specificationData.filteredPacketFieldSpecs) {
@@ -589,7 +589,7 @@ const Specification = extend(null, /** @lends Specification# */ {
         }
 
         if (!packetFieldSpec && packetSpecOrId) {
-            packetFieldSpec = _.find(packetSpecOrId.packetFields, { fieldId: fieldId });
+            packetFieldSpec = _.find(packetSpecOrId.packetFields, { fieldId });
         }
 
         return packetFieldSpec;
@@ -614,7 +614,7 @@ const Specification = extend(null, /** @lends Specification# */ {
      * undefined
      * >
      */
-    getRawValue: function(packetField, buffer, start, end) {
+    getRawValue(packetField, buffer, start, end) {
         if (start === undefined) {
             start = 0;
         }
@@ -642,7 +642,7 @@ const Specification = extend(null, /** @lends Specification# */ {
         return rawValue;
     },
 
-    getRoundedRawValue: function(packetField, buffer, start, end) {
+    getRoundedRawValue(packetField, buffer, start, end) {
         const rawValue = this.getRawValue(packetField, buffer, start, end);
 
         const precision = (packetField && packetField.type && packetField.type.precision) || 0;
@@ -652,12 +652,12 @@ const Specification = extend(null, /** @lends Specification# */ {
         return roundedRawValue;
     },
 
-    invertConversions: function(conversions) {
+    invertConversions(conversions) {
         if (!_.isArray(conversions)) {
             return conversions;
         }
 
-        return _.map(conversions.reverse(), function(conversion) {
+        return _.map(conversions.reverse(), (conversion) => {
             const invertedConversion = {};
             if (_.isNumber(conversion.offset)) {
                 invertedConversion.offset = conversion.offset  * -1;
@@ -682,7 +682,7 @@ const Specification = extend(null, /** @lends Specification# */ {
         });
     },
 
-    setRawValue: function(packetField, rawValue, buffer, start, end) {
+    setRawValue(packetField, rawValue, buffer, start, end) {
         if (start === undefined) {
             start = 0;
         }
@@ -713,7 +713,7 @@ const Specification = extend(null, /** @lends Specification# */ {
      * @param {Unit} targetUnit Unit to convert to
      * @return {object} Result containing a `rawValue` property with the conversion result and a `unit` property with the associated unit.
      */
-    convertRawValue: function(rawValue_, sourceUnit_, targetUnit_) {
+    convertRawValue(rawValue_, sourceUnit_, targetUnit_) {
         const that = this;
 
         let conversions;
@@ -729,7 +729,7 @@ const Specification = extend(null, /** @lends Specification# */ {
             }];
         }
 
-        const result = _.reduce(conversions, function(valueInfo, conversion) {
+        const result = _.reduce(conversions, (valueInfo, conversion) => {
             let rawValue = valueInfo.rawValue;
             const sourceUnit = conversion.sourceUnit;
             const targetUnit = conversion.targetUnit;
@@ -787,7 +787,7 @@ const Specification = extend(null, /** @lends Specification# */ {
             }
 
             return {
-                rawValue: rawValue,
+                rawValue,
                 unit: targetUnit || sourceUnit,
             };
         }, {
@@ -798,7 +798,7 @@ const Specification = extend(null, /** @lends Specification# */ {
         return result;
     },
 
-    _convertTemperatureRawValue: function(rawValue, sourceUnitCode, targetUnitCode) {
+    _convertTemperatureRawValue(rawValue, sourceUnitCode, targetUnitCode) {
         switch (sourceUnitCode) {
         case 'DegreesCelsius':
             // nop
@@ -824,7 +824,7 @@ const Specification = extend(null, /** @lends Specification# */ {
         return rawValue;
     },
 
-    _convertVolumeRawValue: function(rawValue, sourceUnitCode, targetUnitCode) {
+    _convertVolumeRawValue(rawValue, sourceUnitCode, targetUnitCode) {
         switch (sourceUnitCode) {
         case 'Liters':
             // nop
@@ -856,7 +856,7 @@ const Specification = extend(null, /** @lends Specification# */ {
         return rawValue;
     },
 
-    _convertVolumeFlowRawValue: function(rawValue, sourceUnitCode, targetUnitCode) {
+    _convertVolumeFlowRawValue(rawValue, sourceUnitCode, targetUnitCode) {
         switch (sourceUnitCode) {
         case 'LitersPerHour':
             // nop
@@ -900,7 +900,7 @@ const Specification = extend(null, /** @lends Specification# */ {
         return rawValue;
     },
 
-    _convertPressureRawValue: function(rawValue, sourceUnitCode, targetUnitCode) {
+    _convertPressureRawValue(rawValue, sourceUnitCode, targetUnitCode) {
         switch (sourceUnitCode) {
         case 'Bars':
             // nop
@@ -926,7 +926,7 @@ const Specification = extend(null, /** @lends Specification# */ {
         return rawValue;
     },
 
-    _convertEnergyRawValue: function(rawValue, sourceUnitCode, targetUnitCode) {
+    _convertEnergyRawValue(rawValue, sourceUnitCode, targetUnitCode) {
         switch (sourceUnitCode) {
         case 'WattHours':
             // nop
@@ -1012,7 +1012,7 @@ const Specification = extend(null, /** @lends Specification# */ {
         return rawValue;
     },
 
-    _convertPowerRawValue: function(rawValue, sourceUnitCode, targetUnitCode) {
+    _convertPowerRawValue(rawValue, sourceUnitCode, targetUnitCode) {
         switch (sourceUnitCode) {
         case 'Watts':
             // nop
@@ -1038,7 +1038,7 @@ const Specification = extend(null, /** @lends Specification# */ {
         return rawValue;
     },
 
-    _convertTimeRawValue: function(rawValue, sourceUnitCode, targetUnitCode) {
+    _convertTimeRawValue(rawValue, sourceUnitCode, targetUnitCode) {
         switch (sourceUnitCode) {
         case 'Seconds':
             // nop
@@ -1094,7 +1094,7 @@ const Specification = extend(null, /** @lends Specification# */ {
      * undefined
      * >
      */
-    formatTextValueFromRawValue: function(packetField, rawValue, unit) {
+    formatTextValueFromRawValue(packetField, rawValue, unit) {
         let textValue;
 
         if ((rawValue !== undefined) && (rawValue !== null)) {
@@ -1126,7 +1126,7 @@ const Specification = extend(null, /** @lends Specification# */ {
         return textValue;
     },
 
-    formatTextValueFromRawValueInternal: function(rawValue, unit, rootType, precision, defaultUnit) {
+    formatTextValueFromRawValueInternal(rawValue, unit, rootType, precision, defaultUnit) {
         const unitText = unit ? unit.unitText : defaultUnit ? defaultUnit.unitText : '';
 
         let result, textValue, format;
@@ -1178,11 +1178,11 @@ const Specification = extend(null, /** @lends Specification# */ {
      * @param {Header[]} headers Array of Header objects
      * @returns {PacketField[]} Array of PacketField objects
      */
-    getPacketFieldsForHeaders: function(headers) {
+    getPacketFieldsForHeaders(headers) {
         const _this = this;
 
         // filter out all packets
-        const packets = _.reduce(headers, function(memo, header) {
+        const packets = _.reduce(headers, (memo, header) => {
             if ((header.getProtocolVersion() & 0xF0) === 0x10) {
                 memo.push(header);
             }
@@ -1193,13 +1193,13 @@ const Specification = extend(null, /** @lends Specification# */ {
 
         const filteredPacketFieldSpecs = this.specificationData.filteredPacketFieldSpecs;
         if (filteredPacketFieldSpecs) {
-            const packetById = _.reduce(packets, function(memo, packet) {
+            const packetById = _.reduce(packets, (memo, packet) => {
                 const packetSpec = _this.getPacketSpecification(packet);
                 memo [packetSpec.packetId] = packet;
                 return memo;
             }, {});
 
-            _.forEach(filteredPacketFieldSpecs, function(fpfs) {
+            _.forEach(filteredPacketFieldSpecs, (fpfs) => {
                 const packetField = _.extend({}, {
                     id: fpfs.filteredPacketFieldId,
                     packet: packetById [fpfs.packetId],
@@ -1210,15 +1210,15 @@ const Specification = extend(null, /** @lends Specification# */ {
                 packetFields.push(packetField);
             });
         } else {
-            _.forEach(packets, function(packet) {
+            _.forEach(packets, (packet) => {
                 const packetSpec = _this.getPacketSpecification(packet);
                 if (packetSpec) {
-                    _.forEach(packetSpec.packetFields, function(packetFieldSpec) {
+                    _.forEach(packetSpec.packetFields, (packetFieldSpec) => {
                         const packetField = {
                             id: packetSpec.packetId + '_' + packetFieldSpec.fieldId,
-                            packet: packet,
-                            packetSpec: packetSpec,
-                            packetFieldSpec: packetFieldSpec,
+                            packet,
+                            packetSpec,
+                            packetFieldSpec,
                             origPacketFieldSpec: packetFieldSpec,
                         };
                         packetFields.push(packetField);
@@ -1229,7 +1229,7 @@ const Specification = extend(null, /** @lends Specification# */ {
 
         const language = this.language;
 
-        _.forEach(packetFields, function(packetField) {
+        _.forEach(packetFields, (packetField) => {
             const pfsName = packetField.packetFieldSpec.name;
             let name;
             if (_.isString(pfsName)) {
@@ -1251,15 +1251,15 @@ const Specification = extend(null, /** @lends Specification# */ {
 
             _.extend(packetField, {
 
-                name: name,
+                name,
 
-                rawValue: rawValue,
+                rawValue,
 
-                formatTextValue: function(unit) {
+                formatTextValue(unit) {
                     return _this.formatTextValueFromRawValue(packetField.packetFieldSpec, rawValue, unit);
                 },
 
-                getRoundedRawValue: function() {
+                getRoundedRawValue() {
                     return utils.roundNumber(rawValue, -precision);
                 },
 
@@ -1269,10 +1269,10 @@ const Specification = extend(null, /** @lends Specification# */ {
         return packetFields;
     },
 
-    setPacketFieldRawValues: function(packetFields, rawValues) {
+    setPacketFieldRawValues(packetFields, rawValues) {
         const _this = this;
 
-        const packetFieldById = _.reduce(packetFields, function(memo, packetField) {
+        const packetFieldById = _.reduce(packetFields, (memo, packetField) => {
             memo [packetField.id] = packetField;
             const fieldId = packetField.packetFieldSpec.fieldId;
             if (memo [fieldId] === undefined) {
@@ -1283,7 +1283,7 @@ const Specification = extend(null, /** @lends Specification# */ {
             return memo;
         }, {});
 
-        _.forEach(rawValues, function(rawValue, key) {
+        _.forEach(rawValues, (rawValue, key) => {
             const packetField = packetFieldById [key];
             if (packetField === undefined) {
                 throw new Error('Unknown raw value ID ' + JSON.stringify(key));
@@ -1296,12 +1296,12 @@ const Specification = extend(null, /** @lends Specification# */ {
         });
     },
 
-    getFilteredPacketFieldSpecificationsForHeaders: function(headers) {
+    getFilteredPacketFieldSpecificationsForHeaders(headers) {
         const filteredPacketFieldSpecs = [];
 
         const packetFields = this.getPacketFieldsForHeaders(headers);
 
-        _.forEach(packetFields, function(packetField) {
+        _.forEach(packetFields, (packetField) => {
             const packetSpec = packetField.packetSpec;
             const packetFieldSpec = packetField.packetFieldSpec;
 
@@ -1325,10 +1325,10 @@ const Specification = extend(null, /** @lends Specification# */ {
      * @param  {Header[]} headers Array of Header objects
      * @return {BlockTypeSection[]} Array of BlockTypeSection objects
      */
-    getBlockTypeSectionsForHeaders: function(headers) {
+    getBlockTypeSectionsForHeaders(headers) {
         const _this = this;
 
-        return _.reduce(headers, function(memo, header) {
+        return _.reduce(headers, (memo, header) => {
             if (((header.getProtocolVersion() & 0xF0) === 0x10) && (header.destinationAddress === 0x0015) && (header.command === 0x0100)) {
                 const packetSpec = _this.getPacketSpecification(header);
 
@@ -1379,15 +1379,15 @@ const Specification = extend(null, /** @lends Specification# */ {
                         const surrogatePacketId = sprintf('%02X_%04X_%s_%02X_%s', header.channel, header.destinationAddress | 0x8000, surrogatePacketIdHashPart1, 0x10, surrogatePacketIdHashPart2);
 
                         memo.push({
-                            sectionId: sectionId,
-                            surrogatePacketId: surrogatePacketId,
+                            sectionId,
+                            surrogatePacketId,
                             packet: header,
-                            packetSpec: packetSpec,
-                            startOffset: startOffset,
-                            endOffset: endOffset,
-                            type: type,
-                            payloadCount: payloadCount,
-                            frameCount: frameCount,
+                            packetSpec,
+                            startOffset,
+                            endOffset,
+                            type,
+                            payloadCount,
+                            frameCount,
                             frameData: frameData.slice(startOffset, endOffset),
                         });
                     }
@@ -1403,20 +1403,20 @@ const Specification = extend(null, /** @lends Specification# */ {
         }, []);
     },
 
-    _createUInt8BlockTypeFieldSpecification: function(fieldIdPrefix, offset, name, typeId, factor) {
+    _createUInt8BlockTypeFieldSpecification(fieldIdPrefix, offset, name, typeId, factor) {
         return {
             fieldId: sprintf('%s_%03d_1_0', fieldIdPrefix, offset),
-            name: name,
+            name,
             type: this.getTypeById(typeId),
-            factor: factor,
+            factor,
             parts: [{
-                offset: offset,
+                offset,
                 mask: 255,
                 isSigned: false,
                 factor: 1,
             }],
 
-            getRawValue: function(buffer, start, end) {
+            getRawValue(buffer, start, end) {
                 let rawValue = 0, valid = false;
                 if (start + offset < end) {
                     rawValue += buffer.readUInt8(start + offset);
@@ -1430,7 +1430,7 @@ const Specification = extend(null, /** @lends Specification# */ {
                 return rawValue;
             },
 
-            setRawValue: function(newValue, buffer, start, end) {
+            setRawValue(newValue, buffer, start, end) {
                 newValue = Math.round(newValue / factor);
                 let rawValue;
                 if (start + offset < end) {
@@ -1441,14 +1441,14 @@ const Specification = extend(null, /** @lends Specification# */ {
         };
     },
 
-    _createInt16BlockTypeFieldSpecification: function(fieldIdPrefix, offset, name, typeId, factor) {
+    _createInt16BlockTypeFieldSpecification(fieldIdPrefix, offset, name, typeId, factor) {
         return {
             fieldId: sprintf('%s_%03d_2_0', fieldIdPrefix, offset),
-            name: name,
+            name,
             type: this.getTypeById(typeId),
-            factor: factor,
+            factor,
             parts: [{
-                offset: offset,
+                offset,
                 mask: 255,
                 isSigned: false,
                 factor: 1,
@@ -1459,7 +1459,7 @@ const Specification = extend(null, /** @lends Specification# */ {
                 factor: 256,
             }],
 
-            getRawValue: function(buffer, start, end) {
+            getRawValue(buffer, start, end) {
                 let rawValue = 0, valid = false;
                 if (start + offset < end) {
                     rawValue += buffer.readUInt8(start + offset);
@@ -1477,7 +1477,7 @@ const Specification = extend(null, /** @lends Specification# */ {
                 return rawValue;
             },
 
-            setRawValue: function(newValue, buffer, start, end) {
+            setRawValue(newValue, buffer, start, end) {
                 newValue = Math.round(newValue / factor);
                 let rawValue;
                 if (start + offset < end) {
@@ -1492,14 +1492,14 @@ const Specification = extend(null, /** @lends Specification# */ {
         };
     },
 
-    _createUInt32BlockTypeFieldSpecification: function(fieldIdPrefix, offset, name, typeId, factor) {
+    _createUInt32BlockTypeFieldSpecification(fieldIdPrefix, offset, name, typeId, factor) {
         return {
             fieldId: sprintf('%s_%03d_4_0', fieldIdPrefix, offset),
-            name: name,
+            name,
             type: this.getTypeById(typeId),
-            factor: factor,
+            factor,
             parts: [{
-                offset: offset,
+                offset,
                 mask: 255,
                 isSigned: false,
                 factor: 1,
@@ -1520,7 +1520,7 @@ const Specification = extend(null, /** @lends Specification# */ {
                 factor: 16777216,
             }],
 
-            getRawValue: function(buffer, start, end) {
+            getRawValue(buffer, start, end) {
                 let rawValue = 0, valid = false;
                 if (start + offset < end) {
                     rawValue += buffer.readUInt8(start + offset);
@@ -1546,7 +1546,7 @@ const Specification = extend(null, /** @lends Specification# */ {
                 return rawValue;
             },
 
-            setRawValue: function(newValue, buffer, start, end) {
+            setRawValue(newValue, buffer, start, end) {
                 newValue = Math.round(newValue / factor);
                 let rawValue;
                 if (start + offset < end) {
@@ -1575,10 +1575,10 @@ const Specification = extend(null, /** @lends Specification# */ {
      * @param  {BlockTypeSection[]} sections Array of BlockTypeSection objects
      * @return {PacketSpecification[]} Array of PacketSpecificationObjects
      */
-    getBlockTypePacketSpecificationsForSections: function(sections) {
+    getBlockTypePacketSpecificationsForSections(sections) {
         const _this = this;
 
-        return _.reduce(sections, function(memo, section) {
+        return _.reduce(sections, (memo, section) => {
             const sectionId = section.sectionId;
 
             if (!_.has(_this.blockTypePacketSpecCache, sectionId)) {
@@ -1596,46 +1596,46 @@ const Specification = extend(null, /** @lends Specification# */ {
 
                 if (section.type === 1) {
                     // temperatures
-                    forEachPayload(function(index, suffix) {
+                    forEachPayload((index, suffix) => {
                         packetFieldSpecs.push(_this._createInt16BlockTypeFieldSpecification(fieldIdPrefix, 4 + index * 2, 'Temperatur Sensor' + suffix, 'Number_0_1_DegreesCelsius', 0.1));
                     });
                 } else if (section.type === 5) {
-                    forEachPayload(function(index, suffix) {
+                    forEachPayload((index, suffix) => {
                         packetFieldSpecs.push(_this._createUInt32BlockTypeFieldSpecification(fieldIdPrefix, 4 + index * 4, 'Wärmemenge' + suffix, 'Number_1_WattHours', 1));
                     });
                 } else if (section.type === 8) {
                     // Relais speeds
-                    forEachPayload(function(index, suffix) {
+                    forEachPayload((index, suffix) => {
                         packetFieldSpecs.push(_this._createUInt8BlockTypeFieldSpecification(fieldIdPrefix, 4 + index, 'Drehzahl Relais' + suffix, 'Number_1_Percent', 1));
                     });
                 } else if (section.type === 10) {
                     // SmartDisplay
-                    forEachPayload(function(index, suffix) {
+                    forEachPayload((index, suffix) => {
                         packetFieldSpecs.push(_this._createInt16BlockTypeFieldSpecification(fieldIdPrefix, 4 + index * 8, 'Temperatur Kollektor' + suffix, 'Number_0_1_DegreesCelsius', 0.1));
                         packetFieldSpecs.push(_this._createInt16BlockTypeFieldSpecification(fieldIdPrefix, 6 + index * 8, 'Temperatur Speicher' + suffix, 'Number_0_1_DegreesCelsius', 0.1));
                         packetFieldSpecs.push(_this._createUInt32BlockTypeFieldSpecification(fieldIdPrefix, 8 + index * 8, 'Wärmemenge' + suffix, 'Number_1_WattHours', 1));
                     });
                 } else if (section.type === 11) {
-                    forEachPayload(function(index, suffix) {
+                    forEachPayload((index, suffix) => {
                         packetFieldSpecs.push(_this._createUInt32BlockTypeFieldSpecification(fieldIdPrefix, 4 + index * 4, 'Fehlermaske' + suffix, 'Number_1_None', 1));
                     });
                 } else if (section.type === 12) {
-                    forEachPayload(function(index, suffix) {
+                    forEachPayload((index, suffix) => {
                         packetFieldSpecs.push(_this._createUInt32BlockTypeFieldSpecification(fieldIdPrefix, 4 + index * 4, 'Warnungsmaske' + suffix, 'Number_1_None', 1));
                     });
                 } else if (section.type === 13) {
-                    forEachPayload(function(index, suffix) {
+                    forEachPayload((index, suffix) => {
                         packetFieldSpecs.push(_this._createUInt32BlockTypeFieldSpecification(fieldIdPrefix, 4 + index * 4, 'Statusmaske' + suffix, 'Number_1_None', 1));
                     });
                 } else if (section.type === 14) {
-                    forEachPayload(function(index, suffix) {
+                    forEachPayload((index, suffix) => {
                         packetFieldSpecs.push(_this._createUInt8BlockTypeFieldSpecification(fieldIdPrefix, 4 + index, 'Segmentmaske' + suffix, 'Number_1_None', 1));
                     });
                 }
 
                 _this.blockTypePacketSpecCache [sectionId] = _.extend({}, section.packetSpec, {
                     packetId: section.surrogatePacketId,
-                    sectionId: sectionId,
+                    sectionId,
                     packetFields: packetFieldSpecs,
                 });
             }
@@ -1653,10 +1653,10 @@ const Specification = extend(null, /** @lends Specification# */ {
      * @param  {BlockTypeSection[]} sections Array of BlockTypeSection objects.
      * @return {PacketField[]} Array of PacketField objects
      */
-    getBlockTypeFieldsForSections: function(sections) {
+    getBlockTypeFieldsForSections(sections) {
         const _this = this;
 
-        const sectionByBlockTypeId = _.reduce(sections, function(memo, section) {
+        const sectionByBlockTypeId = _.reduce(sections, (memo, section) => {
             memo [section.sectionId] = section;
             return memo;
         }, {});
@@ -1664,16 +1664,16 @@ const Specification = extend(null, /** @lends Specification# */ {
         const packetSpecs = this.getBlockTypePacketSpecificationsForSections(sections);
 
         const packetFields = [];
-        _.forEach(packetSpecs, function(packetSpec) {
-            _.forEach(packetSpec.packetFields, function(packetFieldSpec) {
+        _.forEach(packetSpecs, (packetSpec) => {
+            _.forEach(packetSpec.packetFields, (packetFieldSpec) => {
                 const section = sectionByBlockTypeId [packetSpec.sectionId];
 
                 const packetField = {
                     id: packetSpec.packetId + '_' + packetFieldSpec.fieldId,
-                    section: section,
+                    section,
                     packet: section.packet,
-                    packetSpec: packetSpec,
-                    packetFieldSpec: packetFieldSpec,
+                    packetSpec,
+                    packetFieldSpec,
                     origPacketFieldSpec: packetFieldSpec,
                 };
                 packetFields.push(packetField);
@@ -1682,7 +1682,7 @@ const Specification = extend(null, /** @lends Specification# */ {
 
         const language = this.language;
 
-        _.forEach(packetFields, function(packetField) {
+        _.forEach(packetFields, (packetField) => {
             const pfsName = packetField.packetFieldSpec.name;
             let name;
             if (_.isString(pfsName)) {
@@ -1703,11 +1703,11 @@ const Specification = extend(null, /** @lends Specification# */ {
 
             _.extend(packetField, {
 
-                name: name,
+                name,
 
-                rawValue: rawValue,
+                rawValue,
 
-                formatTextValue: function(unit) {
+                formatTextValue(unit) {
                     return _this.formatTextValueFromRawValue(packetField.packetFieldSpec, rawValue, unit);
                 },
 
@@ -1719,7 +1719,7 @@ const Specification = extend(null, /** @lends Specification# */ {
 
 }, {
 
-    loadSpecificationData: function(rawSpecificationData, options) {
+    loadSpecificationData(rawSpecificationData, options) {
         if (rawSpecificationData === undefined) {
             rawSpecificationData = {};
         }
@@ -1743,7 +1743,7 @@ const Specification = extend(null, /** @lends Specification# */ {
                 return value;
             };
 
-            filteredPacketFieldSpecs = _.map(rawFilteredPacketFieldSpecs, function(rfpfs) {
+            filteredPacketFieldSpecs = _.map(rawFilteredPacketFieldSpecs, (rfpfs) => {
                 const packetSpec = specification.getPacketSpecification(rfpfs.packetId);
                 const packetFieldSpec = specification.getPacketFieldSpecification(packetSpec, rfpfs.fieldId);
 
@@ -1753,11 +1753,11 @@ const Specification = extend(null, /** @lends Specification# */ {
                 }
 
                 return _.extend({}, rfpfs, {
-                    packetSpec: packetSpec,
-                    packetFieldSpec: packetFieldSpec,
-                    name: name,
+                    packetSpec,
+                    packetFieldSpec,
+                    name,
                     type: resolve(rfpfs.type, 'types'),
-                    conversions: rfpfs.conversions && _.map(rfpfs.conversions, function(rawConversion) {
+                    conversions: rfpfs.conversions && _.map(rfpfs.conversions, (rawConversion) => {
                         return {
                             factor: rawConversion.factor,
                             offset: rawConversion.offset,
@@ -1772,13 +1772,13 @@ const Specification = extend(null, /** @lends Specification# */ {
         }
 
         const result = _.extend({}, specificationData, {
-            filteredPacketFieldSpecs: filteredPacketFieldSpecs,
+            filteredPacketFieldSpecs,
         });
 
         return result;
     },
 
-    storeSpecificationData: function(options) {
+    storeSpecificationData(options) {
         if (options === undefined) {
             options = {};
         }
@@ -1800,7 +1800,7 @@ const Specification = extend(null, /** @lends Specification# */ {
                     valueId = value [valueIdKey];
                 }
                 if (!valueId) {
-                    valueId = _.findKey(collection, function(refValue) {
+                    valueId = _.findKey(collection, (refValue) => {
                         return (value === refValue);
                     });
                 }
@@ -1811,7 +1811,7 @@ const Specification = extend(null, /** @lends Specification# */ {
                 return value;
             };
 
-            rawFilteredPacketFieldSpecs = _.map(filteredPacketFieldSpecs, function(fpfs) {
+            rawFilteredPacketFieldSpecs = _.map(filteredPacketFieldSpecs, (fpfs) => {
                 const rfpfs = {
                     filteredPacketFieldId: fpfs.filteredPacketFieldId,
                     packetId: fpfs.packetId,
@@ -1823,7 +1823,7 @@ const Specification = extend(null, /** @lends Specification# */ {
                 };
 
                 if (fpfs.conversions) {
-                    rfpfs.conversions = _.map(fpfs.conversions, function(conversion) {
+                    rfpfs.conversions = _.map(fpfs.conversions, (conversion) => {
                         const rawConversion = {};
                         if (_.isNumber(conversion.factor)) {
                             rawConversion.factor = conversion.factor;
@@ -1852,7 +1852,7 @@ const Specification = extend(null, /** @lends Specification# */ {
         return rawSpecificationData;
     },
 
-    getDefaultSpecification: function() {
+    getDefaultSpecification() {
         return globalSpecification;
     },
 

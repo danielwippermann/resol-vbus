@@ -12,16 +12,16 @@ const HeaderSet = require('./resol-vbus').HeaderSet;
 
 
 
-describe('HeaderSet', function() {
+describe('HeaderSet', () => {
 
-    describe('constructor', function() {
+    describe('constructor', () => {
 
-        it('should be a constructor function', function() {
+        it('should be a constructor function', () => {
             expect(HeaderSet).to.be.a('function');
             expect(HeaderSet.extend).to.be.a('function');
         });
 
-        it('should have reasonable defaults', function() {
+        it('should have reasonable defaults', () => {
             const before = new Date();
             const headerSet = new HeaderSet();
             const after = new Date();
@@ -31,7 +31,7 @@ describe('HeaderSet', function() {
             expect(headerSet.timestamp.getTime()).to.be.within(before.getTime(), after.getTime());
         });
 
-        it('should copy certain options', function() {
+        it('should copy certain options', () => {
             const header1 = new Packet({
                 channel: 1
             });
@@ -54,13 +54,13 @@ describe('HeaderSet', function() {
 
     });
 
-    describe('#containsHeader', function() {
+    describe('#containsHeader', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(HeaderSet.prototype).property('containsHeader').a('function');
         });
 
-        it('should work correctly', function() {
+        it('should work correctly', () => {
             const header1 = new Packet({
                 channel: 1
             });
@@ -101,13 +101,13 @@ describe('HeaderSet', function() {
 
     });
 
-    describe('#addHeader', function() {
+    describe('#addHeader', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(HeaderSet.prototype.addHeader).to.be.a('function');
         });
 
-        it('should work correctly', function() {
+        it('should work correctly', () => {
             const header1 = new Packet({
                 channel: 1
             });
@@ -135,7 +135,7 @@ describe('HeaderSet', function() {
             expect(headerSet.headerList).to.eql([ header1, header3 ]);
         });
 
-        it('should update the timestamp', function() {
+        it('should update the timestamp', () => {
             const header1 = new Packet({
                 channel: 1
             });
@@ -155,13 +155,13 @@ describe('HeaderSet', function() {
 
     });
 
-    describe('#addHeaders', function() {
+    describe('#addHeaders', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(HeaderSet.prototype.addHeaders).to.be.a('function');
         });
 
-        it('should work correctly', function() {
+        it('should work correctly', () => {
             const header1 = new Packet({
                 channel: 1
             });
@@ -183,13 +183,13 @@ describe('HeaderSet', function() {
 
     });
 
-    describe('#_removeHeader', function() {
+    describe('#_removeHeader', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(HeaderSet.prototype._removeHeader).to.be.a('function');
         });
 
-        it('should work correctly', function() {
+        it('should work correctly', () => {
             const header1 = new Packet({
                 channel: 1
             });
@@ -207,7 +207,7 @@ describe('HeaderSet', function() {
             expect(headerSet.headerList).to.eql([ header2 ]);
         });
 
-        it('should ignore unknown headers', function() {
+        it('should ignore unknown headers', () => {
             const header1 = new Packet({
                 channel: 1
             });
@@ -231,13 +231,13 @@ describe('HeaderSet', function() {
 
     });
 
-    describe('#removeAllHeaders', function() {
+    describe('#removeAllHeaders', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(HeaderSet.prototype.removeAllHeaders).to.be.a('function');
         });
 
-        it('should work correctly', function() {
+        it('should work correctly', () => {
             const header1 = new Packet({
                 channel: 1
             });
@@ -257,13 +257,13 @@ describe('HeaderSet', function() {
 
     });
 
-    describe('#removeHeadersOlderThan', function() {
+    describe('#removeHeadersOlderThan', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(HeaderSet.prototype.removeHeadersOlderThan).to.be.a('function');
         });
 
-        it('should work correctly', function() {
+        it('should work correctly', () => {
             const header1 = new Packet({
                 timestamp: new Date(1388089665000),
                 channel: 1
@@ -285,13 +285,13 @@ describe('HeaderSet', function() {
 
     });
 
-    describe('#getHeaderCount', function() {
+    describe('#getHeaderCount', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(HeaderSet.prototype.getHeaderCount).to.be.a('function');
         });
 
-        it('should work correctly', function() {
+        it('should work correctly', () => {
             const header1 = new Packet({
                 channel: 1
             });
@@ -313,13 +313,13 @@ describe('HeaderSet', function() {
 
     });
 
-    describe('#getHeaders', function() {
+    describe('#getHeaders', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(HeaderSet.prototype.getHeaders).to.be.a('function');
         });
 
-        it('should work correctly', function() {
+        it('should work correctly', () => {
             const header1 = new Packet({
                 channel: 1
             });
@@ -342,13 +342,13 @@ describe('HeaderSet', function() {
 
     });
 
-    describe('#getSortedHeaders', function() {
+    describe('#getSortedHeaders', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(HeaderSet.prototype.getSortedHeaders).to.be.a('function');
         });
 
-        it('should work correctly', function() {
+        it('should work correctly', () => {
             const header1 = new Packet({
                 channel: 1
             });
@@ -366,13 +366,13 @@ describe('HeaderSet', function() {
 
     });
 
-    describe('#getSortedHeaderSet', function() {
+    describe('#getSortedHeaderSet', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(HeaderSet.prototype.getSortedHeaderSet).to.be.a('function');
         });
 
-        it('should work correctly', function() {
+        it('should work correctly', () => {
             const header1 = new Packet({
                 channel: 1
             });
@@ -390,13 +390,13 @@ describe('HeaderSet', function() {
 
     });
 
-    describe('#getId', function() {
+    describe('#getId', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(HeaderSet.prototype.getId).to.be.a('function');
         });
 
-        it('should work correctly', function() {
+        it('should work correctly', () => {
             const header1 = new Packet({
                 channel: 1
             });
@@ -416,13 +416,13 @@ describe('HeaderSet', function() {
 
     });
 
-    describe('#getIdHash', function() {
+    describe('#getIdHash', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(HeaderSet.prototype.getIdHash).to.be.a('function');
         });
 
-        it('should work correctly', function() {
+        it('should work correctly', () => {
             const header1 = new Packet({
                 channel: 1
             });
@@ -440,7 +440,7 @@ describe('HeaderSet', function() {
             expect(id).to.equal('5c9c71b01aca96a35c15cffd0ec382e8a1be99b3e42eeff57ecd7836aa7f1a24');
         });
 
-        it('should cache hashes and return them', function() {
+        it('should cache hashes and return them', () => {
             const header1 = new Packet({
                 channel: 1,
                 command: 0x7654,

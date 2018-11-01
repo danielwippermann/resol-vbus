@@ -64,23 +64,23 @@ module.exports = {
 
     VERSION: packageInfo.version,
 
-    utils: utils,
-    extend: extend,
+    utils,
+    extend,
 
-    I18N: I18N,
+    I18N,
 
-    SpecificationFile: SpecificationFile,
-    Specification: Specification,
+    SpecificationFile,
+    Specification,
 
-    Header: Header,
-    Packet: Packet,
-    Datagram: Datagram,
-    Telegram: Telegram,
+    Header,
+    Packet,
+    Datagram,
+    Telegram,
 
-    HeaderSet: HeaderSet,
-    HeaderSetConsolidator: HeaderSetConsolidator,
+    HeaderSet,
+    HeaderSetConsolidator,
 
-    Connection: Connection,
+    Connection,
     // SerialConnection: SerialConnection,
     // TcpConnection: TcpConnection,
 
@@ -92,13 +92,13 @@ module.exports = {
     // SerialDataSourceProvider: SerialDataSourceProvider,
     // TcpDataSourceProvider: TcpDataSourceProvider,
 
-    Converter: Converter,
-    VBusRecordingConverter: VBusRecordingConverter,
-    TextConverter: TextConverter,
-    DLxJsonConverter: DLxJsonConverter,
+    Converter,
+    VBusRecordingConverter,
+    TextConverter,
+    DLxJsonConverter,
 
-    Recorder: Recorder,
-    DLxRecorder: DLxRecorder,
+    Recorder,
+    DLxRecorder,
     // FileSystemRecorder: FileSystemRecorder,
 
     // ConfigurationOptimizer: ConfigurationOptimizer,

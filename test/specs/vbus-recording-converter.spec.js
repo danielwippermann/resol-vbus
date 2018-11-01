@@ -18,23 +18,23 @@ const VBusRecordingConverter = vbus.VBusRecordingConverter;
 
 
 
-describe('VBusRecordingConverter', function() {
+describe('VBusRecordingConverter', () => {
 
     testUtils.itShouldBeAClass(VBusRecordingConverter);
 
-    describe('constructor', function() {
+    describe('constructor', () => {
 
-        it('should be a constructor function', function() {
+        it('should be a constructor function', () => {
             expect(VBusRecordingConverter).to.be.a('function');
         });
 
-        it('should have reasonable defaults', function() {
+        it('should have reasonable defaults', () => {
             const converter = new VBusRecordingConverter();
 
             expect(converter).property('objectMode').equal(false);
         });
 
-        it('should copy selected options', function() {
+        it('should copy selected options', () => {
             const options = {
                 objectMode: true,
                 junk: 'JUNK',
@@ -48,13 +48,13 @@ describe('VBusRecordingConverter', function() {
 
     });
 
-    describe('#reset', function() {
+    describe('#reset', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(typeof VBusRecordingConverter.prototype.reset).equal('function');
         });
 
-        it('should work correctly', function() {
+        it('should work correctly', () => {
             const converter = new VBusRecordingConverter();
 
             converter.write(Buffer.from('A5', 'hex'));
@@ -68,7 +68,7 @@ describe('VBusRecordingConverter', function() {
 
     });
 
-    describe('writable stream', function() {
+    describe('writable stream', () => {
 
         const rawVBusRecordingHexDump = [
             'a5440e000e00eda1de2443010000a566',
@@ -141,7 +141,7 @@ describe('VBusRecordingConverter', function() {
             '11001c969800',
         ].join('');
 
-        it('should work correctly', function(done) {
+        it('should work correctly', (done) => {
             const buffer = Buffer.from(rawVBusRecordingHexDump, 'hex');
 
             const converter = new VBusRecordingConverter();
@@ -152,7 +152,7 @@ describe('VBusRecordingConverter', function() {
             const onHeaderSet = sinon.spy();
             converter.on('headerSet', onHeaderSet);
 
-            converter.on('finish', function() {
+            converter.on('finish', () => {
                 expect(onHeader.callCount).to.equal(16, '"header" events triggered');
                 expect(onHeaderSet.callCount).to.equal(1, '"headerSet" events triggered');
 
@@ -164,7 +164,7 @@ describe('VBusRecordingConverter', function() {
 
                 expect(headers.length).to.equal(16);
 
-                const headerIds = _.map(headers, function(header) {
+                const headerIds = _.map(headers, (header) => {
                     return header.getId();
                 });
 
@@ -194,7 +194,7 @@ describe('VBusRecordingConverter', function() {
             converter.end();
         });
 
-        it('should work correctly in object mode', function(done) {
+        it('should work correctly in object mode', (done) => {
             const converter = new VBusRecordingConverter({
                 objectMode: true,
             });
@@ -204,7 +204,7 @@ describe('VBusRecordingConverter', function() {
             const onHeaderSet = sinon.spy();
             converter.on('headerSet', onHeaderSet);
 
-            converter.on('finish', function() {
+            converter.on('finish', () => {
                 try {
                     expect(onHeaderSet.callCount).to.equal(1, '"headerSet" events triggered');
 
@@ -222,7 +222,7 @@ describe('VBusRecordingConverter', function() {
             converter.end();
         });
 
-        it('should work correctly with raw data', function() {
+        it('should work correctly with raw data', () => {
             const rawDataHexDump = [
                 'a5771000100000000000000000000100',
                 'a58826002600',
@@ -239,14 +239,14 @@ describe('VBusRecordingConverter', function() {
             const onRawData = sinon.spy();
             converter.on('rawData', onRawData);
 
-            return new Promise(function(resolve) {
-                converter.once('finish', function() {
+            return new Promise((resolve) => {
+                converter.once('finish', () => {
                     resolve();
                 });
 
                 converter.write(buffer);
                 converter.end();
-            }).then(function() {
+            }).then(() => {
                 converter.on('rawData', onRawData);
 
                 expect(onRawData.callCount).to.equal(1, '"rawData" events triggered');
@@ -262,7 +262,7 @@ describe('VBusRecordingConverter', function() {
             });
         });
 
-        it('should parse comment records', function() {
+        it('should parse comment records', () => {
             const rawDataHexDump = [
                 'a5993b003b00',
                 '1794de2443010000',
@@ -282,14 +282,14 @@ describe('VBusRecordingConverter', function() {
             const onComment = sinon.spy();
             converter.on('comment', onComment);
 
-            return new Promise(function(resolve) {
-                converter.once('finish', function() {
+            return new Promise((resolve) => {
+                converter.once('finish', () => {
                     resolve();
                 });
 
                 converter.write(buffer);
                 converter.end();
-            }).then(function() {
+            }).then(() => {
                 converter.removeListener('comment', onComment);
 
                 expect(onComment.callCount).to.equal(1, '"comment" events triggered');
@@ -302,7 +302,7 @@ describe('VBusRecordingConverter', function() {
             });
         });
 
-        it('should support topology scan only', function() {
+        it('should support topology scan only', () => {
             const buffer = Buffer.from(rawVBusRecordingHexDump, 'hex');
 
             const converter = new VBusRecordingConverter({
@@ -315,8 +315,8 @@ describe('VBusRecordingConverter', function() {
             const onHeaderSet = sinon.spy();
             converter.on('headerSet', onHeaderSet);
 
-            return new Promise(function(resolve) {
-                converter.on('finish', function() {
+            return new Promise((resolve) => {
+                converter.on('finish', () => {
                     resolve();
                 });
 
@@ -324,7 +324,7 @@ describe('VBusRecordingConverter', function() {
                 converter.write(buffer);
                 converter.write(buffer);
                 converter.end();
-            }).then(function() {
+            }).then(() => {
                 expect(onHeader.callCount).to.equal(0, '"header" events triggered');
                 expect(onHeaderSet.callCount).to.equal(1, '"headerSet" events triggered');
 
@@ -336,11 +336,11 @@ describe('VBusRecordingConverter', function() {
 
                 expect(headers.length).to.equal(16);
 
-                _.forEach(headers, function(header) {
+                _.forEach(headers, (header) => {
                     expect(header.frameCount).equal(0);
                 });
 
-                const headerIds = _.map(headers, function(header) {
+                const headerIds = _.map(headers, (header) => {
                     return header.getId();
                 });
 
@@ -367,7 +367,7 @@ describe('VBusRecordingConverter', function() {
 
     });
 
-    describe('readable stream', function() {
+    describe('readable stream', () => {
 
         const rawPacket1 = 'aa100053001000010b0020051000004a723d1000013f40571000015706100000016800000000007f00000000007f00000000007f00000000007f00007f00000025003600051f11000000006e';
         const rawPacket2 = 'aa1000217e100001013e00000b000074';
@@ -387,7 +387,7 @@ describe('VBusRecordingConverter', function() {
             '05774a000000000000000000130d0000',
         ].join('');
 
-        it('should work correctly', function() {
+        it('should work correctly', () => {
             const buffer1 = Buffer.from(rawPacket1, 'hex');
             const packet1 = Packet.fromLiveBuffer(buffer1, 0, buffer1.length);
             packet1.timestamp = new Date(1387893006778);
@@ -415,7 +415,7 @@ describe('VBusRecordingConverter', function() {
 
             converter.convertHeaderSet(headerSet);
 
-            return converter.finish().then(function() {
+            return converter.finish().then(() => {
                 converter.removeListener('data', onData);
 
                 expect(onData.callCount).to.equal(1);
@@ -436,7 +436,7 @@ describe('VBusRecordingConverter', function() {
             });
         });
 
-        it('should work correctly in object mode', function() {
+        it('should work correctly in object mode', () => {
             const refHeaderSet = new HeaderSet();
 
             const converter = new VBusRecordingConverter({
@@ -448,7 +448,7 @@ describe('VBusRecordingConverter', function() {
 
             converter.convertHeaderSet(refHeaderSet);
 
-            return converter.finish().then(function() {
+            return converter.finish().then(() => {
                 converter.removeListener('data', onData);
 
                 expect(onData.callCount).to.equal(1, '"data" events triggered');
@@ -459,7 +459,7 @@ describe('VBusRecordingConverter', function() {
             });
         });
 
-        it('should work correctly with raw data', function() {
+        it('should work correctly with raw data', () => {
             const rawData = {
                 channel: 1,
                 startTimestamp: new Date(1387893003287),
@@ -483,7 +483,7 @@ describe('VBusRecordingConverter', function() {
 
             converter.convertRawData(rawData);
 
-            return converter.finish().then(function() {
+            return converter.finish().then(() => {
                 converter.removeListener('data', onData);
 
                 expect(onData.callCount).to.equal(1, '"data" events triggered');
@@ -496,7 +496,7 @@ describe('VBusRecordingConverter', function() {
             });
         });
 
-        it('should work correctly with comment data', function() {
+        it('should work correctly with comment data', () => {
             const timestamp = new Date(1387893003287);
             const comment = 'Comment serialized to VBus file format record';
 
@@ -519,7 +519,7 @@ describe('VBusRecordingConverter', function() {
 
             converter.convertComment(timestamp, comment);
 
-            return converter.finish().then(function() {
+            return converter.finish().then(() => {
                 converter.removeListener('data', onData);
 
                 expect(onData.callCount).to.equal(1, '"data" events triggered');

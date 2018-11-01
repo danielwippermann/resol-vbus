@@ -14,15 +14,15 @@ const Recorder = vbus.Recorder;
 
 
 
-describe('Recorder', function() {
+describe('Recorder', () => {
 
-    describe('constructor', function() {
+    describe('constructor', () => {
 
-        it('should be a constructor function', function() {
+        it('should be a constructor function', () => {
             expect(Recorder).to.be.a('function');
         });
 
-        it('should have reasonable defaults', function() {
+        it('should have reasonable defaults', () => {
             const recorder = new Recorder();
 
             expect(recorder.id).to.be.a('string');
@@ -31,7 +31,7 @@ describe('Recorder', function() {
             expect(recorder.interval).to.equal(0);
         });
 
-        it('should copy selected options', function() {
+        it('should copy selected options', () => {
             const options = {
                 id: 'myId',
                 minTimestamp: new Date(2013, 0),
@@ -51,13 +51,13 @@ describe('Recorder', function() {
 
     });
 
-    describe('#playback', function() {
+    describe('#playback', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(Recorder.prototype.playback).to.be.a('function');
         });
 
-        it('should copy defaults from the recorder', function(done) {
+        it('should copy defaults from the recorder', (done) => {
             const options = {
                 id: 'myId',
                 minTimestamp: new Date(2013, 0),
@@ -79,11 +79,11 @@ describe('Recorder', function() {
                 timestamp: new Date(2013, 5)
             });
 
-            recorder._playback = sinon.spy(function(headerSetConsolidator) {
+            recorder._playback = sinon.spy((headerSetConsolidator) => {
                 headerSetConsolidator.processHeaderSet(demoHeaderSet);
             });
 
-            recorder.playback(converter).then(function(ranges) {
+            recorder.playback(converter).then((ranges) => {
                 expect(recorder._playback.callCount).to.equal(1);
 
                 let call = recorder._playback.getCall(0);
@@ -107,13 +107,13 @@ describe('Recorder', function() {
 
     });
 
-    describe('#record', function() {
+    describe('#record', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(Recorder.prototype.record).a('function');
         });
 
-        it('should copy defaults from the recorder', function() {
+        it('should copy defaults from the recorder', () => {
             const options = {
                 id: 'myId',
                 minTimestamp: new Date(2013, 0),
@@ -133,18 +133,18 @@ describe('Recorder', function() {
 
             const onHeaderSet = sinon.spy();
 
-            recorder._startRecording = sinon.spy(function(hsc) {
+            recorder._startRecording = sinon.spy((hsc) => {
                 hsc.on('headerSet', onHeaderSet);
 
                 converter.convertHeaderSet(demoHeaderSet);
                 converter.finish();
             });
 
-            recorder._endRecording = sinon.spy(function(hsc) {
+            recorder._endRecording = sinon.spy((hsc) => {
                 hsc.removeListener('headerSet', onHeaderSet);
             });
 
-            return recorder.record(converter, options).then(function() {
+            return recorder.record(converter, options).then(() => {
                 expect(recorder._startRecording.callCount).equal(1);
                 expect(recorder._endRecording.callCount).equal(1);
 
@@ -164,13 +164,13 @@ describe('Recorder', function() {
 
     });
 
-    describe('#synchronizeTo', function() {
+    describe('#synchronizeTo', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(Recorder.prototype.synchronizeTo).to.be.a('function');
         });
 
-        it('should copy defaults from the recorder', function(done) {
+        it('should copy defaults from the recorder', (done) => {
             const options = {
                 id: 'myId',
                 minTimestamp: new Date(2013, 0),
@@ -181,7 +181,7 @@ describe('Recorder', function() {
 
             const recorder = new Recorder(options);
 
-            recorder._getCurrentSyncState = sinon.spy(function() {
+            recorder._getCurrentSyncState = sinon.spy(() => {
                 return {};
             });
 
@@ -189,7 +189,7 @@ describe('Recorder', function() {
 
             recorder._recordSyncJob = sinon.spy();
 
-            recorder.synchronizeTo(recorder).then(function(ranges) {
+            recorder.synchronizeTo(recorder).then((ranges) => {
                 expect(recorder._getCurrentSyncState.callCount).to.equal(1);
 
                 let call = recorder._getCurrentSyncState.getCall(0);
@@ -220,13 +220,13 @@ describe('Recorder', function() {
 
     });
 
-    describe('#_getSyncJob', function() {
+    describe('#_getSyncJob', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(Recorder.prototype._getSyncJob).to.be.a('function');
         });
 
-        xit('should work correctly for empty oldSyncState', function(done) {
+        xit('should work correctly for empty oldSyncState', (done) => {
             const recorder = new Recorder();
 
             const oldSyncState = null;
@@ -241,14 +241,14 @@ describe('Recorder', function() {
             expect(promise).to.be.an('object');
             expect(promise.then).to.be.a('function');
 
-            promise.then(function(syncJob) {
+            promise.then((syncJob) => {
                 done();
             });
         });
 
     });
 
-    describe('.performRangeSetOperation', function() {
+    describe('.performRangeSetOperation', () => {
 
         const rangeOffset = moment().startOf('day');
 
@@ -259,11 +259,11 @@ describe('Recorder', function() {
             };
         };
 
-        it('should be a function', function() {
+        it('should be a function', () => {
             expect(Recorder.performRangeSetOperation).to.be.a('function');
         });
 
-        it('should work correctly with union of empty ranges', function() {
+        it('should work correctly with union of empty ranges', () => {
             const rangesA = [];
 
             const rangesB = [];
@@ -273,7 +273,7 @@ describe('Recorder', function() {
             expect(newRanges).to.eql([]);
         });
 
-        it('should work correctly with union of empty A ranges', function() {
+        it('should work correctly with union of empty A ranges', () => {
             const rangesA = [];
 
             const rangesB = [
@@ -286,7 +286,7 @@ describe('Recorder', function() {
             expect(newRanges).to.eql(rangesB);
         });
 
-        it('should work correctly with union of empty B ranges', function() {
+        it('should work correctly with union of empty B ranges', () => {
             const rangesA = [
                 createRange(8, 30, 10, 30),
                 createRange(12, 30, 14, 30),
@@ -299,7 +299,7 @@ describe('Recorder', function() {
             expect(newRanges).to.eql(rangesA);
         });
 
-        it('should work correctly with union of equal ranges', function() {
+        it('should work correctly with union of equal ranges', () => {
             const rangesA = [
                 createRange(8, 30, 10, 30),
                 createRange(12, 30, 14, 30),
@@ -313,7 +313,7 @@ describe('Recorder', function() {
             expect(newRanges).to.eql(rangesB);
         });
 
-        it('should work correctly with union of non-overlapping ranges', function() {
+        it('should work correctly with union of non-overlapping ranges', () => {
             const rangesA = [
                 createRange(4, 30, 6, 30),
                 createRange(8, 30, 10, 30),
@@ -336,7 +336,7 @@ describe('Recorder', function() {
             ]);
         });
 
-        it('should work correctly with union of partially overlapping ranges', function() {
+        it('should work correctly with union of partially overlapping ranges', () => {
             const rangesA = [
                 createRange(4, 30, 6, 30),
                 createRange(8, 30, 10, 30),
@@ -359,7 +359,7 @@ describe('Recorder', function() {
             ]);
         });
 
-        it('should work correctly with union of adjacent ranges', function() {
+        it('should work correctly with union of adjacent ranges', () => {
             const rangesA = [
                 createRange(4, 30, 6, 30),
                 createRange(8, 30, 10, 30),
@@ -380,7 +380,7 @@ describe('Recorder', function() {
             ]);
         });
 
-        it('should work correctly with union of overlapping multiple ranges', function() {
+        it('should work correctly with union of overlapping multiple ranges', () => {
             const rangesA = [
                 createRange(4, 30, 6, 30),
                 createRange(8, 30, 10, 30),
@@ -401,7 +401,7 @@ describe('Recorder', function() {
             ]);
         });
 
-        it('should work correctly with difference of empty ranges', function() {
+        it('should work correctly with difference of empty ranges', () => {
             const rangesA = [
             ];
 
@@ -414,7 +414,7 @@ describe('Recorder', function() {
             ]);
         });
 
-        it('should work correctly with difference of empty A ranges', function() {
+        it('should work correctly with difference of empty A ranges', () => {
             const rangesA = [
             ];
 
@@ -428,7 +428,7 @@ describe('Recorder', function() {
             ]);
         });
 
-        it('should work correctly with difference of empty B ranges', function() {
+        it('should work correctly with difference of empty B ranges', () => {
             const rangesA = [
                 createRange(4, 30, 6, 30),
                 createRange(8, 30, 10, 30),
@@ -444,7 +444,7 @@ describe('Recorder', function() {
             expect(newRanges).to.eql(rangesA);
         });
 
-        it('should work correctly with difference of non-overlapping ranges', function() {
+        it('should work correctly with difference of non-overlapping ranges', () => {
             const rangesA = [
                 createRange(4, 30, 6, 30),
                 createRange(8, 30, 10, 30),
@@ -464,7 +464,7 @@ describe('Recorder', function() {
             expect(newRanges).to.eql(rangesA);
         });
 
-        it('should work correctly with difference of partially overlapping ranges', function() {
+        it('should work correctly with difference of partially overlapping ranges', () => {
             const rangesA = [
                 createRange(4, 30, 6, 30),
                 createRange(8, 30, 10, 30),
@@ -489,7 +489,7 @@ describe('Recorder', function() {
             ]);
         });
 
-        it('should work correctly with difference of overlapping multiple ranges', function() {
+        it('should work correctly with difference of overlapping multiple ranges', () => {
             const rangesA = [
                 createRange(4, 30, 6, 30),
                 createRange(8, 30, 10, 30),
@@ -509,7 +509,7 @@ describe('Recorder', function() {
             ]);
         });
 
-        it('should work correctly with difference of large overlapping ranges', function() {
+        it('should work correctly with difference of large overlapping ranges', () => {
             const rangesA = [
                 createRange(4, 30, 6, 30),
                 createRange(8, 30, 10, 30),
@@ -527,7 +527,7 @@ describe('Recorder', function() {
             ]);
         });
 
-        it('should work correctly with intersection of empty ranges', function() {
+        it('should work correctly with intersection of empty ranges', () => {
             const rangesA = [
             ];
 
@@ -540,7 +540,7 @@ describe('Recorder', function() {
             ]);
         });
 
-        it('should work correctly with intersection of overlapping multiple ranges', function() {
+        it('should work correctly with intersection of overlapping multiple ranges', () => {
             const rangesA = [
                 createRange(4, 30, 6, 30),
                 createRange(8, 30, 10, 30),

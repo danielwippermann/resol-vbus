@@ -15,15 +15,15 @@ const HeaderSetConsolidator = vbus.HeaderSetConsolidator;
 
 
 
-describe('HeaderSetConsolidator', function() {
+describe('HeaderSetConsolidator', () => {
 
-    describe('constructor', function() {
+    describe('constructor', () => {
 
-        it('should be a constructor function', function() {
+        it('should be a constructor function', () => {
             expect(HeaderSetConsolidator).to.be.a('function');
         });
 
-        it('should have reasonable defaults', function() {
+        it('should have reasonable defaults', () => {
             const before = new Date();
 
             const hsc = new HeaderSetConsolidator();
@@ -40,7 +40,7 @@ describe('HeaderSetConsolidator', function() {
             expect(hsc).to.have.a.property('maxTimestamp').to.be.equal(null);
         });
 
-        it('should copy selected options', function() {
+        it('should copy selected options', () => {
             const options = {
                 timestamp: new Date(1234567890),
                 interval: 1234,
@@ -62,9 +62,9 @@ describe('HeaderSetConsolidator', function() {
 
     });
 
-    describe('#startTimer and #stopTimer', function() {
+    describe('#startTimer and #stopTimer', () => {
 
-        it('should be functions', function() {
+        it('should be functions', () => {
             expect(HeaderSetConsolidator.prototype)
                 .to.have.a.property('startTimer')
                 .that.is.a('function');
@@ -73,7 +73,7 @@ describe('HeaderSetConsolidator', function() {
                 .that.is.a('function');
         });
 
-        it('should work correctly', function() {
+        it('should work correctly', () => {
             const hsc = new HeaderSetConsolidator({
 
                 interval: 1000,
@@ -84,8 +84,8 @@ describe('HeaderSetConsolidator', function() {
 
             const before = Date.now();
 
-            return vbus.utils.promise(function(resolve, reject) {
-                onHeaderSet = sinon.spy(function() {
+            return vbus.utils.promise((resolve, reject) => {
+                onHeaderSet = sinon.spy(() => {
                     hsc.stopTimer();
 
                     resolve();
@@ -94,7 +94,7 @@ describe('HeaderSetConsolidator', function() {
                 hsc.on('headerSet', onHeaderSet);
 
                 hsc.startTimer();
-            }).then(function() {
+            }).then(() => {
                 const after = Date.now();
 
                 expect(after - before).to.be.within(0, 1200);
@@ -110,9 +110,9 @@ describe('HeaderSetConsolidator', function() {
 
     });
 
-    describe('#processHeaderSet', function() {
+    describe('#processHeaderSet', () => {
 
-        it('should work correctly without options', function() {
+        it('should work correctly without options', () => {
             const header1 = new vbus.Packet({
                 channel: 1
             });
@@ -145,7 +145,7 @@ describe('HeaderSetConsolidator', function() {
             expect(onHeaderSetSpy.firstCall.args [0].getHeaders()).to.have.lengthOf(3);
         });
 
-        it('should work correctly with minTimestamp', function() {
+        it('should work correctly with minTimestamp', () => {
             const header1 = new vbus.Packet({
                 channel: 1
             });
@@ -180,7 +180,7 @@ describe('HeaderSetConsolidator', function() {
             expect(onHeaderSetSpy.callCount).equal(2);
         });
 
-        it('should work correctly with maxTimestamp', function() {
+        it('should work correctly with maxTimestamp', () => {
             const header1 = new vbus.Packet({
                 channel: 1
             });
@@ -215,7 +215,7 @@ describe('HeaderSetConsolidator', function() {
             expect(onHeaderSetSpy.callCount).equal(2);
         });
 
-        it('should work correctly with interval', function() {
+        it('should work correctly with interval', () => {
             const header1 = new vbus.Packet({
                 channel: 1
             });
@@ -250,7 +250,7 @@ describe('HeaderSetConsolidator', function() {
             expect(onHeaderSetSpy.callCount).equal(2);
         });
 
-        it('should work correctly with timeToLive', function() {
+        it('should work correctly with timeToLive', () => {
             const timestamp = moment.utc([ 2014, 3, 1 ]).valueOf();
 
             const header1 = new vbus.Packet({

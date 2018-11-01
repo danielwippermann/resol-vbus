@@ -32,13 +32,13 @@ const SerialDataSourceProvider = DataSourceProvider.extend({
 
     description: 'Data source provider for VBus devices connected using a serial port (incl. USB)',
 
-    constructor: function(options) {
+    constructor(options) {
         DataSourceProvider.call(this, options);
 
         _.extend(this, _.pick(options, optionKeys));
     },
 
-    discoverDataSources: function() {
+    discoverDataSources() {
         const _this = this;
 
         let deferred = Q.defer();
@@ -55,11 +55,11 @@ const SerialDataSourceProvider = DataSourceProvider.extend({
             }
         };
 
-        this._listSerialPorts(function(err, ports) {
+        this._listSerialPorts((err, ports) => {
             if (err) {
                 done(err);
             } else {
-                const dataSources = _.map(ports, function(port) {
+                const dataSources = _.map(ports, (port) => {
                     return new SerialDataSource({
                         provider: _this.id,
                         id: port.comName,
@@ -75,11 +75,11 @@ const SerialDataSourceProvider = DataSourceProvider.extend({
         return promise;
     },
 
-    createDataSource: function(options) {
+    createDataSource(options) {
         return new SerialDataSource(options);
     },
 
-    _listSerialPorts: function() {
+    _listSerialPorts() {
         return SerialPort.list.apply(SerialPort, arguments);
     },
 

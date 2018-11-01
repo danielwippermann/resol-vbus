@@ -22,9 +22,9 @@ const optimizerPromise = vbus.ConfigurationOptimizerFactory.createOptimizerByDev
 
 
 const promiseTestContext = function(options, callback) {
-    return Q.fcall(function() {
+    return Q.fcall(() => {
         return optimizerPromise;
-    }).then(function(optimizer) {
+    }).then((optimizer) => {
         const context = {};
 
         const TestableOptimizer = function() {
@@ -40,10 +40,10 @@ const promiseTestContext = function(options, callback) {
 
         const TestableConnectionCustomizer = ConnectionCustomizer.extend({
 
-            transceiveValue: function(inValueInfo, value, options, state) {
+            transceiveValue(inValueInfo, value, options, state) {
                 const _this = this;
 
-                return Q.fcall(function() {
+                return Q.fcall(() => {
                     const valueIndex = inValueInfo.valueIndex;
 
                     const valueInfo = context.testConfigValueByIndex [valueIndex];
@@ -56,7 +56,7 @@ const promiseTestContext = function(options, callback) {
                         destinationAddress: 0x0020,
                         sourceAddress: _this.deviceAddress,
                         command: 0x0100,
-                        valueIndex: valueIndex,
+                        valueIndex,
                         value: valueInfo && valueInfo.value,
                     });
 
@@ -72,7 +72,7 @@ const promiseTestContext = function(options, callback) {
 
         options = _.defaults({}, options, {
             deviceAddress: 0x7E11,
-            connection: connection,
+            connection,
         });
 
         if (options.optimizer === true) {
@@ -84,15 +84,15 @@ const promiseTestContext = function(options, callback) {
         customizer.transceiveValue = sinon.spy(customizer.transceiveValue);
 
         _.extend(context, {
-            optimizer: optimizer,
-            connection: connection,
-            customizer: customizer,
+            optimizer,
+            connection,
+            customizer,
         });
 
-        return Q.fcall(function() {
+        return Q.fcall(() => {
             return optimizer.completeConfiguration(options.testConfig);
-        }).then(function(testConfig) {
-            _.forEach(testConfig, function(valueInfo) {
+        }).then((testConfig) => {
+            _.forEach(testConfig, (valueInfo) => {
                 if (valueInfo.value === undefined) {
                     valueInfo.value = null;
                 }
@@ -100,13 +100,13 @@ const promiseTestContext = function(options, callback) {
 
             context.testConfig = testConfig;
 
-            context.testConfigValueByIndex = _.reduce(testConfig, function(memo, valueInfo) {
+            context.testConfigValueByIndex = _.reduce(testConfig, (memo, valueInfo) => {
                 memo [valueInfo.valueIndex] = valueInfo;
                 return memo;
             }, {});
 
             return callback(customizer, optimizer, context);
-        }).then(function() {
+        }).then(() => {
             // cleanup
         });
     });
@@ -114,18 +114,18 @@ const promiseTestContext = function(options, callback) {
 
 
 
-describe('ConnectionCustomizer', function() {
+describe('ConnectionCustomizer', () => {
 
-    describe('constructor', function() {
+    describe('constructor', () => {
 
-        it('should be a constructor function', function() {
+        it('should be a constructor function', () => {
             expect(ConnectionCustomizer)
                 .to.be.a('function')
                 .that.has.a.property('extend')
                 .that.is.a('function');
         });
 
-        it('should have reasonable defaults', function() {
+        it('should have reasonable defaults', () => {
             const customizer = new ConnectionCustomizer();
 
             expect(customizer)
@@ -154,7 +154,7 @@ describe('ConnectionCustomizer', function() {
                 .that.is.equal(8000);
         });
 
-        it('should copy selected properties', function() {
+        it('should copy selected properties', () => {
             const options = {
                 id: 'ID',
                 deviceAddress: 0x1234,
@@ -196,13 +196,13 @@ describe('ConnectionCustomizer', function() {
 
     });
 
-    describe('#loadConfiguration', function() {
+    describe('#loadConfiguration', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(ConnectionCustomizer.prototype).property('loadConfiguration').a('function');
         });
 
-        it('should work correctly without optimizer and optimization', function() {
+        it('should work correctly without optimizer and optimization', () => {
             const options = {
                 optimizer: null,
                 testConfig: {
@@ -211,17 +211,17 @@ describe('ConnectionCustomizer', function() {
                 },
             };
 
-            return promiseTestContext(options, function(customizer, optimizer, context) {
+            return promiseTestContext(options, (customizer, optimizer, context) => {
                 const refConfig = [{
                     id: 'Relais_Regler_R1_Handbetrieb',
                 }, {
                     id: 'Relais_Regler_R2_Handbetrieb',
                 }];
 
-                return Q.fcall(function() {
+                return Q.fcall(() => {
                     // manually complete configuration, don't let the customizer do it...
                     return optimizer.completeConfiguration(refConfig);
-                }).then(function(config) {
+                }).then((config) => {
                     let value;
                     expect(config).an('array').lengthOf(2);
 
@@ -236,7 +236,7 @@ describe('ConnectionCustomizer', function() {
                     return customizer.loadConfiguration(config, {
                         optimize: false,
                     });
-                }).then(function(config) {
+                }).then((config) => {
                     let value;
                     expect(config).an('array').lengthOf(2);
 
@@ -260,7 +260,7 @@ describe('ConnectionCustomizer', function() {
             });
         });
 
-        it('should work correctly with optimizer and without optimization', function() {
+        it('should work correctly with optimizer and without optimization', () => {
             const options = {
                 optimizer: true,  // will be replaced with an object by `promiseTestContext`
                 testConfig: {
@@ -269,18 +269,18 @@ describe('ConnectionCustomizer', function() {
                 },
             };
 
-            return promiseTestContext(options, function(customizer, optimizer, context) {
+            return promiseTestContext(options, (customizer, optimizer, context) => {
                 const refConfig = [{
                     id: 'Relais_Regler_R1_Handbetrieb',
                 }, {
                     id: 'Relais_Regler_R2_Handbetrieb',
                 }];
 
-                return Q.fcall(function() {
+                return Q.fcall(() => {
                     return customizer.loadConfiguration(refConfig, {
                         optimize: false,
                     });
-                }).then(function(config) {
+                }).then((config) => {
                     let value;
                     expect(config).an('array').lengthOf(2);
 
@@ -304,17 +304,17 @@ describe('ConnectionCustomizer', function() {
             });
         });
 
-        it('should work correctly with optimization', function() {
+        it('should work correctly with optimization', () => {
             const options = {
                 optimizer: true,  // will be replaced with an object by `promiseTestContext`
             };
 
-            return promiseTestContext(options, function(customizer, optimizer, context) {
-                return Q.fcall(function() {
+            return promiseTestContext(options, (customizer, optimizer, context) => {
+                return Q.fcall(() => {
                     return customizer.loadConfiguration(null, {
                         optimize: true,
                     });
-                }).then(function(config) {
+                }).then((config) => {
                     let value;
                     expect(config).an('array').lengthOf(6291);
 
@@ -340,18 +340,18 @@ describe('ConnectionCustomizer', function() {
 
     });
 
-    describe('#saveConfiguration', function() {
+    describe('#saveConfiguration', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(ConnectionCustomizer.prototype).property('saveConfiguration').a('function');
         });
 
-        it('should work correctly without optimizer and optimization', function() {
+        it('should work correctly without optimizer and optimization', () => {
             const options = {
                 optimizer: null,
             };
 
-            return promiseTestContext(options, function(customizer, optimizer, context) {
+            return promiseTestContext(options, (customizer, optimizer, context) => {
                 const refConfig = [{
                     id: 'Relais_Regler_R1_Handbetrieb',
                     value: 1,
@@ -360,10 +360,10 @@ describe('ConnectionCustomizer', function() {
                     value: 3,
                 }];
 
-                return Q.fcall(function() {
+                return Q.fcall(() => {
                     // manually complete configuration, don't let the customizer do it...
                     return optimizer.completeConfiguration(refConfig);
-                }).then(function(config) {
+                }).then((config) => {
                     let value;
                     expect(config).an('array').lengthOf(2);
 
@@ -380,7 +380,7 @@ describe('ConnectionCustomizer', function() {
                     return customizer.saveConfiguration(config, null, {
                         optimize: false,
                     });
-                }).then(function(config) {
+                }).then((config) => {
                     let value;
                     expect(config).an('array').lengthOf(2);
 
@@ -402,12 +402,12 @@ describe('ConnectionCustomizer', function() {
             });
         });
 
-        it('should work correctly with optimizer and without optimization', function() {
+        it('should work correctly with optimizer and without optimization', () => {
             const options = {
                 optimizer: true,  // will be replaced with an object by `promiseTestContext`
             };
 
-            return promiseTestContext(options, function(customizer, optimizer, context) {
+            return promiseTestContext(options, (customizer, optimizer, context) => {
                 const refConfig = [{
                     id: 'Relais_Regler_R1_Handbetrieb',
                     value: 1,
@@ -416,11 +416,11 @@ describe('ConnectionCustomizer', function() {
                     value: 3,
                 }];
 
-                return Q.fcall(function() {
+                return Q.fcall(() => {
                     return customizer.saveConfiguration(refConfig, null, {
                         optimize: false,
                     });
-                }).then(function(config) {
+                }).then((config) => {
                     let value;
                     expect(config).an('array').lengthOf(2);
 
@@ -444,25 +444,25 @@ describe('ConnectionCustomizer', function() {
             });
         });
 
-        xit('should work correctly with optimization but without old config (NYI)', function() {
+        xit('should work correctly with optimization but without old config (NYI)', () => {
             throw new Error('NYI');
         });
 
-        xit('should work correctly with optimization and old config (NYI)', function() {
+        xit('should work correctly with optimization and old config (NYI)', () => {
             throw new Error('NYI');
         });
 
     });
 
-    describe('#transceiveConfiguration', function() {
+    describe('#transceiveConfiguration', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(ConnectionCustomizer.prototype)
                 .to.have.a.property('transceiveConfiguration')
                 .that.is.a('function');
         });
 
-        it('should get values correctly', function() {
+        it('should get values correctly', () => {
             const deviceAddress = 0x1111;
             const value = 0x12345678;
 
@@ -471,7 +471,7 @@ describe('ConnectionCustomizer', function() {
             connection.pipe(connection);
 
             let request, response;
-            connection.on('datagram', function(datagram) {
+            connection.on('datagram', (datagram) => {
                 if (datagram.command === 0x0600) {
                     const packet = new Packet({
                         channel: 0,
@@ -491,7 +491,7 @@ describe('ConnectionCustomizer', function() {
                         sourceAddress: deviceAddress,
                         command: 0x0100,
                         valueId: request.valueId,
-                        value: value,
+                        value,
                     });
 
                     connection.send(response);
@@ -501,15 +501,15 @@ describe('ConnectionCustomizer', function() {
             connection._setConnectionState(Connection.STATE_CONNECTED);
 
             const customizer = new ConnectionCustomizer({
-                deviceAddress: deviceAddress,
-                connection: connection,
+                deviceAddress,
+                connection,
             });
 
             const options = {
                 action: 'get',
             };
 
-            const callback = sinon.spy(function(config, round) {
+            const callback = sinon.spy((config, round) => {
                 if (round === 1) {
                     config = [
                         { valueIndex: 0x1234, pending: true },
@@ -518,7 +518,7 @@ describe('ConnectionCustomizer', function() {
                 return config;
             });
 
-            setTimeout(function() {
+            setTimeout(() => {
                 const datagram = new Datagram({
                     channel: 0,
                     destinationAddress: 0,
@@ -531,7 +531,7 @@ describe('ConnectionCustomizer', function() {
                 connection.send(datagram);
             }, 10);
 
-            return customizer.transceiveConfiguration(options, callback).then(function(config) {
+            return customizer.transceiveConfiguration(options, callback).then((config) => {
                 expect(config)
                     .to.be.an('array')
                     .that.has.lengthOf(1);
@@ -539,15 +539,15 @@ describe('ConnectionCustomizer', function() {
         });
     });
 
-    describe('#transceiveValue', function() {
+    describe('#transceiveValue', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(ConnectionCustomizer.prototype)
                 .has.a.property('transceiveValue')
                 .that.is.a('function');
         });
 
-        it('should get value correctly', function() {
+        it('should get value correctly', () => {
             const deviceAddress = 0x1111;
             const valueId = 0x2222;
             const value = 0x12345678;
@@ -557,7 +557,7 @@ describe('ConnectionCustomizer', function() {
             connection.pipe(connection);
 
             let request, response;
-            connection.on('datagram', function(datagram) {
+            connection.on('datagram', (datagram) => {
                 if (datagram.destinationAddress === deviceAddress) {
                     request = datagram;
 
@@ -567,7 +567,7 @@ describe('ConnectionCustomizer', function() {
                         sourceAddress: deviceAddress,
                         command: 0x0100,
                         valueId: request.valueId,
-                        value: value,
+                        value,
                     });
 
                     connection.send(response);
@@ -577,15 +577,15 @@ describe('ConnectionCustomizer', function() {
             connection._setConnectionState(Connection.STATE_CONNECTED);
 
             const customizer = new ConnectionCustomizer({
-                deviceAddress: deviceAddress,
-                connection: connection,
+                deviceAddress,
+                connection,
             });
 
             const options = {
                 action: 'get',
             };
 
-            return customizer.transceiveValue(valueId, 0, options).then(function(datagram) {
+            return customizer.transceiveValue(valueId, 0, options).then((datagram) => {
                 expect(datagram.toLiveBuffer()).to.eql(response.toLiveBuffer());
 
                 expect(request).to.be.instanceOf(Datagram);
@@ -610,7 +610,7 @@ describe('ConnectionCustomizer', function() {
             });
         });
 
-        it('should set value correctly', function() {
+        it('should set value correctly', () => {
             const deviceAddress = 0x1111;
             const valueId = 0x2222;
             const value = 0x12345678;
@@ -620,7 +620,7 @@ describe('ConnectionCustomizer', function() {
             connection.pipe(connection);
 
             let request, response;
-            connection.on('datagram', function(datagram) {
+            connection.on('datagram', (datagram) => {
                 if (datagram.destinationAddress === deviceAddress) {
                     request = datagram;
 
@@ -640,15 +640,15 @@ describe('ConnectionCustomizer', function() {
             connection._setConnectionState(Connection.STATE_CONNECTED);
 
             const customizer = new ConnectionCustomizer({
-                deviceAddress: deviceAddress,
-                connection: connection,
+                deviceAddress,
+                connection,
             });
 
             const options = {
                 action: 'set',
             };
 
-            return customizer.transceiveValue(valueId, value, options).then(function(datagram) {
+            return customizer.transceiveValue(valueId, value, options).then((datagram) => {
                 expect(datagram.toLiveBuffer()).to.eql(response.toLiveBuffer());
 
                 expect(request).to.be.instanceOf(Datagram);
@@ -673,7 +673,7 @@ describe('ConnectionCustomizer', function() {
             });
         });
 
-        it('should contact the master regularly', function() {
+        it('should contact the master regularly', () => {
             const deviceAddress = 0x1111;
             const valueId = 0x2222;
             const value = 0x12345678;
@@ -683,7 +683,7 @@ describe('ConnectionCustomizer', function() {
             connection.pipe(connection);
 
             let request, response;
-            connection.on('datagram', function(datagram) {
+            connection.on('datagram', (datagram) => {
                 if (datagram.destinationAddress === deviceAddress) {
                     request = datagram;
 
@@ -693,7 +693,7 @@ describe('ConnectionCustomizer', function() {
                         sourceAddress: deviceAddress,
                         command: 0x0100,
                         valueId: request.valueId,
-                        value: value,
+                        value,
                     });
 
                     connection.send(response);
@@ -703,8 +703,8 @@ describe('ConnectionCustomizer', function() {
             connection._setConnectionState(Connection.STATE_CONNECTED);
 
             const customizer = new ConnectionCustomizer({
-                deviceAddress: deviceAddress,
-                connection: connection,
+                deviceAddress,
+                connection,
             });
 
             const options = {
@@ -716,7 +716,7 @@ describe('ConnectionCustomizer', function() {
                 masterLastContacted: Date.now() - 10000,
             };
 
-            return customizer.transceiveValue(valueId, 0, options, state).then(function(datagram) {
+            return customizer.transceiveValue(valueId, 0, options, state).then((datagram) => {
                 expect(datagram.toLiveBuffer()).to.eql(response.toLiveBuffer());
 
                 expect(request).to.be.instanceOf(Datagram);
@@ -741,7 +741,7 @@ describe('ConnectionCustomizer', function() {
             });
         });
 
-        it('should release and claim the VBus on timeout', function() {
+        it('should release and claim the VBus on timeout', () => {
             const deviceAddress = 0x1111;
             const valueId = 0x2222;
             const value = 0x12345678;
@@ -751,7 +751,7 @@ describe('ConnectionCustomizer', function() {
             connection.pipe(connection);
 
             let request, response, reclaimed;
-            connection.on('datagram', function(datagram) {
+            connection.on('datagram', (datagram) => {
                 if (datagram.command === 0x0600) {
                     reclaimed = true;
 
@@ -765,7 +765,7 @@ describe('ConnectionCustomizer', function() {
 
                     connection.send(packet);
 
-                    setTimeout(function() {
+                    setTimeout(() => {
                         const busOffer = new Datagram({
                             channel: 0,
                             destinationAddress: 0x0000,
@@ -789,7 +789,7 @@ describe('ConnectionCustomizer', function() {
                             sourceAddress: deviceAddress,
                             command: 0x0100,
                             valueId: request.valueId,
-                            value: value,
+                            value,
                         });
 
                         connection.send(response);
@@ -800,8 +800,8 @@ describe('ConnectionCustomizer', function() {
             connection._setConnectionState(Connection.STATE_CONNECTED);
 
             const customizer = new ConnectionCustomizer({
-                deviceAddress: deviceAddress,
-                connection: connection,
+                deviceAddress,
+                connection,
             });
 
             const options = {
@@ -812,7 +812,7 @@ describe('ConnectionCustomizer', function() {
                 }
             };
 
-            return customizer.transceiveValue(valueId, 0, options).then(function(datagram) {
+            return customizer.transceiveValue(valueId, 0, options).then((datagram) => {
                 expect(datagram.toLiveBuffer()).to.eql(response.toLiveBuffer());
 
                 expect(request).to.be.instanceOf(Datagram);
@@ -837,12 +837,12 @@ describe('ConnectionCustomizer', function() {
             });
         });
 
-        it('should fail if disconnected', function() {
+        it('should fail if disconnected', () => {
             const connection = new Connection();
 
             const customizer = new ConnectionCustomizer({
                 deviceAddress: 0x1111,
-                connection: connection,
+                connection,
             });
 
             return customizer.transceiveValue(0x2222, 0).then(() => {
@@ -852,7 +852,7 @@ describe('ConnectionCustomizer', function() {
             });
         });
 
-        it('should suspend while (re)connecting', function() {
+        it('should suspend while (re)connecting', () => {
             const deviceAddress = 0x1111;
             const valueId = 0x2222;
             const value = 0x12345678;
@@ -862,7 +862,7 @@ describe('ConnectionCustomizer', function() {
             connection.pipe(connection);
 
             let request, response;
-            connection.on('datagram', function(datagram) {
+            connection.on('datagram', (datagram) => {
                 if (datagram.destinationAddress === deviceAddress) {
                     request = datagram;
 
@@ -872,7 +872,7 @@ describe('ConnectionCustomizer', function() {
                         sourceAddress: deviceAddress,
                         command: 0x0100,
                         valueId: request.valueId,
-                        value: value,
+                        value,
                     });
 
                     connection.send(response);
@@ -882,8 +882,8 @@ describe('ConnectionCustomizer', function() {
             connection._setConnectionState(Connection.STATE_CONNECTING);
 
             const customizer = new ConnectionCustomizer({
-                deviceAddress: deviceAddress,
-                connection: connection,
+                deviceAddress,
+                connection,
             });
 
             const options = {
@@ -894,11 +894,11 @@ describe('ConnectionCustomizer', function() {
 
             const startTime = Date.now();
 
-            setTimeout(function() {
+            setTimeout(() => {
                 connection._setConnectionState(Connection.STATE_CONNECTED);
             }, 100);
 
-            return customizer.transceiveValue(valueId, 0, options).then(function(datagram) {
+            return customizer.transceiveValue(valueId, 0, options).then((datagram) => {
                 const timeDiff = Date.now() - startTime;
 
                 expect(timeDiff)
@@ -928,7 +928,7 @@ describe('ConnectionCustomizer', function() {
             });
         });
 
-        it('should get a value with a value ID hash', function() {
+        it('should get a value with a value ID hash', () => {
             const deviceAddress = 0x1111;
             const valueId = 0x2222;
             const value = 0x12345678;
@@ -938,7 +938,7 @@ describe('ConnectionCustomizer', function() {
             connection.pipe(connection);
 
             let request, response;
-            const onDatagram = sinon.spy(function(datagram) {
+            const onDatagram = sinon.spy((datagram) => {
                 if (datagram.destinationAddress !== deviceAddress) {
                     // nop, ignore
                 } else if (datagram.command === 0x1100) {
@@ -947,7 +947,7 @@ describe('ConnectionCustomizer', function() {
                         destinationAddress: datagram.sourceAddress,
                         sourceAddress: deviceAddress,
                         command: 0x0100,
-                        valueId: valueId,
+                        valueId,
                         value: datagram.value,
                     });
 
@@ -961,7 +961,7 @@ describe('ConnectionCustomizer', function() {
                         sourceAddress: deviceAddress,
                         command: 0x0100,
                         valueId: request.valueId,
-                        value: value,
+                        value,
                     });
 
                     connection.send(response);
@@ -973,8 +973,8 @@ describe('ConnectionCustomizer', function() {
             connection._setConnectionState(Connection.STATE_CONNECTED);
 
             const customizer = new ConnectionCustomizer({
-                deviceAddress: deviceAddress,
-                connection: connection,
+                deviceAddress,
+                connection,
             });
 
             const valueInfo = {
@@ -985,7 +985,7 @@ describe('ConnectionCustomizer', function() {
                 action: 'get',
             };
 
-            return customizer.transceiveValue(valueInfo, 0, options).then(function(datagram) {
+            return customizer.transceiveValue(valueInfo, 0, options).then((datagram) => {
                 expect(onDatagram).property('callCount').equal(4);
 
                 expect(datagram.toLiveBuffer()).to.eql(response.toLiveBuffer());

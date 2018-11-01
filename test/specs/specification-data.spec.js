@@ -18,9 +18,9 @@ const SpecificationFile = vbus.SpecificationFile;
 
 
 const testSpecificationData = function(source, specificationData) {
-    describe('SpecificationData (' + source + ')', function() {
+    describe('SpecificationData (' + source + ')', () => {
 
-        it('should be an object', function() {
+        it('should be an object', () => {
             expect(specificationData).an('object');
             expect(_.keys(specificationData).sort()).eql([
                 'deviceSpecs',
@@ -42,7 +42,7 @@ const testSpecificationData = function(source, specificationData) {
             expect(specificationData).property('getPacketSpecification').an('function');
         });
 
-        it('should have units', function() {
+        it('should have units', () => {
             const units = specificationData.units;
             expect(_.keys(units).sort()).eql([
                 'Bars',
@@ -104,7 +104,7 @@ const testSpecificationData = function(source, specificationData) {
             expect(unit).property('unitText').equal(' °C');
         });
 
-        it('should have types', function() {
+        it('should have types', () => {
             expect(_.keys(specificationData.types).sort()).eql([
                 'DateTime_1_None',
                 'Number_0_0001_KilogramsPerCubicMeter',
@@ -5617,8 +5617,8 @@ const testSpecificationData = function(source, specificationData) {
             expect(getPacketSpecification(0x0010, 0x7E11, 0x0100)).equal(specificationData.packetSpecs._0010_7E11_0100);
         });
 
-        it('should correctly store multi-byte masks', function() {
-            const packetField = _.find(specificationData.packetFieldSpecs._0010_7761_0100, function(pfs, index) {
+        it('should correctly store multi-byte masks', () => {
+            const packetField = _.find(specificationData.packetFieldSpecs._0010_7761_0100, (pfs, index) => {
                 return (pfs.fieldId === '036_1_8388608');
             });
 
@@ -5642,21 +5642,21 @@ const testSpecificationData = function(source, specificationData) {
 testSpecificationData('loaded from VSF', SpecificationFile.getDefaultSpecificationFile().getSpecificationData());
 
 
-describe('SpecificationData', function() {
+describe('SpecificationData', () => {
 
-    it('is auto-generated, just increase test coverage :)', function() {
+    it('is auto-generated, just increase test coverage :)', () => {
         const spec = new Specification();
 
         const specificationData = spec.specificationData;
 
         const buffer = Buffer.alloc(127 * 4);
 
-        _.forEach(specificationData.getRawValueFunctions, function(getRawValue) {
+        _.forEach(specificationData.getRawValueFunctions, (getRawValue) => {
             getRawValue(buffer, 0, buffer.length);
         });
     });
 
-    it('should calc multi-byte masks correctly', function() {
+    it('should calc multi-byte masks correctly', () => {
         const buffer = Buffer.alloc(76);
         buffer.fill(0);
 

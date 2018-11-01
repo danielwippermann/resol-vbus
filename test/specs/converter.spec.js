@@ -16,7 +16,7 @@ const Packet = vbus.Packet;
 
 const TestableConverter = Converter.extend({
 
-    _read: function() {
+    _read() {
         // nop
     },
 
@@ -24,11 +24,11 @@ const TestableConverter = Converter.extend({
 
 
 
-describe('Converter', function() {
+describe('Converter', () => {
 
-    describe('constructor', function() {
+    describe('constructor', () => {
 
-        it('should be a constructor function', function() {
+        it('should be a constructor function', () => {
             expect(Converter).to.be.a('function');
 
             const converter = new TestableConverter();
@@ -36,13 +36,13 @@ describe('Converter', function() {
             expect(converter).to.be.an.instanceOf(Converter);
         });
 
-        it('should reasonable defaults', function() {
+        it('should reasonable defaults', () => {
             const converter = new TestableConverter();
 
             expect(converter).property('objectMode').to.equal(false);
         });
 
-        it('should copy selected options', function() {
+        it('should copy selected options', () => {
             const options = {
                 objectMode: true,
                 junk: 'JUNK',
@@ -56,26 +56,26 @@ describe('Converter', function() {
 
     });
 
-    describe('#reset', function() {
+    describe('#reset', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(Converter.prototype.reset).to.be.a('function');
         });
 
     });
 
-    describe('#finish', function() {
+    describe('#finish', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(Converter.prototype).property('finish').a('function');
         });
 
-        it('should be fire an end event', function(done) {
+        it('should be fire an end event', (done) => {
             const converter = new TestableConverter({
                 objectMode: true,
             });
 
-            converter.once('end', function() {
+            converter.once('end', () => {
                 done();
             });
 
@@ -84,93 +84,93 @@ describe('Converter', function() {
 
     });
 
-    describe('#convertRawData', function() {
+    describe('#convertRawData', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(Converter.prototype.convertRawData).to.be.a('function');
         });
 
-        it('should be abstract', function() {
+        it('should be abstract', () => {
             const converter = new TestableConverter();
 
-            expect(function() {
+            expect(() => {
                 converter.convertRawData();
             }).to.throw(Error, 'Must be implemented by sub-class');
         });
 
     });
 
-    describe('#convertHeader', function() {
+    describe('#convertHeader', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(Converter.prototype.convertHeader).to.be.a('function');
         });
 
-        it('should be abstract', function() {
+        it('should be abstract', () => {
             const converter = new TestableConverter();
 
-            expect(function() {
+            expect(() => {
                 converter.convertHeader();
             }).to.throw(Error, 'Must be implemented by sub-class');
         });
 
     });
 
-    describe('#convertHeaderSet', function() {
+    describe('#convertHeaderSet', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(Converter.prototype.convertHeaderSet).to.be.a('function');
         });
 
-        it('should be abstract', function() {
+        it('should be abstract', () => {
             const converter = new TestableConverter();
 
-            expect(function() {
+            expect(() => {
                 converter.convertHeaderSet();
             }).to.throw(Error, 'Must be implemented by sub-class');
         });
 
     });
 
-    describe('#_read', function() {
+    describe('#_read', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(Converter.prototype._read).to.be.a('function');
         });
 
-        it('should be abstract', function() {
+        it('should be abstract', () => {
             const converter = new TestableConverter();
 
-            expect(function() {
+            expect(() => {
                 Converter.prototype._read.call(converter);
             }).to.throw(Error, 'Must be implemented by sub-class');
         });
 
     });
 
-    describe('#_write', function() {
+    describe('#_write', () => {
 
-        it('should be a method', function() {
+        it('should be a method', () => {
             expect(Converter.prototype._write).to.be.a('function');
         });
 
-        it('should be abstract', function() {
+        it('should be abstract', () => {
             const converter = new TestableConverter();
 
-            expect(function() {
+            expect(() => {
                 converter._write();
             }).to.throw(Error, 'Must be implemented by sub-class');
         });
 
     });
 
-    describe('writable stream (object mode)', function() {
+    describe('writable stream (object mode)', () => {
 
         const rawPacket1 = 'aa100053001000010b0020051000004a723d1000013f40571000015706100000016800000000007f00000000007f00000000007f00000000007f00007f00000025003600051f11000000006e';
         const rawPacket2 = 'aa1000217e100001013e00000b000074';
         const rawPacket3 = 'aa1000317e100001042b05774a00003900000000007f00000000007f130d0000005f';
 
-        it('should work correctly', function() {
+        it('should work correctly', () => {
             const buffer1 = Buffer.from(rawPacket1, 'hex');
             const packet1 = Packet.fromLiveBuffer(buffer1, 0, buffer1.length);
             packet1.timestamp = new Date(1387893006778);
@@ -206,8 +206,8 @@ describe('Converter', function() {
             const onHeaderSet = sinon.spy();
             converter.on('headerSet', onHeaderSet);
 
-            return vbus.utils.promise(function(resolve, reject) {
-                converter.on('finish', function() {
+            return vbus.utils.promise((resolve, reject) => {
+                converter.on('finish', () => {
                     resolve();
                 });
 
@@ -217,7 +217,7 @@ describe('Converter', function() {
                 converter.write(headerSet);
 
                 converter.end();
-            }).then(function() {
+            }).then(() => {
                 expect(onHeader.callCount).equal(3);
                 expect(onHeader.firstCall.args [0]).equal(packet1);
                 expect(onHeader.secondCall.args [0]).equal(packet2);
@@ -230,13 +230,13 @@ describe('Converter', function() {
 
     });
 
-    describe('readable stream (object mode)', function() {
+    describe('readable stream (object mode)', () => {
 
         const rawPacket1 = 'aa100053001000010b0020051000004a723d1000013f40571000015706100000016800000000007f00000000007f00000000007f00000000007f00007f00000025003600051f11000000006e';
         const rawPacket2 = 'aa1000217e100001013e00000b000074';
         const rawPacket3 = 'aa1000317e100001042b05774a00003900000000007f00000000007f130d0000005f';
 
-        it('should work correctly', function() {
+        it('should work correctly', () => {
             const buffer1 = Buffer.from(rawPacket1, 'hex');
             const packet1 = Packet.fromLiveBuffer(buffer1, 0, buffer1.length);
             packet1.timestamp = new Date(1387893006778);
@@ -264,8 +264,8 @@ describe('Converter', function() {
             const onData = sinon.spy();
             converter.on('data', onData);
 
-            return vbus.utils.promise(function(resolve, reject) {
-                converter.on('end', function() {
+            return vbus.utils.promise((resolve, reject) => {
+                converter.on('end', () => {
                     resolve();
                 });
 
@@ -274,7 +274,7 @@ describe('Converter', function() {
                 converter.convertHeaderSet(headerSet);
 
                 converter.push(null);
-            }).then(function() {
+            }).then(() => {
                 expect(onData.callCount).equal(2);
                 expect(onData.firstCall.args [0]).equal(packet1);
                 expect(onData.secondCall.args [0]).equal(headerSet);

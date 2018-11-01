@@ -64,50 +64,50 @@ module.exports = {
 
     VERSION: packageInfo.version,
 
-    utils: utils,
-    extend: extend,
+    utils,
+    extend,
 
-    I18N: I18N,
+    I18N,
 
-    SpecificationFile: SpecificationFile,
-    Specification: Specification,
+    SpecificationFile,
+    Specification,
 
-    Header: Header,
-    Packet: Packet,
-    Datagram: Datagram,
-    Telegram: Telegram,
+    Header,
+    Packet,
+    Datagram,
+    Telegram,
 
-    HeaderSet: HeaderSet,
-    HeaderSetConsolidator: HeaderSetConsolidator,
+    HeaderSet,
+    HeaderSetConsolidator,
 
-    Connection: Connection,
-    SerialConnection: SerialConnection,
-    TcpConnection: TcpConnection,
+    Connection,
+    SerialConnection,
+    TcpConnection,
 
-    DataSource: DataSource,
-    SerialDataSource: SerialDataSource,
-    TcpDataSource: TcpDataSource,
+    DataSource,
+    SerialDataSource,
+    TcpDataSource,
 
-    DataSourceProvider: DataSourceProvider,
-    SerialDataSourceProvider: SerialDataSourceProvider,
-    TcpDataSourceProvider: TcpDataSourceProvider,
+    DataSourceProvider,
+    SerialDataSourceProvider,
+    TcpDataSourceProvider,
 
-    Converter: Converter,
-    VBusRecordingConverter: VBusRecordingConverter,
-    TextConverter: TextConverter,
-    DLxJsonConverter: DLxJsonConverter,
+    Converter,
+    VBusRecordingConverter,
+    TextConverter,
+    DLxJsonConverter,
 
-    Recorder: Recorder,
-    DLxRecorder: DLxRecorder,
-    FileSystemRecorder: FileSystemRecorder,
+    Recorder,
+    DLxRecorder,
+    FileSystemRecorder,
 
-    ConfigurationOptimizer: ConfigurationOptimizer,
-    ConfigurationOptimizerFactory: ConfigurationOptimizerFactory,
-    BaseConfigurationOptimizer: BaseConfigurationOptimizer,
+    ConfigurationOptimizer,
+    ConfigurationOptimizerFactory,
+    BaseConfigurationOptimizer,
 
-    Customizer: Customizer,
-    ConnectionCustomizer: ConnectionCustomizer,
+    Customizer,
+    ConnectionCustomizer,
 
-    TcpConnectionEndpoint: TcpConnectionEndpoint,
+    TcpConnectionEndpoint,
 
 };
