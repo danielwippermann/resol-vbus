@@ -183,7 +183,7 @@ const ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# 
             reportProgress: null,
             checkCanceled: null,
         });
-        
+
         const connection = this.connection;
         const address = this.deviceAddress;
 

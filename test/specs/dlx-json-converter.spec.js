@@ -421,7 +421,7 @@ describe('DLxJsonConverter', function() {
                             'name': 'Vorlauf-Soll-Temperatur',
                             'unit': ' °C',
                             'unit_code': 'DegreesCelsius'
-                        },{
+                        }, {
                             'filteredId': 'DemoValue2',
                             'id': '000_2_0',
                             'name': 'Flow temperature',
@@ -445,7 +445,7 @@ describe('DLxJsonConverter', function() {
                                 'field_index': 0,
                                 'raw_value': 32,
                                 'value': '32.0',
-                            },{
+                            }, {
                                 'field_index': 1,
                                 'raw_value': -17.8,
                                 'value': '-17.8',

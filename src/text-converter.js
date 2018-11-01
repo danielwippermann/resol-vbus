@@ -71,7 +71,7 @@ const TextConverter = Converter.extend(/** @lends TextConverter# */ {
 
         if (!this.specification) {
             this.specification = new Specification({
-                language: options && options.language || 'en'
+                language: (options && options.language) || 'en'
             });
         }
     },

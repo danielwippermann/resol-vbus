@@ -116,7 +116,7 @@ const TestRecorder = Recorder.extend({
             throw new Error('Stream must be in object mode');
         }
 
-        /*var syncState =*/ this._getSyncState(syncJob, 'source', 'TestRecorder');
+        /* var syncState = */ this._getSyncState(syncJob, 'source', 'TestRecorder');
 
         return Q.fcall(function() {
             return vbus.utils.promise(function(resolve, reject) {
@@ -208,7 +208,7 @@ const TestRecorder = Recorder.extend({
             syncState.infoListByInterval [syncJob.interval] = [];
         }
 
-        /*var infoList =*/ syncState.infoListByInterval [syncJob.interval];
+        // const infoList = syncState.infoListByInterval [syncJob.interval];
 
         let recordedRanges = [];
 

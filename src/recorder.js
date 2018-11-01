@@ -252,7 +252,7 @@ const Recorder = extend(EventEmitter, /** @lends Recorder# */ {
                     stream.resume();
                 });
             });
-            
+
             return utils.promiseFinally(promise, () => {
                 return _this._endRecording(headerSetConsolidator, recordingJob, recording);
             });

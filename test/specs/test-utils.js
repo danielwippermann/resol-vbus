@@ -5,7 +5,6 @@
 
 const expect = require('./expect');
 const _ = require('./lodash');
-const Q = require('./q');
 const vbus = require('./resol-vbus');
 
 
@@ -48,9 +47,9 @@ const testUtils = {
 
     ifHasSerialPortIt: function(msg) {
         if (!SerialDataSourceProvider.hasSerialPortSupport) {
-            xit.call(null, msg + ' (missing serial port support)', () => {});
+            xit(msg + ' (missing serial port support)', () => {});
         } else if (!serialPortPath) {
-            xit.call(null, msg + ' (missing serial port path)', () => {});
+            xit(msg + ' (missing serial port path)', () => {});
         } else {
             it.apply(null, arguments);
         }

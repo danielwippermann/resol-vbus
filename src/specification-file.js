@@ -184,10 +184,10 @@ const SpecificationFile = extend(null, {
             return _.reduce(pt.fields, function(memo, ptf) {
                 const rootTypeId = ptf.type && ptf.type.typeCode;
                 const precision = ptf.precision;
-                const unitCode = ptf.unit && ptf.unit.unitCode || 'None';
+                const unitCode = (ptf.unit && ptf.unit.unitCode) || 'None';
 
                 let typeId = rootTypeId + '_';
-                typeId += sprintf('%.' + precision + 'f', Math.pow(10, - precision)).replace(/[^0-9]/g, '_');
+                typeId += sprintf('%.' + precision + 'f', Math.pow(10, -precision)).replace(/[^0-9]/g, '_');
                 typeId += '_' + unitCode;
 
                 memo [typeId] = {
@@ -272,9 +272,9 @@ const SpecificationFile = extend(null, {
             memo [packetId] = _.map(pt.fields, function(ptf) {
                 const rootTypeId = ptf.type && ptf.type.typeCode;
                 const precision = ptf.precision;
-                const unitCode = ptf.unit && ptf.unit.unitCode || 'None';
+                const unitCode = (ptf.unit && ptf.unit.unitCode) || 'None';
 
-                const factor = Math.pow(10, - precision);
+                const factor = Math.pow(10, -precision);
 
                 let typeId = rootTypeId + '_';
                 typeId += sprintf('%.' + precision + 'f', factor).replace(/[^0-9]/g, '_');

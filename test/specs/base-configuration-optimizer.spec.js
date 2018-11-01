@@ -751,7 +751,7 @@ describe('ValuesWrapper', function() {
 
                 const valueIds = [];
 
-                $(/^TestValue[1-6]$/).in([ '#True', 3, 4, 5], function(value) {
+                $(/^TestValue[1-6]$/).in([ '#True', 3, 4, 5 ], function(value) {
                     valueIds.push(value.md [0]);
                 });
 
@@ -779,7 +779,7 @@ describe('ValuesWrapper', function() {
 
                 const valueIds = [];
 
-                $(/^TestValue[1-6]$/).notIn([ '#True', 3, 4, 5], function(value) {
+                $(/^TestValue[1-6]$/).notIn([ '#True', 3, 4, 5 ], function(value) {
                     valueIds.push(value.md [0]);
                 });
 

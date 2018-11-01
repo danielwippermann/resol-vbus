@@ -334,7 +334,7 @@ const FileSystemRecorder = Recorder.extend({
         const promise = Q.fcall(function() {
             return recording.finish();
         });
-        
+
         return promiseFinally(promise, () => {
             return headerSetConsolidator.removeListener('headerSet', recording.onHeaderSet);
         });
@@ -343,7 +343,7 @@ const FileSystemRecorder = Recorder.extend({
     _recordSyncJob: function(recorder, syncJob) {
         const _this = this;
 
-        /*var syncState =*/ _this._getOwnSyncState(syncJob, syncJob);
+        /* var syncState = */ _this._getOwnSyncState(syncJob, syncJob);
 
         const recording = this._startRecordingInternal({
             interval: syncJob.interval,
@@ -448,10 +448,8 @@ const FileSystemRecorder = Recorder.extend({
 
     _makeDirectory: function(directory) {
         return new Promise((resolve, reject) => {
-            fs.exists(directory, function(exists) {
-                if (exists) {
-                    resolve();
-                } else {
+            fs.access(directory, function(err) {
+                if (err) {
                     fs.mkdir(directory, function(err) {
                         if (err) {
                             reject(err);
@@ -459,6 +457,8 @@ const FileSystemRecorder = Recorder.extend({
                             resolve();
                         }
                     });
+                } else {
+                    resolve();
                 }
             });
         });

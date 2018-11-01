@@ -147,7 +147,7 @@ const Connection = extend(Duplex, /** @lends Connection# */ {
     receive: function(timestamp, chunk) {
         const _this = this;
 
-        if (EventEmitter.listenerCount(this, 'rawData') > 0) {
+        if (this.listenerCount('rawData') > 0) {
             this.emit('rawData', chunk, timestamp);
         }
 
@@ -162,7 +162,7 @@ const Connection = extend(Duplex, /** @lends Connection# */ {
 
         const reportJunk = function(index) {
             if (index > processed) {
-                if (EventEmitter.listenerCount(_this, 'junkData') > 0) {
+                if (_this.listenerCount('junkData') > 0) {
                     const junkData = buffer.slice(processed, index);
                     _this.emit('junkData', junkData, timestamp);
                 }
@@ -243,21 +243,21 @@ const Connection = extend(Duplex, /** @lends Connection# */ {
 
                     if (valid) {
                         if (majorVersion === 1) {
-                            if (EventEmitter.listenerCount(this, 'packet') > 0) {
+                            if (this.listenerCount('packet') > 0) {
                                 const packet = Packet.fromLiveBuffer(buffer, start, index);
                                 packet.timestamp = new Date(timestamp);
                                 packet.channel = this.channel;
                                 this.emit('packet', packet);
                             }
                         } else if (majorVersion === 2) {
-                            if (EventEmitter.listenerCount(this, 'datagram') > 0) {
+                            if (this.listenerCount('datagram') > 0) {
                                 const datagram = Datagram.fromLiveBuffer(buffer, start, index);
                                 datagram.timestamp = new Date(timestamp);
                                 datagram.channel = this.channel;
                                 this.emit('datagram', datagram);
                             }
                         } else if (majorVersion === 3) {
-                            if (EventEmitter.listenerCount(this, 'telegram') > 0) {
+                            if (this.listenerCount('telegram') > 0) {
                                 const telegram = Telegram.fromLiveBuffer(buffer, start, index);
                                 telegram.timestamp = new Date(timestamp);
                                 telegram.channel = this.channel;
@@ -299,7 +299,7 @@ const Connection = extend(Duplex, /** @lends Connection# */ {
 
             this.rxBuffer = null;
 
-            if (EventEmitter.listenerCount(this, 'connectionState') > 0) {
+            if (this.listenerCount('connectionState') > 0) {
                 this.emit('connectionState', newState);
             }
         }

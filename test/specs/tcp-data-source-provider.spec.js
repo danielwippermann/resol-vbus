@@ -154,7 +154,7 @@ describe('TCP Data Source Provider', function() {
                 expect(dgram.Socket.prototype.send.callCount).equal(3);
                 expect(TcpDataSourceProvider.fetchDeviceInformation).property('callCount').equal(1);
             });
-            
+
             return vbus.utils.promiseFinally(promise, function() {
                 dgram.Socket.prototype.send = originalSend;
                 TcpDataSourceProvider.fetchDeviceInformation = originalFDI;
@@ -188,7 +188,7 @@ describe('TCP Data Source Provider', function() {
                 expect(infos [0]).property('address').equals('ADDRESS');
                 expect(TcpDataSourceProvider.sendBroadcast).property('callCount').equal(1);
             });
-            
+
             return vbus.utils.promiseFinally(promise, function() {
                 TcpDataSourceProvider.sendBroadcast = originalSendBroadcast;
             });
@@ -207,7 +207,7 @@ describe('TCP Data Source Provider', function() {
 
             TcpDataSourceProvider.discoverDevices = sinon.spy(function() {
                 return Q([
-                    { __address__ : 'ADDRESS' },
+                    { __address__: 'ADDRESS' },
                 ]);
             });
 
@@ -219,7 +219,7 @@ describe('TCP Data Source Provider', function() {
                 expect(dataSources).a('array').lengthOf(1);
                 expect(TcpDataSourceProvider.discoverDevices).property('callCount').equals(1);
             });
-            
+
             return vbus.utils.promiseFinally(promise, function() {
                 TcpDataSourceProvider.discoverDevices = originalDiscoverDevices;
             });

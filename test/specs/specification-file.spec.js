@@ -4,6 +4,7 @@
 
 
 const fs = require('fs');
+const path = require('path');
 
 
 const expect = require('./expect');
@@ -16,7 +17,7 @@ const SpecificationFile = vbus.SpecificationFile;
 
 
 
-const testVsf1 = fs.readFileSync(__dirname + '/../fixtures/vbus-specifications/test.vsf');
+const testVsf1 = fs.readFileSync(path.join(__dirname, '../fixtures/vbus-specifications/test.vsf'));
 
 
 

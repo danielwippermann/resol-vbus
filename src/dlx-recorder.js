@@ -23,7 +23,7 @@ const optionKeys = [
 
 
 
-const DLxRecorder = Recorder.extend( /** @lends DLxRecorder# */ {
+const DLxRecorder = Recorder.extend(/** @lends DLxRecorder# */ {
 
     /**
      * The root URL to access the DLx.
@@ -155,7 +155,7 @@ const DLxRecorder = Recorder.extend( /** @lends DLxRecorder# */ {
             throw new Error('Stream must be in object mode');
         }
 
-        /*var syncState =*/ this._getSyncState(syncJob, 'source', 'DLxRecorder');
+        /* var syncState = */ this._getSyncState(syncJob, 'source', 'DLxRecorder');
 
         return Q.fcall(function() {
             return _this.getLazyRecordingRanges();

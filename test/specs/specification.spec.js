@@ -1786,7 +1786,7 @@ describe('Specification', function() {
             expect(pfs [5].packetFieldSpec).to.be.an('object');
             expect(pfs [5].origPacketFieldSpec).to.be.an('object');
             expect(pfs [5].name).to.equal('Return temperature');
-            expect(pfs [5].rawValue).to.be.closeTo( -888.8, 0.05);
+            expect(pfs [5].rawValue).to.be.closeTo(-888.8, 0.05);
             expect(pfs [5].formatTextValue).to.be.a('function');
             expect(pfs [5].formatTextValue()).to.equal('-888.8 °C');
             expect(pfs [5].getRoundedRawValue).to.be.a('function');
@@ -1819,7 +1819,7 @@ describe('Specification', function() {
             expect(pfs [1].packetFieldSpec).to.be.an('object');
             expect(pfs [1].origPacketFieldSpec).to.be.an('object');
             expect(pfs [1].name).to.equal('T-return');
-            expect(pfs [1].rawValue).to.be.closeTo( -888.8, 0.05);
+            expect(pfs [1].rawValue).to.be.closeTo(-888.8, 0.05);
             expect(pfs [1].formatTextValue).to.be.a('function');
             expect(pfs [1].formatTextValue()).to.equal('-888.8 °C');
         });

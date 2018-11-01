@@ -60,6 +60,18 @@ const createDeleteFilesInPathPromise = function(pathname) {
 };
 
 
+function checkFileExistance(absoluteFilename, expectedFilename) {
+    return new Promise((resolve, reject) => {
+        fs.access(absoluteFilename, function(err) {
+            if (err) {
+                reject(new Error('Expected file ' + JSON.stringify(expectedFilename) + ' to exist'));
+            } else {
+                resolve();
+            }
+        });
+    });
+}
+
 
 describe('FileSystemRecorder', function() {
 
@@ -157,7 +169,7 @@ describe('FileSystemRecorder', function() {
                     minTimestamp: '2014-02-14T00:00:00.983Z',
                 }]);
             });
-            
+
             return vbus.utils.promiseFinally(promise, function() {
                 readToStreamSpy.restore();
             });
@@ -234,15 +246,7 @@ describe('FileSystemRecorder', function() {
                     const absoluteFilename = path.join(testFixturesPath, expectedFilename);
 
                     promise = promise.then(function() {
-                        return vbus.utils.promise(function(resolve, reject) {
-                            fs.exists(absoluteFilename, function(exists) {
-                                if (!exists) {
-                                    reject(new Error('Expected file ' + JSON.stringify(expectedFilename) + ' to exist'));
-                                } else {
-                                    resolve();
-                                }
-                            });
-                        });
+                        return checkFileExistance(absoluteFilename, expectedFilename);
                     });
                 });
 
@@ -305,15 +309,7 @@ describe('FileSystemRecorder', function() {
                     const absoluteFilename = path.join(testFixturesPath, expectedFilename);
 
                     promise = promise.then(function() {
-                        return vbus.utils.promise(function(resolve, reject) {
-                            fs.exists(absoluteFilename, function(exists) {
-                                if (!exists) {
-                                    reject(new Error('Expected file ' + JSON.stringify(expectedFilename) + ' to exist'));
-                                } else {
-                                    resolve();
-                                }
-                            });
-                        });
+                        return checkFileExistance(absoluteFilename, expectedFilename);
                     });
                 });
 
@@ -367,15 +363,7 @@ describe('FileSystemRecorder', function() {
                     const absoluteFilename = path.join(testFixturesPath, expectedFilename);
 
                     promise = promise.then(function() {
-                        return vbus.utils.promise(function(resolve, reject) {
-                            fs.exists(absoluteFilename, function(exists) {
-                                if (!exists) {
-                                    reject(new Error('Expected file ' + JSON.stringify(expectedFilename) + ' to exist'));
-                                } else {
-                                    resolve();
-                                }
-                            });
-                        });
+                        return checkFileExistance(absoluteFilename, expectedFilename);
                     });
                 });
 
@@ -418,7 +406,7 @@ describe('FileSystemRecorder', function() {
             }).then(function() {
 
             });
-            
+
             return vbus.utils.promiseFinally(promise, function() {
                 readToStream.restore();
             });

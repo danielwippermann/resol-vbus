@@ -141,7 +141,7 @@ const I18N = extend(null, /** @lends I18N# */ {
                 break;
             }
         }
-        let text = value ? value : key;
+        let text = value || key;
         if (arguments.length > 1) {
             const args = _.toArray(arguments).slice(1);
             text = this.vsprintf(text, args);

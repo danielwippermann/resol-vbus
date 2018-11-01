@@ -645,7 +645,7 @@ const Specification = extend(null, /** @lends Specification# */ {
     getRoundedRawValue: function(packetField, buffer, start, end) {
         const rawValue = this.getRawValue(packetField, buffer, start, end);
 
-        const precision = packetField && packetField.type && packetField.type.precision || 0;
+        const precision = (packetField && packetField.type && packetField.type.precision) || 0;
 
         const roundedRawValue = utils.roundNumber(rawValue, -precision);
 

@@ -25,7 +25,7 @@ const optionKeys = [
 
 
 
-const TcpConnection = Connection.extend( /** @lends TcpConnection# */ {
+const TcpConnection = Connection.extend(/** @lends TcpConnection# */ {
 
     /**
      * Host name or IP address of the connection target.
@@ -373,7 +373,7 @@ const TcpConnection = Connection.extend( /** @lends TcpConnection# */ {
             onSocketTermination();
         };
 
-        const onError = function(err) {
+        const onError = function(/* err */) {
             socket.destroy();
             onSocketTermination();
         };

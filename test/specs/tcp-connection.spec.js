@@ -61,7 +61,7 @@ const testConnection = function(callback) {
 
         return callback(connection, endpoint, createEndpointInfoPromise);
     });
-    
+
     return vbus.utils.promiseFinally(promise, function() {
         connection.disconnect();
         endpoint.stop();
@@ -161,7 +161,7 @@ describe('TcpConnection', function() {
 
                     expect(connection.channelListCallback.callCount).to.equal(1);
                 });
-                
+
                 return vbus.utils.promiseFinally(promise, function() {
                     connection.removeListener('connectionState', onConnectionState);
                 });
@@ -207,7 +207,7 @@ describe('TcpConnection', function() {
                 }).then(function() {
                     return connection.disconnect();
                 });
-                
+
                 return vbus.utils.promiseFinally(promise, function() {
                     connection.removeListener('connectionState', onConnectionState);
                 });
@@ -247,7 +247,7 @@ describe('TcpConnection', function() {
 
                     return connection.disconnect();
                 });
-                
+
                 return vbus.utils.promiseFinally(promise, function() {
                     connection.removeListener('connectionState', onConnectionState);
                 });

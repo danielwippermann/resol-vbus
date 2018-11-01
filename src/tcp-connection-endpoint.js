@@ -188,7 +188,7 @@ const TcpConnectionEndpoint = extend(EventEmitter, /** @lends TcpConnectionEndpo
                     } else if ((md = /^DATA$/.exec(line))) {
                         callback(null, '+OK', true);
                     } else {
-                        callback('Unknown command');
+                        callback(new Error('Unknown command'));
                     }
                 };
 

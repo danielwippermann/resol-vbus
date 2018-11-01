@@ -365,7 +365,7 @@ describe('HeaderSet', function() {
         });
 
     });
-    
+
     describe('#getSortedHeaderSet', function() {
 
         it('should be a method', function() {

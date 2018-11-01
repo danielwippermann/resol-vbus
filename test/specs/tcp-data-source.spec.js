@@ -64,7 +64,7 @@ describe('TcpDataSource', function() {
                 expect(connection)
                     .to.be.instanceOf(TcpConnection);
             });
-            
+
             return vbus.utils.promiseFinally(promise, function() {
                 TcpConnection.prototype.connect = originalConnect;
             });

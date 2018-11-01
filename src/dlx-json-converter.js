@@ -58,7 +58,7 @@ const DLxJsonConverter = Converter.extend(/** @lends DLxJsonConverter# */ {
 
         if (!this.specification) {
             this.specification = new Specification({
-                language: options && options.language || 'en'
+                language: (options && options.language) || 'en'
             });
         }
 
@@ -150,7 +150,7 @@ const DLxJsonConverter = Converter.extend(/** @lends DLxJsonConverter# */ {
                     let rawValue = packetField.rawValue;
                     const precision = packetField.packetFieldSpec.type.precision;
                     const numberValue = spec.formatTextValueFromRawValueInternal(rawValue, noneUnit, numberType, precision, noneUnit);
-                    rawValue = + numberValue;
+                    rawValue = +numberValue;
 
                     return {
                         field_index: packetFieldIndex,
