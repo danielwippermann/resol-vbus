@@ -3,12 +3,10 @@
 
 
 
-const Q = require('q');
-
-
 const ConfigurationOptimizer = require('./configuration-optimizer');
 const extend = require('./extend');
 const _ = require('./lodash');
+const { promisify } = require('./utils');
 
 
 
@@ -231,7 +229,7 @@ const BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
 
         const args = _.toArray(arguments);
 
-        return Q.fcall(function() {
+        return promisify(function() {
             const adjustableValues = _this._getAdjustableValues();
 
             let result;
@@ -337,7 +335,7 @@ const BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
     optimizeLoadConfiguration: function(config) {
         const _this = this;
 
-        return Q.fcall(function() {
+        return promisify(function() {
             return _this._buildConfiguration(config);
         }).then(function(config) {
             _.forEach(config, function(value) {

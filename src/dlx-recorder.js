@@ -9,7 +9,6 @@ const request = require('request');
 
 
 const _ = require('./lodash');
-const utils = require('./utils');
 const VBusRecordingConverter = require('./vbus-recording-converter');
 
 const Recorder = require('./recorder');
@@ -231,7 +230,7 @@ const DLxRecorder = Recorder.extend( /** @lends DLxRecorder# */ {
     },
 
     getRecordingFilenames: function() {
-        return utils.promise(function(resolve, reject) {
+        return new Promise((resolve, reject) => {
             let rxBuffer = null;
 
             const filenames = [];
@@ -282,11 +281,11 @@ const DLxRecorder = Recorder.extend( /** @lends DLxRecorder# */ {
             stream.on('data', onData);
             stream.on('end', onEnd);
             stream.on('error', onError);
-        }, this);
+        });
     },
 
     getRecordingInfo: function(filename) {
-        return utils.promise(function(resolve, reject) {
+        return new Promise((resolve, reject) => {
             const info = {};
 
             const onResponse = function(res) {
@@ -315,11 +314,11 @@ const DLxRecorder = Recorder.extend( /** @lends DLxRecorder# */ {
             stream.on('response', onResponse);
             stream.on('end', onEnd);
             stream.on('error', onError);
-        }, this);
+        });
     },
 
     downloadToStream: function(urlString, urlOptions, stream) {
-        return utils.promise(function(resolve, reject) {
+        return new Promise((resolve, reject) => {
             const onEnd = function() {
                 resolve();
             };
@@ -332,7 +331,7 @@ const DLxRecorder = Recorder.extend( /** @lends DLxRecorder# */ {
             req.pipe(stream, { end: false });
             req.on('end', onEnd);
             req.on('error', onError);
-        }, this);
+        });
     },
 
     _request: function() {

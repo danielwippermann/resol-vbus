@@ -31,7 +31,7 @@ const testUtils = {
     },
 
     expectPromise: function(promise) {
-        expect(promise).to.be.an('object');
+        // expect(promise).to.be.instanceOf(Promise);
         expect(promise).to.have.a.property('then').that.is.a('function');
         return promise;
     },

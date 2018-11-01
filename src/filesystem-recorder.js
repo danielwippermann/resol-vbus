@@ -13,7 +13,6 @@ const Q = require('q');
 
 
 const _ = require('./lodash');
-const utils = require('./utils');
 const VBusRecordingConverter = require('./vbus-recording-converter');
 
 const Recorder = require('./recorder');
@@ -342,16 +341,18 @@ const FileSystemRecorder = Recorder.extend({
 
         inConverter.on('headerSet', recording.onHeaderSet);
 
+        function cleanup() {
+            inConverter.removeListener('headerSet', recording.onHeaderSet);
+        }
+
         return Q.fcall(function() {
             return _this._makeDirectories();
         }).then(function() {
             return recorder._playbackSyncJob(inConverter, syncJob);
         }).then(function(playedBackRanges) {
-            return Q.fcall(function() {
-                return utils.promise(function(resolve) {
-                    inConverter.end(function() {
-                        resolve();
-                    });
+            return new Promise((resolve) => {
+                inConverter.end(function() {
+                    resolve();
                 });
             }).then(function() {
                 return recording.finish();
@@ -359,8 +360,12 @@ const FileSystemRecorder = Recorder.extend({
                 return _this._setCurrentSyncState(syncJob.syncState, syncJob);
             }).then(function() {
                 return playedBackRanges;
-            }).finally(function() {
-                inConverter.removeListener('headerSet', recording.onHeaderSet);
+            }).then(function(result) {
+                cleanup();
+                return Promise.resolve(result);
+            }, err => {
+                cleanup();
+                return Promise.reject(err);
             });
         });
     },
@@ -408,7 +413,7 @@ const FileSystemRecorder = Recorder.extend({
     },
 
     _readToStream: function(filename, stream) {
-        return utils.promise(function(resolve, reject) {
+        return new Promise((resolve, reject) => {
             const onEnd = function() {
                 resolve();
             };
@@ -423,11 +428,11 @@ const FileSystemRecorder = Recorder.extend({
             readStream.pipe(stream, { end: false });
             readStream.on('end', onEnd);
             readStream.on('error', onError);
-        }, this);
+        });
     },
 
     _makeDirectory: function(directory) {
-        return utils.promise(function(resolve, reject) {
+        return new Promise((resolve, reject) => {
             fs.exists(directory, function(exists) {
                 if (exists) {
                     resolve();

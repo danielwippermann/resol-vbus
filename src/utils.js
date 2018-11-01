@@ -3,9 +3,6 @@
 
 
 
-const Q = require('q');
-
-
 const _ = require('./lodash');
 
 
@@ -36,48 +33,6 @@ const utils = {
         ].join('');
 
         return guid;
-    },
-
-    cancelablePromise: function(callback, thisArg) {
-        let cancelDeferred = Q.defer();
-        const cancelPromise = cancelDeferred.promise;
-        let isCanceled = false;
-
-        const cancel = function(reason) {
-            if (!isCanceled) {
-                cancelPromise.then(function(result) {
-                    result.cancel(reason);
-                });
-
-                isCanceled = true;
-            }
-        };
-
-        const checkCanceled = function(result) {
-            if (!isCanceled) {
-                return result;
-            } else {
-                throw new Error('Canceled');
-            }
-        };
-
-        const promise = utils.promise(function(resolve, reject, notify) {
-            if (cancelDeferred) {
-                cancelDeferred.resolve({ cancel: reject });
-
-                cancelDeferred = null;
-            }
-
-            return Q.fcall(function() {
-                return cancelPromise;
-            }).then(function() {
-                return callback.call(thisArg, resolve, reject, notify, checkCanceled);
-            });
-        });
-
-        promise.cancel = cancel;
-
-        return promise;
     },
 
     roundNumber: function(value, exp) {
@@ -136,64 +91,38 @@ const utils = {
         return deepFreezeObject(root);
     },
 
-};
+    promisify(fn) {
+        return new Promise((resolve) => resolve(fn()));
+    },
 
-
-
-const Promise = function(callback, thisArg) {
-    let deferred = Q.defer();
-    const promise = deferred.promise;
-
-    const resolve = function(result) {
-        if (deferred) {
-            deferred.resolve(result);
-
-            deferred = null;
+    flatten(...args) {
+        function flattenReducer(memo, arg) {
+            if (Array.isArray(arg)) {
+                memo = arg.reduce(flattenReducer, memo);
+            } else {
+                memo.push(arg);
+            }
+            return memo;
         }
-    };
 
-    const reject = function(reason) {
-        if (deferred) {
-            deferred.reject(reason);
+        return flattenReducer([], args);
+    },
 
-            deferred = null;
+    promise(fn, thisArg) {
+        if (thisArg !== undefined) {
+            throw new Error(`Unexpected thisArg to utils.promise`);
         }
-    };
+        return new Promise(fn);
+    },
 
-    const notify = function(value) {
-        if (deferred) {
-            deferred.notify(value);
+    Promise(fn, thisArg) {
+        if (thisArg !== undefined) {
+            throw new Error(`Unexpected thisArg to utils.Promise`);
         }
-    };
+        return new Promise(fn);
+    },
 
-    try {
-        callback.call(thisArg, resolve, reject, notify);
-    } catch (ex) {
-        reject(ex);
-    }
-
-    return promise;
 };
-
-
-Promise.resolve = function(value) {
-    return new Promise(function(resolve) {
-        resolve(value);
-    });
-};
-
-
-Promise.reject = function(reason) {
-    return new Promise(function(resolve, reject) {
-        reject(reason);
-    });
-};
-
-
-utils.Promise = Promise;
-
-// NOTE(daniel): Legacy naming
-utils.promise = Promise;
 
 
 

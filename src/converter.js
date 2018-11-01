@@ -15,7 +15,6 @@ const Q = require('q');
 const Header = require('./header');
 const HeaderSet = require('./header-set');
 const _ = require('./lodash');
-const utils = require('./utils');
 
 const extend = require('./extend');
 
@@ -74,7 +73,7 @@ const Converter = extend(Duplex, /** @lends Converter# */ {
 
         _.extend(this, _.pick(options, optionKeys));
 
-        this.finishedPromise = utils.promise(function(resolve) {
+        this.finishedPromise = new Promise((resolve) => {
             // we have to add a data event handler to enable getting end event
             const onData = function() {};
 

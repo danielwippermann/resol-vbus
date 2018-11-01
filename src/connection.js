@@ -17,7 +17,6 @@ const Header = require('./header');
 const Packet = require('./packet');
 const Datagram = require('./datagram');
 const Telegram = require('./telegram');
-const utils = require('./utils');
 
 
 
@@ -889,7 +888,7 @@ const Connection = extend(Duplex, /** @lends Connection# */ {
     createConnectedPromise: function() {
         const _this = this;
 
-        return utils.promise(function(resolve, reject) {
+        return new Promise((resolve, reject) => {
             const checkConnectionState = function(state) {
                 if (state === Connection.STATE_DISCONNECTED) {
                     reject(new Error(state));

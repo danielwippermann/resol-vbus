@@ -6,8 +6,6 @@
 const Q = require('q');
 
 
-const utils = require('./utils');
-
 const Customizer = require('./customizer');
 const _ = require('./lodash');
 
@@ -184,12 +182,28 @@ const ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# 
             masterTimeout: this.masterTimeout,
             action: null,
             actionOptions: null,
+            reportProgress: null,
+            checkCanceled: null,
         });
-
+        
         const connection = this.connection;
         const address = this.deviceAddress;
 
-        return utils.cancelablePromise(function(resolve, reject, notify, checkCanceled) {
+        return new Promise(function(resolve, reject) {
+            function notify(progress) {
+                if (options.reportProgress) {
+                    options.reportProgress(progress);
+                }
+            }
+
+            async function checkCanceled() {
+                if (options.checkCanceled) {
+                    if (await options.checkCanceled()) {
+                        reject(new Error('Canceled'));
+                    }
+                }
+            }
+
             const check = function(result) {
                 return Q.fcall(function() {
                     return checkCanceled();
@@ -244,13 +258,9 @@ const ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# 
                             if (index < pendingValues.length) {
                                 const valueInfo = pendingValues [index++];
 
-                                Q.fcall(check).then(function() {
-                                    return _this.transceiveValue(valueInfo, valueInfo.value, {
-                                        triesPerValue: options.triesPerValue,
-                                        timeoutPerValue: options.timeoutPerValue,
-                                        action: options.action,
-                                        actionOptions: options.actionOptions,
-                                    }, state).progress(function(progress) {
+                                let reportProgress;
+                                if (options.reportProgress) {
+                                    reportProgress = function(progress) {
                                         progress = _.extend({}, progress, {
                                             valueId: valueInfo.valueId,
                                             valueIndex: valueInfo.valueIndex,
@@ -259,8 +269,18 @@ const ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# 
                                             valueCount: pendingValues.length,
                                         });
 
-                                        reportProgress(progress);
-                                    });
+                                        return options.reportProgress(progress);
+                                    };
+                                }
+
+                                Q.fcall(check).then(function() {
+                                    return _this.transceiveValue(valueInfo, valueInfo.value, {
+                                        triesPerValue: options.triesPerValue,
+                                        timeoutPerValue: options.timeoutPerValue,
+                                        action: options.action,
+                                        actionOptions: options.actionOptions,
+                                        reportProgress,
+                                    }, state);
                                 }).then(function(datagram) {
                                     valueInfo.pending = false;
                                     valueInfo.transceived = !!datagram;
@@ -331,6 +351,8 @@ const ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# 
             masterTimeout: this.masterTimeout,
             action: null,
             actionOptions: null,
+            reportProgress: null,
+            checkCanceled: null,
         });
 
         state = _.defaults(state, {
@@ -341,7 +363,21 @@ const ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# 
         const connection = this.connection;
         const address = this.deviceAddress;
 
-        return utils.cancelablePromise(function(resolve, reject, notify, checkCanceled) {
+        return new Promise(function(resolve, reject) {
+            function notify(progress) {
+                if (options.reportProgress) {
+                    options.reportProgress(progress);
+                }
+            }
+
+            async function checkCanceled() {
+                if (options.checkCanceled) {
+                    if (await options.checkCanceled()) {
+                        reject(new Error('Canceled'));
+                    }
+                }
+            }
+
             let timer, onConnectionState;
 
             const done = function(err, result) {

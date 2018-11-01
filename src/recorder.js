@@ -154,7 +154,7 @@ const Recorder = extend(EventEmitter, /** @lends Recorder# */ {
             return _this._playback(headerSetConsolidator, options);
         }).then(function() {
             if (options.end) {
-                return utils.promise(function(resolve) {
+                return new Promise(function(resolve) {
                     stream.end(function() {
                         resolve();
                     });

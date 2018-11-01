@@ -105,7 +105,7 @@ describe('TCP Data Source Provider', function() {
                     host = '[' + host + ']';
                 }
 
-                TcpDataSourceProvider.fetchDeviceInformation(host, address.port).done(onFetch);
+                TcpDataSourceProvider.fetchDeviceInformation(host, address.port).then(onFetch, done);
             };
 
             const onRequest = function(req, res) {

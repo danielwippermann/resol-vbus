@@ -7,11 +7,7 @@ const Q = require('q');
 
 
 const _ = require('./lodash');
-const utils = require('./utils');
-
-
-
-const Promise = utils.promise;
+const { promisify } = require('./utils');
 
 
 
@@ -58,7 +54,7 @@ const ConfigurationOptimizerFactory = {
      * @return {Promise} A Promise that resolves to the best matching optimizer result or `null` if no match was found.
      */
     matchOptimizer: function(options) {
-        return new Promise(function(resolve, reject) {
+        return new Promise((resolve, reject) => {
             options = _.defaults({}, options);
 
             let result = {
@@ -107,7 +103,7 @@ const ConfigurationOptimizerFactory = {
      * @return {Promise} A promise that resolves to the `ConfigurationOptimizer` instance or `null` if no matching optimizer was found.
      */
     createOptimizer: function(options) {
-        return Q.fcall(function() {
+        return promisify(function() {
             return ConfigurationOptimizerFactory.matchOptimizer(options);
         }).then(function(result) {
             let optimizer;
