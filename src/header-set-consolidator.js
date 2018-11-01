@@ -3,12 +3,12 @@
 
 
 
-var HeaderSet = require('./header-set');
-var _ = require('./lodash');
+const HeaderSet = require('./header-set');
+const _ = require('./lodash');
 
 
 
-var optionKeys = [
+const optionKeys = [
     'interval',
     'timeToLive',
     'minTimestamp',
@@ -17,7 +17,7 @@ var optionKeys = [
 
 
 
-var HeaderSetConsolidator = HeaderSet.extend(/** @lends HeaderSetConsolidator# */ {
+const HeaderSetConsolidator = HeaderSet.extend(/** @lends HeaderSetConsolidator# */ {
 
     /**
      * The interval in which the `headerSet` event should be emitted.
@@ -159,7 +159,7 @@ var HeaderSetConsolidator = HeaderSet.extend(/** @lends HeaderSetConsolidator# *
      * @param {HeaderSet} headerSet The HeaderSet instance to process.
      */
     processHeaderSet: function(headerSet) {
-        var now = headerSet.timestamp.getTime();
+        const now = headerSet.timestamp.getTime();
 
         this.addHeaders(headerSet.getHeaders());
 
@@ -167,20 +167,20 @@ var HeaderSetConsolidator = HeaderSet.extend(/** @lends HeaderSetConsolidator# *
     },
 
     _handleInterval: function() {
-        var _this = this;
+        const _this = this;
 
-        var now = Date.now();
+        const now = Date.now();
 
         this._processHeaderSet(now);
 
-        var interval = 1000 - (now % 1000);
+        const interval = 1000 - (now % 1000);
         this.timer = setTimeout(function() {
             _this._handleInterval();
         }, interval);
     },
 
     _processHeaderSet: function(now) {
-        var include = true;
+        let include = true;
 
         if (this.minTimestamp) {
             if (now < this.minTimestamp) {
@@ -195,9 +195,9 @@ var HeaderSetConsolidator = HeaderSet.extend(/** @lends HeaderSetConsolidator# *
         }
 
         if (this.interval > 0) {
-            var lastInterval = Math.floor(this.lastIntervalTime / this.interval);
-            var currentInterval = Math.floor(now / this.interval);
-            var diff = currentInterval - lastInterval;
+            const lastInterval = Math.floor(this.lastIntervalTime / this.interval);
+            const currentInterval = Math.floor(now / this.interval);
+            const diff = currentInterval - lastInterval;
 
             if ((diff >= -1) && (diff <= 0)) {
                 include = false;

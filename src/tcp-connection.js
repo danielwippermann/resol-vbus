@@ -3,19 +3,19 @@
 
 
 
-var net = require('net');
-var tls = require('tls');
+const net = require('net');
+const tls = require('tls');
 
 
-var Q = require('q');
+const Q = require('q');
 
 
-var Connection = require('./connection');
-var _ = require('./lodash');
+const Connection = require('./connection');
+const _ = require('./lodash');
 
 
 
-var optionKeys = [
+const optionKeys = [
     'host',
     'port',
     'viaTag',
@@ -149,14 +149,14 @@ var TcpConnection = Connection.extend( /** @lends TcpConnection# */ {
     },
 
     _connect: function(force) {
-        var _this = this;
+        const _this = this;
 
-        var socket;
+        let socket;
 
-        var deferred = Q.defer();
-        var promise = deferred.promise;
+        let deferred = Q.defer();
+        const promise = deferred.promise;
 
-        var done = function(err, result) {
+        const done = function(err, result) {
             if (deferred) {
                 if (err) {
                     deferred.reject(err);
@@ -167,19 +167,19 @@ var TcpConnection = Connection.extend( /** @lends TcpConnection# */ {
             }
         };
 
-        var options = {
+        let options = {
             host: this.host,
             port: this.port
         };
 
-        var phase = this.rawVBusDataOnly ? 1000 : 0;
-        var rxBuffer = null;
+        let phase = this.rawVBusDataOnly ? 1000 : 0;
+        let rxBuffer = null;
 
-        var write = function() {
+        const write = function() {
             return socket.write.apply(socket, arguments);
         };
 
-        var onConnectionEstablished = function() {
+        const onConnectionEstablished = function() {
             _this.reconnectTimeout = 0;
 
             _this._setConnectionState(TcpConnection.STATE_CONNECTED);
@@ -187,16 +187,16 @@ var TcpConnection = Connection.extend( /** @lends TcpConnection# */ {
             done();
         };
 
-        var onConnect = function() {
+        const onConnect = function() {
             if (phase === 1000) {
                 onConnectionEstablished();
             }
         };
 
-        var channelList = [];
+        const channelList = [];
 
-        var onLine = function(line) {
-            var newPhase = -1;
+        const onLine = function(line) {
+            let newPhase = -1;
             if (line [0] === '+') {
                 if (phase === 0) {
                     if (_this.viaTag) {
@@ -251,7 +251,7 @@ var TcpConnection = Connection.extend( /** @lends TcpConnection# */ {
                 done(new Error('Remote side responded with ' + JSON.stringify(line)));
             } else if (line [0] === '*') {
                 if (phase === 60) {
-                    var md = /^\*([\d]+):(.*)$/.exec(line);
+                    const md = /^\*([\d]+):(.*)$/.exec(line);
                     if (md) {
                         channelList.push({
                             channel: md [1],
@@ -290,24 +290,24 @@ var TcpConnection = Connection.extend( /** @lends TcpConnection# */ {
             }
         };
 
-        var onSocketData = function(chunk) {
+        const onSocketData = function(chunk) {
             // console.log('onData');
 
             if (phase < 1000) {
                 // console.log(chunk.toString('utf8'));
 
-                var buffer;
+                let buffer;
                 if (rxBuffer) {
                     buffer = Buffer.concat([ rxBuffer, chunk ]);
                 } else {
                     buffer = chunk;
                 }
 
-                var start = 0, index = 0;
+                let start = 0, index = 0;
                 while ((index < buffer.length) && (phase < 1000)) {
                     if ((buffer [index] === 13) || (buffer [index] === 10)) {
                         if (start < index) {
-                            var line = buffer.toString('utf8', start, index);
+                            const line = buffer.toString('utf8', start, index);
                             onLine(line);
                         }
 
@@ -333,11 +333,11 @@ var TcpConnection = Connection.extend( /** @lends TcpConnection# */ {
             }
         };
 
-        var onConnectionData = function(chunk) {
+        const onConnectionData = function(chunk) {
             write(chunk);
         };
 
-        var onSocketTermination = function() {
+        const onSocketTermination = function() {
             _this.removeListener('data', onConnectionData);
 
             if (_this.socket !== socket) {
@@ -358,7 +358,7 @@ var TcpConnection = Connection.extend( /** @lends TcpConnection# */ {
 
                 _this.socket = null;
 
-                var timeout = _this.reconnectTimeout;
+                const timeout = _this.reconnectTimeout;
                 if (_this.reconnectTimeout < _this.reconnectTimeoutMax) {
                     _this.reconnectTimeout += _this.reconnectTimeoutIncr;
                 }
@@ -371,16 +371,16 @@ var TcpConnection = Connection.extend( /** @lends TcpConnection# */ {
             }
         };
 
-        var onEnd = function() {
+        const onEnd = function() {
             onSocketTermination();
         };
 
-        var onError = function(err) {
+        const onError = function(err) {
             socket.destroy();
             onSocketTermination();
         };
 
-        var onTimeout = function() {
+        const onTimeout = function() {
             socket.destroy();
             onSocketTermination();
         };

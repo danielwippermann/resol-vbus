@@ -3,17 +3,17 @@
 
 
 
-var _ = require('./lodash');
-var vbus = require('./resol-vbus');
-var testUtils = require('./test-utils');
+const _ = require('./lodash');
+const vbus = require('./resol-vbus');
+const testUtils = require('./test-utils');
 
 
 
-var Promise = vbus.utils.Promise;
-var HeaderSet = vbus.HeaderSet;
-var Packet = vbus.Packet;
+const Promise = vbus.utils.Promise;
+const HeaderSet = vbus.HeaderSet;
+const Packet = vbus.Packet;
 
-var VBusRecordingConverter = vbus.VBusRecordingConverter;
+const VBusRecordingConverter = vbus.VBusRecordingConverter;
 
 
 
@@ -28,18 +28,18 @@ describe('VBusRecordingConverter', function() {
         });
 
         it('should have reasonable defaults', function() {
-            var converter = new VBusRecordingConverter();
+            const converter = new VBusRecordingConverter();
 
             expect(converter).property('objectMode').equal(false);
         });
 
         it('should copy selected options', function() {
-            var options = {
+            const options = {
                 objectMode: true,
                 junk: 'JUNK',
             };
 
-            var converter = new VBusRecordingConverter(options);
+            const converter = new VBusRecordingConverter(options);
 
             expect(converter).property('objectMode').equal(options.objectMode);
             expect(converter).not.property('junk');
@@ -54,7 +54,7 @@ describe('VBusRecordingConverter', function() {
         });
 
         it('should work correctly', function() {
-            var converter = new VBusRecordingConverter();
+            const converter = new VBusRecordingConverter();
 
             converter.write(Buffer.from('A5', 'hex'));
 
@@ -69,7 +69,7 @@ describe('VBusRecordingConverter', function() {
 
     describe('writable stream', function() {
 
-        var rawVBusRecordingHexDump = [
+        const rawVBusRecordingHexDump = [
             'a5440e000e00eda1de2443010000a566',
             '46004600baa1de244301000010005300',
             '100000012c00000020051000f23d1000',
@@ -141,29 +141,29 @@ describe('VBusRecordingConverter', function() {
         ].join('');
 
         it('should work correctly', function(done) {
-            var buffer = new Buffer(rawVBusRecordingHexDump, 'hex');
+            const buffer = new Buffer(rawVBusRecordingHexDump, 'hex');
 
-            var converter = new VBusRecordingConverter();
+            const converter = new VBusRecordingConverter();
 
-            var onHeader = sinon.spy();
+            const onHeader = sinon.spy();
             converter.on('header', onHeader);
 
-            var onHeaderSet = sinon.spy();
+            const onHeaderSet = sinon.spy();
             converter.on('headerSet', onHeaderSet);
 
             converter.on('finish', function() {
                 expect(onHeader.callCount).to.equal(16, '"header" events triggered');
                 expect(onHeaderSet.callCount).to.equal(1, '"headerSet" events triggered');
 
-                var headerSet = onHeaderSet.firstCall.args [0];
+                const headerSet = onHeaderSet.firstCall.args [0];
                 expect(headerSet).to.be.an('object');
                 expect(headerSet.timestamp.getTime()).to.equal(1387893006829);
 
-                var headers = headerSet.getSortedHeaders();
+                const headers = headerSet.getSortedHeaders();
 
                 expect(headers.length).to.equal(16);
 
-                var headerIds = _.map(headers, function(header) {
+                const headerIds = _.map(headers, function(header) {
                     return header.getId();
                 });
 
@@ -194,20 +194,20 @@ describe('VBusRecordingConverter', function() {
         });
 
         it('should work correctly in object mode', function(done) {
-            var converter = new VBusRecordingConverter({
+            const converter = new VBusRecordingConverter({
                 objectMode: true,
             });
 
-            var refHeaderSet = new HeaderSet();
+            const refHeaderSet = new HeaderSet();
 
-            var onHeaderSet = sinon.spy();
+            const onHeaderSet = sinon.spy();
             converter.on('headerSet', onHeaderSet);
 
             converter.on('finish', function() {
                 try {
                     expect(onHeaderSet.callCount).to.equal(1, '"headerSet" events triggered');
 
-                    var headerSet = onHeaderSet.firstCall.args [0];
+                    const headerSet = onHeaderSet.firstCall.args [0];
                     expect(headerSet).to.be.an('object');
                     expect(headerSet).equal(refHeaderSet);
 
@@ -222,7 +222,7 @@ describe('VBusRecordingConverter', function() {
         });
 
         promiseIt('should work correctly with raw data', function() {
-            var rawDataHexDump = [
+            const rawDataHexDump = [
                 'a5771000100000000000000000000100',
                 'a58826002600',
                 '1794de2443010000',
@@ -230,12 +230,12 @@ describe('VBusRecordingConverter', function() {
                 'aa1000217e100001013e00000b000074',
             ].join('');
 
-            var buffer = new Buffer(rawDataHexDump, 'hex');
+            const buffer = new Buffer(rawDataHexDump, 'hex');
 
-            var converter = new VBusRecordingConverter({
+            const converter = new VBusRecordingConverter({
             });
 
-            var onRawData = sinon.spy();
+            const onRawData = sinon.spy();
             converter.on('rawData', onRawData);
 
             return new Promise(function(resolve) {
@@ -250,7 +250,7 @@ describe('VBusRecordingConverter', function() {
 
                 expect(onRawData.callCount).to.equal(1, '"rawData" events triggered');
 
-                var info = onRawData.firstCall.args [0];
+                const info = onRawData.firstCall.args [0];
                 expect(info).an('object');
                 expect(info).property('channel').equal(1);
                 expect(info).property('startTimestamp').instanceOf(Date);
@@ -262,7 +262,7 @@ describe('VBusRecordingConverter', function() {
         });
 
         promiseIt('should parse comment records', function() {
-            var rawDataHexDump = [
+            const rawDataHexDump = [
                 'a5993b003b00',
                 '1794de2443010000',
                 '436f6d6d656e7420',
@@ -273,12 +273,12 @@ describe('VBusRecordingConverter', function() {
                 '65636f7264',
             ].join('');
 
-            var buffer = new Buffer(rawDataHexDump, 'hex');
+            const buffer = new Buffer(rawDataHexDump, 'hex');
 
-            var converter = new VBusRecordingConverter({
+            const converter = new VBusRecordingConverter({
             });
 
-            var onComment = sinon.spy();
+            const onComment = sinon.spy();
             converter.on('comment', onComment);
 
             return new Promise(function(resolve) {
@@ -293,7 +293,7 @@ describe('VBusRecordingConverter', function() {
 
                 expect(onComment.callCount).to.equal(1, '"comment" events triggered');
 
-                var info = onComment.firstCall.args [0];
+                const info = onComment.firstCall.args [0];
                 expect(info).an('object');
                 expect(info).property('timestamp').instanceOf(Date);
                 expect(info.timestamp.valueOf()).equal(1387893003287);
@@ -302,16 +302,16 @@ describe('VBusRecordingConverter', function() {
         });
 
         promiseIt('should support topology scan only', function() {
-            var buffer = new Buffer(rawVBusRecordingHexDump, 'hex');
+            const buffer = new Buffer(rawVBusRecordingHexDump, 'hex');
 
-            var converter = new VBusRecordingConverter({
+            const converter = new VBusRecordingConverter({
                 topologyScanOnly: true,
             });
 
-            var onHeader = sinon.spy();
+            const onHeader = sinon.spy();
             converter.on('header', onHeader);
 
-            var onHeaderSet = sinon.spy();
+            const onHeaderSet = sinon.spy();
             converter.on('headerSet', onHeaderSet);
 
             return new Promise(function(resolve) {
@@ -327,11 +327,11 @@ describe('VBusRecordingConverter', function() {
                 expect(onHeader.callCount).to.equal(0, '"header" events triggered');
                 expect(onHeaderSet.callCount).to.equal(1, '"headerSet" events triggered');
 
-                var headerSet = onHeaderSet.firstCall.args [0];
+                const headerSet = onHeaderSet.firstCall.args [0];
                 expect(headerSet).to.be.an('object');
                 expect(headerSet.timestamp.getTime()).to.equal(0);
 
-                var headers = headerSet.getSortedHeaders();
+                const headers = headerSet.getSortedHeaders();
 
                 expect(headers.length).to.equal(16);
 
@@ -339,7 +339,7 @@ describe('VBusRecordingConverter', function() {
                     expect(header.frameCount).equal(0);
                 });
 
-                var headerIds = _.map(headers, function(header) {
+                const headerIds = _.map(headers, function(header) {
                     return header.getId();
                 });
 
@@ -368,11 +368,11 @@ describe('VBusRecordingConverter', function() {
 
     describe('readable stream', function() {
 
-        var rawPacket1 = 'aa100053001000010b0020051000004a723d1000013f40571000015706100000016800000000007f00000000007f00000000007f00000000007f00007f00000025003600051f11000000006e';
-        var rawPacket2 = 'aa1000217e100001013e00000b000074';
-        var rawPacket3 = 'aa1000317e100001042b05774a00003900000000007f00000000007f130d0000005f';
+        const rawPacket1 = 'aa100053001000010b0020051000004a723d1000013f40571000015706100000016800000000007f00000000007f00000000007f00000000007f00007f00000025003600051f11000000006e';
+        const rawPacket2 = 'aa1000217e100001013e00000b000074';
+        const rawPacket3 = 'aa1000317e100001042b05774a00003900000000007f00000000007f130d0000005f';
 
-        var rawVBusRecordingHexDump = [
+        const rawVBusRecordingHexDump = [
             'a5440e000e00eda1de2443010000a566',
             '46004600baa1de244301000010005300',
             '100000012c00000020051000f23d1000',
@@ -387,29 +387,29 @@ describe('VBusRecordingConverter', function() {
         ].join('');
 
         promiseIt('should work correctly', function() {
-            var buffer1 = new Buffer(rawPacket1, 'hex');
-            var packet1 = Packet.fromLiveBuffer(buffer1, 0, buffer1.length);
+            const buffer1 = new Buffer(rawPacket1, 'hex');
+            const packet1 = Packet.fromLiveBuffer(buffer1, 0, buffer1.length);
             packet1.timestamp = new Date(1387893006778);
             packet1.channel = 0;
 
-            var buffer2 = new Buffer(rawPacket2, 'hex');
-            var packet2 = Packet.fromLiveBuffer(buffer2, 0, buffer2.length);
+            const buffer2 = new Buffer(rawPacket2, 'hex');
+            const packet2 = Packet.fromLiveBuffer(buffer2, 0, buffer2.length);
             packet2.timestamp = new Date(1387893003303);
             packet2.channel = 1;
 
-            var buffer3 = new Buffer(rawPacket3, 'hex');
-            var packet3 = Packet.fromLiveBuffer(buffer3, 0, buffer3.length);
+            const buffer3 = new Buffer(rawPacket3, 'hex');
+            const packet3 = Packet.fromLiveBuffer(buffer3, 0, buffer3.length);
             packet3.timestamp = new Date(1387893003454);
             packet3.channel = 1;
 
-            var headerSet = new HeaderSet({
+            const headerSet = new HeaderSet({
                 timestamp: new Date(1387893006829),
                 headers: [ packet1, packet2, packet3 ]
             });
 
-            var converter = new VBusRecordingConverter();
+            const converter = new VBusRecordingConverter();
 
-            var onData = sinon.spy();
+            const onData = sinon.spy();
             converter.on('data', onData);
 
             converter.convertHeaderSet(headerSet);
@@ -419,13 +419,13 @@ describe('VBusRecordingConverter', function() {
 
                 expect(onData.callCount).to.equal(1);
 
-                var chunk = onData.firstCall.args [0];
+                const chunk = onData.firstCall.args [0];
 
                 testUtils.expectToBeABuffer(chunk);
                 expect(chunk.length).to.equal(172);
 
-                var hexDump = chunk.toString('hex');
-                var index = 0;
+                const hexDump = chunk.toString('hex');
+                let index = 0;
                 while ((index < hexDump.length) && (index < rawVBusRecordingHexDump.length)) {
                     expect(hexDump.slice(index, index + 2)).to.equal(rawVBusRecordingHexDump.slice(index, index + 2), index / 2);
                     index += 2;
@@ -436,13 +436,13 @@ describe('VBusRecordingConverter', function() {
         });
 
         promiseIt('should work correctly in object mode', function() {
-            var refHeaderSet = new HeaderSet();
+            const refHeaderSet = new HeaderSet();
 
-            var converter = new VBusRecordingConverter({
+            const converter = new VBusRecordingConverter({
                 objectMode: true,
             });
 
-            var onData = sinon.spy();
+            const onData = sinon.spy();
             converter.on('data', onData);
 
             converter.convertHeaderSet(refHeaderSet);
@@ -452,21 +452,21 @@ describe('VBusRecordingConverter', function() {
 
                 expect(onData.callCount).to.equal(1, '"data" events triggered');
 
-                var headerSet = onData.firstCall.args [0];
+                const headerSet = onData.firstCall.args [0];
                 expect(headerSet).to.be.an('object');
                 expect(headerSet).equal(refHeaderSet);
             });
         });
 
         promiseIt('should work correctly with raw data', function() {
-            var rawData = {
+            const rawData = {
                 channel: 1,
                 startTimestamp: new Date(1387893003287),
                 endTimestamp: new Date(1387893003303),
                 buffer: new Buffer('aa1000217e100001013e00000b000074', 'hex'),
             };
 
-            var rawDataHexDump = [
+            const rawDataHexDump = [
                 'a5771000100000000000000000000100',
                 'a58826002600',
                 '1794de2443010000',
@@ -474,10 +474,10 @@ describe('VBusRecordingConverter', function() {
                 'aa1000217e100001013e00000b000074',
             ].join('');
 
-            var converter = new VBusRecordingConverter({
+            const converter = new VBusRecordingConverter({
             });
 
-            var onData = sinon.spy();
+            const onData = sinon.spy();
             converter.on('data', onData);
 
             converter.convertRawData(rawData);
@@ -487,7 +487,7 @@ describe('VBusRecordingConverter', function() {
 
                 expect(onData.callCount).to.equal(1, '"data" events triggered');
 
-                var chunk = onData.firstCall.args [0];
+                const chunk = onData.firstCall.args [0];
                 testUtils.expectToBeABuffer(chunk);
                 expect(chunk.length).to.equal(54);
 
@@ -496,10 +496,10 @@ describe('VBusRecordingConverter', function() {
         });
 
         promiseIt('should work correctly with comment data', function() {
-            var timestamp = new Date(1387893003287);
-            var comment = 'Comment serialized to VBus file format record';
+            const timestamp = new Date(1387893003287);
+            const comment = 'Comment serialized to VBus file format record';
 
-            var rawDataHexDump = [
+            const rawDataHexDump = [
                 'a5993b003b00',
                 '1794de2443010000',
                 '436f6d6d656e7420',
@@ -510,10 +510,10 @@ describe('VBusRecordingConverter', function() {
                 '65636f7264',
             ].join('');
 
-            var converter = new VBusRecordingConverter({
+            const converter = new VBusRecordingConverter({
             });
 
-            var onData = sinon.spy();
+            const onData = sinon.spy();
             converter.on('data', onData);
 
             converter.convertComment(timestamp, comment);
@@ -523,7 +523,7 @@ describe('VBusRecordingConverter', function() {
 
                 expect(onData.callCount).to.equal(1, '"data" events triggered');
 
-                var chunk = onData.firstCall.args [0];
+                const chunk = onData.firstCall.args [0];
                 testUtils.expectToBeABuffer(chunk);
                 expect(chunk.length).to.equal(59);
 

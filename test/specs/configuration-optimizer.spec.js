@@ -3,11 +3,11 @@
 
 
 
-var vbus = require('./resol-vbus');
+const vbus = require('./resol-vbus');
 
 
 
-var ConfigurationOptimizer = vbus.ConfigurationOptimizer;
+const ConfigurationOptimizer = vbus.ConfigurationOptimizer;
 
 
 
@@ -29,7 +29,7 @@ describe('ConfigurationOptimizer', function() {
         });
 
         promiseIt('should return single match if a deviceAddress is given', function() {
-            var TestableConfigurationOptimizer = ConfigurationOptimizer.extend({}, {
+            const TestableConfigurationOptimizer = ConfigurationOptimizer.extend({}, {
 
                 deviceAddress: 0x1111,
 
@@ -38,7 +38,7 @@ describe('ConfigurationOptimizer', function() {
             return TestableConfigurationOptimizer.getOptimizerOptions().then(function(matches) {
                 expect(matches).an('array').lengthOf(1);
 
-                var match = matches [0];
+                const match = matches [0];
                 expect(match).equal(null);
             });
         });
@@ -52,7 +52,7 @@ describe('ConfigurationOptimizer', function() {
         });
 
         promiseIt('should reject if no deviceAddress is given', function() {
-            var options = {
+            const options = {
                 deviceAddress: 0x1111,
             };
 
@@ -65,13 +65,13 @@ describe('ConfigurationOptimizer', function() {
         });
 
         promiseIt('should match if the right deviceAddress is given', function() {
-            var TestableConfigurationOptimizer = ConfigurationOptimizer.extend({}, {
+            const TestableConfigurationOptimizer = ConfigurationOptimizer.extend({}, {
 
                 deviceAddress: 0x1111,
 
             });
 
-            var options = {
+            const options = {
                 deviceAddress: 0x1111,
             };
 
@@ -83,13 +83,13 @@ describe('ConfigurationOptimizer', function() {
         });
 
         promiseIt('should not match if the wrong deviceAddress is given', function() {
-            var TestableConfigurationOptimizer = ConfigurationOptimizer.extend({}, {
+            const TestableConfigurationOptimizer = ConfigurationOptimizer.extend({}, {
 
                 deviceAddress: 0x1111,
 
             });
 
-            var options = {
+            const options = {
                 deviceAddress: 0x2222,
             };
 
@@ -109,7 +109,7 @@ describe('ConfigurationOptimizer', function() {
         });
 
         it('should be an abstract method', function() {
-            var optimizer = new ConfigurationOptimizer();
+            const optimizer = new ConfigurationOptimizer();
 
             expect(function() {
                 return optimizer.completeConfiguration();
@@ -125,7 +125,7 @@ describe('ConfigurationOptimizer', function() {
         });
 
         it('should be an abstract method', function() {
-            var optimizer = new ConfigurationOptimizer();
+            const optimizer = new ConfigurationOptimizer();
 
             expect(function() {
                 return optimizer.optimizeLoadConfiguration();
@@ -141,7 +141,7 @@ describe('ConfigurationOptimizer', function() {
         });
 
         it('should be an abstract method', function() {
-            var optimizer = new ConfigurationOptimizer();
+            const optimizer = new ConfigurationOptimizer();
 
             expect(function() {
                 return optimizer.optimizeSaveConfiguration();
@@ -157,7 +157,7 @@ describe('ConfigurationOptimizer', function() {
         });
 
         it('should be an abstract method', function() {
-            var optimizer = new ConfigurationOptimizer();
+            const optimizer = new ConfigurationOptimizer();
 
             expect(function() {
                 return optimizer.generateClockConfiguration();

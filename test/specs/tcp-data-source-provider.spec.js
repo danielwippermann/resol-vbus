@@ -3,18 +3,18 @@
 
 
 
-var dgram = require('dgram');
-var http = require('http');
+const dgram = require('dgram');
+const http = require('http');
 
 
-var Q = require('q');
+const Q = require('q');
 
 
-var vbus = require('./resol-vbus');
+const vbus = require('./resol-vbus');
 
 
 
-var TcpDataSourceProvider = vbus.TcpDataSourceProvider;
+const TcpDataSourceProvider = vbus.TcpDataSourceProvider;
 
 
 
@@ -27,20 +27,20 @@ describe('TCP Data Source Provider', function() {
         });
 
         it('should have reasonable defaults', function() {
-            var dsp = new TcpDataSourceProvider();
+            const dsp = new TcpDataSourceProvider();
 
             expect(dsp).property('broadcastAddress').equals('255.255.255.255');
             expect(dsp).property('broadcastPort').equals(7053);
         });
 
         it('should copy selected options', function() {
-            var options = {
+            const options = {
                 broadcastAddress: '0.0.0.0',
                 broadcastPort: 3507,
                 junk: 'JUNK',
             };
 
-            var dsp = new TcpDataSourceProvider(options);
+            const dsp = new TcpDataSourceProvider(options);
 
             expect(dsp).property('broadcastAddress').equals(options.broadcastAddress);
             expect(dsp).property('broadcastPort').equals(options.broadcastPort);
@@ -56,9 +56,9 @@ describe('TCP Data Source Provider', function() {
         });
 
         it('should work correctly', function() {
-            var string = 'vendor = "RESOL"\r\nproduct = "DL3"\r\nserial = "001E660300F0"\r\nversion = "2.1.0"\r\nbuild = "201311280853"\r\nname = "DL3-001E660300F0"\r\nfeatures = "vbus,dl2,dl3"\r\n';
+            const string = 'vendor = "RESOL"\r\nproduct = "DL3"\r\nserial = "001E660300F0"\r\nversion = "2.1.0"\r\nbuild = "201311280853"\r\nname = "DL3-001E660300F0"\r\nfeatures = "vbus,dl2,dl3"\r\n';
 
-            var info = TcpDataSourceProvider.parseDeviceInformation(string);
+            const info = TcpDataSourceProvider.parseDeviceInformation(string);
 
             expect(info).to.be.an('object');
             expect(info.vendor).to.equal('RESOL');
@@ -79,9 +79,9 @@ describe('TCP Data Source Provider', function() {
         });
 
         it('should work correctly', function(done) {
-            var server;
+            let server;
 
-            var onFetch = function(info) {
+            const onFetch = function(info) {
                 server.close();
 
                 expect(info).to.be.an('object');
@@ -96,10 +96,10 @@ describe('TCP Data Source Provider', function() {
                 done();
             };
 
-            var onListening = function() {
-                var address = server.address();
+            const onListening = function() {
+                const address = server.address();
 
-                var host = address.address;
+                let host = address.address;
                 if ((address.family === 'IPv6') && (host.indexOf(':') >= 0)) {
                     host = '[' + host + ']';
                 }
@@ -107,7 +107,7 @@ describe('TCP Data Source Provider', function() {
                 TcpDataSourceProvider.fetchDeviceInformation(host, address.port).done(onFetch);
             };
 
-            var onRequest = function(req, res) {
+            const onRequest = function(req, res) {
                 if (req.url === '/cgi-bin/get_resol_device_information') {
                     res.statusCode = 200;
                     res.end('vendor = "RESOL"\r\nproduct = "DL3"\r\nserial = "001E660300F0"\r\nversion = "2.1.0"\r\nbuild = "201311280853"\r\nname = "DL3-001E660300F0"\r\nfeatures = "vbus,dl2,dl3"\r\n');
@@ -131,8 +131,8 @@ describe('TCP Data Source Provider', function() {
         });
 
         promiseIt('should work correctly', function() {
-            var originalSend = dgram.Socket.prototype.send;
-            var originalFDI = TcpDataSourceProvider.fetchDeviceInformation;
+            const originalSend = dgram.Socket.prototype.send;
+            const originalFDI = TcpDataSourceProvider.fetchDeviceInformation;
 
             dgram.Socket.prototype.send = sinon.spy(function() {
                 this.emit('message', '---RESOL-BROADCAST-REPLY---', {
@@ -171,7 +171,7 @@ describe('TCP Data Source Provider', function() {
         });
 
         promiseIt('should work correctly', function() {
-            var originalSendBroadcast = TcpDataSourceProvider.sendBroadcast;
+            const originalSendBroadcast = TcpDataSourceProvider.sendBroadcast;
 
             TcpDataSourceProvider.sendBroadcast = sinon.spy(function() {
                 return Q([
@@ -200,7 +200,7 @@ describe('TCP Data Source Provider', function() {
         });
 
         promiseIt('should work correctly', function() {
-            var originalDiscoverDevices = TcpDataSourceProvider.discoverDevices;
+            const originalDiscoverDevices = TcpDataSourceProvider.discoverDevices;
 
             TcpDataSourceProvider.discoverDevices = sinon.spy(function() {
                 return Q([
@@ -208,7 +208,7 @@ describe('TCP Data Source Provider', function() {
                 ]);
             });
 
-            var dsp = new TcpDataSourceProvider();
+            const dsp = new TcpDataSourceProvider();
 
             return Q.fcall(function() {
                 return dsp.discoverDataSources();

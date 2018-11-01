@@ -3,20 +3,20 @@
 
 
 
-var moment = require('moment');
-var Q = require('q');
-var request = require('request');
+const moment = require('moment');
+const Q = require('q');
+const request = require('request');
 
 
-var _ = require('./lodash');
-var utils = require('./utils');
-var VBusRecordingConverter = require('./vbus-recording-converter');
+const _ = require('./lodash');
+const utils = require('./utils');
+const VBusRecordingConverter = require('./vbus-recording-converter');
 
-var Recorder = require('./recorder');
+const Recorder = require('./recorder');
 
 
 
-var optionKeys = [
+const optionKeys = [
     'urlPrefix',
     'username',
     'password',
@@ -24,7 +24,7 @@ var optionKeys = [
 
 
 
-var DLxRecorder = Recorder.extend( /** @lends DLxRecorder# */ {
+const DLxRecorder = Recorder.extend( /** @lends DLxRecorder# */ {
 
     /**
      * The root URL to access the DLx.
@@ -59,14 +59,14 @@ var DLxRecorder = Recorder.extend( /** @lends DLxRecorder# */ {
     },
 
     _getOptions: function() {
-        var options = Recorder.prototype._getOptions.call(this);
+        const options = Recorder.prototype._getOptions.call(this);
         return _.extend(options, _.pick(this, optionKeys));
     },
 
     _playback: function(headerSetConsolidator, options) {
-        var _this = this;
+        const _this = this;
 
-        var converter = new VBusRecordingConverter();
+        const converter = new VBusRecordingConverter();
 
         converter.on('headerSet', function(headerSet) {
             headerSetConsolidator.processHeaderSet(headerSet);
@@ -84,16 +84,16 @@ var DLxRecorder = Recorder.extend( /** @lends DLxRecorder# */ {
     },
 
     _playbackRaw: function(converter, options) {
-        var _this = this;
+        const _this = this;
 
-        var minFilename = moment.utc(options.minTimestamp).format('[/log/]YYYYMMDD');
-        var maxFilename = moment.utc(options.maxTimestamp).format('[/log/]YYYYMMDD');
+        const minFilename = moment.utc(options.minTimestamp).format('[/log/]YYYYMMDD');
+        const maxFilename = moment.utc(options.maxTimestamp).format('[/log/]YYYYMMDD');
 
         return Q.fcall(function() {
             return _this.getRecordingFilenames(options);
         }).then(function(filenames) {
             return _.reduce(filenames, function(memo, filename) {
-                var filenamePrefix = filename.slice(0, minFilename.length);
+                const filenamePrefix = filename.slice(0, minFilename.length);
 
                 if ((filenamePrefix >= minFilename) && (filenamePrefix <= maxFilename)) {
                     memo.push(filename);
@@ -102,13 +102,13 @@ var DLxRecorder = Recorder.extend( /** @lends DLxRecorder# */ {
                 return memo;
             }, []);
         }).then(function(filenames) {
-            var promise = Q();
+            let promise = Q();
 
             _.forEach(filenames, function(filename) {
                 promise = promise.then(function() {
-                    var urlString = options.urlPrefix + filename;
+                    const urlString = options.urlPrefix + filename;
 
-                    var urlOptions = {
+                    const urlOptions = {
                         auth: {
                             username: options.username,
                             password: options.password,
@@ -124,9 +124,9 @@ var DLxRecorder = Recorder.extend( /** @lends DLxRecorder# */ {
     },
 
     _playbackApi: function(converter, options) {
-        var urlString = options.urlPrefix + '/dlx/download/download';
+        const urlString = options.urlPrefix + '/dlx/download/download';
 
-        var urlOptions = {
+        const urlOptions = {
             qs: {
                 sessionAuthUsername: options.username,
                 sessionAuthPassword: options.password,
@@ -150,7 +150,7 @@ var DLxRecorder = Recorder.extend( /** @lends DLxRecorder# */ {
     },
 
     _playbackSyncJob: function(stream, syncJob) {
-        var _this = this;
+        const _this = this;
 
         if (!stream.objectMode) {
             throw new Error('Stream must be in object mode');
@@ -161,14 +161,14 @@ var DLxRecorder = Recorder.extend( /** @lends DLxRecorder# */ {
         return Q.fcall(function() {
             return _this.getLazyRecordingRanges();
         }).then(function(availableRanges) {
-            var ranges = Recorder.performRangeSetOperation(availableRanges, syncJob.syncStateDiffs, syncJob.interval, 'intersection');
+            const ranges = Recorder.performRangeSetOperation(availableRanges, syncJob.syncStateDiffs, syncJob.interval, 'intersection');
 
-            var playedBackRanges = [];
+            let playedBackRanges = [];
 
-            var promise = Q();
+            let promise = Q();
 
             _.forEach(ranges, function(range) {
-                var options = _.extend({}, syncJob, {
+                const options = _.extend({}, syncJob, {
                     minTimestamp: range.minTimestamp,
                     maxTimestamp: range.maxTimestamp,
                     end: false,
@@ -182,17 +182,17 @@ var DLxRecorder = Recorder.extend( /** @lends DLxRecorder# */ {
             });
 
             promise = promise.then(function() {
-                var handledRanges = playedBackRanges;
+                let handledRanges = playedBackRanges;
 
                 if (handledRanges.length > 0) {
-                    var maxTimestamp;
+                    let maxTimestamp;
                     if (syncJob.markGapsAsUnsynced) {
                         maxTimestamp = handledRanges [0].minTimestamp;
                     } else {
                         maxTimestamp = handledRanges [handledRanges.length - 1].minTimestamp;
                     }
 
-                    var notAvailableRanges = [{
+                    const notAvailableRanges = [{
                         minTimestamp: new Date(Date.UTC(2001, 0)),
                         maxTimestamp: maxTimestamp,
                     }];
@@ -210,14 +210,14 @@ var DLxRecorder = Recorder.extend( /** @lends DLxRecorder# */ {
     },
 
     getLazyRecordingRanges: function() {
-        var _this = this;
+        const _this = this;
 
         return Q.fcall(function() {
             return _this.getRecordingFilenames();
         }).then(function(filenames) {
-            var ranges = _.map(filenames, function(filename) {
-                var minTimestamp = moment.utc(filename.slice(5, 13), 'YYYYMMDD');
-                var maxTimestamp = moment.utc(minTimestamp).add({ hours: 24 });
+            let ranges = _.map(filenames, function(filename) {
+                const minTimestamp = moment.utc(filename.slice(5, 13), 'YYYYMMDD');
+                const maxTimestamp = moment.utc(minTimestamp).add({ hours: 24 });
                 return {
                     minTimestamp: minTimestamp.toDate(),
                     maxTimestamp: maxTimestamp.toDate(),
@@ -232,26 +232,26 @@ var DLxRecorder = Recorder.extend( /** @lends DLxRecorder# */ {
 
     getRecordingFilenames: function() {
         return utils.promise(function(resolve, reject) {
-            var rxBuffer = null;
+            let rxBuffer = null;
 
-            var filenames = [];
+            const filenames = [];
 
-            var onResponse = function(res) {
+            const onResponse = function(res) {
             };
 
-            var onData = function(chunk) {
-                var buffer;
+            const onData = function(chunk) {
+                let buffer;
                 if (rxBuffer) {
                     buffer = Buffer.concat([ rxBuffer, chunk ]);
                 } else {
                     buffer = chunk;
                 }
 
-                var string = buffer.toString('utf8');
+                let string = buffer.toString('utf8');
 
-                var re = /<a href="([0-9]{8}_[a-z]+.vbus)">/g;
+                const re = /<a href="([0-9]{8}_[a-z]+.vbus)">/g;
 
-                var md, index;
+                let md, index;
                 while ((md = re.exec(string)) !== null) {
                     filenames.push('/log/' + md [1]);
                     index = re.lastIndex;
@@ -262,22 +262,22 @@ var DLxRecorder = Recorder.extend( /** @lends DLxRecorder# */ {
                 rxBuffer = new Buffer(string, 'utf8');
             };
 
-            var onEnd = function() {
+            const onEnd = function() {
                 resolve(filenames.sort());
             };
 
-            var onError = function(err) {
+            const onError = function(err) {
                 reject(err);
             };
 
-            var urlOptions = {
+            const urlOptions = {
                 auth: {
                     username: this.username,
                     password: this.password,
                 },
             };
 
-            var stream = this._request(this.urlPrefix + '/log/', urlOptions);
+            const stream = this._request(this.urlPrefix + '/log/', urlOptions);
             stream.on('response', onResponse);
             stream.on('data', onData);
             stream.on('end', onEnd);
@@ -287,22 +287,22 @@ var DLxRecorder = Recorder.extend( /** @lends DLxRecorder# */ {
 
     getRecordingInfo: function(filename) {
         return utils.promise(function(resolve, reject) {
-            var info = {};
+            const info = {};
 
-            var onResponse = function(res) {
+            const onResponse = function(res) {
                 info.size = res.headers ['content-length'] | 0;
                 info.etag = res.headers.etag;
             };
 
-            var onEnd = function() {
+            const onEnd = function() {
                 resolve(info);
             };
 
-            var onError = function(err) {
+            const onError = function(err) {
                 reject(err);
             };
 
-            var urlOptions = {
+            const urlOptions = {
                 method: 'HEAD',
                 auth: {
                     username: this.username,
@@ -310,7 +310,7 @@ var DLxRecorder = Recorder.extend( /** @lends DLxRecorder# */ {
                 },
             };
 
-            var stream = this._request(this.urlPrefix + filename, urlOptions);
+            const stream = this._request(this.urlPrefix + filename, urlOptions);
             stream.resume();
             stream.on('response', onResponse);
             stream.on('end', onEnd);
@@ -320,15 +320,15 @@ var DLxRecorder = Recorder.extend( /** @lends DLxRecorder# */ {
 
     downloadToStream: function(urlString, urlOptions, stream) {
         return utils.promise(function(resolve, reject) {
-            var onEnd = function() {
+            const onEnd = function() {
                 resolve();
             };
 
-            var onError = function(err) {
+            const onError = function(err) {
                 reject(err);
             };
 
-            var req = this._request(urlString, urlOptions);
+            const req = this._request(urlString, urlOptions);
             req.pipe(stream, { end: false });
             req.on('end', onEnd);
             req.on('error', onError);

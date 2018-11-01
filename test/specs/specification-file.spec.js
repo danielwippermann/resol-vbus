@@ -3,19 +3,19 @@
 
 
 
-var fs = require('fs');
+const fs = require('fs');
 
 
-var _ = require('./lodash');
-var vbus = require('./resol-vbus');
-
-
-
-var SpecificationFile = vbus.SpecificationFile;
+const _ = require('./lodash');
+const vbus = require('./resol-vbus');
 
 
 
-var testVsf1 = fs.readFileSync(__dirname + '/../fixtures/vbus-specifications/test.vsf');
+const SpecificationFile = vbus.SpecificationFile;
+
+
+
+const testVsf1 = fs.readFileSync(__dirname + '/../fixtures/vbus-specifications/test.vsf');
 
 
 
@@ -30,7 +30,7 @@ describe('SpecificationFile', function() {
     describe('#constructor', function() {
 
         it('should work correctly for fixtures file #1', function() {
-            var specFile = new SpecificationFile(testVsf1);
+            const specFile = new SpecificationFile(testVsf1);
 
             expect(specFile).an('object');
             expect(_.keys(specFile).sort()).eql([
@@ -63,7 +63,7 @@ describe('SpecificationFile', function() {
 
             expect(specFile).property('unitFamilyByCode').an('object');
 
-            var unitFamilyByCode = specFile.unitFamilyByCode;
+            const unitFamilyByCode = specFile.unitFamilyByCode;
 
             expect(specFile).property('texts').an('array').lengthOf(188).eql([
                 '',
@@ -786,7 +786,7 @@ describe('SpecificationFile', function() {
 
             expect(specFile).property('deviceTemplates').an('array').lengthOf(18);
 
-            var dt = specFile.deviceTemplates [0];
+            const dt = specFile.deviceTemplates [0];
             expect(dt).an('object');
             expect(_.keys(dt).sort()).eql([
                 'name',
@@ -807,7 +807,7 @@ describe('SpecificationFile', function() {
 
             expect(specFile).property('packetTemplates').an('array').lengthOf(2);
 
-            var pt = specFile.packetTemplates [0];
+            const pt = specFile.packetTemplates [0];
             expect(pt).an('object');
             expect(_.keys(pt).sort()).eql([
                 'command',
@@ -824,7 +824,7 @@ describe('SpecificationFile', function() {
             expect(pt).property('command').equal(0x0100);
             expect(pt).property('fields').an('array').lengthOf(8);
 
-            var ptf = pt.fields [0];
+            const ptf = pt.fields [0];
             expect(ptf).an('object');
             expect(_.keys(ptf).sort()).eql([
                 'id',

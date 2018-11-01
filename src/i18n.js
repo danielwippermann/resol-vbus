@@ -3,17 +3,17 @@
 
 
 
-var moment = require('moment-timezone');
-var numeral = require('numeral');
-var sprintf = require('sprintf-js').sprintf;
+const moment = require('moment-timezone');
+const numeral = require('numeral');
+const sprintf = require('sprintf-js').sprintf;
 
 
-var extend = require('./extend');
-var _ = require('./lodash');
+const extend = require('./extend');
+const _ = require('./lodash');
 
 
 
-var knownLanguages = {
+const knownLanguages = {
     'de': {
         moment: 'de',
         numeral: 'de',
@@ -26,7 +26,7 @@ var knownLanguages = {
 
 
 
-var resources = {
+const resources = {
     dev: { translation: require('./locales/dev.json') },
     de: { translation: require('./locales/de.json') },
 };
@@ -37,7 +37,7 @@ numeral.language('de', require('numeral/languages/de'));
 
 
 
-var I18N = extend(null, /** @lends I18N# */ {
+const I18N = extend(null, /** @lends I18N# */ {
 
     language: null,
 
@@ -98,7 +98,7 @@ var I18N = extend(null, /** @lends I18N# */ {
      * console.log(i18n.vsprintf('%2$s', [ 3, 'DeltaSol MX' ]));
      */
     vsprintf: function(fmt, argv) {
-        var args = argv.slice(0);
+        const args = argv.slice(0);
         args.splice(0, 0, fmt);
         return sprintf.apply(null, args);
     },
@@ -122,16 +122,16 @@ var I18N = extend(null, /** @lends I18N# */ {
      * console.log(i18n.t('specification.unknownDevice', 0x7e11));
      */
     t: function(key) {
-        var parts = key.split('.');
+        const parts = key.split('.');
 
-        var languages = [ this.language, 'dev' ];
+        const languages = [ this.language, 'dev' ];
 
-        var value;
-        for (var i = 0; i < languages.length; i++) {
+        let value;
+        for (let i = 0; i < languages.length; i++) {
             value = resources [languages [i]];
             value = value && value.translation;
 
-            var j = 0;
+            let j = 0;
             while (value && (j < parts.length)) {
                 value = value [parts [j]];
                 j++;
@@ -141,9 +141,9 @@ var I18N = extend(null, /** @lends I18N# */ {
                 break;
             }
         }
-        var text = value ? value : key;
+        let text = value ? value : key;
         if (arguments.length > 1) {
-            var args = _.toArray(arguments).slice(1);
+            const args = _.toArray(arguments).slice(1);
             text = this.vsprintf(text, args);
         }
         return text;
@@ -159,7 +159,7 @@ var I18N = extend(null, /** @lends I18N# */ {
      * @see http://momentjs.com/docs/
      */
     moment: function() {
-        var m = moment.apply(null, arguments).locale(this.languageData.moment);
+        let m = moment.apply(null, arguments).locale(this.languageData.moment);
         if (this.timezone) {
             m = m.tz(this.timezone);
         }
@@ -176,17 +176,17 @@ var I18N = extend(null, /** @lends I18N# */ {
      * @see http://momentjs.com/docs/
      */
     momentUtc: function() {
-        var m = moment.utc.apply(null, arguments).locale(this.languageData.moment);
+        const m = moment.utc.apply(null, arguments).locale(this.languageData.moment);
         return m;
     },
 
     momentTz: function() {
-        var m = moment.tz.apply(moment, arguments).locale(this.languageData.moment);
+        const m = moment.tz.apply(moment, arguments).locale(this.languageData.moment);
         return m;
     },
 
     momentTzZone: function() {
-        var z = moment.tz.zone.apply(moment.tz, arguments);
+        const z = moment.tz.zone.apply(moment.tz, arguments);
         return z;
     },
 

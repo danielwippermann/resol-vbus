@@ -4,21 +4,21 @@
 
 
 require('better-stack-traces').install();
-var chai = require('chai');
-var Q = require('q');
-var sinon = require('sinon');
+const chai = require('chai');
+const Q = require('q');
+const sinon = require('sinon');
 
 
-var _ = require('./lodash');
-var vbus = require('./resol-vbus');
-
-
-
-var SerialDataSourceProvider = vbus.SerialDataSourceProvider;
+const _ = require('./lodash');
+const vbus = require('./resol-vbus');
 
 
 
-var serialPortPath = process.env.RESOL_VBUS_SERIALPORT;
+const SerialDataSourceProvider = vbus.SerialDataSourceProvider;
+
+
+
+const serialPortPath = process.env.RESOL_VBUS_SERIALPORT;
 
 
 
@@ -32,7 +32,7 @@ global.sinon = sinon;
 
 global.promiseIt = function(message, callback) {
     it(message, function(done) {
-        var _this = this;
+        const _this = this;
 
         Q.fcall(function() {
             return callback.call(_this);
@@ -52,7 +52,7 @@ global.xpromiseIt = function(message, callback) {
 
 
 
-var testUtils = {
+const testUtils = {
 
     performAsyncTest: function(done, callback) {
         return Q.fcall(callback).then(function() {
@@ -71,7 +71,7 @@ var testUtils = {
     expectRanges: function(ranges) {
         expect(ranges).a('array');
 
-        var comparableRanges = _.map(ranges, function(range) {
+        const comparableRanges = _.map(ranges, function(range) {
             return {
                 minTimestamp: range.minTimestamp.toISOString(),
                 maxTimestamp: range.maxTimestamp.toISOString(),
@@ -82,7 +82,7 @@ var testUtils = {
     },
 
     adaptTimeout: function(timeout) {
-        var factor = process.env.TRAVIS ? 1000 : 1;
+        const factor = process.env.TRAVIS ? 1000 : 1;
         return timeout * factor;
     },
 

@@ -3,15 +3,15 @@
 
 
 
-var Q = require('q');
+const Q = require('q');
 
 
-var vbus = require('./resol-vbus');
+const vbus = require('./resol-vbus');
 
 
 
-var TcpConnection = vbus.TcpConnection;
-var TcpDataSource = vbus.TcpDataSource;
+const TcpConnection = vbus.TcpConnection;
+const TcpDataSource = vbus.TcpDataSource;
 
 
 
@@ -27,7 +27,7 @@ describe('TcpDataSource', function() {
         });
 
         it('should have reasonable defaults', function() {
-            var ds = new TcpDataSource();
+            const ds = new TcpDataSource();
 
             expect(ds)
                 .to.have.a.property('host')
@@ -51,14 +51,14 @@ describe('TcpDataSource', function() {
         });
 
         promiseIt('should work correctly', function() {
-            var originalConnect = TcpConnection.prototype.connect;
+            const originalConnect = TcpConnection.prototype.connect;
 
             TcpConnection.prototype.connect = sinon.spy(function() {
                 return Q();
             });
 
             return Q.fcall(function() {
-                var ds = new TcpDataSource();
+                const ds = new TcpDataSource();
 
                 return ds.connectLive();
             }).then(function(connection) {

@@ -3,7 +3,7 @@
 
 
 
-var _ = require('./lodash');
+const _ = require('./lodash');
 
 
 
@@ -19,7 +19,7 @@ var _ = require('./lodash');
  */
 var extend = function(parent, protoProps, staticProps) {
 
-    var child;
+    let child;
     if (protoProps && _.has(protoProps, 'constructor')) {
         child = protoProps.constructor;
     } else if (parent) {
@@ -34,7 +34,7 @@ var extend = function(parent, protoProps, staticProps) {
 
     _.extend(child, parent, staticProps);
 
-    var Surrogate = function() {
+    const Surrogate = function() {
         this.constructor = child;
     };
     if (parent) {

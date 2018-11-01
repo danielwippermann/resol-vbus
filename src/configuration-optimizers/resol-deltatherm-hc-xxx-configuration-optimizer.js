@@ -5,14 +5,14 @@
 
 
 
-var configurationData = require('./resol-deltatherm-hc-xxx-data');
+const configurationData = require('./resol-deltatherm-hc-xxx-data');
 
-var BaseConfigurationOptimizer = require('../base-configuration-optimizer');
-var _ = require('../lodash');
+const BaseConfigurationOptimizer = require('../base-configuration-optimizer');
+const _ = require('../lodash');
 
 
 
-var ResolDeltaThermHcXxxConfigurationOptimizer = BaseConfigurationOptimizer.extend({
+const ResolDeltaThermHcXxxConfigurationOptimizer = BaseConfigurationOptimizer.extend({
 
     optimizeConfiguration: function($) {
         this.optimizeModuleConfiguration($);
@@ -31,7 +31,7 @@ var ResolDeltaThermHcXxxConfigurationOptimizer = BaseConfigurationOptimizer.exte
 
     optimizeAnlageWfConfiguration: function($) {
         $(/^(Anlage_Wf[0-9]+)_Type$/).forEach(function(value) {
-            var prefix = '^' + value.md [1] + '_';
+            const prefix = '^' + value.md [1] + '_';
 
             value.eql('#Frei', function() {
                 $(prefix + '(?!Type).*').ignore();
@@ -41,7 +41,7 @@ var ResolDeltaThermHcXxxConfigurationOptimizer = BaseConfigurationOptimizer.exte
                 $(prefix + 'Schaltuhr_.*').ignore();
             });
 
-            var wfTypes = _.keys(value.values [0].valueTextById);
+            const wfTypes = _.keys(value.values [0].valueTextById);
 
             _.forEach(wfTypes, function(wfType) {
                 if ((wfType !== 'Frei') && (wfType !== 'Fehlerrelais')) {
@@ -55,7 +55,7 @@ var ResolDeltaThermHcXxxConfigurationOptimizer = BaseConfigurationOptimizer.exte
 
     optimizeHeizungWfConfiguration: function($) {
         $(/^(Heizung_Wf[0-9]+)_Type$/).forEach(function(value) {
-            var prefix = '^' + value.md [1] + '_';
+            const prefix = '^' + value.md [1] + '_';
 
             value.eql('#Frei', function() {
                 $(prefix + '(?!Type).*').ignore();
@@ -65,7 +65,7 @@ var ResolDeltaThermHcXxxConfigurationOptimizer = BaseConfigurationOptimizer.exte
                 $(prefix + 'Schaltuhr_.*').ignore();
             });
 
-            var wfTypes = _.keys(value.values [0].valueTextById);
+            const wfTypes = _.keys(value.values [0].valueTextById);
 
             _.forEach(wfTypes, function(wfType) {
                 if (wfType !== 'Frei') {
@@ -79,7 +79,7 @@ var ResolDeltaThermHcXxxConfigurationOptimizer = BaseConfigurationOptimizer.exte
 
     optimizeHeizungHeizkreisConfiguration: function($) {
         $(/^(Heizung_Heizkreis[0-9]+)_Type$/).forEach(function(value) {
-            var prefix = '^' + value.md [1] + '_';
+            const prefix = '^' + value.md [1] + '_';
 
             value.eql('#Frei', function() {
                 $(prefix + '(?!Type).*').ignore();
@@ -90,7 +90,7 @@ var ResolDeltaThermHcXxxConfigurationOptimizer = BaseConfigurationOptimizer.exte
             });
 
             $(prefix + '(Raumthermostat[0-9]+)_Option$').forEach(function(value) {
-                var rthPrefix = prefix + value.md [1] + '_';
+                const rthPrefix = prefix + value.md [1] + '_';
 
                 value.eql(0, function() {
                     $(rthPrefix + '(?!Option).*').ignore();
@@ -105,7 +105,7 @@ var ResolDeltaThermHcXxxConfigurationOptimizer = BaseConfigurationOptimizer.exte
 
     optimizeWmzConfiguration: function($) {
         $(/^(Wmz[0-9]+)_Type$/).forEach(function(value) {
-            var prefix = '^' + value.md [1] + '_';
+            const prefix = '^' + value.md [1] + '_';
 
             value.eql(0, function() {
                 $(prefix + '(?!Type).*').ignore();

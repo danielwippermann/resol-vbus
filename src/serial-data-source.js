@@ -3,23 +3,23 @@
 
 
 
-var Q = require('q');
+const Q = require('q');
 
 
-var DataSource = require('./data-source');
-var _ = require('./lodash');
+const DataSource = require('./data-source');
+const _ = require('./lodash');
 
-var SerialConnection = require('./serial-connection');
+const SerialConnection = require('./serial-connection');
 
 
 
-var optionKeys = [
+const optionKeys = [
     'path',
 ];
 
 
 
-var SerialDataSource = DataSource.extend(/** @lends SerialDataSource# */ {
+const SerialDataSource = DataSource.extend(/** @lends SerialDataSource# */ {
 
     /**
      * The path to the serial port.
@@ -39,7 +39,7 @@ var SerialDataSource = DataSource.extend(/** @lends SerialDataSource# */ {
     },
 
     connectLive: function(options) {
-        var defaultOptions = {
+        const defaultOptions = {
             path: this.path,
         };
 
@@ -48,7 +48,7 @@ var SerialDataSource = DataSource.extend(/** @lends SerialDataSource# */ {
             dataSource: this.id,
         });
 
-        var connection = new SerialConnection(options);
+        const connection = new SerialConnection(options);
 
         return Q.fcall(function() {
             return connection.connect();

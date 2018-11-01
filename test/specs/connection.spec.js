@@ -3,17 +3,17 @@
 
 
 
-var vbus = require('./resol-vbus');
+const vbus = require('./resol-vbus');
 
 
 
-var Packet = vbus.Packet;
-var Datagram = vbus.Datagram;
-var Connection = vbus.Connection;
+const Packet = vbus.Packet;
+const Datagram = vbus.Datagram;
+const Connection = vbus.Connection;
 
 
 
-var rawDataPacket = new Buffer([
+const rawDataPacket = new Buffer([
     'aa100021771000011135',
     '02032e02004a',
     '760104010003',
@@ -34,24 +34,24 @@ var rawDataPacket = new Buffer([
     '5d070c0f017f'
 ].join(''), 'hex');
 
-var rawDataDatagram = new Buffer('aa000021772000050000000000000042', 'hex');
+const rawDataDatagram = new Buffer('aa000021772000050000000000000042', 'hex');
 
-var rawDataTelegram1 = new Buffer('AA11207177300432', 'hex');
+const rawDataTelegram1 = new Buffer('AA11207177300432', 'hex');
 
-var rawDataTelegram2 = new Buffer('AA7177112030251160182B040000000454', 'hex');
+const rawDataTelegram2 = new Buffer('AA7177112030251160182B040000000454', 'hex');
 
 
-var parseRawData = function(rawDataOrCallback, start, end, ignoreEvents) {
-    var rawData, callback;
+const parseRawData = function(rawDataOrCallback, start, end, ignoreEvents) {
+    let rawData, callback;
     if (typeof rawDataOrCallback === 'function') {
         callback = rawDataOrCallback;
     } else {
         rawData = rawDataOrCallback;
     }
 
-    var connection = new Connection();
+    const connection = new Connection();
 
-    var stats = {
+    const stats = {
         txDataCount: 0,
 
         rawDataCount: 0,
@@ -97,11 +97,11 @@ var parseRawData = function(rawDataOrCallback, start, end, ignoreEvents) {
         });
     }
 
-    var done = function() {
+    const done = function() {
         connection.removeAllListeners();
     };
 
-    var result;
+    let result;
     if (callback) {
         if (callback.length >= 3) {
             result = callback(connection, stats, done);
@@ -117,7 +117,7 @@ var parseRawData = function(rawDataOrCallback, start, end, ignoreEvents) {
             }
         }
     } else if (rawData) {
-        var buffer = rawData.slice(start, end);
+        const buffer = rawData.slice(start, end);
 
         connection.write(buffer);
 
@@ -129,8 +129,8 @@ var parseRawData = function(rawDataOrCallback, start, end, ignoreEvents) {
 
 
 
-var minTimeoutFactor = process.env.TRAVIS ? 0.9 : 1;
-var maxTimeoutFactor = process.env.TRAVIS ? 1000 : 1;
+const minTimeoutFactor = process.env.TRAVIS ? 0.9 : 1;
+const maxTimeoutFactor = process.env.TRAVIS ? 1000 : 1;
 
 
 
@@ -161,7 +161,7 @@ describe('Connection', function() {
     describe('#connect', function() {
 
         it('should have abstract connect method', function() {
-            var conn = new Connection();
+            const conn = new Connection();
 
             expect(function() {
                 conn.connect();
@@ -173,7 +173,7 @@ describe('Connection', function() {
     describe('#disconnect', function() {
 
         it('should have abstract disconnect method', function() {
-            var conn = new Connection();
+            const conn = new Connection();
 
             expect(function() {
                 conn.disconnect();
@@ -278,7 +278,7 @@ describe('Connection', function() {
 
         it('should handle large junk data correctly', function() {
             parseRawData(function(conn, stats) {
-                var buffer = new Buffer(2048);
+                const buffer = new Buffer(2048);
                 buffer.fill(0);
 
                 conn.write(buffer);
@@ -403,7 +403,7 @@ describe('Connection', function() {
 
         it('should process outgoing stream correctly', function() {
             parseRawData(function(conn, stats, done) {
-                var check = function() {
+                const check = function() {
                     try {
                         expect(stats.txDataCount).to.equal(112);
                         expect(stats.rawDataCount).to.equal(112);
@@ -434,9 +434,9 @@ describe('Connection', function() {
         });
 
         it('should work correctly', function() {
-            var conn = new Connection();
+            const conn = new Connection();
 
-            var onConnectionState = sinon.spy();
+            const onConnectionState = sinon.spy();
 
             conn.on('connectionState', onConnectionState);
 
@@ -464,9 +464,9 @@ describe('Connection', function() {
 
         it('should work correctly with a header object', function() {
             parseRawData(function(conn, stats, done) {
-                var packet = Packet.fromLiveBuffer(rawDataPacket, 0, rawDataPacket.length);
+                const packet = Packet.fromLiveBuffer(rawDataPacket, 0, rawDataPacket.length);
 
-                var check = function() {
+                const check = function() {
                     try {
                         expect(stats.txDataCount).to.equal(112);
                         expect(stats.rawDataCount).to.equal(112);
@@ -500,9 +500,9 @@ describe('Connection', function() {
             this.slow(600);
 
             parseRawData(function(conn, stats, doneParsing) {
-                var startTimestamp = Date.now();
+                const startTimestamp = Date.now();
 
-                var promise = conn.transceive();
+                const promise = conn.transceive();
 
                 expect(promise).to.be.an('object');
                 expect(promise.then).to.be.a('function');
@@ -524,9 +524,9 @@ describe('Connection', function() {
 
         it('should work correctly with timeout option', function(doneTesting) {
             parseRawData(function(conn, stats, doneParsing) {
-                var startTimestamp = Date.now();
+                const startTimestamp = Date.now();
 
-                var promise = conn.transceive(null, {
+                const promise = conn.transceive(null, {
                     timeout: 10
                 });
 
@@ -550,9 +550,9 @@ describe('Connection', function() {
 
         it('should work correctly with TX data', function(doneTesting) {
             parseRawData(function(conn, stats, doneParsing) {
-                var startTimestamp = Date.now();
+                const startTimestamp = Date.now();
 
-                var promise = conn.transceive(rawDataDatagram, {
+                const promise = conn.transceive(rawDataDatagram, {
                     timeout: 10
                 });
 
@@ -576,9 +576,9 @@ describe('Connection', function() {
 
         it('should work correctly with tries option', function(doneTesting) {
             parseRawData(function(conn, stats, doneParsing) {
-                var startTimestamp = Date.now();
+                const startTimestamp = Date.now();
 
-                var promise = conn.transceive(rawDataDatagram, {
+                const promise = conn.transceive(rawDataDatagram, {
                     timeout: 10,
                     tries: 2,
                 });
@@ -603,9 +603,9 @@ describe('Connection', function() {
 
         it('should work correctly with timeoutIncr option', function(doneTesting) {
             parseRawData(function(conn, stats, doneParsing) {
-                var startTimestamp = Date.now();
+                const startTimestamp = Date.now();
 
-                var promise = conn.transceive(null, {
+                const promise = conn.transceive(null, {
                     timeout: 10,
                     timeoutIncr: 10,
                     tries: 2,
@@ -631,18 +631,18 @@ describe('Connection', function() {
 
         it('should work correctly with filterDatagram option', function(doneTesting) {
             parseRawData(function(conn, stats, doneParsing) {
-                var startTimestamp = Date.now();
+                const startTimestamp = Date.now();
 
-                var datagramResult;
+                let datagramResult;
 
-                var onDatagram = function(datagram, doneFiltering) {
+                const onDatagram = function(datagram, doneFiltering) {
                     expect(datagram).to.be.an('object');
                     expect(datagram.getId()).to.equal('00_0000_7721_20_0500_0000');
                     datagramResult = datagram;
                     doneFiltering(null, datagram);
                 };
 
-                var promise = conn.transceive(rawDataDatagram, {
+                const promise = conn.transceive(rawDataDatagram, {
                     timeout: 10,
                     filterDatagram: onDatagram,
                 });
@@ -667,18 +667,18 @@ describe('Connection', function() {
 
         it('should work correctly with filterPacket option', function(doneTesting) {
             parseRawData(function(conn, stats, doneParsing) {
-                var startTimestamp = Date.now();
+                const startTimestamp = Date.now();
 
-                var packetResult;
+                let packetResult;
 
-                var onPacket = function(packet, doneFiltering) {
+                const onPacket = function(packet, doneFiltering) {
                     expect(packet).to.be.an('object');
                     expect(packet.getId()).to.equal('00_0010_7721_10_0100');
                     packetResult = packet;
                     doneFiltering(null, packet);
                 };
 
-                var promise = conn.transceive(rawDataPacket, {
+                const promise = conn.transceive(rawDataPacket, {
                     timeout: 10,
                     filterPacket: onPacket,
                 });
@@ -711,9 +711,9 @@ describe('Connection', function() {
 
         it('should work correctly without arguments', function(doneTesting) {
             parseRawData(function(conn, stats, doneParsing) {
-                var startTimestamp = Date.now();
+                const startTimestamp = Date.now();
 
-                var promise = conn.waitForFreeBus();
+                const promise = conn.waitForFreeBus();
 
                 expect(promise).to.be.an('object');
                 expect(promise.then).to.be.a('function');
@@ -740,9 +740,9 @@ describe('Connection', function() {
 
         it('should work correctly with timeout', function(doneTesting) {
             parseRawData(function(conn, stats, doneParsing) {
-                var startTimestamp = Date.now();
+                const startTimestamp = Date.now();
 
-                var promise = conn.waitForFreeBus(10);
+                const promise = conn.waitForFreeBus(10);
 
                 expect(promise).to.be.an('object');
                 expect(promise.then).to.be.a('function');
@@ -772,7 +772,7 @@ describe('Connection', function() {
 
         it('should work correctly with address', function(doneTesting) {
             parseRawData(function(conn, stats, doneParsing) {
-                var startTimestamp = Date.now();
+                const startTimestamp = Date.now();
 
                 conn.on('datagram', function(datagram) {
                     expect(datagram.getId()).to.equal('00_7721_0020_20_0600_0000');
@@ -780,7 +780,7 @@ describe('Connection', function() {
                     conn.send(rawDataPacket);
                 });
 
-                var promise = conn.releaseBus(0x7721);
+                const promise = conn.releaseBus(0x7721);
 
                 expect(promise).to.be.an('object');
                 expect(promise.then).to.be.a('function');
@@ -803,9 +803,9 @@ describe('Connection', function() {
 
         it('should work correctly with timeout', function(doneTesting) {
             parseRawData(function(conn, stats, doneParsing) {
-                var startTimestamp = Date.now();
+                const startTimestamp = Date.now();
 
-                var promise = conn.releaseBus(0, {
+                const promise = conn.releaseBus(0, {
                     timeout: 10,
                 });
 
@@ -829,9 +829,9 @@ describe('Connection', function() {
 
         it('should work correctly with tries', function(doneTesting) {
             parseRawData(function(conn, stats, doneParsing) {
-                var startTimestamp = Date.now();
+                const startTimestamp = Date.now();
 
-                var promise = conn.releaseBus(0, {
+                const promise = conn.releaseBus(0, {
                     timeout: 10,
                     tries: 1,
                 });
@@ -864,15 +864,15 @@ describe('Connection', function() {
 
         it('should work correctly with address and value index', function(doneTesting) {
             parseRawData(function(conn, stats, doneParsing) {
-                var startTimestamp = Date.now();
+                const startTimestamp = Date.now();
 
-                var datagramResult;
+                let datagramResult;
 
                 conn.on('datagram', function(rxDatagram) {
                     if (rxDatagram.command === 0x0300) {
                         datagramResult = rxDatagram;
 
-                        var txDatagram = new Datagram({
+                        const txDatagram = new Datagram({
                             destinationAddress: rxDatagram.sourceAddress,
                             sourceAddress: rxDatagram.destinationAddress,
                             command: 0x0100,
@@ -884,7 +884,7 @@ describe('Connection', function() {
                     }
                 });
 
-                var promise = conn.getValueById(0x7721, 0x1234);
+                const promise = conn.getValueById(0x7721, 0x1234);
 
                 expect(promise).to.be.an('object');
                 expect(promise.then).to.be.a('function');
@@ -909,15 +909,15 @@ describe('Connection', function() {
 
         it('should work correctly with timeout', function(doneTesting) {
             parseRawData(function(conn, stats, doneParsing) {
-                var startTimestamp = Date.now();
+                const startTimestamp = Date.now();
 
-                var datagramResult;
+                let datagramResult;
 
                 conn.on('datagram', function(rxDatagram) {
                     if ((rxDatagram.command === 0x0300) && (stats.datagramCount === 2)) {
                         datagramResult = rxDatagram;
 
-                        var txDatagram = new Datagram({
+                        const txDatagram = new Datagram({
                             destinationAddress: rxDatagram.sourceAddress,
                             sourceAddress: rxDatagram.destinationAddress,
                             command: 0x0100,
@@ -929,7 +929,7 @@ describe('Connection', function() {
                     }
                 });
 
-                var promise = conn.getValueById(0x7721, 0x1234, {
+                const promise = conn.getValueById(0x7721, 0x1234, {
                     timeout: 10,
                 });
 
@@ -956,9 +956,9 @@ describe('Connection', function() {
 
         it('should work correctly with timeoutIncr', function(doneTesting) {
             parseRawData(function(conn, stats, doneParsing) {
-                var startTimestamp = Date.now();
+                const startTimestamp = Date.now();
 
-                var promise = conn.getValueById(0x7721, 0x1234, {
+                const promise = conn.getValueById(0x7721, 0x1234, {
                     timeout: 10,
                     timeoutIncr: 10,
                 });
@@ -983,9 +983,9 @@ describe('Connection', function() {
 
         it('should work correctly with tries', function(doneTesting) {
             parseRawData(function(conn, stats, doneParsing) {
-                var startTimestamp = Date.now();
+                const startTimestamp = Date.now();
 
-                var promise = conn.getValueById(0x7721, 0x1234, {
+                const promise = conn.getValueById(0x7721, 0x1234, {
                     timeout: 10,
                     tries: 1,
                 });
@@ -1018,15 +1018,15 @@ describe('Connection', function() {
 
         it('should work correctly with address, value ID and value', function(doneTesting) {
             parseRawData(function(conn, stats, doneParsing) {
-                var startTimestamp = Date.now();
+                const startTimestamp = Date.now();
 
-                var datagramResult;
+                let datagramResult;
 
                 conn.on('datagram', function(rxDatagram) {
                     if (rxDatagram.command === 0x0200) {
                         datagramResult = rxDatagram;
 
-                        var txDatagram = new Datagram({
+                        const txDatagram = new Datagram({
                             destinationAddress: rxDatagram.sourceAddress,
                             sourceAddress: rxDatagram.destinationAddress,
                             command: 0x0100,
@@ -1038,7 +1038,7 @@ describe('Connection', function() {
                     }
                 });
 
-                var promise = conn.setValueById(0x7721, 0x1234, 0x1234);
+                const promise = conn.setValueById(0x7721, 0x1234, 0x1234);
 
                 expect(promise).to.be.an('object');
                 expect(promise.then).to.be.a('function');
@@ -1063,15 +1063,15 @@ describe('Connection', function() {
 
         it('should work correctly with timeout', function(doneTesting) {
             parseRawData(function(conn, stats, doneParsing) {
-                var startTimestamp = Date.now();
+                const startTimestamp = Date.now();
 
-                var datagramResult;
+                let datagramResult;
 
                 conn.on('datagram', function(rxDatagram) {
                     if ((rxDatagram.command === 0x0200) && (stats.datagramCount === 2)) {
                         datagramResult = rxDatagram;
 
-                        var txDatagram = new Datagram({
+                        const txDatagram = new Datagram({
                             destinationAddress: rxDatagram.sourceAddress,
                             sourceAddress: rxDatagram.destinationAddress,
                             command: 0x0100,
@@ -1083,7 +1083,7 @@ describe('Connection', function() {
                     }
                 });
 
-                var promise = conn.setValueById(0x7721, 0x1234, 0x12345678, {
+                const promise = conn.setValueById(0x7721, 0x1234, 0x12345678, {
                     timeout: 10
                 });
 
@@ -1110,9 +1110,9 @@ describe('Connection', function() {
 
         it('should work correctly with timeoutIncr', function(doneTesting) {
             parseRawData(function(conn, stats, doneParsing) {
-                var startTimestamp = Date.now();
+                const startTimestamp = Date.now();
 
-                var promise = conn.setValueById(0x7721, 0x1234, 0x12345678, {
+                const promise = conn.setValueById(0x7721, 0x1234, 0x12345678, {
                     timeout: 10,
                     timeoutIncr: 10,
                 });
@@ -1137,9 +1137,9 @@ describe('Connection', function() {
 
         it('should work correctly with tries', function(doneTesting) {
             parseRawData(function(conn, stats, doneParsing) {
-                var startTimestamp = Date.now();
+                const startTimestamp = Date.now();
 
-                var promise = conn.setValueById(0x7721, 0x1234, 0x12345678, {
+                const promise = conn.setValueById(0x7721, 0x1234, 0x12345678, {
                     timeout: 10,
                     tries: 1,
                 });
@@ -1172,15 +1172,15 @@ describe('Connection', function() {
 
         it('should work correctly with address and value ID', function(doneTesting) {
             parseRawData(function(conn, stats, doneParsing) {
-                var startTimestamp = Date.now();
+                const startTimestamp = Date.now();
 
-                var datagramResult;
+                let datagramResult;
 
                 conn.on('datagram', function(rxDatagram) {
                     if (rxDatagram.command === 0x1000) {
                         datagramResult = rxDatagram;
 
-                        var txDatagram = new Datagram({
+                        const txDatagram = new Datagram({
                             destinationAddress: rxDatagram.sourceAddress,
                             sourceAddress: rxDatagram.destinationAddress,
                             command: 0x0100,
@@ -1192,7 +1192,7 @@ describe('Connection', function() {
                     }
                 });
 
-                var promise = conn.getValueIdHashById(0x7721, 0x1234);
+                const promise = conn.getValueIdHashById(0x7721, 0x1234);
 
                 expect(promise).to.be.an('object');
                 expect(promise.then).to.be.a('function');
@@ -1217,15 +1217,15 @@ describe('Connection', function() {
 
         it('should work correctly with timeout', function(doneTesting) {
             parseRawData(function(conn, stats, doneParsing) {
-                var startTimestamp = Date.now();
+                const startTimestamp = Date.now();
 
-                var datagramResult;
+                let datagramResult;
 
                 conn.on('datagram', function(rxDatagram) {
                     if ((rxDatagram.command === 0x1000) && (stats.datagramCount === 2)) {
                         datagramResult = rxDatagram;
 
-                        var txDatagram = new Datagram({
+                        const txDatagram = new Datagram({
                             destinationAddress: rxDatagram.sourceAddress,
                             sourceAddress: rxDatagram.destinationAddress,
                             command: 0x0100,
@@ -1237,7 +1237,7 @@ describe('Connection', function() {
                     }
                 });
 
-                var promise = conn.getValueIdHashById(0x7721, 0x1234, {
+                const promise = conn.getValueIdHashById(0x7721, 0x1234, {
                     timeout: 10
                 });
 
@@ -1264,9 +1264,9 @@ describe('Connection', function() {
 
         it('should work correctly with timeoutIncr', function(doneTesting) {
             parseRawData(function(conn, stats, doneParsing) {
-                var startTimestamp = Date.now();
+                const startTimestamp = Date.now();
 
-                var promise = conn.getValueIdHashById(0x7721, 0x1234, {
+                const promise = conn.getValueIdHashById(0x7721, 0x1234, {
                     timeout: 10,
                     timeoutIncr: 10,
                 });
@@ -1291,9 +1291,9 @@ describe('Connection', function() {
 
         it('should work correctly with tries', function(doneTesting) {
             parseRawData(function(conn, stats, doneParsing) {
-                var startTimestamp = Date.now();
+                const startTimestamp = Date.now();
 
-                var promise = conn.getValueIdHashById(0x7721, 0x1234, {
+                const promise = conn.getValueIdHashById(0x7721, 0x1234, {
                     timeout: 10,
                     tries: 1,
                 });
@@ -1326,15 +1326,15 @@ describe('Connection', function() {
 
         it('should work correctly with address and value ID', function(doneTesting) {
             parseRawData(function(conn, stats, doneParsing) {
-                var startTimestamp = Date.now();
+                const startTimestamp = Date.now();
 
-                var datagramResult;
+                let datagramResult;
 
                 conn.on('datagram', function(rxDatagram) {
                     if (rxDatagram.command === 0x1100) {
                         datagramResult = rxDatagram;
 
-                        var txDatagram = new Datagram({
+                        const txDatagram = new Datagram({
                             destinationAddress: rxDatagram.sourceAddress,
                             sourceAddress: rxDatagram.destinationAddress,
                             command: 0x0100,
@@ -1346,7 +1346,7 @@ describe('Connection', function() {
                     }
                 });
 
-                var promise = conn.getValueIdByIdHash(0x7721, 0x12345678);
+                const promise = conn.getValueIdByIdHash(0x7721, 0x12345678);
 
                 expect(promise).to.be.an('object');
                 expect(promise.then).to.be.a('function');
@@ -1371,15 +1371,15 @@ describe('Connection', function() {
 
         it('should work correctly with timeout', function(doneTesting) {
             parseRawData(function(conn, stats, doneParsing) {
-                var startTimestamp = Date.now();
+                const startTimestamp = Date.now();
 
-                var datagramResult;
+                let datagramResult;
 
                 conn.on('datagram', function(rxDatagram) {
                     if ((rxDatagram.command === 0x1100) && (stats.datagramCount === 2)) {
                         datagramResult = rxDatagram;
 
-                        var txDatagram = new Datagram({
+                        const txDatagram = new Datagram({
                             destinationAddress: rxDatagram.sourceAddress,
                             sourceAddress: rxDatagram.destinationAddress,
                             command: 0x0100,
@@ -1391,7 +1391,7 @@ describe('Connection', function() {
                     }
                 });
 
-                var promise = conn.getValueIdByIdHash(0x7721, 0x12345678, {
+                const promise = conn.getValueIdByIdHash(0x7721, 0x12345678, {
                     timeout: 10
                 });
 
@@ -1418,9 +1418,9 @@ describe('Connection', function() {
 
         it('should work correctly with timeoutIncr', function(doneTesting) {
             parseRawData(function(conn, stats, doneParsing) {
-                var startTimestamp = Date.now();
+                const startTimestamp = Date.now();
 
-                var promise = conn.getValueIdByIdHash(0x7721, 0x12345678, {
+                const promise = conn.getValueIdByIdHash(0x7721, 0x12345678, {
                     timeout: 10,
                     timeoutIncr: 10,
                 });
@@ -1445,9 +1445,9 @@ describe('Connection', function() {
 
         it('should work correctly with tries', function(doneTesting) {
             parseRawData(function(conn, stats, doneParsing) {
-                var startTimestamp = Date.now();
+                const startTimestamp = Date.now();
 
-                var promise = conn.getValueIdByIdHash(0x7721, 0x12345678, {
+                const promise = conn.getValueIdByIdHash(0x7721, 0x12345678, {
                     timeout: 10,
                     tries: 1,
                 });
@@ -1480,15 +1480,15 @@ describe('Connection', function() {
 
         promiseIt('should work correctly', function() {
             return parseRawData(function(conn, stats) {
-                var startTimestamp = Date.now();
+                const startTimestamp = Date.now();
 
-                var datagramResult;
+                let datagramResult;
 
                 conn.on('datagram', function(rxDatagram) {
                     if (rxDatagram.command === 0x1300) {
                         datagramResult = rxDatagram;
 
-                        var txDatagram = new Datagram({
+                        const txDatagram = new Datagram({
                             destinationAddress: rxDatagram.sourceAddress,
                             sourceAddress: rxDatagram.destinationAddress,
                             command: 0x1301,
@@ -1528,15 +1528,15 @@ describe('Connection', function() {
 
         promiseIt('should work correctly', function() {
             return parseRawData(function(conn, stats) {
-                var startTimestamp = Date.now();
+                const startTimestamp = Date.now();
 
-                var datagramResult;
+                let datagramResult;
 
                 conn.on('datagram', function(rxDatagram) {
                     if (rxDatagram.command === 0x1400) {
                         datagramResult = rxDatagram;
 
-                        var txDatagram = new Datagram({
+                        const txDatagram = new Datagram({
                             destinationAddress: rxDatagram.sourceAddress,
                             sourceAddress: rxDatagram.destinationAddress,
                             command: 0x1401,
@@ -1577,15 +1577,15 @@ describe('Connection', function() {
 
         promiseIt('should work correctly', function() {
             return parseRawData(function(conn, stats) {
-                var startTimestamp = Date.now();
+                const startTimestamp = Date.now();
 
-                var datagramResult;
+                let datagramResult;
 
                 conn.on('datagram', function(rxDatagram) {
                     if (rxDatagram.command === 0x1402) {
                         datagramResult = rxDatagram;
 
-                        var txDatagram = new Datagram({
+                        const txDatagram = new Datagram({
                             destinationAddress: rxDatagram.sourceAddress,
                             sourceAddress: rxDatagram.destinationAddress,
                             command: 0x1403,
@@ -1625,15 +1625,15 @@ describe('Connection', function() {
 
         promiseIt('should work correctly', function() {
             return parseRawData(function(conn, stats) {
-                var startTimestamp = Date.now();
+                const startTimestamp = Date.now();
 
-                var datagramResult;
+                let datagramResult;
 
                 conn.on('datagram', function(rxDatagram) {
                     if (rxDatagram.command === 0x1404) {
                         datagramResult = rxDatagram;
 
-                        var txDatagram = new Datagram({
+                        const txDatagram = new Datagram({
                             destinationAddress: rxDatagram.sourceAddress,
                             sourceAddress: rxDatagram.destinationAddress,
                             command: 0x1405,
@@ -1673,15 +1673,15 @@ describe('Connection', function() {
 
         promiseIt('should work correctly', function() {
             return parseRawData(function(conn, stats) {
-                var startTimestamp = Date.now();
+                const startTimestamp = Date.now();
 
-                var datagramResult;
+                let datagramResult;
 
                 conn.on('datagram', function(rxDatagram) {
                     if (rxDatagram.command === 0x1512) {
                         datagramResult = rxDatagram;
 
-                        var txDatagram = new Datagram({
+                        const txDatagram = new Datagram({
                             destinationAddress: rxDatagram.sourceAddress,
                             sourceAddress: rxDatagram.destinationAddress,
                             command: 0x1612,

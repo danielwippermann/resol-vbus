@@ -3,18 +3,18 @@
 
 
 
-var _ = require('./lodash');
+const _ = require('./lodash');
 
 
-var vbus = require('./resol-vbus');
-
-
-
-var BaseConfigurationOptimizer = vbus.BaseConfigurationOptimizer;
+const vbus = require('./resol-vbus');
 
 
 
-var TestConfigurationOptimizer;
+const BaseConfigurationOptimizer = vbus.BaseConfigurationOptimizer;
+
+
+
+let TestConfigurationOptimizer;
 
 
 
@@ -59,11 +59,11 @@ describe('BaseConfigurationOptimizer', function() {
         });
 
         it('should work correctly', function() {
-            var optimizer = new TestConfigurationOptimizer();
+            const optimizer = new TestConfigurationOptimizer();
 
-            var values = optimizer._getAdjustableValues();
+            const values = optimizer._getAdjustableValues();
 
-            var ids = _.map(values, 'id');
+            const ids = _.map(values, 'id');
 
             expect(ids).eql([
                 'LowestPriorityValue',
@@ -90,7 +90,7 @@ describe('BaseConfigurationOptimizer', function() {
                 'HighestPriorityValue',
             ]);
 
-            var value = _.find(values, { id: 'BooleanValue' });
+            let value = _.find(values, { id: 'BooleanValue' });
             expect(value).property('valueTextById').eql({
                 False: 0,
                 True: 1,
@@ -110,12 +110,12 @@ describe('BaseConfigurationOptimizer', function() {
         });
 
         it('should work correctly', function() {
-            var optimizer = new TestConfigurationOptimizer();
+            const optimizer = new TestConfigurationOptimizer();
 
-            var values = optimizer._getAdjustableValues();
+            let values = optimizer._getAdjustableValues();
 
-            var config = _.map(values, function(value) {
-                var configValue = {
+            const config = _.map(values, function(value) {
+                const configValue = {
                     valueId: value.id,
                     valueIndex: value.index,
                     priority: value.priority,
@@ -125,7 +125,7 @@ describe('BaseConfigurationOptimizer', function() {
                 return configValue;
             });
 
-            var value = _.find(config, { valueId: 'PrefsValue' });
+            let value = _.find(config, { valueId: 'PrefsValue' });
             value.value = 1;
             value.previousValue = 0;
 
@@ -133,7 +133,7 @@ describe('BaseConfigurationOptimizer', function() {
             value.value = 1;
 
             optimizer.optimizeConfiguration = function($) {
-                var values = $('^PrefsValue$');
+                let values = $('^PrefsValue$');
                 expect(values.length).equal(1);
 
                 values = $(/^PrefsValue$/);
@@ -152,7 +152,7 @@ describe('BaseConfigurationOptimizer', function() {
 
             values = optimizer._optimizeConfiguration(config, values);
 
-            var ids = _.reduce(values, (memo, value) => {
+            const ids = _.reduce(values, (memo, value) => {
                 if (value.ignored) {
                     memo.push(value.valueId);
                 }
@@ -181,13 +181,13 @@ describe('BaseConfigurationOptimizer', function() {
 
 describe('ValuesWrapper', function() {
 
-    var testValuesWrapper = function(optimize) {
-        var optimizer = new TestConfigurationOptimizer();
+    const testValuesWrapper = function(optimize) {
+        const optimizer = new TestConfigurationOptimizer();
 
-        var values = optimizer._getAdjustableValues();
+        let values = optimizer._getAdjustableValues();
 
-        var config = _.map(values, function(value) {
-            var configValue = {
+        const config = _.map(values, function(value) {
+            const configValue = {
                 valueId: value.id,
                 valueIndex: value.index,
                 priority: value.priority,
@@ -198,10 +198,10 @@ describe('ValuesWrapper', function() {
         });
 
         optimizer.optimizeConfiguration = function($) {
-            var allValues = $(/.*/);
+            const allValues = $(/.*/);
 
-            var setValue = function(id, value) {
-                var configValue = _.find(allValues.values, { valueId: id });
+            const setValue = function(id, value) {
+                const configValue = _.find(allValues.values, { valueId: id });
                 configValue.value = value;
                 configValue.changed = true;
             };
@@ -218,7 +218,7 @@ describe('ValuesWrapper', function() {
 
         it('should be a function', function() {
             testValuesWrapper(function($, setValue) {
-                var values = $(/^TestValue[1-5]$/);
+                const values = $(/^TestValue[1-5]$/);
 
                 expect(values._check).a('function');
             });
@@ -226,21 +226,21 @@ describe('ValuesWrapper', function() {
 
         it('should work correctly for ignored values', function() {
             testValuesWrapper(function($, setValue) {
-                var values = $(/^TestValue1$/);
+                const values = $(/^TestValue1$/);
 
                 values.values [0].ignored = true;
 
-                var checker = sinon.spy(function(value) {
+                const checker = sinon.spy(function(value) {
                     return true;
                 });
 
-                var action = sinon.spy();
+                const action = sinon.spy();
 
-                var actionWrapper = function(value) {
+                const actionWrapper = function(value) {
                     return action.apply(this, arguments);
                 };
 
-                var result = values._check(actionWrapper, checker);
+                const result = values._check(actionWrapper, checker);
 
                 expect(result).equal(values);
 
@@ -254,15 +254,15 @@ describe('ValuesWrapper', function() {
             testValuesWrapper(function($, setValue) {
                 setValue('TestValue1', undefined);
 
-                var values = $(/^TestValue1$/);
+                const values = $(/^TestValue1$/);
 
-                var checker = sinon.spy(function(value) {
+                const checker = sinon.spy(function(value) {
                     return false;
                 });
 
-                var action = sinon.spy();
+                const action = sinon.spy();
 
-                var actionWrapper = function(value) {
+                const actionWrapper = function(value) {
                     return action.apply(this, arguments);
                 };
 
@@ -290,15 +290,15 @@ describe('ValuesWrapper', function() {
             testValuesWrapper(function($, setValue) {
                 setValue('TestValue1', null);
 
-                var values = $(/^TestValue1$/);
+                const values = $(/^TestValue1$/);
 
-                var checker = sinon.spy(function(value) {
+                const checker = sinon.spy(function(value) {
                     return false;
                 });
 
-                var action = sinon.spy();
+                const action = sinon.spy();
 
-                var actionWrapper = function(value) {
+                const actionWrapper = function(value) {
                     return action.apply(this, arguments);
                 };
 
@@ -327,15 +327,15 @@ describe('ValuesWrapper', function() {
                 setValue('TestValue1', 7353);
                 setValue('TestValue2', 1337);
 
-                var values = $(/^TestValue[1-2]$/);
+                const values = $(/^TestValue[1-2]$/);
 
-                var checker = sinon.spy(function(value) {
+                const checker = sinon.spy(function(value) {
                     return (value === 1337);
                 });
 
-                var action = sinon.spy();
+                const action = sinon.spy();
 
-                var actionWrapper = function(value) {
+                const actionWrapper = function(value) {
                     return action.apply(this, arguments);
                 };
 
@@ -354,15 +354,15 @@ describe('ValuesWrapper', function() {
             testValuesWrapper(function($, setValue) {
                 setValue('TestValue1', undefined);
 
-                var values = $(/^TestValue1$/);
+                const values = $(/^TestValue1$/);
 
-                var checker = sinon.spy(function(value) {
+                const checker = sinon.spy(function(value) {
                     return false;
                 });
 
-                var action = sinon.spy();
+                const action = sinon.spy();
 
-                var actionWrapper = function() {
+                const actionWrapper = function() {
                     return action.apply(this, arguments);
                 };
 
@@ -379,15 +379,15 @@ describe('ValuesWrapper', function() {
             testValuesWrapper(function($, setValue) {
                 setValue('TestValue1', undefined);
 
-                var values = $(/^TestValue(1)$/);
+                const values = $(/^TestValue(1)$/);
 
-                var checker = sinon.spy(function(value) {
+                const checker = sinon.spy(function(value) {
                     return false;
                 });
 
-                var action = sinon.spy();
+                const action = sinon.spy();
 
-                var actionWrapper = function(value) {
+                const actionWrapper = function(value) {
                     return action.apply(this, arguments);
                 };
 
@@ -409,11 +409,11 @@ describe('ValuesWrapper', function() {
 
         it('should work correctly', function() {
             testValuesWrapper(function($, setValue) {
-                var values = $(/^TestValue1$/);
+                const values = $(/^TestValue1$/);
 
-                var checker = 'CHECKER';
-                var action = 'ACTION';
-                var options = 'OPTIONS';
+                const checker = 'CHECKER';
+                const action = 'ACTION';
+                const options = 'OPTIONS';
 
                 values._check = sinon.spy();
 
@@ -437,7 +437,7 @@ describe('ValuesWrapper', function() {
                 setValue('TestValue3', 0);
                 setValue('TestValue4', 1);
 
-                var count = 0;
+                let count = 0;
 
                 $(/^TestValue[\d]$/).forEach(function() {
                     count++;
@@ -458,7 +458,7 @@ describe('ValuesWrapper', function() {
                 setValue('TestValue3', 0);
                 setValue('TestValue4', 1);
 
-                var valueIds = [];
+                const valueIds = [];
 
                 $(/^TestValue[1-4]$/).isFalse(function(value) {
                     valueIds.push(value.md [0]);
@@ -483,7 +483,7 @@ describe('ValuesWrapper', function() {
                 setValue('TestValue3', 0);
                 setValue('TestValue4', 1);
 
-                var valueIds = [];
+                const valueIds = [];
 
                 $(/^TestValue[1-4]$/).isTrue(function(value) {
                     valueIds.push(value.md [0]);
@@ -508,7 +508,7 @@ describe('ValuesWrapper', function() {
                 setValue('TestValue3', 0);
                 setValue('TestValue4', 1);
 
-                var valueIds = [];
+                const valueIds = [];
 
                 $(/^TestValue[1-4]$/).eql(1, function(value) {
                     valueIds.push(value.md [0]);
@@ -529,7 +529,7 @@ describe('ValuesWrapper', function() {
                 setValue('TestValue3', 0);
                 setValue('TestValue4', 1);
 
-                var valueIds = [];
+                const valueIds = [];
 
                 $(/^TestValue[1-4]$/).eql('#False', function(value) {
                     valueIds.push(value.md [0]);
@@ -550,7 +550,7 @@ describe('ValuesWrapper', function() {
                 setValue('TestValue3', 0);
                 setValue('TestValue4', 1);
 
-                var valueIds = [];
+                const valueIds = [];
 
                 $(/^TestValue[1-4]$/).eql('#Unknown', function(value) {
                     valueIds.push(value.md [0]);
@@ -574,7 +574,7 @@ describe('ValuesWrapper', function() {
                 setValue('TestValue3', 0);
                 setValue('TestValue4', 1);
 
-                var valueIds = [];
+                const valueIds = [];
 
                 $(/^TestValue[1-4]$/).notEql(1, function(value) {
                     valueIds.push(value.md [0]);
@@ -595,7 +595,7 @@ describe('ValuesWrapper', function() {
                 setValue('TestValue3', 0);
                 setValue('TestValue4', 1);
 
-                var valueIds = [];
+                const valueIds = [];
 
                 $(/^TestValue[1-4]$/).notEql('#False', function(value) {
                     valueIds.push(value.md [0]);
@@ -616,7 +616,7 @@ describe('ValuesWrapper', function() {
                 setValue('TestValue3', 0);
                 setValue('TestValue4', 1);
 
-                var valueIds = [];
+                const valueIds = [];
 
                 $(/^TestValue[1-4]$/).notEql('#Unknown', function(value) {
                     valueIds.push(value.md [0]);
@@ -643,7 +643,7 @@ describe('ValuesWrapper', function() {
                 setValue('TestValue4', 1);
                 setValue('TestValue5', 2);
 
-                var valueIds = [];
+                const valueIds = [];
 
                 $(/^TestValue[1-5]$/).lt(1, function(value) {
                     valueIds.push(value.md [0]);
@@ -669,7 +669,7 @@ describe('ValuesWrapper', function() {
                 setValue('TestValue4', 1);
                 setValue('TestValue5', 2);
 
-                var valueIds = [];
+                const valueIds = [];
 
                 $(/^TestValue[1-5]$/).lte(1, function(value) {
                     valueIds.push(value.md [0]);
@@ -696,7 +696,7 @@ describe('ValuesWrapper', function() {
                 setValue('TestValue4', 1);
                 setValue('TestValue5', 2);
 
-                var valueIds = [];
+                const valueIds = [];
 
                 $(/^TestValue[1-5]$/).gt(1, function(value) {
                     valueIds.push(value.md [0]);
@@ -722,7 +722,7 @@ describe('ValuesWrapper', function() {
                 setValue('TestValue4', 1);
                 setValue('TestValue5', 2);
 
-                var valueIds = [];
+                const valueIds = [];
 
                 $(/^TestValue[1-5]$/).gte(1, function(value) {
                     valueIds.push(value.md [0]);
@@ -750,7 +750,7 @@ describe('ValuesWrapper', function() {
                 setValue('TestValue5', 2);
                 setValue('TestValue6', 3);
 
-                var valueIds = [];
+                const valueIds = [];
 
                 $(/^TestValue[1-6]$/).in([ '#True', 3, 4, 5], function(value) {
                     valueIds.push(value.md [0]);
@@ -778,7 +778,7 @@ describe('ValuesWrapper', function() {
                 setValue('TestValue5', 2);
                 setValue('TestValue6', 3);
 
-                var valueIds = [];
+                const valueIds = [];
 
                 $(/^TestValue[1-6]$/).notIn([ '#True', 3, 4, 5], function(value) {
                     valueIds.push(value.md [0]);
@@ -803,7 +803,7 @@ describe('ValuesWrapper', function() {
                 setValue('TestValue2', null);
                 setValue('TestValue3', 0);
 
-                var valueIds = [];
+                const valueIds = [];
 
                 $(/^TestValue[1-3]$/).isChanged(function(value) {
                     valueIds.push(value.md [0]);
@@ -825,13 +825,13 @@ describe('ValuesWrapper', function() {
                 setValue('TestValue2', null);
                 setValue('TestValue3', 0);
 
-                var values = $(/^TestValue[1-3]$/);
+                const values = $(/^TestValue[1-3]$/);
 
                 _.forEach(values.values, function(value) {
                     expect(value.ignored).equal(false);
                 });
 
-                var result = values.ignore();
+                const result = values.ignore();
 
                 expect(result).equal(values);
 
@@ -851,13 +851,13 @@ describe('ValuesWrapper', function() {
                 setValue('TestValue2', null);
                 setValue('TestValue3', 0);
 
-                var values = $(/^TestValue[1-3]$/);
+                const values = $(/^TestValue[1-3]$/);
 
                 _.forEach(values.values, function(value) {
                     expect(value.invalidated).equal(false);
                 });
 
-                var result = values.invalidate();
+                const result = values.invalidate();
 
                 expect(result).equal(values);
 

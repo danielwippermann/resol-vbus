@@ -3,7 +3,7 @@
 
 
 
-var vbus = require('../../src/index');
+const vbus = require('../../src/index');
 
 
 

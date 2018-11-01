@@ -3,24 +3,24 @@
 
 
 
-var Q = require('q');
+const Q = require('q');
 
 
-var vbus = require('./resol-vbus');
-var testUtils = require('./test-utils');
-
-
-
-var HeaderSet = vbus.HeaderSet;
-var Packet = vbus.Packet;
-
-var VBusRecordingConverter = vbus.VBusRecordingConverter;
-
-var DLxJsonConverter = vbus.DLxJsonConverter;
+const vbus = require('./resol-vbus');
+const testUtils = require('./test-utils');
 
 
 
-var rawRecording1, refJsonRecording1;
+const HeaderSet = vbus.HeaderSet;
+const Packet = vbus.Packet;
+
+const VBusRecordingConverter = vbus.VBusRecordingConverter;
+
+const DLxJsonConverter = vbus.DLxJsonConverter;
+
+
+
+let rawRecording1, refJsonRecording1;
 
 
 
@@ -44,34 +44,34 @@ describe('DLxJsonConverter', function() {
 
     describe('readable stream', function() {
 
-        var rawPacket1 = 'aa100053001000010b0020051000004a723d1000013f40571000015706100000016800000000007f00000000007f00000000007f00000000007f00007f00000025003600051f11000000006e';
-        var rawPacket2 = 'aa1000217e100001013e00000b000074';
-        var rawPacket3 = 'aa1000317e100001052a05774a00003900000000007f00000000007f130d0000005f00000000007f';
+        const rawPacket1 = 'aa100053001000010b0020051000004a723d1000013f40571000015706100000016800000000007f00000000007f00000000007f00000000007f00007f00000025003600051f11000000006e';
+        const rawPacket2 = 'aa1000217e100001013e00000b000074';
+        const rawPacket3 = 'aa1000317e100001052a05774a00003900000000007f00000000007f130d0000005f00000000007f';
 
         promiseIt('should work correctly', function() {
-            var buffer1 = new Buffer(rawPacket1, 'hex');
-            var packet1 = Packet.fromLiveBuffer(buffer1, 0, buffer1.length);
+            const buffer1 = new Buffer(rawPacket1, 'hex');
+            const packet1 = Packet.fromLiveBuffer(buffer1, 0, buffer1.length);
             packet1.timestamp = new Date(1387893006778);
             packet1.channel = 0;
 
-            var buffer2 = new Buffer(rawPacket2, 'hex');
-            var packet2 = Packet.fromLiveBuffer(buffer2, 0, buffer2.length);
+            const buffer2 = new Buffer(rawPacket2, 'hex');
+            const packet2 = Packet.fromLiveBuffer(buffer2, 0, buffer2.length);
             packet2.timestamp = new Date(1387893003303);
             packet2.channel = 1;
 
-            var buffer3 = new Buffer(rawPacket3, 'hex');
-            var packet3 = Packet.fromLiveBuffer(buffer3, 0, buffer3.length);
+            const buffer3 = new Buffer(rawPacket3, 'hex');
+            const packet3 = Packet.fromLiveBuffer(buffer3, 0, buffer3.length);
             packet3.timestamp = new Date(1387893003454);
             packet3.channel = 1;
 
-            var headerSet = new HeaderSet({
+            let headerSet = new HeaderSet({
                 timestamp: new Date(1387893006829),
                 headers: []
             });
 
-            var converter = new DLxJsonConverter();
+            const converter = new DLxJsonConverter();
 
-            var onData = sinon.spy();
+            const onData = sinon.spy();
             converter.on('data', onData);
 
             converter.convertHeaderSet(headerSet);
@@ -101,7 +101,7 @@ describe('DLxJsonConverter', function() {
             }).then(function() {
                 expect(onData.callCount).to.equal(7);
 
-                var chunk = onData.firstCall.args [0];
+                let chunk = onData.firstCall.args [0];
 
                 testUtils.expectToBeABuffer(chunk);
                 expect(chunk.toString()).to.equal('{"headersets":[');
@@ -139,21 +139,21 @@ describe('DLxJsonConverter', function() {
         });
 
         promiseIt('should work correctly', function() {
-            var rawRecording = rawRecording1;
+            const rawRecording = rawRecording1;
 
-            var refJsonRecording = refJsonRecording1;
+            const refJsonRecording = refJsonRecording1;
 
-            var inConv = new VBusRecordingConverter();
+            const inConv = new VBusRecordingConverter();
 
-            var outConv = new DLxJsonConverter();
+            const outConv = new DLxJsonConverter();
 
-            var onHeaderSet = sinon.spy(function(headerSet) {
+            const onHeaderSet = sinon.spy(function(headerSet) {
                 outConv.convertHeaderSet(headerSet);
             });
 
-            var buffers = [];
+            const buffers = [];
 
-            var onData = sinon.spy(function(chunk) {
+            const onData = sinon.spy(function(chunk) {
                 buffers.push(chunk);
             });
 
@@ -184,11 +184,11 @@ describe('DLxJsonConverter', function() {
             }).then(function() {
                 expect(onData.callCount).to.equal(3);
 
-                var buffer = Buffer.concat(buffers);
+                const buffer = Buffer.concat(buffers);
 
-                var string = buffer.toString();
+                const string = buffer.toString();
 
-                var jsonRecording;
+                let jsonRecording;
 
                 expect(function() {
                     jsonRecording = JSON.parse(string);
@@ -207,12 +207,12 @@ describe('DLxJsonConverter', function() {
         });
 
         promiseIt('should work correctly with filtered specifications', function() {
-            var buffer2 = new Buffer(rawPacket2, 'hex');
-            var packet2 = Packet.fromLiveBuffer(buffer2, 0, buffer2.length);
+            const buffer2 = new Buffer(rawPacket2, 'hex');
+            const packet2 = Packet.fromLiveBuffer(buffer2, 0, buffer2.length);
             packet2.timestamp = new Date(1387893003303);
             packet2.channel = 1;
 
-            var rawSpecificationData1 = {
+            const rawSpecificationData1 = {
                 'filteredPacketFieldSpecs': [{
                     'filteredPacketFieldId': 'DemoValue1',
                     'packetId': '01_0010_7E21_10_0100',
@@ -237,19 +237,19 @@ describe('DLxJsonConverter', function() {
                 }]
             };
 
-            var spec = new vbus.Specification({
+            const spec = new vbus.Specification({
                 specificationData: rawSpecificationData1
             });
 
-            var outConv = new DLxJsonConverter({
+            const outConv = new DLxJsonConverter({
                 specification: spec,
             });
 
 
-            var dataChunks = [];
+            const dataChunks = [];
 
             return vbus.utils.promise(function(resolve, reject) {
-                var headerSet;
+                let headerSet;
 
                 headerSet = new HeaderSet({
                     timestamp: new Date(1387893006829),
@@ -268,11 +268,11 @@ describe('DLxJsonConverter', function() {
 
                 outConv.finish();
             }).then(function() {
-                var buffer = Buffer.concat(dataChunks);
+                const buffer = Buffer.concat(dataChunks);
 
-                var string = buffer.toString();
+                const string = buffer.toString();
 
-                var jsonRecording;
+                let jsonRecording;
 
                 expect(function() {
                     jsonRecording = JSON.parse(string);
@@ -324,12 +324,12 @@ describe('DLxJsonConverter', function() {
         });
 
         promiseIt('should work correctly with filtered specifications and conversions', function() {
-            var buffer2 = new Buffer(rawPacket2, 'hex');
-            var packet2 = Packet.fromLiveBuffer(buffer2, 0, buffer2.length);
+            const buffer2 = new Buffer(rawPacket2, 'hex');
+            const packet2 = Packet.fromLiveBuffer(buffer2, 0, buffer2.length);
             packet2.timestamp = new Date(1387893003303);
             packet2.channel = 1;
 
-            var rawSpecificationData1 = {
+            const rawSpecificationData1 = {
                 'filteredPacketFieldSpecs': [{
                     'filteredPacketFieldId': 'DemoValue1',
                     'packetId': '01_0010_7E21_10_0100',
@@ -370,19 +370,19 @@ describe('DLxJsonConverter', function() {
                 }]
             };
 
-            var spec = new vbus.Specification({
+            const spec = new vbus.Specification({
                 specificationData: rawSpecificationData1
             });
 
-            var outConv = new DLxJsonConverter({
+            const outConv = new DLxJsonConverter({
                 specification: spec,
             });
 
 
-            var dataChunks = [];
+            const dataChunks = [];
 
             return vbus.utils.promise(function(resolve, reject) {
-                var headerSet;
+                let headerSet;
 
                 headerSet = new HeaderSet({
                     timestamp: new Date(1387893006829),
@@ -401,11 +401,11 @@ describe('DLxJsonConverter', function() {
 
                 outConv.finish();
             }).then(function() {
-                var buffer = Buffer.concat(dataChunks);
+                const buffer = Buffer.concat(dataChunks);
 
-                var string = buffer.toString();
+                const string = buffer.toString();
 
-                var jsonRecording;
+                let jsonRecording;
 
                 expect(function() {
                     jsonRecording = JSON.parse(string);

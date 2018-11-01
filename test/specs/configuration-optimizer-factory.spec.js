@@ -3,17 +3,17 @@
 
 
 
-var Q = require('q');
+const Q = require('q');
 
 
-var vbus = require('./resol-vbus');
+const vbus = require('./resol-vbus');
 require('./test-utils');
 
 
 
-var Promise = vbus.utils.promise;
+const Promise = vbus.utils.promise;
 
-var ConfigurationOptimizerFactory = vbus.ConfigurationOptimizerFactory;
+const ConfigurationOptimizerFactory = vbus.ConfigurationOptimizerFactory;
 
 
 
@@ -27,19 +27,19 @@ describe('ConfigurationOptimizerFactory', function() {
 
         promiseIt('should have unique addresses for registered optimizers', function() {
             return new Promise(function(resolve, reject) {
-                var knownAddresses = {};
+                const knownAddresses = {};
 
-                var optimizerClasses = ConfigurationOptimizerFactory._optimizerClasses;
+                const optimizerClasses = ConfigurationOptimizerFactory._optimizerClasses;
 
-                var index = 0;
+                let index = 0;
 
                 var nextOptimizer = function() {
                     if (index < optimizerClasses.length) {
-                        var OptimizerClass = optimizerClasses [index++];
+                        const OptimizerClass = optimizerClasses [index++];
 
-                        var address = OptimizerClass.deviceAddress;
+                        const address = OptimizerClass.deviceAddress;
                         if (address !== null) {
-                            var addressKey = address.toString(16);
+                            const addressKey = address.toString(16);
 
                             Q.fcall(function() {
                                 expect(address).a('number').above(0);

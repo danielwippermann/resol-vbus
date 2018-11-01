@@ -5,14 +5,14 @@
 
 
 
-var configurationData = require('./resol-deltasol-slt-102-data');
+const configurationData = require('./resol-deltasol-slt-102-data');
 
-var BaseConfigurationOptimizer = require('../base-configuration-optimizer');
-var _ = require('../lodash');
+const BaseConfigurationOptimizer = require('../base-configuration-optimizer');
+const _ = require('../lodash');
 
 
 
-var ResolDeltaSolSlt102ConfigurationOptimizer = BaseConfigurationOptimizer.extend({
+const ResolDeltaSolSlt102ConfigurationOptimizer = BaseConfigurationOptimizer.extend({
 
     optimizeConfiguration: function($) {
         this.optimizeSolarConfiguration($);
@@ -23,7 +23,7 @@ var ResolDeltaSolSlt102ConfigurationOptimizer = BaseConfigurationOptimizer.exten
     },
 
     optimizeSolarConfiguration: function($) {
-        var value = $('Solar_SystemId');
+        const value = $('Solar_SystemId');
 
         value.isChanged(function() {
             $(/^Solar_.*/).invalidate();
@@ -31,7 +31,7 @@ var ResolDeltaSolSlt102ConfigurationOptimizer = BaseConfigurationOptimizer.exten
             $(/^Heizung_.*/).invalidate();
         });
 
-        var hasSecondKollektor = function(solarSystemId) {
+        const hasSecondKollektor = function(solarSystemId) {
             return (((solarSystemId / 10) & 1) !== 0);
         };
 
@@ -61,13 +61,13 @@ var ResolDeltaSolSlt102ConfigurationOptimizer = BaseConfigurationOptimizer.exten
 
     optimizeSolarWfConfiguration: function($) {
         $(/^Solar_Wf([0-9]+)_Type$/).forEach(function(value) {
-            var prefix = '^Solar_Wf' + value.md [1] + '_';
+            const prefix = '^Solar_Wf' + value.md [1] + '_';
 
             value.in([ 0, '#Frei' ], function() {
                 $(prefix + '(?!(Type|(Roehrenkollektor|Bypass|Frostschutz|ExtWT|Zieltemperatur|Bereitschaft|DrainBack)_)).*').ignore();
             });
 
-            var wfTypes = [
+            const wfTypes = [
                 'NhUnterdrueckung',
                 'Parallelrelais',
                 'Zwillingspumpe',
@@ -85,7 +85,7 @@ var ResolDeltaSolSlt102ConfigurationOptimizer = BaseConfigurationOptimizer.exten
 
     optimizeAnlageWfConfiguration: function($) {
         $(/^(Anlage_Wf[0-9]+)_Type$/).forEach(function(value) {
-            var prefix = '^' + value.md [1] + '_';
+            const prefix = '^' + value.md [1] + '_';
 
             value.eql('#Frei', function() {
                 $(prefix + '(?!Type).*').ignore();
@@ -95,7 +95,7 @@ var ResolDeltaSolSlt102ConfigurationOptimizer = BaseConfigurationOptimizer.exten
                 $(prefix + 'Schaltuhr_.*').ignore();
             });
 
-            var wfTypes = [
+            const wfTypes = [
                 'Parallelrelais',
                 'Mischer',
                 'Boilerladung',
@@ -117,7 +117,7 @@ var ResolDeltaSolSlt102ConfigurationOptimizer = BaseConfigurationOptimizer.exten
 
     optimizeHeizungWfConfiguration: function($) {
         $(/^(Heizung_Wf[0-9]+)_Type$/).forEach(function(value) {
-            var prefix = '^' + value.md [1] + '_';
+            const prefix = '^' + value.md [1] + '_';
 
             value.eql('#Frei', function() {
                 $(prefix + '(?!Type).*').ignore();
@@ -127,7 +127,7 @@ var ResolDeltaSolSlt102ConfigurationOptimizer = BaseConfigurationOptimizer.exten
                 $(prefix + 'Schaltuhr_.*').ignore();
             });
 
-            var wfTypes = [
+            const wfTypes = [
                 'ThDesinfektion',
                 'ThBwErwaermung',
             ];
@@ -142,7 +142,7 @@ var ResolDeltaSolSlt102ConfigurationOptimizer = BaseConfigurationOptimizer.exten
 
     optimizeWmzConfiguration: function($) {
         $(/^(Wmz[0-9]+)_Type$/).forEach(function(value) {
-            var prefix = '^' + value.md [1] + '_';
+            const prefix = '^' + value.md [1] + '_';
 
             value.eql(0, function() {
                 $(prefix + '(?!Type).*').ignore();

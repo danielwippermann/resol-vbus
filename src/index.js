@@ -9,54 +9,54 @@
 
 
 
-var packageInfo = require('../package.json');
+const packageInfo = require('../package.json');
 
 
-var utils = require('./utils');
-var extend = require('./extend');
+const utils = require('./utils');
+const extend = require('./extend');
 
-var I18N = require('./i18n');
+const I18N = require('./i18n');
 
-var SpecificationFile = require('./specification-file');
-var Specification = require('./specification');
+const SpecificationFile = require('./specification-file');
+const Specification = require('./specification');
 
-var Header = require('./header');
-var Packet = require('./packet');
-var Datagram = require('./datagram');
-var Telegram = require('./telegram');
+const Header = require('./header');
+const Packet = require('./packet');
+const Datagram = require('./datagram');
+const Telegram = require('./telegram');
 
-var HeaderSet = require('./header-set');
-var HeaderSetConsolidator = require('./header-set-consolidator');
+const HeaderSet = require('./header-set');
+const HeaderSetConsolidator = require('./header-set-consolidator');
 
-var Connection = require('./connection');
-var SerialConnection = require('./serial-connection');
-var TcpConnection = require('./tcp-connection');
+const Connection = require('./connection');
+const SerialConnection = require('./serial-connection');
+const TcpConnection = require('./tcp-connection');
 
-var DataSource = require('./data-source');
-var SerialDataSource = require('./serial-data-source');
-var TcpDataSource = require('./tcp-data-source');
+const DataSource = require('./data-source');
+const SerialDataSource = require('./serial-data-source');
+const TcpDataSource = require('./tcp-data-source');
 
-var DataSourceProvider = require('./data-source-provider');
-var SerialDataSourceProvider = require('./serial-data-source-provider');
-var TcpDataSourceProvider = require('./tcp-data-source-provider');
+const DataSourceProvider = require('./data-source-provider');
+const SerialDataSourceProvider = require('./serial-data-source-provider');
+const TcpDataSourceProvider = require('./tcp-data-source-provider');
 
-var Converter = require('./converter');
-var VBusRecordingConverter = require('./vbus-recording-converter');
-var TextConverter = require('./text-converter');
-var DLxJsonConverter = require('./dlx-json-converter');
+const Converter = require('./converter');
+const VBusRecordingConverter = require('./vbus-recording-converter');
+const TextConverter = require('./text-converter');
+const DLxJsonConverter = require('./dlx-json-converter');
 
-var Recorder = require('./recorder');
-var DLxRecorder = require('./dlx-recorder');
-var FileSystemRecorder = require('./filesystem-recorder');
+const Recorder = require('./recorder');
+const DLxRecorder = require('./dlx-recorder');
+const FileSystemRecorder = require('./filesystem-recorder');
 
-var ConfigurationOptimizer = require('./configuration-optimizer');
-var ConfigurationOptimizerFactory = require('./configuration-optimizer-factory');
-var BaseConfigurationOptimizer = require('./base-configuration-optimizer');
+const ConfigurationOptimizer = require('./configuration-optimizer');
+const ConfigurationOptimizerFactory = require('./configuration-optimizer-factory');
+const BaseConfigurationOptimizer = require('./base-configuration-optimizer');
 
-var Customizer = require('./customizer');
-var ConnectionCustomizer = require('./connection-customizer');
+const Customizer = require('./customizer');
+const ConnectionCustomizer = require('./connection-customizer');
 
-var TcpConnectionEndpoint = require('./tcp-connection-endpoint');
+const TcpConnectionEndpoint = require('./tcp-connection-endpoint');
 
 
 

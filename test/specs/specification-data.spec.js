@@ -3,20 +3,20 @@
 
 
 
-var _ = require('./lodash');
-var vbus = require('./resol-vbus');
+const _ = require('./lodash');
+const vbus = require('./resol-vbus');
 
 
 // var createSpecificationData = require('../../src/specification-data');
 
 
 
-var Specification = vbus.Specification;
-var SpecificationFile = vbus.SpecificationFile;
+const Specification = vbus.Specification;
+const SpecificationFile = vbus.SpecificationFile;
 
 
 
-var testSpecificationData = function(source, specificationData) {
+const testSpecificationData = function(source, specificationData) {
     describe('SpecificationData (' + source + ')', function() {
 
         it('should be an object', function() {
@@ -42,7 +42,7 @@ var testSpecificationData = function(source, specificationData) {
         });
 
         it('should have units', function() {
-            var units = specificationData.units;
+            const units = specificationData.units;
             expect(_.keys(units).sort()).eql([
                 'Bars',
                 'Btus',
@@ -96,7 +96,7 @@ var testSpecificationData = function(source, specificationData) {
             ]);
             expect(units).property('DegreesCelsius').an('object');
 
-            var unit = units.DegreesCelsius;
+            const unit = units.DegreesCelsius;
             expect(unit).property('unitId').equal('DegreesCelsius');
             expect(unit).property('unitCode').equal('DegreesCelsius');
             expect(unit).property('unitFamily').equal('Temperature');
@@ -174,7 +174,7 @@ var testSpecificationData = function(source, specificationData) {
                 'Weektime_1_None',
             ]);
 
-            var type = specificationData.types.Number_0_1_DegreesCelsius;
+            const type = specificationData.types.Number_0_1_DegreesCelsius;
             expect(type).an('object');
             expect(_.keys(type).sort()).eql([
                 'precision',
@@ -4249,9 +4249,9 @@ var testSpecificationData = function(source, specificationData) {
                 '_6650_0000_0200_045_1_0',
             ]);
 
-            var testBuffer1 = new Buffer('8000', 'hex');
+            const testBuffer1 = new Buffer('8000', 'hex');
 
-            var getRawValueFunction = specificationData.getRawValueFunctions._0010_7E11_0100_000_2_0;
+            const getRawValueFunction = specificationData.getRawValueFunctions._0010_7E11_0100_000_2_0;
             expect(getRawValueFunction).a('function');
             expect(getRawValueFunction(testBuffer1, 0, testBuffer1.length)).equal(12.8);
 
@@ -5068,14 +5068,14 @@ var testSpecificationData = function(source, specificationData) {
                 '_7F71',
             ]);
 
-            var deviceSpec = specificationData.deviceSpecs._7E11;
+            const deviceSpec = specificationData.deviceSpecs._7E11;
             expect(deviceSpec).an('object');
             expect(_.keys(deviceSpec).sort()).eql([
                 'name',
             ]);
             expect(deviceSpec).property('name').eql('DeltaSol MX [Regler]');
 
-            var getDeviceSpecification = specificationData.getDeviceSpecification;
+            const getDeviceSpecification = specificationData.getDeviceSpecification;
             expect(getDeviceSpecification).a('function');
             expect(getDeviceSpecification(0x7E11, 0x0010)).equal(specificationData.deviceSpecs._7E11);
 
@@ -5322,10 +5322,10 @@ var testSpecificationData = function(source, specificationData) {
                 '_6650_0000_0200',
             ]);
 
-            var packetFieldSpecs = specificationData.packetFieldSpecs._0010_7E11_0100;
+            const packetFieldSpecs = specificationData.packetFieldSpecs._0010_7E11_0100;
             expect(packetFieldSpecs).an('array').lengthOf(62);
 
-            var pfs = packetFieldSpecs [0];
+            const pfs = packetFieldSpecs [0];
             expect(pfs).an('object');
             expect(_.keys(pfs).sort()).eql([
                 'factor',
@@ -5602,7 +5602,7 @@ var testSpecificationData = function(source, specificationData) {
                 '_6650_0000_0200',
             ]);
 
-            var ps = specificationData.packetSpecs._0010_7E11_0100;
+            const ps = specificationData.packetSpecs._0010_7E11_0100;
             expect(ps).an('object');
             expect(_.keys(ps).sort()).eql([
                 'packetFields',
@@ -5611,20 +5611,20 @@ var testSpecificationData = function(source, specificationData) {
             expect(ps).property('packetId').equal('0010_7E11_0100');
             expect(ps).property('packetFields').equal(specificationData.packetFieldSpecs._0010_7E11_0100);
 
-            var getPacketSpecification = specificationData.getPacketSpecification;
+            const getPacketSpecification = specificationData.getPacketSpecification;
             expect(getPacketSpecification).a('function');
             expect(getPacketSpecification(0x0010, 0x7E11, 0x0100)).equal(specificationData.packetSpecs._0010_7E11_0100);
         });
 
         it('should correctly store multi-byte masks', function() {
-            var packetField = _.find(specificationData.packetFieldSpecs._0010_7761_0100, function(pfs, index) {
+            const packetField = _.find(specificationData.packetFieldSpecs._0010_7761_0100, function(pfs, index) {
                 return (pfs.fieldId === '036_1_8388608');
             });
 
             expect(packetField).an('object');
             expect(packetField).property('parts').an('array').lengthOf(1);
 
-            var part = packetField.parts [0];
+            const part = packetField.parts [0];
             expect(part).an('object');
             expect(part).property('offset').equal(38);
             expect(part).property('mask').equal(128);
@@ -5646,11 +5646,11 @@ describe('SpecificationData', function() {
     it('is auto-generated, just increase test coverage :)', function() {
         this.slow(1000);
 
-        var spec = new Specification();
+        const spec = new Specification();
 
-        var specificationData = spec.specificationData;
+        const specificationData = spec.specificationData;
 
-        var buffer = new Buffer(127 * 4);
+        const buffer = new Buffer(127 * 4);
 
         _.forEach(specificationData.getRawValueFunctions, function(getRawValue) {
             getRawValue(buffer, 0, buffer.length);
@@ -5658,12 +5658,12 @@ describe('SpecificationData', function() {
     });
 
     it('should calc multi-byte masks correctly', function() {
-        var buffer = new Buffer(76);
+        const buffer = new Buffer(76);
         buffer.fill(0);
 
-        var spec = Specification.getDefaultSpecification();
+        const spec = Specification.getDefaultSpecification();
 
-        var pfs = spec.getPacketFieldSpecification('00_0010_7761_0100_036_1_8388608');
+        const pfs = spec.getPacketFieldSpecification('00_0010_7761_0100_036_1_8388608');
 
         spec.setRawValue(pfs, 3, buffer);
 
@@ -5672,7 +5672,7 @@ describe('SpecificationData', function() {
         expect(buffer [38]).equal(128);
         expect(buffer [39]).equal(0);
 
-        var rv = spec.getRawValue(pfs, buffer);
+        let rv = spec.getRawValue(pfs, buffer);
 
         expect(rv).equal(1);
 

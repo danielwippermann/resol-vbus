@@ -3,11 +3,11 @@
 
 
 
-var extend = require('./extend');
+const extend = require('./extend');
 
 
 
-var DataSourceProvider = extend(null, {
+const DataSourceProvider = extend(null, {
 
     id: null,
 

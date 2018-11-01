@@ -3,25 +3,25 @@
 
 
 
-var Duplex = require('stream').Duplex;
+const Duplex = require('stream').Duplex;
 
 
-var Q = require('q');
+const Q = require('q');
 
 
-var vbus = require('./resol-vbus');
-var testUtils = require('./test-utils');
-
-
-
-var SerialConnection = vbus.SerialConnection;
+const vbus = require('./resol-vbus');
+const testUtils = require('./test-utils');
 
 
 
-var SerialPortStub = vbus.extend(Duplex, {
+const SerialConnection = vbus.SerialConnection;
+
+
+
+const SerialPortStub = vbus.extend(Duplex, {
 
     constructor: function(path, options, onCompletion) {
-        var _this = this;
+        const _this = this;
 
         Duplex.call(this);
 
@@ -44,7 +44,7 @@ var SerialPortStub = vbus.extend(Duplex, {
 
 
 
-var TestableSerialConnection = SerialConnection.extend({
+const TestableSerialConnection = SerialConnection.extend({
 
     createSerialPort: function(path, options, onCompletion) {
         return new SerialPortStub(path, options, onCompletion);
@@ -54,8 +54,8 @@ var TestableSerialConnection = SerialConnection.extend({
 
 
 
-var testConnection = function(done, callback) {
-    var connection = new TestableSerialConnection({
+const testConnection = function(done, callback) {
+    const connection = new TestableSerialConnection({
         path: testUtils.serialPortPath,
     });
 
@@ -74,7 +74,7 @@ var testConnection = function(done, callback) {
 
 
 
-var ifHasSerialPortIt = testUtils.ifHasSerialPortIt;
+const ifHasSerialPortIt = testUtils.ifHasSerialPortIt;
 
 
 
@@ -90,7 +90,7 @@ describe('SerialConnection', function() {
         });
 
         it('should have reasonable defaults', function() {
-            var connection = new SerialConnection();
+            const connection = new SerialConnection();
 
             expect(connection)
                 .to.have.a.property('channel')
@@ -113,7 +113,7 @@ describe('SerialConnection', function() {
 
         ifHasSerialPortIt('should work correctly if disconnected', function(done) {
             testConnection(done, function(connection, endpoint) {
-                var onConnectionState = sinon.spy();
+                const onConnectionState = sinon.spy();
 
                 connection.on('connectionState', onConnectionState);
 
@@ -160,7 +160,7 @@ describe('SerialConnection', function() {
 
         ifHasSerialPortIt('should work correctly if connected', function(done) {
             testConnection(done, function(connection) {
-                var onConnectionState = sinon.spy();
+                const onConnectionState = sinon.spy();
 
                 connection.on('connectionState', onConnectionState);
 
@@ -180,7 +180,7 @@ describe('SerialConnection', function() {
 
         ifHasSerialPortIt('should reconnect when connected', function(done) {
             testConnection(done, function(connection) {
-                var onConnectionState = sinon.spy();
+                const onConnectionState = sinon.spy();
 
                 connection.on('connectionState', onConnectionState);
 

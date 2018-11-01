@@ -3,11 +3,11 @@
 
 
 
-var Header = require('./resol-vbus').Header;
+const Header = require('./resol-vbus').Header;
 
 
 
-var DebugHeader = Header.extend({
+const DebugHeader = Header.extend({
 
     protocolVersion: 0x37,
 
@@ -36,7 +36,7 @@ describe('Header', function() {
         });
 
         it('should be abstract', function() {
-            var buffer = new Buffer('aa000021772000050000000000000042', 'hex');
+            const buffer = new Buffer('aa000021772000050000000000000042', 'hex');
 
             expect(function() {
                 Header.fromLiveBuffer(buffer);
@@ -52,9 +52,9 @@ describe('Header', function() {
         });
 
         it('should work correctly', function() {
-            var buffer = new Buffer('aa000021772000050000000000000042', 'hex');
+            const buffer = new Buffer('aa000021772000050000000000000042', 'hex');
 
-            var checksum = Header.calcChecksumV0(buffer, 1, 15);
+            const checksum = Header.calcChecksumV0(buffer, 1, 15);
             expect(checksum).to.equal(0x42);
         });
 
@@ -67,9 +67,9 @@ describe('Header', function() {
         });
 
         it('should work correctly', function() {
-            var buffer = new Buffer('aa000021772000050000000000000042', 'hex');
+            const buffer = new Buffer('aa000021772000050000000000000042', 'hex');
 
-            var result = Header.calcAndCompareChecksumV0(buffer, 1, 15);
+            let result = Header.calcAndCompareChecksumV0(buffer, 1, 15);
             expect(result).to.equal(true);
 
             buffer [15] = 0x41;  // corrupt the checksum
@@ -87,9 +87,9 @@ describe('Header', function() {
         });
 
         it('should work correctly', function() {
-            var buffer = new Buffer('aa000021772000050000000000000000', 'hex');
+            const buffer = new Buffer('aa000021772000050000000000000000', 'hex');
 
-            var checksum = Header.calcAndSetChecksumV0(buffer, 1, 15);
+            const checksum = Header.calcAndSetChecksumV0(buffer, 1, 15);
             expect(checksum).to.equal(0x42);
             expect(buffer [15]).to.equal(0x42);
         });
@@ -103,8 +103,8 @@ describe('Header', function() {
         });
 
         it('should work correctly', function() {
-            var srcBuffer = new Buffer('aa21772165100001044c07014c00002b02017f00057838227600052a00000000007f', 'hex');
-            var dstBuffer = new Buffer(16);
+            const srcBuffer = new Buffer('aa21772165100001044c07014c00002b02017f00057838227600052a00000000007f', 'hex');
+            const dstBuffer = new Buffer(16);
 
             Header.injectSeptett(srcBuffer, 10, 14, dstBuffer, 0);
             Header.injectSeptett(srcBuffer, 16, 20, dstBuffer, 4);
@@ -123,8 +123,8 @@ describe('Header', function() {
         });
 
         it('should work correctly', function() {
-            var srcBuffer = new Buffer('07014c008201ff00b822f60000000000', 'hex');
-            var dstBuffer = new Buffer(34);
+            const srcBuffer = new Buffer('07014c008201ff00b822f60000000000', 'hex');
+            const dstBuffer = new Buffer(34);
 
             Header.extractSeptett(srcBuffer, 0, 4, dstBuffer, 10);
             Header.extractSeptett(srcBuffer, 4, 8, dstBuffer, 16);
@@ -146,9 +146,9 @@ describe('Header', function() {
         });
 
         it('should have reasonable defaults', function() {
-            var before = new Date();
-            var header = new Header();
-            var after = new Date();
+            const before = new Date();
+            const header = new Header();
+            const after = new Date();
 
             expect(header).to.be.an('object');
             expect(header.timestamp).to.be.an.instanceOf(Date);
@@ -159,7 +159,7 @@ describe('Header', function() {
         });
 
         it('should copy selected options', function() {
-            var options = {
+            const options = {
                 timestamp: new Date(0),
                 channel: 0x1337,
                 destinationAddress: 0x2336,
@@ -167,7 +167,7 @@ describe('Header', function() {
                 junk: 0x7331
             };
 
-            var header = new Header(options);
+            const header = new Header(options);
 
             expect(header).to.be.an('object');
             expect(header.timestamp).to.equal(options.timestamp);
@@ -186,7 +186,7 @@ describe('Header', function() {
         });
 
         it('should be abstract', function() {
-            var header = new Header();
+            const header = new Header();
 
             expect(function() {
                 header.toLiveBuffer();
@@ -202,7 +202,7 @@ describe('Header', function() {
         });
 
         it('should be abstract', function() {
-            var header = new Header();
+            const header = new Header();
 
             expect(function() {
                 header.getProtocolVersion();
@@ -218,7 +218,7 @@ describe('Header', function() {
         });
 
         it('should work correctly', function() {
-            var header = new Header();
+            const header = new Header();
 
             expect(header.getInfo()).to.equal(0);
         });
@@ -232,7 +232,7 @@ describe('Header', function() {
         });
 
         it('should work correctly', function() {
-            var options = {
+            const options = {
                 timestamp: new Date(0),
                 channel: 0x13,
                 destinationAddress: 0x2336,
@@ -240,7 +240,7 @@ describe('Header', function() {
                 protocolVersion: 0x37,
             };
 
-            var header = new DebugHeader(options);
+            const header = new DebugHeader(options);
 
             expect(header.getId()).to.equal('13_2336_3335_37');
         });
@@ -254,7 +254,7 @@ describe('Header', function() {
         });
 
         it('should work correctly for channel', function() {
-            var options = {
+            const options = {
                 timestamp: new Date(0),
                 channel: 0x13,
                 destinationAddress: 0x2336,
@@ -262,7 +262,7 @@ describe('Header', function() {
                 protocolVersion: 0x37,
             };
 
-            var datagram = new DebugHeader(options);
+            const datagram = new DebugHeader(options);
 
             expect(datagram.compareTo(new DebugHeader(options))).to.equal(0);
 
@@ -276,7 +276,7 @@ describe('Header', function() {
         });
 
         it('should work correctly for destinationAddress', function() {
-            var options = {
+            const options = {
                 timestamp: new Date(0),
                 channel: 0x13,
                 destinationAddress: 0x2336,
@@ -284,7 +284,7 @@ describe('Header', function() {
                 protocolVersion: 0x37,
             };
 
-            var datagram = new DebugHeader(options);
+            const datagram = new DebugHeader(options);
 
             expect(datagram.compareTo(new DebugHeader(options))).to.equal(0);
 
@@ -298,7 +298,7 @@ describe('Header', function() {
         });
 
         it('should work correctly for sourceAddress', function() {
-            var options = {
+            const options = {
                 timestamp: new Date(0),
                 channel: 0x13,
                 destinationAddress: 0x2336,
@@ -306,7 +306,7 @@ describe('Header', function() {
                 protocolVersion: 0x37,
             };
 
-            var datagram = new DebugHeader(options);
+            const datagram = new DebugHeader(options);
 
             expect(datagram.compareTo(new DebugHeader(options))).to.equal(0);
 
@@ -320,7 +320,7 @@ describe('Header', function() {
         });
 
         it('should work correctly for protocol version', function() {
-            var options = {
+            const options = {
                 timestamp: new Date(0),
                 channel: 0x13,
                 destinationAddress: 0x2336,
@@ -328,7 +328,7 @@ describe('Header', function() {
                 protocolVersion: 0x37,
             };
 
-            var datagram = new DebugHeader(options);
+            const datagram = new DebugHeader(options);
 
             expect(datagram.compareTo(new DebugHeader(options))).to.equal(0);
 

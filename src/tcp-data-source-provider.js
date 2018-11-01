@@ -3,23 +3,23 @@
 
 
 
-var dgram = require('dgram');
-var http = require('http');
-var url = require('url');
+const dgram = require('dgram');
+const http = require('http');
+const url = require('url');
 
 
-var Q = require('q');
+const Q = require('q');
 
 
-var _ = require('./lodash');
-var TcpDataSource = require('./tcp-data-source');
-var utils = require('./utils');
+const _ = require('./lodash');
+const TcpDataSource = require('./tcp-data-source');
+const utils = require('./utils');
 
-var DataSourceProvider = require('./data-source-provider');
+const DataSourceProvider = require('./data-source-provider');
 
 
 
-var optionKeys = [
+const optionKeys = [
     'broadcastAddress',
     'broadcastPort',
 ];
@@ -51,9 +51,9 @@ var TcpDataSourceProvider = DataSourceProvider.extend(/** @lends TcpDataSourcePr
     },
 
     discoverDataSources: function() {
-        var _this = this;
+        const _this = this;
 
-        var options = {
+        const options = {
             broadcastAddress: this.broadcastAddress,
             broadcastPort: this.broadcastPort,
         };
@@ -62,7 +62,7 @@ var TcpDataSourceProvider = DataSourceProvider.extend(/** @lends TcpDataSourcePr
             return TcpDataSourceProvider.discoverDevices(options);
         }).then(function(results) {
             return _.map(results, function(result) {
-                var options = _.extend({}, result, {
+                const options = _.extend({}, result, {
                     host: result.__address__
                 });
 
@@ -106,10 +106,10 @@ var TcpDataSourceProvider = DataSourceProvider.extend(/** @lends TcpDataSourcePr
     },
 
     sendBroadcast: function(options) {
-        var deferred = Q.defer();
-        var promise = deferred.promise;
+        let deferred = Q.defer();
+        const promise = deferred.promise;
 
-        var done = function(err, result) {
+        const done = function(err, result) {
             if (deferred) {
                 if (err) {
                     deferred.reject(err);
@@ -133,30 +133,30 @@ var TcpDataSourceProvider = DataSourceProvider.extend(/** @lends TcpDataSourcePr
             };
         }
 
-        var bcastAddress = options.broadcastAddress;
-        var bcastPort = options.broadcastPort;
+        const bcastAddress = options.broadcastAddress;
+        const bcastPort = options.broadcastPort;
 
-        var addressMap = {};
+        const addressMap = {};
 
-        var queryString = '---RESOL-BROADCAST-QUERY---';
-        var replyString = '---RESOL-BROADCAST-REPLY---';
+        const queryString = '---RESOL-BROADCAST-QUERY---';
+        const replyString = '---RESOL-BROADCAST-REPLY---';
 
-        var tries = 0;
+        let tries = 0;
 
-        var socket = dgram.createSocket('udp4');
+        const socket = dgram.createSocket('udp4');
 
         var sendQuery = function() {
             if (tries < options.tries) {
                 tries++;
 
-                var queryBuffer = new Buffer(queryString);
+                const queryBuffer = new Buffer(queryString);
                 socket.send(queryBuffer, 0, queryBuffer.length, bcastPort, bcastAddress);
 
                 setTimeout(sendQuery, options.timeout);
             } else {
-                var keys = _.keys(addressMap).sort();
+                const keys = _.keys(addressMap).sort();
 
-                var result = _.map(keys, function(key) {
+                const result = _.map(keys, function(key) {
                     return addressMap [key];
                 });
 
@@ -174,9 +174,9 @@ var TcpDataSourceProvider = DataSourceProvider.extend(/** @lends TcpDataSourcePr
 
         socket.on('message', function(msg, rinfo) {
             if ((rinfo.family === 'IPv4') && (rinfo.port === 7053) && (msg.length >= replyString.length)) {
-                var msgString = msg.slice(0, replyString.length).toString();
+                const msgString = msg.slice(0, replyString.length).toString();
                 if (msgString === replyString) {
-                    var address = rinfo.address;
+                    const address = rinfo.address;
                     if (!_.has(addressMap, address)) {
                         addressMap [address] = options.fetchCallback(address);
                     }
@@ -202,26 +202,26 @@ var TcpDataSourceProvider = DataSourceProvider.extend(/** @lends TcpDataSourcePr
             });
         } else {
             return utils.promise(function(resolve, reject) {
-                var portSuffix;
+                let portSuffix;
                 if (port !== 80) {
                     portSuffix = ':' + port;
                 } else {
                     portSuffix = '';
                 }
 
-                var reqUrl = url.parse('http://' + address + portSuffix + '/cgi-bin/get_resol_device_information');
+                const reqUrl = url.parse('http://' + address + portSuffix + '/cgi-bin/get_resol_device_information');
 
-                var req = http.get(reqUrl, function(res) {
+                const req = http.get(reqUrl, function(res) {
                     if (res.statusCode === 200) {
-                        var buffer = new Buffer(0);
+                        let buffer = new Buffer(0);
 
                         res.on('data', function(chunk) {
                             buffer = Buffer.concat([ buffer, chunk ]);
                         });
 
                         res.on('end', function() {
-                            var bodyString = buffer.toString();
-                            var info = _.extend(TcpDataSourceProvider.parseDeviceInformation(bodyString), {
+                            const bodyString = buffer.toString();
+                            const info = _.extend(TcpDataSourceProvider.parseDeviceInformation(bodyString), {
                                 __address__: address,
                             });
                             resolve(info);
@@ -247,11 +247,11 @@ var TcpDataSourceProvider = DataSourceProvider.extend(/** @lends TcpDataSourcePr
     },
 
     parseDeviceInformation: function(string) {
-        var result = {};
+        const result = {};
 
-        var re = /([\w]+)[\s]*=[\s]*"([^"\r\n]*)"/g;
+        const re = /([\w]+)[\s]*=[\s]*"([^"\r\n]*)"/g;
 
-        var md;
+        let md;
         while ((md = re.exec(string)) !== null) {
             result [md [1]] = md [2];
         }

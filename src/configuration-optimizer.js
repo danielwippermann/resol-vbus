@@ -3,10 +3,10 @@
 
 
 
-var Q = require('q');
+const Q = require('q');
 
 
-var extend = require('./extend');
+const extend = require('./extend');
 
 
 
@@ -29,7 +29,7 @@ var extend = require('./extend');
 
 
 
-var ConfigurationOptimizer = extend(null, /** @lends ConfigurationOptimizer# */ {
+const ConfigurationOptimizer = extend(null, /** @lends ConfigurationOptimizer# */ {
 
     constructor: function(options) {
         // nop
@@ -89,7 +89,7 @@ var ConfigurationOptimizer = extend(null, /** @lends ConfigurationOptimizer# */ 
      * @return {Promise} A promise that resolves to an array of constructor options.
      */
     getOptimizerOptions: function() {
-        var _this = this;
+        const _this = this;
 
         return Q.fcall(function() {
             if (_this.deviceAddress !== null) {
@@ -111,11 +111,11 @@ var ConfigurationOptimizer = extend(null, /** @lends ConfigurationOptimizer# */ 
      * @return {Promise} A Promise that resolves to the best matching optimizer result or `null` if no match was found.
      */
     matchOptimizer: function(options) {
-        var _this = this;
+        const _this = this;
 
         return Q.fcall(function() {
             if (_this.deviceAddress !== null) {
-                var match = (options.deviceAddress === _this.deviceAddress) ? 1 : 0;
+                const match = (options.deviceAddress === _this.deviceAddress) ? 1 : 0;
 
                 return {
                     match: match,

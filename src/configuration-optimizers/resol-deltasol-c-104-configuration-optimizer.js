@@ -3,13 +3,13 @@
 
 
 
-var configurationData = require('./resol-deltasol-c-104-data');
+const configurationData = require('./resol-deltasol-c-104-data');
 
-var BaseConfigurationOptimizer = require('../base-configuration-optimizer');
+const BaseConfigurationOptimizer = require('../base-configuration-optimizer');
 
 
 
-var ResolDeltaSolC104ConfigurationOptimizer = BaseConfigurationOptimizer.extend({
+const ResolDeltaSolC104ConfigurationOptimizer = BaseConfigurationOptimizer.extend({
 
     optimizeConfiguration: function($) {
         // TODO?

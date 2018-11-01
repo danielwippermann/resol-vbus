@@ -3,19 +3,19 @@
 
 
 
-var Q = require('q');
+const Q = require('q');
 
 
-var _ = require('./lodash');
-var utils = require('./utils');
-
-
-
-var Promise = utils.promise;
+const _ = require('./lodash');
+const utils = require('./utils');
 
 
 
-var optimizerClasses = [
+const Promise = utils.promise;
+
+
+
+const optimizerClasses = [
 
     // ======================================================================
     // RESOL
@@ -61,22 +61,22 @@ var ConfigurationOptimizerFactory = {
         return new Promise(function(resolve, reject) {
             options = _.defaults({}, options);
 
-            var result = {
+            let result = {
                 match: 0,
                 Optimizer: null,
                 options: null,
             };
 
-            var cache = {
+            const cache = {
                 masterAddress: null,
                 masterConfiguration: [],
             };
 
-            var index = 0;
+            let index = 0;
 
             var nextOptimizer = function() {
                 if (index < optimizerClasses.length) {
-                    var Optimizer = optimizerClasses [index++];
+                    const Optimizer = optimizerClasses [index++];
 
                     Q.fcall(function() {
                         return Optimizer.matchOptimizer(options, cache);
@@ -110,7 +110,7 @@ var ConfigurationOptimizerFactory = {
         return Q.fcall(function() {
             return ConfigurationOptimizerFactory.matchOptimizer(options);
         }).then(function(result) {
-            var optimizer;
+            let optimizer;
             if (result) {
                 optimizer = new result.Optimizer(result.options);
             } else {

@@ -3,22 +3,22 @@
 
 
 
-var EventEmitter = require('events').EventEmitter;
+const EventEmitter = require('events').EventEmitter;
 
 
-var Q = require('q');
+const Q = require('q');
 
 
-var extend = require('./extend');
-var Header = require('./header');
-var HeaderSet = require('./header-set');
-var HeaderSetConsolidator = require('./header-set-consolidator');
-var _ = require('./lodash');
-var utils = require('./utils');
+const extend = require('./extend');
+const Header = require('./header');
+const HeaderSet = require('./header-set');
+const HeaderSetConsolidator = require('./header-set-consolidator');
+const _ = require('./lodash');
+const utils = require('./utils');
 
 
 
-var optionKeys = [
+const optionKeys = [
     'id',
     'minTimestamp',
     'maxTimestamp',
@@ -119,7 +119,7 @@ var Recorder = extend(EventEmitter, /** @lends Recorder# */ {
      * @param {boolean} [options.end=true] Whether the stream should be `end()`ed when the playback is complete
      */
     playback: function(stream, options) {
-        var _this = this;
+        const _this = this;
 
         options = _.defaults({}, options, this._getOptions(), {
             end: true
@@ -129,18 +129,18 @@ var Recorder = extend(EventEmitter, /** @lends Recorder# */ {
             throw new Error('Stream must be in object mode');
         }
 
-        var headerSetConsolidator = new HeaderSetConsolidator({
+        const headerSetConsolidator = new HeaderSetConsolidator({
             minTimestamp: options.minTimestamp,
             maxTimestamp: options.maxTimestamp,
             interval: options.interval,
         });
 
-        var playedBackRanges = [];
+        let playedBackRanges = [];
 
         headerSetConsolidator.on('headerSet', function(headerSet) {
-            var timestamp = headerSet.timestamp;
+            const timestamp = headerSet.timestamp;
 
-            var headerSetRange = {
+            const headerSetRange = {
                 minTimestamp: timestamp,
                 maxTimestamp: timestamp,
             };
@@ -180,7 +180,7 @@ var Recorder = extend(EventEmitter, /** @lends Recorder# */ {
      * @return {Promise} A Promise that resolves to the recorded ranges.
      */
     record: function(stream, options) {
-        var _this = this;
+        const _this = this;
 
         options = _.defaults({}, options, this._getOptions(), {
         });
@@ -189,19 +189,19 @@ var Recorder = extend(EventEmitter, /** @lends Recorder# */ {
             throw new Error('Stream must be in object mode');
         }
 
-        var headerSetConsolidator = new HeaderSetConsolidator({
+        const headerSetConsolidator = new HeaderSetConsolidator({
             minTimestamp: options.minTimestamp,
             maxTimestamp: options.maxTimestamp,
             interval: options.interval,
             timeToLive: options.timeToLive,
         });
 
-        var recordedRanges = [];
+        let recordedRanges = [];
 
         headerSetConsolidator.on('headerSet', function(headerSet) {
-            var timestamp = headerSet.timestamp;
+            const timestamp = headerSet.timestamp;
 
-            var headerSetRange = {
+            const headerSetRange = {
                 minTimestamp: timestamp,
                 maxTimestamp: timestamp,
             };
@@ -209,7 +209,7 @@ var Recorder = extend(EventEmitter, /** @lends Recorder# */ {
             recordedRanges = Recorder.performRangeSetOperation(recordedRanges, [ headerSetRange ], options.interval, 'union');
         });
 
-        var recordingJob = _.defaults({}, options, {
+        const recordingJob = _.defaults({}, options, {
             recordedRanges: recordedRanges,
         });
 
@@ -218,9 +218,9 @@ var Recorder = extend(EventEmitter, /** @lends Recorder# */ {
         }).then(function(recording) {
             return Q.fcall(function() {
                 return utils.promise(function(resolve, reject) {
-                    var onData, onEnd, onError;
+                    let onData, onEnd, onError;
 
-                    var cleanup = function() {
+                    const cleanup = function() {
                         stream.removeListener('data', onData);
                         stream.removeListener('end', onEnd);
                         stream.removeListener('error', onError);
@@ -280,7 +280,7 @@ var Recorder = extend(EventEmitter, /** @lends Recorder# */ {
      * @returns {Promise} Promise resolving with a list of ranges that were synchronized.
      */
     synchronizeTo: function(recorder, options) {
-        var _this = this;
+        const _this = this;
 
         options = _.extend({}, this._getOptions(), options);
 
@@ -307,16 +307,16 @@ var Recorder = extend(EventEmitter, /** @lends Recorder# */ {
     },
 
     _getSyncJob: function(oldSyncState, options) {
-        var syncJob = _.extend({}, options, {
+        const syncJob = _.extend({}, options, {
             syncId: utils.generateGUID(),
             syncState: oldSyncState,
             syncStateDiffs: [],
         });
 
-        var syncState = this._getSyncState(syncJob, 'source', 'Recorder');
+        const syncState = this._getSyncState(syncJob, 'source', 'Recorder');
 
         // migrate
-        var syncVersion = syncState.version || 0;
+        let syncVersion = syncState.version || 0;
         if (syncVersion === 0) {
             syncVersion = 1;
             syncState.rangesByInterval = {};
@@ -328,14 +328,14 @@ var Recorder = extend(EventEmitter, /** @lends Recorder# */ {
         }
 
         // find diffs
-        var syncStateDiffs = syncJob.syncStateDiffs;
+        let syncStateDiffs = syncJob.syncStateDiffs;
         syncStateDiffs.push({
             minTimestamp: options.minTimestamp,
             maxTimestamp: options.maxTimestamp,
         });
 
         _.forEach(syncState.rangesByInterval, function(ranges, rangesKey) {
-            var interval = rangesKey | 0;
+            const interval = rangesKey | 0;
             if ((options.interval % interval) === 0) {
                 ranges = _.map(ranges, function(range) {
                     return {
@@ -378,20 +378,20 @@ var Recorder = extend(EventEmitter, /** @lends Recorder# */ {
     },
 
     _getSyncState: function(syncJobOrState, which, type) {
-        var syncState;
+        let syncState;
         if (_.has(syncJobOrState, 'syncState') && _.has(syncJobOrState, 'syncId')) {
             syncState = syncJobOrState.syncState;
         } else {
             syncState = syncJobOrState;
         }
 
-        var syncStateKey = which + 'SyncState';
+        const syncStateKey = which + 'SyncState';
 
         if (!_.has(syncState, syncStateKey)) {
             syncState [syncStateKey] = {};
         }
 
-        var syncStateRoot = syncState [syncStateKey];
+        const syncStateRoot = syncState [syncStateKey];
 
         if (!_.has(syncStateRoot, type)) {
             syncStateRoot [type] = {};
@@ -401,9 +401,9 @@ var Recorder = extend(EventEmitter, /** @lends Recorder# */ {
     },
 
     _markSourceSyncRanges: function(ranges, syncJob) {
-        var syncState = this._getSyncState(syncJob, 'source', 'Recorder');
+        const syncState = this._getSyncState(syncJob, 'source', 'Recorder');
 
-        var handledRanges = syncState.rangesByInterval [syncJob.interval];
+        let handledRanges = syncState.rangesByInterval [syncJob.interval];
 
         handledRanges = Recorder.performRangeSetOperation(handledRanges, ranges, syncJob.interval, 'union');
 
@@ -445,9 +445,9 @@ var Recorder = extend(EventEmitter, /** @lends Recorder# */ {
      * @returns {Array} Set containing timestamp ranges after the operation
      */
     performRangeSetOperation: function(rangesA, rangesB, interval, operation) {
-        var newInfos = [];
+        let newInfos = [];
 
-        var calcBaseTimestamp = function(timestamp) {
+        const calcBaseTimestamp = function(timestamp) {
             if (interval > 0) {
                 return Math.floor(timestamp / interval) * interval;
             } else {
@@ -455,8 +455,8 @@ var Recorder = extend(EventEmitter, /** @lends Recorder# */ {
             }
         };
 
-        var rangeToInfo = function(range) {
-            var minTimestamp = range.minTimestamp;
+        const rangeToInfo = function(range) {
+            let minTimestamp = range.minTimestamp;
             if (typeof minTimestamp.getTime === 'function') {
                 minTimestamp = minTimestamp.getTime();
             } else if (typeof minTimestamp === 'string') {
@@ -465,7 +465,7 @@ var Recorder = extend(EventEmitter, /** @lends Recorder# */ {
                 throw new Error('Invalid minTimestamp "' + minTimestamp + '" (type "' + typeof minTimestamp + '"');
             }
 
-            var maxTimestamp = range.maxTimestamp;
+            let maxTimestamp = range.maxTimestamp;
             if (typeof maxTimestamp.getTime === 'function') {
                 maxTimestamp = maxTimestamp.getTime();
             } else if (typeof maxTimestamp === 'string') {
@@ -474,8 +474,8 @@ var Recorder = extend(EventEmitter, /** @lends Recorder# */ {
                 throw new Error('Invalid maxTimestamp "' + maxTimestamp + '" (type "' + typeof maxTimestamp + '"');
             }
 
-            var minBaseTimestamp = calcBaseTimestamp(minTimestamp);
-            var maxBaseTimestamp = calcBaseTimestamp(maxTimestamp + interval);
+            const minBaseTimestamp = calcBaseTimestamp(minTimestamp);
+            const maxBaseTimestamp = calcBaseTimestamp(maxTimestamp + interval);
 
             return {
                 minTimestamp: minTimestamp,
@@ -486,8 +486,8 @@ var Recorder = extend(EventEmitter, /** @lends Recorder# */ {
             };
         };
 
-        var infoToRange = function(info) {
-            var range;
+        const infoToRange = function(info) {
+            let range;
             if (info && info.valid) {
                 range = {
                     minTimestamp: new Date(info.minTimestamp),
@@ -497,23 +497,23 @@ var Recorder = extend(EventEmitter, /** @lends Recorder# */ {
             return range;
         };
 
-        var processInfo = function(refInfo, operation) {
+        const processInfo = function(refInfo, operation) {
             if (!refInfo || !refInfo.valid || (refInfo.minTimestamp > refInfo.maxTimestamp)) {
                 return;
             }
 
-            for (var i = 0; i <= newInfos.length; i++) {
-                var newInfo = newInfos [i];
+            for (let i = 0; i <= newInfos.length; i++) {
+                const newInfo = newInfos [i];
 
                 var nextInfo;
-                for (var j = i + 1; j < newInfos.length; j++) {
+                for (let j = i + 1; j < newInfos.length; j++) {
                     if (newInfos [j].valid) {
                         nextInfo = newInfos [j];
                         break;
                     }
                 }
 
-                var insert = false, deleteThis = false;
+                let insert = false, deleteThis = false;
                 if (newInfo && !newInfo.valid) {
                     // skip
                 } else if (operation === 'union') {
@@ -573,7 +573,7 @@ var Recorder = extend(EventEmitter, /** @lends Recorder# */ {
                         newInfo.maxBaseTimestamp = refInfo.minBaseTimestamp - 1;
                     } else {
                         // split
-                        var splitInfo = {
+                        const splitInfo = {
                             minTimestamp: newInfo.minTimestamp,
                             maxTimestamp: refInfo.minTimestamp - 1,
                             minBaseTimestamp: newInfo.minBaseTimestamp,
@@ -600,27 +600,27 @@ var Recorder = extend(EventEmitter, /** @lends Recorder# */ {
             }
         };
 
-        var processInfos = function(infos, operation) {
+        const processInfos = function(infos, operation) {
             _.forEach(_.clone(infos), function(info, index) {
                 processInfo(info, operation);
             });
         };
 
-        var infosA = _.map(rangesA, rangeToInfo);
+        const infosA = _.map(rangesA, rangeToInfo);
 
-        var infosB = _.map(rangesB, rangeToInfo);
+        const infosB = _.map(rangesB, rangeToInfo);
 
         if (operation === 'intersection') {
             processInfos(infosA, 'union');
             processInfos(infosB, 'difference');
 
-            var infosAMinusB = newInfos;
+            const infosAMinusB = newInfos;
             newInfos = [];
 
             processInfos(infosB, 'union');
             processInfos(infosA, 'difference');
 
-            var infosBMinusA = newInfos;
+            const infosBMinusA = newInfos;
             newInfos = [];
 
             processInfos(infosA, 'union');
@@ -638,9 +638,9 @@ var Recorder = extend(EventEmitter, /** @lends Recorder# */ {
             });
         }
 
-        var newRanges = [];
+        const newRanges = [];
         _.forEach(newInfos, function(newInfo) {
-            var newRange = infoToRange(newInfo);
+            const newRange = infoToRange(newInfo);
             if (newRange) {
                 newRanges.push(newRange);
             }

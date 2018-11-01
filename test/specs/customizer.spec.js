@@ -3,14 +3,14 @@
 
 
 
-var Q = require('q');
+const Q = require('q');
 
 
-var vbus = require('./resol-vbus');
+const vbus = require('./resol-vbus');
 
 
 
-var Customizer = vbus.Customizer;
+const Customizer = vbus.Customizer;
 
 
 
@@ -23,13 +23,13 @@ describe('Customizer', function() {
         });
 
         it('should have reasonable defaults', function() {
-            var options = {
+            const options = {
                 id: null,
                 deviceAddress: 0,
                 optimizer: null,
             };
 
-            var customizer = new Customizer();
+            const customizer = new Customizer();
 
             expect(customizer).property('id').equal(options.id);
             expect(customizer).property('deviceAddress').equal(options.deviceAddress);
@@ -37,14 +37,14 @@ describe('Customizer', function() {
         });
 
         it('should copy selected options', function() {
-            var options = {
+            const options = {
                 id: 'ID',
                 deviceAddress: 0x1234,
                 optimizer: 'OPTIMIZER',
                 junk: 'JUNK',
             };
 
-            var customizer = new Customizer(options);
+            const customizer = new Customizer(options);
 
             expect(customizer).property('id').equal(options.id);
             expect(customizer).property('deviceAddress').equal(options.deviceAddress);
@@ -61,7 +61,7 @@ describe('Customizer', function() {
         });
 
         promiseIt('should work correctly without an optimizer', function() {
-            var customizer = new Customizer({
+            const customizer = new Customizer({
                 optimizer: null,
             });
 
@@ -69,7 +69,7 @@ describe('Customizer', function() {
                 return Q(configuration);
             });
 
-            var inConfig = [{
+            const inConfig = [{
                 valueIndex: 0x0001,
             }, {
                 valueIndex: 0x0001,
@@ -85,13 +85,13 @@ describe('Customizer', function() {
         });
 
         promiseIt('should work correctly with an optimizer', function() {
-            var optimizer = {
+            const optimizer = {
                 completeConfiguration: function(config) {
                     return Q(config);
                 },
             };
 
-            var customizer = new Customizer({
+            const customizer = new Customizer({
                 optimizer: optimizer,
             });
 
@@ -99,7 +99,7 @@ describe('Customizer', function() {
                 return Q(configuration);
             });
 
-            var inConfig = [{
+            const inConfig = [{
                 valueIndex: 0x0001,
             }, {
                 valueIndex: 0x0001,
@@ -123,7 +123,7 @@ describe('Customizer', function() {
         });
 
         it('should be an abstract method', function() {
-            var customizer = new Customizer();
+            const customizer = new Customizer();
 
             expect(function() {
                 customizer._loadConfiguration();
@@ -139,7 +139,7 @@ describe('Customizer', function() {
         });
 
         promiseIt('should work correctly without an optimizer', function() {
-            var customizer = new Customizer({
+            const customizer = new Customizer({
                 optimizer: null,
             });
 
@@ -147,7 +147,7 @@ describe('Customizer', function() {
                 return Q(configuration);
             });
 
-            var inConfig = [{
+            const inConfig = [{
                 valueIndex: 0x0001,
             }, {
                 valueIndex: 0x0001,
@@ -163,13 +163,13 @@ describe('Customizer', function() {
         });
 
         promiseIt('should work correctly with an optimizer', function() {
-            var optimizer = {
+            const optimizer = {
                 completeConfiguration: function(config) {
                     return Q(config);
                 },
             };
 
-            var customizer = new Customizer({
+            const customizer = new Customizer({
                 optimizer: optimizer,
             });
 
@@ -177,7 +177,7 @@ describe('Customizer', function() {
                 return Q(configuration);
             });
 
-            var inConfig = [{
+            const inConfig = [{
                 valueIndex: 0x0001,
             }, {
                 valueIndex: 0x0001,
@@ -201,7 +201,7 @@ describe('Customizer', function() {
         });
 
         it('should be an abstract method', function() {
-            var customizer = new Customizer();
+            const customizer = new Customizer();
 
             expect(function() {
                 customizer._saveConfiguration();
@@ -217,23 +217,23 @@ describe('Customizer', function() {
         });
 
         it('should forward to the optimizer', function() {
-            var refResult = {};
+            const refResult = {};
 
-            var spy = sinon.spy(function() {
+            const spy = sinon.spy(function() {
                 return refResult;
             });
 
-            var optimizer = {
+            const optimizer = {
                 completeConfiguration: spy,
             };
 
-            var options = {
+            const options = {
                 optimizer: optimizer,
             };
 
-            var customizer = new Customizer(options);
+            const customizer = new Customizer(options);
 
-            var result = customizer._completeConfiguration();
+            const result = customizer._completeConfiguration();
 
             expect(optimizer.completeConfiguration.callCount).equal(1);
             expect(result).equal(refResult);
@@ -248,24 +248,24 @@ describe('Customizer', function() {
         });
 
         it('should forward to the optimizer', function() {
-            var refConfig = {};
-            var refResult = {};
+            const refConfig = {};
+            const refResult = {};
 
-            var spy = sinon.spy(function() {
+            const spy = sinon.spy(function() {
                 return refResult;
             });
 
-            var optimizer = {
+            const optimizer = {
                 optimizeLoadConfiguration: spy,
             };
 
-            var options = {
+            const options = {
                 optimizer: optimizer,
             };
 
-            var customizer = new Customizer(options);
+            const customizer = new Customizer(options);
 
-            var result = customizer._optimizeLoadConfiguration(refConfig);
+            const result = customizer._optimizeLoadConfiguration(refConfig);
 
             expect(optimizer.optimizeLoadConfiguration.callCount).equal(1);
             expect(optimizer.optimizeLoadConfiguration.firstCall.args [0]).equal(refConfig);
@@ -281,25 +281,25 @@ describe('Customizer', function() {
         });
 
         it('should forward to the optimizer', function() {
-            var newConfig = {};
-            var oldConfig = {};
-            var refResult = {};
+            const newConfig = {};
+            const oldConfig = {};
+            const refResult = {};
 
-            var spy = sinon.spy(function() {
+            const spy = sinon.spy(function() {
                 return refResult;
             });
 
-            var optimizer = {
+            const optimizer = {
                 optimizeSaveConfiguration: spy,
             };
 
-            var options = {
+            const options = {
                 optimizer: optimizer,
             };
 
-            var customizer = new Customizer(options);
+            const customizer = new Customizer(options);
 
-            var result = customizer._optimizeSaveConfiguration(newConfig, oldConfig);
+            const result = customizer._optimizeSaveConfiguration(newConfig, oldConfig);
 
             expect(optimizer.optimizeSaveConfiguration.callCount).equal(1);
             expect(optimizer.optimizeSaveConfiguration.firstCall.args [0]).equal(newConfig);

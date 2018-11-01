@@ -3,17 +3,17 @@
 
 
 
-var Q = require('q');
+const Q = require('q');
 
 
-var DataSource = require('./data-source');
-var _ = require('./lodash');
+const DataSource = require('./data-source');
+const _ = require('./lodash');
 
-var TcpConnection = require('./tcp-connection');
+const TcpConnection = require('./tcp-connection');
 
 
 
-var optionKeys = [
+const optionKeys = [
     'host',
     'liveChannel',
     'livePassword',
@@ -21,7 +21,7 @@ var optionKeys = [
 
 
 
-var TcpDataSource = DataSource.extend(/** @lends TcpDataSource# */ {
+const TcpDataSource = DataSource.extend(/** @lends TcpDataSource# */ {
 
     /**
      * The host to connect to.
@@ -62,7 +62,7 @@ var TcpDataSource = DataSource.extend(/** @lends TcpDataSource# */ {
     },
 
     connectLive: function(options) {
-        var defaultOptions = {
+        const defaultOptions = {
             host: this.host,
             port: this.port,
             viaTag: this.viaTag,
@@ -75,7 +75,7 @@ var TcpDataSource = DataSource.extend(/** @lends TcpDataSource# */ {
             dataSource: this.id,
         });
 
-        var connection = new TcpConnection(options);
+        const connection = new TcpConnection(options);
 
         return Q.fcall(function() {
             return connection.connect();

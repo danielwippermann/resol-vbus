@@ -3,17 +3,17 @@
 
 
 
-var vbus = require('./resol-vbus');
+const vbus = require('./resol-vbus');
 
 
 
-var Converter = vbus.Converter;
-var HeaderSet = vbus.HeaderSet;
-var Packet = vbus.Packet;
+const Converter = vbus.Converter;
+const HeaderSet = vbus.HeaderSet;
+const Packet = vbus.Packet;
 
 
 
-var TestableConverter = Converter.extend({
+const TestableConverter = Converter.extend({
 
     _read: function() {
         // nop
@@ -30,24 +30,24 @@ describe('Converter', function() {
         it('should be a constructor function', function() {
             expect(Converter).to.be.a('function');
 
-            var converter = new TestableConverter();
+            const converter = new TestableConverter();
 
             expect(converter).to.be.an.instanceOf(Converter);
         });
 
         it('should reasonable defaults', function() {
-            var converter = new TestableConverter();
+            const converter = new TestableConverter();
 
             expect(converter).property('objectMode').to.equal(false);
         });
 
         it('should copy selected options', function() {
-            var options = {
+            const options = {
                 objectMode: true,
                 junk: 'JUNK',
             };
 
-            var converter = new TestableConverter(options);
+            const converter = new TestableConverter(options);
 
             expect(converter).property('objectMode').to.equal(options.objectMode);
             expect(converter).not.property('junk');
@@ -70,7 +70,7 @@ describe('Converter', function() {
         });
 
         it('should be fire an end event', function(done) {
-            var converter = new TestableConverter({
+            const converter = new TestableConverter({
                 objectMode: true,
             });
 
@@ -90,7 +90,7 @@ describe('Converter', function() {
         });
 
         it('should be abstract', function() {
-            var converter = new TestableConverter();
+            const converter = new TestableConverter();
 
             expect(function() {
                 converter.convertRawData();
@@ -106,7 +106,7 @@ describe('Converter', function() {
         });
 
         it('should be abstract', function() {
-            var converter = new TestableConverter();
+            const converter = new TestableConverter();
 
             expect(function() {
                 converter.convertHeader();
@@ -122,7 +122,7 @@ describe('Converter', function() {
         });
 
         it('should be abstract', function() {
-            var converter = new TestableConverter();
+            const converter = new TestableConverter();
 
             expect(function() {
                 converter.convertHeaderSet();
@@ -138,7 +138,7 @@ describe('Converter', function() {
         });
 
         it('should be abstract', function() {
-            var converter = new TestableConverter();
+            const converter = new TestableConverter();
 
             expect(function() {
                 Converter.prototype._read.call(converter);
@@ -154,7 +154,7 @@ describe('Converter', function() {
         });
 
         it('should be abstract', function() {
-            var converter = new TestableConverter();
+            const converter = new TestableConverter();
 
             expect(function() {
                 converter._write();
@@ -165,44 +165,44 @@ describe('Converter', function() {
 
     describe('writable stream (object mode)', function() {
 
-        var rawPacket1 = 'aa100053001000010b0020051000004a723d1000013f40571000015706100000016800000000007f00000000007f00000000007f00000000007f00007f00000025003600051f11000000006e';
-        var rawPacket2 = 'aa1000217e100001013e00000b000074';
-        var rawPacket3 = 'aa1000317e100001042b05774a00003900000000007f00000000007f130d0000005f';
+        const rawPacket1 = 'aa100053001000010b0020051000004a723d1000013f40571000015706100000016800000000007f00000000007f00000000007f00000000007f00007f00000025003600051f11000000006e';
+        const rawPacket2 = 'aa1000217e100001013e00000b000074';
+        const rawPacket3 = 'aa1000317e100001042b05774a00003900000000007f00000000007f130d0000005f';
 
         promiseIt('should work correctly', function() {
-            var buffer1 = new Buffer(rawPacket1, 'hex');
-            var packet1 = Packet.fromLiveBuffer(buffer1, 0, buffer1.length);
+            const buffer1 = new Buffer(rawPacket1, 'hex');
+            const packet1 = Packet.fromLiveBuffer(buffer1, 0, buffer1.length);
             packet1.timestamp = new Date(1387893006778);
             packet1.channel = 0;
 
-            var buffer2 = new Buffer(rawPacket2, 'hex');
-            var packet2 = Packet.fromLiveBuffer(buffer2, 0, buffer2.length);
+            const buffer2 = new Buffer(rawPacket2, 'hex');
+            const packet2 = Packet.fromLiveBuffer(buffer2, 0, buffer2.length);
             packet2.timestamp = new Date(1387893003303);
             packet2.channel = 1;
 
-            var buffer3 = new Buffer(rawPacket3, 'hex');
-            var packet3 = Packet.fromLiveBuffer(buffer3, 0, buffer3.length);
+            const buffer3 = new Buffer(rawPacket3, 'hex');
+            const packet3 = Packet.fromLiveBuffer(buffer3, 0, buffer3.length);
             packet3.timestamp = new Date(1387893003454);
             packet3.channel = 1;
 
-            var headerSet = new HeaderSet({
+            const headerSet = new HeaderSet({
                 timestamp: new Date(1387893006829),
                 headers: [ packet1, packet2, packet3 ]
             });
 
-            var converter = new TestableConverter({
+            const converter = new TestableConverter({
                 objectMode: true,
             });
 
-            var onData = sinon.spy();
+            const onData = sinon.spy();
             converter.on('data', onData);
 
             converter.convertHeaderSet(headerSet);
 
-            var onHeader = sinon.spy();
+            const onHeader = sinon.spy();
             converter.on('header', onHeader);
 
-            var onHeaderSet = sinon.spy();
+            const onHeaderSet = sinon.spy();
             converter.on('headerSet', onHeaderSet);
 
             return vbus.utils.promise(function(resolve, reject) {
@@ -231,36 +231,36 @@ describe('Converter', function() {
 
     describe('readable stream (object mode)', function() {
 
-        var rawPacket1 = 'aa100053001000010b0020051000004a723d1000013f40571000015706100000016800000000007f00000000007f00000000007f00000000007f00007f00000025003600051f11000000006e';
-        var rawPacket2 = 'aa1000217e100001013e00000b000074';
-        var rawPacket3 = 'aa1000317e100001042b05774a00003900000000007f00000000007f130d0000005f';
+        const rawPacket1 = 'aa100053001000010b0020051000004a723d1000013f40571000015706100000016800000000007f00000000007f00000000007f00000000007f00007f00000025003600051f11000000006e';
+        const rawPacket2 = 'aa1000217e100001013e00000b000074';
+        const rawPacket3 = 'aa1000317e100001042b05774a00003900000000007f00000000007f130d0000005f';
 
         promiseIt('should work correctly', function() {
-            var buffer1 = new Buffer(rawPacket1, 'hex');
-            var packet1 = Packet.fromLiveBuffer(buffer1, 0, buffer1.length);
+            const buffer1 = new Buffer(rawPacket1, 'hex');
+            const packet1 = Packet.fromLiveBuffer(buffer1, 0, buffer1.length);
             packet1.timestamp = new Date(1387893006778);
             packet1.channel = 0;
 
-            var buffer2 = new Buffer(rawPacket2, 'hex');
-            var packet2 = Packet.fromLiveBuffer(buffer2, 0, buffer2.length);
+            const buffer2 = new Buffer(rawPacket2, 'hex');
+            const packet2 = Packet.fromLiveBuffer(buffer2, 0, buffer2.length);
             packet2.timestamp = new Date(1387893003303);
             packet2.channel = 1;
 
-            var buffer3 = new Buffer(rawPacket3, 'hex');
-            var packet3 = Packet.fromLiveBuffer(buffer3, 0, buffer3.length);
+            const buffer3 = new Buffer(rawPacket3, 'hex');
+            const packet3 = Packet.fromLiveBuffer(buffer3, 0, buffer3.length);
             packet3.timestamp = new Date(1387893003454);
             packet3.channel = 1;
 
-            var headerSet = new HeaderSet({
+            const headerSet = new HeaderSet({
                 timestamp: new Date(1387893006829),
                 headers: [ packet1, packet2, packet3 ]
             });
 
-            var converter = new TestableConverter({
+            const converter = new TestableConverter({
                 objectMode: true,
             });
 
-            var onData = sinon.spy();
+            const onData = sinon.spy();
             converter.on('data', onData);
 
             return vbus.utils.promise(function(resolve, reject) {

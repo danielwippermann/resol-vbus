@@ -5,14 +5,14 @@
 
 
 
-var configurationData = require('./resol-deltasol-mx-112-data');
+const configurationData = require('./resol-deltasol-mx-112-data');
 
-var BaseConfigurationOptimizer = require('../base-configuration-optimizer');
-var _ = require('../lodash');
+const BaseConfigurationOptimizer = require('../base-configuration-optimizer');
+const _ = require('../lodash');
 
 
 
-var ResolDeltaSolMx112ConfigurationOptimizer = BaseConfigurationOptimizer.extend({
+const ResolDeltaSolMx112ConfigurationOptimizer = BaseConfigurationOptimizer.extend({
 
     optimizeConfiguration: function($) {
         this.optimizeModuleConfiguration($);
@@ -31,7 +31,7 @@ var ResolDeltaSolMx112ConfigurationOptimizer = BaseConfigurationOptimizer.extend
     },
 
     optimizeSolarConfiguration: function($) {
-        var value = $('Solar_SystemId');
+        const value = $('Solar_SystemId');
 
         value.isChanged(function() {
             $(/^Solar_.*/).invalidate();
@@ -39,7 +39,7 @@ var ResolDeltaSolMx112ConfigurationOptimizer = BaseConfigurationOptimizer.extend
             $(/^Heizung_.*/).invalidate();
         });
 
-        var hasSecondKollektor = function(solarSystemId) {
+        const hasSecondKollektor = function(solarSystemId) {
             return (((solarSystemId / 10) & 1) !== 0);
         };
 
@@ -85,13 +85,13 @@ var ResolDeltaSolMx112ConfigurationOptimizer = BaseConfigurationOptimizer.extend
 
     optimizeSolarWfConfiguration: function($) {
         $(/^Solar_Wf([0-9]+)_Type$/).forEach(function(value) {
-            var prefix = '^Solar_Wf' + value.md [1] + '_';
+            const prefix = '^Solar_Wf' + value.md [1] + '_';
 
             value.in([ 0, '#Frei' ], function() {
                 $(prefix + '(?!(Type|(Roehrenkollektor|Bypass|Frostschutz|ExtWT|Zieltemperatur|Bereitschaft|DrainBack)_)).*').ignore();
             });
 
-            var wfTypes = [
+            const wfTypes = [
                 'NhUnterdrueckung',
                 'Parallelrelais',
                 'Zwillingspumpe',
@@ -109,7 +109,7 @@ var ResolDeltaSolMx112ConfigurationOptimizer = BaseConfigurationOptimizer.extend
 
     optimizeAnlageWfConfiguration: function($) {
         $(/^(Anlage_Wf[0-9]+)_Type$/).forEach(function(value) {
-            var prefix = '^' + value.md [1] + '_';
+            const prefix = '^' + value.md [1] + '_';
 
             value.eql('#Frei', function() {
                 $(prefix + '(?!Type).*').ignore();
@@ -119,7 +119,7 @@ var ResolDeltaSolMx112ConfigurationOptimizer = BaseConfigurationOptimizer.extend
                 $(prefix + 'Schaltuhr_.*').ignore();
             });
 
-            var wfTypes = [
+            const wfTypes = [
                 'Parallelrelais',
                 'Mischer',
                 'Boilerladung',
@@ -141,7 +141,7 @@ var ResolDeltaSolMx112ConfigurationOptimizer = BaseConfigurationOptimizer.extend
 
     optimizeHeizungWfConfiguration: function($) {
         $(/^(Heizung_Wf[0-9]+)_Type$/).forEach(function(value) {
-            var prefix = '^' + value.md [1] + '_';
+            const prefix = '^' + value.md [1] + '_';
 
             value.eql('#Frei', function() {
                 $(prefix + '(?!Type).*').ignore();
@@ -151,7 +151,7 @@ var ResolDeltaSolMx112ConfigurationOptimizer = BaseConfigurationOptimizer.extend
                 $(prefix + 'Schaltuhr_.*').ignore();
             });
 
-            var wfTypes = [
+            const wfTypes = [
                 'ThDesinfektion',
                 'ThBwErwaermung',
             ];
@@ -166,7 +166,7 @@ var ResolDeltaSolMx112ConfigurationOptimizer = BaseConfigurationOptimizer.extend
 
     optimizeHeizungHeizkreisConfiguration: function($) {
         $(/^(Heizung_Heizkreis[0-9]+)_Type$/).forEach(function(value) {
-            var prefix = '^' + value.md [1] + '_';
+            const prefix = '^' + value.md [1] + '_';
 
             value.eql('#Frei', function() {
                 $(prefix + '(?!Type).*').ignore();
@@ -177,7 +177,7 @@ var ResolDeltaSolMx112ConfigurationOptimizer = BaseConfigurationOptimizer.extend
             });
 
             $(prefix + '(Raumthermostat[0-9]+)_Typ$').forEach(function(value) {
-                var rthPrefix = prefix + value.md [1] + '_';
+                const rthPrefix = prefix + value.md [1] + '_';
 
                 value.eql(0, function() {
                     $(rthPrefix + '(?!Typ).*').ignore();
@@ -192,7 +192,7 @@ var ResolDeltaSolMx112ConfigurationOptimizer = BaseConfigurationOptimizer.extend
 
     optimizeWmzConfiguration: function($) {
         $(/^(Wmz[0-9]+)_Type$/).forEach(function(value) {
-            var prefix = '^' + value.md [1] + '_';
+            const prefix = '^' + value.md [1] + '_';
 
             value.eql(0, function() {
                 $(prefix + '(?!Type).*').ignore();

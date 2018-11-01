@@ -3,10 +3,10 @@
 
 
 
-var utils = require('./resol-vbus').utils;
+const utils = require('./resol-vbus').utils;
 
 
-var testUtils = require('./test-utils');
+const testUtils = require('./test-utils');
 
 
 
@@ -20,9 +20,9 @@ describe('utils', function() {
 
         it('should resolve correctly', function(done) {
             testUtils.performAsyncTest(done, function() {
-                var sharedResult = {};
+                const sharedResult = {};
 
-                var promise = utils.cancelablePromise(function(resolve, reject, notify) {
+                const promise = utils.cancelablePromise(function(resolve, reject, notify) {
                     setTimeout(function() {
                         resolve(sharedResult);
                     }, 10);
@@ -42,9 +42,9 @@ describe('utils', function() {
 
         it('should reject correctly', function(done) {
             testUtils.performAsyncTest(done, function() {
-                var sharedReason = {};
+                const sharedReason = {};
 
-                var promise = utils.cancelablePromise(function(resolve, reject, notify) {
+                const promise = utils.cancelablePromise(function(resolve, reject, notify) {
                     setTimeout(function() {
                         reject(sharedReason);
                     }, 10);
@@ -64,9 +64,9 @@ describe('utils', function() {
 
         it('should notify correctly', function(done) {
             testUtils.performAsyncTest(done, function() {
-                var sharedResult = {}, sharedProgress = {};
+                let sharedResult = {}, sharedProgress = {};
 
-                var promise = utils.cancelablePromise(function(resolve, reject, notify) {
+                const promise = utils.cancelablePromise(function(resolve, reject, notify) {
                     setTimeout(function() {
                         notify(sharedProgress);
 
@@ -90,7 +90,7 @@ describe('utils', function() {
 
         it('should cancel correctly', function(done) {
             testUtils.performAsyncTest(done, function() {
-                var sharedReason = {};
+                const sharedReason = {};
 
                 var promise = utils.cancelablePromise(function(resolve, reject, notify) {
                     setTimeout(function() {
@@ -117,7 +117,7 @@ describe('utils', function() {
         });
 
         it('should work correctly', function() {
-            var result = utils.roundNumber(55.55, -1);
+            let result = utils.roundNumber(55.55, -1);
             expect(result).to.equal(55.6);
 
             result = utils.roundNumber(55.549, -1);
@@ -129,7 +129,7 @@ describe('utils', function() {
             result = utils.roundNumber(-24.700000000000003, -1);
             expect(result).to.equal(-24.7);
 
-            var number;
+            let number;
 
             result = utils.roundNumber(number, 10);
             expect(result).to.equal(undefined);

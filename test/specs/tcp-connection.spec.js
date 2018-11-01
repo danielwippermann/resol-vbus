@@ -3,36 +3,36 @@
 
 
 
-var Q = require('q');
+const Q = require('q');
 
 
-var _ = require('./lodash');
-var vbus = require('./resol-vbus');
-
-
-
-var TcpConnection = vbus.TcpConnection;
-var TcpConnectionEndpoint = vbus.TcpConnectionEndpoint;
+const _ = require('./lodash');
+const vbus = require('./resol-vbus');
 
 
 
-var testConnection = function(done, callback) {
-    var endpoint = new TcpConnectionEndpoint({
+const TcpConnection = vbus.TcpConnection;
+const TcpConnectionEndpoint = vbus.TcpConnectionEndpoint;
+
+
+
+const testConnection = function(done, callback) {
+    const endpoint = new TcpConnectionEndpoint({
         port: 0,
     });
 
-    var infos = [];
+    const infos = [];
 
-    var onConnection = function(info) {
+    const onConnection = function(info) {
         infos.push(info);
     };
 
     endpoint.on('connection', onConnection);
 
-    var onEpiConnection;
+    let onEpiConnection;
 
-    var createEndpointInfoPromise = function() {
-        var deferred = Q.defer();
+    const createEndpointInfoPromise = function() {
+        const deferred = Q.defer();
 
         if (onEpiConnection) {
             endpoint.removeListener('connection', onEpiConnection);
@@ -49,7 +49,7 @@ var testConnection = function(done, callback) {
         return deferred.promise;
     };
 
-    var connection = new TcpConnection({
+    const connection = new TcpConnection({
         host: '127.0.0.1',
     });
 
@@ -93,7 +93,7 @@ describe('TcpConnection', function() {
         });
 
         it('should have reasonable defaults', function() {
-            var connection = new TcpConnection();
+            const connection = new TcpConnection();
 
             expect(connection.host).to.equal(null);
             expect(connection.port).to.equal(7053);
@@ -103,7 +103,7 @@ describe('TcpConnection', function() {
         });
 
         it('should copy selected options', function() {
-            var options = {
+            const options = {
                 host: 'HOST',
                 port: 12345,
                 viaTag: 'VIATAG',
@@ -112,7 +112,7 @@ describe('TcpConnection', function() {
                 junk: 'JUNK',
             };
 
-            var connection = new TcpConnection(options);
+            const connection = new TcpConnection(options);
 
             expect(connection.host).to.equal(options.host);
             expect(connection.port).to.equal(options.port);
@@ -132,9 +132,9 @@ describe('TcpConnection', function() {
 
         it('should work correctly if disconnected', function(done) {
             testConnection(done, function(connection, endpoint, createEndpointInfoPromise) {
-                var onConnectionState = sinon.spy();
+                const onConnectionState = sinon.spy();
 
-                var options = {
+                const options = {
                     viaTag: 'VIATAG',
                     password: 'PASSWORD',
                 };
@@ -146,7 +146,7 @@ describe('TcpConnection', function() {
 
                 connection.on('connectionState', onConnectionState);
 
-                var epiPromise = createEndpointInfoPromise();
+                const epiPromise = createEndpointInfoPromise();
 
                 return Q.fcall(function() {
                     return connection.connect();
@@ -199,7 +199,7 @@ describe('TcpConnection', function() {
 
         it('should work correctly if connected', function(done) {
             testConnection(done, function(connection) {
-                var onConnectionState = sinon.spy();
+                const onConnectionState = sinon.spy();
 
                 connection.on('connectionState', onConnectionState);
 
@@ -219,11 +219,11 @@ describe('TcpConnection', function() {
 
         it('should reconnect when connected', function(done) {
             testConnection(done, function(connection, endpoint, createEndpointInfoPromise) {
-                var onConnectionState = sinon.spy();
+                const onConnectionState = sinon.spy();
 
                 connection.on('connectionState', onConnectionState);
 
-                var epiPromise = createEndpointInfoPromise();
+                let epiPromise = createEndpointInfoPromise();
 
                 return Q.fcall(function() {
                     return connection.connect();

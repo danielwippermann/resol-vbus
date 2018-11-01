@@ -3,11 +3,11 @@
 
 
 
-var crypto = require('crypto');
+const crypto = require('crypto');
 
 
-var Packet = require('./resol-vbus').Packet;
-var HeaderSet = require('./resol-vbus').HeaderSet;
+const Packet = require('./resol-vbus').Packet;
+const HeaderSet = require('./resol-vbus').HeaderSet;
 
 
 
@@ -21,9 +21,9 @@ describe('HeaderSet', function() {
         });
 
         it('should have reasonable defaults', function() {
-            var before = new Date();
-            var headerSet = new HeaderSet();
-            var after = new Date();
+            const before = new Date();
+            const headerSet = new HeaderSet();
+            const after = new Date();
 
             expect(headerSet).to.be.an('object');
             expect(headerSet.timestamp).to.be.an.instanceOf(Date);
@@ -31,20 +31,20 @@ describe('HeaderSet', function() {
         });
 
         it('should copy certain options', function() {
-            var header1 = new Packet({
+            const header1 = new Packet({
                 channel: 1
             });
 
-            var header2 = new Packet({
+            const header2 = new Packet({
                 channel: 2
             });
 
-            var options = {
+            const options = {
                 timestamp: new Date(),
                 headers: [ header1, header2 ]
             };
 
-            var headerSet = new HeaderSet(options);
+            const headerSet = new HeaderSet(options);
 
             expect(headerSet).to.be.an('object');
             expect(headerSet.timestamp).to.equal(options.timestamp);
@@ -60,19 +60,19 @@ describe('HeaderSet', function() {
         });
 
         it('should work correctly', function() {
-            var header1 = new Packet({
+            const header1 = new Packet({
                 channel: 1
             });
 
-            var header2 = new Packet({
+            const header2 = new Packet({
                 channel: 2
             });
 
-            var header3 = new Packet({
+            const header3 = new Packet({
                 channel: 2
             });
 
-            var headerSet = new HeaderSet();
+            const headerSet = new HeaderSet();
 
             expect(headerSet.containsHeader(header1)).to.equal(false);
             expect(headerSet.containsHeader(header2)).to.equal(false);
@@ -107,19 +107,19 @@ describe('HeaderSet', function() {
         });
 
         it('should work correctly', function() {
-            var header1 = new Packet({
+            const header1 = new Packet({
                 channel: 1
             });
 
-            var header2 = new Packet({
+            const header2 = new Packet({
                 channel: 2
             });
 
-            var header3 = new Packet({
+            const header3 = new Packet({
                 channel: 2
             });
 
-            var headerSet = new HeaderSet();
+            const headerSet = new HeaderSet();
 
             headerSet.addHeader(header1);
 
@@ -135,13 +135,13 @@ describe('HeaderSet', function() {
         });
 
         it('should update the timestamp', function() {
-            var header1 = new Packet({
+            const header1 = new Packet({
                 channel: 1
             });
 
-            var startTimestamp = new Date(0);
+            const startTimestamp = new Date(0);
 
-            var headerSet = new HeaderSet({
+            const headerSet = new HeaderSet({
                 timestamp: startTimestamp,
             });
 
@@ -161,19 +161,19 @@ describe('HeaderSet', function() {
         });
 
         it('should work correctly', function() {
-            var header1 = new Packet({
+            const header1 = new Packet({
                 channel: 1
             });
 
-            var header2 = new Packet({
+            const header2 = new Packet({
                 channel: 2
             });
 
-            var header3 = new Packet({
+            const header3 = new Packet({
                 channel: 2
             });
 
-            var headerSet = new HeaderSet();
+            const headerSet = new HeaderSet();
 
             headerSet.addHeaders([ header1, header2, header3 ]);
 
@@ -189,15 +189,15 @@ describe('HeaderSet', function() {
         });
 
         it('should work correctly', function() {
-            var header1 = new Packet({
+            const header1 = new Packet({
                 channel: 1
             });
 
-            var header2 = new Packet({
+            const header2 = new Packet({
                 channel: 2
             });
 
-            var headerSet = new HeaderSet({
+            const headerSet = new HeaderSet({
                 headers: [ header1, header2 ],
             });
 
@@ -207,19 +207,19 @@ describe('HeaderSet', function() {
         });
 
         it('should ignore unknown headers', function() {
-            var header1 = new Packet({
+            const header1 = new Packet({
                 channel: 1
             });
 
-            var header2 = new Packet({
+            const header2 = new Packet({
                 channel: 2
             });
 
-            var header3 = new Packet({
+            const header3 = new Packet({
                 channel: 3
             });
 
-            var headerSet = new HeaderSet({
+            const headerSet = new HeaderSet({
                 headers: [ header1, header2 ],
             });
 
@@ -237,15 +237,15 @@ describe('HeaderSet', function() {
         });
 
         it('should work correctly', function() {
-            var header1 = new Packet({
+            const header1 = new Packet({
                 channel: 1
             });
 
-            var header2 = new Packet({
+            const header2 = new Packet({
                 channel: 2
             });
 
-            var headerSet = new HeaderSet({
+            const headerSet = new HeaderSet({
                 headers: [ header1, header2 ],
             });
 
@@ -263,17 +263,17 @@ describe('HeaderSet', function() {
         });
 
         it('should work correctly', function() {
-            var header1 = new Packet({
+            const header1 = new Packet({
                 timestamp: new Date(1388089665000),
                 channel: 1
             });
 
-            var header2 = new Packet({
+            const header2 = new Packet({
                 timestamp: new Date(1388089666000),
                 channel: 2
             });
 
-            var headerSet = new HeaderSet({
+            const headerSet = new HeaderSet({
                 headers: [ header1, header2 ],
             });
 
@@ -291,19 +291,19 @@ describe('HeaderSet', function() {
         });
 
         it('should work correctly', function() {
-            var header1 = new Packet({
+            const header1 = new Packet({
                 channel: 1
             });
 
-            var header2 = new Packet({
+            const header2 = new Packet({
                 channel: 2
             });
 
-            var header3 = new Packet({
+            const header3 = new Packet({
                 channel: 2
             });
 
-            var headerSet = new HeaderSet({
+            const headerSet = new HeaderSet({
                 headers: [ header1, header2, header3 ]
             });
 
@@ -319,19 +319,19 @@ describe('HeaderSet', function() {
         });
 
         it('should work correctly', function() {
-            var header1 = new Packet({
+            const header1 = new Packet({
                 channel: 1
             });
 
-            var header2 = new Packet({
+            const header2 = new Packet({
                 channel: 2
             });
 
-            var headerSet = new HeaderSet({
+            const headerSet = new HeaderSet({
                 headers: [ header2, header1 ]
             });
 
-            var headers = headerSet.getHeaders();
+            const headers = headerSet.getHeaders();
 
             expect(headers).to.be.an('array');
             expect(headers.length).to.equal(2);
@@ -348,15 +348,15 @@ describe('HeaderSet', function() {
         });
 
         it('should work correctly', function() {
-            var header1 = new Packet({
+            const header1 = new Packet({
                 channel: 1
             });
 
-            var header2 = new Packet({
+            const header2 = new Packet({
                 channel: 2
             });
 
-            var headerSet = new HeaderSet({
+            const headerSet = new HeaderSet({
                 headers: [ header2, header1 ]
             });
 
@@ -372,15 +372,15 @@ describe('HeaderSet', function() {
         });
 
         it('should work correctly', function() {
-            var header1 = new Packet({
+            const header1 = new Packet({
                 channel: 1
             });
 
-            var header2 = new Packet({
+            const header2 = new Packet({
                 channel: 2
             });
 
-            var headerSet = new HeaderSet({
+            const headerSet = new HeaderSet({
                 headers: [ header2, header1 ]
             });
 
@@ -396,19 +396,19 @@ describe('HeaderSet', function() {
         });
 
         it('should work correctly', function() {
-            var header1 = new Packet({
+            const header1 = new Packet({
                 channel: 1
             });
 
-            var header2 = new Packet({
+            const header2 = new Packet({
                 channel: 2
             });
 
-            var headerSet = new HeaderSet({
+            const headerSet = new HeaderSet({
                 headers: [ header2, header1 ]
             });
 
-            var id = headerSet.getId();
+            const id = headerSet.getId();
 
             expect(id).to.equal('01_0000_0000_10_0000,02_0000_0000_10_0000');
         });
@@ -422,41 +422,41 @@ describe('HeaderSet', function() {
         });
 
         it('should work correctly', function() {
-            var header1 = new Packet({
+            const header1 = new Packet({
                 channel: 1
             });
 
-            var header2 = new Packet({
+            const header2 = new Packet({
                 channel: 2
             });
 
-            var headerSet = new HeaderSet({
+            const headerSet = new HeaderSet({
                 headers: [ header2, header1 ]
             });
 
-            var id = headerSet.getIdHash();
+            const id = headerSet.getIdHash();
 
             expect(id).to.equal('5c9c71b01aca96a35c15cffd0ec382e8a1be99b3e42eeff57ecd7836aa7f1a24');
         });
 
         it('should cache hashes and return them', function() {
-            var header1 = new Packet({
+            const header1 = new Packet({
                 channel: 1,
                 command: 0x7654,
             });
 
-            var header2 = new Packet({
+            const header2 = new Packet({
                 channel: 2,
                 command: 0x7654,
             });
 
-            var headerSet = new HeaderSet({
+            const headerSet = new HeaderSet({
                 headers: [ header2, header1 ]
             });
 
-            var spy = sinon.spy(crypto, 'createHash');
+            const spy = sinon.spy(crypto, 'createHash');
 
-            var id = headerSet.getIdHash();
+            let id = headerSet.getIdHash();
 
             expect(id).to.equal('28ee1aa76e488e1d87ebd79573b08b2cf20f08f1991fae46ecca3197812cca86');
             expect(spy.callCount).to.equal(1);

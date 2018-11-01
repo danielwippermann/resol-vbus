@@ -3,17 +3,17 @@
 
 
 
-var Q = require('q');
+const Q = require('q');
 
 
-var _ = require('../lodash');
-var vbus = require('../resol-vbus');
+const _ = require('../lodash');
+const vbus = require('../resol-vbus');
 
-var testUtils = require('../test-utils');
+const testUtils = require('../test-utils');
 
 
 
-var optimizerPromise = vbus.ConfigurationOptimizerFactory.createOptimizerByDeviceAddress(0x5400);
+const optimizerPromise = vbus.ConfigurationOptimizerFactory.createOptimizerByDeviceAddress(0x5400);
 
 
 
@@ -44,7 +44,7 @@ describe('ResolDeltaThermHcXxxConfigurationOptimizer', function() {
         promiseIt('should work correctly with provided config object', function() {
             return optimizerPromise.then(function(optimizer) {
                 return Q.fcall(function() {
-                    var config = {
+                    const config = {
                         Language: 0,
                         TemperatureHysteresisSelector: 0,
                     };
@@ -59,7 +59,7 @@ describe('ResolDeltaThermHcXxxConfigurationOptimizer', function() {
         promiseIt('should work correctly with provided config array', function() {
             return optimizerPromise.then(function(optimizer) {
                 return Q.fcall(function() {
-                    var config = [{
+                    const config = [{
                         valueId: 'Language',
                     }, {
                         // valueId: 'TemperatureHysteresisSelector',
@@ -88,7 +88,7 @@ describe('ResolDeltaThermHcXxxConfigurationOptimizer', function() {
                 }).then(function(config) {
                     expect(config).a('array');
 
-                    var valueIds = _.reduce(config, (memo, value) => {
+                    const valueIds = _.reduce(config, (memo, value) => {
                         if (value.pending) {
                             memo.push(value.valueId);
                         }
@@ -109,7 +109,7 @@ describe('ResolDeltaThermHcXxxConfigurationOptimizer', function() {
                 }).then(function(config) {
                     expect(config).an('array');
 
-                    var valueIds = _.reduce(config, (memo, value) => {
+                    const valueIds = _.reduce(config, (memo, value) => {
                         if (value.pending) {
                             memo.push(value.valueId);
                         }

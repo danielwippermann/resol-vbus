@@ -3,12 +3,12 @@
 
 
 
-var Q = require('q');
+const Q = require('q');
 
 
-var ConfigurationOptimizer = require('./configuration-optimizer');
-var extend = require('./extend');
-var _ = require('./lodash');
+const ConfigurationOptimizer = require('./configuration-optimizer');
+const extend = require('./extend');
+const _ = require('./lodash');
 
 
 
@@ -37,7 +37,7 @@ var ValuesWrapper = extend(null, {
             pattern = new RegExp(pattern, 'i');
         }
 
-        var matchingValues = _.reduce(values, function(memo, value) {
+        const matchingValues = _.reduce(values, function(memo, value) {
             if (pattern.test(value.valueId)) {
                 memo.push(value);
             }
@@ -48,7 +48,7 @@ var ValuesWrapper = extend(null, {
             this._reportNoMatchingValues(pattern, values);
         }
 
-        var wrapper = new ValuesWrapper(pattern, matchingValues);
+        const wrapper = new ValuesWrapper(pattern, matchingValues);
 
         return wrapper;
     },
@@ -73,56 +73,56 @@ var ValuesWrapper = extend(null, {
 
     eql: function(refValue, callback) {
         return this._check(callback, function(value, valueInfo) {
-            var normalizedRefValue = this._normalizeValue(refValue, valueInfo);
+            const normalizedRefValue = this._normalizeValue(refValue, valueInfo);
             return (value === normalizedRefValue);
         });
     },
 
     notEql: function(refValue, callback) {
         return this._check(callback, function(value, valueInfo) {
-            var normalizedRefValue = this._normalizeValue(refValue, valueInfo);
+            const normalizedRefValue = this._normalizeValue(refValue, valueInfo);
             return (value !== normalizedRefValue);
         });
     },
 
     lt: function(refValue, callback) {
         return this._check(callback, function(value, valueInfo) {
-            var normalizedRefValue = this._normalizeValue(refValue, valueInfo);
+            const normalizedRefValue = this._normalizeValue(refValue, valueInfo);
             return (value < normalizedRefValue);
         });
     },
 
     lte: function(refValue, callback) {
         return this._check(callback, function(value, valueInfo) {
-            var normalizedRefValue = this._normalizeValue(refValue, valueInfo);
+            const normalizedRefValue = this._normalizeValue(refValue, valueInfo);
             return (value <= normalizedRefValue);
         });
     },
 
     gt: function(refValue, callback) {
         return this._check(callback, function(value, valueInfo) {
-            var normalizedRefValue = this._normalizeValue(refValue, valueInfo);
+            const normalizedRefValue = this._normalizeValue(refValue, valueInfo);
             return (value > normalizedRefValue);
         });
     },
 
     gte: function(refValue, callback) {
         return this._check(callback, function(value, valueInfo) {
-            var normalizedRefValue = this._normalizeValue(refValue, valueInfo);
+            const normalizedRefValue = this._normalizeValue(refValue, valueInfo);
             return (value >= normalizedRefValue);
         });
     },
 
     in: function(refValues, callback) {
         return this._check(callback, function(value, valueInfo) {
-            var normalizedRefValues = this._normalizeValues(refValues, valueInfo);
+            const normalizedRefValues = this._normalizeValues(refValues, valueInfo);
             return _.includes(normalizedRefValues, value);
         });
     },
 
     notIn: function(refValues, callback) {
         return this._check(callback, function(value, valueInfo) {
-            var normalizedRefValues = this._normalizeValues(refValues, valueInfo);
+            const normalizedRefValues = this._normalizeValues(refValues, valueInfo);
             return !_.includes(normalizedRefValues, value);
         });
     },
@@ -157,7 +157,7 @@ var ValuesWrapper = extend(null, {
     },
 
     _check: function(action, checker, options) {
-        var _this = this;
+        const _this = this;
 
         options = _.defaults({}, options, {
             includeUndefined: true,
@@ -167,7 +167,7 @@ var ValuesWrapper = extend(null, {
         _.forEach(this.values, function(value) {
             value.checked = true;
 
-            var result;
+            let result;
             if (value.ignored) {
                 result = false;
             } else if (value.value === undefined) {
@@ -180,7 +180,7 @@ var ValuesWrapper = extend(null, {
 
             if (result !== false) {
                 if (action.length > 0) {
-                    var wrapper = _this.$('^' + value.valueId + '$');
+                    const wrapper = _this.$('^' + value.valueId + '$');
 
                     wrapper.md = _this.pattern.exec(value.valueId);
 
@@ -196,8 +196,8 @@ var ValuesWrapper = extend(null, {
 
     _normalizeValue: function(value, valueInfo) {
         if (_.isString(value) && (value.charAt(0) === '#')) {
-            var valueTextId = value.slice(1);
-            var valueText = valueInfo.valueTextById [valueTextId];
+            const valueTextId = value.slice(1);
+            const valueText = valueInfo.valueTextById [valueTextId];
             if (valueText !== undefined) {
                 value = valueText;
             }
@@ -207,7 +207,7 @@ var ValuesWrapper = extend(null, {
     },
 
     _normalizeValues: function(values, valueInfo) {
-        var _this = this;
+        const _this = this;
 
         values = _.map(values, function(value) {
             return _this._normalizeValue(value, valueInfo);
@@ -224,17 +224,17 @@ var ValuesWrapper = extend(null, {
 
 
 
-var BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
+const BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
 
     completeConfiguration: function(config) {
-        var _this = this;
+        const _this = this;
 
-        var args = _.toArray(arguments);
+        const args = _.toArray(arguments);
 
         return Q.fcall(function() {
-            var adjustableValues = _this._getAdjustableValues();
+            const adjustableValues = _this._getAdjustableValues();
 
-            var result;
+            let result;
             if (!config) {
                 result = _.map(adjustableValues, function(value) {
                     return {
@@ -243,7 +243,7 @@ var BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
                     };
                 });
             } else {
-                var valueByIndex = {}, valueById = {}, valueByIdHash = {};
+                let valueByIndex = {}, valueById = {}, valueByIdHash = {};
                 _.forEach(adjustableValues, function(value) {
                     valueByIndex [value.index] = value;
                     valueById [value.id] = value;
@@ -252,9 +252,9 @@ var BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
                     }
                 });
 
-                var configValuesById = {};
+                const configValuesById = {};
 
-                var mergeConfig = function(config) {
+                const mergeConfig = function(config) {
                     _.forEach(config, function(value, key) {
                         if (_.isArray(config)) {
                             // nop
@@ -269,7 +269,7 @@ var BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
                             }
                         }
 
-                        var refValue;
+                        let refValue;
                         if (!value) {
                             refValue = null;
                         } else if (_.has(value, 'valueIndex')) {
@@ -292,11 +292,11 @@ var BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
                             throw new Error('Unable to complete value ' + JSON.stringify({ key: key, value: value }));
                         }
 
-                        var numericValue = value.value;
+                        let numericValue = value.value;
                         if (_.isString(numericValue)) {
                             if (numericValue.charAt(0) === '#') {
-                                var valueTextId = numericValue.slice(1);
-                                var valueText = refValue.valueTextById [valueTextId];
+                                const valueTextId = numericValue.slice(1);
+                                const valueText = refValue.valueTextById [valueTextId];
                                 if (valueText !== undefined) {
                                     numericValue = valueText;
                                 } else {
@@ -307,7 +307,7 @@ var BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
                             }
                         }
 
-                        var configValue = _.extend({}, value, {
+                        const configValue = _.extend({}, value, {
                             valueId: refValue.id,
                             valueIndex: refValue.index,
                             value: numericValue,
@@ -322,7 +322,7 @@ var BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
                 _.forEachRight(args, mergeConfig);
 
                 result = _.reduce(adjustableValues, function(memo, value) {
-                    var configValue = configValuesById [value.id];
+                    const configValue = configValuesById [value.id];
                     if (configValue) {
                         memo.push(configValue);
                     }
@@ -335,7 +335,7 @@ var BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
     },
 
     optimizeLoadConfiguration: function(config) {
-        var _this = this;
+        const _this = this;
 
         return Q.fcall(function() {
             return _this._buildConfiguration(config);
@@ -363,20 +363,20 @@ var BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
             oldConfig = [];
         }
 
-        var adjustableValues = this._getAdjustableValues();
+        const adjustableValues = this._getAdjustableValues();
 
-        var oldConfigValueById = _.reduce(oldConfig, function(memo, value) {
+        const oldConfigValueById = _.reduce(oldConfig, function(memo, value) {
             memo [value.valueId] = value;
             return memo;
         }, {});
 
-        var newConfig = _.map(adjustableValues, function(value) {
-            var oldConfigValue;
+        let newConfig = _.map(adjustableValues, function(value) {
+            let oldConfigValue;
             if (_.has(oldConfigValueById, value.id)) {
                 oldConfigValue = oldConfigValueById [value.id];
             }
 
-            var newConfigValue = _.extend({}, oldConfigValue, {
+            const newConfigValue = _.extend({}, oldConfigValue, {
                 valueId: value.id,
                 valueIndex: value.index,
                 priority: value.priority || 0,
@@ -393,7 +393,7 @@ var BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
         newConfig = this._optimizeConfiguration(newConfig, adjustableValues);
 
         newConfig.sort(function(l, r) {
-            var result = r.priority - l.priority;
+            let result = r.priority - l.priority;
             if (result === 0) {
                 result = l.valueIndex - r.valueIndex;
             }
@@ -404,27 +404,27 @@ var BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
     },
 
     _getAdjustableValues: function() {
-        var data = this.constructor.configurationData;
+        const data = this.constructor.configurationData;
 
-        var typeById = _.reduce(data.types, function(memo, type) {
+        const typeById = _.reduce(data.types, function(memo, type) {
             memo [type.id] = type;
             return memo;
         }, {});
 
-        var valueById = _.reduce(data.values, function(memo, value) {
+        const valueById = _.reduce(data.values, function(memo, value) {
             memo [value.id] = value;
             return memo;
         }, {});
 
-        var knownValueIds = {}, adjustableValueIds = {};
+        let knownValueIds = {}, adjustableValueIds = {};
 
         var markValueIdAsAdjustable = function(valueId) {
             if (!_.has(knownValueIds, valueId)) {
                 knownValueIds [valueId] = true;
 
-                var value = valueById [valueId];
+                const value = valueById [valueId];
                 if (value) {
-                    var compoundValue;
+                    let compoundValue;
                     if (value.compoundValueRef) {
                         compoundValue = valueById [value.compoundValueRef];
                     }
@@ -444,12 +444,12 @@ var BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
             }
         });
 
-        var adjustableValues = _.reduce(data.values, function(memo, value) {
+        const adjustableValues = _.reduce(data.values, function(memo, value) {
             if (adjustableValueIds [value.id]) {
-                var valueTextById = {};
-                var addValueText = function(valueText, index) {
+                const valueTextById = {};
+                const addValueText = function(valueText, index) {
                     if (valueText.id && !_.has(valueTextById, valueText.id)) {
-                        var valueTextValue = valueText.value;
+                        let valueTextValue = valueText.value;
                         if (valueTextValue === undefined) {
                             valueTextValue = index;
                         }
@@ -458,9 +458,9 @@ var BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
                     }
                 };
 
-                var dependsOnValueIds = [];
+                const dependsOnValueIds = [];
 
-                var type = value.type;
+                let type = value.type;
                 while (type) {
                     if (type.valueTexts && (type.valueTexts.length > 0)) {
                         _.forEach(type.valueTexts, addValueText);
@@ -473,7 +473,7 @@ var BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
                     type = typeById [type.base];
                 }
 
-                var adjustableValue = _.extend({}, value, {
+                const adjustableValue = _.extend({}, value, {
                     valueTextById: valueTextById,
                     dependsOnValueIds: dependsOnValueIds,
                 });
@@ -487,15 +487,15 @@ var BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
     },
 
     _optimizeConfiguration: function(config, adjustableValues) {
-        var configValueById = _.reduce(config, function(memo, configValue) {
+        const configValueById = _.reduce(config, function(memo, configValue) {
             memo [configValue.valueId] = configValue;
             return memo;
         }, {});
 
         adjustableValues = _.map(adjustableValues, function(value) {
-            var configValue = configValueById [value.id];
+            const configValue = configValueById [value.id];
 
-            var changed;
+            let changed;
             if (configValue.value === undefined) {
                 changed = false;
             } else if (configValue.previousValue === undefined) {
@@ -504,16 +504,16 @@ var BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
                 changed = (configValue.previousValue !== configValue.value);
             }
 
-            var ignored = false;
+            let ignored = false;
             _.forEach(value.dependsOnValueIds, function(dependsOnValueId) {
-                var dependsOnConfigValue = configValueById [dependsOnValueId];
+                const dependsOnConfigValue = configValueById [dependsOnValueId];
 
                 if (dependsOnConfigValue && (dependsOnConfigValue.value === undefined)) {
                     ignored = true;
                 }
             });
 
-            var valueInfo = _.extend({}, configValue, {
+            const valueInfo = _.extend({}, configValue, {
                 changed: changed,
                 checked: false,
                 ignored: ignored,
@@ -523,9 +523,9 @@ var BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
             return valueInfo;
         });
 
-        var adjustableValuesWrapper = new ValuesWrapper(null, adjustableValues);
+        const adjustableValuesWrapper = new ValuesWrapper(null, adjustableValues);
 
-        var $ = function(pattern) {
+        const $ = function(pattern) {
             return adjustableValuesWrapper.$(pattern);
         };
 

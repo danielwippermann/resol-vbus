@@ -3,26 +3,26 @@
 
 
 
-var EventEmitter = require('events').EventEmitter;
-var net = require('net');
+const EventEmitter = require('events').EventEmitter;
+const net = require('net');
 
 
-var Q = require('q');
+const Q = require('q');
 
 
-var extend = require('./extend');
-var _ = require('./lodash');
+const extend = require('./extend');
+const _ = require('./lodash');
 
 
 
-var optionKeys = [
+const optionKeys = [
     'port',
     'channels',
 ];
 
 
 
-var TcpConnectionEndpoint = extend(EventEmitter, /** @lends TcpConnectionEndpoint# */ {
+const TcpConnectionEndpoint = extend(EventEmitter, /** @lends TcpConnectionEndpoint# */ {
 
     /**
      * The port number to listen on for incoming connections.
@@ -75,12 +75,12 @@ var TcpConnectionEndpoint = extend(EventEmitter, /** @lends TcpConnectionEndpoin
      * @return {Promise} A promise that resolves when the server is started.
      */
     start: function() {
-        var _this = this;
+        const _this = this;
 
-        var deferred = Q.defer();
-        var promise = deferred.promise;
+        let deferred = Q.defer();
+        const promise = deferred.promise;
 
-        var done = function(err, result) {
+        const done = function(err, result) {
             if (deferred) {
                 if (err) {
                     deferred.reject(err);
@@ -91,7 +91,7 @@ var TcpConnectionEndpoint = extend(EventEmitter, /** @lends TcpConnectionEndpoin
             }
         };
 
-        var server = net.createServer(function(socket) {
+        const server = net.createServer(function(socket) {
             _this._onConnection(socket);
         });
 
@@ -120,33 +120,33 @@ var TcpConnectionEndpoint = extend(EventEmitter, /** @lends TcpConnectionEndpoin
     },
 
     _onConnection: function(socket) {
-        var _this = this;
+        const _this = this;
 
-        var connectionInfo = {
+        const connectionInfo = {
             socket: socket,
         };
 
-        var phase = 0;
-        var rxBuffer = null;
+        let phase = 0;
+        let rxBuffer = null;
 
-        var write = function() {
+        const write = function() {
             return socket.write.apply(socket, arguments);
         };
 
-        var onData = function(chunk) {
+        const onData = function(chunk) {
             if (phase < 1000) {
-                var buffer;
+                let buffer;
                 if (rxBuffer) {
                     buffer = Buffer.concat([ rxBuffer, chunk ]);
                 } else {
                     buffer = chunk;
                 }
 
-                var start = 0, index = 0;
+                let start = 0, index = 0;
 
-                var processNextLine;
+                let processNextLine;
 
-                var callback = function(err, result, transition) {
+                const callback = function(err, result, transition) {
                     if (err) {
                         write('-ERROR: ' + JSON.stringify(err.toString()) + '\r\n');
                     } else {
@@ -165,8 +165,8 @@ var TcpConnectionEndpoint = extend(EventEmitter, /** @lends TcpConnectionEndpoin
                     }
                 };
 
-                var processLine = function(line) {
-                    var md;
+                const processLine = function(line) {
+                    let md;
                     if ((md = /^CONNECT (.*)$/.exec(line))) {
                         connectionInfo.viaTag = md [1];
                         callback(null, '+OK');
@@ -174,7 +174,7 @@ var TcpConnectionEndpoint = extend(EventEmitter, /** @lends TcpConnectionEndpoin
                         connectionInfo.password = md [1];
                         callback(null, '+OK');
                     } else if ((md = /^CHANNELLIST$/.exec(line))) {
-                        var response = _.reduce(_this.channels, function(memo, channel, index) {
+                        const response = _.reduce(_this.channels, function(memo, channel, index) {
                             if (channel) {
                                 memo.push('*' + index + ':' + channel);
                             }
@@ -199,7 +199,7 @@ var TcpConnectionEndpoint = extend(EventEmitter, /** @lends TcpConnectionEndpoin
                         while (index < buffer.length) {
                             if ((buffer [index] === 13) || (buffer [index] === 10)) {
                                 if (start < index) {
-                                    var line = buffer.toString('utf8', start, index);
+                                    const line = buffer.toString('utf8', start, index);
                                     start = index + 1;
                                     processLine(line);
                                     break;
@@ -231,15 +231,15 @@ var TcpConnectionEndpoint = extend(EventEmitter, /** @lends TcpConnectionEndpoin
             }
         };
 
-        var onEnd = function() {
+        const onEnd = function() {
 
         };
 
-        var onError = function() {
+        const onError = function() {
 
         };
 
-        var onTimeout = function() {
+        const onTimeout = function() {
 
         };
 

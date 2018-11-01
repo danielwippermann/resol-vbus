@@ -3,8 +3,8 @@
 
 
 
-var Q = require('q');
-var SerialPort;
+const Q = require('q');
+let SerialPort;
 try {
     SerialPort = require('serialport');
 } catch (ex) {
@@ -12,12 +12,12 @@ try {
 }
 
 
-var Connection = require('./connection');
-var _ = require('./lodash');
+const Connection = require('./connection');
+const _ = require('./lodash');
 
 
 
-var optionKeys = [
+const optionKeys = [
     'path',
 ];
 
@@ -80,7 +80,7 @@ var SerialConnection = Connection.extend(/** @lends SerialConnection# */ {
 
     disconnect: function() {
         if (this.connectionState !== SerialConnection.STATE_DISCONNECTED) {
-            var previousConnectionState = this.connectionState;
+            const previousConnectionState = this.connectionState;
 
             this._setConnectionState(SerialConnection.STATE_DISCONNECTING);
 
@@ -93,14 +93,14 @@ var SerialConnection = Connection.extend(/** @lends SerialConnection# */ {
     },
 
     _connect: function() {
-        var _this = this;
+        const _this = this;
 
-        var serialPort;
+        let serialPort;
 
-        var deferred = Q.defer();
-        var promise = deferred.promise;
+        let deferred = Q.defer();
+        const promise = deferred.promise;
 
-        var done = function(err, result) {
+        const done = function(err, result) {
             if (deferred) {
                 if (err) {
                     deferred.reject(err);
@@ -111,15 +111,15 @@ var SerialConnection = Connection.extend(/** @lends SerialConnection# */ {
             }
         };
 
-        var onConnectionData = function(chunk) {
+        const onConnectionData = function(chunk) {
             serialPort.write(chunk);
         };
 
-        var onSerialPortData = function(chunk) {
+        const onSerialPortData = function(chunk) {
             _this._write(chunk);
         };
 
-        var onSerialPortTermination = function() {
+        const onSerialPortTermination = function() {
             _this.removeListener('data', onConnectionData);
 
             if (_this.serialPort !== serialPort) {
@@ -139,7 +139,7 @@ var SerialConnection = Connection.extend(/** @lends SerialConnection# */ {
 
                 _this.serialPort = null;
 
-                var timeout = _this.reconnectTimeout;
+                const timeout = _this.reconnectTimeout;
                 if (_this.reconnectTimeout < _this.reconnectTimeoutMax) {
                     _this.reconnectTimeout += _this.reconnectTimeoutIncr;
                 }
@@ -152,16 +152,16 @@ var SerialConnection = Connection.extend(/** @lends SerialConnection# */ {
             }
         };
 
-        var onEnd = function() {
+        const onEnd = function() {
             onSerialPortTermination();
         };
 
-        var onError = function() {
+        const onError = function() {
             serialPort.close();
             onSerialPortTermination();
         };
 
-        var onConnectionEstablished = function() {
+        const onConnectionEstablished = function() {
             _this.reconnectTimeout = 0;
 
             _this._setConnectionState(SerialConnection.STATE_CONNECTED);
@@ -171,17 +171,17 @@ var SerialConnection = Connection.extend(/** @lends SerialConnection# */ {
 
         this.on('data', onConnectionData);
 
-        var onCompletion = function(err) {
+        const onCompletion = function(err) {
             if (err) {
                 done(err);
             }
         };
 
-        var onDisconnect = function() {
+        const onDisconnect = function() {
             onError();
         };
 
-        var options = {
+        const options = {
             baudRate: 9600,
             dataBits: 8,
             stopBits: 1,

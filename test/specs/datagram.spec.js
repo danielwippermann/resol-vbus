@@ -3,8 +3,8 @@
 
 
 
-var _ = require('./lodash');
-var Datagram = require('./resol-vbus').Datagram;
+const _ = require('./lodash');
+const Datagram = require('./resol-vbus').Datagram;
 
 
 
@@ -17,7 +17,7 @@ describe('Datagram', function() {
         });
 
         it('should have a fromLiveBuffer function', function() {
-            var options = {
+            const options = {
                 destinationAddress: 0x2336,
                 sourceAddress: 0x3335,
                 command: 0x4334,
@@ -25,14 +25,14 @@ describe('Datagram', function() {
                 value: 0x63328330
             };
 
-            var buffer = new Buffer('aa362335332034433353300332630851', 'hex');
+            const buffer = new Buffer('aa362335332034433353300332630851', 'hex');
 
-            var datagram = Datagram.fromLiveBuffer(buffer, 0, buffer.length);
+            const datagram = Datagram.fromLiveBuffer(buffer, 0, buffer.length);
 
             expect(datagram).to.be.an.instanceOf(Datagram);
 
             _.forEach(options, function(refValue, key) {
-                var value = datagram [key];
+                const value = datagram [key];
 
                 expect(value).to.equal(refValue, key);
             });
@@ -48,9 +48,9 @@ describe('Datagram', function() {
         });
 
         it('should have reasonable defaults', function() {
-            var before = new Date();
-            var datagram = new Datagram();
-            var after = new Date();
+            const before = new Date();
+            const datagram = new Datagram();
+            const after = new Date();
 
             expect(datagram).to.be.an('object');
             expect(datagram.timestamp).to.be.an.instanceOf(Date);
@@ -64,7 +64,7 @@ describe('Datagram', function() {
         });
 
         it('should copy certain options', function() {
-            var options = {
+            const options = {
                 timestamp: new Date(0),
                 channel: 0x1337,
                 destinationAddress: 0x2336,
@@ -75,11 +75,11 @@ describe('Datagram', function() {
                 junk: 0x7331
             };
 
-            var datagram = new Datagram(options);
+            const datagram = new Datagram(options);
 
             expect(datagram).to.be.an('object');
             _.forEach(options, function(refValue, key) {
-                var value = datagram [key];
+                const value = datagram [key];
 
                 if (key === 'junk') {
                     refValue = undefined;
@@ -98,7 +98,7 @@ describe('Datagram', function() {
         });
 
         it('should work correctly', function() {
-            var options = {
+            const options = {
                 destinationAddress: 0x2336,
                 sourceAddress: 0x3335,
                 command: 0x4334,
@@ -106,9 +106,9 @@ describe('Datagram', function() {
                 value: 0x63328330
             };
 
-            var datagram = new Datagram(options);
+            const datagram = new Datagram(options);
 
-            var buffer = datagram.toLiveBuffer();
+            const buffer = datagram.toLiveBuffer();
 
             expect(buffer).to.be.an.instanceOf(Buffer);
             expect(buffer.length).to.equal(16);
@@ -124,7 +124,7 @@ describe('Datagram', function() {
         });
 
         it('should work correctly', function() {
-            var options = {
+            const options = {
                 destinationAddress: 0x2336,
                 sourceAddress: 0x3335,
                 command: 0x4334,
@@ -132,7 +132,7 @@ describe('Datagram', function() {
                 value: 0x63328330
             };
 
-            var datagram = new Datagram(options);
+            const datagram = new Datagram(options);
 
             expect(datagram.getProtocolVersion()).to.equal(0x20);
         });
@@ -146,7 +146,7 @@ describe('Datagram', function() {
         });
 
         it('should work correctly for non-notifications', function() {
-            var options = {
+            const options = {
                 destinationAddress: 0x2336,
                 sourceAddress: 0x3335,
                 command: 0x4334,
@@ -154,13 +154,13 @@ describe('Datagram', function() {
                 value: 0x63328330
             };
 
-            var datagram = new Datagram(options);
+            const datagram = new Datagram(options);
 
             expect(datagram.getInfo()).to.equal(0);
         });
 
         it('should work correctly for notifications', function() {
-            var options = {
+            const options = {
                 destinationAddress: 0x2336,
                 sourceAddress: 0x3335,
                 command: 0x0900,
@@ -168,7 +168,7 @@ describe('Datagram', function() {
                 value: 0x63328330
             };
 
-            var datagram = new Datagram(options);
+            const datagram = new Datagram(options);
 
             expect(datagram.getInfo()).to.equal(0x5333);
         });
@@ -182,7 +182,7 @@ describe('Datagram', function() {
         });
 
         it('should work correctly for non-notifications', function() {
-            var options = {
+            const options = {
                 timestamp: new Date(0),
                 channel: 0x13,
                 destinationAddress: 0x2336,
@@ -192,13 +192,13 @@ describe('Datagram', function() {
                 value: 0x63328330,
             };
 
-            var datagram = new Datagram(options);
+            const datagram = new Datagram(options);
 
             expect(datagram.getId()).to.equal('13_2336_3335_20_4334_0000');
         });
 
         it('should work correctly for notifications', function() {
-            var options = {
+            const options = {
                 timestamp: new Date(0),
                 channel: 0x13,
                 destinationAddress: 0x2336,
@@ -208,7 +208,7 @@ describe('Datagram', function() {
                 value: 0x63328330,
             };
 
-            var datagram = new Datagram(options);
+            const datagram = new Datagram(options);
 
             expect(datagram.getId()).to.equal('13_2336_3335_20_0900_5333');
         });
@@ -222,7 +222,7 @@ describe('Datagram', function() {
         });
 
         it('should work correctly for channel', function() {
-            var options = {
+            const options = {
                 timestamp: new Date(0),
                 channel: 0x13,
                 destinationAddress: 0x2336,
@@ -232,7 +232,7 @@ describe('Datagram', function() {
                 value: 0x63328330,
             };
 
-            var datagram = new Datagram(options);
+            const datagram = new Datagram(options);
 
             expect(datagram.compareTo(new Datagram(options))).to.equal(0);
 
@@ -246,7 +246,7 @@ describe('Datagram', function() {
         });
 
         it('should work correctly for destinationAddress', function() {
-            var options = {
+            const options = {
                 timestamp: new Date(0),
                 channel: 0x13,
                 destinationAddress: 0x2336,
@@ -256,7 +256,7 @@ describe('Datagram', function() {
                 value: 0x63328330,
             };
 
-            var datagram = new Datagram(options);
+            const datagram = new Datagram(options);
 
             expect(datagram.compareTo(new Datagram(options))).to.equal(0);
 
@@ -270,7 +270,7 @@ describe('Datagram', function() {
         });
 
         it('should work correctly for sourceAddress', function() {
-            var options = {
+            const options = {
                 timestamp: new Date(0),
                 channel: 0x13,
                 destinationAddress: 0x2336,
@@ -280,7 +280,7 @@ describe('Datagram', function() {
                 value: 0x63328330,
             };
 
-            var datagram = new Datagram(options);
+            const datagram = new Datagram(options);
 
             expect(datagram.compareTo(new Datagram(options))).to.equal(0);
 
@@ -294,7 +294,7 @@ describe('Datagram', function() {
         });
 
         it('should work correctly for command', function() {
-            var options = {
+            const options = {
                 timestamp: new Date(0),
                 channel: 0x13,
                 destinationAddress: 0x2336,
@@ -304,7 +304,7 @@ describe('Datagram', function() {
                 value: 0x63328330,
             };
 
-            var datagram = new Datagram(options);
+            const datagram = new Datagram(options);
 
             expect(datagram.compareTo(new Datagram(options))).to.equal(0);
 
@@ -318,7 +318,7 @@ describe('Datagram', function() {
         });
 
         it('should work correctly for info', function() {
-            var options = {
+            const options = {
                 timestamp: new Date(0),
                 channel: 0x13,
                 destinationAddress: 0x2336,
@@ -328,7 +328,7 @@ describe('Datagram', function() {
                 value: 0x63328330,
             };
 
-            var datagram = new Datagram(options);
+            const datagram = new Datagram(options);
 
             expect(datagram.compareTo(new Datagram(options))).to.equal(0);
 

@@ -3,14 +3,14 @@
 
 
 
-var moment = require('moment');
+const moment = require('moment');
 
 
-var vbus = require('./resol-vbus');
+const vbus = require('./resol-vbus');
 
 
 
-var HeaderSetConsolidator = vbus.HeaderSetConsolidator;
+const HeaderSetConsolidator = vbus.HeaderSetConsolidator;
 
 
 
@@ -23,11 +23,11 @@ describe('HeaderSetConsolidator', function() {
         });
 
         it('should have reasonable defaults', function() {
-            var before = new Date();
+            const before = new Date();
 
-            var hsc = new HeaderSetConsolidator();
+            const hsc = new HeaderSetConsolidator();
 
-            var after = new Date();
+            const after = new Date();
 
             expect(hsc).to.have.a.property('timestamp');
             expect(hsc.timestamp.getTime()).to.be.within(before.getTime(), after.getTime());
@@ -40,7 +40,7 @@ describe('HeaderSetConsolidator', function() {
         });
 
         it('should copy selected options', function() {
-            var options = {
+            const options = {
                 timestamp: new Date(1234567890),
                 interval: 1234,
                 timeToLive: 1337,
@@ -49,7 +49,7 @@ describe('HeaderSetConsolidator', function() {
                 junk: 'DO NOT COPY ME!',
             };
 
-            var hsc = new HeaderSetConsolidator(options);
+            const hsc = new HeaderSetConsolidator(options);
 
             expect(hsc.timestamp).to.equal(options.timestamp);
             expect(hsc.interval).to.equal(options.interval);
@@ -73,15 +73,15 @@ describe('HeaderSetConsolidator', function() {
         });
 
         promiseIt('should work correctly', function() {
-            var hsc = new HeaderSetConsolidator({
+            const hsc = new HeaderSetConsolidator({
 
                 interval: 1000,
 
             });
 
-            var onHeaderSet;
+            let onHeaderSet;
 
-            var before = Date.now();
+            const before = Date.now();
 
             return vbus.utils.promise(function(resolve, reject) {
                 onHeaderSet = sinon.spy(function() {
@@ -94,7 +94,7 @@ describe('HeaderSetConsolidator', function() {
 
                 hsc.startTimer();
             }).then(function() {
-                var after = Date.now();
+                const after = Date.now();
 
                 expect(after - before).to.be.within(0, 1200);
 
@@ -112,24 +112,24 @@ describe('HeaderSetConsolidator', function() {
     describe('#processHeaderSet', function() {
 
         it('should work correctly without options', function() {
-            var header1 = new vbus.Packet({
+            const header1 = new vbus.Packet({
                 channel: 1
             });
 
-            var header2 = new vbus.Packet({
+            const header2 = new vbus.Packet({
                 channel: 2
             });
 
-            var header3 = new vbus.Packet({
+            const header3 = new vbus.Packet({
                 channel: 3
             });
 
-            var headerSet = new vbus.HeaderSet();
+            const headerSet = new vbus.HeaderSet();
             headerSet.addHeaders([ header1, header2, header3 ]);
 
-            var hsc = new HeaderSetConsolidator();
+            const hsc = new HeaderSetConsolidator();
 
-            var onHeaderSetSpy = sinon.spy();
+            const onHeaderSetSpy = sinon.spy();
 
             hsc.on('headerSet', onHeaderSetSpy);
 
@@ -145,21 +145,21 @@ describe('HeaderSetConsolidator', function() {
         });
 
         it('should work correctly with minTimestamp', function() {
-            var header1 = new vbus.Packet({
+            const header1 = new vbus.Packet({
                 channel: 1
             });
 
-            var headerSet = new vbus.HeaderSet({
+            const headerSet = new vbus.HeaderSet({
                 headers: [ header1 ],
             });
 
-            var timestamp = moment.utc([ 2014, 3, 1 ]).valueOf();
+            const timestamp = moment.utc([ 2014, 3, 1 ]).valueOf();
 
-            var hsc = new HeaderSetConsolidator({
+            const hsc = new HeaderSetConsolidator({
                 minTimestamp: new Date(timestamp),
             });
 
-            var onHeaderSetSpy = sinon.spy();
+            const onHeaderSetSpy = sinon.spy();
 
             hsc.on('headerSet', onHeaderSetSpy);
 
@@ -180,21 +180,21 @@ describe('HeaderSetConsolidator', function() {
         });
 
         it('should work correctly with maxTimestamp', function() {
-            var header1 = new vbus.Packet({
+            const header1 = new vbus.Packet({
                 channel: 1
             });
 
-            var headerSet = new vbus.HeaderSet({
+            const headerSet = new vbus.HeaderSet({
                 headers: [ header1 ],
             });
 
-            var timestamp = moment.utc([ 2014, 3, 1 ]).valueOf();
+            const timestamp = moment.utc([ 2014, 3, 1 ]).valueOf();
 
-            var hsc = new HeaderSetConsolidator({
+            const hsc = new HeaderSetConsolidator({
                 maxTimestamp: new Date(timestamp),
             });
 
-            var onHeaderSetSpy = sinon.spy();
+            const onHeaderSetSpy = sinon.spy();
 
             hsc.on('headerSet', onHeaderSetSpy);
 
@@ -215,21 +215,21 @@ describe('HeaderSetConsolidator', function() {
         });
 
         it('should work correctly with interval', function() {
-            var header1 = new vbus.Packet({
+            const header1 = new vbus.Packet({
                 channel: 1
             });
 
-            var headerSet = new vbus.HeaderSet({
+            const headerSet = new vbus.HeaderSet({
                 headers: [ header1 ],
             });
 
-            var timestamp = moment.utc([ 2014, 3, 1 ]).valueOf();
+            const timestamp = moment.utc([ 2014, 3, 1 ]).valueOf();
 
-            var hsc = new HeaderSetConsolidator({
+            const hsc = new HeaderSetConsolidator({
                 interval: 3600,
             });
 
-            var onHeaderSetSpy = sinon.spy();
+            const onHeaderSetSpy = sinon.spy();
 
             hsc.on('headerSet', onHeaderSetSpy);
 
@@ -250,22 +250,22 @@ describe('HeaderSetConsolidator', function() {
         });
 
         it('should work correctly with timeToLive', function() {
-            var timestamp = moment.utc([ 2014, 3, 1 ]).valueOf();
+            const timestamp = moment.utc([ 2014, 3, 1 ]).valueOf();
 
-            var header1 = new vbus.Packet({
+            const header1 = new vbus.Packet({
                 timestamp: new Date(timestamp),
                 channel: 1,
             });
 
-            var headerSet = new vbus.HeaderSet({
+            const headerSet = new vbus.HeaderSet({
                 headers: [ header1 ],
             });
 
-            var hsc = new HeaderSetConsolidator({
+            const hsc = new HeaderSetConsolidator({
                 timeToLive: 3600,
             });
 
-            var onHeaderSetSpy = sinon.spy();
+            const onHeaderSetSpy = sinon.spy();
 
             hsc.on('headerSet', onHeaderSetSpy);
 

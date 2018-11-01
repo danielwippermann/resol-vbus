@@ -3,14 +3,14 @@
 
 
 
-var _ = require('./lodash');
-var vbus = require('./resol-vbus');
-var testUtils = require('./test-utils');
+const _ = require('./lodash');
+const vbus = require('./resol-vbus');
+const testUtils = require('./test-utils');
 
 
 
-var Packet = vbus.Packet;
-var Specification = vbus.Specification;
+const Packet = vbus.Packet;
+const Specification = vbus.Specification;
 
 
 
@@ -21,24 +21,24 @@ describe('Specification', function() {
         it('should be a constructor function', function() {
             expect(Specification).to.be.a('function');
 
-            var spec = new Specification();
+            const spec = new Specification();
 
             expect(spec).to.be.an.instanceOf(Specification);
         });
 
         it('should have resonable defaults', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
             expect(spec.language).to.equal('en');
         });
 
         it('should copy selected options', function() {
-            var options = {
+            const options = {
                 language: 'de',
                 junk: 'JUNK'
             };
 
-            var spec = new Specification(options);
+            const spec = new Specification(options);
 
             expect(spec.language).to.equal(options.language);
             expect(spec.junk).to.equal(undefined);
@@ -50,7 +50,7 @@ describe('Specification', function() {
 
     describe('.loadSpecificationData', function() {
 
-        var rawSpecificationData1 = {
+        const rawSpecificationData1 = {
             'filteredPacketFieldSpecs': [{
                 'filteredPacketFieldId': 'DemoValue1',
                 'packetId': '00_0010_7722_10_0100',
@@ -87,10 +87,10 @@ describe('Specification', function() {
             }]
         };
 
-        var checkSpecificationData1 = function(specData) {
+        const checkSpecificationData1 = function(specData) {
             expect(specData).to.be.an('object');
 
-            var fpfs = specData.filteredPacketFieldSpecs;
+            const fpfs = specData.filteredPacketFieldSpecs;
 
             expect(fpfs).to.be.an('array');
             expect(fpfs.length).to.equal(2);
@@ -124,7 +124,7 @@ describe('Specification', function() {
         });
 
         it('should work correctly without arguments', function() {
-            var specData = Specification.loadSpecificationData();
+            const specData = Specification.loadSpecificationData();
 
             expect(specData).to.be.an('object');
             expect(specData.units).to.be.an('object', 'units');
@@ -137,17 +137,17 @@ describe('Specification', function() {
         });
 
         it('should work correctly with raw spec data', function() {
-            var rawSpecData = rawSpecificationData1;
+            const rawSpecData = rawSpecificationData1;
 
-            var specData = Specification.loadSpecificationData(rawSpecData);
+            const specData = Specification.loadSpecificationData(rawSpecData);
 
             checkSpecificationData1(specData);
         });
 
         it('should work correctly as part of the constructor', function() {
-            var rawSpecData = rawSpecificationData1;
+            const rawSpecData = rawSpecificationData1;
 
-            var spec = new Specification({
+            const spec = new Specification({
                 specificationData: rawSpecData
             });
 
@@ -157,7 +157,7 @@ describe('Specification', function() {
 
     describe('.storeSpecificationData', function() {
 
-        var rawSpecificationData1 = {
+        const rawSpecificationData1 = {
             'filteredPacketFieldSpecs': [{
                 'filteredPacketFieldId': 'DemoValue1',
                 'packetId': '00_0010_7722_10_0100',
@@ -201,7 +201,7 @@ describe('Specification', function() {
         });
 
         it('should work correctly without arguments', function() {
-            var rawSpecData = Specification.storeSpecificationData();
+            const rawSpecData = Specification.storeSpecificationData();
 
             expect(rawSpecData).to.be.an('object');
             expect(rawSpecData.units).to.equal(undefined);
@@ -214,9 +214,9 @@ describe('Specification', function() {
         });
 
         it('should work correctly with an unfiltered spec', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var rawSpecData = Specification.storeSpecificationData(spec);
+            const rawSpecData = Specification.storeSpecificationData(spec);
 
             expect(rawSpecData).to.be.an('object');
             expect(rawSpecData.units).to.equal(undefined);
@@ -229,13 +229,13 @@ describe('Specification', function() {
         });
 
         it('should work correctly with a filtered spec', function() {
-            var rawSpecDataInput = rawSpecificationData1;
+            const rawSpecDataInput = rawSpecificationData1;
 
-            var spec = new Specification({
+            const spec = new Specification({
                 specificationData: rawSpecDataInput
             });
 
-            var rawSpecData = Specification.storeSpecificationData(spec);
+            const rawSpecData = Specification.storeSpecificationData(spec);
 
             expect(rawSpecData).to.eql(rawSpecDataInput);
         });
@@ -249,17 +249,17 @@ describe('Specification', function() {
         });
 
         it('should work correctly for known units', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var unit = spec.getUnitById('None');
+            const unit = spec.getUnitById('None');
 
             expect(unit).to.be.an('object');
         });
 
         it('should work correctly for unknown units', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var unit = spec.getUnitById('Unknown');
+            const unit = spec.getUnitById('Unknown');
 
             expect(unit).to.equal(undefined);
         });
@@ -273,17 +273,17 @@ describe('Specification', function() {
         });
 
         it('should work correctly for known types', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var unit = spec.getTypeById('Number_1_None');
+            const unit = spec.getTypeById('Number_1_None');
 
             expect(unit).to.be.an('object');
         });
 
         it('should work correctly for unknown types', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var unit = spec.getTypeById('Unknown');
+            const unit = spec.getTypeById('Unknown');
 
             expect(unit).to.equal(undefined);
         });
@@ -297,9 +297,9 @@ describe('Specification', function() {
         });
 
         it('should work correctly with a number pair', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var deviceSpec = spec.getDeviceSpecification(0x7721, 0x0010);
+            const deviceSpec = spec.getDeviceSpecification(0x7721, 0x0010);
 
             expect(deviceSpec).to.be.an('object');
             expect(deviceSpec.deviceId).to.be.a('string');
@@ -311,9 +311,9 @@ describe('Specification', function() {
         });
 
         it('should work correctly with a number triple', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var deviceSpec = spec.getDeviceSpecification(0x7721, 0x0010, 1);
+            const deviceSpec = spec.getDeviceSpecification(0x7721, 0x0010, 1);
 
             expect(deviceSpec).to.be.an('object');
             expect(deviceSpec.deviceId).to.be.a('string');
@@ -325,15 +325,15 @@ describe('Specification', function() {
         });
 
         it('should work correctly with a header and "source"', function() {
-            var header = new Packet({
+            const header = new Packet({
                 channel: 1,
                 destinationAddress: 0x0010,
                 sourceAddress: 0x7721,
             });
 
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var deviceSpec = spec.getDeviceSpecification(header, 'source');
+            const deviceSpec = spec.getDeviceSpecification(header, 'source');
 
             expect(deviceSpec).to.be.an('object');
             expect(deviceSpec.deviceId).to.be.a('string');
@@ -345,15 +345,15 @@ describe('Specification', function() {
         });
 
         it('should work correctly with a header and "destination"', function() {
-            var header = new Packet({
+            const header = new Packet({
                 channel: 1,
                 destinationAddress: 0x0010,
                 sourceAddress: 0x7721,
             });
 
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var deviceSpec = spec.getDeviceSpecification(header, 'destination');
+            const deviceSpec = spec.getDeviceSpecification(header, 'destination');
 
             expect(deviceSpec).to.be.an('object');
             expect(deviceSpec.deviceId).to.be.a('string');
@@ -362,9 +362,9 @@ describe('Specification', function() {
         });
 
         it('should work correctly for an unknown device', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var deviceSpec = spec.getDeviceSpecification(0x772F, 0x0010, 1);
+            const deviceSpec = spec.getDeviceSpecification(0x772F, 0x0010, 1);
 
             expect(deviceSpec).to.be.an('object');
             expect(deviceSpec.deviceId).to.be.a('string');
@@ -384,9 +384,9 @@ describe('Specification', function() {
         });
 
         it('should work correctly with a number quadruple', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var packetSpec = spec.getPacketSpecification(1, 0x0010, 0x7721, 0x0100);
+            const packetSpec = spec.getPacketSpecification(1, 0x0010, 0x7721, 0x0100);
 
             expect(packetSpec).to.be.an('object');
             expect(packetSpec.packetId).to.be.a('string');
@@ -402,16 +402,16 @@ describe('Specification', function() {
         });
 
         it('should work correctly with a header', function() {
-            var header = new Packet({
+            const header = new Packet({
                 channel: 1,
                 destinationAddress: 0x0010,
                 sourceAddress: 0x7721,
                 command: 0x0100,
             });
 
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var packetSpec = spec.getPacketSpecification(header);
+            const packetSpec = spec.getPacketSpecification(header);
 
             expect(packetSpec).to.be.an('object');
             expect(packetSpec.packetId).to.be.a('string');
@@ -422,9 +422,9 @@ describe('Specification', function() {
         });
 
         it('should work correctly with a packet ID string with protocol version', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var packetSpec = spec.getPacketSpecification('01_0010_7721_10_0100');
+            const packetSpec = spec.getPacketSpecification('01_0010_7721_10_0100');
 
             expect(packetSpec).to.be.an('object');
             expect(packetSpec.packetId).to.be.a('string');
@@ -435,9 +435,9 @@ describe('Specification', function() {
         });
 
         it('should work correctly with a packet ID string without protocol version', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var packetSpec = spec.getPacketSpecification('01_0010_7721_0100');
+            const packetSpec = spec.getPacketSpecification('01_0010_7721_0100');
 
             expect(packetSpec).to.be.an('object');
             expect(packetSpec.packetId).to.be.a('string');
@@ -448,9 +448,9 @@ describe('Specification', function() {
         });
 
         it('should work correctly for an unknown packet', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var packetSpec = spec.getPacketSpecification(1, 0x0010, 0x772F, 0x0100);
+            const packetSpec = spec.getPacketSpecification(1, 0x0010, 0x772F, 0x0100);
 
             expect(packetSpec).to.be.an('object');
             expect(packetSpec.packetId).to.be.a('string');
@@ -461,9 +461,9 @@ describe('Specification', function() {
         });
 
         it('should work correctly with a packet field ID string', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var packetSpec = spec.getPacketSpecification('01_0010_7721_10_0100_000_2_0');
+            const packetSpec = spec.getPacketSpecification('01_0010_7721_10_0100_000_2_0');
 
             expect(packetSpec).to.be.an('object');
             expect(packetSpec.packetId).to.be.a('string');
@@ -477,7 +477,7 @@ describe('Specification', function() {
 
     describe('#getPacketFieldSpecification', function() {
 
-        var rawSpecificationData1 = {
+        const rawSpecificationData1 = {
             'filteredPacketFieldSpecs': [{
                 'filteredPacketFieldId': 'DemoValue1',
                 'packetId': '00_0010_7722_10_0100',
@@ -498,11 +498,11 @@ describe('Specification', function() {
         });
 
         it('should work correctly with a packet spec and a field ID', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var packetSpec = spec.getPacketSpecification(1, 0x0010, 0x7721, 0x0100);
+            const packetSpec = spec.getPacketSpecification(1, 0x0010, 0x7721, 0x0100);
 
-            var packetFieldSpec = spec.getPacketFieldSpecification(packetSpec, '000_2_0');
+            const packetFieldSpec = spec.getPacketFieldSpecification(packetSpec, '000_2_0');
 
             expect(packetFieldSpec).to.be.an('object');
             expect(packetFieldSpec.fieldId).to.be.a('string');
@@ -520,9 +520,9 @@ describe('Specification', function() {
         });
 
         it('should work correctly with a packet field ID string with protocol version', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
+            const packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
 
             expect(packetFieldSpec).to.be.an('object');
             expect(packetFieldSpec.fieldId).to.be.a('string');
@@ -540,9 +540,9 @@ describe('Specification', function() {
         });
 
         it('should work correctly with a packet field ID string without protocol version', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_0100_000_2_0');
+            const packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_0100_000_2_0');
 
             expect(packetFieldSpec).to.be.an('object');
             expect(packetFieldSpec.fieldId).to.be.a('string');
@@ -560,39 +560,39 @@ describe('Specification', function() {
         });
 
         it('should work correctly for a missing packet spec', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var packetFieldSpec = spec.getPacketFieldSpecification(null, '000_2_0');
+            const packetFieldSpec = spec.getPacketFieldSpecification(null, '000_2_0');
 
             expect(packetFieldSpec).to.equal(undefined);
         });
 
         it('should work correctly for a missing field ID', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var packetSpec = spec.getPacketSpecification(1, 0x0010, 0x7721, 0x0100);
+            const packetSpec = spec.getPacketSpecification(1, 0x0010, 0x7721, 0x0100);
 
-            var packetFieldSpec = spec.getPacketFieldSpecification(packetSpec, null);
+            const packetFieldSpec = spec.getPacketFieldSpecification(packetSpec, null);
 
             expect(packetFieldSpec).to.equal(undefined);
         });
 
         it('should work correctly for an unknown field ID', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var packetSpec = spec.getPacketSpecification(1, 0x0010, 0x7721, 0x0100);
+            const packetSpec = spec.getPacketSpecification(1, 0x0010, 0x7721, 0x0100);
 
-            var packetFieldSpec = spec.getPacketFieldSpecification(packetSpec, '000_0_0');
+            const packetFieldSpec = spec.getPacketFieldSpecification(packetSpec, '000_0_0');
 
             expect(packetFieldSpec).to.equal(undefined);
         });
 
         it('should work correctly with a filtered spec and a custom ID string', function() {
-            var spec = new Specification({
+            const spec = new Specification({
                 specificationData: rawSpecificationData1
             });
 
-            var packetFieldSpec = spec.getPacketFieldSpecification('DemoValue1');
+            const packetFieldSpec = spec.getPacketFieldSpecification('DemoValue1');
 
             expect(packetFieldSpec).to.be.an('object');
             expect(packetFieldSpec.fieldId).to.be.a('string');
@@ -617,93 +617,93 @@ describe('Specification', function() {
 
 
         it('should work correctly with all arguments', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
+            const packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
 
-            var buffer = new Buffer('b8', 'hex');
+            const buffer = new Buffer('b8', 'hex');
 
-            var setRawValue = 20.5;
+            const setRawValue = 20.5;
 
             spec.setRawValue(packetFieldSpec, setRawValue, buffer, 0, buffer.length);
 
-            var rawValue = spec.getRawValue(packetFieldSpec, buffer, 0, buffer.length);
+            const rawValue = spec.getRawValue(packetFieldSpec, buffer, 0, buffer.length);
 
             expect(rawValue).to.be.closeTo(20.5, 0.05);
         });
 
         it('should work correctly without start and end arguments', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
+            const packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
 
-            var buffer = new Buffer('b822', 'hex');
+            const buffer = new Buffer('b822', 'hex');
 
-            var setRawValue = 999.9;
+            const setRawValue = 999.9;
 
             spec.setRawValue(packetFieldSpec, setRawValue, buffer);
 
-            var rawValue = spec.getRawValue(packetFieldSpec, buffer);
+            const rawValue = spec.getRawValue(packetFieldSpec, buffer);
 
             expect(rawValue).to.be.closeTo(999.9, 0.05);
         });
 
         it('should work correctly with a too small buffer', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
+            const packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
 
-            var buffer = new Buffer('', 'hex');
+            const buffer = new Buffer('', 'hex');
 
-            var setRawValue = 12.3;
+            const setRawValue = 12.3;
 
             spec.setRawValue(packetFieldSpec, setRawValue, buffer, 0, buffer.length);
 
-            var rawValue = spec.getRawValue(packetFieldSpec, buffer, 0, buffer.length);
+            const rawValue = spec.getRawValue(packetFieldSpec, buffer, 0, buffer.length);
 
             expect(rawValue).to.equal(null);
         });
 
         it('should work correctly with a partial buffer', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
+            const packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
 
-            var buffer = new Buffer('b8', 'hex');
+            const buffer = new Buffer('b8', 'hex');
 
-            var setRawValue = 12.3;
+            const setRawValue = 12.3;
 
             spec.setRawValue(packetFieldSpec, setRawValue, buffer, 0, buffer.length);
 
-            var rawValue = spec.getRawValue(packetFieldSpec, buffer, 0, buffer.length);
+            const rawValue = spec.getRawValue(packetFieldSpec, buffer, 0, buffer.length);
 
             expect(rawValue).to.be.closeTo(12.3, 0.05);
         });
 
         it('should work correctly for an unknown packet field spec', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var buffer = new Buffer('b822', 'hex');
+            const buffer = new Buffer('b822', 'hex');
 
-            var setRawValue = 12.3;
+            const setRawValue = 12.3;
 
             spec.setRawValue(null, setRawValue, buffer, 0, buffer.length);
 
-            var rawValue = spec.getRawValue(null, buffer, 0, buffer.length);
+            const rawValue = spec.getRawValue(null, buffer, 0, buffer.length);
 
             expect(rawValue).to.equal(null);
         });
 
         it('should work correctly without a buffer', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
+            const packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
 
-            var setRawValue = 12.3;
+            const setRawValue = 12.3;
 
             spec.setRawValue(packetFieldSpec, setRawValue);
 
-            var rawValue = spec.getRawValue(packetFieldSpec);
+            const rawValue = spec.getRawValue(packetFieldSpec);
 
             expect(rawValue).to.equal(null);
         });
@@ -718,75 +718,75 @@ describe('Specification', function() {
         });
 
         it('should work correctly with all arguments', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
+            const packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
 
-            var buffer = new Buffer('b822', 'hex');
+            const buffer = new Buffer('b822', 'hex');
 
-            var rawValue = spec.getRawValue(packetFieldSpec, buffer, 0, buffer.length);
+            const rawValue = spec.getRawValue(packetFieldSpec, buffer, 0, buffer.length);
 
             expect(rawValue).to.be.closeTo(888.8, 0.05);
         });
 
         it('should work correctly without start and end arguments', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
+            const packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
 
-            var buffer = new Buffer('b822', 'hex');
+            const buffer = new Buffer('b822', 'hex');
 
-            var rawValue = spec.getRawValue(packetFieldSpec, buffer);
+            const rawValue = spec.getRawValue(packetFieldSpec, buffer);
 
             expect(rawValue).to.be.closeTo(888.8, 0.05);
         });
 
         it('should work correctly with a too small buffer', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
+            const packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
 
-            var buffer = new Buffer('', 'hex');
+            const buffer = new Buffer('', 'hex');
 
-            var rawValue = spec.getRawValue(packetFieldSpec, buffer, 0, buffer.length);
+            const rawValue = spec.getRawValue(packetFieldSpec, buffer, 0, buffer.length);
 
             expect(rawValue).to.equal(null);
         });
 
         it('should work correctly with a partial buffer', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
+            const packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
 
-            var buffer = new Buffer('b8', 'hex');
+            const buffer = new Buffer('b8', 'hex');
 
-            var rawValue = spec.getRawValue(packetFieldSpec, buffer, 0, buffer.length);
+            const rawValue = spec.getRawValue(packetFieldSpec, buffer, 0, buffer.length);
 
             expect(rawValue).to.be.closeTo(18.4, 0.05);
         });
 
         it('should work correctly for an unknown packet field spec', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var buffer = new Buffer('b822', 'hex');
+            const buffer = new Buffer('b822', 'hex');
 
-            var rawValue = spec.getRawValue(null, buffer, 0, buffer.length);
+            const rawValue = spec.getRawValue(null, buffer, 0, buffer.length);
 
             expect(rawValue).to.equal(null);
         });
 
         it('should work correctly without a buffer', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
+            const packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
 
-            var rawValue = spec.getRawValue(packetFieldSpec);
+            const rawValue = spec.getRawValue(packetFieldSpec);
 
             expect(rawValue).to.equal(null);
         });
 
         it('should work correctly with a filtered spec and conversion', function() {
-            var rawSpecificationData1 = {
+            const rawSpecificationData1 = {
                 'filteredPacketFieldSpecs': [{
                     'filteredPacketFieldId': 'DemoValue1',
                     'packetId': '01_0010_7721_10_0100',
@@ -795,15 +795,15 @@ describe('Specification', function() {
                     'type': 'Number_0_1_DegreesFahrenheit',
                 }]
             };
-            var spec = new Specification({
+            const spec = new Specification({
                 specificationData: rawSpecificationData1,
             });
 
-            var packetFieldSpec = spec.getPacketFieldSpecification('DemoValue1');
+            const packetFieldSpec = spec.getPacketFieldSpecification('DemoValue1');
 
-            var buffer = new Buffer('0000', 'hex');
+            const buffer = new Buffer('0000', 'hex');
 
-            var rawValue = spec.getRawValue(packetFieldSpec, buffer, 0, buffer.length);
+            const rawValue = spec.getRawValue(packetFieldSpec, buffer, 0, buffer.length);
 
             expect(rawValue).to.be.closeTo(32.0, 0.05);
         });
@@ -817,75 +817,75 @@ describe('Specification', function() {
         });
 
         it('should work correctly with all arguments', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
+            const packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
 
-            var buffer = new Buffer('b822', 'hex');
+            const buffer = new Buffer('b822', 'hex');
 
-            var rawValue = spec.getRoundedRawValue(packetFieldSpec, buffer, 0, buffer.length);
+            const rawValue = spec.getRoundedRawValue(packetFieldSpec, buffer, 0, buffer.length);
 
             expect(rawValue).to.be.equal(888.8);
         });
 
         it('should work correctly without start and end arguments', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
+            const packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
 
-            var buffer = new Buffer('b822', 'hex');
+            const buffer = new Buffer('b822', 'hex');
 
-            var rawValue = spec.getRoundedRawValue(packetFieldSpec, buffer);
+            const rawValue = spec.getRoundedRawValue(packetFieldSpec, buffer);
 
             expect(rawValue).to.be.equal(888.8);
         });
 
         it('should work correctly with a too small buffer', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
+            const packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
 
-            var buffer = new Buffer('', 'hex');
+            const buffer = new Buffer('', 'hex');
 
-            var rawValue = spec.getRoundedRawValue(packetFieldSpec, buffer, 0, buffer.length);
+            const rawValue = spec.getRoundedRawValue(packetFieldSpec, buffer, 0, buffer.length);
 
             expect(rawValue).to.equal(0);
         });
 
         it('should work correctly with a partial buffer', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
+            const packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
 
-            var buffer = new Buffer('b8', 'hex');
+            const buffer = new Buffer('b8', 'hex');
 
-            var rawValue = spec.getRoundedRawValue(packetFieldSpec, buffer, 0, buffer.length);
+            const rawValue = spec.getRoundedRawValue(packetFieldSpec, buffer, 0, buffer.length);
 
             expect(rawValue).to.be.equal(18.4);
         });
 
         it('should work correctly for an unknown packet field spec', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var buffer = new Buffer('b822', 'hex');
+            const buffer = new Buffer('b822', 'hex');
 
-            var rawValue = spec.getRoundedRawValue(null, buffer, 0, buffer.length);
+            const rawValue = spec.getRoundedRawValue(null, buffer, 0, buffer.length);
 
             expect(rawValue).to.equal(null);
         });
 
         it('should work correctly without a buffer', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
+            const packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
 
-            var rawValue = spec.getRoundedRawValue(packetFieldSpec);
+            const rawValue = spec.getRoundedRawValue(packetFieldSpec);
 
             expect(rawValue).to.equal(0);
         });
 
         it('should work correctly with a filtered spec and conversion', function() {
-            var rawSpecificationData1 = {
+            const rawSpecificationData1 = {
                 'filteredPacketFieldSpecs': [{
                     'filteredPacketFieldId': 'DemoValue1',
                     'packetId': '01_0010_7721_10_0100',
@@ -894,15 +894,15 @@ describe('Specification', function() {
                     'type': 'Number_0_1_DegreesFahrenheit',
                 }]
             };
-            var spec = new Specification({
+            const spec = new Specification({
                 specificationData: rawSpecificationData1,
             });
 
-            var packetFieldSpec = spec.getPacketFieldSpecification('DemoValue1');
+            const packetFieldSpec = spec.getPacketFieldSpecification('DemoValue1');
 
-            var buffer = new Buffer('0000', 'hex');
+            const buffer = new Buffer('0000', 'hex');
 
-            var rawValue = spec.getRoundedRawValue(packetFieldSpec, buffer, 0, buffer.length);
+            const rawValue = spec.getRoundedRawValue(packetFieldSpec, buffer, 0, buffer.length);
 
             expect(rawValue).to.be.equal(32);
         });
@@ -916,33 +916,33 @@ describe('Specification', function() {
         });
 
         it('should work correctly without conversion', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var invertedConversions = spec.invertConversions();
+            const invertedConversions = spec.invertConversions();
 
             expect(invertedConversions).to.equal(undefined);
         });
 
         it('should work correctly with conversions are not an array', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var invertedConversions = spec.invertConversions('string');
+            const invertedConversions = spec.invertConversions('string');
 
             expect(invertedConversions).to.equal('string');
         });
 
         it('should work correctly with empty conversions', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var invertedConversions = spec.invertConversions([]);
+            const invertedConversions = spec.invertConversions([]);
 
             expect(invertedConversions).an('array').lengthOf(0);
         });
 
         it('should work correctly with one conversion and a factor greater 1', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var invertedConversions = spec.invertConversions([{
+            const invertedConversions = spec.invertConversions([{
                 factor: 2
             }]);
 
@@ -951,9 +951,9 @@ describe('Specification', function() {
         });
 
         it('should work correctly with one conversion and a factor smaller 1', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var invertedConversions = spec.invertConversions([{
+            const invertedConversions = spec.invertConversions([{
                 factor: 0.5
             }]);
 
@@ -962,9 +962,9 @@ describe('Specification', function() {
         });
 
         it('should work correctly with one conversion and a factor of 0', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var invertedConversions = spec.invertConversions([{
+            const invertedConversions = spec.invertConversions([{
                 factor: 0
             }]);
 
@@ -973,9 +973,9 @@ describe('Specification', function() {
         });
 
         it('should work correctly with one conversion and a power of 0', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var invertedConversions = spec.invertConversions([{
+            const invertedConversions = spec.invertConversions([{
                 power: 0
             }]);
 
@@ -984,9 +984,9 @@ describe('Specification', function() {
         });
 
         it('should work correctly with one conversion and a power of 2', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var invertedConversions = spec.invertConversions([{
+            const invertedConversions = spec.invertConversions([{
                 power: 2
             }]);
 
@@ -995,9 +995,9 @@ describe('Specification', function() {
         });
 
         it('should work correctly with one conversion and a power of 0.5', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var invertedConversions = spec.invertConversions([{
+            const invertedConversions = spec.invertConversions([{
                 power: 0.5
             }]);
 
@@ -1006,9 +1006,9 @@ describe('Specification', function() {
         });
 
         it('should work correctly with one conversion and a power of -2', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var invertedConversions = spec.invertConversions([{
+            const invertedConversions = spec.invertConversions([{
                 power: -2
             }]);
 
@@ -1017,9 +1017,9 @@ describe('Specification', function() {
         });
 
         it('should work correctly with one conversion and an offset 1000', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var invertedConversions = spec.invertConversions([{
+            const invertedConversions = spec.invertConversions([{
                 offset: 1000
             }]);
 
@@ -1028,9 +1028,9 @@ describe('Specification', function() {
         });
 
         it('should work correctly with one conversion and an offset -500', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var invertedConversions = spec.invertConversions([{
+            const invertedConversions = spec.invertConversions([{
                 offset: -500
             }]);
 
@@ -1039,12 +1039,12 @@ describe('Specification', function() {
         });
 
         it('should work correctly with one conversion and an unit change', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var celsiusUnit = spec.getUnitById('DegreesCelsius');
-            var fahrenheitUnit = spec.getUnitById('DegreesFahrenheit');
+            const celsiusUnit = spec.getUnitById('DegreesCelsius');
+            const fahrenheitUnit = spec.getUnitById('DegreesFahrenheit');
 
-            var invertedConversions = spec.invertConversions([{
+            const invertedConversions = spec.invertConversions([{
                 sourceUnit: celsiusUnit,
                 targetUnit: fahrenheitUnit,
             }]);
@@ -1055,9 +1055,9 @@ describe('Specification', function() {
         });
 
         it('should work correctly with multiple conversions using a factor of 2 and an offset -10', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var invertedConversions = spec.invertConversions([{
+            const invertedConversions = spec.invertConversions([{
                 factor: 2
             }, {
                 offset: -10
@@ -1069,9 +1069,9 @@ describe('Specification', function() {
         });
 
         it('should work correctly with multiple conversions using an offset 10 and a factor of 0.5', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var invertedConversions = spec.invertConversions([{
+            const invertedConversions = spec.invertConversions([{
                 offset: 10
             }, {
                 factor: 0.5
@@ -1083,13 +1083,13 @@ describe('Specification', function() {
         });
 
         it('should work correctly with multiple conversions using a manual °C -> °F conversion', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var noneUnit = spec.getUnitById('None');
-            var celsiusUnit = spec.getUnitById('DegreesCelsius');
-            var fahrenheitUnit = spec.getUnitById('DegreesFahrenheit');
+            const noneUnit = spec.getUnitById('None');
+            const celsiusUnit = spec.getUnitById('DegreesCelsius');
+            const fahrenheitUnit = spec.getUnitById('DegreesFahrenheit');
 
-            var invertedConversions = spec.invertConversions([{
+            const invertedConversions = spec.invertConversions([{
                 factor: 1.8,
                 sourceUnit: celsiusUnit,
                 targetUnit: noneUnit,
@@ -1112,14 +1112,14 @@ describe('Specification', function() {
 
     describe('#convertRawValue', function() {
 
-        var specData = Specification.loadSpecificationData();
+        const specData = Specification.loadSpecificationData();
 
-        var unitsByFamily = {};
+        const unitsByFamily = {};
 
-        var knownFamilyUnitCodes = [];
+        const knownFamilyUnitCodes = [];
 
         _.forEach(specData.units, function(unit) {
-            var uf = unit.unitFamily;
+            const uf = unit.unitFamily;
             if (uf) {
                 if (!_.has(unitsByFamily, uf)) {
                     unitsByFamily [uf] = [];
@@ -1130,9 +1130,9 @@ describe('Specification', function() {
             }
         });
 
-        var content = [];
+        const content = [];
         _.forEach(_.keys(unitsByFamily).sort(), function(uf) {
-            var units = unitsByFamily [uf];
+            const units = unitsByFamily [uf];
 
             content.push('describe(\'Unit Family ' + JSON.stringify(uf) + '\', function() {');
             content.push('');
@@ -1140,7 +1140,7 @@ describe('Specification', function() {
             // content.push('');
 
             _.forEach(units, function(sourceUnit, index) {
-                var targetUnit = units [index + 1] || units [0];
+                const targetUnit = units [index + 1] || units [0];
 
                 content.push('it(\'should convert from ' + JSON.stringify(sourceUnit.unitCode) + ' to ' + JSON.stringify(targetUnit.unitCode) + '\', function() {');
                 content.push('expectConversion(0, \'' + sourceUnit.unitCode + '\', \'' + targetUnit.unitCode + '\').closeTo(undefined, delta);');
@@ -1159,22 +1159,22 @@ describe('Specification', function() {
             expect(Specification.prototype).property('convertRawValue').a('function');
         });
 
-        var checkedSourceUnitCodes = [];
-        var checkedTargetUnitCodes = [];
+        const checkedSourceUnitCodes = [];
+        const checkedTargetUnitCodes = [];
 
-        var expectConversion = function(rawValue, sourceUnitCode, targetUnitCode) {
+        const expectConversion = function(rawValue, sourceUnitCode, targetUnitCode) {
             checkedSourceUnitCodes.push(sourceUnitCode);
             checkedTargetUnitCodes.push(targetUnitCode);
 
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var sourceUnit = specData.units [sourceUnitCode];
-            var targetUnit = specData.units [targetUnitCode];
+            const sourceUnit = specData.units [sourceUnitCode];
+            const targetUnit = specData.units [targetUnitCode];
 
             expect(sourceUnit).a('object').property('unitCode').equal(sourceUnitCode);
             expect(targetUnit).a('object').property('unitCode').equal(targetUnitCode);
 
-            var error, result;
+            let error, result;
             try {
                 result = spec.convertRawValue(rawValue, sourceUnit, targetUnit);
             } catch (ex) {
@@ -1187,7 +1187,7 @@ describe('Specification', function() {
             return expect(result).property('rawValue').a('number');
         };
 
-        var delta = 0.000000001;
+        const delta = 0.000000001;
 
         describe('Unit Family "Energy"', function() {
 
@@ -1367,15 +1367,15 @@ describe('Specification', function() {
 
         });
 
-        var expectConversions = function(rawValue, conversions) {
-            var spec = new Specification();
+        const expectConversions = function(rawValue, conversions) {
+            const spec = new Specification();
 
             conversions = _.map(conversions, function(conversion) {
-                var sourceUnitCode = conversion.sourceUnitCode;
-                var targetUnitCode = conversion.targetUnitCode;
+                const sourceUnitCode = conversion.sourceUnitCode;
+                const targetUnitCode = conversion.targetUnitCode;
 
-                var sourceUnit = sourceUnitCode && specData.units [sourceUnitCode];
-                var targetUnit = targetUnitCode && specData.units [targetUnitCode];
+                const sourceUnit = sourceUnitCode && specData.units [sourceUnitCode];
+                const targetUnit = targetUnitCode && specData.units [targetUnitCode];
 
                 if (sourceUnitCode) {
                     expect(sourceUnit).a('object').property('unitCode').equal(sourceUnitCode);
@@ -1393,7 +1393,7 @@ describe('Specification', function() {
                 };
             });
 
-            var error, result;
+            let error, result;
             try {
                 result = spec.convertRawValue(rawValue, conversions);
             } catch (ex) {
@@ -1569,49 +1569,49 @@ describe('Specification', function() {
         });
 
         it('should work correctly with all arguments', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
+            const packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
 
-            var textValue = spec.formatTextValueFromRawValue(packetFieldSpec, 888.8, 'DegreesCelsius');
+            const textValue = spec.formatTextValueFromRawValue(packetFieldSpec, 888.8, 'DegreesCelsius');
 
             expect(textValue).to.equal('888.8 °C');
         });
 
         it('should work correctly without unit', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
+            const packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
 
-            var textValue = spec.formatTextValueFromRawValue(packetFieldSpec, 888.8);
+            const textValue = spec.formatTextValueFromRawValue(packetFieldSpec, 888.8);
 
             expect(textValue).to.equal('888.8 °C');
         });
 
         it('should work correctly with "None" unit', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
+            const packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
 
-            var textValue = spec.formatTextValueFromRawValue(packetFieldSpec, 888.8, 'None');
+            const textValue = spec.formatTextValueFromRawValue(packetFieldSpec, 888.8, 'None');
 
             expect(textValue).to.equal('888.8');
         });
 
         it('should work correctly without raw value', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
+            const packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
 
-            var textValue = spec.formatTextValueFromRawValue(packetFieldSpec, null, 'None');
+            const textValue = spec.formatTextValueFromRawValue(packetFieldSpec, null, 'None');
 
             expect(textValue).to.equal('');
         });
 
         it('should work correctly without packet field spec', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var textValue = spec.formatTextValueFromRawValue(null, 888.8, 'DegreesCelsius');
+            const textValue = spec.formatTextValueFromRawValue(null, 888.8, 'DegreesCelsius');
 
             expect(textValue).to.equal('888.8 °C');
         });
@@ -1625,73 +1625,73 @@ describe('Specification', function() {
         });
 
         it('should work correctly for root type "Time"', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var textValue = spec.formatTextValueFromRawValueInternal(721, null, 'Time', 0, null);
+            const textValue = spec.formatTextValueFromRawValueInternal(721, null, 'Time', 0, null);
 
             expect(textValue).to.equal('12:01');
         });
 
         it('should work correctly for root type "Weektime"', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var textValue = spec.formatTextValueFromRawValueInternal(3 * 1440 + 721, null, 'Weektime', 0, null);
+            const textValue = spec.formatTextValueFromRawValueInternal(3 * 1440 + 721, null, 'Weektime', 0, null);
 
             expect(textValue).to.equal('Th,12:01');
         });
 
         it('should work correctly for root type "DateTime"', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var textValue = spec.formatTextValueFromRawValueInternal(409418262, null, 'DateTime', 0, null);
+            const textValue = spec.formatTextValueFromRawValueInternal(409418262, null, 'DateTime', 0, null);
 
             expect(textValue).to.equal('12/22/2013 15:17:42');
         });
 
         it('should work correctly for root type "Number" and precision "0"', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var textValue = spec.formatTextValueFromRawValueInternal(12345.6789, null, 'Number', 0, null);
+            const textValue = spec.formatTextValueFromRawValueInternal(12345.6789, null, 'Number', 0, null);
 
             expect(textValue).to.equal('12346');
         });
 
         it('should work correctly for root type "Number" and precision "1"', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var textValue = spec.formatTextValueFromRawValueInternal(12345.6789, null, 'Number', 1, null);
+            const textValue = spec.formatTextValueFromRawValueInternal(12345.6789, null, 'Number', 1, null);
 
             expect(textValue).to.equal('12345.7');
         });
 
         it('should work correctly for root type "Number" and precision "2"', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var textValue = spec.formatTextValueFromRawValueInternal(12345.6789, null, 'Number', 2, null);
+            const textValue = spec.formatTextValueFromRawValueInternal(12345.6789, null, 'Number', 2, null);
 
             expect(textValue).to.equal('12345.68');
         });
 
         it('should work correctly for root type "Number" and precision "3"', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var textValue = spec.formatTextValueFromRawValueInternal(12345.6789, null, 'Number', 3, null);
+            const textValue = spec.formatTextValueFromRawValueInternal(12345.6789, null, 'Number', 3, null);
 
             expect(textValue).to.equal('12345.679');
         });
 
         it('should work correctly for root type "Number" and precision "4"', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var textValue = spec.formatTextValueFromRawValueInternal(12345.6789, null, 'Number', 4, null);
+            const textValue = spec.formatTextValueFromRawValueInternal(12345.6789, null, 'Number', 4, null);
 
             expect(textValue).to.equal('12345.6789');
         });
 
         it('should work correctly for root type "Number" and precision "10"', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var textValue = spec.formatTextValueFromRawValueInternal(1.23456789, null, 'Number', 10, null);
+            const textValue = spec.formatTextValueFromRawValueInternal(1.23456789, null, 'Number', 10, null);
 
             expect(textValue).to.equal('1.2345678900');
         });
@@ -1700,7 +1700,7 @@ describe('Specification', function() {
 
     describe('#getPacketFieldsForHeaders', function() {
 
-        var header1 = new Packet({
+        const header1 = new Packet({
             channel: 1,
             destinationAddress: 0x0010,
             sourceAddress: 0x7722,
@@ -1709,7 +1709,7 @@ describe('Specification', function() {
             frameData: new Buffer('b8220000', 'hex'),
         });
 
-        var header2 = new Packet({
+        const header2 = new Packet({
             channel: 2,
             destinationAddress: 0x0010,
             sourceAddress: 0x7722,
@@ -1718,7 +1718,7 @@ describe('Specification', function() {
             frameData: new Buffer('000048dd', 'hex'),
         });
 
-        var header3 = new Packet({
+        const header3 = new Packet({
             channel: 3,
             destinationAddress: 0x0010,
             sourceAddress: 0x7E31,
@@ -1727,7 +1727,7 @@ describe('Specification', function() {
             frameData: new Buffer('2211221122112211221122112211221122112211', 'hex'), // data for five frames, but only four advertised
         });
 
-        var rawSpecificationData1 = {
+        const rawSpecificationData1 = {
             'filteredPacketFieldSpecs': [{
                 'filteredPacketFieldId': 'DemoValue1',
                 'packetId': '01_0010_7722_10_0100',
@@ -1745,7 +1745,7 @@ describe('Specification', function() {
             }]
         };
 
-        var rawSpecificationData2 = {
+        const rawSpecificationData2 = {
             'filteredPacketFieldSpecs': [{
                 'filteredPacketFieldId': 'DemoValue3',
                 'packetId': '01_0010_7722_10_0100',
@@ -1760,9 +1760,9 @@ describe('Specification', function() {
         });
 
         it('should work correctly with an unfiltered spec', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var pfs = spec.getPacketFieldsForHeaders([ header1, header2 ]);
+            const pfs = spec.getPacketFieldsForHeaders([ header1, header2 ]);
 
             expect(pfs).to.be.an('array');
             expect(pfs.length).to.equal(8);
@@ -1793,11 +1793,11 @@ describe('Specification', function() {
         });
 
         it('should work correctly with a filtered spec', function() {
-            var spec = new Specification({
+            const spec = new Specification({
                 specificationData: rawSpecificationData1
             });
 
-            var pfs = spec.getPacketFieldsForHeaders([ header1, header2 ]);
+            const pfs = spec.getPacketFieldsForHeaders([ header1, header2 ]);
 
             expect(pfs).to.be.an('array');
             expect(pfs.length).to.equal(2);
@@ -1824,11 +1824,11 @@ describe('Specification', function() {
         });
 
         it('should work correctly with a filtered spec but empty headers', function() {
-            var spec = new Specification({
+            const spec = new Specification({
                 specificationData: rawSpecificationData1
             });
 
-            var pfs = spec.getPacketFieldsForHeaders([]);
+            const pfs = spec.getPacketFieldsForHeaders([]);
 
             expect(pfs).to.be.an('array');
             expect(pfs.length).to.equal(2);
@@ -1855,11 +1855,11 @@ describe('Specification', function() {
         });
 
         it('should work correctly with a filtered spec and conversion', function() {
-            var spec = new Specification({
+            const spec = new Specification({
                 specificationData: rawSpecificationData2
             });
 
-            var pfs = spec.getPacketFieldsForHeaders([ header1, header2 ]);
+            const pfs = spec.getPacketFieldsForHeaders([ header1, header2 ]);
 
             expect(pfs).to.be.an('array');
             expect(pfs.length).to.equal(1);
@@ -1876,10 +1876,10 @@ describe('Specification', function() {
         });
 
         it('should work correctly for partial packets', function() {
-            var spec = new Specification({
+            const spec = new Specification({
             });
 
-            var pfs = spec.getPacketFieldsForHeaders([ header3 ]);
+            const pfs = spec.getPacketFieldsForHeaders([ header3 ]);
 
             expect(pfs).to.be.an('array');
             expect(pfs.length).to.equal(9);
@@ -1903,9 +1903,9 @@ describe('Specification', function() {
         });
 
         it('should work correctly with an unfiltered spec', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var header1 = new Packet({
+            const header1 = new Packet({
                 channel: 1,
                 destinationAddress: 0x0010,
                 sourceAddress: 0x7722,
@@ -1914,7 +1914,7 @@ describe('Specification', function() {
                 frameData: new Buffer('b8220000', 'hex'),
             });
 
-            var header2 = new Packet({
+            const header2 = new Packet({
                 channel: 2,
                 destinationAddress: 0x0010,
                 sourceAddress: 0x7722,
@@ -1923,7 +1923,7 @@ describe('Specification', function() {
                 frameData: new Buffer('000048dd', 'hex'),
             });
 
-            var pfs = spec.getPacketFieldsForHeaders([ header1, header2 ]);
+            let pfs = spec.getPacketFieldsForHeaders([ header1, header2 ]);
 
             // console.log(_.map(pfs, function(pf) {
             //     return '\'' + pf.id + '\':' + pf.rawValue + ',  // ' + pf.name;
@@ -1943,7 +1943,7 @@ describe('Specification', function() {
 
             expect(pfs).an('array').lengthOf(8);
 
-            var pf = pfs [0];
+            let pf = pfs [0];
             expect(pf).an('object');
             expect(pf).property('id').equal('01_0010_7722_10_0100_000_2_0');
             expect(pf).property('rawValue').closeTo(123.4, 0.05);
@@ -1965,9 +1965,9 @@ describe('Specification', function() {
         });
 
         xit('should work for a value with many parts', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var header1 = new Packet({
+            const header1 = new Packet({
                 channel: 1,
                 destinationAddress: 0x0000,
                 sourceAddress: 0x4010,
@@ -1975,9 +1975,9 @@ describe('Specification', function() {
                 frameCount: 6,
             });
 
-            var headers = [ header1 ];
+            const headers = [ header1 ];
 
-            var pfs = spec.getPacketFieldsForHeaders(headers);
+            let pfs = spec.getPacketFieldsForHeaders(headers);
 
             // console.log(_.map(pfs, function(pf) {
             //     return '\'' + pf.id + '\':' + pf.rawValue + ',  // ' + pf.name;
@@ -1997,7 +1997,7 @@ describe('Specification', function() {
 
             expect(pfs).an('array').lengthOf(8);
 
-            var pf = pfs [0];
+            const pf = pfs [0];
             expect(pf).an('object');
             expect(pf).property('id').equal('01_0000_4010_10_0100_002_2_0');
             expect(pf).property('rawValue').closeTo(123456789, 0.05);
@@ -2007,14 +2007,14 @@ describe('Specification', function() {
 
     describe('#getFilteredPacketFieldSpecificationsForHeaders', function() {
 
-        var header1 = new Packet({
+        const header1 = new Packet({
             channel: 1,
             destinationAddress: 0x0010,
             sourceAddress: 0x7722,
             command: 0x0100,
         });
 
-        var header2 = new Packet({
+        const header2 = new Packet({
             channel: 2,
             destinationAddress: 0x0010,
             sourceAddress: 0x7722,
@@ -2026,9 +2026,9 @@ describe('Specification', function() {
         });
 
         it('should work correctly', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var fpfs = spec.getFilteredPacketFieldSpecificationsForHeaders([ header1, header2 ]);
+            const fpfs = spec.getFilteredPacketFieldSpecificationsForHeaders([ header1, header2 ]);
 
             expect(fpfs).to.be.an('array');
             expect(fpfs.length).to.equal(8);
@@ -2049,9 +2049,9 @@ describe('Specification', function() {
         });
 
         it('should work correctly with empty headers', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var fpfs = spec.getFilteredPacketFieldSpecificationsForHeaders([]);
+            const fpfs = spec.getFilteredPacketFieldSpecificationsForHeaders([]);
 
             expect(fpfs).to.be.an('array');
             expect(fpfs.length).to.equal(0);
@@ -2059,7 +2059,7 @@ describe('Specification', function() {
 
     });
 
-    var nonBlockTypeHeader1 = new Packet({
+    const nonBlockTypeHeader1 = new Packet({
         channel: 1,
         destinationAddress: 0x0010,
         sourceAddress: 0x7721,
@@ -2069,7 +2069,7 @@ describe('Specification', function() {
         frameData: new Buffer('0108000064000000020a0000b822b82200000000010b00000b000000', 'hex'),
     });
 
-    var blockTypeHeader1 = new Packet({
+    const blockTypeHeader1 = new Packet({
         channel: 1,
         destinationAddress: 0x0015,
         sourceAddress: 0x7721,
@@ -2078,7 +2078,7 @@ describe('Specification', function() {
         frameData: new Buffer('0108000064000000020a0000b822b82200000000010b00000b000000', 'hex'),
     });
 
-    var blockTypeHeader2 = new Packet({
+    const blockTypeHeader2 = new Packet({
         channel: 1,
         destinationAddress: 0x0015,
         sourceAddress: 0x7721,
@@ -2132,7 +2132,7 @@ describe('Specification', function() {
 
     describe('#getBlockTypeSectionsForHeaders', function() {
 
-        var sectionKeys = [
+        const sectionKeys = [
             'sectionId',
             'surrogatePacketId',
             'packet',
@@ -2150,13 +2150,13 @@ describe('Specification', function() {
         });
 
         it('should work correctly', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var sections = spec.getBlockTypeSectionsForHeaders([ nonBlockTypeHeader1, blockTypeHeader1 ]);
+            const sections = spec.getBlockTypeSectionsForHeaders([ nonBlockTypeHeader1, blockTypeHeader1 ]);
 
             expect(sections).an('array').lengthOf(3);
 
-            var section = sections [0];
+            let section = sections [0];
             expect(section).an('object');
             expect(_.keys(section).sort()).eql(sectionKeys);
             expect(section).property('sectionId').a('string').equal('01_0015_7721_10_0100_01_08_4');
@@ -2171,7 +2171,7 @@ describe('Specification', function() {
             expect(section).property('frameData');
             testUtils.expectToBeABuffer(section.frameData);
 
-            var frameData = section.frameData;
+            let frameData = section.frameData;
             expect(frameData).property('length').a('number').equal(8);
             expect(frameData.toString('hex')).equal('0108000064000000');
 
@@ -2215,11 +2215,11 @@ describe('Specification', function() {
         });
 
         it('should work correctly #2', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var sections = spec.getBlockTypeSectionsForHeaders([ blockTypeHeader2 ]);
+            const sections = spec.getBlockTypeSectionsForHeaders([ blockTypeHeader2 ]);
 
-            var expectedValues = [
+            const expectedValues = [
                 [ '01_0015_7721_10_0100_02_01_4',  '01_8015_F61F_10_D62F',  0,  12, 2,  1,  4, '02010000230134024503f1d8' ],
                 [ '01_0015_7721_10_0100_02_05_2',  '01_8015_1F24_10_D610', 12,  24, 2,  5,  2, '020500002301000034020000' ],
                 [ '01_0015_7721_10_0100_02_08_8',  '01_8015_9C7A_10_CD43', 24,  36, 2,  8,  8, '02080000122334455667ffff' ],
@@ -2233,16 +2233,16 @@ describe('Specification', function() {
             expect(sections).an('array').lengthOf(expectedValues.length);
 
             _.forEach(sections, function(section, index) {
-                var ev = expectedValues [index];
+                const ev = expectedValues [index];
 
-                var sectionId = ev [0];
-                var surrogatePacketId = ev [1];
-                var startOffset = ev [2];
-                var endOffset = ev [3];
-                var frameCount = ev [4];
-                var type = ev [5];
-                var payloadCount = ev [6];
-                var frameData = ev [7];
+                const sectionId = ev [0];
+                const surrogatePacketId = ev [1];
+                const startOffset = ev [2];
+                const endOffset = ev [3];
+                const frameCount = ev [4];
+                const type = ev [5];
+                const payloadCount = ev [6];
+                const frameData = ev [7];
 
                 expect(section).an('object');
                 expect(_.keys(section).sort()).eql(sectionKeys);
@@ -2271,15 +2271,15 @@ describe('Specification', function() {
         });
 
         it('should work correctly', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var sections = spec.getBlockTypeSectionsForHeaders([ nonBlockTypeHeader1, blockTypeHeader1 ]);
+            const sections = spec.getBlockTypeSectionsForHeaders([ nonBlockTypeHeader1, blockTypeHeader1 ]);
 
-            var packetSpecs = spec.getBlockTypePacketSpecificationsForSections(sections);
+            const packetSpecs = spec.getBlockTypePacketSpecificationsForSections(sections);
 
             expect(packetSpecs).an('array').lengthOf(3);
 
-            var packetSpecKeys = [
+            const packetSpecKeys = [
                 'packetId',
                 'sectionId',
                 'packetFields',
@@ -2295,7 +2295,7 @@ describe('Specification', function() {
                 'sourceDevice',
             ].sort();
 
-            var packetFieldSpecKeys = [
+            const packetFieldSpecKeys = [
                 'fieldId',
                 'name',
                 'type',
@@ -2305,7 +2305,7 @@ describe('Specification', function() {
                 'setRawValue',
             ].sort();
 
-            var packetSpec = packetSpecs [0];
+            let packetSpec = packetSpecs [0];
             expect(packetSpec).an('object');
             expect(_.keys(packetSpec).sort()).eql(packetSpecKeys);
             expect(packetSpec).property('packetId').a('string').equal('01_8015_4CB0_10_6413');
@@ -2321,7 +2321,7 @@ describe('Specification', function() {
             expect(packetSpec).property('destinationDevice').an('object');
             expect(packetSpec).property('sourceDevice').an('object');
 
-            var pfs = packetSpec.packetFields [0];
+            let pfs = packetSpec.packetFields [0];
             expect(pfs).an('object');
             expect(_.keys(pfs).sort()).eql(packetFieldSpecKeys);
             expect(pfs).property('fieldId').a('string').equal('01_0015_7721_10_0100_01_08_4_004_1_0');
@@ -2332,7 +2332,7 @@ describe('Specification', function() {
             expect(pfs).property('getRawValue').a('function');
             expect(pfs).property('setRawValue').a('function');
 
-            var rawValue = pfs.getRawValue(sections [0].frameData, 0, sections [0].frameData.length);
+            let rawValue = pfs.getRawValue(sections [0].frameData, 0, sections [0].frameData.length);
             expect(rawValue).a('number').equal(100);
 
             packetSpec = packetSpecs [1];
@@ -2405,17 +2405,17 @@ describe('Specification', function() {
         });
 
         it('should work correctly', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var sections = spec.getBlockTypeSectionsForHeaders([ nonBlockTypeHeader1, blockTypeHeader1 ]);
+            const sections = spec.getBlockTypeSectionsForHeaders([ nonBlockTypeHeader1, blockTypeHeader1 ]);
 
-            var packetSpecs = spec.getBlockTypePacketSpecificationsForSections(sections);
+            const packetSpecs = spec.getBlockTypePacketSpecificationsForSections(sections);
 
-            var packetFields = spec.getBlockTypeFieldsForSections(sections);
+            const packetFields = spec.getBlockTypeFieldsForSections(sections);
 
             expect(packetFields).an('array').lengthOf(8);
 
-            var packetFieldKeys = [
+            const packetFieldKeys = [
                 'id',
                 'section',
                 'packet',
@@ -2427,7 +2427,7 @@ describe('Specification', function() {
                 'formatTextValue',
             ].sort();
 
-            var packetField = packetFields [0];
+            let packetField = packetFields [0];
             expect(packetField).an('object');
             expect(_.keys(packetField).sort()).eql(packetFieldKeys);
             expect(packetField).property('id').a('string').equal('01_8015_4CB0_10_6413_01_0015_7721_10_0100_01_08_4_004_1_0');
@@ -2440,7 +2440,7 @@ describe('Specification', function() {
             expect(packetField).property('rawValue').a('number').equal(100);
             expect(packetField).property('formatTextValue').a('function');
 
-            var textValue = packetField.formatTextValue();
+            let textValue = packetField.formatTextValue();
             expect(textValue).a('string').equal('100%');
 
             packetField = packetFields [1];
@@ -2509,15 +2509,15 @@ describe('Specification', function() {
         });
 
         it('should work correctly #2', function() {
-            var spec = new Specification();
+            const spec = new Specification();
 
-            var sections = spec.getBlockTypeSectionsForHeaders([ blockTypeHeader2 ]);
+            const sections = spec.getBlockTypeSectionsForHeaders([ blockTypeHeader2 ]);
 
-            var packetSpecs = spec.getBlockTypePacketSpecificationsForSections(sections);
+            const packetSpecs = spec.getBlockTypePacketSpecificationsForSections(sections);
 
-            var packetFields = spec.getBlockTypeFieldsForSections(sections);
+            const packetFields = spec.getBlockTypeFieldsForSections(sections);
 
-            var expectedValues = [
+            const expectedValues = [
                 [ '01_8015_F61F_10_D62F_01_0015_7721_10_0100_02_01_4_004_2_0',  0,  0, 'Temperature sensor 1', 29.1, '29.1 °C' ],
                 [ '01_8015_F61F_10_D62F_01_0015_7721_10_0100_02_01_4_006_2_0',  0,  1, 'Temperature sensor 2', 56.4, '56.4 °C' ],
                 [ '01_8015_F61F_10_D62F_01_0015_7721_10_0100_02_01_4_008_2_0',  0,  2, 'Temperature sensor 3', 83.7, '83.7 °C' ],
@@ -2570,7 +2570,7 @@ describe('Specification', function() {
 
             expect(packetFields).an('array').lengthOf(expectedValues.length);
 
-            var packetFieldKeys = [
+            const packetFieldKeys = [
                 'id',
                 'section',
                 'packet',
@@ -2583,14 +2583,14 @@ describe('Specification', function() {
             ].sort();
 
             _.forEach(packetFields, function(packetField, index) {
-                var ev = expectedValues [index];
+                const ev = expectedValues [index];
 
-                var id = ev [0];
-                var sectionIndex = ev [1];
-                var fieldIndex = ev [2];
-                var name = ev [3];
-                var rawValue = ev [4];
-                var textValue = ev [5];
+                const id = ev [0];
+                const sectionIndex = ev [1];
+                const fieldIndex = ev [2];
+                const name = ev [3];
+                const rawValue = ev [4];
+                const textValue = ev [5];
 
                 expect(packetField).an('object');
                 expect(_.keys(packetField).sort()).eql(packetFieldKeys);

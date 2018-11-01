@@ -3,7 +3,7 @@
 
 
 
-var DataSourceProvider = require('./resol-vbus').DataSourceProvider;
+const DataSourceProvider = require('./resol-vbus').DataSourceProvider;
 
 
 
@@ -24,7 +24,7 @@ describe('DataSourceProvider', function() {
         });
 
         it('should be abstract', function() {
-            var converter = new DataSourceProvider();
+            const converter = new DataSourceProvider();
 
             expect(function() {
                 converter.discoverDataSources();
@@ -40,7 +40,7 @@ describe('DataSourceProvider', function() {
         });
 
         it('should be abstract', function() {
-            var converter = new DataSourceProvider();
+            const converter = new DataSourceProvider();
 
             expect(function() {
                 converter.createDataSource();

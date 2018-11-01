@@ -3,8 +3,8 @@
 
 
 
-var Q = require('q');
-var SerialPort;
+const Q = require('q');
+let SerialPort;
 try {
     SerialPort = require('serialport');
 } catch (ex) {
@@ -12,19 +12,19 @@ try {
 }
 
 
-var _ = require('./lodash');
-var SerialDataSource = require('./serial-data-source');
+const _ = require('./lodash');
+const SerialDataSource = require('./serial-data-source');
 
-var DataSourceProvider = require('./data-source-provider');
+const DataSourceProvider = require('./data-source-provider');
 
 
 
-var optionKeys = [
+const optionKeys = [
 ];
 
 
 
-var SerialDataSourceProvider = DataSourceProvider.extend({
+const SerialDataSourceProvider = DataSourceProvider.extend({
 
     id: 'serial-data-source-provider',
 
@@ -39,12 +39,12 @@ var SerialDataSourceProvider = DataSourceProvider.extend({
     },
 
     discoverDataSources: function() {
-        var _this = this;
+        const _this = this;
 
-        var deferred = Q.defer();
-        var promise = deferred.promise;
+        let deferred = Q.defer();
+        const promise = deferred.promise;
 
-        var done = function(err, result) {
+        const done = function(err, result) {
             if (deferred) {
                 if (err) {
                     deferred.reject(err);
@@ -59,7 +59,7 @@ var SerialDataSourceProvider = DataSourceProvider.extend({
             if (err) {
                 done(err);
             } else {
-                var dataSources = _.map(ports, function(port) {
+                const dataSources = _.map(ports, function(port) {
                     return new SerialDataSource({
                         provider: _this.id,
                         id: port.comName,

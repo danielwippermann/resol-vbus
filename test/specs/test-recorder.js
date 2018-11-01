@@ -3,25 +3,25 @@
 
 
 
-var fs = require('fs');
-var path = require('path');
+const fs = require('fs');
+const path = require('path');
 
 
-var moment = require('moment');
-var Q = require('q');
+const moment = require('moment');
+const Q = require('q');
 
 
-var _ = require('./lodash');
-var vbus = require('./resol-vbus');
-
-
-
-var Recorder = vbus.Recorder;
-var VBusRecordingConverter = vbus.VBusRecordingConverter;
+const _ = require('./lodash');
+const vbus = require('./resol-vbus');
 
 
 
-var TestRecorder = Recorder.extend({
+const Recorder = vbus.Recorder;
+const VBusRecordingConverter = vbus.VBusRecordingConverter;
+
+
+
+const TestRecorder = Recorder.extend({
 
     id: 'Test',
 
@@ -41,16 +41,16 @@ var TestRecorder = Recorder.extend({
     },
 
     _playback: function(headerSetConsolidator, options) {
-        var _this = this;
+        const _this = this;
 
-        var converter = new VBusRecordingConverter();
+        const converter = new VBusRecordingConverter();
 
         converter.on('headerSet', function(headerSet) {
             headerSetConsolidator.processHeaderSet(headerSet);
         });
 
-        var minFilename = moment.utc(options.minTimestamp).format('YYYYMMDD');
-        var maxFilename = moment.utc(options.maxTimestamp).format('YYYYMMDD');
+        const minFilename = moment.utc(options.minTimestamp).format('YYYYMMDD');
+        const maxFilename = moment.utc(options.maxTimestamp).format('YYYYMMDD');
 
         return Q.fcall(function() {
             return vbus.utils.promise(function(resolve, reject) {
@@ -64,7 +64,7 @@ var TestRecorder = Recorder.extend({
             });
         }).then(function(filenames) {
             return _.reduce(filenames, function(memo, filename) {
-                var filenamePrefix = filename.slice(0, minFilename.length);
+                const filenamePrefix = filename.slice(0, minFilename.length);
 
                 if ((filenamePrefix >= minFilename) && (filenamePrefix <= maxFilename)) {
                     memo.push(filename);
@@ -73,14 +73,14 @@ var TestRecorder = Recorder.extend({
                 return memo;
             }, []);
         }).then(function(filenames) {
-            var promise = Q();
+            let promise = Q();
 
             _.forEach(filenames, function(filename) {
                 promise = promise.then(function() {
                     return vbus.utils.promise(function(resolve, reject) {
-                        var fullFilename = path.join(_this.fixturesPath, filename);
+                        const fullFilename = path.join(_this.fixturesPath, filename);
 
-                        var stream = fs.createReadStream(fullFilename);
+                        const stream = fs.createReadStream(fullFilename);
 
                         stream.pipe(converter, { end: false });
 
@@ -110,7 +110,7 @@ var TestRecorder = Recorder.extend({
     },
 
     _playbackSyncJob: function(stream, syncJob) {
-        var _this = this;
+        const _this = this;
 
         if (!stream.objectMode) {
             throw new Error('Stream must be in object mode');
@@ -124,10 +124,10 @@ var TestRecorder = Recorder.extend({
                     if (err) {
                         reject(err);
                     } else {
-                        var ranges = _.reduce(filenames, function(memo, filename) {
+                        let ranges = _.reduce(filenames, function(memo, filename) {
                             if (/^[0-9]{8}/.test(filename)) {
-                                var minTimestamp = moment.utc(filename.slice(0, 8), 'YYYYMMDD');
-                                var maxTimestamp = moment.utc(minTimestamp).add({ hours: 24 });
+                                const minTimestamp = moment.utc(filename.slice(0, 8), 'YYYYMMDD');
+                                const maxTimestamp = moment.utc(minTimestamp).add({ hours: 24 });
                                 memo.push({
                                     minTimestamp: minTimestamp.toDate(),
                                     maxTimestamp: maxTimestamp.toDate(),
@@ -145,14 +145,14 @@ var TestRecorder = Recorder.extend({
         }).then(function(availableRanges) {
             _this.availableRanges = availableRanges;
 
-            var ranges = Recorder.performRangeSetOperation(availableRanges, syncJob.syncStateDiffs, syncJob.interval, 'intersection');
+            const ranges = Recorder.performRangeSetOperation(availableRanges, syncJob.syncStateDiffs, syncJob.interval, 'intersection');
 
-            var playedBackRanges = [];
+            let playedBackRanges = [];
 
-            var promise = Q();
+            let promise = Q();
 
             _.forEach(ranges, function(range) {
-                var options = _.extend({}, syncJob, {
+                const options = _.extend({}, syncJob, {
                     minTimestamp: range.minTimestamp,
                     maxTimestamp: range.maxTimestamp,
                     end: false,
@@ -166,10 +166,10 @@ var TestRecorder = Recorder.extend({
             });
 
             promise = promise.then(function() {
-                var handledRanges = playedBackRanges;
+                let handledRanges = playedBackRanges;
 
                 if (availableRanges.length > 0) {
-                    var notAvailableRanges = [{
+                    const notAvailableRanges = [{
                         minTimestamp: new Date(Date.UTC(2001, 0)),
                         maxTimestamp: availableRanges [0].minTimestamp,
                     }];
@@ -193,11 +193,11 @@ var TestRecorder = Recorder.extend({
     },
 
     _recordSyncJob: function(recorder, syncJob) {
-        var _this = this;
+        const _this = this;
 
-        var syncState = this._getSyncState(syncJob, 'destination', 'TestRecorder');
+        const syncState = this._getSyncState(syncJob, 'destination', 'TestRecorder');
 
-        var syncVersion = syncState.version || 0;
+        let syncVersion = syncState.version || 0;
         if (syncVersion === 0) {
             syncVersion = 1;
             syncState.infoListByInterval = {};
@@ -210,16 +210,16 @@ var TestRecorder = Recorder.extend({
 
         /*var infoList =*/ syncState.infoListByInterval [syncJob.interval];
 
-        var recordedRanges = [];
+        let recordedRanges = [];
 
-        var lastTimestamp = null;
+        let lastTimestamp = null;
 
-        var inConverter = new VBusRecordingConverter({
+        const inConverter = new VBusRecordingConverter({
             objectMode: true,
         });
 
         inConverter.on('headerSet', function(headerSet) {
-            var timestamp = headerSet.timestamp;
+            const timestamp = headerSet.timestamp;
 
             if (lastTimestamp && (timestamp < lastTimestamp)) {
                 // headersets are assumed to be played back in a chronological order,
@@ -229,7 +229,7 @@ var TestRecorder = Recorder.extend({
             }
             lastTimestamp = timestamp;
 
-            var thisRanges = [{
+            const thisRanges = [{
                 minTimestamp: timestamp,
                 maxTimestamp: timestamp,
             }];

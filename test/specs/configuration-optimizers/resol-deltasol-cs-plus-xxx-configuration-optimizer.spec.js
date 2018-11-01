@@ -3,17 +3,17 @@
 
 
 
-var Q = require('q');
+const Q = require('q');
 
 
-var _ = require('../lodash');
-var vbus = require('../resol-vbus');
+const _ = require('../lodash');
+const vbus = require('../resol-vbus');
 
-var testUtils = require('../test-utils');
+const testUtils = require('../test-utils');
 
 
 
-var optimizerPromise = vbus.ConfigurationOptimizerFactory.createOptimizerByDeviceAddress(0x2211);
+const optimizerPromise = vbus.ConfigurationOptimizerFactory.createOptimizerByDeviceAddress(0x2211);
 
 
 
@@ -54,7 +54,7 @@ describe('ResolDeltaSolCsPlusXxxConfigurationOptimizer', function() {
                 }).then(function(config) {
                     expect(config).an('array');
 
-                    var valueIds = _.reduce(config, (memo, value) => {
+                    const valueIds = _.reduce(config, (memo, value) => {
                         if (value.pending) {
                             memo.push(value.valueId);
                         }
@@ -75,7 +75,7 @@ describe('ResolDeltaSolCsPlusXxxConfigurationOptimizer', function() {
                 }).then(function(config) {
                     expect(config).an('array');
 
-                    var valueIds = _.reduce(config, (memo, value) => {
+                    const valueIds = _.reduce(config, (memo, value) => {
                         if (value.pending) {
                             memo.push(value.valueId);
                         }

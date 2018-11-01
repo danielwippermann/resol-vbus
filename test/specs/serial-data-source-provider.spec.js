@@ -3,26 +3,26 @@
 
 
 
-var Q = require('q');
+const Q = require('q');
 
 
-var vbus = require('./resol-vbus');
-var testUtils = require('./test-utils');
-
-
-
-var SerialDataSource = vbus.SerialDataSource;
-var SerialDataSourceProvider = vbus.SerialDataSourceProvider;
+const vbus = require('./resol-vbus');
+const testUtils = require('./test-utils');
 
 
 
-var TestableSerialDataSourceProvider = SerialDataSourceProvider.extend({
+const SerialDataSource = vbus.SerialDataSource;
+const SerialDataSourceProvider = vbus.SerialDataSourceProvider;
+
+
+
+const TestableSerialDataSourceProvider = SerialDataSourceProvider.extend({
 
 });
 
 
 
-var ifHasSerialPortIt = testUtils.ifHasSerialPortIt;
+const ifHasSerialPortIt = testUtils.ifHasSerialPortIt;
 
 
 
@@ -48,7 +48,7 @@ describe('SerialDataSourceProvider', function() {
         });
 
         ifHasSerialPortIt('should work correctly', function(done) {
-            var ports = [
+            const ports = [
                 { comName: 'SERIALPORT1' },
                 { comName: 'SERIALPORT2' },
             ];
@@ -57,11 +57,11 @@ describe('SerialDataSourceProvider', function() {
                 callback(null, ports);
             });
 
-            var dsp = new TestableSerialDataSourceProvider();
+            const dsp = new TestableSerialDataSourceProvider();
 
             testUtils.performAsyncTest(done, function() {
                 return Q.fcall(function() {
-                    var promise = dsp.discoverDataSources();
+                    const promise = dsp.discoverDataSources();
 
                     return testUtils.expectPromise(promise);
                 }).then(function(dataSources) {
@@ -77,9 +77,9 @@ describe('SerialDataSourceProvider', function() {
                 callback(new Error('ERROR'));
             });
 
-            var dsp = new TestableSerialDataSourceProvider();
+            const dsp = new TestableSerialDataSourceProvider();
 
-            var callback = function(err) {
+            const callback = function(err) {
                 if (err) {
                     done();
                 } else {
@@ -89,7 +89,7 @@ describe('SerialDataSourceProvider', function() {
 
             testUtils.performAsyncTest(callback, function() {
                 return Q.fcall(function() {
-                    var promise = dsp.discoverDataSources();
+                    const promise = dsp.discoverDataSources();
 
                     return testUtils.expectPromise(promise);
                 });
@@ -107,9 +107,9 @@ describe('SerialDataSourceProvider', function() {
         });
 
         it('should work correctly', function() {
-            var dsp = new SerialDataSourceProvider();
+            const dsp = new SerialDataSourceProvider();
 
-            var ds = dsp.createDataSource();
+            const ds = dsp.createDataSource();
 
             expect(ds)
                 .to.be.instanceOf(SerialDataSource);

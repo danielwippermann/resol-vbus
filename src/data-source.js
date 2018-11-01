@@ -3,12 +3,12 @@
 
 
 
-var extend = require('./extend');
-var _ = require('./lodash');
+const extend = require('./extend');
+const _ = require('./lodash');
 
 
 
-var optionKeys = [
+const optionKeys = [
     'provider',
     'id',
     'name',
@@ -20,7 +20,7 @@ var optionKeys = [
 
 
 
-var DataSource = extend(null, {
+const DataSource = extend(null, {
 
     provider: null,
 

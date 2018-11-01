@@ -3,15 +3,15 @@
 
 
 
-var sprintf = require('sprintf-js').sprintf;
+const sprintf = require('sprintf-js').sprintf;
 
 
-var Header = require('./header');
-var _ = require('./lodash');
+const Header = require('./header');
+const _ = require('./lodash');
 
 
 
-var optionKeys = [
+const optionKeys = [
     'command',
 ];
 
@@ -46,17 +46,17 @@ var Telegram = Header.extend(/** @lends Telegram# */ {
             this.frameData.fill(0);
 
             if (_.has(options, 'frameData')) {
-                var minLength = Math.min(this.frameData.length, options.frameData.length);
+                const minLength = Math.min(this.frameData.length, options.frameData.length);
                 options.frameData.copy(this.frameData, 0, 0, minLength);
             }
         }
     },
 
     toLiveBuffer: function(origBuffer, start, end) {
-        var frameCount = this.getFrameCount();
-        var length = 8 + frameCount * 9;
+        const frameCount = this.getFrameCount();
+        const length = 8 + frameCount * 9;
 
-        var buffer;
+        let buffer;
         if (origBuffer === undefined) {
             buffer = new Buffer(length);
         } else if (start + length <= end) {
@@ -72,9 +72,9 @@ var Telegram = Header.extend(/** @lends Telegram# */ {
         buffer [6] = this.command & 0x7F;
         Telegram.calcAndSetChecksumV0(buffer, 1, 7);
 
-        for (var i = 0; i < frameCount; i++) {
-            var srcStart = 7 * i;
-            var dstStart = 8 + 9 * i;
+        for (let i = 0; i < frameCount; i++) {
+            const srcStart = 7 * i;
+            const dstStart = 8 + 9 * i;
             Telegram.extractSeptett(this.frameData, srcStart, srcStart + 7, buffer, dstStart);
             Telegram.calcAndSetChecksumV0(buffer, dstStart, dstStart + 8);
         }
@@ -87,12 +87,12 @@ var Telegram = Header.extend(/** @lends Telegram# */ {
     },
 
     getId: function() {
-        var baseId = Header.prototype.getId.call(this);
+        const baseId = Header.prototype.getId.call(this);
         return sprintf('%s_%02X', baseId, this.command);
     },
 
     compareTo: function(that) {
-        var result = Header.prototype.compareTo.apply(this, arguments);
+        let result = Header.prototype.compareTo.apply(this, arguments);
         if (result === 0) {
             result = this.command - that.command;
         }
@@ -106,14 +106,14 @@ var Telegram = Header.extend(/** @lends Telegram# */ {
 }, /** @lends Telegram */ {
 
     fromLiveBuffer: function(buffer, start, end) {
-        var frameCount = this.getFrameCountForCommand(buffer [start + 6]);
+        const frameCount = this.getFrameCountForCommand(buffer [start + 6]);
 
-        var frameData = new Buffer(3 * 7);
+        const frameData = new Buffer(3 * 7);
         frameData.fill(0);
 
-        for (var i = 0; i < frameCount; i++) {
-            var srcStart = start + 8 + 9 * i;
-            var dstStart = 7 * i;
+        for (let i = 0; i < frameCount; i++) {
+            const srcStart = start + 8 + 9 * i;
+            const dstStart = 7 * i;
             Telegram.injectSeptett(buffer, srcStart, srcStart + 7, frameData, dstStart);
         }
 

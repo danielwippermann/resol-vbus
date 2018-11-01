@@ -3,10 +3,10 @@
 
 
 
-var Q = require('q');
+const Q = require('q');
 
 
-var _ = require('./lodash');
+const _ = require('./lodash');
 
 
 
@@ -16,11 +16,11 @@ var utils = {
      * @see http://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid-in-javascript
      */
     generateGUID: function() {
-        var s4 = function() {
+        const s4 = function() {
             return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
         };
 
-        var guid = [
+        const guid = [
             s4(),
             s4(),
             '-',
@@ -39,11 +39,11 @@ var utils = {
     },
 
     cancelablePromise: function(callback, thisArg) {
-        var cancelDeferred = Q.defer();
-        var cancelPromise = cancelDeferred.promise;
-        var isCanceled = false;
+        let cancelDeferred = Q.defer();
+        const cancelPromise = cancelDeferred.promise;
+        let isCanceled = false;
 
-        var cancel = function(reason) {
+        const cancel = function(reason) {
             if (!isCanceled) {
                 cancelPromise.then(function(result) {
                     result.cancel(reason);
@@ -53,7 +53,7 @@ var utils = {
             }
         };
 
-        var checkCanceled = function(result) {
+        const checkCanceled = function(result) {
             if (!isCanceled) {
                 return result;
             } else {
@@ -61,7 +61,7 @@ var utils = {
             }
         };
 
-        var promise = utils.promise(function(resolve, reject, notify) {
+        const promise = utils.promise(function(resolve, reject, notify) {
             if (cancelDeferred) {
                 cancelDeferred.resolve({ cancel: reject });
 
@@ -92,8 +92,8 @@ var utils = {
             return NaN;
         }
 
-        var valueParts = value.toString().split('e');
-        var baseExp = valueParts [1] ? +valueParts [1] : 0;
+        let valueParts = value.toString().split('e');
+        let baseExp = valueParts [1] ? +valueParts [1] : 0;
 
         value = Math.round(+(valueParts [0] + 'e' + (baseExp - exp)));
 
@@ -106,7 +106,7 @@ var utils = {
     },
 
     deepFreezeObjectTree: function(root) {
-        var freezingObjects = [];
+        const freezingObjects = [];
 
         var deepFreezeObject = function(obj) {
             if (Object.isFrozen(obj)) {
@@ -119,9 +119,9 @@ var utils = {
 
             freezingObjects.push(obj);
 
-            var keys = Object.getOwnPropertyNames(obj);
+            const keys = Object.getOwnPropertyNames(obj);
             keys.forEach(function(key) {
-                var value = obj [key];
+                const value = obj [key];
 
                 if ((typeof value === 'object') && (value !== null)) {
                     deepFreezeObject(value);
@@ -140,11 +140,11 @@ var utils = {
 
 
 
-var Promise = function(callback, thisArg) {
-    var deferred = Q.defer();
-    var promise = deferred.promise;
+const Promise = function(callback, thisArg) {
+    let deferred = Q.defer();
+    const promise = deferred.promise;
 
-    var resolve = function(result) {
+    const resolve = function(result) {
         if (deferred) {
             deferred.resolve(result);
 
@@ -152,7 +152,7 @@ var Promise = function(callback, thisArg) {
         }
     };
 
-    var reject = function(reason) {
+    const reject = function(reason) {
         if (deferred) {
             deferred.reject(reason);
 
@@ -160,7 +160,7 @@ var Promise = function(callback, thisArg) {
         }
     };
 
-    var notify = function(value) {
+    const notify = function(value) {
         if (deferred) {
             deferred.notify(value);
         }

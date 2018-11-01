@@ -3,7 +3,7 @@
 
 
 
-var DataSource = require('./resol-vbus').DataSource;
+const DataSource = require('./resol-vbus').DataSource;
 
 
 
@@ -16,7 +16,7 @@ describe('DataSource', function() {
         });
 
         it('should have reasonable defaults', function() {
-            var dataSource = new DataSource();
+            const dataSource = new DataSource();
 
             expect(dataSource).to.be.an('object');
             expect(dataSource.provider).to.equal(null);
@@ -29,7 +29,7 @@ describe('DataSource', function() {
         });
 
         it('should copy selected options', function() {
-            var dataSource = new DataSource({
+            const dataSource = new DataSource({
                 provider: 'provider',
                 id: 'id',
                 name: 'name',
@@ -60,7 +60,7 @@ describe('DataSource', function() {
         });
 
         it('should report if not supported', function() {
-            var converter = new DataSource();
+            const converter = new DataSource();
 
             expect(function() {
                 converter.connectLive();
@@ -68,7 +68,7 @@ describe('DataSource', function() {
         });
 
         it('should be abstract', function() {
-            var converter = new DataSource({
+            const converter = new DataSource({
                 isSupportingLiveData: true,
             });
 
@@ -86,7 +86,7 @@ describe('DataSource', function() {
         });
 
         it('should report if not supported', function() {
-            var converter = new DataSource();
+            const converter = new DataSource();
 
             expect(function() {
                 converter.openRecorder();
@@ -94,7 +94,7 @@ describe('DataSource', function() {
         });
 
         it('should be abstract', function() {
-            var converter = new DataSource({
+            const converter = new DataSource({
                 isSupportingRecordedData: true,
             });
 
@@ -112,7 +112,7 @@ describe('DataSource', function() {
         });
 
         it('should report if not supported', function() {
-            var converter = new DataSource();
+            const converter = new DataSource();
 
             expect(function() {
                 converter.createCustomizer();
@@ -120,7 +120,7 @@ describe('DataSource', function() {
         });
 
         it('should be abstract', function() {
-            var converter = new DataSource({
+            const converter = new DataSource({
                 isSupportingCustomization: true,
             });
 

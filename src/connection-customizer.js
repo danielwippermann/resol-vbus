@@ -3,17 +3,17 @@
 
 
 
-var Q = require('q');
+const Q = require('q');
 
 
-var utils = require('./utils');
+const utils = require('./utils');
 
-var Customizer = require('./customizer');
-var _ = require('./lodash');
+const Customizer = require('./customizer');
+const _ = require('./lodash');
 
 
 
-var optionKeys = [
+const optionKeys = [
     'connection',
     'maxRounds',
     'triesPerValue',
@@ -23,7 +23,7 @@ var optionKeys = [
 
 
 
-var ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# */ {
+const ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# */ {
 
     /**
      * The connection to use for transfer of the configuration values.
@@ -90,14 +90,14 @@ var ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# */
      * See {@link Customizer#loadConfiguration} for details.
      */
     _loadConfiguration: function(configuration, options) {
-        var _this = this;
+        const _this = this;
 
         options = _.defaults({}, options, {
             action: 'get',
         });
 
         return Q.fcall(function() {
-            var callback = function(config, round) {
+            const callback = function(config, round) {
                 if (options.optimize) {
                     return _this._optimizeLoadConfiguration(config);
                 } else {
@@ -123,7 +123,7 @@ var ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# */
      * See {@link Customizer#saveConfiguration} for details.
      */
     _saveConfiguration: function(newConfiguration, oldConfigurstion, options) {
-        var _this = this;
+        const _this = this;
 
         options = _.defaults({}, options, {
             action: 'set',
@@ -133,7 +133,7 @@ var ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# */
         });
 
         return Q.fcall(function() {
-            var callback = function(config, round) {
+            const callback = function(config, round) {
                 if (options.optimize) {
                     if (round === 1) {
                         return _this._optimizeSaveConfiguration(newConfiguration, oldConfigurstion);
@@ -170,7 +170,7 @@ var ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# */
      * @return {object} Promise that resolves to the configuration or `null` on timeout.
      */
     transceiveConfiguration: function(options, callback) {
-        var _this = this;
+        const _this = this;
 
         if (_.isFunction(options)) {
             callback = options;
@@ -186,11 +186,11 @@ var ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# */
             actionOptions: null,
         });
 
-        var connection = this.connection;
-        var address = this.deviceAddress;
+        const connection = this.connection;
+        const address = this.deviceAddress;
 
         return utils.cancelablePromise(function(resolve, reject, notify, checkCanceled) {
-            var check = function(result) {
+            const check = function(result) {
                 return Q.fcall(function() {
                     return checkCanceled();
                 }).then(function() {
@@ -200,16 +200,16 @@ var ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# */
                 });
             };
 
-            var config = null;
+            let config = null;
 
-            var state = {
+            const state = {
                 masterAddress: null,
                 masterLastContacted: null,
             };
 
-            var round = 0;
+            let round = 0;
 
-            var reportProgress = function(progress) {
+            const reportProgress = function(progress) {
                 if (_.isString(progress)) {
                     progress = {
                         message: progress,
@@ -234,15 +234,15 @@ var ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# */
                     }).then(check).then(function(newConfig) {
                         config = newConfig;
 
-                        var pendingValues = _.filter(config, function(value) {
+                        const pendingValues = _.filter(config, function(value) {
                             return value.pending;
                         });
 
-                        var index = 0;
+                        let index = 0;
 
                         var nextValue = function() {
                             if (index < pendingValues.length) {
-                                var valueInfo = pendingValues [index++];
+                                const valueInfo = pendingValues [index++];
 
                                 Q.fcall(check).then(function() {
                                     return _this.transceiveValue(valueInfo, valueInfo.value, {
@@ -338,13 +338,13 @@ var ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# */
             masterLastContacted: Date.now(),
         });
 
-        var connection = this.connection;
-        var address = this.deviceAddress;
+        const connection = this.connection;
+        const address = this.deviceAddress;
 
         return utils.cancelablePromise(function(resolve, reject, notify, checkCanceled) {
-            var timer, onConnectionState;
+            let timer, onConnectionState;
 
-            var done = function(err, result) {
+            const done = function(err, result) {
                 if (timer) {
                     clearTimeout(timer);
                     timer = null;
@@ -361,7 +361,7 @@ var ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# */
                 }
             };
 
-            var check = function(result) {
+            const check = function(result) {
                 return Q.fcall(function() {
                     return checkCanceled();
                 }).then(function() {
@@ -371,9 +371,9 @@ var ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# */
                 });
             };
 
-            var tries = 0;
+            let tries = 0;
 
-            var reportProgress = function(message) {
+            const reportProgress = function(message) {
                 notify({
                     message: message,
                     tries: tries,
@@ -407,7 +407,7 @@ var ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# */
                             });
                         }
                     }).then(check).then(function() {
-                        var contactMaster;
+                        let contactMaster;
                         if (state.masterAddress === null) {
                             contactMaster = false;
                         } else if (state.masterAddress === address) {
@@ -479,7 +479,7 @@ var ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# */
                 }
             };
 
-            var onTimeout = function() {
+            const onTimeout = function() {
                 done(null, null);
             };
 

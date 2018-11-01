@@ -3,18 +3,18 @@
 
 
 
-var EventEmitter = require('events').EventEmitter;
+const EventEmitter = require('events').EventEmitter;
 
 
-var Q = require('q');
+const Q = require('q');
 
 
-var extend = require('./extend');
-var _ = require('./lodash');
+const extend = require('./extend');
+const _ = require('./lodash');
 
 
 
-var optionKeys = [
+const optionKeys = [
     'id',
     'deviceAddress',
     'optimizer',
@@ -22,7 +22,7 @@ var optionKeys = [
 
 
 
-var Customizer = extend(EventEmitter, /** @lends Customizer# */ {
+const Customizer = extend(EventEmitter, /** @lends Customizer# */ {
 
     /**
      * An identifier for this customizer.
@@ -79,7 +79,7 @@ var Customizer = extend(EventEmitter, /** @lends Customizer# */ {
      * @returns {Promise} A Promise that resolves to the set of values transfered.
      */
     loadConfiguration: function(configuration, options) {
-        var _this = this;
+        const _this = this;
 
         options = _.defaults({}, options, {
             optimize: true,
@@ -117,7 +117,7 @@ var Customizer = extend(EventEmitter, /** @lends Customizer# */ {
      * @returns {Promise} A Promise that resolves to the set of values transfered.
      */
     saveConfiguration: function(newConfiguration, oldConfiguration, options) {
-        var _this = this;
+        const _this = this;
 
         options = _.defaults({}, options, {
             optimize: true,

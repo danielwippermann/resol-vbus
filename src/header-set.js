@@ -3,21 +3,21 @@
 
 
 
-var crypto = require('crypto');
-var EventEmitter = require('events').EventEmitter;
+const crypto = require('crypto');
+const EventEmitter = require('events').EventEmitter;
 
 
 
-var extend = require('./extend');
-var _ = require('./lodash');
+const extend = require('./extend');
+const _ = require('./lodash');
 
 
 
-var idHashes = {};
+const idHashes = {};
 
 
 
-var optionKeys = [
+const optionKeys = [
     'timestamp',
 ];
 
@@ -75,7 +75,7 @@ var HeaderSet = extend(EventEmitter, /** @lends HeaderSet# */ {
      * @returns {boolean} `true` if a Header of the same kind is already in the HeaderSet, `false` otherwise.
      */
     containsHeader: function(header) {
-        var index = this._findIndex(header);
+        const index = this._findIndex(header);
 
         return (index >= 0);
     },
@@ -86,7 +86,7 @@ var HeaderSet = extend(EventEmitter, /** @lends HeaderSet# */ {
      * @param {Header} header The Header instance to add to this set.
      */
     addHeader: function(header) {
-        var index = this._findIndex(header);
+        const index = this._findIndex(header);
         if (index >= 0) {
             this.headerList [index] = header;
         } else {
@@ -112,7 +112,7 @@ var HeaderSet = extend(EventEmitter, /** @lends HeaderSet# */ {
      * @param {Header[]} headers The list of Header instances to add.
      */
     addHeaders: function(headers) {
-        var _this = this;
+        const _this = this;
 
         _.forEach(headers, function(header) {
             _this.addHeader(header);
@@ -120,7 +120,7 @@ var HeaderSet = extend(EventEmitter, /** @lends HeaderSet# */ {
     },
 
     _removeHeader: function(header) {
-        var index = this._findIndex(header);
+        const index = this._findIndex(header);
         if (index >= 0) {
             /**
              * This event is fired whenever a Header is removed from this set.
@@ -135,7 +135,7 @@ var HeaderSet = extend(EventEmitter, /** @lends HeaderSet# */ {
     },
 
     _removeHeaders: function(headers) {
-        var _this = this;
+        const _this = this;
 
         _.forEach(headers, function(header) {
             _this._removeHeader(header);
@@ -155,14 +155,14 @@ var HeaderSet = extend(EventEmitter, /** @lends HeaderSet# */ {
      * @param {number|Date} timestamp Timestamp to compare Header instances against.
      */
     removeHeadersOlderThan: function(timestamp) {
-        var time;
+        let time;
         if (typeof timestamp === 'number') {
             time = timestamp;
         } else {
             time = timestamp.getTime();
         }
 
-        var headers = [];
+        const headers = [];
         _.forEach(this.headerList, function(header) {
             if (header.timestamp.getTime() < time) {
                 headers.push(header);
@@ -196,7 +196,7 @@ var HeaderSet = extend(EventEmitter, /** @lends HeaderSet# */ {
      * @returns {Header[]} List of headers stored in this set.
      */
     getSortedHeaders: function() {
-        var sortedHeaders = this.headerList.slice(0).sort(function(left, right) {
+        const sortedHeaders = this.headerList.slice(0).sort(function(left, right) {
             return left.compareTo(right);
         });
 
@@ -204,7 +204,7 @@ var HeaderSet = extend(EventEmitter, /** @lends HeaderSet# */ {
     },
 
     getSortedHeaderSet: function() {
-        var headerSet = new HeaderSet({
+        const headerSet = new HeaderSet({
             headers: this.getSortedHeaders(),
         });
 
@@ -219,13 +219,13 @@ var HeaderSet = extend(EventEmitter, /** @lends HeaderSet# */ {
      * @returns {string} ID of this HeaderSet.
      */
     getId: function() {
-        var sortedHeaders = this.getSortedHeaders();
+        const sortedHeaders = this.getSortedHeaders();
 
-        var sortedIds = _.map(sortedHeaders, function(header) {
+        const sortedIds = _.map(sortedHeaders, function(header) {
             return header.getId();
         });
 
-        var id = sortedIds.join(',');
+        const id = sortedIds.join(',');
 
         return id;
     },
@@ -236,10 +236,10 @@ var HeaderSet = extend(EventEmitter, /** @lends HeaderSet# */ {
      * @returns {string} ID hash for this HeaderSet
      */
     getIdHash: function() {
-        var id = this.getId();
+        const id = this.getId();
 
         if (!_.has(idHashes, id)) {
-            var shasum = crypto.createHash('sha256');
+            const shasum = crypto.createHash('sha256');
 
             shasum.update(id);
 

@@ -3,13 +3,13 @@
 
 
 
-var moment = require('moment');
+const moment = require('moment');
 
 
-var _ = require('./lodash');
-var vbus = require('./resol-vbus');
+const _ = require('./lodash');
+const vbus = require('./resol-vbus');
 
-var Recorder = vbus.Recorder;
+const Recorder = vbus.Recorder;
 
 
 
@@ -22,7 +22,7 @@ describe('Recorder', function() {
         });
 
         it('should have reasonable defaults', function() {
-            var recorder = new Recorder();
+            const recorder = new Recorder();
 
             expect(recorder.id).to.be.a('string');
             expect(recorder.minTimestamp.toISOString()).to.equal('2001-01-01T00:00:00.000Z');
@@ -31,7 +31,7 @@ describe('Recorder', function() {
         });
 
         it('should copy selected options', function() {
-            var options = {
+            const options = {
                 id: 'myId',
                 minTimestamp: new Date(2013, 0),
                 maxTimestamp: new Date(2014, 0),
@@ -39,7 +39,7 @@ describe('Recorder', function() {
                 junk: 'JUNK',
             };
 
-            var recorder = new Recorder(options);
+            const recorder = new Recorder(options);
 
             expect(recorder.id).to.equal(options.id);
             expect(recorder.minTimestamp.toISOString()).to.equal(options.minTimestamp.toISOString());
@@ -57,24 +57,24 @@ describe('Recorder', function() {
         });
 
         it('should copy defaults from the recorder', function(done) {
-            var options = {
+            const options = {
                 id: 'myId',
                 minTimestamp: new Date(2013, 0),
                 maxTimestamp: new Date(2014, 0),
                 interval: 600,
             };
 
-            var converter = new vbus.VBusRecordingConverter({
+            const converter = new vbus.VBusRecordingConverter({
                 objectMode: true,
             });
 
-            var onConverterHeaderSet = sinon.spy();
+            const onConverterHeaderSet = sinon.spy();
 
             converter.on('headerSet', onConverterHeaderSet);
 
-            var recorder = new Recorder(options);
+            const recorder = new Recorder(options);
 
-            var demoHeaderSet = new vbus.HeaderSet({
+            const demoHeaderSet = new vbus.HeaderSet({
                 timestamp: new Date(2013, 5)
             });
 
@@ -85,7 +85,7 @@ describe('Recorder', function() {
             recorder.playback(converter).done(function(ranges) {
                 expect(recorder._playback.callCount).to.equal(1);
 
-                var call = recorder._playback.getCall(0);
+                let call = recorder._playback.getCall(0);
 
                 expect(call.args [0]).to.be.an.instanceOf(vbus.HeaderSetConsolidator);
                 expect(call.args [1].id).to.eql(options.id);
@@ -113,24 +113,24 @@ describe('Recorder', function() {
         });
 
         promiseIt('should copy defaults from the recorder', function() {
-            var options = {
+            const options = {
                 id: 'myId',
                 minTimestamp: new Date(2013, 0),
                 maxTimestamp: new Date(2014, 0),
                 interval: 600,
             };
 
-            var converter = new vbus.Converter({
+            const converter = new vbus.Converter({
                 objectMode: true,
             });
 
-            var recorder = new Recorder(options);
+            const recorder = new Recorder(options);
 
-            var demoHeaderSet = new vbus.HeaderSet({
+            const demoHeaderSet = new vbus.HeaderSet({
                 timestamp: new Date(2013, 5)
             });
 
-            var onHeaderSet = sinon.spy();
+            const onHeaderSet = sinon.spy();
 
             recorder._startRecording = sinon.spy(function(hsc) {
                 hsc.on('headerSet', onHeaderSet);
@@ -147,8 +147,8 @@ describe('Recorder', function() {
                 expect(recorder._startRecording.callCount).equal(1);
                 expect(recorder._endRecording.callCount).equal(1);
 
-                var hsc = recorder._startRecording.firstCall.args [0];
-                var recordingJob = recorder._startRecording.firstCall.args [1];
+                const hsc = recorder._startRecording.firstCall.args [0];
+                const recordingJob = recorder._startRecording.firstCall.args [1];
 
                 expect(recorder._endRecording.firstCall.args [0]).equal(hsc);
                 expect(recorder._endRecording.firstCall.args [1]).equal(recordingJob);
@@ -170,7 +170,7 @@ describe('Recorder', function() {
         });
 
         it('should copy defaults from the recorder', function(done) {
-            var options = {
+            const options = {
                 id: 'myId',
                 minTimestamp: new Date(2013, 0),
                 maxTimestamp: new Date(2014, 0),
@@ -178,7 +178,7 @@ describe('Recorder', function() {
                 timeToLive: 3600,
             };
 
-            var recorder = new Recorder(options);
+            const recorder = new Recorder(options);
 
             recorder._getCurrentSyncState = sinon.spy(function() {
                 return {};
@@ -191,7 +191,7 @@ describe('Recorder', function() {
             recorder.synchronizeTo(recorder).done(function(ranges) {
                 expect(recorder._getCurrentSyncState.callCount).to.equal(1);
 
-                var call = recorder._getCurrentSyncState.getCall(0);
+                let call = recorder._getCurrentSyncState.getCall(0);
 
                 expect(call.args [0].id).to.eql(options.id);
                 expect(call.args [0].minTimestamp).to.eql(options.minTimestamp);
@@ -203,7 +203,7 @@ describe('Recorder', function() {
 
                 call = recorder._getSyncJob.getCall(0);
 
-                var syncState = call.args [0];
+                const syncState = call.args [0];
                 expect(syncState.sourceSyncState).to.be.an('object');
                 expect(syncState.sourceSyncState.Recorder).to.be.an('object');
                 expect(syncState.destinationSyncState).to.be.an('object');
@@ -226,16 +226,16 @@ describe('Recorder', function() {
         });
 
         xit('should work correctly for empty oldSyncState', function(done) {
-            var recorder = new Recorder();
+            const recorder = new Recorder();
 
-            var oldSyncState = null;
+            const oldSyncState = null;
 
-            var options = {
+            const options = {
                 minTimestamp: new Date(2008, 0),
                 maxTimestamp: new Date(2036, 0),
             };
 
-            var promise = recorder._getSyncJob(oldSyncState, options);
+            const promise = recorder._getSyncJob(oldSyncState, options);
 
             expect(promise).to.be.an('object');
             expect(promise.then).to.be.a('function');
@@ -249,9 +249,9 @@ describe('Recorder', function() {
 
     describe('.performRangeSetOperation', function() {
 
-        var rangeOffset = moment().startOf('day');
+        const rangeOffset = moment().startOf('day');
 
-        var createRange = function(hoursA, minutesA, hoursB, minutesB, addMilliA, subtractMilliB) {
+        const createRange = function(hoursA, minutesA, hoursB, minutesB, addMilliA, subtractMilliB) {
             return {
                 minTimestamp: moment(rangeOffset).add({ hours: hoursA, minutes: minutesA, milliseconds: (addMilliA ? 1 : 0) }).toDate(),
                 maxTimestamp: moment(rangeOffset).add({ hours: hoursB, minutes: minutesB, milliseconds: (subtractMilliB ? -1 : 0) }).toDate(),
@@ -263,68 +263,68 @@ describe('Recorder', function() {
         });
 
         it('should work correctly with union of empty ranges', function() {
-            var rangesA = [];
+            const rangesA = [];
 
-            var rangesB = [];
+            const rangesB = [];
 
-            var newRanges = Recorder.performRangeSetOperation(rangesA, rangesB, 120000, 'union');
+            const newRanges = Recorder.performRangeSetOperation(rangesA, rangesB, 120000, 'union');
 
             expect(newRanges).to.eql([]);
         });
 
         it('should work correctly with union of empty A ranges', function() {
-            var rangesA = [];
+            const rangesA = [];
 
-            var rangesB = [
+            const rangesB = [
                 createRange(8, 30, 10, 30),
                 createRange(12, 30, 14, 30),
             ];
 
-            var newRanges = Recorder.performRangeSetOperation(rangesA, rangesB, 120000, 'union');
+            const newRanges = Recorder.performRangeSetOperation(rangesA, rangesB, 120000, 'union');
 
             expect(newRanges).to.eql(rangesB);
         });
 
         it('should work correctly with union of empty B ranges', function() {
-            var rangesA = [
+            const rangesA = [
                 createRange(8, 30, 10, 30),
                 createRange(12, 30, 14, 30),
             ];
 
-            var rangesB = [];
+            const rangesB = [];
 
-            var newRanges = Recorder.performRangeSetOperation(rangesA, rangesB, 120000, 'union');
+            const newRanges = Recorder.performRangeSetOperation(rangesA, rangesB, 120000, 'union');
 
             expect(newRanges).to.eql(rangesA);
         });
 
         it('should work correctly with union of equal ranges', function() {
-            var rangesA = [
+            const rangesA = [
                 createRange(8, 30, 10, 30),
                 createRange(12, 30, 14, 30),
             ];
 
-            var rangesB = _.clone(rangesA);
+            const rangesB = _.clone(rangesA);
 
-            var newRanges = Recorder.performRangeSetOperation(rangesA, rangesB, 120000, 'union');
+            const newRanges = Recorder.performRangeSetOperation(rangesA, rangesB, 120000, 'union');
 
             expect(newRanges).to.eql(rangesA);
             expect(newRanges).to.eql(rangesB);
         });
 
         it('should work correctly with union of non-overlapping ranges', function() {
-            var rangesA = [
+            const rangesA = [
                 createRange(4, 30, 6, 30),
                 createRange(8, 30, 10, 30),
                 createRange(12, 30, 14, 30),
                 createRange(16, 30, 18, 30),
             ];
 
-            var rangesB = [
+            const rangesB = [
                 createRange(10, 34, 12, 26),
             ];
 
-            var newRanges = Recorder.performRangeSetOperation(rangesA, rangesB, 120000, 'union');
+            const newRanges = Recorder.performRangeSetOperation(rangesA, rangesB, 120000, 'union');
 
             expect(newRanges).to.eql([
                 createRange(4, 30, 6, 30),
@@ -336,19 +336,19 @@ describe('Recorder', function() {
         });
 
         it('should work correctly with union of partially overlapping ranges', function() {
-            var rangesA = [
+            const rangesA = [
                 createRange(4, 30, 6, 30),
                 createRange(8, 30, 10, 30),
                 createRange(12, 30, 14, 30),
                 createRange(16, 30, 18, 30),
             ];
 
-            var rangesB = [
+            const rangesB = [
                 createRange(10, 0, 11, 0),
                 createRange(12, 0, 13, 0),
             ];
 
-            var newRanges = Recorder.performRangeSetOperation(rangesA, rangesB, 120000, 'union');
+            const newRanges = Recorder.performRangeSetOperation(rangesA, rangesB, 120000, 'union');
 
             expect(newRanges).to.eql([
                 createRange(4, 30, 6, 30),
@@ -359,18 +359,18 @@ describe('Recorder', function() {
         });
 
         it('should work correctly with union of adjacent ranges', function() {
-            var rangesA = [
+            const rangesA = [
                 createRange(4, 30, 6, 30),
                 createRange(8, 30, 10, 30),
                 createRange(12, 30, 14, 30),
                 createRange(16, 30, 18, 30),
             ];
 
-            var rangesB = [
+            const rangesB = [
                 createRange(10, 32, 12, 28),
             ];
 
-            var newRanges = Recorder.performRangeSetOperation(rangesA, rangesB, 120000, 'union');
+            const newRanges = Recorder.performRangeSetOperation(rangesA, rangesB, 120000, 'union');
 
             expect(newRanges).to.eql([
                 createRange(4, 30, 6, 30),
@@ -380,18 +380,18 @@ describe('Recorder', function() {
         });
 
         it('should work correctly with union of overlapping multiple ranges', function() {
-            var rangesA = [
+            const rangesA = [
                 createRange(4, 30, 6, 30),
                 createRange(8, 30, 10, 30),
                 createRange(12, 30, 14, 30),
                 createRange(16, 30, 18, 30),
             ];
 
-            var rangesB = [
+            const rangesB = [
                 createRange(7, 32, 15, 28),
             ];
 
-            var newRanges = Recorder.performRangeSetOperation(rangesA, rangesB, 120000, 'union');
+            const newRanges = Recorder.performRangeSetOperation(rangesA, rangesB, 120000, 'union');
 
             expect(newRanges).to.eql([
                 createRange(4, 30, 6, 30),
@@ -401,84 +401,84 @@ describe('Recorder', function() {
         });
 
         it('should work correctly with difference of empty ranges', function() {
-            var rangesA = [
+            const rangesA = [
             ];
 
-            var rangesB = [
+            const rangesB = [
             ];
 
-            var newRanges = Recorder.performRangeSetOperation(rangesA, rangesB, 120000, 'difference');
+            const newRanges = Recorder.performRangeSetOperation(rangesA, rangesB, 120000, 'difference');
 
             expect(newRanges).to.eql([
             ]);
         });
 
         it('should work correctly with difference of empty A ranges', function() {
-            var rangesA = [
+            const rangesA = [
             ];
 
-            var rangesB = [
+            const rangesB = [
                 createRange(7, 32, 15, 28),
             ];
 
-            var newRanges = Recorder.performRangeSetOperation(rangesA, rangesB, 120000, 'difference');
+            const newRanges = Recorder.performRangeSetOperation(rangesA, rangesB, 120000, 'difference');
 
             expect(newRanges).to.eql([
             ]);
         });
 
         it('should work correctly with difference of empty B ranges', function() {
-            var rangesA = [
+            const rangesA = [
                 createRange(4, 30, 6, 30),
                 createRange(8, 30, 10, 30),
                 createRange(12, 30, 14, 30),
                 createRange(16, 30, 18, 30),
             ];
 
-            var rangesB = [
+            const rangesB = [
             ];
 
-            var newRanges = Recorder.performRangeSetOperation(rangesA, rangesB, 120000, 'difference');
+            const newRanges = Recorder.performRangeSetOperation(rangesA, rangesB, 120000, 'difference');
 
             expect(newRanges).to.eql(rangesA);
         });
 
         it('should work correctly with difference of non-overlapping ranges', function() {
-            var rangesA = [
+            const rangesA = [
                 createRange(4, 30, 6, 30),
                 createRange(8, 30, 10, 30),
                 createRange(12, 30, 14, 30),
                 createRange(16, 30, 18, 30),
             ];
 
-            var rangesB = [
+            const rangesB = [
                 createRange(0, 0, 4, 0),
                 createRange(11, 0, 12, 0),
                 createRange(15, 0, 16, 0),
                 createRange(19, 0, 24, 0),
             ];
 
-            var newRanges = Recorder.performRangeSetOperation(rangesA, rangesB, 120000, 'difference');
+            const newRanges = Recorder.performRangeSetOperation(rangesA, rangesB, 120000, 'difference');
 
             expect(newRanges).to.eql(rangesA);
         });
 
         it('should work correctly with difference of partially overlapping ranges', function() {
-            var rangesA = [
+            const rangesA = [
                 createRange(4, 30, 6, 30),
                 createRange(8, 30, 10, 30),
                 createRange(12, 30, 14, 30),
                 createRange(16, 30, 18, 30),
             ];
 
-            var rangesB = [
+            const rangesB = [
                 createRange(0, 0, 5, 0),
                 createRange(6, 0, 7, 0),
                 createRange(14, 0, 15, 0),
                 createRange(16, 0, 17, 0),
             ];
 
-            var newRanges = Recorder.performRangeSetOperation(rangesA, rangesB, 120000, 'difference');
+            const newRanges = Recorder.performRangeSetOperation(rangesA, rangesB, 120000, 'difference');
 
             expect(newRanges).to.eql([
                 createRange(5, 0, 6, 0, true, true),
@@ -489,18 +489,18 @@ describe('Recorder', function() {
         });
 
         it('should work correctly with difference of overlapping multiple ranges', function() {
-            var rangesA = [
+            const rangesA = [
                 createRange(4, 30, 6, 30),
                 createRange(8, 30, 10, 30),
                 createRange(12, 30, 14, 30),
                 createRange(16, 30, 18, 30),
             ];
 
-            var rangesB = [
+            const rangesB = [
                 createRange(0, 0, 13, 0),
             ];
 
-            var newRanges = Recorder.performRangeSetOperation(rangesA, rangesB, 120000, 'difference');
+            const newRanges = Recorder.performRangeSetOperation(rangesA, rangesB, 120000, 'difference');
 
             expect(newRanges).to.eql([
                 createRange(13, 0, 14, 30, true, false),
@@ -509,49 +509,49 @@ describe('Recorder', function() {
         });
 
         it('should work correctly with difference of large overlapping ranges', function() {
-            var rangesA = [
+            const rangesA = [
                 createRange(4, 30, 6, 30),
                 createRange(8, 30, 10, 30),
                 createRange(12, 30, 14, 30),
                 createRange(16, 30, 18, 30),
             ];
 
-            var rangesB = [
+            const rangesB = [
                 createRange(0, 0, 24, 0),
             ];
 
-            var newRanges = Recorder.performRangeSetOperation(rangesA, rangesB, 120000, 'difference');
+            const newRanges = Recorder.performRangeSetOperation(rangesA, rangesB, 120000, 'difference');
 
             expect(newRanges).to.eql([
             ]);
         });
 
         it('should work correctly with intersection of empty ranges', function() {
-            var rangesA = [
+            const rangesA = [
             ];
 
-            var rangesB = [
+            const rangesB = [
             ];
 
-            var newRanges = Recorder.performRangeSetOperation(rangesA, rangesB, 120000, 'intersection');
+            const newRanges = Recorder.performRangeSetOperation(rangesA, rangesB, 120000, 'intersection');
 
             expect(newRanges).to.eql([
             ]);
         });
 
         it('should work correctly with intersection of overlapping multiple ranges', function() {
-            var rangesA = [
+            const rangesA = [
                 createRange(4, 30, 6, 30),
                 createRange(8, 30, 10, 30),
                 createRange(12, 30, 14, 30),
                 createRange(16, 30, 18, 30),
             ];
 
-            var rangesB = [
+            const rangesB = [
                 createRange(7, 0, 16, 0)
             ];
 
-            var newRanges = Recorder.performRangeSetOperation(rangesA, rangesB, 120000, 'intersection');
+            let newRanges = Recorder.performRangeSetOperation(rangesA, rangesB, 120000, 'intersection');
 
             expect(newRanges).to.eql([
                 createRange(8, 30, 10, 32),

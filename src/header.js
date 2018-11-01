@@ -3,15 +3,15 @@
 
 
 
-var sprintf = require('sprintf-js').sprintf;
+const sprintf = require('sprintf-js').sprintf;
 
 
-var extend = require('./extend');
-var _ = require('./lodash');
+const extend = require('./extend');
+const _ = require('./lodash');
 
 
 
-var optionKeys = [
+const optionKeys = [
     'timestamp',
     'channel',
     'destinationAddress',
@@ -20,7 +20,7 @@ var optionKeys = [
 
 
 
-var Header = extend(null, /** @lends Header# */ {
+const Header = extend(null, /** @lends Header# */ {
 
     /**
      * Timestamp of this header
@@ -158,7 +158,7 @@ var Header = extend(null, /** @lends Header# */ {
      *   - equal to to if `this == that`
      */
     compareTo: function(that) {
-        var result = this.channel - that.channel;
+        let result = this.channel - that.channel;
         if (result === 0) {
             result = this.destinationAddress - that.destinationAddress;
         }
@@ -199,8 +199,8 @@ var Header = extend(null, /** @lends Header# */ {
      * @returns {number} Calculated checksum
      */
     calcChecksumV0: function(buffer, start, end) {
-        var checksum = 0;
-        for (var index = start; index < end; index++) {
+        let checksum = 0;
+        for (let index = start; index < end; index++) {
             checksum = (checksum + buffer [index]) & 0x7F;
         }
         checksum = (0x7F - checksum);
@@ -218,7 +218,7 @@ var Header = extend(null, /** @lends Header# */ {
      * @returns {boolean} Result whether calculated and stored checksum match
      */
     calcAndCompareChecksumV0: function(buffer, start, end) {
-        var checksum = this.calcChecksumV0(buffer, start, end);
+        const checksum = this.calcChecksumV0(buffer, start, end);
         return (buffer [end] === checksum);
     },
 
@@ -232,7 +232,7 @@ var Header = extend(null, /** @lends Header# */ {
      * @returns {number} Calculated checksum
      */
     calcAndSetChecksumV0: function(buffer, start, end) {
-        var checksum = this.calcChecksumV0(buffer, start, end);
+        const checksum = this.calcChecksumV0(buffer, start, end);
         buffer [end] = checksum;
         return checksum;
     },
@@ -248,9 +248,9 @@ var Header = extend(null, /** @lends Header# */ {
      * @param {number} dstStart Start index in the destination buffer
      */
     injectSeptett: function(srcBuffer, srcStart, srcEnd, dstBuffer, dstStart) {
-        var srcIndex = srcStart, dstIndex = dstStart, mask = 1, septett = srcBuffer [srcEnd];
+        let srcIndex = srcStart, dstIndex = dstStart, mask = 1, septett = srcBuffer [srcEnd];
         while (srcIndex < srcEnd) {
-            var b = srcBuffer [srcIndex];
+            let b = srcBuffer [srcIndex];
             if (septett & mask) {
                 b |= 0x80;
             }
@@ -274,9 +274,9 @@ var Header = extend(null, /** @lends Header# */ {
      * @param {number} dstStart Start index in the destination buffer
      */
     extractSeptett: function(srcBuffer, srcStart, srcEnd, dstBuffer, dstStart) {
-        var srcIndex = srcStart, dstIndex = dstStart, mask = 1, septett = 0;
+        let srcIndex = srcStart, dstIndex = dstStart, mask = 1, septett = 0;
         while (srcIndex < srcEnd) {
-            var b = srcBuffer [srcIndex];
+            let b = srcBuffer [srcIndex];
             if (b & 0x80) {
                 b &= 0x7F;
                 septett |= mask;

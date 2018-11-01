@@ -3,15 +3,15 @@
 
 
 
-var sprintf = require('sprintf-js').sprintf;
+const sprintf = require('sprintf-js').sprintf;
 
 
-var Header = require('./header');
-var _ = require('./lodash');
+const Header = require('./header');
+const _ = require('./lodash');
 
 
 
-var optionKeys = [
+const optionKeys = [
     'command',
     'valueId',
     'value',
@@ -62,9 +62,9 @@ var Datagram = Header.extend(/** @lends Datagram# */ {
     },
 
     toLiveBuffer: function(origBuffer, start, end) {
-        var length = 16;
+        const length = 16;
 
-        var buffer;
+        let buffer;
         if (origBuffer === undefined) {
             buffer = new Buffer(length);
         } else {
@@ -81,7 +81,7 @@ var Datagram = Header.extend(/** @lends Datagram# */ {
         buffer [5] = 0x20;
         buffer.writeUInt16LE(this.command & 0x7F7F, 6);
 
-        var frameData = new Buffer(6);
+        const frameData = new Buffer(6);
         frameData.writeUInt16LE(this.valueId, 0);
         frameData.writeInt32LE(this.value, 2);
         Datagram.extractSeptett(frameData, 0, 6, buffer, 8);
@@ -95,7 +95,7 @@ var Datagram = Header.extend(/** @lends Datagram# */ {
     },
 
     getInfo: function() {
-        var info;
+        let info;
         if (this.command === 0x0900) {
             info = this.valueId;
         } else {
@@ -105,13 +105,13 @@ var Datagram = Header.extend(/** @lends Datagram# */ {
     },
 
     getId: function() {
-        var baseId = Header.prototype.getId.call(this);
-        var info = this.getInfo();
+        const baseId = Header.prototype.getId.call(this);
+        const info = this.getInfo();
         return sprintf('%s_%04X_%04X', baseId, this.command, info);
     },
 
     compareTo: function(that) {
-        var result = Header.prototype.compareTo.apply(this, arguments);
+        let result = Header.prototype.compareTo.apply(this, arguments);
         if (result === 0) {
             result = this.command - that.command;
         }
@@ -124,7 +124,7 @@ var Datagram = Header.extend(/** @lends Datagram# */ {
 }, {
 
     fromLiveBuffer: function(buffer, start, end) {
-        var frameData = new Buffer(6);
+        const frameData = new Buffer(6);
         Header.injectSeptett(buffer, start + 8, start + 14, frameData, 0);
 
         return new Datagram({

@@ -3,25 +3,25 @@
 
 
 
-var util = require('util');
+const util = require('util');
 
 
-var Duplex = require('stream').Duplex;
+const Duplex = require('stream').Duplex;
 
 
-var Q = require('q');
+const Q = require('q');
 
 
-var Header = require('./header');
-var HeaderSet = require('./header-set');
-var _ = require('./lodash');
-var utils = require('./utils');
+const Header = require('./header');
+const HeaderSet = require('./header-set');
+const _ = require('./lodash');
+const utils = require('./utils');
 
-var extend = require('./extend');
+const extend = require('./extend');
 
 
 
-var optionKeys = [
+const optionKeys = [
     'objectMode',
 ];
 
@@ -38,7 +38,7 @@ var optionKeys = [
 
 
 
-var Converter = extend(Duplex, /** @lends Converter# */ {
+const Converter = extend(Duplex, /** @lends Converter# */ {
 
     /**
      * Specifies whether the underlying stream operates in object mode.
@@ -64,7 +64,7 @@ var Converter = extend(Duplex, /** @lends Converter# */ {
      * character-separated text representations.
      */
     constructor: function(options) {
-        var _this = this;
+        const _this = this;
 
         options = _.defaults({}, options);
 
@@ -76,7 +76,7 @@ var Converter = extend(Duplex, /** @lends Converter# */ {
 
         this.finishedPromise = utils.promise(function(resolve) {
             // we have to add a data event handler to enable getting end event
-            var onData = function() {};
+            const onData = function() {};
 
             _this.on('data', onData);
 
@@ -104,7 +104,7 @@ var Converter = extend(Duplex, /** @lends Converter# */ {
      * @return {Promise} A Promise that resolves when all data has been consumed.
      */
     finish: function() {
-        var _this = this;
+        const _this = this;
 
         return Q.fcall(function() {
             _this.push(null);

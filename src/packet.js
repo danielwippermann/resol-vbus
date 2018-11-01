@@ -3,15 +3,15 @@
 
 
 
-var sprintf = require('sprintf-js').sprintf;
+const sprintf = require('sprintf-js').sprintf;
 
 
-var Header = require('./header');
-var _ = require('./lodash');
+const Header = require('./header');
+const _ = require('./lodash');
 
 
 
-var optionKeys = [
+const optionKeys = [
     'command',
     'frameCount',
 ];
@@ -69,16 +69,16 @@ var Packet = Header.extend(/** @lends Packet# */ {
             this.frameData.fill(0);
 
             if (_.has(options, 'frameData')) {
-                var minLength = Math.min(this.frameData.length, options.frameData.length);
+                const minLength = Math.min(this.frameData.length, options.frameData.length);
                 options.frameData.copy(this.frameData, 0, 0, minLength);
             }
         }
     },
 
     toLiveBuffer: function(origBuffer, start, end) {
-        var length = 10 + this.frameCount * 6;
+        const length = 10 + this.frameCount * 6;
 
-        var buffer;
+        let buffer;
         if (origBuffer === undefined) {
             buffer = new Buffer(length);
         } else if (start + length <= end) {
@@ -95,9 +95,9 @@ var Packet = Header.extend(/** @lends Packet# */ {
         buffer [8] = this.frameCount & 0x7F;
         Packet.calcAndSetChecksumV0(buffer, 1, 9);
 
-        for (var i = 0; i < this.frameCount; i++) {
-            var srcStart = 4 * i;
-            var dstStart = 10 + 6 * i;
+        for (let i = 0; i < this.frameCount; i++) {
+            const srcStart = 4 * i;
+            const dstStart = 10 + 6 * i;
             Packet.extractSeptett(this.frameData, srcStart, srcStart + 4, buffer, dstStart);
             Packet.calcAndSetChecksumV0(buffer, dstStart, dstStart + 5);
         }
@@ -110,12 +110,12 @@ var Packet = Header.extend(/** @lends Packet# */ {
     },
 
     getId: function() {
-        var baseId = Header.prototype.getId.call(this);
+        const baseId = Header.prototype.getId.call(this);
         return sprintf('%s_%04X', baseId, this.command);
     },
 
     compareTo: function(that) {
-        var result = Header.prototype.compareTo.apply(this, arguments);
+        let result = Header.prototype.compareTo.apply(this, arguments);
         if (result === 0) {
             result = this.command - that.command;
         }
@@ -125,14 +125,14 @@ var Packet = Header.extend(/** @lends Packet# */ {
 }, /** @lends Packet */ {
 
     fromLiveBuffer: function(buffer, start, end) {
-        var frameCount = buffer [start + 8];
+        const frameCount = buffer [start + 8];
 
-        var frameData = new Buffer(127 * 4);
+        const frameData = new Buffer(127 * 4);
         frameData.fill(0);
 
-        for (var frameIndex = 0; frameIndex < frameCount; frameIndex++) {
-            var sourceStart = start + 10 + frameIndex * 6;
-            var targetStart = frameIndex * 4;
+        for (let frameIndex = 0; frameIndex < frameCount; frameIndex++) {
+            const sourceStart = start + 10 + frameIndex * 6;
+            const targetStart = frameIndex * 4;
             Packet.injectSeptett(buffer, sourceStart, sourceStart + 4, frameData, targetStart);
         }
 

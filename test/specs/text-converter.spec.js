@@ -3,15 +3,15 @@
 
 
 
-var vbus = require('./resol-vbus');
-var testUtils = require('./test-utils');
+const vbus = require('./resol-vbus');
+const testUtils = require('./test-utils');
 
 
 
-var HeaderSet = vbus.HeaderSet;
-var Packet = vbus.Packet;
+const HeaderSet = vbus.HeaderSet;
+const Packet = vbus.Packet;
 
-var TextConverter = vbus.TextConverter;
+const TextConverter = vbus.TextConverter;
 
 
 
@@ -35,35 +35,35 @@ describe('TextConverter', function() {
 
     describe('readable stream', function() {
 
-        var rawPacket1 = 'aa100053001000010b0020051000004a723d1000013f40571000015706100000016800000000007f00000000007f00000000007f00000000007f00007f00000025003600051f11000000006e';
-        var rawPacket2 = 'aa1000217e100001013e00000b000074';
-        var rawPacket3 = 'aa1000317e100001042b05774a00003900000000007f00000000007f130d0000005f';
+        const rawPacket1 = 'aa100053001000010b0020051000004a723d1000013f40571000015706100000016800000000007f00000000007f00000000007f00000000007f00007f00000025003600051f11000000006e';
+        const rawPacket2 = 'aa1000217e100001013e00000b000074';
+        const rawPacket3 = 'aa1000317e100001042b05774a00003900000000007f00000000007f130d0000005f';
 
         promiseIt('should work correctly', function() {
-            var buffer1 = new Buffer(rawPacket1, 'hex');
-            var packet1 = Packet.fromLiveBuffer(buffer1, 0, buffer1.length);
+            const buffer1 = new Buffer(rawPacket1, 'hex');
+            const packet1 = Packet.fromLiveBuffer(buffer1, 0, buffer1.length);
             packet1.timestamp = new Date(1387893006778);
             packet1.channel = 0;
 
-            var buffer2 = new Buffer(rawPacket2, 'hex');
-            var packet2 = Packet.fromLiveBuffer(buffer2, 0, buffer2.length);
+            const buffer2 = new Buffer(rawPacket2, 'hex');
+            const packet2 = Packet.fromLiveBuffer(buffer2, 0, buffer2.length);
             packet2.timestamp = new Date(1387893003303);
             packet2.channel = 1;
 
-            var buffer3 = new Buffer(rawPacket3, 'hex');
-            var packet3 = Packet.fromLiveBuffer(buffer3, 0, buffer3.length);
+            const buffer3 = new Buffer(rawPacket3, 'hex');
+            const packet3 = Packet.fromLiveBuffer(buffer3, 0, buffer3.length);
             packet3.timestamp = new Date(1387893003454);
             packet3.channel = 1;
 
-            var headerSet = new HeaderSet({
+            let headerSet = new HeaderSet({
                 timestamp: new Date(1387893006829),
                 headers: []
             });
 
-            var converter = new TextConverter();
+            const converter = new TextConverter();
             converter.specification.i18n.timezone = 'Europe/Berlin';
 
-            var onData = sinon.spy();
+            const onData = sinon.spy();
             converter.on('data', onData);
 
             converter.convertHeaderSet(headerSet);
@@ -93,7 +93,7 @@ describe('TextConverter', function() {
 
                 expect(onData.callCount).to.equal(5);
 
-                var chunk = onData.firstCall.args [0];
+                let chunk = onData.firstCall.args [0];
 
                 testUtils.expectToBeABuffer(chunk);
                 expect(chunk.toString()).to.equal('\r\nDate / Time\r\n12/24/2013 14:50:06\r\n');

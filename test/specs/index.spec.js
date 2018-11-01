@@ -3,7 +3,7 @@
 
 
 
-var index = require('./resol-vbus');
+const index = require('./resol-vbus');
 
 
 

@@ -3,13 +3,13 @@
 
 
 
-var Converter = require('./converter');
-var _ = require('./lodash');
-var Specification = require('./specification');
+const Converter = require('./converter');
+const _ = require('./lodash');
+const Specification = require('./specification');
 
 
 
-var optionKeys = [
+const optionKeys = [
     'columnSeparator',
     'lineSeparator',
     'separateDateAndTime',
@@ -18,7 +18,7 @@ var optionKeys = [
 
 
 
-var TextConverter = Converter.extend(/** @lends TextConverter# */ {
+const TextConverter = Converter.extend(/** @lends TextConverter# */ {
 
     /**
      * Column separator, defaults to tab
@@ -90,23 +90,23 @@ var TextConverter = Converter.extend(/** @lends TextConverter# */ {
      * @param {HeaderSet} headerSet
      */
     convertHeaderSet: function(headerSet) {
-        var _this = this;
+        const _this = this;
 
-        var spec = this.specification;
+        const spec = this.specification;
 
-        var i18n = spec.i18n;
+        const i18n = spec.i18n;
 
-        var headers = headerSet.getSortedHeaders();
+        const headers = headerSet.getSortedHeaders();
 
-        var packetFields = spec.getPacketFieldsForHeaders(headers);
+        const packetFields = spec.getPacketFieldsForHeaders(headers);
 
-        var now = i18n.moment(headerSet.timestamp);
+        const now = i18n.moment(headerSet.timestamp);
 
-        var idList = _.map(packetFields, 'id').join(',');
+        const idList = _.map(packetFields, 'id').join(',');
 
-        var content = '', columns;
+        let content = '', columns;
 
-        var appendDateAndTimeColumns = function(date, time, join) {
+        const appendDateAndTimeColumns = function(date, time, join) {
             columns = [];
             if (_this.separateDateAndTime) {
                 columns.push(date);
@@ -116,11 +116,11 @@ var TextConverter = Converter.extend(/** @lends TextConverter# */ {
             }
         };
 
-        var appendColumnsToContent = function() {
+        const appendColumnsToContent = function() {
             content += columns.join(_this.columnSeparator) + _this.lineSeparator;
         };
 
-        var needHeaderLines = false;
+        let needHeaderLines = false;
         if (this.lastIdList !== idList) {
             this.lastIdList = idList;
             needHeaderLines = true;
@@ -128,12 +128,12 @@ var TextConverter = Converter.extend(/** @lends TextConverter# */ {
 
         if (needHeaderLines) {
             // packet spec header line
-            var lastPacketSpec = null;
+            let lastPacketSpec = null;
 
             appendDateAndTimeColumns('', '', '');
 
             _.forEach(packetFields, function(packetField) {
-                var packetDesc;
+                let packetDesc;
                 if (lastPacketSpec !== packetField.packetSpec) {
                     lastPacketSpec = packetField.packetSpec;
 
@@ -154,9 +154,9 @@ var TextConverter = Converter.extend(/** @lends TextConverter# */ {
             appendDateAndTimeColumns(i18n.t('textConverter.date'), i18n.t('textConverter.time'), ' / ');
 
             _.forEach(packetFields, function(packetField) {
-                var columnDesc = packetField.name;
+                let columnDesc = packetField.name;
                 if (packetField.packetFieldSpec) {
-                    var type = packetField.packetFieldSpec.type;
+                    const type = packetField.packetFieldSpec.type;
                     if (type && type.unit && type.unit.unitText) {
                         columnDesc += ' [' + type.unit.unitText + ']';
                     }
@@ -173,7 +173,7 @@ var TextConverter = Converter.extend(/** @lends TextConverter# */ {
         appendDateAndTimeColumns(now.format('L'), now.format('HH:mm:ss'), ' ');
 
         _.forEach(packetFields, function(packetField) {
-            var textValue = packetField.formatTextValue('None');
+            const textValue = packetField.formatTextValue('None');
             columns.push(textValue);
         });
 

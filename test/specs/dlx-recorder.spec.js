@@ -3,28 +3,28 @@
 
 
 
-var fs = require('fs');
-var path = require('path');
-var Duplex = require('stream').Duplex;
+const fs = require('fs');
+const path = require('path');
+const Duplex = require('stream').Duplex;
 
 
-var Q = require('q');
+const Q = require('q');
 
 
-var vbus = require('./resol-vbus');
+const vbus = require('./resol-vbus');
 
-var TestRecorder = require('./test-recorder');
-var testUtils = require('./test-utils');
-
-
-
-var DLxRecorder = vbus.DLxRecorder;
+const TestRecorder = require('./test-recorder');
+const testUtils = require('./test-utils');
 
 
 
-var createRequestStub = function(recorder, response, data) {
-    var stub = sinon.spy(function(url, options) {
-        var stream = new Duplex();
+const DLxRecorder = vbus.DLxRecorder;
+
+
+
+const createRequestStub = function(recorder, response, data) {
+    const stub = sinon.spy(function(url, options) {
+        const stream = new Duplex();
 
         stream._read = function() {
             // nop;
@@ -48,7 +48,7 @@ var createRequestStub = function(recorder, response, data) {
 
 
 
-var recordingFileListHtml = new Buffer([
+const recordingFileListHtml = new Buffer([
     '<?xml version="1.0" encoding="UTF-8"?>',
     '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">',
     '<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">',
@@ -104,7 +104,7 @@ describe('DLxRecorder', function() {
         });
 
         it('should have reasonable defaults', function() {
-            var recorder = new DLxRecorder();
+            const recorder = new DLxRecorder();
 
             expect(recorder)
                 .to.have.a.property('id')
@@ -131,7 +131,7 @@ describe('DLxRecorder', function() {
         });
 
         it('should copy selected options', function() {
-            var options = {
+            const options = {
                 id: 'ID',
                 minTimestamp: new Date(Date.UTC(2013, 0, 1)),
                 maxTimestamp: new Date(Date.UTC(2014, 0, 1)),
@@ -141,7 +141,7 @@ describe('DLxRecorder', function() {
                 junk: 'JUNK',
             };
 
-            var recorder = new DLxRecorder(options);
+            const recorder = new DLxRecorder(options);
 
             expect(recorder)
                 .to.have.a.property('id')
@@ -176,20 +176,20 @@ describe('DLxRecorder', function() {
         });
 
         it('should work correctly', function(done) {
-            var recorder = new DLxRecorder({
+            const recorder = new DLxRecorder({
                 urlPrefix: 'URLPREFIX',
                 username: 'USERNAME',
                 password: 'PASSWORD',
             });
 
-            var response = {};
+            const response = {};
 
-            var data = recordingFileListHtml;
+            const data = recordingFileListHtml;
 
-            var stub = createRequestStub(recorder, response, data);
+            const stub = createRequestStub(recorder, response, data);
 
             testUtils.performAsyncTest(done, function() {
-                var promise = recorder.getLazyRecordingRanges();
+                const promise = recorder.getLazyRecordingRanges();
 
                 return testUtils.expectPromise(promise).then(function(result) {
                     expect(stub)
@@ -230,20 +230,20 @@ describe('DLxRecorder', function() {
         });
 
         it('should work correctly', function(done) {
-            var recorder = new DLxRecorder({
+            const recorder = new DLxRecorder({
                 urlPrefix: 'URLPREFIX',
                 username: 'USERNAME',
                 password: 'PASSWORD',
             });
 
-            var response = {};
+            const response = {};
 
-            var data = recordingFileListHtml;
+            const data = recordingFileListHtml;
 
-            var stub = createRequestStub(recorder, response, data);
+            const stub = createRequestStub(recorder, response, data);
 
             testUtils.performAsyncTest(done, function() {
-                var promise = recorder.getRecordingFilenames();
+                const promise = recorder.getRecordingFilenames();
 
                 return testUtils.expectPromise(promise).then(function(result) {
                     expect(stub)
@@ -284,27 +284,27 @@ describe('DLxRecorder', function() {
         });
 
         it('should work correctly', function(done) {
-            var recorder = new DLxRecorder({
+            const recorder = new DLxRecorder({
                 urlPrefix: 'URLPREFIX',
                 username: 'USERNAME',
                 password: 'PASSWORD',
             });
 
-            var response = {
+            const response = {
                 headers: {
                     'content-length': '1234',
                     etag: 'ETAG',
                 },
             };
 
-            var data = null;
+            const data = null;
 
-            var stub = createRequestStub(recorder, response, data);
+            const stub = createRequestStub(recorder, response, data);
 
-            var filename = '/FILENAME';
+            const filename = '/FILENAME';
 
             testUtils.performAsyncTest(done, function() {
-                var promise = recorder.getRecordingInfo(filename);
+                const promise = recorder.getRecordingInfo(filename);
 
                 return testUtils.expectPromise(promise).then(function(result) {
                     expect(stub)
@@ -340,26 +340,26 @@ describe('DLxRecorder', function() {
         });
 
         it('should work correctly', function(done) {
-            var recorder = new DLxRecorder();
+            const recorder = new DLxRecorder();
 
-            var response = null;
+            const response = null;
 
-            var data = new Buffer('11223344556677889900', 'hex');
+            const data = new Buffer('11223344556677889900', 'hex');
 
-            var stub = createRequestStub(recorder, response, data);
+            const stub = createRequestStub(recorder, response, data);
 
-            var urlString = 'URLPREFIX/FILENAME';
+            const urlString = 'URLPREFIX/FILENAME';
 
-            var urlOptions = {};
+            const urlOptions = {};
 
-            var stream = new Duplex();
+            const stream = new Duplex();
 
             stream._write = sinon.spy(function(chunk, enc, callback) {
                 callback();
             });
 
             testUtils.performAsyncTest(done, function() {
-                var promise = recorder.downloadToStream(urlString, urlOptions, stream);
+                const promise = recorder.downloadToStream(urlString, urlOptions, stream);
 
                 return testUtils.expectPromise(promise).then(function() {
                     expect(stub.callCount).to.equal(1);
@@ -368,7 +368,7 @@ describe('DLxRecorder', function() {
 
                     expect(stream._write.callCount).to.equal(1);
 
-                    var chunk = stream._write.firstCall.args [0];
+                    const chunk = stream._write.firstCall.args [0];
                     testUtils.expectToBeABuffer(chunk);
                     expect(chunk.toString('hex')).equal(data.toString('hex'));
                 });
@@ -379,21 +379,21 @@ describe('DLxRecorder', function() {
 
     describe('synchronization source', function() {
 
-        var fixturesPath = path.join(__dirname, '../fixtures/dlx-recorder-1');
+        const fixturesPath = path.join(__dirname, '../fixtures/dlx-recorder-1');
 
         promiseIt('should work correctly', function() {
             this.timeout(testUtils.adaptTimeout(3000));
 
-            var options = {
+            const options = {
                 id: 'DLx',
                 interval: 300000,
                 urlPrefix: '',
             };
 
-            var sourceRecorder = new DLxRecorder(options);
+            const sourceRecorder = new DLxRecorder(options);
 
             sourceRecorder._request = sinon.spy(function(url, options) {
-                var stream = new Duplex();
+                const stream = new Duplex();
 
                 stream._read = function() {
                     // nop
@@ -409,7 +409,7 @@ describe('DLxRecorder', function() {
                 });
 
                 process.nextTick(function() {
-                    var response, bodyStream, bodyData;
+                    let response, bodyStream, bodyData;
                     if (url === '/log/') {
                         bodyStream = fs.createReadStream(path.join(fixturesPath, 'index.html'));
                     } else if (url === '/log/20140214_packets.vbus') {
@@ -437,7 +437,7 @@ describe('DLxRecorder', function() {
             });
 
 
-            var targetRecorder = new TestRecorder({
+            const targetRecorder = new TestRecorder({
                 id: 'Test',
                 interval: 300000,
             });

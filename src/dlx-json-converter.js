@@ -3,22 +3,22 @@
 
 
 
-var HeaderSet = require('./header-set');
-var _ = require('./lodash');
-var Specification = require('./specification');
+const HeaderSet = require('./header-set');
+const _ = require('./lodash');
+const Specification = require('./specification');
 
-var Converter = require('./converter');
+const Converter = require('./converter');
 
 
 
-var optionKeys = [
+const optionKeys = [
     'specification',
     'statsOnly',
 ];
 
 
 
-var DLxJsonConverter = Converter.extend(/** @lends DLxJsonConverter# */ {
+const DLxJsonConverter = Converter.extend(/** @lends DLxJsonConverter# */ {
 
     /**
      * Reference to the Specification instance that is used for the binary -> text conversion.
@@ -86,7 +86,7 @@ var DLxJsonConverter = Converter.extend(/** @lends DLxJsonConverter# */ {
     },
 
     convertHeaderSet: function(headerSet) {
-        var headers = headerSet.getHeaders();
+        const headers = headerSet.getHeaders();
 
         this.allHeaderSet.addHeaders(headers);
 
@@ -94,13 +94,13 @@ var DLxJsonConverter = Converter.extend(/** @lends DLxJsonConverter# */ {
             this._convertHeaderSetToJson(headerSet);
         }
 
-        var spec = this.specification;
+        const spec = this.specification;
 
-        var i18n = spec.i18n;
+        const i18n = spec.i18n;
 
-        var now = i18n.moment(headerSet.timestamp);
+        const now = i18n.moment(headerSet.timestamp);
 
-        var timestamp = now.valueOf();
+        const timestamp = now.valueOf();
 
         this.stats.headerSetCount++;
 
@@ -113,19 +113,19 @@ var DLxJsonConverter = Converter.extend(/** @lends DLxJsonConverter# */ {
     },
 
     _convertHeaderSetToJson: function(headerSet) {
-        var spec = this.specification;
+        const spec = this.specification;
 
-        var i18n = spec.i18n;
+        const i18n = spec.i18n;
 
-        var headers = headerSet.getHeaders();
+        const headers = headerSet.getHeaders();
 
-        var packetFields = spec.getPacketFieldsForHeaders(headers);
+        const packetFields = spec.getPacketFieldsForHeaders(headers);
 
-        var now = i18n.moment(headerSet.timestamp);
+        const now = i18n.moment(headerSet.timestamp);
 
-        var allHeaders = this.allHeaderSet.getHeaders();
+        const allHeaders = this.allHeaderSet.getHeaders();
 
-        var packetInfoList = _.map(allHeaders, function(header, headerIndex) {
+        const packetInfoList = _.map(allHeaders, function(header, headerIndex) {
             return {
                 header: header,
                 headerIndex: headerIndex,
@@ -134,22 +134,22 @@ var DLxJsonConverter = Converter.extend(/** @lends DLxJsonConverter# */ {
         });
 
         _.forEach(packetFields, function(packetField) {
-            var headerIndex = allHeaders.indexOf(packetField.packet);
+            const headerIndex = allHeaders.indexOf(packetField.packet);
             if (headerIndex >= 0) {
-                var packetInfo = packetInfoList [headerIndex];
+                const packetInfo = packetInfoList [headerIndex];
                 packetInfo.packetFields.push(packetField);
             }
         });
 
-        var noneUnit = spec.getUnitById('None');
-        var numberType = spec.getTypeById('Number');
+        const noneUnit = spec.getUnitById('None');
+        const numberType = spec.getTypeById('Number');
 
-        var packetData = _.reduce(packetInfoList, function(memo, packetInfo) {
+        const packetData = _.reduce(packetInfoList, function(memo, packetInfo) {
             if (packetInfo.packetFields.length >= 0) {
-                var fieldData = _.map(packetInfo.packetFields, function(packetField, packetFieldIndex) {
-                    var rawValue = packetField.rawValue;
-                    var precision = packetField.packetFieldSpec.type.precision;
-                    var numberValue = spec.formatTextValueFromRawValueInternal(rawValue, noneUnit, numberType, precision, noneUnit);
+                const fieldData = _.map(packetInfo.packetFields, function(packetField, packetFieldIndex) {
+                    let rawValue = packetField.rawValue;
+                    const precision = packetField.packetFieldSpec.type.precision;
+                    const numberValue = spec.formatTextValueFromRawValueInternal(rawValue, noneUnit, numberType, precision, noneUnit);
                     rawValue = + numberValue;
 
                     return {
@@ -169,16 +169,16 @@ var DLxJsonConverter = Converter.extend(/** @lends DLxJsonConverter# */ {
             return memo;
         }, []);
 
-        var timestamp = now.valueOf();
+        const timestamp = now.valueOf();
 
-        var headerSetData = {
+        const headerSetData = {
             timestamp: timestamp / 1000.0,
             packets: packetData,
         };
 
         this._emitStart();
 
-        var content = [
+        const content = [
             (this.stats.headerSetCount > 0) ? ',' : '',
             JSON.stringify(headerSetData),
         ].join('');
@@ -195,13 +195,13 @@ var DLxJsonConverter = Converter.extend(/** @lends DLxJsonConverter# */ {
     },
 
     _emitEnd: function() {
-        var spec = this.specification;
+        const spec = this.specification;
 
-        var allHeaders = this.allHeaderSet.getHeaders();
+        const allHeaders = this.allHeaderSet.getHeaders();
 
-        var allPacketFields = spec.getPacketFieldsForHeaders(allHeaders);
+        const allPacketFields = spec.getPacketFieldsForHeaders(allHeaders);
 
-        var packetInfoList = _.map(allHeaders, function(header, headerIndex) {
+        const packetInfoList = _.map(allHeaders, function(header, headerIndex) {
             return {
                 header: header,
                 headerIndex: headerIndex,
@@ -211,16 +211,16 @@ var DLxJsonConverter = Converter.extend(/** @lends DLxJsonConverter# */ {
         });
 
         _.forEach(allPacketFields, function(packetField) {
-            var headerIndex = allHeaders.indexOf(packetField.packet);
+            const headerIndex = allHeaders.indexOf(packetField.packet);
             if (headerIndex >= 0) {
-                var packetInfo = packetInfoList [headerIndex];
+                const packetInfo = packetInfoList [headerIndex];
                 packetInfo.packetFields.push(packetField);
             }
         });
 
-        var headersData = _.reduce(packetInfoList, function(memo, packetInfo, packetInfoIndex) {
+        const headersData = _.reduce(packetInfoList, function(memo, packetInfo, packetInfoIndex) {
             if (packetInfo.packetFields.length >= 0) {
-                var fieldsData = _.map(packetInfo.packetFields, function(packetField, packetFieldIndex) {
+                const fieldsData = _.map(packetInfo.packetFields, function(packetField, packetFieldIndex) {
                     return {
                         id: packetField.packetFieldSpec.fieldId,
                         filteredId: packetField.packetFieldSpec.filteredPacketFieldId,
@@ -230,15 +230,15 @@ var DLxJsonConverter = Converter.extend(/** @lends DLxJsonConverter# */ {
                     };
                 });
 
-                var md;
+                let md;
 
-                var packetSpec = packetInfo.packetSpec;
-                var id = packetSpec.packetId;
+                const packetSpec = packetInfo.packetSpec;
+                let id = packetSpec.packetId;
                 if ((md = /^(.._...._....)_10(_....)$/.exec(id)) !== null) {
                     id = md [1] + md [2];
                 }
 
-                var description = packetSpec.fullName;
+                let description = packetSpec.fullName;
                 if ((md = /^(VBus )#([0-9]+:.*)$/.exec(description)) !== null) {
                     description = md[1] + md [2];
                 } else {
@@ -263,7 +263,7 @@ var DLxJsonConverter = Converter.extend(/** @lends DLxJsonConverter# */ {
             return memo;
         }, []);
 
-        var statsData = {
+        const statsData = {
             headerset_count: this.stats.headerSetCount,
             min_timestamp : this.stats.minTimestamp / 1000.0,
             max_timestamp: this.stats.maxTimestamp / 1000.0,
@@ -271,7 +271,7 @@ var DLxJsonConverter = Converter.extend(/** @lends DLxJsonConverter# */ {
 
         this._emitStart();
 
-        var content = [
+        const content = [
             '],"headerset_stats":',
             JSON.stringify(statsData),
             ',"headers":',

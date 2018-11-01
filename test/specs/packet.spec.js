@@ -3,8 +3,8 @@
 
 
 
-var _ = require('./lodash');
-var Packet = require('./resol-vbus').Packet;
+const _ = require('./lodash');
+const Packet = require('./resol-vbus').Packet;
 
 
 
@@ -18,9 +18,9 @@ describe('Packet', function() {
         });
 
         it('should have reasonable defaults', function() {
-            var before = new Date();
-            var packet = new Packet();
-            var after = new Date();
+            const before = new Date();
+            const packet = new Packet();
+            const after = new Date();
 
             expect(packet).to.be.an('object');
             expect(packet.timestamp).to.be.an.instanceOf(Date);
@@ -35,12 +35,12 @@ describe('Packet', function() {
         });
 
         it('should copy certain options', function() {
-            var frameData = new Buffer(13 * 4);
-            for (var i = 0; i < frameData.length; i++) {
+            const frameData = new Buffer(13 * 4);
+            for (let i = 0; i < frameData.length; i++) {
                 frameData [i] = i * 4;
             }
 
-            var options = {
+            const options = {
                 timestamp: new Date(0),
                 channel: 0x1337,
                 destinationAddress: 0x2336,
@@ -51,12 +51,12 @@ describe('Packet', function() {
                 junk: 0x7331
             };
 
-            var packet = new Packet(options);
+            const packet = new Packet(options);
 
             expect(packet).to.be.an('object');
 
             _.forEach(options, function(refValue, key) {
-                var value = packet [key];
+                let value = packet [key];
 
                 if ((value instanceof Buffer) && (refValue instanceof Buffer)) {
                     value = value.slice(0, refValue.length).toString('hex');
@@ -78,12 +78,12 @@ describe('Packet', function() {
         });
 
         it('should work correctly without a buffer', function() {
-            var frameData = new Buffer(13 * 4);
-            for (var i = 0; i < frameData.length; i++) {
+            const frameData = new Buffer(13 * 4);
+            for (let i = 0; i < frameData.length; i++) {
                 frameData [i] = i * 4;
             }
 
-            var options = {
+            const options = {
                 destinationAddress: 0x2336,
                 sourceAddress: 0x3335,
                 command: 0x4334,
@@ -91,9 +91,9 @@ describe('Packet', function() {
                 frameData: frameData,
             };
 
-            var packet = new Packet(options);
+            const packet = new Packet(options);
 
-            var buffer = packet.toLiveBuffer();
+            const buffer = packet.toLiveBuffer();
 
             expect(buffer).to.be.an.instanceOf(Buffer);
             expect(buffer.length).to.equal(88);
@@ -123,12 +123,12 @@ describe('Packet', function() {
         });
 
         it('should work correctly with a buffer', function() {
-            var frameData = new Buffer(13 * 4);
-            for (var i = 0; i < frameData.length; i++) {
+            const frameData = new Buffer(13 * 4);
+            for (let i = 0; i < frameData.length; i++) {
                 frameData [i] = i * 4;
             }
 
-            var options = {
+            const options = {
                 destinationAddress: 0x2336,
                 sourceAddress: 0x3335,
                 command: 0x4334,
@@ -136,11 +136,11 @@ describe('Packet', function() {
                 frameData: frameData,
             };
 
-            var packet = new Packet(options);
+            const packet = new Packet(options);
 
-            var bigBuffer = new Buffer(800);
+            const bigBuffer = new Buffer(800);
 
-            var buffer = packet.toLiveBuffer(bigBuffer, 100, 200);
+            const buffer = packet.toLiveBuffer(bigBuffer, 100, 200);
 
             expect(buffer).to.be.an.instanceOf(Buffer);
             expect(buffer.length).to.equal(88);
@@ -148,12 +148,12 @@ describe('Packet', function() {
         });
 
         it('should throw if buffer is too small', function() {
-            var frameData = new Buffer(13 * 4);
-            for (var i = 0; i < frameData.length; i++) {
+            const frameData = new Buffer(13 * 4);
+            for (let i = 0; i < frameData.length; i++) {
                 frameData [i] = i * 4;
             }
 
-            var options = {
+            const options = {
                 destinationAddress: 0x2336,
                 sourceAddress: 0x3335,
                 command: 0x4334,
@@ -161,9 +161,9 @@ describe('Packet', function() {
                 frameData: frameData,
             };
 
-            var packet = new Packet(options);
+            const packet = new Packet(options);
 
-            var bigBuffer = new Buffer(800);
+            const bigBuffer = new Buffer(800);
 
             expect(function() {
                 packet.toLiveBuffer(bigBuffer, 100, 180);
@@ -179,12 +179,12 @@ describe('Packet', function() {
         });
 
         it('should work correctly', function() {
-            var frameData = new Buffer(13 * 4);
-            for (var i = 0; i < frameData.length; i++) {
+            const frameData = new Buffer(13 * 4);
+            for (let i = 0; i < frameData.length; i++) {
                 frameData [i] = i * 4;
             }
 
-            var options = {
+            const options = {
                 destinationAddress: 0x2336,
                 sourceAddress: 0x3335,
                 command: 0x4334,
@@ -192,14 +192,14 @@ describe('Packet', function() {
                 frameData: frameData,
             };
 
-            var buffer = new Buffer('aa362335331034430d2a0004080c00671014181c00272024282c00673034383c00274044484c00675054585c00276064686c00677074787c00270004080c0f581014181c0f182024282c0f583034383c0f184044484c0f58', 'hex');
+            const buffer = new Buffer('aa362335331034430d2a0004080c00671014181c00272024282c00673034383c00274044484c00675054585c00276064686c00677074787c00270004080c0f581014181c0f182024282c0f583034383c0f184044484c0f58', 'hex');
 
-            var packet = Packet.fromLiveBuffer(buffer, 0, buffer.length);
+            const packet = Packet.fromLiveBuffer(buffer, 0, buffer.length);
 
             expect(packet).to.be.an.instanceOf(Packet);
 
             _.forEach(options, function(refValue, key) {
-                var value = packet [key];
+                let value = packet [key];
 
                 if ((value instanceof Buffer) && (refValue instanceof Buffer)) {
                     value = value.slice(0, refValue.length).toString('hex');
@@ -219,12 +219,12 @@ describe('Packet', function() {
         });
 
         it('should work correctly', function() {
-            var frameData = new Buffer(13 * 4);
-            for (var i = 0; i < frameData.length; i++) {
+            const frameData = new Buffer(13 * 4);
+            for (let i = 0; i < frameData.length; i++) {
                 frameData [i] = i * 4;
             }
 
-            var options = {
+            const options = {
                 channel: 0x13,
                 destinationAddress: 0x2336,
                 sourceAddress: 0x3335,
@@ -233,7 +233,7 @@ describe('Packet', function() {
                 frameData: frameData,
             };
 
-            var packet = new Packet(options);
+            const packet = new Packet(options);
 
             expect(packet).to.be.an('object');
             expect(packet.getId()).to.equal('13_2336_3335_10_4334');

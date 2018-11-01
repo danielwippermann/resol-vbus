@@ -3,30 +3,30 @@
 
 
 
-var crypto = require('crypto');
-var fs = require('fs');
-var path = require('path');
+const crypto = require('crypto');
+const fs = require('fs');
+const path = require('path');
 
 
-var moment = require('moment');
-var Q = require('q');
+const moment = require('moment');
+const Q = require('q');
 
 
-var _ = require('./lodash');
-var utils = require('./utils');
-var VBusRecordingConverter = require('./vbus-recording-converter');
+const _ = require('./lodash');
+const utils = require('./utils');
+const VBusRecordingConverter = require('./vbus-recording-converter');
 
-var Recorder = require('./recorder');
+const Recorder = require('./recorder');
 
 
 
-var optionKeys = [
+const optionKeys = [
     'path',
 ];
 
 
 
-var FileSystemRecorder = Recorder.extend({
+const FileSystemRecorder = Recorder.extend({
 
     path: '.',
 
@@ -37,12 +37,12 @@ var FileSystemRecorder = Recorder.extend({
     },
 
     _getOptions: function() {
-        var options = Recorder.prototype._getOptions.call(this);
+        const options = Recorder.prototype._getOptions.call(this);
         return _.extend(options, _.pick(this, optionKeys));
     },
 
     _getAbsoluteFilename: function(filename) {
-        var result;
+        let result;
         if (filename !== undefined) {
             result = path.resolve(this.path, this.getHash(this.id), filename);
         } else {
@@ -56,7 +56,7 @@ var FileSystemRecorder = Recorder.extend({
     },
 
     _getCurrentSyncState: function(options) {
-        var filename = this._getCurrentSyncStateFilename(options);
+        const filename = this._getCurrentSyncStateFilename(options);
 
         return Q.fcall(function() {
             return Q.npost(fs, 'readFile', [ filename ]);
@@ -72,7 +72,7 @@ var FileSystemRecorder = Recorder.extend({
     },
 
     _setCurrentSyncState: function(syncState, options) {
-        var filename = this._getCurrentSyncStateFilename(options);
+        const filename = this._getCurrentSyncStateFilename(options);
 
         return Q.fcall(function() {
             return JSON.stringify(syncState, null, '    ');
@@ -82,9 +82,9 @@ var FileSystemRecorder = Recorder.extend({
     },
 
     _getOwnSyncState: function(syncState, options) {
-        var dstSyncState = this._getSyncState(syncState, 'destination', 'FileSystemRecorder');
+        const dstSyncState = this._getSyncState(syncState, 'destination', 'FileSystemRecorder');
 
-        var syncVersion = dstSyncState.version || 0;
+        let syncVersion = dstSyncState.version || 0;
         if (syncVersion === 0) {
             syncVersion = 1;
             dstSyncState.infoListByInterval = {};
@@ -95,21 +95,21 @@ var FileSystemRecorder = Recorder.extend({
             dstSyncState.infoListByInterval [options.interval] = [];
         }
 
-        var infoList = dstSyncState.infoListByInterval [options.interval];
+        const infoList = dstSyncState.infoListByInterval [options.interval];
 
         return infoList;
     },
 
     _playback: function(headerSetConsolidator, options) {
-        var _this = this;
+        const _this = this;
 
-        var converter = new VBusRecordingConverter();
+        const converter = new VBusRecordingConverter();
 
         converter.on('headerSet', function(headerSet) {
             headerSetConsolidator.processHeaderSet(headerSet);
         });
 
-        var requestedRanges = [{
+        const requestedRanges = [{
             minTimestamp: options.minTimestamp,
             maxTimestamp: options.maxTimestamp,
         }];
@@ -117,10 +117,10 @@ var FileSystemRecorder = Recorder.extend({
         return Q.fcall(function() {
             return _this._getCurrentSyncState(options);
         }).then(function(syncState) {
-            var infoList = _this._getOwnSyncState(syncState, options);
+            const infoList = _this._getOwnSyncState(syncState, options);
 
             return _.reduce(infoList, function(memo, info) {
-                var commonRanges = Recorder.performRangeSetOperation(requestedRanges, info.ranges, options.interval, 'intersection');
+                const commonRanges = Recorder.performRangeSetOperation(requestedRanges, info.ranges, options.interval, 'intersection');
 
                 if (commonRanges.length > 0) {
                     memo.push(info.filename);
@@ -129,7 +129,7 @@ var FileSystemRecorder = Recorder.extend({
                 return memo;
             }, []);
         }).then(function(filenames) {
-            var promise = Q();
+            let promise = Q();
 
             _.forEach(filenames, function(filename) {
                 promise = promise.then(function() {
@@ -144,29 +144,29 @@ var FileSystemRecorder = Recorder.extend({
     },
 
     _startRecordingInternal: function(options) {
-        var _this = this;
+        const _this = this;
 
         options = _.defaults({}, options, this._getOptions(), {
             interval: this.interval,
             syncState: {},
         });
 
-        var syncState = this._getOwnSyncState(options.syncState, options);
+        const syncState = this._getOwnSyncState(options.syncState, options);
 
-        var lastTimestamp = null;
+        let lastTimestamp = null;
 
-        var currentInfo = null;
+        let currentInfo = null;
 
-        var outFile = null;
+        let outFile = null;
 
-        var outConverter = null;
+        let outConverter = null;
 
-        var debugLog = function() {
+        const debugLog = function() {
             // console.log.apply(console, arguments);
         };
 
-        var onHeaderSet = function(headerSet) {
-            var timestamp = headerSet.timestamp;
+        const onHeaderSet = function(headerSet) {
+            const timestamp = headerSet.timestamp;
 
             if (lastTimestamp && (timestamp < lastTimestamp)) {
                 // headersets are assumed to be played back in a chronological order,
@@ -176,17 +176,17 @@ var FileSystemRecorder = Recorder.extend({
             }
             lastTimestamp = timestamp;
 
-            var timestampText = moment.utc(timestamp).format('YYYYMMDDHHmmssSSS');
+            const timestampText = moment.utc(timestamp).format('YYYYMMDDHHmmssSSS');
 
-            var datecode = timestampText.substring(0, 8);
+            const datecode = timestampText.substring(0, 8);
 
-            var thisRanges = [{
+            const thisRanges = [{
                 minTimestamp: timestamp,
                 maxTimestamp: timestamp,
             }];
 
             // can we use the current range (and file)?
-            var combinedRange, useCurrentInfo = false, previousInfo = currentInfo;
+            let combinedRange, useCurrentInfo = false, previousInfo = currentInfo;
             if (currentInfo && (currentInfo.datecode === datecode)) {
                 combinedRange = Recorder.performRangeSetOperation(currentInfo.ranges, thisRanges, options.interval, 'union');
 
@@ -195,8 +195,8 @@ var FileSystemRecorder = Recorder.extend({
 
             if (!useCurrentInfo) {
                 // find other range, prefer existing ranges before starting a new one
-                for (var i = 0; i < syncState.length; i++) {
-                    var info = syncState [i];
+                for (let i = 0; i < syncState.length; i++) {
+                    const info = syncState [i];
 
                     if (info && (info.datecode === datecode)) {
                         combinedRange = Recorder.performRangeSetOperation(info.ranges, thisRanges, options.interval, 'union');
@@ -217,7 +217,7 @@ var FileSystemRecorder = Recorder.extend({
             if (useCurrentInfo) {
                 currentInfo.ranges = combinedRange;
             } else {
-                var filename = options.interval + '_' + timestampText + '.vbus';
+                const filename = options.interval + '_' + timestampText + '.vbus';
 
                 currentInfo = {
                     ranges: thisRanges,
@@ -235,7 +235,7 @@ var FileSystemRecorder = Recorder.extend({
                     outConverter.finish();
                 }
 
-                var path = _this._getAbsoluteFilename(currentInfo.filename);
+                const path = _this._getAbsoluteFilename(currentInfo.filename);
 
                 debugLog('Starting new file ' + path);
 
@@ -253,7 +253,7 @@ var FileSystemRecorder = Recorder.extend({
             outConverter.convertHeaderSet(headerSet);
         };
 
-        var finish = function() {
+        const finish = function() {
             return Q.fcall(function() {
                 if (outConverter) {
                     return outConverter.finish();
@@ -261,7 +261,7 @@ var FileSystemRecorder = Recorder.extend({
             });
         };
 
-        var recording = {
+        const recording = {
             onHeaderSet: onHeaderSet,
             finish: finish,
         };
@@ -270,25 +270,25 @@ var FileSystemRecorder = Recorder.extend({
     },
 
     _startRecording: function(headerSetConsolidator, recordingJob) {
-        var _this = this;
+        const _this = this;
 
         return Q.fcall(function() {
             return _this._makeDirectories();
         }).then(function() {
             return _this._getCurrentSyncState(recordingJob);
         }).then(function(syncState) {
-            var options = {
+            const options = {
                 interval: recordingJob.interval,
                 syncState: syncState,
             };
 
-            var recording = _this._startRecordingInternal(options);
+            const recording = _this._startRecordingInternal(options);
 
-            var flush = function() {
+            const flush = function() {
                 return _this._setCurrentSyncState(syncState, recordingJob);
             };
 
-            var flushTimer = null;
+            let flushTimer = null;
             headerSetConsolidator.on('headerSet', function(headerSet) {
                 if (flushTimer) {
                     clearTimeout(flushTimer);
@@ -299,7 +299,7 @@ var FileSystemRecorder = Recorder.extend({
                 return recording.onHeaderSet(headerSet);
             });
 
-            var origFinish = recording.finish;
+            const origFinish = recording.finish;
 
             recording.finish = function() {
                 return Q.fcall(function() {
@@ -326,16 +326,16 @@ var FileSystemRecorder = Recorder.extend({
     },
 
     _recordSyncJob: function(recorder, syncJob) {
-        var _this = this;
+        const _this = this;
 
         /*var syncState =*/ _this._getOwnSyncState(syncJob, syncJob);
 
-        var recording = this._startRecordingInternal({
+        const recording = this._startRecordingInternal({
             interval: syncJob.interval,
             syncState: syncJob.syncState,
         });
 
-        var inConverter = new VBusRecordingConverter({
+        const inConverter = new VBusRecordingConverter({
             objectMode: true,
         });
 
@@ -397,9 +397,9 @@ var FileSystemRecorder = Recorder.extend({
     // },
 
     getHash: function(filename) {
-        var url = this.urlPrefix + filename;
+        const url = this.urlPrefix + filename;
 
-        var shasum = crypto.createHash('sha1');
+        const shasum = crypto.createHash('sha1');
 
         shasum.update(new Buffer(url, 'utf8'));
 
@@ -408,17 +408,17 @@ var FileSystemRecorder = Recorder.extend({
 
     _readToStream: function(filename, stream) {
         return utils.promise(function(resolve, reject) {
-            var onEnd = function() {
+            const onEnd = function() {
                 resolve();
             };
 
-            var onError = function(err) {
+            const onError = function(err) {
                 reject(err);
             };
 
-            var absoluteFilename = this._getAbsoluteFilename(filename);
+            const absoluteFilename = this._getAbsoluteFilename(filename);
 
-            var readStream = fs.createReadStream(absoluteFilename);
+            const readStream = fs.createReadStream(absoluteFilename);
             readStream.pipe(stream, { end: false });
             readStream.on('end', onEnd);
             readStream.on('error', onError);
@@ -444,12 +444,12 @@ var FileSystemRecorder = Recorder.extend({
     },
 
     _makeDirectories: function() {
-        var _this = this;
+        const _this = this;
 
         return Q.fcall(function() {
             return _this._makeDirectory(_this.path);
         }).then(function() {
-            var directory = _this._getAbsoluteFilename();
+            const directory = _this._getAbsoluteFilename();
 
             return _this._makeDirectory(directory);
         });

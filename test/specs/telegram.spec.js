@@ -3,12 +3,12 @@
 
 
 
-var _ = require('./lodash');
-var vbus = require('./resol-vbus');
+const _ = require('./lodash');
+const vbus = require('./resol-vbus');
 
 
 
-var Telegram = vbus.Telegram;
+const Telegram = vbus.Telegram;
 
 
 
@@ -22,7 +22,7 @@ describe('Telegram', function() {
         });
 
         it('should have reasonable defaults', function() {
-            var telegram = new Telegram();
+            const telegram = new Telegram();
 
             expect(telegram).to.have.a.property('destinationAddress').that.is.equal(0);
             expect(telegram).to.have.a.property('sourceAddress').that.is.equal(0);
@@ -31,14 +31,14 @@ describe('Telegram', function() {
         });
 
         it('should copy selected options', function() {
-            var options = {
+            const options = {
                 destinationAddress: 0x1111,
                 sourceAddress: 0x2222,
                 command: 0x3333,
                 frameData: new Buffer('123456712345671234567123456712345671234567', 'hex'),
             };
 
-            var telegram = new Telegram(options);
+            const telegram = new Telegram(options);
 
             expect(telegram).to.have.a.property('destinationAddress').that.is.equal(options.destinationAddress);
             expect(telegram).to.have.a.property('sourceAddress').that.is.equal(options.sourceAddress);
@@ -47,7 +47,7 @@ describe('Telegram', function() {
         });
 
         it('should not copy frameData', function() {
-            var options = {
+            const options = {
                 destinationAddress: 0x1111,
                 sourceAddress: 0x2222,
                 command: 0x3333,
@@ -55,7 +55,7 @@ describe('Telegram', function() {
                 dontCopyFrameData: true,
             };
 
-            var telegram = new Telegram(options);
+            const telegram = new Telegram(options);
 
             expect(telegram).to.have.a.property('destinationAddress').that.is.equal(options.destinationAddress);
             expect(telegram).to.have.a.property('sourceAddress').that.is.equal(options.sourceAddress);
@@ -72,57 +72,57 @@ describe('Telegram', function() {
         });
 
         it('should work correctly without a buffer', function() {
-            var frameData = new Buffer(21);
-            for (var i = 0; i < frameData.length; i++) {
+            const frameData = new Buffer(21);
+            for (let i = 0; i < frameData.length; i++) {
                 frameData [i] = i * 12;
             }
 
-            var telegram = new Telegram({
+            const telegram = new Telegram({
                 destinationAddress: 0x1122,
                 sourceAddress: 0x3344,
                 command: 0x77,
                 frameData: frameData,
             });
 
-            var buffer = telegram.toLiveBuffer();
+            const buffer = telegram.toLiveBuffer();
 
             expect(buffer.toString('hex')).to.equal('aa2211443330772e000c1824303c48000354606c7804101c70472834404c5864707f6c');
         });
 
         it('should work correctly with a buffer', function() {
-            var frameData = new Buffer(21);
-            for (var i = 0; i < frameData.length; i++) {
+            const frameData = new Buffer(21);
+            for (let i = 0; i < frameData.length; i++) {
                 frameData [i] = i * 12;
             }
 
-            var telegram = new Telegram({
+            const telegram = new Telegram({
                 destinationAddress: 0x1122,
                 sourceAddress: 0x3344,
                 command: 0x77,
                 frameData: frameData,
             });
 
-            var bigBuffer = new Buffer(800);
+            const bigBuffer = new Buffer(800);
 
-            var buffer = telegram.toLiveBuffer(bigBuffer, 100, 200);
+            const buffer = telegram.toLiveBuffer(bigBuffer, 100, 200);
 
             expect(buffer.toString('hex')).to.equal('aa2211443330772e000c1824303c48000354606c7804101c70472834404c5864707f6c');
         });
 
         it('should throw if buffer is too small', function() {
-            var frameData = new Buffer(21);
-            for (var i = 0; i < frameData.length; i++) {
+            const frameData = new Buffer(21);
+            for (let i = 0; i < frameData.length; i++) {
                 frameData [i] = i * 12;
             }
 
-            var telegram = new Telegram({
+            const telegram = new Telegram({
                 destinationAddress: 0x1122,
                 sourceAddress: 0x3344,
                 command: 0x77,
                 frameData: frameData,
             });
 
-            var bigBuffer = new Buffer(800);
+            const bigBuffer = new Buffer(800);
 
             expect(function() {
                 telegram.toLiveBuffer(bigBuffer, 100, 10);
@@ -138,21 +138,21 @@ describe('Telegram', function() {
         });
 
         it('should work correctly', function() {
-            var options = {
+            const options = {
                 destinationAddress: 0x7771,
                 sourceAddress: 0x2011,
                 command: 0x25,
                 frameData: new Buffer('6018ab04000000', 'hex'),
             };
 
-            var buffer = new Buffer('AA7177112030251160182B040000000454', 'hex');
+            const buffer = new Buffer('AA7177112030251160182B040000000454', 'hex');
 
-            var telegram = Telegram.fromLiveBuffer(buffer, 0, buffer.length);
+            const telegram = Telegram.fromLiveBuffer(buffer, 0, buffer.length);
 
             expect(telegram).to.be.an.instanceOf(Telegram);
 
             _.forEach(options, function(refValue, key) {
-                var value = telegram [key];
+                let value = telegram [key];
 
                 if ((value instanceof Buffer) && (refValue instanceof Buffer)) {
                     value = value.slice(0, refValue.length).toString('hex');
@@ -172,12 +172,12 @@ describe('Telegram', function() {
         });
 
         it('should work correctly', function() {
-            var frameData = new Buffer(21);
-            for (var i = 0; i < frameData.length; i++) {
+            const frameData = new Buffer(21);
+            for (let i = 0; i < frameData.length; i++) {
                 frameData [i] = i * 12;
             }
 
-            var telegram = new Telegram({
+            const telegram = new Telegram({
                 channel: 0x13,
                 destinationAddress: 0x1122,
                 sourceAddress: 0x3344,

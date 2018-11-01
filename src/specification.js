@@ -3,35 +3,35 @@
 
 
 
-var crypto = require('crypto');
+const crypto = require('crypto');
 
 
-var sprintf = require('sprintf-js').sprintf;
+const sprintf = require('sprintf-js').sprintf;
 
 
-var extend = require('./extend');
-var I18N = require('./i18n');
-var _ = require('./lodash');
-var utils = require('./utils');
+const extend = require('./extend');
+const I18N = require('./i18n');
+const _ = require('./lodash');
+const utils = require('./utils');
 
 // var createVBusSpecificationData = require('./specification-data');
 
-var SpecificationFile = require('./specification-file');
+const SpecificationFile = require('./specification-file');
 
 
 
 // var globalSpecificationData = utils.deepFreezeObjectTree(createVBusSpecificationData());
-var globalSpecificationFile = SpecificationFile.getDefaultSpecificationFile();
-var globalSpecificationData = null;
+const globalSpecificationFile = SpecificationFile.getDefaultSpecificationFile();
+let globalSpecificationData = null;
 if (globalSpecificationFile) {
     globalSpecificationData = utils.deepFreezeObjectTree(globalSpecificationFile.getSpecificationData());
 }
 
-var globalSpecification;
+let globalSpecification;
 
 
 
-var conversionFactors = {
+const conversionFactors = {
     BtusPerWattHour: 3.412128,
     GramsCO2OilPerWattHour: 0.568,
     GramsCO2GasPerWattHour: 0.2536,
@@ -43,13 +43,13 @@ var conversionFactors = {
 
 
 
-var optionKeys = [
+const optionKeys = [
     'language'
 ];
 
 
 
-var numberFormatCache = {};
+const numberFormatCache = {};
 
 
 
@@ -198,7 +198,7 @@ var Specification = extend(null, /** @lends Specification# */ {
         this.packetSpecCache = {};
         this.blockTypePacketSpecCache = {};
 
-        var rawSpecificationData, loadSpecificationDataOptions = {};
+        let rawSpecificationData, loadSpecificationDataOptions = {};
         if (!options) {
             // nop
         } else if (options.specificationData) {
@@ -294,7 +294,7 @@ var Specification = extend(null, /** @lends Specification# */ {
                 throw new Error('Invalid arguments');
             }
         } else if (typeof selfAddress === 'string') {
-            var md = selfAddress.match(/^(?:([0-9a-f]{2})_)?([0-9a-f]{4})(?:_([0-9a-f]{4})(?:_.*)?)?$/i);
+            const md = selfAddress.match(/^(?:([0-9a-f]{2})_)?([0-9a-f]{4})(?:_([0-9a-f]{4})(?:_.*)?)?$/i);
             if (!md) {
                 throw new Error('Invalid device ID');
             }
@@ -308,10 +308,10 @@ var Specification = extend(null, /** @lends Specification# */ {
             channel = 0;
         }
 
-        var deviceId = sprintf('%02X_%04X_%04X', channel, selfAddress, peerAddress);
+        const deviceId = sprintf('%02X_%04X_%04X', channel, selfAddress, peerAddress);
 
         if (!_.has(this.deviceSpecCache, deviceId)) {
-            var origDeviceSpec;
+            let origDeviceSpec;
             if (!origDeviceSpec && this.specificationData.getDeviceSpecification) {
                 origDeviceSpec = this.specificationData.getDeviceSpecification(selfAddress, peerAddress);
             }
@@ -319,7 +319,7 @@ var Specification = extend(null, /** @lends Specification# */ {
                 origDeviceSpec = this.specificationData.deviceSpecs ['_' + deviceId];
             }
 
-            var deviceSpec = _.extend({}, origDeviceSpec, {
+            const deviceSpec = _.extend({}, origDeviceSpec, {
                 deviceId: deviceId,
                 channel: channel,
                 selfAddress: selfAddress,
@@ -331,7 +331,7 @@ var Specification = extend(null, /** @lends Specification# */ {
             }
 
             if (!_.has(deviceSpec, 'fullName')) {
-                var fullNameFormatter;
+                let fullNameFormatter;
                 if (channel) {
                     fullNameFormatter = 'specification.fullNameWithChannel';
                 } else {
@@ -456,7 +456,7 @@ var Specification = extend(null, /** @lends Specification# */ {
             destinationAddress = headerOrChannel.destinationAddress;
             headerOrChannel = headerOrChannel.channel;
         } else if (typeof headerOrChannel === 'string') {
-            var md = headerOrChannel.match(/^([0-9a-f]{2})_([0-9a-f]{4})_([0-9a-f]{4})(?:_10)?_([0-9a-f]{4})/i);
+            const md = headerOrChannel.match(/^([0-9a-f]{2})_([0-9a-f]{4})_([0-9a-f]{4})(?:_10)?_([0-9a-f]{4})/i);
             if (!md) {
                 throw new Error('Invalid packet ID');
             }
@@ -467,10 +467,10 @@ var Specification = extend(null, /** @lends Specification# */ {
             headerOrChannel = parseInt(md [1], 16);
         }
 
-        var packetId = sprintf('%02X_%04X_%04X_10_%04X', headerOrChannel, destinationAddress, sourceAddress, command);
+        const packetId = sprintf('%02X_%04X_%04X_10_%04X', headerOrChannel, destinationAddress, sourceAddress, command);
 
         if (!_.has(this.packetSpecCache, packetId)) {
-            var origPacketSpec;
+            let origPacketSpec;
             if (!origPacketSpec && this.specificationData.getPacketSpecification) {
                 origPacketSpec = this.specificationData.getPacketSpecification(destinationAddress, sourceAddress, command);
             }
@@ -478,15 +478,15 @@ var Specification = extend(null, /** @lends Specification# */ {
                 origPacketSpec = this.specificationData.packetSpecs ['_' + packetId];
             }
 
-            var destinationDeviceSpec = this.getDeviceSpecification(destinationAddress, sourceAddress, headerOrChannel);
-            var sourceDeviceSpec = this.getDeviceSpecification(sourceAddress, destinationAddress, headerOrChannel);
+            const destinationDeviceSpec = this.getDeviceSpecification(destinationAddress, sourceAddress, headerOrChannel);
+            const sourceDeviceSpec = this.getDeviceSpecification(sourceAddress, destinationAddress, headerOrChannel);
 
-            var fullName = sourceDeviceSpec.fullName;
+            let fullName = sourceDeviceSpec.fullName;
             if (destinationAddress !== 0x0010) {
                 fullName += ' => ' + destinationDeviceSpec.name;
             }
 
-            var packetSpec = _.extend({}, origPacketSpec, {
+            const packetSpec = _.extend({}, origPacketSpec, {
                 packetId: packetId,
                 channel: headerOrChannel,
                 destinationAddress: destinationAddress,
@@ -570,14 +570,14 @@ var Specification = extend(null, /** @lends Specification# */ {
      * >
      */
     getPacketFieldSpecification: function(packetSpecOrId, fieldId) {
-        var packetFieldSpec;
+        let packetFieldSpec;
         if (typeof packetSpecOrId === 'string') {
             if (this.specificationData.filteredPacketFieldSpecs) {
                 packetFieldSpec = _.find(this.specificationData.filteredPacketFieldSpecs, { filteredPacketFieldId: packetSpecOrId });
             }
 
             if (!packetFieldSpec) {
-                var md = packetSpecOrId.match(/^([0-9a-f]{2}_[0-9a-f]{4}_[0-9a-f]{4}(?:_10)?_[0-9a-f]{4})_(.*)$/i);
+                const md = packetSpecOrId.match(/^([0-9a-f]{2}_[0-9a-f]{4}_[0-9a-f]{4}(?:_10)?_[0-9a-f]{4})_(.*)$/i);
                 if (!md) {
                     throw new Error('Invalid packet field ID');
                 }
@@ -621,7 +621,7 @@ var Specification = extend(null, /** @lends Specification# */ {
             end = buffer ? buffer.length : 0;
         }
 
-        var rawValue;
+        let rawValue;
         if (packetField && packetField.getRawValue) {
             rawValue = packetField.getRawValue(buffer, start, end);
         } else if (packetField && packetField.packetFieldSpec) {
@@ -642,11 +642,11 @@ var Specification = extend(null, /** @lends Specification# */ {
     },
 
     getRoundedRawValue: function(packetField, buffer, start, end) {
-        var rawValue = this.getRawValue(packetField, buffer, start, end);
+        const rawValue = this.getRawValue(packetField, buffer, start, end);
 
-        var precision = packetField && packetField.type && packetField.type.precision || 0;
+        const precision = packetField && packetField.type && packetField.type.precision || 0;
 
-        var roundedRawValue = utils.roundNumber(rawValue, -precision);
+        const roundedRawValue = utils.roundNumber(rawValue, -precision);
 
         return roundedRawValue;
     },
@@ -657,7 +657,7 @@ var Specification = extend(null, /** @lends Specification# */ {
         }
 
         return _.map(conversions.reverse(), function(conversion) {
-            var invertedConversion = {};
+            const invertedConversion = {};
             if (_.isNumber(conversion.offset)) {
                 invertedConversion.offset = conversion.offset  * -1;
             }
@@ -713,9 +713,9 @@ var Specification = extend(null, /** @lends Specification# */ {
      * @return {object} Result containing a `rawValue` property with the conversion result and a `unit` property with the associated unit.
      */
     convertRawValue: function(rawValue_, sourceUnit_, targetUnit_) {
-        var that = this;
+        const that = this;
 
-        var conversions;
+        let conversions;
         if (_.isArray(sourceUnit_)) {
             conversions = sourceUnit_;
         } else {
@@ -728,16 +728,16 @@ var Specification = extend(null, /** @lends Specification# */ {
             }];
         }
 
-        var result = _.reduce(conversions, function(valueInfo, conversion) {
-            var rawValue = valueInfo.rawValue;
-            var sourceUnit = conversion.sourceUnit;
-            var targetUnit = conversion.targetUnit;
-            var unitFamily = sourceUnit && sourceUnit.unitFamily;
+        const result = _.reduce(conversions, function(valueInfo, conversion) {
+            let rawValue = valueInfo.rawValue;
+            const sourceUnit = conversion.sourceUnit;
+            const targetUnit = conversion.targetUnit;
+            const unitFamily = sourceUnit && sourceUnit.unitFamily;
 
-            var hasPower = _.isNumber(conversion.power);
-            var hasFactor = _.isNumber(conversion.factor);
-            var hasOffset = _.isNumber(conversion.offset);
-            var autoConvert = !hasFactor && !hasOffset && !hasPower;
+            const hasPower = _.isNumber(conversion.power);
+            const hasFactor = _.isNumber(conversion.factor);
+            const hasOffset = _.isNumber(conversion.offset);
+            const autoConvert = !hasFactor && !hasOffset && !hasPower;
 
             if (hasPower) {
                 if (rawValue === 0 && conversion.power < 0) {
@@ -1094,7 +1094,7 @@ var Specification = extend(null, /** @lends Specification# */ {
      * >
      */
     formatTextValueFromRawValue: function(packetField, rawValue, unit) {
-        var textValue;
+        let textValue;
 
         if ((rawValue !== undefined) && (rawValue !== null)) {
             if (typeof unit === 'string') {
@@ -1106,7 +1106,7 @@ var Specification = extend(null, /** @lends Specification# */ {
             }
 
             if (packetField && packetField.type) {
-                var type = packetField.type;
+                const type = packetField.type;
                 if (type.formatTextValue) {
                     textValue = type.formatTextValue(rawValue, unit);
                 } else {
@@ -1126,9 +1126,9 @@ var Specification = extend(null, /** @lends Specification# */ {
     },
 
     formatTextValueFromRawValueInternal: function(rawValue, unit, rootType, precision, defaultUnit) {
-        var unitText = unit ? unit.unitText : defaultUnit ? defaultUnit.unitText : '';
+        const unitText = unit ? unit.unitText : defaultUnit ? defaultUnit.unitText : '';
 
-        var result, textValue, format;
+        let result, textValue, format;
         if ((rawValue === undefined) || (rawValue === null)) {
             result = '';
         } else if (rootType === 'Time') {
@@ -1158,7 +1158,7 @@ var Specification = extend(null, /** @lends Specification# */ {
         } else {
             if (!_.has(numberFormatCache, precision)) {
                 format = '0.';
-                for (var i = 0; i < precision; i++) {
+                for (let i = 0; i < precision; i++) {
                     format = format + '0';
                 }
                 numberFormatCache [precision] = format;
@@ -1178,28 +1178,28 @@ var Specification = extend(null, /** @lends Specification# */ {
      * @returns {PacketField[]} Array of PacketField objects
      */
     getPacketFieldsForHeaders: function(headers) {
-        var _this = this;
+        const _this = this;
 
         // filter out all packets
-        var packets = _.reduce(headers, function(memo, header) {
+        const packets = _.reduce(headers, function(memo, header) {
             if ((header.getProtocolVersion() & 0xF0) === 0x10) {
                 memo.push(header);
             }
             return memo;
         }, []);
 
-        var packetFields = [];
+        const packetFields = [];
 
-        var filteredPacketFieldSpecs = this.specificationData.filteredPacketFieldSpecs;
+        const filteredPacketFieldSpecs = this.specificationData.filteredPacketFieldSpecs;
         if (filteredPacketFieldSpecs) {
-            var packetById = _.reduce(packets, function(memo, packet) {
-                var packetSpec = _this.getPacketSpecification(packet);
+            const packetById = _.reduce(packets, function(memo, packet) {
+                const packetSpec = _this.getPacketSpecification(packet);
                 memo [packetSpec.packetId] = packet;
                 return memo;
             }, {});
 
             _.forEach(filteredPacketFieldSpecs, function(fpfs) {
-                var packetField = _.extend({}, {
+                const packetField = _.extend({}, {
                     id: fpfs.filteredPacketFieldId,
                     packet: packetById [fpfs.packetId],
                     packetSpec: fpfs.packetSpec,
@@ -1210,10 +1210,10 @@ var Specification = extend(null, /** @lends Specification# */ {
             });
         } else {
             _.forEach(packets, function(packet) {
-                var packetSpec = _this.getPacketSpecification(packet);
+                const packetSpec = _this.getPacketSpecification(packet);
                 if (packetSpec) {
                     _.forEach(packetSpec.packetFields, function(packetFieldSpec) {
-                        var packetField = {
+                        const packetField = {
                             id: packetSpec.packetId + '_' + packetFieldSpec.fieldId,
                             packet: packet,
                             packetSpec: packetSpec,
@@ -1226,24 +1226,24 @@ var Specification = extend(null, /** @lends Specification# */ {
             });
         }
 
-        var language = this.language;
+        const language = this.language;
 
         _.forEach(packetFields, function(packetField) {
-            var pfsName = packetField.packetFieldSpec.name;
-            var name;
+            const pfsName = packetField.packetFieldSpec.name;
+            let name;
             if (_.isString(pfsName)) {
                 name = pfsName;
             } else if (_.isObject(pfsName)) {
                 name = pfsName [language] || pfsName.en || pfsName.de || pfsName.ref;
             }
 
-            var rawValue;
+            let rawValue;
             if (packetField.packetFieldSpec && packetField.packet) {
-                var frameData = packetField.packet.frameData.slice(0, packetField.packet.frameCount * 4);
+                const frameData = packetField.packet.frameData.slice(0, packetField.packet.frameCount * 4);
                 rawValue = _this.getRawValue(packetField.packetFieldSpec, frameData);
             }
 
-            var precision;
+            let precision;
             if (packetField.packetFieldSpec && packetField.packetFieldSpec.type) {
                 precision = packetField.packetFieldSpec.type.precision || 0;
             }
@@ -1269,11 +1269,11 @@ var Specification = extend(null, /** @lends Specification# */ {
     },
 
     setPacketFieldRawValues: function(packetFields, rawValues) {
-        var _this = this;
+        const _this = this;
 
-        var packetFieldById = _.reduce(packetFields, function(memo, packetField) {
+        const packetFieldById = _.reduce(packetFields, function(memo, packetField) {
             memo [packetField.id] = packetField;
-            var fieldId = packetField.packetFieldSpec.fieldId;
+            const fieldId = packetField.packetFieldSpec.fieldId;
             if (memo [fieldId] === undefined) {
                 memo [fieldId] = packetField;
             } else {
@@ -1283,29 +1283,29 @@ var Specification = extend(null, /** @lends Specification# */ {
         }, {});
 
         _.forEach(rawValues, function(rawValue, key) {
-            var packetField = packetFieldById [key];
+            const packetField = packetFieldById [key];
             if (packetField === undefined) {
                 throw new Error('Unknown raw value ID ' + JSON.stringify(key));
             } else if (packetField === null) {
                 throw new Error('Non-unique raw value ID ' + JSON.stringify(key));
             } else {
-                var frameData = packetField.packet.frameData.slice(0, packetField.packet.frameCount * 4);
+                const frameData = packetField.packet.frameData.slice(0, packetField.packet.frameCount * 4);
                 _this.setRawValue(packetField.packetFieldSpec, rawValue, frameData);
             }
         });
     },
 
     getFilteredPacketFieldSpecificationsForHeaders: function(headers) {
-        var filteredPacketFieldSpecs = [];
+        const filteredPacketFieldSpecs = [];
 
-        var packetFields = this.getPacketFieldsForHeaders(headers);
+        const packetFields = this.getPacketFieldsForHeaders(headers);
 
         _.forEach(packetFields, function(packetField) {
-            var packetSpec = packetField.packetSpec;
-            var packetFieldSpec = packetField.packetFieldSpec;
+            const packetSpec = packetField.packetSpec;
+            const packetFieldSpec = packetField.packetFieldSpec;
 
             if (packetSpec && packetFieldSpec) {
-                var filteredPacketFieldSpec = _.extend({}, packetFieldSpec, {
+                const filteredPacketFieldSpec = _.extend({}, packetFieldSpec, {
                     filteredPacketFieldId: packetSpec.packetId + '_' + packetFieldSpec.fieldId,
                     packetId: packetSpec.packetId,
                     name: packetField.name,
@@ -1325,21 +1325,21 @@ var Specification = extend(null, /** @lends Specification# */ {
      * @return {BlockTypeSection[]} Array of BlockTypeSection objects
      */
     getBlockTypeSectionsForHeaders: function(headers) {
-        var _this = this;
+        const _this = this;
 
         return _.reduce(headers, function(memo, header) {
             if (((header.getProtocolVersion() & 0xF0) === 0x10) && (header.destinationAddress === 0x0015) && (header.command === 0x0100)) {
-                var packetSpec = _this.getPacketSpecification(header);
+                const packetSpec = _this.getPacketSpecification(header);
 
-                var startOffset = 0, length = header.frameCount * 4, frameData = header.frameData;
+                let startOffset = 0, length = header.frameCount * 4, frameData = header.frameData;
                 while (startOffset + 4 <= length) {
-                    var frameCount = frameData [startOffset] & 255;
-                    var endOffset = startOffset + 4 + 4 * frameCount;
+                    const frameCount = frameData [startOffset] & 255;
+                    const endOffset = startOffset + 4 + 4 * frameCount;
 
                     if (endOffset <= length) {
-                        var type = frameData [startOffset + 1] & 255;
+                        const type = frameData [startOffset + 1] & 255;
 
-                        var payloadSize = null, payloadCount = null;
+                        let payloadSize = null, payloadCount = null;
                         // TODO(daniel): refine the payload count based on the type
                         if (type === 1) {
                             payloadSize = 2;
@@ -1365,16 +1365,16 @@ var Specification = extend(null, /** @lends Specification# */ {
                             payloadCount = Math.floor((endOffset - startOffset - 4) / payloadSize);
                         }
 
-                        var sectionId = sprintf('%s_%02X_%02X_%d', packetSpec.packetId, frameCount, type, payloadCount);
+                        const sectionId = sprintf('%s_%02X_%02X_%d', packetSpec.packetId, frameCount, type, payloadCount);
 
-                        var shasum = crypto.createHash('sha1');
+                        const shasum = crypto.createHash('sha1');
                         shasum.update(new Buffer(sectionId, 'utf8'));
-                        var surrogatePacketIdHash = shasum.digest('hex').toUpperCase();
+                        const surrogatePacketIdHash = shasum.digest('hex').toUpperCase();
 
-                        var surrogatePacketIdHashPart1 = surrogatePacketIdHash.slice(0, 4);
-                        var surrogatePacketIdHashPart2 = surrogatePacketIdHash.slice(4, 8);
+                        const surrogatePacketIdHashPart1 = surrogatePacketIdHash.slice(0, 4);
+                        const surrogatePacketIdHashPart2 = surrogatePacketIdHash.slice(4, 8);
 
-                        var surrogatePacketId = sprintf('%02X_%04X_%s_%02X_%s', header.channel, header.destinationAddress | 0x8000, surrogatePacketIdHashPart1, 0x10, surrogatePacketIdHashPart2);
+                        const surrogatePacketId = sprintf('%02X_%04X_%s_%02X_%s', header.channel, header.destinationAddress | 0x8000, surrogatePacketIdHashPart1, 0x10, surrogatePacketIdHashPart2);
 
                         memo.push({
                             sectionId: sectionId,
@@ -1415,7 +1415,7 @@ var Specification = extend(null, /** @lends Specification# */ {
             }],
 
             getRawValue: function(buffer, start, end) {
-                var rawValue = 0, valid = false;
+                let rawValue = 0, valid = false;
                 if (start + offset < end) {
                     rawValue += buffer.readUInt8(start + offset);
                     valid = true;
@@ -1430,7 +1430,7 @@ var Specification = extend(null, /** @lends Specification# */ {
 
             setRawValue: function(newValue, buffer, start, end) {
                 newValue = Math.round(newValue / factor);
-                var rawValue;
+                let rawValue;
                 if (start + offset < end) {
                     rawValue = newValue & 255;
                     buffer.writeUInt8(rawValue, start + offset);
@@ -1458,7 +1458,7 @@ var Specification = extend(null, /** @lends Specification# */ {
             }],
 
             getRawValue: function(buffer, start, end) {
-                var rawValue = 0, valid = false;
+                let rawValue = 0, valid = false;
                 if (start + offset < end) {
                     rawValue += buffer.readUInt8(start + offset);
                     valid = true;
@@ -1477,7 +1477,7 @@ var Specification = extend(null, /** @lends Specification# */ {
 
             setRawValue: function(newValue, buffer, start, end) {
                 newValue = Math.round(newValue / factor);
-                var rawValue;
+                let rawValue;
                 if (start + offset < end) {
                     rawValue = newValue & 255;
                     buffer.writeUInt8(rawValue, start + offset);
@@ -1519,7 +1519,7 @@ var Specification = extend(null, /** @lends Specification# */ {
             }],
 
             getRawValue: function(buffer, start, end) {
-                var rawValue = 0, valid = false;
+                let rawValue = 0, valid = false;
                 if (start + offset < end) {
                     rawValue += buffer.readUInt8(start + offset);
                     valid = true;
@@ -1546,7 +1546,7 @@ var Specification = extend(null, /** @lends Specification# */ {
 
             setRawValue: function(newValue, buffer, start, end) {
                 newValue = Math.round(newValue / factor);
-                var rawValue;
+                let rawValue;
                 if (start + offset < end) {
                     rawValue = newValue & 255;
                     buffer.writeUInt8(rawValue, start + offset);
@@ -1574,23 +1574,23 @@ var Specification = extend(null, /** @lends Specification# */ {
      * @return {PacketSpecification[]} Array of PacketSpecificationObjects
      */
     getBlockTypePacketSpecificationsForSections: function(sections) {
-        var _this = this;
+        const _this = this;
 
         return _.reduce(sections, function(memo, section) {
-            var sectionId = section.sectionId;
+            const sectionId = section.sectionId;
 
             if (!_.has(_this.blockTypePacketSpecCache, sectionId)) {
-                var fieldIdPrefix = section.sectionId;
+                const fieldIdPrefix = section.sectionId;
 
-                var forEachPayload = function(iterator) {
-                    var count = section.payloadCount;
-                    for (var i = 0; i < count; i++) {
-                        var suffix = (count > 1) ? (' ' + (i + 1)) : '';
+                const forEachPayload = function(iterator) {
+                    const count = section.payloadCount;
+                    for (let i = 0; i < count; i++) {
+                        const suffix = (count > 1) ? (' ' + (i + 1)) : '';
                         iterator(i, suffix);
                     }
                 };
 
-                var packetFieldSpecs = [];
+                const packetFieldSpecs = [];
 
                 if (section.type === 1) {
                     // temperatures
@@ -1638,7 +1638,7 @@ var Specification = extend(null, /** @lends Specification# */ {
                 });
             }
 
-            var packetSpec = _this.blockTypePacketSpecCache [sectionId];
+            const packetSpec = _this.blockTypePacketSpecCache [sectionId];
             memo.push(packetSpec);
 
             return memo;
@@ -1652,21 +1652,21 @@ var Specification = extend(null, /** @lends Specification# */ {
      * @return {PacketField[]} Array of PacketField objects
      */
     getBlockTypeFieldsForSections: function(sections) {
-        var _this = this;
+        const _this = this;
 
-        var sectionByBlockTypeId = _.reduce(sections, function(memo, section) {
+        const sectionByBlockTypeId = _.reduce(sections, function(memo, section) {
             memo [section.sectionId] = section;
             return memo;
         }, {});
 
-        var packetSpecs = this.getBlockTypePacketSpecificationsForSections(sections);
+        const packetSpecs = this.getBlockTypePacketSpecificationsForSections(sections);
 
-        var packetFields = [];
+        const packetFields = [];
         _.forEach(packetSpecs, function(packetSpec) {
             _.forEach(packetSpec.packetFields, function(packetFieldSpec) {
-                var section = sectionByBlockTypeId [packetSpec.sectionId];
+                const section = sectionByBlockTypeId [packetSpec.sectionId];
 
-                var packetField = {
+                const packetField = {
                     id: packetSpec.packetId + '_' + packetFieldSpec.fieldId,
                     section: section,
                     packet: section.packet,
@@ -1678,13 +1678,13 @@ var Specification = extend(null, /** @lends Specification# */ {
             });
         });
 
-        var language = this.language;
+        const language = this.language;
 
         _.forEach(packetFields, function(packetField) {
-            var pfsName = packetField.packetFieldSpec.name;
-            var name;
+            const pfsName = packetField.packetFieldSpec.name;
+            let name;
             if (_.isString(pfsName)) {
-                var key = 'specificationData.packetFieldName.' + pfsName;
+                const key = 'specificationData.packetFieldName.' + pfsName;
                 name = _this.i18n.t(key);
                 if (name === key) {
                     name = pfsName;
@@ -1693,9 +1693,9 @@ var Specification = extend(null, /** @lends Specification# */ {
                 name = pfsName [language] || pfsName.en || pfsName.de || pfsName.ref;
             }
 
-            var rawValue;
+            let rawValue;
             if (packetField.packetFieldSpec && packetField.section) {
-                var frameData = packetField.section.frameData;
+                const frameData = packetField.section.frameData;
                 rawValue = _this.getRawValue(packetField.packetFieldSpec, frameData);
             }
 
@@ -1725,14 +1725,14 @@ var Specification = extend(null, /** @lends Specification# */ {
             options = {};
         }
 
-        var rawFilteredPacketFieldSpecs = rawSpecificationData.filteredPacketFieldSpecs;
-        var specification = options.specification || globalSpecification || {};
-        var specificationData = options.specificationData || specification.specificationData || globalSpecificationData || {};
+        const rawFilteredPacketFieldSpecs = rawSpecificationData.filteredPacketFieldSpecs;
+        const specification = options.specification || globalSpecification || {};
+        const specificationData = options.specificationData || specification.specificationData || globalSpecificationData || {};
 
-        var filteredPacketFieldSpecs;
+        let filteredPacketFieldSpecs;
         if (rawFilteredPacketFieldSpecs) {
-            var resolve = function(value, collectionKey) {
-                var collection = specificationData [collectionKey];
+            const resolve = function(value, collectionKey) {
+                const collection = specificationData [collectionKey];
 
                 if (_.has(collection, value)) {
                     value = collection [value];
@@ -1742,10 +1742,10 @@ var Specification = extend(null, /** @lends Specification# */ {
             };
 
             filteredPacketFieldSpecs = _.map(rawFilteredPacketFieldSpecs, function(rfpfs) {
-                var packetSpec = specification.getPacketSpecification(rfpfs.packetId);
-                var packetFieldSpec = specification.getPacketFieldSpecification(packetSpec, rfpfs.fieldId);
+                const packetSpec = specification.getPacketSpecification(rfpfs.packetId);
+                const packetFieldSpec = specification.getPacketFieldSpecification(packetSpec, rfpfs.fieldId);
 
-                var name = rfpfs.name;
+                let name = rfpfs.name;
                 if (typeof name === 'string') {
                     name = { ref: name };
                 }
@@ -1769,7 +1769,7 @@ var Specification = extend(null, /** @lends Specification# */ {
             });
         }
 
-        var result = _.extend({}, specificationData, {
+        const result = _.extend({}, specificationData, {
             filteredPacketFieldSpecs: filteredPacketFieldSpecs,
         });
 
@@ -1784,16 +1784,16 @@ var Specification = extend(null, /** @lends Specification# */ {
             options = { specification: options };
         }
 
-        var specification = options.specification || globalSpecification || {};
-        var specificationData = options.specificationData || specification.specificationData || globalSpecificationData || {};
-        var filteredPacketFieldSpecs = options.filteredPacketFieldSpecs || specificationData.filteredPacketFieldSpecs;
+        const specification = options.specification || globalSpecification || {};
+        const specificationData = options.specificationData || specification.specificationData || globalSpecificationData || {};
+        const filteredPacketFieldSpecs = options.filteredPacketFieldSpecs || specificationData.filteredPacketFieldSpecs;
 
-        var rawFilteredPacketFieldSpecs;
+        let rawFilteredPacketFieldSpecs;
         if (filteredPacketFieldSpecs) {
-            var link = function(value, valueIdKey, collectionKey) {
-                var collection = specificationData [collectionKey];
+            const link = function(value, valueIdKey, collectionKey) {
+                const collection = specificationData [collectionKey];
 
-                var valueId;
+                let valueId;
                 if (valueIdKey) {
                     valueId = value [valueIdKey];
                 }
@@ -1810,7 +1810,7 @@ var Specification = extend(null, /** @lends Specification# */ {
             };
 
             rawFilteredPacketFieldSpecs = _.map(filteredPacketFieldSpecs, function(fpfs) {
-                var rfpfs = {
+                const rfpfs = {
                     filteredPacketFieldId: fpfs.filteredPacketFieldId,
                     packetId: fpfs.packetId,
                     fieldId: fpfs.fieldId,
@@ -1822,7 +1822,7 @@ var Specification = extend(null, /** @lends Specification# */ {
 
                 if (fpfs.conversions) {
                     rfpfs.conversions = _.map(fpfs.conversions, function(conversion) {
-                        var rawConversion = {};
+                        const rawConversion = {};
                         if (_.isNumber(conversion.factor)) {
                             rawConversion.factor = conversion.factor;
                         }
@@ -1843,7 +1843,7 @@ var Specification = extend(null, /** @lends Specification# */ {
             });
         }
 
-        var rawSpecificationData = {
+        const rawSpecificationData = {
             filteredPacketFieldSpecs: rawFilteredPacketFieldSpecs,
         };
 

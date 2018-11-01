@@ -3,16 +3,16 @@
 
 
 
-var Q = require('q');
+const Q = require('q');
 
 
-var vbus = require('./resol-vbus');
-var testUtils = require('./test-utils');
+const vbus = require('./resol-vbus');
+const testUtils = require('./test-utils');
 
 
 
-var SerialConnection = vbus.SerialConnection;
-var SerialDataSource = vbus.SerialDataSource;
+const SerialConnection = vbus.SerialConnection;
+const SerialDataSource = vbus.SerialDataSource;
 
 
 
@@ -25,7 +25,7 @@ describe('SerialDataSource', function() {
         });
 
         it('should have reasonable defaults', function() {
-            var ds = new SerialDataSource();
+            const ds = new SerialDataSource();
 
             expect(ds)
                 .to.have.a.property('path')
@@ -43,13 +43,13 @@ describe('SerialDataSource', function() {
         });
 
         it('should work correctly', function(done) {
-            var originalConnect = SerialConnection.prototype.connect;
+            const originalConnect = SerialConnection.prototype.connect;
 
             SerialConnection.prototype.connect = function() {
                 return Q(null);
             };
 
-            var ds = new SerialDataSource();
+            const ds = new SerialDataSource();
 
             testUtils.performAsyncTest(done, function() {
                 return Q.fcall(function() {
