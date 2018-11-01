@@ -222,7 +222,7 @@ describe('VBusRecordingConverter', function() {
             converter.end();
         });
 
-        promiseIt('should work correctly with raw data', function() {
+        it('should work correctly with raw data', function() {
             const rawDataHexDump = [
                 'a5771000100000000000000000000100',
                 'a58826002600',
@@ -262,7 +262,7 @@ describe('VBusRecordingConverter', function() {
             });
         });
 
-        promiseIt('should parse comment records', function() {
+        it('should parse comment records', function() {
             const rawDataHexDump = [
                 'a5993b003b00',
                 '1794de2443010000',
@@ -302,7 +302,7 @@ describe('VBusRecordingConverter', function() {
             });
         });
 
-        promiseIt('should support topology scan only', function() {
+        it('should support topology scan only', function() {
             const buffer = new Buffer(rawVBusRecordingHexDump, 'hex');
 
             const converter = new VBusRecordingConverter({
@@ -387,7 +387,7 @@ describe('VBusRecordingConverter', function() {
             '05774a000000000000000000130d0000',
         ].join('');
 
-        promiseIt('should work correctly', function() {
+        it('should work correctly', function() {
             const buffer1 = new Buffer(rawPacket1, 'hex');
             const packet1 = Packet.fromLiveBuffer(buffer1, 0, buffer1.length);
             packet1.timestamp = new Date(1387893006778);
@@ -436,7 +436,7 @@ describe('VBusRecordingConverter', function() {
             });
         });
 
-        promiseIt('should work correctly in object mode', function() {
+        it('should work correctly in object mode', function() {
             const refHeaderSet = new HeaderSet();
 
             const converter = new VBusRecordingConverter({
@@ -459,7 +459,7 @@ describe('VBusRecordingConverter', function() {
             });
         });
 
-        promiseIt('should work correctly with raw data', function() {
+        it('should work correctly with raw data', function() {
             const rawData = {
                 channel: 1,
                 startTimestamp: new Date(1387893003287),
@@ -496,7 +496,7 @@ describe('VBusRecordingConverter', function() {
             });
         });
 
-        promiseIt('should work correctly with comment data', function() {
+        it('should work correctly with comment data', function() {
             const timestamp = new Date(1387893003287);
             const comment = 'Comment serialized to VBus file format record';
 

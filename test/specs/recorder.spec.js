@@ -113,7 +113,7 @@ describe('Recorder', function() {
             expect(Recorder.prototype.record).a('function');
         });
 
-        promiseIt('should copy defaults from the recorder', function() {
+        it('should copy defaults from the recorder', function() {
             const options = {
                 id: 'myId',
                 minTimestamp: new Date(2013, 0),

@@ -20,7 +20,7 @@ describe('ConfigurationOptimizer', function() {
             expect(ConfigurationOptimizer).property('getOptimizerOptions').a('function');
         });
 
-        promiseIt('should reject if no deviceAddress is given', function() {
+        it('should reject if no deviceAddress is given', function() {
             return ConfigurationOptimizer.getOptimizerOptions().then(function() {
                 throw new Error('Should have thrown an error, but resolved');
             }, function(err) {
@@ -29,7 +29,7 @@ describe('ConfigurationOptimizer', function() {
             });
         });
 
-        promiseIt('should return single match if a deviceAddress is given', function() {
+        it('should return single match if a deviceAddress is given', function() {
             const TestableConfigurationOptimizer = ConfigurationOptimizer.extend({}, {
 
                 deviceAddress: 0x1111,
@@ -52,7 +52,7 @@ describe('ConfigurationOptimizer', function() {
             expect(ConfigurationOptimizer).property('matchOptimizer').a('function');
         });
 
-        promiseIt('should reject if no deviceAddress is given', function() {
+        it('should reject if no deviceAddress is given', function() {
             const options = {
                 deviceAddress: 0x1111,
             };
@@ -65,7 +65,7 @@ describe('ConfigurationOptimizer', function() {
             });
         });
 
-        promiseIt('should match if the right deviceAddress is given', function() {
+        it('should match if the right deviceAddress is given', function() {
             const TestableConfigurationOptimizer = ConfigurationOptimizer.extend({}, {
 
                 deviceAddress: 0x1111,
@@ -83,7 +83,7 @@ describe('ConfigurationOptimizer', function() {
             });
         });
 
-        promiseIt('should not match if the wrong deviceAddress is given', function() {
+        it('should not match if the wrong deviceAddress is given', function() {
             const TestableConfigurationOptimizer = ConfigurationOptimizer.extend({}, {
 
                 deviceAddress: 0x1111,

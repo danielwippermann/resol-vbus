@@ -119,7 +119,7 @@ describe('FileSystemRecorder', function() {
             expect(FileSystemRecorder.prototype).ownProperty('_playback').a('function');
         });
 
-        promiseIt('should work correctly', function() {
+        it('should work correctly', function() {
             const options = {
                 id: 'FileSystem',
                 interval: 300000,
@@ -171,7 +171,7 @@ describe('FileSystemRecorder', function() {
 
         const testFixturesPath = path.join(fixturesPath, '0a008f5b8c77c121d0fd39ae985593ba78ae5d85');
 
-        xpromiseIt('should work correctly for multiple HeaderSets', function() {
+        xit('should work correctly for multiple HeaderSets', function() {
             const options = {
                 id: 'FileSystem',
                 interval: 300000,
@@ -250,7 +250,7 @@ describe('FileSystemRecorder', function() {
             });
         });
 
-        promiseIt('should work correctly for a single HeaderSet', function() {
+        it('should work correctly for a single HeaderSet', function() {
             const options = {
                 id: 'FileSystem',
                 interval: 300000,
@@ -329,7 +329,7 @@ describe('FileSystemRecorder', function() {
 
         const testFixturesPath = path.join(fixturesPath, '0a008f5b8c77c121d0fd39ae985593ba78ae5d85');
 
-        promiseIt('should work correctly', function() {
+        it('should work correctly', function() {
             const options = {
                 id: 'FileSystem',
                 interval: 300000,
@@ -393,7 +393,7 @@ describe('FileSystemRecorder', function() {
 
     describe('synchronization source', function() {
 
-        xpromiseIt('should work correctly', function() {
+        xit('should work correctly', function() {
             const options = {
                 id: 'FileSystem',
                 interval: 300000,

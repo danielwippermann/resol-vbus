@@ -20,7 +20,7 @@ describe('ResolDeltaThermHcXxxConfigurationOptimizer', function() {
 
     describe('using ConfigurationOptimizerFactory', function() {
 
-        promiseIt('should work correctly', function() {
+        it('should work correctly', function() {
             return testUtils.expectPromise(optimizerPromise).then(function(optimizer) {
                 expect(optimizer).an('object');
             });
@@ -30,7 +30,7 @@ describe('ResolDeltaThermHcXxxConfigurationOptimizer', function() {
 
     describe('#completeConfiguration', function() {
 
-        promiseIt('should work correctly without provided config', function() {
+        it('should work correctly without provided config', function() {
             return optimizerPromise.then(function(optimizer) {
                 return Q.fcall(function() {
                     return testUtils.expectPromise(optimizer.completeConfiguration());
@@ -40,7 +40,7 @@ describe('ResolDeltaThermHcXxxConfigurationOptimizer', function() {
             });
         });
 
-        promiseIt('should work correctly with provided config object', function() {
+        it('should work correctly with provided config object', function() {
             return optimizerPromise.then(function(optimizer) {
                 return Q.fcall(function() {
                     const config = {
@@ -55,7 +55,7 @@ describe('ResolDeltaThermHcXxxConfigurationOptimizer', function() {
             });
         });
 
-        promiseIt('should work correctly with provided config array', function() {
+        it('should work correctly with provided config array', function() {
             return optimizerPromise.then(function(optimizer) {
                 return Q.fcall(function() {
                     const config = [{
@@ -76,7 +76,7 @@ describe('ResolDeltaThermHcXxxConfigurationOptimizer', function() {
 
     describe('#optimizeLoadConfiguration', function() {
 
-        promiseIt('should work correctly after', function() {
+        it('should work correctly after', function() {
             return optimizerPromise.then(function(optimizer) {
                 return Q.fcall(function() {
                     return testUtils.expectPromise(optimizer.completeConfiguration());

@@ -49,7 +49,7 @@ describe('TcpDataSource', function() {
                 .that.is.a('function');
         });
 
-        promiseIt('should work correctly', function() {
+        it('should work correctly', function() {
             const originalConnect = TcpConnection.prototype.connect;
 
             TcpConnection.prototype.connect = sinon.spy(function() {

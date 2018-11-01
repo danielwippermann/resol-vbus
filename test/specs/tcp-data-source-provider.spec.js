@@ -129,7 +129,7 @@ describe('TCP Data Source Provider', function() {
                 .that.is.a('function');
         });
 
-        promiseIt('should work correctly', function() {
+        it('should work correctly', function() {
             const originalSend = dgram.Socket.prototype.send;
             const originalFDI = TcpDataSourceProvider.fetchDeviceInformation;
 
@@ -171,7 +171,7 @@ describe('TCP Data Source Provider', function() {
                 .that.is.a('function');
         });
 
-        promiseIt('should work correctly', function() {
+        it('should work correctly', function() {
             const originalSendBroadcast = TcpDataSourceProvider.sendBroadcast;
 
             TcpDataSourceProvider.sendBroadcast = sinon.spy(function() {
@@ -202,7 +202,7 @@ describe('TCP Data Source Provider', function() {
             expect(TcpDataSourceProvider.prototype).property('discoverDataSources').a('function');
         });
 
-        promiseIt('should work correctly', function() {
+        it('should work correctly', function() {
             const originalDiscoverDevices = TcpDataSourceProvider.discoverDevices;
 
             TcpDataSourceProvider.discoverDevices = sinon.spy(function() {

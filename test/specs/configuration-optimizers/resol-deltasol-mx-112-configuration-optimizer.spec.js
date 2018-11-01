@@ -20,7 +20,7 @@ describe('ResolDeltaSolMx112ConfigurationOptimizer', function() {
 
     describe('using ConfigurationOptimizerFactory', function() {
 
-        promiseIt('should work correctly', function() {
+        it('should work correctly', function() {
             return testUtils.expectPromise(optimizerPromise).then(function(optimizer) {
                 expect(optimizer).an('object');
             });
@@ -30,7 +30,7 @@ describe('ResolDeltaSolMx112ConfigurationOptimizer', function() {
 
     describe('#completeConfiguration', function() {
 
-        promiseIt('should work correctly', function() {
+        it('should work correctly', function() {
             return optimizerPromise.then(function(optimizer) {
                 return Q.fcall(function() {
                     return testUtils.expectPromise(optimizer.completeConfiguration());
@@ -44,7 +44,7 @@ describe('ResolDeltaSolMx112ConfigurationOptimizer', function() {
 
     describe('#optimizeLoadConfiguration', function() {
 
-        promiseIt('should work correctly after', function() {
+        it('should work correctly after', function() {
             return optimizerPromise.then(function(optimizer) {
                 return Q.fcall(function() {
                     return testUtils.expectPromise(optimizer.completeConfiguration());

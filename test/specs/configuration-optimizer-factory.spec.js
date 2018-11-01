@@ -24,7 +24,7 @@ describe('ConfigurationOptimizerFactory', function() {
             expect(ConfigurationOptimizerFactory).property('createOptimizerByDeviceAddress').a('function');
         });
 
-        promiseIt('should have unique addresses for registered optimizers', function() {
+        it('should have unique addresses for registered optimizers', function() {
             return new Promise(function(resolve, reject) {
                 const knownAddresses = {};
 
@@ -67,7 +67,7 @@ describe('ConfigurationOptimizerFactory', function() {
             });
         });
 
-        promiseIt('should work correctly for unknown devices', function() {
+        it('should work correctly for unknown devices', function() {
             return Q.fcall(function() {
                 return ConfigurationOptimizerFactory.createOptimizerByDeviceAddress(0x0050);
             }).then(function(optimizer) {
@@ -75,7 +75,7 @@ describe('ConfigurationOptimizerFactory', function() {
             });
         });
 
-        promiseIt('should work correctly for RESOL DeltaSol BX Plus', function() {
+        it('should work correctly for RESOL DeltaSol BX Plus', function() {
             return Q.fcall(function() {
                 return ConfigurationOptimizerFactory.createOptimizerByDeviceAddress(0x7112);
             }).then(function(optimizer) {
@@ -83,7 +83,7 @@ describe('ConfigurationOptimizerFactory', function() {
             });
         });
 
-        promiseIt('should work correctly for RESOL DeltaSol CS Plus', function() {
+        it('should work correctly for RESOL DeltaSol CS Plus', function() {
             return Q.fcall(function() {
                 return ConfigurationOptimizerFactory.createOptimizerByDeviceAddress(0x2211);
             }).then(function(optimizer) {
@@ -91,7 +91,7 @@ describe('ConfigurationOptimizerFactory', function() {
             });
         });
 
-        promiseIt('should work correctly for RESOL DeltaSol MX', function() {
+        it('should work correctly for RESOL DeltaSol MX', function() {
             return Q.fcall(function() {
                 return ConfigurationOptimizerFactory.createOptimizerByDeviceAddress(0x7E11);
             }).then(function(optimizer) {
@@ -99,7 +99,7 @@ describe('ConfigurationOptimizerFactory', function() {
             });
         });
 
-        promiseIt('should work correctly for RESOL DeltaSol SLT', function() {
+        it('should work correctly for RESOL DeltaSol SLT', function() {
             return Q.fcall(function() {
                 return ConfigurationOptimizerFactory.createOptimizerByDeviceAddress(0x1001);
             }).then(function(optimizer) {
@@ -107,7 +107,7 @@ describe('ConfigurationOptimizerFactory', function() {
             });
         });
 
-        promiseIt('should work correctly for RESOL DeltaTherm HC', function() {
+        it('should work correctly for RESOL DeltaTherm HC', function() {
             return Q.fcall(function() {
                 return ConfigurationOptimizerFactory.createOptimizerByDeviceAddress(0x5400);
             }).then(function(optimizer) {

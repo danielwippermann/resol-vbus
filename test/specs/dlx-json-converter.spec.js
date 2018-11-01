@@ -47,7 +47,7 @@ describe('DLxJsonConverter', function() {
         const rawPacket2 = 'aa1000217e100001013e00000b000074';
         const rawPacket3 = 'aa1000317e100001052a05774a00003900000000007f00000000007f130d0000005f00000000007f';
 
-        promiseIt('should work correctly', function() {
+        it('should work correctly', function() {
             const buffer1 = new Buffer(rawPacket1, 'hex');
             const packet1 = Packet.fromLiveBuffer(buffer1, 0, buffer1.length);
             packet1.timestamp = new Date(1387893006778);
@@ -137,7 +137,7 @@ describe('DLxJsonConverter', function() {
             });
         });
 
-        promiseIt('should work correctly', function() {
+        it('should work correctly', function() {
             const rawRecording = rawRecording1;
 
             const refJsonRecording = refJsonRecording1;
@@ -205,7 +205,7 @@ describe('DLxJsonConverter', function() {
             });
         });
 
-        promiseIt('should work correctly with filtered specifications', function() {
+        it('should work correctly with filtered specifications', function() {
             const buffer2 = new Buffer(rawPacket2, 'hex');
             const packet2 = Packet.fromLiveBuffer(buffer2, 0, buffer2.length);
             packet2.timestamp = new Date(1387893003303);
@@ -320,7 +320,7 @@ describe('DLxJsonConverter', function() {
             });
         });
 
-        promiseIt('should work correctly with filtered specifications and conversions', function() {
+        it('should work correctly with filtered specifications and conversions', function() {
             const buffer2 = new Buffer(rawPacket2, 'hex');
             const packet2 = Packet.fromLiveBuffer(buffer2, 0, buffer2.length);
             packet2.timestamp = new Date(1387893003303);

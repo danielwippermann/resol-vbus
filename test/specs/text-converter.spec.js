@@ -40,7 +40,7 @@ describe('TextConverter', function() {
         const rawPacket2 = 'aa1000217e100001013e00000b000074';
         const rawPacket3 = 'aa1000317e100001042b05774a00003900000000007f00000000007f130d0000005f';
 
-        promiseIt('should work correctly', function() {
+        it('should work correctly', function() {
             const buffer1 = new Buffer(rawPacket1, 'hex');
             const packet1 = Packet.fromLiveBuffer(buffer1, 0, buffer1.length);
             packet1.timestamp = new Date(1387893006778);

@@ -17,27 +17,5 @@ chai.config.includeStack = true;
 global.sinon = sinon;
 
 
-global.promiseIt = function(message, callback) {
-    it(message, function(done) {
-        const _this = this;
-
-        new Promise(resolve => {
-            resolve(callback.call(_this));
-        }).then(function() {
-            done();
-        }, function(err) {
-            done(err);
-        });
-    });
-};
-
-
-global.xpromiseIt = function(message, callback) {
-    xit(message, function() {
-        // x-ed test
-    });
-};
-
-
 
 module.exports = vbus;

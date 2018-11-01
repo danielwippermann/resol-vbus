@@ -59,7 +59,7 @@ describe('Customizer', function() {
             expect(Customizer.prototype).property('loadConfiguration').a('function');
         });
 
-        promiseIt('should work correctly without an optimizer', function() {
+        it('should work correctly without an optimizer', function() {
             const customizer = new Customizer({
                 optimizer: null,
             });
@@ -83,7 +83,7 @@ describe('Customizer', function() {
             });
         });
 
-        promiseIt('should work correctly with an optimizer', function() {
+        it('should work correctly with an optimizer', function() {
             const optimizer = {
                 completeConfiguration: function(config) {
                     return Q(config);
@@ -137,7 +137,7 @@ describe('Customizer', function() {
             expect(Customizer.prototype).property('saveConfiguration').a('function');
         });
 
-        promiseIt('should work correctly without an optimizer', function() {
+        it('should work correctly without an optimizer', function() {
             const customizer = new Customizer({
                 optimizer: null,
             });
@@ -161,7 +161,7 @@ describe('Customizer', function() {
             });
         });
 
-        promiseIt('should work correctly with an optimizer', function() {
+        it('should work correctly with an optimizer', function() {
             const optimizer = {
                 completeConfiguration: function(config) {
                     return Q(config);
