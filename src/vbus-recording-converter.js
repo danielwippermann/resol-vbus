@@ -63,13 +63,13 @@ const VBusRecordingConverter = Converter.extend(/** @lends VBusRecordingConverte
         if (this.objectMode) {
             // nop
         } else if (this.topologyScanOnly) {
-            this._processBuffer(new Buffer(0), true, function(record) {
+            this._processBuffer(Buffer.alloc(0), true, function(record) {
                 _this._processRecordForTopologyScan(record);
             });
 
             this._constructTopologyHeaderSet();
         } else {
-            this._processBuffer(new Buffer(0), true, function(record) {
+            this._processBuffer(Buffer.alloc(0), true, function(record) {
                 _this._processRecord(record);
             });
         }
@@ -86,7 +86,7 @@ const VBusRecordingConverter = Converter.extend(/** @lends VBusRecordingConverte
             const buffers = [];
 
             const createBuffer = function(type, length, timestamp) {
-                const buffer = new Buffer(length);
+                const buffer = Buffer.alloc(length);
                 buffer.fill(0);
 
                 buffer [0] = 0xA5;
@@ -124,7 +124,7 @@ const VBusRecordingConverter = Converter.extend(/** @lends VBusRecordingConverte
             const buffers = [];
 
             const createBuffer = function(type, length, timestamp) {
-                const buffer = new Buffer(length);
+                const buffer = Buffer.alloc(length);
                 buffer.fill(0);
 
                 buffer [0] = 0xA5;
@@ -168,7 +168,7 @@ const VBusRecordingConverter = Converter.extend(/** @lends VBusRecordingConverte
         const buffers = [];
 
         const createBuffer = function(type, length, timestamp) {
-            const buffer = new Buffer(length);
+            const buffer = Buffer.alloc(length);
             buffer.fill(0);
 
             buffer [0] = 0xA5;
@@ -319,7 +319,7 @@ const VBusRecordingConverter = Converter.extend(/** @lends VBusRecordingConverte
         }
 
         if (start < buffer.length) {
-            this.rxBuffer = new Buffer(buffer.slice(start));
+            this.rxBuffer = Buffer.from(buffer.slice(start));
         } else {
             this.rxBuffer = null;
         }
@@ -352,7 +352,7 @@ const VBusRecordingConverter = Converter.extend(/** @lends VBusRecordingConverte
                 if (buffer.length >= 26 + dataLength) {
                     const frameCount = Math.floor(dataLength / 4);
 
-                    const frameData = new Buffer(127 * 4);
+                    const frameData = Buffer.alloc(127 * 4);
                     buffer.copy(frameData, 0, 26, 26 + dataLength);
 
                     const header = new Packet({
@@ -377,7 +377,7 @@ const VBusRecordingConverter = Converter.extend(/** @lends VBusRecordingConverte
             this.currentChannel = buffer [14];
         } else if ((type === 8) && (buffer.length >= 22)) {
             const endTimestamp = moreints.readUInt64LE(buffer, 14);
-            const rawBuffer = new Buffer(buffer.length - 22);
+            const rawBuffer = Buffer.alloc(buffer.length - 22);
             buffer.copy(rawBuffer, 0, 22, buffer.length);
 
             this.emit('rawData', {
@@ -409,7 +409,7 @@ const VBusRecordingConverter = Converter.extend(/** @lends VBusRecordingConverte
             if (buffer.length >= 26 + dataLength) {
                 const frameCount = Math.floor(dataLength / 4);
 
-                const frameData = new Buffer(127 * 4);
+                const frameData = Buffer.alloc(127 * 4);
                 buffer.copy(frameData, 0, 26, 26 + dataLength);
 
                 const header = new Packet({
@@ -475,7 +475,7 @@ const VBusRecordingConverter = Converter.extend(/** @lends VBusRecordingConverte
         } else if ((type === 8) && (buffer.length >= 22)) {
             const startTimestamp = moreints.readUInt64LE(buffer, 6);
             const endTimestamp = moreints.readUInt64LE(buffer, 14);
-            const rawBuffer = new Buffer(buffer.length - 22);
+            const rawBuffer = Buffer.alloc(buffer.length - 22);
             buffer.copy(rawBuffer, 0, 22, buffer.length);
 
             this.emit('rawData', {
@@ -487,7 +487,7 @@ const VBusRecordingConverter = Converter.extend(/** @lends VBusRecordingConverte
         }
 
         if (hasHeader) {
-            const headerIdBuffer = new Buffer(8);
+            const headerIdBuffer = Buffer.alloc(8);
             headerIdBuffer [0] = this.currentChannel;
             headerIdBuffer.writeUInt16LE(destinationAddress, 1);
             headerIdBuffer.writeUInt16LE(sourceAddress, 3);
@@ -506,7 +506,7 @@ const VBusRecordingConverter = Converter.extend(/** @lends VBusRecordingConverte
         const timestamp = new Date(0);
 
         _.forEach(_.keys(this.knownHeaderIds), function(headerId) {
-            const headerIdBuffer = new Buffer(headerId, 'hex');
+            const headerIdBuffer = Buffer.from(headerId, 'hex');
 
             const channel = headerIdBuffer [0];
             const destinationAddress = headerIdBuffer.readUInt16LE(1);

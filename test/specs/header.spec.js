@@ -37,7 +37,7 @@ describe('Header', function() {
         });
 
         it('should be abstract', function() {
-            const buffer = new Buffer('aa000021772000050000000000000042', 'hex');
+            const buffer = Buffer.from('aa000021772000050000000000000042', 'hex');
 
             expect(function() {
                 Header.fromLiveBuffer(buffer);
@@ -53,7 +53,7 @@ describe('Header', function() {
         });
 
         it('should work correctly', function() {
-            const buffer = new Buffer('aa000021772000050000000000000042', 'hex');
+            const buffer = Buffer.from('aa000021772000050000000000000042', 'hex');
 
             const checksum = Header.calcChecksumV0(buffer, 1, 15);
             expect(checksum).to.equal(0x42);
@@ -68,7 +68,7 @@ describe('Header', function() {
         });
 
         it('should work correctly', function() {
-            const buffer = new Buffer('aa000021772000050000000000000042', 'hex');
+            const buffer = Buffer.from('aa000021772000050000000000000042', 'hex');
 
             let result = Header.calcAndCompareChecksumV0(buffer, 1, 15);
             expect(result).to.equal(true);
@@ -88,7 +88,7 @@ describe('Header', function() {
         });
 
         it('should work correctly', function() {
-            const buffer = new Buffer('aa000021772000050000000000000000', 'hex');
+            const buffer = Buffer.from('aa000021772000050000000000000000', 'hex');
 
             const checksum = Header.calcAndSetChecksumV0(buffer, 1, 15);
             expect(checksum).to.equal(0x42);
@@ -104,8 +104,8 @@ describe('Header', function() {
         });
 
         it('should work correctly', function() {
-            const srcBuffer = new Buffer('aa21772165100001044c07014c00002b02017f00057838227600052a00000000007f', 'hex');
-            const dstBuffer = new Buffer(16);
+            const srcBuffer = Buffer.from('aa21772165100001044c07014c00002b02017f00057838227600052a00000000007f', 'hex');
+            const dstBuffer = Buffer.alloc(16);
 
             Header.injectSeptett(srcBuffer, 10, 14, dstBuffer, 0);
             Header.injectSeptett(srcBuffer, 16, 20, dstBuffer, 4);
@@ -124,8 +124,8 @@ describe('Header', function() {
         });
 
         it('should work correctly', function() {
-            const srcBuffer = new Buffer('07014c008201ff00b822f60000000000', 'hex');
-            const dstBuffer = new Buffer(34);
+            const srcBuffer = Buffer.from('07014c008201ff00b822f60000000000', 'hex');
+            const dstBuffer = Buffer.alloc(34);
 
             Header.extractSeptett(srcBuffer, 0, 4, dstBuffer, 10);
             Header.extractSeptett(srcBuffer, 4, 8, dstBuffer, 16);

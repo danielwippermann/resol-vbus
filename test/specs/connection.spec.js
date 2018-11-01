@@ -15,7 +15,7 @@ const Connection = vbus.Connection;
 
 
 
-const rawDataPacket = new Buffer([
+const rawDataPacket = Buffer.from([
     'aa100021771000011135',
     '02032e02004a',
     '760104010003',
@@ -36,11 +36,11 @@ const rawDataPacket = new Buffer([
     '5d070c0f017f'
 ].join(''), 'hex');
 
-const rawDataDatagram = new Buffer('aa000021772000050000000000000042', 'hex');
+const rawDataDatagram = Buffer.from('aa000021772000050000000000000042', 'hex');
 
-const rawDataTelegram1 = new Buffer('AA11207177300432', 'hex');
+const rawDataTelegram1 = Buffer.from('AA11207177300432', 'hex');
 
-const rawDataTelegram2 = new Buffer('AA7177112030251160182B040000000454', 'hex');
+const rawDataTelegram2 = Buffer.from('AA7177112030251160182B040000000454', 'hex');
 
 
 const parseRawData = function(rawDataOrCallback, start, end, ignoreEvents) {
@@ -280,7 +280,7 @@ describe('Connection', function() {
 
         it('should handle large junk data correctly', function() {
             parseRawData(function(conn, stats) {
-                const buffer = new Buffer(2048);
+                const buffer = Buffer.alloc(2048);
                 buffer.fill(0);
 
                 conn.write(buffer);
@@ -315,7 +315,7 @@ describe('Connection', function() {
 
         it('should report MSB errors correctly', function() {
             parseRawData(function(conn, stats) {
-                conn.write(new Buffer('80aa', 'hex'));
+                conn.write(Buffer.from('80aa', 'hex'));
 
                 expect(stats.txDataCount).to.equal(0);
                 expect(stats.rawDataCount).to.equal(2);
@@ -327,7 +327,7 @@ describe('Connection', function() {
 
         it('should report unknown protocol data correctly', function() {
             parseRawData(function(conn, stats) {
-                conn.write(new Buffer('aa100021770000010056aa', 'hex'));
+                conn.write(Buffer.from('aa100021770000010056aa', 'hex'));
 
                 expect(stats.txDataCount).to.equal(0);
                 expect(stats.rawDataCount).to.equal(11);
@@ -339,7 +339,7 @@ describe('Connection', function() {
 
         it('should report v1 header checksum errors correctly', function() {
             parseRawData(function(conn, stats) {
-                conn.write(new Buffer('aa100021771000010000', 'hex'));
+                conn.write(Buffer.from('aa100021771000010000', 'hex'));
 
                 expect(stats.txDataCount).to.equal(0);
                 expect(stats.rawDataCount).to.equal(10);
@@ -351,7 +351,7 @@ describe('Connection', function() {
 
         it('should report v1 frame checksum errors correctly', function() {
             parseRawData(function(conn, stats) {
-                conn.write(new Buffer('aa10002177100001014502032e020000', 'hex'));
+                conn.write(Buffer.from('aa10002177100001014502032e020000', 'hex'));
 
                 expect(stats.txDataCount).to.equal(0);
                 expect(stats.rawDataCount).to.equal(16);
@@ -363,7 +363,7 @@ describe('Connection', function() {
 
         it('should report v2 checksum errors correctly', function() {
             parseRawData(function(conn, stats) {
-                conn.write(new Buffer('aa000021772000050000000000000000', 'hex'));
+                conn.write(Buffer.from('aa000021772000050000000000000000', 'hex'));
 
                 expect(stats.txDataCount).to.equal(0);
                 expect(stats.rawDataCount).to.equal(16);
@@ -375,7 +375,7 @@ describe('Connection', function() {
 
         it('should report v3 header checksum errors correctly', function() {
             parseRawData(function(conn, stats) {
-                conn.write(new Buffer('AA11207177300400', 'hex'));
+                conn.write(Buffer.from('AA11207177300400', 'hex'));
 
                 expect(stats.txDataCount).to.equal(0);
                 expect(stats.rawDataCount).to.equal(8);
@@ -388,7 +388,7 @@ describe('Connection', function() {
 
         it('should report v3 frame checksum errors correctly', function() {
             parseRawData(function(conn, stats) {
-                conn.write(new Buffer('AA7177112030251160182B040000000400', 'hex'));
+                conn.write(Buffer.from('AA7177112030251160182B040000000400', 'hex'));
 
                 expect(stats.txDataCount).to.equal(0);
                 expect(stats.rawDataCount).to.equal(17);

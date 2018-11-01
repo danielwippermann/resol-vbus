@@ -42,7 +42,7 @@ const Telegram = Header.extend(/** @lends Telegram# */ {
         if (_.has(options, 'frameData') && _.has(options, 'dontCopyFrameData') && options.dontCopyFrameData) {
             this.frameData = options.frameData;
         } else {
-            this.frameData = new Buffer(3 * 7);
+            this.frameData = Buffer.alloc(3 * 7);
             this.frameData.fill(0);
 
             if (_.has(options, 'frameData')) {
@@ -58,7 +58,7 @@ const Telegram = Header.extend(/** @lends Telegram# */ {
 
         let buffer;
         if (origBuffer === undefined) {
-            buffer = new Buffer(length);
+            buffer = Buffer.alloc(length);
         } else if (start + length <= end) {
             buffer = origBuffer.slice(start, start + length);
         } else {
@@ -108,7 +108,7 @@ const Telegram = Header.extend(/** @lends Telegram# */ {
     fromLiveBuffer: function(buffer, start, end) {
         const frameCount = this.getFrameCountForCommand(buffer [start + 6]);
 
-        const frameData = new Buffer(3 * 7);
+        const frameData = Buffer.alloc(3 * 7);
         frameData.fill(0);
 
         for (let i = 0; i < frameCount; i++) {

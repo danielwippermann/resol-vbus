@@ -142,7 +142,7 @@ describe('VBusRecordingConverter', function() {
         ].join('');
 
         it('should work correctly', function(done) {
-            const buffer = new Buffer(rawVBusRecordingHexDump, 'hex');
+            const buffer = Buffer.from(rawVBusRecordingHexDump, 'hex');
 
             const converter = new VBusRecordingConverter();
 
@@ -231,7 +231,7 @@ describe('VBusRecordingConverter', function() {
                 'aa1000217e100001013e00000b000074',
             ].join('');
 
-            const buffer = new Buffer(rawDataHexDump, 'hex');
+            const buffer = Buffer.from(rawDataHexDump, 'hex');
 
             const converter = new VBusRecordingConverter({
             });
@@ -274,7 +274,7 @@ describe('VBusRecordingConverter', function() {
                 '65636f7264',
             ].join('');
 
-            const buffer = new Buffer(rawDataHexDump, 'hex');
+            const buffer = Buffer.from(rawDataHexDump, 'hex');
 
             const converter = new VBusRecordingConverter({
             });
@@ -303,7 +303,7 @@ describe('VBusRecordingConverter', function() {
         });
 
         it('should support topology scan only', function() {
-            const buffer = new Buffer(rawVBusRecordingHexDump, 'hex');
+            const buffer = Buffer.from(rawVBusRecordingHexDump, 'hex');
 
             const converter = new VBusRecordingConverter({
                 topologyScanOnly: true,
@@ -388,17 +388,17 @@ describe('VBusRecordingConverter', function() {
         ].join('');
 
         it('should work correctly', function() {
-            const buffer1 = new Buffer(rawPacket1, 'hex');
+            const buffer1 = Buffer.from(rawPacket1, 'hex');
             const packet1 = Packet.fromLiveBuffer(buffer1, 0, buffer1.length);
             packet1.timestamp = new Date(1387893006778);
             packet1.channel = 0;
 
-            const buffer2 = new Buffer(rawPacket2, 'hex');
+            const buffer2 = Buffer.from(rawPacket2, 'hex');
             const packet2 = Packet.fromLiveBuffer(buffer2, 0, buffer2.length);
             packet2.timestamp = new Date(1387893003303);
             packet2.channel = 1;
 
-            const buffer3 = new Buffer(rawPacket3, 'hex');
+            const buffer3 = Buffer.from(rawPacket3, 'hex');
             const packet3 = Packet.fromLiveBuffer(buffer3, 0, buffer3.length);
             packet3.timestamp = new Date(1387893003454);
             packet3.channel = 1;
@@ -464,7 +464,7 @@ describe('VBusRecordingConverter', function() {
                 channel: 1,
                 startTimestamp: new Date(1387893003287),
                 endTimestamp: new Date(1387893003303),
-                buffer: new Buffer('aa1000217e100001013e00000b000074', 'hex'),
+                buffer: Buffer.from('aa1000217e100001013e00000b000074', 'hex'),
             };
 
             const rawDataHexDump = [

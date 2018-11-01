@@ -161,7 +161,7 @@ const TcpDataSourceProvider = DataSourceProvider.extend(/** @lends TcpDataSource
             if (tries < options.tries) {
                 tries++;
 
-                const queryBuffer = new Buffer(queryString);
+                const queryBuffer = Buffer.from(queryString);
                 socket.send(queryBuffer, 0, queryBuffer.length, bcastPort, bcastAddress);
 
                 setTimeout(sendQuery, options.timeout);
@@ -225,7 +225,7 @@ const TcpDataSourceProvider = DataSourceProvider.extend(/** @lends TcpDataSource
 
                 const req = http.get(reqUrl, function(res) {
                     if (res.statusCode === 200) {
-                        let buffer = new Buffer(0);
+                        let buffer = Buffer.alloc(0);
 
                         res.on('data', function(chunk) {
                             buffer = Buffer.concat([ buffer, chunk ]);

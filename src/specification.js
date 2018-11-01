@@ -607,7 +607,7 @@ const Specification = extend(null, /** @lends Specification# */ {
      * @example
      * > var packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
      * undefined
-     * > var buffer = new Buffer('b822', 'hex');
+     * > var buffer = Buffer.from('b822', 'hex');
      * undefined
      * > console.log(spec.getRawValue(packetFieldSpec, buffer));
      * 888.8000000000001
@@ -1370,7 +1370,7 @@ const Specification = extend(null, /** @lends Specification# */ {
                         const sectionId = sprintf('%s_%02X_%02X_%d', packetSpec.packetId, frameCount, type, payloadCount);
 
                         const shasum = crypto.createHash('sha1');
-                        shasum.update(new Buffer(sectionId, 'utf8'));
+                        shasum.update(Buffer.from(sectionId, 'utf8'));
                         const surrogatePacketIdHash = shasum.digest('hex').toUpperCase();
 
                         const surrogatePacketIdHashPart1 = surrogatePacketIdHash.slice(0, 4);

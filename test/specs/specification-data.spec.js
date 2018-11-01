@@ -4250,7 +4250,7 @@ const testSpecificationData = function(source, specificationData) {
                 '_6650_0000_0200_045_1_0',
             ]);
 
-            const testBuffer1 = new Buffer('8000', 'hex');
+            const testBuffer1 = Buffer.from('8000', 'hex');
 
             const getRawValueFunction = specificationData.getRawValueFunctions._0010_7E11_0100_000_2_0;
             expect(getRawValueFunction).a('function');
@@ -5649,7 +5649,7 @@ describe('SpecificationData', function() {
 
         const specificationData = spec.specificationData;
 
-        const buffer = new Buffer(127 * 4);
+        const buffer = Buffer.alloc(127 * 4);
 
         _.forEach(specificationData.getRawValueFunctions, function(getRawValue) {
             getRawValue(buffer, 0, buffer.length);
@@ -5657,7 +5657,7 @@ describe('SpecificationData', function() {
     });
 
     it('should calc multi-byte masks correctly', function() {
-        const buffer = new Buffer(76);
+        const buffer = Buffer.alloc(76);
         buffer.fill(0);
 
         const spec = Specification.getDefaultSpecification();

@@ -36,7 +36,7 @@ describe('Telegram', function() {
                 destinationAddress: 0x1111,
                 sourceAddress: 0x2222,
                 command: 0x3333,
-                frameData: new Buffer('123456712345671234567123456712345671234567', 'hex'),
+                frameData: Buffer.from('123456712345671234567123456712345671234567', 'hex'),
             };
 
             const telegram = new Telegram(options);
@@ -52,7 +52,7 @@ describe('Telegram', function() {
                 destinationAddress: 0x1111,
                 sourceAddress: 0x2222,
                 command: 0x3333,
-                frameData: new Buffer('123456712345671234567123456712345671234567', 'hex'),
+                frameData: Buffer.from('123456712345671234567123456712345671234567', 'hex'),
                 dontCopyFrameData: true,
             };
 
@@ -73,7 +73,7 @@ describe('Telegram', function() {
         });
 
         it('should work correctly without a buffer', function() {
-            const frameData = new Buffer(21);
+            const frameData = Buffer.alloc(21);
             for (let i = 0; i < frameData.length; i++) {
                 frameData [i] = i * 12;
             }
@@ -91,7 +91,7 @@ describe('Telegram', function() {
         });
 
         it('should work correctly with a buffer', function() {
-            const frameData = new Buffer(21);
+            const frameData = Buffer.alloc(21);
             for (let i = 0; i < frameData.length; i++) {
                 frameData [i] = i * 12;
             }
@@ -103,7 +103,7 @@ describe('Telegram', function() {
                 frameData: frameData,
             });
 
-            const bigBuffer = new Buffer(800);
+            const bigBuffer = Buffer.alloc(800);
 
             const buffer = telegram.toLiveBuffer(bigBuffer, 100, 200);
 
@@ -111,7 +111,7 @@ describe('Telegram', function() {
         });
 
         it('should throw if buffer is too small', function() {
-            const frameData = new Buffer(21);
+            const frameData = Buffer.alloc(21);
             for (let i = 0; i < frameData.length; i++) {
                 frameData [i] = i * 12;
             }
@@ -123,7 +123,7 @@ describe('Telegram', function() {
                 frameData: frameData,
             });
 
-            const bigBuffer = new Buffer(800);
+            const bigBuffer = Buffer.alloc(800);
 
             expect(function() {
                 telegram.toLiveBuffer(bigBuffer, 100, 10);
@@ -143,10 +143,10 @@ describe('Telegram', function() {
                 destinationAddress: 0x7771,
                 sourceAddress: 0x2011,
                 command: 0x25,
-                frameData: new Buffer('6018ab04000000', 'hex'),
+                frameData: Buffer.from('6018ab04000000', 'hex'),
             };
 
-            const buffer = new Buffer('AA7177112030251160182B040000000454', 'hex');
+            const buffer = Buffer.from('AA7177112030251160182B040000000454', 'hex');
 
             const telegram = Telegram.fromLiveBuffer(buffer, 0, buffer.length);
 
@@ -173,7 +173,7 @@ describe('Telegram', function() {
         });
 
         it('should work correctly', function() {
-            const frameData = new Buffer(21);
+            const frameData = Buffer.alloc(21);
             for (let i = 0; i < frameData.length; i++) {
                 frameData [i] = i * 12;
             }

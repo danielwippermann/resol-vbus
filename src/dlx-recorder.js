@@ -258,7 +258,7 @@ const DLxRecorder = Recorder.extend( /** @lends DLxRecorder# */ {
 
                 string = string.slice(index);
 
-                rxBuffer = new Buffer(string, 'utf8');
+                rxBuffer = Buffer.from(string, 'utf8');
             };
 
             const onEnd = function() {

@@ -422,7 +422,7 @@ const FileSystemRecorder = Recorder.extend({
 
         const shasum = crypto.createHash('sha1');
 
-        shasum.update(new Buffer(url, 'utf8'));
+        shasum.update(Buffer.from(url, 'utf8'));
 
         return shasum.digest('hex');
     },

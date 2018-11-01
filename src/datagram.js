@@ -66,7 +66,7 @@ const Datagram = Header.extend(/** @lends Datagram# */ {
 
         let buffer;
         if (origBuffer === undefined) {
-            buffer = new Buffer(length);
+            buffer = Buffer.alloc(length);
         } else {
             buffer = origBuffer.slice(start, end);
         }
@@ -81,7 +81,7 @@ const Datagram = Header.extend(/** @lends Datagram# */ {
         buffer [5] = 0x20;
         buffer.writeUInt16LE(this.command & 0x7F7F, 6);
 
-        const frameData = new Buffer(6);
+        const frameData = Buffer.alloc(6);
         frameData.writeUInt16LE(this.valueId, 0);
         frameData.writeInt32LE(this.value, 2);
         Datagram.extractSeptett(frameData, 0, 6, buffer, 8);
@@ -124,7 +124,7 @@ const Datagram = Header.extend(/** @lends Datagram# */ {
 }, {
 
     fromLiveBuffer: function(buffer, start, end) {
-        const frameData = new Buffer(6);
+        const frameData = Buffer.alloc(6);
         Header.injectSeptett(buffer, start + 8, start + 14, frameData, 0);
 
         return new Datagram({

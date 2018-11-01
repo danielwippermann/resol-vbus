@@ -171,17 +171,17 @@ describe('Converter', function() {
         const rawPacket3 = 'aa1000317e100001042b05774a00003900000000007f00000000007f130d0000005f';
 
         it('should work correctly', function() {
-            const buffer1 = new Buffer(rawPacket1, 'hex');
+            const buffer1 = Buffer.from(rawPacket1, 'hex');
             const packet1 = Packet.fromLiveBuffer(buffer1, 0, buffer1.length);
             packet1.timestamp = new Date(1387893006778);
             packet1.channel = 0;
 
-            const buffer2 = new Buffer(rawPacket2, 'hex');
+            const buffer2 = Buffer.from(rawPacket2, 'hex');
             const packet2 = Packet.fromLiveBuffer(buffer2, 0, buffer2.length);
             packet2.timestamp = new Date(1387893003303);
             packet2.channel = 1;
 
-            const buffer3 = new Buffer(rawPacket3, 'hex');
+            const buffer3 = Buffer.from(rawPacket3, 'hex');
             const packet3 = Packet.fromLiveBuffer(buffer3, 0, buffer3.length);
             packet3.timestamp = new Date(1387893003454);
             packet3.channel = 1;
@@ -237,17 +237,17 @@ describe('Converter', function() {
         const rawPacket3 = 'aa1000317e100001042b05774a00003900000000007f00000000007f130d0000005f';
 
         it('should work correctly', function() {
-            const buffer1 = new Buffer(rawPacket1, 'hex');
+            const buffer1 = Buffer.from(rawPacket1, 'hex');
             const packet1 = Packet.fromLiveBuffer(buffer1, 0, buffer1.length);
             packet1.timestamp = new Date(1387893006778);
             packet1.channel = 0;
 
-            const buffer2 = new Buffer(rawPacket2, 'hex');
+            const buffer2 = Buffer.from(rawPacket2, 'hex');
             const packet2 = Packet.fromLiveBuffer(buffer2, 0, buffer2.length);
             packet2.timestamp = new Date(1387893003303);
             packet2.channel = 1;
 
-            const buffer3 = new Buffer(rawPacket3, 'hex');
+            const buffer3 = Buffer.from(rawPacket3, 'hex');
             const packet3 = Packet.fromLiveBuffer(buffer3, 0, buffer3.length);
             packet3.timestamp = new Date(1387893003454);
             packet3.channel = 1;

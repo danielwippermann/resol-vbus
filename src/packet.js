@@ -65,7 +65,7 @@ const Packet = Header.extend(/** @lends Packet# */ {
         if (_.has(options, 'frameData') && _.has(options, 'dontCopyFrameData') && options.dontCopyFrameData) {
             this.frameData = options.frameData;
         } else {
-            this.frameData = new Buffer(127 * 4);
+            this.frameData = Buffer.alloc(127 * 4);
             this.frameData.fill(0);
 
             if (_.has(options, 'frameData')) {
@@ -80,7 +80,7 @@ const Packet = Header.extend(/** @lends Packet# */ {
 
         let buffer;
         if (origBuffer === undefined) {
-            buffer = new Buffer(length);
+            buffer = Buffer.alloc(length);
         } else if (start + length <= end) {
             buffer = origBuffer.slice(start, start + length);
         } else {
@@ -127,7 +127,7 @@ const Packet = Header.extend(/** @lends Packet# */ {
     fromLiveBuffer: function(buffer, start, end) {
         const frameCount = buffer [start + 8];
 
-        const frameData = new Buffer(127 * 4);
+        const frameData = Buffer.alloc(127 * 4);
         frameData.fill(0);
 
         for (let frameIndex = 0; frameIndex < frameCount; frameIndex++) {

@@ -26,7 +26,7 @@ describe('Datagram', function() {
                 value: 0x63328330
             };
 
-            const buffer = new Buffer('aa362335332034433353300332630851', 'hex');
+            const buffer = Buffer.from('aa362335332034433353300332630851', 'hex');
 
             const datagram = Datagram.fromLiveBuffer(buffer, 0, buffer.length);
 

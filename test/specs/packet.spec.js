@@ -36,7 +36,7 @@ describe('Packet', function() {
         });
 
         it('should copy certain options', function() {
-            const frameData = new Buffer(13 * 4);
+            const frameData = Buffer.alloc(13 * 4);
             for (let i = 0; i < frameData.length; i++) {
                 frameData [i] = i * 4;
             }
@@ -79,7 +79,7 @@ describe('Packet', function() {
         });
 
         it('should work correctly without a buffer', function() {
-            const frameData = new Buffer(13 * 4);
+            const frameData = Buffer.alloc(13 * 4);
             for (let i = 0; i < frameData.length; i++) {
                 frameData [i] = i * 4;
             }
@@ -124,7 +124,7 @@ describe('Packet', function() {
         });
 
         it('should work correctly with a buffer', function() {
-            const frameData = new Buffer(13 * 4);
+            const frameData = Buffer.alloc(13 * 4);
             for (let i = 0; i < frameData.length; i++) {
                 frameData [i] = i * 4;
             }
@@ -139,7 +139,7 @@ describe('Packet', function() {
 
             const packet = new Packet(options);
 
-            const bigBuffer = new Buffer(800);
+            const bigBuffer = Buffer.alloc(800);
 
             const buffer = packet.toLiveBuffer(bigBuffer, 100, 200);
 
@@ -149,7 +149,7 @@ describe('Packet', function() {
         });
 
         it('should throw if buffer is too small', function() {
-            const frameData = new Buffer(13 * 4);
+            const frameData = Buffer.alloc(13 * 4);
             for (let i = 0; i < frameData.length; i++) {
                 frameData [i] = i * 4;
             }
@@ -164,7 +164,7 @@ describe('Packet', function() {
 
             const packet = new Packet(options);
 
-            const bigBuffer = new Buffer(800);
+            const bigBuffer = Buffer.alloc(800);
 
             expect(function() {
                 packet.toLiveBuffer(bigBuffer, 100, 180);
@@ -180,7 +180,7 @@ describe('Packet', function() {
         });
 
         it('should work correctly', function() {
-            const frameData = new Buffer(13 * 4);
+            const frameData = Buffer.alloc(13 * 4);
             for (let i = 0; i < frameData.length; i++) {
                 frameData [i] = i * 4;
             }
@@ -193,7 +193,7 @@ describe('Packet', function() {
                 frameData: frameData,
             };
 
-            const buffer = new Buffer('aa362335331034430d2a0004080c00671014181c00272024282c00673034383c00274044484c00675054585c00276064686c00677074787c00270004080c0f581014181c0f182024282c0f583034383c0f184044484c0f58', 'hex');
+            const buffer = Buffer.from('aa362335331034430d2a0004080c00671014181c00272024282c00673034383c00274044484c00675054585c00276064686c00677074787c00270004080c0f581014181c0f182024282c0f583034383c0f184044484c0f58', 'hex');
 
             const packet = Packet.fromLiveBuffer(buffer, 0, buffer.length);
 
@@ -220,7 +220,7 @@ describe('Packet', function() {
         });
 
         it('should work correctly', function() {
-            const frameData = new Buffer(13 * 4);
+            const frameData = Buffer.alloc(13 * 4);
             for (let i = 0; i < frameData.length; i++) {
                 frameData [i] = i * 4;
             }

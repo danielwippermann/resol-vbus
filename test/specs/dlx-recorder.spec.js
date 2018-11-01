@@ -46,7 +46,7 @@ const createRequestStub = function(recorder, response, data) {
 
 
 
-const recordingFileListHtml = new Buffer([
+const recordingFileListHtml = Buffer.from([
     '<?xml version="1.0" encoding="UTF-8"?>',
     '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">',
     '<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">',
@@ -336,7 +336,7 @@ describe('DLxRecorder', function() {
 
             const response = null;
 
-            const data = new Buffer('11223344556677889900', 'hex');
+            const data = Buffer.from('11223344556677889900', 'hex');
 
             const stub = createRequestStub(recorder, response, data);
 

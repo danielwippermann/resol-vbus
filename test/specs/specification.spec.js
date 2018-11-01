@@ -622,7 +622,7 @@ describe('Specification', function() {
 
             const packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
 
-            const buffer = new Buffer('b8', 'hex');
+            const buffer = Buffer.from('b8', 'hex');
 
             const setRawValue = 20.5;
 
@@ -638,7 +638,7 @@ describe('Specification', function() {
 
             const packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
 
-            const buffer = new Buffer('b822', 'hex');
+            const buffer = Buffer.from('b822', 'hex');
 
             const setRawValue = 999.9;
 
@@ -654,7 +654,7 @@ describe('Specification', function() {
 
             const packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
 
-            const buffer = new Buffer('', 'hex');
+            const buffer = Buffer.from('', 'hex');
 
             const setRawValue = 12.3;
 
@@ -670,7 +670,7 @@ describe('Specification', function() {
 
             const packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
 
-            const buffer = new Buffer('b8', 'hex');
+            const buffer = Buffer.from('b8', 'hex');
 
             const setRawValue = 12.3;
 
@@ -684,7 +684,7 @@ describe('Specification', function() {
         it('should work correctly for an unknown packet field spec', function() {
             const spec = new Specification();
 
-            const buffer = new Buffer('b822', 'hex');
+            const buffer = Buffer.from('b822', 'hex');
 
             const setRawValue = 12.3;
 
@@ -723,7 +723,7 @@ describe('Specification', function() {
 
             const packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
 
-            const buffer = new Buffer('b822', 'hex');
+            const buffer = Buffer.from('b822', 'hex');
 
             const rawValue = spec.getRawValue(packetFieldSpec, buffer, 0, buffer.length);
 
@@ -735,7 +735,7 @@ describe('Specification', function() {
 
             const packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
 
-            const buffer = new Buffer('b822', 'hex');
+            const buffer = Buffer.from('b822', 'hex');
 
             const rawValue = spec.getRawValue(packetFieldSpec, buffer);
 
@@ -747,7 +747,7 @@ describe('Specification', function() {
 
             const packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
 
-            const buffer = new Buffer('', 'hex');
+            const buffer = Buffer.from('', 'hex');
 
             const rawValue = spec.getRawValue(packetFieldSpec, buffer, 0, buffer.length);
 
@@ -759,7 +759,7 @@ describe('Specification', function() {
 
             const packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
 
-            const buffer = new Buffer('b8', 'hex');
+            const buffer = Buffer.from('b8', 'hex');
 
             const rawValue = spec.getRawValue(packetFieldSpec, buffer, 0, buffer.length);
 
@@ -769,7 +769,7 @@ describe('Specification', function() {
         it('should work correctly for an unknown packet field spec', function() {
             const spec = new Specification();
 
-            const buffer = new Buffer('b822', 'hex');
+            const buffer = Buffer.from('b822', 'hex');
 
             const rawValue = spec.getRawValue(null, buffer, 0, buffer.length);
 
@@ -802,7 +802,7 @@ describe('Specification', function() {
 
             const packetFieldSpec = spec.getPacketFieldSpecification('DemoValue1');
 
-            const buffer = new Buffer('0000', 'hex');
+            const buffer = Buffer.from('0000', 'hex');
 
             const rawValue = spec.getRawValue(packetFieldSpec, buffer, 0, buffer.length);
 
@@ -822,7 +822,7 @@ describe('Specification', function() {
 
             const packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
 
-            const buffer = new Buffer('b822', 'hex');
+            const buffer = Buffer.from('b822', 'hex');
 
             const rawValue = spec.getRoundedRawValue(packetFieldSpec, buffer, 0, buffer.length);
 
@@ -834,7 +834,7 @@ describe('Specification', function() {
 
             const packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
 
-            const buffer = new Buffer('b822', 'hex');
+            const buffer = Buffer.from('b822', 'hex');
 
             const rawValue = spec.getRoundedRawValue(packetFieldSpec, buffer);
 
@@ -846,7 +846,7 @@ describe('Specification', function() {
 
             const packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
 
-            const buffer = new Buffer('', 'hex');
+            const buffer = Buffer.from('', 'hex');
 
             const rawValue = spec.getRoundedRawValue(packetFieldSpec, buffer, 0, buffer.length);
 
@@ -858,7 +858,7 @@ describe('Specification', function() {
 
             const packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
 
-            const buffer = new Buffer('b8', 'hex');
+            const buffer = Buffer.from('b8', 'hex');
 
             const rawValue = spec.getRoundedRawValue(packetFieldSpec, buffer, 0, buffer.length);
 
@@ -868,7 +868,7 @@ describe('Specification', function() {
         it('should work correctly for an unknown packet field spec', function() {
             const spec = new Specification();
 
-            const buffer = new Buffer('b822', 'hex');
+            const buffer = Buffer.from('b822', 'hex');
 
             const rawValue = spec.getRoundedRawValue(null, buffer, 0, buffer.length);
 
@@ -901,7 +901,7 @@ describe('Specification', function() {
 
             const packetFieldSpec = spec.getPacketFieldSpecification('DemoValue1');
 
-            const buffer = new Buffer('0000', 'hex');
+            const buffer = Buffer.from('0000', 'hex');
 
             const rawValue = spec.getRoundedRawValue(packetFieldSpec, buffer, 0, buffer.length);
 
@@ -1707,7 +1707,7 @@ describe('Specification', function() {
             sourceAddress: 0x7722,
             command: 0x0100,
             frameCount: 1,
-            frameData: new Buffer('b8220000', 'hex'),
+            frameData: Buffer.from('b8220000', 'hex'),
         });
 
         const header2 = new Packet({
@@ -1716,7 +1716,7 @@ describe('Specification', function() {
             sourceAddress: 0x7722,
             command: 0x0100,
             frameCount: 1,
-            frameData: new Buffer('000048dd', 'hex'),
+            frameData: Buffer.from('000048dd', 'hex'),
         });
 
         const header3 = new Packet({
@@ -1725,7 +1725,7 @@ describe('Specification', function() {
             sourceAddress: 0x7E31,
             command: 0x0100,
             frameCount: 4,
-            frameData: new Buffer('2211221122112211221122112211221122112211', 'hex'), // data for five frames, but only four advertised
+            frameData: Buffer.from('2211221122112211221122112211221122112211', 'hex'), // data for five frames, but only four advertised
         });
 
         const rawSpecificationData1 = {
@@ -1912,7 +1912,7 @@ describe('Specification', function() {
                 sourceAddress: 0x7722,
                 command: 0x0100,
                 frameCount: 1,
-                frameData: new Buffer('b8220000', 'hex'),
+                frameData: Buffer.from('b8220000', 'hex'),
             });
 
             const header2 = new Packet({
@@ -1921,7 +1921,7 @@ describe('Specification', function() {
                 sourceAddress: 0x7722,
                 command: 0x0100,
                 frameCount: 1,
-                frameData: new Buffer('000048dd', 'hex'),
+                frameData: Buffer.from('000048dd', 'hex'),
             });
 
             let pfs = spec.getPacketFieldsForHeaders([ header1, header2 ]);
@@ -2067,7 +2067,7 @@ describe('Specification', function() {
         command: 0x0100,
         // for the purpose of this test: valid BlockType data in a non-BlockType packet should be ignored
         frameCount: 7,
-        frameData: new Buffer('0108000064000000020a0000b822b82200000000010b00000b000000', 'hex'),
+        frameData: Buffer.from('0108000064000000020a0000b822b82200000000010b00000b000000', 'hex'),
     });
 
     const blockTypeHeader1 = new Packet({
@@ -2076,7 +2076,7 @@ describe('Specification', function() {
         sourceAddress: 0x7721,
         command: 0x0100,
         frameCount: 7,
-        frameData: new Buffer('0108000064000000020a0000b822b82200000000010b00000b000000', 'hex'),
+        frameData: Buffer.from('0108000064000000020a0000b822b82200000000010b00000b000000', 'hex'),
     });
 
     const blockTypeHeader2 = new Packet({
@@ -2085,7 +2085,7 @@ describe('Specification', function() {
         sourceAddress: 0x7721,
         command: 0x0100,
         frameCount: 26,
-        frameData: new Buffer([
+        frameData: Buffer.from([
             // type 1: temperatures
             '02010000',
             '23013402',
@@ -2614,7 +2614,7 @@ describe('Specification', function() {
 /*
 
     it('should get unknown packet fields with filter', function() {
-        var buffer = new Buffer('aa10002277100001034224012701003200006401001a350201000047', 'hex');
+        var buffer = Buffer.from('aa10002277100001034224012701003200006401001a350201000047', 'hex');
 
         var packet = Packet.fromLiveBuffer(buffer, 0, buffer.length);
 
