@@ -3,10 +3,8 @@
 
 
 
-const Q = require('q');
-
-
 const expect = require('./expect');
+const Q = require('./q');
 const vbus = require('./resol-vbus');
 const testUtils = require('./test-utils');
 

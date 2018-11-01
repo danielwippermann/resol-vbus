@@ -3,11 +3,9 @@
 
 
 
-const Q = require('q');
-
-
 const Customizer = require('./customizer');
 const _ = require('./lodash');
+const Q = require('./q');
 
 
 
@@ -290,7 +288,7 @@ const ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# 
                                     }
 
                                     nextValue();
-                                }).done();
+                                }, reject);
                             } else {
                                 nextRound(config);
                             }
@@ -307,9 +305,9 @@ const ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# 
                                 }
                             }).then(function() {
                                 resolve(config);
-                            }).done();
+                            }, reject);
                         }
-                    }).fail(reject).done();
+                    }).then(null, reject);
                 } else {
                     resolve(null);
                 }
@@ -507,9 +505,7 @@ const ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# 
                         } else {
                             return nextTry();
                         }
-                    }).fail(function(reason) {
-                        done(reason);
-                    }).done();
+                    }).then(null, done);
                 } else {
                     done(null, null);
                 }

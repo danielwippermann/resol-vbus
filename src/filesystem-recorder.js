@@ -9,10 +9,11 @@ const path = require('path');
 
 
 const moment = require('moment');
-const Q = require('q');
 
 
 const _ = require('./lodash');
+const Q = require('./q');
+const { promiseFinally } = require('./utils');
 const VBusRecordingConverter = require('./vbus-recording-converter');
 
 const Recorder = require('./recorder');
@@ -57,14 +58,18 @@ const FileSystemRecorder = Recorder.extend({
     _getCurrentSyncState: function(options) {
         const filename = this._getCurrentSyncStateFilename(options);
 
-        return Q.fcall(function() {
-            return Q.npost(fs, 'readFile', [ filename ]);
-        }).fail(function(err) {
-            if (err.code === 'ENOENT') {
-                return '{}';
-            } else {
-                throw err;
-            }
+        return new Promise((resolve, reject) => {
+            fs.readFile(filename, (err, contents) => {
+                if (err) {
+                    if (err.code === 'ENOENT') {
+                        resolve('{}');
+                    } else {
+                        reject(err);
+                    }
+                } else {
+                    resolve(contents);
+                }
+            });
         }).then(function(data) {
             return JSON.parse(data);
         });
@@ -76,7 +81,15 @@ const FileSystemRecorder = Recorder.extend({
         return Q.fcall(function() {
             return JSON.stringify(syncState, null, '    ');
         }).then(function(data) {
-            return Q.npost(fs, 'writeFile', [ filename, data ]);
+            return new Promise((resolve, reject) => {
+                fs.writeFile(filename, data, (err) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve();
+                    }
+                });
+            });
         });
     },
 
@@ -318,9 +331,11 @@ const FileSystemRecorder = Recorder.extend({
     },
 
     _endRecording: function(headerSetConsolidator, recordingJob, recording) {
-        return Q.fcall(function() {
+        const promise = Q.fcall(function() {
             return recording.finish();
-        }).finally(function() {
+        });
+        
+        return promiseFinally(promise, () => {
             return headerSetConsolidator.removeListener('headerSet', recording.onHeaderSet);
         });
     },

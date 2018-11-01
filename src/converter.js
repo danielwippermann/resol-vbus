@@ -9,12 +9,10 @@ const util = require('util');
 const Duplex = require('stream').Duplex;
 
 
-const Q = require('q');
-
-
 const Header = require('./header');
 const HeaderSet = require('./header-set');
 const _ = require('./lodash');
+const Q = require('./q');
 
 const extend = require('./extend');
 

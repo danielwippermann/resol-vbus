@@ -7,11 +7,9 @@ const net = require('net');
 const tls = require('tls');
 
 
-const Q = require('q');
-
-
 const Connection = require('./connection');
 const _ = require('./lodash');
+const Q = require('./q');
 
 
 

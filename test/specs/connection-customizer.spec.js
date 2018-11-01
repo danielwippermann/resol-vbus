@@ -3,11 +3,9 @@
 
 
 
-const Q = require('q');
-
-
 const expect = require('./expect');
 const _ = require('./lodash');
+const Q = require('./q');
 const vbus = require('./resol-vbus');
 const testUtils = require('./test-utils');
 
@@ -205,7 +203,7 @@ describe('ConnectionCustomizer', function() {
             expect(ConnectionCustomizer.prototype).property('loadConfiguration').a('function');
         });
 
-        promiseIt('should work correctly without optimizer and optimization', function() {
+        it('should work correctly without optimizer and optimization', function() {
             const options = {
                 optimizer: null,
                 testConfig: {
@@ -263,7 +261,7 @@ describe('ConnectionCustomizer', function() {
             });
         });
 
-        promiseIt('should work correctly with optimizer and without optimization', function() {
+        it('should work correctly with optimizer and without optimization', function() {
             const options = {
                 optimizer: true,  // will be replaced with an object by `promiseTestContext`
                 testConfig: {
@@ -307,7 +305,7 @@ describe('ConnectionCustomizer', function() {
             });
         });
 
-        promiseIt('should work correctly with optimization', function() {
+        it('should work correctly with optimization', function() {
             const options = {
                 optimizer: true,  // will be replaced with an object by `promiseTestContext`
             };
@@ -349,7 +347,7 @@ describe('ConnectionCustomizer', function() {
             expect(ConnectionCustomizer.prototype).property('saveConfiguration').a('function');
         });
 
-        promiseIt('should work correctly without optimizer and optimization', function() {
+        it('should work correctly without optimizer and optimization', function() {
             const options = {
                 optimizer: null,
             };
@@ -405,7 +403,7 @@ describe('ConnectionCustomizer', function() {
             });
         });
 
-        promiseIt('should work correctly with optimizer and without optimization', function() {
+        it('should work correctly with optimizer and without optimization', function() {
             const options = {
                 optimizer: true,  // will be replaced with an object by `promiseTestContext`
             };
@@ -447,11 +445,11 @@ describe('ConnectionCustomizer', function() {
             });
         });
 
-        xpromiseIt('should work correctly with optimization but without old config (NYI)', function() {
+        xit('should work correctly with optimization but without old config (NYI)', function() {
             throw new Error('NYI');
         });
 
-        xpromiseIt('should work correctly with optimization and old config (NYI)', function() {
+        xit('should work correctly with optimization and old config (NYI)', function() {
             throw new Error('NYI');
         });
 
@@ -465,7 +463,7 @@ describe('ConnectionCustomizer', function() {
                 .that.is.a('function');
         });
 
-        it('should get values correctly', function(done) {
+        it('should get values correctly', function() {
             const deviceAddress = 0x1111;
             const value = 0x12345678;
 
@@ -534,12 +532,10 @@ describe('ConnectionCustomizer', function() {
                 connection.send(datagram);
             }, 10);
 
-            testUtils.performAsyncTest(done, function() {
-                return customizer.transceiveConfiguration(options, callback).then(function(config) {
-                    expect(config)
-                        .to.be.an('array')
-                        .that.has.lengthOf(1);
-                });
+            return customizer.transceiveConfiguration(options, callback).then(function(config) {
+                expect(config)
+                    .to.be.an('array')
+                    .that.has.lengthOf(1);
             });
         });
     });
@@ -552,7 +548,7 @@ describe('ConnectionCustomizer', function() {
                 .that.is.a('function');
         });
 
-        it('should get value correctly', function(done) {
+        it('should get value correctly', function() {
             const deviceAddress = 0x1111;
             const valueId = 0x2222;
             const value = 0x12345678;
@@ -590,34 +586,32 @@ describe('ConnectionCustomizer', function() {
                 action: 'get',
             };
 
-            testUtils.performAsyncTest(done, function() {
-                return customizer.transceiveValue(valueId, 0, options).then(function(datagram) {
-                    expect(datagram.toLiveBuffer()).to.eql(response.toLiveBuffer());
+            return customizer.transceiveValue(valueId, 0, options).then(function(datagram) {
+                expect(datagram.toLiveBuffer()).to.eql(response.toLiveBuffer());
 
-                    expect(request).to.be.instanceOf(Datagram);
-                    expect(request.getId())
-                        .to.equal('00_1111_0020_20_0300_0000');
-                    expect(request)
-                        .to.have.a.property('valueId')
-                        .that.is.equal(valueId);
-                    expect(request)
-                        .to.have.a.property('value')
-                        .that.is.equal(0);
+                expect(request).to.be.instanceOf(Datagram);
+                expect(request.getId())
+                    .to.equal('00_1111_0020_20_0300_0000');
+                expect(request)
+                    .to.have.a.property('valueId')
+                    .that.is.equal(valueId);
+                expect(request)
+                    .to.have.a.property('value')
+                    .that.is.equal(0);
 
-                    expect(response).to.be.instanceOf(Datagram);
-                    expect(response.getId())
-                        .to.equal('00_0020_1111_20_0100_0000');
-                    expect(response)
-                        .to.have.a.property('valueId')
-                        .that.is.equal(valueId);
-                    expect(response)
-                        .to.have.a.property('value')
-                        .that.is.equal(value);
-                });
+                expect(response).to.be.instanceOf(Datagram);
+                expect(response.getId())
+                    .to.equal('00_0020_1111_20_0100_0000');
+                expect(response)
+                    .to.have.a.property('valueId')
+                    .that.is.equal(valueId);
+                expect(response)
+                    .to.have.a.property('value')
+                    .that.is.equal(value);
             });
         });
 
-        it('should set value correctly', function(done) {
+        it('should set value correctly', function() {
             const deviceAddress = 0x1111;
             const valueId = 0x2222;
             const value = 0x12345678;
@@ -655,34 +649,32 @@ describe('ConnectionCustomizer', function() {
                 action: 'set',
             };
 
-            testUtils.performAsyncTest(done, function() {
-                return customizer.transceiveValue(valueId, value, options).then(function(datagram) {
-                    expect(datagram.toLiveBuffer()).to.eql(response.toLiveBuffer());
+            return customizer.transceiveValue(valueId, value, options).then(function(datagram) {
+                expect(datagram.toLiveBuffer()).to.eql(response.toLiveBuffer());
 
-                    expect(request).to.be.instanceOf(Datagram);
-                    expect(request.getId())
-                        .to.equal('00_1111_0020_20_0200_0000');
-                    expect(request)
-                        .to.have.a.property('valueId')
-                        .that.is.equal(valueId);
-                    expect(request)
-                        .to.have.a.property('value')
-                        .that.is.equal(value);
+                expect(request).to.be.instanceOf(Datagram);
+                expect(request.getId())
+                    .to.equal('00_1111_0020_20_0200_0000');
+                expect(request)
+                    .to.have.a.property('valueId')
+                    .that.is.equal(valueId);
+                expect(request)
+                    .to.have.a.property('value')
+                    .that.is.equal(value);
 
-                    expect(response).to.be.instanceOf(Datagram);
-                    expect(response.getId())
-                        .to.equal('00_0020_1111_20_0100_0000');
-                    expect(response)
-                        .to.have.a.property('valueId')
-                        .that.is.equal(valueId);
-                    expect(response)
-                        .to.have.a.property('value')
-                        .that.is.equal(value);
-                });
+                expect(response).to.be.instanceOf(Datagram);
+                expect(response.getId())
+                    .to.equal('00_0020_1111_20_0100_0000');
+                expect(response)
+                    .to.have.a.property('valueId')
+                    .that.is.equal(valueId);
+                expect(response)
+                    .to.have.a.property('value')
+                    .that.is.equal(value);
             });
         });
 
-        it('should contact the master regularly', function(done) {
+        it('should contact the master regularly', function() {
             const deviceAddress = 0x1111;
             const valueId = 0x2222;
             const value = 0x12345678;
@@ -725,34 +717,32 @@ describe('ConnectionCustomizer', function() {
                 masterLastContacted: Date.now() - 10000,
             };
 
-            testUtils.performAsyncTest(done, function() {
-                return customizer.transceiveValue(valueId, 0, options, state).then(function(datagram) {
-                    expect(datagram.toLiveBuffer()).to.eql(response.toLiveBuffer());
+            return customizer.transceiveValue(valueId, 0, options, state).then(function(datagram) {
+                expect(datagram.toLiveBuffer()).to.eql(response.toLiveBuffer());
 
-                    expect(request).to.be.instanceOf(Datagram);
-                    expect(request.getId())
-                        .to.equal('00_1111_0020_20_0300_0000');
-                    expect(request)
-                        .to.have.a.property('valueId')
-                        .that.is.equal(valueId);
-                    expect(request)
-                        .to.have.a.property('value')
-                        .that.is.equal(0);
+                expect(request).to.be.instanceOf(Datagram);
+                expect(request.getId())
+                    .to.equal('00_1111_0020_20_0300_0000');
+                expect(request)
+                    .to.have.a.property('valueId')
+                    .that.is.equal(valueId);
+                expect(request)
+                    .to.have.a.property('value')
+                    .that.is.equal(0);
 
-                    expect(response).to.be.instanceOf(Datagram);
-                    expect(response.getId())
-                        .to.equal('00_0020_1111_20_0100_0000');
-                    expect(response)
-                        .to.have.a.property('valueId')
-                        .that.is.equal(valueId);
-                    expect(response)
-                        .to.have.a.property('value')
-                        .that.is.equal(value);
-                });
+                expect(response).to.be.instanceOf(Datagram);
+                expect(response.getId())
+                    .to.equal('00_0020_1111_20_0100_0000');
+                expect(response)
+                    .to.have.a.property('valueId')
+                    .that.is.equal(valueId);
+                expect(response)
+                    .to.have.a.property('value')
+                    .that.is.equal(value);
             });
         });
 
-        it('should release and claim the VBus on timeout', function(done) {
+        it('should release and claim the VBus on timeout', function() {
             const deviceAddress = 0x1111;
             const valueId = 0x2222;
             const value = 0x12345678;
@@ -823,34 +813,32 @@ describe('ConnectionCustomizer', function() {
                 }
             };
 
-            testUtils.performAsyncTest(done, function() {
-                return customizer.transceiveValue(valueId, 0, options).then(function(datagram) {
-                    expect(datagram.toLiveBuffer()).to.eql(response.toLiveBuffer());
+            return customizer.transceiveValue(valueId, 0, options).then(function(datagram) {
+                expect(datagram.toLiveBuffer()).to.eql(response.toLiveBuffer());
 
-                    expect(request).to.be.instanceOf(Datagram);
-                    expect(request.getId())
-                        .to.equal('00_1111_0020_20_0300_0000');
-                    expect(request)
-                        .to.have.a.property('valueId')
-                        .that.is.equal(valueId);
-                    expect(request)
-                        .to.have.a.property('value')
-                        .that.is.equal(0);
+                expect(request).to.be.instanceOf(Datagram);
+                expect(request.getId())
+                    .to.equal('00_1111_0020_20_0300_0000');
+                expect(request)
+                    .to.have.a.property('valueId')
+                    .that.is.equal(valueId);
+                expect(request)
+                    .to.have.a.property('value')
+                    .that.is.equal(0);
 
-                    expect(response).to.be.instanceOf(Datagram);
-                    expect(response.getId())
-                        .to.equal('00_0020_1111_20_0100_0000');
-                    expect(response)
-                        .to.have.a.property('valueId')
-                        .that.is.equal(valueId);
-                    expect(response)
-                        .to.have.a.property('value')
-                        .that.is.equal(value);
-                });
+                expect(response).to.be.instanceOf(Datagram);
+                expect(response.getId())
+                    .to.equal('00_0020_1111_20_0100_0000');
+                expect(response)
+                    .to.have.a.property('valueId')
+                    .that.is.equal(valueId);
+                expect(response)
+                    .to.have.a.property('value')
+                    .that.is.equal(value);
             });
         });
 
-        it('should fail if disconnected', function(done) {
+        it('should fail if disconnected', function() {
             const connection = new Connection();
 
             const customizer = new ConnectionCustomizer({
@@ -858,20 +846,14 @@ describe('ConnectionCustomizer', function() {
                 connection: connection,
             });
 
-            const callback = function(err) {
-                if (err) {
-                    done();
-                } else {
-                    done(new Error('Expected to throw'));
-                }
-            };
-
-            testUtils.performAsyncTest(callback, function() {
-                return customizer.transceiveValue(0x2222, 0);
+            return customizer.transceiveValue(0x2222, 0).then(() => {
+                throw new Error('Expected to throw');
+            }, () => {
+                // nop, expected error
             });
         });
 
-        it('should suspend while (re)connecting', function(done) {
+        it('should suspend while (re)connecting', function() {
             const deviceAddress = 0x1111;
             const valueId = 0x2222;
             const value = 0x12345678;
@@ -911,45 +893,43 @@ describe('ConnectionCustomizer', function() {
                 timeoutPerValue: 200,
             };
 
-            testUtils.performAsyncTest(done, function() {
-                const startTime = Date.now();
+            const startTime = Date.now();
 
-                setTimeout(function() {
-                    connection._setConnectionState(Connection.STATE_CONNECTED);
-                }, 100);
+            setTimeout(function() {
+                connection._setConnectionState(Connection.STATE_CONNECTED);
+            }, 100);
 
-                return customizer.transceiveValue(valueId, 0, options).then(function(datagram) {
-                    const timeDiff = Date.now() - startTime;
+            return customizer.transceiveValue(valueId, 0, options).then(function(datagram) {
+                const timeDiff = Date.now() - startTime;
 
-                    expect(timeDiff)
-                        .to.be.within(100, 120);
+                expect(timeDiff)
+                    .to.be.within(100, 120);
 
-                    expect(datagram.toLiveBuffer()).to.eql(response.toLiveBuffer());
+                expect(datagram.toLiveBuffer()).to.eql(response.toLiveBuffer());
 
-                    expect(request).to.be.instanceOf(Datagram);
-                    expect(request.getId())
-                        .to.equal('00_1111_0020_20_0300_0000');
-                    expect(request)
-                        .to.have.a.property('valueId')
-                        .that.is.equal(valueId);
-                    expect(request)
-                        .to.have.a.property('value')
-                        .that.is.equal(0);
+                expect(request).to.be.instanceOf(Datagram);
+                expect(request.getId())
+                    .to.equal('00_1111_0020_20_0300_0000');
+                expect(request)
+                    .to.have.a.property('valueId')
+                    .that.is.equal(valueId);
+                expect(request)
+                    .to.have.a.property('value')
+                    .that.is.equal(0);
 
-                    expect(response).to.be.instanceOf(Datagram);
-                    expect(response.getId())
-                        .to.equal('00_0020_1111_20_0100_0000');
-                    expect(response)
-                        .to.have.a.property('valueId')
-                        .that.is.equal(valueId);
-                    expect(response)
-                        .to.have.a.property('value')
-                        .that.is.equal(value);
-                });
+                expect(response).to.be.instanceOf(Datagram);
+                expect(response.getId())
+                    .to.equal('00_0020_1111_20_0100_0000');
+                expect(response)
+                    .to.have.a.property('valueId')
+                    .that.is.equal(valueId);
+                expect(response)
+                    .to.have.a.property('value')
+                    .that.is.equal(value);
             });
         });
 
-        promiseIt('should get a value with a value ID hash', function() {
+        it('should get a value with a value ID hash', function() {
             const deviceAddress = 0x1111;
             const valueId = 0x2222;
             const value = 0x12345678;

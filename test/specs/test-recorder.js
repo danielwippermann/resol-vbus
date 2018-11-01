@@ -8,10 +8,10 @@ const path = require('path');
 
 
 const moment = require('moment');
-const Q = require('q');
 
 
 const _ = require('./lodash');
+const Q = require('./q');
 const vbus = require('./resol-vbus');
 
 

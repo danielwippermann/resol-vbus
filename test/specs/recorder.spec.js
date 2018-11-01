@@ -83,7 +83,7 @@ describe('Recorder', function() {
                 headerSetConsolidator.processHeaderSet(demoHeaderSet);
             });
 
-            recorder.playback(converter).done(function(ranges) {
+            recorder.playback(converter).then(function(ranges) {
                 expect(recorder._playback.callCount).to.equal(1);
 
                 let call = recorder._playback.getCall(0);
@@ -102,7 +102,7 @@ describe('Recorder', function() {
                 expect(call.args [0].timestamp.toISOString()).to.equal(demoHeaderSet.timestamp.toISOString());
 
                 done();
-            });
+            }, done);
         });
 
     });
@@ -189,7 +189,7 @@ describe('Recorder', function() {
 
             recorder._recordSyncJob = sinon.spy();
 
-            recorder.synchronizeTo(recorder).done(function(ranges) {
+            recorder.synchronizeTo(recorder).then(function(ranges) {
                 expect(recorder._getCurrentSyncState.callCount).to.equal(1);
 
                 let call = recorder._getCurrentSyncState.getCall(0);
@@ -215,7 +215,7 @@ describe('Recorder', function() {
                 expect(call.args [1].interval).to.eql(options.interval);
 
                 done();
-            });
+            }, done);
         });
 
     });

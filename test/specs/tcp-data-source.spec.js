@@ -3,10 +3,8 @@
 
 
 
-const Q = require('q');
-
-
 const expect = require('./expect');
+const Q = require('./q');
 const vbus = require('./resol-vbus');
 
 
@@ -58,14 +56,16 @@ describe('TcpDataSource', function() {
                 return Q();
             });
 
-            return Q.fcall(function() {
+            const promise = Q.fcall(function() {
                 const ds = new TcpDataSource();
 
                 return ds.connectLive();
             }).then(function(connection) {
                 expect(connection)
                     .to.be.instanceOf(TcpConnection);
-            }).finally(function() {
+            });
+            
+            return vbus.utils.promiseFinally(promise, function() {
                 TcpConnection.prototype.connect = originalConnect;
             });
         });

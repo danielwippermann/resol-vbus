@@ -7,11 +7,9 @@ const EventEmitter = require('events').EventEmitter;
 const net = require('net');
 
 
-const Q = require('q');
-
-
 const extend = require('./extend');
 const _ = require('./lodash');
+const Q = require('./q');
 
 
 

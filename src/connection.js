@@ -7,12 +7,10 @@ const EventEmitter = require('events').EventEmitter;
 const Duplex = require('stream').Duplex;
 
 
-const Q = require('q');
-
-
 const extend = require('./extend');
-
 const _ = require('./lodash');
+const Q = require('./q');
+
 const Header = require('./header');
 const Packet = require('./packet');
 const Datagram = require('./datagram');

@@ -3,7 +3,6 @@
 
 
 
-const Q = require('q');
 let SerialPort;
 try {
     SerialPort = require('serialport');
@@ -13,6 +12,7 @@ try {
 
 
 const _ = require('./lodash');
+const Q = require('./q');
 const SerialDataSource = require('./serial-data-source');
 
 const DataSourceProvider = require('./data-source-provider');

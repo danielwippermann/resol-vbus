@@ -3,10 +3,8 @@
 
 
 
-const Q = require('q');
-
-
 const extend = require('./extend');
+const Q = require('./q');
 
 
 

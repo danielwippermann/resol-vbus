@@ -3,10 +3,8 @@
 
 
 
-const Q = require('q');
-
-
 const _ = require('./lodash');
+const Q = require('./q');
 const { promisify } = require('./utils');
 
 
@@ -82,7 +80,7 @@ const ConfigurationOptimizerFactory = {
                         }
 
                         nextOptimizer();
-                    }).then(null, reject).done();
+                    }).then(null, reject);
                 } else {
                     if (result.match > 0) {
                         resolve(result);

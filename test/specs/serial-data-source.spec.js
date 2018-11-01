@@ -3,10 +3,8 @@
 
 
 
-const Q = require('q');
-
-
 const expect = require('./expect');
+const Q = require('./q');
 const vbus = require('./resol-vbus');
 const testUtils = require('./test-utils');
 
@@ -43,7 +41,7 @@ describe('SerialDataSource', function() {
                 .that.is.a('function');
         });
 
-        it('should work correctly', function(done) {
+        it('should work correctly', function() {
             const originalConnect = SerialConnection.prototype.connect;
 
             SerialConnection.prototype.connect = function() {
@@ -52,15 +50,15 @@ describe('SerialDataSource', function() {
 
             const ds = new SerialDataSource();
 
-            testUtils.performAsyncTest(done, function() {
-                return Q.fcall(function() {
-                    return ds.connectLive();
-                }).then(function(connection) {
-                    expect(connection)
-                        .to.be.instanceOf(SerialConnection);
-                }).finally(function() {
-                    SerialConnection.prototype.connect = originalConnect;
-                });
+            const promise = Q.fcall(function() {
+                return ds.connectLive();
+            }).then(function(connection) {
+                expect(connection)
+                    .to.be.instanceOf(SerialConnection);
+            });
+            
+            return vbus.utils.promiseFinally(promise, function() {
+                SerialConnection.prototype.connect = originalConnect;
             });
         });
 

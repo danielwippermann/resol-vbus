@@ -4,7 +4,6 @@
 
 
 const chai = require('chai');
-const Q = require('q');
 const sinon = require('sinon');
 
 
@@ -22,13 +21,13 @@ global.promiseIt = function(message, callback) {
     it(message, function(done) {
         const _this = this;
 
-        Q.fcall(function() {
-            return callback.call(_this);
+        new Promise(resolve => {
+            resolve(callback.call(_this));
         }).then(function() {
             done();
         }, function(err) {
             done(err);
-        }).done();
+        });
     });
 };
 

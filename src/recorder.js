@@ -6,14 +6,12 @@
 const EventEmitter = require('events').EventEmitter;
 
 
-const Q = require('q');
-
-
 const extend = require('./extend');
 const Header = require('./header');
 const HeaderSet = require('./header-set');
 const HeaderSetConsolidator = require('./header-set-consolidator');
 const _ = require('./lodash');
+const Q = require('./q');
 const utils = require('./utils');
 
 
@@ -216,7 +214,7 @@ const Recorder = extend(EventEmitter, /** @lends Recorder# */ {
         return Q.fcall(function() {
             return _this._startRecording(headerSetConsolidator, recordingJob);
         }).then(function(recording) {
-            return Q.fcall(function() {
+            const promise = Q.fcall(function() {
                 return utils.promise(function(resolve, reject) {
                     let onData = undefined, onEnd = undefined, onError = undefined;
 
@@ -253,7 +251,9 @@ const Recorder = extend(EventEmitter, /** @lends Recorder# */ {
                     stream.on('error', onError);
                     stream.resume();
                 });
-            }).finally(function() {
+            });
+            
+            return utils.promiseFinally(promise, () => {
                 return _this._endRecording(headerSetConsolidator, recordingJob, recording);
             });
         }).then(function() {

@@ -8,11 +8,9 @@ const http = require('http');
 const url = require('url');
 
 
-const Q = require('q');
-
-
 const _ = require('./lodash');
 const TcpDataSource = require('./tcp-data-source');
+const Q = require('./q');
 const utils = require('./utils');
 
 const DataSourceProvider = require('./data-source-provider');
@@ -94,14 +92,28 @@ const TcpDataSourceProvider = DataSourceProvider.extend(/** @lends TcpDataSource
      */
     discoverDevices: function(options) {
         return TcpDataSourceProvider.sendBroadcast(options).then(function(promises) {
-            return Q.allSettled(promises);
-        }).then(function(results) {
-            return _.reduce(results, function(memo, result) {
-                if (result.state === 'fulfilled') {
-                    memo.push(result.value);
+            return new Promise(resolve => {
+                const results = [];
+                let promiseIndex = 0;
+
+                function nextPromise() {
+                    if (promiseIndex < promises.length) {
+                        const promise = promises [promiseIndex];
+                        promiseIndex += 1;
+
+                        promise.then(result => {
+                            results.push(result);
+                            nextPromise();
+                        }, () => {
+                            nextPromise();
+                        });
+                    } else {
+                        resolve(results);
+                    }
                 }
-                return memo;
-            }, []);
+
+                nextPromise();
+            });
         });
     },
 

@@ -7,10 +7,8 @@ const dgram = require('dgram');
 const http = require('http');
 
 
-const Q = require('q');
-
-
 const expect = require('./expect');
+const Q = require('./q');
 const vbus = require('./resol-vbus');
 
 
@@ -147,7 +145,7 @@ describe('TCP Data Source Provider', function() {
                 return {};
             });
 
-            return Q.fcall(function() {
+            const promise = Q.fcall(function() {
                 return TcpDataSourceProvider.sendBroadcast({
                     timeout: 50,
                 });
@@ -155,7 +153,9 @@ describe('TCP Data Source Provider', function() {
                 expect(infos).lengthOf(1);
                 expect(dgram.Socket.prototype.send.callCount).equal(3);
                 expect(TcpDataSourceProvider.fetchDeviceInformation).property('callCount').equal(1);
-            }).finally(function() {
+            });
+            
+            return vbus.utils.promiseFinally(promise, function() {
                 dgram.Socket.prototype.send = originalSend;
                 TcpDataSourceProvider.fetchDeviceInformation = originalFDI;
             });
@@ -176,18 +176,20 @@ describe('TCP Data Source Provider', function() {
 
             TcpDataSourceProvider.sendBroadcast = sinon.spy(function() {
                 return Q([
-                    Q.reject(new Error('Failed')),
-                    Q({ address: 'ADDRESS' }),
+                    Promise.reject(new Error('Failed')),
+                    Promise.resolve({ address: 'ADDRESS' }),
                 ]);
             });
 
-            return Q.fcall(function() {
+            const promise = Q.fcall(function() {
                 return TcpDataSourceProvider.discoverDevices();
             }).then(function(infos) {
                 expect(infos).lengthOf(1);
                 expect(infos [0]).property('address').equals('ADDRESS');
                 expect(TcpDataSourceProvider.sendBroadcast).property('callCount').equal(1);
-            }).finally(function() {
+            });
+            
+            return vbus.utils.promiseFinally(promise, function() {
                 TcpDataSourceProvider.sendBroadcast = originalSendBroadcast;
             });
         });
@@ -211,12 +213,14 @@ describe('TCP Data Source Provider', function() {
 
             const dsp = new TcpDataSourceProvider();
 
-            return Q.fcall(function() {
+            const promise = Q.fcall(function() {
                 return dsp.discoverDataSources();
             }).then(function(dataSources) {
                 expect(dataSources).a('array').lengthOf(1);
                 expect(TcpDataSourceProvider.discoverDevices).property('callCount').equals(1);
-            }).finally(function() {
+            });
+            
+            return vbus.utils.promiseFinally(promise, function() {
                 TcpDataSourceProvider.discoverDevices = originalDiscoverDevices;
             });
         });

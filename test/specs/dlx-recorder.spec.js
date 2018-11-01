@@ -8,10 +8,8 @@ const path = require('path');
 const Duplex = require('stream').Duplex;
 
 
-const Q = require('q');
-
-
 const expect = require('./expect');
+const Q = require('./q');
 const vbus = require('./resol-vbus');
 const TestRecorder = require('./test-recorder');
 const testUtils = require('./test-utils');
@@ -175,7 +173,7 @@ describe('DLxRecorder', function() {
                 .that.is.a('function');
         });
 
-        it('should work correctly', function(done) {
+        it('should work correctly', function() {
             const recorder = new DLxRecorder({
                 urlPrefix: 'URLPREFIX',
                 username: 'USERNAME',
@@ -188,34 +186,32 @@ describe('DLxRecorder', function() {
 
             const stub = createRequestStub(recorder, response, data);
 
-            testUtils.performAsyncTest(done, function() {
-                const promise = recorder.getLazyRecordingRanges();
+            const promise = recorder.getLazyRecordingRanges();
 
-                return testUtils.expectPromise(promise).then(function(result) {
-                    expect(stub)
-                        .to.have.a.property('callCount')
-                        .that.is.equal(1);
+            return testUtils.expectPromise(promise).then(function(result) {
+                expect(stub)
+                    .to.have.a.property('callCount')
+                    .that.is.equal(1);
 
-                    expect(stub.firstCall.args [0]).to.equal('URLPREFIX/log/');
-                    expect(stub.firstCall.args [1]).to.eql({
-                        auth: {
-                            username: 'USERNAME',
-                            password: 'PASSWORD',
-                        },
-                    });
-
-                    expect(result)
-                        .to.be.an('array')
-                        .that.has.lengthOf(1);
-                    expect(result [0])
-                        .to.have.a.property('minTimestamp')
-                        .that.is.instanceOf(Date);
-                    expect(result [0].minTimestamp.toISOString()).is.equal('2014-02-10T00:00:00.000Z');
-                    expect(result [0])
-                        .to.have.a.property('maxTimestamp')
-                        .that.is.instanceOf(Date);
-                    expect(result [0].maxTimestamp.toISOString()).is.equal('2014-02-16T00:00:00.000Z');
+                expect(stub.firstCall.args [0]).to.equal('URLPREFIX/log/');
+                expect(stub.firstCall.args [1]).to.eql({
+                    auth: {
+                        username: 'USERNAME',
+                        password: 'PASSWORD',
+                    },
                 });
+
+                expect(result)
+                    .to.be.an('array')
+                    .that.has.lengthOf(1);
+                expect(result [0])
+                    .to.have.a.property('minTimestamp')
+                    .that.is.instanceOf(Date);
+                expect(result [0].minTimestamp.toISOString()).is.equal('2014-02-10T00:00:00.000Z');
+                expect(result [0])
+                    .to.have.a.property('maxTimestamp')
+                    .that.is.instanceOf(Date);
+                expect(result [0].maxTimestamp.toISOString()).is.equal('2014-02-16T00:00:00.000Z');
             });
         });
 
@@ -229,7 +225,7 @@ describe('DLxRecorder', function() {
                 .that.is.a('function');
         });
 
-        it('should work correctly', function(done) {
+        it('should work correctly', function() {
             const recorder = new DLxRecorder({
                 urlPrefix: 'URLPREFIX',
                 username: 'USERNAME',
@@ -242,34 +238,32 @@ describe('DLxRecorder', function() {
 
             const stub = createRequestStub(recorder, response, data);
 
-            testUtils.performAsyncTest(done, function() {
-                const promise = recorder.getRecordingFilenames();
+            const promise = recorder.getRecordingFilenames();
 
-                return testUtils.expectPromise(promise).then(function(result) {
-                    expect(stub)
-                        .to.have.a.property('callCount')
-                        .that.is.equal(1);
+            return testUtils.expectPromise(promise).then(function(result) {
+                expect(stub)
+                    .to.have.a.property('callCount')
+                    .that.is.equal(1);
 
-                    expect(stub.firstCall.args [0]).to.equal('URLPREFIX/log/');
-                    expect(stub.firstCall.args [1]).to.eql({
-                        auth: {
-                            username: 'USERNAME',
-                            password: 'PASSWORD',
-                        },
-                    });
-
-                    expect(result)
-                        .to.be.an('array')
-                        .that.has.lengthOf(6);
-                    expect(result).to.eql([
-                        '/log/20140210_packets.vbus',
-                        '/log/20140211_packets.vbus',
-                        '/log/20140212_packets.vbus',
-                        '/log/20140213_packets.vbus',
-                        '/log/20140214_packets.vbus',
-                        '/log/20140215_packets.vbus',
-                    ]);
+                expect(stub.firstCall.args [0]).to.equal('URLPREFIX/log/');
+                expect(stub.firstCall.args [1]).to.eql({
+                    auth: {
+                        username: 'USERNAME',
+                        password: 'PASSWORD',
+                    },
                 });
+
+                expect(result)
+                    .to.be.an('array')
+                    .that.has.lengthOf(6);
+                expect(result).to.eql([
+                    '/log/20140210_packets.vbus',
+                    '/log/20140211_packets.vbus',
+                    '/log/20140212_packets.vbus',
+                    '/log/20140213_packets.vbus',
+                    '/log/20140214_packets.vbus',
+                    '/log/20140215_packets.vbus',
+                ]);
             });
         });
 
@@ -283,7 +277,7 @@ describe('DLxRecorder', function() {
                 .that.is.a('function');
         });
 
-        it('should work correctly', function(done) {
+        it('should work correctly', function() {
             const recorder = new DLxRecorder({
                 urlPrefix: 'URLPREFIX',
                 username: 'USERNAME',
@@ -303,30 +297,28 @@ describe('DLxRecorder', function() {
 
             const filename = '/FILENAME';
 
-            testUtils.performAsyncTest(done, function() {
-                const promise = recorder.getRecordingInfo(filename);
+            const promise = recorder.getRecordingInfo(filename);
 
-                return testUtils.expectPromise(promise).then(function(result) {
-                    expect(stub)
-                        .to.have.a.property('callCount')
-                        .that.is.equal(1);
+            return testUtils.expectPromise(promise).then(function(result) {
+                expect(stub)
+                    .to.have.a.property('callCount')
+                    .that.is.equal(1);
 
-                    expect(stub.firstCall.args [0]).to.equal('URLPREFIX/FILENAME');
-                    expect(stub.firstCall.args [1]).to.eql({
-                        method: 'HEAD',
-                        auth: {
-                            username: 'USERNAME',
-                            password: 'PASSWORD',
-                        },
-                    });
-
-                    expect(result)
-                        .to.have.a.property('size')
-                        .that.is.equal(1234);
-                    expect(result)
-                        .to.have.a.property('etag')
-                        .that.is.equal('ETAG');
+                expect(stub.firstCall.args [0]).to.equal('URLPREFIX/FILENAME');
+                expect(stub.firstCall.args [1]).to.eql({
+                    method: 'HEAD',
+                    auth: {
+                        username: 'USERNAME',
+                        password: 'PASSWORD',
+                    },
                 });
+
+                expect(result)
+                    .to.have.a.property('size')
+                    .that.is.equal(1234);
+                expect(result)
+                    .to.have.a.property('etag')
+                    .that.is.equal('ETAG');
             });
         });
     });
@@ -339,7 +331,7 @@ describe('DLxRecorder', function() {
                 .that.is.a('function');
         });
 
-        it('should work correctly', function(done) {
+        it('should work correctly', function() {
             const recorder = new DLxRecorder();
 
             const response = null;
@@ -358,20 +350,18 @@ describe('DLxRecorder', function() {
                 callback();
             });
 
-            testUtils.performAsyncTest(done, function() {
-                const promise = recorder.downloadToStream(urlString, urlOptions, stream);
+            const promise = recorder.downloadToStream(urlString, urlOptions, stream);
 
-                return testUtils.expectPromise(promise).then(function() {
-                    expect(stub.callCount).to.equal(1);
-                    expect(stub.firstCall.args [0]).to.equal(urlString);
-                    expect(stub.firstCall.args [1]).to.equal(urlOptions);
+            return testUtils.expectPromise(promise).then(function() {
+                expect(stub.callCount).to.equal(1);
+                expect(stub.firstCall.args [0]).to.equal(urlString);
+                expect(stub.firstCall.args [1]).to.equal(urlOptions);
 
-                    expect(stream._write.callCount).to.equal(1);
+                expect(stream._write.callCount).to.equal(1);
 
-                    const chunk = stream._write.firstCall.args [0];
-                    testUtils.expectToBeABuffer(chunk);
-                    expect(chunk.toString('hex')).equal(data.toString('hex'));
-                });
+                const chunk = stream._write.firstCall.args [0];
+                testUtils.expectToBeABuffer(chunk);
+                expect(chunk.toString('hex')).equal(data.toString('hex'));
             });
         });
 
@@ -381,7 +371,7 @@ describe('DLxRecorder', function() {
 
         const fixturesPath = path.join(__dirname, '../fixtures/dlx-recorder-1');
 
-        promiseIt('should work correctly', function() {
+        it('should work correctly', function() {
             const options = {
                 id: 'DLx',
                 interval: 300000,

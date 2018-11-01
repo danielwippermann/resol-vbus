@@ -7,11 +7,9 @@ const fs = require('fs');
 const path = require('path');
 
 
-const Q = require('q');
-
-
 const expect = require('./expect');
 const _ = require('./lodash');
+const Q = require('./q');
 const vbus = require('./resol-vbus');
 const TestRecorder = require('./test-recorder');
 const testUtils = require('./test-utils');
@@ -149,7 +147,7 @@ describe('FileSystemRecorder', function() {
 
             converter.on('headerSet', onHeaderSet);
 
-            return Q.fcall(function() {
+            const promise = Q.fcall(function() {
                 return sourceRecorder.playback(converter);
             }).then(function(ranges) {
                 expect(onHeaderSet).property('callCount').equal(864);
@@ -158,7 +156,9 @@ describe('FileSystemRecorder', function() {
                     maxTimestamp: '2014-02-16T23:55:00.805Z',
                     minTimestamp: '2014-02-14T00:00:00.983Z',
                 }]);
-            }).finally(function() {
+            });
+            
+            return vbus.utils.promiseFinally(promise, function() {
                 readToStreamSpy.restore();
             });
         });
@@ -409,7 +409,7 @@ describe('FileSystemRecorder', function() {
                 interval: 300000,
             });
 
-            return Q.fcall(function() {
+            const promise = Q.fcall(function() {
                 return sourceRecorder.synchronizeTo(targetRecorder);
             }).then(function() {
                 targetRecorder.resetCounters();
@@ -417,7 +417,9 @@ describe('FileSystemRecorder', function() {
                 return sourceRecorder.synchronizeTo(targetRecorder);
             }).then(function() {
 
-            }).finally(function() {
+            });
+            
+            return vbus.utils.promiseFinally(promise, function() {
                 readToStream.restore();
             });
         });

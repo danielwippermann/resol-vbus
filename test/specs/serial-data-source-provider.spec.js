@@ -3,10 +3,8 @@
 
 
 
-const Q = require('q');
-
-
 const expect = require('./expect');
+const Q = require('./q');
 const vbus = require('./resol-vbus');
 const testUtils = require('./test-utils');
 
@@ -48,7 +46,7 @@ describe('SerialDataSourceProvider', function() {
                 .that.is.a('function');
         });
 
-        ifHasSerialPortIt('should work correctly', function(done) {
+        ifHasSerialPortIt('should work correctly', function() {
             const ports = [
                 { comName: 'SERIALPORT1' },
                 { comName: 'SERIALPORT2' },
@@ -60,40 +58,32 @@ describe('SerialDataSourceProvider', function() {
 
             const dsp = new TestableSerialDataSourceProvider();
 
-            testUtils.performAsyncTest(done, function() {
-                return Q.fcall(function() {
-                    const promise = dsp.discoverDataSources();
+            return Q.fcall(function() {
+                const promise = dsp.discoverDataSources();
 
-                    return testUtils.expectPromise(promise);
-                }).then(function(dataSources) {
-                    expect(dataSources)
-                        .to.be.an('array')
-                        .lengthOf(ports.length);
-                });
+                return testUtils.expectPromise(promise);
+            }).then(function(dataSources) {
+                expect(dataSources)
+                    .to.be.an('array')
+                    .lengthOf(ports.length);
             });
         });
 
-        ifHasSerialPortIt('should reject if an error occurs', function(done) {
+        ifHasSerialPortIt('should reject if an error occurs', function() {
             TestableSerialDataSourceProvider.prototype._listSerialPorts = sinon.spy(function(callback) {
                 callback(new Error('ERROR'));
             });
 
             const dsp = new TestableSerialDataSourceProvider();
 
-            const callback = function(err) {
-                if (err) {
-                    done();
-                } else {
-                    done(new Error('Should have thrown'));
-                }
-            };
+            return Q.fcall(function() {
+                const promise = dsp.discoverDataSources();
 
-            testUtils.performAsyncTest(callback, function() {
-                return Q.fcall(function() {
-                    const promise = dsp.discoverDataSources();
-
-                    return testUtils.expectPromise(promise);
-                });
+                return testUtils.expectPromise(promise);
+            }).then(() => {
+                throw new Error('Should have thrown');
+            }, () => {
+                // nop, expected error
             });
         });
 

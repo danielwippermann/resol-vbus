@@ -3,10 +3,6 @@
 
 
 
-const _ = require('./lodash');
-
-
-
 const utils = {
 
     /**
@@ -43,7 +39,7 @@ const utils = {
         value = +value;
         exp = +exp;
 
-        if (_.isNaN(value) || (exp % 1 !== 0)) {
+        if (Number.isNaN(value) || (exp % 1 !== 0)) {
             return NaN;
         }
 
@@ -89,6 +85,18 @@ const utils = {
         };
 
         return deepFreezeObject(root);
+    },
+
+    promiseFinally(promise, fn) {
+        function cleanup() {
+            return new Promise(resolve => resolve(fn()));
+        }
+
+        return new Promise(resolve => resolve(promise)).then(result => {
+            return cleanup().then(() => Promise.resolve(result));
+        }, err => {
+            return cleanup().then(() => Promise.reject(err), () => Promise.reject(err));
+        });
     },
 
     promisify(fn) {

@@ -4,11 +4,11 @@
 
 
 const moment = require('moment');
-const Q = require('q');
 const request = require('request');
 
 
 const _ = require('./lodash');
+const Q = require('./q');
 const VBusRecordingConverter = require('./vbus-recording-converter');
 
 const Recorder = require('./recorder');

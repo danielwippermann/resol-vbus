@@ -3,11 +3,9 @@
 
 
 
-const Q = require('q');
-
-
 const expect = require('./expect');
 const _ = require('./lodash');
+const Q = require('./q');
 const vbus = require('./resol-vbus');
 
 
@@ -21,14 +19,6 @@ const serialPortPath = process.env.RESOL_VBUS_SERIALPORT;
 
 
 const testUtils = {
-
-    performAsyncTest: function(done, callback) {
-        return Q.fcall(callback).then(function() {
-            done();
-        }).fail(function(reason) {
-            done(reason);
-        });
-    },
 
     expectPromise: function(promise) {
         // expect(promise).to.be.instanceOf(Promise);

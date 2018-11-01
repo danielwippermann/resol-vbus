@@ -6,10 +6,8 @@
 const Duplex = require('stream').Duplex;
 
 
-const Q = require('q');
-
-
 const expect = require('./expect');
+const Q = require('./q');
 const vbus = require('./resol-vbus');
 const testUtils = require('./test-utils');
 
@@ -66,7 +64,7 @@ const testConnection = function(done, callback) {
         return callback(connection);
     }).finally(function() {
         connection.disconnect();
-    }).done(function() {
+    }).then(function() {
         done();
     }, function(err) {
         done(err);

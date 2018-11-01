@@ -5,6 +5,7 @@
 
 const expect = require('./expect');
 const vbus = require('./resol-vbus');
+const { expectPromise } = require('./test-utils');
 
 
 
@@ -464,7 +465,7 @@ describe('Connection', function() {
         });
 
         it('should work correctly with a header object', function() {
-            parseRawData(function(conn, stats, done) {
+            return parseRawData(function(conn, stats, done) {
                 const packet = Packet.fromLiveBuffer(rawDataPacket, 0, rawDataPacket.length);
 
                 const check = function() {
@@ -497,16 +498,15 @@ describe('Connection', function() {
             expect(Connection.prototype.transceive).to.be.a('function');
         });
 
-        it('should work correctly without arguments', function(doneTesting) {
-            parseRawData(function(conn, stats, doneParsing) {
+        it('should work correctly without arguments', function() {
+            return parseRawData(function(conn, stats) {
                 const startTimestamp = Date.now();
 
                 const promise = conn.transceive();
 
-                expect(promise).to.be.an('object');
-                expect(promise.then).to.be.a('function');
+                expectPromise(promise);
 
-                promise.done(function(result) {
+                return promise.then(function(result) {
                     expect(result).to.equal(null, 'result');
                     expect(Date.now() - startTimestamp).to.be.within(500 * minTimeoutFactor, 520 * maxTimeoutFactor);
                     expect(stats.txDataCount).to.equal(0);
@@ -514,25 +514,21 @@ describe('Connection', function() {
                     expect(stats.junkDataCount).to.equal(0);
                     expect(stats.packetCount).to.equal(0);
                     expect(stats.datagramCount).to.equal(0);
-
-                    doneParsing();
-                    doneTesting();
                 });
             });
         });
 
-        it('should work correctly with timeout option', function(doneTesting) {
-            parseRawData(function(conn, stats, doneParsing) {
+        it('should work correctly with timeout option', function() {
+            return parseRawData(function(conn, stats) {
                 const startTimestamp = Date.now();
 
                 const promise = conn.transceive(null, {
                     timeout: 10
                 });
 
-                expect(promise).to.be.an('object');
-                expect(promise.then).to.be.a('function');
+                expectPromise(promise);
 
-                promise.done(function(result) {
+                return promise.then(function(result) {
                     expect(result).to.equal(null, 'result');
                     expect(Date.now() - startTimestamp).to.be.within(10 * minTimeoutFactor, 30 * maxTimeoutFactor);
                     expect(stats.txDataCount).to.equal(0);
@@ -540,25 +536,21 @@ describe('Connection', function() {
                     expect(stats.junkDataCount).to.equal(0);
                     expect(stats.packetCount).to.equal(0);
                     expect(stats.datagramCount).to.equal(0);
-
-                    doneParsing();
-                    doneTesting();
                 });
             });
         });
 
-        it('should work correctly with TX data', function(doneTesting) {
-            parseRawData(function(conn, stats, doneParsing) {
+        it('should work correctly with TX data', function() {
+            return parseRawData(function(conn, stats) {
                 const startTimestamp = Date.now();
 
                 const promise = conn.transceive(rawDataDatagram, {
                     timeout: 10
                 });
 
-                expect(promise).to.be.an('object');
-                expect(promise.then).to.be.a('function');
+                expectPromise(promise);
 
-                promise.done(function(result) {
+                return promise.then(function(result) {
                     expect(result).to.equal(null, 'result');
                     expect(Date.now() - startTimestamp).to.be.within(10 * minTimeoutFactor, 30 * maxTimeoutFactor);
                     expect(stats.txDataCount).to.equal(16);
@@ -566,15 +558,12 @@ describe('Connection', function() {
                     expect(stats.junkDataCount).to.equal(0);
                     expect(stats.packetCount).to.equal(0);
                     expect(stats.datagramCount).to.equal(1);
-
-                    doneParsing();
-                    doneTesting();
                 });
             });
         });
 
-        it('should work correctly with tries option', function(doneTesting) {
-            parseRawData(function(conn, stats, doneParsing) {
+        it('should work correctly with tries option', function() {
+            return parseRawData(function(conn, stats) {
                 const startTimestamp = Date.now();
 
                 const promise = conn.transceive(rawDataDatagram, {
@@ -582,10 +571,9 @@ describe('Connection', function() {
                     tries: 2,
                 });
 
-                expect(promise).to.be.an('object');
-                expect(promise.then).to.be.a('function');
+                expectPromise(promise);
 
-                promise.done(function(result) {
+                return promise.then(function(result) {
                     expect(result).to.equal(null, 'result');
                     expect(Date.now() - startTimestamp).to.be.within(20 * minTimeoutFactor, 40 * maxTimeoutFactor);
                     expect(stats.txDataCount).to.equal(32);
@@ -593,15 +581,12 @@ describe('Connection', function() {
                     expect(stats.junkDataCount).to.equal(0);
                     expect(stats.packetCount).to.equal(0);
                     expect(stats.datagramCount).to.equal(2);
-
-                    doneParsing();
-                    doneTesting();
                 });
             });
         });
 
-        it('should work correctly with timeoutIncr option', function(doneTesting) {
-            parseRawData(function(conn, stats, doneParsing) {
+        it('should work correctly with timeoutIncr option', function() {
+            return parseRawData(function(conn, stats) {
                 const startTimestamp = Date.now();
 
                 const promise = conn.transceive(null, {
@@ -610,10 +595,9 @@ describe('Connection', function() {
                     tries: 2,
                 });
 
-                expect(promise).to.be.an('object');
-                expect(promise.then).to.be.a('function');
+                expectPromise(promise);
 
-                promise.done(function(result) {
+                return promise.then(function(result) {
                     expect(result).to.equal(null, 'result');
                     expect(Date.now() - startTimestamp).to.be.within(30 * minTimeoutFactor, 50 * maxTimeoutFactor);
                     expect(stats.txDataCount).to.equal(0);
@@ -621,15 +605,12 @@ describe('Connection', function() {
                     expect(stats.junkDataCount).to.equal(0);
                     expect(stats.packetCount).to.equal(0);
                     expect(stats.datagramCount).to.equal(0);
-
-                    doneParsing();
-                    doneTesting();
                 });
             });
         });
 
-        it('should work correctly with filterDatagram option', function(doneTesting) {
-            parseRawData(function(conn, stats, doneParsing) {
+        it('should work correctly with filterDatagram option', function() {
+            return parseRawData(function(conn, stats) {
                 const startTimestamp = Date.now();
 
                 let datagramResult;
@@ -646,10 +627,9 @@ describe('Connection', function() {
                     filterDatagram: onDatagram,
                 });
 
-                expect(promise).to.be.an('object');
-                expect(promise.then).to.be.a('function');
+                expectPromise(promise);
 
-                promise.done(function(result) {
+                return promise.then(function(result) {
                     expect(result).to.equal(datagramResult);
                     expect(Date.now() - startTimestamp).to.be.within(0 * minTimeoutFactor, 20 * maxTimeoutFactor);
                     expect(stats.txDataCount).to.equal(16);
@@ -657,15 +637,12 @@ describe('Connection', function() {
                     expect(stats.junkDataCount).to.equal(0);
                     expect(stats.packetCount).to.equal(0);
                     expect(stats.datagramCount).to.equal(1);
-
-                    doneParsing();
-                    doneTesting();
                 });
             });
         });
 
-        it('should work correctly with filterPacket option', function(doneTesting) {
-            parseRawData(function(conn, stats, doneParsing) {
+        it('should work correctly with filterPacket option', function() {
+            return parseRawData(function(conn, stats) {
                 const startTimestamp = Date.now();
 
                 let packetResult;
@@ -682,10 +659,9 @@ describe('Connection', function() {
                     filterPacket: onPacket,
                 });
 
-                expect(promise).to.be.an('object');
-                expect(promise.then).to.be.a('function');
+                expectPromise(promise);
 
-                promise.done(function(result) {
+                return promise.then(function(result) {
                     expect(result).to.equal(packetResult);
                     expect(Date.now() - startTimestamp).to.be.within(0 * minTimeoutFactor, 20 * maxTimeoutFactor);
                     expect(stats.txDataCount).to.equal(112);
@@ -693,9 +669,6 @@ describe('Connection', function() {
                     expect(stats.junkDataCount).to.equal(0);
                     expect(stats.packetCount).to.equal(1);
                     expect(stats.datagramCount).to.equal(0);
-
-                    doneParsing();
-                    doneTesting();
                 });
             });
         });
@@ -708,16 +681,19 @@ describe('Connection', function() {
             expect(Connection.prototype.waitForFreeBus).to.be.a('function');
         });
 
-        it('should work correctly without arguments', function(doneTesting) {
-            parseRawData(function(conn, stats, doneParsing) {
+        it('should work correctly without arguments', function() {
+            return parseRawData(function(conn, stats) {
                 const startTimestamp = Date.now();
 
                 const promise = conn.waitForFreeBus();
 
-                expect(promise).to.be.an('object');
-                expect(promise.then).to.be.a('function');
+                expectPromise(promise);
 
-                promise.done(function(result) {
+                process.nextTick(function() {
+                    conn.send(rawDataDatagram);
+                });
+
+                return promise.then(function(result) {
                     expect(result).to.be.an('object');
                     expect(result.getId()).to.equal('00_0000_7721_20_0500_0000');
                     expect(Date.now() - startTimestamp).to.be.within(0 * minTimeoutFactor, 20 * maxTimeoutFactor);
@@ -726,27 +702,19 @@ describe('Connection', function() {
                     expect(stats.junkDataCount).to.equal(0);
                     expect(stats.packetCount).to.equal(0);
                     expect(stats.datagramCount).to.equal(1);
-
-                    doneParsing();
-                    doneTesting();
-                });
-
-                process.nextTick(function() {
-                    conn.send(rawDataDatagram);
                 });
             });
         });
 
-        it('should work correctly with timeout', function(doneTesting) {
-            parseRawData(function(conn, stats, doneParsing) {
+        it('should work correctly with timeout', function() {
+            return parseRawData(function(conn, stats) {
                 const startTimestamp = Date.now();
 
                 const promise = conn.waitForFreeBus(10);
 
-                expect(promise).to.be.an('object');
-                expect(promise.then).to.be.a('function');
+                expectPromise(promise);
 
-                promise.done(function(result) {
+                return promise.then(function(result) {
                     expect(result).to.equal(null);
                     expect(Date.now() - startTimestamp).to.be.within(10 * minTimeoutFactor, 30 * maxTimeoutFactor);
                     expect(stats.txDataCount).to.equal(0);
@@ -754,9 +722,6 @@ describe('Connection', function() {
                     expect(stats.junkDataCount).to.equal(0);
                     expect(stats.packetCount).to.equal(0);
                     expect(stats.datagramCount).to.equal(0);
-
-                    doneParsing();
-                    doneTesting();
                 });
             });
         });
@@ -769,8 +734,8 @@ describe('Connection', function() {
             expect(Connection.prototype.releaseBus).to.be.a('function');
         });
 
-        it('should work correctly with address', function(doneTesting) {
-            parseRawData(function(conn, stats, doneParsing) {
+        it('should work correctly with address', function() {
+            return parseRawData(function(conn, stats) {
                 const startTimestamp = Date.now();
 
                 conn.on('datagram', function(datagram) {
@@ -781,10 +746,9 @@ describe('Connection', function() {
 
                 const promise = conn.releaseBus(0x7721);
 
-                expect(promise).to.be.an('object');
-                expect(promise.then).to.be.a('function');
+                expectPromise(promise);
 
-                promise.done(function(result) {
+                return promise.then(function(result) {
                     expect(result).to.be.an('object');
                     expect(result.getId()).to.equal('00_0010_7721_10_0100');
                     expect(Date.now() - startTimestamp).to.be.within(0 * minTimeoutFactor, 20 * maxTimeoutFactor);
@@ -793,25 +757,21 @@ describe('Connection', function() {
                     expect(stats.junkDataCount).to.equal(0);
                     expect(stats.packetCount).to.equal(1);
                     expect(stats.datagramCount).to.equal(1);
-
-                    doneParsing();
-                    doneTesting();
                 });
             });
         });
 
-        it('should work correctly with timeout', function(doneTesting) {
-            parseRawData(function(conn, stats, doneParsing) {
+        it('should work correctly with timeout', function() {
+            return parseRawData(function(conn, stats) {
                 const startTimestamp = Date.now();
 
                 const promise = conn.releaseBus(0, {
                     timeout: 10,
                 });
 
-                expect(promise).to.be.an('object');
-                expect(promise.then).to.be.a('function');
+                expectPromise(promise);
 
-                promise.done(function(result) {
+                return promise.then(function(result) {
                     expect(result).to.equal(null);
                     expect(Date.now() - startTimestamp).to.be.within(20 * minTimeoutFactor, 40 * maxTimeoutFactor);
                     expect(stats.txDataCount).to.equal(32);
@@ -819,15 +779,12 @@ describe('Connection', function() {
                     expect(stats.junkDataCount).to.equal(0);
                     expect(stats.packetCount).to.equal(0);
                     expect(stats.datagramCount).to.equal(2);
-
-                    doneParsing();
-                    doneTesting();
                 });
             });
         });
 
-        it('should work correctly with tries', function(doneTesting) {
-            parseRawData(function(conn, stats, doneParsing) {
+        it('should work correctly with tries', function() {
+            return parseRawData(function(conn, stats) {
                 const startTimestamp = Date.now();
 
                 const promise = conn.releaseBus(0, {
@@ -835,10 +792,9 @@ describe('Connection', function() {
                     tries: 1,
                 });
 
-                expect(promise).to.be.an('object');
-                expect(promise.then).to.be.a('function');
+                expectPromise(promise);
 
-                promise.done(function(result) {
+                return promise.then(function(result) {
                     expect(result).to.equal(null);
                     expect(Date.now() - startTimestamp).to.be.within(10 * minTimeoutFactor, 30 * maxTimeoutFactor);
                     expect(stats.txDataCount).to.equal(16);
@@ -846,9 +802,6 @@ describe('Connection', function() {
                     expect(stats.junkDataCount).to.equal(0);
                     expect(stats.packetCount).to.equal(0);
                     expect(stats.datagramCount).to.equal(1);
-
-                    doneParsing();
-                    doneTesting();
                 });
             });
         });
@@ -861,8 +814,8 @@ describe('Connection', function() {
             expect(Connection.prototype.getValueById).to.be.a('function');
         });
 
-        it('should work correctly with address and value index', function(doneTesting) {
-            parseRawData(function(conn, stats, doneParsing) {
+        it('should work correctly with address and value index', function() {
+            return parseRawData(function(conn, stats) {
                 const startTimestamp = Date.now();
 
                 let datagramResult;
@@ -885,10 +838,9 @@ describe('Connection', function() {
 
                 const promise = conn.getValueById(0x7721, 0x1234);
 
-                expect(promise).to.be.an('object');
-                expect(promise.then).to.be.a('function');
+                expectPromise(promise);
 
-                promise.done(function(result) {
+                return promise.then(function(result) {
                     expect(datagramResult).to.be.an('object');
                     expect(datagramResult.getId()).to.equal('00_7721_0020_20_0300_0000');
                     expect(result).to.be.an('object');
@@ -899,15 +851,12 @@ describe('Connection', function() {
                     expect(stats.junkDataCount).to.equal(0);
                     expect(stats.packetCount).to.equal(0);
                     expect(stats.datagramCount).to.equal(2);
-
-                    doneParsing();
-                    doneTesting();
                 });
             });
         });
 
-        it('should work correctly with timeout', function(doneTesting) {
-            parseRawData(function(conn, stats, doneParsing) {
+        it('should work correctly with timeout', function() {
+            return parseRawData(function(conn, stats) {
                 const startTimestamp = Date.now();
 
                 let datagramResult;
@@ -932,10 +881,9 @@ describe('Connection', function() {
                     timeout: 10,
                 });
 
-                expect(promise).to.be.an('object');
-                expect(promise.then).to.be.a('function');
+                expectPromise(promise);
 
-                promise.done(function(result) {
+                return promise.then(function(result) {
                     expect(datagramResult).to.be.an('object');
                     expect(datagramResult.getId()).to.equal('00_7721_0020_20_0300_0000');
                     expect(result).to.be.an('object');
@@ -946,15 +894,12 @@ describe('Connection', function() {
                     expect(stats.junkDataCount).to.equal(0);
                     expect(stats.packetCount).to.equal(0);
                     expect(stats.datagramCount).to.equal(3);
-
-                    doneParsing();
-                    doneTesting();
                 });
             });
         });
 
-        it('should work correctly with timeoutIncr', function(doneTesting) {
-            parseRawData(function(conn, stats, doneParsing) {
+        it('should work correctly with timeoutIncr', function() {
+            return parseRawData(function(conn, stats) {
                 const startTimestamp = Date.now();
 
                 const promise = conn.getValueById(0x7721, 0x1234, {
@@ -962,10 +907,9 @@ describe('Connection', function() {
                     timeoutIncr: 10,
                 });
 
-                expect(promise).to.be.an('object');
-                expect(promise.then).to.be.a('function');
+                expectPromise(promise);
 
-                promise.done(function(result) {
+                return promise.then(function(result) {
                     expect(result).to.equal(null);
                     expect(Date.now() - startTimestamp).to.be.within(60 * minTimeoutFactor, 80 * maxTimeoutFactor);
                     expect(stats.txDataCount).to.equal(48);
@@ -973,15 +917,12 @@ describe('Connection', function() {
                     expect(stats.junkDataCount).to.equal(0);
                     expect(stats.packetCount).to.equal(0);
                     expect(stats.datagramCount).to.equal(3);
-
-                    doneParsing();
-                    doneTesting();
                 });
             });
         });
 
-        it('should work correctly with tries', function(doneTesting) {
-            parseRawData(function(conn, stats, doneParsing) {
+        it('should work correctly with tries', function() {
+            return parseRawData(function(conn, stats) {
                 const startTimestamp = Date.now();
 
                 const promise = conn.getValueById(0x7721, 0x1234, {
@@ -989,10 +930,9 @@ describe('Connection', function() {
                     tries: 1,
                 });
 
-                expect(promise).to.be.an('object');
-                expect(promise.then).to.be.a('function');
+                expectPromise(promise);
 
-                promise.done(function(result) {
+                return promise.then(function(result) {
                     expect(result).to.equal(null);
                     expect(Date.now() - startTimestamp).to.be.within(10 * minTimeoutFactor, 30 * maxTimeoutFactor);
                     expect(stats.txDataCount).to.equal(16);
@@ -1000,9 +940,6 @@ describe('Connection', function() {
                     expect(stats.junkDataCount).to.equal(0);
                     expect(stats.packetCount).to.equal(0);
                     expect(stats.datagramCount).to.equal(1);
-
-                    doneParsing();
-                    doneTesting();
                 });
             });
         });
@@ -1015,8 +952,8 @@ describe('Connection', function() {
             expect(Connection.prototype.setValueById).to.be.a('function');
         });
 
-        it('should work correctly with address, value ID and value', function(doneTesting) {
-            parseRawData(function(conn, stats, doneParsing) {
+        it('should work correctly with address, value ID and value', function() {
+            return parseRawData(function(conn, stats) {
                 const startTimestamp = Date.now();
 
                 let datagramResult;
@@ -1039,10 +976,9 @@ describe('Connection', function() {
 
                 const promise = conn.setValueById(0x7721, 0x1234, 0x1234);
 
-                expect(promise).to.be.an('object');
-                expect(promise.then).to.be.a('function');
+                expectPromise(promise);
 
-                promise.done(function(result) {
+                return promise.then(function(result) {
                     expect(datagramResult).to.be.an('object');
                     expect(datagramResult.getId()).to.equal('00_7721_0020_20_0200_0000');
                     expect(result).to.be.an('object');
@@ -1053,15 +989,12 @@ describe('Connection', function() {
                     expect(stats.junkDataCount).to.equal(0);
                     expect(stats.packetCount).to.equal(0);
                     expect(stats.datagramCount).to.equal(2);
-
-                    doneParsing();
-                    doneTesting();
                 });
             });
         });
 
-        it('should work correctly with timeout', function(doneTesting) {
-            parseRawData(function(conn, stats, doneParsing) {
+        it('should work correctly with timeout', function() {
+            return parseRawData(function(conn, stats) {
                 const startTimestamp = Date.now();
 
                 let datagramResult;
@@ -1086,10 +1019,9 @@ describe('Connection', function() {
                     timeout: 10
                 });
 
-                expect(promise).to.be.an('object');
-                expect(promise.then).to.be.a('function');
+                expectPromise(promise);
 
-                promise.done(function(result) {
+                return promise.then(function(result) {
                     expect(datagramResult).to.be.an('object');
                     expect(datagramResult.getId()).to.equal('00_7721_0020_20_0200_0000');
                     expect(result).to.be.an('object');
@@ -1100,15 +1032,12 @@ describe('Connection', function() {
                     expect(stats.junkDataCount).to.equal(0);
                     expect(stats.packetCount).to.equal(0);
                     expect(stats.datagramCount).to.equal(3);
-
-                    doneParsing();
-                    doneTesting();
                 });
             });
         });
 
-        it('should work correctly with timeoutIncr', function(doneTesting) {
-            parseRawData(function(conn, stats, doneParsing) {
+        it('should work correctly with timeoutIncr', function() {
+            return parseRawData(function(conn, stats) {
                 const startTimestamp = Date.now();
 
                 const promise = conn.setValueById(0x7721, 0x1234, 0x12345678, {
@@ -1116,10 +1045,9 @@ describe('Connection', function() {
                     timeoutIncr: 10,
                 });
 
-                expect(promise).to.be.an('object');
-                expect(promise.then).to.be.a('function');
+                expectPromise(promise);
 
-                promise.done(function(result) {
+                return promise.then(function(result) {
                     expect(result).to.equal(null);
                     expect(Date.now() - startTimestamp).to.be.within(60 * minTimeoutFactor, 80 * maxTimeoutFactor);
                     expect(stats.txDataCount).to.equal(48);
@@ -1127,15 +1055,12 @@ describe('Connection', function() {
                     expect(stats.junkDataCount).to.equal(0);
                     expect(stats.packetCount).to.equal(0);
                     expect(stats.datagramCount).to.equal(3);
-
-                    doneParsing();
-                    doneTesting();
                 });
             });
         });
 
-        it('should work correctly with tries', function(doneTesting) {
-            parseRawData(function(conn, stats, doneParsing) {
+        it('should work correctly with tries', function() {
+            return parseRawData(function(conn, stats) {
                 const startTimestamp = Date.now();
 
                 const promise = conn.setValueById(0x7721, 0x1234, 0x12345678, {
@@ -1143,10 +1068,9 @@ describe('Connection', function() {
                     tries: 1,
                 });
 
-                expect(promise).to.be.an('object');
-                expect(promise.then).to.be.a('function');
+                expectPromise(promise);
 
-                promise.done(function(result) {
+                return promise.then(function(result) {
                     expect(result).to.equal(null);
                     expect(Date.now() - startTimestamp).to.be.within(10 * minTimeoutFactor, 30 * maxTimeoutFactor);
                     expect(stats.txDataCount).to.equal(16);
@@ -1154,9 +1078,6 @@ describe('Connection', function() {
                     expect(stats.junkDataCount).to.equal(0);
                     expect(stats.packetCount).to.equal(0);
                     expect(stats.datagramCount).to.equal(1);
-
-                    doneParsing();
-                    doneTesting();
                 });
             });
         });
@@ -1169,8 +1090,8 @@ describe('Connection', function() {
             expect(Connection.prototype.getValueIdHashById).to.be.a('function');
         });
 
-        it('should work correctly with address and value ID', function(doneTesting) {
-            parseRawData(function(conn, stats, doneParsing) {
+        it('should work correctly with address and value ID', function() {
+            return parseRawData(function(conn, stats) {
                 const startTimestamp = Date.now();
 
                 let datagramResult;
@@ -1193,10 +1114,9 @@ describe('Connection', function() {
 
                 const promise = conn.getValueIdHashById(0x7721, 0x1234);
 
-                expect(promise).to.be.an('object');
-                expect(promise.then).to.be.a('function');
+                expectPromise(promise);
 
-                promise.done(function(result) {
+                return promise.then(function(result) {
                     expect(datagramResult).to.be.an('object');
                     expect(datagramResult.getId()).to.equal('00_7721_0020_20_1000_0000');
                     expect(result).to.be.an('object');
@@ -1207,15 +1127,12 @@ describe('Connection', function() {
                     expect(stats.junkDataCount).to.equal(0);
                     expect(stats.packetCount).to.equal(0);
                     expect(stats.datagramCount).to.equal(2);
-
-                    doneParsing();
-                    doneTesting();
                 });
             });
         });
 
-        it('should work correctly with timeout', function(doneTesting) {
-            parseRawData(function(conn, stats, doneParsing) {
+        it('should work correctly with timeout', function() {
+            return parseRawData(function(conn, stats) {
                 const startTimestamp = Date.now();
 
                 let datagramResult;
@@ -1240,10 +1157,9 @@ describe('Connection', function() {
                     timeout: 10
                 });
 
-                expect(promise).to.be.an('object');
-                expect(promise.then).to.be.a('function');
+                expectPromise(promise);
 
-                promise.done(function(result) {
+                return promise.then(function(result) {
                     expect(datagramResult).to.be.an('object');
                     expect(datagramResult.getId()).to.equal('00_7721_0020_20_1000_0000');
                     expect(result).to.be.an('object');
@@ -1254,15 +1170,12 @@ describe('Connection', function() {
                     expect(stats.junkDataCount).to.equal(0);
                     expect(stats.packetCount).to.equal(0);
                     expect(stats.datagramCount).to.equal(3);
-
-                    doneParsing();
-                    doneTesting();
                 });
             });
         });
 
-        it('should work correctly with timeoutIncr', function(doneTesting) {
-            parseRawData(function(conn, stats, doneParsing) {
+        it('should work correctly with timeoutIncr', function() {
+            return parseRawData(function(conn, stats) {
                 const startTimestamp = Date.now();
 
                 const promise = conn.getValueIdHashById(0x7721, 0x1234, {
@@ -1270,10 +1183,9 @@ describe('Connection', function() {
                     timeoutIncr: 10,
                 });
 
-                expect(promise).to.be.an('object');
-                expect(promise.then).to.be.a('function');
+                expectPromise(promise);
 
-                promise.done(function(result) {
+                return promise.then(function(result) {
                     expect(result).to.equal(null);
                     expect(Date.now() - startTimestamp).to.be.within(60 * minTimeoutFactor, 80 * maxTimeoutFactor);
                     expect(stats.txDataCount).to.equal(48);
@@ -1281,15 +1193,12 @@ describe('Connection', function() {
                     expect(stats.junkDataCount).to.equal(0);
                     expect(stats.packetCount).to.equal(0);
                     expect(stats.datagramCount).to.equal(3);
-
-                    doneParsing();
-                    doneTesting();
                 });
             });
         });
 
-        it('should work correctly with tries', function(doneTesting) {
-            parseRawData(function(conn, stats, doneParsing) {
+        it('should work correctly with tries', function() {
+            return parseRawData(function(conn, stats) {
                 const startTimestamp = Date.now();
 
                 const promise = conn.getValueIdHashById(0x7721, 0x1234, {
@@ -1297,10 +1206,9 @@ describe('Connection', function() {
                     tries: 1,
                 });
 
-                expect(promise).to.be.an('object');
-                expect(promise.then).to.be.a('function');
+                expectPromise(promise);
 
-                promise.done(function(result) {
+                return promise.then(function(result) {
                     expect(result).to.equal(null);
                     expect(Date.now() - startTimestamp).to.be.within(10 * minTimeoutFactor, 30 * maxTimeoutFactor);
                     expect(stats.txDataCount).to.equal(16);
@@ -1308,9 +1216,6 @@ describe('Connection', function() {
                     expect(stats.junkDataCount).to.equal(0);
                     expect(stats.packetCount).to.equal(0);
                     expect(stats.datagramCount).to.equal(1);
-
-                    doneParsing();
-                    doneTesting();
                 });
             });
         });
@@ -1323,8 +1228,8 @@ describe('Connection', function() {
             expect(Connection.prototype.getValueIdByIdHash).to.be.a('function');
         });
 
-        it('should work correctly with address and value ID', function(doneTesting) {
-            parseRawData(function(conn, stats, doneParsing) {
+        it('should work correctly with address and value ID', function() {
+            return parseRawData(function(conn, stats) {
                 const startTimestamp = Date.now();
 
                 let datagramResult;
@@ -1347,10 +1252,9 @@ describe('Connection', function() {
 
                 const promise = conn.getValueIdByIdHash(0x7721, 0x12345678);
 
-                expect(promise).to.be.an('object');
-                expect(promise.then).to.be.a('function');
+                expectPromise(promise);
 
-                promise.done(function(result) {
+                return promise.then(function(result) {
                     expect(datagramResult).to.be.an('object');
                     expect(datagramResult.getId()).to.equal('00_7721_0020_20_1100_0000');
                     expect(result).to.be.an('object');
@@ -1361,15 +1265,12 @@ describe('Connection', function() {
                     expect(stats.junkDataCount).to.equal(0);
                     expect(stats.packetCount).to.equal(0);
                     expect(stats.datagramCount).to.equal(2);
-
-                    doneParsing();
-                    doneTesting();
                 });
             });
         });
 
-        it('should work correctly with timeout', function(doneTesting) {
-            parseRawData(function(conn, stats, doneParsing) {
+        it('should work correctly with timeout', function() {
+            return parseRawData(function(conn, stats) {
                 const startTimestamp = Date.now();
 
                 let datagramResult;
@@ -1394,10 +1295,9 @@ describe('Connection', function() {
                     timeout: 10
                 });
 
-                expect(promise).to.be.an('object');
-                expect(promise.then).to.be.a('function');
+                expectPromise(promise);
 
-                promise.done(function(result) {
+                return promise.then(function(result) {
                     expect(datagramResult).to.be.an('object');
                     expect(datagramResult.getId()).to.equal('00_7721_0020_20_1100_0000');
                     expect(result).to.be.an('object');
@@ -1408,15 +1308,12 @@ describe('Connection', function() {
                     expect(stats.junkDataCount).to.equal(0);
                     expect(stats.packetCount).to.equal(0);
                     expect(stats.datagramCount).to.equal(3);
-
-                    doneParsing();
-                    doneTesting();
                 });
             });
         });
 
-        it('should work correctly with timeoutIncr', function(doneTesting) {
-            parseRawData(function(conn, stats, doneParsing) {
+        it('should work correctly with timeoutIncr', function() {
+            return parseRawData(function(conn, stats) {
                 const startTimestamp = Date.now();
 
                 const promise = conn.getValueIdByIdHash(0x7721, 0x12345678, {
@@ -1424,10 +1321,9 @@ describe('Connection', function() {
                     timeoutIncr: 10,
                 });
 
-                expect(promise).to.be.an('object');
-                expect(promise.then).to.be.a('function');
+                expectPromise(promise);
 
-                promise.done(function(result) {
+                return promise.then(function(result) {
                     expect(result).to.equal(null);
                     expect(Date.now() - startTimestamp).to.be.within(60 * minTimeoutFactor, 80 * maxTimeoutFactor);
                     expect(stats.txDataCount).to.equal(48);
@@ -1435,15 +1331,12 @@ describe('Connection', function() {
                     expect(stats.junkDataCount).to.equal(0);
                     expect(stats.packetCount).to.equal(0);
                     expect(stats.datagramCount).to.equal(3);
-
-                    doneParsing();
-                    doneTesting();
                 });
             });
         });
 
-        it('should work correctly with tries', function(doneTesting) {
-            parseRawData(function(conn, stats, doneParsing) {
+        it('should work correctly with tries', function() {
+            return parseRawData(function(conn, stats) {
                 const startTimestamp = Date.now();
 
                 const promise = conn.getValueIdByIdHash(0x7721, 0x12345678, {
@@ -1451,10 +1344,9 @@ describe('Connection', function() {
                     tries: 1,
                 });
 
-                expect(promise).to.be.an('object');
-                expect(promise.then).to.be.a('function');
+                expectPromise(promise);
 
-                promise.done(function(result) {
+                return promise.then(function(result) {
                     expect(result).to.equal(null);
                     expect(Date.now() - startTimestamp).to.be.within(10 * minTimeoutFactor, 30 * maxTimeoutFactor);
                     expect(stats.txDataCount).to.equal(16);
@@ -1462,9 +1354,6 @@ describe('Connection', function() {
                     expect(stats.junkDataCount).to.equal(0);
                     expect(stats.packetCount).to.equal(0);
                     expect(stats.datagramCount).to.equal(1);
-
-                    doneParsing();
-                    doneTesting();
                 });
             });
         });
@@ -1477,7 +1366,7 @@ describe('Connection', function() {
             expect(typeof Connection.prototype.getCaps1).equal('function');
         });
 
-        promiseIt('should work correctly', function() {
+        it('should work correctly', function() {
             return parseRawData(function(conn, stats) {
                 const startTimestamp = Date.now();
 
@@ -1499,7 +1388,11 @@ describe('Connection', function() {
                     }
                 });
 
-                return conn.getCaps1(0x7721).then(function (result) {
+                const promise = conn.getCaps1(0x7721);
+
+                expectPromise(promise);
+
+                return promise.then(function (result) {
                     expect(typeof datagramResult).equal('object');
                     expect(datagramResult.getId()).equal('00_7721_0020_20_1300_0000');
 
@@ -1525,7 +1418,7 @@ describe('Connection', function() {
             expect(typeof Connection.prototype.beginBulkValueTransaction).equal('function');
         });
 
-        promiseIt('should work correctly', function() {
+        it('should work correctly', function() {
             return parseRawData(function(conn, stats) {
                 const startTimestamp = Date.now();
 
@@ -1574,7 +1467,7 @@ describe('Connection', function() {
             expect(typeof Connection.prototype.commitBulkValueTransaction).equal('function');
         });
 
-        promiseIt('should work correctly', function() {
+        it('should work correctly', function() {
             return parseRawData(function(conn, stats) {
                 const startTimestamp = Date.now();
 
@@ -1622,7 +1515,7 @@ describe('Connection', function() {
             expect(typeof Connection.prototype.rollbackBulkValueTransaction).equal('function');
         });
 
-        promiseIt('should work correctly', function() {
+        it('should work correctly', function() {
             return parseRawData(function(conn, stats) {
                 const startTimestamp = Date.now();
 
@@ -1670,7 +1563,7 @@ describe('Connection', function() {
             expect(typeof Connection.prototype.setBulkValueById).equal('function');
         });
 
-        promiseIt('should work correctly', function() {
+        it('should work correctly', function() {
             return parseRawData(function(conn, stats) {
                 const startTimestamp = Date.now();
 

@@ -3,10 +3,8 @@
 
 
 
-const Q = require('q');
-
-
 const expect = require('./expect');
+const Q = require('./q');
 const vbus = require('./resol-vbus');
 require('./test-utils');
 
@@ -56,7 +54,7 @@ describe('ConfigurationOptimizerFactory', function() {
                                 nextOptimizer();
                             }).then(null, function(err) {
                                 reject(err);
-                            }).done();
+                            });
                         } else {
                             nextOptimizer();
                         }

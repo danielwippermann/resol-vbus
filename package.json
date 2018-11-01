@@ -1,6 +1,6 @@
 {
   "name": "resol-vbus",
-  "version": "0.18.0",
+  "version": "0.20.0",
   "description": "A JavaScript library for processing RESOL VBus data",
   "main": "src/index.js",
   "scripts": {
@@ -8,7 +8,8 @@
     "test": "jest",
     "coverage": "jest --coverage",
     "coveralls": "jest --coverage --coverageReporters=text-lcov | coveralls",
-    "transpile": "babel src -d dist"
+    "transpile": "babel src -d dist",
+    "jsdoc": "jsdoc -t node_modules/ink-docstrap/template/ -c jsdoc.json -d .docs/jsdoc/ -R README.md src"
   },
   "homepage": "https://github.com/danielwippermann/resol-vbus",
   "repository": "https://github.com/danielwippermann/resol-vbus.git",
@@ -32,7 +33,6 @@
     "moment": "^2.20.1",
     "moment-timezone": "^0.5.14",
     "numeral": "1.5.6",
-    "q": "^1.5.1",
     "request": "^2.83.0",
     "sprintf-js": "^1.1.1"
   },

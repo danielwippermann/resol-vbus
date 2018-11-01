@@ -3,11 +3,9 @@
 
 
 
-const Q = require('q');
-
-
 const DataSource = require('./data-source');
 const _ = require('./lodash');
+const Q = require('./q');
 
 const SerialConnection = require('./serial-connection');
 
