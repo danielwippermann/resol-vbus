@@ -11,8 +11,8 @@ const Duplex = require('stream').Duplex;
 const Q = require('q');
 
 
+const expect = require('./expect');
 const vbus = require('./resol-vbus');
-
 const TestRecorder = require('./test-recorder');
 const testUtils = require('./test-utils');
 
@@ -382,8 +382,6 @@ describe('DLxRecorder', function() {
         const fixturesPath = path.join(__dirname, '../fixtures/dlx-recorder-1');
 
         promiseIt('should work correctly', function() {
-            this.timeout(testUtils.adaptTimeout(3000));
-
             const options = {
                 id: 'DLx',
                 interval: 300000,

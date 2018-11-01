@@ -3,6 +3,7 @@
 
 
 
+const expect = require('./expect');
 const I18N = require('./resol-vbus').I18N;
 
 

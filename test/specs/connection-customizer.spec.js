@@ -6,6 +6,7 @@
 const Q = require('q');
 
 
+const expect = require('./expect');
 const _ = require('./lodash');
 const vbus = require('./resol-vbus');
 const testUtils = require('./test-utils');
@@ -307,8 +308,6 @@ describe('ConnectionCustomizer', function() {
         });
 
         promiseIt('should work correctly with optimization', function() {
-            this.timeout(testUtils.adaptTimeout(2000));
-
             const options = {
                 optimizer: true,  // will be replaced with an object by `promiseTestContext`
             };

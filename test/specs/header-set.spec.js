@@ -6,6 +6,7 @@
 const crypto = require('crypto');
 
 
+const expect = require('./expect');
 const Packet = require('./resol-vbus').Packet;
 const HeaderSet = require('./resol-vbus').HeaderSet;
 

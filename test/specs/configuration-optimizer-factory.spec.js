@@ -6,6 +6,7 @@
 const Q = require('q');
 
 
+const expect = require('./expect');
 const vbus = require('./resol-vbus');
 require('./test-utils');
 

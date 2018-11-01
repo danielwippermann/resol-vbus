@@ -3,12 +3,10 @@
 
 
 
-require('better-stack-traces').install();
-const chai = require('chai');
 const Q = require('q');
-const sinon = require('sinon');
 
 
+const expect = require('./expect');
 const _ = require('./lodash');
 const vbus = require('./resol-vbus');
 
@@ -19,36 +17,6 @@ const SerialDataSourceProvider = vbus.SerialDataSourceProvider;
 
 
 const serialPortPath = process.env.RESOL_VBUS_SERIALPORT;
-
-
-
-chai.config.includeStack = true;
-
-global.expect = chai.expect;
-
-global.sinon = sinon;
-
-
-
-global.promiseIt = function(message, callback) {
-    it(message, function(done) {
-        const _this = this;
-
-        Q.fcall(function() {
-            return callback.call(_this);
-        }).then(function() {
-            done();
-        }, function(err) {
-            done(err);
-        }).done();
-    });
-};
-
-global.xpromiseIt = function(message, callback) {
-    xit(message, function() {
-        // x-ed test
-    });
-};
 
 
 
@@ -90,9 +58,9 @@ const testUtils = {
 
     ifHasSerialPortIt: function(msg) {
         if (!SerialDataSourceProvider.hasSerialPortSupport) {
-            xit.call(null, msg + ' (missing serial port support)');
+            xit.call(null, msg + ' (missing serial port support)', () => {});
         } else if (!serialPortPath) {
-            xit.call(null, msg + ' (missing serial port path)');
+            xit.call(null, msg + ' (missing serial port path)', () => {});
         } else {
             it.apply(null, arguments);
         }

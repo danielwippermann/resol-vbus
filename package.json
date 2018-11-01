@@ -1,12 +1,14 @@
 {
   "name": "resol-vbus",
-  "version": "0.17.0",
+  "version": "0.18.0",
   "description": "A JavaScript library for processing RESOL VBus data",
   "main": "src/index.js",
   "scripts": {
-    "test": "gulp test-force-exit",
-    "coveralls": "gulp coverage-force-exit && gulp coveralls",
-    "watch": "nodemon -w src -w test --exec gulp nodemon"
+    "lint": "eslint src test/specs",
+    "test": "jest",
+    "coverage": "jest --coverage",
+    "coveralls": "jest --coverage --coverageReporters=text-lcov | coveralls",
+    "transpile": "babel src -d dist"
   },
   "homepage": "https://github.com/danielwippermann/resol-vbus",
   "repository": "https://github.com/danielwippermann/resol-vbus.git",
@@ -14,22 +16,15 @@
   "author": "Daniel Wippermann <Daniel.Wippermann@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "better-stack-traces": "^1.1.0",
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
     "chai": "^4.1.2",
-    "gulp": "^3.9.1",
-    "gulp-browserify": "^0.5.1",
-    "gulp-coveralls": "^0.1.4",
-    "gulp-eslint": "^4.0.2",
-    "gulp-istanbul": "^1.1.3",
-    "gulp-load-plugins": "^1.5.0",
-    "gulp-mocha": "^3.0.1",
-    "gulp-rename": "^1.2.2",
-    "gulp-util": "^3.0.8",
+    "coveralls": "^3.0.2",
+    "eslint": "^5.8.0",
     "ink-docstrap": "^1.3.2",
+    "jest": "^23.6.0",
     "jsdoc": "^3.5.5",
-    "jshint": "^2.9.4",
-    "sinon": "^4.2.2",
-    "through2": "^2.0.3"
+    "sinon": "^4.2.2"
   },
   "dependencies": {
     "buffer-more-ints": "0.0.2",

@@ -3,6 +3,7 @@
 
 
 
+const expect = require('./expect');
 const Header = require('./resol-vbus').Header;
 
 

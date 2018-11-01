@@ -3,6 +3,7 @@
 
 
 
+const expect = require('./expect');
 const utils = require('./resol-vbus').utils;
 
 

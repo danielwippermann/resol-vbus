@@ -9,6 +9,7 @@ const Duplex = require('stream').Duplex;
 const Q = require('q');
 
 
+const expect = require('./expect');
 const vbus = require('./resol-vbus');
 const testUtils = require('./test-utils');
 

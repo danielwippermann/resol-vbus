@@ -6,6 +6,7 @@
 const Q = require('q');
 
 
+const expect = require('../expect');
 const _ = require('../lodash');
 const vbus = require('../resol-vbus');
 
@@ -78,8 +79,6 @@ describe('ResolDeltaThermHcXxxConfigurationOptimizer', function() {
     describe('#optimizeLoadConfiguration', function() {
 
         promiseIt('should work correctly after', function() {
-            this.timeout(10000);
-
             return optimizerPromise.then(function(optimizer) {
                 return Q.fcall(function() {
                     return testUtils.expectPromise(optimizer.completeConfiguration());

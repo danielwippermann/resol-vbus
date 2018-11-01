@@ -3,6 +3,7 @@
 
 
 
+const expect = require('./expect');
 const vbus = require('./resol-vbus');
 
 
@@ -497,8 +498,6 @@ describe('Connection', function() {
         });
 
         it('should work correctly without arguments', function(doneTesting) {
-            this.slow(600);
-
             parseRawData(function(conn, stats, doneParsing) {
                 const startTimestamp = Date.now();
 

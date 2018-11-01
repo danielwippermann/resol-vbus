@@ -3,6 +3,7 @@
 
 
 
+const expect = require('./expect');
 const _ = require('./lodash');
 const vbus = require('./resol-vbus');
 
@@ -5644,8 +5645,6 @@ testSpecificationData('loaded from VSF', SpecificationFile.getDefaultSpecificati
 describe('SpecificationData', function() {
 
     it('is auto-generated, just increase test coverage :)', function() {
-        this.slow(1000);
-
         const spec = new Specification();
 
         const specificationData = spec.specificationData;

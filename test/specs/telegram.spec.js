@@ -3,6 +3,7 @@
 
 
 
+const expect = require('./expect');
 const _ = require('./lodash');
 const vbus = require('./resol-vbus');
 

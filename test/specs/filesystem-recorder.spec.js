@@ -10,6 +10,7 @@ const path = require('path');
 const Q = require('q');
 
 
+const expect = require('./expect');
 const _ = require('./lodash');
 const vbus = require('./resol-vbus');
 const TestRecorder = require('./test-recorder');
@@ -121,8 +122,6 @@ describe('FileSystemRecorder', function() {
         });
 
         promiseIt('should work correctly', function() {
-            this.timeout(testUtils.adaptTimeout(3000));
-
             const options = {
                 id: 'FileSystem',
                 interval: 300000,
@@ -173,8 +172,6 @@ describe('FileSystemRecorder', function() {
         const testFixturesPath = path.join(fixturesPath, '0a008f5b8c77c121d0fd39ae985593ba78ae5d85');
 
         xpromiseIt('should work correctly for multiple HeaderSets', function() {
-            this.timeout(testUtils.adaptTimeout(3000));
-
             const options = {
                 id: 'FileSystem',
                 interval: 300000,
@@ -254,8 +251,6 @@ describe('FileSystemRecorder', function() {
         });
 
         promiseIt('should work correctly for a single HeaderSet', function() {
-            this.timeout(testUtils.adaptTimeout(300000)); // TODO reduce by 100
-
             const options = {
                 id: 'FileSystem',
                 interval: 300000,
@@ -335,8 +330,6 @@ describe('FileSystemRecorder', function() {
         const testFixturesPath = path.join(fixturesPath, '0a008f5b8c77c121d0fd39ae985593ba78ae5d85');
 
         promiseIt('should work correctly', function() {
-            this.timeout(testUtils.adaptTimeout(3000));
-
             const options = {
                 id: 'FileSystem',
                 interval: 300000,
