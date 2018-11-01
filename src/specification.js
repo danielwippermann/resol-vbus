@@ -27,7 +27,7 @@ if (globalSpecificationFile) {
     globalSpecificationData = utils.deepFreezeObjectTree(globalSpecificationFile.getSpecificationData());
 }
 
-let globalSpecification;
+let globalSpecification = undefined;
 
 
 
@@ -155,7 +155,7 @@ const numberFormatCache = {};
 
 
 
-var Specification = extend(null, /** @lends Specification# */ {
+const Specification = extend(null, /** @lends Specification# */ {
 
     /**
      * Language code (ISO 639-1)
@@ -198,7 +198,8 @@ var Specification = extend(null, /** @lends Specification# */ {
         this.packetSpecCache = {};
         this.blockTypePacketSpecCache = {};
 
-        let rawSpecificationData, loadSpecificationDataOptions = {};
+        const loadSpecificationDataOptions = {};
+        let rawSpecificationData;
         if (!options) {
             // nop
         } else if (options.specificationData) {
@@ -1331,7 +1332,8 @@ var Specification = extend(null, /** @lends Specification# */ {
             if (((header.getProtocolVersion() & 0xF0) === 0x10) && (header.destinationAddress === 0x0015) && (header.command === 0x0100)) {
                 const packetSpec = _this.getPacketSpecification(header);
 
-                let startOffset = 0, length = header.frameCount * 4, frameData = header.frameData;
+                const length = header.frameCount * 4, frameData = header.frameData;
+                let startOffset = 0;
                 while (startOffset + 4 <= length) {
                     const frameCount = frameData [startOffset] & 255;
                     const endOffset = startOffset + 4 + 4 * frameCount;

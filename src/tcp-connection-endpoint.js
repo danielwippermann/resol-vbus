@@ -144,7 +144,7 @@ const TcpConnectionEndpoint = extend(EventEmitter, /** @lends TcpConnectionEndpo
 
                 let start = 0, index = 0;
 
-                let processNextLine;
+                let processNextLine = undefined;
 
                 const callback = function(err, result, transition) {
                     if (err) {

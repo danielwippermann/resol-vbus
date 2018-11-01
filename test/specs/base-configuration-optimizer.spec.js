@@ -14,7 +14,7 @@ const BaseConfigurationOptimizer = vbus.BaseConfigurationOptimizer;
 
 
 
-let TestConfigurationOptimizer;
+let TestConfigurationOptimizer = undefined;
 
 
 

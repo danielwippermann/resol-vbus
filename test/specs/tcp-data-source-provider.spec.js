@@ -79,7 +79,7 @@ describe('TCP Data Source Provider', function() {
         });
 
         it('should work correctly', function(done) {
-            let server;
+            let server = undefined;
 
             const onFetch = function(info) {
                 server.close();

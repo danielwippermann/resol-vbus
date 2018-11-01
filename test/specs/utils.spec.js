@@ -64,7 +64,7 @@ describe('utils', function() {
 
         it('should notify correctly', function(done) {
             testUtils.performAsyncTest(done, function() {
-                let sharedResult = {}, sharedProgress = {};
+                const sharedResult = {}, sharedProgress = {};
 
                 const promise = utils.cancelablePromise(function(resolve, reject, notify) {
                     setTimeout(function() {
@@ -92,7 +92,7 @@ describe('utils', function() {
             testUtils.performAsyncTest(done, function() {
                 const sharedReason = {};
 
-                var promise = utils.cancelablePromise(function(resolve, reject, notify) {
+                const promise = utils.cancelablePromise(function(resolve, reject, notify) {
                     setTimeout(function() {
                         promise.cancel(sharedReason);
                     }, 10);

@@ -23,7 +23,7 @@ const optionKeys = [
 
 
 
-var SerialConnection = Connection.extend(/** @lends SerialConnection# */ {
+const SerialConnection = Connection.extend(/** @lends SerialConnection# */ {
 
     /**
      * The path to the serial port.
@@ -95,7 +95,7 @@ var SerialConnection = Connection.extend(/** @lends SerialConnection# */ {
     _connect: function() {
         const _this = this;
 
-        let serialPort;
+        let serialPort = undefined;
 
         let deferred = Q.defer();
         const promise = deferred.promise;

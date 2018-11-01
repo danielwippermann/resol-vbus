@@ -186,7 +186,8 @@ const FileSystemRecorder = Recorder.extend({
             }];
 
             // can we use the current range (and file)?
-            let combinedRange, useCurrentInfo = false, previousInfo = currentInfo;
+            const previousInfo = currentInfo;
+            let combinedRange, useCurrentInfo = false;
             if (currentInfo && (currentInfo.datecode === datecode)) {
                 combinedRange = Recorder.performRangeSetOperation(currentInfo.ranges, thisRanges, options.interval, 'union');
 

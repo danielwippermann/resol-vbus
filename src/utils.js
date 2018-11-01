@@ -10,7 +10,7 @@ const _ = require('./lodash');
 
 
 
-var utils = {
+const utils = {
 
     /**
      * @see http://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid-in-javascript
@@ -108,7 +108,7 @@ var utils = {
     deepFreezeObjectTree: function(root) {
         const freezingObjects = [];
 
-        var deepFreezeObject = function(obj) {
+        const deepFreezeObject = function(obj) {
             if (Object.isFrozen(obj)) {
                 return obj;
             }

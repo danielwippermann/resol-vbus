@@ -19,7 +19,7 @@ const optionKeys = [
 
 
 
-var Datagram = Header.extend(/** @lends Datagram# */ {
+const Datagram = Header.extend(/** @lends Datagram# */ {
 
     /**
      * The command field of this VBus datagram. See the VBus Protocol Specification for details.

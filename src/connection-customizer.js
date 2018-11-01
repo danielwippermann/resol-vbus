@@ -223,7 +223,7 @@ const ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# 
                 notify(progress);
             };
 
-            var nextRound = function() {
+            const nextRound = function() {
                 if (round < options.maxRounds) {
                     round++;
 
@@ -240,7 +240,7 @@ const ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# 
 
                         let index = 0;
 
-                        var nextValue = function() {
+                        const nextValue = function() {
                             if (index < pendingValues.length) {
                                 const valueInfo = pendingValues [index++];
 
@@ -382,7 +382,7 @@ const ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# 
                 });
             };
 
-            var nextTry = function() {
+            const nextTry = function() {
                 if (tries < options.triesPerValue) {
                     tries++;
 

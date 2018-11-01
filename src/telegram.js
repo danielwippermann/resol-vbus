@@ -17,7 +17,7 @@ const optionKeys = [
 
 
 
-var Telegram = Header.extend(/** @lends Telegram# */ {
+const Telegram = Header.extend(/** @lends Telegram# */ {
 
     /**
      * The VBus command of this Telegram instance.

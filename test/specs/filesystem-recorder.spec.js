@@ -34,7 +34,7 @@ const createDeleteFilesInPathPromise = function(pathname) {
             } else {
                 let index = 0;
 
-                var deleteNextFile = function() {
+                const deleteNextFile = function() {
                     if (index < filenames.length) {
                         const filename = filenames [index++];
 

@@ -12,7 +12,7 @@ const _ = require('./lodash');
 
 
 
-var ValuesWrapper = extend(null, {
+const ValuesWrapper = extend(null, {
 
     pattern: null,
 
@@ -243,7 +243,7 @@ const BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
                     };
                 });
             } else {
-                let valueByIndex = {}, valueById = {}, valueByIdHash = {};
+                const valueByIndex = {}, valueById = {}, valueByIdHash = {};
                 _.forEach(adjustableValues, function(value) {
                     valueByIndex [value.index] = value;
                     valueById [value.id] = value;
@@ -416,9 +416,9 @@ const BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
             return memo;
         }, {});
 
-        let knownValueIds = {}, adjustableValueIds = {};
+        const knownValueIds = {}, adjustableValueIds = {};
 
-        var markValueIdAsAdjustable = function(valueId) {
+        const markValueIdAsAdjustable = function(valueId) {
             if (!_.has(knownValueIds, valueId)) {
                 knownValueIds [valueId] = true;
 

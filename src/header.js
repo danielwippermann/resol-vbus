@@ -248,7 +248,8 @@ const Header = extend(null, /** @lends Header# */ {
      * @param {number} dstStart Start index in the destination buffer
      */
     injectSeptett: function(srcBuffer, srcStart, srcEnd, dstBuffer, dstStart) {
-        let srcIndex = srcStart, dstIndex = dstStart, mask = 1, septett = srcBuffer [srcEnd];
+        const septett = srcBuffer [srcEnd];
+        let srcIndex = srcStart, dstIndex = dstStart, mask = 1;
         while (srcIndex < srcEnd) {
             let b = srcBuffer [srcIndex];
             if (septett & mask) {

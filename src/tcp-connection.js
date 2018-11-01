@@ -27,7 +27,7 @@ const optionKeys = [
 
 
 
-var TcpConnection = Connection.extend( /** @lends TcpConnection# */ {
+const TcpConnection = Connection.extend( /** @lends TcpConnection# */ {
 
     /**
      * Host name or IP address of the connection target.

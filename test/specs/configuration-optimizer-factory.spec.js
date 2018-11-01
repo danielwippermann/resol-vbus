@@ -33,7 +33,7 @@ describe('ConfigurationOptimizerFactory', function() {
 
                 let index = 0;
 
-                var nextOptimizer = function() {
+                const nextOptimizer = function() {
                     if (index < optimizerClasses.length) {
                         const OptimizerClass = optimizerClasses [index++];
 

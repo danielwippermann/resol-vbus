@@ -42,7 +42,7 @@ const optionKeys = [
 
 
 
-var Connection = extend(Duplex, /** @lends Connection# */ {
+const Connection = extend(Duplex, /** @lends Connection# */ {
 
     /**
      * Creates a new Connection instance and optionally initializes its member with the given values.
@@ -189,7 +189,7 @@ var Connection = extend(Duplex, /** @lends Connection# */ {
             } else if (index >= start + 5) {
                 const version = buffer [start + 5] & 255;
                 const majorVersion = version >> 4;
-                var length;
+                let length;
                 if (majorVersion === 1) {
                     if (index >= start + 8) {
                         length = 10 + buffer [start + 8] * 6;
@@ -209,14 +209,14 @@ var Connection = extend(Duplex, /** @lends Connection# */ {
                 }
 
                 if (index === start + length - 1) {
-                    var valid = true, frameIndex;
+                    let valid = true;
                     if (version === 0x10) {
                         if (!Header.calcAndCompareChecksumV0(buffer, start + 1, start + 9)) {
                             // console.log('checksum error in header');
                             valid = false;
                         }
 
-                        frameIndex = start + 10;
+                        let frameIndex = start + 10;
                         while (valid && (frameIndex < start + length)) {
                             if (!Header.calcAndCompareChecksumV0(buffer, frameIndex, frameIndex + 5)) {
                                 // console.log('checksum error in frame index ' + frameIndex);
@@ -233,7 +233,7 @@ var Connection = extend(Duplex, /** @lends Connection# */ {
                             valid = false;
                         }
 
-                        frameIndex = start + 8;
+                        let frameIndex = start + 8;
                         while (valid && (frameIndex < start + length)) {
                             if (!Header.calcAndCompareChecksumV0(buffer, frameIndex, frameIndex + 8)) {
                                 valid = false;
@@ -390,7 +390,7 @@ var Connection = extend(Duplex, /** @lends Connection# */ {
 
         let tries = options.tries, timeout = options.timeout;
 
-        var nextTry = function() {
+        const nextTry = function() {
             if (tries > 0) {
                 tries--;
 
@@ -903,7 +903,7 @@ var Connection = extend(Duplex, /** @lends Connection# */ {
             };
 
             if (!checkConnectionState(_this.connectionState)) {
-                var onConnectionState = function(state) {
+                const onConnectionState = function(state) {
                     if (checkConnectionState(state)) {
                         _this.removeListener('connectionState', onConnectionState);
                     }

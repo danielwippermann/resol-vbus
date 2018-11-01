@@ -26,7 +26,7 @@ const optionKeys = [
 
 
 
-var TcpDataSourceProvider = DataSourceProvider.extend(/** @lends TcpDataSourceProvider# */ {
+const TcpDataSourceProvider = DataSourceProvider.extend(/** @lends TcpDataSourceProvider# */ {
 
     id: 'tcp-data-source-provider',
 
@@ -145,7 +145,7 @@ var TcpDataSourceProvider = DataSourceProvider.extend(/** @lends TcpDataSourcePr
 
         const socket = dgram.createSocket('udp4');
 
-        var sendQuery = function() {
+        const sendQuery = function() {
             if (tries < options.tries) {
                 tries++;
 

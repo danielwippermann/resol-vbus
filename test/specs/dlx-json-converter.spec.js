@@ -20,7 +20,7 @@ const DLxJsonConverter = vbus.DLxJsonConverter;
 
 
 
-let rawRecording1, refJsonRecording1;
+let rawRecording1 = undefined, refJsonRecording1 = undefined;
 
 
 
@@ -249,9 +249,7 @@ describe('DLxJsonConverter', function() {
             const dataChunks = [];
 
             return vbus.utils.promise(function(resolve, reject) {
-                let headerSet;
-
-                headerSet = new HeaderSet({
+                const headerSet = new HeaderSet({
                     timestamp: new Date(1387893006829),
                     headers: [ packet2 ]
                 });
@@ -382,9 +380,7 @@ describe('DLxJsonConverter', function() {
             const dataChunks = [];
 
             return vbus.utils.promise(function(resolve, reject) {
-                let headerSet;
-
-                headerSet = new HeaderSet({
+                const headerSet = new HeaderSet({
                     timestamp: new Date(1387893006829),
                     headers: [ packet2 ]
                 });

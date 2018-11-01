@@ -23,7 +23,7 @@ const optionKeys = [
 
 
 
-var HeaderSet = extend(EventEmitter, /** @lends HeaderSet# */ {
+const HeaderSet = extend(EventEmitter, /** @lends HeaderSet# */ {
 
     /**
      * Timestamp of the youngest Header instance added to this set.

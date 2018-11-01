@@ -46,7 +46,7 @@ const optimizerClasses = [
 
 
 
-var ConfigurationOptimizerFactory = {
+const ConfigurationOptimizerFactory = {
 
     /**
      * Find a `ConfigurationOptimizer` sub-class that matches the given options best.
@@ -74,7 +74,7 @@ var ConfigurationOptimizerFactory = {
 
             let index = 0;
 
-            var nextOptimizer = function() {
+            const nextOptimizer = function() {
                 if (index < optimizerClasses.length) {
                     const Optimizer = optimizerClasses [index++];
 

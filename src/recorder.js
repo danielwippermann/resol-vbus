@@ -28,7 +28,7 @@ const optionKeys = [
 
 
 
-var Recorder = extend(EventEmitter, /** @lends Recorder# */ {
+const Recorder = extend(EventEmitter, /** @lends Recorder# */ {
 
     /**
      * Identifier for this recorder instance. It may be used to reference
@@ -218,7 +218,7 @@ var Recorder = extend(EventEmitter, /** @lends Recorder# */ {
         }).then(function(recording) {
             return Q.fcall(function() {
                 return utils.promise(function(resolve, reject) {
-                    let onData, onEnd, onError;
+                    let onData = undefined, onEnd = undefined, onError = undefined;
 
                     const cleanup = function() {
                         stream.removeListener('data', onData);
@@ -502,10 +502,10 @@ var Recorder = extend(EventEmitter, /** @lends Recorder# */ {
                 return;
             }
 
+            let nextInfo;
             for (let i = 0; i <= newInfos.length; i++) {
                 const newInfo = newInfos [i];
 
-                var nextInfo;
                 for (let j = i + 1; j < newInfos.length; j++) {
                     if (newInfos [j].valid) {
                         nextInfo = newInfos [j];

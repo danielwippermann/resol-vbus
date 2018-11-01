@@ -115,7 +115,7 @@ const unitFamilies = [{
 const knownUnits = [];
 
 
-var SpecificationFile = extend(null, {
+const SpecificationFile = extend(null, {
 
     constructor: function(buffer, language) {
         this.buffer = buffer;

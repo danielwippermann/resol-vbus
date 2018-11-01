@@ -17,7 +17,7 @@ const _ = require('./lodash');
  *                              function of the child class
  * @returns {function} Child class constructor
  */
-var extend = function(parent, protoProps, staticProps) {
+const extend = function(parent, protoProps, staticProps) {
 
     let child;
     if (protoProps && _.has(protoProps, 'constructor')) {

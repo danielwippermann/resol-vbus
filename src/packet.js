@@ -18,7 +18,7 @@ const optionKeys = [
 
 
 
-var Packet = Header.extend(/** @lends Packet# */ {
+const Packet = Header.extend(/** @lends Packet# */ {
 
     /**
      * The command field of this VBus packet. See the VBus Protocol specification for details.
