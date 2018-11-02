@@ -70,56 +70,56 @@ const ValuesWrapper = extend(null, {
     },
 
     eql(refValue, callback) {
-        return this._check(callback, function(value, valueInfo) {
+        return this._check(callback, (value, valueInfo) => {
             const normalizedRefValue = this._normalizeValue(refValue, valueInfo);
             return (value === normalizedRefValue);
         });
     },
 
     notEql(refValue, callback) {
-        return this._check(callback, function(value, valueInfo) {
+        return this._check(callback, (value, valueInfo) => {
             const normalizedRefValue = this._normalizeValue(refValue, valueInfo);
             return (value !== normalizedRefValue);
         });
     },
 
     lt(refValue, callback) {
-        return this._check(callback, function(value, valueInfo) {
+        return this._check(callback, (value, valueInfo) => {
             const normalizedRefValue = this._normalizeValue(refValue, valueInfo);
             return (value < normalizedRefValue);
         });
     },
 
     lte(refValue, callback) {
-        return this._check(callback, function(value, valueInfo) {
+        return this._check(callback, (value, valueInfo) => {
             const normalizedRefValue = this._normalizeValue(refValue, valueInfo);
             return (value <= normalizedRefValue);
         });
     },
 
     gt(refValue, callback) {
-        return this._check(callback, function(value, valueInfo) {
+        return this._check(callback, (value, valueInfo) => {
             const normalizedRefValue = this._normalizeValue(refValue, valueInfo);
             return (value > normalizedRefValue);
         });
     },
 
     gte(refValue, callback) {
-        return this._check(callback, function(value, valueInfo) {
+        return this._check(callback, (value, valueInfo) => {
             const normalizedRefValue = this._normalizeValue(refValue, valueInfo);
             return (value >= normalizedRefValue);
         });
     },
 
     in(refValues, callback) {
-        return this._check(callback, function(value, valueInfo) {
+        return this._check(callback, (value, valueInfo) => {
             const normalizedRefValues = this._normalizeValues(refValues, valueInfo);
             return _.includes(normalizedRefValues, value);
         });
     },
 
     notIn(refValues, callback) {
-        return this._check(callback, function(value, valueInfo) {
+        return this._check(callback, (value, valueInfo) => {
             const normalizedRefValues = this._normalizeValues(refValues, valueInfo);
             return !_.includes(normalizedRefValues, value);
         });
@@ -252,7 +252,7 @@ const BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
 
                 const configValuesById = {};
 
-                const mergeConfig = function(config) {
+                const mergeConfig = (config) => {
                     _.forEach(config, (value, key) => {
                         if (_.isArray(config)) {
                             // nop
@@ -416,7 +416,7 @@ const BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
 
         const knownValueIds = {}, adjustableValueIds = {};
 
-        const markValueIdAsAdjustable = function(valueId) {
+        const markValueIdAsAdjustable = (valueId) => {
             if (!_.has(knownValueIds, valueId)) {
                 knownValueIds [valueId] = true;
 
@@ -445,7 +445,7 @@ const BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
         const adjustableValues = _.reduce(data.values, (memo, value) => {
             if (adjustableValueIds [value.id]) {
                 const valueTextById = {};
-                const addValueText = function(valueText, index) {
+                const addValueText = (valueText, index) => {
                     if (valueText.id && !_.has(valueTextById, valueText.id)) {
                         let valueTextValue = valueText.value;
                         if (valueTextValue === undefined) {
@@ -523,7 +523,7 @@ const BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
 
         const adjustableValuesWrapper = new ValuesWrapper(null, adjustableValues);
 
-        const $ = function(pattern) {
+        const $ = (pattern) => {
             return adjustableValuesWrapper.$(pattern);
         };
 

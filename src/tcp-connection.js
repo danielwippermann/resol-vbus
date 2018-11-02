@@ -302,6 +302,7 @@ const TcpConnection = Connection.extend(/** @lends TcpConnection# */ {
                 }
 
                 let start = 0, index = 0;
+                /* eslint-disable-next-line no-unmodified-loop-condition */
                 while ((index < buffer.length) && (phase < 1000)) {
                     if ((buffer [index] === 13) || (buffer [index] === 10)) {
                         if (start < index) {

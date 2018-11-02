@@ -356,16 +356,12 @@ const FileSystemRecorder = Recorder.extend({
 
         inConverter.on('headerSet', recording.onHeaderSet);
 
-        function cleanup() {
-            inConverter.removeListener('headerSet', recording.onHeaderSet);
-        }
-
         return Q.fcall(() => {
             return _this._makeDirectories();
         }).then(() => {
             return recorder._playbackSyncJob(inConverter, syncJob);
         }).then((playedBackRanges) => {
-            return new Promise((resolve) => {
+            const promise = new Promise((resolve) => {
                 inConverter.end(() => {
                     resolve();
                 });
@@ -375,12 +371,10 @@ const FileSystemRecorder = Recorder.extend({
                 return _this._setCurrentSyncState(syncJob.syncState, syncJob);
             }).then(() => {
                 return playedBackRanges;
-            }).then((result) => {
-                cleanup();
-                return Promise.resolve(result);
-            }, err => {
-                cleanup();
-                return Promise.reject(err);
+            });
+
+            return promiseFinally(promise, () => {
+                inConverter.removeListener('headerSet', recording.onHeaderSet);
             });
         });
     },
