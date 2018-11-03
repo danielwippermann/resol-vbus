@@ -1,19 +1,30 @@
 module.exports = {
-    extends: 'eslint:recommended',
+    extends: 'semistandard',
+    parserOptions: {
+        ecmaVersion: 2018,
+        sourceType: 'module',
+    },
     rules: {
-        'no-console': 'error',
+        // 'no-console': 'error',
         'indent': ['error', 4],
-        'semi': 'error',
-        'no-unused-vars': ['error', { args: 'none' }]
+        'no-multiple-empty-lines': 'off',
+        'space-before-function-paren': 'off',
+        'padded-blocks': 'off',
+        'no-whitespace-before-property': 'off',
+        'no-multi-spaces': 'off',
+        'comma-dangle': 'off',
+        'one-var': 'off',
+        'key-spacing': 'off',
+        'no-undef-init': 'off',
+        'prefer-arrow-callback': 'error',
+        'object-shorthand': ['error', 'always'],
     },
     env: {
         node: true,
-        mocha: true
+        jest: true,
+        es6: true,
     },
     globals: {
-        expect: true,
-        sinon: true,
-        promiseIt: true,
-        xpromiseIt: true
+        sinon: true
     }
 };
