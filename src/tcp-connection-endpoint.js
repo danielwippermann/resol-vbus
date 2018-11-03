@@ -9,7 +9,6 @@ const net = require('net');
 
 const extend = require('./extend');
 const _ = require('./lodash');
-const { promisify } = require('./utils');
 
 
 

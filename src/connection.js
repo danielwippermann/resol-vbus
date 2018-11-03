@@ -8,7 +8,6 @@ const Duplex = require('stream').Duplex;
 
 const extend = require('./extend');
 const _ = require('./lodash');
-const { promisify } = require('./utils');
 
 const Header = require('./header');
 const Packet = require('./packet');

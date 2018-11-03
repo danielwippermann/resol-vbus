@@ -9,7 +9,6 @@ const tls = require('tls');
 
 const Connection = require('./connection');
 const _ = require('./lodash');
-const { promisify } = require('./utils');
 
 
 
