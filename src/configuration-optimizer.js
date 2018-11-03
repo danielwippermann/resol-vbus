@@ -4,7 +4,6 @@
 
 
 const extend = require('./extend');
-const { promisify } = require('./utils');
 
 
 
@@ -86,16 +85,12 @@ const ConfigurationOptimizer = extend(null, /** @lends ConfigurationOptimizer# *
      *
      * @return {Promise} A promise that resolves to an array of constructor options.
      */
-    getOptimizerOptions() {
-        const _this = this;
-
-        return promisify(() => {
-            if (_this.deviceAddress !== null) {
-                return [ null ];
-            } else {
-                throw new Error('Must be implemented by sub-class');
-            }
-        });
+    async getOptimizerOptions() {
+        if (this.deviceAddress !== null) {
+            return [ null ];
+        } else {
+            throw new Error('Must be implemented by sub-class');
+        }
     },
 
     /**
@@ -108,22 +103,18 @@ const ConfigurationOptimizer = extend(null, /** @lends ConfigurationOptimizer# *
      * @param  {Customizer} options.customizer A `Customizer` instance to query additional information with.
      * @return {Promise} A Promise that resolves to the best matching optimizer result or `null` if no match was found.
      */
-    matchOptimizer(options) {
-        const _this = this;
+    async matchOptimizer(options) {
+        if (this.deviceAddress !== null) {
+            const match = (options.deviceAddress === this.deviceAddress) ? 1 : 0;
 
-        return promisify(() => {
-            if (_this.deviceAddress !== null) {
-                const match = (options.deviceAddress === _this.deviceAddress) ? 1 : 0;
-
-                return {
-                    match,
-                    Optimizer: _this,
-                    options: null,
-                };
-            } else {
-                throw new Error('Must be implemented by sub-class');
-            }
-        });
+            return {
+                match,
+                Optimizer: this,
+                options: null,
+            };
+        } else {
+            throw new Error('Must be implemented by sub-class');
+        }
     },
 
 });

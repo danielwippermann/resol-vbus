@@ -5,7 +5,6 @@
 
 const Customizer = require('./customizer');
 const _ = require('./lodash');
-const { promisify } = require('./utils');
 
 
 const optionKeys = [
@@ -84,32 +83,28 @@ const ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# 
      *
      * See {@link Customizer#loadConfiguration} for details.
      */
-    _loadConfiguration(configuration, options) {
-        const _this = this;
-
+    async _loadConfiguration(configuration, options) {
         options = _.defaults({}, options, {
             action: 'get',
         });
 
-        return promisify(() => {
-            const callback = function(config, round) {
-                if (options.optimize) {
-                    return _this._optimizeLoadConfiguration(config);
+        const callback = (config, round) => {
+            if (options.optimize) {
+                return this._optimizeLoadConfiguration(config);
+            } else {
+                if (round === 1) {
+                    _.forEach(configuration, (value) => {
+                        value.pending = true;
+                    });
+
+                    return configuration;
                 } else {
-                    if (round === 1) {
-                        _.forEach(configuration, (value) => {
-                            value.pending = true;
-                        });
-
-                        return configuration;
-                    } else {
-                        return config;
-                    }
+                    return config;
                 }
-            };
+            }
+        };
 
-            return _this.transceiveConfiguration(options, callback);
-        });
+        return this.transceiveConfiguration(options, callback);
     },
 
     /**
@@ -117,9 +112,7 @@ const ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# 
      *
      * See {@link Customizer#saveConfiguration} for details.
      */
-    _saveConfiguration(newConfiguration, oldConfigurstion, options) {
-        const _this = this;
-
+    async _saveConfiguration(newConfiguration, oldConfigurstion, options) {
         options = _.defaults({}, options, {
             action: 'set',
             actionOptions: {
@@ -127,29 +120,27 @@ const ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# 
             },
         });
 
-        return promisify(() => {
-            const callback = function(config, round) {
-                if (options.optimize) {
-                    if (round === 1) {
-                        return _this._optimizeSaveConfiguration(newConfiguration, oldConfigurstion);
-                    } else {
-                        return _this._optimizeSaveConfiguration(newConfiguration, config);
-                    }
+        const callback = (config, round) => {
+            if (options.optimize) {
+                if (round === 1) {
+                    return this._optimizeSaveConfiguration(newConfiguration, oldConfigurstion);
                 } else {
-                    if (round === 1) {
-                        _.forEach(newConfiguration, (value) => {
-                            value.pending = true;
-                        });
-
-                        return newConfiguration;
-                    } else {
-                        return config;
-                    }
+                    return this._optimizeSaveConfiguration(newConfiguration, config);
                 }
-            };
+            } else {
+                if (round === 1) {
+                    _.forEach(newConfiguration, (value) => {
+                        value.pending = true;
+                    });
 
-            return _this.transceiveConfiguration(options, callback);
-        });
+                    return newConfiguration;
+                } else {
+                    return config;
+                }
+            }
+        };
+
+        return this.transceiveConfiguration(options, callback);
     },
 
     /**
@@ -164,9 +155,7 @@ const ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# 
      * @param {number} [options.actionOptions] Options object to forward to the action to perform.
      * @return {object} Promise that resolves to the configuration or `null` on timeout.
      */
-    transceiveConfiguration(options, callback) {
-        const _this = this;
-
+    async transceiveConfiguration(options, callback) {
         if (_.isFunction(options)) {
             callback = options;
             options = null;
@@ -186,134 +175,95 @@ const ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# 
         const connection = this.connection;
         const address = this.deviceAddress;
 
-        return new Promise((resolve, reject) => {
-            function notify(progress) {
-                if (options.reportProgress) {
-                    options.reportProgress(progress);
+        async function check() {
+            if (options.checkCanceled) {
+                if (await options.checkCanceled()) {
+                    throw new Error('Canceled');
                 }
             }
 
-            async function checkCanceled() {
-                if (options.checkCanceled) {
-                    if (await options.checkCanceled()) {
-                        reject(new Error('Canceled'));
+            await connection.createConnectedPromise();
+        }
+
+        let config = null;
+
+        const state = {
+            masterAddress: null,
+            masterLastContacted: null,
+        };
+
+        const reportProgress = function(progress) {
+            if (options.reportProgress) {
+                options.reportProgress(progress);
+            }
+        };
+
+        for (let round = 1; round <= options.maxRounds; round++) {
+            await check();
+
+            reportProgress({
+                message: 'OPTIMIZING_VALUES',
+                round,
+            });
+
+            config = await callback(config, round);
+
+            await check();
+
+            const pendingValues = config.filter((value) => {
+                return value.pending;
+            });
+
+            if (pendingValues.length > 0) {
+                for (let index = 0; index < pendingValues.length; index++) {
+                    const valueInfo = pendingValues [index++];
+
+                    let reportProgress;
+                    if (options.reportProgress) {
+                        reportProgress = (progress) => {
+                            progress = _.extend({}, progress, {
+                                valueId: valueInfo.valueId,
+                                valueIndex: valueInfo.valueIndex,
+                                valueIdHash: valueInfo.valueIdHash,
+                                valueNr: index,
+                                valueCount: pendingValues.length,
+                            });
+
+                            return options.reportProgress(progress);
+                        };
+                    }
+
+                    await check();
+
+                    const datagram = await this.transceiveValue(valueInfo, valueInfo.value, {
+                        triesPerValue: options.triesPerValue,
+                        timeoutPerValue: options.timeoutPerValue,
+                        action: options.action,
+                        actionOptions: options.actionOptions,
+                        reportProgress,
+                    }, state);
+
+                    valueInfo.pending = false;
+                    valueInfo.transceived = !!datagram;
+
+                    if (datagram) {
+                        valueInfo.value = datagram.value;
                     }
                 }
+            } else {
+                break;
             }
+        }
 
-            const check = function(result) {
-                return promisify(() => {
-                    return checkCanceled();
-                }).then(() => {
-                    return connection.createConnectedPromise();
-                }).then(() => {
-                    return result;
-                });
-            };
+        if (state.masterLastContacted !== null) {
+            reportProgress({
+                message: 'RELEASING_BUS',
+            });
 
-            let config = null;
+            await connection.releaseBus(address);
+        }
 
-            const state = {
-                masterAddress: null,
-                masterLastContacted: null,
-            };
-
-            let round = 0;
-
-            const reportProgress = function(progress) {
-                if (_.isString(progress)) {
-                    progress = {
-                        message: progress,
-                    };
-                }
-
-                _.extend(progress, {
-                    round,
-                });
-
-                notify(progress);
-            };
-
-            const nextRound = function() {
-                if (round < options.maxRounds) {
-                    round++;
-
-                    promisify(check).then(() => {
-                        reportProgress('OPTIMIZING_VALUES');
-
-                        return callback(config, round);
-                    }).then(check).then((newConfig) => {
-                        config = newConfig;
-
-                        const pendingValues = _.filter(config, (value) => {
-                            return value.pending;
-                        });
-
-                        let index = 0;
-
-                        const nextValue = function() {
-                            if (index < pendingValues.length) {
-                                const valueInfo = pendingValues [index++];
-
-                                let reportProgress;
-                                if (options.reportProgress) {
-                                    reportProgress = function(progress) {
-                                        progress = _.extend({}, progress, {
-                                            valueId: valueInfo.valueId,
-                                            valueIndex: valueInfo.valueIndex,
-                                            valueIdHash: valueInfo.valueIdHash,
-                                            valueNr: index,
-                                            valueCount: pendingValues.length,
-                                        });
-
-                                        return options.reportProgress(progress);
-                                    };
-                                }
-
-                                promisify(check).then(() => {
-                                    return _this.transceiveValue(valueInfo, valueInfo.value, {
-                                        triesPerValue: options.triesPerValue,
-                                        timeoutPerValue: options.timeoutPerValue,
-                                        action: options.action,
-                                        actionOptions: options.actionOptions,
-                                        reportProgress,
-                                    }, state);
-                                }).then((datagram) => {
-                                    valueInfo.pending = false;
-                                    valueInfo.transceived = !!datagram;
-
-                                    if (datagram) {
-                                        valueInfo.value = datagram.value;
-                                    }
-
-                                    nextValue();
-                                }, reject);
-                            } else {
-                                nextRound(config);
-                            }
-                        };
-
-                        if (pendingValues.length > 0) {
-                            process.nextTick(nextValue);
-                        } else {
-                            promisify(() => {
-                                if (state.masterLastContacted !== null) {
-                                    reportProgress('RELEASING_BUS');
-
-                                    return connection.releaseBus(address);
-                                }
-                            }).then(() => {
-                                resolve(config);
-                            }, reject);
-                        }
-                    }).then(null, reject);
-                } else {
-                    resolve(null);
-                }
-            };
-
-            process.nextTick(nextRound);
-        });
+        return config;
     },
 
     /**
@@ -331,60 +281,14 @@ const ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# 
      * @param {object} state State to share between multiple calls to this method.
      * @returns {object} Promise that resolves with the datagram received or `null` on timeout.
      */
-    transceiveValue(valueInfo, value, options, state) {
-        if (!_.isObject(valueInfo)) {
-            valueInfo = {
-                valueIndex: valueInfo,
-            };
-        }
-
-        if (state === undefined) {
-            state = {};
-        }
-
-        options = _.defaults({}, options, {
-            triesPerValue: this.triesPerValue,
-            timeoutPerValue: this.timeoutPerValue,
-            masterTimeout: this.masterTimeout,
-            action: null,
-            actionOptions: null,
-            reportProgress: null,
-            checkCanceled: null,
-        });
-
-        state = _.defaults(state, {
-            masterAddress: this.deviceAddress,
-            masterLastContacted: Date.now(),
-        });
-
-        const connection = this.connection;
-        const address = this.deviceAddress;
-
-        return new Promise((resolve, reject) => {
-            function notify(progress) {
-                if (options.reportProgress) {
-                    options.reportProgress(progress);
-                }
-            }
-
-            async function checkCanceled() {
-                if (options.checkCanceled) {
-                    if (await options.checkCanceled()) {
-                        reject(new Error('Canceled'));
-                    }
-                }
-            }
-
-            let timer, onConnectionState;
+    async transceiveValue(valueInfo, value, options, state) {
+        const doWork = async (resolve, reject) => {
+            let timer;
 
             const done = function(err, result) {
                 if (timer) {
                     clearTimeout(timer);
                     timer = null;
-                }
-
-                if (onConnectionState) {
-                    connection.removeListener('connectionState', onConnectionState);
                 }
 
                 if (err) {
@@ -394,128 +298,160 @@ const ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# 
                 }
             };
 
-            const check = function(result) {
-                return promisify(() => {
-                    return checkCanceled();
-                }).then(() => {
-                    return connection.createConnectedPromise();
-                }).then(() => {
-                    return result;
-                });
-            };
+            if (!_.isObject(valueInfo)) {
+                valueInfo = {
+                    valueIndex: valueInfo,
+                };
+            }
 
-            let tries = 0;
+            if (state === undefined) {
+                state = {};
+            }
 
-            const reportProgress = function(message) {
-                notify({
-                    message,
-                    tries,
-                    valueIndex: valueInfo.valueIndex,
-                    valueInfo,
-                });
-            };
+            options = _.defaults({}, options, {
+                triesPerValue: this.triesPerValue,
+                timeoutPerValue: this.timeoutPerValue,
+                masterTimeout: this.masterTimeout,
+                action: null,
+                actionOptions: null,
+                reportProgress: null,
+                checkCanceled: null,
+            });
 
-            const nextTry = function() {
-                if (tries < options.triesPerValue) {
-                    tries++;
+            state = _.defaults(state, {
+                masterAddress: this.deviceAddress,
+                masterLastContacted: Date.now(),
+            });
 
-                    promisify(check).then(() => {
-                        if ((tries > 1) && (state.masterLastContacted !== null)) {
-                            reportProgress('RELEASING_BUS');
+            const connection = this.connection;
+            const address = this.deviceAddress;
 
-                            state.masterLastContacted = null;
-
-                            return connection.releaseBus(state.masterAddress);
-                        }
-                    }).then(check).then(() => {
-                        if ((state.masterLastContacted === null) && (options.masterTimeout !== null)) {
-                            reportProgress('WAITING_FOR_FREE_BUS');
-
-                            return connection.waitForFreeBus().then((datagram) => { // TODO: optional timeout?
-                                if (datagram) {
-                                    state.masterAddress = datagram.sourceAddress;
-                                } else {
-                                    state.masterAddress = null;
-                                }
-                            });
-                        }
-                    }).then(check).then(() => {
-                        let contactMaster;
-                        if (state.masterAddress === null) {
-                            contactMaster = false;
-                        } else if (state.masterAddress === address) {
-                            contactMaster = false;
-                        } else if (state.masterLastContacted === null) {
-                            contactMaster = true;
-                        } else if ((Date.now() - state.masterLastContacted) >= options.masterTimeout) {
-                            contactMaster = true;
-                        } else {
-                            contactMaster = false;
-                        }
-                        if (contactMaster) {
-                            reportProgress('CONTACTING_MASTER');
-
-                            state.masterLastContacted = Date.now();
-
-                            return connection.getValueById(state.masterAddress, 0, {
-                                timeout: 500,
-                                tries: 1,
-                            });
-                        }
-                    }).then(check).then(() => {
-                        if (state.masterAddress === address) {
-                            state.masterLastContacted = Date.now();
-                        }
-
-                        if (_.isNumber(valueInfo.valueIndex)) {
-                            // nop
-                        } else if (_.isNumber(valueInfo.valueIdHash)) {
-                            reportProgress('LOOKING_UP_VALUE');
-
-                            return promisify(() => {
-                                return connection.getValueIdByIdHash(address, valueInfo.valueIdHash, options.actionOptions);
-                            }).then((datagram) => {
-                                if (datagram && datagram.valueId) {
-                                    valueInfo.valueIndex = datagram.valueId;
-                                }
-                            });
-                        }
-                    }).then(check).then(() => {
-                        if (state.masterAddress === address) {
-                            state.masterLastContacted = Date.now();
-                        }
-
-                        if (!_.isNumber(valueInfo.valueIndex)) {
-                            return null;
-                        } else if (options.action === 'get') {
-                            reportProgress('GETTING_VALUE');
-
-                            return connection.getValueById(address, valueInfo.valueIndex, options.actionOptions);
-                        } else if (options.action === 'set') {
-                            reportProgress('SETTING_VALUE');
-
-                            return connection.setValueById(address, valueInfo.valueIndex, value, options.actionOptions);
-                        } else {
-                            throw new Error('Unknown action "' + options.action + '"');
-                        }
-                    }).then((datagram) => {
-                        if (datagram) {
-                            done(null, datagram);
-                        } else {
-                            return nextTry();
-                        }
-                    }).then(null, done);
-                } else {
-                    done(null, null);
+            async function check() {
+                if (options.checkCanceled) {
+                    if (await options.checkCanceled()) {
+                        reject(new Error('Canceled'));
+                    }
                 }
+
+                await connection.createConnectedPromise();
             };
 
             const onTimeout = function() {
                 done(null, null);
             };
 
-            process.nextTick(nextTry);
             timer = setTimeout(onTimeout, options.timeoutPerValue);
+
+            let result;
+            for (let tries = 1; tries <= options.triesPerValue; tries++) {
+                const reportProgress = function(message) {
+                    if (options.reportProgress) {
+                        options.reportProgress({
+                            message,
+                            tries,
+                            valueIndex: valueInfo.valueIndex,
+                            valueInfo,
+                        });
+                    }
+                };
+
+                await check();
+
+                if ((tries > 1) && (state.masterLastContacted !== null)) {
+                    reportProgress('RELEASING_BUS');
+
+                    state.masterLastContacted = null;
+
+                    await connection.releaseBus(state.masterAddress);
+                }
+
+                await check();
+
+                if ((state.masterLastContacted === null) && (options.masterTimeout !== null)) {
+                    reportProgress('WAITING_FOR_FREE_BUS');
+
+                    const datagram = await connection.waitForFreeBus();  // TODO: optional timeout?
+
+                    if (datagram) {
+                        state.masterAddress = datagram.sourceAddress;
+                    } else {
+                        state.masterAddress = null;
+                    }
+                }
+
+                await check();
+
+                let contactMaster;
+                if (state.masterAddress === null) {
+                    contactMaster = false;
+                } else if (state.masterAddress === address) {
+                    contactMaster = false;
+                } else if (state.masterLastContacted === null) {
+                    contactMaster = true;
+                } else if ((Date.now() - state.masterLastContacted) >= options.masterTimeout) {
+                    contactMaster = true;
+                } else {
+                    contactMaster = false;
+                }
+                if (contactMaster) {
+                    reportProgress('CONTACTING_MASTER');
+
+                    state.masterLastContacted = Date.now();
+
+                    await connection.getValueById(state.masterAddress, 0, {
+                        timeout: 500,
+                        tries: 1,
+                    });
+                }
+
+                await check();
+
+                if (state.masterAddress === address) {
+                    state.masterLastContacted = Date.now();
+                }
+
+                if (_.isNumber(valueInfo.valueIndex)) {
+                    // nop
+                } else if (_.isNumber(valueInfo.valueIdHash)) {
+                    reportProgress('LOOKING_UP_VALUE');
+
+                    const datagram = await connection.getValueIdByIdHash(address, valueInfo.valueIdHash, options.actionOptions);
+
+                    if (datagram && datagram.valueId) {
+                        valueInfo.valueIndex = datagram.valueId;
+                    }
+                }
+
+                await check();
+
+                if (state.masterAddress === address) {
+                    state.masterLastContacted = Date.now();
+                }
+
+                if (!_.isNumber(valueInfo.valueIndex)) {
+                    result = null;
+                } else if (options.action === 'get') {
+                    reportProgress('GETTING_VALUE');
+
+                    result = await connection.getValueById(address, valueInfo.valueIndex, options.actionOptions);
+                } else if (options.action === 'set') {
+                    reportProgress('SETTING_VALUE');
+
+                    result = await connection.setValueById(address, valueInfo.valueIndex, value, options.actionOptions);
+                } else {
+                    throw new Error('Unknown action "' + options.action + '"');
+                }
+
+                if (result) {
+                    break;
+                }
+            }
+
+            return result;
+        };
+
+        return new Promise((resolve, reject) => {
+            doWork(resolve, reject).then(resolve, reject);
         });
     }
 });

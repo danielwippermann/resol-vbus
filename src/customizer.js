@@ -8,7 +8,6 @@ const EventEmitter = require('events').EventEmitter;
 
 const extend = require('./extend');
 const _ = require('./lodash');
-const { promisify } = require('./utils');
 
 
 
@@ -76,18 +75,14 @@ const Customizer = extend(EventEmitter, /** @lends Customizer# */ {
      * @param {object} options
      * @returns {Promise} A Promise that resolves to the set of values transfered.
      */
-    loadConfiguration(configuration, options) {
-        const _this = this;
-
+    async loadConfiguration(configuration, options) {
         options = _.defaults({}, options, {
             optimize: true,
         });
 
-        return promisify(() => {
-            return _this._completeConfiguration(configuration);
-        }).then((configuration) => {
-            return _this._loadConfiguration(configuration, options);
-        });
+        configuration = await this._completeConfiguration(configuration);
+
+        return this._loadConfiguration(configuration, options);
     },
 
     _loadConfiguration(configuration, options) {
@@ -114,26 +109,18 @@ const Customizer = extend(EventEmitter, /** @lends Customizer# */ {
      * @param {object} options
      * @returns {Promise} A Promise that resolves to the set of values transfered.
      */
-    saveConfiguration(newConfiguration, oldConfiguration, options) {
-        const _this = this;
-
+    async saveConfiguration(newConfiguration, oldConfiguration, options) {
         options = _.defaults({}, options, {
             optimize: true,
         });
 
-        return promisify(() => {
-            return _this._completeConfiguration(newConfiguration);
-        }).then((newConfiguration) => {
-            return promisify(() => {
-                if (oldConfiguration) {
-                    return _this._completeConfiguration(oldConfiguration);
-                } else {
-                    return null;
-                }
-            }).then((oldConfiguration) => {
-                return _this._saveConfiguration(newConfiguration, oldConfiguration, options);
-            });
-        });
+        newConfiguration = await this._completeConfiguration(newConfiguration);
+
+        if (oldConfiguration) {
+            oldConfiguration = await this._completeConfiguration(oldConfiguration);
+        }
+
+        return this._saveConfiguration(newConfiguration, oldConfiguration, options);
     },
 
     _saveConfiguration(newConfiguration, oldConfiguration, options) {

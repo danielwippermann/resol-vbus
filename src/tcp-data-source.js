@@ -5,7 +5,6 @@
 
 const DataSource = require('./data-source');
 const _ = require('./lodash');
-const { promisify } = require('./utils');
 
 const TcpConnection = require('./tcp-connection');
 
@@ -59,7 +58,7 @@ const TcpDataSource = DataSource.extend(/** @lends TcpDataSource# */ {
         this.options = options;
     },
 
-    connectLive(options) {
+    async connectLive(options) {
         const defaultOptions = {
             host: this.host,
             port: this.port,
@@ -75,11 +74,9 @@ const TcpDataSource = DataSource.extend(/** @lends TcpDataSource# */ {
 
         const connection = new TcpConnection(options);
 
-        return promisify(() => {
-            return connection.connect();
-        }).then(() => {
-            return connection;
-        });
+        await connection.connect();
+
+        return connection;
     }
 
 });

@@ -18,5 +18,11 @@ chai.config.includeStack = true;
 global.sinon = sinon;
 
 
+// FIXME(daniel): some old tests still rely on this function which was removed
+vbus.utils.promisify = function(fn) {
+    return new Promise((resolve) => resolve(fn()));
+};
+
+
 
 module.exports = vbus;

@@ -12,6 +12,9 @@ const {
 
 const expect = require('./expect');
 const _ = require('./lodash');
+const {
+    expectPromiseToReject,
+} = require('./test-utils');
 
 
 
@@ -163,14 +166,10 @@ describe('TcpConnection', () => {
         });
 
         it('should throw if not disconnected', () => {
-            return testConnection((connection, endpoint) => {
-                return promisify(() => {
-                    return connection.connect();
-                }).then(() => {
-                    expect(() => {
-                        connection.connect();
-                    }).to.throw();
-                });
+            return testConnection(async (connection, endpoint) => {
+                await connection.connect();
+
+                await expectPromiseToReject(connection.connect());
             });
         });
 
