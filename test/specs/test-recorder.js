@@ -13,7 +13,6 @@ const moment = require('moment');
 const {
     Recorder,
     VBusRecordingConverter,
-    utils: { promisify },
 } = require('./resol-vbus');
 
 
@@ -170,7 +169,7 @@ const TestRecorder = Recorder.extend({
         return playedBackRanges;
     },
 
-    _recordSyncJob(recorder, syncJob) {
+    async _recordSyncJob(recorder, syncJob) {
         const _this = this;
 
         const syncState = this._getSyncState(syncJob, 'destination', 'TestRecorder');
@@ -215,19 +214,17 @@ const TestRecorder = Recorder.extend({
             recordedRanges = Recorder.performRangeSetOperation(recordedRanges, thisRanges, syncJob.interval, 'union');
         });
 
-        return promisify(() => {
-            return recorder._playbackSyncJob(inConverter, syncJob);
-        }).then((playedBackRanges) => {
-            return new Promise((resolve) => {
-                inConverter.end(() => {
-                    resolve();
-                });
-            }).then(() => {
-                return _this._setCurrentSyncState(syncJob.syncState, syncJob);
-            }).then(() => {
-                return playedBackRanges;
+        const playedBackRanges = await recorder._playbackSyncJob(inConverter, syncJob);
+
+        await new Promise((resolve) => {
+            inConverter.end(() => {
+                resolve();
             });
         });
+
+        await _this._setCurrentSyncState(syncJob.syncState, syncJob);
+
+        return playedBackRanges;
     },
 
     resetCounters() {

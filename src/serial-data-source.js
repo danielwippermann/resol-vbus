@@ -5,7 +5,6 @@
 
 const DataSource = require('./data-source');
 const _ = require('./lodash');
-const { promisify } = require('./utils');
 
 const SerialConnection = require('./serial-connection');
 
@@ -36,7 +35,7 @@ const SerialDataSource = DataSource.extend(/** @lends SerialDataSource# */ {
         _.extend(this, _.pick(options, optionKeys));
     },
 
-    connectLive(options) {
+    async connectLive(options) {
         const defaultOptions = {
             path: this.path,
         };
@@ -48,11 +47,9 @@ const SerialDataSource = DataSource.extend(/** @lends SerialDataSource# */ {
 
         const connection = new SerialConnection(options);
 
-        return promisify(() => {
-            return connection.connect();
-        }).then(() => {
-            return connection;
-        });
+        await connection.connect();
+
+        return connection;
     }
 
 });

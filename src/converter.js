@@ -12,7 +12,6 @@ const Duplex = require('stream').Duplex;
 const Header = require('./header');
 const HeaderSet = require('./header-set');
 const _ = require('./lodash');
-const { promisify } = require('./utils');
 
 const extend = require('./extend');
 
@@ -100,14 +99,10 @@ const Converter = extend(Duplex, /** @lends Converter# */ {
      *
      * @return {Promise} A Promise that resolves when all data has been consumed.
      */
-    finish() {
-        const _this = this;
+    async finish() {
+        this.push(null);
 
-        return promisify(() => {
-            _this.push(null);
-
-            return _this.finishedPromise;
-        });
+        return this.finishedPromise;
     },
 
     /**

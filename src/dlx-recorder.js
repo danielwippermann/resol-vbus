@@ -8,7 +8,6 @@ const request = require('request');
 
 
 const _ = require('./lodash');
-const { promisify } = require('./utils');
 const VBusRecordingConverter = require('./vbus-recording-converter');
 
 const Recorder = require('./recorder');
@@ -112,7 +111,7 @@ const DLxRecorder = Recorder.extend(/** @lends DLxRecorder# */ {
         }
     },
 
-    _playbackApi(converter, options) {
+    async _playbackApi(converter, options) {
         const urlString = options.urlPrefix + '/dlx/download/download';
 
         const urlOptions = {
@@ -133,9 +132,7 @@ const DLxRecorder = Recorder.extend(/** @lends DLxRecorder# */ {
             },
         };
 
-        return promisify(function() {
-            return this.downloadToStream(urlString, urlOptions, converter);
-        });
+        return this.downloadToStream(urlString, urlOptions, converter);
     },
 
     async _playbackSyncJob(stream, syncJob) {

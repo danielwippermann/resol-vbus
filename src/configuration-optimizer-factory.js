@@ -4,7 +4,6 @@
 
 
 const _ = require('./lodash');
-const { promisify } = require('./utils');
 
 
 
@@ -50,47 +49,33 @@ const ConfigurationOptimizerFactory = {
      * @param  {Customizer} options.customizer A `Customizer` instance to query additional information with.
      * @return {Promise} A Promise that resolves to the best matching optimizer result or `null` if no match was found.
      */
-    matchOptimizer(options) {
-        return new Promise((resolve, reject) => {
-            options = _.defaults({}, options);
+    async matchOptimizer(options) {
+        options = _.defaults({}, options);
 
-            let result = {
-                match: 0,
-                Optimizer: null,
-                options: null,
-            };
+        let result = {
+            match: 0,
+            Optimizer: null,
+            options: null,
+        };
 
-            const cache = {
-                masterAddress: null,
-                masterConfiguration: [],
-            };
+        const cache = {
+            masterAddress: null,
+            masterConfiguration: [],
+        };
 
-            let index = 0;
+        for (let Optimizer of optimizerClasses) {
+            const refResult = await Optimizer.matchOptimizer(options, cache);
 
-            const nextOptimizer = function() {
-                if (index < optimizerClasses.length) {
-                    const Optimizer = optimizerClasses [index++];
+            if ((refResult.match > 0) && (refResult.match > result.match)) {
+                result = refResult;
+            }
+        }
 
-                    promisify(() => {
-                        return Optimizer.matchOptimizer(options, cache);
-                    }).then((refResult) => {
-                        if ((refResult.match > 0) && (refResult.match > result.match)) {
-                            result = refResult;
-                        }
-
-                        nextOptimizer();
-                    }).then(null, reject);
-                } else {
-                    if (result.match > 0) {
-                        resolve(result);
-                    } else {
-                        resolve(null);
-                    }
-                }
-            };
-
-            nextOptimizer();
-        });
+        if (result.match > 0) {
+            return result;
+        } else {
+            return null;
+        }
     },
 
     /**
@@ -99,18 +84,16 @@ const ConfigurationOptimizerFactory = {
      * @param  {object} options See {@link ConfigurationOptimizerFactory.matchOptimizer} for details.
      * @return {Promise} A promise that resolves to the `ConfigurationOptimizer` instance or `null` if no matching optimizer was found.
      */
-    createOptimizer(options) {
-        return promisify(() => {
-            return ConfigurationOptimizerFactory.matchOptimizer(options);
-        }).then((result) => {
-            let optimizer;
-            if (result) {
-                optimizer = new result.Optimizer(result.options);
-            } else {
-                optimizer = null;
-            }
-            return optimizer;
-        });
+    async createOptimizer(options) {
+        const result = await ConfigurationOptimizerFactory.matchOptimizer(options);
+
+        let optimizer;
+        if (result) {
+            optimizer = new result.Optimizer(result.options);
+        } else {
+            optimizer = null;
+        }
+        return optimizer;
     },
 
     /**

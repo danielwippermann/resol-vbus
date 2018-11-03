@@ -10,7 +10,6 @@ const url = require('url');
 
 const _ = require('./lodash');
 const TcpDataSource = require('./tcp-data-source');
-const { promisify } = require('./utils');
 
 const DataSourceProvider = require('./data-source-provider');
 
@@ -47,24 +46,20 @@ const TcpDataSourceProvider = DataSourceProvider.extend(/** @lends TcpDataSource
         _.extend(this, _.pick(options, optionKeys));
     },
 
-    discoverDataSources() {
-        const _this = this;
-
+    async discoverDataSources() {
         const options = {
             broadcastAddress: this.broadcastAddress,
             broadcastPort: this.broadcastPort,
         };
 
-        return promisify(() => {
-            return TcpDataSourceProvider.discoverDevices(options);
-        }).then((results) => {
-            return _.map(results, (result) => {
-                const options = _.extend({}, result, {
-                    host: result.__address__
-                });
+        const results = await TcpDataSourceProvider.discoverDevices(options);
 
-                return _this.createDataSource(options);
+        return results.map((result) => {
+            const options = _.extend({}, result, {
+                host: result.__address__
             });
+
+            return this.createDataSource(options);
         });
     },
 
@@ -198,13 +193,13 @@ const TcpDataSourceProvider = DataSourceProvider.extend(/** @lends TcpDataSource
         });
     },
 
-    fetchDeviceInformation(address, port) {
+    async fetchDeviceInformation(address, port) {
         if (port === undefined) {
-            return promisify(() => {
+            try {
                 return TcpDataSourceProvider.fetchDeviceInformation(address, 80);
-            }).fail(() => {
+            } catch (err) {
                 return TcpDataSourceProvider.fetchDeviceInformation(address, 3000);
-            });
+            }
         } else {
             return new Promise((resolve, reject) => {
                 let portSuffix;

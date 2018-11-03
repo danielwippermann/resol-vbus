@@ -6,7 +6,6 @@
 const ConfigurationOptimizer = require('./configuration-optimizer');
 const extend = require('./extend');
 const _ = require('./lodash');
-const { promisify } = require('./utils');
 
 
 
@@ -224,132 +223,128 @@ const ValuesWrapper = extend(null, {
 
 const BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
 
-    completeConfiguration(config) {
+    async completeConfiguration(config) {
         const _this = this;
 
         const args = _.toArray(arguments);
 
-        return promisify(() => {
-            const adjustableValues = _this._getAdjustableValues();
+        const adjustableValues = _this._getAdjustableValues();
 
-            let result;
-            if (!config) {
-                result = _.map(adjustableValues, (value) => {
-                    return {
-                        valueId: value.id,
-                        valueIndex: value.index,
-                    };
-                });
-            } else {
-                const valueByIndex = {}, valueById = {}, valueByIdHash = {};
-                _.forEach(adjustableValues, (value) => {
-                    valueByIndex [value.index] = value;
-                    valueById [value.id] = value;
-                    if (value.idHash) {
-                        valueByIdHash [value.idHash] = value;
-                    }
-                });
-
-                const configValuesById = {};
-
-                const mergeConfig = (config) => {
-                    _.forEach(config, (value, key) => {
-                        if (_.isArray(config)) {
-                            // nop
-                        } else if (_.isObject(config)) {
-                            if (_.has(valueById, key)) {
-                                value = {
-                                    valueId: key,
-                                    value,
-                                };
-                            } else {
-                                value = null;
-                            }
-                        }
-
-                        let refValue;
-                        if (!value) {
-                            refValue = null;
-                        } else if (_.has(value, 'valueIndex')) {
-                            refValue = valueByIndex [value.valueIndex];
-                        } else if (_.has(value, 'valueId')) {
-                            refValue = valueById [value.valueId];
-                        } else if (_.has(value, 'index')) {
-                            refValue = valueByIndex [value.index];
-                        } else if (_.has(value, 'id')) {
-                            refValue = valueById [value.id];
-                        } else if (_.has(value, 'valueIdHash')) {
-                            refValue = valueByIdHash [value.valueIdHash];
-                        } else if (_.has(value, 'idHash')) {
-                            refValue = valueByIdHash [value.idHash];
-                        } else {
-                            refValue = null;
-                        }
-
-                        if (!refValue) {
-                            throw new Error('Unable to complete value ' + JSON.stringify({ key, value }));
-                        }
-
-                        let numericValue = value.value;
-                        if (_.isString(numericValue)) {
-                            if (numericValue.charAt(0) === '#') {
-                                const valueTextId = numericValue.slice(1);
-                                const valueText = refValue.valueTextById [valueTextId];
-                                if (valueText !== undefined) {
-                                    numericValue = valueText;
-                                } else {
-                                    throw new Error('Unable to convert value text ID to numeric value: ' + JSON.stringify(numericValue));
-                                }
-                            } else {
-                                numericValue = numericValue | 0;
-                            }
-                        }
-
-                        const configValue = _.extend({}, value, {
-                            valueId: refValue.id,
-                            valueIndex: refValue.index,
-                            value: numericValue,
-                            priority: refValue.priority || 0,
-                            valueTextById: refValue.valueTextById,
-                        });
-
-                        configValuesById [configValue.valueId] = configValue;
-                    });
+        let result;
+        if (!config) {
+            result = _.map(adjustableValues, (value) => {
+                return {
+                    valueId: value.id,
+                    valueIndex: value.index,
                 };
-
-                _.forEachRight(args, mergeConfig);
-
-                result = _.reduce(adjustableValues, (memo, value) => {
-                    const configValue = configValuesById [value.id];
-                    if (configValue) {
-                        memo.push(configValue);
-                    }
-                    return memo;
-                }, []);
-            }
-
-            return result;
-        });
-    },
-
-    optimizeLoadConfiguration(config) {
-        const _this = this;
-
-        return promisify(() => {
-            return _this._buildConfiguration(config);
-        }).then((config) => {
-            _.forEach(config, (value) => {
-                if (value.previousValue !== undefined) {
-                    value.value = value.previousValue;
-                } else if (value.ignored) {
-                    // nop
-                } else {
-                    value.pending = true;
+            });
+        } else {
+            const valueByIndex = {}, valueById = {}, valueByIdHash = {};
+            _.forEach(adjustableValues, (value) => {
+                valueByIndex [value.index] = value;
+                valueById [value.id] = value;
+                if (value.idHash) {
+                    valueByIdHash [value.idHash] = value;
                 }
             });
 
-            return config;
+            const configValuesById = {};
+
+            const mergeConfig = (config) => {
+                _.forEach(config, (value, key) => {
+                    if (_.isArray(config)) {
+                        // nop
+                    } else if (_.isObject(config)) {
+                        if (_.has(valueById, key)) {
+                            value = {
+                                valueId: key,
+                                value,
+                            };
+                        } else {
+                            value = null;
+                        }
+                    }
+
+                    let refValue;
+                    if (!value) {
+                        refValue = null;
+                    } else if (_.has(value, 'valueIndex')) {
+                        refValue = valueByIndex [value.valueIndex];
+                    } else if (_.has(value, 'valueId')) {
+                        refValue = valueById [value.valueId];
+                    } else if (_.has(value, 'index')) {
+                        refValue = valueByIndex [value.index];
+                    } else if (_.has(value, 'id')) {
+                        refValue = valueById [value.id];
+                    } else if (_.has(value, 'valueIdHash')) {
+                        refValue = valueByIdHash [value.valueIdHash];
+                    } else if (_.has(value, 'idHash')) {
+                        refValue = valueByIdHash [value.idHash];
+                    } else {
+                        refValue = null;
+                    }
+
+                    if (!refValue) {
+                        throw new Error('Unable to complete value ' + JSON.stringify({ key, value }));
+                    }
+
+                    let numericValue = value.value;
+                    if (_.isString(numericValue)) {
+                        if (numericValue.charAt(0) === '#') {
+                            const valueTextId = numericValue.slice(1);
+                            const valueText = refValue.valueTextById [valueTextId];
+                            if (valueText !== undefined) {
+                                numericValue = valueText;
+                            } else {
+                                throw new Error('Unable to convert value text ID to numeric value: ' + JSON.stringify(numericValue));
+                            }
+                        } else {
+                            numericValue = numericValue | 0;
+                        }
+                    }
+
+                    const configValue = _.extend({}, value, {
+                        valueId: refValue.id,
+                        valueIndex: refValue.index,
+                        value: numericValue,
+                        priority: refValue.priority || 0,
+                        valueTextById: refValue.valueTextById,
+                    });
+
+                    configValuesById [configValue.valueId] = configValue;
+                });
+            };
+
+            _.forEachRight(args, mergeConfig);
+
+            result = _.reduce(adjustableValues, (memo, value) => {
+                const configValue = configValuesById [value.id];
+                if (configValue) {
+                    memo.push(configValue);
+                }
+                return memo;
+            }, []);
+        }
+
+        return result;
+    },
+
+    async optimizeLoadConfiguration(config) {
+        const _this = this;
+
+        config = await _this._buildConfiguration(config);
+
+        _.forEach(config, (value) => {
+            if (value.previousValue !== undefined) {
+                value.value = value.previousValue;
+            } else if (value.ignored) {
+                // nop
+            } else {
+                value.pending = true;
+            }
         });
+
+        return config;
     },
 
     optimizeSaveConfiguration(newConfig, oldConfig) {

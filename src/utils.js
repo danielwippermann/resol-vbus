@@ -91,19 +91,6 @@ const utils = {
         return new Promise((resolve) => resolve(fn()));
     },
 
-    flatten(...args) {
-        function flattenReducer(memo, arg) {
-            if (Array.isArray(arg)) {
-                memo = arg.reduce(flattenReducer, memo);
-            } else {
-                memo.push(arg);
-            }
-            return memo;
-        }
-
-        return flattenReducer([], args);
-    },
-
 };
 
 

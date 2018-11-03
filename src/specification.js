@@ -12,19 +12,18 @@ const sprintf = require('sprintf-js').sprintf;
 const extend = require('./extend');
 const I18N = require('./i18n');
 const _ = require('./lodash');
-const utils = require('./utils');
-
-// var createVBusSpecificationData = require('./specification-data');
-
 const SpecificationFile = require('./specification-file');
+const {
+    deepFreezeObjectTree,
+    roundNumber,
+} = require('./utils');
 
 
 
-// var globalSpecificationData = utils.deepFreezeObjectTree(createVBusSpecificationData());
 const globalSpecificationFile = SpecificationFile.getDefaultSpecificationFile();
 let globalSpecificationData = null;
 if (globalSpecificationFile) {
-    globalSpecificationData = utils.deepFreezeObjectTree(globalSpecificationFile.getSpecificationData());
+    globalSpecificationData = deepFreezeObjectTree(globalSpecificationFile.getSpecificationData());
 }
 
 let globalSpecification = undefined;
@@ -647,7 +646,7 @@ const Specification = extend(null, /** @lends Specification# */ {
 
         const precision = (packetField && packetField.type && packetField.type.precision) || 0;
 
-        const roundedRawValue = utils.roundNumber(rawValue, -precision);
+        const roundedRawValue = roundNumber(rawValue, -precision);
 
         return roundedRawValue;
     },
@@ -1260,7 +1259,7 @@ const Specification = extend(null, /** @lends Specification# */ {
                 },
 
                 getRoundedRawValue() {
-                    return utils.roundNumber(rawValue, -precision);
+                    return roundNumber(rawValue, -precision);
                 },
 
             });

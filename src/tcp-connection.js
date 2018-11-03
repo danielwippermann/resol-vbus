@@ -115,7 +115,7 @@ const TcpConnection = Connection.extend(/** @lends TcpConnection# */ {
         _.extend(this, _.pick(options, optionKeys));
     },
 
-    connect(force) {
+    async connect(force) {
         if (this.connectionState !== TcpConnection.STATE_DISCONNECTED) {
             throw new Error('Connection is not disconnected (' + this.connectionState + ')');
         }

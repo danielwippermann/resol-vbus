@@ -12,7 +12,6 @@ const moment = require('moment');
 
 
 const _ = require('./lodash');
-const { promisify } = require('./utils');
 const VBusRecordingConverter = require('./vbus-recording-converter');
 
 const Recorder = require('./recorder');
@@ -54,10 +53,10 @@ const FileSystemRecorder = Recorder.extend({
         return this._getAbsoluteFilename('SyncState.json');
     },
 
-    _getCurrentSyncState(options) {
+    async _getCurrentSyncState(options) {
         const filename = this._getCurrentSyncStateFilename(options);
 
-        return new Promise((resolve, reject) => {
+        const data = await new Promise((resolve, reject) => {
             fs.readFile(filename, (err, contents) => {
                 if (err) {
                     if (err.code === 'ENOENT') {
@@ -69,25 +68,23 @@ const FileSystemRecorder = Recorder.extend({
                     resolve(contents);
                 }
             });
-        }).then((data) => {
-            return JSON.parse(data);
         });
+
+        return JSON.parse(data);
     },
 
-    _setCurrentSyncState(syncState, options) {
+    async _setCurrentSyncState(syncState, options) {
         const filename = this._getCurrentSyncStateFilename(options);
 
-        return promisify(() => {
-            return JSON.stringify(syncState, null, '    ');
-        }).then((data) => {
-            return new Promise((resolve, reject) => {
-                fs.writeFile(filename, data, (err) => {
-                    if (err) {
-                        reject(err);
-                    } else {
-                        resolve();
-                    }
-                });
+        const data = JSON.stringify(syncState, null, '    ');
+
+        await new Promise((resolve, reject) => {
+            fs.writeFile(filename, data, (err) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve();
+                }
             });
         });
     },
