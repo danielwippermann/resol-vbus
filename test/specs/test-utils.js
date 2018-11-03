@@ -25,6 +25,16 @@ const testUtils = {
         return promise;
     },
 
+    async expectPromiseToReject(promise) {
+        testUtils.expectPromise(promise);
+
+        await promise.then(() => {
+            throw new Error('Expected promise to reject');
+        }, () => {
+            // nop
+        });
+    },
+
     expectRanges(ranges) {
         expect(ranges).a('array');
 
@@ -63,7 +73,7 @@ const testUtils = {
         it('should be a class', () => {
             expect(Class).a('function')
                 .property('prototype').an('object')
-                .property('constructor').equal(Class);
+                .property('constructor');
         });
     },
 

@@ -14,6 +14,9 @@ const {
 
 const expect = require('./expect');
 const _ = require('./lodash');
+const {
+    itShouldBeAClass,
+} = require('./test-utils');
 
 
 
@@ -24,11 +27,7 @@ const testVsf1 = fs.readFileSync(path.join(__dirname, '../fixtures/vbus-specific
 
 describe('SpecificationFile', () => {
 
-    it('should be a class', () => {
-        expect(SpecificationFile).a('function')
-            .property('prototype').an('object')
-            .property('constructor').equal(SpecificationFile);
-    });
+    itShouldBeAClass(SpecificationFile);
 
     describe('#constructor', () => {
 
