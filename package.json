@@ -2,7 +2,7 @@
   "name": "resol-vbus",
   "version": "0.20.0",
   "description": "A JavaScript library for processing RESOL VBus data",
-  "main": "src/index.js",
+  "main": "dist/index.js",
   "scripts": {
     "lint": "eslint src test/specs",
     "test": "jest",
