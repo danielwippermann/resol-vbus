@@ -5,18 +5,18 @@
 
 const fs = require('fs');
 const path = require('path');
-const Duplex = require('stream').Duplex;
+const { Duplex } = require('stream');
+
+
+const {
+    DLxRecorder,
+    utils: { promisify },
+} = require('./resol-vbus');
 
 
 const expect = require('./expect');
-const Q = require('./q');
-const vbus = require('./resol-vbus');
 const TestRecorder = require('./test-recorder');
 const testUtils = require('./test-utils');
-
-
-
-const DLxRecorder = vbus.DLxRecorder;
 
 
 
@@ -430,7 +430,7 @@ describe('DLxRecorder', () => {
                 interval: 300000,
             });
 
-            return Q.fcall(() => {
+            return promisify(() => {
                 return sourceRecorder.synchronizeTo(targetRecorder);
             }).then((ranges) => {
                 expect(ranges).a('array').lengthOf(1);

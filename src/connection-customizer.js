@@ -5,8 +5,7 @@
 
 const Customizer = require('./customizer');
 const _ = require('./lodash');
-const Q = require('./q');
-
+const { promisify } = require('./utils');
 
 
 const optionKeys = [
@@ -92,7 +91,7 @@ const ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# 
             action: 'get',
         });
 
-        return Q.fcall(() => {
+        return promisify(() => {
             const callback = function(config, round) {
                 if (options.optimize) {
                     return _this._optimizeLoadConfiguration(config);
@@ -128,7 +127,7 @@ const ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# 
             },
         });
 
-        return Q.fcall(() => {
+        return promisify(() => {
             const callback = function(config, round) {
                 if (options.optimize) {
                     if (round === 1) {
@@ -203,7 +202,7 @@ const ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# 
             }
 
             const check = function(result) {
-                return Q.fcall(() => {
+                return promisify(() => {
                     return checkCanceled();
                 }).then(() => {
                     return connection.createConnectedPromise();
@@ -239,7 +238,7 @@ const ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# 
                 if (round < options.maxRounds) {
                     round++;
 
-                    Q.fcall(check).then(() => {
+                    promisify(check).then(() => {
                         reportProgress('OPTIMIZING_VALUES');
 
                         return callback(config, round);
@@ -271,7 +270,7 @@ const ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# 
                                     };
                                 }
 
-                                Q.fcall(check).then(() => {
+                                promisify(check).then(() => {
                                     return _this.transceiveValue(valueInfo, valueInfo.value, {
                                         triesPerValue: options.triesPerValue,
                                         timeoutPerValue: options.timeoutPerValue,
@@ -297,7 +296,7 @@ const ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# 
                         if (pendingValues.length > 0) {
                             process.nextTick(nextValue);
                         } else {
-                            Q.fcall(() => {
+                            promisify(() => {
                                 if (state.masterLastContacted !== null) {
                                     reportProgress('RELEASING_BUS');
 
@@ -396,7 +395,7 @@ const ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# 
             };
 
             const check = function(result) {
-                return Q.fcall(() => {
+                return promisify(() => {
                     return checkCanceled();
                 }).then(() => {
                     return connection.createConnectedPromise();
@@ -420,7 +419,7 @@ const ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# 
                 if (tries < options.triesPerValue) {
                     tries++;
 
-                    Q.fcall(check).then(() => {
+                    promisify(check).then(() => {
                         if ((tries > 1) && (state.masterLastContacted !== null)) {
                             reportProgress('RELEASING_BUS');
 
@@ -473,7 +472,7 @@ const ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# 
                         } else if (_.isNumber(valueInfo.valueIdHash)) {
                             reportProgress('LOOKING_UP_VALUE');
 
-                            return Q.fcall(() => {
+                            return promisify(() => {
                                 return connection.getValueIdByIdHash(address, valueInfo.valueIdHash, options.actionOptions);
                             }).then((datagram) => {
                                 if (datagram && datagram.valueId) {

@@ -8,6 +8,7 @@ const sinon = require('sinon');
 
 
 const vbus = require('../../src/index');
+// const vbus = require('../../dist/index');
 
 
 

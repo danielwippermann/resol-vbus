@@ -3,14 +3,14 @@
 
 
 
+const {
+    Converter,
+    HeaderSet,
+    Packet,
+} = require('./resol-vbus');
+
+
 const expect = require('./expect');
-const vbus = require('./resol-vbus');
-
-
-
-const Converter = vbus.Converter;
-const HeaderSet = vbus.HeaderSet;
-const Packet = vbus.Packet;
 
 
 
@@ -206,7 +206,7 @@ describe('Converter', () => {
             const onHeaderSet = sinon.spy();
             converter.on('headerSet', onHeaderSet);
 
-            return vbus.utils.promise((resolve, reject) => {
+            return new Promise((resolve, reject) => {
                 converter.on('finish', () => {
                     resolve();
                 });
@@ -264,7 +264,7 @@ describe('Converter', () => {
             const onData = sinon.spy();
             converter.on('data', onData);
 
-            return vbus.utils.promise((resolve, reject) => {
+            return new Promise((resolve, reject) => {
                 converter.on('end', () => {
                     resolve();
                 });

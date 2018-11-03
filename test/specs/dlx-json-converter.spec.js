@@ -3,19 +3,18 @@
 
 
 
+const {
+    DLxJsonConverter,
+    HeaderSet,
+    Packet,
+    Specification,
+    VBusRecordingConverter,
+    utils: { promisify },
+} = require('./resol-vbus');
+
+
 const expect = require('./expect');
-const Q = require('./q');
-const vbus = require('./resol-vbus');
 const testUtils = require('./test-utils');
-
-
-
-const HeaderSet = vbus.HeaderSet;
-const Packet = vbus.Packet;
-
-const VBusRecordingConverter = vbus.VBusRecordingConverter;
-
-const DLxJsonConverter = vbus.DLxJsonConverter;
 
 
 
@@ -95,7 +94,7 @@ describe('DLxJsonConverter', () => {
 
             converter.convertHeaderSet(headerSet);
 
-            return Q.fcall(() => {
+            return promisify(() => {
                 return converter.finish();
             }).then(() => {
                 expect(onData.callCount).to.equal(7);
@@ -156,7 +155,7 @@ describe('DLxJsonConverter', () => {
                 buffers.push(chunk);
             });
 
-            return vbus.utils.promise((resolve, reject) => {
+            return new Promise((resolve, reject) => {
                 inConv.on('headerSet', onHeaderSet);
 
                 inConv.once('finish', () => {
@@ -169,7 +168,7 @@ describe('DLxJsonConverter', () => {
 
                 inConv.end();
             }).then(() => {
-                return vbus.utils.promise((resolve, reject) => {
+                return new Promise((resolve, reject) => {
                     expect(onHeaderSet.callCount).to.equal(1);
 
                     expect(onData.callCount).to.equal(2);
@@ -236,7 +235,7 @@ describe('DLxJsonConverter', () => {
                 }]
             };
 
-            const spec = new vbus.Specification({
+            const spec = new Specification({
                 specificationData: rawSpecificationData1
             });
 
@@ -247,7 +246,7 @@ describe('DLxJsonConverter', () => {
 
             const dataChunks = [];
 
-            return vbus.utils.promise((resolve, reject) => {
+            return new Promise((resolve, reject) => {
                 const headerSet = new HeaderSet({
                     timestamp: new Date(1387893006829),
                     headers: [ packet2 ]
@@ -367,7 +366,7 @@ describe('DLxJsonConverter', () => {
                 }]
             };
 
-            const spec = new vbus.Specification({
+            const spec = new Specification({
                 specificationData: rawSpecificationData1
             });
 
@@ -378,7 +377,7 @@ describe('DLxJsonConverter', () => {
 
             const dataChunks = [];
 
-            return vbus.utils.promise((resolve, reject) => {
+            return new Promise((resolve, reject) => {
                 const headerSet = new HeaderSet({
                     timestamp: new Date(1387893006829),
                     headers: [ packet2 ]

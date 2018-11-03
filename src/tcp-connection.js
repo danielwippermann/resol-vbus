@@ -9,7 +9,7 @@ const tls = require('tls');
 
 const Connection = require('./connection');
 const _ = require('./lodash');
-const Q = require('./q');
+const { promisify } = require('./utils');
 
 
 
@@ -151,256 +151,250 @@ const TcpConnection = Connection.extend(/** @lends TcpConnection# */ {
 
         let socket;
 
-        let deferred = Q.defer();
-        const promise = deferred.promise;
-
-        const done = function(err, result) {
-            if (deferred) {
+        return new Promise((resolve, reject) => {
+            const done = function(err, result) {
                 if (err) {
-                    deferred.reject(err);
+                    reject(err);
                 } else {
-                    deferred.resolve(result);
+                    resolve(result);
                 }
-                deferred = null;
-            }
-        };
+            };
 
-        let options = {
-            host: this.host,
-            port: this.port
-        };
+            let options = {
+                host: this.host,
+                port: this.port
+            };
 
-        let phase = this.rawVBusDataOnly ? 1000 : 0;
-        let rxBuffer = null;
+            let phase = this.rawVBusDataOnly ? 1000 : 0;
+            let rxBuffer = null;
 
-        const write = function() {
-            return socket.write.apply(socket, arguments);
-        };
+            const write = function() {
+                return socket.write.apply(socket, arguments);
+            };
 
-        const onConnectionEstablished = function() {
-            _this.reconnectTimeout = 0;
+            const onConnectionEstablished = function() {
+                _this.reconnectTimeout = 0;
 
-            _this._setConnectionState(TcpConnection.STATE_CONNECTED);
+                _this._setConnectionState(TcpConnection.STATE_CONNECTED);
 
-            done();
-        };
+                done();
+            };
 
-        const onConnect = function() {
-            if (phase === 1000) {
-                onConnectionEstablished();
-            }
-        };
-
-        const channelList = [];
-
-        const onLine = function(line) {
-            let newPhase = -1;
-            if (line [0] === '+') {
-                if (phase === 0) {
-                    if (_this.viaTag) {
-                        // CONNECT ...
-                        newPhase = 20;
-                    } else {
-                        // PASS ...
-                        newPhase = 40;
-                    }
-                } else if (phase === 20) {
-                    newPhase = 40;
-                } else if (phase === 40) {
-                    if (_this.channelListCallback) {
-                        newPhase = 60;
-                    } else if (_this.channel) {
-                        newPhase = 80;
-                    } else {
-                        newPhase = 900;
-                    }
-                } else if (phase === 60) {
-                    newPhase = 70;
-                    _this.channelListCallback(channelList, (err, channel) => {
-                        if (err) {
-                            done(err);
-                        } else {
-                            if (channel !== undefined) {
-                                if (_.isNumber(channel)) {
-                                    _this.channel = channel;
-                                } else if (_.isString(channel)) {
-                                    _this.channel = parseInt(channel);
-                                } else if (_.isObject(channel) && _.has(channel, 'channel')) {
-                                    _this.channel = channel.channel;
-                                } else {
-                                    done(new Error('Invalid channel selection ' + JSON.stringify(channel)));
-                                }
-                            }
-
-                            if (_this.channel) {
-                                newPhase = 80;
-                            } else {
-                                newPhase = 900;
-                            }
-                        }
-                    });
-                } else if (phase === 80) {
-                    newPhase = 900;
-                } else if (phase === 900) {
-                    newPhase = 1000;
-                }
-            } else if (line [0] === '-') {
-                newPhase = 800;
-                done(new Error('Remote side responded with ' + JSON.stringify(line)));
-            } else if (line [0] === '*') {
-                if (phase === 60) {
-                    const md = /^\*([\d]+):(.*)$/.exec(line);
-                    if (md) {
-                        channelList.push({
-                            channel: md [1],
-                            name: md [2],
-                        });
-                    }
-                }
-            } else {
-                // nop
-            }
-
-            if (newPhase >= 0) {
-                phase = newPhase;
-
-                if (phase === 20) {
-                    // CONNECT
-                    write('CONNECT ' + _this.viaTag + '\r\n');
-                } else if (phase === 40) {
-                    // PASS
-                    write('PASS ' + _this.password + '\r\n');
-                } else if (phase === 60) {
-                    // CHANNELLIST
-                    write('CHANNELLIST\r\n');
-                } else if (phase === 80) {
-                    // CHANNEL
-                    write('CHANNEL ' + _this.channel + '\r\n');
-                } else if (phase === 800) {
-                    // QUIT
-                    write('QUIT\r\n');
-                } else if (phase === 900) {
-                    // DATA
-                    write('DATA\r\n');
-                } else if (phase === 1000) {
+            const onConnect = function() {
+                if (phase === 1000) {
                     onConnectionEstablished();
                 }
-            }
-        };
+            };
 
-        const onSocketData = function(chunk) {
-            // console.log('onData');
+            const channelList = [];
 
-            if (phase < 1000) {
-                // console.log(chunk.toString('utf8'));
+            const onLine = function(line) {
+                let newPhase = -1;
+                if (line [0] === '+') {
+                    if (phase === 0) {
+                        if (_this.viaTag) {
+                            // CONNECT ...
+                            newPhase = 20;
+                        } else {
+                            // PASS ...
+                            newPhase = 40;
+                        }
+                    } else if (phase === 20) {
+                        newPhase = 40;
+                    } else if (phase === 40) {
+                        if (_this.channelListCallback) {
+                            newPhase = 60;
+                        } else if (_this.channel) {
+                            newPhase = 80;
+                        } else {
+                            newPhase = 900;
+                        }
+                    } else if (phase === 60) {
+                        newPhase = 70;
+                        _this.channelListCallback(channelList, (err, channel) => {
+                            if (err) {
+                                done(err);
+                            } else {
+                                if (channel !== undefined) {
+                                    if (_.isNumber(channel)) {
+                                        _this.channel = channel;
+                                    } else if (_.isString(channel)) {
+                                        _this.channel = parseInt(channel);
+                                    } else if (_.isObject(channel) && _.has(channel, 'channel')) {
+                                        _this.channel = channel.channel;
+                                    } else {
+                                        done(new Error('Invalid channel selection ' + JSON.stringify(channel)));
+                                    }
+                                }
 
-                let buffer;
-                if (rxBuffer) {
-                    buffer = Buffer.concat([ rxBuffer, chunk ]);
+                                if (_this.channel) {
+                                    newPhase = 80;
+                                } else {
+                                    newPhase = 900;
+                                }
+                            }
+                        });
+                    } else if (phase === 80) {
+                        newPhase = 900;
+                    } else if (phase === 900) {
+                        newPhase = 1000;
+                    }
+                } else if (line [0] === '-') {
+                    newPhase = 800;
+                    done(new Error('Remote side responded with ' + JSON.stringify(line)));
+                } else if (line [0] === '*') {
+                    if (phase === 60) {
+                        const md = /^\*([\d]+):(.*)$/.exec(line);
+                        if (md) {
+                            channelList.push({
+                                channel: md [1],
+                                name: md [2],
+                            });
+                        }
+                    }
                 } else {
-                    buffer = chunk;
+                    // nop
                 }
 
-                let start = 0, index = 0;
-                /* eslint-disable-next-line no-unmodified-loop-condition */
-                while ((index < buffer.length) && (phase < 1000)) {
-                    if ((buffer [index] === 13) || (buffer [index] === 10)) {
-                        if (start < index) {
-                            const line = buffer.toString('utf8', start, index);
-                            onLine(line);
+                if (newPhase >= 0) {
+                    phase = newPhase;
+
+                    if (phase === 20) {
+                        // CONNECT
+                        write('CONNECT ' + _this.viaTag + '\r\n');
+                    } else if (phase === 40) {
+                        // PASS
+                        write('PASS ' + _this.password + '\r\n');
+                    } else if (phase === 60) {
+                        // CHANNELLIST
+                        write('CHANNELLIST\r\n');
+                    } else if (phase === 80) {
+                        // CHANNEL
+                        write('CHANNEL ' + _this.channel + '\r\n');
+                    } else if (phase === 800) {
+                        // QUIT
+                        write('QUIT\r\n');
+                    } else if (phase === 900) {
+                        // DATA
+                        write('DATA\r\n');
+                    } else if (phase === 1000) {
+                        onConnectionEstablished();
+                    }
+                }
+            };
+
+            const onSocketData = function(chunk) {
+                // console.log('onData');
+
+                if (phase < 1000) {
+                    // console.log(chunk.toString('utf8'));
+
+                    let buffer;
+                    if (rxBuffer) {
+                        buffer = Buffer.concat([ rxBuffer, chunk ]);
+                    } else {
+                        buffer = chunk;
+                    }
+
+                    let start = 0, index = 0;
+                    /* eslint-disable-next-line no-unmodified-loop-condition */
+                    while ((index < buffer.length) && (phase < 1000)) {
+                        if ((buffer [index] === 13) || (buffer [index] === 10)) {
+                            if (start < index) {
+                                const line = buffer.toString('utf8', start, index);
+                                onLine(line);
+                            }
+
+                            start = index + 1;
                         }
 
-                        start = index + 1;
+                        index++;
                     }
 
-                    index++;
-                }
+                    if (start < buffer.length) {
+                        if (phase >= 1000) {
+                            _this._write(buffer.slice(start));
 
-                if (start < buffer.length) {
-                    if (phase >= 1000) {
-                        _this._write(buffer.slice(start));
-
-                        rxBuffer = null;
+                            rxBuffer = null;
+                        } else {
+                            rxBuffer = buffer.slice(start);
+                        }
                     } else {
-                        rxBuffer = buffer.slice(start);
+                        rxBuffer = null;
                     }
                 } else {
-                    rxBuffer = null;
+                    _this._write(chunk);
                 }
-            } else {
-                _this._write(chunk);
-            }
-        };
+            };
 
-        const onConnectionData = function(chunk) {
-            write(chunk);
-        };
+            const onConnectionData = function(chunk) {
+                write(chunk);
+            };
 
-        const onSocketTermination = function() {
-            _this.removeListener('data', onConnectionData);
+            const onSocketTermination = function() {
+                _this.removeListener('data', onConnectionData);
 
-            if (_this.socket !== socket) {
-                // nop
-            } else if (!force && (_this.connectionState === TcpConnection.STATE_CONNECTING)) {
-                // failed to connect
-                _this._setConnectionState(TcpConnection.STATE_DISCONNECTED);
+                if (_this.socket !== socket) {
+                    // nop
+                } else if (!force && (_this.connectionState === TcpConnection.STATE_CONNECTING)) {
+                    // failed to connect
+                    _this._setConnectionState(TcpConnection.STATE_DISCONNECTED);
 
-                _this.socket = null;
+                    _this.socket = null;
 
-                done(new Error('Unable to connect'));
-            } else if (_this.connectionState === TcpConnection.STATE_DISCONNECTING) {
-                _this._setConnectionState(TcpConnection.STATE_DISCONNECTED);
+                    done(new Error('Unable to connect'));
+                } else if (_this.connectionState === TcpConnection.STATE_DISCONNECTING) {
+                    _this._setConnectionState(TcpConnection.STATE_DISCONNECTED);
 
-                _this.socket = null;
-            } else {
-                _this._setConnectionState(TcpConnection.STATE_INTERRUPTED);
+                    _this.socket = null;
+                } else {
+                    _this._setConnectionState(TcpConnection.STATE_INTERRUPTED);
 
-                _this.socket = null;
+                    _this.socket = null;
 
-                const timeout = _this.reconnectTimeout;
-                if (_this.reconnectTimeout < _this.reconnectTimeoutMax) {
-                    _this.reconnectTimeout += _this.reconnectTimeoutIncr;
+                    const timeout = _this.reconnectTimeout;
+                    if (_this.reconnectTimeout < _this.reconnectTimeoutMax) {
+                        _this.reconnectTimeout += _this.reconnectTimeoutIncr;
+                    }
+
+                    setTimeout(() => {
+                        _this._setConnectionState(TcpConnection.STATE_RECONNECTING);
+
+                        _this._connect();
+                    }, timeout);
                 }
+            };
 
-                setTimeout(() => {
-                    _this._setConnectionState(TcpConnection.STATE_RECONNECTING);
+            const onEnd = function() {
+                onSocketTermination();
+            };
 
-                    _this._connect();
-                }, timeout);
+            const onError = function(/* err */) {
+                socket.destroy();
+                onSocketTermination();
+            };
+
+            const onTimeout = function() {
+                socket.destroy();
+                onSocketTermination();
+            };
+
+            this.on('data', onConnectionData);
+
+            if (this.tlsOptions) {
+                options = _.extend(options, this.tlsOptions);
+                socket = tls.connect(options, onConnect);
+            } else {
+                socket = net.connect(options, onConnect);
             }
-        };
+            socket.on('data', onSocketData);
+            socket.on('end', onEnd);
+            socket.on('error', onError);
+            socket.setTimeout(30000, onTimeout);
+            socket.setKeepAlive(true, 60000);
 
-        const onEnd = function() {
-            onSocketTermination();
-        };
-
-        const onError = function(/* err */) {
-            socket.destroy();
-            onSocketTermination();
-        };
-
-        const onTimeout = function() {
-            socket.destroy();
-            onSocketTermination();
-        };
-
-        this.on('data', onConnectionData);
-
-        if (this.tlsOptions) {
-            options = _.extend(options, this.tlsOptions);
-            socket = tls.connect(options, onConnect);
-        } else {
-            socket = net.connect(options, onConnect);
-        }
-        socket.on('data', onSocketData);
-        socket.on('end', onEnd);
-        socket.on('error', onError);
-        socket.setTimeout(30000, onTimeout);
-        socket.setKeepAlive(true, 60000);
-
-        this.socket = socket;
-
-        return promise;
+            this.socket = socket;
+        });
     },
 
 });

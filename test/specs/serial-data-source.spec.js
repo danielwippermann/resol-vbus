@@ -3,14 +3,13 @@
 
 
 
+const {
+    SerialConnection,
+    SerialDataSource,
+} = require('./resol-vbus');
+
+
 const expect = require('./expect');
-const Q = require('./q');
-const vbus = require('./resol-vbus');
-
-
-
-const SerialConnection = vbus.SerialConnection;
-const SerialDataSource = vbus.SerialDataSource;
 
 
 
@@ -40,25 +39,23 @@ describe('SerialDataSource', () => {
                 .that.is.a('function');
         });
 
-        it('should work correctly', () => {
+        it('should work correctly', async () => {
             const originalConnect = SerialConnection.prototype.connect;
 
             SerialConnection.prototype.connect = function() {
-                return Q(null);
+                return Promise.resolve(null);
             };
 
             const ds = new SerialDataSource();
 
-            const promise = Q.fcall(() => {
-                return ds.connectLive();
-            }).then((connection) => {
+            try {
+                const connection = await ds.connectLive();
+
                 expect(connection)
                     .to.be.instanceOf(SerialConnection);
-            });
-
-            return vbus.utils.promiseFinally(promise, () => {
+            } finally {
                 SerialConnection.prototype.connect = originalConnect;
-            });
+            }
         });
 
     });

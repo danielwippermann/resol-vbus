@@ -3,16 +3,19 @@
 
 
 
+const {
+    ConfigurationOptimizerFactory,
+    utils: { promisify },
+} = require('../resol-vbus');
+
+
 const expect = require('../expect');
 const _ = require('../lodash');
-const Q = require('../q');
-const vbus = require('../resol-vbus');
-
 const testUtils = require('../test-utils');
 
 
 
-const optimizerPromise = vbus.ConfigurationOptimizerFactory.createOptimizerByDeviceAddress(0x2211);
+const optimizerPromise = ConfigurationOptimizerFactory.createOptimizerByDeviceAddress(0x2211);
 
 
 
@@ -32,7 +35,7 @@ describe('ResolDeltaSolCsPlusXxxConfigurationOptimizer', () => {
 
         it('should work correctly', () => {
             return optimizerPromise.then((optimizer) => {
-                return Q.fcall(() => {
+                return promisify(() => {
                     return testUtils.expectPromise(optimizer.completeConfiguration());
                 }).then((config) => {
                     expect(config).an('array').lengthOf(82);
@@ -46,7 +49,7 @@ describe('ResolDeltaSolCsPlusXxxConfigurationOptimizer', () => {
 
         it('should work correctly after', () => {
             return optimizerPromise.then((optimizer) => {
-                return Q.fcall(() => {
+                return promisify(() => {
                     return testUtils.expectPromise(optimizer.completeConfiguration());
                 }).then((config) => {
                     return testUtils.expectPromise(optimizer.optimizeLoadConfiguration(config));

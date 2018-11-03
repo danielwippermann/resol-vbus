@@ -3,21 +3,22 @@
 
 
 
-const Duplex = require('stream').Duplex;
+const { Duplex } = require('stream');
+
+
+const {
+    SerialConnection,
+    extend,
+    utils: { promisify },
+} = require('./resol-vbus');
 
 
 const expect = require('./expect');
-const Q = require('./q');
-const vbus = require('./resol-vbus');
 const testUtils = require('./test-utils');
 
 
 
-const SerialConnection = vbus.SerialConnection;
-
-
-
-const SerialPortStub = vbus.extend(Duplex, {
+const SerialPortStub = extend(Duplex, {
 
     constructor(path, options, onCompletion) {
         const _this = this;
@@ -58,7 +59,7 @@ const testConnection = function(done, callback) {
         path: testUtils.serialPortPath,
     });
 
-    Q.fcall(() => {
+    promisify(() => {
         expect(connection.connectionState).to.equal(SerialConnection.STATE_DISCONNECTED);
 
         return callback(connection);
@@ -116,7 +117,7 @@ describe('SerialConnection', () => {
 
                 connection.on('connectionState', onConnectionState);
 
-                return Q.fcall(() => {
+                return promisify(() => {
                     return connection.connect();
                 }).then(() => {
                     expect(connection.connectionState).to.equal(SerialConnection.STATE_CONNECTED);
@@ -131,7 +132,7 @@ describe('SerialConnection', () => {
 
         ifHasSerialPortIt('should throw if not disconnected', (done) => {
             testConnection(done, (connection, endpoint) => {
-                return Q.fcall(() => {
+                return promisify(() => {
                     return connection.connect();
                 }).then(() => {
                     expect(() => {
@@ -163,7 +164,7 @@ describe('SerialConnection', () => {
 
                 connection.on('connectionState', onConnectionState);
 
-                return Q.fcall(() => {
+                return promisify(() => {
                     return connection.connect();
                 }).then(() => {
                     return connection.disconnect();
@@ -183,7 +184,7 @@ describe('SerialConnection', () => {
 
                 connection.on('connectionState', onConnectionState);
 
-                return Q.fcall(() => {
+                return promisify(() => {
                     return connection.connect();
                 }).then(() => {
                     return connection.createConnectedPromise();

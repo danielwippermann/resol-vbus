@@ -12,7 +12,7 @@ const Duplex = require('stream').Duplex;
 const Header = require('./header');
 const HeaderSet = require('./header-set');
 const _ = require('./lodash');
-const Q = require('./q');
+const { promisify } = require('./utils');
 
 const extend = require('./extend');
 
@@ -103,7 +103,7 @@ const Converter = extend(Duplex, /** @lends Converter# */ {
     finish() {
         const _this = this;
 
-        return Q.fcall(() => {
+        return promisify(() => {
             _this.push(null);
 
             return _this.finishedPromise;

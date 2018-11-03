@@ -3,13 +3,13 @@
 
 
 
+const {
+    Customizer,
+    utils: { promisify },
+} = require('./resol-vbus');
+
+
 const expect = require('./expect');
-const Q = require('./q');
-const vbus = require('./resol-vbus');
-
-
-
-const Customizer = vbus.Customizer;
 
 
 
@@ -65,7 +65,7 @@ describe('Customizer', () => {
             });
 
             customizer._loadConfiguration = sinon.spy((configuration) => {
-                return Q(configuration);
+                return Promise.resolve(configuration);
             });
 
             const inConfig = [{
@@ -74,7 +74,7 @@ describe('Customizer', () => {
                 valueIndex: 0x0001,
             }];
 
-            return Q.fcall(() => {
+            return promisify(() => {
                 return customizer.loadConfiguration(inConfig);
             }).then((outConfig) => {
                 expect(customizer._loadConfiguration).property('callCount').equal(1);
@@ -83,10 +83,10 @@ describe('Customizer', () => {
             });
         });
 
-        it('should work correctly with an optimizer', () => {
+        it('should work correctly with an optimizer', async () => {
             const optimizer = {
                 completeConfiguration(config) {
-                    return Q(config);
+                    return Promise.resolve(config);
                 },
             };
 
@@ -95,7 +95,7 @@ describe('Customizer', () => {
             });
 
             customizer._loadConfiguration = sinon.spy((configuration) => {
-                return Q(configuration);
+                return Promise.resolve(configuration);
             });
 
             const inConfig = [{
@@ -104,13 +104,11 @@ describe('Customizer', () => {
                 valueIndex: 0x0001,
             }];
 
-            return Q.fcall(() => {
-                return customizer.loadConfiguration(inConfig);
-            }).then((outConfig) => {
-                expect(customizer._loadConfiguration).property('callCount').equal(1);
+            const outConfig = await customizer.loadConfiguration(inConfig);
 
-                expect(outConfig).equal(inConfig);
-            });
+            expect(customizer._loadConfiguration).property('callCount').equal(1);
+
+            expect(outConfig).equal(inConfig);
         });
 
     });
@@ -143,7 +141,7 @@ describe('Customizer', () => {
             });
 
             customizer._saveConfiguration = sinon.spy((configuration) => {
-                return Q(configuration);
+                return Promise.resolve(configuration);
             });
 
             const inConfig = [{
@@ -152,7 +150,7 @@ describe('Customizer', () => {
                 valueIndex: 0x0001,
             }];
 
-            return Q.fcall(() => {
+            return promisify(() => {
                 return customizer.saveConfiguration(inConfig);
             }).then((outConfig) => {
                 expect(customizer._saveConfiguration).property('callCount').equal(1);
@@ -164,7 +162,7 @@ describe('Customizer', () => {
         it('should work correctly with an optimizer', () => {
             const optimizer = {
                 completeConfiguration(config) {
-                    return Q(config);
+                    return Promise.resolve(config);
                 },
             };
 
@@ -173,7 +171,7 @@ describe('Customizer', () => {
             });
 
             customizer._saveConfiguration = sinon.spy((configuration) => {
-                return Q(configuration);
+                return Promise.resolve(configuration);
             });
 
             const inConfig = [{
@@ -182,7 +180,7 @@ describe('Customizer', () => {
                 valueIndex: 0x0001,
             }];
 
-            return Q.fcall(() => {
+            return promisify(() => {
                 return customizer.saveConfiguration(inConfig);
             }).then((outConfig) => {
                 expect(customizer._saveConfiguration).property('callCount').equal(1);

@@ -11,8 +11,7 @@ const Header = require('./header');
 const HeaderSet = require('./header-set');
 const HeaderSetConsolidator = require('./header-set-consolidator');
 const _ = require('./lodash');
-const Q = require('./q');
-const utils = require('./utils');
+const { generateGUID } = require('./utils');
 
 
 
@@ -92,7 +91,7 @@ const Recorder = extend(EventEmitter, /** @lends Recorder# */ {
         _.extend(this, _.pick(options, optionKeys));
 
         if (!this.id) {
-            this.id = utils.generateGUID();
+            this.id = generateGUID();
         }
         if (!this.minTimestamp) {
             this.minTimestamp = new Date(Date.UTC(2001, 0));
@@ -116,7 +115,7 @@ const Recorder = extend(EventEmitter, /** @lends Recorder# */ {
      * @param {number} [options.interval] {@link Recorder#interval}
      * @param {boolean} [options.end=true] Whether the stream should be `end()`ed when the playback is complete
      */
-    playback(stream, options) {
+    async playback(stream, options) {
         const _this = this;
 
         options = _.defaults({}, options, this._getOptions(), {
@@ -148,19 +147,17 @@ const Recorder = extend(EventEmitter, /** @lends Recorder# */ {
             stream.write(headerSet);
         });
 
-        return Q.fcall(() => {
-            return _this._playback(headerSetConsolidator, options);
-        }).then(() => {
-            if (options.end) {
-                return new Promise((resolve) => {
-                    stream.end(() => {
-                        resolve();
-                    });
+        await _this._playback(headerSetConsolidator, options);
+
+        if (options.end) {
+            await new Promise((resolve) => {
+                stream.end(() => {
+                    resolve();
                 });
-            }
-        }).then(() => {
-            return playedBackRanges;
-        });
+            });
+        }
+
+        return playedBackRanges;
     },
 
     _playback(headerSetConsolidator, options) {
@@ -177,7 +174,7 @@ const Recorder = extend(EventEmitter, /** @lends Recorder# */ {
      * @param {number} [options.interval] See {@link Recorder#interval}
      * @return {Promise} A Promise that resolves to the recorded ranges.
      */
-    record(stream, options) {
+    async record(stream, options) {
         const _this = this;
 
         options = _.defaults({}, options, this._getOptions(), {
@@ -211,54 +208,50 @@ const Recorder = extend(EventEmitter, /** @lends Recorder# */ {
             recordedRanges,
         });
 
-        return Q.fcall(() => {
-            return _this._startRecording(headerSetConsolidator, recordingJob);
-        }).then((recording) => {
-            const promise = Q.fcall(() => {
-                return utils.promise((resolve, reject) => {
-                    let onData = undefined, onEnd = undefined, onError = undefined;
+        const recording = await _this._startRecording(headerSetConsolidator, recordingJob);
 
-                    const cleanup = function() {
-                        stream.removeListener('data', onData);
-                        stream.removeListener('end', onEnd);
-                        stream.removeListener('error', onError);
-                    };
+        try {
+            await new Promise((resolve, reject) => {
+                let onData = undefined, onEnd = undefined, onError = undefined;
 
-                    onData = function(obj) {
-                        if (obj instanceof Header) {
-                            headerSetConsolidator.addHeader(obj);
-                        } else if (obj instanceof HeaderSet) {
-                            headerSetConsolidator.processHeaderSet(obj);
-                        } else {
-                            throw new Error('Unsupported object received by Recorder');
-                        }
-                    };
+                const cleanup = function() {
+                    stream.removeListener('data', onData);
+                    stream.removeListener('end', onEnd);
+                    stream.removeListener('error', onError);
+                };
 
-                    onEnd = function() {
-                        cleanup();
+                onData = function(obj) {
+                    if (obj instanceof Header) {
+                        headerSetConsolidator.addHeader(obj);
+                    } else if (obj instanceof HeaderSet) {
+                        headerSetConsolidator.processHeaderSet(obj);
+                    } else {
+                        throw new Error('Unsupported object received by Recorder');
+                    }
+                };
 
-                        resolve();
-                    };
+                onEnd = function() {
+                    cleanup();
 
-                    onError = function(err) {
-                        cleanup();
+                    resolve();
+                };
 
-                        reject(err);
-                    };
+                onError = function(err) {
+                    cleanup();
 
-                    stream.on('data', onData);
-                    stream.on('end', onEnd);
-                    stream.on('error', onError);
-                    stream.resume();
-                });
+                    reject(err);
+                };
+
+                stream.on('data', onData);
+                stream.on('end', onEnd);
+                stream.on('error', onError);
+                stream.resume();
             });
+        } finally {
+            await _this._endRecording(headerSetConsolidator, recordingJob, recording);
+        }
 
-            return utils.promiseFinally(promise, () => {
-                return _this._endRecording(headerSetConsolidator, recordingJob, recording);
-            });
-        }).then(() => {
-            return recordedRanges;
-        });
+        return recordedRanges;
     },
 
     _startRecording(headerSetConsolidator, recordingJob) {
@@ -279,27 +272,25 @@ const Recorder = extend(EventEmitter, /** @lends Recorder# */ {
      * @param {number} [options.interval] {@link Recorder#interval}
      * @returns {Promise} Promise resolving with a list of ranges that were synchronized.
      */
-    synchronizeTo(recorder, options) {
+    async synchronizeTo(recorder, options) {
         const _this = this;
 
         options = _.extend({}, this._getOptions(), options);
 
-        return Q.fcall(() => {
-            return recorder._getCurrentSyncState(options);
-        }).then((oldSyncState) => {
-            oldSyncState = _.cloneDeep(oldSyncState);
+        let oldSyncState = await recorder._getCurrentSyncState(options);
 
-            if (!oldSyncState.sourceSyncState) {
-                oldSyncState.sourceSyncState = {};
-            }
-            if (!oldSyncState.destinationSyncState) {
-                oldSyncState.destinationSyncState = {};
-            }
+        oldSyncState = _.cloneDeep(oldSyncState);
 
-            return _this._getSyncJob(oldSyncState, options);
-        }).then((syncJob) => {
-            return recorder._recordSyncJob(_this, syncJob);
-        });
+        if (!oldSyncState.sourceSyncState) {
+            oldSyncState.sourceSyncState = {};
+        }
+        if (!oldSyncState.destinationSyncState) {
+            oldSyncState.destinationSyncState = {};
+        }
+
+        const syncJob = await _this._getSyncJob(oldSyncState, options);
+
+        return recorder._recordSyncJob(_this, syncJob);
     },
 
     _getCurrentSyncState(options) {
@@ -308,7 +299,7 @@ const Recorder = extend(EventEmitter, /** @lends Recorder# */ {
 
     _getSyncJob(oldSyncState, options) {
         const syncJob = _.extend({}, options, {
-            syncId: utils.generateGUID(),
+            syncId: generateGUID(),
             syncState: oldSyncState,
             syncStateDiffs: [],
         });
@@ -350,7 +341,7 @@ const Recorder = extend(EventEmitter, /** @lends Recorder# */ {
 
         syncJob.syncStateDiffs = syncStateDiffs;
 
-        return Q(syncJob);
+        return Promise.resolve(syncJob);
     },
 
     /**

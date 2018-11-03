@@ -3,15 +3,15 @@
 
 
 
+const {
+    SerialDataSource,
+    SerialDataSourceProvider,
+    utils: { promisify },
+} = require('./resol-vbus');
+
+
 const expect = require('./expect');
-const Q = require('./q');
-const vbus = require('./resol-vbus');
 const testUtils = require('./test-utils');
-
-
-
-const SerialDataSource = vbus.SerialDataSource;
-const SerialDataSourceProvider = vbus.SerialDataSourceProvider;
 
 
 
@@ -58,7 +58,7 @@ describe('SerialDataSourceProvider', () => {
 
             const dsp = new TestableSerialDataSourceProvider();
 
-            return Q.fcall(() => {
+            return promisify(() => {
                 const promise = dsp.discoverDataSources();
 
                 return testUtils.expectPromise(promise);
@@ -76,7 +76,7 @@ describe('SerialDataSourceProvider', () => {
 
             const dsp = new TestableSerialDataSourceProvider();
 
-            return Q.fcall(() => {
+            return promisify(() => {
                 const promise = dsp.discoverDataSources();
 
                 return testUtils.expectPromise(promise);

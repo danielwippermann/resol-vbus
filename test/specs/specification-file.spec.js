@@ -7,13 +7,14 @@ const fs = require('fs');
 const path = require('path');
 
 
+const {
+    SpecificationFile,
+} = require('./resol-vbus');
+
+
 const expect = require('./expect');
 const _ = require('./lodash');
-const vbus = require('./resol-vbus');
 
-
-
-const SpecificationFile = vbus.SpecificationFile;
 
 
 

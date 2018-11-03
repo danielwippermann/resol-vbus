@@ -12,8 +12,7 @@ const moment = require('moment');
 
 
 const _ = require('./lodash');
-const Q = require('./q');
-const { promiseFinally } = require('./utils');
+const { promisify } = require('./utils');
 const VBusRecordingConverter = require('./vbus-recording-converter');
 
 const Recorder = require('./recorder');
@@ -78,7 +77,7 @@ const FileSystemRecorder = Recorder.extend({
     _setCurrentSyncState(syncState, options) {
         const filename = this._getCurrentSyncStateFilename(options);
 
-        return Q.fcall(() => {
+        return promisify(() => {
             return JSON.stringify(syncState, null, '    ');
         }).then((data) => {
             return new Promise((resolve, reject) => {
@@ -112,7 +111,7 @@ const FileSystemRecorder = Recorder.extend({
         return infoList;
     },
 
-    _playback(headerSetConsolidator, options) {
+    async _playback(headerSetConsolidator, options) {
         const _this = this;
 
         const converter = new VBusRecordingConverter();
@@ -126,33 +125,25 @@ const FileSystemRecorder = Recorder.extend({
             maxTimestamp: options.maxTimestamp,
         }];
 
-        return Q.fcall(() => {
-            return _this._getCurrentSyncState(options);
-        }).then((syncState) => {
-            const infoList = _this._getOwnSyncState(syncState, options);
+        const syncState = await _this._getCurrentSyncState(options);
 
-            return _.reduce(infoList, (memo, info) => {
-                const commonRanges = Recorder.performRangeSetOperation(requestedRanges, info.ranges, options.interval, 'intersection');
+        const infoList = _this._getOwnSyncState(syncState, options);
 
-                if (commonRanges.length > 0) {
-                    memo.push(info.filename);
-                }
+        const filenames = _.reduce(infoList, (memo, info) => {
+            const commonRanges = Recorder.performRangeSetOperation(requestedRanges, info.ranges, options.interval, 'intersection');
 
-                return memo;
-            }, []);
-        }).then((filenames) => {
-            let promise = Q();
+            if (commonRanges.length > 0) {
+                memo.push(info.filename);
+            }
 
-            _.forEach(filenames, (filename) => {
-                promise = promise.then(() => {
-                    return _this._readToStream(filename, converter);
-                });
-            });
+            return memo;
+        }, []);
 
-            return promise;
-        }).then(() => {
-            converter.end();
-        });
+        for (let filename of filenames) {
+            await _this._readToStream(filename, converter);
+        }
+
+        converter.end();
     },
 
     _startRecordingInternal(options) {
@@ -266,12 +257,12 @@ const FileSystemRecorder = Recorder.extend({
             outConverter.convertHeaderSet(headerSet);
         };
 
-        const finish = function() {
-            return Q.fcall(() => {
-                if (outConverter) {
-                    return outConverter.finish();
-                }
-            });
+        const finish = async function() {
+            let result;
+            if (outConverter) {
+                result = await outConverter.finish();
+            }
+            return result;
         };
 
         const recording = {
@@ -282,68 +273,62 @@ const FileSystemRecorder = Recorder.extend({
         return recording;
     },
 
-    _startRecording(headerSetConsolidator, recordingJob) {
+    async _startRecording(headerSetConsolidator, recordingJob) {
         const _this = this;
 
-        return Q.fcall(() => {
-            return _this._makeDirectories();
-        }).then(() => {
-            return _this._getCurrentSyncState(recordingJob);
-        }).then((syncState) => {
-            const options = {
-                interval: recordingJob.interval,
-                syncState,
-            };
+        await _this._makeDirectories();
 
-            const recording = _this._startRecordingInternal(options);
+        const syncState = await _this._getCurrentSyncState(recordingJob);
 
-            const flush = function() {
-                return _this._setCurrentSyncState(syncState, recordingJob);
-            };
+        const options = {
+            interval: recordingJob.interval,
+            syncState,
+        };
 
-            let flushTimer = null;
-            headerSetConsolidator.on('headerSet', (headerSet) => {
-                if (flushTimer) {
-                    clearTimeout(flushTimer);
-                    flushTimer = null;
-                }
-                flushTimer = setTimeout(flush, 5000);
+        const recording = _this._startRecordingInternal(options);
 
-                return recording.onHeaderSet(headerSet);
-            });
+        const flush = function() {
+            return _this._setCurrentSyncState(syncState, recordingJob);
+        };
 
-            const origFinish = recording.finish;
+        let flushTimer = null;
+        headerSetConsolidator.on('headerSet', (headerSet) => {
+            if (flushTimer) {
+                clearTimeout(flushTimer);
+                flushTimer = null;
+            }
+            flushTimer = setTimeout(flush, 5000);
 
-            recording.finish = function() {
-                return Q.fcall(() => {
-                    if (flushTimer) {
-                        clearTimeout(flushTimer);
-                        flushTimer = null;
-                    }
-                    return flush();
-                }).then(() => {
-                    return origFinish.call(recording);
-                });
-            };
-
-            return recording;
+            return recording.onHeaderSet(headerSet);
         });
+
+        const origFinish = recording.finish;
+
+        recording.finish = async function() {
+            if (flushTimer) {
+                clearTimeout(flushTimer);
+                flushTimer = null;
+            }
+            await flush();
+
+            return origFinish.call(recording);
+        };
+
+        return recording;
     },
 
-    _endRecording(headerSetConsolidator, recordingJob, recording) {
-        const promise = Q.fcall(() => {
-            return recording.finish();
-        });
-
-        return promiseFinally(promise, () => {
-            return headerSetConsolidator.removeListener('headerSet', recording.onHeaderSet);
-        });
+    async _endRecording(headerSetConsolidator, recordingJob, recording) {
+        try {
+            await recording.finish();
+        } finally {
+            headerSetConsolidator.removeListener('headerSet', recording.onHeaderSet);
+        }
     },
 
-    _recordSyncJob(recorder, syncJob) {
+    async _recordSyncJob(recorder, syncJob) {
         const _this = this;
 
-        /* var syncState = */ _this._getOwnSyncState(syncJob, syncJob);
+        /* const syncState = */ _this._getOwnSyncState(syncJob, syncJob);
 
         const recording = this._startRecordingInternal({
             interval: syncJob.interval,
@@ -356,33 +341,31 @@ const FileSystemRecorder = Recorder.extend({
 
         inConverter.on('headerSet', recording.onHeaderSet);
 
-        return Q.fcall(() => {
-            return _this._makeDirectories();
-        }).then(() => {
-            return recorder._playbackSyncJob(inConverter, syncJob);
-        }).then((playedBackRanges) => {
-            const promise = new Promise((resolve) => {
+        await _this._makeDirectories();
+
+        const playedBackRanges = await recorder._playbackSyncJob(inConverter, syncJob);
+
+        try {
+            await new Promise((resolve) => {
                 inConverter.end(() => {
                     resolve();
                 });
-            }).then(() => {
-                return recording.finish();
-            }).then(() => {
-                return _this._setCurrentSyncState(syncJob.syncState, syncJob);
-            }).then(() => {
-                return playedBackRanges;
             });
 
-            return promiseFinally(promise, () => {
-                inConverter.removeListener('headerSet', recording.onHeaderSet);
-            });
-        });
+            await recording.finish();
+
+            await _this._setCurrentSyncState(syncJob.syncState, syncJob);
+
+            return playedBackRanges;
+        } finally {
+            inConverter.removeListener('headerSet', recording.onHeaderSet);
+        }
     },
 
     // _playbackSyncJob: function(stream, syncJob) {
     //     var _this = this;
 
-    //     return Q.fcall(function() {
+    //     return promisify(function() {
     //         return _this._getCurrentSyncState(syncJob);
     //     }).then(function(syncState) {
     //         var infoList = _this._getOwnSyncState(syncState, syncJob);
@@ -458,16 +441,14 @@ const FileSystemRecorder = Recorder.extend({
         });
     },
 
-    _makeDirectories() {
+    async _makeDirectories() {
         const _this = this;
 
-        return Q.fcall(() => {
-            return _this._makeDirectory(_this.path);
-        }).then(() => {
-            const directory = _this._getAbsoluteFilename();
+        await _this._makeDirectory(_this.path);
 
-            return _this._makeDirectory(directory);
-        });
+        const directory = _this._getAbsoluteFilename();
+
+        await _this._makeDirectory(directory);
     },
 
 });

@@ -10,8 +10,7 @@ const url = require('url');
 
 const _ = require('./lodash');
 const TcpDataSource = require('./tcp-data-source');
-const Q = require('./q');
-const utils = require('./utils');
+const { promisify } = require('./utils');
 
 const DataSourceProvider = require('./data-source-provider');
 
@@ -56,7 +55,7 @@ const TcpDataSourceProvider = DataSourceProvider.extend(/** @lends TcpDataSource
             broadcastPort: this.broadcastPort,
         };
 
-        return Q.fcall(() => {
+        return promisify(() => {
             return TcpDataSourceProvider.discoverDevices(options);
         }).then((results) => {
             return _.map(results, (result) => {
@@ -118,102 +117,96 @@ const TcpDataSourceProvider = DataSourceProvider.extend(/** @lends TcpDataSource
     },
 
     sendBroadcast(options) {
-        let deferred = Q.defer();
-        const promise = deferred.promise;
-
-        const done = function(err, result) {
-            if (deferred) {
+        return new Promise((resolve, reject) => {
+            const done = function(err, result) {
                 if (err) {
-                    deferred.reject(err);
+                    reject(err);
                 } else {
-                    deferred.resolve(result);
+                    resolve(result);
                 }
-                deferred = null;
-            }
-        };
-
-        options = _.defaults({}, options, {
-            broadcastAddress: '255.255.255.255',
-            broadcastPort: 7053,
-            tries: 3,
-            timeout: 500,
-        });
-
-        if (options.fetchCallback === undefined) {
-            options.fetchCallback = function(address) {
-                return TcpDataSourceProvider.fetchDeviceInformation(address);
             };
-        }
 
-        const bcastAddress = options.broadcastAddress;
-        const bcastPort = options.broadcastPort;
+            options = _.defaults({}, options, {
+                broadcastAddress: '255.255.255.255',
+                broadcastPort: 7053,
+                tries: 3,
+                timeout: 500,
+            });
 
-        const addressMap = {};
-
-        const queryString = '---RESOL-BROADCAST-QUERY---';
-        const replyString = '---RESOL-BROADCAST-REPLY---';
-
-        let tries = 0;
-
-        const socket = dgram.createSocket('udp4');
-
-        const sendQuery = function() {
-            if (tries < options.tries) {
-                tries++;
-
-                const queryBuffer = Buffer.from(queryString);
-                socket.send(queryBuffer, 0, queryBuffer.length, bcastPort, bcastAddress);
-
-                setTimeout(sendQuery, options.timeout);
-            } else {
-                const keys = _.keys(addressMap).sort();
-
-                const result = _.map(keys, (key) => {
-                    return addressMap [key];
-                });
-
-                socket.close();
-
-                done(null, result);
+            if (options.fetchCallback === undefined) {
+                options.fetchCallback = function(address) {
+                    return TcpDataSourceProvider.fetchDeviceInformation(address);
+                };
             }
-        };
 
-        socket.bind(0, () => {
-            socket.setBroadcast(true);
+            const bcastAddress = options.broadcastAddress;
+            const bcastPort = options.broadcastPort;
 
-            sendQuery();
-        });
+            const addressMap = {};
 
-        socket.on('message', (msg, rinfo) => {
-            if ((rinfo.family === 'IPv4') && (rinfo.port === 7053) && (msg.length >= replyString.length)) {
-                const msgString = msg.slice(0, replyString.length).toString();
-                if (msgString === replyString) {
-                    const address = rinfo.address;
-                    if (!_.has(addressMap, address)) {
-                        addressMap [address] = options.fetchCallback(address);
+            const queryString = '---RESOL-BROADCAST-QUERY---';
+            const replyString = '---RESOL-BROADCAST-REPLY---';
+
+            let tries = 0;
+
+            const socket = dgram.createSocket('udp4');
+
+            const sendQuery = function() {
+                if (tries < options.tries) {
+                    tries++;
+
+                    const queryBuffer = Buffer.from(queryString);
+                    socket.send(queryBuffer, 0, queryBuffer.length, bcastPort, bcastAddress);
+
+                    setTimeout(sendQuery, options.timeout);
+                } else {
+                    const keys = _.keys(addressMap).sort();
+
+                    const result = _.map(keys, (key) => {
+                        return addressMap [key];
+                    });
+
+                    socket.close();
+
+                    done(null, result);
+                }
+            };
+
+            socket.bind(0, () => {
+                socket.setBroadcast(true);
+
+                sendQuery();
+            });
+
+            socket.on('message', (msg, rinfo) => {
+                if ((rinfo.family === 'IPv4') && (rinfo.port === 7053) && (msg.length >= replyString.length)) {
+                    const msgString = msg.slice(0, replyString.length).toString();
+                    if (msgString === replyString) {
+                        const address = rinfo.address;
+                        if (!_.has(addressMap, address)) {
+                            addressMap [address] = options.fetchCallback(address);
+                        }
                     }
                 }
-            }
+            });
+
+            socket.on('error', (err) => {
+                socket.close();
+
+                done(err);
+            });
         });
-
-        socket.on('error', (err) => {
-            socket.close();
-
-            done(err);
-        });
-
-        return promise;
     },
 
     fetchDeviceInformation(address, port) {
         if (port === undefined) {
-            return Q.fcall(() => {
+            return promisify(() => {
                 return TcpDataSourceProvider.fetchDeviceInformation(address, 80);
             }).fail(() => {
                 return TcpDataSourceProvider.fetchDeviceInformation(address, 3000);
             });
         } else {
-            return utils.promise((resolve, reject) => {
+            return new Promise((resolve, reject) => {
                 let portSuffix;
                 if (port !== 80) {
                     portSuffix = ':' + port;

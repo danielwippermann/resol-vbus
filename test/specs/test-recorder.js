@@ -10,14 +10,14 @@ const path = require('path');
 const moment = require('moment');
 
 
+const {
+    Recorder,
+    VBusRecordingConverter,
+    utils: { promisify },
+} = require('./resol-vbus');
+
+
 const _ = require('./lodash');
-const Q = require('./q');
-const vbus = require('./resol-vbus');
-
-
-
-const Recorder = vbus.Recorder;
-const VBusRecordingConverter = vbus.VBusRecordingConverter;
 
 
 
@@ -40,7 +40,7 @@ const TestRecorder = Recorder.extend({
         this.syncState = {};
     },
 
-    _playback(headerSetConsolidator, options) {
+    async _playback(headerSetConsolidator, options) {
         const _this = this;
 
         const converter = new VBusRecordingConverter();
@@ -52,53 +52,45 @@ const TestRecorder = Recorder.extend({
         const minFilename = moment.utc(options.minTimestamp).format('YYYYMMDD');
         const maxFilename = moment.utc(options.maxTimestamp).format('YYYYMMDD');
 
-        return Q.fcall(() => {
-            return vbus.utils.promise((resolve, reject) => {
-                fs.readdir(_this.fixturesPath, (err, files) => {
-                    if (err) {
-                        reject(err);
-                    } else {
-                        resolve(files);
-                    }
-                });
-            });
-        }).then((filenames) => {
-            return _.reduce(filenames, (memo, filename) => {
-                const filenamePrefix = filename.slice(0, minFilename.length);
-
-                if ((filenamePrefix >= minFilename) && (filenamePrefix <= maxFilename)) {
-                    memo.push(filename);
+        const filenames = await new Promise((resolve, reject) => {
+            fs.readdir(_this.fixturesPath, (err, files) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(files);
                 }
+            });
+        });
 
-                return memo;
-            }, []);
-        }).then((filenames) => {
-            let promise = Q();
+        const matchingFilenames = filenames.reduce((memo, filename) => {
+            const filenamePrefix = filename.slice(0, minFilename.length);
 
-            _.forEach(filenames, (filename) => {
-                promise = promise.then(() => {
-                    return vbus.utils.promise((resolve, reject) => {
-                        const fullFilename = path.join(_this.fixturesPath, filename);
+            if ((filenamePrefix >= minFilename) && (filenamePrefix <= maxFilename)) {
+                memo.push(filename);
+            }
 
-                        const stream = fs.createReadStream(fullFilename);
+            return memo;
+        }, []);
 
-                        stream.pipe(converter, { end: false });
+        for (let filename of matchingFilenames) {
+            await new Promise((resolve, reject) => {
+                const fullFilename = path.join(_this.fixturesPath, filename);
 
-                        stream.on('end', () => {
-                            resolve();
-                        });
+                const stream = fs.createReadStream(fullFilename);
 
-                        stream.on('error', (err) => {
-                            reject(err);
-                        });
-                    });
+                stream.pipe(converter, { end: false });
+
+                stream.on('end', () => {
+                    resolve();
+                });
+
+                stream.on('error', (err) => {
+                    reject(err);
                 });
             });
+        }
 
-            return promise;
-        }).then(() => {
-            converter.end();
-        });
+        converter.end();
     },
 
     _getCurrentSyncState(options) {
@@ -109,87 +101,73 @@ const TestRecorder = Recorder.extend({
         this.syncState = syncState;
     },
 
-    _playbackSyncJob(stream, syncJob) {
+    async _playbackSyncJob(stream, syncJob) {
         const _this = this;
 
         if (!stream.objectMode) {
             throw new Error('Stream must be in object mode');
         }
 
-        /* var syncState = */ this._getSyncState(syncJob, 'source', 'TestRecorder');
+        /* const syncState = */ this._getSyncState(syncJob, 'source', 'TestRecorder');
 
-        return Q.fcall(() => {
-            return vbus.utils.promise((resolve, reject) => {
-                fs.readdir(_this.fixturesPath, (err, filenames) => {
-                    if (err) {
-                        reject(err);
-                    } else {
-                        let ranges = _.reduce(filenames, (memo, filename) => {
-                            if (/^[0-9]{8}/.test(filename)) {
-                                const minTimestamp = moment.utc(filename.slice(0, 8), 'YYYYMMDD');
-                                const maxTimestamp = moment.utc(minTimestamp).add({ hours: 24 });
-                                memo.push({
-                                    minTimestamp: minTimestamp.toDate(),
-                                    maxTimestamp: maxTimestamp.toDate(),
-                                });
-                            }
-                            return memo;
-                        }, []);
+        const availableRanges = await new Promise((resolve, reject) => {
+            fs.readdir(_this.fixturesPath, (err, filenames) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    let ranges = _.reduce(filenames, (memo, filename) => {
+                        if (/^[0-9]{8}/.test(filename)) {
+                            const minTimestamp = moment.utc(filename.slice(0, 8), 'YYYYMMDD');
+                            const maxTimestamp = moment.utc(minTimestamp).add({ hours: 24 });
+                            memo.push({
+                                minTimestamp: minTimestamp.toDate(),
+                                maxTimestamp: maxTimestamp.toDate(),
+                            });
+                        }
+                        return memo;
+                    }, []);
 
-                        ranges = Recorder.performRangeSetOperation(ranges, [], 86400000, 'union');
+                    ranges = Recorder.performRangeSetOperation(ranges, [], 86400000, 'union');
 
-                        resolve(ranges);
-                    }
-                });
-            });
-        }).then((availableRanges) => {
-            _this.availableRanges = availableRanges;
-
-            const ranges = Recorder.performRangeSetOperation(availableRanges, syncJob.syncStateDiffs, syncJob.interval, 'intersection');
-
-            let playedBackRanges = [];
-
-            let promise = Q();
-
-            _.forEach(ranges, (range) => {
-                const options = _.extend({}, syncJob, {
-                    minTimestamp: range.minTimestamp,
-                    maxTimestamp: range.maxTimestamp,
-                    end: false,
-                });
-
-                promise = promise.then(() => {
-                    return _this.playback(stream, options);
-                }).then((ranges) => {
-                    playedBackRanges = Recorder.performRangeSetOperation(playedBackRanges, ranges, syncJob.interval, 'union');
-                });
-            });
-
-            promise = promise.then(() => {
-                let handledRanges = playedBackRanges;
-
-                if (availableRanges.length > 0) {
-                    const notAvailableRanges = [{
-                        minTimestamp: new Date(Date.UTC(2001, 0)),
-                        maxTimestamp: availableRanges [0].minTimestamp,
-                    }];
-
-                    handledRanges = Recorder.performRangeSetOperation(handledRanges, notAvailableRanges, syncJob.interval, 'union');
+                    resolve(ranges);
                 }
-
-                _this._markSourceSyncRanges(handledRanges, syncJob);
-
-                return playedBackRanges;
             });
-
-            promise = promise.then((playedBackRanges) => {
-                _this.playedBackRanges = playedBackRanges;
-
-                return playedBackRanges;
-            });
-
-            return promise;
         });
+
+        _this.availableRanges = availableRanges;
+
+        const ranges = Recorder.performRangeSetOperation(availableRanges, syncJob.syncStateDiffs, syncJob.interval, 'intersection');
+
+        let playedBackRanges = [];
+
+        for (let range of ranges) {
+            const options = _.extend({}, syncJob, {
+                minTimestamp: range.minTimestamp,
+                maxTimestamp: range.maxTimestamp,
+                end: false,
+            });
+
+            const innerRanges = await _this.playback(stream, options);
+
+            playedBackRanges = Recorder.performRangeSetOperation(playedBackRanges, innerRanges, syncJob.interval, 'union');
+        }
+
+        let handledRanges = playedBackRanges;
+
+        if (availableRanges.length > 0) {
+            const notAvailableRanges = [{
+                minTimestamp: new Date(Date.UTC(2001, 0)),
+                maxTimestamp: availableRanges [0].minTimestamp,
+            }];
+
+            handledRanges = Recorder.performRangeSetOperation(handledRanges, notAvailableRanges, syncJob.interval, 'union');
+        }
+
+        _this._markSourceSyncRanges(handledRanges, syncJob);
+
+        _this.playedBackRanges = playedBackRanges;
+
+        return playedBackRanges;
     },
 
     _recordSyncJob(recorder, syncJob) {
@@ -237,10 +215,10 @@ const TestRecorder = Recorder.extend({
             recordedRanges = Recorder.performRangeSetOperation(recordedRanges, thisRanges, syncJob.interval, 'union');
         });
 
-        return Q.fcall(() => {
+        return promisify(() => {
             return recorder._playbackSyncJob(inConverter, syncJob);
         }).then((playedBackRanges) => {
-            return vbus.utils.promise((resolve) => {
+            return new Promise((resolve) => {
                 inConverter.end(() => {
                     resolve();
                 });

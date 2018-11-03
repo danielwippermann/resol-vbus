@@ -8,7 +8,7 @@ const request = require('request');
 
 
 const _ = require('./lodash');
-const Q = require('./q');
+const { promisify } = require('./utils');
 const VBusRecordingConverter = require('./vbus-recording-converter');
 
 const Recorder = require('./recorder');
@@ -62,7 +62,7 @@ const DLxRecorder = Recorder.extend(/** @lends DLxRecorder# */ {
         return _.extend(options, _.pick(this, optionKeys));
     },
 
-    _playback(headerSetConsolidator, options) {
+    async _playback(headerSetConsolidator, options) {
         const _this = this;
 
         const converter = new VBusRecordingConverter();
@@ -71,55 +71,45 @@ const DLxRecorder = Recorder.extend(/** @lends DLxRecorder# */ {
             headerSetConsolidator.processHeaderSet(headerSet);
         });
 
-        return Q.fcall(() => {
-            if (options.apiAccess) {
-                return _this._playbackApi(converter, options);
-            } else {
-                return _this._playbackRaw(converter, options);
-            }
-        }).then(() => {
-            converter.end();
-        });
+        if (options.apiAccess) {
+            await _this._playbackApi(converter, options);
+        } else {
+            await _this._playbackRaw(converter, options);
+        }
+
+        converter.end();
     },
 
-    _playbackRaw(converter, options) {
+    async _playbackRaw(converter, options) {
         const _this = this;
 
         const minFilename = moment.utc(options.minTimestamp).format('[/log/]YYYYMMDD');
         const maxFilename = moment.utc(options.maxTimestamp).format('[/log/]YYYYMMDD');
 
-        return Q.fcall(() => {
-            return _this.getRecordingFilenames(options);
-        }).then((filenames) => {
-            return _.reduce(filenames, (memo, filename) => {
-                const filenamePrefix = filename.slice(0, minFilename.length);
+        const filenames = await _this.getRecordingFilenames(options);
 
-                if ((filenamePrefix >= minFilename) && (filenamePrefix <= maxFilename)) {
-                    memo.push(filename);
-                }
+        const matchingFilenames = filenames.reduce((memo, filename) => {
+            const filenamePrefix = filename.slice(0, minFilename.length);
 
-                return memo;
-            }, []);
-        }).then((filenames) => {
-            let promise = Q();
+            if ((filenamePrefix >= minFilename) && (filenamePrefix <= maxFilename)) {
+                memo.push(filename);
+            }
 
-            _.forEach(filenames, (filename) => {
-                promise = promise.then(() => {
-                    const urlString = options.urlPrefix + filename;
+            return memo;
+        }, []);
 
-                    const urlOptions = {
-                        auth: {
-                            username: options.username,
-                            password: options.password,
-                        },
-                    };
+        for (let filename of matchingFilenames) {
+            const urlString = options.urlPrefix + filename;
 
-                    return _this.downloadToStream(urlString, urlOptions, converter);
-                });
-            });
+            const urlOptions = {
+                auth: {
+                    username: options.username,
+                    password: options.password,
+                },
+            };
 
-            return promise;
-        });
+            await _this.downloadToStream(urlString, urlOptions, converter);
+        }
     },
 
     _playbackApi(converter, options) {
@@ -143,12 +133,12 @@ const DLxRecorder = Recorder.extend(/** @lends DLxRecorder# */ {
             },
         };
 
-        return Q.fcall(function() {
+        return promisify(function() {
             return this.downloadToStream(urlString, urlOptions, converter);
         });
     },
 
-    _playbackSyncJob(stream, syncJob) {
+    async _playbackSyncJob(stream, syncJob) {
         const _this = this;
 
         if (!stream.objectMode) {
@@ -157,76 +147,64 @@ const DLxRecorder = Recorder.extend(/** @lends DLxRecorder# */ {
 
         /* var syncState = */ this._getSyncState(syncJob, 'source', 'DLxRecorder');
 
-        return Q.fcall(() => {
-            return _this.getLazyRecordingRanges();
-        }).then((availableRanges) => {
-            const ranges = Recorder.performRangeSetOperation(availableRanges, syncJob.syncStateDiffs, syncJob.interval, 'intersection');
+        const availableRanges = await _this.getLazyRecordingRanges();
 
-            let playedBackRanges = [];
+        const ranges = Recorder.performRangeSetOperation(availableRanges, syncJob.syncStateDiffs, syncJob.interval, 'intersection');
 
-            let promise = Q();
+        let playedBackRanges = [];
 
-            _.forEach(ranges, (range) => {
-                const options = _.extend({}, syncJob, {
-                    minTimestamp: range.minTimestamp,
-                    maxTimestamp: range.maxTimestamp,
-                    end: false,
-                });
-
-                promise = promise.then(() => {
-                    return _this.playback(stream, options);
-                }).then((ranges) => {
-                    playedBackRanges = Recorder.performRangeSetOperation(playedBackRanges, ranges, syncJob.interval, 'union');
-                });
+        for (let range of ranges) {
+            const options = _.extend({}, syncJob, {
+                minTimestamp: range.minTimestamp,
+                maxTimestamp: range.maxTimestamp,
+                end: false,
             });
 
-            promise = promise.then(() => {
-                let handledRanges = playedBackRanges;
+            const newRanges = await _this.playback(stream, options);
 
-                if (handledRanges.length > 0) {
-                    let maxTimestamp;
-                    if (syncJob.markGapsAsUnsynced) {
-                        maxTimestamp = handledRanges [0].minTimestamp;
-                    } else {
-                        maxTimestamp = handledRanges [handledRanges.length - 1].minTimestamp;
-                    }
+            playedBackRanges = Recorder.performRangeSetOperation(playedBackRanges, newRanges, syncJob.interval, 'union');
+        }
 
-                    const notAvailableRanges = [{
-                        minTimestamp: new Date(Date.UTC(2001, 0)),
-                        maxTimestamp,
-                    }];
+        let handledRanges = playedBackRanges;
 
-                    handledRanges = Recorder.performRangeSetOperation(handledRanges, notAvailableRanges, syncJob.interval, 'union');
-                }
+        if (handledRanges.length > 0) {
+            let maxTimestamp;
+            if (syncJob.markGapsAsUnsynced) {
+                maxTimestamp = handledRanges [0].minTimestamp;
+            } else {
+                maxTimestamp = handledRanges [handledRanges.length - 1].minTimestamp;
+            }
 
-                _this._markSourceSyncRanges(handledRanges, syncJob);
+            const notAvailableRanges = [{
+                minTimestamp: new Date(Date.UTC(2001, 0)),
+                maxTimestamp,
+            }];
 
-                return playedBackRanges;
-            });
+            handledRanges = Recorder.performRangeSetOperation(handledRanges, notAvailableRanges, syncJob.interval, 'union');
+        }
 
-            return promise;
-        });
+        _this._markSourceSyncRanges(handledRanges, syncJob);
+
+        return playedBackRanges;
     },
 
-    getLazyRecordingRanges() {
+    async getLazyRecordingRanges() {
         const _this = this;
 
-        return Q.fcall(() => {
-            return _this.getRecordingFilenames();
-        }).then((filenames) => {
-            let ranges = _.map(filenames, (filename) => {
-                const minTimestamp = moment.utc(filename.slice(5, 13), 'YYYYMMDD');
-                const maxTimestamp = moment.utc(minTimestamp).add({ hours: 24 });
-                return {
-                    minTimestamp: minTimestamp.toDate(),
-                    maxTimestamp: maxTimestamp.toDate(),
-                };
-            });
+        const filenames = await _this.getRecordingFilenames();
 
-            ranges = Recorder.performRangeSetOperation(ranges, [], 86400000, 'union');
-
-            return ranges;
+        let ranges = _.map(filenames, (filename) => {
+            const minTimestamp = moment.utc(filename.slice(5, 13), 'YYYYMMDD');
+            const maxTimestamp = moment.utc(minTimestamp).add({ hours: 24 });
+            return {
+                minTimestamp: minTimestamp.toDate(),
+                maxTimestamp: maxTimestamp.toDate(),
+            };
         });
+
+        ranges = Recorder.performRangeSetOperation(ranges, [], 86400000, 'union');
+
+        return ranges;
     },
 
     getRecordingFilenames() {

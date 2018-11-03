@@ -87,18 +87,6 @@ const utils = {
         return deepFreezeObject(root);
     },
 
-    promiseFinally(promise, fn) {
-        function cleanup() {
-            return new Promise(resolve => resolve(fn()));
-        }
-
-        return new Promise(resolve => resolve(promise)).then(result => {
-            return cleanup().then(() => Promise.resolve(result));
-        }, err => {
-            return cleanup().then(() => Promise.reject(err), () => Promise.reject(err));
-        });
-    },
-
     promisify(fn) {
         return new Promise((resolve) => resolve(fn()));
     },
@@ -114,20 +102,6 @@ const utils = {
         }
 
         return flattenReducer([], args);
-    },
-
-    promise(fn, thisArg) {
-        if (thisArg !== undefined) {
-            throw new Error(`Unexpected thisArg to utils.promise`);
-        }
-        return new Promise(fn);
-    },
-
-    Promise(fn, thisArg) {
-        if (thisArg !== undefined) {
-            throw new Error(`Unexpected thisArg to utils.Promise`);
-        }
-        return new Promise(fn);
     },
 
 };

@@ -3,8 +3,12 @@
 
 
 
+const {
+    DataSourceProvider,
+} = require('./resol-vbus');
+
+
 const expect = require('./expect');
-const DataSourceProvider = require('./resol-vbus').DataSourceProvider;
 
 
 

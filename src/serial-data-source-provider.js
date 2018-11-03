@@ -12,7 +12,6 @@ try {
 
 
 const _ = require('./lodash');
-const Q = require('./q');
 const SerialDataSource = require('./serial-data-source');
 
 const DataSourceProvider = require('./data-source-provider');
@@ -41,38 +40,32 @@ const SerialDataSourceProvider = DataSourceProvider.extend({
     discoverDataSources() {
         const _this = this;
 
-        let deferred = Q.defer();
-        const promise = deferred.promise;
-
-        const done = function(err, result) {
-            if (deferred) {
+        return new Promise((resolve, reject) => {
+            const done = function(err, result) {
                 if (err) {
-                    deferred.reject(err);
+                    reject(err);
                 } else {
-                    deferred.resolve(result);
+                    resolve(result);
                 }
-                deferred = null;
-            }
-        };
+            };
 
-        this._listSerialPorts((err, ports) => {
-            if (err) {
-                done(err);
-            } else {
-                const dataSources = _.map(ports, (port) => {
-                    return new SerialDataSource({
-                        provider: _this.id,
-                        id: port.comName,
-                        name: port.comName,
-                        path: port.comName,
+            this._listSerialPorts((err, ports) => {
+                if (err) {
+                    done(err);
+                } else {
+                    const dataSources = _.map(ports, (port) => {
+                        return new SerialDataSource({
+                            provider: _this.id,
+                            id: port.comName,
+                            name: port.comName,
+                            path: port.comName,
+                        });
                     });
-                });
 
-                done(null, dataSources);
-            }
+                    done(null, dataSources);
+                }
+            });
         });
-
-        return promise;
     },
 
     createDataSource(options) {

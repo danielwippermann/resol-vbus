@@ -3,8 +3,10 @@
 
 
 
-const expect = require('./expect');
 const index = require('./resol-vbus');
+
+
+const expect = require('./expect');
 
 
 

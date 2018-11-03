@@ -8,7 +8,7 @@ const Duplex = require('stream').Duplex;
 
 const extend = require('./extend');
 const _ = require('./lodash');
-const Q = require('./q');
+const { promisify } = require('./utils');
 
 const Header = require('./header');
 const Packet = require('./packet');
@@ -337,74 +337,68 @@ const Connection = extend(Duplex, /** @lends Connection# */ {
             tries: 1,
         });
 
-        let deferred = Q.defer();
-        const promise = deferred.promise;
+        return new Promise((resolve, reject) => {
+            let timer, onPacket, onDatagram;
 
-        let timer, onPacket, onDatagram;
+            const done = function(err, result) {
+                if (timer) {
+                    clearTimeout(timer);
+                    timer = null;
+                }
 
-        const done = function(err, result) {
-            if (timer) {
-                clearTimeout(timer);
-                timer = null;
-            }
+                if (onPacket) {
+                    _this.removeListener('packet', onPacket);
+                    onPacket = null;
+                }
 
-            if (onPacket) {
-                _this.removeListener('packet', onPacket);
-                onPacket = null;
-            }
+                if (onDatagram) {
+                    _this.removeListener('datagram', onDatagram);
+                    onDatagram = null;
+                }
 
-            if (onDatagram) {
-                _this.removeListener('datagram', onDatagram);
-                onDatagram = null;
-            }
-
-            if (deferred) {
                 if (err) {
-                    deferred.reject(err);
+                    reject(err);
                 } else {
-                    deferred.resolve(result);
+                    resolve(result);
                 }
-                deferred = null;
-            }
-        };
-
-        if (options.filterPacket) {
-            onPacket = function(rxPacket) {
-                options.filterPacket(rxPacket, done);
             };
 
-            this.on('packet', onPacket);
-        }
+            if (options.filterPacket) {
+                onPacket = function(rxPacket) {
+                    options.filterPacket(rxPacket, done);
+                };
 
-        if (options.filterDatagram) {
-            onDatagram = function(rxDatagram) {
-                options.filterDatagram(rxDatagram, done);
+                this.on('packet', onPacket);
+            }
+
+            if (options.filterDatagram) {
+                onDatagram = function(rxDatagram) {
+                    options.filterDatagram(rxDatagram, done);
+                };
+
+                this.on('datagram', onDatagram);
+            }
+
+            let tries = options.tries, timeout = options.timeout;
+
+            const nextTry = function() {
+                if (tries > 0) {
+                    tries--;
+
+                    timer = setTimeout(nextTry, timeout);
+
+                    timeout += options.timeoutIncr;
+
+                    if (txData) {
+                        _this.send(txData);
+                    }
+                } else {
+                    done(null, null);
+                }
             };
 
-            this.on('datagram', onDatagram);
-        }
-
-        let tries = options.tries, timeout = options.timeout;
-
-        const nextTry = function() {
-            if (tries > 0) {
-                tries--;
-
-                timer = setTimeout(nextTry, timeout);
-
-                timeout += options.timeoutIncr;
-
-                if (txData) {
-                    _this.send(txData);
-                }
-            } else {
-                done(null, null);
-            }
-        };
-
-        process.nextTick(nextTry);
-
-        return promise;
+            process.nextTick(nextTry);
+        });
     },
 
     /**

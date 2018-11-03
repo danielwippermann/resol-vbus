@@ -13,7 +13,7 @@ try {
 
 const Connection = require('./connection');
 const _ = require('./lodash');
-const Q = require('./q');
+const { promisify } = require('./utils');
 
 
 
@@ -97,111 +97,105 @@ const SerialConnection = Connection.extend(/** @lends SerialConnection# */ {
 
         let serialPort = undefined;
 
-        let deferred = Q.defer();
-        const promise = deferred.promise;
-
-        const done = function(err, result) {
-            if (deferred) {
+        return new Promise((resolve, reject) => {
+            const done = function(err, result) {
                 if (err) {
-                    deferred.reject(err);
+                    reject(err);
                 } else {
-                    deferred.resolve(result);
+                    resolve(result);
                 }
-                deferred = null;
-            }
-        };
+            };
 
-        const onConnectionData = function(chunk) {
-            serialPort.write(chunk);
-        };
+            const onConnectionData = function(chunk) {
+                serialPort.write(chunk);
+            };
 
-        const onSerialPortData = function(chunk) {
-            _this._write(chunk);
-        };
+            const onSerialPortData = function(chunk) {
+                _this._write(chunk);
+            };
 
-        const onSerialPortTermination = function() {
-            _this.removeListener('data', onConnectionData);
+            const onSerialPortTermination = function() {
+                _this.removeListener('data', onConnectionData);
 
-            if (_this.serialPort !== serialPort) {
-                // nop
-            } else if (_this.connectionState === SerialConnection.STATE_CONNECTING) {
-                _this._setConnectionState(SerialConnection.STATE_DISCONNECTED);
+                if (_this.serialPort !== serialPort) {
+                    // nop
+                } else if (_this.connectionState === SerialConnection.STATE_CONNECTING) {
+                    _this._setConnectionState(SerialConnection.STATE_DISCONNECTED);
 
-                _this.serialPort = null;
+                    _this.serialPort = null;
 
-                done(new Error('Unable to connect'));
-            } else if (_this.connectionState === SerialConnection.STATE_DISCONNECTING) {
-                _this._setConnectionState(SerialConnection.STATE_DISCONNECTED);
+                    done(new Error('Unable to connect'));
+                } else if (_this.connectionState === SerialConnection.STATE_DISCONNECTING) {
+                    _this._setConnectionState(SerialConnection.STATE_DISCONNECTED);
 
-                _this.serialPort = null;
-            } else {
-                _this._setConnectionState(SerialConnection.STATE_INTERRUPTED);
+                    _this.serialPort = null;
+                } else {
+                    _this._setConnectionState(SerialConnection.STATE_INTERRUPTED);
 
-                _this.serialPort = null;
+                    _this.serialPort = null;
 
-                const timeout = _this.reconnectTimeout;
-                if (_this.reconnectTimeout < _this.reconnectTimeoutMax) {
-                    _this.reconnectTimeout += _this.reconnectTimeoutIncr;
+                    const timeout = _this.reconnectTimeout;
+                    if (_this.reconnectTimeout < _this.reconnectTimeoutMax) {
+                        _this.reconnectTimeout += _this.reconnectTimeoutIncr;
+                    }
+
+                    setTimeout(() => {
+                        _this._setConnectionState(SerialConnection.STATE_RECONNECTING);
+
+                        _this._connect();
+                    }, timeout);
                 }
+            };
 
-                setTimeout(() => {
-                    _this._setConnectionState(SerialConnection.STATE_RECONNECTING);
+            const onEnd = function() {
+                onSerialPortTermination();
+            };
 
-                    _this._connect();
-                }, timeout);
-            }
-        };
+            const onError = function() {
+                serialPort.close();
+                onSerialPortTermination();
+            };
 
-        const onEnd = function() {
-            onSerialPortTermination();
-        };
+            const onConnectionEstablished = function() {
+                _this.reconnectTimeout = 0;
 
-        const onError = function() {
-            serialPort.close();
-            onSerialPortTermination();
-        };
+                _this._setConnectionState(SerialConnection.STATE_CONNECTED);
 
-        const onConnectionEstablished = function() {
-            _this.reconnectTimeout = 0;
+                done();
+            };
 
-            _this._setConnectionState(SerialConnection.STATE_CONNECTED);
+            this.on('data', onConnectionData);
 
-            done();
-        };
+            const onCompletion = function(err) {
+                if (err) {
+                    done(err);
+                }
+            };
 
-        this.on('data', onConnectionData);
+            const onDisconnect = function() {
+                onError();
+            };
 
-        const onCompletion = function(err) {
-            if (err) {
-                done(err);
-            }
-        };
+            const options = {
+                baudRate: 9600,
+                dataBits: 8,
+                stopBits: 1,
+                parity: 'none',
+                disconnectedCallback: onDisconnect,
+            };
 
-        const onDisconnect = function() {
-            onError();
-        };
+            serialPort = this._createSerialPort(this.path, options, onCompletion);
 
-        const options = {
-            baudRate: 9600,
-            dataBits: 8,
-            stopBits: 1,
-            parity: 'none',
-            disconnectedCallback: onDisconnect,
-        };
+            serialPort.once('open', () => {
+                serialPort.on('data', onSerialPortData);
+                serialPort.on('end', onEnd);
+                serialPort.on('error', onError);
 
-        serialPort = this._createSerialPort(this.path, options, onCompletion);
+                onConnectionEstablished();
+            });
 
-        serialPort.once('open', () => {
-            serialPort.on('data', onSerialPortData);
-            serialPort.on('end', onEnd);
-            serialPort.on('error', onError);
-
-            onConnectionEstablished();
+            this.serialPort = serialPort;
         });
-
-        this.serialPort = serialPort;
-
-        return promise;
     },
 
     _createSerialPort(path, options, onCompletion) {

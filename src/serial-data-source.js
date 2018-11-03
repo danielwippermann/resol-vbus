@@ -5,7 +5,7 @@
 
 const DataSource = require('./data-source');
 const _ = require('./lodash');
-const Q = require('./q');
+const { promisify } = require('./utils');
 
 const SerialConnection = require('./serial-connection');
 
@@ -48,7 +48,7 @@ const SerialDataSource = DataSource.extend(/** @lends SerialDataSource# */ {
 
         const connection = new SerialConnection(options);
 
-        return Q.fcall(() => {
+        return promisify(() => {
             return connection.connect();
         }).then(() => {
             return connection;

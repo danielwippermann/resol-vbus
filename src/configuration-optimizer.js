@@ -4,7 +4,7 @@
 
 
 const extend = require('./extend');
-const Q = require('./q');
+const { promisify } = require('./utils');
 
 
 
@@ -89,7 +89,7 @@ const ConfigurationOptimizer = extend(null, /** @lends ConfigurationOptimizer# *
     getOptimizerOptions() {
         const _this = this;
 
-        return Q.fcall(() => {
+        return promisify(() => {
             if (_this.deviceAddress !== null) {
                 return [ null ];
             } else {
@@ -111,7 +111,7 @@ const ConfigurationOptimizer = extend(null, /** @lends ConfigurationOptimizer# *
     matchOptimizer(options) {
         const _this = this;
 
-        return Q.fcall(() => {
+        return promisify(() => {
             if (_this.deviceAddress !== null) {
                 const match = (options.deviceAddress === _this.deviceAddress) ? 1 : 0;
 

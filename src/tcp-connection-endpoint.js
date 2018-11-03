@@ -9,7 +9,7 @@ const net = require('net');
 
 const extend = require('./extend');
 const _ = require('./lodash');
-const Q = require('./q');
+const { promisify } = require('./utils');
 
 
 
@@ -75,38 +75,32 @@ const TcpConnectionEndpoint = extend(EventEmitter, /** @lends TcpConnectionEndpo
     start() {
         const _this = this;
 
-        let deferred = Q.defer();
-        const promise = deferred.promise;
-
-        const done = function(err, result) {
-            if (deferred) {
+        return new Promise((resolve, reject) => {
+            const done = function(err, result) {
                 if (err) {
-                    deferred.reject(err);
+                    reject(err);
                 } else {
-                    deferred.resolve(result);
+                    resolve(result);
                 }
-                deferred = null;
-            }
-        };
+            };
 
-        const server = net.createServer((socket) => {
-            _this._onConnection(socket);
+            const server = net.createServer((socket) => {
+                _this._onConnection(socket);
+            });
+
+            server.listen(this.port, () => {
+                if (_this.port === 0) {
+                    _this.port = server.address().port;
+                }
+                done(null, true);
+            });
+
+            server.on('error', (err) => {
+                done(err);
+            });
+
+            this.server = server;
         });
-
-        server.listen(this.port, () => {
-            if (_this.port === 0) {
-                _this.port = server.address().port;
-            }
-            done(null, true);
-        });
-
-        server.on('error', (err) => {
-            done(err);
-        });
-
-        this.server = server;
-
-        return promise;
     },
 
     stop() {

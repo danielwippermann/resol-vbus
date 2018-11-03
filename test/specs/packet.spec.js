@@ -3,9 +3,13 @@
 
 
 
+const {
+    Packet,
+} = require('./resol-vbus');
+
+
 const expect = require('./expect');
 const _ = require('./lodash');
-const Packet = require('./resol-vbus').Packet;
 
 
 

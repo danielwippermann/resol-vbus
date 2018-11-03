@@ -13,15 +13,11 @@ const sprintf = require('sprintf-js').sprintf;
 
 const extend = require('./extend');
 const _ = require('./lodash');
-const utils = require('./utils');
 
 
 
 let defaultSpecificationFile = null;
 
-
-
-const Promise = utils.Promise;
 
 
 const crc16Table = [

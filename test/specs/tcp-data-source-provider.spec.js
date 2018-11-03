@@ -7,13 +7,12 @@ const dgram = require('dgram');
 const http = require('http');
 
 
+const {
+    TcpDataSourceProvider,
+} = require('./resol-vbus');
+
+
 const expect = require('./expect');
-const Q = require('./q');
-const vbus = require('./resol-vbus');
-
-
-
-const TcpDataSourceProvider = vbus.TcpDataSourceProvider;
 
 
 
@@ -129,7 +128,7 @@ describe('TCP Data Source Provider', () => {
                 .that.is.a('function');
         });
 
-        it('should work correctly', () => {
+        it('should work correctly', async () => {
             const originalSend = dgram.Socket.prototype.send;
             const originalFDI = TcpDataSourceProvider.fetchDeviceInformation;
 
@@ -145,20 +144,18 @@ describe('TCP Data Source Provider', () => {
                 return {};
             });
 
-            const promise = Q.fcall(() => {
-                return TcpDataSourceProvider.sendBroadcast({
+            try {
+                const infos = await TcpDataSourceProvider.sendBroadcast({
                     timeout: 50,
                 });
-            }).then((infos) => {
+
                 expect(infos).lengthOf(1);
                 expect(dgram.Socket.prototype.send.callCount).equal(3);
                 expect(TcpDataSourceProvider.fetchDeviceInformation).property('callCount').equal(1);
-            });
-
-            return vbus.utils.promiseFinally(promise, () => {
+            } finally {
                 dgram.Socket.prototype.send = originalSend;
                 TcpDataSourceProvider.fetchDeviceInformation = originalFDI;
-            });
+            }
         });
 
     });
@@ -171,27 +168,25 @@ describe('TCP Data Source Provider', () => {
                 .that.is.a('function');
         });
 
-        it('should work correctly', () => {
+        it('should work correctly', async () => {
             const originalSendBroadcast = TcpDataSourceProvider.sendBroadcast;
 
             TcpDataSourceProvider.sendBroadcast = sinon.spy(() => {
-                return Q([
+                return Promise.resolve([
                     Promise.reject(new Error('Failed')),
                     Promise.resolve({ address: 'ADDRESS' }),
                 ]);
             });
 
-            const promise = Q.fcall(() => {
-                return TcpDataSourceProvider.discoverDevices();
-            }).then((infos) => {
+            try {
+                const infos = await TcpDataSourceProvider.discoverDevices();
+
                 expect(infos).lengthOf(1);
                 expect(infos [0]).property('address').equals('ADDRESS');
                 expect(TcpDataSourceProvider.sendBroadcast).property('callCount').equal(1);
-            });
-
-            return vbus.utils.promiseFinally(promise, () => {
+            } finally {
                 TcpDataSourceProvider.sendBroadcast = originalSendBroadcast;
-            });
+            }
         });
 
     });
@@ -202,27 +197,24 @@ describe('TCP Data Source Provider', () => {
             expect(TcpDataSourceProvider.prototype).property('discoverDataSources').a('function');
         });
 
-        it('should work correctly', () => {
+        it('should work correctly', async () => {
             const originalDiscoverDevices = TcpDataSourceProvider.discoverDevices;
 
             TcpDataSourceProvider.discoverDevices = sinon.spy(() => {
-                return Q([
+                return Promise.resolve([
                     { __address__: 'ADDRESS' },
                 ]);
             });
 
             const dsp = new TcpDataSourceProvider();
 
-            const promise = Q.fcall(() => {
-                return dsp.discoverDataSources();
-            }).then((dataSources) => {
+            try {
+                const dataSources = await dsp.discoverDataSources();
                 expect(dataSources).a('array').lengthOf(1);
                 expect(TcpDataSourceProvider.discoverDevices).property('callCount').equals(1);
-            });
-
-            return vbus.utils.promiseFinally(promise, () => {
+            } finally {
                 TcpDataSourceProvider.discoverDevices = originalDiscoverDevices;
-            });
+            }
         });
 
     });

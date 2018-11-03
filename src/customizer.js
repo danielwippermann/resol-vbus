@@ -8,7 +8,7 @@ const EventEmitter = require('events').EventEmitter;
 
 const extend = require('./extend');
 const _ = require('./lodash');
-const Q = require('./q');
+const { promisify } = require('./utils');
 
 
 
@@ -83,7 +83,7 @@ const Customizer = extend(EventEmitter, /** @lends Customizer# */ {
             optimize: true,
         });
 
-        return Q.fcall(() => {
+        return promisify(() => {
             return _this._completeConfiguration(configuration);
         }).then((configuration) => {
             return _this._loadConfiguration(configuration, options);
@@ -121,10 +121,10 @@ const Customizer = extend(EventEmitter, /** @lends Customizer# */ {
             optimize: true,
         });
 
-        return Q.fcall(() => {
+        return promisify(() => {
             return _this._completeConfiguration(newConfiguration);
         }).then((newConfiguration) => {
-            return Q.fcall(() => {
+            return promisify(() => {
                 if (oldConfiguration) {
                     return _this._completeConfiguration(oldConfiguration);
                 } else {
@@ -153,7 +153,7 @@ const Customizer = extend(EventEmitter, /** @lends Customizer# */ {
         if (this.optimizer) {
             return this.optimizer.completeConfiguration(config);
         } else {
-            return Q(config);
+            return Promise.resolve(config);
         }
     },
 

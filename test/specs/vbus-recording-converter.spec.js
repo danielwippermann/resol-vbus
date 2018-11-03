@@ -3,18 +3,16 @@
 
 
 
+const {
+    HeaderSet,
+    Packet,
+    VBusRecordingConverter,
+} = require('./resol-vbus');
+
+
 const expect = require('./expect');
 const _ = require('./lodash');
-const vbus = require('./resol-vbus');
 const testUtils = require('./test-utils');
-
-
-
-const Promise = vbus.utils.Promise;
-const HeaderSet = vbus.HeaderSet;
-const Packet = vbus.Packet;
-
-const VBusRecordingConverter = vbus.VBusRecordingConverter;
 
 
 

@@ -3,15 +3,16 @@
 
 
 
+const {
+    Packet,
+    Specification,
+} = require('./resol-vbus');
+
+
 const expect = require('./expect');
 const _ = require('./lodash');
-const vbus = require('./resol-vbus');
 const testUtils = require('./test-utils');
 
-
-
-const Packet = vbus.Packet;
-const Specification = vbus.Specification;
 
 
 

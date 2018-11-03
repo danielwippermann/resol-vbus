@@ -7,26 +7,24 @@ const fs = require('fs');
 const path = require('path');
 
 
+const {
+    Converter,
+    FileSystemRecorder,
+    HeaderSet,
+    Packet,
+    Recorder,
+    VBusRecordingConverter,
+} = require('./resol-vbus');
+
+
 const expect = require('./expect');
-const _ = require('./lodash');
-const Q = require('./q');
-const vbus = require('./resol-vbus');
 const TestRecorder = require('./test-recorder');
 const testUtils = require('./test-utils');
 
 
 
-const Converter = vbus.Converter;
-const FileSystemRecorder = vbus.FileSystemRecorder;
-const HeaderSet = vbus.HeaderSet;
-const Packet = vbus.Packet;
-const Recorder = vbus.Recorder;
-const VBusRecordingConverter = vbus.VBusRecordingConverter;
-
-
-
 const createDeleteFilesInPathPromise = function(pathname) {
-    return vbus.utils.promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
         fs.readdir(pathname, (err, filenames) => {
             if (err) {
                 reject(err);
@@ -131,7 +129,7 @@ describe('FileSystemRecorder', () => {
             expect(FileSystemRecorder.prototype).ownProperty('_playback').a('function');
         });
 
-        it('should work correctly', () => {
+        it('should work correctly', async () => {
             const options = {
                 id: 'FileSystem',
                 interval: 300000,
@@ -159,20 +157,18 @@ describe('FileSystemRecorder', () => {
 
             converter.on('headerSet', onHeaderSet);
 
-            const promise = Q.fcall(() => {
-                return sourceRecorder.playback(converter);
-            }).then((ranges) => {
+            try {
+                const ranges = await sourceRecorder.playback(converter);
+
                 expect(onHeaderSet).property('callCount').equal(864);
                 expect(ranges).lengthOf(1);
                 testUtils.expectRanges(ranges).eql([{
                     maxTimestamp: '2014-02-16T23:55:00.805Z',
                     minTimestamp: '2014-02-14T00:00:00.983Z',
                 }]);
-            });
-
-            return vbus.utils.promiseFinally(promise, () => {
+            } finally {
                 readToStreamSpy.restore();
-            });
+            }
         });
 
     });
@@ -183,7 +179,7 @@ describe('FileSystemRecorder', () => {
 
         const testFixturesPath = path.join(fixturesPath, '0a008f5b8c77c121d0fd39ae985593ba78ae5d85');
 
-        xit('should work correctly for multiple HeaderSets', () => {
+        xit('should work correctly for multiple HeaderSets', async () => {
             const options = {
                 id: 'FileSystem',
                 interval: 300000,
@@ -197,64 +193,55 @@ describe('FileSystemRecorder', () => {
 
             const targetRecorder = new FileSystemRecorder(options);
 
-            return Q.fcall(() => {
-                return createDeleteFilesInPathPromise(testFixturesPath);
-            }).then(() => {
-                const sourceConverter = new Converter({ objectMode: true });
-                sourceConverter.pause();
+            await createDeleteFilesInPathPromise(testFixturesPath);
 
-                const targetConverter = new Converter({ objectMode: true });
-                targetConverter.pause();
+            const sourceConverter = new Converter({ objectMode: true });
+            sourceConverter.pause();
 
-                sourceConverter.on('headerSet', (headerSet) => {
-                    targetConverter.convertHeaderSet(headerSet);
-                });
+            const targetConverter = new Converter({ objectMode: true });
+            targetConverter.pause();
 
-                sourceConverter.on('finish', () => {
-                    targetConverter.finish();
-                });
-
-                return Q.all([
-                    sourceRecorder.playback(sourceConverter),
-                    targetRecorder.record(targetConverter),
-                ]);
-            }).then((results) => {
-                const sourceRanges = results [0];
-                expect(sourceRanges).an('array').lengthOf(1);
-                expect(sourceRanges [0]).property('minTimestamp').instanceOf(Date);
-                expect(sourceRanges [0].minTimestamp.toISOString()).equal('2014-02-14T00:00:00.983Z');
-                expect(sourceRanges [0]).property('maxTimestamp').instanceOf(Date);
-                expect(sourceRanges [0].maxTimestamp.toISOString()).equal('2014-02-16T23:55:00.805Z');
-
-                const targetRanges = results [1];
-                expect(targetRanges).an('array').lengthOf(1);
-                expect(targetRanges [0]).property('minTimestamp').instanceOf(Date);
-                expect(targetRanges [0].minTimestamp.toISOString()).equal('2014-02-14T00:00:00.983Z');
-                expect(targetRanges [0]).property('maxTimestamp').instanceOf(Date);
-                expect(targetRanges [0].maxTimestamp.toISOString()).equal('2014-02-16T23:55:00.805Z');
-
-                const expectedFilenames = [
-                    'SyncState.json',
-                    '300000_20140214000000983.vbus',
-                    '300000_20140215000001077.vbus',
-                    '300000_20140216000002271.vbus',
-                ];
-
-                let promise = Q();
-
-                _.forEach(expectedFilenames, (expectedFilename) => {
-                    const absoluteFilename = path.join(testFixturesPath, expectedFilename);
-
-                    promise = promise.then(() => {
-                        return checkFileExistance(absoluteFilename, expectedFilename);
-                    });
-                });
-
-                return promise;
+            sourceConverter.on('headerSet', (headerSet) => {
+                targetConverter.convertHeaderSet(headerSet);
             });
+
+            sourceConverter.on('finish', () => {
+                targetConverter.finish();
+            });
+
+            const playbackPromise = sourceRecorder.playback(sourceConverter);
+            const recordPromise = targetRecorder.record(targetConverter);
+
+            const sourceRanges = await playbackPromise;
+            const targetRanges = await recordPromise;
+
+            expect(sourceRanges).an('array').lengthOf(1);
+            expect(sourceRanges [0]).property('minTimestamp').instanceOf(Date);
+            expect(sourceRanges [0].minTimestamp.toISOString()).equal('2014-02-14T00:00:00.983Z');
+            expect(sourceRanges [0]).property('maxTimestamp').instanceOf(Date);
+            expect(sourceRanges [0].maxTimestamp.toISOString()).equal('2014-02-16T23:55:00.805Z');
+
+            expect(targetRanges).an('array').lengthOf(1);
+            expect(targetRanges [0]).property('minTimestamp').instanceOf(Date);
+            expect(targetRanges [0].minTimestamp.toISOString()).equal('2014-02-14T00:00:00.983Z');
+            expect(targetRanges [0]).property('maxTimestamp').instanceOf(Date);
+            expect(targetRanges [0].maxTimestamp.toISOString()).equal('2014-02-16T23:55:00.805Z');
+
+            const expectedFilenames = [
+                'SyncState.json',
+                '300000_20140214000000983.vbus',
+                '300000_20140215000001077.vbus',
+                '300000_20140216000002271.vbus',
+            ];
+
+            for (let expectedFilename of expectedFilenames) {
+                const absoluteFilename = path.join(testFixturesPath, expectedFilename);
+
+                await checkFileExistance(absoluteFilename, expectedFilename);
+            }
         });
 
-        it('should work correctly for a single HeaderSet', () => {
+        it('should work correctly for a single HeaderSet', async () => {
             const options = {
                 id: 'FileSystem',
                 interval: 300000,
@@ -263,58 +250,50 @@ describe('FileSystemRecorder', () => {
 
             const targetRecorder = new FileSystemRecorder(options);
 
-            return Q.fcall(() => {
-                return createDeleteFilesInPathPromise(testFixturesPath);
-            }).then(() => {
-                const targetConverter = new Converter({ objectMode: true });
-                targetConverter.pause();
+            await createDeleteFilesInPathPromise(testFixturesPath);
 
-                const timestamp = new Date('2014-02-14T00:00:00.983Z');
+            const targetConverter = new Converter({ objectMode: true });
+            targetConverter.pause();
 
-                const header1 = new Packet({
-                    timestamp,
-                    channel: 1,
-                    command: 0x7654,
-                });
+            const timestamp = new Date('2014-02-14T00:00:00.983Z');
 
-                const header2 = new Packet({
-                    timestamp,
-                    channel: 2,
-                    command: 0x7654,
-                });
-
-                const headerSet = new HeaderSet({
-                    timestamp,
-                    headers: [ header2, header1 ]
-                });
-
-                targetConverter.convertHeaderSet(headerSet);
-                targetConverter.finish();
-
-                return targetRecorder.record(targetConverter);
-            }).then((ranges) => {
-                expect(ranges).an('array').lengthOf(1);
-                expect(ranges [0]).property('minTimestamp').instanceOf(Date);
-                expect(ranges [0].minTimestamp.toISOString()).equal('2014-02-14T00:00:00.983Z');
-                expect(ranges [0]).property('maxTimestamp').instanceOf(Date);
-                expect(ranges [0].maxTimestamp.toISOString()).equal('2014-02-14T00:00:00.983Z');
-
-                const expectedFilenames = [
-                    '300000_20140214000000983.vbus',
-                ];
-
-                let promise = Q();
-
-                _.forEach(expectedFilenames, (expectedFilename) => {
-                    const absoluteFilename = path.join(testFixturesPath, expectedFilename);
-
-                    promise = promise.then(() => {
-                        return checkFileExistance(absoluteFilename, expectedFilename);
-                    });
-                });
-
-                return promise;
+            const header1 = new Packet({
+                timestamp,
+                channel: 1,
+                command: 0x7654,
             });
+
+            const header2 = new Packet({
+                timestamp,
+                channel: 2,
+                command: 0x7654,
+            });
+
+            const headerSet = new HeaderSet({
+                timestamp,
+                headers: [ header2, header1 ]
+            });
+
+            targetConverter.convertHeaderSet(headerSet);
+            targetConverter.finish();
+
+            const ranges = await targetRecorder.record(targetConverter);
+
+            expect(ranges).an('array').lengthOf(1);
+            expect(ranges [0]).property('minTimestamp').instanceOf(Date);
+            expect(ranges [0].minTimestamp.toISOString()).equal('2014-02-14T00:00:00.983Z');
+            expect(ranges [0]).property('maxTimestamp').instanceOf(Date);
+            expect(ranges [0].maxTimestamp.toISOString()).equal('2014-02-14T00:00:00.983Z');
+
+            const expectedFilenames = [
+                '300000_20140214000000983.vbus',
+            ];
+
+            for (let expectedFilename of expectedFilenames) {
+                const absoluteFilename = path.join(testFixturesPath, expectedFilename);
+
+                await checkFileExistance(absoluteFilename, expectedFilename);
+            }
         });
 
     });
@@ -325,7 +304,7 @@ describe('FileSystemRecorder', () => {
 
         const testFixturesPath = path.join(fixturesPath, '0a008f5b8c77c121d0fd39ae985593ba78ae5d85');
 
-        it('should work correctly', () => {
+        it('should work correctly', async () => {
             const options = {
                 id: 'FileSystem',
                 interval: 300000,
@@ -339,49 +318,40 @@ describe('FileSystemRecorder', () => {
 
             const targetRecorder = new FileSystemRecorder(options);
 
-            return Q.fcall(() => {
-                return createDeleteFilesInPathPromise(testFixturesPath);
-            }).then(() => {
-                return sourceRecorder.synchronizeTo(targetRecorder);
-            }).then((ranges) => {
-                expect(ranges).an('array').lengthOf(1);
-                expect(ranges [0]).property('minTimestamp').instanceOf(Date);
-                expect(ranges [0].minTimestamp.toISOString()).equal('2014-02-14T00:00:00.983Z');
-                expect(ranges [0]).property('maxTimestamp').instanceOf(Date);
-                expect(ranges [0].maxTimestamp.toISOString()).equal('2014-02-16T23:55:00.805Z');
+            await createDeleteFilesInPathPromise(testFixturesPath);
 
-                const expectedFilenames = [
-                    'SyncState.json',
-                    '300000_20140214000000983.vbus',
-                    '300000_20140215000001077.vbus',
-                    '300000_20140216000002271.vbus',
-                ];
+            const ranges = await sourceRecorder.synchronizeTo(targetRecorder);
 
-                let promise = Q();
+            expect(ranges).an('array').lengthOf(1);
+            expect(ranges [0]).property('minTimestamp').instanceOf(Date);
+            expect(ranges [0].minTimestamp.toISOString()).equal('2014-02-14T00:00:00.983Z');
+            expect(ranges [0]).property('maxTimestamp').instanceOf(Date);
+            expect(ranges [0].maxTimestamp.toISOString()).equal('2014-02-16T23:55:00.805Z');
 
-                _.forEach(expectedFilenames, (expectedFilename) => {
-                    const absoluteFilename = path.join(testFixturesPath, expectedFilename);
+            const expectedFilenames = [
+                'SyncState.json',
+                '300000_20140214000000983.vbus',
+                '300000_20140215000001077.vbus',
+                '300000_20140216000002271.vbus',
+            ];
 
-                    promise = promise.then(() => {
-                        return checkFileExistance(absoluteFilename, expectedFilename);
-                    });
-                });
+            for (let expectedFilename of expectedFilenames) {
+                const absoluteFilename = path.join(testFixturesPath, expectedFilename);
 
-                return promise;
-            }).then(() => {
-                return sourceRecorder.synchronizeTo(targetRecorder);
-            }).then((ranges) => {
-                expect(ranges).an('array').lengthOf(0);
-                expect(ranges).eql(sourceRecorder.playedBackRanges);
+                await checkFileExistance(absoluteFilename, expectedFilename);
+            }
 
-            });
+            const ranges2 = await sourceRecorder.synchronizeTo(targetRecorder);
+
+            expect(ranges2).an('array').lengthOf(0);
+            expect(ranges2).eql(sourceRecorder.playedBackRanges);
         });
 
     });
 
     describe('synchronization source', () => {
 
-        xit('should work correctly', () => {
+        xit('should work correctly', async () => {
             const options = {
                 id: 'FileSystem',
                 interval: 300000,
@@ -397,19 +367,15 @@ describe('FileSystemRecorder', () => {
                 interval: 300000,
             });
 
-            const promise = Q.fcall(() => {
-                return sourceRecorder.synchronizeTo(targetRecorder);
-            }).then(() => {
+            try {
+                await sourceRecorder.synchronizeTo(targetRecorder);
+
                 targetRecorder.resetCounters();
 
-                return sourceRecorder.synchronizeTo(targetRecorder);
-            }).then(() => {
-
-            });
-
-            return vbus.utils.promiseFinally(promise, () => {
+                await sourceRecorder.synchronizeTo(targetRecorder);
+            } finally {
                 readToStream.restore();
-            });
+            }
         });
 
     });

@@ -6,11 +6,17 @@
 const moment = require('moment');
 
 
+const {
+    Converter,
+    HeaderSet,
+    HeaderSetConsolidator,
+    Recorder,
+    VBusRecordingConverter,
+} = require('./resol-vbus');
+
+
 const expect = require('./expect');
 const _ = require('./lodash');
-const vbus = require('./resol-vbus');
-
-const Recorder = vbus.Recorder;
 
 
 
@@ -65,7 +71,7 @@ describe('Recorder', () => {
                 interval: 600,
             };
 
-            const converter = new vbus.VBusRecordingConverter({
+            const converter = new VBusRecordingConverter({
                 objectMode: true,
             });
 
@@ -75,7 +81,7 @@ describe('Recorder', () => {
 
             const recorder = new Recorder(options);
 
-            const demoHeaderSet = new vbus.HeaderSet({
+            const demoHeaderSet = new HeaderSet({
                 timestamp: new Date(2013, 5)
             });
 
@@ -88,7 +94,7 @@ describe('Recorder', () => {
 
                 let call = recorder._playback.getCall(0);
 
-                expect(call.args [0]).to.be.an.instanceOf(vbus.HeaderSetConsolidator);
+                expect(call.args [0]).to.be.an.instanceOf(HeaderSetConsolidator);
                 expect(call.args [1].id).to.eql(options.id);
                 expect(call.args [1].minTimestamp).to.eql(options.minTimestamp);
                 expect(call.args [1].maxTimestamp).to.eql(options.maxTimestamp);
@@ -121,13 +127,13 @@ describe('Recorder', () => {
                 interval: 600,
             };
 
-            const converter = new vbus.Converter({
+            const converter = new Converter({
                 objectMode: true,
             });
 
             const recorder = new Recorder(options);
 
-            const demoHeaderSet = new vbus.HeaderSet({
+            const demoHeaderSet = new HeaderSet({
                 timestamp: new Date(2013, 5)
             });
 
@@ -154,7 +160,7 @@ describe('Recorder', () => {
                 expect(recorder._endRecording.firstCall.args [0]).equal(hsc);
                 expect(recorder._endRecording.firstCall.args [1]).equal(recordingJob);
 
-                expect(hsc).to.be.an.instanceOf(vbus.HeaderSetConsolidator);
+                expect(hsc).to.be.an.instanceOf(HeaderSetConsolidator);
                 expect(recordingJob.id).to.eql(options.id);
                 expect(recordingJob.minTimestamp).to.eql(options.minTimestamp);
                 expect(recordingJob.maxTimestamp).to.eql(options.maxTimestamp);

@@ -3,16 +3,15 @@
 
 
 
+const {
+    HeaderSet,
+    Packet,
+    TextConverter,
+} = require('./resol-vbus');
+
+
 const expect = require('./expect');
-const vbus = require('./resol-vbus');
 const testUtils = require('./test-utils');
-
-
-
-const HeaderSet = vbus.HeaderSet;
-const Packet = vbus.Packet;
-
-const TextConverter = vbus.TextConverter;
 
 
 

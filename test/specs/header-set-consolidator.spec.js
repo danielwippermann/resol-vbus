@@ -6,12 +6,14 @@
 const moment = require('moment');
 
 
+const {
+    HeaderSet,
+    HeaderSetConsolidator,
+    Packet,
+} = require('./resol-vbus');
+
+
 const expect = require('./expect');
-const vbus = require('./resol-vbus');
-
-
-
-const HeaderSetConsolidator = vbus.HeaderSetConsolidator;
 
 
 
@@ -84,7 +86,7 @@ describe('HeaderSetConsolidator', () => {
 
             const before = Date.now();
 
-            return vbus.utils.promise((resolve, reject) => {
+            return new Promise((resolve, reject) => {
                 onHeaderSet = sinon.spy(() => {
                     hsc.stopTimer();
 
@@ -113,19 +115,19 @@ describe('HeaderSetConsolidator', () => {
     describe('#processHeaderSet', () => {
 
         it('should work correctly without options', () => {
-            const header1 = new vbus.Packet({
+            const header1 = new Packet({
                 channel: 1
             });
 
-            const header2 = new vbus.Packet({
+            const header2 = new Packet({
                 channel: 2
             });
 
-            const header3 = new vbus.Packet({
+            const header3 = new Packet({
                 channel: 3
             });
 
-            const headerSet = new vbus.HeaderSet();
+            const headerSet = new HeaderSet();
             headerSet.addHeaders([ header1, header2, header3 ]);
 
             const hsc = new HeaderSetConsolidator();
@@ -146,11 +148,11 @@ describe('HeaderSetConsolidator', () => {
         });
 
         it('should work correctly with minTimestamp', () => {
-            const header1 = new vbus.Packet({
+            const header1 = new Packet({
                 channel: 1
             });
 
-            const headerSet = new vbus.HeaderSet({
+            const headerSet = new HeaderSet({
                 headers: [ header1 ],
             });
 
@@ -181,11 +183,11 @@ describe('HeaderSetConsolidator', () => {
         });
 
         it('should work correctly with maxTimestamp', () => {
-            const header1 = new vbus.Packet({
+            const header1 = new Packet({
                 channel: 1
             });
 
-            const headerSet = new vbus.HeaderSet({
+            const headerSet = new HeaderSet({
                 headers: [ header1 ],
             });
 
@@ -216,11 +218,11 @@ describe('HeaderSetConsolidator', () => {
         });
 
         it('should work correctly with interval', () => {
-            const header1 = new vbus.Packet({
+            const header1 = new Packet({
                 channel: 1
             });
 
-            const headerSet = new vbus.HeaderSet({
+            const headerSet = new HeaderSet({
                 headers: [ header1 ],
             });
 
@@ -253,12 +255,12 @@ describe('HeaderSetConsolidator', () => {
         it('should work correctly with timeToLive', () => {
             const timestamp = moment.utc([ 2014, 3, 1 ]).valueOf();
 
-            const header1 = new vbus.Packet({
+            const header1 = new Packet({
                 timestamp: new Date(timestamp),
                 channel: 1,
             });
 
-            const headerSet = new vbus.HeaderSet({
+            const headerSet = new HeaderSet({
                 headers: [ header1 ],
             });
 

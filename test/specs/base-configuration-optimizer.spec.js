@@ -3,13 +3,13 @@
 
 
 
+const {
+    BaseConfigurationOptimizer,
+} = require('./resol-vbus');
+
+
 const expect = require('./expect');
 const _ = require('./lodash');
-const vbus = require('./resol-vbus');
-
-
-
-const BaseConfigurationOptimizer = vbus.BaseConfigurationOptimizer;
 
 
 

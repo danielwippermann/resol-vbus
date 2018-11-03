@@ -5,7 +5,7 @@
 
 const DataSource = require('./data-source');
 const _ = require('./lodash');
-const Q = require('./q');
+const { promisify } = require('./utils');
 
 const TcpConnection = require('./tcp-connection');
 
@@ -75,7 +75,7 @@ const TcpDataSource = DataSource.extend(/** @lends TcpDataSource# */ {
 
         const connection = new TcpConnection(options);
 
-        return Q.fcall(() => {
+        return promisify(() => {
             return connection.connect();
         }).then(() => {
             return connection;

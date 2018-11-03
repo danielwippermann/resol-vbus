@@ -3,15 +3,15 @@
 
 
 
+const {
+    Packet,
+    Datagram,
+    Connection,
+} = require('./resol-vbus');
+
+
 const expect = require('./expect');
-const vbus = require('./resol-vbus');
 const { expectPromise } = require('./test-utils');
-
-
-
-const Packet = vbus.Packet;
-const Datagram = vbus.Datagram;
-const Connection = vbus.Connection;
 
 
 

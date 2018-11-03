@@ -4,7 +4,6 @@
 
 
 const _ = require('./lodash');
-const Q = require('./q');
 const { promisify } = require('./utils');
 
 
@@ -72,7 +71,7 @@ const ConfigurationOptimizerFactory = {
                 if (index < optimizerClasses.length) {
                     const Optimizer = optimizerClasses [index++];
 
-                    Q.fcall(() => {
+                    promisify(() => {
                         return Optimizer.matchOptimizer(options, cache);
                     }).then((refResult) => {
                         if ((refResult.match > 0) && (refResult.match > result.match)) {

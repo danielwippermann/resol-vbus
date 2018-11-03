@@ -3,26 +3,27 @@
 
 
 
+const {
+    Connection,
+    ConnectionCustomizer,
+    ConfigurationOptimizerFactory,
+    Datagram,
+    Packet,
+    utils: { promisify },
+} = require('./resol-vbus');
+
+
 const expect = require('./expect');
 const _ = require('./lodash');
-const Q = require('./q');
-const vbus = require('./resol-vbus');
 
 
 
-const Connection = vbus.Connection;
-const ConnectionCustomizer = vbus.ConnectionCustomizer;
-const Datagram = vbus.Datagram;
-const Packet = vbus.Packet;
-
-
-
-const optimizerPromise = vbus.ConfigurationOptimizerFactory.createOptimizerByDeviceAddress(0x7E11);
+const optimizerPromise = ConfigurationOptimizerFactory.createOptimizerByDeviceAddress(0x7E11);
 
 
 
 const promiseTestContext = function(options, callback) {
-    return Q.fcall(() => {
+    return promisify(() => {
         return optimizerPromise;
     }).then((optimizer) => {
         const context = {};
@@ -43,7 +44,7 @@ const promiseTestContext = function(options, callback) {
             transceiveValue(inValueInfo, value, options, state) {
                 const _this = this;
 
-                return Q.fcall(() => {
+                return promisify(() => {
                     const valueIndex = inValueInfo.valueIndex;
 
                     const valueInfo = context.testConfigValueByIndex [valueIndex];
@@ -89,7 +90,7 @@ const promiseTestContext = function(options, callback) {
             customizer,
         });
 
-        return Q.fcall(() => {
+        return promisify(() => {
             return optimizer.completeConfiguration(options.testConfig);
         }).then((testConfig) => {
             _.forEach(testConfig, (valueInfo) => {
@@ -218,7 +219,7 @@ describe('ConnectionCustomizer', () => {
                     id: 'Relais_Regler_R2_Handbetrieb',
                 }];
 
-                return Q.fcall(() => {
+                return promisify(() => {
                     // manually complete configuration, don't let the customizer do it...
                     return optimizer.completeConfiguration(refConfig);
                 }).then((config) => {
@@ -276,7 +277,7 @@ describe('ConnectionCustomizer', () => {
                     id: 'Relais_Regler_R2_Handbetrieb',
                 }];
 
-                return Q.fcall(() => {
+                return promisify(() => {
                     return customizer.loadConfiguration(refConfig, {
                         optimize: false,
                     });
@@ -310,7 +311,7 @@ describe('ConnectionCustomizer', () => {
             };
 
             return promiseTestContext(options, (customizer, optimizer, context) => {
-                return Q.fcall(() => {
+                return promisify(() => {
                     return customizer.loadConfiguration(null, {
                         optimize: true,
                     });
@@ -360,7 +361,7 @@ describe('ConnectionCustomizer', () => {
                     value: 3,
                 }];
 
-                return Q.fcall(() => {
+                return promisify(() => {
                     // manually complete configuration, don't let the customizer do it...
                     return optimizer.completeConfiguration(refConfig);
                 }).then((config) => {
@@ -416,7 +417,7 @@ describe('ConnectionCustomizer', () => {
                     value: 3,
                 }];
 
-                return Q.fcall(() => {
+                return promisify(() => {
                     return customizer.saveConfiguration(refConfig, null, {
                         optimize: false,
                     });

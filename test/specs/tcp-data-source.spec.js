@@ -3,14 +3,13 @@
 
 
 
+const {
+    TcpConnection,
+    TcpDataSource,
+} = require('./resol-vbus');
+
+
 const expect = require('./expect');
-const Q = require('./q');
-const vbus = require('./resol-vbus');
-
-
-
-const TcpConnection = vbus.TcpConnection;
-const TcpDataSource = vbus.TcpDataSource;
 
 
 
@@ -49,25 +48,23 @@ describe('TcpDataSource', () => {
                 .that.is.a('function');
         });
 
-        it('should work correctly', () => {
+        it('should work correctly', async () => {
             const originalConnect = TcpConnection.prototype.connect;
 
             TcpConnection.prototype.connect = sinon.spy(() => {
-                return Q();
+                return Promise.resolve();
             });
 
-            const promise = Q.fcall(() => {
+            try {
                 const ds = new TcpDataSource();
 
-                return ds.connectLive();
-            }).then((connection) => {
+                const connection = await ds.connectLive();
+
                 expect(connection)
                     .to.be.instanceOf(TcpConnection);
-            });
-
-            return vbus.utils.promiseFinally(promise, () => {
+            } finally {
                 TcpConnection.prototype.connect = originalConnect;
-            });
+            }
         });
 
     });

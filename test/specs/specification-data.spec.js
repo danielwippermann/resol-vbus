@@ -3,17 +3,14 @@
 
 
 
+const {
+    Specification,
+    SpecificationFile,
+} = require('./resol-vbus');
+
+
 const expect = require('./expect');
 const _ = require('./lodash');
-const vbus = require('./resol-vbus');
-
-
-// var createSpecificationData = require('../../src/specification-data');
-
-
-
-const Specification = vbus.Specification;
-const SpecificationFile = vbus.SpecificationFile;
 
 
 
