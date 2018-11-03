@@ -6,7 +6,6 @@
 const {
     TcpConnection,
     TcpConnectionEndpoint,
-    utils: { promisify },
 } = require('./resol-vbus');
 
 

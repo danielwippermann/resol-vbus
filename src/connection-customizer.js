@@ -334,7 +334,7 @@ const ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# 
                 }
 
                 await connection.createConnectedPromise();
-            };
+            }
 
             const onTimeout = function() {
                 done(null, null);
