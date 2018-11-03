@@ -5,6 +5,7 @@
 
 const moment = require('moment-timezone');
 const numeral = require('numeral');
+require('numeral/locales/de');
 const sprintf = require('sprintf-js').sprintf;
 
 
@@ -30,10 +31,6 @@ const resources = {
     dev: { translation: require('./locales/dev.json') },
     de: { translation: require('./locales/de.json') },
 };
-
-
-
-numeral.language('de', require('numeral/languages/de'));
 
 
 
@@ -200,7 +197,7 @@ const I18N = extend(null, /** @lends I18N# */ {
      * @see http://numeraljs.com/
      */
     numeral() {
-        numeral.language(this.languageData.numeral);
+        numeral.locale(this.languageData.numeral);
 
         return numeral.apply(null, arguments);
     },
