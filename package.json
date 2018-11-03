@@ -8,8 +8,12 @@
     "test": "jest",
     "coverage": "jest --coverage",
     "coveralls": "jest --coverage --coverageReporters=text-lcov | coveralls",
-    "transpile": "babel src -d dist",
-    "jsdoc": "jsdoc -t node_modules/ink-docstrap/template/ -c jsdoc.json -d .docs/jsdoc/ -R README.md src"
+    "transpile": "mkdir -p dist && babel src -d dist",
+    "jsdoc": "jsdoc -t node_modules/ink-docstrap/template/ -c jsdoc.json -d .docs/jsdoc/ -R README.md src",
+    "jekyll": "(cd docs; jekyll build && rsync -a _site/ ../.docs/)",
+    "copy-locales": "mkdir -p dist/locales && cp -a src/locales/* dist/locales/",
+    "copy-vsf": "mkdir -p dist && cp src/vbus_specification.vsf dist/",
+    "dist": "npm run transpile && npm run copy-locales && npm run copy-vsf"
   },
   "homepage": "https://github.com/danielwippermann/resol-vbus",
   "repository": "https://github.com/danielwippermann/resol-vbus.git",
