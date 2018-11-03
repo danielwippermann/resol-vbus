@@ -21,10 +21,12 @@ const extend = function(parent, protoProps, staticProps) {
 
     let child;
     if (protoProps && _.has(protoProps, 'constructor')) {
-        child = protoProps.constructor;
+        child = function(...args) {
+            return protoProps.constructor.apply(this, args);
+        };
     } else if (parent) {
-        child = function() {
-            return parent.apply(this, arguments);
+        child = function(...args) {
+            return parent.apply(this, args);
         };
     } else {
         child = function() {
