@@ -109,12 +109,21 @@ into your shell:
 ## Short-term plans
 
 - Remove current `ConfigurationOptimizer` constructs in favor of RESOL's official support.
-- Refactor code to adapt it to ES2015.
 
 
 ## Changelog
 
 ## Work in progress
+
+- This version contains several breaking changes! You have been warned...
+	- Refactor code to make use of ES2018 features (using Babel to back-support up to Node.js 6)
+	- Remove custom `Promise` implementation in favor of built-in, native one.
+	- `Promise` return values no longer provide the `finally` and `done` methods.
+	- Remove `utils.promise`, `utils.Promise` and `utils.cancelablePromise`.
+	- Add `reportProgress` and `checkCanceled` options to `ConnectionCustomizer#transceive{Configuration,Value}` as a replacement to the previously used `cancelablePromise` solution.
+- Add RESOL DeltaSol C configuration optimizer.
+- Add support for VBus-over-TCP wrapped in TLS.
+
 
 
 ## Version 0.17.0 (2018-02-10)
