@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "lint": "eslint src test/specs",
-    "test": "jest",
+    "test": "jest -i --verbose",
     "coverage": "jest --coverage",
     "coveralls": "jest --coverage --coverageReporters=text-lcov | coveralls",
     "transpile": "mkdir -p dist && babel src -d dist",
