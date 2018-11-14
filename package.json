@@ -6,8 +6,8 @@
   "scripts": {
     "lint": "eslint src test/specs",
     "test": "jest -i --verbose",
-    "coverage": "jest --coverage",
-    "coveralls": "jest --coverage --coverageReporters=text-lcov | coveralls",
+    "coverage": "jest -i --coverage",
+    "coveralls": "jest -i --coverage --coverageReporters=text-lcov | coveralls",
     "transpile": "mkdir -p dist && babel src -d dist",
     "jsdoc": "jsdoc -t node_modules/ink-docstrap/template/ -c jsdoc.json -d .docs/jsdoc/ -R README.md src",
     "jekyll": "(cd docs; jekyll build && rsync -a _site/ ../.docs/)",
