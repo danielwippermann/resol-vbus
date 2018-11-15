@@ -76,48 +76,65 @@ describe('TCP Data Source Provider', () => {
             expect(TcpDataSourceProvider.fetchDeviceInformation).to.be.a('function');
         });
 
-        it('should work correctly', (done) => {
-            let server = undefined;
+        it('should work correctly', () => {
+            return new Promise((resolve, reject) => {
+                let server = undefined;
 
-            const onFetch = function(info) {
-                server.close();
+                const cleanup = () => {
+                    if (server) {
+                        server.close();
+                        server = null;
+                    }
+                };
 
-                expect(info).to.be.an('object');
-                expect(info.vendor).to.equal('RESOL');
-                expect(info.product).to.equal('DL3');
-                expect(info.serial).to.equal('001E660300F0');
-                expect(info.version).to.equal('2.1.0');
-                expect(info.build).to.equal('201311280853');
-                expect(info.name).to.equal('DL3-001E660300F0');
-                expect(info.features).to.equal('vbus,dl2,dl3');
+                const onListening = async function() {
+                    try {
+                        const address = server.address();
 
-                done();
-            };
+                        let host = address.address;
+                        if ((address.family === 'IPv6') && (host.indexOf(':') >= 0)) {
+                            host = '[' + host + ']';
+                        }
 
-            const onListening = function() {
-                const address = server.address();
+                        const info = await TcpDataSourceProvider.fetchDeviceInformation(host, address.port);
 
-                let host = address.address;
-                if ((address.family === 'IPv6') && (host.indexOf(':') >= 0)) {
-                    host = '[' + host + ']';
-                }
+                        expect(info).to.be.an('object');
+                        expect(info.vendor).to.equal('RESOL');
+                        expect(info.product).to.equal('DL3');
+                        expect(info.serial).to.equal('001E660300F0');
+                        expect(info.version).to.equal('2.1.0');
+                        expect(info.build).to.equal('201311280853');
+                        expect(info.name).to.equal('DL3-001E660300F0');
+                        expect(info.features).to.equal('vbus,dl2,dl3');
 
-                TcpDataSourceProvider.fetchDeviceInformation(host, address.port).then(onFetch, done);
-            };
+                        resolve();
+                    } catch (err) {
+                        reject(err);
+                    } finally {
+                        cleanup();
+                    }
+                };
 
-            const onRequest = function(req, res) {
-                if (req.url === '/cgi-bin/get_resol_device_information') {
-                    res.statusCode = 200;
-                    res.end('vendor = "RESOL"\r\nproduct = "DL3"\r\nserial = "001E660300F0"\r\nversion = "2.1.0"\r\nbuild = "201311280853"\r\nname = "DL3-001E660300F0"\r\nfeatures = "vbus,dl2,dl3"\r\n');
-                } else {
-                    res.statusCode = 404;
-                    res.end();
-                }
-            };
+                const onRequest = function(req, res) {
+                    if (req.url === '/cgi-bin/get_resol_device_information') {
+                        res.statusCode = 200;
+                        res.end('vendor = "RESOL"\r\nproduct = "DL3"\r\nserial = "001E660300F0"\r\nversion = "2.1.0"\r\nbuild = "201311280853"\r\nname = "DL3-001E660300F0"\r\nfeatures = "vbus,dl2,dl3"\r\n');
+                    } else {
+                        res.statusCode = 404;
+                        res.end();
+                    }
+                };
 
-            server = http.createServer(onRequest).listen(0, '127.0.0.1', onListening);
+                server = http.createServer(onRequest);
+
+                server.on('error', err => {
+                    cleanup();
+                    reject(err);
+                });
+
+                server.listen(0, '127.0.0.1', onListening);
+            });
         });
-
     });
 
     describe('.sendBroadcast', () => {

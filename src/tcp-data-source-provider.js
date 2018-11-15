@@ -209,7 +209,7 @@ const TcpDataSourceProvider = DataSourceProvider.extend(/** @lends TcpDataSource
                     portSuffix = '';
                 }
 
-                const reqUrl = new url.URL('http://' + address + portSuffix + '/cgi-bin/get_resol_device_information');
+                const reqUrl = 'http://' + address + portSuffix + '/cgi-bin/get_resol_device_information';
 
                 const req = http.get(reqUrl, (res) => {
                     if (res.statusCode === 200) {
