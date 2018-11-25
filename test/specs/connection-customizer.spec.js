@@ -13,8 +13,12 @@ const {
 } = require('./resol-vbus');
 
 
+const jestExpect = global.expect;
 const expect = require('./expect');
 const _ = require('./lodash');
+const {
+    expectPromiseToReject
+} = require('./test-utils');
 
 
 
@@ -538,6 +542,192 @@ describe('ConnectionCustomizer', () => {
                     .that.has.lengthOf(1);
             });
         });
+
+        it('should report progress correctly', async () => {
+            const deviceAddress = 0x1111;
+            const valueIndex = 0x1234;
+            const value = 0x12345678;
+
+            const connection = new Connection();
+
+            connection.pipe(connection);
+
+            connection.on('datagram', (datagram) => {
+                if (datagram.command === 0x0600) {
+                    const packet = new Packet({
+                        channel: 0,
+                        destinationAddress: 0x0010,
+                        sourceAddress: deviceAddress,
+                        command: 0x0100,
+                        frameCount: 0,
+                    });
+
+                    connection.send(packet);
+                } else if (datagram.destinationAddress === deviceAddress) {
+                    const response = new Datagram({
+                        channel: datagram.channel,
+                        destinationAddress: datagram.sourceAddress,
+                        sourceAddress: deviceAddress,
+                        command: 0x0100,
+                        valueId: datagram.valueId,
+                        value,
+                    });
+
+                    connection.send(response);
+                }
+            });
+
+            connection._setConnectionState(Connection.STATE_CONNECTED);
+
+            const customizer = new ConnectionCustomizer({
+                deviceAddress,
+                connection,
+            });
+
+            const reportProgress = jest.fn();
+
+            const options = {
+                action: 'get',
+                reportProgress,
+            };
+
+            const callback = sinon.spy((config, round) => {
+                if (round === 1) {
+                    config = [
+                        { valueIndex, pending: true },
+                    ];
+                }
+                return config;
+            });
+
+            setTimeout(() => {
+                const datagram = new Datagram({
+                    channel: 0,
+                    destinationAddress: 0,
+                    sourceAddress: deviceAddress,
+                    command: 0x0500,
+                    valueId: 0,
+                    value: 0,
+                });
+
+                connection.send(datagram);
+            }, 10);
+
+            const config = await customizer.transceiveConfiguration(options, callback);
+
+            jestExpect(reportProgress).toHaveBeenCalledTimes(5);
+            jestExpect(reportProgress).toHaveBeenNthCalledWith(1, {
+                message: 'OPTIMIZING_VALUES',
+                round: 1,
+            });
+            jestExpect(reportProgress).toHaveBeenNthCalledWith(2, {
+                message: 'WAITING_FOR_FREE_BUS',
+                tries: 1,
+                valueInfo: config [0],
+                valueId: undefined,
+                valueIndex,
+                valueIdHash: undefined,
+                valueNr: 1,
+                valueCount: 1,
+            });
+            jestExpect(reportProgress).toHaveBeenNthCalledWith(3, {
+                message: 'GETTING_VALUE',
+                tries: 1,
+                valueInfo: config [0],
+                valueId: undefined,
+                valueIndex,
+                valueIdHash: undefined,
+                valueNr: 1,
+                valueCount: 1,
+            });
+            jestExpect(reportProgress).toHaveBeenNthCalledWith(4, {
+                message: 'OPTIMIZING_VALUES',
+                round: 2,
+            });
+            jestExpect(reportProgress).toHaveBeenNthCalledWith(5, {
+                message: 'RELEASING_BUS',
+            });
+        });
+
+        it('should cancel correctly', async () => {
+            const deviceAddress = 0x1111;
+            const valueIndex = 0x1234;
+            const value = 0x12345678;
+
+            const connection = new Connection();
+
+            connection.pipe(connection);
+
+            let isCanceled = false;
+
+            connection.on('datagram', (datagram) => {
+                if (datagram.command === 0x0600) {
+                    const packet = new Packet({
+                        channel: 0,
+                        destinationAddress: 0x0010,
+                        sourceAddress: deviceAddress,
+                        command: 0x0100,
+                        frameCount: 0,
+                    });
+
+                    connection.send(packet);
+                } else if (datagram.destinationAddress === deviceAddress) {
+                    const response = new Datagram({
+                        channel: datagram.channel,
+                        destinationAddress: datagram.sourceAddress,
+                        sourceAddress: deviceAddress,
+                        command: 0x0100,
+                        valueId: datagram.valueId,
+                        value,
+                    });
+
+                    connection.send(response);
+
+                    isCanceled = true;
+                }
+            });
+
+            connection._setConnectionState(Connection.STATE_CONNECTED);
+
+            const customizer = new ConnectionCustomizer({
+                deviceAddress,
+                connection,
+            });
+
+            const checkCanceled = jest.fn(() => isCanceled);
+
+            const options = {
+                action: 'get',
+                checkCanceled,
+            };
+
+            const callback = sinon.spy((config, round) => {
+                if (round === 1) {
+                    config = [
+                        { valueIndex, pending: true },
+                    ];
+                }
+                return config;
+            });
+
+            setTimeout(() => {
+                const datagram = new Datagram({
+                    channel: 0,
+                    destinationAddress: 0,
+                    sourceAddress: deviceAddress,
+                    command: 0x0500,
+                    valueId: 0,
+                    value: 0,
+                });
+
+                connection.send(datagram);
+            }, 10);
+
+            const promise = customizer.transceiveConfiguration(options, callback);
+
+            await expectPromiseToReject(promise, 'Canceled');
+        });
+
     });
 
     describe('#transceiveValue', () => {
@@ -1011,6 +1201,145 @@ describe('ConnectionCustomizer', () => {
                     .to.have.a.property('value')
                     .that.is.equal(value);
             });
+        });
+
+        it('should report progress', async () => {
+            const deviceAddress = 0x1111;
+            const valueId = 0x2222;
+            const value = 0x12345678;
+
+            const connection = new Connection();
+
+            connection.pipe(connection);
+
+            let request, response;
+            connection.on('datagram', (datagram) => {
+                if (datagram.destinationAddress === deviceAddress) {
+                    request = datagram;
+
+                    response = new Datagram({
+                        channel: request.channel,
+                        destinationAddress: request.sourceAddress,
+                        sourceAddress: deviceAddress,
+                        command: 0x0100,
+                        valueId: request.valueId,
+                        value,
+                    });
+
+                    connection.send(response);
+                }
+            });
+
+            connection._setConnectionState(Connection.STATE_CONNECTED);
+
+            const customizer = new ConnectionCustomizer({
+                deviceAddress,
+                connection,
+            });
+
+            const reportProgress = jest.fn();
+
+            const options = {
+                action: 'get',
+                reportProgress,
+            };
+
+            await customizer.transceiveValue(valueId, 0, options);
+
+            jestExpect(reportProgress).toHaveBeenCalledTimes(1);
+            jestExpect(reportProgress).toHaveBeenCalledWith({
+                message: 'GETTING_VALUE',
+                tries: 1,
+                valueIndex: valueId,
+                valueInfo: {
+                    valueIndex: valueId,
+                }
+            });
+        });
+
+        it('should be cancelable', async () => {
+            const deviceAddress = 0x1111;
+            const valueId = 0x2222;
+
+            const connection = new Connection();
+
+            connection.pipe(connection);
+
+            let counter = 0, isCanceled = false;
+            connection.on('datagram', (datagram) => {
+                if (datagram.destinationAddress === deviceAddress) {
+                    counter += 1;
+                    if (counter >= 2) {
+                        isCanceled = true;
+                    }
+                }
+            });
+
+            connection._setConnectionState(Connection.STATE_CONNECTED);
+
+            const customizer = new ConnectionCustomizer({
+                deviceAddress,
+                connection,
+            });
+
+            const checkCanceled = jest.fn(() => {
+                return isCanceled;
+            });
+
+            const options = {
+                action: 'get',
+                checkCanceled,
+            };
+
+            const promise = customizer.transceiveValue(valueId, 0, options);
+
+            await expectPromiseToReject(promise, 'Canceled');
+
+            jestExpect(checkCanceled).toHaveBeenCalledTimes(6);
+        });
+
+        it('should be cancelable with own exception', async () => {
+            const deviceAddress = 0x1111;
+            const valueId = 0x2222;
+
+            const connection = new Connection();
+
+            connection.pipe(connection);
+
+            let counter = 0, cancelException = null;
+            connection.on('datagram', (datagram) => {
+                if (datagram.destinationAddress === deviceAddress) {
+                    counter += 1;
+                    if (counter >= 2) {
+                        cancelException = new Error('My own cancel exception');
+                    }
+                }
+            });
+
+            connection._setConnectionState(Connection.STATE_CONNECTED);
+
+            const customizer = new ConnectionCustomizer({
+                deviceAddress,
+                connection,
+            });
+
+            const checkCanceled = jest.fn(() => {
+                if (cancelException) {
+                    throw cancelException;
+                }
+                return false;
+            });
+
+            const options = {
+                action: 'get',
+                checkCanceled,
+            };
+
+            const promise = customizer.transceiveValue(valueId, 0, options);
+
+            await expectPromiseToReject(promise, 'My own cancel exception');
+
+            jestExpect(checkCanceled).toHaveBeenCalledTimes(6);
         });
 
     });

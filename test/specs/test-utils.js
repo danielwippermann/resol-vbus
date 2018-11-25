@@ -8,6 +8,7 @@ const {
 } = require('./resol-vbus');
 
 
+const jestExpect = global.expect;
 const expect = require('./expect');
 const _ = require('./lodash');
 
@@ -25,13 +26,17 @@ const testUtils = {
         return promise;
     },
 
-    async expectPromiseToReject(promise) {
+    async expectPromiseToReject(promise, ...args) {
         testUtils.expectPromise(promise);
 
         await promise.then(() => {
-            throw new Error('Expected promise to reject');
-        }, () => {
-            // nop
+            jestExpect(() => {
+                // nop
+            }).toThrow(...args);
+        }, err => {
+            jestExpect(() => {
+                throw err;
+            }).toThrow(...args);
         });
     },
 

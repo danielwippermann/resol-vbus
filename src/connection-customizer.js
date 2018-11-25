@@ -151,13 +151,16 @@ const ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# 
      * @param {number} [options.triesPerValue] {@link ConnectionCustomizer#triesPerValue}
      * @param {number} [options.timeoutPerValue] {@link ConnectionCustomizer#timeoutPerValue}
      * @param {number} [options.masterTimeout] {@link ConnectionCustomizer#masterTimeout}
-     * @param {number} options.action Action to perform, can be `'get'` or `'set'`.
-     * @param {number} [options.actionOptions] Options object to forward to the action to perform.
+     * @param {string} options.action Action to perform, can be `'get'` or `'set'`.
+     * @param {object} [options.actionOptions] Options object to forward to the action to perform.
+     * @param {function} [options.reportProgress] Callback to inform about progress.
+     * @param {function} [options.checkCanceled] Callback to check whether the operation should be canceled.
+     * @param {function} optimizerCallback Callback to optimize configuration between rounds.
      * @return {object} Promise that resolves to the configuration or `null` on timeout.
      */
-    async transceiveConfiguration(options, callback) {
+    async transceiveConfiguration(options, optimizerCallback) {
         if (_.isFunction(options)) {
-            callback = options;
+            optimizerCallback = options;
             options = null;
         }
 
@@ -206,7 +209,7 @@ const ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# 
                 round,
             });
 
-            config = await callback(config, round);
+            config = await optimizerCallback(config, round);
 
             await check();
 
@@ -278,6 +281,10 @@ const ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# 
      * @param {number} options.triesPerValue {@link ConnectionCustomizer#triesPerValue}
      * @param {number} options.timeoutPerValue {@link ConnectionCustomizer#timeoutPerValue}
      * @param {number} options.masterTimeout {@link ConnectionCustomizer#masterTimeout}
+     * @param {string} options.action Action to perform, can be `'get'` or `'set'`.
+     * @param {object} [options.actionOptions] Options object to forward to the action to perform.
+     * @param {function} [options.reportProgress] Callback to inform about progress.
+     * @param {function} [options.checkCanceled] Callback to check whether the operation should be canceled.
      * @param {object} state State to share between multiple calls to this method.
      * @returns {object} Promise that resolves with the datagram received or `null` on timeout.
      */
