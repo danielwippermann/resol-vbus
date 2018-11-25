@@ -8,7 +8,6 @@ const fs = require('fs');
 
 const express = require('express');
 const kue = require('kue');
-const _ = require('lodash');
 const optimist = require('optimist');
 
 
@@ -25,7 +24,7 @@ const i18n = new vbus.I18N('en');
 
 let reportProgress = (message) => {
     let line;
-    if (_.isString(message)) {
+    if (typeof message === 'string') {
         line = message;
     } else if (message.message === 'OPTIMIZING_VALUES') {
         line = i18n.sprintf('Optimizing set of values for round %d', message.round);
@@ -43,7 +42,7 @@ let reportProgress = (message) => {
         line = i18n.sprintf('%s: %s', message.message, JSON.stringify(message));
     }
 
-    if (_.isNumber(message.round)) {
+    if (typeof message.round === 'number') {
         line = i18n.sprintf('[%d] %s', message.round, line);
     }
 
@@ -164,7 +163,7 @@ const serve = async () => {
 
     const app = express();
     app.get('/config', (req, res) => {
-        const jsonConfig = _.reduce(context.currentConfig, (memo, value) => {
+        const jsonConfig = context.currentConfig.reduce((memo, value) => {
             if (!value.ignored) {
                 memo [value.valueId] = value.value;
             }
@@ -271,7 +270,7 @@ const runSingleShot = async (argv) => {
             savedConfig = loadedConfig;
         }
 
-        let jsonConfig = _.reduce(savedConfig, (memo, value) => {
+        let jsonConfig = savedConfig.reduce((memo, value) => {
             if (!value.ignored) {
                 memo [value.valueId] = value.value;
             }

@@ -8,7 +8,6 @@ const os = require('os');
 
 
 const express = require('express');
-const _ = require('lodash');
 const winston = require('winston');
 
 
@@ -25,11 +24,14 @@ const config = require('./config');
 
 
 
-const logger = new winston.Logger({
+const logger = winston.createLogger({
     transports: [
         new winston.transports.Console({
-            level: 'info',
-            colorize: true,
+            level: 'debug',
+            format: winston.format.combine(
+                winston.format.colorize(),
+                winston.format.simple()
+            ),
         }),
     ],
 });
@@ -50,7 +52,7 @@ const headerSet = new HeaderSet();
 const generateJsonData = async function() {
     const packetFields = spec.getPacketFieldsForHeaders(headerSet.getSortedHeaders());
 
-    const data = _.map(packetFields, (pf) => {
+    const data = packetFields.map((pf) => {
         return {
             id: pf.id,
             name: pf.name,
@@ -126,16 +128,14 @@ const main = async () => {
 
     await connection.connect();
 
-    const ifaces = os.networkInterfaces();
-
     logger.info('Ready to serve from the following URLs:');
-    _.forEach(ifaces, (ifaceConfigs, ifaceName) => {
-        _.forEach(ifaceConfigs, (ifaceConfig) => {
+    for (const iface of Object.values(os.networkInterfaces())) {
+        for (const ifaceConfig of iface) {
             if (ifaceConfig.family === 'IPv4') {
                 logger.info('    - http://' + ifaceConfig.address + ':' + config.httpPort + '/api/v1/live-data' + (ifaceConfig.internal ? ' (internal)' : ''));
             }
-        });
-    });
+        }
+    }
 
     hsc.startTimer();
 

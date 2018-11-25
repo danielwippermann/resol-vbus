@@ -9,7 +9,6 @@ const path = require('path');
 
 
 const express = require('express');
-const _ = require('lodash');
 const morgan = require('morgan');
 const request = require('request');
 const winston = require('winston');
@@ -41,9 +40,11 @@ const specification = Specification.getDefaultSpecification();
 const logger = winston.createLogger({
     transports: [
         new winston.transports.Console({
-            format: winston.format.simple(),
             level: 'debug',
-            colorize: true,
+            format: winston.format.combine(
+                winston.format.colorize(),
+                winston.format.simple()
+            ),
         }),
     ],
 });
@@ -82,7 +83,7 @@ const textHeaderSetConsolidator = new HeaderSetConsolidator({
 const headerSetHasSettled = function(headerSet) {
     const packetFields = specification.getPacketFieldsForHeaders(headerSet.getHeaders());
 
-    logger.debug(_.map(packetFields, (packetField) => {
+    logger.debug(packetFields.map((packetField) => {
         return packetField.id + ': ' + packetField.name;
     }).join('\n'));
 };
@@ -175,7 +176,7 @@ const rewriteWebHeaderSet = function(headerSet) {
     /*
      * Map all existing packet fields into an object for easier access.
      */
-    const origRawValueById = _.reduce(packetFields, (memo, packetField) => {
+    const origRawValueById = packetFields.reduce((memo, packetField) => {
         memo [packetField.id] = packetField.rawValue;
         return memo;
     }, {});
@@ -403,13 +404,13 @@ const startWebServer = async () => {
     app.listen(3000, () => {
         logger.debug('Started web server at: ');
         logger.debug('  - http://0.0.0.0:' + config.webServerPort + '/ (internal)');
-        _.forEach(os.networkInterfaces(), (iface) => {
-            _.forEach(iface, (ifaceConfig) => {
+        for (const iface of Object.values(os.networkInterfaces())) {
+            for (const ifaceConfig of iface) {
                 if (ifaceConfig.family === 'IPv4') {
                     logger.debug('  - http://' + ifaceConfig.address + ':' + config.webServerPort + '/' + (ifaceConfig.internal ? ' (internal)' : ''));
                 }
-            });
-        });
+            }
+        }
     });
 };
 
@@ -426,7 +427,7 @@ const startPvOutputOrgLogging = async () => {
         const headers = headerSet.getSortedHeaders();
         const packetFields = specification.getPacketFieldsForHeaders(headers);
 
-        const valuesById = _.reduce(packetFields, (memo, pf) => {
+        const valuesById = packetFields.reduce((memo, pf) => {
             const precision = pf.packetFieldSpec.type.precision;
 
             const roundedRawValue = pf.rawValue.toFixed(precision);
@@ -439,7 +440,9 @@ const startPvOutputOrgLogging = async () => {
 
         const timestamp = specification.i18n.moment(headerSet.timestamp);
 
-        const params = _.reduce(config.pvOutputOrgPacketFieldMap, (memo, packetFieldId, key) => {
+        const params = Object.keys(config.pvOutputOrgPacketFieldMap).reduce((memo, key) => {
+            const packetFieldId = config.pvOutputOrgPacketFieldMap [key];
+
             let value;
             if (typeof packetFieldId === 'function') {
                 value = packetFieldId(valuesById);
@@ -505,7 +508,7 @@ const startTextLogging = async () => {
 
             const file = fs.createWriteStream(filename, { flags: 'a' });
 
-            const options = _.extend({}, config.textLoggingOptions, {
+            const options = Object.assign({}, config.textLoggingOptions, {
                 specification,
             });
 
