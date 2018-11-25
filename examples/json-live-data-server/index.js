@@ -3,148 +3,153 @@
 
 
 
-var fs = require('fs');
-var os = require('os');
-var path = require('path');
+const fs = require('fs');
+const os = require('os');
 
 
-var express = require('express');
-var _ = require('lodash');
-var Q = require('q');
-var winston = require('winston');
+const express = require('express');
+const _ = require('lodash');
+const winston = require('winston');
 
 
-var vbus = require('./resol-vbus');
+const {
+    HeaderSet,
+    HeaderSetConsolidator,
+    Specification,
+    SerialConnection,
+    TcpConnection,
+} = require('../resol-vbus');
 
 
-var config = require('./config');
+const config = require('./config');
 
 
 
-var logger = new winston.Logger({
-	transports: [
-		new winston.transports.Console({
-			level: 'info',
-			colorize: true,
-		}),
-	],
+const logger = new winston.Logger({
+    transports: [
+        new winston.transports.Console({
+            level: 'info',
+            colorize: true,
+        }),
+    ],
 });
 
 
-
-var Promise = vbus.utils.promise;
-
-
-
-var i18n = new vbus.I18N('en');
+const connectionClassByName = {
+    SerialConnection,
+    TcpConnection,
+};
 
 
-
-var spec = vbus.Specification.getDefaultSpecification();
-
+const spec = Specification.getDefaultSpecification();
 
 
-var main = function() {
-	var ctx = {
-		headerSet: null,
-		hsc: null,
-		connection: null,
-	};
+const headerSet = new HeaderSet();
 
-	var generateJsonData = function() {
-		var packetFields = spec.getPacketFieldsForHeaders(ctx.headerSet.getSortedHeaders());
 
-		var data = _.map(packetFields, function(pf) {
-			return {
-				id: pf.id,
-				name: pf.name,
-				rawValue: pf.rawValue,
-			};
-		});
+const generateJsonData = async function() {
+    const packetFields = spec.getPacketFieldsForHeaders(headerSet.getSortedHeaders());
 
-		return JSON.stringify(data, null, 4);
-	};
+    const data = _.map(packetFields, (pf) => {
+        return {
+            id: pf.id,
+            name: pf.name,
+            rawValue: pf.rawValue,
+        };
+    });
 
-	return Q.fcall(function() {
-		logger.debug('Starting server...');
+    return JSON.stringify(data, null, 4);
+};
 
-		var app = express();
 
-		app.get('/api/v1/live-data', function(req, res) {
-			Q.fcall(function() {
-				var data = generateJsonData();
+const writeHeaderSet = async (filename) => {
+    logger.debug('HeaderSet complete');
 
-				res.status(200).type('application/json').end(data);
-			}).fail(function(err) {
-				logger.error(err);
-				res.status(500).type('text/plain').end(err.toString());
-			});
-		});
+    const data = await generateJsonData();
 
-		return new Promise(function(resolve, reject) {
-			app.listen(config.httpPort, function(err) {
-				if (err) {
-					reject(err);
-				} else {
-					resolve();
-				}
-			});
-		});
-	}).then(function() {
-		logger.debug('Connect to VBus data source...');
+    await new Promise((resolve, reject) => {
+        fs.writeFile(filename, data, (err) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve();
+            }
+        });
+    });
+};
 
-		ctx.headerSet = new vbus.HeaderSet();
 
-		ctx.hsc = new vbus.HeaderSetConsolidator({
-			interval: config.loggingInterval,
-		});
+const main = async () => {
+    logger.debug('Starting server...');
 
-		var ConnectionClass = vbus [config.connectionClassName];
+    const app = express();
 
-		ctx.connection = new ConnectionClass(config.connectionOptions);
+    app.get('/api/v1/live-data', (req, res) => {
+        generateJsonData().then(data => {
+            res.status(200).type('application/json').end(data);
+        }).then(null, (err) => {
+            logger.error(err);
+            res.status(500).type('text/plain').end(err.toString());
+        });
+    });
 
-		ctx.connection.on('packet', function(packet) {
-			ctx.headerSet.addHeader(packet);
-			ctx.hsc.addHeader(packet);
-		});
+    await new Promise((resolve, reject) => {
+        app.listen(config.httpPort, (err) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve();
+            }
+        });
+    });
 
-		ctx.hsc.on('headerSet', function(headerSet) {
-			Q.fcall(function() {
-				logger.debug('HeaderSet complete');
+    logger.debug('Connect to VBus data source...');
 
-				var data = generateJsonData();
+    const hsc = new HeaderSetConsolidator({
+        interval: config.loggingInterval,
+    });
 
-				return Q.npost(fs, 'writeFile', [ config.loggingFilename, data ]);
-			}).done();
-		});
+    const ConnectionClass = connectionClassByName [config.connectionClassName];
 
-		return ctx.connection.connect();
-	}).then(function() {
-		var ifaces = os.networkInterfaces();
+    const connection = new ConnectionClass(config.connectionOptions);
 
-		logger.info('Ready to serve from the following URLs:');
-		_.forEach(ifaces, function(ifaceConfigs, ifaceName) {
-			_.forEach(ifaceConfigs, function(ifaceConfig) {
-				if (ifaceConfig.family === 'IPv4') {
-					logger.info('    - http://' + ifaceConfig.address + ':' + config.httpPort + '/api/v1/live-data' + (ifaceConfig.internal ? ' (internal)' : ''));
-				}
-			});
-		});
+    connection.on('packet', (packet) => {
+        headerSet.addHeader(packet);
+        hsc.addHeader(packet);
+    });
 
-		ctx.hsc.startTimer();
+    hsc.on('headerSet', (headerSet) => {
+        writeHeaderSet(config.loggingFilename).then(null, err => {
+            logger.error(err);
+        });
+    });
 
-		return new Promise(function(resolve, reject) {
-			// nop, just run forever
-		});
-	});
+    await connection.connect();
+
+    const ifaces = os.networkInterfaces();
+
+    logger.info('Ready to serve from the following URLs:');
+    _.forEach(ifaces, (ifaceConfigs, ifaceName) => {
+        _.forEach(ifaceConfigs, (ifaceConfig) => {
+            if (ifaceConfig.family === 'IPv4') {
+                logger.info('    - http://' + ifaceConfig.address + ':' + config.httpPort + '/api/v1/live-data' + (ifaceConfig.internal ? ' (internal)' : ''));
+            }
+        });
+    });
+
+    hsc.startTimer();
+
+    return new Promise((resolve, reject) => {
+        // nop, just run forever
+    });
 };
 
 
 
 if (require.main === module) {
-	Q.fcall(function() {
-		return main(process.argv.slice(2));
-	}).done();
+    main(process.argv.slice(2)).then(null, err => {
+        logger.error(err);
+    });
 } else {
-	module.exports = main;
+    module.exports = main;
 }

@@ -3,65 +3,53 @@
 
 
 
-var path = require('path');
+const {
+    DLxRecorder,
+    FileSystemRecorder,
+    I18N,
+} = require('../resol-vbus');
 
 
-var _ = require('lodash');
-var moment = require('moment');
-var Q = require('q');
-
-
-var vbus = require('../../src/index');
-
-
-var config = require('../config.js');
+const config = require('./config.js');
 
 
 
-var main = function() {
-    var sourceOptions = _.defaults({}, config.syncDLxSourceOptions, {
-        id: 'dlx-source',
-        urlPrefix: 'http://my-dl2.local/',
-        username: 'admin',
-        password: 'admin',
-    });
+const i18n = new I18N('en');
 
-    var dlxRecorder = new vbus.DLxRecorder(sourceOptions);
 
-    // var interval = 3600000;
-    var interval = 300000;
+const main = async () => {
+    const dlxRecorder = new DLxRecorder(config.sourceOptions);
 
-    var maxTimestamp = moment().startOf('day').add({ hours: 0, minutes: 59 });
-    var minTimestamp = moment(maxTimestamp).startOf('day').subtract({ days: 2, hours: 1, minutes: 0 });
+    // const interval = 3600000;
+    const interval = 300000;
 
-    var fileRecorder = new vbus.FileSystemRecorder({
-        id: 'fs-destination',
-        path: path.resolve(__dirname, 'cache'),
-    });
+    const maxTimestamp = i18n.moment().startOf('day').add({ hours: 0, minutes: 59 });
+    const minTimestamp = i18n.moment(maxTimestamp).startOf('day').subtract({ days: 2, hours: 1, minutes: 0 });
+
+    const fileRecorder = new FileSystemRecorder(config.destinationOptions);
 
     // console.log(minTimestamp.toString(), maxTimestamp.toString());
 
-    Q.try(function() {
-        return dlxRecorder.synchronizeTo(fileRecorder, {
-            minTimestamp: minTimestamp.toDate(),
-            // maxTimestamp: maxTimestamp.toDate(),
-            interval: interval,
-        });
-    // }).then(function() {
-    //     return dlxRecorder.synchronizeTo(fileRecorder, {
-    //         minTimestamp: moment(minTimestamp).subtract({ days: 7 }).toDate(),
-    //         interval: interval,
-    //     });
-    }).done(function() {
-        console.log('DONE');
+    await dlxRecorder.synchronizeTo(fileRecorder, {
+        minTimestamp: minTimestamp.toDate(),
+        // maxTimestamp: maxTimestamp.toDate(),
+        interval,
     });
 
+    // await dlxRecorder.synchronizeTo(fileRecorder, {
+    //     minTimestamp: i18n.moment(minTimestamp).subtract({ days: 7 }).toDate(),
+    //     interval: interval,
+    // });
 };
 
 
 
 if (require.main === module) {
-    main();
+    main().then(() => {
+        console.log('DONE');
+    }, err => {
+        console.log(err);
+    });
 } else {
     module.exports = main;
 }

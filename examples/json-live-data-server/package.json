@@ -11,7 +11,6 @@
   "dependencies": {
     "express": "^4.12.3",
     "lodash": "^3.7.0",
-    "q": "^1.2.1",
     "winston": "^1.0.0"
   }
 }

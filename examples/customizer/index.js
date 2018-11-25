@@ -3,34 +3,28 @@
 
 
 
-var fs = require('fs');
-// var util = require('util');
+const fs = require('fs');
 
 
-var express = require('express');
-var kue = require('kue');
-var _ = require('lodash');
-var optimist = require('optimist');
-var Q = require('q');
+const express = require('express');
+const kue = require('kue');
+const _ = require('lodash');
+const optimist = require('optimist');
 
 
-var vbus = require('../../src/index');
+const vbus = require('../resol-vbus');
 
 
-var config = require('../config.js');
-
-
-
-var promise = vbus.utils.promise;
+const config = require('./config.js');
 
 
 
-var i18n = new vbus.I18N('en');
+const i18n = new vbus.I18N('en');
 
 
 
-var reportProgress = function(message) {
-    var line;
+let reportProgress = (message) => {
+    let line;
     if (_.isString(message)) {
         line = message;
     } else if (message.message === 'OPTIMIZING_VALUES') {
@@ -58,29 +52,27 @@ var reportProgress = function(message) {
 
 
 
-var loadJsonFile = function(filename) {
-    return promise(function(resolve, reject) {
-        fs.readFile(filename, function(err, data) {
+const loadJsonFile = async (filename) => {
+    const data = await new Promise((resolve, reject) => {
+        fs.readFile(filename, (err, data) => {
             if (err) {
                 reject(err);
             } else {
                 resolve(data);
             }
         });
-    }).then(function(data) {
-        return JSON.parse(data);
     });
+
+    return JSON.parse(data);
 };
 
 
-var createConnection = function() {
-    var connectionConfig = config.customizerOptions.connection;
+const createConnection = function() {
+    const Connection = vbus [config.connectionClassName];
 
-    var Connection = vbus [connectionConfig.class];
+    const conn = new Connection(config.connectionOptions);
 
-    var conn = new Connection(connectionConfig.options);
-
-    conn.on('connectionState', function(state) {
+    conn.on('connectionState', (state) => {
         reportProgress({
             message: 'CONNECTION_STATE',
             connectionState: state,
@@ -91,162 +83,153 @@ var createConnection = function() {
 };
 
 
-var processCustomizationJob = function(context, job) {
-    return Q.fcall(function() {
-        reportProgress('Waiting for free bus...');
+const processCustomizationJob = async (context, job) => {
+    reportProgress('Waiting for free bus...');
 
-        return context.connection.waitForFreeBus();
-    }).then(function(datagram) {
-        context.masterAddress = datagram.sourceAddress;
+    const datagram = await context.connection.waitForFreeBus();
 
-        reportProgress('Found master with address 0x' + context.masterAddress.toString(16));
+    context.masterAddress = datagram.sourceAddress;
 
-        context.deviceAddress = context.masterAddress;
+    reportProgress('Found master with address 0x' + context.masterAddress.toString(16));
 
-        return vbus.ConfigurationOptimizerFactory.createOptimizerByDeviceAddress(context.deviceAddress);
-    }).then(function(optimizer) {
-        context.optimizer = optimizer;
+    context.deviceAddress = context.masterAddress;
 
-        context.customizer = new vbus.ConnectionCustomizer({
-            deviceAddress: context.deviceAddress,
-            connection: context.connection,
-            optimizer: context.optimizer,
-        });
-    }).then(function() {
-        var onProgress = function(progress) {
-            reportProgress(progress);
-        };
+    const optimizer = await vbus.ConfigurationOptimizerFactory.createOptimizerByDeviceAddress(context.deviceAddress);
 
-        var command = job.data.command;
+    context.optimizer = optimizer;
 
-        var config = job.data.config;
-        var currentConfig = context.currentConfig;
-
-        var options = {
-            optimize: false,
-        };
-
-        if (command === 'load') {
-            options.optimize = !config;
-
-            return Q.fcall(function() {
-                return context.customizer.loadConfiguration(config, options).progress(onProgress);
-            }).then(function(config) {
-                // console.log(config);
-                return context.optimizer.completeConfiguration(config, currentConfig);
-            }).then(function(config) {
-                // console.log(config);
-                context.currentConfig = config;
-            });
-        } else if (command === 'save') {
-            return Q.fcall(function() {
-                return context.customizer.saveConfiguration(config, currentConfig, options).progress(onProgress);
-            }).then(function(config) {
-                // console.log(config);
-                return context.optimizer.completeConfiguration(config, currentConfig);
-            }).then(function(config) {
-                // console.log(config);
-                context.currentConfig = config;
-            });
-        } else {
-            throw new Error('Unknown command ' + JSON.stringify(command));
-        }
+    context.customizer = new vbus.ConnectionCustomizer({
+        deviceAddress: context.deviceAddress,
+        connection: context.connection,
+        optimizer: context.optimizer,
     });
-};
 
+    const command = job.data.command;
 
-var serve = function() {
-    var context = {};
+    const config = job.data.config;
+    const currentConfig = context.currentConfig;
 
-    return Q.fcall(function() {
-        return createConnection();
-    }).then(function(conn) {
-        context.connection = conn;
+    const options = {
+        optimize: false,
+        reportProgress,
+    };
 
-        reportProgress('Connecting...');
+    if (command === 'load') {
+        options.optimize = !config;
 
-        return context.connection.connect();
-    }).then(function() {
-        var jobs = kue.createQueue();
-        jobs.process('customization', function(job, done) {
-            Q.fcall(function() {
-                return processCustomizationJob(context, job);
-            }).done(function() {
-                console.log('Job done!');
+        const loadedConfig = await context.customizer.loadConfiguration(config, options);
 
-                done();
-            }, function(err) {
-                console.log('Job failed!');
+        // console.log(config);
+        const completedConfig = await context.optimizer.completeConfiguration(loadedConfig, currentConfig);
 
-                done(err);
-            });
-        });
-    }).then(function() {
-        var app = express();
-        app.get('/config', function(req, res) {
-            var jsonConfig = _.reduce(context.currentConfig, function(memo, value) {
-                if (!value.ignored) {
-                    memo [value.valueId] = value.value;
-                }
-                return memo;
-            }, {});
+        // console.log(config);
+        context.currentConfig = completedConfig;
+    } else if (command === 'save') {
+        const savedConfig = await context.customizer.saveConfiguration(config, currentConfig, options);
 
-            res.json(jsonConfig);
-        });
-        app.use(kue.app);
-        app.listen(3000);
-    });
-};
+        // console.log(config);
+        const completedConfig = await context.optimizer.completeConfiguration(savedConfig, currentConfig);
 
-
-var runSingleShot = function(argv) {
-    var context = {};
-
-    if (argv.q) {
-        reportProgress = function() {};
+        // console.log(config);
+        context.currentConfig = completedConfig;
+    } else {
+        throw new Error('Unknown command ' + JSON.stringify(command));
     }
+};
 
-    return Q.fcall(function() {
-        return createConnection();
-    }).then(function(conn) {
+
+const serve = async () => {
+    const context = {};
+
+    const conn = await createConnection();
+
+    context.connection = conn;
+
+    reportProgress('Connecting...');
+
+    await context.connection.connect();
+
+    const jobs = kue.createQueue();
+    jobs.process('customization', (job, done) => {
+        processCustomizationJob(context, job).then(() => {
+            console.log('Job done!');
+
+            done();
+        }, (err) => {
+            console.log('Job failed!');
+
+            done(err);
+        });
+    });
+
+    const app = express();
+    app.get('/config', (req, res) => {
+        const jsonConfig = _.reduce(context.currentConfig, (memo, value) => {
+            if (!value.ignored) {
+                memo [value.valueId] = value.value;
+            }
+            return memo;
+        }, {});
+
+        res.json(jsonConfig);
+    });
+
+    app.use(kue.app);
+    app.listen(3000);
+};
+
+
+const runSingleShot = async (argv) => {
+    const context = {};
+
+    try {
+        if (argv.q) {
+            reportProgress = function() {};
+        }
+
+        const conn = await createConnection();
+
         context.connection = conn;
 
+        let oldConfig;
         if (argv.old) {
-            return loadJsonFile(argv.old);
+            oldConfig = await loadJsonFile(argv.old);
         }
-    }).then(function(oldConfig) {
+
         context.oldConfig = oldConfig;
 
+        let loadConfig;
         if (argv.loadAll) {
             return null;
         } else if (argv.load) {
-            return loadJsonFile(argv.load);
+            loadConfig = await loadJsonFile(argv.load);
         }
-    }).then(function(loadConfig) {
+
         context.loadConfig = loadConfig;
 
+        let saveConfig;
         if (argv.save) {
-            return loadJsonFile(argv.save);
+            saveConfig = await loadJsonFile(argv.save);
         }
-    }).then(function(saveConfig) {
+
         context.saveConfig = saveConfig;
 
         reportProgress('Connecting...');
 
-        return context.connection.connect();
-    }).then(function() {
+        await context.connection.connect();
+
         reportProgress('Waiting for free bus...');
 
-        return context.connection.waitForFreeBus();
-    }).then(function(datagram) {
+        const datagram = await context.connection.waitForFreeBus();
+
         context.masterAddress = datagram.sourceAddress;
 
         reportProgress('Found master with address 0x' + context.masterAddress.toString(16));
 
         context.deviceAddress = context.masterAddress;
 
-        return vbus.ConfigurationOptimizerFactory.createOptimizerByDeviceAddress(context.deviceAddress);
-    }).then(function(optimizer) {
+        const optimizer = await vbus.ConfigurationOptimizerFactory.createOptimizerByDeviceAddress(context.deviceAddress);
+
         context.optimizer = optimizer;
 
         if (!optimizer) {
@@ -258,41 +241,37 @@ var runSingleShot = function(argv) {
             connection: context.connection,
             optimizer: context.optimizer,
         });
-    }).then(function() {
+
+        let loadedConfig;
         if (context.loadConfig !== undefined) {
-            var onProgress = function(progress) {
-                reportProgress(progress);
-            };
+            const config = context.loadConfig;
 
-            var config = context.loadConfig;
-
-            var options = {
+            const options = {
                 optimize: !config,
+                reportProgress,
             };
 
-            return context.customizer.loadConfiguration(config, options).progress(onProgress);
+            loadedConfig = await context.customizer.loadConfiguration(config, options);
         }
-    }).then(function(config) {
-        context.loadedConfig = config;
 
+        context.loadedConfig = loadedConfig;
+
+        let savedConfig;
         if (context.saveConfig !== undefined) {
-            var onProgress = function(progress) {
-                reportProgress(progress);
-            };
+            const saveConfig = context.saveConfig;
+            const oldConfig = context.oldConfig;
 
-            var saveConfig = context.saveConfig;
-            var oldConfig = context.oldConfig;
-
-            var options = {
+            const options = {
                 optimize: false,
+                reportProgress,
             };
 
-            return context.customizer.saveConfiguration(saveConfig, oldConfig, options).progress(onProgress);
+            savedConfig = await context.customizer.saveConfiguration(saveConfig, oldConfig, options);
         } else {
-            return config;
+            savedConfig = loadedConfig;
         }
-    }).then(function(config) {
-        var jsonConfig = _.reduce(config, function(memo, value) {
+
+        let jsonConfig = _.reduce(savedConfig, (memo, value) => {
             if (!value.ignored) {
                 memo [value.valueId] = value.value;
             }
@@ -302,8 +281,8 @@ var runSingleShot = function(argv) {
         jsonConfig = JSON.stringify(jsonConfig);
 
         if (argv.out) {
-            return vbus.utils.promise(function(resolve, reject) {
-                fs.writeFile(argv.out, jsonConfig, function(err) {
+            return new Promise((resolve, reject) => {
+                fs.writeFile(argv.out, jsonConfig, (err) => {
                     if (err) {
                         reject(err);
                     } else {
@@ -314,18 +293,18 @@ var runSingleShot = function(argv) {
         } else {
             console.log(jsonConfig);
         }
-    }).finally(function() {
+    } finally {
         reportProgress('Disconnecting...');
 
         if (context.connection != null) {
             context.connection.disconnect();
         }
-    });
+    }
 };
 
 
-var main = function() {
-    var argv = optimist.argv;
+const main = async () => {
+    const argv = optimist.argv;
 
     if (argv.serve) {
         return serve();
@@ -337,7 +316,9 @@ var main = function() {
 
 
 if (require.main === module) {
-    Q.fcall(main).done();
+    main().then(null, err => {
+        console.log(err);
+    });
 } else {
     module.exports = main;
 }

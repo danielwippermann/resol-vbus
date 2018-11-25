@@ -3,7 +3,7 @@
 
 
 
-var path = require('path');
+const path = require('path');
 
 
 
@@ -71,29 +71,6 @@ module.exports = {
      * option and implement the rewrite behavoiur in the `rewriteHeaderSet` function.
      */
     rewriteWebHeaderSets: false,
-
-    /**
-     * Interval in which data will be uploaded to Xively.com. A value of zero disables this functionality.
-     */
-    xivelyInterval: 0,
-
-    /**
-     * Xively.com API Key.
-     */
-    xivelyApiKey: 'API_KEY',
-
-    /**
-     * Xively.com Feed ID.
-     */
-    xivelyFeedId: 'FEED_ID',
-
-    /**
-     * A map of Xively.com data point IDs to VBus packet field IDs.
-     */
-    xivelyPacketFieldMap: {
-        'Collector': '00_0015_427B_0100_000_2_0',
-        'TankBottom': '00_0015_427B_0100_002_2_0',
-    },
 
     /**
      * Interval (milliseconds) in which data will be uploaded to PvOutput.org. A value of zero disables this functionality.

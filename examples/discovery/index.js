@@ -3,83 +3,95 @@
 
 
 
-var fs = require('fs');
-
-
-var _ = require('lodash');
-// var optimist = require('optimist');
-var Q = require('q');
-
-
-var vbus = require('../../src/index');
+const {
+    TcpDataSourceProvider,
+} = require('../resol-vbus');
 
 
 
-var dsp = new vbus.TcpDataSourceProvider();
+const knownDataSources = {};
 
 
-
-var knownDataSources = {};
-
-var discover = function() {
-    return vbus.TcpDataSourceProvider.discoverDevices(function(address) {
-        var result;
-        if (_.has(knownDataSources, address)) {
-            result = knownDataSources [address];
-        } else {
-            console.log('QUERY: ', address);
-            result = vbus.TcpDataSourceProvider.fetchDeviceInformation(address);
-            result = result.then(function(result) {
-                console.log('QUERY SUCCESS: ', address);
-                return result;
-            }, function(reason) {
-                console.log('QUERY FAILED: ', address);
-                throw reason;
-            });
-        }
-        return result;
-    }).then(function(devices) {
-        var added = [], removed = [], devicesById = {};
-        _.forEach(devices, function(device) {
-            var id = device.__address__;
-            devicesById [id] = device;
-            if (!_.has(knownDataSources, id)) {
-                added.push(device);
-            }
+const fetchCallback = async (address) => {
+    let result;
+    if (knownDataSources.hasOwnProperty(address)) {
+        result = knownDataSources [address];
+    } else {
+        console.log('QUERY: ', address);
+        result = TcpDataSourceProvider.fetchDeviceInformation(address);
+        result = result.then((result) => {
+            console.log('QUERY SUCCESS: ', address);
+            return result;
+        }, (reason) => {
+            console.log('QUERY FAILED: ', address);
+            throw reason;
         });
-        _.forEach(knownDataSources, function(device, id) {
-            if (!_.has(devicesById, id)) {
-                removed.push(device);
-            }
-        });
-        _.forEach(removed, function(device) {
-            var id = device.__address__;
-            delete knownDataSources [id];
-            console.log('REMOVED: ', id, device.name);
-        });
-        _.forEach(added, function(device) {
-            var id = device.__address__;
-            knownDataSources [id] = device;
-            console.log('ADDED: ', id, device.name);
-        });
+    }
+    return result;
+};
+
+
+const discover = async () => {
+    const devices = await TcpDataSourceProvider.discoverDevices({
+        broadcastAddress: '255.255.255.255',
+        broadcastPort: 7053,
+        tries: 3,
+        timeout: 500,
+        fetchCallback,
     });
+
+    const deviceById = devices.reduce((memo, device) => {
+        const id = device.__address__;
+        memo [id] = device;
+        return memo;
+    }, {});
+
+    const addedDevices = devices.reduce((memo, device) => {
+        const id = device.__address__;
+        if (!knownDataSources.hasOwnProperty(id)) {
+            memo.push(device);
+        }
+        return memo;
+    }, []);
+
+    const removedDevices = Object.keys(knownDataSources).reduce((memo, id) => {
+        if (!deviceById.hasOwnProperty(id)) {
+            memo.push(deviceById [id]);
+        }
+        return memo;
+    }, []);
+
+    for (const device of removedDevices) {
+        const id = device.__address__;
+        delete knownDataSources [id];
+        console.log('REMOVED: ', id, device.name);
+    }
+
+    for (const device of addedDevices) {
+        const id = device.__address__;
+        knownDataSources [id] = device;
+        console.log('ADDED: ', id, device.name);
+    }
 };
 
 
 
-var main = function() {
-    var loop = function() {
+const main = async () => {
+    while (true) {
         console.log('------', new Date(), '------');
-        discover().done(function() {
-            setTimeout(loop, 10000);
-        });
-    };
 
-    loop();
+        await discover();
+
+        await new Promise((resolve) => {
+            setTimeout(resolve, 10000);
+        });
+    }
 };
 
 
 
 if (require.main === module) {
-    main();
+    main().then(null, err => {
+        console.log(err);
+    });
 }

@@ -1,0 +1,17 @@
+const path = require('path');
+
+
+
+module.exports = {
+    sourceOptions: {
+        id: 'dlx-source',
+        urlPrefix: 'http://my-dl2.local/',
+        username: 'admin',
+        password: 'admin',
+    },
+
+    destinationOptions: {
+        id: 'fs-destination',
+        path: path.resolve(__dirname, 'cache'),
+    },
+};
