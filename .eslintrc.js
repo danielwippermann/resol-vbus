@@ -18,6 +18,8 @@ module.exports = {
         'no-undef-init': 'off',
         'prefer-arrow-callback': 'error',
         'object-shorthand': ['error', 'always'],
+        'no-var': 'error',
+        'prefer-const': 'error',
     },
     env: {
         node: true,
