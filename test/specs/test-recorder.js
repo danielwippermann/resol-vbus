@@ -71,7 +71,7 @@ const TestRecorder = Recorder.extend({
             return memo;
         }, []);
 
-        for (let filename of matchingFilenames) {
+        for (const filename of matchingFilenames) {
             await new Promise((resolve, reject) => {
                 const fullFilename = path.join(_this.fixturesPath, filename);
 
@@ -139,7 +139,7 @@ const TestRecorder = Recorder.extend({
 
         let playedBackRanges = [];
 
-        for (let range of ranges) {
+        for (const range of ranges) {
             const options = _.extend({}, syncJob, {
                 minTimestamp: range.minTimestamp,
                 maxTimestamp: range.maxTimestamp,

@@ -63,7 +63,7 @@ const ConfigurationOptimizerFactory = {
             masterConfiguration: [],
         };
 
-        for (let Optimizer of optimizerClasses) {
+        for (const Optimizer of optimizerClasses) {
             const refResult = await Optimizer.matchOptimizer(options, cache);
 
             if ((refResult.match > 0) && (refResult.match > result.match)) {

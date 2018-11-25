@@ -97,7 +97,7 @@ const DLxRecorder = Recorder.extend(/** @lends DLxRecorder# */ {
             return memo;
         }, []);
 
-        for (let filename of matchingFilenames) {
+        for (const filename of matchingFilenames) {
             const urlString = options.urlPrefix + filename;
 
             const urlOptions = {
@@ -150,7 +150,7 @@ const DLxRecorder = Recorder.extend(/** @lends DLxRecorder# */ {
 
         let playedBackRanges = [];
 
-        for (let range of ranges) {
+        for (const range of ranges) {
             const options = _.extend({}, syncJob, {
                 minTimestamp: range.minTimestamp,
                 maxTimestamp: range.maxTimestamp,

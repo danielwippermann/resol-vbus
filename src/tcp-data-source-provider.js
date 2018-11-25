@@ -5,7 +5,6 @@
 
 const dgram = require('dgram');
 const http = require('http');
-const url = require('url');
 
 
 const _ = require('./lodash');

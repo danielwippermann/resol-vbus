@@ -136,7 +136,7 @@ const FileSystemRecorder = Recorder.extend({
             return memo;
         }, []);
 
-        for (let filename of filenames) {
+        for (const filename of filenames) {
             await _this._readToStream(filename, converter);
         }
 

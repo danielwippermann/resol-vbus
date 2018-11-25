@@ -234,7 +234,7 @@ describe('FileSystemRecorder', () => {
                 '300000_20140216000002271.vbus',
             ];
 
-            for (let expectedFilename of expectedFilenames) {
+            for (const expectedFilename of expectedFilenames) {
                 const absoluteFilename = path.join(testFixturesPath, expectedFilename);
 
                 await checkFileExistance(absoluteFilename, expectedFilename);
@@ -289,7 +289,7 @@ describe('FileSystemRecorder', () => {
                 '300000_20140214000000983.vbus',
             ];
 
-            for (let expectedFilename of expectedFilenames) {
+            for (const expectedFilename of expectedFilenames) {
                 const absoluteFilename = path.join(testFixturesPath, expectedFilename);
 
                 await checkFileExistance(absoluteFilename, expectedFilename);
@@ -335,7 +335,7 @@ describe('FileSystemRecorder', () => {
                 '300000_20140216000002271.vbus',
             ];
 
-            for (let expectedFilename of expectedFilenames) {
+            for (const expectedFilename of expectedFilenames) {
                 const absoluteFilename = path.join(testFixturesPath, expectedFilename);
 
                 await checkFileExistance(absoluteFilename, expectedFilename);
