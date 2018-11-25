@@ -1,1 +1,2 @@
 src/configuration-optimizers/*-data.js
+examples/*/node_modules/**/*
