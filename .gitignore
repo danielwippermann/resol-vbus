@@ -3,9 +3,4 @@
 
 coverage/
 dist/
-nw-builds/
-cache/
 .docs/
-.local-config.json
-
-examples/local-config.json
