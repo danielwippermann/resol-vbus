@@ -433,7 +433,7 @@ const startMqttLogging = async () => {
 
             const roundedRawValue = pf.rawValue.toFixed(precision);
 
-            //logger.debug('ID = ' + JSON.stringify(pf.id) + ', Name = ' + JSON.stringify(pf.name) + ', Value = ' + pf.rawValue + ', RoundedValue = ' + roundedRawValue);
+            // logger.debug('ID = ' + JSON.stringify(pf.id) + ', Name = ' + JSON.stringify(pf.name) + ', Value = ' + pf.rawValue + ', RoundedValue = ' + roundedRawValue);
 
             memo [pf.id] = roundedRawValue;
             return memo;
@@ -462,9 +462,9 @@ const startMqttLogging = async () => {
 
     if (config.mqttInterval) {
         logger.debug('Starting MQTT logging');
-        const client  = mqtt.connect(config.mqttConnect)
+        const client = mqtt.connect(config.mqttConnect);
 
-        client.on('connect', function () {
+        client.on('connect', () => {
             const hsc = new HeaderSetConsolidator({
                 interval: config.mqttInterval,
             });
