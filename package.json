@@ -4,7 +4,7 @@
   "description": "A JavaScript library for processing RESOL VBus data",
   "main": "dist/index.js",
   "scripts": {
-    "lint": "eslint src test/specs",
+    "lint": "eslint src test/specs examples",
     "test": "jest -i --verbose",
     "coverage": "jest -i --coverage",
     "coveralls": "jest -i --coverage --coverageReporters=text-lcov | coveralls",
