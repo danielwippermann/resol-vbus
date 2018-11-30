@@ -9,21 +9,21 @@ const {
 
 
 
-const knownDataSources = {};
+const knownDataSources = new Map();
 
 
 const fetchCallback = async (address) => {
     let result;
-    if (knownDataSources.hasOwnProperty(address)) {
-        result = knownDataSources [address];
+    if (knownDataSources.has(address)) {
+        result = knownDataSources.get(address);
     } else {
-        console.log('QUERY: ', address);
+        // console.log('QUERY: ', address);
         result = TcpDataSourceProvider.fetchDeviceInformation(address);
         result = result.then((result) => {
-            console.log('QUERY SUCCESS: ', address);
+            // console.log('QUERY SUCCESS: ', address);
             return result;
         }, (reason) => {
-            console.log('QUERY FAILED: ', address);
+            // console.log('QUERY FAILED: ', address);
             throw reason;
         });
     }
@@ -42,34 +42,34 @@ const discover = async () => {
 
     const deviceById = devices.reduce((memo, device) => {
         const id = device.__address__;
-        memo [id] = device;
+        memo.set(id, device);
         return memo;
-    }, {});
+    }, new Map());
 
     const addedDevices = devices.reduce((memo, device) => {
         const id = device.__address__;
-        if (!knownDataSources.hasOwnProperty(id)) {
+        if (!knownDataSources.has(id)) {
             memo.push(device);
         }
         return memo;
     }, []);
 
-    const removedDevices = Object.keys(knownDataSources).reduce((memo, id) => {
-        if (!deviceById.hasOwnProperty(id)) {
-            memo.push(deviceById [id]);
+    const removedDevices = [...knownDataSources.keys()].reduce((memo, id) => {
+        if (!deviceById.has(id)) {
+            memo.push(knownDataSources.get(id));
         }
         return memo;
     }, []);
 
     for (const device of removedDevices) {
         const id = device.__address__;
-        delete knownDataSources [id];
+        knownDataSources.delete(id);
         console.log('REMOVED: ', id, device.name);
     }
 
     for (const device of addedDevices) {
         const id = device.__address__;
-        knownDataSources [id] = device;
+        knownDataSources.set(id, device);
         console.log('ADDED: ', id, device.name);
     }
 };
