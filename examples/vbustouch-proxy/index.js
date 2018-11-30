@@ -12,6 +12,7 @@ const express = require('express');
 const morgan = require('morgan');
 const request = require('request');
 const winston = require('winston');
+const mqtt = require('mqtt');
 
 
 const {
@@ -422,6 +423,64 @@ const startHeaderSetConsolidatorTimer = async () => {
 };
 
 
+const startMqttLogging = async () => {
+    const onHeaderSet = async (headerSet, client) => {
+        const headers = headerSet.getSortedHeaders();
+        const packetFields = specification.getPacketFieldsForHeaders(headers);
+
+        const valuesById = packetFields.reduce((memo, pf) => {
+            const precision = pf.packetFieldSpec.type.precision;
+
+            const roundedRawValue = pf.rawValue.toFixed(precision);
+
+            //logger.debug('ID = ' + JSON.stringify(pf.id) + ', Name = ' + JSON.stringify(pf.name) + ', Value = ' + pf.rawValue + ', RoundedValue = ' + roundedRawValue);
+
+            memo [pf.id] = roundedRawValue;
+            return memo;
+        }, {});
+
+        const params = Object.keys(config.mqttPacketFieldMap).reduce((memo, key) => {
+            const packetFieldId = config.mqttPacketFieldMap [key];
+
+            let value;
+            if (typeof packetFieldId === 'function') {
+                value = packetFieldId(valuesById);
+            } else {
+                value = valuesById [packetFieldId];
+            }
+            if (typeof value === 'number') {
+                value = value.toString();
+            }
+            if (typeof value === 'string') {
+                memo [key] = value;
+            }
+            return memo;
+        }, {
+            key: 'hi'
+        });
+        client.publish(config.mqttTopic, JSON.stringify(params));
+    };
+
+    if (config.mqttInterval) {
+        logger.debug('Starting MQTT logging');
+        const client  = mqtt.connect(config.mqttConnect)
+
+        client.on('connect', function () {
+            const hsc = new HeaderSetConsolidator({
+                interval: config.mqttInterval,
+            });
+
+            hsc.on('headerSet', () => {
+                onHeaderSet(headerSetConsolidator, client).then(null, err => {
+                    logger.error(err);
+                });
+            });
+
+            hsc.startTimer();
+        });
+    }
+};
+
 const startPvOutputOrgLogging = async () => {
     const onHeaderSet = async (headerSet) => {
         const headers = headerSet.getSortedHeaders();
@@ -567,6 +626,8 @@ const main = async () => {
     await startWebServer();
 
     await startHeaderSetConsolidatorTimer();
+
+    await startMqttLogging();
 
     await startPvOutputOrgLogging();
 

@@ -73,6 +73,46 @@ module.exports = {
     rewriteWebHeaderSets: false,
 
     /**
+     * Interval (milliseconds) in which data will be uploaded to MQTT. A value of zero disables this functionality.
+     */
+    mqttInterval: 5000,
+
+    /**
+     * MQTT connect parameters, https://github.com/mqttjs/MQTT.js#connect
+     */
+    mqttConnect: {
+        host: 'mqtt://localhost',
+        username: 'mosquitto',
+        password: 'secret',
+    },
+
+    /**
+     * MQTT topic to publish to.
+     */
+    mqttTopic: 'home/resol',
+
+    /**
+     * A map of MQTT message attributes to VBus packet field IDs.
+     *
+     * An example sensor in Home Assistant would be:
+     * - platform: mqtt
+     *    name: "Resol Collector Temp"
+     *    state_topic: "home/resol"
+     *    unit_of_measurement: '°C'
+     *    value_template: "{{ value_json.temp1 }}"
+     */
+    mqttPacketFieldMap: {
+        temp1: '00_0010_427B_10_0100_000_2_0',
+        temp2: '00_0010_427B_10_0100_002_2_0',
+        temp3: '00_0010_427B_10_0100_004_2_0',
+        temp4: '00_0010_427B_10_0100_006_2_0',
+        relay1: '00_0010_427B_10_0100_008_1_0',
+        relay2: '00_0010_427B_10_0100_012_1_0',
+        relay1hrs: '00_0010_427B_10_0100_010_2_0',
+        relay2hrs: '00_0010_427B_10_0100_014_2_0'
+    },
+
+    /**
      * Interval (milliseconds) in which data will be uploaded to PvOutput.org. A value of zero disables this functionality.
      */
     pvOutputOrgInterval: 0,
