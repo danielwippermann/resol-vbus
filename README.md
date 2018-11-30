@@ -227,6 +227,8 @@ First release to the NPM registry.
 * Thorsten Müller
 * Paul Hanna
 * Sabine Käß
+* Andrew Thompson (@thompsa)
+
 
 
 ## Legal Notices
