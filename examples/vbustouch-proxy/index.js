@@ -455,9 +455,8 @@ const startMqttLogging = async () => {
                 memo [key] = value;
             }
             return memo;
-        }, {
-            key: 'hi'
-        });
+        }, {});
+
         client.publish(config.mqttTopic, JSON.stringify(params));
     };
 
