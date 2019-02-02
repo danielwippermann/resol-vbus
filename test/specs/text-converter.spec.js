@@ -5,6 +5,7 @@
 
 const {
     HeaderSet,
+    I18N,
     Packet,
     TextConverter,
 } = require('./resol-vbus');
@@ -13,6 +14,9 @@ const {
 const expect = require('./expect');
 const testUtils = require('./test-utils');
 
+
+
+const jestExpect = global.expect;
 
 
 describe('TextConverter', () => {
@@ -118,6 +122,43 @@ describe('TextConverter', () => {
                 testUtils.expectToBeABuffer(chunk);
                 expect(chunk.toString()).to.equal('\tDL3\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tVBus #1: DeltaSol MX [Heizkreis #1]\t\tVBus #1: DeltaSol MX [WMZ #1]\t\t\t\t\t\t\t\t\r\nDate / Time\tResistor sensor 1 [ Ω]\tResistor sensor 2 [ Ω]\tResistor sensor 3 [ Ω]\tCurrent sensor 4 [ mA]\tTemperature Sensor 1 [ °C]\tTemperature Sensor 2 [ °C]\tTemperature Sensor 3 [ °C]\tImpulse Counter Sensor 1\tImpulse Counter Sensor 2\tImpulse Counter Sensor 3\tIrradiation Sensor 4 [ W/m²]\tLast Impulse Interval Sensor 1 [ ms]\tLast Impulse Interval Sensor 2 [ ms]\tLast Impulse Interval Sensor 3 [ ms]\tCurrent Impulse Interval Sensor 1 [ ms]\tCurrent Impulse Interval Sensor 2 [ ms]\tCurrent Impulse Interval Sensor 3 [ ms]\tHeat quantity [ Wh]\tFlow set temperature [ °C]\tOperating state\tHeat quantity [ Wh]\tHeat quantity today [ Wh]\tHeat quantity week [ Wh]\tHeat quantity month [ Wh]\tVolume in total [ l]\tVolume today [ l]\tVolume week [ l]\tVolume month [ l]\tPower [ W]\r\n12/24/2013 14:50:06\t1049.888\t1064.434\t1071.040\t4.230\t12.7\t16.5\t18.2\t0\t0\t0\t17\t\t\t\t\t\t\t\t0.0\t11\t4880133\t0\t3347\t\t\t\t\t\t0\r\n');
             });
+        });
+
+    });
+
+    describe('#formatDateAndTime', () => {
+
+        it('should be a method', () => {
+            jestExpect(typeof TextConverter.prototype.formatDateAndTime).toBe('function');
+        });
+
+        it('should work with a format string', () => {
+            const converter = new TextConverter();
+
+            const i18n = new I18N('en');
+            const now = i18n.moment(1387893006829);
+            const format = 'L';
+
+            const result = converter.formatDateAndTime(now, format);
+
+            jestExpect(result).toBe('12/24/2013');
+        });
+
+        it('should work with a format function', () => {
+            const converter = new TextConverter();
+
+            const i18n = new I18N('en');
+            const now = i18n.moment(1387893006829);
+            const format = (...args) => {
+                jestExpect(args).toHaveLength(1);
+                jestExpect(args [0]).toBe(now);
+
+                return 'Formatted';
+            };
+
+            const result = converter.formatDateAndTime(now, format);
+
+            jestExpect(result).toBe('Formatted');
         });
 
     });

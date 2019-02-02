@@ -14,6 +14,8 @@ const optionKeys = [
     'lineSeparator',
     'separateDateAndTime',
     'specification',
+    'dateFormat',
+    'timeFormat',
 ];
 
 
@@ -43,6 +45,22 @@ const TextConverter = Converter.extend(/** @lends TextConverter# */ {
      * @type {Specification}
      */
     specification: null,
+
+    /**
+     * Date to string formatting for the first column. Can either be a
+     * string to use in `moment(...).format()` or a function that returns
+     * the formatted date string.
+     * @type {string|function}
+     */
+    dateFormat: 'L',
+
+    /**
+     * Time to string formatting for the first column. Can either be a
+     * string to use in `moment(...).format()` or a function that returns
+     * the formatted time string.
+     * @type {string|function}
+     */
+    timeFormat: 'HH:mm:ss',
 
     /**
      * List of packet IDs converted last time, enables decision whether a
@@ -170,7 +188,9 @@ const TextConverter = Converter.extend(/** @lends TextConverter# */ {
         }
 
         // value line
-        appendDateAndTimeColumns(now.format('L'), now.format('HH:mm:ss'), ' ');
+        const dateString = this.formatDateAndTime(now, this.dateFormat);
+        const timeString = this.formatDateAndTime(now, this.timeFormat);
+        appendDateAndTimeColumns(dateString, timeString, ' ');
 
         _.forEach(packetFields, (packetField) => {
             const textValue = packetField.formatTextValue('None');
@@ -180,6 +200,25 @@ const TextConverter = Converter.extend(/** @lends TextConverter# */ {
         appendColumnsToContent();
 
         return this.push(content);
+    },
+
+    /**
+     * Format a `Date` object into a string.
+     *
+     * @param {Moment} now The Moment.js timestamp to format.
+     * @param {string|function} format Date formatter. Can either be a
+     * string to use in `moment(...).format()` or a function that returns
+     * the formatted date/time string.
+     * @returns {string} The formatted date/time as a string.
+     */
+    formatDateAndTime(now, format) {
+        if (typeof format === 'string') {
+            return now.format(format);
+        } else if (typeof format === 'function') {
+            return format(now);
+        } else {
+            throw new Error(`Unsupported format specifier`);
+        }
     },
 
     _read() {
