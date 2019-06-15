@@ -8,12 +8,24 @@ const path = require('path');
 
 
 const _ = require('lodash');
-const Q = require('q');
 const xml2js = require('xml2js');
 
 
 const ConfigurationXmlDeserializer = require('./configuration-xml-deserializer');
 
+
+
+function promisify(fn) {
+    return new Promise((resolve, reject) => {
+        fn((err, result) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        });
+    });
+}
 
 
 const mergeTypes = function(menuSystem) {
@@ -183,72 +195,64 @@ const removeNamedValues = function(menuSystem, valueIds) {
 
 
 
-const convertMenuXmlFile = function(inputFilename, outputFilename, convert) {
+const convertMenuXmlFile = async function(inputFilename, outputFilename, convert) {
     inputFilename = path.join(__dirname, 'rpt-files', inputFilename);
     outputFilename = path.join(__dirname, '../../src/configuration-optimizers', outputFilename);
 
-    return Q.fcall(() => {
-        console.log(outputFilename);
+    console.log(outputFilename);
 
-        return Q.npost(fs, 'readFile', [ inputFilename ]);
-    }).then((content) => {
-        return Q.npost(xml2js, 'parseString', [ content ]);
-    }).then((root) => {
-        const deserializer = new ConfigurationXmlDeserializer();
+    const content = await promisify(cb => fs.readFile(inputFilename, cb));
 
-        return deserializer.deserializeMenuSystem(root);
-    }).then((menuSystem) => {
-        return filterPrefsValues(menuSystem);
-    }).then((menuSystem) => {
-        return mergeTypes(menuSystem);
-    }).then((menuSystem) => {
-        menuSystem.translationGroups = null;
-        menuSystem.strings = null;
-        menuSystem.types = null;
-        menuSystem.presets = null;
-        menuSystem.masks = null;
-        menuSystem.linesTemplates = null;
-        menuSystem.menus = null;
-        menuSystem.implHeaders = null;
-        menuSystem.implInitializers = null;
+    const root = await promisify(cb => xml2js.parseString(content, cb));
 
-        return menuSystem;
-    }).then((menuSystem) => {
-        menuSystem.values = _.clone(menuSystem.values).sort((left, right) => {
-            let result = right.priority - left.priority;
-            if (result === 0) {
-                result = left.index - right.index;
-            }
-            return result;
-        });
+    const deserializer = new ConfigurationXmlDeserializer();
 
-        return menuSystem;
-    }).then((menuSystem) => {
-        return convert(menuSystem);
-    }).then((menuSystem) => {
-        return JSON.stringify(menuSystem, null, '    ');
-    }).then((content) => {
-        return [
-            '/*! resol-vbus | Copyright (c) 2013-2018, Daniel Wippermann | MIT license */',
-            '\'use strict\';',
-            '',
-            '',
-            '',
-            'var rawConfiguration = ' + content,
-            '',
-            '',
-            '',
-            'module.exports = rawConfiguration;',
-        ].join('\n');
-    }).then((content) => {
-        // console.log(content);
-        return Q.npost(fs, 'writeFile', [ outputFilename, content ]);
+    let menuSystem = await deserializer.deserializeMenuSystem(root);
+
+    menuSystem = filterPrefsValues(menuSystem);
+
+    menuSystem = mergeTypes(menuSystem);
+
+    menuSystem.translationGroups = null;
+    menuSystem.strings = null;
+    menuSystem.types = null;
+    menuSystem.presets = null;
+    menuSystem.masks = null;
+    menuSystem.linesTemplates = null;
+    menuSystem.menus = null;
+    menuSystem.implHeaders = null;
+    menuSystem.implInitializers = null;
+
+    menuSystem.values = _.clone(menuSystem.values).sort((left, right) => {
+        let result = right.priority - left.priority;
+        if (result === 0) {
+            result = left.index - right.index;
+        }
+        return result;
     });
+
+    menuSystem = await convert(menuSystem);
+
+    const jsonContent = JSON.stringify(menuSystem, null, '    ');
+
+    const jsContent = [
+        '/*! resol-vbus | Copyright (c) 2013-2019, Daniel Wippermann | MIT license */',
+        '\'use strict\';',
+        '',
+        '',
+        '',
+        'var rawConfiguration = ' + jsonContent,
+        '',
+        '',
+        '',
+        'module.exports = rawConfiguration;',
+    ].join('\n');
+
+    await promisify(cb => fs.writeFile(outputFilename, jsContent, cb));
 };
 
 
-const main = function() {
-    return Q.fcall(() => {
+const main = async function() {
     //     return convertMenuXmlFile('BS4-Menu.xml', 'resol-deltasol-bs4v2-xxx-data.js', function(menuSystem) {
     //         return menuSystem;
     //     });
@@ -278,65 +282,66 @@ const main = function() {
     //     });
 
 
-        // ==== CURRENTLY NOT SUPPORTED CONTROLLERS BELOW ====
+    // ==== CURRENTLY NOT SUPPORTED CONTROLLERS BELOW ====
 
-        // }).then(function() {
-        //     return convertMenuXmlFile('BS2-Menu.xml', 'resol-deltasol-bs2v2-xxx-data.js', function(menuSystem) {
-        //         return menuSystem;
-        //     });
-        // }).then(function() {
-        //     return convertMenuXmlFile('BSPlus-Menu.xml', 'resol-deltasol-bsplusv2-xxx-data.js', function(menuSystem) {
-        //         return menuSystem;
-        //     });
-        // }).then(function() {
-        //     return convertMenuXmlFile('BX-Menu.xml', 'resol-deltasol-bx-xxx-data.js', function(menuSystem) {
-        //         return menuSystem;
-        //     });
-        // }).then(function() {
-        //     return convertMenuXmlFile('MX-Menu.xml', 'resol-deltasol-mx-xxx-data.js', function(menuSystem) {
-        //         return menuSystem;
-        //     });
-        // }).then(function() {
-        //     return convertMenuXmlFile('BS4-103-Menu.xml', 'resol-deltasol-bs4v2-103-data.js', function(menuSystem) {
-        //         return menuSystem;
-        //     });
-        // }).then(function() {
-        //     return convertMenuXmlFile('SL-Menu.xml', 'resol-deltasol-sl-xxx-data.js', function(menuSystem) {
-        //         return menuSystem;
-        //     });
-        // }).then(function() {
-        //     return convertMenuXmlFile('HCMini-100-Menu.xml', 'resol-deltatherm-hc-mini-100-data.js', function(menuSystem) {
-        //         return menuSystem;
-        //     });
-        // }).then(function() {
-        //     return convertMenuXmlFile('E-Menu.xml', 'resol-deltasol-e-xxx-data.js', function(menuSystem) {
-        //         return menuSystem;
-        //     });
+    // }).then(function() {
+    //     return convertMenuXmlFile('BS2-Menu.xml', 'resol-deltasol-bs2v2-xxx-data.js', function(menuSystem) {
+    //         return menuSystem;
+    //     });
+    // }).then(function() {
+    //     return convertMenuXmlFile('BSPlus-Menu.xml', 'resol-deltasol-bsplusv2-xxx-data.js', function(menuSystem) {
+    //         return menuSystem;
+    //     });
+    // }).then(function() {
+    //     return convertMenuXmlFile('BX-Menu.xml', 'resol-deltasol-bx-xxx-data.js', function(menuSystem) {
+    //         return menuSystem;
+    //     });
+    // }).then(function() {
+    //     return convertMenuXmlFile('MX-Menu.xml', 'resol-deltasol-mx-xxx-data.js', function(menuSystem) {
+    //         return menuSystem;
+    //     });
+    // }).then(function() {
+    //     return convertMenuXmlFile('BS4-103-Menu.xml', 'resol-deltasol-bs4v2-103-data.js', function(menuSystem) {
+    //         return menuSystem;
+    //     });
+    // }).then(function() {
+    //     return convertMenuXmlFile('SL-Menu.xml', 'resol-deltasol-sl-xxx-data.js', function(menuSystem) {
+    //         return menuSystem;
+    //     });
+    // }).then(function() {
+    //     return convertMenuXmlFile('HCMini-100-Menu.xml', 'resol-deltatherm-hc-mini-100-data.js', function(menuSystem) {
+    //         return menuSystem;
+    //     });
+    // }).then(function() {
+    //     return convertMenuXmlFile('E-Menu.xml', 'resol-deltasol-e-xxx-data.js', function(menuSystem) {
+    //         return menuSystem;
+    //     });
 
 
-    }).then(() => {
-        const inputFilename = process.argv [2];
-        const outputFilename = process.argv [3];
-        const filterFilename = process.argv [4];
-        if (inputFilename && outputFilename) {
-            let filter;
-            if (filterFilename) {
-                filter = require(filterFilename);
-            } else {
-                filter = function(menuSystem) {
-                    return menuSystem;
-                };
-            }
-
-            return convertMenuXmlFile(inputFilename, outputFilename, filter);
+    const inputFilename = process.argv [2];
+    const outputFilename = process.argv [3];
+    const filterFilename = process.argv [4];
+    if (inputFilename && outputFilename) {
+        let filter;
+        if (filterFilename) {
+            filter = require(filterFilename);
+        } else {
+            filter = function(menuSystem) {
+                return menuSystem;
+            };
         }
-    });
+
+        await convertMenuXmlFile(inputFilename, outputFilename, filter);
+    }
 };
 
 
 
 if (require.main === module) {
-    Q.fcall(main).done();
+    main().then(null, err => {
+        console.log(err);
+        process.exit(1);
+    });
 } else {
     module.exports = main;
 }
