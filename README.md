@@ -116,6 +116,9 @@ into your shell:
 
 ## Work in progress
 
+
+## Version 0.20.0 (2019-06-15)
+
 - This version contains several breaking changes! You have been warned...
 	- Refactor code to make use of ES2018 features (using Babel to back-support up to Node.js 6)
 	- Remove custom `Promise` implementation in favor of built-in, native one.
@@ -124,7 +127,6 @@ into your shell:
 	- Add `reportProgress` and `checkCanceled` options to `ConnectionCustomizer#transceive{Configuration,Value}` as a replacement to the previously used `cancelablePromise` solution.
 - Add RESOL DeltaSol C configuration optimizer.
 - Add support for VBus-over-TCP wrapped in TLS.
-
 
 
 ## Version 0.17.0 (2018-02-10)
