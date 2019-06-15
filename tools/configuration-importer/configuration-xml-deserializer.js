@@ -227,6 +227,9 @@ const ConfigurationXmlDeserializer = XmlDeserializer.extend({
             case 'instance':
                 model.instance = this._getStringValue(child);
                 break;
+            case 'override':
+                // nop
+                break;
             default:
                 this._reportUnexpectedProperty(parent, key);
                 break;
@@ -386,6 +389,9 @@ const ConfigurationXmlDeserializer = XmlDeserializer.extend({
                     }
                 });
                 break;
+            case 'actioninfo':
+                model.actionInfo = this._getStringValue(child);
+                break;
             default:
                 this._reportUnexpectedProperty(parent, key);
                 break;
@@ -471,6 +477,10 @@ const ConfigurationXmlDeserializer = XmlDeserializer.extend({
             case 'implheaders':
             case 'implinitializers':
                 this._deserializeMenuSystem(child, model);
+                break;
+            case 'override':
+            case 'vbusspecification':
+                // nop
                 break;
             default:
                 this._reportUnexpectedProperty(parent, key);
