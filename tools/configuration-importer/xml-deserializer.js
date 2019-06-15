@@ -3,38 +3,38 @@
 
 
 
-var _ = require('lodash');
+const _ = require('lodash');
 
 
-var vbus = require('../..');
-
-
-
-var extend = vbus.extend;
+const vbus = require('../..');
 
 
 
-var XmlDeserializer = extend(null, {
+const extend = vbus.extend;
+
+
+
+const XmlDeserializer = extend(null, {
 
     stack: null,
 
-    constructor: function() {
+    constructor() {
         this.stack = [];
     },
 
-    _getStringValue: function(child) {
+    _getStringValue(child) {
         return child;
     },
 
-    _getIntegerValue: function(child) {
+    _getIntegerValue(child) {
         return _.parseInt(child.trim());
     },
 
-    _getNumberValue: function(child) {
-        return + child.replace(/,/g, '.');
+    _getNumberValue(child) {
+        return +child.replace(/,/g, '.');
     },
 
-    _getBooleanValue: function(child) {
+    _getBooleanValue(child) {
         if ((child === 'true') || (child === '1')) {
             return true;
         } else if ((child === 'false') || (child === '0')) {
@@ -44,12 +44,12 @@ var XmlDeserializer = extend(null, {
         }
     },
 
-    _filterProperties: function(parent, iterator) {
-        var _this = this;
+    _filterProperties(parent, iterator) {
+        const _this = this;
 
-        var originalStack = _.clone(this.stack);
+        const originalStack = _.clone(this.stack);
 
-        var callIterator = function(key, value) {
+        const callIterator = function(key, value) {
             if (key) {
                 _this.stack = originalStack.concat([ key ]);
                 iterator.call(_this, key.toLowerCase(), value);
@@ -60,26 +60,26 @@ var XmlDeserializer = extend(null, {
         };
 
         if (_.isObject(parent)) {
-            var keys = _.keys(parent);
+            const keys = _.keys(parent);
 
-            var count = 0;
-            if (_.contains(keys, '_')) {
+            let count = 0;
+            if (_.includes(keys, '_')) {
                 count++;
             }
-            if (_.contains(keys, '$')) {
+            if (_.includes(keys, '$')) {
                 count++;
             }
             if (count === keys.length) {
                 callIterator(null, parent._);
             }
 
-            _.forEach(parent.$, function(child, key) {
+            _.forEach(parent.$, (child, key) => {
                 callIterator(key, child);
             });
 
-            _.forEach(parent, function(children, key) {
+            _.forEach(parent, (children, key) => {
                 if ((key !== '$') && (key !== '_')) {
-                    _.forEach(children, function(child) {
+                    _.forEach(children, (child) => {
                         callIterator(key, child);
                     });
                 }
@@ -91,7 +91,7 @@ var XmlDeserializer = extend(null, {
         }
     },
 
-    _reportUnexpectedProperty: function(parent, key) {
+    _reportUnexpectedProperty(parent, key) {
         if (key !== null) {
             throw new Error('Unexpected property ' + JSON.stringify(key));
         }

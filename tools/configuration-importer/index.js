@@ -3,35 +3,28 @@
 
 
 
-var fs = require('fs');
-var path = require('path');
+const fs = require('fs');
+const path = require('path');
 
 
-var _ = require('lodash');
-var Q = require('q');
-var xml2js = require('xml2js');
+const _ = require('lodash');
+const Q = require('q');
+const xml2js = require('xml2js');
 
 
-var vbus = require('../..');
-
-
-var ConfigurationXmlDeserializer = require('./configuration-xml-deserializer');
+const ConfigurationXmlDeserializer = require('./configuration-xml-deserializer');
 
 
 
-var promise = vbus.utils.promise;
-
-
-
-var mergeTypes = function(menuSystem) {
-    var typeById = _.reduce(menuSystem.types, function(memo, type) {
+const mergeTypes = function(menuSystem) {
+    const typeById = _.reduce(menuSystem.types, (memo, type) => {
         memo [type.id] = type;
         return memo;
     }, {});
 
-    var mergeType = function(info, type) {
+    const mergeType = function(info, type) {
         if (type.base) {
-            var baseType = typeById [type.base];
+            const baseType = typeById [type.base];
             if (baseType) {
                 mergeType(info, baseType);
             } else {
@@ -41,35 +34,35 @@ var mergeTypes = function(menuSystem) {
             info.rootTypeId = type.id;
         }
 
-        var keys = [ 'storeFactors', 'displayFactors', 'minimums', 'maximums', 'defaults' ];
-        _.forEach(keys, function(key) {
-            _.forEach(type [key], function(typeValue) {
+        let keys = [ 'storeFactors', 'displayFactors', 'minimums', 'maximums', 'defaults' ];
+        _.forEach(keys, (key) => {
+            _.forEach(type [key], (typeValue) => {
                 if (!_.isString(typeValue.id) || (typeValue.id === info.id)) {
                     info [key] = typeValue.value;
                 }
             });
         });
 
-        _.forEach(type.quants, function(typeQuantValue) {
+        _.forEach(type.quants, (typeQuantValue) => {
             if (!_.isString(typeQuantValue.id) || (typeQuantValue.id === info.id)) {
                 info.quants [typeQuantValue.step] = typeQuantValue.value;
             }
         });
 
-        _.forEach(type.valueTexts, function(typeValueText) {
-            var value = typeValueText.value;
+        _.forEach(type.valueTexts, (typeValueText) => {
+            let value = typeValueText.value;
             if (value === null) {
                 value = info.valueTexts.length;
             }
 
             info.valueTexts.push({
-                value: value,
+                value,
                 id: typeValueText.id,
             });
         });
 
         keys = [ 'unit', 'selectorValueRef' ];
-        _.forEach(keys, function(key) {
+        _.forEach(keys, (key) => {
             if (type [key] !== null) {
                 info [key] = type [key];
             }
@@ -84,8 +77,8 @@ var mergeTypes = function(menuSystem) {
         }
     };
 
-    _.forEach(menuSystem.values, function(value) {
-        var info = {
+    _.forEach(menuSystem.values, (value) => {
+        const info = {
             id: value.id,
             quants: [],
             valueTexts: [],
@@ -108,18 +101,18 @@ var mergeTypes = function(menuSystem) {
 };
 
 
-var filterPrefsValues = function(menuSystem) {
-    var valueById = {};
-    _.forEach(menuSystem.values, function(value) {
+const filterPrefsValues = function(menuSystem) {
+    const valueById = {};
+    _.forEach(menuSystem.values, (value) => {
         valueById [value.id] = value;
     });
 
-    var knownValueIds = {}, usedValueIds = {};
-    var markValueIdAsUsed = function(valueId) {
+    const knownValueIds = {}, usedValueIds = {};
+    const markValueIdAsUsed = function(valueId) {
         if (!_.has(knownValueIds, valueId)) {
             knownValueIds [valueId] = true;
 
-            var value = valueById [valueId];
+            const value = valueById [valueId];
             if (value !== undefined) {
                 if (value.compoundValueRef) {
                     markValueIdAsUsed(value.compoundValueRef);
@@ -131,14 +124,14 @@ var filterPrefsValues = function(menuSystem) {
         }
     };
 
-    _.forEach(menuSystem.values, function(value) {
+    _.forEach(menuSystem.values, (value) => {
         if ((value.storage === null) || value.allowParameterization) {
             markValueIdAsUsed(value.id);
         }
     });
 
-    var values = [];
-    _.forEach(menuSystem.values, function(value) {
+    const values = [];
+    _.forEach(menuSystem.values, (value) => {
         if (_.has(usedValueIds, value.id)) {
             values.push(value);
         }
@@ -152,25 +145,26 @@ var filterPrefsValues = function(menuSystem) {
 
 
 
-var removeNamedValues = function(menuSystem, valueIds) {
-    var valueIdPatterns;
+// eslint-disable-next-line no-unused-vars
+const removeNamedValues = function(menuSystem, valueIds) {
+    let valueIdPatterns;
     if (_.isArray(valueIds)) {
         valueIdPatterns = valueIds;
     } else {
         valueIdPatterns = [ valueIds ];
     }
 
-    valueIdPatterns = _.map(valueIdPatterns, function(pattern) {
+    valueIdPatterns = _.map(valueIdPatterns, (pattern) => {
         if (_.isString(pattern)) {
             pattern = new RegExp(pattern, 'i');
         }
         return pattern;
     });
 
-    var values = [];
-    _.forEach(menuSystem.values, function(value) {
-        var found = false;
-        _.forEach(valueIdPatterns, function(pattern) {
+    const values = [];
+    _.forEach(menuSystem.values, (value) => {
+        let found = false;
+        _.forEach(valueIdPatterns, (pattern) => {
             if (pattern.test(value.id)) {
                 found = true;
             }
@@ -189,25 +183,25 @@ var removeNamedValues = function(menuSystem, valueIds) {
 
 
 
-var convertMenuXmlFile = function(inputFilename, outputFilename, convert) {
+const convertMenuXmlFile = function(inputFilename, outputFilename, convert) {
     inputFilename = path.join(__dirname, 'rpt-files', inputFilename);
     outputFilename = path.join(__dirname, '../../src/configuration-optimizers', outputFilename);
 
-    return Q.fcall(function() {
+    return Q.fcall(() => {
         console.log(outputFilename);
 
         return Q.npost(fs, 'readFile', [ inputFilename ]);
-    }).then(function(content) {
+    }).then((content) => {
         return Q.npost(xml2js, 'parseString', [ content ]);
-    }).then(function(root) {
-        var deserializer = new ConfigurationXmlDeserializer();
+    }).then((root) => {
+        const deserializer = new ConfigurationXmlDeserializer();
 
         return deserializer.deserializeMenuSystem(root);
-    }).then(function(menuSystem) {
+    }).then((menuSystem) => {
         return filterPrefsValues(menuSystem);
-    }).then(function(menuSystem) {
+    }).then((menuSystem) => {
         return mergeTypes(menuSystem);
-    }).then(function(menuSystem) {
+    }).then((menuSystem) => {
         menuSystem.translationGroups = null;
         menuSystem.strings = null;
         menuSystem.types = null;
@@ -219,9 +213,9 @@ var convertMenuXmlFile = function(inputFilename, outputFilename, convert) {
         menuSystem.implInitializers = null;
 
         return menuSystem;
-    }).then(function(menuSystem) {
-        menuSystem.values = _.clone(menuSystem.values).sort(function(left, right) {
-            var result = right.priority - left.priority;
+    }).then((menuSystem) => {
+        menuSystem.values = _.clone(menuSystem.values).sort((left, right) => {
+            let result = right.priority - left.priority;
             if (result === 0) {
                 result = left.index - right.index;
             }
@@ -229,11 +223,11 @@ var convertMenuXmlFile = function(inputFilename, outputFilename, convert) {
         });
 
         return menuSystem;
-    }).then(function(menuSystem) {
+    }).then((menuSystem) => {
         return convert(menuSystem);
-    }).then(function(menuSystem) {
+    }).then((menuSystem) => {
         return JSON.stringify(menuSystem, null, '    ');
-    }).then(function(content) {
+    }).then((content) => {
         return [
             '/*! resol-vbus | Copyright (c) 2013-2018, Daniel Wippermann | MIT license */',
             '\'use strict\';',
@@ -246,15 +240,15 @@ var convertMenuXmlFile = function(inputFilename, outputFilename, convert) {
             '',
             'module.exports = rawConfiguration;',
         ].join('\n');
-    }).then(function(content) {
+    }).then((content) => {
         // console.log(content);
         return Q.npost(fs, 'writeFile', [ outputFilename, content ]);
     });
 };
 
 
-var main = function() {
-    return Q.fcall(function() {
+const main = function() {
+    return Q.fcall(() => {
     //     return convertMenuXmlFile('BS4-Menu.xml', 'resol-deltasol-bs4v2-xxx-data.js', function(menuSystem) {
     //         return menuSystem;
     //     });
@@ -284,48 +278,48 @@ var main = function() {
     //     });
 
 
-    // ==== CURRENTLY NOT SUPPORTED CONTROLLERS BELOW ====
+        // ==== CURRENTLY NOT SUPPORTED CONTROLLERS BELOW ====
 
-    // }).then(function() {
-    //     return convertMenuXmlFile('BS2-Menu.xml', 'resol-deltasol-bs2v2-xxx-data.js', function(menuSystem) {
-    //         return menuSystem;
-    //     });
-    // }).then(function() {
-    //     return convertMenuXmlFile('BSPlus-Menu.xml', 'resol-deltasol-bsplusv2-xxx-data.js', function(menuSystem) {
-    //         return menuSystem;
-    //     });
-    // }).then(function() {
-    //     return convertMenuXmlFile('BX-Menu.xml', 'resol-deltasol-bx-xxx-data.js', function(menuSystem) {
-    //         return menuSystem;
-    //     });
-    // }).then(function() {
-    //     return convertMenuXmlFile('MX-Menu.xml', 'resol-deltasol-mx-xxx-data.js', function(menuSystem) {
-    //         return menuSystem;
-    //     });
-    // }).then(function() {
-    //     return convertMenuXmlFile('BS4-103-Menu.xml', 'resol-deltasol-bs4v2-103-data.js', function(menuSystem) {
-    //         return menuSystem;
-    //     });
-    // }).then(function() {
-    //     return convertMenuXmlFile('SL-Menu.xml', 'resol-deltasol-sl-xxx-data.js', function(menuSystem) {
-    //         return menuSystem;
-    //     });
-    // }).then(function() {
-    //     return convertMenuXmlFile('HCMini-100-Menu.xml', 'resol-deltatherm-hc-mini-100-data.js', function(menuSystem) {
-    //         return menuSystem;
-    //     });
-    // }).then(function() {
-    //     return convertMenuXmlFile('E-Menu.xml', 'resol-deltasol-e-xxx-data.js', function(menuSystem) {
-    //         return menuSystem;
-    //     });
+        // }).then(function() {
+        //     return convertMenuXmlFile('BS2-Menu.xml', 'resol-deltasol-bs2v2-xxx-data.js', function(menuSystem) {
+        //         return menuSystem;
+        //     });
+        // }).then(function() {
+        //     return convertMenuXmlFile('BSPlus-Menu.xml', 'resol-deltasol-bsplusv2-xxx-data.js', function(menuSystem) {
+        //         return menuSystem;
+        //     });
+        // }).then(function() {
+        //     return convertMenuXmlFile('BX-Menu.xml', 'resol-deltasol-bx-xxx-data.js', function(menuSystem) {
+        //         return menuSystem;
+        //     });
+        // }).then(function() {
+        //     return convertMenuXmlFile('MX-Menu.xml', 'resol-deltasol-mx-xxx-data.js', function(menuSystem) {
+        //         return menuSystem;
+        //     });
+        // }).then(function() {
+        //     return convertMenuXmlFile('BS4-103-Menu.xml', 'resol-deltasol-bs4v2-103-data.js', function(menuSystem) {
+        //         return menuSystem;
+        //     });
+        // }).then(function() {
+        //     return convertMenuXmlFile('SL-Menu.xml', 'resol-deltasol-sl-xxx-data.js', function(menuSystem) {
+        //         return menuSystem;
+        //     });
+        // }).then(function() {
+        //     return convertMenuXmlFile('HCMini-100-Menu.xml', 'resol-deltatherm-hc-mini-100-data.js', function(menuSystem) {
+        //         return menuSystem;
+        //     });
+        // }).then(function() {
+        //     return convertMenuXmlFile('E-Menu.xml', 'resol-deltasol-e-xxx-data.js', function(menuSystem) {
+        //         return menuSystem;
+        //     });
 
 
-    }).then(function() {
-        var inputFilename = process.argv [2];
-        var outputFilename = process.argv [3];
-        var filterFilename = process.argv [4];
+    }).then(() => {
+        const inputFilename = process.argv [2];
+        const outputFilename = process.argv [3];
+        const filterFilename = process.argv [4];
         if (inputFilename && outputFilename) {
-            var filter;
+            let filter;
             if (filterFilename) {
                 filter = require(filterFilename);
             } else {

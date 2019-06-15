@@ -3,18 +3,18 @@
 
 
 
-var _ = require('lodash');
+const _ = require('lodash');
 
 
-var models = require('./models');
+const models = require('./models');
 
-var XmlDeserializer = require('./xml-deserializer');
+const XmlDeserializer = require('./xml-deserializer');
 
 
 
-var ConfigurationXmlDeserializer = XmlDeserializer.extend({
+const ConfigurationXmlDeserializer = XmlDeserializer.extend({
 
-    _deserializeText: function(parent, model) {
+    _deserializeText(parent, model) {
         this._filterProperties(parent, function(key, child) {
             switch (key) {
             case 'lang':
@@ -32,7 +32,7 @@ var ConfigurationXmlDeserializer = XmlDeserializer.extend({
         return model;
     },
 
-    _deserializeLanguage: function(parent, model) {
+    _deserializeLanguage(parent, model) {
         this._filterProperties(parent, function(key, child) {
             switch (key) {
             case 'id':
@@ -53,7 +53,7 @@ var ConfigurationXmlDeserializer = XmlDeserializer.extend({
         return model;
     },
 
-    _deserializeTranslationGroup: function(parent, model) {
+    _deserializeTranslationGroup(parent, model) {
         this._filterProperties(parent, function(key, child) {
             switch (key) {
             case 'from':
@@ -74,7 +74,7 @@ var ConfigurationXmlDeserializer = XmlDeserializer.extend({
         return model;
     },
 
-    _deserializeTranslation: function(parent, model) {
+    _deserializeTranslation(parent, model) {
         this._filterProperties(parent, function(key, child) {
             switch (key) {
             case 'text':
@@ -89,7 +89,7 @@ var ConfigurationXmlDeserializer = XmlDeserializer.extend({
         return model;
     },
 
-    _deserializeString: function(parent, model) {
+    _deserializeString(parent, model) {
         this._filterProperties(parent, function(key, child) {
             switch (key) {
             case 'id':
@@ -107,7 +107,7 @@ var ConfigurationXmlDeserializer = XmlDeserializer.extend({
         return model;
     },
 
-    _deserializeTypeValue: function(parent, model) {
+    _deserializeTypeValue(parent, model) {
         this._filterProperties(parent, function(key, child) {
             switch (key) {
             case 'id':
@@ -125,7 +125,7 @@ var ConfigurationXmlDeserializer = XmlDeserializer.extend({
         return model;
     },
 
-    _deserializeTypeQuantValue: function(parent, model) {
+    _deserializeTypeQuantValue(parent, model) {
         this._filterProperties(parent, function(key, child) {
             switch (key) {
             case 'id':
@@ -149,7 +149,7 @@ var ConfigurationXmlDeserializer = XmlDeserializer.extend({
         return model;
     },
 
-    _deserializeTypeValueText: function(parent, model) {
+    _deserializeTypeValueText(parent, model) {
         this._filterProperties(parent, function(key, child) {
             switch (key) {
             case 'id':
@@ -170,7 +170,7 @@ var ConfigurationXmlDeserializer = XmlDeserializer.extend({
         return model;
     },
 
-    _deserializeType: function(parent, model) {
+    _deserializeType(parent, model) {
         this._filterProperties(parent, function(key, child) {
             switch (key) {
             case 'id':
@@ -236,7 +236,7 @@ var ConfigurationXmlDeserializer = XmlDeserializer.extend({
         return model;
     },
 
-    _deserializeValue: function(parent, model) {
+    _deserializeValue(parent, model) {
         this._filterProperties(parent, function(key, child) {
             switch (key) {
             case 'id':
@@ -287,7 +287,7 @@ var ConfigurationXmlDeserializer = XmlDeserializer.extend({
         return model;
     },
 
-    _deserializeConstraint: function(parent, model) {
+    _deserializeConstraint(parent, model) {
         this._filterProperties(parent, function(key, child) {
             switch (key) {
             case 'condition':
@@ -314,7 +314,7 @@ var ConfigurationXmlDeserializer = XmlDeserializer.extend({
         return model;
     },
 
-    _deserializeMask: function(parent, model) {
+    _deserializeMask(parent, model) {
         this._filterProperties(parent, function(key, child) {
             switch (key) {
             case 'id':
@@ -344,7 +344,7 @@ var ConfigurationXmlDeserializer = XmlDeserializer.extend({
         return model;
     },
 
-    _deserializeLine: function(parent, model) {
+    _deserializeLine(parent, model) {
         this._filterProperties(parent, function(key, child) {
             switch (key) {
             case 'id':
@@ -395,7 +395,7 @@ var ConfigurationXmlDeserializer = XmlDeserializer.extend({
         return model;
     },
 
-    _deserializeMenu: function(parent, model) {
+    _deserializeMenu(parent, model) {
         this._filterProperties(parent, function(key, child) {
             switch (key) {
             case 'id':
@@ -419,7 +419,7 @@ var ConfigurationXmlDeserializer = XmlDeserializer.extend({
         return model;
     },
 
-    _deserializeMenuSystem: function(parent, model) {
+    _deserializeMenuSystem(parent, model) {
         this._filterProperties(parent, function(key, child) {
             switch (key) {
             case 'language':
@@ -481,20 +481,19 @@ var ConfigurationXmlDeserializer = XmlDeserializer.extend({
         return model;
     },
 
-    deserializeMenuSystem: function(root, model) {
+    deserializeMenuSystem(root, model) {
         if (model === undefined) {
             model = new models.MenuSystemModel();
         }
         return this._deserializeMenuSystem(root.menuSystem, model);
     },
 
-    _reportUnexpectedProperty: function(parent, key) {
+    _reportUnexpectedProperty(parent, key) {
         if (key !== null) {
             if (!_.has(this, 'errorMap')) {
                 this.errorMap = {};
             }
-            var parentKeys = _.keys(parent).sort().join('+');
-            var errorKey = this.stack.join('::') + ' -> ' + key;
+            const errorKey = this.stack.join('::') + ' -> ' + key;
             if (!_.has(this.errorMap, errorKey)) {
                 this.errorMap [errorKey] = true;
                 console.log('--> ' + errorKey);

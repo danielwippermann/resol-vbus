@@ -3,27 +3,27 @@
 
 
 
-var _ = require('lodash');
+const _ = require('lodash');
 
 
-var vbus = require('../..');
-
-
-
-var extend = vbus.extend;
+const vbus = require('../..');
 
 
 
-var models = {};
+const extend = vbus.extend;
 
 
 
-var BaseModel = extend(null, {
+const models = {};
+
+
+
+const BaseModel = extend(null, {
 
 }, {
 
-    extend: function(protoProps, staticProps) {
-        var result = extend(this, protoProps, staticProps);
+    extend(protoProps, staticProps) {
+        const result = extend(this, protoProps, staticProps);
         result.prototype.constructor = result;
         return result;
     },
@@ -58,7 +58,7 @@ models.MenuSystemModel = BaseModel.extend({
 
     implInitializers: null,
 
-    constructor: function() {
+    constructor() {
         BaseModel.apply(this, arguments);
 
         this.languages = [];
@@ -95,7 +95,7 @@ models.LanguageModel = BaseModel.extend({
 
     texts: null,
 
-    constructor: function() {
+    constructor() {
         BaseModel.apply(this, arguments);
 
         this.texts = [];
@@ -113,7 +113,7 @@ models.TranslationGroupModel = BaseModel.extend({
 
     translations: null,
 
-    constructor: function() {
+    constructor() {
         BaseModel.apply(this, arguments);
 
         this.translations = [];
@@ -127,7 +127,7 @@ models.TranslationModel = BaseModel.extend({
 
     texts: null,
 
-    constructor: function() {
+    constructor() {
         BaseModel.apply(this, arguments);
 
         this.texts = [];
@@ -143,7 +143,7 @@ models.StringModel = BaseModel.extend({
 
     texts: null,
 
-    constructor: function() {
+    constructor() {
         BaseModel.apply(this, arguments);
 
         this.texts = [];
@@ -179,7 +179,7 @@ models.TypeValueTextModel = BaseModel.extend({
 
     texts: null,
 
-    constructor: function() {
+    constructor() {
         BaseModel.apply(this, arguments);
 
         this.texts = [];
@@ -227,7 +227,7 @@ models.TypeModel = BaseModel.extend({
 
     instance: null,
 
-    constructor: function() {
+    constructor() {
         BaseModel.apply(this, arguments);
 
         this.storeFactors = [];
@@ -269,7 +269,7 @@ models.ValueModel = BaseModel.extend({
 
     enableValueRef: null,
 
-    constructor: function() {
+    constructor() {
         BaseModel.apply(this, arguments);
 
         this.type = new models.TypeModel();
@@ -322,7 +322,7 @@ models.LineModel = BaseModel.extend({
 
     maskVal: null,
 
-    constructor: function() {
+    constructor() {
         BaseModel.apply(this, arguments);
 
         this.texts = [];
@@ -342,7 +342,7 @@ models.MenuModel = BaseModel.extend({
 
     isBuiltIn: false,
 
-    constructor: function() {
+    constructor() {
         BaseModel.apply(this, arguments);
 
         this.lines = [];
@@ -352,7 +352,7 @@ models.MenuModel = BaseModel.extend({
 
 
 
-_.forEach(models, function(Model, modelName) {
+_.forEach(models, (Model, modelName) => {
     Model.modelName = modelName;
     Model.prototype.modelName = modelName;
 });
