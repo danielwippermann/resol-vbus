@@ -21,6 +21,7 @@
   "author": "Daniel Wippermann <Daniel.Wippermann@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "@babel/cli": "^7.4.4",
     "@babel/preset-env": "^7.4.5",
     "chai": "^4.2.0",
     "coveralls": "^3.0.3",
