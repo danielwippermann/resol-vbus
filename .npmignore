@@ -1,5 +1,14 @@
+.babelrc
+.docs/
+.eslintignore
+.eslintrc.js
+.travis.yml
+coverage/
 docs/
 examples/
+jest.config.js
+jsdoc.json
 nw-apps/
 src/
 test/
+tools/
