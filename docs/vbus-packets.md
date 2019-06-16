@@ -57,6 +57,9 @@ title: VBus Packets
 - [DFA (0x0010) <= Wagner Sungo 100 \[WMZ1\] (0x1241), command 0x0100](#0010_1241_0100)
 - [DFA (0x0010) <= Viessmann Vitotrans 353 2017 (0x1250), command 0x0100](#0010_1250_0100)
 - [DFA (0x0010) <= Viessmann Vitotrans 353 2017 Broadcast (0x1260), command 0x0100](#0010_1260_0100)
+- [DFA (0x0010) <= THERMUfloor ER (0x1410), command 0x0100](#0010_1410_0100)
+- [DFA (0x0010) <= Apricus DeltaSol AL E HE (0x1420), command 0x0100](#0010_1420_0100)
+- [DFA (0x0010) <= DeltaSol Fresh 2018 (0x1510), command 0x0100](#0010_1510_0100)
 - [DFA (0x0010) <= DeltaTherm HC max \[Regler\] (0x1711), command 0x0100](#0010_1711_0100)
 - [DFA (0x0010) <= DeltaTherm HC max \[Regler\] (0x1711), command 0x0101](#0010_1711_0101)
 - [DFA (0x0010) <= DeltaTherm HC max \[Regler\] (0x1711), command 0x0140](#0010_1711_0140)
@@ -177,11 +180,11 @@ title: VBus Packets
 - [DFA (0x0010) <= ZEN DT6 \[WMZ1\] (0x7442), command 0x0100](#0010_7442_0100)
 - [DFA (0x0010) <= SOLTEX-Regler \[Teil 1\] (0x7511), command 0x0100](#0010_7511_0100)
 - [DFA (0x0010) <= SOLTEX-Regler \[Teil 2\] (0x7512), command 0x0100](#0010_7512_0100)
-- [DFA (0x0010) <= Regtronic RQ-B (0x7521), command 0x0100](#0010_7521_0100)
+- [DFA (0x0010) <= Oventrop RQ-B / RQ-B HE (0x7521), command 0x0100](#0010_7521_0100)
 - [DFA (0x0010) <= Regtronic RX-B \[Regler\] (0x7522), command 0x0100](#0010_7522_0100)
 - [DFA (0x0010) <= Regtronic RX-B \[Module\] (0x7523), command 0x0100](#0010_7523_0100)
 - [DFA (0x0010) <= Regtronic RX-B \[WMZ\] (0x7530 - 0x753F), command 0x0100](#0010_7530_0100)
-- [DFA (0x0010) <= Oventrop RQ-B XXL (0x7541), command 0x0100](#0010_7541_0100)
+- [DFA (0x0010) <= Oventrop RQ XXL (0x7541), command 0x0100](#0010_7541_0100)
 - [DFA (0x0010) <= Friwa (0x7611), command 0x0100](#0010_7611_0100)
 - [DFA (0x0010) <= SOLEX \[Regler\] (0x7621), command 0x0100](#0010_7621_0100)
 - [DFA (0x0010) <= SOLEX \[WMZ\] (0x7622), command 0x0100](#0010_7622_0100)
@@ -239,6 +242,30 @@ title: VBus Packets
 - [Viessmann Vitotrans 353 2017 Slave 3 (0x1264) <= Viessmann Vitotrans 353 2017 Slave 1 (0x1262), command 0x0301](#1264_1262_0301)
 - [Viessmann Vitotrans 353 2017 Slave 3 (0x1264) <= Viessmann Vitotrans 353 2017 Slave 2 (0x1263), command 0x0301](#1264_1263_0301)
 - [Viessmann Vitotrans 353 2017 Slave 3 (0x1264) <= Viessmann Vitotrans 353 2017 Slave 3 (0x1264), command 0x0301](#1264_1264_0301)
+- [DeltaSol Fresh 2018 Kaskade Broadcast (0x1520) <= DeltaSol Fresh 2018 Kaskade - Station 1 (0x1521), command 0x0222](#1520_1521_0222)
+- [DeltaSol Fresh 2018 Kaskade Broadcast (0x1520) <= DeltaSol Fresh 2018 Kaskade - Station 1 (0x1521), command 0x0333](#1520_1521_0333)
+- [DeltaSol Fresh 2018 Kaskade Broadcast (0x1520) <= DeltaSol Fresh 2018 Kaskade - Station 2 (0x1522), command 0x0222](#1520_1522_0222)
+- [DeltaSol Fresh 2018 Kaskade Broadcast (0x1520) <= DeltaSol Fresh 2018 Kaskade - Station 2 (0x1522), command 0x0333](#1520_1522_0333)
+- [DeltaSol Fresh 2018 Kaskade Broadcast (0x1520) <= DeltaSol Fresh 2018 Kaskade - Station 3 (0x1523), command 0x0222](#1520_1523_0222)
+- [DeltaSol Fresh 2018 Kaskade Broadcast (0x1520) <= DeltaSol Fresh 2018 Kaskade - Station 3 (0x1523), command 0x0333](#1520_1523_0333)
+- [DeltaSol Fresh 2018 Kaskade Broadcast (0x1520) <= DeltaSol Fresh 2018 Kaskade - Station 4 (0x1524), command 0x0222](#1520_1524_0222)
+- [DeltaSol Fresh 2018 Kaskade Broadcast (0x1520) <= DeltaSol Fresh 2018 Kaskade - Station 4 (0x1524), command 0x0333](#1520_1524_0333)
+- [DeltaSol Fresh 2018 Kaskade - Station 1 (0x1521) <= DeltaSol Fresh 2018 Kaskade - Station 1 (0x1521), command 0x0112](#1521_1521_0112)
+- [DeltaSol Fresh 2018 Kaskade - Station 1 (0x1521) <= DeltaSol Fresh 2018 Kaskade - Station 2 (0x1522), command 0x0112](#1521_1522_0112)
+- [DeltaSol Fresh 2018 Kaskade - Station 1 (0x1521) <= DeltaSol Fresh 2018 Kaskade - Station 3 (0x1523), command 0x0112](#1521_1523_0112)
+- [DeltaSol Fresh 2018 Kaskade - Station 1 (0x1521) <= DeltaSol Fresh 2018 Kaskade - Station 4 (0x1524), command 0x0112](#1521_1524_0112)
+- [DeltaSol Fresh 2018 Kaskade - Station 2 (0x1522) <= DeltaSol Fresh 2018 Kaskade - Station 1 (0x1521), command 0x0112](#1522_1521_0112)
+- [DeltaSol Fresh 2018 Kaskade - Station 2 (0x1522) <= DeltaSol Fresh 2018 Kaskade - Station 2 (0x1522), command 0x0112](#1522_1522_0112)
+- [DeltaSol Fresh 2018 Kaskade - Station 2 (0x1522) <= DeltaSol Fresh 2018 Kaskade - Station 3 (0x1523), command 0x0112](#1522_1523_0112)
+- [DeltaSol Fresh 2018 Kaskade - Station 2 (0x1522) <= DeltaSol Fresh 2018 Kaskade - Station 4 (0x1524), command 0x0112](#1522_1524_0112)
+- [DeltaSol Fresh 2018 Kaskade - Station 3 (0x1523) <= DeltaSol Fresh 2018 Kaskade - Station 1 (0x1521), command 0x0112](#1523_1521_0112)
+- [DeltaSol Fresh 2018 Kaskade - Station 3 (0x1523) <= DeltaSol Fresh 2018 Kaskade - Station 2 (0x1522), command 0x0112](#1523_1522_0112)
+- [DeltaSol Fresh 2018 Kaskade - Station 3 (0x1523) <= DeltaSol Fresh 2018 Kaskade - Station 3 (0x1523), command 0x0112](#1523_1523_0112)
+- [DeltaSol Fresh 2018 Kaskade - Station 3 (0x1523) <= DeltaSol Fresh 2018 Kaskade - Station 4 (0x1524), command 0x0112](#1523_1524_0112)
+- [DeltaSol Fresh 2018 Kaskade - Station 4 (0x1524) <= DeltaSol Fresh 2018 Kaskade - Station 1 (0x1521), command 0x0112](#1524_1521_0112)
+- [DeltaSol Fresh 2018 Kaskade - Station 4 (0x1524) <= DeltaSol Fresh 2018 Kaskade - Station 2 (0x1522), command 0x0112](#1524_1522_0112)
+- [DeltaSol Fresh 2018 Kaskade - Station 4 (0x1524) <= DeltaSol Fresh 2018 Kaskade - Station 3 (0x1523), command 0x0112](#1524_1523_0112)
+- [DeltaSol Fresh 2018 Kaskade - Station 4 (0x1524) <= DeltaSol Fresh 2018 Kaskade - Station 4 (0x1524), command 0x0112](#1524_1524_0112)
 - [HKM1 (0x4420 - 0x442F) <= any source, command 0x0200](#4420_0000_0200)
 - [Kaskade BasisAdr (0x5260) <= Kaskade BasisAdr (0x5260 - 0x526F), command 0x0102](#5260_5260_0102)
 - [Kaskade Master (0x5261) <= Kaskade BasisAdr (0x5260 - 0x526F), command 0x0301](#5261_5260_0301)
@@ -389,6 +416,14 @@ title: VBus Packets
 | 0x1262 | Viessmann Vitotrans 353 2017 Slave 1 |
 | 0x1263 | Viessmann Vitotrans 353 2017 Slave 2 |
 | 0x1264 | Viessmann Vitotrans 353 2017 Slave 3 |
+| 0x1410 | THERMUfloor ER |
+| 0x1420 | Apricus DeltaSol AL E HE |
+| 0x1510 | DeltaSol Fresh 2018 |
+| 0x1520 | DeltaSol Fresh 2018 Kaskade Broadcast |
+| 0x1521 | DeltaSol Fresh 2018 Kaskade - Station 1 |
+| 0x1522 | DeltaSol Fresh 2018 Kaskade - Station 2 |
+| 0x1523 | DeltaSol Fresh 2018 Kaskade - Station 3 |
+| 0x1524 | DeltaSol Fresh 2018 Kaskade - Station 4 |
 | 0x1711 | DeltaTherm HC max \[Regler\] |
 | 0x1720 | DeltaTherm HC max \[Heizkreis #0\] |
 | 0x1721 | DeltaTherm HC max \[Heizkreis #1\] |
@@ -909,7 +944,7 @@ title: VBus Packets
 | 0x7451 | Kioto SLM |
 | 0x7511 | SOLTEX-Regler \[Teil 1\] |
 | 0x7512 | SOLTEX-Regler \[Teil 2\] |
-| 0x7521 | Regtronic RQ-B |
+| 0x7521 | Oventrop RQ-B / RQ-B HE |
 | 0x7522 | Regtronic RX-B \[Regler\] |
 | 0x7523 | Regtronic RX-B \[Module\] |
 | 0x7530 | Regtronic RX-B \[WMZ #0\] |
@@ -928,7 +963,7 @@ title: VBus Packets
 | 0x753D | Regtronic RX-B \[WMZ #13\] |
 | 0x753E | Regtronic RX-B \[WMZ #14\] |
 | 0x753F | Regtronic RX-B \[WMZ #15\] |
-| 0x7541 | Oventrop RQ-B XXL |
+| 0x7541 | Oventrop RQ XXL |
 | 0x7611 | Friwa |
 | 0x7621 | SOLEX \[Regler\] |
 | 0x7622 | SOLEX \[WMZ\] |
@@ -3229,6 +3264,152 @@ title: VBus Packets
 
 
 
+### <a name="0010_1410_0100"></a>DFA (0x0010) <= THERMUfloor ER (0x1410), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Primär Rücklauftemperatur Sensor 1 | 0.1 |  °C |
+| 1 |  | Primär Rücklauftemperatur Sensor 1 | 25.6 |  °C |
+| 2 |  | Sekundär Vorlauftemperatur Sensor 2 | 0.1 |  °C |
+| 3 |  | Sekundär Vorlauftemperatur Sensor 2 | 25.6 |  °C |
+| 4 |  | Außentemperatur Sensor 3 | 0.1 |  °C |
+| 5 |  | Außentemperatur Sensor 3 | 25.6 |  °C |
+| 34 |  | Primär Vorlauftemperatur Ga2 | 0.1 |  °C |
+| 35 |  | Primär Vorlauftemperatur Ga2 | 25.6 |  °C |
+| 36 |  | Sekundär Rücklauftemperatur Gd1 | 0.1 |  °C |
+| 37 |  | Sekundär Rücklauftemperatur Gd1 | 25.6 |  °C |
+| 40 |  | Kesselstörung Sensor 4 | 1 |  |
+| 41 |  | Ölstand Sensor Ga1 | 1 | % |
+| 46 |  | Primär Druck Ga2 | 0.01 |  bar |
+| 47 |  | Primär Druck Ga2 | 2.56 |  bar |
+| 48 |  | Sekundär Druck Gd1 | 0.01 |  bar |
+| 49 |  | Sekundär Druck Gd1 | 2.56 |  bar |
+| 55 |  | Luftfeuchtigkeit Gd2 | 1 | % |
+| 56 |  | Relais 1 | 1 | % |
+| 57 |  | Relais 2 | 1 | % |
+| 58 |  | Relais 3 | 1 | % |
+| 69 |  | Relais 4 | 1 | % |
+| 72 |  | Systemdatum | 1 |  |
+| 73 |  | Systemdatum | 256 |  |
+| 74 |  | Systemdatum | 65536 |  |
+| 75 |  | Systemdatum | 16777216 |  |
+| 76 |  | Fehlermaske | 1 |  |
+| 77 |  | Fehlermaske | 256 |  |
+| 78 |  | Fehlermaske | 65536 |  |
+| 79 |  | Fehlermaske | 16777216 |  |
+| 80 |  | PWM A | 1 | % |
+| 81 |  | Kesselanforderung 0-10 V | 1 | % |
+| 84 |  | Letztes Ereignis \(L. E.\) | 1 |  |
+| 88 |  | L. E. Fehlermaske | 1 |  |
+| 89 |  | L. E. Fehlermaske | 256 |  |
+| 90 |  | L. E. Fehlermaske | 65536 |  |
+| 91 |  | L. E. Fehlermaske | 16777216 |  |
+| 92 |  | L. E. Zeitstempel | 1 |  |
+| 93 |  | L. E. Zeitstempel | 256 |  |
+| 94 |  | L. E. Zeitstempel | 65536 |  |
+| 95 |  | L. E. Zeitstempel | 16777216 |  |
+
+
+
+### <a name="0010_1420_0100"></a>DFA (0x0010) <= Apricus DeltaSol AL E HE (0x1420), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
+| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
+| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
+| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
+| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
+| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
+| 6 |  | Temperatur Sensor 4 | 0.1 |  °C |
+| 7 |  | Temperatur Sensor 4 | 25.6 |  °C |
+| 8 |  | Temperatur GFD | 0.1 |  °C |
+| 9 |  | Temperatur GFD | 25.6 |  °C |
+| 10 |  | Volumenstrom 1 | 1 |  l/h |
+| 11 |  | Volumenstrom 1 | 256 |  l/h |
+| 12 |  | Drehzahl Relais 1 | 1 | % |
+| 14 |  | Betriebsstunden Relais 1 | 1 |  h |
+| 15 |  | Betriebsstunden Relais 1 | 256 |  h |
+| 16 |  | Drehzahl Relais 2 | 1 | % |
+| 18 |  | Betriebsstunden Relais 2 | 1 |  h |
+| 19 |  | Betriebsstunden Relais 2 | 256 |  h |
+| 20 |  | PFB1 Duty | 0.001 | % |
+| 21 |  | PFB1 Duty | 0.256 | % |
+| 22 |  | PFB1 Duty | 65.536 | % |
+| 23 |  | PFB1 Duty | 16777.216 | % |
+| 24 |  | PFB1 Freq. | 0.001 |  Hz |
+| 25 |  | PFB1 Freq. | 0.256 |  Hz |
+| 26 |  | PFB1 Freq. | 65.536 |  Hz |
+| 27 |  | PFB1 Freq. | 16777.216 |  Hz |
+| 28 |  | Wärmemenge | 1 |  Wh |
+| 29 |  | Wärmemenge | 256 |  Wh |
+| 30 |  | Wärmemenge | 65536 |  Wh |
+| 31 |  | Wärmemenge | 16777216 |  Wh |
+| 32 | 0x01 | Sensor 1 defekt | 1 |  |
+| 32 | 0x02 | Sensor 2 defekt | 1 |  |
+| 32 | 0x04 | Sensor 3 defekt | 1 |  |
+| 32 | 0x08 | Sensor 4 defekt | 1 |  |
+| 32 | 0x10 | GFD defekt | 1 |  |
+| 32 | 0x20 | PFB1 defekt | 1 |  |
+| 32 |  | ErrorMask | 1 |  |
+| 33 |  | ErrorMask | 256 |  |
+| 34 |  | Systemzeit | 1 |  |
+| 35 |  | Systemzeit | 256 |  |
+| 36 |  | Statusmask | 1 |  |
+| 37 |  | Statusmask | 256 |  |
+| 38 |  | Statusmask | 65536 |  |
+| 39 |  | Statusmask | 16777216 |  |
+| 40 |  | UnitType | 1 |  |
+| 42 |  | SW Version | 0.01 |  |
+| 43 |  | SW Version | 2.56 |  |
+
+
+
+### <a name="0010_1510_0100"></a>DFA (0x0010) <= DeltaSol Fresh 2018 (0x1510), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 4 |  | Systemdatum | 1 |  |
+| 5 |  | Systemdatum | 256 |  |
+| 6 |  | Systemdatum | 65536 |  |
+| 7 |  | Systemdatum | 16777216 |  |
+| 13 |  | Warmwasser: Zustand | 1 |  |
+| 16 |  | Warmwasser: Primärpumpendrehzahl | 0.1 | % |
+| 17 |  | Warmwasser: Primärpumpendrehzahl | 25.6 | % |
+| 18 |  | Warmwasser: Solltemperatur | 0.1 |  °C |
+| 19 |  | Warmwasser: Solltemperatur | 25.6 |  °C |
+| 32 |  | Zirkulation: Pumpendrehzahl | 0.1 | % |
+| 33 |  | Zirkulation: Pumpendrehzahl | 25.6 | % |
+| 34 |  | Zirkulation: dT Leitung | 0.1 |  K |
+| 35 |  | Zirkulation: dT Leitung | 25.6 |  K |
+| 38 |  | Desinfektion: Zustand | 1 |  |
+| 40 |  | Desinfektion: Letzte Desinfektion | 1 |  |
+| 41 |  | Desinfektion: Letzte Desinfektion | 256 |  |
+| 42 |  | Desinfektion: Letzte Desinfektion | 65536 |  |
+| 43 |  | Desinfektion: Letzte Desinfektion | 16777216 |  |
+| 51 |  | RL-Einschichtung: Ventilzustand | 1 |  |
+| 56 |  | Fehlerrelais: Zustand | 1 |  |
+| 64 |  | Sensor: S1 | 0.1 |  °C |
+| 65 |  | Sensor: S1 | 25.6 |  °C |
+| 66 |  | Sensor: S2 | 0.1 |  °C |
+| 67 |  | Sensor: S2 | 25.6 |  °C |
+| 68 |  | Sensor: S3 | 0.1 |  °C |
+| 69 |  | Sensor: S3 | 25.6 |  °C |
+| 70 |  | Sensor: S4 | 0.1 |  °C |
+| 71 |  | Sensor: S4 | 25.6 |  °C |
+| 72 |  | Sensor: S5 | 0.1 |  °C |
+| 73 |  | Sensor: S5 | 25.6 |  °C |
+| 74 |  | Sensor: S6 | 0.1 |  °C |
+| 75 |  | Sensor: S6 | 25.6 |  °C |
+| 76 |  | Sensor: S7 | 0.1 |  °C |
+| 77 |  | Sensor: S7 | 25.6 |  °C |
+| 84 |  | Sensor: S9 Volumenstrom | 1 |  l/h |
+| 85 |  | Sensor: S9 Volumenstrom | 256 |  l/h |
+| 86 |  | Sensor: S9 Volumenstrom | 65536 |  l/h |
+| 87 |  | Sensor: S9 Volumenstrom | 16777216 |  l/h |
+
+
+
 ### <a name="0010_1711_0100"></a>DFA (0x0010) <= DeltaTherm HC max \[Regler\] (0x1711), command 0x0100
 
 | Offset | Mask | Name | Factor | Unit |
@@ -5193,7 +5374,13 @@ title: VBus Packets
 | 16 |  | Filterlaufzeit heute | 1 |  s |
 | 17 |  | Filterlaufzeit heute | 256 |  s |
 | 18 |  | Filterlaufzeit heute | 65536 |  s |
-| 19 |  | Regelstatus | 1 |  |
+| 19 | 0x01 | Regelstatus: Sensordefekt | 1 |  |
+| 19 | 0x02 | Regelstatus: Solare Beladung aktiv | 1 |  |
+| 19 | 0x04 | Regelstatus: FilterMinLaufzeit aktiv | 1 |  |
+| 19 | 0x08 | Regelstatus: Umwälzung aktiv | 1 |  |
+| 19 | 0x10 | Regelstatus: SolarFilterNachlauf aktiv | 1 |  |
+| 19 | 0x20 | Regelstatus: Kühlung aktiv | 1 |  |
+| 19 | 0x40 | Regelstatus: VLMax aktiv | 1 |  |
 | 24 |  | Wärmemenge | 1 |  Wh |
 | 25 |  | Wärmemenge | 256 |  Wh |
 | 26 |  | Wärmemenge | 65536 |  Wh |
@@ -7906,7 +8093,7 @@ title: VBus Packets
 
 
 
-### <a name="0010_7521_0100"></a>DFA (0x0010) <= Regtronic RQ-B (0x7521), command 0x0100
+### <a name="0010_7521_0100"></a>DFA (0x0010) <= Oventrop RQ-B / RQ-B HE (0x7521), command 0x0100
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
@@ -7977,6 +8164,7 @@ title: VBus Packets
 | 49 | 0x80 | Funktionsblock 1 | 1 |  |
 | 49 |  | Funktionen | 256 |  |
 | 50 | 0x01 | Funktionsblock 2 | 1 |  |
+| 50 |  | Funktionen | 65536 |  |
 | 51 | 0x01 | Kaltstart | 1 |  |
 | 51 | 0x02 | Wärmepumpe | 1 |  |
 | 51 | 0x04 | Sollwertanpassung | 1 |  |
@@ -8146,7 +8334,7 @@ title: VBus Packets
 
 
 
-### <a name="0010_7541_0100"></a>DFA (0x0010) <= Oventrop RQ-B XXL (0x7541), command 0x0100
+### <a name="0010_7541_0100"></a>DFA (0x0010) <= Oventrop RQ XXL (0x7541), command 0x0100
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
@@ -8166,63 +8354,131 @@ title: VBus Packets
 | 13 |  | Temperatur Sensor 7 | 25.6 |  °C |
 | 14 |  | Temperatur Sensor 8 | 0.1 |  °C |
 | 15 |  | Temperatur Sensor 8 | 25.6 |  °C |
-| 22 |  | Temperatur Sensor DDS | 0.1 |  °C |
-| 23 |  | Temperatur Sensor DDS | 25.6 |  °C |
-| 36 |  | Durchfluss Sensor DDS | 1 |  l/h |
-| 37 |  | Durchfluss Sensor DDS | 256 |  l/h |
-| 38 |  | Durchfluss Sensor DDS | 65536 |  l/h |
-| 39 |  | Durchfluss Sensor DDS | 16777216 |  l/h |
-| 44 |  | Drehzahl Relais 1 | 1 | % |
-| 45 |  | Drehzahl Relais 2 | 1 | % |
-| 46 |  | Drehzahl Relais 3 | 1 | % |
-| 47 |  | Drehzahl Relais 4 | 1 | % |
-| 48 |  | Drehzahl Relais 5 | 1 | % |
-| 56 |  | Betriebssekunden Relais 1 | 1 |  s |
-| 57 |  | Betriebssekunden Relais 1 | 256 |  s |
-| 58 |  | Betriebssekunden Relais 1 | 65536 |  s |
-| 59 |  | Betriebssekunden Relais 1 | 16777216 |  s |
-| 60 |  | Betriebssekunden Relais 2 | 1 |  s |
-| 61 |  | Betriebssekunden Relais 2 | 256 |  s |
-| 62 |  | Betriebssekunden Relais 2 | 65536 |  s |
-| 63 |  | Betriebssekunden Relais 2 | 16777216 |  s |
-| 64 |  | Betriebssekunden Relais 3 | 1 |  s |
-| 65 |  | Betriebssekunden Relais 3 | 256 |  s |
-| 66 |  | Betriebssekunden Relais 3 | 65536 |  s |
-| 67 |  | Betriebssekunden Relais 3 | 16777216 |  s |
-| 68 |  | Betriebssekunden Relais 4 | 1 |  s |
-| 69 |  | Betriebssekunden Relais 4 | 256 |  s |
-| 70 |  | Betriebssekunden Relais 4 | 65536 |  s |
-| 71 |  | Betriebssekunden Relais 4 | 16777216 |  s |
-| 72 |  | Betriebssekunden Relais 5 | 1 |  s |
-| 73 |  | Betriebssekunden Relais 5 | 256 |  s |
-| 74 |  | Betriebssekunden Relais 5 | 65536 |  s |
-| 75 |  | Betriebssekunden Relais 5 | 16777216 |  s |
-| 92 |  | Wärmemenge | 1 |  Wh |
-| 93 |  | Wärmemenge | 256 |  Wh |
-| 94 |  | Wärmemenge | 65536 |  Wh |
-| 95 |  | Wärmemenge | 16777216 |  Wh |
-| 96 | 0x01 | Sensorfehler S1 | 1 |  |
-| 96 | 0x02 | Sensorfehler S2 | 1 |  |
-| 96 | 0x04 | Sensorfehler S3 | 1 |  |
-| 96 | 0x08 | Sensorfehler S4 | 1 |  |
-| 96 | 0x10 | Sensorfehler S5 | 1 |  |
-| 96 | 0x20 | Sensorfehler S6 | 1 |  |
-| 96 | 0x40 | Sensorfehler S7 | 1 |  |
-| 96 | 0x80 | Sensorfehler S8 | 1 |  |
-| 96 |  | Fehler | 1 |  |
-| 97 | 0x08 | Sensorfehler S12 VFD | 1 |  |
-| 97 |  | Fehler | 256 |  |
-| 98 | 0x01 | Desinfektion: Vorlauf zu niedrig | 1 |  |
-| 98 | 0x02 | Desinfektion: Fehlgeschlagen | 1 |  |
-| 98 | 0x04 | Uebertemperaturschutz aktiv | 1 |  |
-| 98 |  | Fehler | 65536 |  |
-| 99 |  | Fehler | 16777216 |  |
-| 104 |  | Version | 0.01 |  |
-| 105 |  | Version | 2.56 |  |
-| 108 |  | Systemdatum | 1 |  |
-| 109 |  | Systemdatum | 256 |  |
-| 110 |  | Systemdatum | 65536 |  |
-| 111 |  | Systemdatum | 16777216 |  |
+| 16 |  | Temperatur Sensor S14/VFD | 0.1 |  °C |
+| 17 |  | Temperatur Sensor S14/VFD | 25.6 |  °C |
+| 20 |  | Durchfluss Sensor S8/V40 | 1 |  l/h |
+| 21 |  | Durchfluss Sensor S8/V40 | 256 |  l/h |
+| 22 |  | Durchfluss Sensor S8/V40 | 65536 |  l/h |
+| 23 |  | Durchfluss Sensor S8/V40 | 16777216 |  l/h |
+| 24 |  | Durchfluss Sensor S14/VFD | 1 |  l/h |
+| 25 |  | Durchfluss Sensor S14/VFD | 256 |  l/h |
+| 26 |  | Durchfluss Sensor S14/VFD | 65536 |  l/h |
+| 27 |  | Durchfluss Sensor S14/VFD | 16777216 |  l/h |
+| 28 |  | Druck Sensor S14/VFD | 0.01 |  bar |
+| 29 |  | Druck Sensor S14/VFD | 2.56 |  bar |
+| 30 |  | Einstrahlung Sensor 9 | 1 |  W/m² |
+| 31 |  | Einstrahlung Sensor 9 | 256 |  W/m² |
+| 32 |  | PWM In Dutycycle 1 | 0.001 | % |
+| 33 |  | PWM In Dutycycle 1 | 0.256 | % |
+| 34 |  | PWM In Dutycycle 1 | 65.536 | % |
+| 35 |  | PWM In Dutycycle 1 | 16777.216 | % |
+| 36 |  | PWM In Dutycycle 2 | 0.001 | % |
+| 37 |  | PWM In Dutycycle 2 | 0.256 | % |
+| 38 |  | PWM In Dutycycle 2 | 65.536 | % |
+| 39 |  | PWM In Dutycycle 2 | 16777.216 | % |
+| 40 |  | PWM In Dutycycle 3 | 0.001 | % |
+| 41 |  | PWM In Dutycycle 3 | 0.256 | % |
+| 42 |  | PWM In Dutycycle 3 | 65.536 | % |
+| 43 |  | PWM In Dutycycle 3 | 16777.216 | % |
+| 44 |  | PWM In Dutycycle 4 | 0.001 | % |
+| 45 |  | PWM In Dutycycle 4 | 0.256 | % |
+| 46 |  | PWM In Dutycycle 4 | 65.536 | % |
+| 47 |  | PWM In Dutycycle 4 | 16777.216 | % |
+| 48 |  | PWM In Frequenz 1 | 0.001 |  Hz |
+| 49 |  | PWM In Frequenz 1 | 0.256 |  Hz |
+| 50 |  | PWM In Frequenz 1 | 65.536 |  Hz |
+| 51 |  | PWM In Frequenz 1 | 16777.216 |  Hz |
+| 52 |  | PWM In Frequenz 2 | 0.001 |  Hz |
+| 53 |  | PWM In Frequenz 2 | 0.256 |  Hz |
+| 54 |  | PWM In Frequenz 2 | 65.536 |  Hz |
+| 55 |  | PWM In Frequenz 2 | 16777.216 |  Hz |
+| 56 |  | PWM In Frequenz 3 | 0.001 |  Hz |
+| 57 |  | PWM In Frequenz 3 | 0.256 |  Hz |
+| 58 |  | PWM In Frequenz 3 | 65.536 |  Hz |
+| 59 |  | PWM In Frequenz 3 | 16777.216 |  Hz |
+| 60 |  | PWM In Frequenz 4 | 0.001 |  Hz |
+| 61 |  | PWM In Frequenz 4 | 0.256 |  Hz |
+| 62 |  | PWM In Frequenz 4 | 65.536 |  Hz |
+| 63 |  | PWM In Frequenz 4 | 16777.216 |  Hz |
+| 64 |  | Drehzahl Relais 1 | 1 | % |
+| 65 |  | Drehzahl Relais 2 | 1 | % |
+| 66 |  | Drehzahl Relais 3 | 1 | % |
+| 67 |  | Drehzahl Relais 4 | 1 | % |
+| 68 |  | Drehzahl Relais 5 | 1 | % |
+| 72 |  | Ausgang PWM 1 | 1 | % |
+| 73 |  | Ausgang PWM 2 | 1 | % |
+| 74 |  | Ausgang PWM 3 | 1 | % |
+| 75 |  | Ausgang PWM 4 | 1 | % |
+| 76 |  | Betriebssekunden Relais 1 | 1 |  s |
+| 77 |  | Betriebssekunden Relais 1 | 256 |  s |
+| 78 |  | Betriebssekunden Relais 1 | 65536 |  s |
+| 79 |  | Betriebssekunden Relais 1 | 16777216 |  s |
+| 80 |  | Betriebssekunden Relais 2 | 1 |  s |
+| 81 |  | Betriebssekunden Relais 2 | 256 |  s |
+| 82 |  | Betriebssekunden Relais 2 | 65536 |  s |
+| 83 |  | Betriebssekunden Relais 2 | 16777216 |  s |
+| 84 |  | Betriebssekunden Relais 3 | 1 |  s |
+| 85 |  | Betriebssekunden Relais 3 | 256 |  s |
+| 86 |  | Betriebssekunden Relais 3 | 65536 |  s |
+| 87 |  | Betriebssekunden Relais 3 | 16777216 |  s |
+| 88 |  | Betriebssekunden Relais 4 | 1 |  s |
+| 89 |  | Betriebssekunden Relais 4 | 256 |  s |
+| 90 |  | Betriebssekunden Relais 4 | 65536 |  s |
+| 91 |  | Betriebssekunden Relais 4 | 16777216 |  s |
+| 92 |  | Betriebssekunden Relais 5 | 1 |  s |
+| 93 |  | Betriebssekunden Relais 5 | 256 |  s |
+| 94 |  | Betriebssekunden Relais 5 | 65536 |  s |
+| 95 |  | Betriebssekunden Relais 5 | 16777216 |  s |
+| 96 |  | Betriebssekunden Ausgang PWM 1 | 1 |  s |
+| 97 |  | Betriebssekunden Ausgang PWM 1 | 256 |  s |
+| 98 |  | Betriebssekunden Ausgang PWM 1 | 65536 |  s |
+| 99 |  | Betriebssekunden Ausgang PWM 1 | 16777216 |  s |
+| 100 |  | Betriebssekunden Ausgang PWM 2 | 1 |  s |
+| 101 |  | Betriebssekunden Ausgang PWM 2 | 256 |  s |
+| 102 |  | Betriebssekunden Ausgang PWM 2 | 65536 |  s |
+| 103 |  | Betriebssekunden Ausgang PWM 2 | 16777216 |  s |
+| 104 |  | Betriebssekunden Ausgang PWM 3 | 1 |  s |
+| 105 |  | Betriebssekunden Ausgang PWM 3 | 256 |  s |
+| 106 |  | Betriebssekunden Ausgang PWM 3 | 65536 |  s |
+| 107 |  | Betriebssekunden Ausgang PWM 3 | 16777216 |  s |
+| 108 |  | Betriebssekunden Ausgang PWM 4 | 1 |  s |
+| 109 |  | Betriebssekunden Ausgang PWM 4 | 256 |  s |
+| 110 |  | Betriebssekunden Ausgang PWM 4 | 65536 |  s |
+| 111 |  | Betriebssekunden Ausgang PWM 4 | 16777216 |  s |
+| 112 |  | Wärmemenge | 1 |  Wh |
+| 113 |  | Wärmemenge | 256 |  Wh |
+| 114 |  | Wärmemenge | 65536 |  Wh |
+| 115 |  | Wärmemenge | 16777216 |  Wh |
+| 116 | 0x01 | Sensorfehler S1 | 1 |  |
+| 116 | 0x02 | Sensorfehler S2 | 1 |  |
+| 116 | 0x04 | Sensorfehler S3 | 1 |  |
+| 116 | 0x08 | Sensorfehler S4 | 1 |  |
+| 116 | 0x10 | Sensorfehler S5 | 1 |  |
+| 116 | 0x20 | Sensorfehler S6 | 1 |  |
+| 116 | 0x40 | Sensorfehler S7 | 1 |  |
+| 116 | 0x80 | Sensorfehler S8 | 1 |  |
+| 116 |  | Fehler | 1 |  |
+| 117 | 0x20 | Sensorfehler S14 VFD | 1 |  |
+| 117 |  | Fehler | 256 |  |
+| 118 | 0x01 | Desinfektion: Vorlauf zu niedrig | 1 |  |
+| 118 | 0x02 | Desinfektion: Fehlgeschlagen | 1 |  |
+| 118 | 0x04 | Uebertemperaturschutz aktiv | 1 |  |
+| 118 |  | Fehler | 65536 |  |
+| 119 |  | Fehler | 16777216 |  |
+| 120 |  | Optionsmaske | 1 |  |
+| 121 |  | Optionsmaske | 256 |  |
+| 122 |  | Optionsmaske | 65536 |  |
+| 123 |  | Optionsmaske | 16777216 |  |
+| 124 |  | Version | 0.01 |  |
+| 125 |  | Version | 2.56 |  |
+| 128 |  | Systemdatum | 1 |  |
+| 129 |  | Systemdatum | 256 |  |
+| 130 |  | Systemdatum | 65536 |  |
+| 131 |  | Systemdatum | 16777216 |  |
+| 132 |  | Durchfluss Turbotron | 1 |  l/h |
+| 133 |  | Durchfluss Turbotron | 256 |  l/h |
+| 134 |  | Durchfluss Turbotron | 65536 |  l/h |
+| 135 |  | Durchfluss Turbotron | 16777216 |  l/h |
 
 
 
@@ -9492,6 +9748,8 @@ title: VBus Packets
 | 3 |  | Warnungsmaske | 16777216 |  |
 | 4 |  | Luftfeuchtigkeit Sensor 17 | 1 | %RH |
 | 5 |  | Luftfeuchtigkeit Sensor 18 | 1 | %RH |
+| 6 |  | Luftfeuchtigkeit Sensor 19 | 1 | %RH |
+| 7 |  | Luftfeuchtigkeit Sensor 20 | 1 | %RH |
 
 
 
@@ -10641,6 +10899,850 @@ title: VBus Packets
 
 
 
+### <a name="1520_1521_0222"></a>DeltaSol Fresh 2018 Kaskade Broadcast (0x1520) <= DeltaSol Fresh 2018 Kaskade - Station 1 (0x1521), command 0x0222
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 | 0x02 | Station 1 Basis | 1 |  |
+| 0 | 0x04 | Station 2 Basis | 1 |  |
+| 0 | 0x08 | Station 3 Basis | 1 |  |
+| 0 | 0x10 | Station 4 Basis | 1 |  |
+| 1 | 0x02 | Station 1 Ein | 1 |  |
+| 1 | 0x04 | Station 2 Ein | 1 |  |
+| 1 | 0x08 | Station 3 Ein | 1 |  |
+| 1 | 0x10 | Station 4 Ein | 1 |  |
+| 2 | 0x02 | Station 1 Erreichbar | 1 |  |
+| 2 | 0x04 | Station 2 Erreichbar | 1 |  |
+| 2 | 0x08 | Station 3 Erreichbar | 1 |  |
+| 2 | 0x10 | Station 4 Erreichbar | 1 |  |
+| 3 | 0x02 | Station 1 Fehler | 1 |  |
+| 3 | 0x04 | Station 2 Fehler | 1 |  |
+| 3 | 0x08 | Station 3 Fehler | 1 |  |
+| 3 | 0x10 | Station 4 Fehler | 1 |  |
+| 4 | 0x02 | Station 1 Durchflusserkennung | 1 |  |
+| 4 | 0x04 | Station 2 Durchflusserkennung | 1 |  |
+| 4 | 0x08 | Station 3 Durchflusserkennung | 1 |  |
+| 4 | 0x10 | Station 4 Durchflusserkennung | 1 |  |
+| 5 | 0x02 | Station 1 Desinfektion | 1 |  |
+| 5 | 0x04 | Station 2 Desinfektion | 1 |  |
+| 5 | 0x08 | Station 3 Desinfektion | 1 |  |
+| 5 | 0x10 | Station 4 Desinfektion | 1 |  |
+| 6 | 0x02 | Station 1 Blockierschutz | 1 |  |
+| 6 | 0x04 | Station 2 Blockierschutz | 1 |  |
+| 6 | 0x08 | Station 3 Blockierschutz | 1 |  |
+| 6 | 0x10 | Station 4 Blockierschutz | 1 |  |
+| 7 |  | DurchflussErwartet | 1 |  |
+| 8 |  | RLEinschichtung Relais | 1 |  |
+
+
+
+### <a name="1520_1521_0333"></a>DeltaSol Fresh 2018 Kaskade Broadcast (0x1520) <= DeltaSol Fresh 2018 Kaskade - Station 1 (0x1521), command 0x0333
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 4 |  | Station 1: Systemdatum | 1 |  |
+| 5 |  | Station 1: Systemdatum | 256 |  |
+| 6 |  | Station 1: Systemdatum | 65536 |  |
+| 7 |  | Station 1: Systemdatum | 16777216 |  |
+| 24 |  | Station 1: Solltemperatur | 0.1 |  °C |
+| 25 |  | Station 1: Solltemperatur | 25.6 |  °C |
+| 28 |  | Station 1: Variante | 1 |  |
+
+
+
+### <a name="1520_1522_0222"></a>DeltaSol Fresh 2018 Kaskade Broadcast (0x1520) <= DeltaSol Fresh 2018 Kaskade - Station 2 (0x1522), command 0x0222
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 | 0x02 | Station 1 Basis | 1 |  |
+| 0 | 0x04 | Station 2 Basis | 1 |  |
+| 0 | 0x08 | Station 3 Basis | 1 |  |
+| 0 | 0x10 | Station 4 Basis | 1 |  |
+| 1 | 0x02 | Station 1 Ein | 1 |  |
+| 1 | 0x04 | Station 2 Ein | 1 |  |
+| 1 | 0x08 | Station 3 Ein | 1 |  |
+| 1 | 0x10 | Station 4 Ein | 1 |  |
+| 2 | 0x02 | Station 1 Erreichbar | 1 |  |
+| 2 | 0x04 | Station 2 Erreichbar | 1 |  |
+| 2 | 0x08 | Station 3 Erreichbar | 1 |  |
+| 2 | 0x10 | Station 4 Erreichbar | 1 |  |
+| 3 | 0x02 | Station 1 Fehler | 1 |  |
+| 3 | 0x04 | Station 2 Fehler | 1 |  |
+| 3 | 0x08 | Station 3 Fehler | 1 |  |
+| 3 | 0x10 | Station 4 Fehler | 1 |  |
+| 4 | 0x02 | Station 1 Durchflusserkennung | 1 |  |
+| 4 | 0x04 | Station 2 Durchflusserkennung | 1 |  |
+| 4 | 0x08 | Station 3 Durchflusserkennung | 1 |  |
+| 4 | 0x10 | Station 4 Durchflusserkennung | 1 |  |
+| 5 | 0x02 | Station 1 Desinfektion | 1 |  |
+| 5 | 0x04 | Station 2 Desinfektion | 1 |  |
+| 5 | 0x08 | Station 3 Desinfektion | 1 |  |
+| 5 | 0x10 | Station 4 Desinfektion | 1 |  |
+| 6 | 0x02 | Station 1 Blockierschutz | 1 |  |
+| 6 | 0x04 | Station 2 Blockierschutz | 1 |  |
+| 6 | 0x08 | Station 3 Blockierschutz | 1 |  |
+| 6 | 0x10 | Station 4 Blockierschutz | 1 |  |
+| 7 |  | DurchflussErwartet | 1 |  |
+| 8 |  | RLEinschichtung Relais | 1 |  |
+
+
+
+### <a name="1520_1522_0333"></a>DeltaSol Fresh 2018 Kaskade Broadcast (0x1520) <= DeltaSol Fresh 2018 Kaskade - Station 2 (0x1522), command 0x0333
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 4 |  | Station 2: Systemdatum | 1 |  |
+| 5 |  | Station 2: Systemdatum | 256 |  |
+| 6 |  | Station 2: Systemdatum | 65536 |  |
+| 7 |  | Station 2: Systemdatum | 16777216 |  |
+| 24 |  | Station 2: Solltemperatur | 0.1 |  °C |
+| 25 |  | Station 2: Solltemperatur | 25.6 |  °C |
+| 28 |  | Station 2: Variante | 1 |  |
+
+
+
+### <a name="1520_1523_0222"></a>DeltaSol Fresh 2018 Kaskade Broadcast (0x1520) <= DeltaSol Fresh 2018 Kaskade - Station 3 (0x1523), command 0x0222
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 | 0x02 | Station 1 Basis | 1 |  |
+| 0 | 0x04 | Station 2 Basis | 1 |  |
+| 0 | 0x08 | Station 3 Basis | 1 |  |
+| 0 | 0x10 | Station 4 Basis | 1 |  |
+| 1 | 0x02 | Station 1 Ein | 1 |  |
+| 1 | 0x04 | Station 2 Ein | 1 |  |
+| 1 | 0x08 | Station 3 Ein | 1 |  |
+| 1 | 0x10 | Station 4 Ein | 1 |  |
+| 2 | 0x02 | Station 1 Erreichbar | 1 |  |
+| 2 | 0x04 | Station 2 Erreichbar | 1 |  |
+| 2 | 0x08 | Station 3 Erreichbar | 1 |  |
+| 2 | 0x10 | Station 4 Erreichbar | 1 |  |
+| 3 | 0x02 | Station 1 Fehler | 1 |  |
+| 3 | 0x04 | Station 2 Fehler | 1 |  |
+| 3 | 0x08 | Station 3 Fehler | 1 |  |
+| 3 | 0x10 | Station 4 Fehler | 1 |  |
+| 4 | 0x02 | Station 1 Durchflusserkennung | 1 |  |
+| 4 | 0x04 | Station 2 Durchflusserkennung | 1 |  |
+| 4 | 0x08 | Station 3 Durchflusserkennung | 1 |  |
+| 4 | 0x10 | Station 4 Durchflusserkennung | 1 |  |
+| 5 | 0x02 | Station 1 Desinfektion | 1 |  |
+| 5 | 0x04 | Station 2 Desinfektion | 1 |  |
+| 5 | 0x08 | Station 3 Desinfektion | 1 |  |
+| 5 | 0x10 | Station 4 Desinfektion | 1 |  |
+| 6 | 0x02 | Station 1 Blockierschutz | 1 |  |
+| 6 | 0x04 | Station 2 Blockierschutz | 1 |  |
+| 6 | 0x08 | Station 3 Blockierschutz | 1 |  |
+| 6 | 0x10 | Station 4 Blockierschutz | 1 |  |
+| 7 |  | DurchflussErwartet | 1 |  |
+| 8 |  | RLEinschichtung Relais | 1 |  |
+
+
+
+### <a name="1520_1523_0333"></a>DeltaSol Fresh 2018 Kaskade Broadcast (0x1520) <= DeltaSol Fresh 2018 Kaskade - Station 3 (0x1523), command 0x0333
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 4 |  | Station 3: Systemdatum | 1 |  |
+| 5 |  | Station 3: Systemdatum | 256 |  |
+| 6 |  | Station 3: Systemdatum | 65536 |  |
+| 7 |  | Station 3: Systemdatum | 16777216 |  |
+| 24 |  | Station 3: Solltemperatur | 0.1 |  °C |
+| 25 |  | Station 3: Solltemperatur | 25.6 |  °C |
+| 28 |  | Station 3: Variante | 1 |  |
+
+
+
+### <a name="1520_1524_0222"></a>DeltaSol Fresh 2018 Kaskade Broadcast (0x1520) <= DeltaSol Fresh 2018 Kaskade - Station 4 (0x1524), command 0x0222
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 | 0x02 | Station 1 Basis | 1 |  |
+| 0 | 0x04 | Station 2 Basis | 1 |  |
+| 0 | 0x08 | Station 3 Basis | 1 |  |
+| 0 | 0x10 | Station 4 Basis | 1 |  |
+| 1 | 0x02 | Station 1 Ein | 1 |  |
+| 1 | 0x04 | Station 2 Ein | 1 |  |
+| 1 | 0x08 | Station 3 Ein | 1 |  |
+| 1 | 0x10 | Station 4 Ein | 1 |  |
+| 2 | 0x02 | Station 1 Erreichbar | 1 |  |
+| 2 | 0x04 | Station 2 Erreichbar | 1 |  |
+| 2 | 0x08 | Station 3 Erreichbar | 1 |  |
+| 2 | 0x10 | Station 4 Erreichbar | 1 |  |
+| 3 | 0x02 | Station 1 Fehler | 1 |  |
+| 3 | 0x04 | Station 2 Fehler | 1 |  |
+| 3 | 0x08 | Station 3 Fehler | 1 |  |
+| 3 | 0x10 | Station 4 Fehler | 1 |  |
+| 4 | 0x02 | Station 1 Durchflusserkennung | 1 |  |
+| 4 | 0x04 | Station 2 Durchflusserkennung | 1 |  |
+| 4 | 0x08 | Station 3 Durchflusserkennung | 1 |  |
+| 4 | 0x10 | Station 4 Durchflusserkennung | 1 |  |
+| 5 | 0x02 | Station 1 Desinfektion | 1 |  |
+| 5 | 0x04 | Station 2 Desinfektion | 1 |  |
+| 5 | 0x08 | Station 3 Desinfektion | 1 |  |
+| 5 | 0x10 | Station 4 Desinfektion | 1 |  |
+| 6 | 0x02 | Station 1 Blockierschutz | 1 |  |
+| 6 | 0x04 | Station 2 Blockierschutz | 1 |  |
+| 6 | 0x08 | Station 3 Blockierschutz | 1 |  |
+| 6 | 0x10 | Station 4 Blockierschutz | 1 |  |
+| 7 |  | DurchflussErwartet | 1 |  |
+| 8 |  | RLEinschichtung Relais | 1 |  |
+
+
+
+### <a name="1520_1524_0333"></a>DeltaSol Fresh 2018 Kaskade Broadcast (0x1520) <= DeltaSol Fresh 2018 Kaskade - Station 4 (0x1524), command 0x0333
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 4 |  | Station 4: Systemdatum | 1 |  |
+| 5 |  | Station 4: Systemdatum | 256 |  |
+| 6 |  | Station 4: Systemdatum | 65536 |  |
+| 7 |  | Station 4: Systemdatum | 16777216 |  |
+| 24 |  | Station 4: Solltemperatur | 0.1 |  °C |
+| 25 |  | Station 4: Solltemperatur | 25.6 |  °C |
+| 28 |  | Station 4: Variante | 1 |  |
+
+
+
+### <a name="1521_1521_0112"></a>DeltaSol Fresh 2018 Kaskade - Station 1 (0x1521) <= DeltaSol Fresh 2018 Kaskade - Station 1 (0x1521), command 0x0112
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 4 |  | Station 1: Systemdatum | 1 |  |
+| 5 |  | Station 1: Systemdatum | 256 |  |
+| 6 |  | Station 1: Systemdatum | 65536 |  |
+| 7 |  | Station 1: Systemdatum | 16777216 |  |
+| 12 |  | Station 1: Gesamtbetriebssekunden | 1 |  |
+| 13 |  | Station 1: Gesamtbetriebssekunden | 256 |  |
+| 14 |  | Station 1: Gesamtbetriebssekunden | 65536 |  |
+| 15 |  | Station 1: Gesamtbetriebssekunden | 16777216 |  |
+| 16 |  | Station 1: Warmwasser Volumenstrom | 0.1 |  l/min |
+| 17 |  | Station 1: Warmwasser Volumenstrom | 25.6 |  l/min |
+| 18 |  | Station 1: Warmwasser Volumenstrom | 6553.6 |  l/min |
+| 19 |  | Station 1: Warmwasser Volumenstrom | 1677721.6 |  l/min |
+| 24 |  | Station 1: Primaerpumpe Betriebssekunden | 1 |  s |
+| 25 |  | Station 1: Primaerpumpe Betriebssekunden | 256 |  s |
+| 26 |  | Station 1: Primaerpumpe Betriebssekunden | 65536 |  s |
+| 27 |  | Station 1: Primaerpumpe Betriebssekunden | 16777216 |  s |
+| 42 |  | Station 1: Warmwasser TWW | 0.1 |  °C |
+| 43 |  | Station 1: Warmwasser TWW | 25.6 |  °C |
+| 46 |  | Station 1: Warmwasser TVL | 0.1 |  °C |
+| 47 |  | Station 1: Warmwasser TVL | 25.6 |  °C |
+| 48 |  | Station 1: Primärpumpe Drehzahl | 1 | % |
+| 49 |  | Station 1: Primärpumpe Drehzahl | 256 | % |
+| 50 |  | Station 1: Zirkulation TRL | 0.1 |  °C |
+| 51 |  | Station 1: Zirkulation TRL | 25.6 |  °C |
+| 52 |  | Station 1: Zirkulation Drehzahl | 1 | % |
+| 53 |  | Station 1: Zirkulation Drehzahl | 256 | % |
+| 54 |  | Station 1: RLEinschichtung TRL | 0.1 |  °C |
+| 55 |  | Station 1: RLEinschichtung TRL | 25.6 |  °C |
+| 56 |  | Station 1: RLEinschichtung TSpeicher | 0.1 |  °C |
+| 57 |  | Station 1: RLEinschichtung TSpeicher | 25.6 |  °C |
+| 58 |  | Station 1: Variante | 1 |  |
+| 60 |  | Station 1: Strangventil Zustand | 1 |  |
+| 62 |  | Station 1: RLEinschichtung Ventil | 1 |  |
+
+
+
+### <a name="1521_1522_0112"></a>DeltaSol Fresh 2018 Kaskade - Station 1 (0x1521) <= DeltaSol Fresh 2018 Kaskade - Station 2 (0x1522), command 0x0112
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 4 |  | Station 2: Systemdatum | 1 |  |
+| 5 |  | Station 2: Systemdatum | 256 |  |
+| 6 |  | Station 2: Systemdatum | 65536 |  |
+| 7 |  | Station 2: Systemdatum | 16777216 |  |
+| 12 |  | Station 2: Gesamtbetriebssekunden | 1 |  |
+| 13 |  | Station 2: Gesamtbetriebssekunden | 256 |  |
+| 14 |  | Station 2: Gesamtbetriebssekunden | 65536 |  |
+| 15 |  | Station 2: Gesamtbetriebssekunden | 16777216 |  |
+| 16 |  | Station 2: Warmwasser Volumenstrom | 0.1 |  l/min |
+| 17 |  | Station 2: Warmwasser Volumenstrom | 25.6 |  l/min |
+| 18 |  | Station 2: Warmwasser Volumenstrom | 6553.6 |  l/min |
+| 19 |  | Station 2: Warmwasser Volumenstrom | 1677721.6 |  l/min |
+| 24 |  | Station 2: Primaerpumpe Betriebssekunden | 1 |  s |
+| 25 |  | Station 2: Primaerpumpe Betriebssekunden | 256 |  s |
+| 26 |  | Station 2: Primaerpumpe Betriebssekunden | 65536 |  s |
+| 27 |  | Station 2: Primaerpumpe Betriebssekunden | 16777216 |  s |
+| 42 |  | Station 2: Warmwasser TWW | 0.1 |  °C |
+| 43 |  | Station 2: Warmwasser TWW | 25.6 |  °C |
+| 46 |  | Station 2: Warmwasser TVL | 0.1 |  °C |
+| 47 |  | Station 2: Warmwasser TVL | 25.6 |  °C |
+| 48 |  | Station 2: Primärpumpe Drehzahl | 1 | % |
+| 49 |  | Station 2: Primärpumpe Drehzahl | 256 | % |
+| 50 |  | Station 2: Zirkulation TRL | 0.1 |  °C |
+| 51 |  | Station 2: Zirkulation TRL | 25.6 |  °C |
+| 52 |  | Station 2: Zirkulation Drehzahl | 1 | % |
+| 53 |  | Station 2: Zirkulation Drehzahl | 256 | % |
+| 54 |  | Station 2: RLEinschichtung TRL | 0.1 |  °C |
+| 55 |  | Station 2: RLEinschichtung TRL | 25.6 |  °C |
+| 56 |  | Station 2: RLEinschichtung TSpeicher | 0.1 |  °C |
+| 57 |  | Station 2: RLEinschichtung TSpeicher | 25.6 |  °C |
+| 58 |  | Station 2: Variante | 1 |  |
+| 60 |  | Station 2: Strangventil Zustand | 1 |  |
+| 62 |  | Station 2: RLEinschichtung Ventil | 1 |  |
+
+
+
+### <a name="1521_1523_0112"></a>DeltaSol Fresh 2018 Kaskade - Station 1 (0x1521) <= DeltaSol Fresh 2018 Kaskade - Station 3 (0x1523), command 0x0112
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 4 |  | Station 3: Systemdatum | 1 |  |
+| 5 |  | Station 3: Systemdatum | 256 |  |
+| 6 |  | Station 3: Systemdatum | 65536 |  |
+| 7 |  | Station 3: Systemdatum | 16777216 |  |
+| 12 |  | Station 3: Gesamtbetriebssekunden | 1 |  |
+| 13 |  | Station 3: Gesamtbetriebssekunden | 256 |  |
+| 14 |  | Station 3: Gesamtbetriebssekunden | 65536 |  |
+| 15 |  | Station 3: Gesamtbetriebssekunden | 16777216 |  |
+| 16 |  | Station 3: Warmwasser Volumenstrom | 0.1 |  l/min |
+| 17 |  | Station 3: Warmwasser Volumenstrom | 25.6 |  l/min |
+| 18 |  | Station 3: Warmwasser Volumenstrom | 6553.6 |  l/min |
+| 19 |  | Station 3: Warmwasser Volumenstrom | 1677721.6 |  l/min |
+| 24 |  | Station 3: Primaerpumpe Betriebssekunden | 1 |  s |
+| 25 |  | Station 3: Primaerpumpe Betriebssekunden | 256 |  s |
+| 26 |  | Station 3: Primaerpumpe Betriebssekunden | 65536 |  s |
+| 27 |  | Station 3: Primaerpumpe Betriebssekunden | 16777216 |  s |
+| 42 |  | Station 3: Warmwasser TWW | 0.1 |  °C |
+| 43 |  | Station 3: Warmwasser TWW | 25.6 |  °C |
+| 46 |  | Station 3: Warmwasser TVL | 0.1 |  °C |
+| 47 |  | Station 3: Warmwasser TVL | 25.6 |  °C |
+| 48 |  | Station 3: Primärpumpe Drehzahl | 1 | % |
+| 49 |  | Station 3: Primärpumpe Drehzahl | 256 | % |
+| 50 |  | Station 3: Zirkulation TRL | 0.1 |  °C |
+| 51 |  | Station 3: Zirkulation TRL | 25.6 |  °C |
+| 52 |  | Station 3: Zirkulation Drehzahl | 1 | % |
+| 53 |  | Station 3: Zirkulation Drehzahl | 256 | % |
+| 54 |  | Station 3: RLEinschichtung TRL | 0.1 |  °C |
+| 55 |  | Station 3: RLEinschichtung TRL | 25.6 |  °C |
+| 56 |  | Station 3: RLEinschichtung TSpeicher | 0.1 |  °C |
+| 57 |  | Station 3: RLEinschichtung TSpeicher | 25.6 |  °C |
+| 58 |  | Station 3: Variante | 1 |  |
+| 60 |  | Station 3: Strangventil Zustand | 1 |  |
+| 62 |  | Station 3: RLEinschichtung Ventil | 1 |  |
+
+
+
+### <a name="1521_1524_0112"></a>DeltaSol Fresh 2018 Kaskade - Station 1 (0x1521) <= DeltaSol Fresh 2018 Kaskade - Station 4 (0x1524), command 0x0112
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 4 |  | Station 4: Systemdatum | 1 |  |
+| 5 |  | Station 4: Systemdatum | 256 |  |
+| 6 |  | Station 4: Systemdatum | 65536 |  |
+| 7 |  | Station 4: Systemdatum | 16777216 |  |
+| 12 |  | Station 4: Gesamtbetriebssekunden | 1 |  |
+| 13 |  | Station 4: Gesamtbetriebssekunden | 256 |  |
+| 14 |  | Station 4: Gesamtbetriebssekunden | 65536 |  |
+| 15 |  | Station 4: Gesamtbetriebssekunden | 16777216 |  |
+| 16 |  | Station 4: Warmwasser Volumenstrom | 0.1 |  l/min |
+| 17 |  | Station 4: Warmwasser Volumenstrom | 25.6 |  l/min |
+| 18 |  | Station 4: Warmwasser Volumenstrom | 6553.6 |  l/min |
+| 19 |  | Station 4: Warmwasser Volumenstrom | 1677721.6 |  l/min |
+| 24 |  | Station 4: Primaerpumpe Betriebssekunden | 1 |  s |
+| 25 |  | Station 4: Primaerpumpe Betriebssekunden | 256 |  s |
+| 26 |  | Station 4: Primaerpumpe Betriebssekunden | 65536 |  s |
+| 27 |  | Station 4: Primaerpumpe Betriebssekunden | 16777216 |  s |
+| 42 |  | Station 4: Warmwasser TWW | 0.1 |  °C |
+| 43 |  | Station 4: Warmwasser TWW | 25.6 |  °C |
+| 46 |  | Station 4: Warmwasser TVL | 0.1 |  °C |
+| 47 |  | Station 4: Warmwasser TVL | 25.6 |  °C |
+| 48 |  | Station 4: Primärpumpe Drehzahl | 1 | % |
+| 49 |  | Station 4: Primärpumpe Drehzahl | 256 | % |
+| 50 |  | Station 4: Zirkulation TRL | 0.1 |  °C |
+| 51 |  | Station 4: Zirkulation TRL | 25.6 |  °C |
+| 52 |  | Station 4: Zirkulation Drehzahl | 1 | % |
+| 53 |  | Station 4: Zirkulation Drehzahl | 256 | % |
+| 54 |  | Station 4: RLEinschichtung TRL | 0.1 |  °C |
+| 55 |  | Station 4: RLEinschichtung TRL | 25.6 |  °C |
+| 56 |  | Station 4: RLEinschichtung TSpeicher | 0.1 |  °C |
+| 57 |  | Station 4: RLEinschichtung TSpeicher | 25.6 |  °C |
+| 58 |  | Station 4: Variante | 1 |  |
+| 60 |  | Station 4: Strangventil Zustand | 1 |  |
+| 62 |  | Station 4: RLEinschichtung Ventil | 1 |  |
+
+
+
+### <a name="1522_1521_0112"></a>DeltaSol Fresh 2018 Kaskade - Station 2 (0x1522) <= DeltaSol Fresh 2018 Kaskade - Station 1 (0x1521), command 0x0112
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 4 |  | Station 1: Systemdatum | 1 |  |
+| 5 |  | Station 1: Systemdatum | 256 |  |
+| 6 |  | Station 1: Systemdatum | 65536 |  |
+| 7 |  | Station 1: Systemdatum | 16777216 |  |
+| 12 |  | Station 1: Gesamtbetriebssekunden | 1 |  |
+| 13 |  | Station 1: Gesamtbetriebssekunden | 256 |  |
+| 14 |  | Station 1: Gesamtbetriebssekunden | 65536 |  |
+| 15 |  | Station 1: Gesamtbetriebssekunden | 16777216 |  |
+| 16 |  | Station 1: Warmwasser Volumenstrom | 0.1 |  l/min |
+| 17 |  | Station 1: Warmwasser Volumenstrom | 25.6 |  l/min |
+| 18 |  | Station 1: Warmwasser Volumenstrom | 6553.6 |  l/min |
+| 19 |  | Station 1: Warmwasser Volumenstrom | 1677721.6 |  l/min |
+| 24 |  | Station 1: Primaerpumpe Betriebssekunden | 1 |  s |
+| 25 |  | Station 1: Primaerpumpe Betriebssekunden | 256 |  s |
+| 26 |  | Station 1: Primaerpumpe Betriebssekunden | 65536 |  s |
+| 27 |  | Station 1: Primaerpumpe Betriebssekunden | 16777216 |  s |
+| 42 |  | Station 1: Warmwasser TWW | 0.1 |  °C |
+| 43 |  | Station 1: Warmwasser TWW | 25.6 |  °C |
+| 46 |  | Station 1: Warmwasser TVL | 0.1 |  °C |
+| 47 |  | Station 1: Warmwasser TVL | 25.6 |  °C |
+| 48 |  | Station 1: Primärpumpe Drehzahl | 1 | % |
+| 49 |  | Station 1: Primärpumpe Drehzahl | 256 | % |
+| 50 |  | Station 1: Zirkulation TRL | 0.1 |  °C |
+| 51 |  | Station 1: Zirkulation TRL | 25.6 |  °C |
+| 52 |  | Station 1: Zirkulation Drehzahl | 1 | % |
+| 53 |  | Station 1: Zirkulation Drehzahl | 256 | % |
+| 54 |  | Station 1: RLEinschichtung TRL | 0.1 |  °C |
+| 55 |  | Station 1: RLEinschichtung TRL | 25.6 |  °C |
+| 56 |  | Station 1: RLEinschichtung TSpeicher | 0.1 |  °C |
+| 57 |  | Station 1: RLEinschichtung TSpeicher | 25.6 |  °C |
+| 58 |  | Station 1: Variante | 1 |  |
+| 60 |  | Station 1: Strangventil Zustand | 1 |  |
+| 62 |  | Station 1: RLEinschichtung Ventil | 1 |  |
+
+
+
+### <a name="1522_1522_0112"></a>DeltaSol Fresh 2018 Kaskade - Station 2 (0x1522) <= DeltaSol Fresh 2018 Kaskade - Station 2 (0x1522), command 0x0112
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 4 |  | Station 2: Systemdatum | 1 |  |
+| 5 |  | Station 2: Systemdatum | 256 |  |
+| 6 |  | Station 2: Systemdatum | 65536 |  |
+| 7 |  | Station 2: Systemdatum | 16777216 |  |
+| 12 |  | Station 2: Gesamtbetriebssekunden | 1 |  |
+| 13 |  | Station 2: Gesamtbetriebssekunden | 256 |  |
+| 14 |  | Station 2: Gesamtbetriebssekunden | 65536 |  |
+| 15 |  | Station 2: Gesamtbetriebssekunden | 16777216 |  |
+| 16 |  | Station 2: Warmwasser Volumenstrom | 0.1 |  l/min |
+| 17 |  | Station 2: Warmwasser Volumenstrom | 25.6 |  l/min |
+| 18 |  | Station 2: Warmwasser Volumenstrom | 6553.6 |  l/min |
+| 19 |  | Station 2: Warmwasser Volumenstrom | 1677721.6 |  l/min |
+| 24 |  | Station 2: Primaerpumpe Betriebssekunden | 1 |  s |
+| 25 |  | Station 2: Primaerpumpe Betriebssekunden | 256 |  s |
+| 26 |  | Station 2: Primaerpumpe Betriebssekunden | 65536 |  s |
+| 27 |  | Station 2: Primaerpumpe Betriebssekunden | 16777216 |  s |
+| 42 |  | Station 2: Warmwasser TWW | 0.1 |  °C |
+| 43 |  | Station 2: Warmwasser TWW | 25.6 |  °C |
+| 46 |  | Station 2: Warmwasser TVL | 0.1 |  °C |
+| 47 |  | Station 2: Warmwasser TVL | 25.6 |  °C |
+| 48 |  | Station 2: Primärpumpe Drehzahl | 1 | % |
+| 49 |  | Station 2: Primärpumpe Drehzahl | 256 | % |
+| 50 |  | Station 2: Zirkulation TRL | 0.1 |  °C |
+| 51 |  | Station 2: Zirkulation TRL | 25.6 |  °C |
+| 52 |  | Station 2: Zirkulation Drehzahl | 1 | % |
+| 53 |  | Station 2: Zirkulation Drehzahl | 256 | % |
+| 54 |  | Station 2: RLEinschichtung TRL | 0.1 |  °C |
+| 55 |  | Station 2: RLEinschichtung TRL | 25.6 |  °C |
+| 56 |  | Station 2: RLEinschichtung TSpeicher | 0.1 |  °C |
+| 57 |  | Station 2: RLEinschichtung TSpeicher | 25.6 |  °C |
+| 58 |  | Station 2: Variante | 1 |  |
+| 60 |  | Station 2: Strangventil Zustand | 1 |  |
+| 62 |  | Station 2: RLEinschichtung Ventil | 1 |  |
+
+
+
+### <a name="1522_1523_0112"></a>DeltaSol Fresh 2018 Kaskade - Station 2 (0x1522) <= DeltaSol Fresh 2018 Kaskade - Station 3 (0x1523), command 0x0112
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 4 |  | Station 3: Systemdatum | 1 |  |
+| 5 |  | Station 3: Systemdatum | 256 |  |
+| 6 |  | Station 3: Systemdatum | 65536 |  |
+| 7 |  | Station 3: Systemdatum | 16777216 |  |
+| 12 |  | Station 3: Gesamtbetriebssekunden | 1 |  |
+| 13 |  | Station 3: Gesamtbetriebssekunden | 256 |  |
+| 14 |  | Station 3: Gesamtbetriebssekunden | 65536 |  |
+| 15 |  | Station 3: Gesamtbetriebssekunden | 16777216 |  |
+| 16 |  | Station 3: Warmwasser Volumenstrom | 0.1 |  l/min |
+| 17 |  | Station 3: Warmwasser Volumenstrom | 25.6 |  l/min |
+| 18 |  | Station 3: Warmwasser Volumenstrom | 6553.6 |  l/min |
+| 19 |  | Station 3: Warmwasser Volumenstrom | 1677721.6 |  l/min |
+| 24 |  | Station 3: Primaerpumpe Betriebssekunden | 1 |  s |
+| 25 |  | Station 3: Primaerpumpe Betriebssekunden | 256 |  s |
+| 26 |  | Station 3: Primaerpumpe Betriebssekunden | 65536 |  s |
+| 27 |  | Station 3: Primaerpumpe Betriebssekunden | 16777216 |  s |
+| 42 |  | Station 3: Warmwasser TWW | 0.1 |  °C |
+| 43 |  | Station 3: Warmwasser TWW | 25.6 |  °C |
+| 46 |  | Station 3: Warmwasser TVL | 0.1 |  °C |
+| 47 |  | Station 3: Warmwasser TVL | 25.6 |  °C |
+| 48 |  | Station 3: Primärpumpe Drehzahl | 1 | % |
+| 49 |  | Station 3: Primärpumpe Drehzahl | 256 | % |
+| 50 |  | Station 3: Zirkulation TRL | 0.1 |  °C |
+| 51 |  | Station 3: Zirkulation TRL | 25.6 |  °C |
+| 52 |  | Station 3: Zirkulation Drehzahl | 1 | % |
+| 53 |  | Station 3: Zirkulation Drehzahl | 256 | % |
+| 54 |  | Station 3: RLEinschichtung TRL | 0.1 |  °C |
+| 55 |  | Station 3: RLEinschichtung TRL | 25.6 |  °C |
+| 56 |  | Station 3: RLEinschichtung TSpeicher | 0.1 |  °C |
+| 57 |  | Station 3: RLEinschichtung TSpeicher | 25.6 |  °C |
+| 58 |  | Station 3: Variante | 1 |  |
+| 60 |  | Station 3: Strangventil Zustand | 1 |  |
+| 62 |  | Station 3: RLEinschichtung Ventil | 1 |  |
+
+
+
+### <a name="1522_1524_0112"></a>DeltaSol Fresh 2018 Kaskade - Station 2 (0x1522) <= DeltaSol Fresh 2018 Kaskade - Station 4 (0x1524), command 0x0112
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 4 |  | Station 4: Systemdatum | 1 |  |
+| 5 |  | Station 4: Systemdatum | 256 |  |
+| 6 |  | Station 4: Systemdatum | 65536 |  |
+| 7 |  | Station 4: Systemdatum | 16777216 |  |
+| 12 |  | Station 4: Gesamtbetriebssekunden | 1 |  |
+| 13 |  | Station 4: Gesamtbetriebssekunden | 256 |  |
+| 14 |  | Station 4: Gesamtbetriebssekunden | 65536 |  |
+| 15 |  | Station 4: Gesamtbetriebssekunden | 16777216 |  |
+| 16 |  | Station 4: Warmwasser Volumenstrom | 0.1 |  l/min |
+| 17 |  | Station 4: Warmwasser Volumenstrom | 25.6 |  l/min |
+| 18 |  | Station 4: Warmwasser Volumenstrom | 6553.6 |  l/min |
+| 19 |  | Station 4: Warmwasser Volumenstrom | 1677721.6 |  l/min |
+| 24 |  | Station 4: Primaerpumpe Betriebssekunden | 1 |  s |
+| 25 |  | Station 4: Primaerpumpe Betriebssekunden | 256 |  s |
+| 26 |  | Station 4: Primaerpumpe Betriebssekunden | 65536 |  s |
+| 27 |  | Station 4: Primaerpumpe Betriebssekunden | 16777216 |  s |
+| 42 |  | Station 4: Warmwasser TWW | 0.1 |  °C |
+| 43 |  | Station 4: Warmwasser TWW | 25.6 |  °C |
+| 46 |  | Station 4: Warmwasser TVL | 0.1 |  °C |
+| 47 |  | Station 4: Warmwasser TVL | 25.6 |  °C |
+| 48 |  | Station 4: Primärpumpe Drehzahl | 1 | % |
+| 49 |  | Station 4: Primärpumpe Drehzahl | 256 | % |
+| 50 |  | Station 4: Zirkulation TRL | 0.1 |  °C |
+| 51 |  | Station 4: Zirkulation TRL | 25.6 |  °C |
+| 52 |  | Station 4: Zirkulation Drehzahl | 1 | % |
+| 53 |  | Station 4: Zirkulation Drehzahl | 256 | % |
+| 54 |  | Station 4: RLEinschichtung TRL | 0.1 |  °C |
+| 55 |  | Station 4: RLEinschichtung TRL | 25.6 |  °C |
+| 56 |  | Station 4: RLEinschichtung TSpeicher | 0.1 |  °C |
+| 57 |  | Station 4: RLEinschichtung TSpeicher | 25.6 |  °C |
+| 58 |  | Station 4: Variante | 1 |  |
+| 60 |  | Station 4: Strangventil Zustand | 1 |  |
+| 62 |  | Station 4: RLEinschichtung Ventil | 1 |  |
+
+
+
+### <a name="1523_1521_0112"></a>DeltaSol Fresh 2018 Kaskade - Station 3 (0x1523) <= DeltaSol Fresh 2018 Kaskade - Station 1 (0x1521), command 0x0112
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 4 |  | Station 1: Systemdatum | 1 |  |
+| 5 |  | Station 1: Systemdatum | 256 |  |
+| 6 |  | Station 1: Systemdatum | 65536 |  |
+| 7 |  | Station 1: Systemdatum | 16777216 |  |
+| 12 |  | Station 1: Gesamtbetriebssekunden | 1 |  |
+| 13 |  | Station 1: Gesamtbetriebssekunden | 256 |  |
+| 14 |  | Station 1: Gesamtbetriebssekunden | 65536 |  |
+| 15 |  | Station 1: Gesamtbetriebssekunden | 16777216 |  |
+| 16 |  | Station 1: Warmwasser Volumenstrom | 0.1 |  l/min |
+| 17 |  | Station 1: Warmwasser Volumenstrom | 25.6 |  l/min |
+| 18 |  | Station 1: Warmwasser Volumenstrom | 6553.6 |  l/min |
+| 19 |  | Station 1: Warmwasser Volumenstrom | 1677721.6 |  l/min |
+| 24 |  | Station 1: Primaerpumpe Betriebssekunden | 1 |  s |
+| 25 |  | Station 1: Primaerpumpe Betriebssekunden | 256 |  s |
+| 26 |  | Station 1: Primaerpumpe Betriebssekunden | 65536 |  s |
+| 27 |  | Station 1: Primaerpumpe Betriebssekunden | 16777216 |  s |
+| 42 |  | Station 1: Warmwasser TWW | 0.1 |  °C |
+| 43 |  | Station 1: Warmwasser TWW | 25.6 |  °C |
+| 46 |  | Station 1: Warmwasser TVL | 0.1 |  °C |
+| 47 |  | Station 1: Warmwasser TVL | 25.6 |  °C |
+| 48 |  | Station 1: Primärpumpe Drehzahl | 1 | % |
+| 49 |  | Station 1: Primärpumpe Drehzahl | 256 | % |
+| 50 |  | Station 1: Zirkulation TRL | 0.1 |  °C |
+| 51 |  | Station 1: Zirkulation TRL | 25.6 |  °C |
+| 52 |  | Station 1: Zirkulation Drehzahl | 1 | % |
+| 53 |  | Station 1: Zirkulation Drehzahl | 256 | % |
+| 54 |  | Station 1: RLEinschichtung TRL | 0.1 |  °C |
+| 55 |  | Station 1: RLEinschichtung TRL | 25.6 |  °C |
+| 56 |  | Station 1: RLEinschichtung TSpeicher | 0.1 |  °C |
+| 57 |  | Station 1: RLEinschichtung TSpeicher | 25.6 |  °C |
+| 58 |  | Station 1: Variante | 1 |  |
+| 60 |  | Station 1: Strangventil Zustand | 1 |  |
+| 62 |  | Station 1: RLEinschichtung Ventil | 1 |  |
+
+
+
+### <a name="1523_1522_0112"></a>DeltaSol Fresh 2018 Kaskade - Station 3 (0x1523) <= DeltaSol Fresh 2018 Kaskade - Station 2 (0x1522), command 0x0112
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 4 |  | Station 2: Systemdatum | 1 |  |
+| 5 |  | Station 2: Systemdatum | 256 |  |
+| 6 |  | Station 2: Systemdatum | 65536 |  |
+| 7 |  | Station 2: Systemdatum | 16777216 |  |
+| 12 |  | Station 2: Gesamtbetriebssekunden | 1 |  |
+| 13 |  | Station 2: Gesamtbetriebssekunden | 256 |  |
+| 14 |  | Station 2: Gesamtbetriebssekunden | 65536 |  |
+| 15 |  | Station 2: Gesamtbetriebssekunden | 16777216 |  |
+| 16 |  | Station 2: Warmwasser Volumenstrom | 0.1 |  l/min |
+| 17 |  | Station 2: Warmwasser Volumenstrom | 25.6 |  l/min |
+| 18 |  | Station 2: Warmwasser Volumenstrom | 6553.6 |  l/min |
+| 19 |  | Station 2: Warmwasser Volumenstrom | 1677721.6 |  l/min |
+| 24 |  | Station 2: Primaerpumpe Betriebssekunden | 1 |  s |
+| 25 |  | Station 2: Primaerpumpe Betriebssekunden | 256 |  s |
+| 26 |  | Station 2: Primaerpumpe Betriebssekunden | 65536 |  s |
+| 27 |  | Station 2: Primaerpumpe Betriebssekunden | 16777216 |  s |
+| 42 |  | Station 2: Warmwasser TWW | 0.1 |  °C |
+| 43 |  | Station 2: Warmwasser TWW | 25.6 |  °C |
+| 46 |  | Station 2: Warmwasser TVL | 0.1 |  °C |
+| 47 |  | Station 2: Warmwasser TVL | 25.6 |  °C |
+| 48 |  | Station 2: Primärpumpe Drehzahl | 1 | % |
+| 49 |  | Station 2: Primärpumpe Drehzahl | 256 | % |
+| 50 |  | Station 2: Zirkulation TRL | 0.1 |  °C |
+| 51 |  | Station 2: Zirkulation TRL | 25.6 |  °C |
+| 52 |  | Station 2: Zirkulation Drehzahl | 1 | % |
+| 53 |  | Station 2: Zirkulation Drehzahl | 256 | % |
+| 54 |  | Station 2: RLEinschichtung TRL | 0.1 |  °C |
+| 55 |  | Station 2: RLEinschichtung TRL | 25.6 |  °C |
+| 56 |  | Station 2: RLEinschichtung TSpeicher | 0.1 |  °C |
+| 57 |  | Station 2: RLEinschichtung TSpeicher | 25.6 |  °C |
+| 58 |  | Station 2: Variante | 1 |  |
+| 60 |  | Station 2: Strangventil Zustand | 1 |  |
+| 62 |  | Station 2: RLEinschichtung Ventil | 1 |  |
+
+
+
+### <a name="1523_1523_0112"></a>DeltaSol Fresh 2018 Kaskade - Station 3 (0x1523) <= DeltaSol Fresh 2018 Kaskade - Station 3 (0x1523), command 0x0112
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 4 |  | Station 3: Systemdatum | 1 |  |
+| 5 |  | Station 3: Systemdatum | 256 |  |
+| 6 |  | Station 3: Systemdatum | 65536 |  |
+| 7 |  | Station 3: Systemdatum | 16777216 |  |
+| 12 |  | Station 3: Gesamtbetriebssekunden | 1 |  |
+| 13 |  | Station 3: Gesamtbetriebssekunden | 256 |  |
+| 14 |  | Station 3: Gesamtbetriebssekunden | 65536 |  |
+| 15 |  | Station 3: Gesamtbetriebssekunden | 16777216 |  |
+| 16 |  | Station 3: Warmwasser Volumenstrom | 0.1 |  l/min |
+| 17 |  | Station 3: Warmwasser Volumenstrom | 25.6 |  l/min |
+| 18 |  | Station 3: Warmwasser Volumenstrom | 6553.6 |  l/min |
+| 19 |  | Station 3: Warmwasser Volumenstrom | 1677721.6 |  l/min |
+| 24 |  | Station 3: Primaerpumpe Betriebssekunden | 1 |  s |
+| 25 |  | Station 3: Primaerpumpe Betriebssekunden | 256 |  s |
+| 26 |  | Station 3: Primaerpumpe Betriebssekunden | 65536 |  s |
+| 27 |  | Station 3: Primaerpumpe Betriebssekunden | 16777216 |  s |
+| 42 |  | Station 3: Warmwasser TWW | 0.1 |  °C |
+| 43 |  | Station 3: Warmwasser TWW | 25.6 |  °C |
+| 46 |  | Station 3: Warmwasser TVL | 0.1 |  °C |
+| 47 |  | Station 3: Warmwasser TVL | 25.6 |  °C |
+| 48 |  | Station 3: Primärpumpe Drehzahl | 1 | % |
+| 49 |  | Station 3: Primärpumpe Drehzahl | 256 | % |
+| 50 |  | Station 3: Zirkulation TRL | 0.1 |  °C |
+| 51 |  | Station 3: Zirkulation TRL | 25.6 |  °C |
+| 52 |  | Station 3: Zirkulation Drehzahl | 1 | % |
+| 53 |  | Station 3: Zirkulation Drehzahl | 256 | % |
+| 54 |  | Station 3: RLEinschichtung TRL | 0.1 |  °C |
+| 55 |  | Station 3: RLEinschichtung TRL | 25.6 |  °C |
+| 56 |  | Station 3: RLEinschichtung TSpeicher | 0.1 |  °C |
+| 57 |  | Station 3: RLEinschichtung TSpeicher | 25.6 |  °C |
+| 58 |  | Station 3: Variante | 1 |  |
+| 60 |  | Station 3: Strangventil Zustand | 1 |  |
+| 62 |  | Station 3: RLEinschichtung Ventil | 1 |  |
+
+
+
+### <a name="1523_1524_0112"></a>DeltaSol Fresh 2018 Kaskade - Station 3 (0x1523) <= DeltaSol Fresh 2018 Kaskade - Station 4 (0x1524), command 0x0112
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 4 |  | Station 4: Systemdatum | 1 |  |
+| 5 |  | Station 4: Systemdatum | 256 |  |
+| 6 |  | Station 4: Systemdatum | 65536 |  |
+| 7 |  | Station 4: Systemdatum | 16777216 |  |
+| 12 |  | Station 4: Gesamtbetriebssekunden | 1 |  |
+| 13 |  | Station 4: Gesamtbetriebssekunden | 256 |  |
+| 14 |  | Station 4: Gesamtbetriebssekunden | 65536 |  |
+| 15 |  | Station 4: Gesamtbetriebssekunden | 16777216 |  |
+| 16 |  | Station 4: Warmwasser Volumenstrom | 0.1 |  l/min |
+| 17 |  | Station 4: Warmwasser Volumenstrom | 25.6 |  l/min |
+| 18 |  | Station 4: Warmwasser Volumenstrom | 6553.6 |  l/min |
+| 19 |  | Station 4: Warmwasser Volumenstrom | 1677721.6 |  l/min |
+| 24 |  | Station 4: Primaerpumpe Betriebssekunden | 1 |  s |
+| 25 |  | Station 4: Primaerpumpe Betriebssekunden | 256 |  s |
+| 26 |  | Station 4: Primaerpumpe Betriebssekunden | 65536 |  s |
+| 27 |  | Station 4: Primaerpumpe Betriebssekunden | 16777216 |  s |
+| 42 |  | Station 4: Warmwasser TWW | 0.1 |  °C |
+| 43 |  | Station 4: Warmwasser TWW | 25.6 |  °C |
+| 46 |  | Station 4: Warmwasser TVL | 0.1 |  °C |
+| 47 |  | Station 4: Warmwasser TVL | 25.6 |  °C |
+| 48 |  | Station 4: Primärpumpe Drehzahl | 1 | % |
+| 49 |  | Station 4: Primärpumpe Drehzahl | 256 | % |
+| 50 |  | Station 4: Zirkulation TRL | 0.1 |  °C |
+| 51 |  | Station 4: Zirkulation TRL | 25.6 |  °C |
+| 52 |  | Station 4: Zirkulation Drehzahl | 1 | % |
+| 53 |  | Station 4: Zirkulation Drehzahl | 256 | % |
+| 54 |  | Station 4: RLEinschichtung TRL | 0.1 |  °C |
+| 55 |  | Station 4: RLEinschichtung TRL | 25.6 |  °C |
+| 56 |  | Station 4: RLEinschichtung TSpeicher | 0.1 |  °C |
+| 57 |  | Station 4: RLEinschichtung TSpeicher | 25.6 |  °C |
+| 58 |  | Station 4: Variante | 1 |  |
+| 60 |  | Station 4: Strangventil Zustand | 1 |  |
+| 62 |  | Station 4: RLEinschichtung Ventil | 1 |  |
+
+
+
+### <a name="1524_1521_0112"></a>DeltaSol Fresh 2018 Kaskade - Station 4 (0x1524) <= DeltaSol Fresh 2018 Kaskade - Station 1 (0x1521), command 0x0112
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 4 |  | Station 1: Systemdatum | 1 |  |
+| 5 |  | Station 1: Systemdatum | 256 |  |
+| 6 |  | Station 1: Systemdatum | 65536 |  |
+| 7 |  | Station 1: Systemdatum | 16777216 |  |
+| 12 |  | Station 1: Gesamtbetriebssekunden | 1 |  |
+| 13 |  | Station 1: Gesamtbetriebssekunden | 256 |  |
+| 14 |  | Station 1: Gesamtbetriebssekunden | 65536 |  |
+| 15 |  | Station 1: Gesamtbetriebssekunden | 16777216 |  |
+| 16 |  | Station 1: Warmwasser Volumenstrom | 0.1 |  l/min |
+| 17 |  | Station 1: Warmwasser Volumenstrom | 25.6 |  l/min |
+| 18 |  | Station 1: Warmwasser Volumenstrom | 6553.6 |  l/min |
+| 19 |  | Station 1: Warmwasser Volumenstrom | 1677721.6 |  l/min |
+| 24 |  | Station 1: Primaerpumpe Betriebssekunden | 1 |  s |
+| 25 |  | Station 1: Primaerpumpe Betriebssekunden | 256 |  s |
+| 26 |  | Station 1: Primaerpumpe Betriebssekunden | 65536 |  s |
+| 27 |  | Station 1: Primaerpumpe Betriebssekunden | 16777216 |  s |
+| 42 |  | Station 1: Warmwasser TWW | 0.1 |  °C |
+| 43 |  | Station 1: Warmwasser TWW | 25.6 |  °C |
+| 46 |  | Station 1: Warmwasser TVL | 0.1 |  °C |
+| 47 |  | Station 1: Warmwasser TVL | 25.6 |  °C |
+| 48 |  | Station 1: Primärpumpe Drehzahl | 1 | % |
+| 49 |  | Station 1: Primärpumpe Drehzahl | 256 | % |
+| 50 |  | Station 1: Zirkulation TRL | 0.1 |  °C |
+| 51 |  | Station 1: Zirkulation TRL | 25.6 |  °C |
+| 52 |  | Station 1: Zirkulation Drehzahl | 1 | % |
+| 53 |  | Station 1: Zirkulation Drehzahl | 256 | % |
+| 54 |  | Station 1: RLEinschichtung TRL | 0.1 |  °C |
+| 55 |  | Station 1: RLEinschichtung TRL | 25.6 |  °C |
+| 56 |  | Station 1: RLEinschichtung TSpeicher | 0.1 |  °C |
+| 57 |  | Station 1: RLEinschichtung TSpeicher | 25.6 |  °C |
+| 58 |  | Station 1: Variante | 1 |  |
+| 60 |  | Station 1: Strangventil Zustand | 1 |  |
+| 62 |  | Station 1: RLEinschichtung Ventil | 1 |  |
+
+
+
+### <a name="1524_1522_0112"></a>DeltaSol Fresh 2018 Kaskade - Station 4 (0x1524) <= DeltaSol Fresh 2018 Kaskade - Station 2 (0x1522), command 0x0112
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 4 |  | Station 2: Systemdatum | 1 |  |
+| 5 |  | Station 2: Systemdatum | 256 |  |
+| 6 |  | Station 2: Systemdatum | 65536 |  |
+| 7 |  | Station 2: Systemdatum | 16777216 |  |
+| 12 |  | Station 2: Gesamtbetriebssekunden | 1 |  |
+| 13 |  | Station 2: Gesamtbetriebssekunden | 256 |  |
+| 14 |  | Station 2: Gesamtbetriebssekunden | 65536 |  |
+| 15 |  | Station 2: Gesamtbetriebssekunden | 16777216 |  |
+| 16 |  | Station 2: Warmwasser Volumenstrom | 0.1 |  l/min |
+| 17 |  | Station 2: Warmwasser Volumenstrom | 25.6 |  l/min |
+| 18 |  | Station 2: Warmwasser Volumenstrom | 6553.6 |  l/min |
+| 19 |  | Station 2: Warmwasser Volumenstrom | 1677721.6 |  l/min |
+| 24 |  | Station 2: Primaerpumpe Betriebssekunden | 1 |  s |
+| 25 |  | Station 2: Primaerpumpe Betriebssekunden | 256 |  s |
+| 26 |  | Station 2: Primaerpumpe Betriebssekunden | 65536 |  s |
+| 27 |  | Station 2: Primaerpumpe Betriebssekunden | 16777216 |  s |
+| 42 |  | Station 2: Warmwasser TWW | 0.1 |  °C |
+| 43 |  | Station 2: Warmwasser TWW | 25.6 |  °C |
+| 46 |  | Station 2: Warmwasser TVL | 0.1 |  °C |
+| 47 |  | Station 2: Warmwasser TVL | 25.6 |  °C |
+| 48 |  | Station 2: Primärpumpe Drehzahl | 1 | % |
+| 49 |  | Station 2: Primärpumpe Drehzahl | 256 | % |
+| 50 |  | Station 2: Zirkulation TRL | 0.1 |  °C |
+| 51 |  | Station 2: Zirkulation TRL | 25.6 |  °C |
+| 52 |  | Station 2: Zirkulation Drehzahl | 1 | % |
+| 53 |  | Station 2: Zirkulation Drehzahl | 256 | % |
+| 54 |  | Station 2: RLEinschichtung TRL | 0.1 |  °C |
+| 55 |  | Station 2: RLEinschichtung TRL | 25.6 |  °C |
+| 56 |  | Station 2: RLEinschichtung TSpeicher | 0.1 |  °C |
+| 57 |  | Station 2: RLEinschichtung TSpeicher | 25.6 |  °C |
+| 58 |  | Station 2: Variante | 1 |  |
+| 60 |  | Station 2: Strangventil Zustand | 1 |  |
+| 62 |  | Station 2: RLEinschichtung Ventil | 1 |  |
+
+
+
+### <a name="1524_1523_0112"></a>DeltaSol Fresh 2018 Kaskade - Station 4 (0x1524) <= DeltaSol Fresh 2018 Kaskade - Station 3 (0x1523), command 0x0112
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 4 |  | Station 3: Systemdatum | 1 |  |
+| 5 |  | Station 3: Systemdatum | 256 |  |
+| 6 |  | Station 3: Systemdatum | 65536 |  |
+| 7 |  | Station 3: Systemdatum | 16777216 |  |
+| 12 |  | Station 3: Gesamtbetriebssekunden | 1 |  |
+| 13 |  | Station 3: Gesamtbetriebssekunden | 256 |  |
+| 14 |  | Station 3: Gesamtbetriebssekunden | 65536 |  |
+| 15 |  | Station 3: Gesamtbetriebssekunden | 16777216 |  |
+| 16 |  | Station 3: Warmwasser Volumenstrom | 0.1 |  l/min |
+| 17 |  | Station 3: Warmwasser Volumenstrom | 25.6 |  l/min |
+| 18 |  | Station 3: Warmwasser Volumenstrom | 6553.6 |  l/min |
+| 19 |  | Station 3: Warmwasser Volumenstrom | 1677721.6 |  l/min |
+| 24 |  | Station 3: Primaerpumpe Betriebssekunden | 1 |  s |
+| 25 |  | Station 3: Primaerpumpe Betriebssekunden | 256 |  s |
+| 26 |  | Station 3: Primaerpumpe Betriebssekunden | 65536 |  s |
+| 27 |  | Station 3: Primaerpumpe Betriebssekunden | 16777216 |  s |
+| 42 |  | Station 3: Warmwasser TWW | 0.1 |  °C |
+| 43 |  | Station 3: Warmwasser TWW | 25.6 |  °C |
+| 46 |  | Station 3: Warmwasser TVL | 0.1 |  °C |
+| 47 |  | Station 3: Warmwasser TVL | 25.6 |  °C |
+| 48 |  | Station 3: Primärpumpe Drehzahl | 1 | % |
+| 49 |  | Station 3: Primärpumpe Drehzahl | 256 | % |
+| 50 |  | Station 3: Zirkulation TRL | 0.1 |  °C |
+| 51 |  | Station 3: Zirkulation TRL | 25.6 |  °C |
+| 52 |  | Station 3: Zirkulation Drehzahl | 1 | % |
+| 53 |  | Station 3: Zirkulation Drehzahl | 256 | % |
+| 54 |  | Station 3: RLEinschichtung TRL | 0.1 |  °C |
+| 55 |  | Station 3: RLEinschichtung TRL | 25.6 |  °C |
+| 56 |  | Station 3: RLEinschichtung TSpeicher | 0.1 |  °C |
+| 57 |  | Station 3: RLEinschichtung TSpeicher | 25.6 |  °C |
+| 58 |  | Station 3: Variante | 1 |  |
+| 60 |  | Station 3: Strangventil Zustand | 1 |  |
+| 62 |  | Station 3: RLEinschichtung Ventil | 1 |  |
+
+
+
+### <a name="1524_1524_0112"></a>DeltaSol Fresh 2018 Kaskade - Station 4 (0x1524) <= DeltaSol Fresh 2018 Kaskade - Station 4 (0x1524), command 0x0112
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 4 |  | Station 4: Systemdatum | 1 |  |
+| 5 |  | Station 4: Systemdatum | 256 |  |
+| 6 |  | Station 4: Systemdatum | 65536 |  |
+| 7 |  | Station 4: Systemdatum | 16777216 |  |
+| 12 |  | Station 4: Gesamtbetriebssekunden | 1 |  |
+| 13 |  | Station 4: Gesamtbetriebssekunden | 256 |  |
+| 14 |  | Station 4: Gesamtbetriebssekunden | 65536 |  |
+| 15 |  | Station 4: Gesamtbetriebssekunden | 16777216 |  |
+| 16 |  | Station 4: Warmwasser Volumenstrom | 0.1 |  l/min |
+| 17 |  | Station 4: Warmwasser Volumenstrom | 25.6 |  l/min |
+| 18 |  | Station 4: Warmwasser Volumenstrom | 6553.6 |  l/min |
+| 19 |  | Station 4: Warmwasser Volumenstrom | 1677721.6 |  l/min |
+| 24 |  | Station 4: Primaerpumpe Betriebssekunden | 1 |  s |
+| 25 |  | Station 4: Primaerpumpe Betriebssekunden | 256 |  s |
+| 26 |  | Station 4: Primaerpumpe Betriebssekunden | 65536 |  s |
+| 27 |  | Station 4: Primaerpumpe Betriebssekunden | 16777216 |  s |
+| 42 |  | Station 4: Warmwasser TWW | 0.1 |  °C |
+| 43 |  | Station 4: Warmwasser TWW | 25.6 |  °C |
+| 46 |  | Station 4: Warmwasser TVL | 0.1 |  °C |
+| 47 |  | Station 4: Warmwasser TVL | 25.6 |  °C |
+| 48 |  | Station 4: Primärpumpe Drehzahl | 1 | % |
+| 49 |  | Station 4: Primärpumpe Drehzahl | 256 | % |
+| 50 |  | Station 4: Zirkulation TRL | 0.1 |  °C |
+| 51 |  | Station 4: Zirkulation TRL | 25.6 |  °C |
+| 52 |  | Station 4: Zirkulation Drehzahl | 1 | % |
+| 53 |  | Station 4: Zirkulation Drehzahl | 256 | % |
+| 54 |  | Station 4: RLEinschichtung TRL | 0.1 |  °C |
+| 55 |  | Station 4: RLEinschichtung TRL | 25.6 |  °C |
+| 56 |  | Station 4: RLEinschichtung TSpeicher | 0.1 |  °C |
+| 57 |  | Station 4: RLEinschichtung TSpeicher | 25.6 |  °C |
+| 58 |  | Station 4: Variante | 1 |  |
+| 60 |  | Station 4: Strangventil Zustand | 1 |  |
+| 62 |  | Station 4: RLEinschichtung Ventil | 1 |  |
+
+
+
 ### <a name="4420_0000_0200"></a>HKM1 (0x4420 - 0x442F) <= any source, command 0x0200
 
 | Offset | Mask | Name | Factor | Unit |
@@ -10924,5 +12026,5 @@ title: VBus Packets
 
 
 
-> Based on VSF dated 20180312
+> Based on VSF dated 20190202
 

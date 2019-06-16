@@ -10,6 +10,7 @@
     "coveralls": "jest -i --coverage --coverageReporters=text-lcov | coveralls",
     "transpile": "mkdir -p dist && babel src -d dist",
     "jsdoc": "jsdoc -t node_modules/ink-docstrap/template/ -c jsdoc.json -d .docs/jsdoc/ -R README.md src",
+    "vsf-doc": "node tools/specification-documentor/main.js --packetStructure > docs/vbus-packets.md && node tools/specification-documentor/main.js --packetFields > docs/vbus-packet-fields.md",
     "jekyll": "(cd docs; jekyll build && rsync -a _site/ ../.docs/)",
     "copy-locales": "mkdir -p dist/locales && cp -a src/locales/* dist/locales/",
     "copy-vsf": "mkdir -p dist && cp src/vbus_specification.vsf dist/",

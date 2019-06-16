@@ -57,6 +57,9 @@ title: VBus Packets
 - [DFA (0x0010) <= Wagner Sungo 100 \[WMZ1\] (0x1241), command 0x0100](#0010_1241_0100)
 - [DFA (0x0010) <= Viessmann Vitotrans 353 2017 (0x1250), command 0x0100](#0010_1250_0100)
 - [DFA (0x0010) <= Viessmann Vitotrans 353 2017 Broadcast (0x1260), command 0x0100](#0010_1260_0100)
+- [DFA (0x0010) <= THERMUfloor ER (0x1410), command 0x0100](#0010_1410_0100)
+- [DFA (0x0010) <= Apricus DeltaSol AL E HE (0x1420), command 0x0100](#0010_1420_0100)
+- [DFA (0x0010) <= DeltaSol Fresh 2018 (0x1510), command 0x0100](#0010_1510_0100)
 - [DFA (0x0010) <= DeltaTherm HC max \[Regler\] (0x1711), command 0x0100](#0010_1711_0100)
 - [DFA (0x0010) <= DeltaTherm HC max \[Regler\] (0x1711), command 0x0101](#0010_1711_0101)
 - [DFA (0x0010) <= DeltaTherm HC max \[Regler\] (0x1711), command 0x0140](#0010_1711_0140)
@@ -177,11 +180,11 @@ title: VBus Packets
 - [DFA (0x0010) <= ZEN DT6 \[WMZ1\] (0x7442), command 0x0100](#0010_7442_0100)
 - [DFA (0x0010) <= SOLTEX-Regler \[Teil 1\] (0x7511), command 0x0100](#0010_7511_0100)
 - [DFA (0x0010) <= SOLTEX-Regler \[Teil 2\] (0x7512), command 0x0100](#0010_7512_0100)
-- [DFA (0x0010) <= Regtronic RQ-B (0x7521), command 0x0100](#0010_7521_0100)
+- [DFA (0x0010) <= Oventrop RQ-B / RQ-B HE (0x7521), command 0x0100](#0010_7521_0100)
 - [DFA (0x0010) <= Regtronic RX-B \[Regler\] (0x7522), command 0x0100](#0010_7522_0100)
 - [DFA (0x0010) <= Regtronic RX-B \[Module\] (0x7523), command 0x0100](#0010_7523_0100)
 - [DFA (0x0010) <= Regtronic RX-B \[WMZ\] (0x7530 - 0x753F), command 0x0100](#0010_7530_0100)
-- [DFA (0x0010) <= Oventrop RQ-B XXL (0x7541), command 0x0100](#0010_7541_0100)
+- [DFA (0x0010) <= Oventrop RQ XXL (0x7541), command 0x0100](#0010_7541_0100)
 - [DFA (0x0010) <= Friwa (0x7611), command 0x0100](#0010_7611_0100)
 - [DFA (0x0010) <= SOLEX \[Regler\] (0x7621), command 0x0100](#0010_7621_0100)
 - [DFA (0x0010) <= SOLEX \[WMZ\] (0x7622), command 0x0100](#0010_7622_0100)
@@ -239,6 +242,30 @@ title: VBus Packets
 - [Viessmann Vitotrans 353 2017 Slave 3 (0x1264) <= Viessmann Vitotrans 353 2017 Slave 1 (0x1262), command 0x0301](#1264_1262_0301)
 - [Viessmann Vitotrans 353 2017 Slave 3 (0x1264) <= Viessmann Vitotrans 353 2017 Slave 2 (0x1263), command 0x0301](#1264_1263_0301)
 - [Viessmann Vitotrans 353 2017 Slave 3 (0x1264) <= Viessmann Vitotrans 353 2017 Slave 3 (0x1264), command 0x0301](#1264_1264_0301)
+- [DeltaSol Fresh 2018 Kaskade Broadcast (0x1520) <= DeltaSol Fresh 2018 Kaskade - Station 1 (0x1521), command 0x0222](#1520_1521_0222)
+- [DeltaSol Fresh 2018 Kaskade Broadcast (0x1520) <= DeltaSol Fresh 2018 Kaskade - Station 1 (0x1521), command 0x0333](#1520_1521_0333)
+- [DeltaSol Fresh 2018 Kaskade Broadcast (0x1520) <= DeltaSol Fresh 2018 Kaskade - Station 2 (0x1522), command 0x0222](#1520_1522_0222)
+- [DeltaSol Fresh 2018 Kaskade Broadcast (0x1520) <= DeltaSol Fresh 2018 Kaskade - Station 2 (0x1522), command 0x0333](#1520_1522_0333)
+- [DeltaSol Fresh 2018 Kaskade Broadcast (0x1520) <= DeltaSol Fresh 2018 Kaskade - Station 3 (0x1523), command 0x0222](#1520_1523_0222)
+- [DeltaSol Fresh 2018 Kaskade Broadcast (0x1520) <= DeltaSol Fresh 2018 Kaskade - Station 3 (0x1523), command 0x0333](#1520_1523_0333)
+- [DeltaSol Fresh 2018 Kaskade Broadcast (0x1520) <= DeltaSol Fresh 2018 Kaskade - Station 4 (0x1524), command 0x0222](#1520_1524_0222)
+- [DeltaSol Fresh 2018 Kaskade Broadcast (0x1520) <= DeltaSol Fresh 2018 Kaskade - Station 4 (0x1524), command 0x0333](#1520_1524_0333)
+- [DeltaSol Fresh 2018 Kaskade - Station 1 (0x1521) <= DeltaSol Fresh 2018 Kaskade - Station 1 (0x1521), command 0x0112](#1521_1521_0112)
+- [DeltaSol Fresh 2018 Kaskade - Station 1 (0x1521) <= DeltaSol Fresh 2018 Kaskade - Station 2 (0x1522), command 0x0112](#1521_1522_0112)
+- [DeltaSol Fresh 2018 Kaskade - Station 1 (0x1521) <= DeltaSol Fresh 2018 Kaskade - Station 3 (0x1523), command 0x0112](#1521_1523_0112)
+- [DeltaSol Fresh 2018 Kaskade - Station 1 (0x1521) <= DeltaSol Fresh 2018 Kaskade - Station 4 (0x1524), command 0x0112](#1521_1524_0112)
+- [DeltaSol Fresh 2018 Kaskade - Station 2 (0x1522) <= DeltaSol Fresh 2018 Kaskade - Station 1 (0x1521), command 0x0112](#1522_1521_0112)
+- [DeltaSol Fresh 2018 Kaskade - Station 2 (0x1522) <= DeltaSol Fresh 2018 Kaskade - Station 2 (0x1522), command 0x0112](#1522_1522_0112)
+- [DeltaSol Fresh 2018 Kaskade - Station 2 (0x1522) <= DeltaSol Fresh 2018 Kaskade - Station 3 (0x1523), command 0x0112](#1522_1523_0112)
+- [DeltaSol Fresh 2018 Kaskade - Station 2 (0x1522) <= DeltaSol Fresh 2018 Kaskade - Station 4 (0x1524), command 0x0112](#1522_1524_0112)
+- [DeltaSol Fresh 2018 Kaskade - Station 3 (0x1523) <= DeltaSol Fresh 2018 Kaskade - Station 1 (0x1521), command 0x0112](#1523_1521_0112)
+- [DeltaSol Fresh 2018 Kaskade - Station 3 (0x1523) <= DeltaSol Fresh 2018 Kaskade - Station 2 (0x1522), command 0x0112](#1523_1522_0112)
+- [DeltaSol Fresh 2018 Kaskade - Station 3 (0x1523) <= DeltaSol Fresh 2018 Kaskade - Station 3 (0x1523), command 0x0112](#1523_1523_0112)
+- [DeltaSol Fresh 2018 Kaskade - Station 3 (0x1523) <= DeltaSol Fresh 2018 Kaskade - Station 4 (0x1524), command 0x0112](#1523_1524_0112)
+- [DeltaSol Fresh 2018 Kaskade - Station 4 (0x1524) <= DeltaSol Fresh 2018 Kaskade - Station 1 (0x1521), command 0x0112](#1524_1521_0112)
+- [DeltaSol Fresh 2018 Kaskade - Station 4 (0x1524) <= DeltaSol Fresh 2018 Kaskade - Station 2 (0x1522), command 0x0112](#1524_1522_0112)
+- [DeltaSol Fresh 2018 Kaskade - Station 4 (0x1524) <= DeltaSol Fresh 2018 Kaskade - Station 3 (0x1523), command 0x0112](#1524_1523_0112)
+- [DeltaSol Fresh 2018 Kaskade - Station 4 (0x1524) <= DeltaSol Fresh 2018 Kaskade - Station 4 (0x1524), command 0x0112](#1524_1524_0112)
 - [HKM1 (0x4420 - 0x442F) <= any source, command 0x0200](#4420_0000_0200)
 - [Kaskade BasisAdr (0x5260) <= Kaskade BasisAdr (0x5260 - 0x526F), command 0x0102](#5260_5260_0102)
 - [Kaskade Master (0x5261) <= Kaskade BasisAdr (0x5260 - 0x526F), command 0x0301](#5261_5260_0301)
@@ -389,6 +416,14 @@ title: VBus Packets
 | 0x1262 | Viessmann Vitotrans 353 2017 Slave 1 |
 | 0x1263 | Viessmann Vitotrans 353 2017 Slave 2 |
 | 0x1264 | Viessmann Vitotrans 353 2017 Slave 3 |
+| 0x1410 | THERMUfloor ER |
+| 0x1420 | Apricus DeltaSol AL E HE |
+| 0x1510 | DeltaSol Fresh 2018 |
+| 0x1520 | DeltaSol Fresh 2018 Kaskade Broadcast |
+| 0x1521 | DeltaSol Fresh 2018 Kaskade - Station 1 |
+| 0x1522 | DeltaSol Fresh 2018 Kaskade - Station 2 |
+| 0x1523 | DeltaSol Fresh 2018 Kaskade - Station 3 |
+| 0x1524 | DeltaSol Fresh 2018 Kaskade - Station 4 |
 | 0x1711 | DeltaTherm HC max \[Regler\] |
 | 0x1720 | DeltaTherm HC max \[Heizkreis #0\] |
 | 0x1721 | DeltaTherm HC max \[Heizkreis #1\] |
@@ -909,7 +944,7 @@ title: VBus Packets
 | 0x7451 | Kioto SLM |
 | 0x7511 | SOLTEX-Regler \[Teil 1\] |
 | 0x7512 | SOLTEX-Regler \[Teil 2\] |
-| 0x7521 | Regtronic RQ-B |
+| 0x7521 | Oventrop RQ-B / RQ-B HE |
 | 0x7522 | Regtronic RX-B \[Regler\] |
 | 0x7523 | Regtronic RX-B \[Module\] |
 | 0x7530 | Regtronic RX-B \[WMZ #0\] |
@@ -928,7 +963,7 @@ title: VBus Packets
 | 0x753D | Regtronic RX-B \[WMZ #13\] |
 | 0x753E | Regtronic RX-B \[WMZ #14\] |
 | 0x753F | Regtronic RX-B \[WMZ #15\] |
-| 0x7541 | Oventrop RQ-B XXL |
+| 0x7541 | Oventrop RQ XXL |
 | 0x7611 | Friwa |
 | 0x7621 | SOLEX \[Regler\] |
 | 0x7622 | SOLEX \[WMZ\] |
@@ -2316,6 +2351,90 @@ title: VBus Packets
 
 
 
+### <a name="0010_1410_0100"></a>DFA (0x0010) <= THERMUfloor ER (0x1410), command 0x0100
+
+| ID | Name | Factor | Unit |
+|:--|:--|:-:|:-:|
+| 00_0010_1410_10_0100_000_2_0| Primär Rücklauftemperatur Sensor 1 | 0.1 |  °C |
+| 00_0010_1410_10_0100_002_2_0| Sekundär Vorlauftemperatur Sensor 2 | 0.1 |  °C |
+| 00_0010_1410_10_0100_004_2_0| Außentemperatur Sensor 3 | 0.1 |  °C |
+| 00_0010_1410_10_0100_034_2_0| Primär Vorlauftemperatur Ga2 | 0.1 |  °C |
+| 00_0010_1410_10_0100_036_2_0| Sekundär Rücklauftemperatur Gd1 | 0.1 |  °C |
+| 00_0010_1410_10_0100_040_1_0| Kesselstörung Sensor 4 | 1 |  |
+| 00_0010_1410_10_0100_041_1_0| Ölstand Sensor Ga1 | 1 | % |
+| 00_0010_1410_10_0100_046_2_0| Primär Druck Ga2 | 0.01 |  bar |
+| 00_0010_1410_10_0100_048_2_0| Sekundär Druck Gd1 | 0.01 |  bar |
+| 00_0010_1410_10_0100_055_1_0| Luftfeuchtigkeit Gd2 | 1 | % |
+| 00_0010_1410_10_0100_056_1_0| Relais 1 | 1 | % |
+| 00_0010_1410_10_0100_057_1_0| Relais 2 | 1 | % |
+| 00_0010_1410_10_0100_058_1_0| Relais 3 | 1 | % |
+| 00_0010_1410_10_0100_069_1_0| Relais 4 | 1 | % |
+| 00_0010_1410_10_0100_080_1_0| PWM A | 1 | % |
+| 00_0010_1410_10_0100_081_1_0| Kesselanforderung 0-10 V | 1 | % |
+| 00_0010_1410_10_0100_072_4_0| Systemdatum | 1 |  |
+| 00_0010_1410_10_0100_076_4_0| Fehlermaske | 1 |  |
+| 00_0010_1410_10_0100_084_1_0| Letztes Ereignis \(L. E.\) | 1 |  |
+| 00_0010_1410_10_0100_088_4_0| L. E. Fehlermaske | 1 |  |
+| 00_0010_1410_10_0100_092_4_0| L. E. Zeitstempel | 1 |  |
+
+
+
+### <a name="0010_1420_0100"></a>DFA (0x0010) <= Apricus DeltaSol AL E HE (0x1420), command 0x0100
+
+| ID | Name | Factor | Unit |
+|:--|:--|:-:|:-:|
+| 00_0010_1420_10_0100_034_2_0| Systemzeit | 1 |  |
+| 00_0010_1420_10_0100_000_2_0| Temperatur Sensor 1 | 0.1 |  °C |
+| 00_0010_1420_10_0100_002_2_0| Temperatur Sensor 2 | 0.1 |  °C |
+| 00_0010_1420_10_0100_004_2_0| Temperatur Sensor 3 | 0.1 |  °C |
+| 00_0010_1420_10_0100_006_2_0| Temperatur Sensor 4 | 0.1 |  °C |
+| 00_0010_1420_10_0100_008_2_0| Temperatur GFD | 0.1 |  °C |
+| 00_0010_1420_10_0100_010_2_0| Volumenstrom 1 | 1 |  l/h |
+| 00_0010_1420_10_0100_012_1_0| Drehzahl Relais 1 | 1 | % |
+| 00_0010_1420_10_0100_016_1_0| Drehzahl Relais 2 | 1 | % |
+| 00_0010_1420_10_0100_014_2_0| Betriebsstunden Relais 1 | 1 |  h |
+| 00_0010_1420_10_0100_018_2_0| Betriebsstunden Relais 2 | 1 |  h |
+| 00_0010_1420_10_0100_020_4_0| PFB1 Duty | 0.001 | % |
+| 00_0010_1420_10_0100_024_4_0| PFB1 Freq. | 0.001 |  Hz |
+| 00_0010_1420_10_0100_028_4_0| Wärmemenge | 1 |  Wh |
+| 00_0010_1420_10_0100_040_1_0| UnitType | 1 |  |
+| 00_0010_1420_10_0100_036_4_0| Statusmask | 1 |  |
+| 00_0010_1420_10_0100_032_2_0| ErrorMask | 1 |  |
+| 00_0010_1420_10_0100_032_1_1| Sensor 1 defekt | 1 |  |
+| 00_0010_1420_10_0100_032_1_2| Sensor 2 defekt | 1 |  |
+| 00_0010_1420_10_0100_032_1_4| Sensor 3 defekt | 1 |  |
+| 00_0010_1420_10_0100_032_1_8| Sensor 4 defekt | 1 |  |
+| 00_0010_1420_10_0100_032_1_16| GFD defekt | 1 |  |
+| 00_0010_1420_10_0100_032_1_32| PFB1 defekt | 1 |  |
+| 00_0010_1420_10_0100_042_2_0| SW Version | 0.01 |  |
+
+
+
+### <a name="0010_1510_0100"></a>DFA (0x0010) <= DeltaSol Fresh 2018 (0x1510), command 0x0100
+
+| ID | Name | Factor | Unit |
+|:--|:--|:-:|:-:|
+| 00_0010_1510_10_0100_004_4_0| Systemdatum | 1 |  |
+| 00_0010_1510_10_0100_013_1_0| Warmwasser: Zustand | 1 |  |
+| 00_0010_1510_10_0100_016_2_0| Warmwasser: Primärpumpendrehzahl | 0.1 | % |
+| 00_0010_1510_10_0100_018_2_0| Warmwasser: Solltemperatur | 0.1 |  °C |
+| 00_0010_1510_10_0100_032_2_0| Zirkulation: Pumpendrehzahl | 0.1 | % |
+| 00_0010_1510_10_0100_034_2_0| Zirkulation: dT Leitung | 0.1 |  K |
+| 00_0010_1510_10_0100_038_1_0| Desinfektion: Zustand | 1 |  |
+| 00_0010_1510_10_0100_040_4_0| Desinfektion: Letzte Desinfektion | 1 |  |
+| 00_0010_1510_10_0100_051_1_0| RL-Einschichtung: Ventilzustand | 1 |  |
+| 00_0010_1510_10_0100_056_1_0| Fehlerrelais: Zustand | 1 |  |
+| 00_0010_1510_10_0100_064_2_0| Sensor: S1 | 0.1 |  °C |
+| 00_0010_1510_10_0100_066_2_0| Sensor: S2 | 0.1 |  °C |
+| 00_0010_1510_10_0100_068_2_0| Sensor: S3 | 0.1 |  °C |
+| 00_0010_1510_10_0100_070_2_0| Sensor: S4 | 0.1 |  °C |
+| 00_0010_1510_10_0100_072_2_0| Sensor: S5 | 0.1 |  °C |
+| 00_0010_1510_10_0100_074_2_0| Sensor: S6 | 0.1 |  °C |
+| 00_0010_1510_10_0100_076_2_0| Sensor: S7 | 0.1 |  °C |
+| 00_0010_1510_10_0100_084_4_0| Sensor: S9 Volumenstrom | 1 |  l/h |
+
+
+
 ### <a name="0010_1711_0100"></a>DFA (0x0010) <= DeltaTherm HC max \[Regler\] (0x1711), command 0x0100
 
 | ID | Name | Factor | Unit |
@@ -3507,7 +3626,13 @@ title: VBus Packets
 | 00_0010_4321_10_0100_013_1_0| Status-Info 2 | 1 |  |
 | 00_0010_4321_10_0100_014_2_0| Status-Restlaufzeit | 1 |  |
 | 00_0010_4321_10_0100_016_3_0| Filterlaufzeit heute | 1 |  s |
-| 00_0010_4321_10_0100_019_1_0| Regelstatus | 1 |  |
+| 00_0010_4321_10_0100_019_1_1| Regelstatus: Sensordefekt | 1 |  |
+| 00_0010_4321_10_0100_019_1_2| Regelstatus: Solare Beladung aktiv | 1 |  |
+| 00_0010_4321_10_0100_019_1_4| Regelstatus: FilterMinLaufzeit aktiv | 1 |  |
+| 00_0010_4321_10_0100_019_1_8| Regelstatus: Umwälzung aktiv | 1 |  |
+| 00_0010_4321_10_0100_019_1_16| Regelstatus: SolarFilterNachlauf aktiv | 1 |  |
+| 00_0010_4321_10_0100_019_1_32| Regelstatus: Kühlung aktiv | 1 |  |
+| 00_0010_4321_10_0100_019_1_64| Regelstatus: VLMax aktiv | 1 |  |
 | 00_0010_4321_10_0100_024_4_0| Wärmemenge | 1 |  Wh |
 
 
@@ -5139,7 +5264,7 @@ title: VBus Packets
 
 
 
-### <a name="0010_7521_0100"></a>DFA (0x0010) <= Regtronic RQ-B (0x7521), command 0x0100
+### <a name="0010_7521_0100"></a>DFA (0x0010) <= Oventrop RQ-B / RQ-B HE (0x7521), command 0x0100
 
 | ID | Name | Factor | Unit |
 |:--|:--|:-:|:-:|
@@ -5165,7 +5290,7 @@ title: VBus Packets
 | 00_0010_7521_10_0100_036_4_0| Betriebssekunden Relais 3 | 1 |  s |
 | 00_0010_7521_10_0100_040_4_0| Betriebssekunden Relais 4 | 1 |  s |
 | 00_0010_7521_10_0100_044_4_0| Betriebssekunden Relais 5 | 1 |  s |
-| 00_0010_7521_10_0100_048_2_0| Funktionen | 1 |  |
+| 00_0010_7521_10_0100_048_3_0| Funktionen | 1 |  |
 | 00_0010_7521_10_0100_048_1_1| WW-Bereitung | 1 |  |
 | 00_0010_7521_10_0100_048_1_2| Blockierschutz R4 | 1 |  |
 | 00_0010_7521_10_0100_048_1_4| Blockierschutz R2 | 1 |  |
@@ -5276,7 +5401,7 @@ title: VBus Packets
 
 
 
-### <a name="0010_7541_0100"></a>DFA (0x0010) <= Oventrop RQ-B XXL (0x7541), command 0x0100
+### <a name="0010_7541_0100"></a>DFA (0x0010) <= Oventrop RQ XXL (0x7541), command 0x0100
 
 | ID | Name | Factor | Unit |
 |:--|:--|:-:|:-:|
@@ -5288,34 +5413,55 @@ title: VBus Packets
 | 00_0010_7541_10_0100_010_2_0| Temperatur Sensor 6 | 0.1 |  °C |
 | 00_0010_7541_10_0100_012_2_0| Temperatur Sensor 7 | 0.1 |  °C |
 | 00_0010_7541_10_0100_014_2_0| Temperatur Sensor 8 | 0.1 |  °C |
-| 00_0010_7541_10_0100_022_2_0| Temperatur Sensor DDS | 0.1 |  °C |
-| 00_0010_7541_10_0100_036_4_0| Durchfluss Sensor DDS | 1 |  l/h |
-| 00_0010_7541_10_0100_044_1_0| Drehzahl Relais 1 | 1 | % |
-| 00_0010_7541_10_0100_045_1_0| Drehzahl Relais 2 | 1 | % |
-| 00_0010_7541_10_0100_046_1_0| Drehzahl Relais 3 | 1 | % |
-| 00_0010_7541_10_0100_047_1_0| Drehzahl Relais 4 | 1 | % |
-| 00_0010_7541_10_0100_048_1_0| Drehzahl Relais 5 | 1 | % |
-| 00_0010_7541_10_0100_056_4_0| Betriebssekunden Relais 1 | 1 |  s |
-| 00_0010_7541_10_0100_060_4_0| Betriebssekunden Relais 2 | 1 |  s |
-| 00_0010_7541_10_0100_064_4_0| Betriebssekunden Relais 3 | 1 |  s |
-| 00_0010_7541_10_0100_068_4_0| Betriebssekunden Relais 4 | 1 |  s |
-| 00_0010_7541_10_0100_072_4_0| Betriebssekunden Relais 5 | 1 |  s |
-| 00_0010_7541_10_0100_092_4_0| Wärmemenge | 1 |  Wh |
-| 00_0010_7541_10_0100_096_4_0| Fehler | 1 |  |
-| 00_0010_7541_10_0100_096_1_1| Sensorfehler S1 | 1 |  |
-| 00_0010_7541_10_0100_096_1_2| Sensorfehler S2 | 1 |  |
-| 00_0010_7541_10_0100_096_1_4| Sensorfehler S3 | 1 |  |
-| 00_0010_7541_10_0100_096_1_8| Sensorfehler S4 | 1 |  |
-| 00_0010_7541_10_0100_096_1_16| Sensorfehler S5 | 1 |  |
-| 00_0010_7541_10_0100_096_1_32| Sensorfehler S6 | 1 |  |
-| 00_0010_7541_10_0100_096_1_64| Sensorfehler S7 | 1 |  |
-| 00_0010_7541_10_0100_096_1_128| Sensorfehler S8 | 1 |  |
-| 00_0010_7541_10_0100_096_1_2048| Sensorfehler S12 VFD | 1 |  |
-| 00_0010_7541_10_0100_096_1_65536| Desinfektion: Vorlauf zu niedrig | 1 |  |
-| 00_0010_7541_10_0100_096_1_131072| Desinfektion: Fehlgeschlagen | 1 |  |
-| 00_0010_7541_10_0100_096_1_262144| Uebertemperaturschutz aktiv | 1 |  |
-| 00_0010_7541_10_0100_104_2_0| Version | 0.01 |  |
-| 00_0010_7541_10_0100_108_4_0| Systemdatum | 1 |  |
+| 00_0010_7541_10_0100_016_2_0| Temperatur Sensor S14/VFD | 0.1 |  °C |
+| 00_0010_7541_10_0100_020_4_0| Durchfluss Sensor S8/V40 | 1 |  l/h |
+| 00_0010_7541_10_0100_024_4_0| Durchfluss Sensor S14/VFD | 1 |  l/h |
+| 00_0010_7541_10_0100_028_2_0| Druck Sensor S14/VFD | 0.01 |  bar |
+| 00_0010_7541_10_0100_132_4_0| Durchfluss Turbotron | 1 |  l/h |
+| 00_0010_7541_10_0100_030_2_0| Einstrahlung Sensor 9 | 1 |  W/m² |
+| 00_0010_7541_10_0100_032_4_0| PWM In Dutycycle 1 | 0.001 | % |
+| 00_0010_7541_10_0100_036_4_0| PWM In Dutycycle 2 | 0.001 | % |
+| 00_0010_7541_10_0100_040_4_0| PWM In Dutycycle 3 | 0.001 | % |
+| 00_0010_7541_10_0100_044_4_0| PWM In Dutycycle 4 | 0.001 | % |
+| 00_0010_7541_10_0100_048_4_0| PWM In Frequenz 1 | 0.001 |  Hz |
+| 00_0010_7541_10_0100_052_4_0| PWM In Frequenz 2 | 0.001 |  Hz |
+| 00_0010_7541_10_0100_056_4_0| PWM In Frequenz 3 | 0.001 |  Hz |
+| 00_0010_7541_10_0100_060_4_0| PWM In Frequenz 4 | 0.001 |  Hz |
+| 00_0010_7541_10_0100_064_1_0| Drehzahl Relais 1 | 1 | % |
+| 00_0010_7541_10_0100_065_1_0| Drehzahl Relais 2 | 1 | % |
+| 00_0010_7541_10_0100_066_1_0| Drehzahl Relais 3 | 1 | % |
+| 00_0010_7541_10_0100_067_1_0| Drehzahl Relais 4 | 1 | % |
+| 00_0010_7541_10_0100_068_1_0| Drehzahl Relais 5 | 1 | % |
+| 00_0010_7541_10_0100_072_1_0| Ausgang PWM 1 | 1 | % |
+| 00_0010_7541_10_0100_073_1_0| Ausgang PWM 2 | 1 | % |
+| 00_0010_7541_10_0100_074_1_0| Ausgang PWM 3 | 1 | % |
+| 00_0010_7541_10_0100_075_1_0| Ausgang PWM 4 | 1 | % |
+| 00_0010_7541_10_0100_076_4_0| Betriebssekunden Relais 1 | 1 |  s |
+| 00_0010_7541_10_0100_080_4_0| Betriebssekunden Relais 2 | 1 |  s |
+| 00_0010_7541_10_0100_084_4_0| Betriebssekunden Relais 3 | 1 |  s |
+| 00_0010_7541_10_0100_088_4_0| Betriebssekunden Relais 4 | 1 |  s |
+| 00_0010_7541_10_0100_092_4_0| Betriebssekunden Relais 5 | 1 |  s |
+| 00_0010_7541_10_0100_096_4_0| Betriebssekunden Ausgang PWM 1 | 1 |  s |
+| 00_0010_7541_10_0100_100_4_0| Betriebssekunden Ausgang PWM 2 | 1 |  s |
+| 00_0010_7541_10_0100_104_4_0| Betriebssekunden Ausgang PWM 3 | 1 |  s |
+| 00_0010_7541_10_0100_108_4_0| Betriebssekunden Ausgang PWM 4 | 1 |  s |
+| 00_0010_7541_10_0100_112_4_0| Wärmemenge | 1 |  Wh |
+| 00_0010_7541_10_0100_116_4_0| Fehler | 1 |  |
+| 00_0010_7541_10_0100_116_1_1| Sensorfehler S1 | 1 |  |
+| 00_0010_7541_10_0100_116_1_2| Sensorfehler S2 | 1 |  |
+| 00_0010_7541_10_0100_116_1_4| Sensorfehler S3 | 1 |  |
+| 00_0010_7541_10_0100_116_1_8| Sensorfehler S4 | 1 |  |
+| 00_0010_7541_10_0100_116_1_16| Sensorfehler S5 | 1 |  |
+| 00_0010_7541_10_0100_116_1_32| Sensorfehler S6 | 1 |  |
+| 00_0010_7541_10_0100_116_1_64| Sensorfehler S7 | 1 |  |
+| 00_0010_7541_10_0100_116_1_128| Sensorfehler S8 | 1 |  |
+| 00_0010_7541_10_0100_116_1_8192| Sensorfehler S14 VFD | 1 |  |
+| 00_0010_7541_10_0100_116_1_65536| Desinfektion: Vorlauf zu niedrig | 1 |  |
+| 00_0010_7541_10_0100_116_1_131072| Desinfektion: Fehlgeschlagen | 1 |  |
+| 00_0010_7541_10_0100_116_1_262144| Uebertemperaturschutz aktiv | 1 |  |
+| 00_0010_7541_10_0100_120_4_0| Optionsmaske | 1 |  |
+| 00_0010_7541_10_0100_124_2_0| Version | 0.01 |  |
+| 00_0010_7541_10_0100_128_4_0| Systemdatum | 1 |  |
 
 
 
@@ -6050,6 +6196,8 @@ title: VBus Packets
 | 00_0010_7E11_10_0101_000_1_2048| Warnung: SD-Karte | 1 |  |
 | 00_0010_7E11_10_0101_004_1_0| Luftfeuchtigkeit Sensor 17 | 1 | %RH |
 | 00_0010_7E11_10_0101_005_1_0| Luftfeuchtigkeit Sensor 18 | 1 | %RH |
+| 00_0010_7E11_10_0101_006_1_0| Luftfeuchtigkeit Sensor 19 | 1 | %RH |
+| 00_0010_7E11_10_0101_007_1_0| Luftfeuchtigkeit Sensor 20 | 1 | %RH |
 
 
 
@@ -6625,6 +6773,530 @@ title: VBus Packets
 
 
 
+### <a name="1520_1521_0222"></a>DeltaSol Fresh 2018 Kaskade Broadcast (0x1520) <= DeltaSol Fresh 2018 Kaskade - Station 1 (0x1521), command 0x0222
+
+| ID | Name | Factor | Unit |
+|:--|:--|:-:|:-:|
+| 00_1520_1521_10_0222_000_1_2| Station 1 Basis | 1 |  |
+| 00_1520_1521_10_0222_000_1_4| Station 2 Basis | 1 |  |
+| 00_1520_1521_10_0222_000_1_8| Station 3 Basis | 1 |  |
+| 00_1520_1521_10_0222_000_1_16| Station 4 Basis | 1 |  |
+| 00_1520_1521_10_0222_001_1_2| Station 1 Ein | 1 |  |
+| 00_1520_1521_10_0222_001_1_4| Station 2 Ein | 1 |  |
+| 00_1520_1521_10_0222_001_1_8| Station 3 Ein | 1 |  |
+| 00_1520_1521_10_0222_001_1_16| Station 4 Ein | 1 |  |
+| 00_1520_1521_10_0222_002_1_2| Station 1 Erreichbar | 1 |  |
+| 00_1520_1521_10_0222_002_1_4| Station 2 Erreichbar | 1 |  |
+| 00_1520_1521_10_0222_002_1_8| Station 3 Erreichbar | 1 |  |
+| 00_1520_1521_10_0222_002_1_16| Station 4 Erreichbar | 1 |  |
+| 00_1520_1521_10_0222_003_1_2| Station 1 Fehler | 1 |  |
+| 00_1520_1521_10_0222_003_1_4| Station 2 Fehler | 1 |  |
+| 00_1520_1521_10_0222_003_1_8| Station 3 Fehler | 1 |  |
+| 00_1520_1521_10_0222_003_1_16| Station 4 Fehler | 1 |  |
+| 00_1520_1521_10_0222_004_1_2| Station 1 Durchflusserkennung | 1 |  |
+| 00_1520_1521_10_0222_004_1_4| Station 2 Durchflusserkennung | 1 |  |
+| 00_1520_1521_10_0222_004_1_8| Station 3 Durchflusserkennung | 1 |  |
+| 00_1520_1521_10_0222_004_1_16| Station 4 Durchflusserkennung | 1 |  |
+| 00_1520_1521_10_0222_005_1_2| Station 1 Desinfektion | 1 |  |
+| 00_1520_1521_10_0222_005_1_4| Station 2 Desinfektion | 1 |  |
+| 00_1520_1521_10_0222_005_1_8| Station 3 Desinfektion | 1 |  |
+| 00_1520_1521_10_0222_005_1_16| Station 4 Desinfektion | 1 |  |
+| 00_1520_1521_10_0222_006_1_2| Station 1 Blockierschutz | 1 |  |
+| 00_1520_1521_10_0222_006_1_4| Station 2 Blockierschutz | 1 |  |
+| 00_1520_1521_10_0222_006_1_8| Station 3 Blockierschutz | 1 |  |
+| 00_1520_1521_10_0222_006_1_16| Station 4 Blockierschutz | 1 |  |
+| 00_1520_1521_10_0222_007_1_0| DurchflussErwartet | 1 |  |
+| 00_1520_1521_10_0222_008_1_0| RLEinschichtung Relais | 1 |  |
+
+
+
+### <a name="1520_1521_0333"></a>DeltaSol Fresh 2018 Kaskade Broadcast (0x1520) <= DeltaSol Fresh 2018 Kaskade - Station 1 (0x1521), command 0x0333
+
+| ID | Name | Factor | Unit |
+|:--|:--|:-:|:-:|
+| 00_1520_1521_10_0333_004_4_0| Station 1: Systemdatum | 1 |  |
+| 00_1520_1521_10_0333_024_2_0| Station 1: Solltemperatur | 0.1 |  °C |
+| 00_1520_1521_10_0333_028_1_0| Station 1: Variante | 1 |  |
+
+
+
+### <a name="1520_1522_0222"></a>DeltaSol Fresh 2018 Kaskade Broadcast (0x1520) <= DeltaSol Fresh 2018 Kaskade - Station 2 (0x1522), command 0x0222
+
+| ID | Name | Factor | Unit |
+|:--|:--|:-:|:-:|
+| 00_1520_1522_10_0222_000_1_2| Station 1 Basis | 1 |  |
+| 00_1520_1522_10_0222_000_1_4| Station 2 Basis | 1 |  |
+| 00_1520_1522_10_0222_000_1_8| Station 3 Basis | 1 |  |
+| 00_1520_1522_10_0222_000_1_16| Station 4 Basis | 1 |  |
+| 00_1520_1522_10_0222_001_1_2| Station 1 Ein | 1 |  |
+| 00_1520_1522_10_0222_001_1_4| Station 2 Ein | 1 |  |
+| 00_1520_1522_10_0222_001_1_8| Station 3 Ein | 1 |  |
+| 00_1520_1522_10_0222_001_1_16| Station 4 Ein | 1 |  |
+| 00_1520_1522_10_0222_002_1_2| Station 1 Erreichbar | 1 |  |
+| 00_1520_1522_10_0222_002_1_4| Station 2 Erreichbar | 1 |  |
+| 00_1520_1522_10_0222_002_1_8| Station 3 Erreichbar | 1 |  |
+| 00_1520_1522_10_0222_002_1_16| Station 4 Erreichbar | 1 |  |
+| 00_1520_1522_10_0222_003_1_2| Station 1 Fehler | 1 |  |
+| 00_1520_1522_10_0222_003_1_4| Station 2 Fehler | 1 |  |
+| 00_1520_1522_10_0222_003_1_8| Station 3 Fehler | 1 |  |
+| 00_1520_1522_10_0222_003_1_16| Station 4 Fehler | 1 |  |
+| 00_1520_1522_10_0222_004_1_2| Station 1 Durchflusserkennung | 1 |  |
+| 00_1520_1522_10_0222_004_1_4| Station 2 Durchflusserkennung | 1 |  |
+| 00_1520_1522_10_0222_004_1_8| Station 3 Durchflusserkennung | 1 |  |
+| 00_1520_1522_10_0222_004_1_16| Station 4 Durchflusserkennung | 1 |  |
+| 00_1520_1522_10_0222_005_1_2| Station 1 Desinfektion | 1 |  |
+| 00_1520_1522_10_0222_005_1_4| Station 2 Desinfektion | 1 |  |
+| 00_1520_1522_10_0222_005_1_8| Station 3 Desinfektion | 1 |  |
+| 00_1520_1522_10_0222_005_1_16| Station 4 Desinfektion | 1 |  |
+| 00_1520_1522_10_0222_006_1_2| Station 1 Blockierschutz | 1 |  |
+| 00_1520_1522_10_0222_006_1_4| Station 2 Blockierschutz | 1 |  |
+| 00_1520_1522_10_0222_006_1_8| Station 3 Blockierschutz | 1 |  |
+| 00_1520_1522_10_0222_006_1_16| Station 4 Blockierschutz | 1 |  |
+| 00_1520_1522_10_0222_007_1_0| DurchflussErwartet | 1 |  |
+| 00_1520_1522_10_0222_008_1_0| RLEinschichtung Relais | 1 |  |
+
+
+
+### <a name="1520_1522_0333"></a>DeltaSol Fresh 2018 Kaskade Broadcast (0x1520) <= DeltaSol Fresh 2018 Kaskade - Station 2 (0x1522), command 0x0333
+
+| ID | Name | Factor | Unit |
+|:--|:--|:-:|:-:|
+| 00_1520_1522_10_0333_004_4_0| Station 2: Systemdatum | 1 |  |
+| 00_1520_1522_10_0333_024_2_0| Station 2: Solltemperatur | 0.1 |  °C |
+| 00_1520_1522_10_0333_028_1_0| Station 2: Variante | 1 |  |
+
+
+
+### <a name="1520_1523_0222"></a>DeltaSol Fresh 2018 Kaskade Broadcast (0x1520) <= DeltaSol Fresh 2018 Kaskade - Station 3 (0x1523), command 0x0222
+
+| ID | Name | Factor | Unit |
+|:--|:--|:-:|:-:|
+| 00_1520_1523_10_0222_000_1_2| Station 1 Basis | 1 |  |
+| 00_1520_1523_10_0222_000_1_4| Station 2 Basis | 1 |  |
+| 00_1520_1523_10_0222_000_1_8| Station 3 Basis | 1 |  |
+| 00_1520_1523_10_0222_000_1_16| Station 4 Basis | 1 |  |
+| 00_1520_1523_10_0222_001_1_2| Station 1 Ein | 1 |  |
+| 00_1520_1523_10_0222_001_1_4| Station 2 Ein | 1 |  |
+| 00_1520_1523_10_0222_001_1_8| Station 3 Ein | 1 |  |
+| 00_1520_1523_10_0222_001_1_16| Station 4 Ein | 1 |  |
+| 00_1520_1523_10_0222_002_1_2| Station 1 Erreichbar | 1 |  |
+| 00_1520_1523_10_0222_002_1_4| Station 2 Erreichbar | 1 |  |
+| 00_1520_1523_10_0222_002_1_8| Station 3 Erreichbar | 1 |  |
+| 00_1520_1523_10_0222_002_1_16| Station 4 Erreichbar | 1 |  |
+| 00_1520_1523_10_0222_003_1_2| Station 1 Fehler | 1 |  |
+| 00_1520_1523_10_0222_003_1_4| Station 2 Fehler | 1 |  |
+| 00_1520_1523_10_0222_003_1_8| Station 3 Fehler | 1 |  |
+| 00_1520_1523_10_0222_003_1_16| Station 4 Fehler | 1 |  |
+| 00_1520_1523_10_0222_004_1_2| Station 1 Durchflusserkennung | 1 |  |
+| 00_1520_1523_10_0222_004_1_4| Station 2 Durchflusserkennung | 1 |  |
+| 00_1520_1523_10_0222_004_1_8| Station 3 Durchflusserkennung | 1 |  |
+| 00_1520_1523_10_0222_004_1_16| Station 4 Durchflusserkennung | 1 |  |
+| 00_1520_1523_10_0222_005_1_2| Station 1 Desinfektion | 1 |  |
+| 00_1520_1523_10_0222_005_1_4| Station 2 Desinfektion | 1 |  |
+| 00_1520_1523_10_0222_005_1_8| Station 3 Desinfektion | 1 |  |
+| 00_1520_1523_10_0222_005_1_16| Station 4 Desinfektion | 1 |  |
+| 00_1520_1523_10_0222_006_1_2| Station 1 Blockierschutz | 1 |  |
+| 00_1520_1523_10_0222_006_1_4| Station 2 Blockierschutz | 1 |  |
+| 00_1520_1523_10_0222_006_1_8| Station 3 Blockierschutz | 1 |  |
+| 00_1520_1523_10_0222_006_1_16| Station 4 Blockierschutz | 1 |  |
+| 00_1520_1523_10_0222_007_1_0| DurchflussErwartet | 1 |  |
+| 00_1520_1523_10_0222_008_1_0| RLEinschichtung Relais | 1 |  |
+
+
+
+### <a name="1520_1523_0333"></a>DeltaSol Fresh 2018 Kaskade Broadcast (0x1520) <= DeltaSol Fresh 2018 Kaskade - Station 3 (0x1523), command 0x0333
+
+| ID | Name | Factor | Unit |
+|:--|:--|:-:|:-:|
+| 00_1520_1523_10_0333_004_4_0| Station 3: Systemdatum | 1 |  |
+| 00_1520_1523_10_0333_024_2_0| Station 3: Solltemperatur | 0.1 |  °C |
+| 00_1520_1523_10_0333_028_1_0| Station 3: Variante | 1 |  |
+
+
+
+### <a name="1520_1524_0222"></a>DeltaSol Fresh 2018 Kaskade Broadcast (0x1520) <= DeltaSol Fresh 2018 Kaskade - Station 4 (0x1524), command 0x0222
+
+| ID | Name | Factor | Unit |
+|:--|:--|:-:|:-:|
+| 00_1520_1524_10_0222_000_1_2| Station 1 Basis | 1 |  |
+| 00_1520_1524_10_0222_000_1_4| Station 2 Basis | 1 |  |
+| 00_1520_1524_10_0222_000_1_8| Station 3 Basis | 1 |  |
+| 00_1520_1524_10_0222_000_1_16| Station 4 Basis | 1 |  |
+| 00_1520_1524_10_0222_001_1_2| Station 1 Ein | 1 |  |
+| 00_1520_1524_10_0222_001_1_4| Station 2 Ein | 1 |  |
+| 00_1520_1524_10_0222_001_1_8| Station 3 Ein | 1 |  |
+| 00_1520_1524_10_0222_001_1_16| Station 4 Ein | 1 |  |
+| 00_1520_1524_10_0222_002_1_2| Station 1 Erreichbar | 1 |  |
+| 00_1520_1524_10_0222_002_1_4| Station 2 Erreichbar | 1 |  |
+| 00_1520_1524_10_0222_002_1_8| Station 3 Erreichbar | 1 |  |
+| 00_1520_1524_10_0222_002_1_16| Station 4 Erreichbar | 1 |  |
+| 00_1520_1524_10_0222_003_1_2| Station 1 Fehler | 1 |  |
+| 00_1520_1524_10_0222_003_1_4| Station 2 Fehler | 1 |  |
+| 00_1520_1524_10_0222_003_1_8| Station 3 Fehler | 1 |  |
+| 00_1520_1524_10_0222_003_1_16| Station 4 Fehler | 1 |  |
+| 00_1520_1524_10_0222_004_1_2| Station 1 Durchflusserkennung | 1 |  |
+| 00_1520_1524_10_0222_004_1_4| Station 2 Durchflusserkennung | 1 |  |
+| 00_1520_1524_10_0222_004_1_8| Station 3 Durchflusserkennung | 1 |  |
+| 00_1520_1524_10_0222_004_1_16| Station 4 Durchflusserkennung | 1 |  |
+| 00_1520_1524_10_0222_005_1_2| Station 1 Desinfektion | 1 |  |
+| 00_1520_1524_10_0222_005_1_4| Station 2 Desinfektion | 1 |  |
+| 00_1520_1524_10_0222_005_1_8| Station 3 Desinfektion | 1 |  |
+| 00_1520_1524_10_0222_005_1_16| Station 4 Desinfektion | 1 |  |
+| 00_1520_1524_10_0222_006_1_2| Station 1 Blockierschutz | 1 |  |
+| 00_1520_1524_10_0222_006_1_4| Station 2 Blockierschutz | 1 |  |
+| 00_1520_1524_10_0222_006_1_8| Station 3 Blockierschutz | 1 |  |
+| 00_1520_1524_10_0222_006_1_16| Station 4 Blockierschutz | 1 |  |
+| 00_1520_1524_10_0222_007_1_0| DurchflussErwartet | 1 |  |
+| 00_1520_1524_10_0222_008_1_0| RLEinschichtung Relais | 1 |  |
+
+
+
+### <a name="1520_1524_0333"></a>DeltaSol Fresh 2018 Kaskade Broadcast (0x1520) <= DeltaSol Fresh 2018 Kaskade - Station 4 (0x1524), command 0x0333
+
+| ID | Name | Factor | Unit |
+|:--|:--|:-:|:-:|
+| 00_1520_1524_10_0333_004_4_0| Station 4: Systemdatum | 1 |  |
+| 00_1520_1524_10_0333_024_2_0| Station 4: Solltemperatur | 0.1 |  °C |
+| 00_1520_1524_10_0333_028_1_0| Station 4: Variante | 1 |  |
+
+
+
+### <a name="1521_1521_0112"></a>DeltaSol Fresh 2018 Kaskade - Station 1 (0x1521) <= DeltaSol Fresh 2018 Kaskade - Station 1 (0x1521), command 0x0112
+
+| ID | Name | Factor | Unit |
+|:--|:--|:-:|:-:|
+| 00_1521_1521_10_0112_004_4_0| Station 1: Systemdatum | 1 |  |
+| 00_1521_1521_10_0112_012_4_0| Station 1: Gesamtbetriebssekunden | 1 |  |
+| 00_1521_1521_10_0112_016_4_0| Station 1: Warmwasser Volumenstrom | 0.1 |  l/min |
+| 00_1521_1521_10_0112_024_4_0| Station 1: Primaerpumpe Betriebssekunden | 1 |  s |
+| 00_1521_1521_10_0112_042_2_0| Station 1: Warmwasser TWW | 0.1 |  °C |
+| 00_1521_1521_10_0112_046_2_0| Station 1: Warmwasser TVL | 0.1 |  °C |
+| 00_1521_1521_10_0112_048_2_0| Station 1: Primärpumpe Drehzahl | 1 | % |
+| 00_1521_1521_10_0112_050_2_0| Station 1: Zirkulation TRL | 0.1 |  °C |
+| 00_1521_1521_10_0112_052_2_0| Station 1: Zirkulation Drehzahl | 1 | % |
+| 00_1521_1521_10_0112_054_2_0| Station 1: RLEinschichtung TRL | 0.1 |  °C |
+| 00_1521_1521_10_0112_056_2_0| Station 1: RLEinschichtung TSpeicher | 0.1 |  °C |
+| 00_1521_1521_10_0112_058_1_0| Station 1: Variante | 1 |  |
+| 00_1521_1521_10_0112_060_1_0| Station 1: Strangventil Zustand | 1 |  |
+| 00_1521_1521_10_0112_062_1_0| Station 1: RLEinschichtung Ventil | 1 |  |
+
+
+
+### <a name="1521_1522_0112"></a>DeltaSol Fresh 2018 Kaskade - Station 1 (0x1521) <= DeltaSol Fresh 2018 Kaskade - Station 2 (0x1522), command 0x0112
+
+| ID | Name | Factor | Unit |
+|:--|:--|:-:|:-:|
+| 00_1521_1522_10_0112_004_4_0| Station 2: Systemdatum | 1 |  |
+| 00_1521_1522_10_0112_012_4_0| Station 2: Gesamtbetriebssekunden | 1 |  |
+| 00_1521_1522_10_0112_016_4_0| Station 2: Warmwasser Volumenstrom | 0.1 |  l/min |
+| 00_1521_1522_10_0112_024_4_0| Station 2: Primaerpumpe Betriebssekunden | 1 |  s |
+| 00_1521_1522_10_0112_042_2_0| Station 2: Warmwasser TWW | 0.1 |  °C |
+| 00_1521_1522_10_0112_046_2_0| Station 2: Warmwasser TVL | 0.1 |  °C |
+| 00_1521_1522_10_0112_048_2_0| Station 2: Primärpumpe Drehzahl | 1 | % |
+| 00_1521_1522_10_0112_050_2_0| Station 2: Zirkulation TRL | 0.1 |  °C |
+| 00_1521_1522_10_0112_052_2_0| Station 2: Zirkulation Drehzahl | 1 | % |
+| 00_1521_1522_10_0112_054_2_0| Station 2: RLEinschichtung TRL | 0.1 |  °C |
+| 00_1521_1522_10_0112_056_2_0| Station 2: RLEinschichtung TSpeicher | 0.1 |  °C |
+| 00_1521_1522_10_0112_058_1_0| Station 2: Variante | 1 |  |
+| 00_1521_1522_10_0112_060_1_0| Station 2: Strangventil Zustand | 1 |  |
+| 00_1521_1522_10_0112_062_1_0| Station 2: RLEinschichtung Ventil | 1 |  |
+
+
+
+### <a name="1521_1523_0112"></a>DeltaSol Fresh 2018 Kaskade - Station 1 (0x1521) <= DeltaSol Fresh 2018 Kaskade - Station 3 (0x1523), command 0x0112
+
+| ID | Name | Factor | Unit |
+|:--|:--|:-:|:-:|
+| 00_1521_1523_10_0112_004_4_0| Station 3: Systemdatum | 1 |  |
+| 00_1521_1523_10_0112_012_4_0| Station 3: Gesamtbetriebssekunden | 1 |  |
+| 00_1521_1523_10_0112_016_4_0| Station 3: Warmwasser Volumenstrom | 0.1 |  l/min |
+| 00_1521_1523_10_0112_024_4_0| Station 3: Primaerpumpe Betriebssekunden | 1 |  s |
+| 00_1521_1523_10_0112_042_2_0| Station 3: Warmwasser TWW | 0.1 |  °C |
+| 00_1521_1523_10_0112_046_2_0| Station 3: Warmwasser TVL | 0.1 |  °C |
+| 00_1521_1523_10_0112_048_2_0| Station 3: Primärpumpe Drehzahl | 1 | % |
+| 00_1521_1523_10_0112_050_2_0| Station 3: Zirkulation TRL | 0.1 |  °C |
+| 00_1521_1523_10_0112_052_2_0| Station 3: Zirkulation Drehzahl | 1 | % |
+| 00_1521_1523_10_0112_054_2_0| Station 3: RLEinschichtung TRL | 0.1 |  °C |
+| 00_1521_1523_10_0112_056_2_0| Station 3: RLEinschichtung TSpeicher | 0.1 |  °C |
+| 00_1521_1523_10_0112_058_1_0| Station 3: Variante | 1 |  |
+| 00_1521_1523_10_0112_060_1_0| Station 3: Strangventil Zustand | 1 |  |
+| 00_1521_1523_10_0112_062_1_0| Station 3: RLEinschichtung Ventil | 1 |  |
+
+
+
+### <a name="1521_1524_0112"></a>DeltaSol Fresh 2018 Kaskade - Station 1 (0x1521) <= DeltaSol Fresh 2018 Kaskade - Station 4 (0x1524), command 0x0112
+
+| ID | Name | Factor | Unit |
+|:--|:--|:-:|:-:|
+| 00_1521_1524_10_0112_004_4_0| Station 4: Systemdatum | 1 |  |
+| 00_1521_1524_10_0112_012_4_0| Station 4: Gesamtbetriebssekunden | 1 |  |
+| 00_1521_1524_10_0112_016_4_0| Station 4: Warmwasser Volumenstrom | 0.1 |  l/min |
+| 00_1521_1524_10_0112_024_4_0| Station 4: Primaerpumpe Betriebssekunden | 1 |  s |
+| 00_1521_1524_10_0112_042_2_0| Station 4: Warmwasser TWW | 0.1 |  °C |
+| 00_1521_1524_10_0112_046_2_0| Station 4: Warmwasser TVL | 0.1 |  °C |
+| 00_1521_1524_10_0112_048_2_0| Station 4: Primärpumpe Drehzahl | 1 | % |
+| 00_1521_1524_10_0112_050_2_0| Station 4: Zirkulation TRL | 0.1 |  °C |
+| 00_1521_1524_10_0112_052_2_0| Station 4: Zirkulation Drehzahl | 1 | % |
+| 00_1521_1524_10_0112_054_2_0| Station 4: RLEinschichtung TRL | 0.1 |  °C |
+| 00_1521_1524_10_0112_056_2_0| Station 4: RLEinschichtung TSpeicher | 0.1 |  °C |
+| 00_1521_1524_10_0112_058_1_0| Station 4: Variante | 1 |  |
+| 00_1521_1524_10_0112_060_1_0| Station 4: Strangventil Zustand | 1 |  |
+| 00_1521_1524_10_0112_062_1_0| Station 4: RLEinschichtung Ventil | 1 |  |
+
+
+
+### <a name="1522_1521_0112"></a>DeltaSol Fresh 2018 Kaskade - Station 2 (0x1522) <= DeltaSol Fresh 2018 Kaskade - Station 1 (0x1521), command 0x0112
+
+| ID | Name | Factor | Unit |
+|:--|:--|:-:|:-:|
+| 00_1522_1521_10_0112_004_4_0| Station 1: Systemdatum | 1 |  |
+| 00_1522_1521_10_0112_012_4_0| Station 1: Gesamtbetriebssekunden | 1 |  |
+| 00_1522_1521_10_0112_016_4_0| Station 1: Warmwasser Volumenstrom | 0.1 |  l/min |
+| 00_1522_1521_10_0112_024_4_0| Station 1: Primaerpumpe Betriebssekunden | 1 |  s |
+| 00_1522_1521_10_0112_042_2_0| Station 1: Warmwasser TWW | 0.1 |  °C |
+| 00_1522_1521_10_0112_046_2_0| Station 1: Warmwasser TVL | 0.1 |  °C |
+| 00_1522_1521_10_0112_048_2_0| Station 1: Primärpumpe Drehzahl | 1 | % |
+| 00_1522_1521_10_0112_050_2_0| Station 1: Zirkulation TRL | 0.1 |  °C |
+| 00_1522_1521_10_0112_052_2_0| Station 1: Zirkulation Drehzahl | 1 | % |
+| 00_1522_1521_10_0112_054_2_0| Station 1: RLEinschichtung TRL | 0.1 |  °C |
+| 00_1522_1521_10_0112_056_2_0| Station 1: RLEinschichtung TSpeicher | 0.1 |  °C |
+| 00_1522_1521_10_0112_058_1_0| Station 1: Variante | 1 |  |
+| 00_1522_1521_10_0112_060_1_0| Station 1: Strangventil Zustand | 1 |  |
+| 00_1522_1521_10_0112_062_1_0| Station 1: RLEinschichtung Ventil | 1 |  |
+
+
+
+### <a name="1522_1522_0112"></a>DeltaSol Fresh 2018 Kaskade - Station 2 (0x1522) <= DeltaSol Fresh 2018 Kaskade - Station 2 (0x1522), command 0x0112
+
+| ID | Name | Factor | Unit |
+|:--|:--|:-:|:-:|
+| 00_1522_1522_10_0112_004_4_0| Station 2: Systemdatum | 1 |  |
+| 00_1522_1522_10_0112_012_4_0| Station 2: Gesamtbetriebssekunden | 1 |  |
+| 00_1522_1522_10_0112_016_4_0| Station 2: Warmwasser Volumenstrom | 0.1 |  l/min |
+| 00_1522_1522_10_0112_024_4_0| Station 2: Primaerpumpe Betriebssekunden | 1 |  s |
+| 00_1522_1522_10_0112_042_2_0| Station 2: Warmwasser TWW | 0.1 |  °C |
+| 00_1522_1522_10_0112_046_2_0| Station 2: Warmwasser TVL | 0.1 |  °C |
+| 00_1522_1522_10_0112_048_2_0| Station 2: Primärpumpe Drehzahl | 1 | % |
+| 00_1522_1522_10_0112_050_2_0| Station 2: Zirkulation TRL | 0.1 |  °C |
+| 00_1522_1522_10_0112_052_2_0| Station 2: Zirkulation Drehzahl | 1 | % |
+| 00_1522_1522_10_0112_054_2_0| Station 2: RLEinschichtung TRL | 0.1 |  °C |
+| 00_1522_1522_10_0112_056_2_0| Station 2: RLEinschichtung TSpeicher | 0.1 |  °C |
+| 00_1522_1522_10_0112_058_1_0| Station 2: Variante | 1 |  |
+| 00_1522_1522_10_0112_060_1_0| Station 2: Strangventil Zustand | 1 |  |
+| 00_1522_1522_10_0112_062_1_0| Station 2: RLEinschichtung Ventil | 1 |  |
+
+
+
+### <a name="1522_1523_0112"></a>DeltaSol Fresh 2018 Kaskade - Station 2 (0x1522) <= DeltaSol Fresh 2018 Kaskade - Station 3 (0x1523), command 0x0112
+
+| ID | Name | Factor | Unit |
+|:--|:--|:-:|:-:|
+| 00_1522_1523_10_0112_004_4_0| Station 3: Systemdatum | 1 |  |
+| 00_1522_1523_10_0112_012_4_0| Station 3: Gesamtbetriebssekunden | 1 |  |
+| 00_1522_1523_10_0112_016_4_0| Station 3: Warmwasser Volumenstrom | 0.1 |  l/min |
+| 00_1522_1523_10_0112_024_4_0| Station 3: Primaerpumpe Betriebssekunden | 1 |  s |
+| 00_1522_1523_10_0112_042_2_0| Station 3: Warmwasser TWW | 0.1 |  °C |
+| 00_1522_1523_10_0112_046_2_0| Station 3: Warmwasser TVL | 0.1 |  °C |
+| 00_1522_1523_10_0112_048_2_0| Station 3: Primärpumpe Drehzahl | 1 | % |
+| 00_1522_1523_10_0112_050_2_0| Station 3: Zirkulation TRL | 0.1 |  °C |
+| 00_1522_1523_10_0112_052_2_0| Station 3: Zirkulation Drehzahl | 1 | % |
+| 00_1522_1523_10_0112_054_2_0| Station 3: RLEinschichtung TRL | 0.1 |  °C |
+| 00_1522_1523_10_0112_056_2_0| Station 3: RLEinschichtung TSpeicher | 0.1 |  °C |
+| 00_1522_1523_10_0112_058_1_0| Station 3: Variante | 1 |  |
+| 00_1522_1523_10_0112_060_1_0| Station 3: Strangventil Zustand | 1 |  |
+| 00_1522_1523_10_0112_062_1_0| Station 3: RLEinschichtung Ventil | 1 |  |
+
+
+
+### <a name="1522_1524_0112"></a>DeltaSol Fresh 2018 Kaskade - Station 2 (0x1522) <= DeltaSol Fresh 2018 Kaskade - Station 4 (0x1524), command 0x0112
+
+| ID | Name | Factor | Unit |
+|:--|:--|:-:|:-:|
+| 00_1522_1524_10_0112_004_4_0| Station 4: Systemdatum | 1 |  |
+| 00_1522_1524_10_0112_012_4_0| Station 4: Gesamtbetriebssekunden | 1 |  |
+| 00_1522_1524_10_0112_016_4_0| Station 4: Warmwasser Volumenstrom | 0.1 |  l/min |
+| 00_1522_1524_10_0112_024_4_0| Station 4: Primaerpumpe Betriebssekunden | 1 |  s |
+| 00_1522_1524_10_0112_042_2_0| Station 4: Warmwasser TWW | 0.1 |  °C |
+| 00_1522_1524_10_0112_046_2_0| Station 4: Warmwasser TVL | 0.1 |  °C |
+| 00_1522_1524_10_0112_048_2_0| Station 4: Primärpumpe Drehzahl | 1 | % |
+| 00_1522_1524_10_0112_050_2_0| Station 4: Zirkulation TRL | 0.1 |  °C |
+| 00_1522_1524_10_0112_052_2_0| Station 4: Zirkulation Drehzahl | 1 | % |
+| 00_1522_1524_10_0112_054_2_0| Station 4: RLEinschichtung TRL | 0.1 |  °C |
+| 00_1522_1524_10_0112_056_2_0| Station 4: RLEinschichtung TSpeicher | 0.1 |  °C |
+| 00_1522_1524_10_0112_058_1_0| Station 4: Variante | 1 |  |
+| 00_1522_1524_10_0112_060_1_0| Station 4: Strangventil Zustand | 1 |  |
+| 00_1522_1524_10_0112_062_1_0| Station 4: RLEinschichtung Ventil | 1 |  |
+
+
+
+### <a name="1523_1521_0112"></a>DeltaSol Fresh 2018 Kaskade - Station 3 (0x1523) <= DeltaSol Fresh 2018 Kaskade - Station 1 (0x1521), command 0x0112
+
+| ID | Name | Factor | Unit |
+|:--|:--|:-:|:-:|
+| 00_1523_1521_10_0112_004_4_0| Station 1: Systemdatum | 1 |  |
+| 00_1523_1521_10_0112_012_4_0| Station 1: Gesamtbetriebssekunden | 1 |  |
+| 00_1523_1521_10_0112_016_4_0| Station 1: Warmwasser Volumenstrom | 0.1 |  l/min |
+| 00_1523_1521_10_0112_024_4_0| Station 1: Primaerpumpe Betriebssekunden | 1 |  s |
+| 00_1523_1521_10_0112_042_2_0| Station 1: Warmwasser TWW | 0.1 |  °C |
+| 00_1523_1521_10_0112_046_2_0| Station 1: Warmwasser TVL | 0.1 |  °C |
+| 00_1523_1521_10_0112_048_2_0| Station 1: Primärpumpe Drehzahl | 1 | % |
+| 00_1523_1521_10_0112_050_2_0| Station 1: Zirkulation TRL | 0.1 |  °C |
+| 00_1523_1521_10_0112_052_2_0| Station 1: Zirkulation Drehzahl | 1 | % |
+| 00_1523_1521_10_0112_054_2_0| Station 1: RLEinschichtung TRL | 0.1 |  °C |
+| 00_1523_1521_10_0112_056_2_0| Station 1: RLEinschichtung TSpeicher | 0.1 |  °C |
+| 00_1523_1521_10_0112_058_1_0| Station 1: Variante | 1 |  |
+| 00_1523_1521_10_0112_060_1_0| Station 1: Strangventil Zustand | 1 |  |
+| 00_1523_1521_10_0112_062_1_0| Station 1: RLEinschichtung Ventil | 1 |  |
+
+
+
+### <a name="1523_1522_0112"></a>DeltaSol Fresh 2018 Kaskade - Station 3 (0x1523) <= DeltaSol Fresh 2018 Kaskade - Station 2 (0x1522), command 0x0112
+
+| ID | Name | Factor | Unit |
+|:--|:--|:-:|:-:|
+| 00_1523_1522_10_0112_004_4_0| Station 2: Systemdatum | 1 |  |
+| 00_1523_1522_10_0112_012_4_0| Station 2: Gesamtbetriebssekunden | 1 |  |
+| 00_1523_1522_10_0112_016_4_0| Station 2: Warmwasser Volumenstrom | 0.1 |  l/min |
+| 00_1523_1522_10_0112_024_4_0| Station 2: Primaerpumpe Betriebssekunden | 1 |  s |
+| 00_1523_1522_10_0112_042_2_0| Station 2: Warmwasser TWW | 0.1 |  °C |
+| 00_1523_1522_10_0112_046_2_0| Station 2: Warmwasser TVL | 0.1 |  °C |
+| 00_1523_1522_10_0112_048_2_0| Station 2: Primärpumpe Drehzahl | 1 | % |
+| 00_1523_1522_10_0112_050_2_0| Station 2: Zirkulation TRL | 0.1 |  °C |
+| 00_1523_1522_10_0112_052_2_0| Station 2: Zirkulation Drehzahl | 1 | % |
+| 00_1523_1522_10_0112_054_2_0| Station 2: RLEinschichtung TRL | 0.1 |  °C |
+| 00_1523_1522_10_0112_056_2_0| Station 2: RLEinschichtung TSpeicher | 0.1 |  °C |
+| 00_1523_1522_10_0112_058_1_0| Station 2: Variante | 1 |  |
+| 00_1523_1522_10_0112_060_1_0| Station 2: Strangventil Zustand | 1 |  |
+| 00_1523_1522_10_0112_062_1_0| Station 2: RLEinschichtung Ventil | 1 |  |
+
+
+
+### <a name="1523_1523_0112"></a>DeltaSol Fresh 2018 Kaskade - Station 3 (0x1523) <= DeltaSol Fresh 2018 Kaskade - Station 3 (0x1523), command 0x0112
+
+| ID | Name | Factor | Unit |
+|:--|:--|:-:|:-:|
+| 00_1523_1523_10_0112_004_4_0| Station 3: Systemdatum | 1 |  |
+| 00_1523_1523_10_0112_012_4_0| Station 3: Gesamtbetriebssekunden | 1 |  |
+| 00_1523_1523_10_0112_016_4_0| Station 3: Warmwasser Volumenstrom | 0.1 |  l/min |
+| 00_1523_1523_10_0112_024_4_0| Station 3: Primaerpumpe Betriebssekunden | 1 |  s |
+| 00_1523_1523_10_0112_042_2_0| Station 3: Warmwasser TWW | 0.1 |  °C |
+| 00_1523_1523_10_0112_046_2_0| Station 3: Warmwasser TVL | 0.1 |  °C |
+| 00_1523_1523_10_0112_048_2_0| Station 3: Primärpumpe Drehzahl | 1 | % |
+| 00_1523_1523_10_0112_050_2_0| Station 3: Zirkulation TRL | 0.1 |  °C |
+| 00_1523_1523_10_0112_052_2_0| Station 3: Zirkulation Drehzahl | 1 | % |
+| 00_1523_1523_10_0112_054_2_0| Station 3: RLEinschichtung TRL | 0.1 |  °C |
+| 00_1523_1523_10_0112_056_2_0| Station 3: RLEinschichtung TSpeicher | 0.1 |  °C |
+| 00_1523_1523_10_0112_058_1_0| Station 3: Variante | 1 |  |
+| 00_1523_1523_10_0112_060_1_0| Station 3: Strangventil Zustand | 1 |  |
+| 00_1523_1523_10_0112_062_1_0| Station 3: RLEinschichtung Ventil | 1 |  |
+
+
+
+### <a name="1523_1524_0112"></a>DeltaSol Fresh 2018 Kaskade - Station 3 (0x1523) <= DeltaSol Fresh 2018 Kaskade - Station 4 (0x1524), command 0x0112
+
+| ID | Name | Factor | Unit |
+|:--|:--|:-:|:-:|
+| 00_1523_1524_10_0112_004_4_0| Station 4: Systemdatum | 1 |  |
+| 00_1523_1524_10_0112_012_4_0| Station 4: Gesamtbetriebssekunden | 1 |  |
+| 00_1523_1524_10_0112_016_4_0| Station 4: Warmwasser Volumenstrom | 0.1 |  l/min |
+| 00_1523_1524_10_0112_024_4_0| Station 4: Primaerpumpe Betriebssekunden | 1 |  s |
+| 00_1523_1524_10_0112_042_2_0| Station 4: Warmwasser TWW | 0.1 |  °C |
+| 00_1523_1524_10_0112_046_2_0| Station 4: Warmwasser TVL | 0.1 |  °C |
+| 00_1523_1524_10_0112_048_2_0| Station 4: Primärpumpe Drehzahl | 1 | % |
+| 00_1523_1524_10_0112_050_2_0| Station 4: Zirkulation TRL | 0.1 |  °C |
+| 00_1523_1524_10_0112_052_2_0| Station 4: Zirkulation Drehzahl | 1 | % |
+| 00_1523_1524_10_0112_054_2_0| Station 4: RLEinschichtung TRL | 0.1 |  °C |
+| 00_1523_1524_10_0112_056_2_0| Station 4: RLEinschichtung TSpeicher | 0.1 |  °C |
+| 00_1523_1524_10_0112_058_1_0| Station 4: Variante | 1 |  |
+| 00_1523_1524_10_0112_060_1_0| Station 4: Strangventil Zustand | 1 |  |
+| 00_1523_1524_10_0112_062_1_0| Station 4: RLEinschichtung Ventil | 1 |  |
+
+
+
+### <a name="1524_1521_0112"></a>DeltaSol Fresh 2018 Kaskade - Station 4 (0x1524) <= DeltaSol Fresh 2018 Kaskade - Station 1 (0x1521), command 0x0112
+
+| ID | Name | Factor | Unit |
+|:--|:--|:-:|:-:|
+| 00_1524_1521_10_0112_004_4_0| Station 1: Systemdatum | 1 |  |
+| 00_1524_1521_10_0112_012_4_0| Station 1: Gesamtbetriebssekunden | 1 |  |
+| 00_1524_1521_10_0112_016_4_0| Station 1: Warmwasser Volumenstrom | 0.1 |  l/min |
+| 00_1524_1521_10_0112_024_4_0| Station 1: Primaerpumpe Betriebssekunden | 1 |  s |
+| 00_1524_1521_10_0112_042_2_0| Station 1: Warmwasser TWW | 0.1 |  °C |
+| 00_1524_1521_10_0112_046_2_0| Station 1: Warmwasser TVL | 0.1 |  °C |
+| 00_1524_1521_10_0112_048_2_0| Station 1: Primärpumpe Drehzahl | 1 | % |
+| 00_1524_1521_10_0112_050_2_0| Station 1: Zirkulation TRL | 0.1 |  °C |
+| 00_1524_1521_10_0112_052_2_0| Station 1: Zirkulation Drehzahl | 1 | % |
+| 00_1524_1521_10_0112_054_2_0| Station 1: RLEinschichtung TRL | 0.1 |  °C |
+| 00_1524_1521_10_0112_056_2_0| Station 1: RLEinschichtung TSpeicher | 0.1 |  °C |
+| 00_1524_1521_10_0112_058_1_0| Station 1: Variante | 1 |  |
+| 00_1524_1521_10_0112_060_1_0| Station 1: Strangventil Zustand | 1 |  |
+| 00_1524_1521_10_0112_062_1_0| Station 1: RLEinschichtung Ventil | 1 |  |
+
+
+
+### <a name="1524_1522_0112"></a>DeltaSol Fresh 2018 Kaskade - Station 4 (0x1524) <= DeltaSol Fresh 2018 Kaskade - Station 2 (0x1522), command 0x0112
+
+| ID | Name | Factor | Unit |
+|:--|:--|:-:|:-:|
+| 00_1524_1522_10_0112_004_4_0| Station 2: Systemdatum | 1 |  |
+| 00_1524_1522_10_0112_012_4_0| Station 2: Gesamtbetriebssekunden | 1 |  |
+| 00_1524_1522_10_0112_016_4_0| Station 2: Warmwasser Volumenstrom | 0.1 |  l/min |
+| 00_1524_1522_10_0112_024_4_0| Station 2: Primaerpumpe Betriebssekunden | 1 |  s |
+| 00_1524_1522_10_0112_042_2_0| Station 2: Warmwasser TWW | 0.1 |  °C |
+| 00_1524_1522_10_0112_046_2_0| Station 2: Warmwasser TVL | 0.1 |  °C |
+| 00_1524_1522_10_0112_048_2_0| Station 2: Primärpumpe Drehzahl | 1 | % |
+| 00_1524_1522_10_0112_050_2_0| Station 2: Zirkulation TRL | 0.1 |  °C |
+| 00_1524_1522_10_0112_052_2_0| Station 2: Zirkulation Drehzahl | 1 | % |
+| 00_1524_1522_10_0112_054_2_0| Station 2: RLEinschichtung TRL | 0.1 |  °C |
+| 00_1524_1522_10_0112_056_2_0| Station 2: RLEinschichtung TSpeicher | 0.1 |  °C |
+| 00_1524_1522_10_0112_058_1_0| Station 2: Variante | 1 |  |
+| 00_1524_1522_10_0112_060_1_0| Station 2: Strangventil Zustand | 1 |  |
+| 00_1524_1522_10_0112_062_1_0| Station 2: RLEinschichtung Ventil | 1 |  |
+
+
+
+### <a name="1524_1523_0112"></a>DeltaSol Fresh 2018 Kaskade - Station 4 (0x1524) <= DeltaSol Fresh 2018 Kaskade - Station 3 (0x1523), command 0x0112
+
+| ID | Name | Factor | Unit |
+|:--|:--|:-:|:-:|
+| 00_1524_1523_10_0112_004_4_0| Station 3: Systemdatum | 1 |  |
+| 00_1524_1523_10_0112_012_4_0| Station 3: Gesamtbetriebssekunden | 1 |  |
+| 00_1524_1523_10_0112_016_4_0| Station 3: Warmwasser Volumenstrom | 0.1 |  l/min |
+| 00_1524_1523_10_0112_024_4_0| Station 3: Primaerpumpe Betriebssekunden | 1 |  s |
+| 00_1524_1523_10_0112_042_2_0| Station 3: Warmwasser TWW | 0.1 |  °C |
+| 00_1524_1523_10_0112_046_2_0| Station 3: Warmwasser TVL | 0.1 |  °C |
+| 00_1524_1523_10_0112_048_2_0| Station 3: Primärpumpe Drehzahl | 1 | % |
+| 00_1524_1523_10_0112_050_2_0| Station 3: Zirkulation TRL | 0.1 |  °C |
+| 00_1524_1523_10_0112_052_2_0| Station 3: Zirkulation Drehzahl | 1 | % |
+| 00_1524_1523_10_0112_054_2_0| Station 3: RLEinschichtung TRL | 0.1 |  °C |
+| 00_1524_1523_10_0112_056_2_0| Station 3: RLEinschichtung TSpeicher | 0.1 |  °C |
+| 00_1524_1523_10_0112_058_1_0| Station 3: Variante | 1 |  |
+| 00_1524_1523_10_0112_060_1_0| Station 3: Strangventil Zustand | 1 |  |
+| 00_1524_1523_10_0112_062_1_0| Station 3: RLEinschichtung Ventil | 1 |  |
+
+
+
+### <a name="1524_1524_0112"></a>DeltaSol Fresh 2018 Kaskade - Station 4 (0x1524) <= DeltaSol Fresh 2018 Kaskade - Station 4 (0x1524), command 0x0112
+
+| ID | Name | Factor | Unit |
+|:--|:--|:-:|:-:|
+| 00_1524_1524_10_0112_004_4_0| Station 4: Systemdatum | 1 |  |
+| 00_1524_1524_10_0112_012_4_0| Station 4: Gesamtbetriebssekunden | 1 |  |
+| 00_1524_1524_10_0112_016_4_0| Station 4: Warmwasser Volumenstrom | 0.1 |  l/min |
+| 00_1524_1524_10_0112_024_4_0| Station 4: Primaerpumpe Betriebssekunden | 1 |  s |
+| 00_1524_1524_10_0112_042_2_0| Station 4: Warmwasser TWW | 0.1 |  °C |
+| 00_1524_1524_10_0112_046_2_0| Station 4: Warmwasser TVL | 0.1 |  °C |
+| 00_1524_1524_10_0112_048_2_0| Station 4: Primärpumpe Drehzahl | 1 | % |
+| 00_1524_1524_10_0112_050_2_0| Station 4: Zirkulation TRL | 0.1 |  °C |
+| 00_1524_1524_10_0112_052_2_0| Station 4: Zirkulation Drehzahl | 1 | % |
+| 00_1524_1524_10_0112_054_2_0| Station 4: RLEinschichtung TRL | 0.1 |  °C |
+| 00_1524_1524_10_0112_056_2_0| Station 4: RLEinschichtung TSpeicher | 0.1 |  °C |
+| 00_1524_1524_10_0112_058_1_0| Station 4: Variante | 1 |  |
+| 00_1524_1524_10_0112_060_1_0| Station 4: Strangventil Zustand | 1 |  |
+| 00_1524_1524_10_0112_062_1_0| Station 4: RLEinschichtung Ventil | 1 |  |
+
+
+
 ### <a name="4420_0000_0200"></a>HKM1 (0x4420 - 0x442F) <= any source, command 0x0200
 
 | ID | Name | Factor | Unit |
@@ -6808,5 +7480,5 @@ title: VBus Packets
 
 
 
-> Based on VSF dated 20180312
+> Based on VSF dated 20190202
 
