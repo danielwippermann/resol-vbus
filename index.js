@@ -4,12 +4,13 @@
 
 
 const fs = require('fs');
+const path = require('path');
 
 
 
 let useDevelopmentSource;
 try {
-    fs.accessSync('src/index.js');
+    fs.accessSync(path.join(__dirname, 'src/index.js'));
     useDevelopmentSource = true;
 } catch (ex) {
     useDevelopmentSource = false;
