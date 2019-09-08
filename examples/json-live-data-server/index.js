@@ -63,6 +63,35 @@ const generateJsonData = async function() {
     return JSON.stringify(data, null, 4);
 };
 
+const generatePrometheusResponse = async function() {
+    const packetFields = spec.getPacketFieldsForHeaders(headerSet.getSortedHeaders());
+
+    const data = packetFields.map((pf) => {
+        return {
+            id: pf.id,
+            name: pf.name,
+            rawValue: pf.rawValue,
+        };
+    });
+
+		var response = "";
+		response = response.concat("# HELP resol Values as retreived from Resol Solar", '\n');
+		response = response.concat("# TYPE resol gauge", '\n');
+
+
+    for(var i = 0; i < data.length; i++) {
+        var obj = data[i];
+
+				logger.debug(obj.id);
+				logger.debug(obj.name);
+				logger.debug(obj.rawValue);
+
+				response = response.concat('resol{id="', obj.id, '",name="', obj.name, '"} ', obj.rawValue, '\n')
+    }
+
+    return response;
+};
+
 
 const writeHeaderSet = async (filename) => {
     logger.debug('HeaderSet complete');
@@ -89,6 +118,15 @@ const main = async () => {
     app.get('/api/v1/live-data', (req, res) => {
         generateJsonData().then(data => {
             res.status(200).type('application/json').end(data);
+        }).then(null, (err) => {
+            logger.error(err);
+            res.status(500).type('text/plain').end(err.toString());
+        });
+    });
+
+    app.get('/api/v1/monitor', (req, res) => {
+        generatePrometheusResponse().then(data => {
+            res.status(200).type('text/plain').end(data);
         }).then(null, (err) => {
             logger.error(err);
             res.status(500).type('text/plain').end(err.toString());
