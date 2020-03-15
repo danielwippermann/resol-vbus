@@ -87,6 +87,18 @@ const utils = {
         return deepFreezeObject(root);
     },
 
+    promisify(fn) {
+        return new Promise((resolve, reject) => {
+            fn((err, result) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(result);
+                }
+            });
+        });
+    },
+
 };
 
 
