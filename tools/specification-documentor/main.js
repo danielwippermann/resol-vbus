@@ -67,8 +67,14 @@ function generatePacketTitle(specFile, packet) {
 }
 
 
-async function generatePacketStructureMarkdown() {
-    const specFile = vbus.SpecificationFile.getDefaultSpecificationFile();
+async function generatePacketStructureMarkdown(vsfFilename) {
+    let specFile;
+    if (vsfFilename) {
+        specFile = await vbus.SpecificationFile.loadFromFile(vsfFilename);
+    } else {
+        specFile = vbus.SpecificationFile.getDefaultSpecificationFile();
+    }
+
     const specData = specFile.specificationData;
 
     const lines = [];
@@ -172,8 +178,13 @@ async function generatePacketStructureMarkdown() {
 }
 
 
-async function generatePacketFieldListMarkdown() {
-    const specFile = vbus.SpecificationFile.getDefaultSpecificationFile();
+async function generatePacketFieldListMarkdown(vsfFilename) {
+    let specFile;
+    if (vsfFilename) {
+        specFile = await vbus.SpecificationFile.loadFromFile(vsfFilename);
+    } else {
+        specFile = vbus.SpecificationFile.getDefaultSpecificationFile();
+    }
     const specData = specFile.specificationData;
 
     const lines = [];
@@ -285,9 +296,9 @@ async function main(args) {
     if (args.length < 1) {
         reportUsageError();
     } else if (args [0] === '--packetStructure') {
-        return generatePacketStructureMarkdown();
+        return generatePacketStructureMarkdown(args [1]);
     } else if (args [0] === '--packetFields') {
-        return generatePacketFieldListMarkdown();
+        return generatePacketFieldListMarkdown(args [1]);
     } else {
         reportUsageError();
     }
