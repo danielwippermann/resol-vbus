@@ -632,7 +632,7 @@ const Connection = extend(Duplex, /** @lends Connection# */ {
                 // nop
             } else if (rxDatagram.sourceAddress !== address) {
                 // nop
-            } else if (rxDatagram.command !== 0x0100) {
+            } else if ((rxDatagram.command !== 0x0100) && (rxDatagram.command !== 0x1101)) {
                 // nop
             } else if (rxDatagram.value !== valueIdHash) {
                 // nop
