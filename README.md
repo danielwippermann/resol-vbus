@@ -131,6 +131,10 @@ into your shell:
 
     This allows `async` filter callbacks!
 - Add `SerialConnection#baudrate` option.
+- Stop running Travis tests under Node 6.
+    Some dependency of `jest` does not work under Node 6 making tests break
+    for that target. The `resol-vbus` library itself might still work under
+    Node 6, but there is no guarantee...
 
 
 ## Version 0.20.0 (2019-06-15)
