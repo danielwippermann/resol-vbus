@@ -37,6 +37,20 @@ const optionKeys = [
 
 
 
+function promiseToCallback(maybePromise, callback) {
+    if (maybePromise && (typeof maybePromise.then === 'function')) {
+        maybePromise.then((result) => {
+            if (result != null) {
+                callback(null, result);
+            }
+        }, (err) => {
+            callback(err);
+        });
+    }
+}
+
+
+
 const Connection = extend(Duplex, /** @lends Connection# */ {
 
     /**
@@ -364,7 +378,9 @@ const Connection = extend(Duplex, /** @lends Connection# */ {
 
             if (options.filterPacket) {
                 onPacket = function(rxPacket) {
-                    options.filterPacket(rxPacket, done);
+                    const result = options.filterPacket(rxPacket, done);
+
+                    promiseToCallback(result, done);
                 };
 
                 this.on('packet', onPacket);
@@ -372,7 +388,9 @@ const Connection = extend(Duplex, /** @lends Connection# */ {
 
             if (options.filterDatagram) {
                 onDatagram = function(rxDatagram) {
-                    options.filterDatagram(rxDatagram, done);
+                    const result = options.filterDatagram(rxDatagram, done);
+
+                    promiseToCallback(result, done);
                 };
 
                 this.on('datagram', onDatagram);

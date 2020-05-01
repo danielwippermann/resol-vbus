@@ -641,6 +641,38 @@ describe('Connection', () => {
             });
         });
 
+        it('should work correctly with async filterDatagram option', () => {
+            return parseRawData((conn, stats) => {
+                const startTimestamp = Date.now();
+
+                let datagramResult;
+
+                const onDatagram = async function(datagram) {
+                    expect(datagram).to.be.an('object');
+                    expect(datagram.getId()).to.equal('00_0000_7721_20_0500_0000');
+                    datagramResult = datagram;
+                    return datagram;
+                };
+
+                const promise = conn.transceive(rawDataDatagram, {
+                    timeout: 10,
+                    filterDatagram: onDatagram,
+                });
+
+                expectPromise(promise);
+
+                return promise.then((result) => {
+                    expect(result).to.equal(datagramResult);
+                    expect(Date.now() - startTimestamp).to.be.within(0 * minTimeoutFactor, 20 * maxTimeoutFactor);
+                    expect(stats.txDataCount).to.equal(16);
+                    expect(stats.rawDataCount).to.equal(16);
+                    expect(stats.junkDataCount).to.equal(0);
+                    expect(stats.packetCount).to.equal(0);
+                    expect(stats.datagramCount).to.equal(1);
+                });
+            });
+        });
+
         it('should work correctly with filterPacket option', () => {
             return parseRawData((conn, stats) => {
                 const startTimestamp = Date.now();
@@ -669,6 +701,66 @@ describe('Connection', () => {
                     expect(stats.junkDataCount).to.equal(0);
                     expect(stats.packetCount).to.equal(1);
                     expect(stats.datagramCount).to.equal(0);
+                });
+            });
+        });
+
+        it('should work correctly with async filterPacket option', () => {
+            return parseRawData((conn, stats) => {
+                const startTimestamp = Date.now();
+
+                let packetResult;
+
+                const onPacket = async function(packet) {
+                    expect(packet).to.be.an('object');
+                    expect(packet.getId()).to.equal('00_0010_7721_10_0100');
+                    packetResult = packet;
+                    return packet;
+                };
+
+                const promise = conn.transceive(rawDataPacket, {
+                    timeout: 10,
+                    filterPacket: onPacket,
+                });
+
+                expectPromise(promise);
+
+                return promise.then((result) => {
+                    expect(result).to.equal(packetResult);
+                    expect(Date.now() - startTimestamp).to.be.within(0 * minTimeoutFactor, 20 * maxTimeoutFactor);
+                    expect(stats.txDataCount).to.equal(112);
+                    expect(stats.rawDataCount).to.equal(112);
+                    expect(stats.junkDataCount).to.equal(0);
+                    expect(stats.packetCount).to.equal(1);
+                    expect(stats.datagramCount).to.equal(0);
+                });
+            });
+        });
+
+        it('should work correctly with failing async filterPacket option', () => {
+            return parseRawData((conn, stats) => {
+                const startTimestamp = Date.now();
+
+                const error = new Error('Test error');
+
+                const onPacket = async function(packet) {
+                    expect(packet).to.be.an('object');
+                    expect(packet.getId()).to.equal('00_0010_7721_10_0100');
+
+                    throw error;
+                };
+
+                const promise = conn.transceive(rawDataPacket, {
+                    timeout: 10,
+                    filterPacket: onPacket,
+                });
+
+                expectPromise(promise);
+
+                return promise.then(() => {
+                    throw new Error('Should not have reached here...');
+                }, (err) => {
+                    expect(err).to.equal(error);
                 });
             });
         });

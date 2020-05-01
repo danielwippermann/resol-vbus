@@ -116,6 +116,22 @@ into your shell:
 
 ## Work in progress
 
+- [BREAKING CHANGE] Returning a `Promise` from `filterPacket` or `filterDatagram` callbacks
+    The `Connection#transceive` method and many of the helper methods that use it
+    accept a `filterPacket` and/or `filterDatagram` callback. Those callbacks get called
+    with the data to filter and a `done` callback.
+
+    Up to this version the return value of the filter callbacks was ignored. Starting with
+    this version this behaviour is changed if the return value of the filter callbacks is
+    a `Promise`:
+    - if the `Promise` rejects, the `done` callback is automatically called with `done(reason)`
+    - if the `Promise` resolves with `null` or `undefined`, the `done` callback is not called
+    - if the `Promise` resolves with any other result, the `done` callback is automatically
+      called with `done(null, result)`
+
+    This allows `async` filter callbacks!
+- Add `SerialConnection#baudrate` option.
+
 
 ## Version 0.20.0 (2019-06-15)
 
