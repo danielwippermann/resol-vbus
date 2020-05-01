@@ -9,6 +9,7 @@ const http = require('http');
 
 const _ = require('./lodash');
 const TcpDataSource = require('./tcp-data-source');
+const { promisify } = require('./utils');
 
 const DataSourceProvider = require('./data-source-provider');
 
@@ -83,113 +84,90 @@ const TcpDataSourceProvider = DataSourceProvider.extend(/** @lends TcpDataSource
      * @params {number} options.broadcastPort Port number to broadcast to.
      * @returns {Promise} A Promise that resolves to an array of device information objects.
      */
-    discoverDevices(options) {
-        return TcpDataSourceProvider.sendBroadcast(options).then((promises) => {
-            return new Promise(resolve => {
-                const results = [];
-                let promiseIndex = 0;
+    async discoverDevices(options) {
+        const promises = await TcpDataSourceProvider.sendBroadcast(options);
 
-                function nextPromise() {
-                    if (promiseIndex < promises.length) {
-                        const promise = promises [promiseIndex];
-                        promiseIndex += 1;
+        const result = await new Promise((resolve) => {
+            const result = [];
+            let count = 0;
+            for (const promise of promises) {
+                promise.then(info => {
+                    result.push(info);
+                }, err => {
+                    // console.log(err);
+                }).then(() => {
+                    count += 1;
 
-                        promise.then(result => {
-                            results.push(result);
-                            nextPromise();
-                        }, () => {
-                            nextPromise();
-                        });
-                    } else {
-                        resolve(results);
+                    if (count === promises.length) {
+                        resolve(result);
                     }
-                }
-
-                nextPromise();
-            });
+                });
+            }
         });
+
+        return result;
     },
 
-    sendBroadcast(options) {
-        return new Promise((resolve, reject) => {
-            const done = function(err, result) {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve(result);
-                }
+    async sendBroadcast(options) {
+        options = _.defaults({}, options, {
+            broadcastAddress: '255.255.255.255',
+            broadcastPort: 7053,
+            tries: 3,
+            timeout: 500,
+        });
+
+        if (options.fetchCallback === undefined) {
+            options.fetchCallback = function(address) {
+                return TcpDataSourceProvider.fetchDeviceInformation(address);
             };
+        }
 
-            options = _.defaults({}, options, {
-                broadcastAddress: '255.255.255.255',
-                broadcastPort: 7053,
-                tries: 3,
-                timeout: 500,
-            });
+        const bcastAddress = options.broadcastAddress;
+        const bcastPort = options.broadcastPort;
 
-            if (options.fetchCallback === undefined) {
-                options.fetchCallback = function(address) {
-                    return TcpDataSourceProvider.fetchDeviceInformation(address);
-                };
-            }
+        const queryString = '---RESOL-BROADCAST-QUERY---';
+        const replyString = '---RESOL-BROADCAST-REPLY---';
 
-            const bcastAddress = options.broadcastAddress;
-            const bcastPort = options.broadcastPort;
+        const socket = dgram.createSocket('udp4');
 
-            const addressMap = {};
+        socket.on('error', (err) => {
+            socket.close();
 
-            const queryString = '---RESOL-BROADCAST-QUERY---';
-            const replyString = '---RESOL-BROADCAST-REPLY---';
+            console.log(err);
+        });
 
-            let tries = 0;
+        const addressList = [];
 
-            const socket = dgram.createSocket('udp4');
-
-            const sendQuery = function() {
-                if (tries < options.tries) {
-                    tries++;
-
-                    const queryBuffer = Buffer.from(queryString);
-                    socket.send(queryBuffer, 0, queryBuffer.length, bcastPort, bcastAddress);
-
-                    setTimeout(sendQuery, options.timeout);
-                } else {
-                    const keys = _.keys(addressMap).sort();
-
-                    const result = _.map(keys, (key) => {
-                        return addressMap [key];
-                    });
-
-                    socket.close();
-
-                    done(null, result);
-                }
-            };
-
-            socket.bind(0, () => {
-                socket.setBroadcast(true);
-
-                sendQuery();
-            });
-
-            socket.on('message', (msg, rinfo) => {
-                if ((rinfo.family === 'IPv4') && (rinfo.port === 7053) && (msg.length >= replyString.length)) {
-                    const msgString = msg.slice(0, replyString.length).toString();
-                    if (msgString === replyString) {
-                        const address = rinfo.address;
-                        if (!_.has(addressMap, address)) {
-                            addressMap [address] = options.fetchCallback(address);
-                        }
+        socket.on('message', (msg, rinfo) => {
+            if ((rinfo.family === 'IPv4') && (rinfo.port === 7053) && (msg.length >= replyString.length)) {
+                const msgString = msg.slice(0, replyString.length).toString();
+                if (msgString === replyString) {
+                    const address = rinfo.address;
+                    if (addressList.indexOf(address) < 0) {
+                        addressList.push(address);
                     }
                 }
-            });
-
-            socket.on('error', (err) => {
-                socket.close();
-
-                done(err);
-            });
+            }
         });
+
+        await promisify(cb => socket.bind(0, cb));
+
+        socket.setBroadcast(true);
+
+        for (let tries = 0; tries < options.tries; tries++) {
+            const queryBuffer = Buffer.from(queryString);
+            socket.send(queryBuffer, 0, queryBuffer.length, bcastPort, bcastAddress);
+
+            await promisify(cb => setTimeout(cb, options.timeout));
+        }
+
+        socket.close();
+
+        const result = addressList.map(async (address) => {
+            return options.fetchCallback(address);
+        });
+
+        return result;
     },
 
     async fetchDeviceInformation(address, port) {
