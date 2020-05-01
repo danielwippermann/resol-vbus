@@ -18,6 +18,7 @@ const _ = require('./lodash');
 
 const optionKeys = [
     'path',
+    'baudrate',
 ];
 
 
@@ -29,6 +30,8 @@ const SerialConnection = Connection.extend(/** @lends SerialConnection# */ {
      * @type {string}
      */
     path: null,
+
+    baudrate: 9600,
 
     /**
      * Timeout in milliseconds to way between reconnection retries.
@@ -176,7 +179,7 @@ const SerialConnection = Connection.extend(/** @lends SerialConnection# */ {
             };
 
             const options = {
-                baudRate: 9600,
+                baudRate: this.baudrate,
                 dataBits: 8,
                 stopBits: 1,
                 parity: 'none',
