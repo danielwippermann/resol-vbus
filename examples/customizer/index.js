@@ -6,9 +6,7 @@
 const fs = require('fs');
 
 
-const express = require('express');
-const kue = require('kue');
-const optimist = require('optimist');
+const minimist = require('minimist');
 
 
 const vbus = require('../resol-vbus');
@@ -82,102 +80,6 @@ const createConnection = function() {
 };
 
 
-const processCustomizationJob = async (context, job) => {
-    reportProgress('Waiting for free bus...');
-
-    const datagram = await context.connection.waitForFreeBus();
-
-    context.masterAddress = datagram.sourceAddress;
-
-    reportProgress('Found master with address 0x' + context.masterAddress.toString(16));
-
-    context.deviceAddress = context.masterAddress;
-
-    const optimizer = await vbus.ConfigurationOptimizerFactory.createOptimizerByDeviceAddress(context.deviceAddress);
-
-    context.optimizer = optimizer;
-
-    context.customizer = new vbus.ConnectionCustomizer({
-        deviceAddress: context.deviceAddress,
-        connection: context.connection,
-        optimizer: context.optimizer,
-    });
-
-    const command = job.data.command;
-
-    const config = job.data.config;
-    const currentConfig = context.currentConfig;
-
-    const options = {
-        optimize: false,
-        reportProgress,
-    };
-
-    if (command === 'load') {
-        options.optimize = !config;
-
-        const loadedConfig = await context.customizer.loadConfiguration(config, options);
-
-        // console.log(config);
-        const completedConfig = await context.optimizer.completeConfiguration(loadedConfig, currentConfig);
-
-        // console.log(config);
-        context.currentConfig = completedConfig;
-    } else if (command === 'save') {
-        const savedConfig = await context.customizer.saveConfiguration(config, currentConfig, options);
-
-        // console.log(config);
-        const completedConfig = await context.optimizer.completeConfiguration(savedConfig, currentConfig);
-
-        // console.log(config);
-        context.currentConfig = completedConfig;
-    } else {
-        throw new Error('Unknown command ' + JSON.stringify(command));
-    }
-};
-
-
-const serve = async () => {
-    const context = {};
-
-    const conn = await createConnection();
-
-    context.connection = conn;
-
-    reportProgress('Connecting...');
-
-    await context.connection.connect();
-
-    const jobs = kue.createQueue();
-    jobs.process('customization', (job, done) => {
-        processCustomizationJob(context, job).then(() => {
-            console.log('Job done!');
-
-            done();
-        }, (err) => {
-            console.log('Job failed!');
-
-            done(err);
-        });
-    });
-
-    const app = express();
-    app.get('/config', (req, res) => {
-        const jsonConfig = context.currentConfig.reduce((memo, value) => {
-            if (!value.ignored) {
-                memo [value.valueId] = value.value;
-            }
-            return memo;
-        }, {});
-
-        res.json(jsonConfig);
-    });
-
-    app.use(kue.app);
-    app.listen(3000);
-};
-
-
 const runSingleShot = async (argv) => {
     const context = {};
 
@@ -199,7 +101,7 @@ const runSingleShot = async (argv) => {
 
         let loadConfig;
         if (argv.loadAll) {
-            return null;
+            loadConfig = null;
         } else if (argv.load) {
             loadConfig = await loadJsonFile(argv.load);
         }
@@ -303,12 +205,24 @@ const runSingleShot = async (argv) => {
 
 
 const main = async () => {
-    const argv = optimist.argv;
+    const argv = minimist(process.argv.slice(2), {
+        string: [
+            'old',
+            'load',
+            'save',
+            'out',
+        ],
+        boolean: [
+            'q',
+            'loadAll',
+            'serve',
+        ]
+    });
 
     if (argv.serve) {
-        return serve();
+        throw new Error('The --serve option has been removed!');
     } else {
-        return runSingleShot(argv);
+        return await runSingleShot(argv);
     }
 };
 
