@@ -49,14 +49,17 @@ title: VBus Packets
 - [DFA (0x0010) <= MFR \[Regler\] (0x1160), command 0x0100](#0010_1160_0100)
 - [DFA (0x0010) <= MFR \[Module\] (0x1161), command 0x0100](#0010_1161_0100)
 - [DFA (0x0010) <= MFR \[Frischwasser\] (0x1162), command 0x0100](#0010_1162_0100)
+- [DFA (0x0010) <= SolarVenti SControl (0x1170), command 0x0100](#0010_1170_0100)
 - [DFA (0x0010) <= MFR \[WMZ\] (0x1200 - 0x120F), command 0x0100](#0010_1200_0100)
 - [DFA (0x0010) <= MFR \[Heizkreis\] (0x1210 - 0x121F), command 0x0100](#0010_1210_0100)
 - [DFA (0x0010) <= Regudis H-HT \[Übergabestation\] (0x1220 - 0x122F), command 0x0100](#0010_1220_0100)
-- [DFA (0x0010) <= Regudis H-HT \[BW-Erwärmung\] (0x1230 - 0x123F), command 0x0100](#0010_1230_0100)
+- [DFA (0x0010) <= DeltaTherm HC \[BW-Erwärmung\] (0x1230 - 0x123F), command 0x0100](#0010_1230_0100)
 - [DFA (0x0010) <= Wagner Sungo 100 \[Regler\] (0x1240), command 0x0100](#0010_1240_0100)
 - [DFA (0x0010) <= Wagner Sungo 100 \[WMZ1\] (0x1241), command 0x0100](#0010_1241_0100)
 - [DFA (0x0010) <= Viessmann Vitotrans 353 2017 (0x1250), command 0x0100](#0010_1250_0100)
 - [DFA (0x0010) <= Viessmann Vitotrans 353 2017 Broadcast (0x1260), command 0x0100](#0010_1260_0100)
+- [DFA (0x0010) <= controller S/L (0x1330), command 0x0100](#0010_1330_0100)
+- [DFA (0x0010) <= WMZ Plus (0x1400 - 0x140F), command 0x0100](#0010_1400_0100)
 - [DFA (0x0010) <= THERMUfloor ER (0x1410), command 0x0100](#0010_1410_0100)
 - [DFA (0x0010) <= Apricus DeltaSol AL E HE (0x1420), command 0x0100](#0010_1420_0100)
 - [DFA (0x0010) <= DeltaSol Fresh 2018 (0x1510), command 0x0100](#0010_1510_0100)
@@ -66,6 +69,7 @@ title: VBus Packets
 - [DFA (0x0010) <= DeltaTherm HC max \[Heizkreis\] (0x1720 - 0x172F), command 0x0100](#0010_1720_0100)
 - [DFA (0x0010) <= DeltaTherm HC max \[WMZ\] (0x1730 - 0x173F), command 0x0100](#0010_1730_0100)
 - [DFA (0x0010) <= DeltaTherm HC max \[Modul\] (0x1740 - 0x174F), command 0x0100](#0010_1740_0100)
+- [DFA (0x0010) <= DeltaSol MX \[Impulszähler\] (0x1800 - 0x180F), command 0x0100](#0010_1800_0100)
 - [DFA (0x0010) <= DeltaSol CS Plus (0x2211), command 0x0100](#0010_2211_0100)
 - [DFA (0x0010) <= DeltaSol CS Plus 2.x (0x2213), command 0x0100](#0010_2213_0100)
 - [DFA (0x0010) <= Oranier HK \[Regler\] (0x2231), command 0x0100](#0010_2231_0100)
@@ -180,6 +184,7 @@ title: VBus Packets
 - [DFA (0x0010) <= ZEN DT6 \[WMZ1\] (0x7442), command 0x0100](#0010_7442_0100)
 - [DFA (0x0010) <= SOLTEX-Regler \[Teil 1\] (0x7511), command 0x0100](#0010_7511_0100)
 - [DFA (0x0010) <= SOLTEX-Regler \[Teil 2\] (0x7512), command 0x0100](#0010_7512_0100)
+- [DFA (0x0010) <= SOLTEX 5VH3 (0x7513), command 0x0100](#0010_7513_0100)
 - [DFA (0x0010) <= Oventrop RQ-B / RQ-B HE (0x7521), command 0x0100](#0010_7521_0100)
 - [DFA (0x0010) <= Regtronic RX-B \[Regler\] (0x7522), command 0x0100](#0010_7522_0100)
 - [DFA (0x0010) <= Regtronic RX-B \[Module\] (0x7523), command 0x0100](#0010_7523_0100)
@@ -344,6 +349,7 @@ title: VBus Packets
 | 0x1160 | MFR \[Regler\] |
 | 0x1161 | MFR \[Module\] |
 | 0x1162 | MFR \[Frischwasser\] |
+| 0x1170 | SolarVenti SControl |
 | 0x1200 | MFR \[WMZ #0\] |
 | 0x1201 | MFR \[WMZ #1\] |
 | 0x1202 | MFR \[WMZ #2\] |
@@ -392,22 +398,22 @@ title: VBus Packets
 | 0x122D | Regudis H-HT \[Übergabestation #13\] |
 | 0x122E | Regudis H-HT \[Übergabestation #14\] |
 | 0x122F | Regudis H-HT \[Übergabestation #15\] |
-| 0x1230 | Regudis H-HT \[BW-Erwärmung #0\] |
-| 0x1231 | Regudis H-HT \[BW-Erwärmung #1\] |
-| 0x1232 | Regudis H-HT \[BW-Erwärmung #2\] |
-| 0x1233 | Regudis H-HT \[BW-Erwärmung #3\] |
-| 0x1234 | Regudis H-HT \[BW-Erwärmung #4\] |
-| 0x1235 | Regudis H-HT \[BW-Erwärmung #5\] |
-| 0x1236 | Regudis H-HT \[BW-Erwärmung #6\] |
-| 0x1237 | Regudis H-HT \[BW-Erwärmung #7\] |
-| 0x1238 | Regudis H-HT \[BW-Erwärmung #8\] |
-| 0x1239 | Regudis H-HT \[BW-Erwärmung #9\] |
-| 0x123A | Regudis H-HT \[BW-Erwärmung #10\] |
-| 0x123B | Regudis H-HT \[BW-Erwärmung #11\] |
-| 0x123C | Regudis H-HT \[BW-Erwärmung #12\] |
-| 0x123D | Regudis H-HT \[BW-Erwärmung #13\] |
-| 0x123E | Regudis H-HT \[BW-Erwärmung #14\] |
-| 0x123F | Regudis H-HT \[BW-Erwärmung #15\] |
+| 0x1230 | DeltaTherm HC \[BW-Erwärmung #0\] |
+| 0x1231 | DeltaTherm HC \[BW-Erwärmung #1\] |
+| 0x1232 | DeltaTherm HC \[BW-Erwärmung #2\] |
+| 0x1233 | DeltaTherm HC \[BW-Erwärmung #3\] |
+| 0x1234 | DeltaTherm HC \[BW-Erwärmung #4\] |
+| 0x1235 | DeltaTherm HC \[BW-Erwärmung #5\] |
+| 0x1236 | DeltaTherm HC \[BW-Erwärmung #6\] |
+| 0x1237 | DeltaTherm HC \[BW-Erwärmung #7\] |
+| 0x1238 | DeltaTherm HC \[BW-Erwärmung #8\] |
+| 0x1239 | DeltaTherm HC \[BW-Erwärmung #9\] |
+| 0x123A | DeltaTherm HC \[BW-Erwärmung #10\] |
+| 0x123B | DeltaTherm HC \[BW-Erwärmung #11\] |
+| 0x123C | DeltaTherm HC \[BW-Erwärmung #12\] |
+| 0x123D | DeltaTherm HC \[BW-Erwärmung #13\] |
+| 0x123E | DeltaTherm HC \[BW-Erwärmung #14\] |
+| 0x123F | DeltaTherm HC \[BW-Erwärmung #15\] |
 | 0x1240 | Wagner Sungo 100 \[Regler\] |
 | 0x1241 | Wagner Sungo 100 \[WMZ1\] |
 | 0x1250 | Viessmann Vitotrans 353 2017 |
@@ -416,6 +422,17 @@ title: VBus Packets
 | 0x1262 | Viessmann Vitotrans 353 2017 Slave 1 |
 | 0x1263 | Viessmann Vitotrans 353 2017 Slave 2 |
 | 0x1264 | Viessmann Vitotrans 353 2017 Slave 3 |
+| 0x1330 | controller S/L |
+| 0x1400 | WMZ Plus |
+| 0x1401 | WMZ Plus Master |
+| 0x1402 | WMZ Plus Master |
+| 0x1403 | WMZ Plus Slave 1 |
+| 0x1404 | WMZ Plus Slave 2 |
+| 0x1405 | WMZ Plus Slave 3 |
+| 0x1406 | WMZ Plus Slave 4 |
+| 0x1407 | WMZ Plus Slave 5 |
+| 0x1408 | WMZ Plus Slave 6 |
+| 0x1409 | WMZ Plus Slave 7 |
 | 0x1410 | THERMUfloor ER |
 | 0x1420 | Apricus DeltaSol AL E HE |
 | 0x1510 | DeltaSol Fresh 2018 |
@@ -473,6 +490,22 @@ title: VBus Packets
 | 0x174D | DeltaTherm HC max \[Modul #13\] |
 | 0x174E | DeltaTherm HC max \[Modul #14\] |
 | 0x174F | DeltaTherm HC max \[Modul #15\] |
+| 0x1800 | DeltaSol MX \[Impulszähler #0\] |
+| 0x1801 | DeltaSol MX \[Impulszähler #1\] |
+| 0x1802 | DeltaSol MX \[Impulszähler #2\] |
+| 0x1803 | DeltaSol MX \[Impulszähler #3\] |
+| 0x1804 | DeltaSol MX \[Impulszähler #4\] |
+| 0x1805 | DeltaSol MX \[Impulszähler #5\] |
+| 0x1806 | DeltaSol MX \[Impulszähler #6\] |
+| 0x1807 | DeltaSol MX \[Impulszähler #7\] |
+| 0x1808 | DeltaSol MX \[Impulszähler #8\] |
+| 0x1809 | DeltaSol MX \[Impulszähler #9\] |
+| 0x180A | DeltaSol MX \[Impulszähler #10\] |
+| 0x180B | DeltaSol MX \[Impulszähler #11\] |
+| 0x180C | DeltaSol MX \[Impulszähler #12\] |
+| 0x180D | DeltaSol MX \[Impulszähler #13\] |
+| 0x180E | DeltaSol MX \[Impulszähler #14\] |
+| 0x180F | DeltaSol MX \[Impulszähler #15\] |
 | 0x2000 | Digital Sensor #0 |
 | 0x2001 | Digital Sensor #1 |
 | 0x2002 | Digital Sensor #2 |
@@ -944,6 +977,7 @@ title: VBus Packets
 | 0x7451 | Kioto SLM |
 | 0x7511 | SOLTEX-Regler \[Teil 1\] |
 | 0x7512 | SOLTEX-Regler \[Teil 2\] |
+| 0x7513 | SOLTEX 5VH3 |
 | 0x7521 | Oventrop RQ-B / RQ-B HE |
 | 0x7522 | Regtronic RX-B \[Regler\] |
 | 0x7523 | Regtronic RX-B \[Module\] |
@@ -1851,14 +1885,18 @@ title: VBus Packets
 | 00_0010_111E_10_0100_000_1_8| Funktionsstatus Heizung | 1 |  |
 | 00_0010_111E_10_0100_000_1_16| Funktionsstatus Max. Temp. | 1 |  |
 | 00_0010_111E_10_0100_000_1_32| Funktionsstatus Lstg. reduziert | 1 |  |
+| 00_0010_111E_10_0100_000_1_64| Funktionsstatus Nachheizung | 1 |  |
 | 00_0010_111E_10_0100_002_4_0| Leistung Überschuss | 0.001 |  W |
 | 00_0010_111E_10_0100_006_4_0| Leistung Heizung | 0.001 |  W |
+| 00_0010_111E_10_0100_068_2_0| DCIn | 0.1 |  V |
 | 00_0010_111E_10_0100_010_2_0| Temperatur Speicher \(Sensor 1\) | 0.1 |  °C |
 | 00_0010_111E_10_0100_012_2_0| Temperatur Sensor 2 | 0.1 |  °C |
 | 00_0010_111E_10_0100_014_2_0| Temperatur Sensor 3 | 0.1 |  °C |
 | 00_0010_111E_10_0100_016_4_0| Überschuss | 1 |  Wh |
 | 00_0010_111E_10_0100_024_4_0| Heizung | 1 |  Wh |
 | 00_0010_111E_10_0100_032_4_0| Betriebsstunden Heizung | 1 |  h |
+| 00_0010_111E_10_0100_056_4_0| Nachheizung | 1 |  Wh |
+| 00_0010_111E_10_0100_064_4_0| Betriebsstunden Nachheizung | 1 |  h |
 | 00_0010_111E_10_0100_036_2_0| Parameter Max. Temp. \(S1\) | 0.1 |  °C |
 | 00_0010_111E_10_0100_040_2_0| Parameter Reserve | 1 |  W |
 | 00_0010_111E_10_0100_044_4_0| Systemdatum | 1 |  |
@@ -2202,6 +2240,66 @@ title: VBus Packets
 
 
 
+### <a name="0010_1170_0100"></a>DFA (0x0010) <= SolarVenti SControl (0x1170), command 0x0100
+
+| ID | Name | Factor | Unit |
+|:--|:--|:-:|:-:|
+| 00_0010_1170_10_0100_000_4_0| ChangeSetId | 1 |  |
+| 00_0010_1170_10_0100_004_4_0| Systemdatum | 1 |  |
+| 00_0010_1170_10_0100_008_4_0| Software-Artikelnummer | 1 |  |
+| 00_0010_1170_10_0100_050_2_0| Systemspannung | 0.01 |  V |
+| 00_0010_1170_10_0100_052_2_0| VIN 1 | 0.01 |  V |
+| 00_0010_1170_10_0100_054_2_0| VIN 2 | 0.01 |  V |
+| 00_0010_1170_10_0100_056_2_0| VOut | 0.01 |  V |
+| 00_0010_1170_10_0100_012_1_0| System | 1 |  |
+| 00_0010_1170_10_0100_013_1_0| Regelstatus | 1 |  |
+| 00_0010_1170_10_0100_014_1_0| Betriebsart | 1 |  |
+| 00_0010_1170_10_0100_016_1_2| Meldungen: Datum/Uhrzeit | 1 |  |
+| 00_0010_1170_10_0100_016_1_8| Meldungen: Handbetrieb | 1 |  |
+| 00_0010_1170_10_0100_016_1_16| Meldungen: Sensorfehler Kollektor | 1 |  |
+| 00_0010_1170_10_0100_016_1_32| Meldungen: Sensorfehler Raum | 1 |  |
+| 00_0010_1170_10_0100_016_1_64| Meldungen: Sensorfehler Gerät | 1 |  |
+| 00_0010_1170_10_0100_016_1_128| Meldungen: Sensorfehler Aussen | 1 |  |
+| 00_0010_1170_10_0100_016_1_256| Meldungen: Systemspannung | 1 |  |
+| 00_0010_1170_10_0100_020_2_0| Sensor: S1 | 0.1 |  °C |
+| 00_0010_1170_10_0100_022_2_0| Sensor: S2 | 0.1 |  °C |
+| 00_0010_1170_10_0100_026_2_0| Sensor: K1 - Temperatur | 0.1 |  °C |
+| 00_0010_1170_10_0100_028_2_0| Sensor: K1 - Relative Luftfeuchtigkeit | 1 | % |
+| 00_0010_1170_10_0100_030_2_0| Sensor: K1 - Berechnete Taupunkttemperatur | 0.1 |  °C |
+| 00_0010_1170_10_0100_032_2_0| Sensor: K2 - Temperatur | 0.1 |  °C |
+| 00_0010_1170_10_0100_034_2_0| Sensor: K2 - Relative Luftfeuchtigkeit | 1 | % |
+| 00_0010_1170_10_0100_036_2_0| Sensor: K2 - Berechnete Taupunkttemperatur | 0.1 |  °C |
+| 00_0010_1170_10_0100_038_2_0| Sensor: K3 - Temperatur | 0.1 |  °C |
+| 00_0010_1170_10_0100_040_2_0| Sensor: K3 - Relative Luftfeuchtigkeit | 1 | % |
+| 00_0010_1170_10_0100_042_2_0| Sensor: K3 - Berechnete Taupunkttemperatur | 0.1 |  °C |
+| 00_0010_1170_10_0100_058_2_0| Tauspunktsperre: Dynamische Kollektortemperatur | 0.1 |  °C |
+| 00_0010_1170_10_0100_044_2_0| Ausgang Ventilator | 1 | % |
+| 00_0010_1170_10_0100_046_2_0| Ausgang 0-10V | 1 | % |
+| 00_0010_1170_10_0100_048_2_0| Relais | 1 | % |
+| 00_0010_1170_10_0100_064_1_64| Kollektormaximaltemperatur erreicht | 1 |  |
+| 00_0010_1170_10_0100_064_1_128| Frostschutzfunktion aktiv | 1 |  |
+| 00_0010_1170_10_0100_064_1_256| Taupunktsperre aktiv | 1 |  |
+| 00_0010_1170_10_0100_064_1_512| Freigabe aufgrund der Dynamik | 1 |  |
+| 00_0010_1170_10_0100_064_1_1024| Thermische Freigabe erteilt | 1 |  |
+| 00_0010_1170_10_0100_064_1_2048| Freigabe durch Starttemperatur | 1 |  |
+| 00_0010_1170_10_0100_064_1_4096| Freigabe durch Differenztemperatur | 1 |  |
+| 00_0010_1170_10_0100_064_1_8192| Freigabe durch Raumtemperatur | 1 |  |
+| 00_0010_1170_10_0100_064_1_16384| Sperrzeit der Temperaturfunktion aktiv | 1 |  |
+| 00_0010_1170_10_0100_064_1_32768| Intervallfunktion der Timerfunktion ist aus | 1 |  |
+| 00_0010_1170_10_0100_064_1_65536| Intervallfunktion der Timerfunktion ist im Pausenbetrieb | 1 |  |
+| 00_0010_1170_10_0100_064_1_131072| Intervallfunktion der Timerfunktion ist aktiv | 1 |  |
+| 00_0010_1170_10_0100_064_1_262144| Schaltuhrenstatus der Timerfunktion aktiv | 1 |  |
+| 00_0010_1170_10_0100_064_1_524288| Kuehlfunktion aktiv | 1 |  |
+| 00_0010_1170_10_0100_064_1_1048576| Raumfreigabe der Kuehlfunktion | 1 |  |
+| 00_0010_1170_10_0100_064_1_2097152| Aussentemperaturfreigabe der Kuehlfunktion | 1 |  |
+| 00_0010_1170_10_0100_064_1_4194304| Timer der Kuehlfunktion aktiv | 1 |  |
+| 00_0010_1170_10_0100_064_1_8388608| Feuchtigkeitsfunktion aktiv | 1 |  |
+| 00_0010_1170_10_0100_064_1_16777216| Feuchtigkeitsfunktion durch Raumklima angefordert | 1 |  |
+| 00_0010_1170_10_0100_064_1_33554432| Sperrzeit der Feuchtigkeitsfunktion aktiv | 1 |  |
+| 00_0010_1170_10_0100_064_1_67108864| Die ChangeSet-ID des Regler | 1 |  |
+
+
+
 ### <a name="0010_1200_0100"></a>DFA (0x0010) <= MFR \[WMZ\] (0x1200 - 0x120F), command 0x0100
 
 | ID | Name | Factor | Unit |
@@ -2236,7 +2334,7 @@ title: VBus Packets
 
 
 
-### <a name="0010_1230_0100"></a>DFA (0x0010) <= Regudis H-HT \[BW-Erwärmung\] (0x1230 - 0x123F), command 0x0100
+### <a name="0010_1230_0100"></a>DFA (0x0010) <= DeltaTherm HC \[BW-Erwärmung\] (0x1230 - 0x123F), command 0x0100
 
 | ID | Name | Factor | Unit |
 |:--|:--|:-:|:-:|
@@ -2348,6 +2446,98 @@ title: VBus Packets
 | 00_0010_1260_10_0100_016_4_0| Energie Gesamt | 1 |  Wh |
 | 00_0010_1260_10_0100_020_4_0| Zapfmenge Gesamt | 1 |  l |
 | 00_0010_1260_10_0100_024_4_0| Betriebszeit Gesamt | 1 |  s |
+
+
+
+### <a name="0010_1330_0100"></a>DFA (0x0010) <= controller S/L (0x1330), command 0x0100
+
+| ID | Name | Factor | Unit |
+|:--|:--|:-:|:-:|
+| 00_0010_1330_10_0100_004_4_0| Systemdatum | 1 |  |
+| 00_0010_1330_10_0100_016_2_0| Warmwasser: Primärpumpendrehzahl | 0.1 | % |
+| 00_0010_1330_10_0100_018_2_0| Warmwasser: Solltemperatur | 0.1 |  °C |
+| 00_0010_1330_10_0100_020_1_0| Warmwasser: Notdrehzahl | 1 | % |
+| 00_0010_1330_10_0100_021_1_0| Warmwasser: Handbetrieb Primärpumpe | 1 | % |
+| 00_0010_1330_10_0100_032_2_0| Zirkulation: Pumpendrehzahl | 0.1 | % |
+| 00_0010_1330_10_0100_037_1_0| Desinfektion: Handstartschalter | 1 |  |
+| 00_0010_1330_10_0100_039_1_0| Desinfektion: Ergebnis | 1 |  |
+| 00_0010_1330_10_0100_040_4_0| Desinfektion: Letzte Desinfektion | 1 |  |
+| 00_0010_1330_10_0100_044_2_0| Desinfektion: Startzeit | 1 |  |
+| 00_0010_1330_10_0100_046_1_1| Desinfektion: Montag | 1 |  |
+| 00_0010_1330_10_0100_046_1_2| Desinfektion: Dienstag | 1 |  |
+| 00_0010_1330_10_0100_046_1_4| Desinfektion: Mittwoch | 1 |  |
+| 00_0010_1330_10_0100_046_1_8| Desinfektion: Donnerstag | 1 |  |
+| 00_0010_1330_10_0100_046_1_16| Desinfektion: Freitag | 1 |  |
+| 00_0010_1330_10_0100_046_1_32| Desinfektion: Samstag | 1 |  |
+| 00_0010_1330_10_0100_046_1_64| Desinfektion: Sonntag | 1 |  |
+| 00_0010_1330_10_0100_051_1_0| RL-Einschichtung: Ventilzustand | 1 |  |
+| 00_0010_1330_10_0100_056_1_0| Fehlerrelais: Zustand | 1 |  |
+| 00_0010_1330_10_0100_064_2_0| Sensor: S1 | 0.1 |  °C |
+| 00_0010_1330_10_0100_066_2_0| Sensor: S2 | 0.1 |  °C |
+| 00_0010_1330_10_0100_068_2_0| Sensor: S3 | 0.1 |  °C |
+| 00_0010_1330_10_0100_070_2_0| Sensor: S4 | 0.1 |  °C |
+| 00_0010_1330_10_0100_072_2_0| Sensor: S5 | 0.1 |  °C |
+| 00_0010_1330_10_0100_074_2_0| Sensor: S6 | 0.1 |  °C |
+| 00_0010_1330_10_0100_076_2_0| Sensor: S7 | 0.1 |  °C |
+| 00_0010_1330_10_0100_084_4_0| Sensor: S9 Volumenstrom | 1 |  l/h |
+| 00_0010_1330_10_0100_088_4_0| Sensor: S10 Volumenstrom | 1 |  l/h |
+| 00_0010_1330_10_0100_092_4_0| Sensor: S14 Kaskade - Gesamtvolumenstrom | 1 |  l/h |
+| 00_0010_1330_10_0100_100_1_0| Kaskade: Grundlaststation | 1 |  |
+| 00_0010_1330_10_0100_112_2_0| Kaskade: Station 2 TVL | 0.1 |  °C |
+| 00_0010_1330_10_0100_114_2_0| Kaskade: Station 2 TWW | 0.1 |  °C |
+| 00_0010_1330_10_0100_116_4_0| Kaskade: Station 2 Volumenstrom | 0.1 |  l/min |
+| 00_0010_1330_10_0100_120_4_0| Kaskade: Station 2 Meldungen | 1 |  |
+| 00_0010_1330_10_0100_124_2_0| Kaskade: Station 3 TVL | 0.1 |  °C |
+| 00_0010_1330_10_0100_126_2_0| Kaskade: Station 3 TWW | 0.1 |  °C |
+| 00_0010_1330_10_0100_128_4_0| Kaskade: Station 3 Volumenstrom | 0.1 |  l/min |
+| 00_0010_1330_10_0100_132_4_0| Kaskade: Station 3 Meldungen | 1 |  |
+| 00_0010_1330_10_0100_136_2_0| Kaskade: Station 4 TVL | 0.1 |  °C |
+| 00_0010_1330_10_0100_138_2_0| Kaskade: Station 4 TWW | 0.1 |  °C |
+| 00_0010_1330_10_0100_140_4_0| Kaskade: Station 4 Volumenstrom | 0.1 |  l/min |
+| 00_0010_1330_10_0100_144_4_0| Kaskade: Station 4 Meldungen | 1 |  |
+| 00_0010_1330_10_0100_168_2_0| Kaskade: Station 5 TVL | 0.1 |  °C |
+| 00_0010_1330_10_0100_170_2_0| Kaskade: Station 5 TWW | 0.1 |  °C |
+| 00_0010_1330_10_0100_172_4_0| Kaskade: Station 5 Volumenstrom | 0.1 |  l/min |
+| 00_0010_1330_10_0100_176_4_0| Kaskade: Station 5 Meldungen | 1 |  |
+| 00_0010_1330_10_0100_180_2_0| Kaskade: Station 6 TVL | 0.1 |  °C |
+| 00_0010_1330_10_0100_182_2_0| Kaskade: Station 6 TWW | 0.1 |  °C |
+| 00_0010_1330_10_0100_184_4_0| Kaskade: Station 6 Volumenstrom | 0.1 |  l/min |
+| 00_0010_1330_10_0100_188_4_0| Kaskade: Station 6 Meldungen | 1 |  |
+| 00_0010_1330_10_0100_148_2_0| Kaskade: Station 2 Primärpumpendrehzahl | 0.1 | % |
+| 00_0010_1330_10_0100_150_2_0| Kaskade: Station 3 Primärpumpendrehzahl | 0.1 | % |
+| 00_0010_1330_10_0100_152_2_0| Kaskade: Station 4 Primärpumpendrehzahl | 0.1 | % |
+| 00_0010_1330_10_0100_192_2_0| Kaskade: Station 5 Primärpumpendrehzahl | 0.1 | % |
+| 00_0010_1330_10_0100_194_2_0| Kaskade: Station 6 Primärpumpendrehzahl | 0.1 | % |
+
+
+
+### <a name="0010_1400_0100"></a>DFA (0x0010) <= WMZ Plus (0x1400 - 0x140F), command 0x0100
+
+| ID | Name | Factor | Unit |
+|:--|:--|:-:|:-:|
+| 00_0010_1400_10_0100_022_4_0| Datum | 1 |  |
+| 00_0010_1400_10_0100_026_2_0| Vorlauf WMZ 1 | 0.1 |  °C |
+| 00_0010_1400_10_0100_028_2_0| Rücklauf WMZ 1 | 0.1 |  °C |
+| 00_0010_1400_10_0100_030_2_0| Volumenstrom WMZ 1 | 1 |  l/h |
+| 00_0010_1400_10_0100_032_4_0| Wärmemenge WMZ 1 | 1 |  Wh |
+| 00_0010_1400_10_0100_036_4_0| Kältemenge WMZ 1 | 1 |  Wh |
+| 00_0010_1400_10_0100_040_4_0| Gesamtenergie WMZ 1 | 1 |  Wh |
+| 00_0010_1400_10_0100_044_4_0| Gesamtvolumen WMZ 1 | 1 |  l |
+| 00_0010_1400_10_0100_048_4_0| Leistung WMZ 1 | 1 |  W |
+| 00_0010_1400_10_0100_052_1_0| Status WMZ 1 | 1 |  |
+| 00_0010_1400_10_0100_056_2_0| Vorlauf WMZ 2 | 0.1 |  °C |
+| 00_0010_1400_10_0100_058_2_0| Rücklauf WMZ 2 | 0.1 |  °C |
+| 00_0010_1400_10_0100_060_2_0| Volumenstrom WMZ 2 | 1 |  l/h |
+| 00_0010_1400_10_0100_062_4_0| Wärmemenge WMZ 2 | 1 |  Wh |
+| 00_0010_1400_10_0100_066_4_0| Kältemenge WMZ 2 | 1 |  Wh |
+| 00_0010_1400_10_0100_070_4_0| Gesamtenergie WMZ 2 | 1 |  Wh |
+| 00_0010_1400_10_0100_074_4_0| Gesamtvolumen WMZ 2 | 1 |  l |
+| 00_0010_1400_10_0100_078_4_0| Leistung WMZ 2 | 1 |  W |
+| 00_0010_1400_10_0100_082_1_0| Status WMZ 2 | 1 |  |
+| 00_0010_1400_10_0100_008_4_0| Warnungsmaske | 1 |  |
+| 00_0010_1400_10_0100_012_4_0| Fehlermaske | 1 |  |
+| 00_0010_1400_10_0100_016_4_0| Hinweismaske | 1 |  |
+| 00_0010_1400_10_0100_020_2_0| SW-Version | 0.01 |  |
 
 
 
@@ -2575,6 +2765,19 @@ title: VBus Packets
 
 
 
+### <a name="0010_1800_0100"></a>DFA (0x0010) <= DeltaSol MX \[Impulszähler\] (0x1800 - 0x180F), command 0x0100
+
+| ID | Name | Factor | Unit |
+|:--|:--|:-:|:-:|
+| 00_0010_1800_10_0100_000_4_0| Zählerstand | 1 |  |
+| 00_0010_1800_10_0100_004_4_0| Impulsrate | 1 |  Imp/h |
+| 00_0010_1800_10_0100_008_4_0| Zählerstand heute | 1 |  |
+| 00_0010_1800_10_0100_012_4_0| Zählerstand Woche | 1 |  |
+| 00_0010_1800_10_0100_016_4_0| Zählerstand Monat | 1 |  |
+| 00_0010_1800_10_0100_020_4_0| Zählerstand Jahr | 1 |  |
+
+
+
 ### <a name="0010_2211_0100"></a>DFA (0x0010) <= DeltaSol CS Plus (0x2211), command 0x0100
 
 | ID | Name | Factor | Unit |
@@ -2744,7 +2947,7 @@ title: VBus Packets
 | 00_0010_2251_10_0100_038_1_0| PWM A | 1 | % |
 | 00_0010_2251_10_0100_039_1_0| PWM B | 1 | % |
 | 00_0010_2251_10_0100_040_4_0| Wärmemenge | 1 |  Wh |
-| 00_0010_2251_10_0100_044_1_1| SW-Version | 1 |  |
+| 00_0010_2251_10_0100_044_2_0| SW-Version | 0.01 |  |
 | 00_0010_2251_10_0100_048_4_0| Betriebssekunden Relais 1 | 1 |  s |
 | 00_0010_2251_10_0100_052_4_0| Betriebssekunden Relais 2 | 1 |  s |
 | 00_0010_2251_10_0100_056_4_0| Betriebssekunden Relais 3 | 1 |  s |
@@ -5264,6 +5467,43 @@ title: VBus Packets
 
 
 
+### <a name="0010_7513_0100"></a>DFA (0x0010) <= SOLTEX 5VH3 (0x7513), command 0x0100
+
+| ID | Name | Factor | Unit |
+|:--|:--|:-:|:-:|
+| 00_0010_7513_10_0100_000_2_0| T,Ko | 0.1 |  °C |
+| 00_0010_7513_10_0100_002_2_0| T,Sp | 0.1 |  °C |
+| 00_0010_7513_10_0100_004_2_0| T,Ss | 0.1 |  °C |
+| 00_0010_7513_10_0100_006_2_0| T,Kr | 0.1 |  °C |
+| 00_0010_7513_10_0100_008_2_0| T,R | 0.1 |  °C |
+| 00_0010_7513_10_0100_010_2_0| T,V | 0.1 |  °C |
+| 00_0010_7513_10_0100_024_2_0| T,Erd | 0.1 |  °C |
+| 00_0010_7513_10_0100_026_2_0| Volumenstrom Ko | 0.1 |  l/min |
+| 00_0010_7513_10_0100_032_1_0| Leistung P,Ko | 1 | % |
+| 00_0010_7513_10_0100_033_1_0| Leistung P,S | 1 | % |
+| 00_0010_7513_10_0100_030_1_4| Relais P,W | 1 |  |
+| 00_0010_7513_10_0100_030_1_8| Relais WP | 1 |  |
+| 00_0010_7513_10_0100_030_1_16| Relais V,WP | 1 |  |
+| 00_0010_7513_10_0100_030_1_32| Relais V,SW | 1 |  |
+| 00_0010_7513_10_0100_030_1_64| Relais V,Ko | 1 |  |
+| 00_0010_7513_10_0100_030_1_128| Relais V,So | 1 |  |
+| 00_0010_7513_10_0100_030_1_256| Relais V,Sp | 1 |  |
+| 00_0010_7513_10_0100_036_4_0| Fehlermaske | 1 |  |
+| 00_0010_7513_10_0100_035_1_0| P,Ko Nennleistung | 1 | % |
+| 00_0010_7513_10_0100_040_4_0| Q S,p | 0.1 |  kWh |
+| 00_0010_7513_10_0100_044_4_0| Q S,s | 0.1 |  kWh |
+| 00_0010_7513_10_0100_016_2_0| T,HR | 0.1 |  °C |
+| 00_0010_7513_10_0100_018_2_0| T,HV | 0.1 |  °C |
+| 00_0010_7513_10_0100_030_1_512| Relais V,TH | 1 |  |
+| 00_0010_7513_10_0100_030_1_1024| Relais V,SH | 1 |  |
+| 00_0010_7513_10_0100_034_1_0| Leistung P,H | 1 | % |
+| 00_0010_7513_10_0100_048_2_0| Systemzeit | 1 |  |
+| 00_0010_7513_10_0100_020_2_0| T,x | 0.1 |  °C |
+| 00_0010_7513_10_0100_022_2_0| T,xx | 0.1 |  °C |
+| 00_0010_7513_10_0100_050_2_0| C1 | 0.01 |  |
+
+
+
 ### <a name="0010_7521_0100"></a>DFA (0x0010) <= Oventrop RQ-B / RQ-B HE (0x7521), command 0x0100
 
 | ID | Name | Factor | Unit |
@@ -7480,5 +7720,5 @@ title: VBus Packets
 
 
 
-> Based on VSF dated 20190202
+> Based on VSF dated 20191129
 

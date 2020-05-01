@@ -49,14 +49,17 @@ title: VBus Packets
 - [DFA (0x0010) <= MFR \[Regler\] (0x1160), command 0x0100](#0010_1160_0100)
 - [DFA (0x0010) <= MFR \[Module\] (0x1161), command 0x0100](#0010_1161_0100)
 - [DFA (0x0010) <= MFR \[Frischwasser\] (0x1162), command 0x0100](#0010_1162_0100)
+- [DFA (0x0010) <= SolarVenti SControl (0x1170), command 0x0100](#0010_1170_0100)
 - [DFA (0x0010) <= MFR \[WMZ\] (0x1200 - 0x120F), command 0x0100](#0010_1200_0100)
 - [DFA (0x0010) <= MFR \[Heizkreis\] (0x1210 - 0x121F), command 0x0100](#0010_1210_0100)
 - [DFA (0x0010) <= Regudis H-HT \[Übergabestation\] (0x1220 - 0x122F), command 0x0100](#0010_1220_0100)
-- [DFA (0x0010) <= Regudis H-HT \[BW-Erwärmung\] (0x1230 - 0x123F), command 0x0100](#0010_1230_0100)
+- [DFA (0x0010) <= DeltaTherm HC \[BW-Erwärmung\] (0x1230 - 0x123F), command 0x0100](#0010_1230_0100)
 - [DFA (0x0010) <= Wagner Sungo 100 \[Regler\] (0x1240), command 0x0100](#0010_1240_0100)
 - [DFA (0x0010) <= Wagner Sungo 100 \[WMZ1\] (0x1241), command 0x0100](#0010_1241_0100)
 - [DFA (0x0010) <= Viessmann Vitotrans 353 2017 (0x1250), command 0x0100](#0010_1250_0100)
 - [DFA (0x0010) <= Viessmann Vitotrans 353 2017 Broadcast (0x1260), command 0x0100](#0010_1260_0100)
+- [DFA (0x0010) <= controller S/L (0x1330), command 0x0100](#0010_1330_0100)
+- [DFA (0x0010) <= WMZ Plus (0x1400 - 0x140F), command 0x0100](#0010_1400_0100)
 - [DFA (0x0010) <= THERMUfloor ER (0x1410), command 0x0100](#0010_1410_0100)
 - [DFA (0x0010) <= Apricus DeltaSol AL E HE (0x1420), command 0x0100](#0010_1420_0100)
 - [DFA (0x0010) <= DeltaSol Fresh 2018 (0x1510), command 0x0100](#0010_1510_0100)
@@ -66,6 +69,7 @@ title: VBus Packets
 - [DFA (0x0010) <= DeltaTherm HC max \[Heizkreis\] (0x1720 - 0x172F), command 0x0100](#0010_1720_0100)
 - [DFA (0x0010) <= DeltaTherm HC max \[WMZ\] (0x1730 - 0x173F), command 0x0100](#0010_1730_0100)
 - [DFA (0x0010) <= DeltaTherm HC max \[Modul\] (0x1740 - 0x174F), command 0x0100](#0010_1740_0100)
+- [DFA (0x0010) <= DeltaSol MX \[Impulszähler\] (0x1800 - 0x180F), command 0x0100](#0010_1800_0100)
 - [DFA (0x0010) <= DeltaSol CS Plus (0x2211), command 0x0100](#0010_2211_0100)
 - [DFA (0x0010) <= DeltaSol CS Plus 2.x (0x2213), command 0x0100](#0010_2213_0100)
 - [DFA (0x0010) <= Oranier HK \[Regler\] (0x2231), command 0x0100](#0010_2231_0100)
@@ -180,6 +184,7 @@ title: VBus Packets
 - [DFA (0x0010) <= ZEN DT6 \[WMZ1\] (0x7442), command 0x0100](#0010_7442_0100)
 - [DFA (0x0010) <= SOLTEX-Regler \[Teil 1\] (0x7511), command 0x0100](#0010_7511_0100)
 - [DFA (0x0010) <= SOLTEX-Regler \[Teil 2\] (0x7512), command 0x0100](#0010_7512_0100)
+- [DFA (0x0010) <= SOLTEX 5VH3 (0x7513), command 0x0100](#0010_7513_0100)
 - [DFA (0x0010) <= Oventrop RQ-B / RQ-B HE (0x7521), command 0x0100](#0010_7521_0100)
 - [DFA (0x0010) <= Regtronic RX-B \[Regler\] (0x7522), command 0x0100](#0010_7522_0100)
 - [DFA (0x0010) <= Regtronic RX-B \[Module\] (0x7523), command 0x0100](#0010_7523_0100)
@@ -344,6 +349,7 @@ title: VBus Packets
 | 0x1160 | MFR \[Regler\] |
 | 0x1161 | MFR \[Module\] |
 | 0x1162 | MFR \[Frischwasser\] |
+| 0x1170 | SolarVenti SControl |
 | 0x1200 | MFR \[WMZ #0\] |
 | 0x1201 | MFR \[WMZ #1\] |
 | 0x1202 | MFR \[WMZ #2\] |
@@ -392,22 +398,22 @@ title: VBus Packets
 | 0x122D | Regudis H-HT \[Übergabestation #13\] |
 | 0x122E | Regudis H-HT \[Übergabestation #14\] |
 | 0x122F | Regudis H-HT \[Übergabestation #15\] |
-| 0x1230 | Regudis H-HT \[BW-Erwärmung #0\] |
-| 0x1231 | Regudis H-HT \[BW-Erwärmung #1\] |
-| 0x1232 | Regudis H-HT \[BW-Erwärmung #2\] |
-| 0x1233 | Regudis H-HT \[BW-Erwärmung #3\] |
-| 0x1234 | Regudis H-HT \[BW-Erwärmung #4\] |
-| 0x1235 | Regudis H-HT \[BW-Erwärmung #5\] |
-| 0x1236 | Regudis H-HT \[BW-Erwärmung #6\] |
-| 0x1237 | Regudis H-HT \[BW-Erwärmung #7\] |
-| 0x1238 | Regudis H-HT \[BW-Erwärmung #8\] |
-| 0x1239 | Regudis H-HT \[BW-Erwärmung #9\] |
-| 0x123A | Regudis H-HT \[BW-Erwärmung #10\] |
-| 0x123B | Regudis H-HT \[BW-Erwärmung #11\] |
-| 0x123C | Regudis H-HT \[BW-Erwärmung #12\] |
-| 0x123D | Regudis H-HT \[BW-Erwärmung #13\] |
-| 0x123E | Regudis H-HT \[BW-Erwärmung #14\] |
-| 0x123F | Regudis H-HT \[BW-Erwärmung #15\] |
+| 0x1230 | DeltaTherm HC \[BW-Erwärmung #0\] |
+| 0x1231 | DeltaTherm HC \[BW-Erwärmung #1\] |
+| 0x1232 | DeltaTherm HC \[BW-Erwärmung #2\] |
+| 0x1233 | DeltaTherm HC \[BW-Erwärmung #3\] |
+| 0x1234 | DeltaTherm HC \[BW-Erwärmung #4\] |
+| 0x1235 | DeltaTherm HC \[BW-Erwärmung #5\] |
+| 0x1236 | DeltaTherm HC \[BW-Erwärmung #6\] |
+| 0x1237 | DeltaTherm HC \[BW-Erwärmung #7\] |
+| 0x1238 | DeltaTherm HC \[BW-Erwärmung #8\] |
+| 0x1239 | DeltaTherm HC \[BW-Erwärmung #9\] |
+| 0x123A | DeltaTherm HC \[BW-Erwärmung #10\] |
+| 0x123B | DeltaTherm HC \[BW-Erwärmung #11\] |
+| 0x123C | DeltaTherm HC \[BW-Erwärmung #12\] |
+| 0x123D | DeltaTherm HC \[BW-Erwärmung #13\] |
+| 0x123E | DeltaTherm HC \[BW-Erwärmung #14\] |
+| 0x123F | DeltaTherm HC \[BW-Erwärmung #15\] |
 | 0x1240 | Wagner Sungo 100 \[Regler\] |
 | 0x1241 | Wagner Sungo 100 \[WMZ1\] |
 | 0x1250 | Viessmann Vitotrans 353 2017 |
@@ -416,6 +422,17 @@ title: VBus Packets
 | 0x1262 | Viessmann Vitotrans 353 2017 Slave 1 |
 | 0x1263 | Viessmann Vitotrans 353 2017 Slave 2 |
 | 0x1264 | Viessmann Vitotrans 353 2017 Slave 3 |
+| 0x1330 | controller S/L |
+| 0x1400 | WMZ Plus |
+| 0x1401 | WMZ Plus Master |
+| 0x1402 | WMZ Plus Master |
+| 0x1403 | WMZ Plus Slave 1 |
+| 0x1404 | WMZ Plus Slave 2 |
+| 0x1405 | WMZ Plus Slave 3 |
+| 0x1406 | WMZ Plus Slave 4 |
+| 0x1407 | WMZ Plus Slave 5 |
+| 0x1408 | WMZ Plus Slave 6 |
+| 0x1409 | WMZ Plus Slave 7 |
 | 0x1410 | THERMUfloor ER |
 | 0x1420 | Apricus DeltaSol AL E HE |
 | 0x1510 | DeltaSol Fresh 2018 |
@@ -473,6 +490,22 @@ title: VBus Packets
 | 0x174D | DeltaTherm HC max \[Modul #13\] |
 | 0x174E | DeltaTherm HC max \[Modul #14\] |
 | 0x174F | DeltaTherm HC max \[Modul #15\] |
+| 0x1800 | DeltaSol MX \[Impulszähler #0\] |
+| 0x1801 | DeltaSol MX \[Impulszähler #1\] |
+| 0x1802 | DeltaSol MX \[Impulszähler #2\] |
+| 0x1803 | DeltaSol MX \[Impulszähler #3\] |
+| 0x1804 | DeltaSol MX \[Impulszähler #4\] |
+| 0x1805 | DeltaSol MX \[Impulszähler #5\] |
+| 0x1806 | DeltaSol MX \[Impulszähler #6\] |
+| 0x1807 | DeltaSol MX \[Impulszähler #7\] |
+| 0x1808 | DeltaSol MX \[Impulszähler #8\] |
+| 0x1809 | DeltaSol MX \[Impulszähler #9\] |
+| 0x180A | DeltaSol MX \[Impulszähler #10\] |
+| 0x180B | DeltaSol MX \[Impulszähler #11\] |
+| 0x180C | DeltaSol MX \[Impulszähler #12\] |
+| 0x180D | DeltaSol MX \[Impulszähler #13\] |
+| 0x180E | DeltaSol MX \[Impulszähler #14\] |
+| 0x180F | DeltaSol MX \[Impulszähler #15\] |
 | 0x2000 | Digital Sensor #0 |
 | 0x2001 | Digital Sensor #1 |
 | 0x2002 | Digital Sensor #2 |
@@ -944,6 +977,7 @@ title: VBus Packets
 | 0x7451 | Kioto SLM |
 | 0x7511 | SOLTEX-Regler \[Teil 1\] |
 | 0x7512 | SOLTEX-Regler \[Teil 2\] |
+| 0x7513 | SOLTEX 5VH3 |
 | 0x7521 | Oventrop RQ-B / RQ-B HE |
 | 0x7522 | Regtronic RX-B \[Regler\] |
 | 0x7523 | Regtronic RX-B \[Module\] |
@@ -2176,12 +2210,12 @@ title: VBus Packets
 | 5 |  | Volumenstrom | 256 |  l/h |
 | 6 |  | Wärme Wh | 1 |  Wh |
 | 6 |  | Wärme | 1 |  Wh |
-| 7 |  | Wärme | 256 |  Wh |
 | 7 |  | Wärme Wh | 256 |  Wh |
-| 8 |  | Wärme | 1000 |  Wh |
+| 7 |  | Wärme | 256 |  Wh |
 | 8 |  | Wärme kWh | 1 |  kWh |
-| 9 |  | Wärme | 256000 |  Wh |
+| 8 |  | Wärme | 1000 |  Wh |
 | 9 |  | Wärme kWh | 256 |  kWh |
+| 9 |  | Wärme | 256000 |  Wh |
 | 10 |  | Wärme MWh | 1 |  MWh |
 | 10 |  | Wärme | 1000000 |  Wh |
 | 11 |  | Wärme MWh | 256 |  MWh |
@@ -2215,8 +2249,8 @@ title: VBus Packets
 | 19 |  | T HT Ext: | 25.6 |  °C |
 | 20 |  | T LT Ext: | 0.1 |  °C |
 | 21 |  | T LT Ext: | 25.6 |  °C |
-| 22 |  | EXT-Volt \(T-SET\): | 1 |  V |
 | 22 |  | T MT IN: | 0.1 |  °C |
+| 22 |  | EXT-Volt \(T-SET\): | 1 |  V |
 | 23 |  | T MT IN: | 25.6 |  °C |
 | 23 |  | EXT-Volt \(T-SET\): | 256 |  V |
 | 25 | 0x01 | M1_A_OUT: | 1 |  |
@@ -2240,14 +2274,14 @@ title: VBus Packets
 | 30 |  | Phase: | 1 |  |
 | 31 |  | Systemcode: | 1 |  |
 | 32 |  | RCS %: | 1 | % |
-| 36 |  | Aufsummierte Besprühungzeit: | 1 |  |
 | 36 |  | T LTS OUT AVG | 0.1 |  °C |
-| 37 |  | Aufsummierte Besprühungzeit: | 256 |  |
+| 36 |  | Aufsummierte Besprühungzeit: | 1 |  |
 | 37 |  | T LTS OUT AVG | 25.6 |  °C |
-| 38 |  | Aufsummierte Besprühungzeit: | 65536 |  |
+| 37 |  | Aufsummierte Besprühungzeit: | 256 |  |
 | 38 |  | T MT OUT AVG | 0.1 |  °C |
-| 39 |  | Aufsummierte Besprühungzeit: | 16777216 |  |
+| 38 |  | Aufsummierte Besprühungzeit: | 65536 |  |
 | 39 |  | T MT OUT AVG | 25.6 |  °C |
+| 39 |  | Aufsummierte Besprühungzeit: | 16777216 |  |
 | 40 |  | Aktuellen Sollwert \(T-SET\): | 0.1 |  °C |
 | 41 |  | Aktuellen Sollwert \(T-SET\): | 25.6 |  °C |
 | 42 |  | Externe Solltemperatur \(T-SET-EXT\): | 0.1 |  °C |
@@ -2358,6 +2392,7 @@ title: VBus Packets
 | 0 | 0x08 | Funktionsstatus Heizung | 1 |  |
 | 0 | 0x10 | Funktionsstatus Max. Temp. | 1 |  |
 | 0 | 0x20 | Funktionsstatus Lstg. reduziert | 1 |  |
+| 0 | 0x40 | Funktionsstatus Nachheizung | 1 |  |
 | 2 |  | Leistung Überschuss | 0.001 |  W |
 | 3 |  | Leistung Überschuss | 0.256 |  W |
 | 4 |  | Leistung Überschuss | 65.536 |  W |
@@ -2398,6 +2433,16 @@ title: VBus Packets
 | 48 | 0x08 | !Max. Temp. Regler | 1 |  |
 | 48 | 0x10 | !Datum/Uhrzeit | 1 |  |
 | 52 | 0x04 | !Lüfterwarnung | 1 |  |
+| 56 |  | Nachheizung | 1 |  Wh |
+| 57 |  | Nachheizung | 256 |  Wh |
+| 58 |  | Nachheizung | 65536 |  Wh |
+| 59 |  | Nachheizung | 16777216 |  Wh |
+| 64 |  | Betriebsstunden Nachheizung | 1 |  h |
+| 65 |  | Betriebsstunden Nachheizung | 256 |  h |
+| 66 |  | Betriebsstunden Nachheizung | 65536 |  h |
+| 67 |  | Betriebsstunden Nachheizung | 16777216 |  h |
+| 68 |  | DCIn | 0.1 |  V |
+| 69 |  | DCIn | 25.6 |  V |
 
 
 
@@ -2993,6 +3038,94 @@ title: VBus Packets
 
 
 
+### <a name="0010_1170_0100"></a>DFA (0x0010) <= SolarVenti SControl (0x1170), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | ChangeSetId | 1 |  |
+| 1 |  | ChangeSetId | 256 |  |
+| 2 |  | ChangeSetId | 65536 |  |
+| 3 |  | ChangeSetId | 16777216 |  |
+| 4 |  | Systemdatum | 1 |  |
+| 5 |  | Systemdatum | 256 |  |
+| 6 |  | Systemdatum | 65536 |  |
+| 7 |  | Systemdatum | 16777216 |  |
+| 8 |  | Software-Artikelnummer | 1 |  |
+| 9 |  | Software-Artikelnummer | 256 |  |
+| 10 |  | Software-Artikelnummer | 65536 |  |
+| 11 |  | Software-Artikelnummer | 16777216 |  |
+| 12 |  | System | 1 |  |
+| 13 |  | Regelstatus | 1 |  |
+| 14 |  | Betriebsart | 1 |  |
+| 16 | 0x02 | Meldungen: Datum/Uhrzeit | 1 |  |
+| 16 | 0x08 | Meldungen: Handbetrieb | 1 |  |
+| 16 | 0x10 | Meldungen: Sensorfehler Kollektor | 1 |  |
+| 16 | 0x20 | Meldungen: Sensorfehler Raum | 1 |  |
+| 16 | 0x40 | Meldungen: Sensorfehler Gerät | 1 |  |
+| 16 | 0x80 | Meldungen: Sensorfehler Aussen | 1 |  |
+| 17 | 0x01 | Meldungen: Systemspannung | 1 |  |
+| 20 |  | Sensor: S1 | 0.1 |  °C |
+| 21 |  | Sensor: S1 | 25.6 |  °C |
+| 22 |  | Sensor: S2 | 0.1 |  °C |
+| 23 |  | Sensor: S2 | 25.6 |  °C |
+| 26 |  | Sensor: K1 - Temperatur | 0.1 |  °C |
+| 27 |  | Sensor: K1 - Temperatur | 25.6 |  °C |
+| 28 |  | Sensor: K1 - Relative Luftfeuchtigkeit | 1 | % |
+| 29 |  | Sensor: K1 - Relative Luftfeuchtigkeit | 256 | % |
+| 30 |  | Sensor: K1 - Berechnete Taupunkttemperatur | 0.1 |  °C |
+| 31 |  | Sensor: K1 - Berechnete Taupunkttemperatur | 25.6 |  °C |
+| 32 |  | Sensor: K2 - Temperatur | 0.1 |  °C |
+| 33 |  | Sensor: K2 - Temperatur | 25.6 |  °C |
+| 34 |  | Sensor: K2 - Relative Luftfeuchtigkeit | 1 | % |
+| 35 |  | Sensor: K2 - Relative Luftfeuchtigkeit | 256 | % |
+| 36 |  | Sensor: K2 - Berechnete Taupunkttemperatur | 0.1 |  °C |
+| 37 |  | Sensor: K2 - Berechnete Taupunkttemperatur | 25.6 |  °C |
+| 38 |  | Sensor: K3 - Temperatur | 0.1 |  °C |
+| 39 |  | Sensor: K3 - Temperatur | 25.6 |  °C |
+| 40 |  | Sensor: K3 - Relative Luftfeuchtigkeit | 1 | % |
+| 41 |  | Sensor: K3 - Relative Luftfeuchtigkeit | 256 | % |
+| 42 |  | Sensor: K3 - Berechnete Taupunkttemperatur | 0.1 |  °C |
+| 43 |  | Sensor: K3 - Berechnete Taupunkttemperatur | 25.6 |  °C |
+| 44 |  | Ausgang Ventilator | 1 | % |
+| 45 |  | Ausgang Ventilator | 256 | % |
+| 46 |  | Ausgang 0-10V | 1 | % |
+| 47 |  | Ausgang 0-10V | 256 | % |
+| 48 |  | Relais | 1 | % |
+| 49 |  | Relais | 256 | % |
+| 50 |  | Systemspannung | 0.01 |  V |
+| 51 |  | Systemspannung | 2.56 |  V |
+| 52 |  | VIN 1 | 0.01 |  V |
+| 53 |  | VIN 1 | 2.56 |  V |
+| 54 |  | VIN 2 | 0.01 |  V |
+| 55 |  | VIN 2 | 2.56 |  V |
+| 56 |  | VOut | 0.01 |  V |
+| 57 |  | VOut | 2.56 |  V |
+| 58 |  | Tauspunktsperre: Dynamische Kollektortemperatur | 0.1 |  °C |
+| 59 |  | Tauspunktsperre: Dynamische Kollektortemperatur | 25.6 |  °C |
+| 64 | 0x40 | Kollektormaximaltemperatur erreicht | 1 |  |
+| 64 | 0x80 | Frostschutzfunktion aktiv | 1 |  |
+| 65 | 0x01 | Taupunktsperre aktiv | 1 |  |
+| 65 | 0x02 | Freigabe aufgrund der Dynamik | 1 |  |
+| 65 | 0x04 | Thermische Freigabe erteilt | 1 |  |
+| 65 | 0x08 | Freigabe durch Starttemperatur | 1 |  |
+| 65 | 0x10 | Freigabe durch Differenztemperatur | 1 |  |
+| 65 | 0x20 | Freigabe durch Raumtemperatur | 1 |  |
+| 65 | 0x40 | Sperrzeit der Temperaturfunktion aktiv | 1 |  |
+| 65 | 0x80 | Intervallfunktion der Timerfunktion ist aus | 1 |  |
+| 66 | 0x01 | Intervallfunktion der Timerfunktion ist im Pausenbetrieb | 1 |  |
+| 66 | 0x02 | Intervallfunktion der Timerfunktion ist aktiv | 1 |  |
+| 66 | 0x04 | Schaltuhrenstatus der Timerfunktion aktiv | 1 |  |
+| 66 | 0x08 | Kuehlfunktion aktiv | 1 |  |
+| 66 | 0x10 | Raumfreigabe der Kuehlfunktion | 1 |  |
+| 66 | 0x20 | Aussentemperaturfreigabe der Kuehlfunktion | 1 |  |
+| 66 | 0x40 | Timer der Kuehlfunktion aktiv | 1 |  |
+| 66 | 0x80 | Feuchtigkeitsfunktion aktiv | 1 |  |
+| 67 | 0x01 | Feuchtigkeitsfunktion durch Raumklima angefordert | 1 |  |
+| 67 | 0x02 | Sperrzeit der Feuchtigkeitsfunktion aktiv | 1 |  |
+| 67 | 0x04 | Die ChangeSet-ID des Regler | 1 |  |
+
+
+
 ### <a name="0010_1200_0100"></a>DFA (0x0010) <= MFR \[WMZ\] (0x1200 - 0x120F), command 0x0100
 
 | Offset | Mask | Name | Factor | Unit |
@@ -3043,7 +3176,7 @@ title: VBus Packets
 
 
 
-### <a name="0010_1230_0100"></a>DFA (0x0010) <= Regudis H-HT \[BW-Erwärmung\] (0x1230 - 0x123F), command 0x0100
+### <a name="0010_1230_0100"></a>DFA (0x0010) <= DeltaTherm HC \[BW-Erwärmung\] (0x1230 - 0x123F), command 0x0100
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
@@ -3261,6 +3394,218 @@ title: VBus Packets
 | 31 |  | Systemdatum | 16777216 |  |
 | 32 |  | S5 | 0.1 |  °C |
 | 33 |  | S5 | 25.6 |  °C |
+
+
+
+### <a name="0010_1330_0100"></a>DFA (0x0010) <= controller S/L (0x1330), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 4 |  | Systemdatum | 1 |  |
+| 5 |  | Systemdatum | 256 |  |
+| 6 |  | Systemdatum | 65536 |  |
+| 7 |  | Systemdatum | 16777216 |  |
+| 16 |  | Warmwasser: Primärpumpendrehzahl | 0.1 | % |
+| 17 |  | Warmwasser: Primärpumpendrehzahl | 25.6 | % |
+| 18 |  | Warmwasser: Solltemperatur | 0.1 |  °C |
+| 19 |  | Warmwasser: Solltemperatur | 25.6 |  °C |
+| 20 |  | Warmwasser: Notdrehzahl | 1 | % |
+| 21 |  | Warmwasser: Handbetrieb Primärpumpe | 1 | % |
+| 32 |  | Zirkulation: Pumpendrehzahl | 0.1 | % |
+| 33 |  | Zirkulation: Pumpendrehzahl | 25.6 | % |
+| 37 |  | Desinfektion: Handstartschalter | 1 |  |
+| 39 |  | Desinfektion: Ergebnis | 1 |  |
+| 40 |  | Desinfektion: Letzte Desinfektion | 1 |  |
+| 41 |  | Desinfektion: Letzte Desinfektion | 256 |  |
+| 42 |  | Desinfektion: Letzte Desinfektion | 65536 |  |
+| 43 |  | Desinfektion: Letzte Desinfektion | 16777216 |  |
+| 44 |  | Desinfektion: Startzeit | 1 |  |
+| 45 |  | Desinfektion: Startzeit | 256 |  |
+| 46 | 0x01 | Desinfektion: Montag | 1 |  |
+| 46 | 0x02 | Desinfektion: Dienstag | 1 |  |
+| 46 | 0x04 | Desinfektion: Mittwoch | 1 |  |
+| 46 | 0x08 | Desinfektion: Donnerstag | 1 |  |
+| 46 | 0x10 | Desinfektion: Freitag | 1 |  |
+| 46 | 0x20 | Desinfektion: Samstag | 1 |  |
+| 46 | 0x40 | Desinfektion: Sonntag | 1 |  |
+| 51 |  | RL-Einschichtung: Ventilzustand | 1 |  |
+| 56 |  | Fehlerrelais: Zustand | 1 |  |
+| 64 |  | Sensor: S1 | 0.1 |  °C |
+| 65 |  | Sensor: S1 | 25.6 |  °C |
+| 66 |  | Sensor: S2 | 0.1 |  °C |
+| 67 |  | Sensor: S2 | 25.6 |  °C |
+| 68 |  | Sensor: S3 | 0.1 |  °C |
+| 69 |  | Sensor: S3 | 25.6 |  °C |
+| 70 |  | Sensor: S4 | 0.1 |  °C |
+| 71 |  | Sensor: S4 | 25.6 |  °C |
+| 72 |  | Sensor: S5 | 0.1 |  °C |
+| 73 |  | Sensor: S5 | 25.6 |  °C |
+| 74 |  | Sensor: S6 | 0.1 |  °C |
+| 75 |  | Sensor: S6 | 25.6 |  °C |
+| 76 |  | Sensor: S7 | 0.1 |  °C |
+| 77 |  | Sensor: S7 | 25.6 |  °C |
+| 84 |  | Sensor: S9 Volumenstrom | 1 |  l/h |
+| 85 |  | Sensor: S9 Volumenstrom | 256 |  l/h |
+| 86 |  | Sensor: S9 Volumenstrom | 65536 |  l/h |
+| 87 |  | Sensor: S9 Volumenstrom | 16777216 |  l/h |
+| 88 |  | Sensor: S10 Volumenstrom | 1 |  l/h |
+| 89 |  | Sensor: S10 Volumenstrom | 256 |  l/h |
+| 90 |  | Sensor: S10 Volumenstrom | 65536 |  l/h |
+| 91 |  | Sensor: S10 Volumenstrom | 16777216 |  l/h |
+| 92 |  | Sensor: S14 Kaskade - Gesamtvolumenstrom | 1 |  l/h |
+| 93 |  | Sensor: S14 Kaskade - Gesamtvolumenstrom | 256 |  l/h |
+| 94 |  | Sensor: S14 Kaskade - Gesamtvolumenstrom | 65536 |  l/h |
+| 95 |  | Sensor: S14 Kaskade - Gesamtvolumenstrom | 16777216 |  l/h |
+| 100 |  | Kaskade: Grundlaststation | 1 |  |
+| 112 |  | Kaskade: Station 2 TVL | 0.1 |  °C |
+| 113 |  | Kaskade: Station 2 TVL | 25.6 |  °C |
+| 114 |  | Kaskade: Station 2 TWW | 0.1 |  °C |
+| 115 |  | Kaskade: Station 2 TWW | 25.6 |  °C |
+| 116 |  | Kaskade: Station 2 Volumenstrom | 0.1 |  l/min |
+| 117 |  | Kaskade: Station 2 Volumenstrom | 25.6 |  l/min |
+| 118 |  | Kaskade: Station 2 Volumenstrom | 6553.6 |  l/min |
+| 119 |  | Kaskade: Station 2 Volumenstrom | 1677721.6 |  l/min |
+| 120 |  | Kaskade: Station 2 Meldungen | 1 |  |
+| 121 |  | Kaskade: Station 2 Meldungen | 256 |  |
+| 122 |  | Kaskade: Station 2 Meldungen | 65536 |  |
+| 123 |  | Kaskade: Station 2 Meldungen | 16777216 |  |
+| 124 |  | Kaskade: Station 3 TVL | 0.1 |  °C |
+| 125 |  | Kaskade: Station 3 TVL | 25.6 |  °C |
+| 126 |  | Kaskade: Station 3 TWW | 0.1 |  °C |
+| 127 |  | Kaskade: Station 3 TWW | 25.6 |  °C |
+| 128 |  | Kaskade: Station 3 Volumenstrom | 0.1 |  l/min |
+| 129 |  | Kaskade: Station 3 Volumenstrom | 25.6 |  l/min |
+| 130 |  | Kaskade: Station 3 Volumenstrom | 6553.6 |  l/min |
+| 131 |  | Kaskade: Station 3 Volumenstrom | 1677721.6 |  l/min |
+| 132 |  | Kaskade: Station 3 Meldungen | 1 |  |
+| 133 |  | Kaskade: Station 3 Meldungen | 256 |  |
+| 134 |  | Kaskade: Station 3 Meldungen | 65536 |  |
+| 135 |  | Kaskade: Station 3 Meldungen | 16777216 |  |
+| 136 |  | Kaskade: Station 4 TVL | 0.1 |  °C |
+| 137 |  | Kaskade: Station 4 TVL | 25.6 |  °C |
+| 138 |  | Kaskade: Station 4 TWW | 0.1 |  °C |
+| 139 |  | Kaskade: Station 4 TWW | 25.6 |  °C |
+| 140 |  | Kaskade: Station 4 Volumenstrom | 0.1 |  l/min |
+| 141 |  | Kaskade: Station 4 Volumenstrom | 25.6 |  l/min |
+| 142 |  | Kaskade: Station 4 Volumenstrom | 6553.6 |  l/min |
+| 143 |  | Kaskade: Station 4 Volumenstrom | 1677721.6 |  l/min |
+| 144 |  | Kaskade: Station 4 Meldungen | 1 |  |
+| 145 |  | Kaskade: Station 4 Meldungen | 256 |  |
+| 146 |  | Kaskade: Station 4 Meldungen | 65536 |  |
+| 147 |  | Kaskade: Station 4 Meldungen | 16777216 |  |
+| 148 |  | Kaskade: Station 2 Primärpumpendrehzahl | 0.1 | % |
+| 149 |  | Kaskade: Station 2 Primärpumpendrehzahl | 25.6 | % |
+| 150 |  | Kaskade: Station 3 Primärpumpendrehzahl | 0.1 | % |
+| 151 |  | Kaskade: Station 3 Primärpumpendrehzahl | 25.6 | % |
+| 152 |  | Kaskade: Station 4 Primärpumpendrehzahl | 0.1 | % |
+| 153 |  | Kaskade: Station 4 Primärpumpendrehzahl | 25.6 | % |
+| 168 |  | Kaskade: Station 5 TVL | 0.1 |  °C |
+| 169 |  | Kaskade: Station 5 TVL | 25.6 |  °C |
+| 170 |  | Kaskade: Station 5 TWW | 0.1 |  °C |
+| 171 |  | Kaskade: Station 5 TWW | 25.6 |  °C |
+| 172 |  | Kaskade: Station 5 Volumenstrom | 0.1 |  l/min |
+| 173 |  | Kaskade: Station 5 Volumenstrom | 25.6 |  l/min |
+| 174 |  | Kaskade: Station 5 Volumenstrom | 6553.6 |  l/min |
+| 175 |  | Kaskade: Station 5 Volumenstrom | 1677721.6 |  l/min |
+| 176 |  | Kaskade: Station 5 Meldungen | 1 |  |
+| 177 |  | Kaskade: Station 5 Meldungen | 256 |  |
+| 178 |  | Kaskade: Station 5 Meldungen | 65536 |  |
+| 179 |  | Kaskade: Station 5 Meldungen | 16777216 |  |
+| 180 |  | Kaskade: Station 6 TVL | 0.1 |  °C |
+| 181 |  | Kaskade: Station 6 TVL | 25.6 |  °C |
+| 182 |  | Kaskade: Station 6 TWW | 0.1 |  °C |
+| 183 |  | Kaskade: Station 6 TWW | 25.6 |  °C |
+| 184 |  | Kaskade: Station 6 Volumenstrom | 0.1 |  l/min |
+| 185 |  | Kaskade: Station 6 Volumenstrom | 25.6 |  l/min |
+| 186 |  | Kaskade: Station 6 Volumenstrom | 6553.6 |  l/min |
+| 187 |  | Kaskade: Station 6 Volumenstrom | 1677721.6 |  l/min |
+| 188 |  | Kaskade: Station 6 Meldungen | 1 |  |
+| 189 |  | Kaskade: Station 6 Meldungen | 256 |  |
+| 190 |  | Kaskade: Station 6 Meldungen | 65536 |  |
+| 191 |  | Kaskade: Station 6 Meldungen | 16777216 |  |
+| 192 |  | Kaskade: Station 5 Primärpumpendrehzahl | 0.1 | % |
+| 193 |  | Kaskade: Station 5 Primärpumpendrehzahl | 25.6 | % |
+| 194 |  | Kaskade: Station 6 Primärpumpendrehzahl | 0.1 | % |
+| 195 |  | Kaskade: Station 6 Primärpumpendrehzahl | 25.6 | % |
+
+
+
+### <a name="0010_1400_0100"></a>DFA (0x0010) <= WMZ Plus (0x1400 - 0x140F), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 8 |  | Warnungsmaske | 1 |  |
+| 9 |  | Warnungsmaske | 256 |  |
+| 10 |  | Warnungsmaske | 65536 |  |
+| 11 |  | Warnungsmaske | 16777216 |  |
+| 12 |  | Fehlermaske | 1 |  |
+| 13 |  | Fehlermaske | 256 |  |
+| 14 |  | Fehlermaske | 65536 |  |
+| 15 |  | Fehlermaske | 16777216 |  |
+| 16 |  | Hinweismaske | 1 |  |
+| 17 |  | Hinweismaske | 256 |  |
+| 18 |  | Hinweismaske | 65536 |  |
+| 19 |  | Hinweismaske | 16777216 |  |
+| 20 |  | SW-Version | 0.01 |  |
+| 21 |  | SW-Version | 2.56 |  |
+| 22 |  | Datum | 1 |  |
+| 23 |  | Datum | 256 |  |
+| 24 |  | Datum | 65536 |  |
+| 25 |  | Datum | 16777216 |  |
+| 26 |  | Vorlauf WMZ 1 | 0.1 |  °C |
+| 27 |  | Vorlauf WMZ 1 | 25.6 |  °C |
+| 28 |  | Rücklauf WMZ 1 | 0.1 |  °C |
+| 29 |  | Rücklauf WMZ 1 | 25.6 |  °C |
+| 30 |  | Volumenstrom WMZ 1 | 1 |  l/h |
+| 31 |  | Volumenstrom WMZ 1 | 256 |  l/h |
+| 32 |  | Wärmemenge WMZ 1 | 1 |  Wh |
+| 33 |  | Wärmemenge WMZ 1 | 256 |  Wh |
+| 34 |  | Wärmemenge WMZ 1 | 65536 |  Wh |
+| 35 |  | Wärmemenge WMZ 1 | 16777216 |  Wh |
+| 36 |  | Kältemenge WMZ 1 | 1 |  Wh |
+| 37 |  | Kältemenge WMZ 1 | 256 |  Wh |
+| 38 |  | Kältemenge WMZ 1 | 65536 |  Wh |
+| 39 |  | Kältemenge WMZ 1 | 16777216 |  Wh |
+| 40 |  | Gesamtenergie WMZ 1 | 1 |  Wh |
+| 41 |  | Gesamtenergie WMZ 1 | 256 |  Wh |
+| 42 |  | Gesamtenergie WMZ 1 | 65536 |  Wh |
+| 43 |  | Gesamtenergie WMZ 1 | 16777216 |  Wh |
+| 44 |  | Gesamtvolumen WMZ 1 | 1 |  l |
+| 45 |  | Gesamtvolumen WMZ 1 | 256 |  l |
+| 46 |  | Gesamtvolumen WMZ 1 | 65536 |  l |
+| 47 |  | Gesamtvolumen WMZ 1 | 16777216 |  l |
+| 48 |  | Leistung WMZ 1 | 1 |  W |
+| 49 |  | Leistung WMZ 1 | 256 |  W |
+| 50 |  | Leistung WMZ 1 | 65536 |  W |
+| 51 |  | Leistung WMZ 1 | 16777216 |  W |
+| 52 |  | Status WMZ 1 | 1 |  |
+| 56 |  | Vorlauf WMZ 2 | 0.1 |  °C |
+| 57 |  | Vorlauf WMZ 2 | 25.6 |  °C |
+| 58 |  | Rücklauf WMZ 2 | 0.1 |  °C |
+| 59 |  | Rücklauf WMZ 2 | 25.6 |  °C |
+| 60 |  | Volumenstrom WMZ 2 | 1 |  l/h |
+| 61 |  | Volumenstrom WMZ 2 | 256 |  l/h |
+| 62 |  | Wärmemenge WMZ 2 | 1 |  Wh |
+| 63 |  | Wärmemenge WMZ 2 | 256 |  Wh |
+| 64 |  | Wärmemenge WMZ 2 | 65536 |  Wh |
+| 65 |  | Wärmemenge WMZ 2 | 16777216 |  Wh |
+| 66 |  | Kältemenge WMZ 2 | 1 |  Wh |
+| 67 |  | Kältemenge WMZ 2 | 256 |  Wh |
+| 68 |  | Kältemenge WMZ 2 | 65536 |  Wh |
+| 69 |  | Kältemenge WMZ 2 | 16777216 |  Wh |
+| 70 |  | Gesamtenergie WMZ 2 | 1 |  Wh |
+| 71 |  | Gesamtenergie WMZ 2 | 256 |  Wh |
+| 72 |  | Gesamtenergie WMZ 2 | 65536 |  Wh |
+| 73 |  | Gesamtenergie WMZ 2 | 16777216 |  Wh |
+| 74 |  | Gesamtvolumen WMZ 2 | 1 |  l |
+| 75 |  | Gesamtvolumen WMZ 2 | 256 |  l |
+| 76 |  | Gesamtvolumen WMZ 2 | 65536 |  l |
+| 77 |  | Gesamtvolumen WMZ 2 | 16777216 |  l |
+| 78 |  | Leistung WMZ 2 | 1 |  W |
+| 79 |  | Leistung WMZ 2 | 256 |  W |
+| 80 |  | Leistung WMZ 2 | 65536 |  W |
+| 81 |  | Leistung WMZ 2 | 16777216 |  W |
+| 82 |  | Status WMZ 2 | 1 |  |
 
 
 
@@ -3653,6 +3998,37 @@ title: VBus Packets
 
 
 
+### <a name="0010_1800_0100"></a>DFA (0x0010) <= DeltaSol MX \[Impulszähler\] (0x1800 - 0x180F), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Zählerstand | 1 |  |
+| 1 |  | Zählerstand | 256 |  |
+| 2 |  | Zählerstand | 65536 |  |
+| 3 |  | Zählerstand | 16777216 |  |
+| 4 |  | Impulsrate | 1 |  Imp/h |
+| 5 |  | Impulsrate | 256 |  Imp/h |
+| 6 |  | Impulsrate | 65536 |  Imp/h |
+| 7 |  | Impulsrate | 16777216 |  Imp/h |
+| 8 |  | Zählerstand heute | 1 |  |
+| 9 |  | Zählerstand heute | 256 |  |
+| 10 |  | Zählerstand heute | 65536 |  |
+| 11 |  | Zählerstand heute | 16777216 |  |
+| 12 |  | Zählerstand Woche | 1 |  |
+| 13 |  | Zählerstand Woche | 256 |  |
+| 14 |  | Zählerstand Woche | 65536 |  |
+| 15 |  | Zählerstand Woche | 16777216 |  |
+| 16 |  | Zählerstand Monat | 1 |  |
+| 17 |  | Zählerstand Monat | 256 |  |
+| 18 |  | Zählerstand Monat | 65536 |  |
+| 19 |  | Zählerstand Monat | 16777216 |  |
+| 20 |  | Zählerstand Jahr | 1 |  |
+| 21 |  | Zählerstand Jahr | 256 |  |
+| 22 |  | Zählerstand Jahr | 65536 |  |
+| 23 |  | Zählerstand Jahr | 16777216 |  |
+
+
+
 ### <a name="0010_2211_0100"></a>DFA (0x0010) <= DeltaSol CS Plus (0x2211), command 0x0100
 
 | Offset | Mask | Name | Factor | Unit |
@@ -3954,7 +4330,8 @@ title: VBus Packets
 | 41 |  | Wärmemenge | 256 |  Wh |
 | 42 |  | Wärmemenge | 65536 |  Wh |
 | 43 |  | Wärmemenge | 16777216 |  Wh |
-| 44 | 0x01 | SW-Version | 1 |  |
+| 44 |  | SW-Version | 0.01 |  |
+| 45 |  | SW-Version | 2.56 |  |
 | 48 |  | Betriebssekunden Relais 1 | 1 |  s |
 | 49 |  | Betriebssekunden Relais 1 | 256 |  s |
 | 50 |  | Betriebssekunden Relais 1 | 65536 |  s |
@@ -4610,18 +4987,18 @@ title: VBus Packets
 | 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
 | 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
 | 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
-| 6 |  | Wärmemenge \(<= v1.01\) | 1 |  kWh |
 | 6 |  | Temperatur Sensor 4 \(>= v1.02\) | 0.1 |  °C |
+| 6 |  | Wärmemenge \(<= v1.01\) | 1 |  kWh |
 | 7 |  | Temperatur Sensor 4 \(>= v1.02\) | 25.6 |  °C |
 | 7 |  | Wärmemenge \(<= v1.01\) | 256 |  kWh |
-| 8 |  | Drehzahl Relais 1 \(>= v1.02\) | 1 | % |
 | 8 |  | Drehzahl Relais 1 \(<= v1.01\) | 0.1 | % |
+| 8 |  | Drehzahl Relais 1 \(>= v1.02\) | 1 | % |
 | 9 |  | Drehzahl Relais 1 \(<= v1.01\) | 25.6 | % |
 | 9 |  | Drehzahl Relais 2 \(>= v1.02\) | 1 | % |
-| 10 |  | Fehlermaske \(>= v1.02\) | 1 |  |
 | 10 |  | Drehzahl Relais 2 \(<= v1.01\) | 0.1 | % |
-| 11 |  | Relaismaske \(>= v1.02\) | 1 |  |
+| 10 |  | Fehlermaske \(>= v1.02\) | 1 |  |
 | 11 |  | Drehzahl Relais 2 \(<= v1.01\) | 25.6 | % |
+| 11 |  | Relaismaske \(>= v1.02\) | 1 |  |
 | 12 |  | Wärmemenge \(>= v1.02\) | 1 |  kWh |
 | 13 |  | Wärmemenge \(>= v1.02\) | 256 |  kWh |
 
@@ -5163,8 +5540,8 @@ title: VBus Packets
 | 51 |  | T LT IN Cycle | 25.6 |  °C |
 | 52 |  | T LT OUT Cycle | 0.1 |  °C |
 | 52 |  | Aktuellen Sollwert: | 0.1 |  °C |
-| 53 |  | Aktuellen Sollwert: | 25.6 |  °C |
 | 53 |  | T LT OUT Cycle | 25.6 |  °C |
+| 53 |  | Aktuellen Sollwert: | 25.6 |  °C |
 | 54 |  | T MT OUT Cycle | 0.1 |  °C |
 | 55 |  | T MT OUT Cycle | 25.6 |  °C |
 | 56 |  | dQ LT Cycle | 0.1 |  kW |
@@ -6567,8 +6944,8 @@ title: VBus Packets
 | 37 |  | Temperatur GFD1 | 25.6 |  °C |
 | 38 |  | Temperatur GFD2 | 0.1 |  °C |
 | 39 |  | Temperatur GFD2 | 25.6 |  °C |
-| 42 |  | Systemzeit2 | 1 |  |
 | 42 |  | Systemzeit | 1 |  |
+| 42 |  | Systemzeit2 | 1 |  |
 | 43 |  | Systemzeit | 256 |  |
 | 43 |  | Systemzeit2 | 256 |  |
 | 44 |  | Volumenstrom 2 | 1 |  l/h |
@@ -8093,6 +8470,66 @@ title: VBus Packets
 
 
 
+### <a name="0010_7513_0100"></a>DFA (0x0010) <= SOLTEX 5VH3 (0x7513), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | T,Ko | 0.1 |  °C |
+| 1 |  | T,Ko | 25.6 |  °C |
+| 2 |  | T,Sp | 0.1 |  °C |
+| 3 |  | T,Sp | 25.6 |  °C |
+| 4 |  | T,Ss | 0.1 |  °C |
+| 5 |  | T,Ss | 25.6 |  °C |
+| 6 |  | T,Kr | 0.1 |  °C |
+| 7 |  | T,Kr | 25.6 |  °C |
+| 8 |  | T,R | 0.1 |  °C |
+| 9 |  | T,R | 25.6 |  °C |
+| 10 |  | T,V | 0.1 |  °C |
+| 11 |  | T,V | 25.6 |  °C |
+| 16 |  | T,HR | 0.1 |  °C |
+| 17 |  | T,HR | 25.6 |  °C |
+| 18 |  | T,HV | 0.1 |  °C |
+| 19 |  | T,HV | 25.6 |  °C |
+| 20 |  | T,x | 0.1 |  °C |
+| 21 |  | T,x | 25.6 |  °C |
+| 22 |  | T,xx | 0.1 |  °C |
+| 23 |  | T,xx | 25.6 |  °C |
+| 24 |  | T,Erd | 0.1 |  °C |
+| 25 |  | T,Erd | 25.6 |  °C |
+| 26 |  | Volumenstrom Ko | 0.1 |  l/min |
+| 27 |  | Volumenstrom Ko | 25.6 |  l/min |
+| 30 | 0x04 | Relais P,W | 1 |  |
+| 30 | 0x08 | Relais WP | 1 |  |
+| 30 | 0x10 | Relais V,WP | 1 |  |
+| 30 | 0x20 | Relais V,SW | 1 |  |
+| 30 | 0x40 | Relais V,Ko | 1 |  |
+| 30 | 0x80 | Relais V,So | 1 |  |
+| 31 | 0x01 | Relais V,Sp | 1 |  |
+| 31 | 0x02 | Relais V,TH | 1 |  |
+| 31 | 0x04 | Relais V,SH | 1 |  |
+| 32 |  | Leistung P,Ko | 1 | % |
+| 33 |  | Leistung P,S | 1 | % |
+| 34 |  | Leistung P,H | 1 | % |
+| 35 |  | P,Ko Nennleistung | 1 | % |
+| 36 |  | Fehlermaske | 1 |  |
+| 37 |  | Fehlermaske | 256 |  |
+| 38 |  | Fehlermaske | 65536 |  |
+| 39 |  | Fehlermaske | 16777216 |  |
+| 40 |  | Q S,p | 0.1 |  kWh |
+| 41 |  | Q S,p | 25.6 |  kWh |
+| 42 |  | Q S,p | 6553.6 |  kWh |
+| 43 |  | Q S,p | 1677721.6 |  kWh |
+| 44 |  | Q S,s | 0.1 |  kWh |
+| 45 |  | Q S,s | 25.6 |  kWh |
+| 46 |  | Q S,s | 6553.6 |  kWh |
+| 47 |  | Q S,s | 1677721.6 |  kWh |
+| 48 |  | Systemzeit | 1 |  |
+| 49 |  | Systemzeit | 256 |  |
+| 50 |  | C1 | 0.01 |  |
+| 51 |  | C1 | 2.56 |  |
+
+
+
 ### <a name="0010_7521_0100"></a>DFA (0x0010) <= Oventrop RQ-B / RQ-B HE (0x7521), command 0x0100
 
 | Offset | Mask | Name | Factor | Unit |
@@ -9033,8 +9470,8 @@ title: VBus Packets
 | 37 |  | Meldungen | 256 |  |
 | 38 | 0x01 | Fehlerrelais | 1 |  |
 | 38 | 0x04 | T Beckenkühlfkt | 1 |  |
-| 38 | 0x08 | Solarkreis ein | 1 |  |
 | 38 | 0x08 | dT Beckenkühlfkt ein | 1 |  |
+| 38 | 0x08 | Solarkreis ein | 1 |  |
 | 38 | 0x10 | Filter eingeschaltet | 1 |  |
 | 38 | 0x20 | Nachhzg normal | 1 |  |
 | 38 | 0x40 | Solarkreis aktiv | 1 |  |
@@ -9202,58 +9639,58 @@ title: VBus Packets
 | 96 |  | Impulse | 1 |  |
 | 96 |  | Impulszähler 1 \(Volumen 1/2\) | 1 |  |
 | 97 |  | Impulse | 256 |  |
-| 97 |  | Impulszähler 1 \(Volumen 1/2\) | 256 |  |
 | 97 |  | Impulse | 256 |  |
+| 97 |  | Impulszähler 1 \(Volumen 1/2\) | 256 |  |
 | 98 |  | Impulse | 65536 |  |
 | 98 |  | Impulse | 65536 |  |
 | 98 |  | Impulszähler 1 \(Volumen 1/2\) | 65536 |  |
+| 99 |  | Impulse | 16777216 |  |
+| 99 |  | Impulse | 16777216 |  |
 | 99 |  | Impulszähler 1 \(Volumen 1/2\) | 16777216 |  |
-| 99 |  | Impulse | 16777216 |  |
-| 99 |  | Impulse | 16777216 |  |
 | 100 |  | Impulse | 1 |  |
 | 100 |  | Impulszähler 2 \(Volumen 3\) | 1 |  |
 | 101 |  | Impulse | 256 |  |
 | 101 |  | Impulszähler 2 \(Volumen 3\) | 256 |  |
 | 102 |  | Impulse | 65536 |  |
 | 102 |  | Impulszähler 2 \(Volumen 3\) | 65536 |  |
-| 103 |  | Impulszähler 2 \(Volumen 3\) | 16777216 |  |
 | 103 |  | Impulse | 16777216 |  |
-| 104 |  | Impulszähler 3 \(Volumen 4\) | 1 |  |
+| 103 |  | Impulszähler 2 \(Volumen 3\) | 16777216 |  |
 | 104 |  | Impulse | 1 |  |
-| 105 |  | Impulszähler 3 \(Volumen 4\) | 256 |  |
+| 104 |  | Impulszähler 3 \(Volumen 4\) | 1 |  |
 | 105 |  | Impulse | 256 |  |
-| 106 |  | Impulszähler 3 \(Volumen 4\) | 65536 |  |
+| 105 |  | Impulszähler 3 \(Volumen 4\) | 256 |  |
 | 106 |  | Impulse | 65536 |  |
-| 107 |  | Impulszähler 3 \(Volumen 4\) | 16777216 |  |
+| 106 |  | Impulszähler 3 \(Volumen 4\) | 65536 |  |
 | 107 |  | Impulse | 16777216 |  |
-| 108 |  | Impulszähler 4 \(Volumen 5\) | 1 |  |
+| 107 |  | Impulszähler 3 \(Volumen 4\) | 16777216 |  |
 | 108 |  | Impulse | 1 |  |
-| 109 |  | Impulszähler 4 \(Volumen 5\) | 256 |  |
+| 108 |  | Impulszähler 4 \(Volumen 5\) | 1 |  |
 | 109 |  | Impulse | 256 |  |
+| 109 |  | Impulszähler 4 \(Volumen 5\) | 256 |  |
 | 110 |  | Impulse | 65536 |  |
 | 110 |  | Impulszähler 4 \(Volumen 5\) | 65536 |  |
-| 111 |  | Impulszähler 4 \(Volumen 5\) | 16777216 |  |
 | 111 |  | Impulse | 16777216 |  |
-| 112 |  | Impulszähler 5 \(Strom 1\) | 1 |  |
+| 111 |  | Impulszähler 4 \(Volumen 5\) | 16777216 |  |
 | 112 |  | Impulse | 1 |  |
-| 113 |  | Impulszähler 5 \(Strom 1\) | 256 |  |
+| 112 |  | Impulszähler 5 \(Strom 1\) | 1 |  |
 | 113 |  | Impulse | 256 |  |
+| 113 |  | Impulszähler 5 \(Strom 1\) | 256 |  |
 | 114 |  | Impulse | 65536 |  |
 | 114 |  | Impulszähler 5 \(Strom 1\) | 65536 |  |
-| 115 |  | Impulszähler 5 \(Strom 1\) | 16777216 |  |
 | 115 |  | Impulse | 16777216 |  |
-| 116 |  | Impulszähler 6 \(Strom 2\) | 1 |  |
+| 115 |  | Impulszähler 5 \(Strom 1\) | 16777216 |  |
 | 116 |  | Impulse | 1 |  |
+| 116 |  | Impulszähler 6 \(Strom 2\) | 1 |  |
 | 117 |  | Impulse | 256 |  |
 | 117 |  | Impulszähler 6 \(Strom 2\) | 256 |  |
-| 118 |  | Impulszähler 6 \(Strom 2\) | 65536 |  |
 | 118 |  | Impulse | 65536 |  |
-| 119 |  | Impulszähler 6 \(Strom 2\) | 16777216 |  |
+| 118 |  | Impulszähler 6 \(Strom 2\) | 65536 |  |
 | 119 |  | Impulse | 16777216 |  |
-| 120 |  | Impulszähler 7 \(th. Energie 1\) | 1 |  |
+| 119 |  | Impulszähler 6 \(Strom 2\) | 16777216 |  |
 | 120 |  | Impulse | 1 |  |
-| 121 |  | Impulszähler 7 \(th. Energie 1\) | 256 |  |
+| 120 |  | Impulszähler 7 \(th. Energie 1\) | 1 |  |
 | 121 |  | Impulse | 256 |  |
+| 121 |  | Impulszähler 7 \(th. Energie 1\) | 256 |  |
 | 122 |  | Impulse | 65536 |  |
 | 122 |  | Impulszähler 7 \(th. Energie 1\) | 65536 |  |
 | 123 |  | Impulse | 16777216 |  |
@@ -9262,8 +9699,8 @@ title: VBus Packets
 | 124 |  | Impulszähler 8 \(th. Energie 2\) | 1 |  |
 | 125 |  | Impulse | 256 |  |
 | 125 |  | Impulszähler 8 \(th. Energie 2\) | 256 |  |
-| 126 |  | Impulszähler 8 \(th. Energie 2\) | 65536 |  |
 | 126 |  | Impulse | 65536 |  |
+| 126 |  | Impulszähler 8 \(th. Energie 2\) | 65536 |  |
 | 127 |  | Impulse | 16777216 |  |
 | 127 |  | Impulszähler 8 \(th. Energie 2\) | 16777216 |  |
 | 128 |  | Impulse | 1 |  |
@@ -12026,5 +12463,5 @@ title: VBus Packets
 
 
 
-> Based on VSF dated 20190202
+> Based on VSF dated 20191129
 
