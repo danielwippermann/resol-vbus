@@ -116,6 +116,9 @@ into your shell:
 
 ## Work in progress
 
+
+## Version 0.21.0 (2020-05-02)
+
 - [BREAKING CHANGE] Returning a `Promise` from `filterPacket` or `filterDatagram` callbacks
     The `Connection#transceive` method and many of the helper methods that use it
     accept a `filterPacket` and/or `filterDatagram` callback. Those callbacks get called
