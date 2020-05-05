@@ -67,14 +67,7 @@ function generatePacketTitle(specFile, packet) {
 }
 
 
-async function generatePacketStructureMarkdown(vsfFilename) {
-    let specFile;
-    if (vsfFilename) {
-        specFile = await vbus.SpecificationFile.loadFromFile(vsfFilename);
-    } else {
-        specFile = vbus.SpecificationFile.getDefaultSpecificationFile();
-    }
-
+async function generatePacketStructureMarkdown(specFile) {
     const specData = specFile.specificationData;
 
     const lines = [];
@@ -178,13 +171,7 @@ async function generatePacketStructureMarkdown(vsfFilename) {
 }
 
 
-async function generatePacketFieldListMarkdown(vsfFilename) {
-    let specFile;
-    if (vsfFilename) {
-        specFile = await vbus.SpecificationFile.loadFromFile(vsfFilename);
-    } else {
-        specFile = vbus.SpecificationFile.getDefaultSpecificationFile();
-    }
+async function generatePacketFieldListMarkdown(specFile) {
     const specData = specFile.specificationData;
 
     const lines = [];
@@ -286,27 +273,84 @@ async function generatePacketFieldListMarkdown(vsfFilename) {
 }
 
 
-function reportUsageError() {
+function reportUsageError(exitCode, message) {
+    if (message) {
+        console.log(`${message}\n`);
+    }
+
     console.log(`USAGE: ${process.argv [1]} [--packetStructure|--packetFields]`);
-    process.exit(1);
+    process.exit(exitCode);
 }
 
 
 async function main(args) {
-    if (args.length < 1) {
-        reportUsageError();
-    } else if (args [0] === '--packetStructure') {
-        return generatePacketStructureMarkdown(args [1]);
-    } else if (args [0] === '--packetFields') {
-        return generatePacketFieldListMarkdown(args [1]);
-    } else {
-        reportUsageError();
+    function consumeOption() {
+        const arg = args.shift();
+        if (arg.slice(0, 1) !== '-') {
+            usage(1, `Expected options, but got "${arg}"`);
+        }
+        return arg;
     }
+
+    function consumeArg() {
+        const arg = args.shift();
+        if (arg == null) {
+            usage(1, `Expected argument, but got nothing`);
+        } else if (arg.slice(0, 1) === '-') {
+            usage(1, `Expected argument, but got "${arg}"`);
+        }
+        return arg;
+    }
+
+    const argv = {
+        vsfFilename: null,
+        output: null,
+    };
+
+    while (args.length > 0) {
+        const option = consumeOption();
+        if (option === '--help') {
+            reportUsageError(0);
+        } else if (option === '--vsf') {
+            argv.vsfFilename = consumeArg();
+        } else if (option === '--packetStructure') {
+            if (argv.output) {
+                reportUsageError(1, `Cannot use both "${option}" and "${argv.output}"`);
+            }
+            argv.output = option;
+        } else if (option === '--packetFields') {
+            if (argv.output) {
+                reportUsageError(1, `Cannot use both "${option}" and "${argv.output}"`);
+            }
+            argv.output = option;
+        } else {
+            usage(1, `Unexpected option "${option}"`);
+        }
+    }
+
+    let specFile;
+    if (argv.vsfFilename) {
+        specFile = await vbus.SpecificationFile.loadFromFile(argv.vsfFilename);
+    } else {
+        specFile = vbus.SpecificationFile.getDefaultSpecificationFile();
+    }
+
+
+    let contents;
+    if (argv.output === '--packetStructure') {
+        contents = await generatePacketStructureMarkdown(specFile);
+    } else if (argv.output === '--packetFields') {
+        contents = await generatePacketFieldListMarkdown(specFile);
+    } else {
+        reportUsageError(1, 'No output option supplied');
+    }
+
+    console.log(contents);
+
+    return contents;
 }
 
 
-main(process.argv.slice(2)).then(contents => {
-    console.log(contents);
-}, err => {
+main(process.argv.slice(2)).then(null, err => {
     console.log(err);
 });
