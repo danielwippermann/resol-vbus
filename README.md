@@ -60,14 +60,12 @@ If you want to contribute to it you might want to check out the latest version f
 To start a single run of the test suite just enter the following command
 into your shell:
 
-	⌘  gulp
+	⌘  npm test
 
-In addition to that the project is configured to watch its own files for
-modification and rerun the documentation generator and test suite every
-time you hit save on a file. To run that just enter the following command
-into your shell:
+To run the tests after each change to the source just enter the
+following command into your shell:
 
-	⌘  gulp watch
+	⌘  npm test -- --watch
 
 
 
@@ -269,7 +267,7 @@ All other trademarks are the property of their respective owners.
 
 The MIT License (MIT)
 
-Copyright (c) 2013-2018, Daniel Wippermann.
+Copyright (c) 2013-2020, Daniel Wippermann.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
