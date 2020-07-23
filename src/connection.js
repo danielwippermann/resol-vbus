@@ -493,11 +493,14 @@ const Connection = extend(Duplex, /** @lends Connection# */ {
 
         const subIndex = (valueId >> 16) & 0x7F;
         valueId = valueId & 0xFFFF;
+        const reqCommand = 0x0300 | subIndex;
+        const ackCommand = 0x0100 | subIndex;
+        const nackCommand = 0x4300 | subIndex;
 
         const txDatagram = new Datagram({
             destinationAddress: address,
             sourceAddress: this.selfAddress,
-            command: 0x0300 | subIndex,
+            command: reqCommand,
             valueId,
             value: 0
         }).toLiveBuffer();
@@ -507,12 +510,18 @@ const Connection = extend(Duplex, /** @lends Connection# */ {
                 // nop
             } else if (rxDatagram.sourceAddress !== address) {
                 // nop
-            } else if (rxDatagram.command !== (0x0100 | subIndex)) {
-                // nop
-            } else if (rxDatagram.valueId !== valueId) {
-                // nop
-            } else {
-                done(null, rxDatagram);
+            } else if (rxDatagram.command === ackCommand) {
+                if (rxDatagram.valueId !== valueId) {
+                    // nop
+                } else {
+                    done(null, rxDatagram);
+                }
+            } else if (rxDatagram.command !== nackCommand) {
+                if (rxDatagram.valueId !== valueId) {
+                    // nop
+                } else {
+                    done(null, rxDatagram);
+                }
             }
         };
 
