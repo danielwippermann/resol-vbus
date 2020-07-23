@@ -251,6 +251,7 @@ First release to the NPM registry.
 * Paul Hanna
 * Sabine Käß
 * Andrew Thompson (@thompsa)
+* @t9zx
 
 
 
