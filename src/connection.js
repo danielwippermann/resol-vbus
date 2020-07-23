@@ -894,6 +894,70 @@ const Connection = extend(Duplex, /** @lends Connection# */ {
         return this.transceive(txDatagram, options);
     },
 
+    ping(address, valueId, value, options) {
+        options = _.defaults({}, options, {
+            timeout: 500,
+            timeoutIncr: 500,
+            tries: 3,
+        });
+
+        const txDatagram = new Datagram({
+            destinationAddress: address,
+            sourceAddress: this.selfAddress,
+            command: 0x1700,
+            valueId: valueId,
+            value: value,
+        }).toLiveBuffer();
+
+        options.filterDatagram = async (rxDatagram) => {
+            if (rxDatagram.destinationAddress !== this.selfAddress) {
+                // nop
+            } else if (rxDatagram.sourceAddress !== address) {
+                // nop
+            } else if (rxDatagram.command !== 0x1701) {
+                // nop
+            } else if (rxDatagram.valueId !== valueId) {
+                // nop
+            } else if (rxDatagram.value !== value) {
+                // nop
+            } else {
+                return rxDatagram;
+            }
+        };
+
+        return this.transceive(txDatagram, options);
+    },
+
+    getStorageActivity(address, options) {
+        options = _.defaults({}, options, {
+            timeout: 500,
+            timeoutIncr: 500,
+            tries: 3,
+        });
+
+        const txDatagram = new Datagram({
+            destinationAddress: address,
+            sourceAddress: this.selfAddress,
+            command: 0x1702,
+            valueId: 0,
+            value: 0,
+        }).toLiveBuffer();
+
+        options.filterDatagram = async (rxDatagram) => {
+            if (rxDatagram.destinationAddress !== this.selfAddress) {
+                // nop
+            } else if (rxDatagram.sourceAddress !== address) {
+                // nop
+            } else if (rxDatagram.command !== 0x1703) {
+                // nop
+            } else {
+                return rxDatagram;
+            }
+        };
+
+        return this.transceive(txDatagram, options);
+    },
+
     /**
      * Creates a promise that resolves when this Connection
      * instance is connected and rejects if it is disconnected.
