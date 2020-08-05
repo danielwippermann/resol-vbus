@@ -905,8 +905,8 @@ const Connection = extend(Duplex, /** @lends Connection# */ {
             destinationAddress: address,
             sourceAddress: this.selfAddress,
             command: 0x1700,
-            valueId: valueId,
-            value: value,
+            valueId,
+            value,
         }).toLiveBuffer();
 
         options.filterDatagram = async (rxDatagram) => {

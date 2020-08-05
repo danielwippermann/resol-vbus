@@ -15,11 +15,11 @@ const _ = require('./lodash');
 
 
 const knownLanguages = {
-    'de': {
+    de: {
         moment: 'de',
         numeral: 'de',
     },
-    'en': {
+    en: {
         moment: 'en',
         numeral: 'en',
     },

@@ -93,7 +93,7 @@ const TcpDataSourceProvider = DataSourceProvider.extend(/** @lends TcpDataSource
             for (const promise of promises) {
                 promise.then(info => {
                     result.push(info);
-                }, err => {
+                }, () => {
                     // console.log(err);
                 }).then(() => {
                     count += 1;

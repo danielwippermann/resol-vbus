@@ -20,6 +20,7 @@ module.exports = {
         'object-shorthand': ['error', 'always'],
         'no-var': 'error',
         'prefer-const': 'error',
+        'array-bracket-spacing': 'off',
     },
     env: {
         node: true,

@@ -217,7 +217,7 @@ const TextConverter = Converter.extend(/** @lends TextConverter# */ {
         } else if (typeof format === 'function') {
             return format(now);
         } else {
-            throw new Error(`Unsupported format specifier`);
+            throw new Error('Unsupported format specifier');
         }
     },
 

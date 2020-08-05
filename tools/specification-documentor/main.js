@@ -287,7 +287,7 @@ async function main(args) {
     function consumeOption() {
         const arg = args.shift();
         if (arg.slice(0, 1) !== '-') {
-            usage(1, `Expected options, but got "${arg}"`);
+            reportUsageError(1, `Expected options, but got "${arg}"`);
         }
         return arg;
     }
@@ -295,9 +295,9 @@ async function main(args) {
     function consumeArg() {
         const arg = args.shift();
         if (arg == null) {
-            usage(1, `Expected argument, but got nothing`);
+            reportUsageError(1, 'Expected argument, but got nothing');
         } else if (arg.slice(0, 1) === '-') {
-            usage(1, `Expected argument, but got "${arg}"`);
+            reportUsageError(1, `Expected argument, but got "${arg}"`);
         }
         return arg;
     }
@@ -324,7 +324,7 @@ async function main(args) {
             }
             argv.output = option;
         } else {
-            usage(1, `Unexpected option "${option}"`);
+            reportUsageError(1, `Unexpected option "${option}"`);
         }
     }
 
