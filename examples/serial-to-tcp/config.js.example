@@ -1,0 +1,15 @@
+module.exports = {
+    // A list of serial ports to connect to
+    serialPorts: [{
+        channel: 1,
+        path: '/dev/tty.usbmodem141301',
+        baudrate: 9600,
+    }, {
+        channel: 2,
+        path: '/dev/tty.SLAB...',
+        baudrate: 9600,
+    }],
+
+    // The TCP port on which the service is listening for incoming connections
+    port: 7053,
+};
