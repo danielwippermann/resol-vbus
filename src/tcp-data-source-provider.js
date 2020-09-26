@@ -173,9 +173,9 @@ const TcpDataSourceProvider = DataSourceProvider.extend(/** @lends TcpDataSource
     async fetchDeviceInformation(address, port) {
         if (port === undefined) {
             try {
-                return TcpDataSourceProvider.fetchDeviceInformation(address, 80);
+                return await TcpDataSourceProvider.fetchDeviceInformation(address, 80);
             } catch (err) {
-                return TcpDataSourceProvider.fetchDeviceInformation(address, 3000);
+                return await TcpDataSourceProvider.fetchDeviceInformation(address, 3000);
             }
         } else {
             return new Promise((resolve, reject) => {
