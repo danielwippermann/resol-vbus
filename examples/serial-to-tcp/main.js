@@ -1,3 +1,7 @@
+const dgram = require('dgram');
+const http = require('http');
+
+
 const SerialPort = require('serialport');
 
 
@@ -147,6 +151,55 @@ async function createLogging() {
 }
 
 
+async function startDiscoveryServices() {
+    debugLog('Starting discovery web service...');
+
+    const webReplyContent = [
+        'vendor = "RESOL"',
+        'product = "DL2"',
+        'serial = "001E66000000"',
+        'version = "2.1.0"',
+        'build = "201311280853"',
+        'name = "DL2-001E66000000"',
+        'features = "vbus,dl2"',
+    ].join('\n');
+
+    const webServer = http.createServer((req, res) => {
+        res.writeHead(200, { 'Content-Type': 'text/plain' });
+        res.end(webReplyContent);
+    });
+
+    webServer.on('clientError', (err, socket) => {
+        debugLog(err);
+        socket.end('HTTP/1.1 400 Bad Request\r\n\r\n');
+    });
+
+    webServer.listen(3000);
+
+    debugLog('Starting discovery broadcast service...');
+
+    const queryString = '---RESOL-BROADCAST-QUERY---';
+    const replyBuffer = Buffer.from('---RESOL-BROADCAST-REPLY---', 'utf-8');
+
+    const discoveryServer = dgram.createSocket('udp4');
+
+    discoveryServer.on('error', err => {
+        debugLog('error', err);
+    });
+
+    discoveryServer.on('message', (msg, remote) => {
+        // console.log('message', msg, remote);
+
+        let msgString = msg.toString('utf-8');
+        if (msgString === queryString) {
+            discoveryServer.send(replyBuffer, remote.port, remote.address);
+        }
+    });
+
+    discoveryServer.bind(7053);
+}
+
+
 async function main() {
     for (const serialPortConfig of config.serialPorts) {
         await openSerialPort(serialPortConfig);
@@ -155,6 +208,8 @@ async function main() {
     logging = await createLogging();
 
     await createTcpEndpoint();
+
+    await startDiscoveryServices();
 
     debugLog('Waiting for connections...');
 }
