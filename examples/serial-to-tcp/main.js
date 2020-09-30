@@ -85,8 +85,10 @@ async function createTcpEndpoint(serialPort) {
         const serialPort = serialPorts.find(port => port.channel === channel);
 
         if (serialPort) {
+            debugLog(`Negotiated connection for channel ${channel}...`);
             acceptConnection(serialPort.port, connectionInfo.socket);
         } else {
+            debugLog(`Rejecting connection for unknown channel ${channel}...`);
             connectionInfo.socket.end();
         }
     });
