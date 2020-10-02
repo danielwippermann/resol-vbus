@@ -84,7 +84,7 @@ following command into your shell:
 ## <a name="specs"></a>Technical Information & Specifications
 
 * [RESOL VBus Google Group](https://groups.google.com/forum/#!forum/resol-vbus)
-* [RESOL VBus Protocol Specification](https://drive.google.com/file/d/0B4wMTuLGRPi2RnU0Vm1tTG5wM1k/edit?usp=sharing)
+* [RESOL VBus Protocol Specification](http://danielwippermann.github.io/resol-vbus/vbus-specification.html)
 * [RESOL VBus Packet List](http://danielwippermann.github.io/resol-vbus/vbus-packets.html)
 * [RESOL VBus Recording File Format](http://danielwippermann.github.io/resol-vbus/vbus-recording-file-format.html)
 * [RESOL VBus Specification File Format v1](http://danielwippermann.github.io/resol-vbus/vbus-specification-file-format-v1.html)
