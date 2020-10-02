@@ -81,7 +81,7 @@ async function createTcpEndpoint(serialPort) {
     });
 
     endpoint.on('connection', connectionInfo => {
-        const channel = +connectionInfo.channel;
+        const channel = +(connectionInfo.channel || '0');
         const serialPort = serialPorts.find(port => port.channel === channel);
 
         if (serialPort) {
