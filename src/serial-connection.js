@@ -7,7 +7,9 @@ let SerialPort;
 try {
     SerialPort = require('serialport');
 } catch (ex) {
-    // eat it
+    // throw an error
+    console.log('Error requiring serialport', ex);
+    process.exit(1);
 }
 
 
