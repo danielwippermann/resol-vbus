@@ -2,17 +2,6 @@
 'use strict';
 
 
-
-let SerialPort;
-try {
-    SerialPort = require('serialport');
-} catch (ex) {
-    // throw an error
-    console.log('Error requiring serialport', ex);
-    process.exit(1);
-}
-
-
 const Connection = require('./connection');
 const _ = require('./lodash');
 
@@ -203,12 +192,9 @@ const SerialConnection = Connection.extend(/** @lends SerialConnection# */ {
     },
 
     _createSerialPort(path, options, onCompletion) {
+        const SerialPort = require('serialport');
         return new SerialPort(path, options, null, onCompletion);
     }
-
-}, {
-
-    hasSerialPortSupport: !!SerialPort,
 
 });
 

@@ -3,11 +3,6 @@
 
 
 
-const {
-    SerialDataSourceProvider,
-} = require('./resol-vbus');
-
-
 const jestExpect = global.expect;
 const expect = require('./expect');
 const _ = require('./lodash');
@@ -61,7 +56,13 @@ const testUtils = {
     serialPortPath,
 
     ifHasSerialPortIt(msg) {
-        if (!SerialDataSourceProvider.hasSerialPortSupport) {
+        let serialPortSupport = false;
+        try {
+            require('serialport');
+            serialPortSupport = true;
+        } catch (ex) {
+        }
+        if (!serialPortSupport) {
             xit(msg + ' (missing serial port support)', () => {});
         } else if (!serialPortPath) {
             xit(msg + ' (missing serial port path)', () => {});
