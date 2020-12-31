@@ -1178,6 +1178,8 @@ title: VBus Packets
 | 11 |  | Fernversteller | 25.6 |  °C |
 | 12 |  | Aussentemperatur | 0.1 |  °C |
 | 13 |  | Aussentemperatur | 25.6 |  °C |
+| 14 |  | Speichertemperatur | 0.1 |  °C |
+| 15 |  | Speichertemperatur | 25.6 |  °C |
 | 16 |  | Vorlaufsolltemperatur | 0.1 |  °C |
 | 17 |  | Vorlaufsolltemperatur | 25.6 |  °C |
 | 18 |  | Modulversion | 1 |  |
@@ -7229,11 +7231,7 @@ title: VBus Packets
 | 33 |  | Sensorbruch-Nummer | 1 |  |
 | 34 |  | Sensorkurzschluss-Nummer | 1 |  |
 | 42 |  | Systemzeit | 1 |  |
-| 42 |  | Systemzeit2 | 1 |  |
 | 43 |  | Systemzeit | 256 |  |
-| 43 |  | Systemzeit2 | 256 |  |
-
-
 
 ### <a name="0010_7211_0100"></a>DFA (0x0010) <= SKSC3 \[HK1\] (0x7211), command 0x0100
 
@@ -12191,7 +12189,10 @@ title: VBus Packets
 | 12 |  | Mischerlaufzeit | 1 |  s |
 | 13 |  | Sommerbetrieb | 1 |  °C |
 | 14 |  | Info Schaltuhr | 1 |  |
-
+| 17 |  | Aussentemperatur | 0.1 | °C |
+| 18 |  | Aussentemperatur | 25.6 | °C |
+| 19 |  | Vorlaufsolltemperatur | 0.1 | °C |
+| 20 |  | Vorlaufsolltemperatur | 25.6 | °C |
 
 
 ### <a name="5260_5260_0102"></a>Kaskade BasisAdr (0x5260) <= Kaskade BasisAdr (0x5260 - 0x526F), command 0x0102
