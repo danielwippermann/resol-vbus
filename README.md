@@ -110,6 +110,11 @@ following command into your shell:
 - Remove current `ConfigurationOptimizer` constructs in favor of RESOL's official support.
 
 
+## Projects using `resol-vbus`
+
+- https://github.com/BenniG82/vbus-to-homie
+
+
 ## Changelog
 
 ## Work in progress
