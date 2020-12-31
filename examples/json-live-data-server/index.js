@@ -159,9 +159,11 @@ const main = async () => {
     });
 
     hsc.on('headerSet', (headerSet) => {
-        writeHeaderSet(config.loggingFilename).then(null, err => {
-            logger.error(err);
-        });
+        if (config.loggingFilename) {
+            writeHeaderSet(config.loggingFilename).then(null, err => {
+                logger.error(err);
+            });
+        }
     });
 
     await connection.connect();
