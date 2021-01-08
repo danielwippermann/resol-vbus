@@ -35,7 +35,7 @@ title: VBus Packets
 - [DFA (0x0010) <= Vitosolic 200 \[Regler\] (0x1060), command 0x0100](#0010_1060_0100)
 - [DFA (0x0010) <= Vitosolic 200 \[WMZ 1\] (0x1065 - 0x1067), command 0x0100](#0010_1064_0100)
 - [DFA (0x0010) <= DeltaSol MX - SorTech - eCoo \[Regler\] (0x1100), command 0x0100](#0010_1100_0100)
-- [DFA (0x0010) <= Kioto Laderegler (0x1117), command 0x0100](#0010_1117_0100)
+- [DFA (0x0010) <= Kioto STRGO (0x1117), command 0x0100](#0010_1117_0100)
 - [DFA (0x0010) <= Sol Plus SL (0x1119), command 0x0100](#0010_1119_0100)
 - [DFA (0x0010) <= DeltaTherm PV (0x111E), command 0x0100](#0010_111E_0100)
 - [DFA (0x0010) <= ETHERM (0x111F), command 0x0100](#0010_111F_0100)
@@ -70,6 +70,7 @@ title: VBus Packets
 - [DFA (0x0010) <= DeltaTherm HC max \[WMZ\] (0x1730 - 0x173F), command 0x0100](#0010_1730_0100)
 - [DFA (0x0010) <= DeltaTherm HC max \[Modul\] (0x1740 - 0x174F), command 0x0100](#0010_1740_0100)
 - [DFA (0x0010) <= DeltaSol MX \[Impulszähler\] (0x1800 - 0x180F), command 0x0100](#0010_1800_0100)
+- [DFA (0x0010) <= DeltaSol BX Plus \[Impulszähler\] (0x1830 - 0x183F), command 0x0100](#0010_1830_0100)
 - [DFA (0x0010) <= DeltaSol CS Plus (0x2211), command 0x0100](#0010_2211_0100)
 - [DFA (0x0010) <= DeltaSol CS Plus 2.x (0x2213), command 0x0100](#0010_2213_0100)
 - [DFA (0x0010) <= Oranier HK \[Regler\] (0x2231), command 0x0100](#0010_2231_0100)
@@ -83,6 +84,12 @@ title: VBus Packets
 - [DFA (0x0010) <= DeltaSol SLL \[WMZ1\] (0x2272), command 0x0100](#0010_2272_0100)
 - [DFA (0x0010) <= HR Solar ADVANCED controller \[Regler\] (0x2360), command 0x0100](#0010_2360_0100)
 - [DFA (0x0010) <= HR Solar ADVANCED controller \[WMZ 1\] (0x2362), command 0x0100](#0010_2362_0100)
+- [DFA (0x0010) <= PHM (0x2370), command 0x0100](#0010_2370_0100)
+- [DFA (0x0010) <= PHM Heizstab 1 (0x2371), command 0x0100](#0010_2371_0100)
+- [DFA (0x0010) <= PHM Heizstab 2 (0x2372), command 0x0100](#0010_2372_0100)
+- [DFA (0x0010) <= PHM Heizstab 3 (0x2373), command 0x0100](#0010_2373_0100)
+- [DFA (0x0010) <= PHM Wärmepumpe (0x2374), command 0x0100](#0010_2374_0100)
+- [DFA (0x0010) <= PHM Wallbox (0x2375), command 0x0100](#0010_2375_0100)
 - [DFA (0x0010) <= WMZ-L10 (0x3011), command 0x0100](#0010_3011_0100)
 - [DFA (0x0010) <= Remeha RemaSol A (0x3112), command 0x0100](#0010_3112_0100)
 - [DFA (0x0010) <= DeDietrich Diemasol Ai v2 (0x3113), command 0x0100](#0010_3113_0100)
@@ -179,6 +186,7 @@ title: VBus Packets
 - [DFA (0x0010) <= SLR XT-Erweiterungsmodul 5 (0x7346), command 0x0100](#0010_7346_0100)
 - [DFA (0x0010) <= DeltaSol ES (0x7411), command 0x0100](#0010_7411_0100)
 - [DFA (0x0010) <= DeltaSol BX (0x7421), command 0x0100](#0010_7421_0100)
+- [DFA (0x0010) <= IZEN DTi2 (0x7422), command 0x0100](#0010_7422_0100)
 - [DFA (0x0010) <= DeltaSol BXL (0x7428), command 0x0100](#0010_7428_0100)
 - [DFA (0x0010) <= ZEN DT6 \[Regler\] (0x7441), command 0x0100](#0010_7441_0100)
 - [DFA (0x0010) <= ZEN DT6 \[WMZ1\] (0x7442), command 0x0100](#0010_7442_0100)
@@ -212,7 +220,7 @@ title: VBus Packets
 - [DFA (0x0010) <= COSMO UNO \[WMZ1\] (0x7841), command 0x0100](#0010_7841_0100)
 - [DFA (0x0010) <= PAW SOLEX SC5.14 \[Regler\] (0x7910), command 0x0100](#0010_7910_0100)
 - [DFA (0x0010) <= PAW SOLEX SC5.14 \[Module\] (0x7911), command 0x0100](#0010_7911_0100)
-- [DFA (0x0010) <= PAW SOLEX SC5.14 \[Heizkreis\] (0x7920 - 0x792F), command 0x0100](#0010_7920_0100)
+- [DFA (0x0010) <= PAW SOLEX SC5.14 \[Heizkreis Intern\] (0x7920 - 0x792F), command 0x0100](#0010_7920_0100)
 - [DFA (0x0010) <= PAW SOLEX SC5.14 \[WMZ\] (0x7930 - 0x793F), command 0x0100](#0010_7930_0100)
 - [DFA (0x0010) <= FRISTA-mix (0x7D04), command 0x0100](#0010_7D04_0100)
 - [DFA (0x0010) <= DeltaSol MX \[Regler\] (0x7E11), command 0x0100](#0010_7E11_0100)
@@ -335,7 +343,7 @@ title: VBus Packets
 | 0x1066 | Vitosolic 200 \[WMZ 2\] |
 | 0x1100 | DeltaSol MX - SorTech - eCoo \[Regler\] |
 | 0x1111 | EC1 |
-| 0x1117 | Kioto Laderegler |
+| 0x1117 | Kioto STRGO |
 | 0x1119 | Sol Plus SL |
 | 0x111E | DeltaTherm PV |
 | 0x111F | ETHERM |
@@ -506,134 +514,150 @@ title: VBus Packets
 | 0x180D | DeltaSol MX \[Impulszähler #13\] |
 | 0x180E | DeltaSol MX \[Impulszähler #14\] |
 | 0x180F | DeltaSol MX \[Impulszähler #15\] |
-| 0x2000 | Digital Sensor #0 |
-| 0x2001 | Digital Sensor #1 |
-| 0x2002 | Digital Sensor #2 |
-| 0x2003 | Digital Sensor #3 |
-| 0x2004 | Digital Sensor #4 |
-| 0x2005 | Digital Sensor #5 |
-| 0x2006 | Digital Sensor #6 |
-| 0x2007 | Digital Sensor #7 |
-| 0x2008 | Digital Sensor #8 |
-| 0x2009 | Digital Sensor #9 |
-| 0x200A | Digital Sensor #10 |
-| 0x200B | Digital Sensor #11 |
-| 0x200C | Digital Sensor #12 |
-| 0x200D | Digital Sensor #13 |
-| 0x200E | Digital Sensor #14 |
-| 0x200F | Digital Sensor #15 |
-| 0x2010 | Digital Sensor #16 |
-| 0x2011 | Digital Sensor #17 |
-| 0x2012 | Digital Sensor #18 |
-| 0x2013 | Digital Sensor #19 |
-| 0x2014 | Digital Sensor #20 |
-| 0x2015 | Digital Sensor #21 |
-| 0x2016 | Digital Sensor #22 |
-| 0x2017 | Digital Sensor #23 |
-| 0x2018 | Digital Sensor #24 |
-| 0x2019 | Digital Sensor #25 |
-| 0x201A | Digital Sensor #26 |
-| 0x201B | Digital Sensor #27 |
-| 0x201C | Digital Sensor #28 |
-| 0x201D | Digital Sensor #29 |
-| 0x201E | Digital Sensor #30 |
-| 0x201F | Digital Sensor #31 |
-| 0x2020 | Digital Sensor #32 |
-| 0x2021 | Digital Sensor #33 |
-| 0x2022 | Digital Sensor #34 |
-| 0x2023 | Digital Sensor #35 |
-| 0x2024 | Digital Sensor #36 |
-| 0x2025 | Digital Sensor #37 |
-| 0x2026 | Digital Sensor #38 |
-| 0x2027 | Digital Sensor #39 |
-| 0x2028 | Digital Sensor #40 |
-| 0x2029 | Digital Sensor #41 |
-| 0x202A | Digital Sensor #42 |
-| 0x202B | Digital Sensor #43 |
-| 0x202C | Digital Sensor #44 |
-| 0x202D | Digital Sensor #45 |
-| 0x202E | Digital Sensor #46 |
-| 0x202F | Digital Sensor #47 |
-| 0x2030 | Digital Sensor #48 |
-| 0x2031 | Digital Sensor #49 |
-| 0x2032 | Digital Sensor #50 |
-| 0x2033 | Digital Sensor #51 |
-| 0x2034 | Digital Sensor #52 |
-| 0x2035 | Digital Sensor #53 |
-| 0x2036 | Digital Sensor #54 |
-| 0x2037 | Digital Sensor #55 |
-| 0x2038 | Digital Sensor #56 |
-| 0x2039 | Digital Sensor #57 |
-| 0x203A | Digital Sensor #58 |
-| 0x203B | Digital Sensor #59 |
-| 0x203C | Digital Sensor #60 |
-| 0x203D | Digital Sensor #61 |
-| 0x203E | Digital Sensor #62 |
-| 0x203F | Digital Sensor #63 |
-| 0x2040 | Digital Sensor #64 |
-| 0x2041 | Digital Sensor #65 |
-| 0x2042 | Digital Sensor #66 |
-| 0x2043 | Digital Sensor #67 |
-| 0x2044 | Digital Sensor #68 |
-| 0x2045 | Digital Sensor #69 |
-| 0x2046 | Digital Sensor #70 |
-| 0x2047 | Digital Sensor #71 |
-| 0x2048 | Digital Sensor #72 |
-| 0x2049 | Digital Sensor #73 |
-| 0x204A | Digital Sensor #74 |
-| 0x204B | Digital Sensor #75 |
-| 0x204C | Digital Sensor #76 |
-| 0x204D | Digital Sensor #77 |
-| 0x204E | Digital Sensor #78 |
-| 0x204F | Digital Sensor #79 |
-| 0x2050 | Digital Sensor #80 |
-| 0x2051 | Digital Sensor #81 |
-| 0x2052 | Digital Sensor #82 |
-| 0x2053 | Digital Sensor #83 |
-| 0x2054 | Digital Sensor #84 |
-| 0x2055 | Digital Sensor #85 |
-| 0x2056 | Digital Sensor #86 |
-| 0x2057 | Digital Sensor #87 |
-| 0x2058 | Digital Sensor #88 |
-| 0x2059 | Digital Sensor #89 |
-| 0x205A | Digital Sensor #90 |
-| 0x205B | Digital Sensor #91 |
-| 0x205C | Digital Sensor #92 |
-| 0x205D | Digital Sensor #93 |
-| 0x205E | Digital Sensor #94 |
-| 0x205F | Digital Sensor #95 |
-| 0x2060 | Digital Sensor #96 |
-| 0x2061 | Digital Sensor #97 |
-| 0x2062 | Digital Sensor #98 |
-| 0x2063 | Digital Sensor #99 |
-| 0x2064 | Digital Sensor #100 |
-| 0x2065 | Digital Sensor #101 |
-| 0x2066 | Digital Sensor #102 |
-| 0x2067 | Digital Sensor #103 |
-| 0x2068 | Digital Sensor #104 |
-| 0x2069 | Digital Sensor #105 |
-| 0x206A | Digital Sensor #106 |
-| 0x206B | Digital Sensor #107 |
-| 0x206C | Digital Sensor #108 |
-| 0x206D | Digital Sensor #109 |
-| 0x206E | Digital Sensor #110 |
-| 0x206F | Digital Sensor #111 |
-| 0x2070 | Digital Sensor #112 |
-| 0x2071 | Digital Sensor #113 |
-| 0x2072 | Digital Sensor #114 |
-| 0x2073 | Digital Sensor #115 |
-| 0x2074 | Digital Sensor #116 |
-| 0x2075 | Digital Sensor #117 |
-| 0x2076 | Digital Sensor #118 |
-| 0x2077 | Digital Sensor #119 |
-| 0x2078 | Digital Sensor #120 |
-| 0x2079 | Digital Sensor #121 |
-| 0x207A | Digital Sensor #122 |
-| 0x207B | Digital Sensor #123 |
-| 0x207C | Digital Sensor #124 |
-| 0x207D | Digital Sensor #125 |
-| 0x207E | Digital Sensor #126 |
-| 0x207F | Digital Sensor #127 |
+| 0x1830 | DeltaSol BX Plus \[Impulszähler #0\] |
+| 0x1831 | DeltaSol BX Plus \[Impulszähler #1\] |
+| 0x1832 | DeltaSol BX Plus \[Impulszähler #2\] |
+| 0x1833 | DeltaSol BX Plus \[Impulszähler #3\] |
+| 0x1834 | DeltaSol BX Plus \[Impulszähler #4\] |
+| 0x1835 | DeltaSol BX Plus \[Impulszähler #5\] |
+| 0x1836 | DeltaSol BX Plus \[Impulszähler #6\] |
+| 0x1837 | DeltaSol BX Plus \[Impulszähler #7\] |
+| 0x1838 | DeltaSol BX Plus \[Impulszähler #8\] |
+| 0x1839 | DeltaSol BX Plus \[Impulszähler #9\] |
+| 0x183A | DeltaSol BX Plus \[Impulszähler #10\] |
+| 0x183B | DeltaSol BX Plus \[Impulszähler #11\] |
+| 0x183C | DeltaSol BX Plus \[Impulszähler #12\] |
+| 0x183D | DeltaSol BX Plus \[Impulszähler #13\] |
+| 0x183E | DeltaSol BX Plus \[Impulszähler #14\] |
+| 0x183F | DeltaSol BX Plus \[Impulszähler #15\] |
+| 0x2000 | Digitalsensor #0 |
+| 0x2001 | Digitalsensor #1 |
+| 0x2002 | Digitalsensor #2 |
+| 0x2003 | Digitalsensor #3 |
+| 0x2004 | Digitalsensor #4 |
+| 0x2005 | Digitalsensor #5 |
+| 0x2006 | Digitalsensor #6 |
+| 0x2007 | Digitalsensor #7 |
+| 0x2008 | Digitalsensor #8 |
+| 0x2009 | Digitalsensor #9 |
+| 0x200A | Digitalsensor #10 |
+| 0x200B | Digitalsensor #11 |
+| 0x200C | Digitalsensor #12 |
+| 0x200D | Digitalsensor #13 |
+| 0x200E | Digitalsensor #14 |
+| 0x200F | Digitalsensor #15 |
+| 0x2010 | Digitalsensor #16 |
+| 0x2011 | Digitalsensor #17 |
+| 0x2012 | Digitalsensor #18 |
+| 0x2013 | Digitalsensor #19 |
+| 0x2014 | Digitalsensor #20 |
+| 0x2015 | Digitalsensor #21 |
+| 0x2016 | Digitalsensor #22 |
+| 0x2017 | Digitalsensor #23 |
+| 0x2018 | Digitalsensor #24 |
+| 0x2019 | Digitalsensor #25 |
+| 0x201A | Digitalsensor #26 |
+| 0x201B | Digitalsensor #27 |
+| 0x201C | Digitalsensor #28 |
+| 0x201D | Digitalsensor #29 |
+| 0x201E | Digitalsensor #30 |
+| 0x201F | Digitalsensor #31 |
+| 0x2020 | Digitalsensor #32 |
+| 0x2021 | Digitalsensor #33 |
+| 0x2022 | Digitalsensor #34 |
+| 0x2023 | Digitalsensor #35 |
+| 0x2024 | Digitalsensor #36 |
+| 0x2025 | Digitalsensor #37 |
+| 0x2026 | Digitalsensor #38 |
+| 0x2027 | Digitalsensor #39 |
+| 0x2028 | Digitalsensor #40 |
+| 0x2029 | Digitalsensor #41 |
+| 0x202A | Digitalsensor #42 |
+| 0x202B | Digitalsensor #43 |
+| 0x202C | Digitalsensor #44 |
+| 0x202D | Digitalsensor #45 |
+| 0x202E | Digitalsensor #46 |
+| 0x202F | Digitalsensor #47 |
+| 0x2030 | Digitalsensor #48 |
+| 0x2031 | Digitalsensor #49 |
+| 0x2032 | Digitalsensor #50 |
+| 0x2033 | Digitalsensor #51 |
+| 0x2034 | Digitalsensor #52 |
+| 0x2035 | Digitalsensor #53 |
+| 0x2036 | Digitalsensor #54 |
+| 0x2037 | Digitalsensor #55 |
+| 0x2038 | Digitalsensor #56 |
+| 0x2039 | Digitalsensor #57 |
+| 0x203A | Digitalsensor #58 |
+| 0x203B | Digitalsensor #59 |
+| 0x203C | Digitalsensor #60 |
+| 0x203D | Digitalsensor #61 |
+| 0x203E | Digitalsensor #62 |
+| 0x203F | Digitalsensor #63 |
+| 0x2040 | Digitalsensor #64 |
+| 0x2041 | Digitalsensor #65 |
+| 0x2042 | Digitalsensor #66 |
+| 0x2043 | Digitalsensor #67 |
+| 0x2044 | Digitalsensor #68 |
+| 0x2045 | Digitalsensor #69 |
+| 0x2046 | Digitalsensor #70 |
+| 0x2047 | Digitalsensor #71 |
+| 0x2048 | Digitalsensor #72 |
+| 0x2049 | Digitalsensor #73 |
+| 0x204A | Digitalsensor #74 |
+| 0x204B | Digitalsensor #75 |
+| 0x204C | Digitalsensor #76 |
+| 0x204D | Digitalsensor #77 |
+| 0x204E | Digitalsensor #78 |
+| 0x204F | Digitalsensor #79 |
+| 0x2050 | Digitalsensor #80 |
+| 0x2051 | Digitalsensor #81 |
+| 0x2052 | Digitalsensor #82 |
+| 0x2053 | Digitalsensor #83 |
+| 0x2054 | Digitalsensor #84 |
+| 0x2055 | Digitalsensor #85 |
+| 0x2056 | Digitalsensor #86 |
+| 0x2057 | Digitalsensor #87 |
+| 0x2058 | Digitalsensor #88 |
+| 0x2059 | Digitalsensor #89 |
+| 0x205A | Digitalsensor #90 |
+| 0x205B | Digitalsensor #91 |
+| 0x205C | Digitalsensor #92 |
+| 0x205D | Digitalsensor #93 |
+| 0x205E | Digitalsensor #94 |
+| 0x205F | Digitalsensor #95 |
+| 0x2060 | Digitalsensor #96 |
+| 0x2061 | Digitalsensor #97 |
+| 0x2062 | Digitalsensor #98 |
+| 0x2063 | Digitalsensor #99 |
+| 0x2064 | Digitalsensor #100 |
+| 0x2065 | Digitalsensor #101 |
+| 0x2066 | Digitalsensor #102 |
+| 0x2067 | Digitalsensor #103 |
+| 0x2068 | Digitalsensor #104 |
+| 0x2069 | Digitalsensor #105 |
+| 0x206A | Digitalsensor #106 |
+| 0x206B | Digitalsensor #107 |
+| 0x206C | Digitalsensor #108 |
+| 0x206D | Digitalsensor #109 |
+| 0x206E | Digitalsensor #110 |
+| 0x206F | Digitalsensor #111 |
+| 0x2070 | Digitalsensor #112 |
+| 0x2071 | Digitalsensor #113 |
+| 0x2072 | Digitalsensor #114 |
+| 0x2073 | Digitalsensor #115 |
+| 0x2074 | Digitalsensor #116 |
+| 0x2075 | Digitalsensor #117 |
+| 0x2076 | Digitalsensor #118 |
+| 0x2077 | Digitalsensor #119 |
+| 0x2078 | Digitalsensor #120 |
+| 0x2079 | Digitalsensor #121 |
+| 0x207A | Digitalsensor #122 |
+| 0x207B | Digitalsensor #123 |
+| 0x207C | Digitalsensor #124 |
+| 0x207D | Digitalsensor #125 |
+| 0x207E | Digitalsensor #126 |
+| 0x207F | Digitalsensor #127 |
 | 0x2111 | TLR2 |
 | 0x2211 | DeltaSol CS Plus |
 | 0x2213 | DeltaSol CS Plus 2.x |
@@ -648,6 +672,12 @@ title: VBus Packets
 | 0x2272 | DeltaSol SLL \[WMZ1\] |
 | 0x2360 | HR Solar ADVANCED controller \[Regler\] |
 | 0x2362 | HR Solar ADVANCED controller \[WMZ 1\] |
+| 0x2370 | PHM |
+| 0x2371 | PHM Heizstab 1 |
+| 0x2372 | PHM Heizstab 2 |
+| 0x2373 | PHM Heizstab 3 |
+| 0x2374 | PHM Wärmepumpe |
+| 0x2375 | PHM Wallbox |
 | 0x3011 | WMZ-L10 |
 | 0x3112 | Remeha RemaSol A |
 | 0x3113 | DeDietrich Diemasol Ai v2 |
@@ -958,10 +988,10 @@ title: VBus Packets
 | 0x7326 | Vitosolic 200 \[WMZ1\] |
 | 0x7327 | Vitosolic 200 \[WMZ2\] |
 | 0x7331 | SLR |
-| 0x7332 | SLR-Erweiterungsmodul #01 |
-| 0x7333 | SLR-Erweiterungsmodul #02 |
-| 0x7334 | SLR-Erweiterungsmodul #03 |
-| 0x7335 | SLR-Erweiterungsmodul #04 |
+| 0x7332 | SLR-Erweiterungsmodul #1 |
+| 0x7333 | SLR-Erweiterungsmodul #2 |
+| 0x7334 | SLR-Erweiterungsmodul #3 |
+| 0x7335 | SLR-Erweiterungsmodul #4 |
 | 0x7341 | SLR XT |
 | 0x7342 | SLR XT-Erweiterungsmodul 1 |
 | 0x7343 | SLR XT-Erweiterungsmodul 2 |
@@ -1027,7 +1057,7 @@ title: VBus Packets
 | 0x7900 | R-Wandler |
 | 0x7910 | PAW SOLEX SC5.14 \[Regler\] |
 | 0x7911 | PAW SOLEX SC5.14 \[Module\] |
-| 0x7920 | PAW SOLEX SC5.14 \[Heizkreis #0\] |
+| 0x7920 | PAW SOLEX SC5.14 \[Heizkreis Intern\] |
 | 0x7921 | PAW SOLEX SC5.14 \[Heizkreis #1\] |
 | 0x7922 | PAW SOLEX SC5.14 \[Heizkreis #2\] |
 | 0x7923 | PAW SOLEX SC5.14 \[Heizkreis #3\] |
@@ -1385,7 +1415,7 @@ title: VBus Packets
 | 35 |  | PWM B | 1 | % |
 | 36 | 0x01 | Fehler: Sensorleitung unterbrochen | 1 |  |
 | 36 | 0x02 | Fehler: Sensorleitung kurzgeschlossen | 1 |  |
-| 36 | 0x20 | Fehler: Volumstromüberwachung | 1 |  |
+| 36 | 0x20 | Fehler: Volumenstromüberwachung | 1 |  |
 | 36 | 0x40 | Fehler: Überdruck | 1 |  |
 | 36 | 0x80 | Fehler: Minderdruck | 1 |  |
 | 36 |  | Fehlermaske | 1 |  |
@@ -2319,7 +2349,7 @@ title: VBus Packets
 
 
 
-### <a name="0010_1117_0100"></a>DFA (0x0010) <= Kioto Laderegler (0x1117), command 0x0100
+### <a name="0010_1117_0100"></a>DFA (0x0010) <= Kioto STRGO (0x1117), command 0x0100
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
@@ -3857,7 +3887,7 @@ title: VBus Packets
 | 95 |  | Systemdatum | 16777216 |  |
 | 96 | 0x01 | Fehler: Sensorleitung unterbrochen | 1 |  |
 | 96 | 0x02 | Fehler: Sensorleitung kurzgeschlossen | 1 |  |
-| 96 | 0x20 | Fehler: Volumstromüberwachung | 1 |  |
+| 96 | 0x20 | Fehler: Volumenstromüberwachung | 1 |  |
 | 96 | 0x40 | Fehler: Überdruck | 1 |  |
 | 96 | 0x80 | Fehler: Minderdruck | 1 |  |
 | 96 |  | Fehlermaske | 1 |  |
@@ -4001,6 +4031,37 @@ title: VBus Packets
 
 
 ### <a name="0010_1800_0100"></a>DFA (0x0010) <= DeltaSol MX \[Impulszähler\] (0x1800 - 0x180F), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Zählerstand | 1 |  |
+| 1 |  | Zählerstand | 256 |  |
+| 2 |  | Zählerstand | 65536 |  |
+| 3 |  | Zählerstand | 16777216 |  |
+| 4 |  | Impulsrate | 1 |  Imp/h |
+| 5 |  | Impulsrate | 256 |  Imp/h |
+| 6 |  | Impulsrate | 65536 |  Imp/h |
+| 7 |  | Impulsrate | 16777216 |  Imp/h |
+| 8 |  | Zählerstand heute | 1 |  |
+| 9 |  | Zählerstand heute | 256 |  |
+| 10 |  | Zählerstand heute | 65536 |  |
+| 11 |  | Zählerstand heute | 16777216 |  |
+| 12 |  | Zählerstand Woche | 1 |  |
+| 13 |  | Zählerstand Woche | 256 |  |
+| 14 |  | Zählerstand Woche | 65536 |  |
+| 15 |  | Zählerstand Woche | 16777216 |  |
+| 16 |  | Zählerstand Monat | 1 |  |
+| 17 |  | Zählerstand Monat | 256 |  |
+| 18 |  | Zählerstand Monat | 65536 |  |
+| 19 |  | Zählerstand Monat | 16777216 |  |
+| 20 |  | Zählerstand Jahr | 1 |  |
+| 21 |  | Zählerstand Jahr | 256 |  |
+| 22 |  | Zählerstand Jahr | 65536 |  |
+| 23 |  | Zählerstand Jahr | 16777216 |  |
+
+
+
+### <a name="0010_1830_0100"></a>DFA (0x0010) <= DeltaSol BX Plus \[Impulszähler\] (0x1830 - 0x183F), command 0x0100
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
@@ -4381,6 +4442,7 @@ title: VBus Packets
 | 93 | 0x01 | Einheit Energie | 1 |  |
 | 94 | 0x01 | Speichermaximaltemperatur | 1 |  |
 | 95 | 0x01 | Neustarts | 1 |  |
+| 96 | 0x01 | Fehler: Sensorfehler | 1 |  |
 | 96 |  | Fehlermaske | 1 |  |
 | 97 |  | Fehlermaske | 256 |  |
 | 98 |  | Fehlermaske | 65536 |  |
@@ -4739,6 +4801,214 @@ title: VBus Packets
 | 13 |  | Wmz1_WertWoche_Wh | 256 |  Wh |
 | 14 |  | Wmz1_WertWoche_Wh | 65536 |  Wh |
 | 15 |  | Wmz1_WertWoche_Wh | 16777216 |  Wh |
+
+
+
+### <a name="0010_2370_0100"></a>DFA (0x0010) <= PHM (0x2370), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 4 |  | Systemdatum | 1 |  |
+| 5 |  | Systemdatum | 256 |  |
+| 6 |  | Systemdatum | 65536 |  |
+| 7 |  | Systemdatum | 16777216 |  |
+| 12 | 0x02 | !Datum/Uhrzeit | 1 |  |
+| 12 | 0x08 | !Sensorfehler | 1 |  |
+| 12 | 0x20 | !Sensormodul Bus-Kommunikation gestört | 1 |  |
+| 16 |  | Temperatur Sensor 1 | 0.1 |  °C |
+| 17 |  | Temperatur Sensor 1 | 25.6 |  °C |
+| 18 |  | Temperatur Sensor 2 | 0.1 |  °C |
+| 19 |  | Temperatur Sensor 2 | 25.6 |  °C |
+| 20 |  | Temperatur Sensor 3 | 0.1 |  °C |
+| 21 |  | Temperatur Sensor 3 | 25.6 |  °C |
+| 22 |  | Temperatur Sensor 4 | 0.1 |  °C |
+| 23 |  | Temperatur Sensor 4 | 25.6 |  °C |
+| 24 |  | Temperatur Sensor 5 | 0.1 |  °C |
+| 25 |  | Temperatur Sensor 5 | 25.6 |  °C |
+| 26 |  | Relais 1 | 1 | % |
+| 27 |  | Relais 1 | 256 | % |
+| 28 |  | Relais 2 | 1 | % |
+| 29 |  | Relais 2 | 256 | % |
+| 30 |  | Relais 3 | 1 | % |
+| 31 |  | Relais 3 | 256 | % |
+| 32 |  | Relais 4 | 1 | % |
+| 33 |  | Relais 4 | 256 | % |
+| 34 |  | Relais 5 | 1 | % |
+| 35 |  | Relais 5 | 256 | % |
+| 36 |  | Ausgang A | 1 | % |
+| 37 |  | Ausgang A | 256 | % |
+| 38 | 0x01 | Funktionsstatus Deaktiviert | 1 |  |
+| 38 | 0x02 | Funktionsstatus Bereit | 1 |  |
+| 38 | 0x04 | Funktionsstatus Aus | 1 |  |
+| 38 | 0x08 | Funktionsstatus Ein | 1 |  |
+| 38 | 0x10 | Funktionsstatus Netzbezug | 1 |  |
+| 38 | 0x20 | Funktionsstatus Fehler | 1 |  |
+| 38 | 0x40 | Funktionsstatus SR aus | 1 |  |
+| 40 |  | Betriebsstunden Relais 1 | 1 |  h |
+| 41 |  | Betriebsstunden Relais 1 | 256 |  h |
+| 42 |  | Betriebsstunden Relais 1 | 65536 |  h |
+| 43 |  | Betriebsstunden Relais 1 | 16777216 |  h |
+| 44 |  | Betriebsstunden Relais 2 | 1 |  h |
+| 45 |  | Betriebsstunden Relais 2 | 256 |  h |
+| 46 |  | Betriebsstunden Relais 2 | 65536 |  h |
+| 47 |  | Betriebsstunden Relais 2 | 16777216 |  h |
+| 48 |  | Betriebsstunden Relais 3 | 1 |  h |
+| 49 |  | Betriebsstunden Relais 3 | 256 |  h |
+| 50 |  | Betriebsstunden Relais 3 | 65536 |  h |
+| 51 |  | Betriebsstunden Relais 3 | 16777216 |  h |
+| 52 |  | Betriebsstunden Relais 4 | 1 |  h |
+| 53 |  | Betriebsstunden Relais 4 | 256 |  h |
+| 54 |  | Betriebsstunden Relais 4 | 65536 |  h |
+| 55 |  | Betriebsstunden Relais 4 | 16777216 |  h |
+| 56 |  | Betriebsstunden Relais 5 | 1 |  h |
+| 57 |  | Betriebsstunden Relais 5 | 256 |  h |
+| 58 |  | Betriebsstunden Relais 5 | 65536 |  h |
+| 59 |  | Betriebsstunden Relais 5 | 16777216 |  h |
+| 60 |  | Betriebsstunden Ausgang A | 1 |  h |
+| 61 |  | Betriebsstunden Ausgang A | 256 |  h |
+| 62 |  | Betriebsstunden Ausgang A | 65536 |  h |
+| 63 |  | Betriebsstunden Ausgang A | 16777216 |  h |
+| 64 |  | Parameter Reserve | 1 |  W |
+| 65 |  | Parameter Reserve | 256 |  W |
+| 66 |  | Parameter Reserve | 65536 |  W |
+| 67 |  | Parameter Reserve | 16777216 |  W |
+| 68 |  | Leistung Überschuss | 0.001 |  W |
+| 69 |  | Leistung Überschuss | 0.256 |  W |
+| 70 |  | Leistung Überschuss | 65.536 |  W |
+| 71 |  | Leistung Überschuss | 16777.216 |  W |
+| 72 |  | Leistung Heizung | 0.001 |  W |
+| 73 |  | Leistung Heizung | 0.256 |  W |
+| 74 |  | Leistung Heizung | 65.536 |  W |
+| 75 |  | Leistung Heizung | 16777.216 |  W |
+| 80 |  | Überschuss | 1 |  Wh |
+| 81 |  | Überschuss | 256 |  Wh |
+| 82 |  | Überschuss | 65536 |  Wh |
+| 83 |  | Überschuss | 16777216 |  Wh |
+
+
+
+### <a name="0010_2371_0100"></a>DFA (0x0010) <= PHM Heizstab 1 (0x2371), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 | 0x40 | Heizstab 1 Funktionsstatus Deaktiviert | 1 |  |
+| 1 | 0x01 | Heizstab 1 Funktionsstatus Fehler | 1 |  |
+| 1 | 0x08 | Heizstab 1 Funktionsstatus Bereit | 1 |  |
+| 1 | 0x10 | Heizstab 1 Funktionsstatus Nachheizung | 1 |  |
+| 1 | 0x40 | Heizstab 1 Funktionsstatus Aus | 1 |  |
+| 1 | 0x80 | Heizstab 1 Funktionsstatus Heizung | 1 |  |
+| 2 | 0x02 | Heizstab 1 Funktionsstatus Max.Temp | 1 |  |
+| 8 |  | Heizstab 1 Temperatur Speicher | 0.1 |  °C |
+| 9 |  | Heizstab 1 Temperatur Speicher | 25.6 |  °C |
+| 14 |  | Heizstab 1 Betriebsstunden Heizung | 1 |  h |
+| 15 |  | Heizstab 1 Betriebsstunden Heizung | 256 |  h |
+| 16 |  | Heizstab 1 Betriebsstunden Heizung | 65536 |  h |
+| 17 |  | Heizstab 1 Betriebsstunden Heizung | 16777216 |  h |
+| 18 |  | Heizstab 1 Betriebsstunden Nachheizung | 1 |  h |
+| 19 |  | Heizstab 1 Betriebsstunden Nachheizung | 256 |  h |
+| 20 |  | Heizstab 1 Betriebsstunden Nachheizung | 65536 |  h |
+| 21 |  | Heizstab 1 Betriebsstunden Nachheizung | 16777216 |  h |
+| 22 |  | Heizstab 1 Parameter TMax | 0.1 |  °C |
+| 23 |  | Heizstab 1 Parameter TMax | 25.6 |  °C |
+| 24 |  | Heizstab 1 Parameter Vorrang | 1 |  |
+
+
+
+### <a name="0010_2372_0100"></a>DFA (0x0010) <= PHM Heizstab 2 (0x2372), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 | 0x40 | Heizstab 2 Funktionsstatus Deaktiviert | 1 |  |
+| 1 | 0x01 | Heizstab 2 Funktionsstatus Fehler | 1 |  |
+| 1 | 0x08 | Heizstab 2 Funktionsstatus Bereit | 1 |  |
+| 1 | 0x10 | Heizstab 2 Funktionsstatus Nachheizung | 1 |  |
+| 1 | 0x40 | Heizstab 2 Funktionsstatus Aus | 1 |  |
+| 1 | 0x80 | Heizstab 2 Funktionsstatus Heizung | 1 |  |
+| 2 | 0x02 | Heizstab 2 Funktionsstatus Max.Temp | 1 |  |
+| 8 |  | Heizstab 2 Temperatur Speicher | 0.1 |  °C |
+| 9 |  | Heizstab 2 Temperatur Speicher | 25.6 |  °C |
+| 14 |  | Heizstab 2 Betriebsstunden Heizung | 1 |  h |
+| 15 |  | Heizstab 2 Betriebsstunden Heizung | 256 |  h |
+| 16 |  | Heizstab 2 Betriebsstunden Heizung | 65536 |  h |
+| 17 |  | Heizstab 2 Betriebsstunden Heizung | 16777216 |  h |
+| 18 |  | Heizstab 2 Betriebsstunden Nachheizung | 1 |  h |
+| 19 |  | Heizstab 2 Betriebsstunden Nachheizung | 256 |  h |
+| 20 |  | Heizstab 2 Betriebsstunden Nachheizung | 65536 |  h |
+| 21 |  | Heizstab 2 Betriebsstunden Nachheizung | 16777216 |  h |
+| 22 |  | Heizstab 2 Parameter TMax | 0.1 |  °C |
+| 23 |  | Heizstab 2 Parameter TMax | 25.6 |  °C |
+| 24 |  | Heizstab 2 Parameter Vorrang | 1 |  |
+
+
+
+### <a name="0010_2373_0100"></a>DFA (0x0010) <= PHM Heizstab 3 (0x2373), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 | 0x40 | Heizstab 3 Funktionsstatus Deaktiviert | 1 |  |
+| 1 | 0x01 | Heizstab 3 Funktionsstatus Fehler | 1 |  |
+| 1 | 0x08 | Heizstab 3 Funktionsstatus Bereit | 1 |  |
+| 1 | 0x10 | Heizstab 3 Funktionsstatus Nachheizung | 1 |  |
+| 1 | 0x40 | Heizstab 3 Funktionsstatus Aus | 1 |  |
+| 1 | 0x80 | Heizstab 3 Funktionsstatus Heizung | 1 |  |
+| 2 | 0x02 | Heizstab 3 Funktionsstatus Max.Temp | 1 |  |
+| 8 |  | Heizstab 3 Temperatur Speicher | 0.1 |  °C |
+| 9 |  | Heizstab 3 Temperatur Speicher | 25.6 |  °C |
+| 14 |  | Heizstab 3 Betriebsstunden Heizung | 1 |  h |
+| 15 |  | Heizstab 3 Betriebsstunden Heizung | 256 |  h |
+| 16 |  | Heizstab 3 Betriebsstunden Heizung | 65536 |  h |
+| 17 |  | Heizstab 3 Betriebsstunden Heizung | 16777216 |  h |
+| 18 |  | Heizstab 3 Betriebsstunden Nachheizung | 1 |  h |
+| 19 |  | Heizstab 3 Betriebsstunden Nachheizung | 256 |  h |
+| 20 |  | Heizstab 3 Betriebsstunden Nachheizung | 65536 |  h |
+| 21 |  | Heizstab 3 Betriebsstunden Nachheizung | 16777216 |  h |
+| 22 |  | Heizstab 3 Parameter TMax | 0.1 |  °C |
+| 23 |  | Heizstab 3 Parameter TMax | 25.6 |  °C |
+| 24 |  | Heizstab 3 Parameter Vorrang | 1 |  |
+
+
+
+### <a name="0010_2374_0100"></a>DFA (0x0010) <= PHM Wärmepumpe (0x2374), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 | 0x40 | Wärmepumpe Funktionsstatus Deaktiviert | 1 |  |
+| 1 | 0x01 | Wärmepumpe Funktionsstatus Fehler | 1 |  |
+| 1 | 0x08 | Wärmepumpe Funktionsstatus Bereit | 1 |  |
+| 1 | 0x20 | Wärmepumpe Funktionsstatus Netzbetrieb | 1 |  |
+| 1 | 0x40 | Wärmepumpe Funktionsstatus Aus | 1 |  |
+| 2 | 0x01 | Wärmepumpe Funktionsstatus Betrieb | 1 |  |
+| 12 |  | Wärmepumpe Betriebsstunden Betrieb | 1 |  h |
+| 13 |  | Wärmepumpe Betriebsstunden Betrieb | 256 |  h |
+| 14 |  | Wärmepumpe Betriebsstunden Betrieb | 65536 |  h |
+| 15 |  | Wärmepumpe Betriebsstunden Betrieb | 16777216 |  h |
+| 16 |  | Wärmepumpe Betriebsstunden Netzbetrieb | 1 |  h |
+| 17 |  | Wärmepumpe Betriebsstunden Netzbetrieb | 256 |  h |
+| 18 |  | Wärmepumpe Betriebsstunden Netzbetrieb | 65536 |  h |
+| 19 |  | Wärmepumpe Betriebsstunden Netzbetrieb | 16777216 |  h |
+| 20 |  | Wärmepumpe Parameter Vorrang | 1 |  |
+
+
+
+### <a name="0010_2375_0100"></a>DFA (0x0010) <= PHM Wallbox (0x2375), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 | 0x40 | Wallbox Funktionsstatus Deaktiviert | 1 |  |
+| 1 | 0x01 | Wallbox Funktionsstatus Fehler | 1 |  |
+| 1 | 0x08 | Wallbox Funktionsstatus Bereit | 1 |  |
+| 1 | 0x20 | Wallbox Funktionsstatus Netzbetrieb | 1 |  |
+| 1 | 0x40 | Wallbox Funktionsstatus Aus | 1 |  |
+| 2 | 0x01 | Wallbox Funktionsstatus Betrieb | 1 |  |
+| 12 |  | Wallbox Betriebsstunden Betrieb | 1 |  h |
+| 13 |  | Wallbox Betriebsstunden Betrieb | 256 |  h |
+| 14 |  | Wallbox Betriebsstunden Betrieb | 65536 |  h |
+| 15 |  | Wallbox Betriebsstunden Betrieb | 16777216 |  h |
+| 16 |  | Wallbox Betriebsstunden Netzbetrieb | 1 |  h |
+| 17 |  | Wallbox Betriebsstunden Netzbetrieb | 256 |  h |
+| 18 |  | Wallbox Betriebsstunden Netzbetrieb | 65536 |  h |
+| 19 |  | Wallbox Betriebsstunden Netzbetrieb | 16777216 |  h |
+| 20 |  | Wallbox Parameter Vorrang | 1 |  |
 
 
 
@@ -6743,13 +7013,27 @@ title: VBus Packets
 | 49 |  | Systemdatum | 256 |  |
 | 50 |  | Systemdatum | 65536 |  |
 | 51 |  | Systemdatum | 16777216 |  |
+| 52 | 0x01 | Fehler: Sensorleitung unterbrochen | 1 |  |
+| 52 | 0x02 | Fehler: Sensorleitung kurzgeschlossen | 1 |  |
+| 52 | 0x20 | Fehler: Volumenstromüberwachung | 1 |  |
+| 52 | 0x40 | Fehler: Überdruck | 1 |  |
+| 52 | 0x80 | Fehler: Minderdruck | 1 |  |
 | 52 |  | Fehlermaske | 1 |  |
+| 53 | 0x02 | Fehler: Datenspeicher | 1 |  |
+| 53 | 0x04 | Fehler: Echtzeituhr | 1 |  |
+| 53 | 0x10 | Fehler: Zwillingspumpe | 1 |  |
+| 53 | 0x20 | Fehler: HK-Kühlung unter Vorlaufminimaltemperatur | 1 |  |
+| 53 | 0x40 | Fehler: Thermische Desinfektion abgebrochen | 1 |  |
 | 53 |  | Fehlermaske | 256 |  |
 | 54 |  | Fehlermaske | 65536 |  |
 | 55 |  | Fehlermaske | 16777216 |  |
 | 64 |  | PWM/0-10V A | 1 | % |
 | 65 |  | PWM/0-10V B | 1 | % |
+| 68 | 0x04 | Warnung: ΔT zu hoch | 1 |  |
+| 68 | 0x08 | Warnung: Nachtzirkulation | 1 |  |
+| 68 | 0x10 | Warnung: Vorlauf/Rücklauf vertauscht | 1 |  |
 | 68 |  | Warnungsmaske | 1 |  |
+| 69 | 0x08 | Warnung: SD-Karte | 1 |  |
 | 69 |  | Warnungsmaske | 256 |  |
 | 70 |  | Warnungsmaske | 65536 |  |
 | 71 |  | Warnungsmaske | 16777216 |  |
@@ -7232,6 +7516,8 @@ title: VBus Packets
 | 34 |  | Sensorkurzschluss-Nummer | 1 |  |
 | 42 |  | Systemzeit | 1 |  |
 | 43 |  | Systemzeit | 256 |  |
+
+
 
 ### <a name="0010_7211_0100"></a>DFA (0x0010) <= SKSC3 \[HK1\] (0x7211), command 0x0100
 
@@ -8206,6 +8492,103 @@ title: VBus Packets
 
 
 
+### <a name="0010_7422_0100"></a>DFA (0x0010) <= IZEN DTi2 (0x7422), command 0x0100
+
+| Offset | Mask | Name | Factor | Unit |
+|:-:|:-:|:--|:-:|:-:|
+| 0 |  | Temperatur Sensor 1 | 0.1 |  °C |
+| 1 |  | Temperatur Sensor 1 | 25.6 |  °C |
+| 2 |  | Temperatur Sensor 2 | 0.1 |  °C |
+| 3 |  | Temperatur Sensor 2 | 25.6 |  °C |
+| 4 |  | Temperatur Sensor 3 | 0.1 |  °C |
+| 5 |  | Temperatur Sensor 3 | 25.6 |  °C |
+| 6 |  | Temperatur Sensor 4 | 0.1 |  °C |
+| 7 |  | Temperatur Sensor 4 | 25.6 |  °C |
+| 8 |  | Temperatur Sensor 5 | 0.1 |  °C |
+| 9 |  | Temperatur Sensor 5 | 25.6 |  °C |
+| 10 |  | Temperatur RPS | 0.1 |  °C |
+| 11 |  | Temperatur RPS | 25.6 |  °C |
+| 12 |  | Druck RPS | 0.1 |  bar |
+| 13 |  | Druck RPS | 25.6 |  bar |
+| 14 |  | Temperatur VFS | 0.1 |  °C |
+| 15 |  | Temperatur VFS | 25.6 |  °C |
+| 16 |  | Durchfluss VFS | 1 |  l/h |
+| 16 |  | Durchfluss VFS | 1 |  l/h |
+| 17 |  | Durchfluss VFS | 256 |  l/h |
+| 17 |  | Durchfluss VFS | 256 |  l/h |
+| 18 |  | Durchfluss V40 | 1 |  l/h |
+| 19 |  | Durchfluss V40 | 256 |  l/h |
+| 20 |  | Einheit | 1 |  |
+| 22 |  | PWM 1 | 1 | % |
+| 23 |  | PWM 2 | 1 | % |
+| 24 |  | Drehzahl Relais 1 | 1 | % |
+| 25 |  | Drehzahl Relais 2 | 1 | % |
+| 26 |  | Drehzahl Relais 3 | 1 | % |
+| 27 |  | Drehzahl Relais 4 | 1 | % |
+| 28 |  | Betriebssekunden Relais 1 | 1 |  s |
+| 29 |  | Betriebssekunden Relais 1 | 256 |  s |
+| 30 |  | Betriebssekunden Relais 1 | 65536 |  s |
+| 31 |  | Betriebssekunden Relais 1 | 16777216 |  s |
+| 32 |  | Betriebssekunden Relais 2 | 1 |  s |
+| 33 |  | Betriebssekunden Relais 2 | 256 |  s |
+| 34 |  | Betriebssekunden Relais 2 | 65536 |  s |
+| 35 |  | Betriebssekunden Relais 2 | 16777216 |  s |
+| 36 |  | Betriebssekunden Relais 3 | 1 |  s |
+| 37 |  | Betriebssekunden Relais 3 | 256 |  s |
+| 38 |  | Betriebssekunden Relais 3 | 65536 |  s |
+| 39 |  | Betriebssekunden Relais 3 | 16777216 |  s |
+| 40 |  | Betriebssekunden Relais 4 | 1 |  s |
+| 41 |  | Betriebssekunden Relais 4 | 256 |  s |
+| 42 |  | Betriebssekunden Relais 4 | 65536 |  s |
+| 43 |  | Betriebssekunden Relais 4 | 16777216 |  s |
+| 44 | 0x01 | Fehler S1 | 1 |  |
+| 44 | 0x02 | Fehler S2 | 1 |  |
+| 44 | 0x04 | Fehler S3 | 1 |  |
+| 44 | 0x08 | Fehler S4 | 1 |  |
+| 44 | 0x10 | Fehler S5 | 1 |  |
+| 44 | 0x20 | Fehler S6 | 1 |  |
+| 44 | 0x40 | Fehler S7 | 1 |  |
+| 44 | 0x80 | Fehler S8 | 1 |  |
+| 44 |  | Fehler | 1 |  |
+| 45 | 0x01 | Fehler S9 | 1 |  |
+| 45 | 0x02 | Fehler V40 | 1 |  |
+| 45 | 0x04 | Leckage | 1 |  |
+| 45 | 0x08 | Überdruck | 1 |  |
+| 45 | 0x10 | Durchflussfehler | 1 |  |
+| 45 |  | Fehler | 256 |  |
+| 46 | 0x01 | Blockierschutz 1 | 1 |  |
+| 46 | 0x02 | Blockierschutz 2 | 1 |  |
+| 46 | 0x04 | Blockierschutz 3 | 1 |  |
+| 46 | 0x08 | Blockierschutz 4 | 1 |  |
+| 46 | 0x10 | Initialisierung | 1 |  |
+| 46 | 0x20 | Befüllung | 1 |  |
+| 46 | 0x40 | Stabilisierung | 1 |  |
+| 46 | 0x80 | Pumpenverzögerung | 1 |  |
+| 46 |  | Status | 1 |  |
+| 47 | 0x01 | Überwärmeabfuhr | 1 |  |
+| 47 | 0x02 | Nachlauf | 1 |  |
+| 47 | 0x04 | Thermische Desinfektion | 1 |  |
+| 47 | 0x08 | Systemkühlung | 1 |  |
+| 47 | 0x10 | Speicherkühlung | 1 |  |
+| 47 | 0x20 | Spreizung | 1 |  |
+| 47 | 0x40 | Frostschutz | 1 |  |
+| 47 | 0x80 | Kollektorkühlung | 1 |  |
+| 47 |  | Status | 256 |  |
+| 48 |  | Wärmemenge | 1 |  Wh |
+| 49 |  | Wärmemenge | 256 |  Wh |
+| 50 |  | Wärmemenge | 65536 |  Wh |
+| 51 |  | Wärmemenge | 16777216 |  Wh |
+| 52 |  | Version | 0.01 |  |
+| 53 |  | Version | 2.56 |  |
+| 54 |  | Systemzeit | 1 |  |
+| 55 |  | Systemzeit | 256 |  |
+| 56 |  | Datum | 1 |  |
+| 57 |  | Datum | 256 |  |
+| 58 |  | Datum | 65536 |  |
+| 59 |  | Datum | 16777216 |  |
+
+
+
 ### <a name="0010_7428_0100"></a>DFA (0x0010) <= DeltaSol BXL (0x7428), command 0x0100
 
 | Offset | Mask | Name | Factor | Unit |
@@ -8895,12 +9278,17 @@ title: VBus Packets
 | 116 |  | Fehler | 1 |  |
 | 117 | 0x20 | Sensorfehler S14 VFD | 1 |  |
 | 117 |  | Fehler | 256 |  |
-| 118 | 0x01 | Desinfektion: Vorlauf zu niedrig | 1 |  |
-| 118 | 0x02 | Desinfektion: Fehlgeschlagen | 1 |  |
-| 118 | 0x04 | Uebertemperaturschutz aktiv | 1 |  |
+| 118 | 0x08 | Desinfektion: Vorlauf zu niedrig | 1 |  |
+| 118 | 0x10 | Desinfektion: Fehlgeschlagen | 1 |  |
+| 118 | 0x20 | Uebertemperaturschutz aktiv | 1 |  |
 | 118 |  | Fehler | 65536 |  |
 | 119 |  | Fehler | 16777216 |  |
+| 120 | 0x40 | Typ: Dauer | 1 |  |
+| 120 | 0x80 | Typ: Thermisch | 1 |  |
 | 120 |  | Optionsmaske | 1 |  |
+| 121 | 0x01 | Typ: Anforderung | 1 |  |
+| 121 | 0x20 | Fehlerrelais aktiviert | 1 |  |
+| 121 | 0x40 | RLEinschichtung aktiviert | 1 |  |
 | 121 |  | Optionsmaske | 256 |  |
 | 122 |  | Optionsmaske | 65536 |  |
 | 123 |  | Optionsmaske | 16777216 |  |
@@ -9971,7 +10359,7 @@ title: VBus Packets
 
 
 
-### <a name="0010_7920_0100"></a>DFA (0x0010) <= PAW SOLEX SC5.14 \[Heizkreis\] (0x7920 - 0x792F), command 0x0100
+### <a name="0010_7920_0100"></a>DFA (0x0010) <= PAW SOLEX SC5.14 \[Heizkreis Intern\] (0x7920 - 0x792F), command 0x0100
 
 | Offset | Mask | Name | Factor | Unit |
 |:-:|:-:|:--|:-:|:-:|
@@ -9997,6 +10385,10 @@ title: VBus Packets
 | 13 |  | Wärmemenge Woche | 256 |  Wh |
 | 14 |  | Wärmemenge Woche | 65536 |  Wh |
 | 15 |  | Wärmemenge Woche | 16777216 |  Wh |
+| 16 |  | Gesamtvolumen | 1 |  l |
+| 17 |  | Gesamtvolumen | 256 |  l |
+| 18 |  | Gesamtvolumen | 65536 |  l |
+| 19 |  | Gesamtvolumen | 16777216 |  l |
 
 
 
@@ -10146,7 +10538,7 @@ title: VBus Packets
 | 95 |  | Systemdatum | 16777216 |  |
 | 96 | 0x01 | Fehler: Sensorleitung unterbrochen | 1 |  |
 | 96 | 0x02 | Fehler: Sensorleitung kurzgeschlossen | 1 |  |
-| 96 | 0x20 | Fehler: Volumstromüberwachung | 1 |  |
+| 96 | 0x20 | Fehler: Volumenstromüberwachung | 1 |  |
 | 96 | 0x40 | Fehler: Überdruck | 1 |  |
 | 96 | 0x80 | Fehler: Minderdruck | 1 |  |
 | 96 |  | Fehlermaske | 1 |  |
@@ -12189,10 +12581,11 @@ title: VBus Packets
 | 12 |  | Mischerlaufzeit | 1 |  s |
 | 13 |  | Sommerbetrieb | 1 |  °C |
 | 14 |  | Info Schaltuhr | 1 |  |
-| 17 |  | Aussentemperatur | 0.1 | °C |
-| 18 |  | Aussentemperatur | 25.6 | °C |
-| 19 |  | Vorlaufsolltemperatur | 0.1 | °C |
-| 20 |  | Vorlaufsolltemperatur | 25.6 | °C |
+| 16 |  | Aussentemperatur \(Bus\) | 0.1 |  °C |
+| 17 |  | Aussentemperatur \(Bus\) | 25.6 |  °C |
+| 18 |  | Kesseltemperatur \(Bus\) | 0.1 |  °C |
+| 19 |  | Kesseltemperatur \(Bus\) | 25.6 |  °C |
+
 
 
 ### <a name="5260_5260_0102"></a>Kaskade BasisAdr (0x5260) <= Kaskade BasisAdr (0x5260 - 0x526F), command 0x0102
@@ -12464,5 +12857,5 @@ title: VBus Packets
 
 
 
-> Based on VSF dated 20191129
+> Based on VSF dated 20210108
 
