@@ -1,0 +1,26 @@
+module.exports = {
+
+    /**
+     * Name of the Connection class to use to connect.
+     */
+    connectionClassName: 'TcpConnection',
+
+    /**
+     * Options for the Connection instance.
+     */
+    connectionOptions: {
+        host: '192.168.5.217',
+        password: 'vbus',
+    },
+
+    /**
+     * Filename of the backup-heating switch state.
+     */
+    stateFilename: '/home/pi/heizung/brauchwasser/heizungsanforderung',
+
+    /**
+     * Sub-address of the extension module to simulate (1-5)
+     */
+    emSubAdress: 1,
+
+};
