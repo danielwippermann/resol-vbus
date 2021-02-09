@@ -339,6 +339,7 @@ const Connection = extend(Duplex, /** @lends Connection# */ {
      * @param {number} options.tries After this number of tries the returned Promise will resolve with value `null`.
      * @param {?function} options.filterPacket Will be called when a Packet has been received with the Packet and a callback as arguments.
      * @param {?function} options.filterDatagram Will be called when a Datagram has been received with the Datagram and a callback as arguments.
+     * @param {?function} options.filterTelegram Will be called when a Telegram has been received with the Telegram and a callback as arguments.
      * @returns {Promise} A Promise that either resolves to the VBus data selected by one of the filter callbacks or `null` on timeout.
      */
     transceive(txData, options) {
@@ -351,7 +352,7 @@ const Connection = extend(Duplex, /** @lends Connection# */ {
         });
 
         return new Promise((resolve, reject) => {
-            let timer, onPacket, onDatagram;
+            let timer, onPacket, onDatagram, onTelegram;
 
             const done = function(err, result) {
                 if (timer) {
@@ -367,6 +368,11 @@ const Connection = extend(Duplex, /** @lends Connection# */ {
                 if (onDatagram) {
                     _this.removeListener('datagram', onDatagram);
                     onDatagram = null;
+                }
+
+                if (onTelegram) {
+                    _this.removeListener('telegram', onTelegram);
+                    onTelegram = null;
                 }
 
                 if (err) {
@@ -394,6 +400,16 @@ const Connection = extend(Duplex, /** @lends Connection# */ {
                 };
 
                 this.on('datagram', onDatagram);
+            }
+
+            if (options.filterTelegram) {
+                onTelegram = function(rxTelegram) {
+                    const result = options.filterTelegram(rxTelegram, done);
+
+                    promiseToCallback(result, done);
+                };
+
+                this.on('telegram', onTelegram);
             }
 
             let tries = options.tries, timeout = options.timeout;
