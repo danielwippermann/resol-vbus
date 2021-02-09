@@ -765,6 +765,72 @@ describe('Connection', () => {
             });
         });
 
+        it('should work correctly with filterTelegram option', () => {
+            return parseRawData((conn, stats) => {
+                const startTimestamp = Date.now();
+
+                let telegramResult;
+
+                const onTelegram = function(telegram, doneFiltering) {
+                    expect(telegram).to.be.an('object');
+                    expect(telegram.destinationAddress).to.equal(0x2011);
+                    telegramResult = telegram;
+                    doneFiltering(null, telegram);
+                };
+
+                const promise = conn.transceive(rawDataTelegram1, {
+                    timeout: 10,
+                    filterTelegram: onTelegram,
+                });
+
+                expectPromise(promise);
+
+                return promise.then((result) => {
+                    expect(result).to.equal(telegramResult);
+                    expect(Date.now() - startTimestamp).to.be.within(0 * minTimeoutFactor, 20 * maxTimeoutFactor);
+                    expect(stats.txDataCount).to.equal(8);
+                    expect(stats.rawDataCount).to.equal(8);
+                    expect(stats.junkDataCount).to.equal(0);
+                    expect(stats.packetCount).to.equal(0);
+                    expect(stats.datagramCount).to.equal(0);
+                    expect(stats.telegramCount).to.equal(1);
+                });
+            });
+        });
+
+        it('should work correctly with async filterTelegram option', () => {
+            return parseRawData((conn, stats) => {
+                const startTimestamp = Date.now();
+
+                let telegramResult;
+
+                const onTelegram = async function(telegram) {
+                    expect(telegram).to.be.an('object');
+                    expect(telegram.destinationAddress).to.equal(0x2011);
+                    telegramResult = telegram;
+                    return telegram;
+                };
+
+                const promise = conn.transceive(rawDataTelegram1, {
+                    timeout: 10,
+                    filterTelegram: onTelegram,
+                });
+
+                expectPromise(promise);
+
+                return promise.then((result) => {
+                    expect(result).to.equal(telegramResult);
+                    expect(Date.now() - startTimestamp).to.be.within(0 * minTimeoutFactor, 20 * maxTimeoutFactor);
+                    expect(stats.txDataCount).to.equal(8);
+                    expect(stats.rawDataCount).to.equal(8);
+                    expect(stats.junkDataCount).to.equal(0);
+                    expect(stats.packetCount).to.equal(0);
+                    expect(stats.datagramCount).to.equal(0);
+                    expect(stats.telegramCount).to.equal(1);
+                });
+            });
+        });
+
     });
 
     describe('#waitForFreeBus', () => {
