@@ -429,40 +429,74 @@ const startMqttLogging = async () => {
         const packetFields = specification.getPacketFieldsForHeaders(headers);
 
         const valuesById = packetFields.reduce((memo, pf) => {
-            const precision = pf.packetFieldSpec.type.precision;
+            if (pf.rawValue != null) {
+                const precision = pf.packetFieldSpec.type.precision;
 
-            const roundedRawValue = pf.rawValue.toFixed(precision);
+                const roundedRawValue = pf.rawValue.toFixed(precision);
 
-            // logger.debug('ID = ' + JSON.stringify(pf.id) + ', Name = ' + JSON.stringify(pf.name) + ', Value = ' + pf.rawValue + ', RoundedValue = ' + roundedRawValue);
+                // logger.debug('ID = ' + JSON.stringify(pf.id) + ', Name = ' + JSON.stringify(pf.name) + ', Value = ' + pf.rawValue + ', RoundedValue = ' + roundedRawValue);
 
-            memo [pf.id] = roundedRawValue;
-            return memo;
-        }, {});
-
-        const params = Object.keys(config.mqttPacketFieldMap).reduce((memo, key) => {
-            const packetFieldId = config.mqttPacketFieldMap [key];
-
-            let value;
-            if (typeof packetFieldId === 'function') {
-                value = packetFieldId(valuesById);
-            } else {
-                value = valuesById [packetFieldId];
-            }
-            if (typeof value === 'number') {
-                value = value.toString();
-            }
-            if (typeof value === 'string') {
-                memo [key] = value;
+                memo [pf.id] = roundedRawValue;
             }
             return memo;
         }, {});
 
-        client.publish(config.mqttTopic, JSON.stringify(params));
+        let payload;
+        if (config.mqttEncoding === 'urlencoded') {
+            payload = Object.keys(config.mqttPacketFieldMap).reduce((memo, key) => {
+                const packetFieldId = config.mqttPacketFieldMap [key];
+
+                let value;
+                if (typeof packetFieldId === 'function') {
+                    value = packetFieldId(valuesById);
+                } else {
+                    value = valuesById [packetFieldId];
+                }
+                if (typeof value === 'number') {
+                    value = value.toString();
+                }
+                if (typeof value === 'string') {
+                    if (memo.length > 0) {
+                        memo += '&';
+                    }
+                    memo += `${encodeURIComponent(key)}=${encodeURIComponent(value)}`;
+                }
+                return memo;
+            }, '');
+        } else {
+            const params = Object.keys(config.mqttPacketFieldMap).reduce((memo, key) => {
+                const packetFieldId = config.mqttPacketFieldMap [key];
+
+                let value;
+                if (typeof packetFieldId === 'function') {
+                    value = packetFieldId(valuesById);
+                } else {
+                    value = valuesById [packetFieldId];
+                }
+                if (typeof value === 'number') {
+                    value = value.toString();
+                }
+                if (typeof value === 'string') {
+                    memo [key] = value;
+                }
+                return memo;
+            }, {});
+
+            payload = JSON.stringify(params);
+        }
+
+        if (payload) {
+            client.publish(config.mqttTopic, payload);
+        }
     };
 
     if (config.mqttInterval) {
         logger.debug('Starting MQTT logging');
         const client = mqtt.connect(config.mqttConnect);
+
+        client.on('error', err => {
+            logger.error(err);
+        });
 
         client.on('connect', () => {
             const hsc = new HeaderSetConsolidator({

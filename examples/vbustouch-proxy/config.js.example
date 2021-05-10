@@ -92,6 +92,11 @@ module.exports = {
     mqttTopic: 'home/resol',
 
     /**
+     * Specifies how the MQTT payload is encoded. Supports 'json' (default) and 'urlencoded'.
+     */
+    mqttEncoding: 'json',
+
+    /**
      * A map of MQTT message attributes to VBus packet field IDs.
      *
      * An example sensor in Home Assistant would be:
@@ -129,7 +134,7 @@ module.exports = {
 
     /**
      * A map of PvOutput.org parameters to VBus packet field IDs.
-     * 
+     *
      * See https://pvoutput.org/help.html#api-addstatus for possible keys.
      */
     pvOutputOrgPacketFieldMap: {
