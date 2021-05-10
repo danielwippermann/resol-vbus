@@ -5,8 +5,5 @@
 // use development version
 module.exports = require('../src');
 
-// use release version
-// module.exports = require('../dist');
-
 // use installed version
 // module.exports = require('resol-vbus');
