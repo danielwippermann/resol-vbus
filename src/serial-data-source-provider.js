@@ -3,14 +3,6 @@
 
 
 
-let SerialPort;
-try {
-    SerialPort = require('serialport');
-} catch (ex) {
-    // eat it
-}
-
-
 const _ = require('./lodash');
 const SerialDataSource = require('./serial-data-source');
 
@@ -73,12 +65,9 @@ const SerialDataSourceProvider = DataSourceProvider.extend({
     },
 
     _listSerialPorts() {
+        const SerialPort = require('serialport');
         return SerialPort.list.apply(SerialPort, arguments);
     },
-
-}, {
-
-    hasSerialPortSupport: !!SerialPort,
 
 });
 
