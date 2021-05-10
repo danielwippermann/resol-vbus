@@ -21,11 +21,11 @@ module.exports = {
         'no-var': 'error',
         'prefer-const': 'error',
         'array-bracket-spacing': 'off',
+        'quote-props': 'off',
     },
     env: {
         node: true,
         jest: true,
-        es6: true,
     },
     globals: {
         sinon: true

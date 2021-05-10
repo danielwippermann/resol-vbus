@@ -9,6 +9,5 @@ examples/
 jest.config.js
 jsdoc.json
 nw-apps/
-src/
 test/
 tools/

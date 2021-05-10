@@ -120,6 +120,11 @@ following command into your shell:
 ## Work in progress
 
 
+## Version 0.22.0 (2021-05-10)
+
+- [BREAKING CHANGE] Dropping support for Node.js versions < 12
+
+
 ## Version 0.21.0 (2020-05-02)
 
 - [BREAKING CHANGE] Returning a `Promise` from `filterPacket` or `filterDatagram` callbacks

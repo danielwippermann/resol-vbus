@@ -1,20 +1,16 @@
 {
   "name": "resol-vbus",
-  "version": "0.21.0",
+  "version": "0.22.0",
   "description": "A JavaScript library for processing RESOL VBus data",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "lint": "eslint src test/specs examples tools index.js",
+    "lint": "eslint src test/specs examples tools",
     "test": "jest -i --verbose",
     "coverage": "jest -i --coverage",
     "coveralls": "jest -i --coverage --coverageReporters=text-lcov | coveralls",
-    "transpile": "mkdir -p dist && babel src -d dist",
     "jsdoc": "jsdoc -t node_modules/ink-docstrap/template/ -c jsdoc.json -d .docs/jsdoc/ -R README.md src",
     "vsf-doc": "node tools/specification-documentor/main.js --packetStructure > docs/vbus-packets.md && node tools/specification-documentor/main.js --packetFields > docs/vbus-packet-fields.md",
-    "jekyll": "(cd docs; jekyll build && rsync -a _site/ ../.docs/)",
-    "copy-locales": "mkdir -p dist/locales && cp -a src/locales/* dist/locales/",
-    "copy-vsf": "mkdir -p dist && cp src/vbus_specification.vsf dist/",
-    "dist": "npm run transpile && npm run copy-locales && npm run copy-vsf"
+    "jekyll": "(cd docs; jekyll build && rsync -a _site/ ../.docs/)"
   },
   "homepage": "https://github.com/danielwippermann/resol-vbus",
   "repository": "https://github.com/danielwippermann/resol-vbus.git",
@@ -22,8 +18,6 @@
   "author": "Daniel Wippermann <Daniel.Wippermann@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "@babel/cli": "^7.13.16",
-    "@babel/preset-env": "^7.14.1",
     "chai": "^4.3.4",
     "coveralls": "^3.1.0",
     "eslint": "^7.26.0",
