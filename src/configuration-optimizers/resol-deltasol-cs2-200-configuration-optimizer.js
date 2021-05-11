@@ -6,13 +6,18 @@ const configurationData = require('./resol-deltasol-cs2-200-data');
 
 const BaseConfigurationOptimizer = require('../base-configuration-optimizer');
 
-const ResolDeltaSolCs2200ConfigurationOptimizer = BaseConfigurationOptimizer.extend({
+
+
+class ResolDeltaSolCs2200ConfigurationOptimizer extends BaseConfigurationOptimizer {
 
     optimizeConfiguration($) {
         // TODO?
-    },
+    }
 
-}, {
+}
+
+
+Object.assign(ResolDeltaSolCs2200ConfigurationOptimizer, {
 
     deviceAddress: 0x1121,
 

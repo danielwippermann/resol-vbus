@@ -3,7 +3,7 @@
 
 
 
-const Duplex = require('stream').Duplex;
+const { Duplex } = require('stream');
 
 
 const _ = require('./lodash');
@@ -379,7 +379,7 @@ class Connection extends Duplex {
                 this.on('telegram', onTelegram);
             }
 
-            let tries = options.tries, timeout = options.timeout;
+            let { tries, timeout } = options;
 
             const nextTry = function() {
                 if (tries > 0) {

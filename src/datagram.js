@@ -3,7 +3,7 @@
 
 
 
-const sprintf = require('sprintf-js').sprintf;
+const { sprintf } = require('sprintf-js');
 
 
 const Header = require('./header');

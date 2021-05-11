@@ -130,7 +130,7 @@ class TcpDataSourceProvider extends DataSourceProvider {
             if ((rinfo.family === 'IPv4') && (rinfo.port === 7053) && (msg.length >= replyString.length)) {
                 const msgString = msg.slice(0, replyString.length).toString();
                 if (msgString === replyString) {
-                    const address = rinfo.address;
+                    const { address } = rinfo;
                     if (addressList.indexOf(address) < 0) {
                         addressList.push(address);
                     }

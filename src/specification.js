@@ -6,7 +6,7 @@
 const crypto = require('crypto');
 
 
-const sprintf = require('sprintf-js').sprintf;
+const { sprintf } = require('sprintf-js');
 
 
 const I18N = require('./i18n');
@@ -258,11 +258,11 @@ class Specification {
     getDeviceSpecification(selfAddress, peerAddress, channel) {
         if (typeof selfAddress === 'object') {
             if (peerAddress === 'source') {
-                channel = selfAddress.channel;
+                ({ channel } = selfAddress);
                 peerAddress = selfAddress.destinationAddress;
                 selfAddress = selfAddress.sourceAddress;
             } else if (peerAddress === 'destination') {
-                channel = selfAddress.channel;
+                ({ channel } = selfAddress);
                 peerAddress = selfAddress.sourceAddress;
                 selfAddress = selfAddress.destinationAddress;
             } else {
@@ -426,9 +426,7 @@ class Specification {
      */
     getPacketSpecification(headerOrChannel, destinationAddress, sourceAddress, command) {
         if (typeof headerOrChannel === 'object') {
-            command = headerOrChannel.command;
-            sourceAddress = headerOrChannel.sourceAddress;
-            destinationAddress = headerOrChannel.destinationAddress;
+            ({ command, sourceAddress, destinationAddress } = headerOrChannel);
             headerOrChannel = headerOrChannel.channel;
         } else if (typeof headerOrChannel === 'string') {
             const md = headerOrChannel.match(/^([0-9a-f]{2})_([0-9a-f]{4})_([0-9a-f]{4})(?:_10)?_([0-9a-f]{4})/i);
@@ -456,7 +454,7 @@ class Specification {
             const destinationDeviceSpec = this.getDeviceSpecification(destinationAddress, sourceAddress, headerOrChannel);
             const sourceDeviceSpec = this.getDeviceSpecification(sourceAddress, destinationAddress, headerOrChannel);
 
-            let fullName = sourceDeviceSpec.fullName;
+            let { fullName } = sourceDeviceSpec;
             if (destinationAddress !== 0x0010) {
                 fullName += ' => ' + destinationDeviceSpec.name;
             }
@@ -604,9 +602,9 @@ class Specification {
 
             if (_.isNumber(rawValue)) {
                 if (packetField.conversions) {
-                    rawValue = this.convertRawValue(rawValue, packetField.conversions).rawValue;
+                    ({ rawValue } = this.convertRawValue(rawValue, packetField.conversions));
                 } else {
-                    rawValue = this.convertRawValue(rawValue, packetField.packetFieldSpec.type.unit, packetField.type.unit).rawValue;
+                    ({ rawValue } = this.convertRawValue(rawValue, packetField.packetFieldSpec.type.unit, packetField.type.unit));
                 }
             }
         } else {
@@ -669,9 +667,9 @@ class Specification {
         } else if (packetField && packetField.packetFieldSpec) {
             if (_.isNumber(rawValue)) {
                 if (packetField.conversions) {
-                    rawValue = this.convertRawValue(rawValue, this.invertConversions(packetField.conversions)).rawValue;
+                    ({ rawValue } = this.convertRawValue(rawValue, this.invertConversions(packetField.conversions)));
                 } else {
-                    rawValue = this.convertRawValue(rawValue, packetField.type.unit, packetField.packetFieldSpec.type.unit).rawValue;
+                    ({ rawValue } = this.convertRawValue(rawValue, packetField.type.unit, packetField.packetFieldSpec.type.unit));
                 }
             }
 
@@ -704,9 +702,8 @@ class Specification {
         }
 
         const result = _.reduce(conversions, (valueInfo, conversion) => {
-            let rawValue = valueInfo.rawValue;
-            const sourceUnit = conversion.sourceUnit;
-            const targetUnit = conversion.targetUnit;
+            let { rawValue } = valueInfo;
+            const { sourceUnit, targetUnit } = conversion;
             const unitFamily = sourceUnit && sourceUnit.unitFamily;
 
             const hasPower = _.isNumber(conversion.power);
@@ -1081,7 +1078,7 @@ class Specification {
             }
 
             if (packetField && packetField.type) {
-                const type = packetField.type;
+                const { type } = packetField;
                 if (type.formatTextValue) {
                     textValue = type.formatTextValue(rawValue, unit);
                 } else {
@@ -1165,7 +1162,7 @@ class Specification {
 
         const packetFields = [];
 
-        const filteredPacketFieldSpecs = this.specificationData.filteredPacketFieldSpecs;
+        const { filteredPacketFieldSpecs } = this.specificationData;
         if (filteredPacketFieldSpecs) {
             const packetById = _.reduce(packets, (memo, packet) => {
                 const packetSpec = _this.getPacketSpecification(packet);
@@ -1201,7 +1198,7 @@ class Specification {
             });
         }
 
-        const language = this.language;
+        const { language } = this;
 
         _.forEach(packetFields, (packetField) => {
             const pfsName = packetField.packetFieldSpec.name;
@@ -1248,7 +1245,7 @@ class Specification {
 
         const packetFieldById = _.reduce(packetFields, (memo, packetField) => {
             memo [packetField.id] = packetField;
-            const fieldId = packetField.packetFieldSpec.fieldId;
+            const { fieldId } = packetField.packetFieldSpec;
             if (memo [fieldId] === undefined) {
                 memo [fieldId] = packetField;
             } else {
@@ -1276,8 +1273,7 @@ class Specification {
         const packetFields = this.getPacketFieldsForHeaders(headers);
 
         _.forEach(packetFields, (packetField) => {
-            const packetSpec = packetField.packetSpec;
-            const packetFieldSpec = packetField.packetFieldSpec;
+            const { packetSpec, packetFieldSpec } = packetField;
 
             if (packetSpec && packetFieldSpec) {
                 const filteredPacketFieldSpec = _.extend({}, packetFieldSpec, {
@@ -1306,7 +1302,7 @@ class Specification {
             if (((header.getProtocolVersion() & 0xF0) === 0x10) && (header.destinationAddress === 0x0015) && (header.command === 0x0100)) {
                 const packetSpec = _this.getPacketSpecification(header);
 
-                const length = header.frameCount * 4, frameData = header.frameData;
+                const length = header.frameCount * 4, { frameData } = header;
                 let startOffset = 0;
                 while (startOffset + 4 <= length) {
                     const frameCount = frameData [startOffset] & 255;
@@ -1553,7 +1549,7 @@ class Specification {
         const _this = this;
 
         return _.reduce(sections, (memo, section) => {
-            const sectionId = section.sectionId;
+            const { sectionId } = section;
 
             if (!_.has(_this.blockTypePacketSpecCache, sectionId)) {
                 const fieldIdPrefix = section.sectionId;
@@ -1654,7 +1650,7 @@ class Specification {
             });
         });
 
-        const language = this.language;
+        const { language } = this;
 
         _.forEach(packetFields, (packetField) => {
             const pfsName = packetField.packetFieldSpec.name;
@@ -1671,7 +1667,7 @@ class Specification {
 
             let rawValue;
             if (packetField.packetFieldSpec && packetField.section) {
-                const frameData = packetField.section.frameData;
+                const { frameData } = packetField.section;
                 rawValue = _this.getRawValue(packetField.packetFieldSpec, frameData);
             }
 
@@ -1719,7 +1715,7 @@ class Specification {
                 const packetSpec = specification.getPacketSpecification(rfpfs.packetId);
                 const packetFieldSpec = specification.getPacketFieldSpecification(packetSpec, rfpfs.fieldId);
 
-                let name = rfpfs.name;
+                let { name } = rfpfs;
                 if (typeof name === 'string') {
                     name = { ref: name };
                 }

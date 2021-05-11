@@ -24,10 +24,6 @@
 
 class ConfigurationOptimizer {
 
-    constructor(options) {
-        // nop
-    }
-
     /**
      * Converts the configurations provided into an array of {@see ConfigurationValue} objects.
      * The provided configurations can be either an array of partially initialized ConfigurationValue

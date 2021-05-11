@@ -12,7 +12,7 @@ const _ = require('../lodash');
 
 
 
-const ResolDeltaThermHcXxxConfigurationOptimizer = BaseConfigurationOptimizer.extend({
+class ResolDeltaThermHcXxxConfigurationOptimizer extends BaseConfigurationOptimizer {
 
     optimizeConfiguration($) {
         this.optimizeModuleConfiguration($);
@@ -21,13 +21,13 @@ const ResolDeltaThermHcXxxConfigurationOptimizer = BaseConfigurationOptimizer.ex
         this.optimizeHeizungWfConfiguration($);
         this.optimizeHeizungHeizkreisConfiguration($);
         this.optimizeWmzConfiguration($);
-    },
+    }
 
     optimizeModuleConfiguration($) {
         $(/^Modul([0-9]+)_Aktiviert$/).isFalse((value) => {
             $('^(Sensor|Relais)[^_]*_Modul' + value.md [1] + '_.*$').ignore();
         });
-    },
+    }
 
     optimizeAnlageWfConfiguration($) {
         $(/^(Anlage_Wf[0-9]+)_Type$/).forEach((value) => {
@@ -51,7 +51,7 @@ const ResolDeltaThermHcXxxConfigurationOptimizer = BaseConfigurationOptimizer.ex
                 }
             });
         });
-    },
+    }
 
     optimizeHeizungWfConfiguration($) {
         $(/^(Heizung_Wf[0-9]+)_Type$/).forEach((value) => {
@@ -75,7 +75,7 @@ const ResolDeltaThermHcXxxConfigurationOptimizer = BaseConfigurationOptimizer.ex
                 }
             });
         });
-    },
+    }
 
     optimizeHeizungHeizkreisConfiguration($) {
         $(/^(Heizung_Heizkreis[0-9]+)_Type$/).forEach((value) => {
@@ -101,7 +101,7 @@ const ResolDeltaThermHcXxxConfigurationOptimizer = BaseConfigurationOptimizer.ex
                 });
             });
         });
-    },
+    }
 
     optimizeWmzConfiguration($) {
         $(/^(Wmz[0-9]+)_Type$/).forEach((value) => {
@@ -111,9 +111,12 @@ const ResolDeltaThermHcXxxConfigurationOptimizer = BaseConfigurationOptimizer.ex
                 $(prefix + '(?!Type).*').ignore();
             });
         });
-    },
+    }
 
-}, {
+}
+
+
+Object.assign(ResolDeltaThermHcXxxConfigurationOptimizer, {
 
     deviceAddress: 0x5400,
 

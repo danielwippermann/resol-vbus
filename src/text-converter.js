@@ -65,7 +65,7 @@ class TextConverter extends Converter {
 
         const spec = this.specification;
 
-        const i18n = spec.i18n;
+        const { i18n } = spec;
 
         const headers = headerSet.getSortedHeaders();
 
@@ -127,7 +127,7 @@ class TextConverter extends Converter {
             _.forEach(packetFields, (packetField) => {
                 let columnDesc = packetField.name;
                 if (packetField.packetFieldSpec) {
-                    const type = packetField.packetFieldSpec.type;
+                    const { type } = packetField.packetFieldSpec;
                     if (type && type.unit && type.unit.unitText) {
                         columnDesc += ' [' + type.unit.unitText + ']';
                     }

@@ -22,7 +22,7 @@ class TestableSerialDataSourceProvider extends SerialDataSourceProvider {
 
 
 
-const ifHasSerialPortIt = testUtils.ifHasSerialPortIt;
+const { ifHasSerialPortIt } = testUtils;
 
 
 

@@ -9,13 +9,16 @@ const BaseConfigurationOptimizer = require('../base-configuration-optimizer');
 
 
 
-const ResolDeltaSolCsPlusXxxConfigurationOptimizer = BaseConfigurationOptimizer.extend({
+class ResolDeltaSolCsPlusXxxConfigurationOptimizer extends BaseConfigurationOptimizer {
 
     optimizeConfiguration($) {
         // TODO?
-    },
+    }
 
-}, {
+}
+
+
+Object.assign(ResolDeltaSolCsPlusXxxConfigurationOptimizer, {
 
     deviceAddress: 0x2211,
 

@@ -51,7 +51,7 @@ const promiseTestContext = function(options, callback) {
                 const _this = this;
 
                 return promisify(() => {
-                    const valueIndex = inValueInfo.valueIndex;
+                    const { valueIndex } = inValueInfo;
 
                     const valueInfo = context.testConfigValueByIndex [valueIndex];
 

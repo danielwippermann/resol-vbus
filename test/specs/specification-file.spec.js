@@ -66,7 +66,7 @@ describe('SpecificationFile', () => {
 
             expect(specFile).property('unitFamilyByCode').an('object');
 
-            const unitFamilyByCode = specFile.unitFamilyByCode;
+            const { unitFamilyByCode } = specFile;
 
             expect(specFile).property('texts').an('array').lengthOf(188).eql([
                 '',

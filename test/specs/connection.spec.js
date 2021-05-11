@@ -745,8 +745,6 @@ describe('Connection', () => {
 
         it('should work correctly with failing async filterPacket option', () => {
             return parseRawData((conn, stats) => {
-                const startTimestamp = Date.now();
-
                 const error = new Error('Test error');
 
                 const onPacket = async function(packet) {

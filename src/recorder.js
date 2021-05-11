@@ -3,7 +3,7 @@
 
 
 
-const EventEmitter = require('events').EventEmitter;
+const { EventEmitter } = require('events');
 
 
 const Header = require('./header');
@@ -103,7 +103,7 @@ class Recorder extends EventEmitter {
         let playedBackRanges = [];
 
         headerSetConsolidator.on('headerSet', (headerSet) => {
-            const timestamp = headerSet.timestamp;
+            const { timestamp } = headerSet;
 
             const headerSetRange = {
                 minTimestamp: timestamp,
@@ -162,7 +162,7 @@ class Recorder extends EventEmitter {
         let recordedRanges = [];
 
         headerSetConsolidator.on('headerSet', (headerSet) => {
-            const timestamp = headerSet.timestamp;
+            const { timestamp } = headerSet;
 
             const headerSetRange = {
                 minTimestamp: timestamp,
@@ -287,7 +287,7 @@ class Recorder extends EventEmitter {
         }
 
         // find diffs
-        let syncStateDiffs = syncJob.syncStateDiffs;
+        let { syncStateDiffs } = syncJob;
         syncStateDiffs.push({
             minTimestamp: options.minTimestamp,
             maxTimestamp: options.maxTimestamp,
@@ -339,7 +339,7 @@ class Recorder extends EventEmitter {
     _getSyncState(syncJobOrState, which, type) {
         let syncState;
         if (_.has(syncJobOrState, 'syncState') && _.has(syncJobOrState, 'syncId')) {
-            syncState = syncJobOrState.syncState;
+            ({ syncState } = syncJobOrState);
         } else {
             syncState = syncJobOrState;
         }
@@ -413,7 +413,7 @@ class Recorder extends EventEmitter {
         };
 
         const rangeToInfo = function(range) {
-            let minTimestamp = range.minTimestamp;
+            let { minTimestamp } = range;
             if (typeof minTimestamp.getTime === 'function') {
                 minTimestamp = minTimestamp.getTime();
             } else if (typeof minTimestamp === 'string') {
@@ -422,7 +422,7 @@ class Recorder extends EventEmitter {
                 throw new Error('Invalid minTimestamp "' + minTimestamp + '" (type "' + typeof minTimestamp + '"');
             }
 
-            let maxTimestamp = range.maxTimestamp;
+            let { maxTimestamp } = range;
             if (typeof maxTimestamp.getTime === 'function') {
                 maxTimestamp = maxTimestamp.getTime();
             } else if (typeof maxTimestamp === 'string') {

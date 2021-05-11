@@ -1,4 +1,5 @@
 module.exports = {
+    root: true,
     extends: 'semistandard',
     parserOptions: {
         ecmaVersion: 2018,
@@ -22,12 +23,31 @@ module.exports = {
         'prefer-const': 'error',
         'array-bracket-spacing': 'off',
         'quote-props': 'off',
+        'prefer-destructuring': ['error', {
+            VariableDeclarator: {
+                array: false,
+                object: true
+            },
+            AssignmentExpression: {
+                array: false,
+                object: true
+            }
+        }, {
+            enforceForRenamedProperties: false
+        }],
     },
     env: {
         node: true,
-        jest: true,
     },
-    globals: {
-        sinon: true
-    }
+    overrides: [{
+        files: [
+            'test/**/*.js',
+        ],
+        env: {
+            jest: true,
+        },
+        globals: {
+            sinon: true,
+        }
+    }]
 };

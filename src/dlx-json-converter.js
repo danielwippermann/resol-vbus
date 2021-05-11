@@ -82,7 +82,7 @@ class DLxJsonConverter extends Converter {
 
         const spec = this.specification;
 
-        const i18n = spec.i18n;
+        const { i18n } = spec;
 
         const now = i18n.moment(headerSet.timestamp);
 
@@ -101,7 +101,7 @@ class DLxJsonConverter extends Converter {
     _convertHeaderSetToJson(headerSet) {
         const spec = this.specification;
 
-        const i18n = spec.i18n;
+        const { i18n } = spec;
 
         const headers = headerSet.getHeaders();
 
@@ -133,8 +133,8 @@ class DLxJsonConverter extends Converter {
         const packetData = _.reduce(packetInfoList, (memo, packetInfo) => {
             if (packetInfo.packetFields.length >= 0) {
                 const fieldData = _.map(packetInfo.packetFields, (packetField, packetFieldIndex) => {
-                    let rawValue = packetField.rawValue;
-                    const precision = packetField.packetFieldSpec.type.precision;
+                    let { rawValue } = packetField;
+                    const { precision } = packetField.packetFieldSpec.type;
                     const numberValue = spec.formatTextValueFromRawValueInternal(rawValue, noneUnit, numberType, precision, noneUnit);
                     rawValue = +numberValue;
 
@@ -218,7 +218,7 @@ class DLxJsonConverter extends Converter {
 
                 let md;
 
-                const packetSpec = packetInfo.packetSpec;
+                const { packetSpec } = packetInfo;
                 let id = packetSpec.packetId;
                 if ((md = /^(.._...._....)_10(_....)$/.exec(id)) !== null) {
                     id = md [1] + md [2];

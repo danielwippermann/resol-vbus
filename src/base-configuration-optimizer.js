@@ -18,7 +18,7 @@ class ValuesWrapper {
 
     $(pattern, values) {
         if (values === undefined) {
-            values = this.values;
+            ({ values } = this);
         }
 
         if (_.isString(pattern)) {
@@ -457,7 +457,7 @@ class BaseConfigurationOptimizer extends ConfigurationOptimizer {
 
                 const dependsOnValueIds = [];
 
-                let type = value.type;
+                let { type } = value;
                 while (type) {
                     if (type.valueTexts && (type.valueTexts.length > 0)) {
                         _.forEach(type.valueTexts, addValueText);
@@ -529,16 +529,6 @@ class BaseConfigurationOptimizer extends ConfigurationOptimizer {
         this.optimizeConfiguration($);
 
         return adjustableValues;
-    }
-
-    // FIXME(daniel): remove me!
-    static extend(instanceMembers, staticMembers) {
-        class SubClass extends BaseConfigurationOptimizer {}
-
-        Object.assign(SubClass.prototype, instanceMembers);
-        Object.assign(SubClass, staticMembers);
-
-        return SubClass;
     }
 
 }

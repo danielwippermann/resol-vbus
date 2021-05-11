@@ -184,7 +184,7 @@ class TestRecorder extends Recorder {
         });
 
         inConverter.on('headerSet', (headerSet) => {
-            const timestamp = headerSet.timestamp;
+            const { timestamp } = headerSet;
 
             if (lastTimestamp && (timestamp < lastTimestamp)) {
                 // headersets are assumed to be played back in a chronological order,

@@ -6,7 +6,7 @@
 const util = require('util');
 
 
-const Duplex = require('stream').Duplex;
+const { Duplex } = require('stream');
 
 
 const Header = require('./header');
@@ -51,7 +51,7 @@ class Converter extends Duplex {
      */
     constructor(options) {
         super({
-            objectMode: options && options.objectMode || false,
+            objectMode: (options && options.objectMode) || false,
         });
 
         const _this = this;

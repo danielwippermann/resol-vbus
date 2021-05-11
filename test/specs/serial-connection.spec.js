@@ -72,7 +72,7 @@ const testConnection = function(done, callback) {
 
 
 
-const ifHasSerialPortIt = testUtils.ifHasSerialPortIt;
+const { ifHasSerialPortIt } = testUtils;
 
 
 

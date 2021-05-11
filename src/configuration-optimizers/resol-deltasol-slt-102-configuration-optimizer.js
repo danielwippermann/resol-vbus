@@ -12,7 +12,7 @@ const _ = require('../lodash');
 
 
 
-const ResolDeltaSolSlt102ConfigurationOptimizer = BaseConfigurationOptimizer.extend({
+class ResolDeltaSolSlt102ConfigurationOptimizer extends BaseConfigurationOptimizer {
 
     optimizeConfiguration($) {
         this.optimizeSolarConfiguration($);
@@ -20,7 +20,7 @@ const ResolDeltaSolSlt102ConfigurationOptimizer = BaseConfigurationOptimizer.ext
         this.optimizeAnlageWfConfiguration($);
         this.optimizeHeizungWfConfiguration($);
         this.optimizeWmzConfiguration($);
-    },
+    }
 
     optimizeSolarConfiguration($) {
         const value = $('Solar_SystemId');
@@ -57,7 +57,7 @@ const ResolDeltaSolSlt102ConfigurationOptimizer = BaseConfigurationOptimizer.ext
         value.lt(10, () => {
             $(/^Solar_Wf1_(Zieltemperatur|Bereitschaft|DrainBack)_.*/).ignore();
         });
-    },
+    }
 
     optimizeSolarWfConfiguration($) {
         $(/^Solar_Wf([0-9]+)_Type$/).forEach((value) => {
@@ -81,7 +81,7 @@ const ResolDeltaSolSlt102ConfigurationOptimizer = BaseConfigurationOptimizer.ext
                 });
             });
         });
-    },
+    }
 
     optimizeAnlageWfConfiguration($) {
         $(/^(Anlage_Wf[0-9]+)_Type$/).forEach((value) => {
@@ -113,7 +113,7 @@ const ResolDeltaSolSlt102ConfigurationOptimizer = BaseConfigurationOptimizer.ext
                 });
             });
         });
-    },
+    }
 
     optimizeHeizungWfConfiguration($) {
         $(/^(Heizung_Wf[0-9]+)_Type$/).forEach((value) => {
@@ -138,7 +138,7 @@ const ResolDeltaSolSlt102ConfigurationOptimizer = BaseConfigurationOptimizer.ext
                 });
             });
         });
-    },
+    }
 
     optimizeWmzConfiguration($) {
         $(/^(Wmz[0-9]+)_Type$/).forEach((value) => {
@@ -148,9 +148,12 @@ const ResolDeltaSolSlt102ConfigurationOptimizer = BaseConfigurationOptimizer.ext
                 $(prefix + '(?!Type).*').ignore();
             });
         });
-    },
+    }
 
-}, {
+}
+
+
+Object.assign(ResolDeltaSolSlt102ConfigurationOptimizer, {
 
     deviceAddress: 0x1001,
 

@@ -1373,8 +1373,7 @@ describe('Specification', () => {
             const spec = new Specification();
 
             conversions = _.map(conversions, (conversion) => {
-                const sourceUnitCode = conversion.sourceUnitCode;
-                const targetUnitCode = conversion.targetUnitCode;
+                const { sourceUnitCode, targetUnitCode } = conversion;
 
                 const sourceUnit = sourceUnitCode && specData.units [sourceUnitCode];
                 const targetUnit = targetUnitCode && specData.units [targetUnitCode];
@@ -2173,7 +2172,7 @@ describe('Specification', () => {
             expect(section).property('frameData');
             testUtils.expectToBeABuffer(section.frameData);
 
-            let frameData = section.frameData;
+            let { frameData } = section;
             expect(frameData).property('length').a('number').equal(8);
             expect(frameData.toString('hex')).equal('0108000064000000');
 
@@ -2192,7 +2191,7 @@ describe('Specification', () => {
             expect(section).property('frameData');
             testUtils.expectToBeABuffer(section.frameData);
 
-            frameData = section.frameData;
+            ({ frameData } = section);
             expect(frameData).property('length').a('number').equal(12);
             expect(frameData.toString('hex')).equal('020a0000b822b82200000000');
 
@@ -2211,7 +2210,7 @@ describe('Specification', () => {
             expect(section).property('frameData');
             testUtils.expectToBeABuffer(section.frameData);
 
-            frameData = section.frameData;
+            ({ frameData } = section);
             expect(frameData).property('length').a('number').equal(8);
             expect(frameData.toString('hex')).equal('010b00000b000000');
         });
@@ -2612,7 +2611,7 @@ describe('Specification', () => {
 
     });
 
-/*
+    /*
 
     it('should get unknown packet fields with filter', function() {
         var buffer = Buffer.from('aa10002277100001034224012701003200006401001a350201000047', 'hex');
@@ -2653,7 +2652,7 @@ describe('Specification', () => {
         expect(packetFields [0].origPacketFieldSpec).to.equal(undefined);
     });
 
-*/
+    */
 
     testUtils.itShouldWorkCorrectlyAfterMigratingToClass(Specification, null, {
         language: 'en',

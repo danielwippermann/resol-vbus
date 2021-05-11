@@ -139,7 +139,7 @@ class ConnectionCustomizer extends Customizer {
             checkCanceled: null,
         });
 
-        const connection = this.connection;
+        const { connection } = this;
         const address = this.deviceAddress;
 
         async function check() {
@@ -294,7 +294,7 @@ class ConnectionCustomizer extends Customizer {
                 masterLastContacted: Date.now(),
             });
 
-            const connection = this.connection;
+            const { connection } = this;
             const address = this.deviceAddress;
 
             async function check() {

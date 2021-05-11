@@ -6,7 +6,7 @@
 const moment = require('moment-timezone');
 const numeral = require('numeral');
 require('numeral/locales/de');
-const sprintf = require('sprintf-js').sprintf;
+const { sprintf } = require('sprintf-js');
 
 
 const _ = require('./lodash');

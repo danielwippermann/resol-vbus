@@ -8,7 +8,7 @@ const path = require('path');
 
 
 const moreints = require('buffer-more-ints');
-const sprintf = require('sprintf-js').sprintf;
+const { sprintf } = require('sprintf-js');
 
 
 const _ = require('./lodash');
@@ -178,7 +178,7 @@ class SpecificationFile {
         const types = _.reduce(this.packetTemplates, (memo, pt) => {
             return _.reduce(pt.fields, (memo, ptf) => {
                 const rootTypeId = ptf.type && ptf.type.typeCode;
-                const precision = ptf.precision;
+                const { precision } = ptf;
                 const unitCode = (ptf.unit && ptf.unit.unitCode) || 'None';
 
                 let typeId = rootTypeId + '_';
@@ -266,7 +266,7 @@ class SpecificationFile {
 
             memo [packetId] = _.map(pt.fields, (ptf) => {
                 const rootTypeId = ptf.type && ptf.type.typeCode;
-                const precision = ptf.precision;
+                const { precision } = ptf;
                 const unitCode = (ptf.unit && ptf.unit.unitCode) || 'None';
 
                 const factor = Math.pow(10, -precision);

@@ -43,7 +43,7 @@ const testSpecificationData = function(source, specificationData) {
         });
 
         it('should have units', () => {
-            const units = specificationData.units;
+            const { units } = specificationData;
             expect(_.keys(units).sort()).eql([
                 'Bars',
                 'Btus',
@@ -5937,7 +5937,7 @@ const testSpecificationData = function(source, specificationData) {
             ]);
             expect(deviceSpec).property('name').eql('DeltaSol MX [Regler]');
 
-            const getDeviceSpecification = specificationData.getDeviceSpecification;
+            const { getDeviceSpecification } = specificationData;
             expect(getDeviceSpecification).a('function');
             expect(getDeviceSpecification(0x7E11, 0x0010)).equal(specificationData.deviceSpecs._7E11);
         });
@@ -6557,7 +6557,7 @@ const testSpecificationData = function(source, specificationData) {
             expect(ps).property('packetId').equal('0010_7E11_0100');
             expect(ps).property('packetFields').equal(specificationData.packetFieldSpecs._0010_7E11_0100);
 
-            const getPacketSpecification = specificationData.getPacketSpecification;
+            const { getPacketSpecification } = specificationData;
             expect(getPacketSpecification).a('function');
             expect(getPacketSpecification(0x0010, 0x7E11, 0x0100)).equal(specificationData.packetSpecs._0010_7E11_0100);
         });
@@ -6592,7 +6592,7 @@ describe('SpecificationData', () => {
     it('is auto-generated, just increase test coverage :)', () => {
         const spec = new Specification();
 
-        const specificationData = spec.specificationData;
+        const { specificationData } = spec;
 
         const buffer = Buffer.alloc(127 * 4);
 
