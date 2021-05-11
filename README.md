@@ -119,6 +119,13 @@ following command into your shell:
 
 ## Work in progress
 
+- [BREAKING CHANGE] Replacing custom inheritance code with `class` syntax
+    Up to this version inheritance was established using a custom `extend` function.
+    Since only modern ECMAscript runtimes are supported since the last release the code was
+    refactored to use the ECMAscript `class` syntax instead. In that process the `extend`
+    function was removed, both the standalone one and the static class function that was
+    added to every "class".
+
 
 ## Version 0.22.0 (2021-05-10)
 
