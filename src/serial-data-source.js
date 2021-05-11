@@ -16,12 +16,7 @@ const optionKeys = [
 
 
 
-const SerialDataSource = DataSource.extend(/** @lends SerialDataSource# */ {
-
-    /**
-     * The path to the serial port.
-     */
-    path: null,
+class SerialDataSource extends DataSource {
 
     /**
      * Creates a new SerialDataSource.
@@ -30,10 +25,10 @@ const SerialDataSource = DataSource.extend(/** @lends SerialDataSource# */ {
      * @augments DataSource
      */
     constructor(options) {
-        DataSource.call(this, options);
+        super(options);
 
         _.extend(this, _.pick(options, optionKeys));
-    },
+    }
 
     async connectLive(options) {
         const defaultOptions = {
@@ -51,6 +46,16 @@ const SerialDataSource = DataSource.extend(/** @lends SerialDataSource# */ {
 
         return connection;
     }
+
+}
+
+
+Object.assign(SerialDataSource.prototype, {
+
+    /**
+     * The path to the serial port.
+     */
+    path: null,
 
 });
 

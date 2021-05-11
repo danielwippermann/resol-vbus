@@ -4,6 +4,7 @@
 
 
 const {
+    Converter,
     HeaderSet,
     Packet,
     VBusRecordingConverter,
@@ -529,6 +530,33 @@ describe('VBusRecordingConverter', () => {
                 expect(chunk.toString('hex')).equal(rawDataHexDump);
             });
         });
+
+    });
+
+    testUtils.itShouldWorkCorrectlyAfterMigratingToClass(VBusRecordingConverter, Converter, {
+        topologyScanOnly: false,
+        rxBuffer: null,
+        headerSet: null,
+        headerSetTimestamp: null,
+        currentChannel: 0,
+        knownHeaderIds: null,
+        constructor: Function,
+        reset: Function,
+        end: Function,
+        convertRawData: Function,
+        convertComment: Function,
+        convertHeader: Function,
+        convertHeaderSet: Function,
+        _convertHeaders: Function,
+        _read: Function,
+        _write: Function,
+        _processBuffer: Function,
+        _processRecord: Function,
+        _processType3Record: Function,
+        _emitHeaderSet: Function,
+        _processRecordForTopologyScan: Function,
+        _constructTopologyHeaderSet: Function,
+    }, {
 
     });
 

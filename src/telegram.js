@@ -17,15 +17,7 @@ const optionKeys = [
 
 
 
-const Telegram = Header.extend(/** @lends Telegram# */ {
-
-    /**
-     * The VBus command of this Telegram instance.
-     * @type {number}
-     */
-    command: 0,
-
-    frameData: null,
+class Telegram extends Header {
 
     /**
      * Creates a new Telegram instance.
@@ -35,7 +27,7 @@ const Telegram = Header.extend(/** @lends Telegram# */ {
      * @param {object} options Initialization options.
      */
     constructor(options) {
-        Header.call(this, options);
+        super(options);
 
         _.extend(this, _.pick(options, optionKeys));
 
@@ -50,7 +42,7 @@ const Telegram = Header.extend(/** @lends Telegram# */ {
                 options.frameData.copy(this.frameData, 0, 0, minLength);
             }
         }
-    },
+    }
 
     toLiveBuffer(origBuffer, start, end) {
         const frameCount = this.getFrameCount();
@@ -80,16 +72,16 @@ const Telegram = Header.extend(/** @lends Telegram# */ {
         }
 
         return buffer;
-    },
+    }
 
     getProtocolVersion() {
         return 0x30;
-    },
+    }
 
     getId() {
         const baseId = Header.prototype.getId.call(this);
         return sprintf('%s_%02X', baseId, this.command);
-    },
+    }
 
     compareTo(that) {
         let result = Header.prototype.compareTo.apply(this, arguments);
@@ -97,15 +89,13 @@ const Telegram = Header.extend(/** @lends Telegram# */ {
             result = this.command - that.command;
         }
         return result;
-    },
+    }
 
     getFrameCount() {
         return Telegram.getFrameCountForCommand(this.command);
-    },
+    }
 
-}, /** @lends Telegram */ {
-
-    fromLiveBuffer(buffer, start, end) {
+    static fromLiveBuffer(buffer, start, end) {
         const frameCount = this.getFrameCountForCommand(buffer [start + 6]);
 
         const frameData = Buffer.alloc(3 * 7);
@@ -124,11 +114,23 @@ const Telegram = Header.extend(/** @lends Telegram# */ {
             frameData,
             dontCopyFrameData: true
         });
-    },
+    }
 
-    getFrameCountForCommand(command) {
+    static getFrameCountForCommand(command) {
         return ((command >> 5) & 0x03);
     }
+
+}
+
+
+Object.assign(Telegram.prototype, {
+    /**
+     * The VBus command of this Telegram instance.
+     * @type {number}
+     */
+    command: 0,
+
+    frameData: null,
 
 });
 

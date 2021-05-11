@@ -22,25 +22,7 @@ const optionKeys = [
 
 
 
-const DLxRecorder = Recorder.extend(/** @lends DLxRecorder# */ {
-
-    /**
-     * The root URL to access the DLx.
-     * @type {string}
-     */
-    urlPrefix: null,
-
-    /**
-     * The username to login to the web interface.
-     * @type {string}
-     */
-    username: 'admin',
-
-    /**
-     * The password to login to the web interface.
-     * @type {string}
-     */
-    password: 'admin',
+class DLxRecorder extends Recorder {
 
     /**
      * Creates a new DLxRecorder instance.
@@ -51,15 +33,15 @@ const DLxRecorder = Recorder.extend(/** @lends DLxRecorder# */ {
      * DLxRecorder is a recorder that can play back data recorded by a Datalogger.
      */
     constructor(options) {
-        Recorder.call(this, options);
+        super(options);
 
         _.extend(this, _.pick(options, optionKeys));
-    },
+    }
 
     _getOptions() {
         const options = Recorder.prototype._getOptions.call(this);
         return _.extend(options, _.pick(this, optionKeys));
-    },
+    }
 
     async _playback(headerSetConsolidator, options) {
         const _this = this;
@@ -77,7 +59,7 @@ const DLxRecorder = Recorder.extend(/** @lends DLxRecorder# */ {
         }
 
         converter.end();
-    },
+    }
 
     async _playbackRaw(converter, options) {
         const _this = this;
@@ -109,7 +91,7 @@ const DLxRecorder = Recorder.extend(/** @lends DLxRecorder# */ {
 
             await _this.downloadToStream(urlString, urlOptions, converter);
         }
-    },
+    }
 
     async _playbackApi(converter, options) {
         const urlString = options.urlPrefix + '/dlx/download/download';
@@ -133,7 +115,7 @@ const DLxRecorder = Recorder.extend(/** @lends DLxRecorder# */ {
         };
 
         return this.downloadToStream(urlString, urlOptions, converter);
-    },
+    }
 
     async _playbackSyncJob(stream, syncJob) {
         const _this = this;
@@ -183,7 +165,7 @@ const DLxRecorder = Recorder.extend(/** @lends DLxRecorder# */ {
         _this._markSourceSyncRanges(handledRanges, syncJob);
 
         return playedBackRanges;
-    },
+    }
 
     async getLazyRecordingRanges() {
         const _this = this;
@@ -202,7 +184,7 @@ const DLxRecorder = Recorder.extend(/** @lends DLxRecorder# */ {
         ranges = Recorder.performRangeSetOperation(ranges, [], 86400000, 'union');
 
         return ranges;
-    },
+    }
 
     getRecordingFilenames() {
         return new Promise((resolve, reject) => {
@@ -257,7 +239,7 @@ const DLxRecorder = Recorder.extend(/** @lends DLxRecorder# */ {
             stream.on('end', onEnd);
             stream.on('error', onError);
         });
-    },
+    }
 
     getRecordingInfo(filename) {
         return new Promise((resolve, reject) => {
@@ -290,7 +272,7 @@ const DLxRecorder = Recorder.extend(/** @lends DLxRecorder# */ {
             stream.on('end', onEnd);
             stream.on('error', onError);
         });
-    },
+    }
 
     downloadToStream(urlString, urlOptions, stream) {
         return new Promise((resolve, reject) => {
@@ -307,11 +289,34 @@ const DLxRecorder = Recorder.extend(/** @lends DLxRecorder# */ {
             req.on('end', onEnd);
             req.on('error', onError);
         });
-    },
+    }
 
     _request() {
         return request.apply(undefined, arguments);
-    },
+    }
+
+}
+
+
+Object.assign(DLxRecorder.prototype, {
+
+    /**
+     * The root URL to access the DLx.
+     * @type {string}
+     */
+    urlPrefix: null,
+
+    /**
+     * The username to login to the web interface.
+     * @type {string}
+     */
+    username: 'admin',
+
+    /**
+     * The password to login to the web interface.
+     * @type {string}
+     */
+    password: 'admin',
 
 });
 

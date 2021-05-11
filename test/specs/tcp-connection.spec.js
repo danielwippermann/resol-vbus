@@ -4,6 +4,7 @@
 
 
 const {
+    Connection,
     TcpConnection,
     TcpConnectionEndpoint,
 } = require('./resol-vbus');
@@ -13,6 +14,7 @@ const expect = require('./expect');
 const _ = require('./lodash');
 const {
     expectPromiseToReject,
+    itShouldWorkCorrectlyAfterMigratingToClass,
 } = require('./test-utils');
 
 
@@ -84,7 +86,6 @@ describe('TcpConnection', () => {
 
         it('should be a constructor function', () => {
             expect(TcpConnection).to.be.a('function');
-            expect(TcpConnection.extend).to.be.a('function');
         });
 
         it('should have reasonable defaults', () => {
@@ -242,6 +243,25 @@ describe('TcpConnection', () => {
             });
 
         });
+
+    });
+
+    itShouldWorkCorrectlyAfterMigratingToClass(TcpConnection, Connection, {
+        host: null,
+        port: null,
+        viaTag: null,
+        password: null,
+        channel: 0,
+        rawVBusDataOnly: false,
+        tlsOptions: null,
+        reconnectTimeout: 0,
+        reconnectTimeoutIncr: 10000,
+        reconnectTimeoutMax: 60000,
+        constructor: Function,
+        connect: Function,
+        disconnect: Function,
+        _connect: Function,
+    }, {
 
     });
 

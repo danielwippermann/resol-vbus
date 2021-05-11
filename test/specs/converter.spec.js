@@ -3,6 +3,9 @@
 
 
 
+const { Duplex } = require('stream');
+
+
 const {
     Converter,
     HeaderSet,
@@ -12,15 +15,19 @@ const {
 
 const expect = require('./expect');
 
+const {
+    itShouldWorkCorrectlyAfterMigratingToClass,
+} = require('./test-utils');
 
 
-const TestableConverter = Converter.extend({
+
+class TestableConverter extends Converter {
 
     _read() {
         // nop
-    },
+    }
 
-});
+}
 
 
 
@@ -280,6 +287,21 @@ describe('Converter', () => {
                 expect(onData.secondCall.args [0]).equal(headerSet);
             });
         });
+
+    });
+
+    itShouldWorkCorrectlyAfterMigratingToClass(Converter, Duplex, {
+        objectMode: false,
+        finishedPromise: null,
+        constructor: Function,
+        reset: Function,
+        finish: Function,
+        convertRawData: Function,
+        convertHeader: Function,
+        convertHeaderSet: Function,
+        _read: Function,
+        _write: Function,
+    }, {
 
     });
 

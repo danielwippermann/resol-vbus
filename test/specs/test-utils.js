@@ -82,6 +82,44 @@ const testUtils = {
         });
     },
 
+    itShouldWorkCorrectlyAfterMigratingToClass(Class, ParentClass, instanceMembers, staticMembers) {
+        it('should work correctly after migrating to Class', () => {
+            jestExpect(typeof Class).toBe('function');
+            if (ParentClass) {
+                jestExpect(typeof ParentClass).toBe('function');
+                jestExpect(Class.prototype).toBeInstanceOf(ParentClass);
+            }
+
+            function convertObject(obj, filter) {
+                return Object.getOwnPropertyNames(obj || {}).filter(key => filter ? filter(key) : true).reduce((memo, key) => {
+                    let value = obj [key];
+                    if (value === Function) {
+                        value = jestExpect.any(Function);
+                    }
+                    memo [key] = value;
+                    return memo;
+                }, {});
+            }
+
+            function filterOutStaticMembers(key) {
+                switch (key) {
+                case '__super__':
+                case 'extend':
+                case 'length':
+                case 'name':
+                case 'prototype':
+                    return false;
+                default:
+                    return true;
+                }
+            }
+
+            jestExpect(convertObject(Class.prototype)).toEqual(convertObject(instanceMembers));
+            if (staticMembers) {
+                jestExpect(convertObject(Class, filterOutStaticMembers)).toEqual(convertObject(staticMembers));
+            }
+        });
+    },
 };
 
 

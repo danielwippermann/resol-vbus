@@ -22,17 +22,7 @@ const optionKeys = [
 
 
 
-const TcpDataSourceProvider = DataSourceProvider.extend(/** @lends TcpDataSourceProvider# */ {
-
-    id: 'tcp-data-source-provider',
-
-    name: 'TCP VBus Data Source Provider',
-
-    description: 'Data source provider for TCP connected VBus devices',
-
-    broadcastAddress: '255.255.255.255',
-
-    broadcastPort: 7053,
+class TcpDataSourceProvider extends DataSourceProvider {
 
     /**
      * Creates a new TcpDataSourceProvider instance.
@@ -41,10 +31,10 @@ const TcpDataSourceProvider = DataSourceProvider.extend(/** @lends TcpDataSource
      * @augments DataSourceProvider
      */
     constructor(options) {
-        DataSourceProvider.call(this, options);
+        super(options);
 
         _.extend(this, _.pick(options, optionKeys));
-    },
+    }
 
     async discoverDataSources() {
         const options = {
@@ -61,7 +51,7 @@ const TcpDataSourceProvider = DataSourceProvider.extend(/** @lends TcpDataSource
 
             return this.createDataSource(options);
         });
-    },
+    }
 
     createDataSource(options) {
         options = _.extend({}, options, {
@@ -72,9 +62,7 @@ const TcpDataSourceProvider = DataSourceProvider.extend(/** @lends TcpDataSource
         });
 
         return new TcpDataSource(options);
-    },
-
-}, /** @lends TcpDataSourceProvider */ {
+    }
 
     /**
      * Discovers devices on the local network.
@@ -84,7 +72,7 @@ const TcpDataSourceProvider = DataSourceProvider.extend(/** @lends TcpDataSource
      * @params {number} options.broadcastPort Port number to broadcast to.
      * @returns {Promise} A Promise that resolves to an array of device information objects.
      */
-    async discoverDevices(options) {
+    static async discoverDevices(options) {
         const promises = await TcpDataSourceProvider.sendBroadcast(options);
 
         const result = await new Promise((resolve) => {
@@ -106,9 +94,9 @@ const TcpDataSourceProvider = DataSourceProvider.extend(/** @lends TcpDataSource
         });
 
         return result;
-    },
+    }
 
-    async sendBroadcast(options) {
+    static async sendBroadcast(options) {
         options = _.defaults({}, options, {
             broadcastAddress: '255.255.255.255',
             broadcastPort: 7053,
@@ -168,9 +156,9 @@ const TcpDataSourceProvider = DataSourceProvider.extend(/** @lends TcpDataSource
         });
 
         return result;
-    },
+    }
 
-    async fetchDeviceInformation(address, port) {
+    static async fetchDeviceInformation(address, port) {
         if (port === undefined) {
             try {
                 return await TcpDataSourceProvider.fetchDeviceInformation(address, 80);
@@ -221,9 +209,9 @@ const TcpDataSourceProvider = DataSourceProvider.extend(/** @lends TcpDataSource
                 });
             });
         }
-    },
+    }
 
-    parseDeviceInformation(string) {
+    static parseDeviceInformation(string) {
         const result = {};
 
         const re = /([\w]+)[\s]*=[\s]*"([^"\r\n]*)"/g;
@@ -234,7 +222,22 @@ const TcpDataSourceProvider = DataSourceProvider.extend(/** @lends TcpDataSource
         }
 
         return result;
-    },
+    }
+
+}
+
+
+Object.assign(TcpDataSourceProvider.prototype, {
+
+    id: 'tcp-data-source-provider',
+
+    name: 'TCP VBus Data Source Provider',
+
+    description: 'Data source provider for TCP connected VBus devices',
+
+    broadcastAddress: '255.255.255.255',
+
+    broadcastPort: 7053,
 
 });
 

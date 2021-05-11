@@ -3,10 +3,9 @@
 
 
 
-const EventEmitter = require('events').EventEmitter;
+const { EventEmitter } = require('events');
 
 
-const extend = require('./extend');
 const _ = require('./lodash');
 
 
@@ -19,25 +18,7 @@ const optionKeys = [
 
 
 
-const Customizer = extend(EventEmitter, /** @lends Customizer# */ {
-
-    /**
-     * An identifier for this customizer.
-     * @type {string}
-     */
-    id: null,
-
-    /**
-     * The VBus address of the device to customize.
-     * @type {number}
-     */
-    deviceAddress: 0,
-
-    /**
-     * A configuration optimizer.
-     * @type {ConfigurationOptimizer}
-     */
-    optimizer: null,
+class Customizer extends EventEmitter {
 
     /**
      * Creates a new Customizer instance and optionally initializes its members
@@ -54,10 +35,10 @@ const Customizer = extend(EventEmitter, /** @lends Customizer# */ {
      * values from or to a device.
      */
     constructor(options) {
-        EventEmitter.call(this);
+        super();
 
         _.extend(this, _.pick(options, optionKeys));
-    },
+    }
 
     /**
      * Load a set of configuration values from a device.
@@ -83,11 +64,11 @@ const Customizer = extend(EventEmitter, /** @lends Customizer# */ {
         configuration = await this._completeConfiguration(configuration);
 
         return this._loadConfiguration(configuration, options);
-    },
+    }
 
     _loadConfiguration(configuration, options) {
         throw new Error('Must be implemented by sub-class');
-    },
+    }
 
     /**
      * Save a set of configuration values to a device.
@@ -121,11 +102,11 @@ const Customizer = extend(EventEmitter, /** @lends Customizer# */ {
         }
 
         return this._saveConfiguration(newConfiguration, oldConfiguration, options);
-    },
+    }
 
     _saveConfiguration(newConfiguration, oldConfiguration, options) {
         throw new Error('Must be implemented by sub-class');
-    },
+    }
 
     /**
      * Converts the configuration provided into an array of {@see ConfigurationValue} objects.
@@ -142,7 +123,7 @@ const Customizer = extend(EventEmitter, /** @lends Customizer# */ {
         } else {
             return Promise.resolve(config);
         }
-    },
+    }
 
     /**
      * Gets the optimized array of values based on what values are already loaded.
@@ -152,7 +133,7 @@ const Customizer = extend(EventEmitter, /** @lends Customizer# */ {
      */
     _optimizeLoadConfiguration(config) {
         return this.optimizer.optimizeLoadConfiguration(config);
-    },
+    }
 
     /**
      * Gets the optimzed array of values to save to the controller.
@@ -163,7 +144,30 @@ const Customizer = extend(EventEmitter, /** @lends Customizer# */ {
      */
     _optimizeSaveConfiguration(newConfig, oldConfig) {
         return this.optimizer.optimizeSaveConfiguration(newConfig, oldConfig);
-    },
+    }
+
+}
+
+
+Object.assign(Customizer.prototype, {
+
+    /**
+     * An identifier for this customizer.
+     * @type {string}
+     */
+    id: null,
+
+    /**
+     * The VBus address of the device to customize.
+     * @type {number}
+     */
+    deviceAddress: 0,
+
+    /**
+     * A configuration optimizer.
+     * @type {ConfigurationOptimizer}
+     */
+    optimizer: null,
 
 });
 

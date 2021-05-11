@@ -4,6 +4,7 @@
 
 
 const {
+    Converter,
     DLxJsonConverter,
     HeaderSet,
     Packet,
@@ -458,6 +459,24 @@ describe('DLxJsonConverter', () => {
                 });
             });
         });
+    });
+
+    testUtils.itShouldWorkCorrectlyAfterMigratingToClass(DLxJsonConverter, Converter, {
+        specification: null,
+        statsOnly: false,
+        allHeaderSet: null,
+        emittedStart: false,
+        stats: null,
+        constructor: Function,
+        reset: Function,
+        finish: Function,
+        convertHeaderSet: Function,
+        _convertHeaderSetToJson: Function,
+        _emitStart: Function,
+        _emitEnd: Function,
+        _read: Function,
+    }, {
+
     });
 
 });

@@ -13,8 +13,6 @@ const Header = require('./header');
 const HeaderSet = require('./header-set');
 const _ = require('./lodash');
 
-const extend = require('./extend');
-
 
 
 const optionKeys = [
@@ -34,15 +32,7 @@ const optionKeys = [
 
 
 
-const Converter = extend(Duplex, /** @lends Converter# */ {
-
-    /**
-     * Specifies whether the underlying stream operates in object mode.
-     * @type {boolean}
-     */
-    objectMode: false,
-
-    finishedPromise: null,
+class Converter extends Duplex {
 
     /**
      * Creates a new Converter instance and optionally initializes its members with the given values.
@@ -60,13 +50,13 @@ const Converter = extend(Duplex, /** @lends Converter# */ {
      * character-separated text representations.
      */
     constructor(options) {
+        super({
+            objectMode: options && options.objectMode || false,
+        });
+
         const _this = this;
 
         options = _.defaults({}, options);
-
-        Duplex.call(this, {
-            objectMode: options.objectMode,
-        });
 
         _.extend(this, _.pick(options, optionKeys));
 
@@ -82,7 +72,7 @@ const Converter = extend(Duplex, /** @lends Converter# */ {
                 resolve();
             });
         });
-    },
+    }
 
     /**
      * This method resets the converter. It should be used e.g. if the converter output switches between files (allows
@@ -90,7 +80,7 @@ const Converter = extend(Duplex, /** @lends Converter# */ {
      */
     reset() {
         // nop
-    },
+    }
 
     /**
      * This method signals that no additional VBus Header or HeaderSet models will
@@ -103,7 +93,7 @@ const Converter = extend(Duplex, /** @lends Converter# */ {
         this.push(null);
 
         return this.finishedPromise;
-    },
+    }
 
     /**
      * This method queues a VBus raw data chunk from conversion.
@@ -117,7 +107,7 @@ const Converter = extend(Duplex, /** @lends Converter# */ {
         } else {
             throw new Error('Must be implemented by sub-class');
         }
-    },
+    }
 
     /**
      * This method queues a VBus Header model (Packet, Datagram or Telegram) for conversion.
@@ -131,7 +121,7 @@ const Converter = extend(Duplex, /** @lends Converter# */ {
         } else {
             throw new Error('Must be implemented by sub-class');
         }
-    },
+    }
 
     /**
      * This method queues a VBus HeaderSet instance for conversion.
@@ -145,7 +135,7 @@ const Converter = extend(Duplex, /** @lends Converter# */ {
         } else {
             throw new Error('Must be implemented by sub-class');
         }
-    },
+    }
 
     _read() {
         if (this.objectMode) {
@@ -153,7 +143,7 @@ const Converter = extend(Duplex, /** @lends Converter# */ {
         } else {
             throw new Error('Must be implemented by sub-class');
         }
-    },
+    }
 
     _write(chunk, encoding, callback) {
         if (this.objectMode) {
@@ -169,7 +159,20 @@ const Converter = extend(Duplex, /** @lends Converter# */ {
         } else {
             throw new Error('Must be implemented by sub-class');
         }
-    },
+    }
+
+}
+
+
+Object.assign(Converter.prototype, {
+
+    /**
+     * Specifies whether the underlying stream operates in object mode.
+     * @type {boolean}
+     */
+    objectMode: false,
+
+    finishedPromise: null,
 
 });
 

@@ -12,7 +12,7 @@ const _ = require('../lodash');
 
 
 
-const ResolDeltaSolMx112ConfigurationOptimizer = BaseConfigurationOptimizer.extend({
+class ResolDeltaSolMx112ConfigurationOptimizer extends BaseConfigurationOptimizer {
 
     optimizeConfiguration($) {
         this.optimizeModuleConfiguration($);
@@ -22,13 +22,13 @@ const ResolDeltaSolMx112ConfigurationOptimizer = BaseConfigurationOptimizer.exte
         this.optimizeHeizungWfConfiguration($);
         this.optimizeHeizungHeizkreisConfiguration($);
         this.optimizeWmzConfiguration($);
-    },
+    }
 
     optimizeModuleConfiguration($) {
         $(/^Modul([0-9]+)_Aktiviert$/).isFalse((value) => {
             $('^(Sensor|Relais)[^_]*_Modul' + value.md [1] + '_.*$').ignore();
         });
-    },
+    }
 
     optimizeSolarConfiguration($) {
         const value = $('Solar_SystemId');
@@ -81,7 +81,7 @@ const ResolDeltaSolMx112ConfigurationOptimizer = BaseConfigurationOptimizer.exte
         value.lt(10, () => {
             $(/^Solar_Wf1_(Zieltemperatur|Bereitschaft|DrainBack)_.*/).ignore();
         });
-    },
+    }
 
     optimizeSolarWfConfiguration($) {
         $(/^Solar_Wf([0-9]+)_Type$/).forEach((value) => {
@@ -105,7 +105,7 @@ const ResolDeltaSolMx112ConfigurationOptimizer = BaseConfigurationOptimizer.exte
                 });
             });
         });
-    },
+    }
 
     optimizeAnlageWfConfiguration($) {
         $(/^(Anlage_Wf[0-9]+)_Type$/).forEach((value) => {
@@ -137,7 +137,7 @@ const ResolDeltaSolMx112ConfigurationOptimizer = BaseConfigurationOptimizer.exte
                 });
             });
         });
-    },
+    }
 
     optimizeHeizungWfConfiguration($) {
         $(/^(Heizung_Wf[0-9]+)_Type$/).forEach((value) => {
@@ -162,7 +162,7 @@ const ResolDeltaSolMx112ConfigurationOptimizer = BaseConfigurationOptimizer.exte
                 });
             });
         });
-    },
+    }
 
     optimizeHeizungHeizkreisConfiguration($) {
         $(/^(Heizung_Heizkreis[0-9]+)_Type$/).forEach((value) => {
@@ -188,7 +188,7 @@ const ResolDeltaSolMx112ConfigurationOptimizer = BaseConfigurationOptimizer.exte
                 });
             });
         });
-    },
+    }
 
     optimizeWmzConfiguration($) {
         $(/^(Wmz[0-9]+)_Type$/).forEach((value) => {
@@ -198,9 +198,12 @@ const ResolDeltaSolMx112ConfigurationOptimizer = BaseConfigurationOptimizer.exte
                 $(prefix + '(?!Type).*').ignore();
             });
         });
-    },
+    }
 
-}, {
+}
+
+
+Object.assign(ResolDeltaSolMx112ConfigurationOptimizer, {
 
     deviceAddress: 0x7E11,
 

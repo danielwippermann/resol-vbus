@@ -14,6 +14,10 @@ const {
 
 const expect = require('./expect');
 
+const {
+    itShouldWorkCorrectlyAfterMigratingToClass,
+} = require('./test-utils');
+
 
 
 describe('HeaderSet', () => {
@@ -22,7 +26,6 @@ describe('HeaderSet', () => {
 
         it('should be a constructor function', () => {
             expect(HeaderSet).to.be.a('function');
-            expect(HeaderSet.extend).to.be.a('function');
         });
 
         it('should have reasonable defaults', () => {
@@ -474,6 +477,26 @@ describe('HeaderSet', () => {
             spy.restore();
         });
 
+    });
+
+    itShouldWorkCorrectlyAfterMigratingToClass(HeaderSet, null, {
+        timestamp: null,
+        headerList: null,
+        constructor: Function,
+        _findIndex: Function,
+        containsHeader: Function,
+        addHeader: Function,
+        addHeaders: Function,
+        _removeHeader: Function,
+        _removeHeaders: Function,
+        removeAllHeaders: Function,
+        removeHeadersOlderThan: Function,
+        getHeaderCount: Function,
+        getHeaders: Function,
+        getSortedHeaders: Function,
+        getSortedHeaderSet: Function,
+        getId: Function,
+        getIdHash: Function,
     });
 
 });

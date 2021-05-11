@@ -4,12 +4,17 @@
 
 
 const {
+    DataSource,
     SerialConnection,
     SerialDataSource,
 } = require('./resol-vbus');
 
 
 const expect = require('./expect');
+
+const {
+    itShouldWorkCorrectlyAfterMigratingToClass,
+} = require('./test-utils');
 
 
 
@@ -57,6 +62,14 @@ describe('SerialDataSource', () => {
                 SerialConnection.prototype.connect = originalConnect;
             }
         });
+
+    });
+
+    itShouldWorkCorrectlyAfterMigratingToClass(SerialDataSource, DataSource, {
+        path: null,
+        constructor: Function,
+        connectLive: Function,
+    }, {
 
     });
 

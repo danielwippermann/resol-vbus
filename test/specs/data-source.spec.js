@@ -10,6 +10,10 @@ const {
 
 const expect = require('./expect');
 
+const {
+    itShouldWorkCorrectlyAfterMigratingToClass,
+} = require('./test-utils');
+
 
 
 describe('DataSource', () => {
@@ -133,6 +137,22 @@ describe('DataSource', () => {
                 converter.createCustomizer();
             }).to.throw(Error, 'Must be implemented by sub-class');
         });
+
+    });
+
+    itShouldWorkCorrectlyAfterMigratingToClass(DataSource, null, {
+        provider: null,
+        id: null,
+        name: null,
+        description: null,
+        isSupportingLiveData: false,
+        isSupportingRecordedData: false,
+        isSupportingCustomization: false,
+        constructor: Function,
+        connectLive: Function,
+        openRecorder: Function,
+        createCustomizer: Function,
+    }, {
 
     });
 

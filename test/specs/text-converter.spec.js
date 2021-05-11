@@ -4,6 +4,7 @@
 
 
 const {
+    Converter,
     HeaderSet,
     I18N,
     Packet,
@@ -160,6 +161,23 @@ describe('TextConverter', () => {
 
             jestExpect(result).toBe('Formatted');
         });
+
+    });
+
+    testUtils.itShouldWorkCorrectlyAfterMigratingToClass(TextConverter, Converter, {
+        columnSeparator: '\t',
+        lineSeparator: '\r\n',
+        separateDateAndTime: false,
+        specification: null,
+        dateFormat: 'L',
+        timeFormat: 'HH:mm:ss',
+        lastIdList: null,
+        constructor: Function,
+        reset: Function,
+        convertHeaderSet: Function,
+        formatDateAndTime: Function,
+        _read: Function,
+    }, {
 
     });
 

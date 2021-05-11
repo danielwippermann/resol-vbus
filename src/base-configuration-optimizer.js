@@ -4,26 +4,17 @@
 
 
 const ConfigurationOptimizer = require('./configuration-optimizer');
-const extend = require('./extend');
 const _ = require('./lodash');
 
 
 
-const ValuesWrapper = extend(null, {
-
-    pattern: null,
-
-    values: null,
-
-    length: 0,
-
-    md: null,
+class ValuesWrapper {
 
     constructor(pattern, values) {
         this.pattern = pattern;
         this.values = values;
         this.length = values.length;
-    },
+    }
 
     $(pattern, values) {
         if (values === undefined) {
@@ -48,81 +39,81 @@ const ValuesWrapper = extend(null, {
         const wrapper = new ValuesWrapper(pattern, matchingValues);
 
         return wrapper;
-    },
+    }
 
     forEach(callback) {
         return this._check(callback, () => {
             return true;
         });
-    },
+    }
 
     isFalse(callback) {
         return this._check(callback, (value, valueInfo) => {
             return !value;
         });
-    },
+    }
 
     isTrue(callback) {
         return this._check(callback, (value, valueInfo) => {
             return !!value;
         });
-    },
+    }
 
     eql(refValue, callback) {
         return this._check(callback, (value, valueInfo) => {
             const normalizedRefValue = this._normalizeValue(refValue, valueInfo);
             return (value === normalizedRefValue);
         });
-    },
+    }
 
     notEql(refValue, callback) {
         return this._check(callback, (value, valueInfo) => {
             const normalizedRefValue = this._normalizeValue(refValue, valueInfo);
             return (value !== normalizedRefValue);
         });
-    },
+    }
 
     lt(refValue, callback) {
         return this._check(callback, (value, valueInfo) => {
             const normalizedRefValue = this._normalizeValue(refValue, valueInfo);
             return (value < normalizedRefValue);
         });
-    },
+    }
 
     lte(refValue, callback) {
         return this._check(callback, (value, valueInfo) => {
             const normalizedRefValue = this._normalizeValue(refValue, valueInfo);
             return (value <= normalizedRefValue);
         });
-    },
+    }
 
     gt(refValue, callback) {
         return this._check(callback, (value, valueInfo) => {
             const normalizedRefValue = this._normalizeValue(refValue, valueInfo);
             return (value > normalizedRefValue);
         });
-    },
+    }
 
     gte(refValue, callback) {
         return this._check(callback, (value, valueInfo) => {
             const normalizedRefValue = this._normalizeValue(refValue, valueInfo);
             return (value >= normalizedRefValue);
         });
-    },
+    }
 
     in(refValues, callback) {
         return this._check(callback, (value, valueInfo) => {
             const normalizedRefValues = this._normalizeValues(refValues, valueInfo);
             return _.includes(normalizedRefValues, value);
         });
-    },
+    }
 
     notIn(refValues, callback) {
         return this._check(callback, (value, valueInfo) => {
             const normalizedRefValues = this._normalizeValues(refValues, valueInfo);
             return !_.includes(normalizedRefValues, value);
         });
-    },
+    }
 
     isChanged(callback) {
         return this._check(callback, (value, valueInfo) => {
@@ -131,7 +122,7 @@ const ValuesWrapper = extend(null, {
             includeUndefined: false,
             includeFailed: false,
         });
-    },
+    }
 
     ignore() {
         _.forEach(this.values, (value) => {
@@ -139,7 +130,7 @@ const ValuesWrapper = extend(null, {
         });
 
         return this;
-    },
+    }
 
     invalidate() {
         _.forEach(this.values, (value) => {
@@ -147,11 +138,11 @@ const ValuesWrapper = extend(null, {
         });
 
         return this;
-    },
+    }
 
     check(checker, action, options) {
         return this._check(action, checker, options);
-    },
+    }
 
     _check(action, checker, options) {
         const _this = this;
@@ -189,7 +180,7 @@ const ValuesWrapper = extend(null, {
         });
 
         return this;
-    },
+    }
 
     _normalizeValue(value, valueInfo) {
         if (_.isString(value) && (value.charAt(0) === '#')) {
@@ -201,7 +192,7 @@ const ValuesWrapper = extend(null, {
         }
 
         return value;
-    },
+    }
 
     _normalizeValues(values, valueInfo) {
         const _this = this;
@@ -211,17 +202,30 @@ const ValuesWrapper = extend(null, {
         });
 
         return values;
-    },
+    }
 
     _reportNoMatchingValues(pattern, values) {
         throw new Error('WARNING: No values matching ' + pattern + ' found');
-    },
+    }
+
+}
+
+
+Object.assign(ValuesWrapper.prototype, {
+
+    pattern: null,
+
+    values: null,
+
+    length: 0,
+
+    md: null,
 
 });
 
 
 
-const BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
+class BaseConfigurationOptimizer extends ConfigurationOptimizer {
 
     async completeConfiguration(config) {
         const _this = this;
@@ -327,7 +331,7 @@ const BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
         }
 
         return result;
-    },
+    }
 
     async optimizeLoadConfiguration(config) {
         const _this = this;
@@ -345,11 +349,11 @@ const BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
         });
 
         return config;
-    },
+    }
 
     optimizeSaveConfiguration(newConfig, oldConfig) {
         throw new Error('NYI');
-    },
+    }
 
     _buildConfiguration(oldConfig) {
         if (oldConfig === undefined) {
@@ -394,7 +398,7 @@ const BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
         });
 
         return newConfig;
-    },
+    }
 
     _getAdjustableValues() {
         const data = this.constructor.configurationData;
@@ -477,7 +481,7 @@ const BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
         }, []);
 
         return adjustableValues;
-    },
+    }
 
     _optimizeConfiguration(config, adjustableValues) {
         const configValueById = _.reduce(config, (memo, configValue) => {
@@ -525,9 +529,22 @@ const BaseConfigurationOptimizer = ConfigurationOptimizer.extend({
         this.optimizeConfiguration($);
 
         return adjustableValues;
-    },
+    }
 
-}, {
+    // FIXME(daniel): remove me!
+    static extend(instanceMembers, staticMembers) {
+        class SubClass extends BaseConfigurationOptimizer {}
+
+        Object.assign(SubClass.prototype, instanceMembers);
+        Object.assign(SubClass, staticMembers);
+
+        return SubClass;
+    }
+
+}
+
+
+Object.assign(BaseConfigurationOptimizer, {
 
     deviceAddress: 0,
 

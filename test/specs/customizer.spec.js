@@ -11,6 +11,10 @@ const {
 
 const expect = require('./expect');
 
+const {
+    itShouldWorkCorrectlyAfterMigratingToClass,
+} = require('./test-utils');
+
 
 
 describe('Customizer', () => {
@@ -303,6 +307,22 @@ describe('Customizer', () => {
             expect(optimizer.optimizeSaveConfiguration.firstCall.args [1]).equal(oldConfig);
             expect(result).equal(refResult);
         });
+
+    });
+
+    itShouldWorkCorrectlyAfterMigratingToClass(Customizer, null, {
+        id: null,
+        deviceAddress: 0,
+        optimizer: null,
+        constructor: Function,
+        loadConfiguration: Function,
+        _loadConfiguration: Function,
+        saveConfiguration: Function,
+        _saveConfiguration: Function,
+        _completeConfiguration: Function,
+        _optimizeLoadConfiguration: Function,
+        _optimizeSaveConfiguration: Function,
+    }, {
 
     });
 

@@ -3,6 +3,9 @@
 
 
 
+const { EventEmitter } = require('events');
+
+
 const moment = require('moment');
 
 
@@ -17,6 +20,10 @@ const {
 
 const expect = require('./expect');
 const _ = require('./lodash');
+
+const {
+    itShouldWorkCorrectlyAfterMigratingToClass,
+} = require('./test-utils');
 
 
 
@@ -573,6 +580,30 @@ describe('Recorder', () => {
             ]);
         });
 
+    });
+
+    itShouldWorkCorrectlyAfterMigratingToClass(Recorder, EventEmitter, {
+        id: null,
+        minTimestamp: null,
+        maxTimestamp: null,
+        interval: 0,
+        constructor: Function,
+        _getOptions: Function,
+        playback: Function,
+        _playback: Function,
+        record: Function,
+        _startRecording: Function,
+        _endRecording: Function,
+        synchronizeTo: Function,
+        _getCurrentSyncState: Function,
+        _getSyncJob: Function,
+        _recordSyncJob: Function,
+        _playbackSyncJob: Function,
+        _getSyncState: Function,
+        _markSourceSyncRanges: Function,
+    }, {
+        alignTimestampToInterval: Function,
+        performRangeSetOperation: Function,
     });
 
 });

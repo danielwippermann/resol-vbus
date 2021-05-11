@@ -3,6 +3,9 @@
 
 
 
+const { Duplex } = require('stream');
+
+
 const {
     Packet,
     Datagram,
@@ -11,7 +14,11 @@ const {
 
 
 const expect = require('./expect');
-const { expectPromise } = require('./test-utils');
+
+const {
+    expectPromise,
+    itShouldWorkCorrectlyAfterMigratingToClass,
+} = require('./test-utils');
 
 
 
@@ -142,7 +149,6 @@ describe('Connection', () => {
 
         it('should be a constructor', () => {
             expect(Connection).to.be.a('function');
-            expect(Connection.extend).to.be.a('function');
         });
 
     });
@@ -1765,6 +1771,44 @@ describe('Connection', () => {
             });
         });
 
+    });
+
+    itShouldWorkCorrectlyAfterMigratingToClass(Connection, Duplex, {
+        constructor: Function,
+        dataSource: null,
+        channel: 0,
+        selfAddress: 0x0020,
+        connectionState: Connection.STATE_DISCONNECTED,
+        rxBuffer: null,
+        connect: Function,
+        disconnect: Function,
+        _write: Function,
+        receive: Function,
+        _read: Function,
+        _setConnectionState: Function,
+        send: Function,
+        transceive: Function,
+        waitForFreeBus: Function,
+        releaseBus: Function,
+        getValueById: Function,
+        setValueById: Function,
+        getValueIdHashById: Function,
+        getValueIdByIdHash: Function,
+        getCaps1: Function,
+        beginBulkValueTransaction: Function,
+        commitBulkValueTransaction: Function,
+        rollbackBulkValueTransaction: Function,
+        setBulkValueById: Function,
+        ping: Function,
+        getStorageActivity: Function,
+        createConnectedPromise: Function,
+    }, {
+        STATE_DISCONNECTED: 'DISCONNECTED',
+        STATE_CONNECTING: 'CONNECTING',
+        STATE_CONNECTED: 'CONNECTED',
+        STATE_INTERRUPTED: 'INTERRUPTED',
+        STATE_RECONNECTING: 'RECONNECTING',
+        STATE_DISCONNECTING: 'DISCONNECTING',
     });
 
 });

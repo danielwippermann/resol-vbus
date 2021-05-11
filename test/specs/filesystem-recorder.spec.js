@@ -17,6 +17,7 @@ const {
 } = require('./resol-vbus');
 
 
+const jestExpect = global.expect;
 const expect = require('./expect');
 const TestRecorder = require('./test-recorder');
 const testUtils = require('./test-utils');
@@ -76,7 +77,7 @@ describe('FileSystemRecorder', () => {
     describe('constructor', () => {
 
         it('should be a constructor function', () => {
-            expect(FileSystemRecorder).a('function').property('extend').a('function');
+            expect(FileSystemRecorder).a('function');
         });
 
         it('should have reasonable defaults', () => {
@@ -318,6 +319,9 @@ describe('FileSystemRecorder', () => {
 
             const targetRecorder = new FileSystemRecorder(options);
 
+            jestExpect(sourceRecorder.interval).toBe(300000);
+            jestExpect(targetRecorder.interval).toBe(300000);
+
             await createDeleteFilesInPathPromise(testFixturesPath);
 
             const ranges = await sourceRecorder.synchronizeTo(targetRecorder);
@@ -377,6 +381,28 @@ describe('FileSystemRecorder', () => {
                 readToStream.restore();
             }
         });
+
+    });
+
+    testUtils.itShouldWorkCorrectlyAfterMigratingToClass(FileSystemRecorder, Recorder, {
+        path: '.',
+        constructor: Function,
+        _getOptions: Function,
+        _getAbsoluteFilename: Function,
+        _getCurrentSyncStateFilename: Function,
+        _getCurrentSyncState: Function,
+        _setCurrentSyncState: Function,
+        _getOwnSyncState: Function,
+        _playback: Function,
+        _startRecordingInternal: Function,
+        _startRecording: Function,
+        _endRecording: Function,
+        _recordSyncJob: Function,
+        getHash: Function,
+        _readToStream: Function,
+        _makeDirectory: Function,
+        _makeDirectories: Function,
+    }, {
 
     });
 

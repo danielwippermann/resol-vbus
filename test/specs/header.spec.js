@@ -10,25 +10,29 @@ const {
 
 const expect = require('./expect');
 
+const {
+    itShouldWorkCorrectlyAfterMigratingToClass,
+} = require('./test-utils');
 
 
-const DebugHeader = Header.extend({
 
-    protocolVersion: 0x37,
+class DebugHeader extends Header {
 
     constructor(options) {
-        Header.call(this, options);
+        super(options);
+
+        this.protocolVersion = 0x37;
 
         if (options.protocolVersion !== undefined) {
             this.protocolVersion = options.protocolVersion;
         }
-    },
+    }
 
     getProtocolVersion() {
         return this.protocolVersion;
-    },
+    }
 
-});
+}
 
 
 
@@ -147,7 +151,6 @@ describe('Header', () => {
 
         it('should be a constructor function', () => {
             expect(Header).to.be.a('function');
-            expect(Header.extend).to.be.a('function');
         });
 
         it('should have reasonable defaults', () => {
@@ -346,6 +349,26 @@ describe('Header', () => {
             expect(datagram.compareTo(new DebugHeader(options))).to.be.below(0);
         });
 
+    });
+
+    itShouldWorkCorrectlyAfterMigratingToClass(Header, null, {
+        timestamp: null,
+        channel: 0,
+        destinationAddress: 0,
+        sourceAddress: 0,
+        constructor: Function,
+        toLiveBuffer: Function,
+        getProtocolVersion: Function,
+        getInfo: Function,
+        getId: Function,
+        compareTo: Function,
+    }, {
+        fromLiveBuffer: Function,
+        calcChecksumV0: Function,
+        calcAndCompareChecksumV0: Function,
+        calcAndSetChecksumV0: Function,
+        injectSeptett: Function,
+        extractSeptett: Function,
     });
 
 });

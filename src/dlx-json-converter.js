@@ -18,21 +18,7 @@ const optionKeys = [
 
 
 
-const DLxJsonConverter = Converter.extend(/** @lends DLxJsonConverter# */ {
-
-    /**
-     * Reference to the Specification instance that is used for the binary -> text conversion.
-     * @type {Specification}
-     */
-    specification: null,
-
-    statsOnly: false,
-
-    allHeaderSet: null,
-
-    emittedStart: false,
-
-    stats: null,
+class DLxJsonConverter extends Converter {
 
     /**
      * Creates a new DLxJsonConverter instance and optionally initializes its members with the given values.
@@ -52,7 +38,7 @@ const DLxJsonConverter = Converter.extend(/** @lends DLxJsonConverter# */ {
      * writable stream side).
      */
     constructor(options) {
-        Converter.call(this, options);
+        super(options);
 
         _.extend(this, _.pick(options, optionKeys));
 
@@ -65,7 +51,7 @@ const DLxJsonConverter = Converter.extend(/** @lends DLxJsonConverter# */ {
         this.allHeaderSet = new HeaderSet();
 
         this.reset();
-    },
+    }
 
     reset() {
         this.allHeaderSet.removeAllHeaders();
@@ -77,13 +63,13 @@ const DLxJsonConverter = Converter.extend(/** @lends DLxJsonConverter# */ {
             minTimestamp: null,
             maxTimestamp: null,
         };
-    },
+    }
 
     finish() {
         this._emitEnd();
 
         return Converter.prototype.finish.apply(this, arguments);
-    },
+    }
 
     convertHeaderSet(headerSet) {
         const headers = headerSet.getHeaders();
@@ -110,7 +96,7 @@ const DLxJsonConverter = Converter.extend(/** @lends DLxJsonConverter# */ {
         if ((this.stats.maxTimestamp === null) || (this.stats.maxTimestamp < timestamp)) {
             this.stats.maxTimestamp = timestamp;
         }
-    },
+    }
 
     _convertHeaderSetToJson(headerSet) {
         const spec = this.specification;
@@ -184,7 +170,7 @@ const DLxJsonConverter = Converter.extend(/** @lends DLxJsonConverter# */ {
         ].join('');
 
         this.push(content);
-    },
+    }
 
     _emitStart() {
         if (!this.emittedStart) {
@@ -192,7 +178,7 @@ const DLxJsonConverter = Converter.extend(/** @lends DLxJsonConverter# */ {
 
             this.push('{"headersets":[');
         }
-    },
+    }
 
     _emitEnd() {
         const spec = this.specification;
@@ -284,11 +270,30 @@ const DLxJsonConverter = Converter.extend(/** @lends DLxJsonConverter# */ {
         this.push(content);
 
         this.push(null);
-    },
+    }
 
     _read() {
         // nop
-    },
+    }
+
+}
+
+
+Object.assign(DLxJsonConverter.prototype, {
+
+    /**
+     * Reference to the Specification instance that is used for the binary -> text conversion.
+     * @type {Specification}
+     */
+    specification: null,
+
+    statsOnly: false,
+
+    allHeaderSet: null,
+
+    emittedStart: false,
+
+    stats: null,
 
 });
 

@@ -7,8 +7,8 @@ const { Duplex } = require('stream');
 
 
 const {
+    Connection,
     SerialConnection,
-    extend,
     utils: { promisify },
 } = require('./resol-vbus');
 
@@ -18,39 +18,37 @@ const testUtils = require('./test-utils');
 
 
 
-const SerialPortStub = extend(Duplex, {
+class SerialPortStub extends Duplex {
 
     constructor(path, options, onCompletion) {
-        const _this = this;
-
-        Duplex.call(this);
+        super();
 
         process.nextTick(() => {
-            _this.emit('open');
+            this.emit('open');
 
             onCompletion(null);
         });
-    },
+    }
 
     close() {
         // nop
-    },
+    }
 
     _read() {
         // nop
-    },
+    }
 
-});
+}
 
 
 
-const TestableSerialConnection = SerialConnection.extend({
+class TestableSerialConnection extends SerialConnection {
 
     createSerialPort(path, options, onCompletion) {
         return new SerialPortStub(path, options, onCompletion);
     }
 
-});
+}
 
 
 
@@ -84,9 +82,7 @@ describe('SerialConnection', () => {
 
         it('should be a constructor function', () => {
             expect(SerialConnection)
-                .to.be.a('function')
-                .that.has.a.property('extend')
-                .that.is.a('function');
+                .to.be.a('function');
         });
 
         it('should have reasonable defaults', () => {
@@ -210,6 +206,22 @@ describe('SerialConnection', () => {
 
         });
 
+    });
+
+    testUtils.itShouldWorkCorrectlyAfterMigratingToClass(SerialConnection, Connection, {
+        path: null,
+        baudrate: 9600,
+        reconnectTimeout: 0,
+        reconnectTimeoutIncr: 10000,
+        reconnectTimeoutMax: 60000,
+        serialPort: null,
+        constructor: Function,
+        connect: Function,
+        disconnect: Function,
+        _connect: Function,
+        _createSerialPort: Function,
+    }, {
+        hasSerialPortSupport: true,
     });
 
 });

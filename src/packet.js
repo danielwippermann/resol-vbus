@@ -18,24 +18,7 @@ const optionKeys = [
 
 
 
-const Packet = Header.extend(/** @lends Packet# */ {
-
-    /**
-     * The command field of this VBus packet. See the VBus Protocol specification for details.
-     * @type {number}
-     */
-    command: 0,
-
-    /**
-     * The number of frames of this VBus packet. Each frame can hold four bytes of payload.
-     * @type {number}
-     */
-    frameCount: 0,
-
-    /**
-     * The buffer containing the frame data of this VBus packet.
-     */
-    frameData: null,
+class Packet extends Header {
 
     /**
      * Creates a new Packet instance and optionally initializes its members with the given values.
@@ -58,7 +41,7 @@ const Packet = Header.extend(/** @lends Packet# */ {
      * @see Specification
      */
     constructor(options) {
-        Header.call(this, options);
+        super(options);
 
         _.extend(this, _.pick(options, optionKeys));
 
@@ -73,7 +56,7 @@ const Packet = Header.extend(/** @lends Packet# */ {
                 options.frameData.copy(this.frameData, 0, 0, minLength);
             }
         }
-    },
+    }
 
     toLiveBuffer(origBuffer, start, end) {
         const length = 10 + this.frameCount * 6;
@@ -103,16 +86,16 @@ const Packet = Header.extend(/** @lends Packet# */ {
         }
 
         return buffer;
-    },
+    }
 
     getProtocolVersion() {
         return 0x10;
-    },
+    }
 
     getId() {
         const baseId = Header.prototype.getId.call(this);
         return sprintf('%s_%04X', baseId, this.command);
-    },
+    }
 
     compareTo(that) {
         let result = Header.prototype.compareTo.apply(this, arguments);
@@ -120,11 +103,9 @@ const Packet = Header.extend(/** @lends Packet# */ {
             result = this.command - that.command;
         }
         return result;
-    },
+    }
 
-}, /** @lends Packet */ {
-
-    fromLiveBuffer(buffer, start, end) {
+    static fromLiveBuffer(buffer, start, end) {
         const frameCount = buffer [start + 8];
 
         const frameData = Buffer.alloc(127 * 4);
@@ -145,6 +126,28 @@ const Packet = Header.extend(/** @lends Packet# */ {
             dontCopyFrameData: true
         });
     }
+
+}
+
+
+Object.assign(Packet.prototype, {
+
+    /**
+     * The command field of this VBus packet. See the VBus Protocol specification for details.
+     * @type {number}
+     */
+    command: 0,
+
+    /**
+     * The number of frames of this VBus packet. Each frame can hold four bytes of payload.
+     * @type {number}
+     */
+    frameCount: 0,
+
+    /**
+     * The buffer containing the frame data of this VBus packet.
+     */
+    frameData: null,
 
 });
 

@@ -10,6 +10,7 @@ const { Duplex } = require('stream');
 
 const {
     DLxRecorder,
+    Recorder,
     utils: { promisify },
 } = require('./resol-vbus');
 
@@ -96,9 +97,7 @@ describe('DLxRecorder', () => {
 
         it('should be a constructor function', () => {
             expect(DLxRecorder)
-                .to.be.a('function')
-                .that.has.a.property('extend')
-                .that.is.a('function');
+                .to.be.a('function');
         });
 
         it('should have reasonable defaults', () => {
@@ -445,6 +444,25 @@ describe('DLxRecorder', () => {
 
             });
         });
+
+    });
+
+    testUtils.itShouldWorkCorrectlyAfterMigratingToClass(DLxRecorder, Recorder, {
+        urlPrefix: null,
+        username: 'admin',
+        password: 'admin',
+        constructor: Function,
+        _getOptions: Function,
+        _playback: Function,
+        _playbackRaw: Function,
+        _playbackApi: Function,
+        _playbackSyncJob: Function,
+        getLazyRecordingRanges: Function,
+        getRecordingFilenames: Function,
+        getRecordingInfo: Function,
+        downloadToStream: Function,
+        _request: Function,
+    }, {
 
     });
 

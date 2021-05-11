@@ -10,6 +10,10 @@ const {
 
 const expect = require('./expect');
 
+const {
+    itShouldWorkCorrectlyAfterMigratingToClass,
+} = require('./test-utils');
+
 
 
 describe('ConfigurationOptimizer', () => {
@@ -30,11 +34,10 @@ describe('ConfigurationOptimizer', () => {
         });
 
         it('should return single match if a deviceAddress is given', () => {
-            const TestableConfigurationOptimizer = ConfigurationOptimizer.extend({}, {
+            class TestableConfigurationOptimizer extends ConfigurationOptimizer {
+            }
 
-                deviceAddress: 0x1111,
-
-            });
+            TestableConfigurationOptimizer.deviceAddress = 0x1111;
 
             return TestableConfigurationOptimizer.getOptimizerOptions().then((matches) => {
                 expect(matches).an('array').lengthOf(1);
@@ -66,11 +69,10 @@ describe('ConfigurationOptimizer', () => {
         });
 
         it('should match if the right deviceAddress is given', () => {
-            const TestableConfigurationOptimizer = ConfigurationOptimizer.extend({}, {
+            class TestableConfigurationOptimizer extends ConfigurationOptimizer {
+            }
 
-                deviceAddress: 0x1111,
-
-            });
+            TestableConfigurationOptimizer.deviceAddress = 0x1111;
 
             const options = {
                 deviceAddress: 0x1111,
@@ -84,11 +86,10 @@ describe('ConfigurationOptimizer', () => {
         });
 
         it('should not match if the wrong deviceAddress is given', () => {
-            const TestableConfigurationOptimizer = ConfigurationOptimizer.extend({}, {
+            class TestableConfigurationOptimizer extends ConfigurationOptimizer {
+            }
 
-                deviceAddress: 0x1111,
-
-            });
+            TestableConfigurationOptimizer.deviceAddress = 0x1111;
 
             const options = {
                 deviceAddress: 0x2222,
@@ -165,6 +166,18 @@ describe('ConfigurationOptimizer', () => {
             }).throw(Error, 'Must be implemented by sub-class');
         });
 
+    });
+
+    itShouldWorkCorrectlyAfterMigratingToClass(ConfigurationOptimizer, null, {
+        constructor: Function,
+        completeConfiguration: Function,
+        optimizeLoadConfiguration: Function,
+        optimizeSaveConfiguration: Function,
+        generateClockConfiguration: Function,
+    }, {
+        deviceAddress: null,
+        getOptimizerOptions: Function,
+        matchOptimizer: Function,
     });
 
 });

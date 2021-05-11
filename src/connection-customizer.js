@@ -17,43 +17,7 @@ const optionKeys = [
 
 
 
-const ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# */ {
-
-    /**
-     * The connection to use for transfer of the configuration values.
-     * @type {Connection}
-     */
-    connection: null,
-
-    /**
-     * Maximum number of optimization rounds for {@link transceiveConfiguration}.
-     * @type {number}
-     * @default 10
-     */
-    maxRounds: 10,
-
-    /**
-     * Amount of retries to transceive one value.
-     * Between two tries the VBus is released and then re-acquired.
-     * @type {number}
-     * @default 2
-     */
-    triesPerValue: 2,
-
-    /**
-     * Timeout in milliseconds after which the transceive times out.
-     * @type {number}
-     * @default 30000
-     */
-    timeoutPerValue: 30000,
-
-    /**
-     * Interval in milliseconds in which
-     * the VBus master is contacted to reissue the VBus clearance.
-     * @type {number}
-     * @default 8000
-     */
-    masterTimeout: 8000,
+class ConnectionCustomizer extends Customizer {
 
     /**
      * Constructs a new ConnectionCustomizer instance and optionally initializes its
@@ -73,10 +37,10 @@ const ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# 
      * to transfer sets of configuration values over it.
      */
     constructor(options) {
-        Customizer.apply(this, arguments);
+        super(options);
 
         _.extend(this, _.pick(options, optionKeys));
-    },
+    }
 
     /**
      * Load a set of configuration values from a device.
@@ -105,7 +69,7 @@ const ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# 
         };
 
         return this.transceiveConfiguration(options, callback);
-    },
+    }
 
     /**
      * Save a set of configuration values to a device.
@@ -141,7 +105,7 @@ const ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# 
         };
 
         return this.transceiveConfiguration(options, callback);
-    },
+    }
 
     /**
      * Transceives a controller configuration set, handling timeouts, retries etc.
@@ -267,7 +231,7 @@ const ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# 
         }
 
         return config;
-    },
+    }
 
     /**
      * Transceive a controller value over this connection, handling
@@ -461,6 +425,47 @@ const ConnectionCustomizer = Customizer.extend(/** @lends ConnectionCustomizer# 
             doWork(resolve, reject).then(resolve, reject);
         });
     }
+}
+
+
+Object.assign(ConnectionCustomizer.prototype, {
+
+    /**
+     * The connection to use for transfer of the configuration values.
+     * @type {Connection}
+     */
+    connection: null,
+
+    /**
+     * Maximum number of optimization rounds for {@link transceiveConfiguration}.
+     * @type {number}
+     * @default 10
+     */
+    maxRounds: 10,
+
+    /**
+     * Amount of retries to transceive one value.
+     * Between two tries the VBus is released and then re-acquired.
+     * @type {number}
+     * @default 2
+     */
+    triesPerValue: 2,
+
+    /**
+     * Timeout in milliseconds after which the transceive times out.
+     * @type {number}
+     * @default 30000
+     */
+    timeoutPerValue: 30000,
+
+    /**
+     * Interval in milliseconds in which
+     * the VBus master is contacted to reissue the VBus clearance.
+     * @type {number}
+     * @default 8000
+     */
+    masterTimeout: 8000,
+
 });
 
 

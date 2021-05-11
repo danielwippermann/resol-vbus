@@ -19,25 +19,7 @@ const optionKeys = [
 
 
 
-const Datagram = Header.extend(/** @lends Datagram# */ {
-
-    /**
-     * The command field of this VBus datagram. See the VBus Protocol Specification for details.
-     * @type {number}
-     */
-    command: 0,
-
-    /**
-     * The value ID field of this VBus datagram.
-     * @type {number}
-     */
-    valueId: 0,
-
-    /**
-     * The value field of this VBus datagram.
-     * @type {number}
-     */
-    value: 0,
+class Datagram extends Header {
 
     /**
      * Creates a new Datagram instance and optionally initializes its members with the given values.
@@ -56,10 +38,10 @@ const Datagram = Header.extend(/** @lends Datagram# */ {
      * The value ID is a device-specific reference to one of the values presented in the device's menu interface.
      */
     constructor(options) {
-        Header.call(this, options);
+        super(options);
 
         _.extend(this, _.pick(options, optionKeys));
-    },
+    }
 
     toLiveBuffer(origBuffer, start, end) {
         const length = 16;
@@ -88,11 +70,11 @@ const Datagram = Header.extend(/** @lends Datagram# */ {
         Datagram.calcAndSetChecksumV0(buffer, 1, 15);
 
         return buffer;
-    },
+    }
 
     getProtocolVersion() {
         return 0x20;
-    },
+    }
 
     getInfo() {
         let info;
@@ -102,13 +84,13 @@ const Datagram = Header.extend(/** @lends Datagram# */ {
             info = 0;
         }
         return info;
-    },
+    }
 
     getId() {
         const baseId = Header.prototype.getId.call(this);
         const info = this.getInfo();
         return sprintf('%s_%04X_%04X', baseId, this.command, info);
-    },
+    }
 
     compareTo(that) {
         let result = Header.prototype.compareTo.apply(this, arguments);
@@ -119,11 +101,9 @@ const Datagram = Header.extend(/** @lends Datagram# */ {
             result = this.getInfo() - that.getInfo();
         }
         return result;
-    },
+    }
 
-}, {
-
-    fromLiveBuffer(buffer, start, end) {
+    static fromLiveBuffer(buffer, start, end) {
         const frameData = Buffer.alloc(6);
         Header.injectSeptett(buffer, start + 8, start + 14, frameData, 0);
 
@@ -135,6 +115,29 @@ const Datagram = Header.extend(/** @lends Datagram# */ {
             value: frameData.readInt32LE(2)
         });
     }
+
+}
+
+
+Object.assign(Datagram.prototype, {
+
+    /**
+     * The command field of this VBus datagram. See the VBus Protocol Specification for details.
+     * @type {number}
+     */
+    command: 0,
+
+    /**
+     * The value ID field of this VBus datagram.
+     * @type {number}
+     */
+    valueId: 0,
+
+    /**
+     * The value field of this VBus datagram.
+     * @type {number}
+     */
+    value: 0,
 
 });
 

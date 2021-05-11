@@ -20,54 +20,7 @@ const optionKeys = [
 
 
 
-const TextConverter = Converter.extend(/** @lends TextConverter# */ {
-
-    /**
-     * Column separator, defaults to tab
-     * @type {string}
-     */
-    columnSeparator: '\t',
-
-    /**
-     * Line separator, defaults to CR+NL
-     * @type {string}
-     */
-    lineSeparator: '\r\n',
-
-    /**
-     * Specifies whether date and time columns should be output separately
-     * @type {boolean}
-     */
-    separateDateAndTime: false,
-
-    /**
-     * VBus specification
-     * @type {Specification}
-     */
-    specification: null,
-
-    /**
-     * Date to string formatting for the first column. Can either be a
-     * string to use in `moment(...).format()` or a function that returns
-     * the formatted date string.
-     * @type {string|function}
-     */
-    dateFormat: 'L',
-
-    /**
-     * Time to string formatting for the first column. Can either be a
-     * string to use in `moment(...).format()` or a function that returns
-     * the formatted time string.
-     * @type {string|function}
-     */
-    timeFormat: 'HH:mm:ss',
-
-    /**
-     * List of packet IDs converted last time, enables decision whether a
-     * new header line pair must be output.
-     * @type {string}
-     */
-    lastIdList: null,
+class TextConverter extends Converter {
 
     /**
      * Create a new TextConverter instance given the set of options.
@@ -83,7 +36,7 @@ const TextConverter = Converter.extend(/** @lends TextConverter# */ {
      * writable stream side).
      */
     constructor(options) {
-        Converter.call(this, options);
+        super(options);
 
         _.extend(this, _.pick(options, optionKeys));
 
@@ -92,7 +45,7 @@ const TextConverter = Converter.extend(/** @lends TextConverter# */ {
                 language: (options && options.language) || 'en'
             });
         }
-    },
+    }
 
     /**
      * Resets the converter, resulting in a ne pair of header lines
@@ -100,7 +53,7 @@ const TextConverter = Converter.extend(/** @lends TextConverter# */ {
      */
     reset() {
         this.lastIdList = null;
-    },
+    }
 
     /**
      * Converts a header set into text representation.
@@ -200,7 +153,7 @@ const TextConverter = Converter.extend(/** @lends TextConverter# */ {
         appendColumnsToContent();
 
         return this.push(content);
-    },
+    }
 
     /**
      * Format a `Date` object into a string.
@@ -219,11 +172,63 @@ const TextConverter = Converter.extend(/** @lends TextConverter# */ {
         } else {
             throw new Error('Unsupported format specifier');
         }
-    },
+    }
 
     _read() {
         // nop
-    },
+    }
+
+}
+
+
+Object.assign(TextConverter.prototype, {
+
+    /**
+     * Column separator, defaults to tab
+     * @type {string}
+     */
+    columnSeparator: '\t',
+
+    /**
+     * Line separator, defaults to CR+NL
+     * @type {string}
+     */
+    lineSeparator: '\r\n',
+
+    /**
+     * Specifies whether date and time columns should be output separately
+     * @type {boolean}
+     */
+    separateDateAndTime: false,
+
+    /**
+     * VBus specification
+     * @type {Specification}
+     */
+    specification: null,
+
+    /**
+     * Date to string formatting for the first column. Can either be a
+     * string to use in `moment(...).format()` or a function that returns
+     * the formatted date string.
+     * @type {string|function}
+     */
+    dateFormat: 'L',
+
+    /**
+     * Time to string formatting for the first column. Can either be a
+     * string to use in `moment(...).format()` or a function that returns
+     * the formatted time string.
+     * @type {string|function}
+     */
+    timeFormat: 'HH:mm:ss',
+
+    /**
+     * List of packet IDs converted last time, enables decision whether a
+     * new header line pair must be output.
+     * @type {string}
+     */
+    lastIdList: null,
 
 });
 

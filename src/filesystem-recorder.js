@@ -24,20 +24,18 @@ const optionKeys = [
 
 
 
-const FileSystemRecorder = Recorder.extend({
-
-    path: '.',
+class FileSystemRecorder extends Recorder {
 
     constructor(options) {
-        Recorder.call(this, options);
+        super(options);
 
         _.extend(this, _.pick(options, optionKeys));
-    },
+    }
 
     _getOptions() {
         const options = Recorder.prototype._getOptions.call(this);
         return _.extend(options, _.pick(this, optionKeys));
-    },
+    }
 
     _getAbsoluteFilename(filename) {
         let result;
@@ -47,11 +45,11 @@ const FileSystemRecorder = Recorder.extend({
             result = path.resolve(this.path, this.getHash(this.id));
         }
         return result;
-    },
+    }
 
     _getCurrentSyncStateFilename(options) {
         return this._getAbsoluteFilename('SyncState.json');
-    },
+    }
 
     async _getCurrentSyncState(options) {
         const filename = this._getCurrentSyncStateFilename(options);
@@ -71,7 +69,7 @@ const FileSystemRecorder = Recorder.extend({
         });
 
         return JSON.parse(data);
-    },
+    }
 
     async _setCurrentSyncState(syncState, options) {
         const filename = this._getCurrentSyncStateFilename(options);
@@ -87,7 +85,7 @@ const FileSystemRecorder = Recorder.extend({
                 }
             });
         });
-    },
+    }
 
     _getOwnSyncState(syncState, options) {
         const dstSyncState = this._getSyncState(syncState, 'destination', 'FileSystemRecorder');
@@ -106,7 +104,7 @@ const FileSystemRecorder = Recorder.extend({
         const infoList = dstSyncState.infoListByInterval [options.interval];
 
         return infoList;
-    },
+    }
 
     async _playback(headerSetConsolidator, options) {
         const _this = this;
@@ -141,7 +139,7 @@ const FileSystemRecorder = Recorder.extend({
         }
 
         converter.end();
-    },
+    }
 
     _startRecordingInternal(options) {
         const _this = this;
@@ -268,7 +266,7 @@ const FileSystemRecorder = Recorder.extend({
         };
 
         return recording;
-    },
+    }
 
     async _startRecording(headerSetConsolidator, recordingJob) {
         const _this = this;
@@ -312,7 +310,7 @@ const FileSystemRecorder = Recorder.extend({
         };
 
         return recording;
-    },
+    }
 
     async _endRecording(headerSetConsolidator, recordingJob, recording) {
         try {
@@ -320,7 +318,7 @@ const FileSystemRecorder = Recorder.extend({
         } finally {
             headerSetConsolidator.removeListener('headerSet', recording.onHeaderSet);
         }
-    },
+    }
 
     async _recordSyncJob(recorder, syncJob) {
         const _this = this;
@@ -357,7 +355,7 @@ const FileSystemRecorder = Recorder.extend({
         } finally {
             inConverter.removeListener('headerSet', recording.onHeaderSet);
         }
-    },
+    }
 
     // _playbackSyncJob: function(stream, syncJob) {
     //     var _this = this;
@@ -399,7 +397,7 @@ const FileSystemRecorder = Recorder.extend({
         shasum.update(Buffer.from(url, 'utf8'));
 
         return shasum.digest('hex');
-    },
+    }
 
     _readToStream(filename, stream) {
         return new Promise((resolve, reject) => {
@@ -418,7 +416,7 @@ const FileSystemRecorder = Recorder.extend({
             readStream.on('end', onEnd);
             readStream.on('error', onError);
         });
-    },
+    }
 
     _makeDirectory(directory) {
         return new Promise((resolve, reject) => {
@@ -436,7 +434,7 @@ const FileSystemRecorder = Recorder.extend({
                 }
             });
         });
-    },
+    }
 
     async _makeDirectories() {
         const _this = this;
@@ -446,7 +444,14 @@ const FileSystemRecorder = Recorder.extend({
         const directory = _this._getAbsoluteFilename();
 
         await _this._makeDirectory(directory);
-    },
+    }
+
+}
+
+
+Object.assign(FileSystemRecorder.prototype, {
+
+    path: '.',
 
 });
 

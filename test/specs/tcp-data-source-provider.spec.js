@@ -8,11 +8,16 @@ const http = require('http');
 
 
 const {
+    DataSourceProvider,
     TcpDataSourceProvider,
 } = require('./resol-vbus');
 
 
 const expect = require('./expect');
+
+const {
+    itShouldWorkCorrectlyAfterMigratingToClass,
+} = require('./test-utils');
 
 
 
@@ -235,4 +240,21 @@ describe('TCP Data Source Provider', () => {
         });
 
     });
+
+    itShouldWorkCorrectlyAfterMigratingToClass(TcpDataSourceProvider, DataSourceProvider, {
+        id: 'tcp-data-source-provider',
+        name: 'TCP VBus Data Source Provider',
+        description: 'Data source provider for TCP connected VBus devices',
+        broadcastAddress: '255.255.255.255',
+        broadcastPort: 7053,
+        constructor: Function,
+        discoverDataSources: Function,
+        createDataSource: Function,
+    }, {
+        discoverDevices: Function,
+        sendBroadcast: Function,
+        fetchDeviceInformation: Function,
+        parseDeviceInformation: Function,
+    });
+
 });

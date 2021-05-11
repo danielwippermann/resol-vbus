@@ -16,6 +16,7 @@ const expect = require('./expect');
 const _ = require('./lodash');
 const {
     itShouldBeAClass,
+    itShouldWorkCorrectlyAfterMigratingToClass,
 } = require('./test-utils');
 
 
@@ -857,6 +858,18 @@ describe('SpecificationFile', () => {
             ]);
         });
 
+    });
+
+    itShouldWorkCorrectlyAfterMigratingToClass(SpecificationFile, null, {
+        constructor: Function,
+        getSpecificationData: Function,
+        _generateSpecificationData: Function,
+        _parseBuffer: Function,
+        getRawValue: Function,
+        setRawValue: Function,
+    }, {
+        getDefaultSpecificationFile: Function,
+        loadFromFile: Function,
     });
 
 });

@@ -20,24 +20,12 @@ const _ = require('./lodash');
 
 
 
-const TestRecorder = Recorder.extend({
+class TestRecorder extends Recorder {
 
-    id: 'Test',
-
-    fixturesPath: path.join(__dirname, '../fixtures/test-recorder'),
-
-    syncState: null,
-
-    availableRanges: null,
-
-    playedBackRanges: null,
-
-    recordedRanges: null,
-
-    constructor() {
-        Recorder.apply(this, arguments);
+    constructor(options) {
+        super(options);
         this.syncState = {};
-    },
+    }
 
     async _playback(headerSetConsolidator, options) {
         const _this = this;
@@ -90,15 +78,15 @@ const TestRecorder = Recorder.extend({
         }
 
         converter.end();
-    },
+    }
 
     _getCurrentSyncState(options) {
         return this.syncState;
-    },
+    }
 
     _setCurrentSyncState(syncState, options) {
         this.syncState = syncState;
-    },
+    }
 
     async _playbackSyncJob(stream, syncJob) {
         const _this = this;
@@ -167,7 +155,7 @@ const TestRecorder = Recorder.extend({
         _this.playedBackRanges = playedBackRanges;
 
         return playedBackRanges;
-    },
+    }
 
     async _recordSyncJob(recorder, syncJob) {
         const _this = this;
@@ -225,11 +213,28 @@ const TestRecorder = Recorder.extend({
         await _this._setCurrentSyncState(syncJob.syncState, syncJob);
 
         return playedBackRanges;
-    },
+    }
 
     resetCounters() {
 
-    },
+    }
+
+}
+
+
+Object.assign(TestRecorder.prototype, {
+
+    id: 'Test',
+
+    fixturesPath: path.join(__dirname, '../fixtures/test-recorder'),
+
+    syncState: null,
+
+    availableRanges: null,
+
+    playedBackRanges: null,
+
+    recordedRanges: null,
 
 });
 

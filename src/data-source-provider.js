@@ -3,25 +3,26 @@
 
 
 
-const extend = require('./extend');
+class DataSourceProvider {
+
+    discoverDataSources() {
+        throw new Error('Must be implemented by sub-class');
+    }
+
+    createDataSource(options) {
+        throw new Error('Must be implemented by sub-class');
+    }
+
+}
 
 
-
-const DataSourceProvider = extend(null, {
+Object.assign(DataSourceProvider.prototype, {
 
     id: null,
 
     name: null,
 
     description: null,
-
-    discoverDataSources() {
-        throw new Error('Must be implemented by sub-class');
-    },
-
-    createDataSource(options) {
-        throw new Error('Must be implemented by sub-class');
-    }
 
 });
 

@@ -5,15 +5,16 @@
 
 const {
     BaseConfigurationOptimizer,
+    ConfigurationOptimizer,
 } = require('./resol-vbus');
 
 
 const expect = require('./expect');
 const _ = require('./lodash');
 
-
-
-let TestConfigurationOptimizer = undefined;
+const {
+    itShouldWorkCorrectlyAfterMigratingToClass,
+} = require('./test-utils');
 
 
 
@@ -868,13 +869,29 @@ describe('ValuesWrapper', () => {
 
     });
 
+    itShouldWorkCorrectlyAfterMigratingToClass(BaseConfigurationOptimizer, ConfigurationOptimizer, {
+        constructor: Function,
+        completeConfiguration: Function,
+        optimizeLoadConfiguration: Function,
+        optimizeSaveConfiguration: Function,
+        _buildConfiguration: Function,
+        _getAdjustableValues: Function,
+        _optimizeConfiguration: Function,
+    }, {
+        deviceAddress: 0,
+        configurationData: null,
+    });
+
 });
 
 
 
-TestConfigurationOptimizer  = BaseConfigurationOptimizer.extend({
+class TestConfigurationOptimizer extends BaseConfigurationOptimizer {
 
-}, {
+}
+
+
+Object.assign(TestConfigurationOptimizer, {
 
     configurationData: {
 

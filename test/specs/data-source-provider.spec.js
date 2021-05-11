@@ -10,6 +10,10 @@ const {
 
 const expect = require('./expect');
 
+const {
+    itShouldWorkCorrectlyAfterMigratingToClass,
+} = require('./test-utils');
+
 
 
 describe('DataSourceProvider', () => {
@@ -51,6 +55,17 @@ describe('DataSourceProvider', () => {
                 converter.createDataSource();
             }).to.throw(Error, 'Must be implemented by sub-class');
         });
+
+    });
+
+    itShouldWorkCorrectlyAfterMigratingToClass(DataSourceProvider, null, {
+        id: null,
+        name: null,
+        description: null,
+        constructor: Function,
+        discoverDataSources: Function,
+        createDataSource: Function,
+    }, {
 
     });
 

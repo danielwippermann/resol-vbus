@@ -9,7 +9,6 @@ require('numeral/locales/de');
 const sprintf = require('sprintf-js').sprintf;
 
 
-const extend = require('./extend');
 const _ = require('./lodash');
 
 
@@ -34,13 +33,7 @@ const resources = {
 
 
 
-const I18N = extend(null, /** @lends I18N# */ {
-
-    language: null,
-
-    languageData: null,
-
-    timezone: null,
+class I18N {
 
     /**
      * Creates a new I18N instance for the given language code.
@@ -55,7 +48,7 @@ const I18N = extend(null, /** @lends I18N# */ {
 
         this.language = language;
         this.languageData = knownLanguages [language];
-    },
+    }
 
     /**
      * Formats a string using a `printf(3)` compatible format string and
@@ -77,7 +70,7 @@ const I18N = extend(null, /** @lends I18N# */ {
      */
     sprintf() {
         return sprintf.apply(null, arguments);
-    },
+    }
 
     /**
      * Formats a string using a `printf(3)` compatible format string and
@@ -98,7 +91,7 @@ const I18N = extend(null, /** @lends I18N# */ {
         const args = argv.slice(0);
         args.splice(0, 0, fmt);
         return sprintf.apply(null, args);
-    },
+    }
 
     /**
      * Get a translation for the given key. If more than one argument is
@@ -144,7 +137,7 @@ const I18N = extend(null, /** @lends I18N# */ {
             text = this.vsprintf(text, args);
         }
         return text;
-    },
+    }
 
     /**
      * Wrapper for a moment.js date object that is setup to use this
@@ -161,7 +154,7 @@ const I18N = extend(null, /** @lends I18N# */ {
             m = m.tz(this.timezone);
         }
         return m;
-    },
+    }
 
     /**
      * Wrapper for a moment.js UTC date object that is setup to use this
@@ -175,17 +168,17 @@ const I18N = extend(null, /** @lends I18N# */ {
     momentUtc() {
         const m = moment.utc.apply(null, arguments).locale(this.languageData.moment);
         return m;
-    },
+    }
 
     momentTz() {
         const m = moment.tz.apply(moment, arguments).locale(this.languageData.moment);
         return m;
-    },
+    }
 
     momentTzZone() {
         const z = moment.tz.zone.apply(moment.tz, arguments);
         return z;
-    },
+    }
 
     /**
      * Wrapper for a numeral.js number object that is setup to use this
@@ -200,7 +193,18 @@ const I18N = extend(null, /** @lends I18N# */ {
         numeral.locale(this.languageData.numeral);
 
         return numeral.apply(null, arguments);
-    },
+    }
+
+}
+
+
+Object.assign(I18N.prototype, {
+
+    language: null,
+
+    languageData: null,
+
+    timezone: null,
 
 });
 

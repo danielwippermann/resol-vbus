@@ -2654,4 +2654,47 @@ describe('Specification', () => {
     });
 
 */
+
+    testUtils.itShouldWorkCorrectlyAfterMigratingToClass(Specification, null, {
+        language: 'en',
+        deviceSpecCache: null,
+        packetSpecCache: null,
+        blockTypePacketSpecCache: null,
+        i18n: null,
+        specificationData: null,
+        constructor: Function,
+        getUnitById: Function,
+        getTypeById: Function,
+        getDeviceSpecification: Function,
+        getPacketSpecification: Function,
+        getPacketFieldSpecification: Function,
+        getRawValue: Function,
+        getRoundedRawValue: Function,
+        invertConversions: Function,
+        setRawValue: Function,
+        convertRawValue: Function,
+        _convertTemperatureRawValue: Function,
+        _convertVolumeRawValue: Function,
+        _convertVolumeFlowRawValue: Function,
+        _convertPressureRawValue: Function,
+        _convertEnergyRawValue: Function,
+        _convertPowerRawValue: Function,
+        _convertTimeRawValue: Function,
+        formatTextValueFromRawValue: Function,
+        formatTextValueFromRawValueInternal: Function,
+        getPacketFieldsForHeaders: Function,
+        setPacketFieldRawValues: Function,
+        getFilteredPacketFieldSpecificationsForHeaders: Function,
+        getBlockTypeSectionsForHeaders: Function,
+        _createUInt8BlockTypeFieldSpecification: Function,
+        _createInt16BlockTypeFieldSpecification: Function,
+        _createUInt32BlockTypeFieldSpecification: Function,
+        getBlockTypePacketSpecificationsForSections: Function,
+        getBlockTypeFieldsForSections: Function,
+    }, {
+        loadSpecificationData: Function,
+        storeSpecificationData: Function,
+        getDefaultSpecification: Function,
+    });
+
 });

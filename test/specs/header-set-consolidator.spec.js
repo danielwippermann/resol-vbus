@@ -15,6 +15,10 @@ const {
 
 const expect = require('./expect');
 
+const {
+    itShouldWorkCorrectlyAfterMigratingToClass,
+} = require('./test-utils');
+
 
 
 describe('HeaderSetConsolidator', () => {
@@ -291,6 +295,21 @@ describe('HeaderSetConsolidator', () => {
             expect(onHeaderSetSpy.thirdCall.args [0].getHeaders()).lengthOf(0);
         });
 
+    });
+
+    itShouldWorkCorrectlyAfterMigratingToClass(HeaderSetConsolidator, HeaderSet, {
+        interval: 0,
+        timeToLive: 0,
+        minTimestamp: null,
+        maxTimestamp: null,
+        lastIntervalTime: 0,
+        timer: null,
+        constructor: Function,
+        startTimer: Function,
+        stopTimer: Function,
+        processHeaderSet: Function,
+        _handleInterval: Function,
+        _processHeaderSet: Function,
     });
 
 });

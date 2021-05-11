@@ -4,6 +4,7 @@
 
 
 const {
+    DataSourceProvider,
     SerialDataSource,
     SerialDataSourceProvider,
     utils: { promisify },
@@ -15,9 +16,9 @@ const testUtils = require('./test-utils');
 
 
 
-const TestableSerialDataSourceProvider = SerialDataSourceProvider.extend({
+class TestableSerialDataSourceProvider extends SerialDataSourceProvider {
 
-});
+}
 
 
 
@@ -31,9 +32,7 @@ describe('SerialDataSourceProvider', () => {
 
         it('should be a constructor function', () => {
             expect(SerialDataSourceProvider)
-                .to.be.a('function')
-                .that.has.a.property('extend')
-                .that.is.a('function');
+                .to.be.a('function');
         });
 
     });
@@ -106,6 +105,18 @@ describe('SerialDataSourceProvider', () => {
                 .to.be.instanceOf(SerialDataSource);
         });
 
+    });
+
+    testUtils.itShouldWorkCorrectlyAfterMigratingToClass(SerialDataSourceProvider, DataSourceProvider, {
+        id: 'serial-data-source-provider',
+        name: 'Serial VBus Data Source Provider',
+        description: 'Data source provider for VBus devices connected using a serial port (incl. USB)',
+        constructor: Function,
+        discoverDataSources: Function,
+        createDataSource: Function,
+        _listSerialPorts: Function,
+    }, {
+        hasSerialPortSupport: !!true,
     });
 
 });

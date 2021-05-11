@@ -4,14 +4,17 @@
 
 
 const {
+    BaseConfigurationOptimizer,
     ConfigurationOptimizerFactory,
     utils: { promisify },
 } = require('../resol-vbus');
 
 
+const jestExpect = global.expect;
 const expect = require('../expect');
 const _ = require('../lodash');
 const testUtils = require('../test-utils');
+const ResolDeltaSolMx112ConfigurationOptimizer = require('../../../src/configuration-optimizers/resol-deltasol-mx-112-configuration-optimizer');
 
 
 
@@ -89,6 +92,21 @@ describe('ResolDeltaSolMx112ConfigurationOptimizer', () => {
             });
         });
 
+    });
+
+    testUtils.itShouldWorkCorrectlyAfterMigratingToClass(ResolDeltaSolMx112ConfigurationOptimizer, BaseConfigurationOptimizer, {
+        constructor: Function,
+        optimizeConfiguration: Function,
+        optimizeModuleConfiguration: Function,
+        optimizeSolarConfiguration: Function,
+        optimizeSolarWfConfiguration: Function,
+        optimizeAnlageWfConfiguration: Function,
+        optimizeHeizungWfConfiguration: Function,
+        optimizeHeizungHeizkreisConfiguration: Function,
+        optimizeWmzConfiguration: Function,
+    }, {
+        deviceAddress: 0x7E11,
+        configurationData: jestExpect.any(Object),
     });
 
 });

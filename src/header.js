@@ -6,7 +6,6 @@
 const sprintf = require('sprintf-js').sprintf;
 
 
-const extend = require('./extend');
 const _ = require('./lodash');
 
 
@@ -20,35 +19,7 @@ const optionKeys = [
 
 
 
-const Header = extend(null, /** @lends Header# */ {
-
-    /**
-     * Timestamp of this header
-     * @type {Date}
-     * @default now
-     */
-    timestamp: null,
-
-    /**
-     * VBus channel of this header
-     * @type {number}
-     * @default 0
-     */
-    channel: 0,
-
-    /**
-     * VBus address of this header's destination
-     * @type {number}
-     * @default 0
-     */
-    destinationAddress: 0,
-
-    /**
-     * VBus address of this header's source
-     * @type {number}
-     * @default
-     */
-    sourceAddress: 0,
+class Header {
 
     /**
      * Creates a new Header instance and optionally initializes its members
@@ -80,7 +51,7 @@ const Header = extend(null, /** @lends Header# */ {
         if (!this.timestamp) {
             this.timestamp = new Date();
         }
-    },
+    }
 
     /**
      * Creates a representation of this Header instance that can be
@@ -98,7 +69,7 @@ const Header = extend(null, /** @lends Header# */ {
      */
     toLiveBuffer(/* buffer, start, end */) {
         throw new Error('Must be implemented by sub-class');
-    },
+    }
 
     /**
      * Returns the protocol version of this Header instance as a 8-bit
@@ -113,7 +84,7 @@ const Header = extend(null, /** @lends Header# */ {
      */
     getProtocolVersion() {
         throw new Error('Must be implemented by sub-class');
-    },
+    }
 
     /**
      * Returns an info number about this Header instance. It can be used
@@ -124,7 +95,7 @@ const Header = extend(null, /** @lends Header# */ {
      */
     getInfo() {
         return 0;
-    },
+    }
 
     /**
      * Returns a string identifier describing this Header instance.
@@ -142,7 +113,7 @@ const Header = extend(null, /** @lends Header# */ {
      */
     getId() {
         return sprintf('%02X_%04X_%04X_%02X', this.channel, this.destinationAddress, this.sourceAddress, this.getProtocolVersion());
-    },
+    }
 
     /**
      * Compares this Header instance to another one.
@@ -169,9 +140,7 @@ const Header = extend(null, /** @lends Header# */ {
             result = this.getProtocolVersion() - that.getProtocolVersion();
         }
         return result;
-    },
-
-}, /** @lends Header */ {
+    }
 
     /**
      * Creates a Header instance from a representation that was
@@ -185,9 +154,9 @@ const Header = extend(null, /** @lends Header# */ {
      * @param {number} end End index in the buffer
      * @returns {Header} Header instance created from the representation
      */
-    fromLiveBuffer(/* buffer, start, end */) {
+    static fromLiveBuffer(/* buffer, start, end */) {
         throw new Error('Must be implemented by sub-class');
-    },
+    }
 
     /**
      * Calculates the VBus checksum (according to version x.0 specification)
@@ -198,14 +167,14 @@ const Header = extend(null, /** @lends Header# */ {
      * @param {number} end End index in the buffer
      * @returns {number} Calculated checksum
      */
-    calcChecksumV0(buffer, start, end) {
+    static calcChecksumV0(buffer, start, end) {
         let checksum = 0;
         for (let index = start; index < end; index++) {
             checksum = (checksum + buffer [index]) & 0x7F;
         }
         checksum = (0x7F - checksum);
         return checksum;
-    },
+    }
 
     /**
      * Calculates the VBus checksum (according to version x.0 specification)
@@ -217,10 +186,10 @@ const Header = extend(null, /** @lends Header# */ {
      * @param {number} end End index in the buffer
      * @returns {boolean} Result whether calculated and stored checksum match
      */
-    calcAndCompareChecksumV0(buffer, start, end) {
+    static calcAndCompareChecksumV0(buffer, start, end) {
         const checksum = this.calcChecksumV0(buffer, start, end);
         return (buffer [end] === checksum);
-    },
+    }
 
     /**
      * Calculates the VBus checksum (according to version x.0 specification)
@@ -231,11 +200,11 @@ const Header = extend(null, /** @lends Header# */ {
      * @param {number} end End index in the buffer
      * @returns {number} Calculated checksum
      */
-    calcAndSetChecksumV0(buffer, start, end) {
+    static calcAndSetChecksumV0(buffer, start, end) {
         const checksum = this.calcChecksumV0(buffer, start, end);
         buffer [end] = checksum;
         return checksum;
-    },
+    }
 
     /**
      * Copies a part of the source Buffer instance to the destination Buffer
@@ -247,7 +216,7 @@ const Header = extend(null, /** @lends Header# */ {
      * @param {Buffer} dstBuffer Buffer to copy to
      * @param {number} dstStart Start index in the destination buffer
      */
-    injectSeptett(srcBuffer, srcStart, srcEnd, dstBuffer, dstStart) {
+    static injectSeptett(srcBuffer, srcStart, srcEnd, dstBuffer, dstStart) {
         const septett = srcBuffer [srcEnd];
         let srcIndex = srcStart, dstIndex = dstStart, mask = 1;
         while (srcIndex < srcEnd) {
@@ -261,7 +230,7 @@ const Header = extend(null, /** @lends Header# */ {
             dstIndex++;
             mask = mask << 1;
         }
-    },
+    }
 
     /**
      * Copies a part of the source Buffer instance to the destination Buffer
@@ -274,7 +243,7 @@ const Header = extend(null, /** @lends Header# */ {
      * @param {Buffer} dstBuffer Buffer to copy to
      * @param {number} dstStart Start index in the destination buffer
      */
-    extractSeptett(srcBuffer, srcStart, srcEnd, dstBuffer, dstStart) {
+    static extractSeptett(srcBuffer, srcStart, srcEnd, dstBuffer, dstStart) {
         let srcIndex = srcStart, dstIndex = dstStart, mask = 1, septett = 0;
         while (srcIndex < srcEnd) {
             let b = srcBuffer [srcIndex];
@@ -291,6 +260,39 @@ const Header = extend(null, /** @lends Header# */ {
 
         dstBuffer [dstIndex] = septett;
     }
+
+}
+
+
+Object.assign(Header.prototype, {
+
+    /**
+     * Timestamp of this header
+     * @type {Date}
+     * @default now
+     */
+    timestamp: null,
+
+    /**
+     * VBus channel of this header
+     * @type {number}
+     * @default 0
+     */
+    channel: 0,
+
+    /**
+     * VBus address of this header's destination
+     * @type {number}
+     * @default 0
+     */
+    destinationAddress: 0,
+
+    /**
+     * VBus address of this header's source
+     * @type {number}
+     * @default
+     */
+    sourceAddress: 0,
 
 });
 

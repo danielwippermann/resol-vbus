@@ -7,6 +7,7 @@ const {
     Connection,
     ConnectionCustomizer,
     ConfigurationOptimizerFactory,
+    Customizer,
     Datagram,
     Packet,
     utils: { promisify },
@@ -17,7 +18,8 @@ const jestExpect = global.expect;
 const expect = require('./expect');
 const _ = require('./lodash');
 const {
-    expectPromiseToReject
+    expectPromiseToReject,
+    itShouldWorkCorrectlyAfterMigratingToClass,
 } = require('./test-utils');
 
 
@@ -43,7 +45,7 @@ const promiseTestContext = function(options, callback) {
         optimizer.optimizeLoadConfiguration = sinon.spy(optimizer.optimizeLoadConfiguration);
         optimizer.optimizeSaveConfiguration = sinon.spy(optimizer.optimizeSaveConfiguration);
 
-        const TestableConnectionCustomizer = ConnectionCustomizer.extend({
+        class TestableConnectionCustomizer extends ConnectionCustomizer {
 
             transceiveValue(inValueInfo, value, options, state) {
                 const _this = this;
@@ -67,9 +69,9 @@ const promiseTestContext = function(options, callback) {
 
                     return dgram;
                 });
-            },
+            }
 
-        });
+        }
 
         const connection = new Connection();
 
@@ -125,9 +127,7 @@ describe('ConnectionCustomizer', () => {
 
         it('should be a constructor function', () => {
             expect(ConnectionCustomizer)
-                .to.be.a('function')
-                .that.has.a.property('extend')
-                .that.is.a('function');
+                .to.be.a('function');
         });
 
         it('should have reasonable defaults', () => {
@@ -1341,6 +1341,21 @@ describe('ConnectionCustomizer', () => {
 
             jestExpect(checkCanceled).toHaveBeenCalledTimes(6);
         });
+
+    });
+
+    itShouldWorkCorrectlyAfterMigratingToClass(ConnectionCustomizer, Customizer, {
+        connection: null,
+        maxRounds: 10,
+        triesPerValue: 2,
+        timeoutPerValue: 30000,
+        masterTimeout: 8000,
+        constructor: Function,
+        _loadConfiguration: Function,
+        _saveConfiguration: Function,
+        transceiveConfiguration: Function,
+        transceiveValue: Function,
+    }, {
 
     });
 

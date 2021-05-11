@@ -23,35 +23,7 @@ const optionKeys = [
 
 
 
-const SerialConnection = Connection.extend(/** @lends SerialConnection# */ {
-
-    /**
-     * The path to the serial port.
-     * @type {string}
-     */
-    path: null,
-
-    baudrate: 9600,
-
-    /**
-     * Timeout in milliseconds to way between reconnection retries.
-     * @type {number}
-     */
-    reconnectTimeout: 0,
-
-    /**
-     * Value to increment timeout after every unsuccessful reconnection retry.
-     * @type {number}
-     */
-    reconnectTimeoutIncr: 10000,
-
-    /**
-     * Maximum timeout value between unsuccessful reconnection retry.
-     * @type {number}
-     */
-    reconnectTimeoutMax: 60000,
-
-    serialPort: null,
+class SerialConnection extends Connection {
 
     /**
      * Creates a new SerialConnection instance and optionally initialized its member with the given values.
@@ -65,10 +37,10 @@ const SerialConnection = Connection.extend(/** @lends SerialConnection# */ {
      * The SerialConnection class provides asscess to a VBus live data stream using a serial port.
      */
     constructor(options) {
-        Connection.call(this, options);
+        super(options);
 
         _.extend(this, _.pick(options, optionKeys));
-    },
+    }
 
     connect() {
         if (this.connectionState !== SerialConnection.STATE_DISCONNECTED) {
@@ -78,7 +50,7 @@ const SerialConnection = Connection.extend(/** @lends SerialConnection# */ {
         this._setConnectionState(SerialConnection.STATE_CONNECTING);
 
         return this._connect();
-    },
+    }
 
     disconnect() {
         if (this.connectionState !== SerialConnection.STATE_DISCONNECTED) {
@@ -92,7 +64,7 @@ const SerialConnection = Connection.extend(/** @lends SerialConnection# */ {
                 this._setConnectionState(SerialConnection.STATE_DISCONNECTED);
             }
         }
-    },
+    }
 
     _connect() {
         const _this = this;
@@ -198,17 +170,49 @@ const SerialConnection = Connection.extend(/** @lends SerialConnection# */ {
 
             this.serialPort = serialPort;
         });
-    },
+    }
 
     _createSerialPort(path, options, onCompletion) {
         return new SerialPort(path, options, null, onCompletion);
     }
 
-}, {
+}
 
-    hasSerialPortSupport: !!SerialPort,
+
+Object.assign(SerialConnection.prototype, {
+
+    /**
+     * The path to the serial port.
+     * @type {string}
+     */
+    path: null,
+
+    baudrate: 9600,
+
+    /**
+     * Timeout in milliseconds to way between reconnection retries.
+     * @type {number}
+     */
+    reconnectTimeout: 0,
+
+    /**
+     * Value to increment timeout after every unsuccessful reconnection retry.
+     * @type {number}
+     */
+    reconnectTimeoutIncr: 10000,
+
+    /**
+     * Maximum timeout value between unsuccessful reconnection retry.
+     * @type {number}
+     */
+    reconnectTimeoutMax: 60000,
+
+    serialPort: null,
 
 });
+
+
+SerialConnection.hasSerialPortSupport = !!SerialPort;
 
 
 

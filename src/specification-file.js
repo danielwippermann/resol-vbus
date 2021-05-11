@@ -11,7 +11,6 @@ const moreints = require('buffer-more-ints');
 const sprintf = require('sprintf-js').sprintf;
 
 
-const extend = require('./extend');
 const _ = require('./lodash');
 
 
@@ -111,7 +110,7 @@ const unitFamilies = [{
 const knownUnits = [];
 
 
-const SpecificationFile = extend(null, {
+class SpecificationFile {
 
     constructor(buffer, language) {
         this.buffer = buffer;
@@ -155,11 +154,11 @@ const SpecificationFile = extend(null, {
         this._parseBuffer(buffer);
 
         this._generateSpecificationData(language);
-    },
+    }
 
     getSpecificationData() {
         return this.specificationData;
-    },
+    }
 
     _generateSpecificationData(language) {
         const that = this;
@@ -356,7 +355,7 @@ const SpecificationFile = extend(null, {
             packetSpecs,
             getPacketSpecification,
         };
-    },
+    }
 
     _parseBuffer(buffer) {
         const that = this;
@@ -566,7 +565,7 @@ const SpecificationFile = extend(null, {
         this.unitByCode = unitByCode;
         this.deviceTemplates = deviceTemplates;
         this.packetTemplates = packetTemplates;
-    },
+    }
 
     getRawValue(pt, ptf, buffer, start, end) {
         let rawValue = 0, valid = false;
@@ -595,7 +594,7 @@ const SpecificationFile = extend(null, {
             rawValue = null;
         }
         return rawValue;
-    },
+    }
 
     setRawValue(pt, ptf, newValue, buffer, start, end) {
         if (ptf.precision > 0) {
@@ -615,15 +614,13 @@ const SpecificationFile = extend(null, {
                 buffer.writeUInt8(partValue, start + part.offset);
             }
         });
-    },
+    }
 
-}, {
-
-    getDefaultSpecificationFile() {
+    static getDefaultSpecificationFile() {
         return defaultSpecificationFile;
-    },
+    }
 
-    loadFromFile(filename) {
+    static loadFromFile(filename) {
         return new Promise((resolve, reject) => {
             fs.readFile(filename, (err, contents) => {
                 if (err) {
@@ -635,9 +632,9 @@ const SpecificationFile = extend(null, {
         }).then((contents) => {
             return new SpecificationFile(contents);
         });
-    },
+    }
 
-});
+}
 
 
 let defaultSpecificationFileBuffer = null;

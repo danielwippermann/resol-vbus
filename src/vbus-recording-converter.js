@@ -20,19 +20,7 @@ const optionKeys = [
 
 
 
-const VBusRecordingConverter = Converter.extend(/** @lends VBusRecordingConverter# */ {
-
-    topologyScanOnly: false,
-
-    rxBuffer: null,
-
-    headerSet: null,
-
-    headerSetTimestamp: null,
-
-    currentChannel: 0,
-
-    knownHeaderIds: null,
+class VBusRecordingConverter extends Converter {
 
     /**
      * Creates a new VBusRecordingConverter instance.
@@ -46,16 +34,16 @@ const VBusRecordingConverter = Converter.extend(/** @lends VBusRecordingConverte
      * Datalogger devices).
      */
     constructor(options) {
-        Converter.call(this, options);
+        super(options);
 
         _.extend(this, _.pick(options, optionKeys));
 
         this.knownHeaderIds = {};
-    },
+    }
 
     reset() {
         this.rxBuffer = null;
-    },
+    }
 
     end() {
         const _this = this;
@@ -77,7 +65,7 @@ const VBusRecordingConverter = Converter.extend(/** @lends VBusRecordingConverte
         this._emitHeaderSet();
 
         return Converter.prototype.end.apply(this, arguments);
-    },
+    }
 
     convertRawData(rawData) {
         if (this.objectMode) {
@@ -115,7 +103,7 @@ const VBusRecordingConverter = Converter.extend(/** @lends VBusRecordingConverte
             buffer = Buffer.concat(buffers);
             return this.push(buffer);
         }
-    },
+    }
 
     convertComment(timestamp, comment) {
         if (this.objectMode) {
@@ -146,7 +134,7 @@ const VBusRecordingConverter = Converter.extend(/** @lends VBusRecordingConverte
             buffer = Buffer.concat(buffers);
             return this.push(buffer);
         }
-    },
+    }
 
     convertHeader(header) {
         if (this.objectMode) {
@@ -154,7 +142,7 @@ const VBusRecordingConverter = Converter.extend(/** @lends VBusRecordingConverte
         } else {
             return this._convertHeaders(header.timestamp, [ header ]);
         }
-    },
+    }
 
     convertHeaderSet(headerSet) {
         if (this.objectMode) {
@@ -162,7 +150,7 @@ const VBusRecordingConverter = Converter.extend(/** @lends VBusRecordingConverte
         } else {
             return this._convertHeaders(headerSet.timestamp, headerSet.getSortedHeaders());
         }
-    },
+    }
 
     _convertHeaders(timestamp, headers) {
         const buffers = [];
@@ -226,11 +214,11 @@ const VBusRecordingConverter = Converter.extend(/** @lends VBusRecordingConverte
 
         buffer = Buffer.concat(buffers);
         return this.push(buffer);
-    },
+    }
 
     _read() {
         // nop
-    },
+    }
 
     _write(chunk, encoding, callback) {
         const _this = this;
@@ -248,7 +236,7 @@ const VBusRecordingConverter = Converter.extend(/** @lends VBusRecordingConverte
             });
             callback();
         }
-    },
+    }
 
     _processBuffer(chunk, endOfStream, processRecord) {
         let buffer;
@@ -323,7 +311,7 @@ const VBusRecordingConverter = Converter.extend(/** @lends VBusRecordingConverte
         } else {
             this.rxBuffer = null;
         }
-    },
+    }
 
     _processRecord(buffer) {
         const type = buffer [1] & 0x0F;
@@ -394,7 +382,7 @@ const VBusRecordingConverter = Converter.extend(/** @lends VBusRecordingConverte
                 comment,
             });
         }
-    },
+    }
 
     _processType3Record(buffer, timestamp) {
         const destinationAddress = buffer.readUInt16LE(14);
@@ -440,7 +428,7 @@ const VBusRecordingConverter = Converter.extend(/** @lends VBusRecordingConverte
                 this.emit('header', header);
             }
         }
-    },
+    }
 
     _emitHeaderSet() {
         if (this.headerSet) {
@@ -452,7 +440,7 @@ const VBusRecordingConverter = Converter.extend(/** @lends VBusRecordingConverte
 
             this.headerSet = null;
         }
-    },
+    }
 
     _processRecordForTopologyScan(buffer) {
         const type = buffer [1] & 0x0F;
@@ -498,7 +486,7 @@ const VBusRecordingConverter = Converter.extend(/** @lends VBusRecordingConverte
 
             this.knownHeaderIds [headerId] = true;
         }
-    },
+    }
 
     _constructTopologyHeaderSet() {
         const headerSet = new HeaderSet();
@@ -534,7 +522,24 @@ const VBusRecordingConverter = Converter.extend(/** @lends VBusRecordingConverte
         headerSet.timestamp = timestamp;
 
         this.headerSet = headerSet;
-    },
+    }
+
+}
+
+
+Object.assign(VBusRecordingConverter.prototype, {
+
+    topologyScanOnly: false,
+
+    rxBuffer: null,
+
+    headerSet: null,
+
+    headerSetTimestamp: null,
+
+    currentChannel: 0,
+
+    knownHeaderIds: null,
 
 });
 

@@ -4,12 +4,17 @@
 
 
 const {
+    DataSource,
     TcpConnection,
     TcpDataSource,
 } = require('./resol-vbus');
 
 
 const expect = require('./expect');
+
+const {
+    itShouldWorkCorrectlyAfterMigratingToClass,
+} = require('./test-utils');
 
 
 
@@ -19,9 +24,7 @@ describe('TcpDataSource', () => {
 
         it('should be a constructor function', () => {
             expect(TcpDataSource)
-                .to.be.a('function')
-                .that.has.a.property('extend')
-                .that.is.a('function');
+                .to.be.a('function');
         });
 
         it('should have reasonable defaults', () => {
@@ -66,6 +69,17 @@ describe('TcpDataSource', () => {
                 TcpConnection.prototype.connect = originalConnect;
             }
         });
+
+    });
+
+    itShouldWorkCorrectlyAfterMigratingToClass(TcpDataSource, DataSource, {
+        host: null,
+        port: 7053,
+        liveChannel: 0,
+        livePassword: 'vbus',
+        constructor: Function,
+        connectLive: Function,
+    }, {
 
     });
 

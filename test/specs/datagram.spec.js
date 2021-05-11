@@ -5,11 +5,16 @@
 
 const {
     Datagram,
+    Header,
 } = require('./resol-vbus');
 
 
 const expect = require('./expect');
 const _ = require('./lodash');
+
+const {
+    itShouldWorkCorrectlyAfterMigratingToClass,
+} = require('./test-utils');
 
 
 
@@ -49,7 +54,6 @@ describe('Datagram', () => {
 
         it('should be a constructor function', () => {
             expect(Datagram).to.be.a('function');
-            expect(Datagram.extend).to.be.a('function');
         });
 
         it('should have reasonable defaults', () => {
@@ -346,6 +350,20 @@ describe('Datagram', () => {
             expect(datagram.compareTo(new Datagram(options))).to.be.below(0);
         });
 
+    });
+
+    itShouldWorkCorrectlyAfterMigratingToClass(Datagram, Header, {
+        command: 0,
+        valueId: 0,
+        value: 0,
+        constructor: Function,
+        toLiveBuffer: Function,
+        getProtocolVersion: Function,
+        getInfo: Function,
+        getId: Function,
+        compareTo: Function,
+    }, {
+        fromLiveBuffer: Function,
     });
 
 });

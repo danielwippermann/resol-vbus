@@ -9,7 +9,6 @@ const crypto = require('crypto');
 const sprintf = require('sprintf-js').sprintf;
 
 
-const extend = require('./extend');
 const I18N = require('./i18n');
 const _ = require('./lodash');
 const SpecificationFile = require('./specification-file');
@@ -154,31 +153,7 @@ const numberFormatCache = {};
 
 
 
-const Specification = extend(null, /** @lends Specification# */ {
-
-    /**
-     * Language code (ISO 639-1)
-     * @type {string}
-     */
-    language: 'en',
-
-    deviceSpecCache: null,
-
-    packetSpecCache: null,
-
-    blockTypePacketSpecCache: null,
-
-    /**
-     * I18N instance
-     * @type {I18N}
-     */
-    i18n: null,
-
-    /**
-     * Custom specification data to be mixed-in to built-in specification.
-     * @type {object}
-     */
-    specificationData: null,
+class Specification {
 
     /**
      * Creates a new Specification instance and optionally initializes its members with the given values.
@@ -207,7 +182,7 @@ const Specification = extend(null, /** @lends Specification# */ {
             loadSpecificationDataOptions.specificationData = options.specificationFile.getSpecificationData();
         }
         this.specificationData = Specification.loadSpecificationData(rawSpecificationData, loadSpecificationDataOptions);
-    },
+    }
 
     /**
      * Gets the UnitSpecification object matching the given identifier.
@@ -225,7 +200,7 @@ const Specification = extend(null, /** @lends Specification# */ {
      */
     getUnitById(id) {
         return this.specificationData.units [id];
-    },
+    }
 
     /**
      * Gets the TypeSpecification object matching the given identifier.
@@ -247,7 +222,7 @@ const Specification = extend(null, /** @lends Specification# */ {
      */
     getTypeById(id) {
         return this.specificationData.types [id];
-    },
+    }
 
     /**
      * Gets the DeviceSpecification object matching the given arguments.
@@ -344,7 +319,7 @@ const Specification = extend(null, /** @lends Specification# */ {
         }
 
         return this.deviceSpecCache [deviceId];
-    },
+    }
 
     /**
      * Gets the PacketSpecification object matching the given arguments.
@@ -507,7 +482,7 @@ const Specification = extend(null, /** @lends Specification# */ {
         }
 
         return this.packetSpecCache [packetId];
-    },
+    }
 
     /**
      * Gets the PacketFieldSpecification object matching the given arguments.
@@ -592,7 +567,7 @@ const Specification = extend(null, /** @lends Specification# */ {
         }
 
         return packetFieldSpec;
-    },
+    }
 
     /**
      * Gets the raw value of a packet field from a buffer.
@@ -639,7 +614,7 @@ const Specification = extend(null, /** @lends Specification# */ {
         }
 
         return rawValue;
-    },
+    }
 
     getRoundedRawValue(packetField, buffer, start, end) {
         const rawValue = this.getRawValue(packetField, buffer, start, end);
@@ -649,7 +624,7 @@ const Specification = extend(null, /** @lends Specification# */ {
         const roundedRawValue = roundNumber(rawValue, -precision);
 
         return roundedRawValue;
-    },
+    }
 
     invertConversions(conversions) {
         if (!_.isArray(conversions)) {
@@ -679,7 +654,7 @@ const Specification = extend(null, /** @lends Specification# */ {
             }
             return invertedConversion;
         });
-    },
+    }
 
     setRawValue(packetField, rawValue, buffer, start, end) {
         if (start === undefined) {
@@ -702,7 +677,7 @@ const Specification = extend(null, /** @lends Specification# */ {
 
             this.setRawValue(packetField.packetFieldSpec, rawValue, buffer, start, end);
         }
-    },
+    }
 
     /**
      * Converts a raw number value from one unit to another. The units must be in the same unit family.
@@ -795,7 +770,7 @@ const Specification = extend(null, /** @lends Specification# */ {
         });
 
         return result;
-    },
+    }
 
     _convertTemperatureRawValue(rawValue, sourceUnitCode, targetUnitCode) {
         switch (sourceUnitCode) {
@@ -821,7 +796,7 @@ const Specification = extend(null, /** @lends Specification# */ {
         }
 
         return rawValue;
-    },
+    }
 
     _convertVolumeRawValue(rawValue, sourceUnitCode, targetUnitCode) {
         switch (sourceUnitCode) {
@@ -853,7 +828,7 @@ const Specification = extend(null, /** @lends Specification# */ {
         }
 
         return rawValue;
-    },
+    }
 
     _convertVolumeFlowRawValue(rawValue, sourceUnitCode, targetUnitCode) {
         switch (sourceUnitCode) {
@@ -897,7 +872,7 @@ const Specification = extend(null, /** @lends Specification# */ {
         }
 
         return rawValue;
-    },
+    }
 
     _convertPressureRawValue(rawValue, sourceUnitCode, targetUnitCode) {
         switch (sourceUnitCode) {
@@ -923,7 +898,7 @@ const Specification = extend(null, /** @lends Specification# */ {
         }
 
         return rawValue;
-    },
+    }
 
     _convertEnergyRawValue(rawValue, sourceUnitCode, targetUnitCode) {
         switch (sourceUnitCode) {
@@ -1009,7 +984,7 @@ const Specification = extend(null, /** @lends Specification# */ {
         }
 
         return rawValue;
-    },
+    }
 
     _convertPowerRawValue(rawValue, sourceUnitCode, targetUnitCode) {
         switch (sourceUnitCode) {
@@ -1035,7 +1010,7 @@ const Specification = extend(null, /** @lends Specification# */ {
         }
 
         return rawValue;
-    },
+    }
 
     _convertTimeRawValue(rawValue, sourceUnitCode, targetUnitCode) {
         switch (sourceUnitCode) {
@@ -1073,7 +1048,7 @@ const Specification = extend(null, /** @lends Specification# */ {
         }
 
         return rawValue;
-    },
+    }
 
     /**
      * Formats a raw value into its textual representation.
@@ -1123,7 +1098,7 @@ const Specification = extend(null, /** @lends Specification# */ {
         }
 
         return textValue;
-    },
+    }
 
     formatTextValueFromRawValueInternal(rawValue, unit, rootType, precision, defaultUnit) {
         const unitText = unit ? unit.unitText : defaultUnit ? defaultUnit.unitText : '';
@@ -1169,7 +1144,7 @@ const Specification = extend(null, /** @lends Specification# */ {
         }
 
         return result;
-    },
+    }
 
     /**
      * Gets an array of PacketField objects for the provided Packet objects.
@@ -1266,7 +1241,7 @@ const Specification = extend(null, /** @lends Specification# */ {
         });
 
         return packetFields;
-    },
+    }
 
     setPacketFieldRawValues(packetFields, rawValues) {
         const _this = this;
@@ -1293,7 +1268,7 @@ const Specification = extend(null, /** @lends Specification# */ {
                 _this.setRawValue(packetField.packetFieldSpec, rawValue, frameData);
             }
         });
-    },
+    }
 
     getFilteredPacketFieldSpecificationsForHeaders(headers) {
         const filteredPacketFieldSpecs = [];
@@ -1316,7 +1291,7 @@ const Specification = extend(null, /** @lends Specification# */ {
         });
 
         return filteredPacketFieldSpecs;
-    },
+    }
 
     /**
      * Gets an array of BlockType sections from a collection of headers.
@@ -1400,7 +1375,7 @@ const Specification = extend(null, /** @lends Specification# */ {
             }
             return memo;
         }, []);
-    },
+    }
 
     _createUInt8BlockTypeFieldSpecification(fieldIdPrefix, offset, name, typeId, factor) {
         return {
@@ -1438,7 +1413,7 @@ const Specification = extend(null, /** @lends Specification# */ {
                 }
             },
         };
-    },
+    }
 
     _createInt16BlockTypeFieldSpecification(fieldIdPrefix, offset, name, typeId, factor) {
         return {
@@ -1489,7 +1464,7 @@ const Specification = extend(null, /** @lends Specification# */ {
                 }
             },
         };
-    },
+    }
 
     _createUInt32BlockTypeFieldSpecification(fieldIdPrefix, offset, name, typeId, factor) {
         return {
@@ -1566,7 +1541,7 @@ const Specification = extend(null, /** @lends Specification# */ {
                 }
             },
         };
-    },
+    }
 
     /**
      * Gets the PacketSpecification objects matching the given BlockTypeSection objects.
@@ -1644,7 +1619,7 @@ const Specification = extend(null, /** @lends Specification# */ {
 
             return memo;
         }, []);
-    },
+    }
 
     /**
      * Gets an array of PacketField objects for the provided BlockTypeSection objects.
@@ -1714,11 +1689,9 @@ const Specification = extend(null, /** @lends Specification# */ {
         });
 
         return packetFields;
-    },
+    }
 
-}, {
-
-    loadSpecificationData(rawSpecificationData, options) {
+    static loadSpecificationData(rawSpecificationData, options) {
         if (rawSpecificationData === undefined) {
             rawSpecificationData = {};
         }
@@ -1775,9 +1748,9 @@ const Specification = extend(null, /** @lends Specification# */ {
         });
 
         return result;
-    },
+    }
 
-    storeSpecificationData(options) {
+    static storeSpecificationData(options) {
         if (options === undefined) {
             options = {};
         }
@@ -1849,14 +1822,42 @@ const Specification = extend(null, /** @lends Specification# */ {
         };
 
         return rawSpecificationData;
-    },
+    }
 
-    getDefaultSpecification() {
+    static getDefaultSpecification() {
         return globalSpecification;
-    },
+    }
+
+}
+
+
+Object.assign(Specification.prototype, {
+
+    /**
+     * Language code (ISO 639-1)
+     * @type {string}
+     */
+    language: 'en',
+
+    deviceSpecCache: null,
+
+    packetSpecCache: null,
+
+    blockTypePacketSpecCache: null,
+
+    /**
+     * I18N instance
+     * @type {I18N}
+     */
+    i18n: null,
+
+    /**
+     * Custom specification data to be mixed-in to built-in specification.
+     * @type {object}
+     */
+    specificationData: null,
 
 });
-
 
 
 globalSpecification = new Specification();

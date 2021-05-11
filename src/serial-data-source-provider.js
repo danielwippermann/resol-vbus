@@ -23,19 +23,13 @@ const optionKeys = [
 
 
 
-const SerialDataSourceProvider = DataSourceProvider.extend({
-
-    id: 'serial-data-source-provider',
-
-    name: 'Serial VBus Data Source Provider',
-
-    description: 'Data source provider for VBus devices connected using a serial port (incl. USB)',
+class SerialDataSourceProvider extends DataSourceProvider {
 
     constructor(options) {
-        DataSourceProvider.call(this, options);
+        super(options);
 
         _.extend(this, _.pick(options, optionKeys));
-    },
+    }
 
     discoverDataSources() {
         const _this = this;
@@ -66,21 +60,31 @@ const SerialDataSourceProvider = DataSourceProvider.extend({
                 }
             });
         });
-    },
+    }
 
     createDataSource(options) {
         return new SerialDataSource(options);
-    },
+    }
 
     _listSerialPorts() {
         return SerialPort.list.apply(SerialPort, arguments);
-    },
+    }
 
-}, {
+}
 
-    hasSerialPortSupport: !!SerialPort,
+
+Object.assign(SerialDataSourceProvider.prototype, {
+
+    id: 'serial-data-source-provider',
+
+    name: 'Serial VBus Data Source Provider',
+
+    description: 'Data source provider for VBus devices connected using a serial port (incl. USB)',
 
 });
+
+
+SerialDataSourceProvider.hasSerialPortSupport = !!SerialPort;
 
 
 

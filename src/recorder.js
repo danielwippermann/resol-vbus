@@ -6,7 +6,6 @@
 const EventEmitter = require('events').EventEmitter;
 
 
-const extend = require('./extend');
 const Header = require('./header');
 const HeaderSet = require('./header-set');
 const HeaderSetConsolidator = require('./header-set-consolidator');
@@ -25,38 +24,7 @@ const optionKeys = [
 
 
 
-const Recorder = extend(EventEmitter, /** @lends Recorder# */ {
-
-    /**
-     * Identifier for this recorder instance. It may be used to reference
-     * recorders, for example in sync data storage.
-     * @type {string}
-     */
-    id: null,
-
-    /**
-     * Minimum timestamp to use as a default during playback and
-     * synchronization.
-     * @type {Date}
-     * @default '2001-01-01T00:00:00.000Z'
-     */
-    minTimestamp: null,
-
-    /**
-     * Maximum timestamp to use as a default during playback and
-     * synchronization.
-     * @type {Date}
-     * @default '2038-01-01T00:00:00.000Z'
-     */
-    maxTimestamp: null,
-
-    /**
-     * Interval to be used as a default during playback and
-     * synchronization.
-     * @type {number}
-     * @default 0
-     */
-    interval: 0,
+class Recorder extends EventEmitter {
 
     /**
      * Creates a new Recorder instance and optionally initializes
@@ -86,7 +54,7 @@ const Recorder = extend(EventEmitter, /** @lends Recorder# */ {
      * implementation-specific to this class.
      */
     constructor(options) {
-        EventEmitter.call(this);
+        super();
 
         _.extend(this, _.pick(options, optionKeys));
 
@@ -99,11 +67,11 @@ const Recorder = extend(EventEmitter, /** @lends Recorder# */ {
         if (!this.maxTimestamp) {
             this.maxTimestamp = new Date(Date.UTC(2038, 0));
         }
-    },
+    }
 
     _getOptions() {
         return _.extend({}, _.pick(this, optionKeys));
-    },
+    }
 
     /**
      * Plays back a given range of HeaderSets. The stream must be in object mode.
@@ -158,11 +126,11 @@ const Recorder = extend(EventEmitter, /** @lends Recorder# */ {
         }
 
         return playedBackRanges;
-    },
+    }
 
     _playback(headerSetConsolidator, options) {
         throw new Error('Must be implemented by sub-class');
-    },
+    }
 
     /**
      * Records a given range of HeaderSet instances. The stream must be in object mode.
@@ -252,15 +220,15 @@ const Recorder = extend(EventEmitter, /** @lends Recorder# */ {
         }
 
         return recordedRanges;
-    },
+    }
 
     _startRecording(headerSetConsolidator, recordingJob) {
         throw new Error('Must be implemented by sub-class');
-    },
+    }
 
     _endRecording(headerSetConsolidator, recordingJob, recording) {
         throw new Error('Must be implemented by sub-class');
-    },
+    }
 
     /**
      * Synchronize this Recorder's HeaderSets to another Recorder.
@@ -291,11 +259,11 @@ const Recorder = extend(EventEmitter, /** @lends Recorder# */ {
         const syncJob = await _this._getSyncJob(oldSyncState, options);
 
         return recorder._recordSyncJob(_this, syncJob);
-    },
+    }
 
     _getCurrentSyncState(options) {
         throw new Error('Must be implemented by sub-class');
-    },
+    }
 
     _getSyncJob(oldSyncState, options) {
         const syncJob = _.extend({}, options, {
@@ -342,7 +310,7 @@ const Recorder = extend(EventEmitter, /** @lends Recorder# */ {
         syncJob.syncStateDiffs = syncStateDiffs;
 
         return Promise.resolve(syncJob);
-    },
+    }
 
     /**
      * Starts a playback of the provided recorder, recording its data and returning a
@@ -354,7 +322,7 @@ const Recorder = extend(EventEmitter, /** @lends Recorder# */ {
      */
     _recordSyncJob(recorder, syncJob) {
         throw new Error('Must be implemented by sub-class');
-    },
+    }
 
     /**
      * Plays back the requested synchronization job, piping the resulting data into the
@@ -366,7 +334,7 @@ const Recorder = extend(EventEmitter, /** @lends Recorder# */ {
      */
     _playbackSyncJob(stream, syncJob) {
         throw new Error('Must be implemented by sub-class');
-    },
+    }
 
     _getSyncState(syncJobOrState, which, type) {
         let syncState;
@@ -389,7 +357,7 @@ const Recorder = extend(EventEmitter, /** @lends Recorder# */ {
         }
 
         return syncStateRoot [type];
-    },
+    }
 
     _markSourceSyncRanges(ranges, syncJob) {
         const syncState = this._getSyncState(syncJob, 'source', 'Recorder');
@@ -399,11 +367,9 @@ const Recorder = extend(EventEmitter, /** @lends Recorder# */ {
         handledRanges = Recorder.performRangeSetOperation(handledRanges, ranges, syncJob.interval, 'union');
 
         syncState.rangesByInterval [syncJob.interval] = handledRanges;
-    },
+    }
 
-}, /** @lends Recorder. */ {
-
-    alignTimestampToInterval(timestamp, interval) {
+    static alignTimestampToInterval(timestamp, interval) {
         if (typeof timestamp.getTime === 'function') {
             timestamp = timestamp.getTime();
         } else if (typeof timestamp === 'string') {
@@ -417,7 +383,7 @@ const Recorder = extend(EventEmitter, /** @lends Recorder# */ {
         } else {
             return timestamp;
         }
-    },
+    }
 
     /**
      * Performs operations on two sets of timestamp ranges.
@@ -435,7 +401,7 @@ const Recorder = extend(EventEmitter, /** @lends Recorder# */ {
      * @param {string} operation Operation to perform, can be `'union'`, `'difference'` or `'intersection'`
      * @returns {Array} Set containing timestamp ranges after the operation
      */
-    performRangeSetOperation(rangesA, rangesB, interval, operation) {
+    static performRangeSetOperation(rangesA, rangesB, interval, operation) {
         let newInfos = [];
 
         const calcBaseTimestamp = function(timestamp) {
@@ -638,7 +604,43 @@ const Recorder = extend(EventEmitter, /** @lends Recorder# */ {
         });
 
         return newRanges;
-    },
+    }
+
+}
+
+
+Object.assign(Recorder.prototype, {
+
+    /**
+     * Identifier for this recorder instance. It may be used to reference
+     * recorders, for example in sync data storage.
+     * @type {string}
+     */
+    id: null,
+
+    /**
+     * Minimum timestamp to use as a default during playback and
+     * synchronization.
+     * @type {Date}
+     * @default '2001-01-01T00:00:00.000Z'
+     */
+    minTimestamp: null,
+
+    /**
+     * Maximum timestamp to use as a default during playback and
+     * synchronization.
+     * @type {Date}
+     * @default '2038-01-01T00:00:00.000Z'
+     */
+    maxTimestamp: null,
+
+    /**
+     * Interval to be used as a default during playback and
+     * synchronization.
+     * @type {number}
+     * @default 0
+     */
+    interval: 0,
 
 });
 

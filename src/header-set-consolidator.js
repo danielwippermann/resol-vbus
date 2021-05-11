@@ -17,35 +17,7 @@ const optionKeys = [
 
 
 
-const HeaderSetConsolidator = HeaderSet.extend(/** @lends HeaderSetConsolidator# */ {
-
-    /**
-     * The interval in which the `headerSet` event should be emitted.
-     * @type {number}
-     */
-    interval: 0,
-
-    /**
-     * Header instances that are older then this duration are removed from the set.
-     * @type {number}
-     */
-    timeToLive: 0,
-
-    /**
-     * HeaderSet instances from a time before this Date are ignored.
-     * @type {Date}
-     */
-    minTimestamp: null,
-
-    /**
-     * HeaderSet instances from a time after this Date are ignored.
-     * @type {Date}
-     */
-    maxTimestamp: null,
-
-    lastIntervalTime: 0,
-
-    timer: null,
+class HeaderSetConsolidator extends HeaderSet {
 
     /**
      * Creates a new instances and optionally initializes its members to the given values.
@@ -126,10 +98,10 @@ const HeaderSetConsolidator = HeaderSet.extend(/** @lends HeaderSetConsolidator#
      * stream.pipe(converter);
      */
     constructor(options) {
-        HeaderSet.call(this, options);
+        super(options);
 
         _.extend(this, _.pick(options, optionKeys));
-    },
+    }
 
     /**
      * Starts a timer that processes live HeaderSets automatically.
@@ -140,7 +112,7 @@ const HeaderSetConsolidator = HeaderSet.extend(/** @lends HeaderSetConsolidator#
         this.lastIntervalTime = Date.now();
 
         this._handleInterval();
-    },
+    }
 
     /**
      * Stops the timer that was started by `startTimer`.
@@ -150,7 +122,7 @@ const HeaderSetConsolidator = HeaderSet.extend(/** @lends HeaderSetConsolidator#
             clearTimeout(this.timer);
             this.timer = null;
         }
-    },
+    }
 
     /**
      * Process the given HeaderSet instance. The Header instances in it are
@@ -164,7 +136,7 @@ const HeaderSetConsolidator = HeaderSet.extend(/** @lends HeaderSetConsolidator#
         this.addHeaders(headerSet.getHeaders());
 
         this._processHeaderSet(now);
-    },
+    }
 
     _handleInterval() {
         const _this = this;
@@ -177,7 +149,7 @@ const HeaderSetConsolidator = HeaderSet.extend(/** @lends HeaderSetConsolidator#
         this.timer = setTimeout(() => {
             _this._handleInterval();
         }, interval);
-    },
+    }
 
     _processHeaderSet(now) {
         let include = true;
@@ -215,7 +187,39 @@ const HeaderSetConsolidator = HeaderSet.extend(/** @lends HeaderSetConsolidator#
 
             this.lastIntervalTime = now;
         }
-    },
+    }
+
+}
+
+
+Object.assign(HeaderSetConsolidator.prototype, {
+    /**
+     * The interval in which the `headerSet` event should be emitted.
+     * @type {number}
+     */
+    interval: 0,
+
+    /**
+     * Header instances that are older then this duration are removed from the set.
+     * @type {number}
+     */
+    timeToLive: 0,
+
+    /**
+     * HeaderSet instances from a time before this Date are ignored.
+     * @type {Date}
+     */
+    minTimestamp: null,
+
+    /**
+     * HeaderSet instances from a time after this Date are ignored.
+     * @type {Date}
+     */
+    maxTimestamp: null,
+
+    lastIntervalTime: 0,
+
+    timer: null,
 
 });
 

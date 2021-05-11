@@ -10,6 +10,10 @@ const {
 
 const expect = require('./expect');
 
+const {
+    itShouldWorkCorrectlyAfterMigratingToClass,
+} = require('./test-utils');
+
 
 
 describe('I18N', () => {
@@ -305,6 +309,23 @@ describe('I18N', () => {
             expect(n.format).to.be.a('function');
             expect(n.format('0,0.0')).to.equal('1,234.5');
         });
+
+    });
+
+    itShouldWorkCorrectlyAfterMigratingToClass(I18N, null, {
+        language: null,
+        languageData: null,
+        timezone: null,
+        constructor: Function,
+        sprintf: Function,
+        vsprintf: Function,
+        t: Function,
+        moment: Function,
+        momentUtc: Function,
+        momentTz: Function,
+        momentTzZone: Function,
+        numeral: Function,
+    }, {
 
     });
 

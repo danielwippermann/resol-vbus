@@ -4,12 +4,17 @@
 
 
 const {
+    Header,
     Packet,
 } = require('./resol-vbus');
 
 
 const expect = require('./expect');
 const _ = require('./lodash');
+
+const {
+    itShouldWorkCorrectlyAfterMigratingToClass,
+} = require('./test-utils');
 
 
 
@@ -19,7 +24,6 @@ describe('Packet', () => {
 
         it('should be a constructor function', () => {
             expect(Packet).to.be.a('function');
-            expect(Packet.extend).to.be.a('function');
         });
 
         it('should have reasonable defaults', () => {
@@ -244,6 +248,19 @@ describe('Packet', () => {
             expect(packet.getId()).to.equal('13_2336_3335_10_4334');
         });
 
+    });
+
+    itShouldWorkCorrectlyAfterMigratingToClass(Packet, Header, {
+        command: 0,
+        frameCount: 0,
+        frameData: null,
+        constructor: Function,
+        toLiveBuffer: Function,
+        getProtocolVersion: Function,
+        getId: Function,
+        compareTo: Function,
+    }, {
+        fromLiveBuffer: Function,
     });
 
 });

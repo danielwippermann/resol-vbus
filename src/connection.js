@@ -6,7 +6,6 @@
 const Duplex = require('stream').Duplex;
 
 
-const extend = require('./extend');
 const _ = require('./lodash');
 
 const Header = require('./header');
@@ -51,7 +50,7 @@ function promiseToCallback(maybePromise, callback) {
 
 
 
-const Connection = extend(Duplex, /** @lends Connection# */ {
+class Connection extends Duplex {
 
     /**
      * Creates a new Connection instance and optionally initializes its member with the given values.
@@ -92,42 +91,10 @@ const Connection = extend(Duplex, /** @lends Connection# */ {
      * connection.connect();
      */
     constructor(options) {
-        Duplex.call(this);
+        super();
 
         _.extend(this, _.pick(options, optionKeys));
-    },
-
-    /**
-     * Reference to this instance's DataSource.
-     * @type {DataSource}
-     */
-    dataSource: null,
-
-    /**
-     * The VBus channel that this connection is established to.
-     * All `Header` instances created by this `Connection` instance will be assigned
-     * this VBus channel.
-     * @type {number}
-     */
-    channel: 0,
-
-    /**
-     * The VBus address used for sending information over this connection.
-     * @type {number}
-     */
-    selfAddress: 0x0020,
-
-    /**
-     * The current connection state.
-     * @type {string}
-     */
-    connectionState: states.STATE_DISCONNECTED,
-
-    /**
-     * The internal receive buffer of this conneciton.
-     * @type {Buffer}
-     */
-    rxBuffer: null,
+    }
 
     /**
      * Establish underlying connection and start streaming data to the writable side
@@ -138,7 +105,7 @@ const Connection = extend(Duplex, /** @lends Connection# */ {
      */
     connect(force) {
         throw new Error('Must be implemented by sub-class');
-    },
+    }
 
     /**
      * Diconnect this instance.
@@ -146,7 +113,7 @@ const Connection = extend(Duplex, /** @lends Connection# */ {
      */
     disconnect() {
         throw new Error('Must be implemented by sub-class');
-    },
+    }
 
     _write(chunk, encoding, callback) {
         this.receive(new Date(), chunk);
@@ -154,7 +121,7 @@ const Connection = extend(Duplex, /** @lends Connection# */ {
         if (callback) {
             callback(null);
         }
-    },
+    }
 
     receive(timestamp, chunk) {
         const _this = this;
@@ -299,11 +266,11 @@ const Connection = extend(Duplex, /** @lends Connection# */ {
         } else {
             this.rxBuffer = null;
         }
-    },
+    }
 
     _read() {
         // nop
-    },
+    }
 
     _setConnectionState(newState) {
         if (this.connectionState !== newState) {
@@ -315,7 +282,7 @@ const Connection = extend(Duplex, /** @lends Connection# */ {
                 this.emit('connectionState', newState);
             }
         }
-    },
+    }
 
     /**
      * Send raw data over this Connection instance.
@@ -327,7 +294,7 @@ const Connection = extend(Duplex, /** @lends Connection# */ {
             data = data.toLiveBuffer();
         }
         return this.push(data);
-    },
+    }
 
     /**
      * Sends and / or receives a VBus data.
@@ -432,7 +399,7 @@ const Connection = extend(Duplex, /** @lends Connection# */ {
 
             process.nextTick(nextTry);
         });
-    },
+    }
 
     /**
      * Waits for a VBus bus offering datagram (Command 0x0500).
@@ -454,7 +421,7 @@ const Connection = extend(Duplex, /** @lends Connection# */ {
         };
 
         return this.transceive(null, options);
-    },
+    }
 
     /**
      * Sends a VBus bus release datagram (Command 0x0600).
@@ -484,7 +451,7 @@ const Connection = extend(Duplex, /** @lends Connection# */ {
         };
 
         return this.transceive(txDatagram, options);
-    },
+    }
 
     /**
      * Sends a Datagram to get a value from a device.
@@ -542,7 +509,7 @@ const Connection = extend(Duplex, /** @lends Connection# */ {
         };
 
         return this.transceive(txDatagram, options);
-    },
+    }
 
     /**
      * Sends a Datagram to set a value in a device.
@@ -593,7 +560,7 @@ const Connection = extend(Duplex, /** @lends Connection# */ {
         };
 
         return this.transceive(txDatagram, options);
-    },
+    }
 
     /**
      * Sends a Datagram to lookup a value ID hash in a device.
@@ -639,7 +606,7 @@ const Connection = extend(Duplex, /** @lends Connection# */ {
         };
 
         return this.transceive(txDatagram, options);
-    },
+    }
 
     /**
      * Sends a Datagram to lookup a value ID in a device.
@@ -685,7 +652,7 @@ const Connection = extend(Duplex, /** @lends Connection# */ {
         };
 
         return this.transceive(txDatagram, options);
-    },
+    }
 
     /**
      * Sends a Datagram to lookup the controller's capabilities (part 1).
@@ -728,7 +695,7 @@ const Connection = extend(Duplex, /** @lends Connection# */ {
         };
 
         return this.transceive(txDatagram, options);
-    },
+    }
 
     /**
      * Sends a Datagram to begin a bulk valke transaction.
@@ -772,7 +739,7 @@ const Connection = extend(Duplex, /** @lends Connection# */ {
         };
 
         return this.transceive(txDatagram, options);
-    },
+    }
 
     /**
      * Sends a Datagram to commit a bulk valke transaction.
@@ -815,7 +782,7 @@ const Connection = extend(Duplex, /** @lends Connection# */ {
         };
 
         return this.transceive(txDatagram, options);
-    },
+    }
 
     /**
      * Sends a Datagram to rollback a bulk valke transaction.
@@ -858,7 +825,7 @@ const Connection = extend(Duplex, /** @lends Connection# */ {
         };
 
         return this.transceive(txDatagram, options);
-    },
+    }
 
     /**
      * Sends a Datagram to set a value during a bulk value transaction.
@@ -908,7 +875,7 @@ const Connection = extend(Duplex, /** @lends Connection# */ {
         };
 
         return this.transceive(txDatagram, options);
-    },
+    }
 
     ping(address, valueId, value, options) {
         options = _.defaults({}, options, {
@@ -942,7 +909,7 @@ const Connection = extend(Duplex, /** @lends Connection# */ {
         };
 
         return this.transceive(txDatagram, options);
-    },
+    }
 
     getStorageActivity(address, options) {
         options = _.defaults({}, options, {
@@ -972,7 +939,7 @@ const Connection = extend(Duplex, /** @lends Connection# */ {
         };
 
         return this.transceive(txDatagram, options);
-    },
+    }
 
     /**
      * Creates a promise that resolves when this Connection
@@ -1008,9 +975,49 @@ const Connection = extend(Duplex, /** @lends Connection# */ {
                 _this.on('connectionState', onConnectionState);
             }
         });
-    },
+    }
 
-}, states);
+}
+
+
+Object.assign(Connection.prototype, {
+
+    /**
+     * Reference to this instance's DataSource.
+     * @type {DataSource}
+     */
+    dataSource: null,
+
+    /**
+     * The VBus channel that this connection is established to.
+     * All `Header` instances created by this `Connection` instance will be assigned
+     * this VBus channel.
+     * @type {number}
+     */
+    channel: 0,
+
+    /**
+     * The VBus address used for sending information over this connection.
+     * @type {number}
+     */
+    selfAddress: 0x0020,
+
+    /**
+     * The current connection state.
+     * @type {string}
+     */
+    connectionState: states.STATE_DISCONNECTED,
+
+    /**
+     * The internal receive buffer of this conneciton.
+     * @type {Buffer}
+     */
+    rxBuffer: null,
+
+});
+
+
+Object.assign(Connection, states);
 
 
 

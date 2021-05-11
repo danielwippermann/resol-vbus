@@ -3,7 +3,6 @@
 
 
 
-const extend = require('./extend');
 const _ = require('./lodash');
 
 
@@ -20,7 +19,40 @@ const optionKeys = [
 
 
 
-const DataSource = extend(null, {
+class DataSource {
+
+    constructor(options) {
+        _.extend(this, _.pick(options, optionKeys));
+    }
+
+    connectLive(options) {
+        if (this.isSupportingLiveData) {
+            throw new Error('Must be implemented by sub-class');
+        } else {
+            throw new Error('Does not support live data');
+        }
+    }
+
+    openRecorder(options) {
+        if (this.isSupportingRecordedData) {
+            throw new Error('Must be implemented by sub-class');
+        } else {
+            throw new Error('Does not support recorded data');
+        }
+    }
+
+    createCustomizer(deviceAddress, options) {
+        if (this.isSupportingCustomization) {
+            throw new Error('Must be implemented by sub-class');
+        } else {
+            throw new Error('Does not support customization');
+        }
+    }
+
+}
+
+
+Object.assign(DataSource.prototype, {
 
     provider: null,
 
@@ -35,34 +67,6 @@ const DataSource = extend(null, {
     isSupportingRecordedData: false,
 
     isSupportingCustomization: false,
-
-    constructor(options) {
-        _.extend(this, _.pick(options, optionKeys));
-    },
-
-    connectLive(options) {
-        if (this.isSupportingLiveData) {
-            throw new Error('Must be implemented by sub-class');
-        } else {
-            throw new Error('Does not support live data');
-        }
-    },
-
-    openRecorder(options) {
-        if (this.isSupportingRecordedData) {
-            throw new Error('Must be implemented by sub-class');
-        } else {
-            throw new Error('Does not support recorded data');
-        }
-    },
-
-    createCustomizer(deviceAddress, options) {
-        if (this.isSupportingCustomization) {
-            throw new Error('Must be implemented by sub-class');
-        } else {
-            throw new Error('Does not support customization');
-        }
-    },
 
 });
 

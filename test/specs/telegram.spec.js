@@ -4,12 +4,17 @@
 
 
 const {
+    Header,
     Telegram,
 } = require('./resol-vbus');
 
 
 const expect = require('./expect');
 const _ = require('./lodash');
+
+const {
+    itShouldWorkCorrectlyAfterMigratingToClass,
+} = require('./test-utils');
 
 
 
@@ -19,7 +24,7 @@ describe('Telegram', () => {
 
         it('should be a constructor function', () => {
             expect(Telegram).to.be.a('function');
-            expect(Telegram).to.have.a.property('extend').that.is.a('function');
+
         });
 
         it('should have reasonable defaults', () => {
@@ -190,6 +195,20 @@ describe('Telegram', () => {
             expect(telegram.getId()).to.equal('13_1122_3344_30_77');
         });
 
+    });
+
+    itShouldWorkCorrectlyAfterMigratingToClass(Telegram, Header, {
+        command: 0,
+        frameData: null,
+        constructor: Function,
+        toLiveBuffer: Function,
+        getProtocolVersion: Function,
+        getId: Function,
+        compareTo: Function,
+        getFrameCount: Function,
+    }, {
+        fromLiveBuffer: Function,
+        getFrameCountForCommand: Function,
     });
 
 });

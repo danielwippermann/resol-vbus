@@ -24,64 +24,7 @@ const optionKeys = [
 
 
 
-const TcpConnection = Connection.extend(/** @lends TcpConnection# */ {
-
-    /**
-     * Host name or IP address of the connection target.
-     * @type {string}
-     */
-    host: null,
-
-    /**
-     * Port number of the connection target.
-     * @type {number}
-     */
-    port: null,
-
-    /**
-     * Via tag if connection target is accessed using the VBus.net service.
-     * @type {string}
-     */
-    viaTag: null,
-
-    /**
-     * Password needed to connect to target.
-     * @type {string}
-     */
-    password: null,
-
-    /**
-     * Channel number to connect to.
-     * @type {string|number}
-     */
-    channel: 0,
-
-    /**
-     * Indicates that connection does not need to perform login handshake.
-     * Useful for serial-to-LAN converters.
-     * @type {boolean}
-     */
-    rawVBusDataOnly: false,
-
-    tlsOptions: null,
-
-    /**
-     * Timeout in milliseconds to way between reconnection retries.
-     * @type {number}
-     */
-    reconnectTimeout: 0,
-
-    /**
-     * Value to increment timeout after every unsuccessful reconnection retry.
-     * @type {number}
-     */
-    reconnectTimeoutIncr: 10000,
-
-    /**
-     * Maximum timeout value between unsuccessful reconnection retry.
-     * @type {number}
-     */
-    reconnectTimeoutMax: 60000,
+class TcpConnection extends Connection {
 
     /**
      * Creates a new TcpConnection instance and optionally initializes its
@@ -104,7 +47,7 @@ const TcpConnection = Connection.extend(/** @lends TcpConnection# */ {
      * (for example provided by a serial-to-LAN gateway).
      */
     constructor(options) {
-        Connection.call(this, options);
+        super(options);
 
         if (options && options.tlsOptions) {
             this.port = 57053;
@@ -113,7 +56,7 @@ const TcpConnection = Connection.extend(/** @lends TcpConnection# */ {
         }
 
         _.extend(this, _.pick(options, optionKeys));
-    },
+    }
 
     async connect(force) {
         if (this.connectionState !== TcpConnection.STATE_DISCONNECTED) {
@@ -123,7 +66,7 @@ const TcpConnection = Connection.extend(/** @lends TcpConnection# */ {
         this._setConnectionState(TcpConnection.STATE_CONNECTING);
 
         return this._connect(force);
-    },
+    }
 
     disconnect() {
         if (this.connectionState === TcpConnection.STATE_DISCONNECTING) {
@@ -143,7 +86,7 @@ const TcpConnection = Connection.extend(/** @lends TcpConnection# */ {
                 this._setConnectionState(TcpConnection.STATE_DISCONNECTED);
             }
         }
-    },
+    }
 
     _connect(force) {
         const _this = this;
@@ -394,7 +337,69 @@ const TcpConnection = Connection.extend(/** @lends TcpConnection# */ {
 
             this.socket = socket;
         });
-    },
+    }
+
+}
+
+
+Object.assign(TcpConnection.prototype, {
+
+    /**
+     * Host name or IP address of the connection target.
+     * @type {string}
+     */
+    host: null,
+
+    /**
+     * Port number of the connection target.
+     * @type {number}
+     */
+    port: null,
+
+    /**
+     * Via tag if connection target is accessed using the VBus.net service.
+     * @type {string}
+     */
+    viaTag: null,
+
+    /**
+     * Password needed to connect to target.
+     * @type {string}
+     */
+    password: null,
+
+    /**
+     * Channel number to connect to.
+     * @type {string|number}
+     */
+    channel: 0,
+
+    /**
+     * Indicates that connection does not need to perform login handshake.
+     * Useful for serial-to-LAN converters.
+     * @type {boolean}
+     */
+    rawVBusDataOnly: false,
+
+    tlsOptions: null,
+
+    /**
+     * Timeout in milliseconds to way between reconnection retries.
+     * @type {number}
+     */
+    reconnectTimeout: 0,
+
+    /**
+     * Value to increment timeout after every unsuccessful reconnection retry.
+     * @type {number}
+     */
+    reconnectTimeoutIncr: 10000,
+
+    /**
+     * Maximum timeout value between unsuccessful reconnection retry.
+     * @type {number}
+     */
+    reconnectTimeoutMax: 60000,
 
 });
 

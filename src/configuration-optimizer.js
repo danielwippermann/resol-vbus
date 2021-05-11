@@ -3,10 +3,6 @@
 
 
 
-const extend = require('./extend');
-
-
-
 /**
  * @typedef ConfigurationValue
  * @type {object}
@@ -26,11 +22,11 @@ const extend = require('./extend');
 
 
 
-const ConfigurationOptimizer = extend(null, /** @lends ConfigurationOptimizer# */ {
+class ConfigurationOptimizer {
 
     constructor(options) {
         // nop
-    },
+    }
 
     /**
      * Converts the configurations provided into an array of {@see ConfigurationValue} objects.
@@ -43,7 +39,7 @@ const ConfigurationOptimizer = extend(null, /** @lends ConfigurationOptimizer# *
      */
     completeConfiguration(config) {
         throw new Error('Must be implemented by sub-class');
-    },
+    }
 
     /**
      * Gets the optimized array of values based on what values are already loaded.
@@ -53,7 +49,7 @@ const ConfigurationOptimizer = extend(null, /** @lends ConfigurationOptimizer# *
      */
     optimizeLoadConfiguration(config) {
         throw new Error('Must be implemented by sub-class');
-    },
+    }
 
     /**
      * Gets the optimzed array of values to save to the controller.
@@ -64,7 +60,7 @@ const ConfigurationOptimizer = extend(null, /** @lends ConfigurationOptimizer# *
      */
     optimizeSaveConfiguration(newConfig, oldConfig) {
         throw new Error('Must be implemented by sub-class');
-    },
+    }
 
     /**
      * Get the array of `ConfigurationValue` objects to set the current date / time to the controller.
@@ -74,24 +70,20 @@ const ConfigurationOptimizer = extend(null, /** @lends ConfigurationOptimizer# *
      */
     generateClockConfiguration(timezone) {
         throw new Error('Must be implemented by sub-class');
-    },
-
-}, {
-
-    deviceAddress: null,
+    }
 
     /**
      * Get an array of possible options for calling this `ConfigurationOptimizer`'s constructor.
      *
      * @return {Promise} A promise that resolves to an array of constructor options.
      */
-    async getOptimizerOptions() {
+    static async getOptimizerOptions() {
         if (this.deviceAddress !== null) {
             return [ null ];
         } else {
             throw new Error('Must be implemented by sub-class');
         }
-    },
+    }
 
     /**
      * Find settings for this `ConfigurationOptimizer`'s constructor that matches the given options best.
@@ -103,7 +95,7 @@ const ConfigurationOptimizer = extend(null, /** @lends ConfigurationOptimizer# *
      * @param  {Customizer} options.customizer A `Customizer` instance to query additional information with.
      * @return {Promise} A Promise that resolves to the best matching optimizer result or `null` if no match was found.
      */
-    async matchOptimizer(options) {
+    static async matchOptimizer(options) {
         if (this.deviceAddress !== null) {
             const match = (options.deviceAddress === this.deviceAddress) ? 1 : 0;
 
@@ -115,7 +107,14 @@ const ConfigurationOptimizer = extend(null, /** @lends ConfigurationOptimizer# *
         } else {
             throw new Error('Must be implemented by sub-class');
         }
-    },
+    }
+
+}
+
+
+Object.assign(ConfigurationOptimizer, {
+
+    deviceAddress: null,
 
 });
 

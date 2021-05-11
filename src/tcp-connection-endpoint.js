@@ -3,11 +3,10 @@
 
 
 
-const EventEmitter = require('events').EventEmitter;
+const { EventEmitter } = require('events');
 const net = require('net');
 
 
-const extend = require('./extend');
 const _ = require('./lodash');
 
 
@@ -19,25 +18,7 @@ const optionKeys = [
 
 
 
-const TcpConnectionEndpoint = extend(EventEmitter, /** @lends TcpConnectionEndpoint# */ {
-
-    /**
-     * The port number to listen on for incoming connections.
-     * @type {number}
-     */
-    port: 7053,
-
-    /**
-     * The list of channels to return if the CHANNELLIST command is received.
-     * @type {string[]}
-     */
-    channels: null,
-
-    /**
-     * The Server instance used for listening for incoming connections.
-     * @type {net.Server}
-     */
-    server: null,
+class TcpConnectionEndpoint extends EventEmitter {
 
     /**
      * Creates a new instance and optionally initializes its members.
@@ -57,14 +38,14 @@ const TcpConnectionEndpoint = extend(EventEmitter, /** @lends TcpConnectionEndpo
      * the VBus-over-TCP handshake.
      */
     constructor(options) {
-        EventEmitter.call(this);
+        super();
 
         _.extend(this, _.pick(options, optionKeys));
 
         if (!_.has(this, 'channels')) {
             this.channels = [ 'VBus' ];
         }
-    },
+    }
 
     /**
      * Starts the server to listen for incoming connections.
@@ -100,7 +81,7 @@ const TcpConnectionEndpoint = extend(EventEmitter, /** @lends TcpConnectionEndpo
 
             this.server = server;
         });
-    },
+    }
 
     stop() {
         if (this.server) {
@@ -108,7 +89,7 @@ const TcpConnectionEndpoint = extend(EventEmitter, /** @lends TcpConnectionEndpo
 
             this.server = null;
         }
-    },
+    }
 
     _onConnection(socket) {
         const _this = this;
@@ -241,7 +222,30 @@ const TcpConnectionEndpoint = extend(EventEmitter, /** @lends TcpConnectionEndpo
         socket.setKeepAlive(true, 60000);
 
         write('+HELLO: This is TcpConnectionEndpoint, at your service!\r\n');
-    },
+    }
+
+}
+
+
+Object.assign(TcpConnectionEndpoint.prototype, {
+
+    /**
+     * The port number to listen on for incoming connections.
+     * @type {number}
+     */
+    port: 7053,
+
+    /**
+     * The list of channels to return if the CHANNELLIST command is received.
+     * @type {string[]}
+     */
+    channels: null,
+
+    /**
+     * The Server instance used for listening for incoming connections.
+     * @type {net.Server}
+     */
+    server: null,
 
 });
 
