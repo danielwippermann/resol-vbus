@@ -183,7 +183,28 @@ class TcpConnection extends Connection {
                     }
                 } else if (line [0] === '-') {
                     newPhase = 800;
-                    done(new Error('Remote side responded with ' + JSON.stringify(line)));
+
+                    const error = new Error('Remote side responded with ' + JSON.stringify(line));
+
+                    switch (phase) {
+                    case 20:
+                        error.vbusPhase = 'CONNECT';
+                        break;
+                    case 40:
+                        error.vbusPhase = 'PASS';
+                        break;
+                    case 60:
+                        error.vbusPhase = 'CHANNELLIST';
+                        break;
+                    case 80:
+                        error.vbusPhase = 'CHANNEL';
+                        break;
+                    case 900:
+                        error.vbusPhase = 'DATA';
+                        break;
+                    }
+
+                    done(error);
                 } else if (line [0] === '*') {
                     if (phase === 60) {
                         const md = /^\*([\d]+):(.*)$/.exec(line);
