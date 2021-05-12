@@ -75,23 +75,15 @@ class TcpDataSourceProvider extends DataSourceProvider {
     static async discoverDevices(options) {
         const promises = await TcpDataSourceProvider.sendBroadcast(options);
 
-        const result = await new Promise((resolve) => {
-            const result = [];
-            let count = 0;
-            for (const promise of promises) {
-                promise.then(info => {
-                    result.push(info);
-                }, () => {
-                    // console.log(err);
-                }).then(() => {
-                    count += 1;
-
-                    if (count === promises.length) {
-                        resolve(result);
-                    }
-                });
+        const result = [];
+        for (const promise of promises) {
+            try {
+                const info = await promise;
+                result.push(info);
+            } catch (err) {
+                // nop
             }
-        });
+        }
 
         return result;
     }
