@@ -52,7 +52,7 @@ class DataSource {
 }
 
 
-Object.assign(DataSource.prototype, {
+Object.assign(DataSource.prototype, /** @lends DataSource.prototype */ {
 
     provider: null,
 

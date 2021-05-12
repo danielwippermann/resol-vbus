@@ -298,7 +298,7 @@ class DLxRecorder extends Recorder {
 }
 
 
-Object.assign(DLxRecorder.prototype, {
+Object.assign(DLxRecorder.prototype, /** @lends DLxRecorder.prototype */ {
 
     /**
      * The root URL to access the DLx.

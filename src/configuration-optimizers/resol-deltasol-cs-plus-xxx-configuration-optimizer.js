@@ -18,7 +18,7 @@ class ResolDeltaSolCsPlusXxxConfigurationOptimizer extends BaseConfigurationOpti
 }
 
 
-Object.assign(ResolDeltaSolCsPlusXxxConfigurationOptimizer, {
+Object.assign(ResolDeltaSolCsPlusXxxConfigurationOptimizer, /** @lends ResolDeltaSolCsPlusXxxConfigurationOptimizer */ {
 
     deviceAddress: 0x2211,
 

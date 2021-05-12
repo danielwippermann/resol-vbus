@@ -179,7 +179,7 @@ class SerialConnection extends Connection {
 }
 
 
-Object.assign(SerialConnection.prototype, {
+Object.assign(SerialConnection.prototype, /** @lends SerialConnection.prototype */ {
 
     /**
      * The path to the serial port.
@@ -212,7 +212,11 @@ Object.assign(SerialConnection.prototype, {
 });
 
 
-SerialConnection.hasSerialPortSupport = !!SerialPort;
+Object.assign(SerialConnection, /** @lends SerialConnection */ {
+
+    hasSerialPortSupport: !!SerialPort,
+
+});
 
 
 

@@ -181,7 +181,7 @@ class TextConverter extends Converter {
 }
 
 
-Object.assign(TextConverter.prototype, {
+Object.assign(TextConverter.prototype, /** @lends TextConverter.prototype */ {
 
     /**
      * Column separator, defaults to tab

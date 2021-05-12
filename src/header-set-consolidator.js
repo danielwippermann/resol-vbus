@@ -192,7 +192,7 @@ class HeaderSetConsolidator extends HeaderSet {
 }
 
 
-Object.assign(HeaderSetConsolidator.prototype, {
+Object.assign(HeaderSetConsolidator.prototype, /** @lends HeaderSetConsolidator.prototype */ {
     /**
      * The interval in which the `headerSet` event should be emitted.
      * @type {number}

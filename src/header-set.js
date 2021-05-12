@@ -239,7 +239,7 @@ class HeaderSet extends EventEmitter {
 }
 
 
-Object.assign(HeaderSet.prototype, {
+Object.assign(HeaderSet.prototype, /** @lends HeaderSet.prototype */ {
 
     /**
      * Timestamp of the youngest Header instance added to this set.

@@ -980,7 +980,7 @@ class Connection extends Duplex {
 }
 
 
-Object.assign(Connection.prototype, {
+Object.assign(Connection.prototype, /** @lends Connection.prototype */ {
 
     /**
      * Reference to this instance's DataSource.

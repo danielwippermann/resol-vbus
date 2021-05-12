@@ -609,7 +609,7 @@ class Recorder extends EventEmitter {
 }
 
 
-Object.assign(Recorder.prototype, {
+Object.assign(Recorder.prototype, /** @lends Recorder.prototype */ {
 
     /**
      * Identifier for this recorder instance. It may be used to reference

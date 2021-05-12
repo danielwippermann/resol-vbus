@@ -123,7 +123,7 @@ class Telegram extends Header {
 }
 
 
-Object.assign(Telegram.prototype, {
+Object.assign(Telegram.prototype, /** @lends Telegram.prototype */ {
     /**
      * The VBus command of this Telegram instance.
      * @type {number}

@@ -1827,7 +1827,7 @@ class Specification {
 }
 
 
-Object.assign(Specification.prototype, {
+Object.assign(Specification.prototype, /** @lends Specification.prototype */ {
 
     /**
      * Language code (ISO 639-1)

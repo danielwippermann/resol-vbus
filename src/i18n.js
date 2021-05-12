@@ -198,7 +198,7 @@ class I18N {
 }
 
 
-Object.assign(I18N.prototype, {
+Object.assign(I18N.prototype, /** @lends I18N.prototype */ {
 
     language: null,
 

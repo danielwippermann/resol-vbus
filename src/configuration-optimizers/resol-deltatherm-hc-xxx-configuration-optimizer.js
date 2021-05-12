@@ -116,7 +116,7 @@ class ResolDeltaThermHcXxxConfigurationOptimizer extends BaseConfigurationOptimi
 }
 
 
-Object.assign(ResolDeltaThermHcXxxConfigurationOptimizer, {
+Object.assign(ResolDeltaThermHcXxxConfigurationOptimizer, /** @lends ResolDeltaThermHcXxxConfigurationOptimizer */ {
 
     deviceAddress: 0x5400,
 

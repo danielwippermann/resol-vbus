@@ -428,7 +428,7 @@ class ConnectionCustomizer extends Customizer {
 }
 
 
-Object.assign(ConnectionCustomizer.prototype, {
+Object.assign(ConnectionCustomizer.prototype, /** @lends ConnectionCustomizer.prototype */ {
 
     /**
      * The connection to use for transfer of the configuration values.

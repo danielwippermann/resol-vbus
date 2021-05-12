@@ -164,7 +164,7 @@ class Converter extends Duplex {
 }
 
 
-Object.assign(Converter.prototype, {
+Object.assign(Converter.prototype, /** @lends Converter.prototype */ {
 
     /**
      * Specifies whether the underlying stream operates in object mode.

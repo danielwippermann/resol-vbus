@@ -58,7 +58,7 @@ class TcpDataSource extends DataSource {
 }
 
 
-Object.assign(TcpDataSource.prototype, {
+Object.assign(TcpDataSource.prototype, /** @lends TcpDataSource.prototype */ {
 
     /**
      * The host to connect to.

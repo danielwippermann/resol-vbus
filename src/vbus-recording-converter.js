@@ -527,7 +527,7 @@ class VBusRecordingConverter extends Converter {
 }
 
 
-Object.assign(VBusRecordingConverter.prototype, {
+Object.assign(VBusRecordingConverter.prototype, /** @lends VBusRecordingConverter.prototype */ {
 
     topologyScanOnly: false,
 

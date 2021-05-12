@@ -211,7 +211,7 @@ class ValuesWrapper {
 }
 
 
-Object.assign(ValuesWrapper.prototype, {
+Object.assign(ValuesWrapper.prototype, /** @lends ValuesWrapper.prototype */ {
 
     pattern: null,
 
@@ -534,7 +534,7 @@ class BaseConfigurationOptimizer extends ConfigurationOptimizer {
 }
 
 
-Object.assign(BaseConfigurationOptimizer, {
+Object.assign(BaseConfigurationOptimizer, /** @lends BaseConfigurationOptimizer */ {
 
     deviceAddress: 0,
 

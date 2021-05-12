@@ -50,7 +50,7 @@ class SerialDataSource extends DataSource {
 }
 
 
-Object.assign(SerialDataSource.prototype, {
+Object.assign(SerialDataSource.prototype, /** @lends SerialDataSource.prototype */ {
 
     /**
      * The path to the serial port.

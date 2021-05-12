@@ -149,7 +149,7 @@ class Customizer extends EventEmitter {
 }
 
 
-Object.assign(Customizer.prototype, {
+Object.assign(Customizer.prototype, /** @lends Customizer.prototype */ {
 
     /**
      * An identifier for this customizer.

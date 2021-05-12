@@ -16,7 +16,7 @@ class DataSourceProvider {
 }
 
 
-Object.assign(DataSourceProvider.prototype, {
+Object.assign(DataSourceProvider.prototype, /** @lends DataSourceProvider.prototype */ {
 
     id: null,
 

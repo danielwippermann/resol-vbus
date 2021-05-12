@@ -195,7 +195,7 @@ class ResolDeltaSolBxPlusXxxConfigurationOptimizer extends BaseConfigurationOpti
 }
 
 
-Object.assign(ResolDeltaSolBxPlusXxxConfigurationOptimizer, {
+Object.assign(ResolDeltaSolBxPlusXxxConfigurationOptimizer, /** @lends ResolDeltaSolBxPlusXxxConfigurationOptimizer */ {
 
     deviceAddress: 0x7112,
 

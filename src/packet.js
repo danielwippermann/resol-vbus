@@ -130,7 +130,7 @@ class Packet extends Header {
 }
 
 
-Object.assign(Packet.prototype, {
+Object.assign(Packet.prototype, /** @lends Packet.prototype */ {
 
     /**
      * The command field of this VBus packet. See the VBus Protocol specification for details.

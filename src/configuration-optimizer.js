@@ -108,7 +108,7 @@ class ConfigurationOptimizer {
 }
 
 
-Object.assign(ConfigurationOptimizer, {
+Object.assign(ConfigurationOptimizer, /** @lends ConfigurationOptimizer */ {
 
     deviceAddress: null,
 

@@ -449,7 +449,7 @@ class FileSystemRecorder extends Recorder {
 }
 
 
-Object.assign(FileSystemRecorder.prototype, {
+Object.assign(FileSystemRecorder.prototype, /** @lends FileSystemRecorder.prototype */ {
 
     path: '.',
 

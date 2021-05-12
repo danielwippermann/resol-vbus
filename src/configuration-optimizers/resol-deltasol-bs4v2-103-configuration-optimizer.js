@@ -18,7 +18,7 @@ class ResolDeltaSolBs4V2103ConfigurationOptimizer extends BaseConfigurationOptim
 }
 
 
-Object.assign(ResolDeltaSolBs4V2103ConfigurationOptimizer, {
+Object.assign(ResolDeltaSolBs4V2103ConfigurationOptimizer, /** @lends ResolDeltaSolBs4V2103ConfigurationOptimizer */ {
 
     deviceAddress: 0x427B,
 

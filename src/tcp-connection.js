@@ -342,7 +342,7 @@ class TcpConnection extends Connection {
 }
 
 
-Object.assign(TcpConnection.prototype, {
+Object.assign(TcpConnection.prototype, /** @lends TcpConnection.prototype */ {
 
     /**
      * Host name or IP address of the connection target.

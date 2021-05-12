@@ -73,7 +73,7 @@ class SerialDataSourceProvider extends DataSourceProvider {
 }
 
 
-Object.assign(SerialDataSourceProvider.prototype, {
+Object.assign(SerialDataSourceProvider.prototype, /** @lends SerialDataSourceProvider.prototype */ {
 
     id: 'serial-data-source-provider',
 
@@ -84,7 +84,11 @@ Object.assign(SerialDataSourceProvider.prototype, {
 });
 
 
-SerialDataSourceProvider.hasSerialPortSupport = !!SerialPort;
+Object.assign(SerialDataSourceProvider, /** @lends SerialDataSourceProvider */ {
+
+    hasSerialPortSupport: !!SerialPort,
+
+});
 
 
 

@@ -264,7 +264,7 @@ class Header {
 }
 
 
-Object.assign(Header.prototype, {
+Object.assign(Header.prototype, /** @lends Header.prototype */ {
 
     /**
      * Timestamp of this header

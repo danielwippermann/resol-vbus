@@ -119,7 +119,7 @@ class Datagram extends Header {
 }
 
 
-Object.assign(Datagram.prototype, {
+Object.assign(Datagram.prototype, /** @lends Datagram.prototype */ {
 
     /**
      * The command field of this VBus datagram. See the VBus Protocol Specification for details.

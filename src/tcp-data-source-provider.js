@@ -227,7 +227,7 @@ class TcpDataSourceProvider extends DataSourceProvider {
 }
 
 
-Object.assign(TcpDataSourceProvider.prototype, {
+Object.assign(TcpDataSourceProvider.prototype, /** @lends TcpDataSourceProvider.prototype */ {
 
     id: 'tcp-data-source-provider',
 

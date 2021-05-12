@@ -17,7 +17,7 @@ class ResolDeltaSolCs2200ConfigurationOptimizer extends BaseConfigurationOptimiz
 }
 
 
-Object.assign(ResolDeltaSolCs2200ConfigurationOptimizer, {
+Object.assign(ResolDeltaSolCs2200ConfigurationOptimizer, /** @lends ResolDeltaSolCs2200ConfigurationOptimizer */ {
 
     deviceAddress: 0x1121,
 

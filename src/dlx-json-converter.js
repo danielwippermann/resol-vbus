@@ -279,7 +279,7 @@ class DLxJsonConverter extends Converter {
 }
 
 
-Object.assign(DLxJsonConverter.prototype, {
+Object.assign(DLxJsonConverter.prototype, /** @lends DLxJsonConverter.prototype */ {
 
     /**
      * Reference to the Specification instance that is used for the binary -> text conversion.

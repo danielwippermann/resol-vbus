@@ -227,7 +227,7 @@ class TcpConnectionEndpoint extends EventEmitter {
 }
 
 
-Object.assign(TcpConnectionEndpoint.prototype, {
+Object.assign(TcpConnectionEndpoint.prototype, /** @lends TcpConnectionEndpoint.prototype */ {
 
     /**
      * The port number to listen on for incoming connections.
