@@ -107,7 +107,7 @@ class VBusRecordingConverter extends Converter {
 
     convertComment(timestamp, comment) {
         if (this.objectMode) {
-            return Converter.prototype.convertRawData.apply(this, arguments);
+            return Converter.prototype.convertComment.apply(this, arguments);
         } else {
             const buffers = [];
 
@@ -200,6 +200,7 @@ class VBusRecordingConverter extends Converter {
                 buffer.writeUInt16LE(header.sourceAddress, 16);
                 buffer.writeUInt16LE(header.getProtocolVersion(), 18);
 
+                /* istanbul ignore else */
                 if (majorVersion === 1) {
                     buffer.writeUInt16LE(header.command, 20);
                     buffer.writeUInt16LE(dataLength, 22);
@@ -503,6 +504,7 @@ class VBusRecordingConverter extends Converter {
             const command = headerIdBuffer.readUInt16LE(6);
 
             const majorVersion = (protocolVersion >> 4);
+            /* istanbul ignore else */
             if (majorVersion === 1) {
                 const packet = new Packet({
                     timestamp,

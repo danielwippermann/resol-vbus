@@ -11,9 +11,11 @@ const {
 } = require('./resol-vbus');
 
 
+const jestExpect = global.expect;
 const expect = require('./expect');
 const _ = require('./lodash');
 const testUtils = require('./test-utils');
+const { Datagram } = require('../../src');
 
 
 
@@ -364,6 +366,169 @@ describe('VBusRecordingConverter', () => {
             });
         });
 
+        it('should ignore junk data correctly', () => {
+            const buffer = Buffer.from([
+                '00000000',
+                'a5a5',
+                'a50000000100',
+                'a50000000001',
+
+                // must be last
+                'a50010001000',
+            ].join(''), 'hex');
+
+            const converter = new VBusRecordingConverter({
+            });
+
+            const onHeader = jest.fn();
+            converter.on('header', onHeader);
+
+            const onHeaderSet = jest.fn();
+            converter.on('headerSet', onHeaderSet);
+
+            const onRawData = jest.fn();
+            converter.on('rawData', onRawData);
+
+            const onComment = jest.fn();
+            converter.on('comment', onComment);
+
+            return new Promise((resolve) => {
+                converter.on('finish', () => {
+                    resolve();
+                });
+
+                converter.write(buffer);
+                converter.end();
+            }).then(() => {
+                converter.removeListener('header', onHeader);
+                converter.removeListener('headerSet', onHeaderSet);
+                converter.removeListener('rawData', onRawData);
+                converter.removeListener('comment', onComment);
+
+                jestExpect(onHeader).toHaveBeenCalledTimes(0);
+                jestExpect(onHeaderSet).toHaveBeenCalledTimes(0);
+                jestExpect(onRawData).toHaveBeenCalledTimes(0);
+                jestExpect(onComment).toHaveBeenCalledTimes(0);
+            });
+        });
+
+        it('should parse legacy type 3 records correctly', () => {
+            const buffer = Buffer.from([
+                'a5331e001e00eda1de2443010000',
+                '100033221000000104000000',
+                '77665544',
+
+                'a5331e001e00eda1de2443010000',
+                '443333221000000104000000',
+                '77665544',
+
+                'a5331e001e00eda1de2443010000',
+                '100033221000000104000000',
+                '77665544',
+
+                'a5331e001e00eda1de2443010000',
+                '443333221000000104000000',
+                '77665544',
+
+                'a5331e001e00eda1de2443010000',
+                '443333221000000104000000',
+                '77665544',
+
+                'a5331a001a00eda1de2443010000',
+                '443333221000000104000000',
+            ].join(''), 'hex');
+
+            const converter = new VBusRecordingConverter({
+            });
+
+            const onHeader = jest.fn();
+            converter.on('header', onHeader);
+
+            const onHeaderSet = jest.fn();
+            converter.on('headerSet', onHeaderSet);
+
+            return new Promise((resolve) => {
+                converter.on('finish', () => {
+                    resolve();
+                });
+
+                converter.write(buffer);
+                converter.end();
+            }).then(() => {
+                converter.removeListener('header', onHeader);
+                converter.removeListener('headerSet', onHeaderSet);
+
+                jestExpect(onHeader).toHaveBeenCalledTimes(5);
+                jestExpect(onHeaderSet).toHaveBeenCalledTimes(3);
+
+                function expectLiveBufferToBe(call, hexDump) {
+                    jestExpect(call [0].toLiveBuffer().toString('hex')).toBe(hexDump);
+                }
+
+                expectLiveBufferToBe(onHeader.mock.calls [0], 'aa100033221000010108776655440009');
+                expectLiveBufferToBe(onHeader.mock.calls [1], 'aa443333221000010121776655440009');
+                expectLiveBufferToBe(onHeader.mock.calls [2], 'aa100033221000010108776655440009');
+                expectLiveBufferToBe(onHeader.mock.calls [3], 'aa443333221000010121776655440009');
+                expectLiveBufferToBe(onHeader.mock.calls [4], 'aa443333221000010121776655440009');
+
+            });
+        });
+
+        it('should support raw data in topology scan only', () => {
+            const buffer = Buffer.from([
+                'a5771000100000000000000000000100',
+                'a58826002600',
+                '1794de2443010000',
+                '2794de2443010000',
+                'aa1000217e100001013e00000b000074',
+            ].join(''), 'hex');
+
+            const converter = new VBusRecordingConverter({
+                topologyScanOnly: true,
+            });
+
+            const onHeader = jest.fn();
+            converter.on('header', onHeader);
+
+            const onHeaderSet = jest.fn();
+            converter.on('headerSet', onHeaderSet);
+
+            const onRawData = jest.fn();
+            converter.on('rawData', onRawData);
+
+            return new Promise((resolve) => {
+                converter.on('finish', () => {
+                    resolve();
+                });
+
+                converter.write(buffer);
+                converter.write(buffer);
+                converter.write(buffer);
+                converter.end();
+            }).then(() => {
+                converter.removeListener('header', onHeader);
+                converter.removeListener('headerSet', onHeaderSet);
+                converter.removeListener('rawData', onRawData);
+
+                jestExpect(onHeader).toHaveBeenCalledTimes(0);
+                jestExpect(onHeaderSet).toHaveBeenCalledTimes(1);
+                jestExpect(onRawData).toHaveBeenCalledTimes(3);
+
+                const headerSet = onHeaderSet.mock.calls [0] [0];
+                jestExpect(headerSet.timestamp.getTime()).toBe(0);
+
+                const headers = headerSet.getSortedHeaders();
+                jestExpect(headers).toHaveLength(0);
+
+                const call0 = onRawData.mock.calls [0];
+                jestExpect(call0).toHaveLength(1);
+                jestExpect(call0 [0].startTimestamp.getTime()).toBe(1387893003287);
+                jestExpect(call0 [0].endTimestamp.getTime()).toBe(1387893003303);
+                jestExpect(call0 [0].channel).toBe(1);
+                jestExpect(call0 [0].buffer.toString('hex')).toBe('aa1000217e100001013e00000b000074');
+            });
+        });
+
     });
 
     describe('readable stream', () => {
@@ -438,23 +603,50 @@ describe('VBusRecordingConverter', () => {
         it('should work correctly in object mode', () => {
             const refHeaderSet = new HeaderSet();
 
+            const rawData = Buffer.alloc(0);
+
+            const { timestamp } = refHeaderSet;
+
+            const comment = 'This is a comment';
+
+            const refHeader = new Packet();
+
             const converter = new VBusRecordingConverter({
                 objectMode: true,
             });
 
-            const onData = sinon.spy();
+            const onData = jest.fn();
             converter.on('data', onData);
 
             converter.convertHeaderSet(refHeaderSet);
 
+            converter.convertRawData(rawData);
+
+            converter.convertComment(timestamp, comment);
+
+            converter.convertHeader(refHeader);
+
             return converter.finish().then(() => {
                 converter.removeListener('data', onData);
 
-                expect(onData.callCount).to.equal(1, '"data" events triggered');
+                jestExpect(onData).toHaveBeenCalledTimes(4);
 
-                const headerSet = onData.firstCall.args [0];
-                expect(headerSet).to.be.an('object');
-                expect(headerSet).equal(refHeaderSet);
+                const call0 = onData.mock.calls [0];
+                jestExpect(call0).toHaveLength(1);
+                jestExpect(call0 [0]).toBe(refHeaderSet);
+
+                const call1 = onData.mock.calls [1];
+                jestExpect(call1).toHaveLength(1);
+                jestExpect(call1 [0]).toBe(rawData);
+
+                const call2 = onData.mock.calls [2];
+                jestExpect(call2).toHaveLength(1);
+                jestExpect(call2 [0].timestamp).toBe(timestamp);
+                jestExpect(call2 [0].comment).toBe(comment);
+
+                const call3 = onData.mock.calls [3];
+                jestExpect(call3).toHaveLength(1);
+                jestExpect(call3 [0]).toBe(refHeader);
             });
         });
 
@@ -528,6 +720,75 @@ describe('VBusRecordingConverter', () => {
                 expect(chunk.length).to.equal(59);
 
                 expect(chunk.toString('hex')).equal(rawDataHexDump);
+            });
+        });
+
+        it('should work correctly with Packet data', () => {
+            const buffer1 = Buffer.from(rawPacket1, 'hex');
+            const packet1 = Packet.fromLiveBuffer(buffer1, 0, buffer1.length);
+            packet1.timestamp = new Date(1387893006778);
+            packet1.channel = 0;
+
+            const rawDataHexDump = [
+                'a5440e000e00baa1de2443010000',
+                'a56646004600baa1de2443010000',
+                '10005300100000012c000000',
+                '20051000f23d1000c0571000861000000000000000000000000000000000000000007f00a500b60011000000',
+            ].join('');
+
+            const converter = new VBusRecordingConverter();
+
+            const onData = jest.fn();
+            converter.on('data', onData);
+
+            converter.convertHeader(packet1);
+
+            return converter.finish().then(() => {
+                converter.removeListener('data', onData);
+
+                jestExpect(onData).toHaveBeenCalledTimes(1);
+
+                const call0 = onData.mock.calls [0];
+
+                jestExpect(call0).toHaveLength(1);
+                testUtils.expectToBeABuffer(call0 [0]);
+                jestExpect(call0 [0].length).toBe(84);
+
+                const hexDump = call0 [0].toString('hex');
+                expect(hexDump).to.equal(rawDataHexDump);
+            });
+        });
+
+        it('should work correctly with non-Packet data', () => {
+            const dgram1 = new Datagram();
+            dgram1.timestamp = new Date(1387893006778);
+            dgram1.channel = 0;
+
+            const rawDataHexDump = [
+                'a5440e000e00baa1de2443010000',
+            ].join('');
+
+            const converter = new VBusRecordingConverter({
+            });
+
+            const onData = jest.fn();
+            converter.on('data', onData);
+
+            converter.convertHeader(dgram1);
+
+            return converter.finish().then(() => {
+                converter.removeListener('data', onData);
+
+                jestExpect(onData).toHaveBeenCalledTimes(1);
+
+                const call0 = onData.mock.calls [0];
+
+                jestExpect(call0).toHaveLength(1);
+                testUtils.expectToBeABuffer(call0 [0]);
+                jestExpect(call0 [0].length).toBe(14);
+
+                const hexDump = call0 [0].toString('hex');
+                expect(hexDump).to.equal(rawDataHexDump);
             });
         });
 

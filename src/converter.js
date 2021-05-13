@@ -96,7 +96,7 @@ class Converter extends Duplex {
     }
 
     /**
-     * This method queues a VBus raw data chunk from conversion.
+     * This method queues a VBus raw data chunk for conversion.
      * Not all Converter sub-classes support this method.
      *
      * @param {RawData} rawData The VBus raw data chunk to queue for conversion.
@@ -104,6 +104,20 @@ class Converter extends Duplex {
     convertRawData(rawData) {
         if (this.objectMode) {
             this.push(rawData);
+        } else {
+            throw new Error('Must be implemented by sub-class');
+        }
+    }
+
+    /**
+     * This method queues a comment for conversion.
+     * Not all Converter sub-classes support this method.
+     *
+     * @param {RawData} rawData The comment to queue for conversion.
+     */
+    convertComment(timestamp, comment) {
+        if (this.objectMode) {
+            this.push({ timestamp, comment });
         } else {
             throw new Error('Must be implemented by sub-class');
         }
