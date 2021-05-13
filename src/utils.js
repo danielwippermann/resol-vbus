@@ -99,6 +99,10 @@ const utils = {
         });
     },
 
+    isPromise(obj) {
+        return ((obj != null) && (typeof obj === 'object') && (typeof obj.then === 'function'));
+    },
+
 };
 
 

@@ -5,11 +5,13 @@
 
 const {
     utils: {
+        isPromise,
         roundNumber,
     },
 } = require('./resol-vbus');
 
 
+const jestExpect = global.expect;
 const expect = require('./expect');
 
 
@@ -51,6 +53,32 @@ describe('utils', () => {
 
             result = roundNumber(10, 1.2);
             expect(result).not.to.equal(NaN);
+        });
+
+    });
+
+    describe('isPromise', () => {
+
+        it('should be a function', () => {
+            jestExpect(typeof isPromise).toBe('function');
+        });
+
+        it('should work correctly', async () => {
+            jestExpect(isPromise(undefined)).toBe(false);
+            jestExpect(isPromise(null)).toBe(false);
+            jestExpect(isPromise(true)).toBe(false);
+
+            const promiseA = Promise.resolve();
+            jestExpect(isPromise(promiseA)).toBe(false);
+            await promiseA;
+
+            const promiseB = Promise.reject(new Error('Test'));
+            jestExpect(isPromise(promiseB)).toBe(false);
+            try {
+                await promiseB;
+            } catch (err) {
+                // nop
+            }
         });
 
     });
