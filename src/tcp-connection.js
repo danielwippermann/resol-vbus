@@ -9,6 +9,7 @@ const tls = require('tls');
 
 const Connection = require('./connection');
 const _ = require('./lodash');
+const utils = require('./utils');
 
 
 
@@ -17,6 +18,7 @@ const optionKeys = [
     'port',
     'viaTag',
     'password',
+    'channelListCallback',
     'channel',
     'rawVBusDataOnly',
     'tlsOptions',
@@ -128,6 +130,34 @@ class TcpConnection extends Connection {
                 }
             };
 
+            const changePhase = function (newPhase) {
+                if (newPhase >= 0) {
+                    phase = newPhase;
+
+                    if (phase === 20) {
+                        // CONNECT
+                        write('CONNECT ' + _this.viaTag + '\r\n');
+                    } else if (phase === 40) {
+                        // PASS
+                        write('PASS ' + _this.password + '\r\n');
+                    } else if (phase === 60) {
+                        // CHANNELLIST
+                        write('CHANNELLIST\r\n');
+                    } else if (phase === 80) {
+                        // CHANNEL
+                        write('CHANNEL ' + _this.channel + '\r\n');
+                    } else if (phase === 800) {
+                        // QUIT
+                        write('QUIT\r\n');
+                    } else if (phase === 900) {
+                        // DATA
+                        write('DATA\r\n');
+                    } else if (phase === 1000) {
+                        onConnectionEstablished();
+                    }
+                }
+            };
+
             const channelList = [];
 
             const onLine = function(line) {
@@ -153,7 +183,8 @@ class TcpConnection extends Connection {
                         }
                     } else if (phase === 60) {
                         newPhase = 70;
-                        _this.channelListCallback(channelList, (err, channel) => {
+
+                        const channelListCallbackDone = (err, channel) => {
                             if (err) {
                                 done(err);
                             } else {
@@ -174,8 +205,19 @@ class TcpConnection extends Connection {
                                 } else {
                                     newPhase = 900;
                                 }
+
+                                changePhase(newPhase);
                             }
-                        });
+                        };
+
+                        const channelListCallbackResult = _this.channelListCallback(channelList, channelListCallbackDone);
+                        if (utils.isPromise(channelListCallbackResult)) {
+                            channelListCallbackResult.then(result => {
+                                channelListCallbackDone(null, result);
+                            }, err => {
+                                channelListCallbackDone(err);
+                            });
+                        }
                     } else if (phase === 80) {
                         newPhase = 900;
                     } else if (phase === 900) {
@@ -219,31 +261,7 @@ class TcpConnection extends Connection {
                     // nop
                 }
 
-                if (newPhase >= 0) {
-                    phase = newPhase;
-
-                    if (phase === 20) {
-                        // CONNECT
-                        write('CONNECT ' + _this.viaTag + '\r\n');
-                    } else if (phase === 40) {
-                        // PASS
-                        write('PASS ' + _this.password + '\r\n');
-                    } else if (phase === 60) {
-                        // CHANNELLIST
-                        write('CHANNELLIST\r\n');
-                    } else if (phase === 80) {
-                        // CHANNEL
-                        write('CHANNEL ' + _this.channel + '\r\n');
-                    } else if (phase === 800) {
-                        // QUIT
-                        write('QUIT\r\n');
-                    } else if (phase === 900) {
-                        // DATA
-                        write('DATA\r\n');
-                    } else if (phase === 1000) {
-                        onConnectionEstablished();
-                    }
-                }
+                changePhase(newPhase);
             };
 
             const onSocketData = function(chunk) {

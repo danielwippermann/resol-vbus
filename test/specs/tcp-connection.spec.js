@@ -126,19 +126,95 @@ describe('TcpConnection', () => {
             expect(TcpConnection.prototype).to.have.a.property('connect').that.is.a('function');
         });
 
-        it('should work correctly if disconnected', () => {
+        it('should work correctly if disconnected #1', () => {
             return testConnection(async (connection, endpoint, createEndpointInfoPromise) => {
                 const onConnectionState = sinon.spy();
 
                 const options = {
                     viaTag: 'VIATAG',
                     password: 'PASSWORD',
+                    channel: 9,
                 };
 
                 _.extend(connection, options);
-                connection.channelListCallback = sinon.spy((channels, done) => {
-                    done(null, '9:Test');
-                });
+
+                connection.on('connectionState', onConnectionState);
+
+                const epiPromise = createEndpointInfoPromise();
+
+                try {
+                    await connection.connect();
+
+                    const epi = await epiPromise;
+
+                    expect(connection.connectionState).to.equal(TcpConnection.STATE_CONNECTED);
+                    expect(onConnectionState.callCount).to.equal(2);
+                    expect(onConnectionState.firstCall.args [0]).to.equal(TcpConnection.STATE_CONNECTING);
+                    expect(onConnectionState.secondCall.args [0]).to.equal(TcpConnection.STATE_CONNECTED);
+
+                    expect(epi.viaTag).to.equal(options.viaTag);
+                    expect(epi.password).to.equal(options.password);
+                    expect(epi.channel).to.equal('9');
+                } finally {
+                    connection.removeListener('connectionState', onConnectionState);
+                }
+            });
+        });
+
+        it('should work correctly if disconnected #2', () => {
+            return testConnection(async (connection, endpoint, createEndpointInfoPromise) => {
+                const onConnectionState = sinon.spy();
+
+                const options = {
+                    viaTag: 'VIATAG',
+                    password: 'PASSWORD',
+                    channelListCallback: sinon.spy((channels, done) => {
+                        process.nextTick(() => {
+                            done(null, '9:Test');
+                        });
+                    }),
+                };
+
+                _.extend(connection, options);
+
+                connection.on('connectionState', onConnectionState);
+
+                const epiPromise = createEndpointInfoPromise();
+
+                try {
+                    await connection.connect();
+
+                    const epi = await epiPromise;
+
+                    expect(connection.connectionState).to.equal(TcpConnection.STATE_CONNECTED);
+                    expect(onConnectionState.callCount).to.equal(2);
+                    expect(onConnectionState.firstCall.args [0]).to.equal(TcpConnection.STATE_CONNECTING);
+                    expect(onConnectionState.secondCall.args [0]).to.equal(TcpConnection.STATE_CONNECTED);
+
+                    expect(epi.viaTag).to.equal(options.viaTag);
+                    expect(epi.password).to.equal(options.password);
+                    expect(epi.channel).to.equal('9');
+
+                    expect(connection.channelListCallback.callCount).to.equal(1);
+                } finally {
+                    connection.removeListener('connectionState', onConnectionState);
+                }
+            });
+        });
+
+        it('should work correctly if disconnected #3', () => {
+            return testConnection(async (connection, endpoint, createEndpointInfoPromise) => {
+                const onConnectionState = sinon.spy();
+
+                const options = {
+                    viaTag: 'VIATAG',
+                    password: 'PASSWORD',
+                    channelListCallback: sinon.spy(async (channels) => {
+                        return '9:Test';
+                    }),
+                };
+
+                _.extend(connection, options);
 
                 connection.on('connectionState', onConnectionState);
 
