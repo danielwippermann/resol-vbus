@@ -297,6 +297,7 @@ describe('Converter', () => {
         reset: Function,
         finish: Function,
         convertRawData: Function,
+        convertComment: Function,
         convertHeader: Function,
         convertHeaderSet: Function,
         _read: Function,

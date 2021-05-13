@@ -69,11 +69,11 @@ describe('utils', () => {
             jestExpect(isPromise(true)).toBe(false);
 
             const promiseA = Promise.resolve();
-            jestExpect(isPromise(promiseA)).toBe(false);
+            jestExpect(isPromise(promiseA)).toBe(true);
             await promiseA;
 
             const promiseB = Promise.reject(new Error('Test'));
-            jestExpect(isPromise(promiseB)).toBe(false);
+            jestExpect(isPromise(promiseB)).toBe(true);
             try {
                 await promiseB;
             } catch (err) {
