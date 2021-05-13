@@ -186,6 +186,8 @@ class TcpConnection extends Connection {
 
                         const channelListCallbackDone = (err, channel) => {
                             if (err) {
+                                _this._setConnectionState(TcpConnection.STATE_DISCONNECTED);
+
                                 done(err);
                             } else {
                                 if (channel !== undefined) {
@@ -200,13 +202,16 @@ class TcpConnection extends Connection {
                                     }
                                 }
 
+                                let newPhase;
                                 if (_this.channel) {
                                     newPhase = 80;
                                 } else {
                                     newPhase = 900;
                                 }
 
-                                changePhase(newPhase);
+                                process.nextTick(() => {
+                                    changePhase(newPhase);
+                                });
                             }
                         };
 
@@ -406,6 +411,8 @@ Object.assign(TcpConnection.prototype, /** @lends TcpConnection.prototype */ {
      * @type {string}
      */
     password: null,
+
+    channelListCallback: null,
 
     /**
      * Channel number to connect to.
