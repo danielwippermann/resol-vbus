@@ -119,12 +119,29 @@ following command into your shell:
 
 ## Work in progress
 
+
+## Version 0.23.0 (2021-05-14)
+
 - [BREAKING CHANGE] Replacing custom inheritance code with `class` syntax
     Up to this version inheritance was established using a custom `extend` function.
     Since only modern ECMAscript runtimes are supported since the last release the code was
     refactored to use the ECMAscript `class` syntax instead. In that process the `extend`
     function was removed, both the standalone one and the static class function that was
     added to every "class".
+- [BREAKING CHANGE] Returning a `Promise` from `channelListCallback` callback
+    The `TcpConnection` accepts a `channelListCallback`. This callback gets called with the
+    list of channels returned from the `CHANNELLIST` command and a `done` callback.
+
+    Up to this version the return value of the `channelListCallback` was ignored. Starting
+    with this version this behaviour is changed if the return value of the callback is
+    a `Promise`:
+    - if the `Promise` reject, the `done` callback is automatically called with `done(reason)`
+    - if the `Promise` resolves, the `done` callback is automatically called with
+      `done(null, result)`
+
+    This allows the `channelListCallback` to be `async`.
+- Errors thrown by `TcpConnection#connect` now have a `vbusPhase` member describing on which
+  VBus-over-TCP command the error occurred
 
 
 ## Version 0.22.0 (2021-05-10)
