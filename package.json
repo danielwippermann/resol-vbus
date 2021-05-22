@@ -7,10 +7,7 @@
     "lint": "eslint src test/specs examples tools",
     "test": "jest -i --verbose",
     "coverage": "jest -i --coverage",
-    "coveralls": "jest -i --coverage --coverageReporters=text-lcov | coveralls",
-    "jsdoc": "jsdoc -t node_modules/ink-docstrap/template/ -c jsdoc.json -d .docs/jsdoc/ -R README.md src",
-    "vsf-doc": "node tools/specification-documentor/main.js --packetStructure > docs/vbus-packets.md && node tools/specification-documentor/main.js --packetFields > docs/vbus-packet-fields.md",
-    "jekyll": "(cd docs; jekyll build && rsync -a _site/ ../.docs/)"
+    "coveralls": "jest -i --coverage --coverageReporters=text-lcov | coveralls"
   },
   "homepage": "https://github.com/danielwippermann/resol-vbus",
   "repository": "https://github.com/danielwippermann/resol-vbus.git",
