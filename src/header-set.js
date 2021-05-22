@@ -58,7 +58,7 @@ class HeaderSet extends EventEmitter {
     /**
      * Returns `true` if a Header of the same kind is already added to the HeaderSet.
      *
-     * @params {Header} header The Header instance to check for.
+     * @param {Header} header The Header instance to check for.
      * @returns {boolean} `true` if a Header of the same kind is already in the HeaderSet, `false` otherwise.
      */
     containsHeader(header) {

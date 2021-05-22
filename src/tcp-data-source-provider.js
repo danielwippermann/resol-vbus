@@ -67,9 +67,9 @@ class TcpDataSourceProvider extends DataSourceProvider {
     /**
      * Discovers devices on the local network.
      *
-     * @params {object} options
-     * @params {string} options.broadcastAddress IP address to broadcast to
-     * @params {number} options.broadcastPort Port number to broadcast to.
+     * @param {object} options
+     * @param {string} options.broadcastAddress IP address to broadcast to
+     * @param {number} options.broadcastPort Port number to broadcast to.
      * @returns {Promise} A Promise that resolves to an array of device information objects.
      */
     static async discoverDevices(options) {
