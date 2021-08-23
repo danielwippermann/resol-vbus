@@ -13,7 +13,6 @@ const packageInfo = require('../package.json');
 
 
 const utils = require('./utils');
-const extend = require('./extend');
 
 const I18N = require('./i18n');
 
@@ -65,7 +64,6 @@ module.exports = {
     VERSION: packageInfo.version,
 
     utils,
-    extend,
 
     I18N,
 
