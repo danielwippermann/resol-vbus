@@ -186,6 +186,9 @@ class TcpConnection extends Connection {
 
                         const channelListCallbackDone = (err, channel) => {
                             if (err) {
+                                _this.socket.destroy();
+                                _this.socket = null;
+
                                 _this._setConnectionState(TcpConnection.STATE_DISCONNECTED);
 
                                 done(err);
