@@ -253,184 +253,182 @@ class ConnectionCustomizer extends Customizer {
      * @returns {object} Promise that resolves with the datagram received or `null` on timeout.
      */
     async transceiveValue(valueInfo, value, options, state) {
-        const doWork = async (resolve, reject) => {
-            let timer;
-
-            const done = function(err, result) {
-                if (timer) {
-                    clearTimeout(timer);
-                    timer = null;
-                }
-
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve(result);
-                }
+        if (!_.isObject(valueInfo)) {
+            valueInfo = {
+                valueIndex: valueInfo,
             };
+        }
 
-            if (!_.isObject(valueInfo)) {
-                valueInfo = {
-                    valueIndex: valueInfo,
-                };
-            }
+        if (state === undefined) {
+            state = {};
+        }
 
-            if (state === undefined) {
-                state = {};
-            }
+        options = _.defaults({}, options, {
+            triesPerValue: this.triesPerValue,
+            timeoutPerValue: this.timeoutPerValue,
+            masterTimeout: this.masterTimeout,
+            action: null,
+            actionOptions: null,
+            reportProgress: null,
+            checkCanceled: null,
+        });
 
-            options = _.defaults({}, options, {
-                triesPerValue: this.triesPerValue,
-                timeoutPerValue: this.timeoutPerValue,
-                masterTimeout: this.masterTimeout,
-                action: null,
-                actionOptions: null,
-                reportProgress: null,
-                checkCanceled: null,
-            });
+        state = _.defaults(state, {
+            masterAddress: this.deviceAddress,
+            masterLastContacted: Date.now(),
+        });
 
-            state = _.defaults(state, {
-                masterAddress: this.deviceAddress,
-                masterLastContacted: Date.now(),
-            });
+        let isTimedOut = false;
 
+        let timer = setTimeout(() => {
+            timer = null;
+            isTimedOut = true;
+        }, options.timeoutPerValue);
+
+        try {
             const { connection } = this;
             const address = this.deviceAddress;
 
+            let result;
+
             async function check() {
+                if (isTimedOut) {
+                    result = null;
+                    return false;
+                }
+
                 if (options.checkCanceled) {
                     if (await options.checkCanceled()) {
-                        done(new Error('Canceled'));
+                        throw new Error('Canceled');
                     }
                 }
 
                 await connection.createConnectedPromise();
+
+                return true;
             }
 
-            const onTimeout = function() {
-                done(null, null);
-            };
-
-            timer = setTimeout(onTimeout, options.timeoutPerValue);
-
-            let result;
-            try {
-                for (let tries = 1; tries <= options.triesPerValue; tries++) {
-                    const reportProgress = function(message) {
-                        if (options.reportProgress) {
-                            options.reportProgress({
-                                message,
-                                tries,
-                                valueIndex: valueInfo.valueIndex,
-                                valueInfo,
-                            });
-                        }
-                    };
-
-                    await check();
-
-                    if ((tries > 1) && (state.masterLastContacted !== null)) {
-                        reportProgress('RELEASING_BUS');
-
-                        state.masterLastContacted = null;
-
-                        await connection.releaseBus(state.masterAddress);
-                    }
-
-                    await check();
-
-                    if ((state.masterLastContacted === null) && (options.masterTimeout !== null)) {
-                        reportProgress('WAITING_FOR_FREE_BUS');
-
-                        const datagram = await connection.waitForFreeBus();  // TODO: optional timeout?
-
-                        if (datagram) {
-                            state.masterAddress = datagram.sourceAddress;
-                        } else {
-                            state.masterAddress = null;
-                        }
-                    }
-
-                    await check();
-
-                    let contactMaster;
-                    if (state.masterAddress === null) {
-                        contactMaster = false;
-                    } else if (state.masterAddress === address) {
-                        contactMaster = false;
-                    } else if (state.masterLastContacted === null) {
-                        contactMaster = true;
-                    } else if ((Date.now() - state.masterLastContacted) >= options.masterTimeout) {
-                        contactMaster = true;
-                    } else {
-                        contactMaster = false;
-                    }
-                    if (contactMaster) {
-                        reportProgress('CONTACTING_MASTER');
-
-                        state.masterLastContacted = Date.now();
-
-                        await connection.getValueById(state.masterAddress, 0, {
-                            timeout: 500,
-                            tries: 1,
+            for (let tries = 1; tries <= options.triesPerValue; tries++) {
+                const reportProgress = function(message) {
+                    if (options.reportProgress) {
+                        options.reportProgress({
+                            message,
+                            tries,
+                            valueIndex: valueInfo.valueIndex,
+                            valueInfo,
                         });
                     }
+                };
 
-                    await check();
+                if (!await check()) {
+                    break;
+                }
 
-                    if (state.masterAddress === address) {
-                        state.masterLastContacted = Date.now();
-                    }
+                if ((tries > 1) && (state.masterLastContacted !== null)) {
+                    reportProgress('RELEASING_BUS');
 
-                    if (_.isNumber(valueInfo.valueIndex)) {
-                        // nop
-                    } else if (_.isNumber(valueInfo.valueIdHash)) {
-                        reportProgress('LOOKING_UP_VALUE');
+                    state.masterLastContacted = null;
 
-                        const datagram = await connection.getValueIdByIdHash(address, valueInfo.valueIdHash, options.actionOptions);
+                    await connection.releaseBus(state.masterAddress);
+                }
 
-                        if (datagram && datagram.valueId) {
-                            valueInfo.valueIndex = datagram.valueId;
-                        }
-                    }
+                if (!await check()) {
+                    break;
+                }
 
-                    await check();
+                if ((state.masterLastContacted === null) && (options.masterTimeout !== null)) {
+                    reportProgress('WAITING_FOR_FREE_BUS');
 
-                    if (state.masterAddress === address) {
-                        state.masterLastContacted = Date.now();
-                    }
+                    const datagram = await connection.waitForFreeBus();  // TODO: optional timeout?
 
-                    if (!_.isNumber(valueInfo.valueIndex)) {
-                        result = null;
-                    } else if (options.action === 'get') {
-                        reportProgress('GETTING_VALUE');
-
-                        result = await connection.getValueById(address, valueInfo.valueIndex, options.actionOptions);
-                    } else if (options.action === 'set') {
-                        reportProgress('SETTING_VALUE');
-
-                        result = await connection.setValueById(address, valueInfo.valueIndex, value, options.actionOptions);
+                    if (datagram) {
+                        state.masterAddress = datagram.sourceAddress;
                     } else {
-                        throw new Error('Unknown action "' + options.action + '"');
-                    }
-
-                    if (result) {
-                        break;
+                        state.masterAddress = null;
                     }
                 }
-            } finally {
-                if (timer) {
-                    clearTimeout(timer);
-                    timer = null;
+
+                if (!await check()) {
+                    break;
+                }
+
+                let contactMaster;
+                if (state.masterAddress === null) {
+                    contactMaster = false;
+                } else if (state.masterAddress === address) {
+                    contactMaster = false;
+                } else if (state.masterLastContacted === null) {
+                    contactMaster = true;
+                } else if ((Date.now() - state.masterLastContacted) >= options.masterTimeout) {
+                    contactMaster = true;
+                } else {
+                    contactMaster = false;
+                }
+                if (contactMaster) {
+                    reportProgress('CONTACTING_MASTER');
+
+                    state.masterLastContacted = Date.now();
+
+                    await connection.getValueById(state.masterAddress, 0, {
+                        timeout: 500,
+                        tries: 1,
+                    });
+                }
+
+                if (!await check()) {
+                    break;
+                }
+
+                if (state.masterAddress === address) {
+                    state.masterLastContacted = Date.now();
+                }
+
+                if (_.isNumber(valueInfo.valueIndex)) {
+                    // nop
+                } else if (_.isNumber(valueInfo.valueIdHash)) {
+                    reportProgress('LOOKING_UP_VALUE');
+
+                    const datagram = await connection.getValueIdByIdHash(address, valueInfo.valueIdHash, options.actionOptions);
+
+                    if (datagram && datagram.valueId) {
+                        valueInfo.valueIndex = datagram.valueId;
+                    }
+                }
+
+                if (!await check()) {
+                    break;
+                }
+
+                if (state.masterAddress === address) {
+                    state.masterLastContacted = Date.now();
+                }
+
+                if (!_.isNumber(valueInfo.valueIndex)) {
+                    result = null;
+                } else if (options.action === 'get') {
+                    reportProgress('GETTING_VALUE');
+
+                    result = await connection.getValueById(address, valueInfo.valueIndex, options.actionOptions);
+                } else if (options.action === 'set') {
+                    reportProgress('SETTING_VALUE');
+
+                    result = await connection.setValueById(address, valueInfo.valueIndex, value, options.actionOptions);
+                } else {
+                    throw new Error('Unknown action "' + options.action + '"');
+                }
+
+                if (result) {
+                    break;
                 }
             }
 
             return result;
-        };
-
-        return new Promise((resolve, reject) => {
-            doWork(resolve, reject).then(resolve, reject);
-        });
+        } finally {
+            if (timer) {
+                clearTimeout(timer);
+                timer = null;
+            }
+        }
     }
 }
 
