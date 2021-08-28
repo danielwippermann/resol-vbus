@@ -34,8 +34,8 @@
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "moment-timezone": "^0.5.33",
+    "node-fetch": "^2.6.1",
     "numeral": "^2.0.6",
-    "request": "^2.88.2",
     "sprintf-js": "^1.1.2"
   },
   "optionalDependencies": {

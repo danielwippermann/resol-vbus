@@ -3,7 +3,7 @@
 
 
 
-const fs = require('fs');
+const fs = require('fs/promises');
 const path = require('path');
 const { Duplex } = require('stream');
 
@@ -15,32 +15,40 @@ const {
 } = require('./resol-vbus');
 
 
+const fetch = require('../../src/fetch');
+
 const expect = require('./expect');
 const TestRecorder = require('./test-recorder');
 const testUtils = require('./test-utils');
 
 
 
-const createRequestStub = function(recorder, response, data) {
-    const stub = sinon.spy((url, options) => {
-        const stream = new Duplex();
+const createFetchStub = function(recorder, response, data) {
+    const stub = sinon.spy(async (url, options) => {
+        await new Promise(resolve => process.nextTick(resolve));
 
-        stream._read = function() {
-            // nop;
+        const headers = new fetch.Headers(response && response.headers);
+
+        return {
+            ok: true,
+
+            headers,
+
+            async text() {
+                return data.toString();
+            },
+
+            async arrayBuffer() {
+                if (data) {
+                    return data.buffer.slice(data.byteOffset, data.byteOffset + data.length);
+                } else {
+                    return new ArrayBuffer();
+                }
+            },
         };
-
-        process.nextTick(() => {
-            stream.emit('response', response);
-            if (data) {
-                stream.push(data);
-            }
-            stream.push(null);
-        });
-
-        return stream;
     });
 
-    recorder._request = stub;
+    recorder._fetch = stub;
 
     return stub;
 };
@@ -183,7 +191,7 @@ describe('DLxRecorder', () => {
 
             const data = recordingFileListHtml;
 
-            const stub = createRequestStub(recorder, response, data);
+            const stub = createFetchStub(recorder, response, data);
 
             const promise = recorder.getLazyRecordingRanges();
 
@@ -194,9 +202,8 @@ describe('DLxRecorder', () => {
 
                 expect(stub.firstCall.args [0]).to.equal('URLPREFIX/log/');
                 expect(stub.firstCall.args [1]).to.eql({
-                    auth: {
-                        username: 'USERNAME',
-                        password: 'PASSWORD',
+                    headers: {
+                        Authorization: 'Basic VVNFUk5BTUU6UEFTU1dPUkQ=',
                     },
                 });
 
@@ -235,7 +242,7 @@ describe('DLxRecorder', () => {
 
             const data = recordingFileListHtml;
 
-            const stub = createRequestStub(recorder, response, data);
+            const stub = createFetchStub(recorder, response, data);
 
             const promise = recorder.getRecordingFilenames();
 
@@ -246,9 +253,8 @@ describe('DLxRecorder', () => {
 
                 expect(stub.firstCall.args [0]).to.equal('URLPREFIX/log/');
                 expect(stub.firstCall.args [1]).to.eql({
-                    auth: {
-                        username: 'USERNAME',
-                        password: 'PASSWORD',
+                    headers: {
+                        Authorization: 'Basic VVNFUk5BTUU6UEFTU1dPUkQ=',
                     },
                 });
 
@@ -292,7 +298,7 @@ describe('DLxRecorder', () => {
 
             const data = null;
 
-            const stub = createRequestStub(recorder, response, data);
+            const stub = createFetchStub(recorder, response, data);
 
             const filename = '/FILENAME';
 
@@ -306,9 +312,8 @@ describe('DLxRecorder', () => {
                 expect(stub.firstCall.args [0]).to.equal('URLPREFIX/FILENAME');
                 expect(stub.firstCall.args [1]).to.eql({
                     method: 'HEAD',
-                    auth: {
-                        username: 'USERNAME',
-                        password: 'PASSWORD',
+                    headers: {
+                        Authorization: 'Basic VVNFUk5BTUU6UEFTU1dPUkQ=',
                     },
                 });
 
@@ -322,11 +327,11 @@ describe('DLxRecorder', () => {
         });
     });
 
-    describe('#downloadToStream', () => {
+    describe('#_downloadToStream', () => {
 
         it('should be a method', () => {
             expect(DLxRecorder.prototype)
-                .to.have.a.property('downloadToStream')
+                .to.have.a.property('_downloadToStream')
                 .that.is.a('function');
         });
 
@@ -337,7 +342,7 @@ describe('DLxRecorder', () => {
 
             const data = Buffer.from('11223344556677889900', 'hex');
 
-            const stub = createRequestStub(recorder, response, data);
+            const stub = createFetchStub(recorder, response, data);
 
             const urlString = 'URLPREFIX/FILENAME';
 
@@ -349,7 +354,7 @@ describe('DLxRecorder', () => {
                 callback();
             });
 
-            const promise = recorder.downloadToStream(urlString, urlOptions, stream);
+            const promise = recorder._downloadToStream(urlString, urlOptions, stream);
 
             return testUtils.expectPromise(promise).then(() => {
                 expect(stub.callCount).to.equal(1);
@@ -379,48 +384,40 @@ describe('DLxRecorder', () => {
 
             const sourceRecorder = new DLxRecorder(options);
 
-            sourceRecorder._request = sinon.spy((url, options) => {
-                const stream = new Duplex();
+            sourceRecorder._fetch = sinon.spy(async (url, options) => {
+                await new Promise(resolve => process.nextTick(resolve));
 
-                stream._read = function() {
-                    // nop
-                };
+                let bodyBuffer;
+                if (url === '/log/') {
+                    bodyBuffer = await fs.readFile(path.join(fixturesPath, 'index.html'));
+                } else if (url === '/log/20140214_packets.vbus') {
+                    bodyBuffer = await fs.readFile(path.join(fixturesPath, '20140214_packets.vbus'));
+                } else if (url === '/log/20140215_packets.vbus') {
+                    bodyBuffer = await fs.readFile(path.join(fixturesPath, '20140215_packets.vbus'));
+                } else if (url === '/log/20140216_packets.vbus') {
+                    bodyBuffer = await fs.readFile(path.join(fixturesPath, '20140216_packets.vbus'));
+                } else {
+                    global.console.log(url);
+                }
 
-                stream._write = function(chunk, encoding, callback) {
-                    this.push(chunk, encoding);
-                    callback();
-                };
-
-                stream.once('finish', () => {
-                    stream.push(null);
+                const headers = new fetch.Headers({
+                    'Content-Length': bodyBuffer.length,
+                    'ETag': Date.now(),
                 });
 
-                process.nextTick(() => {
-                    let response, bodyStream, bodyData;
-                    if (url === '/log/') {
-                        bodyStream = fs.createReadStream(path.join(fixturesPath, 'index.html'));
-                    } else if (url === '/log/20140214_packets.vbus') {
-                        bodyStream = fs.createReadStream(path.join(fixturesPath, '20140214_packets.vbus'));
-                    } else if (url === '/log/20140215_packets.vbus') {
-                        bodyStream = fs.createReadStream(path.join(fixturesPath, '20140215_packets.vbus'));
-                    } else if (url === '/log/20140216_packets.vbus') {
-                        bodyStream = fs.createReadStream(path.join(fixturesPath, '20140216_packets.vbus'));
-                    } else {
-                        global.console.log(url);
-                    }
+                return {
+                    ok: true,
 
-                    stream.emit('response', response);
-                    if (bodyStream) {
-                        bodyStream.pipe(stream);
-                    } else {
-                        if (bodyData) {
-                            stream.push(bodyData);
-                        }
-                        stream.push(null);
-                    }
-                });
+                    headers,
 
-                return stream;
+                    async text() {
+                        return bodyBuffer.toString();
+                    },
+
+                    async arrayBuffer() {
+                        return bodyBuffer.buffer.slice(bodyBuffer.byteOffset, bodyBuffer.byteOffset + bodyBuffer.length);
+                    },
+                };
             });
 
 
@@ -460,8 +457,9 @@ describe('DLxRecorder', () => {
         getLazyRecordingRanges: Function,
         getRecordingFilenames: Function,
         getRecordingInfo: Function,
-        downloadToStream: Function,
-        _request: Function,
+        _getAuthHeaders: Function,
+        _downloadToStream: Function,
+        _fetch: Function,
     }, {
 
     });

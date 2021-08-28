@@ -4,9 +4,9 @@
 
 
 const moment = require('moment');
-const request = require('request');
 
 
+const fetch = require('./fetch');
 const _ = require('./lodash');
 const VBusRecordingConverter = require('./vbus-recording-converter');
 
@@ -82,39 +82,42 @@ class DLxRecorder extends Recorder {
         for (const filename of matchingFilenames) {
             const urlString = options.urlPrefix + filename;
 
-            const urlOptions = {
-                auth: {
-                    username: options.username,
-                    password: options.password,
+            const fetchOptions = {
+                headers: {
+                    ...this._getAuthHeaders(options.username, options.password),
                 },
             };
 
-            await _this.downloadToStream(urlString, urlOptions, converter);
+            await _this._downloadToStream(urlString, fetchOptions, converter);
         }
     }
 
     async _playbackApi(converter, options) {
-        const urlString = options.urlPrefix + '/dlx/download/download';
+        const qs = {
+            sessionAuthUsername: options.username,
+            sessionAuthPassword: options.password,
+            source: 'log',
+            inputType: 'packets',
+            outputType: 'vbus',
+            sieveInterval: Math.round(options.interval / 1000) || 1,
+            startDate: moment(options.minTimestamp).format('MM/DD/YYYY'),
+            endDate: moment(options.maxTimestamp).format('MM/DD/YYYY'),
+            dataLanguage: 'en',
+        };
 
-        const urlOptions = {
-            qs: {
-                sessionAuthUsername: options.username,
-                sessionAuthPassword: options.password,
-                source: 'log',
-                inputType: 'packets',
-                outputType: 'vbus',
-                sieveInterval: Math.round(options.interval / 1000) || 1,
-                startDate: moment(options.minTimestamp).format('MM/DD/YYYY'),
-                endDate: moment(options.maxTimestamp).format('MM/DD/YYYY'),
-                dataLanguage: 'en',
-            },
-            auth: {
-                username: options.username,
-                password: options.password,
+        const qsString = Object.keys(qs).map((key) => {
+            return `${key}=${encodeURIComponent(qs [key])}`;
+        }).join('&');
+
+        const urlString = `${options.urlPrefix}/dlx/download/download?${qsString}`;
+
+        const fetchOptions = {
+            headers: {
+                ...this._getAuthHeaders(options.username, options.password),
             },
         };
 
-        return this.downloadToStream(urlString, urlOptions, converter);
+        return this._downloadToStream(urlString, fetchOptions, converter);
     }
 
     async _playbackSyncJob(stream, syncJob) {
@@ -149,9 +152,9 @@ class DLxRecorder extends Recorder {
         if (handledRanges.length > 0) {
             let maxTimestamp;
             if (syncJob.markGapsAsUnsynced) {
-                maxTimestamp = handledRanges [0].minTimestamp;
+                maxTimestamp = handledRanges[0].minTimestamp;
             } else {
-                maxTimestamp = handledRanges [handledRanges.length - 1].minTimestamp;
+                maxTimestamp = handledRanges[handledRanges.length - 1].minTimestamp;
             }
 
             const notAvailableRanges = [{
@@ -186,113 +189,85 @@ class DLxRecorder extends Recorder {
         return ranges;
     }
 
-    getRecordingFilenames() {
-        return new Promise((resolve, reject) => {
-            let rxBuffer = null;
+    _getAuthHeaders(username, password) {
+        if (username == null) {
+            username = this.username;  // eslint-disable-line prefer-destructuring
+        }
+        if (password == null) {
+            password = this.password;  // eslint-disable-line prefer-destructuring
+        }
 
-            const filenames = [];
+        const encodedCredentials = Buffer.from(`${username}:${password}`).toString('base64');
 
-            const onResponse = function(res) {
-            };
-
-            const onData = function(chunk) {
-                let buffer;
-                if (rxBuffer) {
-                    buffer = Buffer.concat([ rxBuffer, chunk ]);
-                } else {
-                    buffer = chunk;
-                }
-
-                let string = buffer.toString('utf8');
-
-                const re = /<a href="([0-9]{8}_[a-z]+.vbus)">/g;
-
-                let md, index;
-                while ((md = re.exec(string)) !== null) {
-                    filenames.push('/log/' + md [1]);
-                    index = re.lastIndex;
-                }
-
-                string = string.slice(index);
-
-                rxBuffer = Buffer.from(string, 'utf8');
-            };
-
-            const onEnd = function() {
-                resolve(filenames.sort());
-            };
-
-            const onError = function(err) {
-                reject(err);
-            };
-
-            const urlOptions = {
-                auth: {
-                    username: this.username,
-                    password: this.password,
-                },
-            };
-
-            const stream = this._request(this.urlPrefix + '/log/', urlOptions);
-            stream.on('response', onResponse);
-            stream.on('data', onData);
-            stream.on('end', onEnd);
-            stream.on('error', onError);
-        });
+        return {
+            'Authorization': `Basic ${encodedCredentials}`,
+        };
     }
 
-    getRecordingInfo(filename) {
-        return new Promise((resolve, reject) => {
-            const info = {};
-
-            const onResponse = function(res) {
-                info.size = res.headers ['content-length'] | 0;
-                info.etag = res.headers.etag;
-            };
-
-            const onEnd = function() {
-                resolve(info);
-            };
-
-            const onError = function(err) {
-                reject(err);
-            };
-
-            const urlOptions = {
-                method: 'HEAD',
-                auth: {
-                    username: this.username,
-                    password: this.password,
-                },
-            };
-
-            const stream = this._request(this.urlPrefix + filename, urlOptions);
-            stream.resume();
-            stream.on('response', onResponse);
-            stream.on('end', onEnd);
-            stream.on('error', onError);
+    async getRecordingFilenames() {
+        const httpResponse = await this._fetch(`${this.urlPrefix}/log/`, {
+            headers: {
+                ...this._getAuthHeaders(),
+            }
         });
+
+        if (!httpResponse.ok) {
+            throw new Error('Unable to fetch list of stored files');
+        }
+
+        const html = await httpResponse.text();
+
+        const re = /<a href="([0-9]{8}_[a-z]+.vbus)">/g;
+
+        const filenames = [];
+        let md;
+        while ((md = re.exec(html)) !== null) {
+            filenames.push('/log/' + md[1]);
+        }
+
+        return filenames;
     }
 
-    downloadToStream(urlString, urlOptions, stream) {
-        return new Promise((resolve, reject) => {
-            const onEnd = function() {
-                resolve();
-            };
+    async getRecordingInfo(filename) {
+        const url = `${this.urlPrefix}${filename}`;
 
-            const onError = function(err) {
-                reject(err);
-            };
-
-            const req = this._request(urlString, urlOptions);
-            req.pipe(stream, { end: false });
-            req.on('end', onEnd);
-            req.on('error', onError);
+        const httpResponse = await this._fetch(url, {
+            method: 'HEAD',
+            headers: {
+                ...this._getAuthHeaders(),
+            },
         });
+
+        if (!httpResponse.ok) {
+            throw new Error(`Unable to fetch info about ${url}`);
+        }
+
+        const info = {
+            size: httpResponse.headers.get('Content-Length') | 0,
+            etag: httpResponse.headers.get('etag'),
+        };
+
+        await httpResponse.arrayBuffer();
+
+        return info;
     }
 
-    _request() {
-        return request.apply(undefined, arguments);
+    async _downloadToStream(urlString, fetchOptions, stream) {
+        const httpResponse = await this._fetch(urlString, fetchOptions);
+
+        if (!httpResponse.ok) {
+            throw new Error(`Unable to download ${urlString}`);
+        }
+
+        const arrayBuffer = await httpResponse.arrayBuffer();
+
+        const buffer = Buffer.from(arrayBuffer);
+
+        stream.write(buffer);
+    }
+
+    _fetch(...args) {
+        return fetch(...args);
     }
 
 }
