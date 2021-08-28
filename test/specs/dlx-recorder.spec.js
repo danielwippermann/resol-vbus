@@ -3,7 +3,7 @@
 
 
 
-const fs = require('fs/promises');
+const fs = require('fs');
 const path = require('path');
 const { Duplex } = require('stream');
 
@@ -21,6 +21,11 @@ const expect = require('./expect');
 const TestRecorder = require('./test-recorder');
 const testUtils = require('./test-utils');
 
+
+
+async function readFile(filename) {
+    return promisify(cb => fs.readFile(filename, cb));
+}
 
 
 const createFetchStub = function(recorder, response, data) {
@@ -389,13 +394,13 @@ describe('DLxRecorder', () => {
 
                 let bodyBuffer;
                 if (url === '/log/') {
-                    bodyBuffer = await fs.readFile(path.join(fixturesPath, 'index.html'));
+                    bodyBuffer = await readFile(path.join(fixturesPath, 'index.html'));
                 } else if (url === '/log/20140214_packets.vbus') {
-                    bodyBuffer = await fs.readFile(path.join(fixturesPath, '20140214_packets.vbus'));
+                    bodyBuffer = await readFile(path.join(fixturesPath, '20140214_packets.vbus'));
                 } else if (url === '/log/20140215_packets.vbus') {
-                    bodyBuffer = await fs.readFile(path.join(fixturesPath, '20140215_packets.vbus'));
+                    bodyBuffer = await readFile(path.join(fixturesPath, '20140215_packets.vbus'));
                 } else if (url === '/log/20140216_packets.vbus') {
-                    bodyBuffer = await fs.readFile(path.join(fixturesPath, '20140216_packets.vbus'));
+                    bodyBuffer = await readFile(path.join(fixturesPath, '20140216_packets.vbus'));
                 } else {
                     global.console.log(url);
                 }
