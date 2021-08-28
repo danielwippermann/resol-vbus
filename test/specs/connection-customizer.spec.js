@@ -10,7 +10,6 @@ const {
     Customizer,
     Datagram,
     Packet,
-    utils: { promisify },
 } = require('./resol-vbus');
 
 
@@ -20,6 +19,7 @@ const _ = require('./lodash');
 const {
     expectPromiseToReject,
     itShouldWorkCorrectlyAfterMigratingToClass,
+    wrapAsPromise,
 } = require('./test-utils');
 
 
@@ -29,7 +29,7 @@ const optimizerPromise = ConfigurationOptimizerFactory.createOptimizerByDeviceAd
 
 
 const promiseTestContext = function(options, callback) {
-    return promisify(() => {
+    return wrapAsPromise(() => {
         return optimizerPromise;
     }).then((optimizer) => {
         const context = {};
@@ -50,7 +50,7 @@ const promiseTestContext = function(options, callback) {
             transceiveValue(inValueInfo, value, options, state) {
                 const _this = this;
 
-                return promisify(() => {
+                return wrapAsPromise(() => {
                     const { valueIndex } = inValueInfo;
 
                     const valueInfo = context.testConfigValueByIndex [valueIndex];
@@ -96,7 +96,7 @@ const promiseTestContext = function(options, callback) {
             customizer,
         });
 
-        return promisify(() => {
+        return wrapAsPromise(() => {
             return optimizer.completeConfiguration(options.testConfig);
         }).then((testConfig) => {
             _.forEach(testConfig, (valueInfo) => {
@@ -223,7 +223,7 @@ describe('ConnectionCustomizer', () => {
                     id: 'Relais_Regler_R2_Handbetrieb',
                 }];
 
-                return promisify(() => {
+                return wrapAsPromise(() => {
                     // manually complete configuration, don't let the customizer do it...
                     return optimizer.completeConfiguration(refConfig);
                 }).then((config) => {
@@ -281,7 +281,7 @@ describe('ConnectionCustomizer', () => {
                     id: 'Relais_Regler_R2_Handbetrieb',
                 }];
 
-                return promisify(() => {
+                return wrapAsPromise(() => {
                     return customizer.loadConfiguration(refConfig, {
                         optimize: false,
                     });
@@ -315,7 +315,7 @@ describe('ConnectionCustomizer', () => {
             };
 
             return promiseTestContext(options, (customizer, optimizer, context) => {
-                return promisify(() => {
+                return wrapAsPromise(() => {
                     return customizer.loadConfiguration(null, {
                         optimize: true,
                     });
@@ -365,7 +365,7 @@ describe('ConnectionCustomizer', () => {
                     value: 3,
                 }];
 
-                return promisify(() => {
+                return wrapAsPromise(() => {
                     // manually complete configuration, don't let the customizer do it...
                     return optimizer.completeConfiguration(refConfig);
                 }).then((config) => {
@@ -421,7 +421,7 @@ describe('ConnectionCustomizer', () => {
                     value: 3,
                 }];
 
-                return promisify(() => {
+                return wrapAsPromise(() => {
                     return customizer.saveConfiguration(refConfig, null, {
                         optimize: false,
                     });

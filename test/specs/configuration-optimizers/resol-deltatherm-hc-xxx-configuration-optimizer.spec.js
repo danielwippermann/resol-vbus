@@ -5,13 +5,15 @@
 
 const {
     ConfigurationOptimizerFactory,
-    utils: { promisify },
 } = require('../resol-vbus');
 
 
 const expect = require('../expect');
 const _ = require('../lodash');
 const testUtils = require('../test-utils');
+
+
+const { wrapAsPromise } = testUtils;
 
 
 
@@ -35,7 +37,7 @@ describe('ResolDeltaThermHcXxxConfigurationOptimizer', () => {
 
         it('should work correctly without provided config', () => {
             return optimizerPromise.then((optimizer) => {
-                return promisify(() => {
+                return wrapAsPromise(() => {
                     return testUtils.expectPromise(optimizer.completeConfiguration());
                 }).then((config) => {
                     expect(config).an('array').lengthOf(5753);
@@ -45,7 +47,7 @@ describe('ResolDeltaThermHcXxxConfigurationOptimizer', () => {
 
         it('should work correctly with provided config object', () => {
             return optimizerPromise.then((optimizer) => {
-                return promisify(() => {
+                return wrapAsPromise(() => {
                     const config = {
                         Language: 0,
                         TemperatureHysteresisSelector: 0,
@@ -60,7 +62,7 @@ describe('ResolDeltaThermHcXxxConfigurationOptimizer', () => {
 
         it('should work correctly with provided config array', () => {
             return optimizerPromise.then((optimizer) => {
-                return promisify(() => {
+                return wrapAsPromise(() => {
                     const config = [{
                         valueId: 'Language',
                     }, {
@@ -81,7 +83,7 @@ describe('ResolDeltaThermHcXxxConfigurationOptimizer', () => {
 
         it('should work correctly after', () => {
             return optimizerPromise.then((optimizer) => {
-                return promisify(() => {
+                return wrapAsPromise(() => {
                     return testUtils.expectPromise(optimizer.completeConfiguration());
                 }).then((config) => {
                     return testUtils.expectPromise(optimizer.optimizeLoadConfiguration(config));

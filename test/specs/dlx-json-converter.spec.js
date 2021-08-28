@@ -10,7 +10,6 @@ const {
     Packet,
     Specification,
     VBusRecordingConverter,
-    utils: { promisify },
 } = require('./resol-vbus');
 
 
@@ -95,7 +94,7 @@ describe('DLxJsonConverter', () => {
 
             converter.convertHeaderSet(headerSet);
 
-            return promisify(() => {
+            return testUtils.wrapAsPromise(() => {
                 return converter.finish();
             }).then(() => {
                 expect(onData.callCount).to.equal(7);

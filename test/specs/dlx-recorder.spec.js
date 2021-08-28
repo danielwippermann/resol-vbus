@@ -426,7 +426,7 @@ describe('DLxRecorder', () => {
                 interval: 300000,
             });
 
-            return promisify(() => {
+            return testUtils.wrapAsPromise(() => {
                 return sourceRecorder.synchronizeTo(targetRecorder);
             }).then((ranges) => {
                 expect(ranges).a('array').lengthOf(1);

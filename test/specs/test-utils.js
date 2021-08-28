@@ -120,6 +120,11 @@ const testUtils = {
             }
         });
     },
+
+    wrapAsPromise(fn) {
+        return new Promise((resolve) => resolve(fn()));
+    },
+
 };
 
 

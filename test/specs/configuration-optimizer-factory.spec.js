@@ -5,11 +5,12 @@
 
 const {
     ConfigurationOptimizerFactory,
-    utils: { promisify },
 } = require('./resol-vbus');
 
 
 const expect = require('./expect');
+
+const { wrapAsPromise } = require('./test-utils');
 
 
 
@@ -37,7 +38,7 @@ describe('ConfigurationOptimizerFactory', () => {
                         if (address !== null) {
                             const addressKey = address.toString(16);
 
-                            promisify(() => {
+                            wrapAsPromise(() => {
                                 expect(address).a('number').above(0);
 
                                 expect(knownAddresses).not.property(addressKey);
@@ -65,7 +66,7 @@ describe('ConfigurationOptimizerFactory', () => {
         });
 
         it('should work correctly for unknown devices', () => {
-            return promisify(() => {
+            return wrapAsPromise(() => {
                 return ConfigurationOptimizerFactory.createOptimizerByDeviceAddress(0x0050);
             }).then((optimizer) => {
                 expect(optimizer).equal(null);
@@ -73,7 +74,7 @@ describe('ConfigurationOptimizerFactory', () => {
         });
 
         it('should work correctly for RESOL DeltaSol BX Plus', () => {
-            return promisify(() => {
+            return wrapAsPromise(() => {
                 return ConfigurationOptimizerFactory.createOptimizerByDeviceAddress(0x7112);
             }).then((optimizer) => {
                 expect(optimizer).a('object');
@@ -81,7 +82,7 @@ describe('ConfigurationOptimizerFactory', () => {
         });
 
         it('should work correctly for RESOL DeltaSol CS Plus', () => {
-            return promisify(() => {
+            return wrapAsPromise(() => {
                 return ConfigurationOptimizerFactory.createOptimizerByDeviceAddress(0x2211);
             }).then((optimizer) => {
                 expect(optimizer).a('object');
@@ -89,7 +90,7 @@ describe('ConfigurationOptimizerFactory', () => {
         });
 
         it('should work correctly for RESOL DeltaSol MX', () => {
-            return promisify(() => {
+            return wrapAsPromise(() => {
                 return ConfigurationOptimizerFactory.createOptimizerByDeviceAddress(0x7E11);
             }).then((optimizer) => {
                 expect(optimizer).a('object');
@@ -97,7 +98,7 @@ describe('ConfigurationOptimizerFactory', () => {
         });
 
         it('should work correctly for RESOL DeltaSol SLT', () => {
-            return promisify(() => {
+            return wrapAsPromise(() => {
                 return ConfigurationOptimizerFactory.createOptimizerByDeviceAddress(0x1001);
             }).then((optimizer) => {
                 expect(optimizer).a('object');
@@ -105,7 +106,7 @@ describe('ConfigurationOptimizerFactory', () => {
         });
 
         it('should work correctly for RESOL DeltaTherm HC', () => {
-            return promisify(() => {
+            return wrapAsPromise(() => {
                 return ConfigurationOptimizerFactory.createOptimizerByDeviceAddress(0x5400);
             }).then((optimizer) => {
                 expect(optimizer).a('object');

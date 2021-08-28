@@ -5,7 +5,6 @@
 
 const {
     Customizer,
-    utils: { promisify },
 } = require('./resol-vbus');
 
 
@@ -13,6 +12,7 @@ const expect = require('./expect');
 
 const {
     itShouldWorkCorrectlyAfterMigratingToClass,
+    wrapAsPromise,
 } = require('./test-utils');
 
 
@@ -78,7 +78,7 @@ describe('Customizer', () => {
                 valueIndex: 0x0001,
             }];
 
-            return promisify(() => {
+            return wrapAsPromise(() => {
                 return customizer.loadConfiguration(inConfig);
             }).then((outConfig) => {
                 expect(customizer._loadConfiguration).property('callCount').equal(1);
@@ -154,7 +154,7 @@ describe('Customizer', () => {
                 valueIndex: 0x0001,
             }];
 
-            return promisify(() => {
+            return wrapAsPromise(() => {
                 return customizer.saveConfiguration(inConfig);
             }).then((outConfig) => {
                 expect(customizer._saveConfiguration).property('callCount').equal(1);
@@ -184,7 +184,7 @@ describe('Customizer', () => {
                 valueIndex: 0x0001,
             }];
 
-            return promisify(() => {
+            return wrapAsPromise(() => {
                 return customizer.saveConfiguration(inConfig);
             }).then((outConfig) => {
                 expect(customizer._saveConfiguration).property('callCount').equal(1);
