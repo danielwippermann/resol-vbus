@@ -119,6 +119,17 @@ following command into your shell:
 ## Work in progress
 
 
+## Version 0.24.0 (2021-09-12)
+
+- [BREAKING CHANGE] Replaced the deprecated "request" dependency with Fetch API impl
+    Since the "request" dependency that was used in the `DLxRecorder` class has
+    been deprecated, the code was refactored to use a Fetch API implementation instead.
+    But since the method `DLxRecorder#downloadToStream` expected "request"-specific options,
+    it had to be changed, too. This method was renamed to `DLxRecorder#_downloadToStream` to
+    indicate that it is a class-private method and its signature was changed to accept
+    Fetch API specific options.
+
+
 ## Version 0.23.0 (2021-05-14)
 
 - [BREAKING CHANGE] Replacing custom inheritance code with `class` syntax
