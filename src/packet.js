@@ -73,23 +73,23 @@ class Packet extends Header {
         buffer [0] = 0xAA;
         buffer.writeUInt16LE(this.destinationAddress & 0x7F7F, 1);
         buffer.writeUInt16LE(this.sourceAddress & 0x7F7F, 3);
-        buffer [5] = 0x10;
+        buffer [5] = this.getProtocolVersion();
         buffer.writeUInt16LE(this.command & 0x7F7F, 6);
         buffer [8] = this.frameCount & 0x7F;
-        Packet.calcAndSetChecksumV0(buffer, 1, 9);
+        Packet.calcAndSetChecksum(this.minorVersion, buffer, 1, 9);
 
         for (let i = 0; i < this.frameCount; i++) {
             const srcStart = 4 * i;
             const dstStart = 10 + 6 * i;
             Packet.extractSeptett(this.frameData, srcStart, srcStart + 4, buffer, dstStart);
-            Packet.calcAndSetChecksumV0(buffer, dstStart, dstStart + 5);
+            Packet.calcAndSetChecksum(this.minorVersion, buffer, dstStart, dstStart + 5);
         }
 
         return buffer;
     }
 
     getProtocolVersion() {
-        return 0x10;
+        return 0x10 | this.minorVersion;
     }
 
     getId() {

@@ -60,22 +60,22 @@ class Telegram extends Header {
         buffer [0] = 0xAA;
         buffer.writeUInt16LE(this.destinationAddress & 0x7F7F, 1);
         buffer.writeUInt16LE(this.sourceAddress & 0x7F7F, 3);
-        buffer [5] = 0x30;
+        buffer [5] = this.getProtocolVersion();
         buffer [6] = this.command & 0x7F;
-        Telegram.calcAndSetChecksumV0(buffer, 1, 7);
+        Telegram.calcAndSetChecksum(this.minorVersion, buffer, 1, 7);
 
         for (let i = 0; i < frameCount; i++) {
             const srcStart = 7 * i;
             const dstStart = 8 + 9 * i;
             Telegram.extractSeptett(this.frameData, srcStart, srcStart + 7, buffer, dstStart);
-            Telegram.calcAndSetChecksumV0(buffer, dstStart, dstStart + 8);
+            Telegram.calcAndSetChecksum(this.minorVersion, buffer, dstStart, dstStart + 8);
         }
 
         return buffer;
     }
 
     getProtocolVersion() {
-        return 0x30;
+        return 0x30 | this.minorVersion;
     }
 
     getId() {

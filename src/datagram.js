@@ -60,20 +60,20 @@ class Datagram extends Header {
         buffer [0] = 0xAA;
         buffer.writeUInt16LE(this.destinationAddress & 0x7F7F, 1);
         buffer.writeUInt16LE(this.sourceAddress & 0x7F7F, 3);
-        buffer [5] = 0x20;
+        buffer [5] = this.getProtocolVersion();
         buffer.writeUInt16LE(this.command & 0x7F7F, 6);
 
         const frameData = Buffer.alloc(6);
         frameData.writeUInt16LE(this.valueId, 0);
         frameData.writeInt32LE(this.value, 2);
         Datagram.extractSeptett(frameData, 0, 6, buffer, 8);
-        Datagram.calcAndSetChecksumV0(buffer, 1, 15);
+        Datagram.calcAndSetChecksum(this.minorVersion, buffer, 1, 15);
 
         return buffer;
     }
 
     getProtocolVersion() {
-        return 0x20;
+        return 0x20 | this.minorVersion;
     }
 
     getInfo() {

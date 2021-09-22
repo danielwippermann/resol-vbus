@@ -187,31 +187,31 @@ class Connection extends Duplex {
                 if (index === start + length - 1) {
                     let valid = true;
                     if (version === 0x10) {
-                        if (!Header.calcAndCompareChecksumV0(buffer, start + 1, start + 9)) {
+                        if (!Header.calcAndCompareChecksum(version, buffer, start + 1, start + 9)) {
                             // console.log('checksum error in header');
                             valid = false;
                         }
 
                         let frameIndex = start + 10;
                         while (valid && (frameIndex < start + length)) {
-                            if (!Header.calcAndCompareChecksumV0(buffer, frameIndex, frameIndex + 5)) {
+                            if (!Header.calcAndCompareChecksum(version, buffer, frameIndex, frameIndex + 5)) {
                                 // console.log('checksum error in frame index ' + frameIndex);
                                 valid = false;
                             }
                             frameIndex += 6;
                         }
                     } else if (version === 0x20) {
-                        if (!Header.calcAndCompareChecksumV0(buffer, start + 1, start + 15)) {
+                        if (!Header.calcAndCompareChecksum(version, buffer, start + 1, start + 15)) {
                             valid = false;
                         }
                     } else if (version === 0x30) {
-                        if (!Header.calcAndCompareChecksumV0(buffer, start + 1, start + 7)) {
+                        if (!Header.calcAndCompareChecksum(version, buffer, start + 1, start + 7)) {
                             valid = false;
                         }
 
                         let frameIndex = start + 8;
                         while (valid && (frameIndex < start + length)) {
-                            if (!Header.calcAndCompareChecksumV0(buffer, frameIndex, frameIndex + 8)) {
+                            if (!Header.calcAndCompareChecksum(version, buffer, frameIndex, frameIndex + 8)) {
                                 valid = false;
                             }
                             frameIndex += 9;

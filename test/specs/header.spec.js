@@ -367,6 +367,10 @@ describe('Header', () => {
         calcChecksumV0: Function,
         calcAndCompareChecksumV0: Function,
         calcAndSetChecksumV0: Function,
+        calcChecksumV1: Function,
+        calcChecksum: Function,
+        calcAndCompareChecksum: Function,
+        calcAndSetChecksum: Function,
         injectSeptett: Function,
         extractSeptett: Function,
     });
