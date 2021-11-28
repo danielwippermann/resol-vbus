@@ -39,3 +39,13 @@ You should now edit the `config.js` to adapt it to your environment.
 cd <working dir>/resol-vbus/examples/em-simulator
 node main.js
 ```
+
+
+## The state file
+
+The file specified by the `stateFilename` config is expected to be a single-line
+text file containing either "0", "off" or "aus" for the switch-off situation or
+"1", "on" or "ein" for the switch-on situation.
+
+The home automation should write the respective text into the state file to
+control the virtual sensor input.
