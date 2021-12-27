@@ -10,6 +10,7 @@ const {
 } = require('./resol-vbus');
 
 
+const jestExpect = global.expect;
 const expect = require('./expect');
 const testUtils = require('./test-utils');
 
@@ -118,7 +119,7 @@ describe('SerialDataSourceProvider', () => {
         createDataSource: Function,
         _listSerialPorts: Function,
     }, {
-        hasSerialPortSupport: !!true,
+        hasSerialPortSupport: jestExpect.any(Boolean),
     });
 
 });
