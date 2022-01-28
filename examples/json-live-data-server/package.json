@@ -9,7 +9,7 @@
   "author": "Daniel Wippermann <Daniel.Wippermann@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.17.1",
-    "winston": "^3.3.3"
+    "express": "^4.17.2",
+    "winston": "^3.5.0"
   }
 }
