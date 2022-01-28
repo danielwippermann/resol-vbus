@@ -6,9 +6,11 @@
 const moreints = require('buffer-more-ints');
 
 
+const Datagram = require('./datagram');
 const HeaderSet = require('./header-set');
 const _ = require('./lodash');
 const Packet = require('./packet');
+const Telegram = require('./telegram');
 
 const Converter = require('./converter');
 
@@ -179,6 +181,10 @@ class VBusRecordingConverter extends Converter {
             let dataLength;
             if (majorVersion === 1) {
                 dataLength = header.frameCount * 4;
+            } else if (majorVersion === 2) {
+                dataLength = 6;
+            } else if (majorVersion === 3) {
+                dataLength = header.getFrameCount() * 7;
             } else {
                 dataLength = -1;
             }
@@ -202,6 +208,18 @@ class VBusRecordingConverter extends Converter {
 
                 /* istanbul ignore else */
                 if (majorVersion === 1) {
+                    buffer.writeUInt16LE(header.command, 20);
+                    buffer.writeUInt16LE(dataLength, 22);
+                    buffer.writeUInt16LE(0, 24);
+
+                    header.frameData.copy(buffer, 26, 0, dataLength);
+                } else if (majorVersion === 2) {
+                    buffer.writeUInt16LE(header.command, 20);
+                    buffer.writeUInt16LE(dataLength, 22);
+                    buffer.writeUInt16LE(0, 24);
+                    buffer.writeInt16LE(header.valueId, 26);
+                    buffer.writeInt32LE(header.value, 28);
+                } else if (majorVersion === 3) {
                     buffer.writeUInt16LE(header.command, 20);
                     buffer.writeUInt16LE(dataLength, 22);
                     buffer.writeUInt16LE(0, 24);
@@ -358,6 +376,49 @@ class VBusRecordingConverter extends Converter {
                     if (this.headerSet) {
                         this.headerSet.addHeader(header);
                     }
+
+                    this.emit('header', header);
+                }
+            } else if ((majorVersion === 2) && (buffer.length === 32)) {
+                const command = buffer.readUInt16LE(20);
+                const dataLength = buffer.readUInt16LE(22);
+
+                if (dataLength === 6) {
+                    const valueId = buffer.readInt16LE(26);
+                    const value = buffer.readInt32LE(28);
+
+                    const header = new Datagram({
+                        timestamp: new Date(timestamp),
+                        channel: this.currentChannel,
+                        destinationAddress,
+                        sourceAddress,
+                        command,
+                        valueId,
+                        value,
+                    });
+
+                    this.emit('header', header);
+                }
+            } else if ((majorVersion === 3) && (buffer.length >= 26)) {
+                const command = buffer [20];
+                const dataLength = buffer.readUInt16LE(22);
+
+                if (buffer.length >= 26 + dataLength) {
+                    const frameCount = Math.floor(dataLength / 7);
+
+                    const frameData = Buffer.alloc(3 * 7);
+                    buffer.copy(frameData, 0, 26, 26 + dataLength);
+
+                    const header = new Telegram({
+                        timestamp: new Date(timestamp),
+                        channel: this.currentChannel,
+                        destinationAddress,
+                        sourceAddress,
+                        command,
+                        frameCount,
+                        frameData,
+                        dontCopyFrameData: true,
+                    });
 
                     this.emit('header', header);
                 }

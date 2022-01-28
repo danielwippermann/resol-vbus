@@ -5,8 +5,10 @@
 
 const {
     Converter,
+    Datagram,
     HeaderSet,
     Packet,
+    Telegram,
     VBusRecordingConverter,
 } = require('./resol-vbus');
 
@@ -15,7 +17,6 @@ const jestExpect = global.expect;
 const expect = require('./expect');
 const _ = require('./lodash');
 const testUtils = require('./test-utils');
-const { Datagram } = require('../../src');
 
 
 
@@ -529,6 +530,97 @@ describe('VBusRecordingConverter', () => {
             });
         });
 
+        async function runTests(options, fn) {
+            const converter = new VBusRecordingConverter(options);
+
+            const stats = {
+                headerCount: 0,
+                headerSetCount: 0,
+
+                onHeader: jest.fn(() => {
+                    stats.headerCount += 1;
+                }),
+
+                onHeaderSet: jest.fn(() => {
+                    stats.headerSetCount += 1;
+                }),
+            };
+
+            converter.on('header', stats.onHeader);
+            converter.on('headerSet', stats.onHeaderSet);
+
+            let onFinish;
+
+            await new Promise((resolve) => {
+                onFinish = () => {
+                    resolve();
+                };
+
+                converter.on('finish', onFinish);
+
+                fn(converter);
+            });
+
+            converter.removeListener('header', stats.onHeader);
+            converter.removeListener('headerSet', stats.onHeaderSet);
+            converter.removeListener('finish', onFinish);
+
+            return stats;
+        }
+
+        it('should work with datagrams correctly', async () => {
+            const stats = await runTests({}, converter => {
+                const buffer = Buffer.from([
+                    'a566200020007c87ef5a5a0100000000117e2000000906000000f8182a000000',
+                ].join(''), 'hex');
+
+                converter.write(buffer);
+                converter.end();
+            });
+
+            const expect = jestExpect;
+
+            expect(stats.headerCount).toEqual(1);
+            expect(stats.headerSetCount).toEqual(0);
+
+            const header = stats.onHeader.mock.calls [0] [0];
+            expect(header).toBeInstanceOf(Datagram);
+            expect(header.timestamp.getTime()).toEqual(1487584331644);
+            expect(header.channel).toEqual(0);
+            expect(header.destinationAddress).toEqual(0x0000);
+            expect(header.sourceAddress).toEqual(0x7E11);
+            expect(header.minorVersion).toEqual(0x00);
+            expect(header.command).toEqual(0x0900);
+            expect(header.valueId).toEqual(6392);
+            expect(header.value).toEqual(42);
+        });
+
+        it('should work with telegrams correctly', async () => {
+            const stats = await runTests({}, converter => {
+                const buffer = Buffer.from([
+                    'a56628002800880af6e95901000013121514300057000e0000000000000000000000000000000000',
+                ].join(''), 'hex');
+
+                converter.write(buffer);
+                converter.end();
+            });
+
+            const expect = jestExpect;
+
+            expect(stats.headerCount).toEqual(1);
+            expect(stats.headerSetCount).toEqual(0);
+
+            const header = stats.onHeader.mock.calls [0] [0];
+            expect(header).toBeInstanceOf(Telegram);
+            expect(header.timestamp.getTime()).toEqual(1485688933000);
+            expect(header.channel).toEqual(0);
+            expect(header.destinationAddress).toEqual(0x1213);
+            expect(header.sourceAddress).toEqual(0x1415);
+            expect(header.minorVersion).toEqual(0x00);
+            expect(header.command).toEqual(0x57);
+            expect(header.frameData.slice(0, 14).toString('hex')).toEqual('0000000000000000000000000000');
+        });
+
     });
 
     describe('readable stream', () => {
@@ -759,39 +851,112 @@ describe('VBusRecordingConverter', () => {
             });
         });
 
-        it('should work correctly with non-Packet data', () => {
-            const dgram1 = new Datagram();
-            dgram1.timestamp = new Date(1387893006778);
-            dgram1.channel = 0;
+        async function runTests(options, fn) {
+            const converter = new VBusRecordingConverter(options);
 
-            const rawDataHexDump = [
-                'a5440e000e00baa1de2443010000',
-            ].join('');
+            const stats = {
+                readableCounter: 0,
+                readChunks: [],
+                readData: null,
 
-            const converter = new VBusRecordingConverter({
+                onReadable: jest.fn(() => {
+                    let chunk;
+                    while ((chunk = converter.read()) != null) {
+                        stats.readChunks.push(chunk);
+                    }
+                }),
+            };
+
+            converter.on('readable', stats.onReadable);
+
+            let onEnd;
+
+            await new Promise((resolve) => {
+                onEnd = () => {
+                    resolve();
+                };
+
+                converter.on('end', onEnd);
+
+                fn(converter);
             });
 
-            const onData = jest.fn();
-            converter.on('data', onData);
+            converter.removeListener('readable', stats.onReadable);
+            converter.removeListener('end', onEnd);
 
-            converter.convertHeader(dgram1);
+            stats.readData = Buffer.concat(stats.readChunks);
 
-            return converter.finish().then(() => {
-                converter.removeListener('data', onData);
+            return stats;
+        }
 
-                jestExpect(onData).toHaveBeenCalledTimes(1);
+        it('should work with datagrams correctly', async () => {
+            const stats = await runTests({}, converter => {
+                const timestamp = new Date(1387893003287);
 
-                const call0 = onData.mock.calls [0];
+                const dgram = new Datagram({
+                    timestamp,
+                    channel: 0x11,
+                    destinationAddress: 0x1213,
+                    sourceAddress: 0x1415,
+                    protocolVersion: 0x20,
+                    command: 0x1617,
+                    valueId: 0x2122,
+                    value: 0x31323334,
+                });
 
-                jestExpect(call0).toHaveLength(1);
-                testUtils.expectToBeABuffer(call0 [0]);
-                jestExpect(call0 [0].length).toBe(14);
-
-                const hexDump = call0 [0].toString('hex');
-                expect(hexDump).to.equal(rawDataHexDump);
+                converter.convertHeader(dgram);
+                converter.finish();
             });
-        });
 
+            const expect = jestExpect;
+
+            expect(stats.readData.toString('hex')).toEqual([
+                'a5440e000e00',
+                '1794de2443010000',
+                'a57710001000',
+                '0000000000000000',
+                '1100',
+                'a56620002000',
+                '1794de2443010000',
+                '131215142000171606000000',
+                '2221',
+                '34333231',
+            ].join(''));
+        })
+
+        it('should work with telegrams correctly', async () => {
+            const stats = await runTests({}, converter => {
+                const timestamp = new Date(1387893003287);
+
+                const tgram = new Telegram({
+                    timestamp,
+                    channel: 0x11,
+                    destinationAddress: 0x1213,
+                    sourceAddress: 0x1415,
+                    protocolVersion: 0x30,
+                    command: 0x57,
+                    frameData: Buffer.from('2122232425262731323334353637', 'hex'),
+                });
+
+                converter.convertHeader(tgram);
+                converter.finish();
+            });
+
+            const expect = jestExpect;
+
+            expect(stats.readData.toString('hex')).toEqual([
+                'a5440e000e00',
+                '1794de2443010000',
+                'a57710001000',
+                '0000000000000000',
+                '1100',
+                'a56628002800',
+                '1794de2443010000',
+                '13121514300057000e000000',
+                '21222324252627',
+                '31323334353637',
+            ].join(''));
+        })
     });
 
     testUtils.itShouldWorkCorrectlyAfterMigratingToClass(VBusRecordingConverter, Converter, {
