@@ -8,7 +8,6 @@ title: Support
 
 ## Community
 
-- Check our [forum on ost.io](http://ost.io/@danielwippermann/resol-vbus) for general support and discussion
 - You can also post questions with the [#resol-vbus tag on Stack Overflow](http://stackoverflow.com/questions/tagged/resol-vbus)
 - If you'd like to report a bug or propose a feature, please use the [GitHub issues](https://github.com/danielwippermann/resol-vbus/issues)
 - There is also a [Google Group](https://groups.google.com/forum/#!forum/resol-vbus) about RESOL VBus in general
