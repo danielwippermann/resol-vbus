@@ -119,6 +119,14 @@ following command into your shell:
 ## Work in progress
 
 
+## Version 0.25.0 (2022-04-12)
+
+- Update several dependencies to fix security issues.
+- Update VBus specification file to 20220206.
+- Add support for CRC7 in protocols using minor version 1.
+- Add `Datagram` and `Telegram` support to `VBusRecordingConverter`.
+
+
 ## Version 0.24.0 (2021-09-12)
 
 - [BREAKING CHANGE] Replaced the deprecated "request" dependency with Fetch API impl
