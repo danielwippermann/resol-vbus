@@ -5,8 +5,6 @@
 [![NPM version](https://img.shields.io/npm/v/resol-vbus.svg)](https://npmjs.org/package/resol-vbus)
 [![Build Status](https://img.shields.io/travis/danielwippermann/resol-vbus.svg)](https://travis-ci.org/danielwippermann/resol-vbus)
 [![Coverage Status](https://img.shields.io/coveralls/danielwippermann/resol-vbus.svg)](https://coveralls.io/r/danielwippermann/resol-vbus)
-[![Dependency Status](https://img.shields.io/david/danielwippermann/resol-vbus.svg)](https://david-dm.org/danielwippermann/resol-vbus)
-[![devDependency Status](https://img.shields.io/david/dev/danielwippermann/resol-vbus.svg)](https://david-dm.org/danielwippermann/resol-vbus#info=devDependencies)
 [![License](https://img.shields.io/npm/l/resol-vbus.svg)](http://opensource.org/licenses/MIT)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fdanielwippermann%2Fresol-vbus.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fdanielwippermann%2Fresol-vbus?ref=badge_shield)
 
