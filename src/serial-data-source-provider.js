@@ -3,11 +3,11 @@
 
 
 
-let SerialPort;
+let SerialPort, serialPortRequireError;
 try {
     SerialPort = require('serialport');
 } catch (ex) {
-    // eat it
+    serialPortRequireError = ex;
 }
 
 
@@ -67,6 +67,10 @@ class SerialDataSourceProvider extends DataSourceProvider {
     }
 
     _listSerialPorts() {
+        if (serialPortRequireError) {
+            throw serialPortRequireError;
+        }
+
         return SerialPort.list.apply(SerialPort, arguments);
     }
 

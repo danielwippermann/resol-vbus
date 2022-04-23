@@ -3,11 +3,11 @@
 
 
 
-let SerialPort;
+let SerialPort, serialPortRequireError;
 try {
     SerialPort = require('serialport');
 } catch (ex) {
-    // eat it
+    serialPortRequireError = ex;
 }
 
 
@@ -173,6 +173,10 @@ class SerialConnection extends Connection {
     }
 
     _createSerialPort(path, options, onCompletion) {
+        if (serialPortRequireError) {
+            throw serialPortRequireError;
+        }
+
         return new SerialPort(path, options, null, onCompletion);
     }
 
