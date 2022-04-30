@@ -82,6 +82,7 @@ module.exports = {
      */
     mqttConnect: {
         host: 'mqtt://localhost',
+        // clientId: 'clientId',
         username: 'mosquitto',
         password: 'secret',
     },

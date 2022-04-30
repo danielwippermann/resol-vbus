@@ -486,7 +486,9 @@ const startMqttLogging = async () => {
         }
 
         if (payload) {
-            client.publish(config.mqttTopic, payload);
+            client.publish(config.mqttTopic, payload, err => {
+                logger.error(err);
+            });
         }
     };
 
@@ -498,7 +500,7 @@ const startMqttLogging = async () => {
             logger.error(err);
         });
 
-        client.on('connect', () => {
+        client.once('connect', () => {
             const hsc = new HeaderSetConsolidator({
                 interval: config.mqttInterval,
             });
