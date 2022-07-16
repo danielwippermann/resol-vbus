@@ -53,9 +53,14 @@ const generateJsonData = async function() {
     const packetFields = spec.getPacketFieldsForHeaders(headerSet.getSortedHeaders());
 
     const data = packetFields.map((pf) => {
+        let name = pf.name;
+        if (config.packetFieldNameMap && config.packetFieldNameMap [pf.id]) {
+            name = config.packetFieldNameMap [pf.id];
+        }
+
         return {
             id: pf.id,
-            name: pf.name,
+            name,
             rawValue: pf.rawValue,
         };
     });

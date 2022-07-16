@@ -47,6 +47,13 @@ const config = {
         password: 'vbus',
     },
 
+    /**
+     * A map of packet field IDs to their custom name.
+     */
+    packetFieldNameMap: {
+        '00_0010_7E11_10_0100_000_2_0': 'Temperature collector',  // instead of "Temperater sensor 1"
+    },
+
 };
 
 
