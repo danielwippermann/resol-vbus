@@ -10,56 +10,15 @@ const vbus = require('../..');
 
 
 
-const extend = vbus.extend;
+class BaseModel {
+
+}
 
 
-
-const models = {};
-
-
-
-const BaseModel = extend(null, {
-
-}, {
-
-    extend(protoProps, staticProps) {
-        const result = extend(this, protoProps, staticProps);
-        result.prototype.constructor = result;
-        return result;
-    },
-
-});
-
-
-
-models.MenuSystemModel = BaseModel.extend({
-
-    languages: null,
-
-    translationGroups: null,
-
-    strings: null,
-
-    types: null,
-
-    values: null,
-
-    constraints: null,
-
-    presets: null,
-
-    masks: null,
-
-    linesTemplates: null,
-
-    menus: null,
-
-    implHeaders: null,
-
-    implInitializers: null,
+class MenuSystemModel extends BaseModel {
 
     constructor() {
-        BaseModel.apply(this, arguments);
+        super();
 
         this.languages = [];
         this.translationGroups = [];
@@ -73,163 +32,122 @@ models.MenuSystemModel = BaseModel.extend({
         this.menus = [];
         this.implHeaders = [];
         this.implInitializers = [];
-    },
+    }
 
-});
-
-
-
-models.TextModel = BaseModel.extend({
-
-    lang: null,
-
-    text: null,
-
-});
+}
 
 
-
-models.LanguageModel = BaseModel.extend({
-
-    id: null,
-
-    texts: null,
+class TextModel extends BaseModel {
 
     constructor() {
-        BaseModel.apply(this, arguments);
+        super();
 
+        this.lang = null;
+        this.text = null;
+    }
+
+}
+
+
+
+class LanguageModel extends BaseModel {
+
+    constructor() {
+        super();
+
+        this.id = null;
         this.texts = [];
-    },
+    }
 
-});
+}
 
 
-
-models.TranslationGroupModel = BaseModel.extend({
-
-    from: null,
-
-    to: null,
-
-    translations: null,
+class TranslationGroupModel extends BaseModel {
 
     constructor() {
-        BaseModel.apply(this, arguments);
+        super();
 
+        this.from = null;
+        this.to = null;
         this.translations = [];
-    },
+    }
 
-});
+}
 
 
-
-models.TranslationModel = BaseModel.extend({
-
-    texts: null,
+class TranslationModel extends BaseModel {
 
     constructor() {
-        BaseModel.apply(this, arguments);
+        super();
 
         this.texts = [];
-    },
+    }
 
-});
+}
 
 
-
-models.StringModel = BaseModel.extend({
-
-    id: null,
-
-    texts: null,
+class StringModel extends BaseModel {
 
     constructor() {
-        BaseModel.apply(this, arguments);
+        super();
 
+        this.id = null;
         this.texts = [];
-    },
+    }
 
-});
-
-
-
-models.TypeValueModel = BaseModel.extend({
-
-    id: null,
-
-    value: null,
-
-});
+}
 
 
-
-models.TypeQuantValueModel = models.TypeValueModel.extend({
-
-    step: 0,
-
-    roundtrip: false,
-
-});
-
-
-
-models.TypeValueTextModel = BaseModel.extend({
-
-    value: null,
-
-    texts: null,
+class TypeValueModel extends BaseModel {
 
     constructor() {
-        BaseModel.apply(this, arguments);
+        super();
 
+        this.id = null;
+        this.value = null;
+    }
+
+}
+
+
+
+class TypeQuantValueModel extends TypeValueModel {
+
+    constructor() {
+        super();
+
+        this.step = 0;
+        this.roundtrip = false;
+    }
+
+}
+
+
+class TypeValueTextModel extends BaseModel {
+
+    constructor() {
+        super();
+
+        this.value = null;
         this.texts = [];
-    },
+    }
 
-});
+}
 
 
-
-models.TypeModel = BaseModel.extend({
-
-    id: null,
-
-    base: null,
-
-    isBuiltIn: false,
-
-    size: 0,
-
-    externalDescriptorFunc: false,
-
-    externalDisplayFunc: false,
-
-    bitSize: 0,
-
-    roundtrip: false,
-
-    storeFactors: null,
-
-    displayFactors: null,
-
-    minimums: null,
-
-    maximums: null,
-
-    defaults: null,
-
-    quants: null,
-
-    valueTexts: null,
-
-    unit: null,
-
-    selectorValueRef: null,
-
-    instance: null,
+class TypeModel extends BaseModel {
 
     constructor() {
-        BaseModel.apply(this, arguments);
+        super();
 
+        this.id = null;
+        this.base = null;
+        this.isBuiltIn = false;
+        this.size = 0;
+        this.externalDescriptorFunc = false;
+        this.externalDisplayFunc = false;
+        this.bitSize = 0;
+        this.roundtrip = false;
         this.storeFactors = [];
         this.displayFactors = [];
         this.minimums = [];
@@ -237,126 +155,117 @@ models.TypeModel = BaseModel.extend({
         this.defaults = [];
         this.quants = [];
         this.valueTexts = [];
-    },
+        this.unit = null;
+        this.selectorValueRef = null;
+        this.instance = null;
+    }
 
-});
+}
 
 
-
-models.ValueModel = BaseModel.extend({
-
-    id: null,
-
-    idHash: 0,
-
-    index: 0,
-
-    storage: null,
-
-    type: null,
-
-    priority: 0,
-
-    structValueRef: null,
-
-    forceUse: false,
-
-    compoundValueRef: null,
-
-    valueTexts: null,
-
-    externalDescriptorFunc: false,
-
-    enableValueRef: null,
+class ValueModel extends BaseModel {
 
     constructor() {
-        BaseModel.apply(this, arguments);
+        super();
 
+        this.id = null;
+        this.idHash = 0;
+        this.index = 0;
+        this.storage = null;
         this.type = new models.TypeModel();
+        this.priority = 0;
+        this.structValueRef = null;
+        this.forceUse = false;
+        this.compoundValueRef = null;
         this.valueTexts = [];
-    },
+        this.externalDescriptorFunc = false;
+        this.enableValueRef = null;
+    }
 
-});
-
-
-
-models.ConstraintModel = BaseModel.extend({
-
-    condition: null,
-
-});
+}
 
 
-
-models.MaskModel = BaseModel.extend({
-
-    id: null,
-
-    visible: null,
-
-    handler: null,
-
-    decoration: null,
-
-    level: null,
-
-    indent: null,
-
-});
-
-
-
-models.LineModel = BaseModel.extend({
-
-    id: null,
-
-    texts: null,
-
-    textRef: null,
-
-    lineRef: null,
-
-    extraRef: null,
-
-    mask: null,
-
-    maskVal: null,
+class ConstraintModel extends BaseModel {
 
     constructor() {
-        BaseModel.apply(this, arguments);
+        super();
 
+        this.condition = null;
+    }
+
+}
+
+
+class MaskModel extends BaseModel {
+
+    constructor() {
+        super();
+
+        this.id = null;
+        this.visible = null;
+        this.handler = null;
+        this.decoration = null;
+        this.level = null;
+        this.indent = null;
+    }
+
+}
+
+
+class LineModel extends BaseModel {
+
+    constructor() {
+        super();
+
+        this.id = null;
         this.texts = [];
-    },
+        this.textRef = null;
+        this.lineRef = null;
+        this.extraRef = null;
+        this.mask = null;
+        this.maskVal = null;
+    }
 
-});
+}
 
 
-
-models.MenuModel = BaseModel.extend({
-
-    id: null,
-
-    type: null,
-
-    lines: null,
-
-    isBuiltIn: false,
+class MenuModel extends BaseModel {
 
     constructor() {
-        BaseModel.apply(this, arguments);
+        super();
 
+        this.id = null;
+        this.type = null;
         this.lines = [];
-    },
+        this.isBuiltIn = false;
+    }
 
-});
+}
 
 
+const models = {
+    MenuSystemModel,
+    TextModel,
+    LanguageModel,
+    TranslationGroupModel,
+    TranslationModel,
+    StringModel,
+    TypeValueModel,
+    TypeQuantValueModel,
+    TypeValueTextModel,
+    TypeModel,
+    ValueModel,
+    ConstraintModel,
+    MaskModel,
+    LineModel,
+    MenuModel,
+};
 
-_.forEach(models, (Model, modelName) => {
+for (const modelName of Object.getOwnPropertyNames(models)) {
+    const Model = models [modelName];
     Model.modelName = modelName;
     Model.prototype.modelName = modelName;
-});
-
+}
 
 
 module.exports = models;

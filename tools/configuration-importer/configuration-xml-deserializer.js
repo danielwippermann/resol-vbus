@@ -12,7 +12,7 @@ const XmlDeserializer = require('./xml-deserializer');
 
 
 
-const ConfigurationXmlDeserializer = XmlDeserializer.extend({
+class ConfigurationXmlDeserializer extends XmlDeserializer {
 
     _deserializeText(parent, model) {
         this._filterProperties(parent, function(key, child) {
@@ -30,7 +30,7 @@ const ConfigurationXmlDeserializer = XmlDeserializer.extend({
         });
 
         return model;
-    },
+    }
 
     _deserializeLanguage(parent, model) {
         this._filterProperties(parent, function(key, child) {
@@ -51,7 +51,7 @@ const ConfigurationXmlDeserializer = XmlDeserializer.extend({
         });
 
         return model;
-    },
+    }
 
     _deserializeTranslationGroup(parent, model) {
         this._filterProperties(parent, function(key, child) {
@@ -72,7 +72,7 @@ const ConfigurationXmlDeserializer = XmlDeserializer.extend({
         });
 
         return model;
-    },
+    }
 
     _deserializeTranslation(parent, model) {
         this._filterProperties(parent, function(key, child) {
@@ -87,7 +87,7 @@ const ConfigurationXmlDeserializer = XmlDeserializer.extend({
         });
 
         return model;
-    },
+    }
 
     _deserializeString(parent, model) {
         this._filterProperties(parent, function(key, child) {
@@ -105,7 +105,7 @@ const ConfigurationXmlDeserializer = XmlDeserializer.extend({
         });
 
         return model;
-    },
+    }
 
     _deserializeTypeValue(parent, model) {
         this._filterProperties(parent, function(key, child) {
@@ -123,7 +123,7 @@ const ConfigurationXmlDeserializer = XmlDeserializer.extend({
         });
 
         return model;
-    },
+    }
 
     _deserializeTypeQuantValue(parent, model) {
         this._filterProperties(parent, function(key, child) {
@@ -147,7 +147,7 @@ const ConfigurationXmlDeserializer = XmlDeserializer.extend({
         });
 
         return model;
-    },
+    }
 
     _deserializeTypeValueText(parent, model) {
         this._filterProperties(parent, function(key, child) {
@@ -168,7 +168,7 @@ const ConfigurationXmlDeserializer = XmlDeserializer.extend({
         });
 
         return model;
-    },
+    }
 
     _deserializeType(parent, model) {
         this._filterProperties(parent, function(key, child) {
@@ -237,7 +237,7 @@ const ConfigurationXmlDeserializer = XmlDeserializer.extend({
         });
 
         return model;
-    },
+    }
 
     _deserializeValue(parent, model) {
         this._filterProperties(parent, function(key, child) {
@@ -288,7 +288,7 @@ const ConfigurationXmlDeserializer = XmlDeserializer.extend({
         });
 
         return model;
-    },
+    }
 
     _deserializeConstraint(parent, model) {
         this._filterProperties(parent, function(key, child) {
@@ -315,7 +315,7 @@ const ConfigurationXmlDeserializer = XmlDeserializer.extend({
         });
 
         return model;
-    },
+    }
 
     _deserializeMask(parent, model) {
         this._filterProperties(parent, function(key, child) {
@@ -345,7 +345,7 @@ const ConfigurationXmlDeserializer = XmlDeserializer.extend({
         });
 
         return model;
-    },
+    }
 
     _deserializeLine(parent, model) {
         this._filterProperties(parent, function(key, child) {
@@ -399,7 +399,7 @@ const ConfigurationXmlDeserializer = XmlDeserializer.extend({
         });
 
         return model;
-    },
+    }
 
     _deserializeMenu(parent, model) {
         this._filterProperties(parent, function(key, child) {
@@ -423,7 +423,7 @@ const ConfigurationXmlDeserializer = XmlDeserializer.extend({
         });
 
         return model;
-    },
+    }
 
     _deserializeMenuSystem(parent, model) {
         this._filterProperties(parent, function(key, child) {
@@ -489,14 +489,14 @@ const ConfigurationXmlDeserializer = XmlDeserializer.extend({
         });
 
         return model;
-    },
+    }
 
     deserializeMenuSystem(root, model) {
         if (model === undefined) {
             model = new models.MenuSystemModel();
         }
         return this._deserializeMenuSystem(root.menuSystem, model);
-    },
+    }
 
     _reportUnexpectedProperty(parent, key) {
         if (key !== null) {
@@ -512,10 +512,9 @@ const ConfigurationXmlDeserializer = XmlDeserializer.extend({
 
             }
         }
-    },
+    }
 
-});
-
+}
 
 
 module.exports = ConfigurationXmlDeserializer;

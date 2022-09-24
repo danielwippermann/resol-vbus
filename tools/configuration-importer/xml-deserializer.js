@@ -10,29 +10,23 @@ const vbus = require('../..');
 
 
 
-const extend = vbus.extend;
-
-
-
-const XmlDeserializer = extend(null, {
-
-    stack: null,
+class XmlDeserializer {
 
     constructor() {
         this.stack = [];
-    },
+    }
 
     _getStringValue(child) {
         return child;
-    },
+    }
 
     _getIntegerValue(child) {
         return _.parseInt(child.trim());
-    },
+    }
 
     _getNumberValue(child) {
         return +child.replace(/,/g, '.');
-    },
+    }
 
     _getBooleanValue(child) {
         if ((child === 'true') || (child === '1')) {
@@ -42,7 +36,7 @@ const XmlDeserializer = extend(null, {
         } else {
             throw new Error('Unexpected boolean value ' + JSON.stringify(child));
         }
-    },
+    }
 
     _filterProperties(parent, iterator) {
         const _this = this;
@@ -89,16 +83,15 @@ const XmlDeserializer = extend(null, {
         } else {
             throw new Error('Unexpected parent ' + JSON.stringify(parent));
         }
-    },
+    }
 
     _reportUnexpectedProperty(parent, key) {
         if (key !== null) {
             throw new Error('Unexpected property ' + JSON.stringify(key));
         }
-    },
+    }
 
-});
-
+}
 
 
 module.exports = XmlDeserializer;

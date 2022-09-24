@@ -33,32 +33,14 @@ To add `Customizer` support for a new controller you need to follow these steps.
 Simply extract (or install) the RPT installer to get access to the `<product>-Menu.xml` of the controller you want to add. Copy that file over to the `.../resol-vbus/tools/configuration-importer/rpt-files` directory you created above.
 
 
-### Modify the importer tool
+### Run the converter tool
 
-Inside the `main` function of the `.../resol-vbus/tools/configuration-importer/index.js` you find a sequence of commands that basically look like this:
-
-
-	// ...
-    }).then(function() {
-        return convertMenuXmlFile('<controller>-Menu.xml', '<vendor>-<controller>-<version>-data.js', function(menuSystem) {
-            return menuSystem;
-        });
-    // ...
-
-A call to the `convertMenuXmlFile` function converts a single RPT XML file to a JavaScript data source file. The function assumes that the XML file is located under `.../resol-vbus/tools/configuration-importer/rpt-files` and it stores the JavaScript data source file under `.../resol-vbus/src/configuration-optimizers`.
-
-Just comment out all the controllers you do not want to create a new data file for and then add a block describing your new controller.
-
-
-### Run the tool
-
-After copying the RPT XML file and modifying the `index.js` simply run the tool:
+After copying the RPT XML file simply run the tool:
 
 	$ cd .../resol-vbus/tools/configuration-importer
-	$ node index.js
-	.../resol-vbus/src/configuration-optimizers/resol-deltasol-bs4v2-103-data.js
+	$ node index.js <XML input filename> <JS output filename>
 
-The tool outputs the file name of the created JavaScript source.
+After successful conversion the tool will print the absolute path to the generated JavaScript file, which it stores under `.../resol-vbus/src/configuration-optimizers` by default.
 
 
 ### Write a configuration optimizer

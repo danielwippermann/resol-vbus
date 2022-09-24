@@ -196,8 +196,8 @@ const removeNamedValues = function(menuSystem, valueIds) {
 
 
 const convertMenuXmlFile = async function(inputFilename, outputFilename, convert) {
-    inputFilename = path.join(__dirname, 'rpt-files', inputFilename);
-    outputFilename = path.join(__dirname, '../../src/configuration-optimizers', outputFilename);
+    inputFilename = path.resolve(__dirname, 'rpt-files', inputFilename);
+    outputFilename = path.resolve(__dirname, '../../src/configuration-optimizers', outputFilename);
 
     console.log(outputFilename);
 
@@ -252,72 +252,7 @@ const convertMenuXmlFile = async function(inputFilename, outputFilename, convert
 };
 
 
-const main = async function() {
-    //     return convertMenuXmlFile('BS4-Menu.xml', 'resol-deltasol-bs4v2-xxx-data.js', function(menuSystem) {
-    //         return menuSystem;
-    //     });
-    // }).then(function() {
-    //     return convertMenuXmlFile('BXPlus-Menu.xml', 'resol-deltasol-bx-plus-xxx-data.js', function(menuSystem) {
-    //         return menuSystem;
-    //     });
-    // }).then(function() {
-    //     return convertMenuXmlFile('CSPlus-Menu.xml', 'resol-deltasol-cs-plus-110-data.js', function(menuSystem) {
-    //         menuSystem = removeNamedValues(menuSystem, [
-    //             /^S[0-9]+(_C|_F)?$/,
-    //             /^Emv_DDS_Temperatur(_C|_F)?$/,
-    //             /^Save$/,
-    //             /^UnitSensor$/,
-    //             /^Variantenummer$/,
-    //             /^Wmz1_TemperatureSensor[12](_C|_F)?$/,
-    //         ]);
-    //         return menuSystem;
-    //     });
-    // }).then(function() {
-    //     return convertMenuXmlFile('MX-112-Menu.xml', 'resol-deltasol-mx-112-data.js', function(menuSystem) {
-    //         return menuSystem;
-    //     });
-    // }).then(function() {
-    //     return convertMenuXmlFile('HC-Menu.xml', 'resol-deltatherm-hc-xxx-data.js', function(menuSystem) {
-    //         return menuSystem;
-    //     });
-
-
-    // ==== CURRENTLY NOT SUPPORTED CONTROLLERS BELOW ====
-
-    // }).then(function() {
-    //     return convertMenuXmlFile('BS2-Menu.xml', 'resol-deltasol-bs2v2-xxx-data.js', function(menuSystem) {
-    //         return menuSystem;
-    //     });
-    // }).then(function() {
-    //     return convertMenuXmlFile('BSPlus-Menu.xml', 'resol-deltasol-bsplusv2-xxx-data.js', function(menuSystem) {
-    //         return menuSystem;
-    //     });
-    // }).then(function() {
-    //     return convertMenuXmlFile('BX-Menu.xml', 'resol-deltasol-bx-xxx-data.js', function(menuSystem) {
-    //         return menuSystem;
-    //     });
-    // }).then(function() {
-    //     return convertMenuXmlFile('MX-Menu.xml', 'resol-deltasol-mx-xxx-data.js', function(menuSystem) {
-    //         return menuSystem;
-    //     });
-    // }).then(function() {
-    //     return convertMenuXmlFile('BS4-103-Menu.xml', 'resol-deltasol-bs4v2-103-data.js', function(menuSystem) {
-    //         return menuSystem;
-    //     });
-    // }).then(function() {
-    //     return convertMenuXmlFile('SL-Menu.xml', 'resol-deltasol-sl-xxx-data.js', function(menuSystem) {
-    //         return menuSystem;
-    //     });
-    // }).then(function() {
-    //     return convertMenuXmlFile('HCMini-100-Menu.xml', 'resol-deltatherm-hc-mini-100-data.js', function(menuSystem) {
-    //         return menuSystem;
-    //     });
-    // }).then(function() {
-    //     return convertMenuXmlFile('E-Menu.xml', 'resol-deltasol-e-xxx-data.js', function(menuSystem) {
-    //         return menuSystem;
-    //     });
-
-
+async function main() {
     const inputFilename = process.argv [2];
     const outputFilename = process.argv [3];
     const filterFilename = process.argv [4];
@@ -333,8 +268,7 @@ const main = async function() {
 
         await convertMenuXmlFile(inputFilename, outputFilename, filter);
     }
-};
-
+}
 
 
 if (require.main === module) {
