@@ -108,7 +108,9 @@ describe('ResolDeltaSolMx112ConfigurationOptimizer', () => {
         optimizeWmzConfiguration: Function,
     }, {
         deviceAddress: 0x7E11,
+        deviceMajorVersion: 1,
         configurationData: jestExpect.any(Object),
+        matchOptimizer: Function,
     });
 
 });

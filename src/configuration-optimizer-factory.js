@@ -37,6 +37,9 @@ const optimizerClasses = [
     // DeltaSol MX
     require('./configuration-optimizers/resol-deltasol-mx-112-configuration-optimizer'),
 
+    // DeltaSol MX
+    require('./configuration-optimizers/resol-deltasol-mx-2xx-configuration-optimizer'),
+
     // DeltaSol SLT
     require('./configuration-optimizers/resol-deltasol-slt-102-configuration-optimizer'),
 

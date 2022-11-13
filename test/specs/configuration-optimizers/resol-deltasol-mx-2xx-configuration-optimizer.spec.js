@@ -13,14 +13,17 @@ const jestExpect = global.expect;
 const expect = require('../expect');
 const _ = require('../lodash');
 const testUtils = require('../test-utils');
-const ResolDeltaSolMx2xxConfigurationOptimizer = require('../../../src/configuration-optimizers/resol-deltasol-mx-112-configuration-optimizer');
+const ResolDeltaSolMx2xxConfigurationOptimizer = require('../../../src/configuration-optimizers/resol-deltasol-mx-2xx-configuration-optimizer');
 
 
 const { wrapAsPromise } = testUtils;
 
 
 
-const optimizerPromise = ConfigurationOptimizerFactory.createOptimizerByDeviceAddress(0x7E11);
+const optimizerPromise = ConfigurationOptimizerFactory.createOptimizer({
+    deviceAddress: 0x7E11,
+    deviceMajorVersion: 2,
+});
 
 
 
@@ -111,7 +114,9 @@ describe('ResolDeltaSolMx2xxConfigurationOptimizer', () => {
         optimizeWsuConfiguration: Function,
     }, {
         deviceAddress: 0x7E11,
+        deviceMajorVersion: 2,
         configurationData: jestExpect.any(Object),
+        matchOptimizer: Function,
     });
 
 });

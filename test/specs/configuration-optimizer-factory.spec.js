@@ -36,7 +36,7 @@ describe('ConfigurationOptimizerFactory', () => {
 
                         const address = OptimizerClass.deviceAddress;
                         if (address !== null) {
-                            const addressKey = address.toString(16);
+                            const addressKey = address.toString(16) + '/' + OptimizerClass.deviceMajorVersion;
 
                             wrapAsPromise(() => {
                                 expect(address).a('number').above(0);

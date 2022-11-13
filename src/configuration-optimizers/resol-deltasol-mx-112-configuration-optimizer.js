@@ -200,12 +200,31 @@ class ResolDeltaSolMx112ConfigurationOptimizer extends BaseConfigurationOptimize
         });
     }
 
+    static async matchOptimizer(options) {
+        let match;
+
+        if (options.deviceAddress !== 0x7E11) {
+            match = 0;
+        } else if (options.deviceMajorVersion === 2) {
+            match = 0.5;
+        } else {
+            match = 1;
+        }
+
+        return {
+            match,
+            Optimizer: this,
+            options: null,
+        };
+    }
 }
 
 
 Object.assign(ResolDeltaSolMx112ConfigurationOptimizer, /** @lends ResolDeltaSolMx112ConfigurationOptimizer */ {
 
     deviceAddress: 0x7E11,
+
+    deviceMajorVersion: 1,
 
     configurationData,
 

@@ -253,6 +253,7 @@ describe('TCP Data Source Provider', () => {
     }, {
         discoverDevices: Function,
         sendBroadcast: Function,
+        sendBroadcastIPv6: Function,
         fetchDeviceInformation: Function,
         parseDeviceInformation: Function,
     });
