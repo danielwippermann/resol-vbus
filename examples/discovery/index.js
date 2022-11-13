@@ -23,8 +23,8 @@ const fetchCallback = async (address) => {
             // console.log('QUERY SUCCESS: ', address);
             return result;
         }, (reason) => {
-            // console.log('QUERY FAILED: ', address);
-            throw reason;
+            console.log('QUERY FAILED: ', address);
+            return {};
         });
     }
     return result;
@@ -33,7 +33,8 @@ const fetchCallback = async (address) => {
 
 const discover = async () => {
     const devices = await TcpDataSourceProvider.discoverDevices({
-        broadcastAddress: '255.255.255.255',
+        // ipv6: true,
+        // broadcastInterface: 'en0',
         broadcastPort: 7053,
         tries: 3,
         timeout: 500,

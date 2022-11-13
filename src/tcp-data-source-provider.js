@@ -73,7 +73,12 @@ class TcpDataSourceProvider extends DataSourceProvider {
      * @returns {Promise} A Promise that resolves to an array of device information objects.
      */
     static async discoverDevices(options) {
-        const promises = await TcpDataSourceProvider.sendBroadcast(options);
+        let promises;
+        if (options && options.ipv6) {
+            promises = await TcpDataSourceProvider.sendBroadcastIPv6(options);
+        } else {
+            promises = await TcpDataSourceProvider.sendBroadcast(options);
+        }
 
         const result = [];
         for (const promise of promises) {
@@ -84,6 +89,71 @@ class TcpDataSourceProvider extends DataSourceProvider {
                 // nop
             }
         }
+
+        return result;
+    }
+
+    static async sendBroadcastIPv6(options) {
+        options = {
+            broadcastInterface: null,
+            broadcastAddress: 'ff02::1',
+            broadcastPort: 7053,
+            tries: 3,
+            timeout: 500,
+            ...options,
+        };
+
+        if (options.fetchCallback === undefined) {
+            options.fetchCallback = function(address) {
+                return TcpDataSourceProvider.fetchDeviceInformation(address);
+            };
+        }
+
+        const bcastAddress = options.broadcastAddress;
+        const bcastPort = options.broadcastPort;
+
+        const queryString = '---RESOL-BROADCAST-QUERY---';
+        const replyString = '---RESOL-BROADCAST-REPLY---';
+
+        const socket = dgram.createSocket('udp6');
+
+        socket.on('error', (err) => {
+            socket.close();
+
+            console.log(err);
+        });
+
+        const addressList = [];
+
+        socket.on('message', (msg, rinfo) => {
+            if ((rinfo.family === 'IPv6') && (rinfo.port === bcastPort) && (msg.length >= replyString.length)) {
+                const msgString = msg.slice(0, replyString.length).toString();
+                if (msgString === replyString) {
+                    const { address } = rinfo;
+                    if (addressList.indexOf(address) < 0) {
+                        addressList.push(address);
+                    }
+                }
+            }
+        });
+
+        await promisify(cb => socket.bind(0, cb));
+
+        socket.setMulticastInterface('::%' + options.broadcastInterface);
+        socket.setBroadcast(true);
+
+        for (let tries = 0; tries < options.tries; tries++) {
+            const queryBuffer = Buffer.from(queryString);
+            socket.send(queryBuffer, 0, queryBuffer.length, bcastPort, bcastAddress);
+
+            await promisify(cb => setTimeout(cb, options.timeout));
+        }
+
+        socket.close();
+
+        const result = addressList.map(async (address) => {
+            return options.fetchCallback(address);
+        });
 
         return result;
     }
@@ -166,9 +236,11 @@ class TcpDataSourceProvider extends DataSourceProvider {
                     portSuffix = '';
                 }
 
-                const reqUrl = 'http://' + address + portSuffix + '/cgi-bin/get_resol_device_information';
-
-                const req = http.get(reqUrl, (res) => {
+                const req = http.get({
+                    hostname: address,
+                    port: port,
+                    path: '/cgi-bin/get_resol_device_information',
+                }, (res) => {
                     if (res.statusCode === 200) {
                         let buffer = Buffer.alloc(0);
 
