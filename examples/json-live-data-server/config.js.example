@@ -28,19 +28,28 @@ const config = {
     loggingFilename: path.resolve(__dirname, 'live-data.json'),
 
     /**
-     * The name of the `Connection` subclass to use for connecting to the VBus.
+     * Either 'TcpConnection' or 'SerialConnection' to connect to the VBus.
      * @type {String}
      */
     connectionClassName: 'TcpConnection',
 
     connectionOptions: {
         /**
+         * SerialConnection only:
+         * The serial port to which the Vbus/USB device is connected.
+         * @type {String}
+         */
+        path: '/dev/ttyACM0',
+        
+        /**
+         * TcpConnection only:
          * The host name / IP address of the VBus/LAN or Datalogger device.
          * @type {String}
          */
         host: '192.168.13.21',
 
         /**
+         * TcpConnection only:
          * The password for the VBus/LAN or Datalogger device.
          * @type {String}
          */
