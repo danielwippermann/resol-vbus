@@ -20,6 +20,20 @@ Starts up a simple web server
 
 You must edit the file `config.js` to adapt it to your environment. See the file for details.
 
+### Serial to json
+
+	...
+	 connectionClassName: 'SerialConnection',
+	 
+	 connectionOptions: {
+        /**
+         * The serial port to which the Vbus/USB device is connected. (commonly 'dev/ttyACM0')
+         * @type {String}
+         */
+        path: '<YOUR_SERIAL_PORT>',
+	
+    },
+
 
 ## Starting
 
@@ -27,6 +41,7 @@ You must edit the file `config.js` to adapt it to your environment. See the file
 	$ node index.js
 	info: Ready to serve from the following URLs:
 	info:     - http://127.0.0.1:3333/api/v1/live-data (internal)
+    
 
 ### Data Returned as JSON
 Accessing one of the listed URLs with a browser returns a simplified list of VBus value:
