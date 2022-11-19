@@ -1,6 +1,6 @@
 {
   "name": "vbustouch-proxy",
-  "version": "0.16.0",
+  "version": "0.26.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -9,10 +9,10 @@
   "author": "Daniel Wippermann <Daniel.Wippermann@gmail.com> (http://danielwippermann.github.io/)",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.17.2",
+    "express": "^4.18.2",
     "morgan": "^1.10.0",
-    "mqtt": "^4.3.4",
-    "qs": "^6.10.3",
-    "winston": "^3.5.0"
+    "mqtt": "^4.3.7",
+    "qs": "^6.11.0",
+    "winston": "^3.8.2"
   }
 }

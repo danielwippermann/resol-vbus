@@ -1,6 +1,6 @@
 {
   "name": "customizer",
-  "version": "0.16.0",
+  "version": "0.26.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -9,6 +9,6 @@
   "author": "Daniel Wippermann <Daniel.Wippermann@gmail.com> (http://danielwippermann.github.io/)",
   "license": "MIT",
   "dependencies": {
-    "minimist": "^1.2.5"
+    "minimist": "^1.2.7"
   }
 }
