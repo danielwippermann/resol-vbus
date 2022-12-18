@@ -122,9 +122,9 @@ following command into your shell:
 - [BREAKING CHANGE] Removed `Recorder`, `DLxRecorder` and `FileSystemRecorder`
     The `Recorder` style of interfaces was not well thought out and unreliable. This
     version removes it, with no replacement!
-- [BREAKING CHANGE] Removed most of `lodash`
+- [BREAKING CHANGE] Removed `lodash` dependency
     Although this removal was done with great caution and a lot of test coverage, there
-    might be side effects we have not though of.
+    might be side effects we have not thought of.
 
 
 ## Version 0.25.0 (2022-04-12)
