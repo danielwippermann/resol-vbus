@@ -44,10 +44,6 @@ const VBusRecordingConverter = require('./vbus-recording-converter');
 const TextConverter = require('./text-converter');
 const DLxJsonConverter = require('./dlx-json-converter');
 
-const Recorder = require('./recorder');
-const DLxRecorder = require('./dlx-recorder');
-const FileSystemRecorder = require('./filesystem-recorder');
-
 const ConfigurationOptimizer = require('./configuration-optimizer');
 const ConfigurationOptimizerFactory = require('./configuration-optimizer-factory');
 const BaseConfigurationOptimizer = require('./base-configuration-optimizer');
@@ -94,10 +90,6 @@ module.exports = {
     VBusRecordingConverter,
     TextConverter,
     DLxJsonConverter,
-
-    Recorder,
-    DLxRecorder,
-    FileSystemRecorder,
 
     ConfigurationOptimizer,
     ConfigurationOptimizerFactory,

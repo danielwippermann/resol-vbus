@@ -6,16 +6,7 @@
 const { sprintf } = require('sprintf-js');
 
 
-const _ = require('./lodash');
-
-
-
-const optionKeys = [
-    'timestamp',
-    'channel',
-    'destinationAddress',
-    'sourceAddress',
-];
+const { applyDefaultOptions } = require('./utils');
 
 
 
@@ -82,7 +73,37 @@ class Header {
      * @see Telegram
      */
     constructor(options) {
-        _.extend(this, _.pick(options, optionKeys));
+        applyDefaultOptions(this, options, /** @lends Header.prototype */ {
+
+            /**
+            * Timestamp of this header
+            * @type {Date}
+            * @default now
+            */
+            timestamp: null,
+
+            /**
+            * VBus channel of this header
+            * @type {number}
+            * @default 0
+            */
+            channel: 0,
+
+            /**
+            * VBus address of this header's destination
+            * @type {number}
+            * @default 0
+            */
+            destinationAddress: 0,
+
+            /**
+            * VBus address of this header's source
+            * @type {number}
+            * @default
+            */
+            sourceAddress: 0,
+
+        });
 
         this.minorVersion = (options && options.minorVersion) || 0;
 
@@ -260,7 +281,7 @@ class Header {
         } else if (minorVersion === 0x01) {
             crc = this.calcChecksumV1(buffer, start, end);
         } else {
-            throw new Error(`Unexpected minor version`);
+            throw new Error(`Unexpected minor version ${minorVersion}`);
         }
         return crc;
     }

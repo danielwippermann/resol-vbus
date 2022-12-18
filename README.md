@@ -117,6 +117,16 @@ following command into your shell:
 ## Work in progress
 
 
+## Version 0.26.0 (2022-12-xx)
+
+- [BREAKING CHANGE] Removed `Recorder`, `DLxRecorder` and `FileSystemRecorder`
+    The `Recorder` style of interfaces was not well thought out and unreliable. This
+    version removes it, with no replacement!
+- [BREAKING CHANGE] Removed most of `lodash`
+    Although this removal was done with great caution and a lot of test coverage, there
+    might be side effects we have not though of.
+
+
 ## Version 0.25.0 (2022-04-12)
 
 - Update several dependencies to fix security issues.

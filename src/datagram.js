@@ -7,15 +7,7 @@ const { sprintf } = require('sprintf-js');
 
 
 const Header = require('./header');
-const _ = require('./lodash');
-
-
-
-const optionKeys = [
-    'command',
-    'valueId',
-    'value',
-];
+const { applyDefaultOptions } = require('./utils');
 
 
 
@@ -40,7 +32,27 @@ class Datagram extends Header {
     constructor(options) {
         super(options);
 
-        _.extend(this, _.pick(options, optionKeys));
+        applyDefaultOptions(this, options, /** @lends Datagram.prototype */ {
+
+            /**
+            * The command field of this VBus datagram. See the VBus Protocol Specification for details.
+            * @type {number}
+            */
+            command: 0,
+
+            /**
+            * The value ID field of this VBus datagram.
+            * @type {number}
+            */
+            valueId: 0,
+
+            /**
+            * The value field of this VBus datagram.
+            * @type {number}
+            */
+            value: 0,
+
+        });
     }
 
     toLiveBuffer(origBuffer, start, end) {

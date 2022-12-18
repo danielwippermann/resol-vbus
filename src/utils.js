@@ -103,6 +103,33 @@ const utils = {
         return ((obj != null) && (typeof obj === 'object') && (typeof obj.then === 'function'));
     },
 
+    hasOwnProperty(obj, key) {
+        return (obj != null) && Object.prototype.hasOwnProperty.call(obj, key);
+    },
+
+    applyDefaultOptions(obj, options, defaults) {
+        for (const key of Object.getOwnPropertyNames(defaults)) {
+            if (options && (options [key] !== undefined)) {
+                obj [key] = options [key];
+            } else {
+                obj [key] = defaults [key];
+            }
+        }
+        return obj;
+    },
+
+    isNumber(value) {
+        return (typeof value === 'number');
+    },
+
+    isObject(value) {
+        return ((value != null) && (typeof value === 'object') && !Array.isArray(value));
+    },
+
+    isString(value) {
+        return (typeof value === 'string');
+    },
+
 };
 
 

@@ -12,7 +12,6 @@ const {
 
 const jestExpect = global.expect;
 const expect = require('./expect');
-const _ = require('./lodash');
 const {
     expectPromiseToReject,
     itShouldWorkCorrectlyAfterMigratingToClass,
@@ -67,9 +66,9 @@ const testConnection = async function(callback) {
         connection.disconnect();
         endpoint.stop();
 
-        _.forEach(infos, (info) => {
+        for (const info of infos) {
             info.socket.end();
-        });
+        }
 
         if (onEpiConnection) {
             endpoint.removeListener('connection', onEpiConnection);
@@ -143,7 +142,7 @@ describe('TcpConnection', () => {
                     channel: 9,
                 };
 
-                _.extend(connection, options);
+                Object.assign(connection, options);
 
                 connection.on('connectionState', onConnectionState);
 
@@ -180,7 +179,7 @@ describe('TcpConnection', () => {
                     }),
                 };
 
-                _.extend(connection, options);
+                Object.assign(connection, options);
 
                 connection.on('connectionState', onConnectionState);
 
@@ -221,7 +220,7 @@ describe('TcpConnection', () => {
                     }),
                 };
 
-                _.extend(connection, options);
+                Object.assign(connection, options);
 
                 connection.on('connectionState', onConnectionState);
 
@@ -260,7 +259,7 @@ describe('TcpConnection', () => {
                     }),
                 };
 
-                _.extend(connection, options);
+                Object.assign(connection, options);
 
                 connection.on('connectionState', onConnectionState);
 
@@ -299,7 +298,7 @@ describe('TcpConnection', () => {
                     }),
                 };
 
-                _.extend(connection, options);
+                Object.assign(connection, options);
 
                 connection.on('connectionState', onConnectionState);
 
@@ -338,7 +337,7 @@ describe('TcpConnection', () => {
                     }),
                 };
 
-                _.extend(connection, options);
+                Object.assign(connection, options);
 
                 connection.on('connectionState', onConnectionState);
 

@@ -8,7 +8,6 @@
 const configurationData = require('./resol-deltasol-mx-2xx-data');
 
 const BaseConfigurationOptimizer = require('../base-configuration-optimizer');
-const _ = require('../lodash');
 
 
 
@@ -53,12 +52,12 @@ class ResolDeltaSolMx2xxConfigurationOptimizer extends BaseConfigurationOptimize
         const hasMinKollektorCount = function (minCount) {
             return function(solarSystemId) {
                 return (((solarSystemId / 10000) % 10) >= minCount);
-            }
+            };
         };
         const hasMinSpeicherCount = function (minCount) {
             return function(solarSystemId) {
                 return (((solarSystemId / 100) % 10) >= minCount);
-            }
+            };
         };
 
         value.check(hasMinKollektorCount(1), () => {
@@ -114,11 +113,11 @@ class ResolDeltaSolMx2xxConfigurationOptimizer extends BaseConfigurationOptimize
                 'Volumenstromueberwachung',
             ];
 
-            _.forEach(wfTypes, (wfType) => {
+            for (const wfType of wfTypes) {
                 value.notEql('#' + wfType, () => {
                     $(prefix + wfType + '_.*').ignore();
                 });
-            });
+            }
         });
     }
 
@@ -146,11 +145,11 @@ class ResolDeltaSolMx2xxConfigurationOptimizer extends BaseConfigurationOptimize
                 'Strahlungsschalter',
             ];
 
-            _.forEach(wfTypes, (wfType) => {
+            for (const wfType of wfTypes) {
                 value.notEql('#' + wfType, () => {
                     $(prefix + wfType + '_.*').ignore();
                 });
-            });
+            }
         });
     }
 
@@ -171,11 +170,11 @@ class ResolDeltaSolMx2xxConfigurationOptimizer extends BaseConfigurationOptimize
                 'ThBwErwaermung',
             ];
 
-            _.forEach(wfTypes, (wfType) => {
+            for (const wfType of wfTypes) {
                 value.notEql('#' + wfType, () => {
                     $(prefix + wfType + '_.*').ignore();
                 });
-            });
+            }
         });
     }
 

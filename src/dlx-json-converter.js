@@ -4,17 +4,10 @@
 
 
 const HeaderSet = require('./header-set');
-const _ = require('./lodash');
 const Specification = require('./specification');
+const { applyDefaultOptions } = require('./utils');
 
 const Converter = require('./converter');
-
-
-
-const optionKeys = [
-    'specification',
-    'statsOnly',
-];
 
 
 
@@ -40,7 +33,17 @@ class DLxJsonConverter extends Converter {
     constructor(options) {
         super(options);
 
-        _.extend(this, _.pick(options, optionKeys));
+        applyDefaultOptions(this, options, /** @lends DLxJsonConverter.prototype */ {
+
+            /**
+            * Reference to the Specification instance that is used for the binary -> text conversion.
+            * @type {Specification}
+            */
+            specification: null,
+
+            statsOnly: false,
+
+        });
 
         if (!this.specification) {
             this.specification = new Specification({
@@ -111,7 +114,7 @@ class DLxJsonConverter extends Converter {
 
         const allHeaders = this.allHeaderSet.getHeaders();
 
-        const packetInfoList = _.map(allHeaders, (header, headerIndex) => {
+        const packetInfoList = allHeaders.map((header, headerIndex) => {
             return {
                 header,
                 headerIndex,
@@ -119,20 +122,20 @@ class DLxJsonConverter extends Converter {
             };
         });
 
-        _.forEach(packetFields, (packetField) => {
+        for (const packetField of packetFields) {
             const headerIndex = allHeaders.indexOf(packetField.packet);
             if (headerIndex >= 0) {
                 const packetInfo = packetInfoList [headerIndex];
                 packetInfo.packetFields.push(packetField);
             }
-        });
+        }
 
         const noneUnit = spec.getUnitById('None');
         const numberType = spec.getTypeById('Number');
 
-        const packetData = _.reduce(packetInfoList, (memo, packetInfo) => {
+        const packetData = packetInfoList.reduce((memo, packetInfo) => {
             if (packetInfo.packetFields.length >= 0) {
-                const fieldData = _.map(packetInfo.packetFields, (packetField, packetFieldIndex) => {
+                const fieldData = packetInfo.packetFields.map((packetField, packetFieldIndex) => {
                     let { rawValue } = packetField;
                     const { precision } = packetField.packetFieldSpec.type;
                     const numberValue = spec.formatTextValueFromRawValueInternal(rawValue, noneUnit, numberType, precision, noneUnit);
@@ -187,7 +190,7 @@ class DLxJsonConverter extends Converter {
 
         const allPacketFields = spec.getPacketFieldsForHeaders(allHeaders);
 
-        const packetInfoList = _.map(allHeaders, (header, headerIndex) => {
+        const packetInfoList = allHeaders.map((header, headerIndex) => {
             return {
                 header,
                 headerIndex,
@@ -196,17 +199,17 @@ class DLxJsonConverter extends Converter {
             };
         });
 
-        _.forEach(allPacketFields, (packetField) => {
+        for (const packetField of allPacketFields) {
             const headerIndex = allHeaders.indexOf(packetField.packet);
             if (headerIndex >= 0) {
                 const packetInfo = packetInfoList [headerIndex];
                 packetInfo.packetFields.push(packetField);
             }
-        });
+        }
 
-        const headersData = _.reduce(packetInfoList, (memo, packetInfo, packetInfoIndex) => {
+        const headersData = packetInfoList.reduce((memo, packetInfo, packetInfoIndex) => {
             if (packetInfo.packetFields.length >= 0) {
-                const fieldsData = _.map(packetInfo.packetFields, (packetField, packetFieldIndex) => {
+                const fieldsData = packetInfo.packetFields.map((packetField, packetFieldIndex) => {
                     return {
                         id: packetField.packetFieldSpec.fieldId,
                         filteredId: packetField.packetFieldSpec.filteredPacketFieldId,

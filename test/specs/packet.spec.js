@@ -10,7 +10,6 @@ const {
 
 
 const expect = require('./expect');
-const _ = require('./lodash');
 
 const {
     itShouldWorkCorrectlyAfterMigratingToClass,
@@ -64,7 +63,8 @@ describe('Packet', () => {
 
             expect(packet).to.be.an('object');
 
-            _.forEach(options, (refValue, key) => {
+            for (const key of Object.getOwnPropertyNames(options)) {
+                let refValue = options [key];
                 let value = packet [key];
 
                 if ((value instanceof Buffer) && (refValue instanceof Buffer)) {
@@ -76,7 +76,7 @@ describe('Packet', () => {
                 }
 
                 expect(value).to.equal(refValue, key);
-            });
+            }
         });
     });
 
@@ -107,28 +107,6 @@ describe('Packet', () => {
             expect(buffer).to.be.an.instanceOf(Buffer);
             expect(buffer.length).to.equal(88);
             expect(buffer.toString('hex')).to.equal('aa362335331034430d2a0004080c00671014181c00272024282c00673034383c00274044484c00675054585c00276064686c00677074787c00270004080c0f581014181c0f182024282c0f583034383c0f184044484c0f58');
-
-            /*
-            var stats = connectionSpec.parseRawDataOnce(buffer);
-            expect(stats.rawDataCount).to.equal(buffer.length);
-            expect(stats.junkDataCount).to.equal(0);
-            expect(stats.packetCount).to.equal(1);
-            expect(stats.lastPacket).to.be.an.instanceOf(Packet);
-
-            _.forEach(options, function(optionsValue, key) {
-                var value = stats.lastPacket [key];
-                var refValue = packet [key];
-
-                if (value instanceof Buffer) {
-                    value = value.toString('hex');
-                }
-                if (refValue instanceof Buffer) {
-                    refValue = refValue.toString('hex');
-                }
-
-                expect(value).to.equal(refValue, key);
-            });
-            */
         });
 
         it('should work correctly with a buffer', () => {
@@ -207,7 +185,8 @@ describe('Packet', () => {
 
             expect(packet).to.be.an.instanceOf(Packet);
 
-            _.forEach(options, (refValue, key) => {
+            for (const key of Object.getOwnPropertyNames(options)) {
+                let refValue = options [key];
                 let value = packet [key];
 
                 if ((value instanceof Buffer) && (refValue instanceof Buffer)) {
@@ -216,7 +195,7 @@ describe('Packet', () => {
                 }
 
                 expect(value).to.equal(refValue, key);
-            });
+            }
         });
 
     });

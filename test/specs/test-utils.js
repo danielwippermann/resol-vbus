@@ -10,7 +10,6 @@ const {
 
 const jestExpect = global.expect;
 const expect = require('./expect');
-const _ = require('./lodash');
 
 
 
@@ -43,7 +42,7 @@ const testUtils = {
     expectRanges(ranges) {
         expect(ranges).a('array');
 
-        const comparableRanges = _.map(ranges, (range) => {
+        const comparableRanges = ranges.map((range) => {
             return {
                 minTimestamp: range.minTimestamp.toISOString(),
                 maxTimestamp: range.maxTimestamp.toISOString(),
@@ -123,6 +122,10 @@ const testUtils = {
 
     wrapAsPromise(fn) {
         return new Promise((resolve) => resolve(fn()));
+    },
+
+    expectOwnPropertyNamesToEqual(obj, expected) {
+        jestExpect(Object.getOwnPropertyNames(obj).sort()).toEqual(expected.slice(0).sort());
     },
 
 };

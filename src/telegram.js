@@ -7,13 +7,10 @@ const { sprintf } = require('sprintf-js');
 
 
 const Header = require('./header');
-const _ = require('./lodash');
-
-
-
-const optionKeys = [
-    'command',
-];
+const {
+    applyDefaultOptions,
+    hasOwnProperty,
+} = require('./utils');
 
 
 
@@ -29,15 +26,23 @@ class Telegram extends Header {
     constructor(options) {
         super(options);
 
-        _.extend(this, _.pick(options, optionKeys));
+        applyDefaultOptions(this, options, /** @lends Telegram.prototype */ {
 
-        if (_.has(options, 'frameData') && _.has(options, 'dontCopyFrameData') && options.dontCopyFrameData) {
+            /**
+            * The VBus command of this Telegram instance.
+            * @type {number}
+            */
+            command: 0,
+
+        });
+
+        if (hasOwnProperty(options, 'frameData') && hasOwnProperty(options, 'dontCopyFrameData') && options.dontCopyFrameData) {
             this.frameData = options.frameData;
         } else {
             this.frameData = Buffer.alloc(3 * 7);
             this.frameData.fill(0);
 
-            if (_.has(options, 'frameData')) {
+            if (hasOwnProperty(options, 'frameData')) {
                 const minLength = Math.min(this.frameData.length, options.frameData.length);
                 options.frameData.copy(this.frameData, 0, 0, minLength);
             }

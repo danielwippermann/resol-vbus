@@ -4,17 +4,9 @@
 
 
 const DataSource = require('./data-source');
-const _ = require('./lodash');
+const { applyDefaultOptions } = require('./utils');
 
 const TcpConnection = require('./tcp-connection');
-
-
-
-const optionKeys = [
-    'host',
-    'liveChannel',
-    'livePassword',
-];
 
 
 
@@ -29,24 +21,48 @@ class TcpDataSource extends DataSource {
     constructor(options) {
         super(options);
 
-        _.extend(this, _.pick(options, optionKeys));
+        applyDefaultOptions(this, options,  /** @lends TcpDataSource.prototype */ {
+
+            /**
+            * The host to connect to.
+            * @type {string}
+            */
+            host: null,
+
+            /**
+            * The port to connect to.
+            * @type {number}
+            */
+            port: 7053,
+
+            /**
+            * The channel to connect to live.
+            * @type {number}
+            */
+            liveChannel: 0,
+
+            /**
+            * The password to connect live.
+            * @type {string}
+            */
+            livePassword: 'vbus',
+
+        });
 
         this.options = options;
     }
 
     async connectLive(options) {
-        const defaultOptions = {
+        options = {
             host: this.host,
             port: this.port,
             viaTag: this.viaTag,
             password: this.livePassword,
             channel: this.liveChannel,
-        };
-
-        options = _.extend(defaultOptions, options, {
+            ...options,
             provider: this.provider,
             dataSource: this.id,
-        });
+        };
 
         const connection = new TcpConnection(options);
 

@@ -8,17 +8,14 @@ const { EventEmitter } = require('events');
 
 
 
-const _ = require('./lodash');
+const {
+    applyDefaultOptions,
+    hasOwnProperty,
+} = require('./utils');
 
 
 
-const idHashes = {};
-
-
-
-const optionKeys = [
-    'timestamp',
-];
+const idHashes = new Map();
 
 
 
@@ -38,19 +35,27 @@ class HeaderSet extends EventEmitter {
 
         this.headerList = [];
 
-        _.extend(this, _.pick(options, optionKeys));
+        applyDefaultOptions(this, options, /** @lends HeaderSet.prototype */ {
+
+            /**
+            * Timestamp of the youngest Header instance added to this set.
+            * @type {Date}
+            */
+            timestamp: null,
+
+        });
 
         if (!this.timestamp) {
             this.timestamp = new Date();
         }
 
-        if (_.has(options, 'headers')) {
+        if (hasOwnProperty(options, 'headers')) {
             this.addHeaders(options.headers);
         }
     }
 
     _findIndex(header) {
-        return _.findIndex(this.headerList, (refHeader) => {
+        return this.headerList.findIndex((refHeader) => {
             return (refHeader.compareTo(header) === 0);
         });
     }
@@ -99,11 +104,9 @@ class HeaderSet extends EventEmitter {
      * @param {Header[]} headers The list of Header instances to add.
      */
     addHeaders(headers) {
-        const _this = this;
-
-        _.forEach(headers, (header) => {
-            _this.addHeader(header);
-        });
+        for (const header of headers) {
+            this.addHeader(header);
+        }
     }
 
     _removeHeader(header) {
@@ -122,11 +125,9 @@ class HeaderSet extends EventEmitter {
     }
 
     _removeHeaders(headers) {
-        const _this = this;
-
-        _.forEach(headers, (header) => {
-            _this._removeHeader(header);
-        });
+        for (const header of headers) {
+            this._removeHeader(header);
+        }
     }
 
     /**
@@ -150,11 +151,11 @@ class HeaderSet extends EventEmitter {
         }
 
         const headers = [];
-        _.forEach(this.headerList, (header) => {
+        for (const header of this.headerList) {
             if (header.timestamp.getTime() < time) {
                 headers.push(header);
             }
-        });
+        }
 
         this._removeHeaders(headers);
     }
@@ -208,7 +209,7 @@ class HeaderSet extends EventEmitter {
     getId() {
         const sortedHeaders = this.getSortedHeaders();
 
-        const sortedIds = _.map(sortedHeaders, (header) => {
+        const sortedIds = sortedHeaders.map((header) => {
             return header.getId();
         });
 
@@ -225,15 +226,15 @@ class HeaderSet extends EventEmitter {
     getIdHash() {
         const id = this.getId();
 
-        if (!_.has(idHashes, id)) {
+        if (!idHashes.has(id)) {
             const shasum = crypto.createHash('sha256');
 
             shasum.update(id);
 
-            idHashes [id] = shasum.digest('hex');
+            idHashes.set(id, shasum.digest('hex'));
         }
 
-        return idHashes [id];
+        return idHashes.get(id);
     }
 
 }

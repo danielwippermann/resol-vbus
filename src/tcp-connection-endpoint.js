@@ -7,14 +7,7 @@ const { EventEmitter } = require('events');
 const net = require('net');
 
 
-const _ = require('./lodash');
-
-
-
-const optionKeys = [
-    'port',
-    'channels',
-];
+const { applyDefaultOptions } = require('./utils');
 
 
 
@@ -40,9 +33,23 @@ class TcpConnectionEndpoint extends EventEmitter {
     constructor(options) {
         super();
 
-        _.extend(this, _.pick(options, optionKeys));
+        applyDefaultOptions(this, options, /** @lends TcpConnectionEndpoint.prototype */ {
 
-        if (!_.has(this, 'channels')) {
+            /**
+            * The port number to listen on for incoming connections.
+            * @type {number}
+            */
+            port: 7053,
+
+            /**
+            * The list of channels to return if the CHANNELLIST command is received.
+            * @type {string[]}
+            */
+            channels: null,
+
+        });
+
+        if (this.channels == null) {
             this.channels = [ 'VBus' ];
         }
     }
@@ -146,7 +153,7 @@ class TcpConnectionEndpoint extends EventEmitter {
                         connectionInfo.password = md [1];
                         callback(null, '+OK');
                     } else if ((md = /^CHANNELLIST$/.exec(line))) {
-                        const response = _.reduce(_this.channels, (memo, channel, index) => {
+                        const response = _this.channels.reduce((memo, channel, index) => {
                             if (channel) {
                                 memo.push('*' + index + ':' + channel);
                             }

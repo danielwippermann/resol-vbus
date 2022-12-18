@@ -11,13 +11,7 @@ const { Duplex } = require('stream');
 
 const Header = require('./header');
 const HeaderSet = require('./header-set');
-const _ = require('./lodash');
-
-
-
-const optionKeys = [
-    'objectMode',
-];
+const { applyDefaultOptions } = require('./utils');
 
 
 
@@ -54,20 +48,18 @@ class Converter extends Duplex {
             objectMode: (options && options.objectMode) || false,
         });
 
-        const _this = this;
-
-        options = _.defaults({}, options);
-
-        _.extend(this, _.pick(options, optionKeys));
+        applyDefaultOptions(this, options, {
+            objectMode: false,
+        });
 
         this.finishedPromise = new Promise((resolve) => {
             // we have to add a data event handler to enable getting end event
             const onData = function() {};
 
-            _this.on('data', onData);
+            this.on('data', onData);
 
-            _this.once('end', () => {
-                _this.removeListener('data', onData);
+            this.once('end', () => {
+                this.removeListener('data', onData);
 
                 resolve();
             });

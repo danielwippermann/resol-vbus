@@ -4,7 +4,12 @@
 
 
 const ConfigurationOptimizer = require('./configuration-optimizer');
-const _ = require('./lodash');
+const {
+    isNumber,
+    isObject,
+    isString,
+    hasOwnProperty,
+} = require('./utils');
 
 
 
@@ -21,11 +26,11 @@ class ValuesWrapper {
             ({ values } = this);
         }
 
-        if (_.isString(pattern)) {
+        if (isString(pattern)) {
             pattern = new RegExp(pattern, 'i');
         }
 
-        const matchingValues = _.reduce(values, (memo, value) => {
+        const matchingValues = values.reduce((memo, value) => {
             if (pattern.test(value.valueId)) {
                 memo.push(value);
             }
@@ -104,20 +109,20 @@ class ValuesWrapper {
     in(refValues, callback) {
         return this._check(callback, (value, valueInfo) => {
             const normalizedRefValues = this._normalizeValues(refValues, valueInfo);
-            return _.includes(normalizedRefValues, value);
+            return normalizedRefValues.includes(value);
         });
     }
 
     notIn(refValues, callback) {
         return this._check(callback, (value, valueInfo) => {
             const normalizedRefValues = this._normalizeValues(refValues, valueInfo);
-            return !_.includes(normalizedRefValues, value);
+            return !normalizedRefValues.includes(value);
         });
     }
 
     isChanged(callback) {
         return this._check(callback, (value, valueInfo) => {
-            return (_.isNumber(value) && valueInfo.changed);
+            return (isNumber(value) && valueInfo.changed);
         }, {
             includeUndefined: false,
             includeFailed: false,
@@ -125,17 +130,17 @@ class ValuesWrapper {
     }
 
     ignore() {
-        _.forEach(this.values, (value) => {
+        for (const value of this.values) {
             value.ignored = true;
-        });
+        }
 
         return this;
     }
 
     invalidate() {
-        _.forEach(this.values, (value) => {
+        for (const value of this.values) {
             value.invalidated = true;
-        });
+        }
 
         return this;
     }
@@ -147,12 +152,13 @@ class ValuesWrapper {
     _check(action, checker, options) {
         const _this = this;
 
-        options = _.defaults({}, options, {
+        options = {
             includeUndefined: true,
             includeFailed: true,
-        });
+            ...options,
+        };
 
-        _.forEach(this.values, (value) => {
+        for (const value of this.values) {
             value.checked = true;
 
             let result;
@@ -177,13 +183,13 @@ class ValuesWrapper {
                     action.call(_this);
                 }
             }
-        });
+        }
 
         return this;
     }
 
     _normalizeValue(value, valueInfo) {
-        if (_.isString(value) && (value.charAt(0) === '#')) {
+        if (isString(value) && (value.charAt(0) === '#')) {
             const valueTextId = value.slice(1);
             const valueText = valueInfo.valueTextById [valueTextId];
             if (valueText !== undefined) {
@@ -197,7 +203,7 @@ class ValuesWrapper {
     _normalizeValues(values, valueInfo) {
         const _this = this;
 
-        values = _.map(values, (value) => {
+        values = values.map((value) => {
             return _this._normalizeValue(value, valueInfo);
         });
 
@@ -227,16 +233,14 @@ Object.assign(ValuesWrapper.prototype, /** @lends ValuesWrapper.prototype */ {
 
 class BaseConfigurationOptimizer extends ConfigurationOptimizer {
 
-    async completeConfiguration(config) {
+    async completeConfiguration(...configs) {
         const _this = this;
-
-        const args = _.toArray(arguments);
 
         const adjustableValues = _this._getAdjustableValues();
 
         let result;
-        if (!config) {
-            result = _.map(adjustableValues, (value) => {
+        if (!configs [0]) {
+            result = adjustableValues.map((value) => {
                 return {
                     valueId: value.id,
                     valueIndex: value.index,
@@ -244,56 +248,61 @@ class BaseConfigurationOptimizer extends ConfigurationOptimizer {
             });
         } else {
             const valueByIndex = {}, valueById = {}, valueByIdHash = {};
-            _.forEach(adjustableValues, (value) => {
+            for (const value of adjustableValues) {
                 valueByIndex [value.index] = value;
                 valueById [value.id] = value;
                 if (value.idHash) {
                     valueByIdHash [value.idHash] = value;
                 }
-            });
+            }
 
-            const configValuesById = {};
-
-            const mergeConfig = (config) => {
-                _.forEach(config, (value, key) => {
-                    if (_.isArray(config)) {
-                        // nop
-                    } else if (_.isObject(config)) {
-                        if (_.has(valueById, key)) {
+            const configValuesById = new Map();
+            for (let config of configs.reverse()) {
+                if (Array.isArray(config)) {
+                    // nop
+                } else if (isObject(config)) {
+                    config = Object.getOwnPropertyNames(config).map(key => {
+                        let value;
+                        if (hasOwnProperty(valueById, key)) {
                             value = {
                                 valueId: key,
-                                value,
+                                value: config [key],
                             };
                         } else {
-                            value = null;
+                            value = {
+                                unknownValueKeyProvided: key,
+                            };
                         }
-                    }
+                        return value;
+                    });
+                }
 
+                for (const value of config) {
                     let refValue;
                     if (!value) {
                         refValue = null;
-                    } else if (_.has(value, 'valueIndex')) {
+                    } else if (hasOwnProperty(value, 'valueIndex')) {
                         refValue = valueByIndex [value.valueIndex];
-                    } else if (_.has(value, 'valueId')) {
+                    } else if (hasOwnProperty(value, 'valueId')) {
                         refValue = valueById [value.valueId];
-                    } else if (_.has(value, 'index')) {
+                    } else if (hasOwnProperty(value, 'index')) {
                         refValue = valueByIndex [value.index];
-                    } else if (_.has(value, 'id')) {
+                    } else if (hasOwnProperty(value, 'id')) {
                         refValue = valueById [value.id];
-                    } else if (_.has(value, 'valueIdHash')) {
+                    } else if (hasOwnProperty(value, 'valueIdHash')) {
                         refValue = valueByIdHash [value.valueIdHash];
-                    } else if (_.has(value, 'idHash')) {
+                    } else if (hasOwnProperty(value, 'idHash')) {
                         refValue = valueByIdHash [value.idHash];
                     } else {
                         refValue = null;
                     }
 
                     if (!refValue) {
-                        throw new Error('Unable to complete value ' + JSON.stringify({ key, value }));
+                        throw new Error('Unable to complete value ' + JSON.stringify(value));
                     }
 
                     let numericValue = value.value;
-                    if (_.isString(numericValue)) {
+                    if (isString(numericValue)) {
                         if (numericValue.charAt(0) === '#') {
                             const valueTextId = numericValue.slice(1);
                             const valueText = refValue.valueTextById [valueTextId];
@@ -307,24 +316,22 @@ class BaseConfigurationOptimizer extends ConfigurationOptimizer {
                         }
                     }
 
-                    const configValue = _.extend({}, value, {
+                    const configValue = {
+                        ...value,
                         valueId: refValue.id,
                         valueIndex: refValue.index,
                         value: numericValue,
                         priority: refValue.priority || 0,
                         valueTextById: refValue.valueTextById,
-                    });
+                    };
 
-                    configValuesById [configValue.valueId] = configValue;
-                });
-            };
+                    configValuesById.set(configValue.valueId, configValue);
+                }
+            }
 
-            _.forEachRight(args, mergeConfig);
-
-            result = _.reduce(adjustableValues, (memo, value) => {
-                const configValue = configValuesById [value.id];
-                if (configValue) {
-                    memo.push(configValue);
+            result = adjustableValues.reduce((memo, value) => {
+                if (configValuesById.has(value.id)) {
+                    memo.push(configValuesById.get(value.id));
                 }
                 return memo;
             }, []);
@@ -334,11 +341,9 @@ class BaseConfigurationOptimizer extends ConfigurationOptimizer {
     }
 
     async optimizeLoadConfiguration(config) {
-        const _this = this;
+        config = await this._buildConfiguration(config);
 
-        config = await _this._buildConfiguration(config);
-
-        _.forEach(config, (value) => {
+        for (const value of config) {
             if (value.previousValue !== undefined) {
                 value.value = value.previousValue;
             } else if (value.ignored) {
@@ -346,7 +351,7 @@ class BaseConfigurationOptimizer extends ConfigurationOptimizer {
             } else {
                 value.pending = true;
             }
-        });
+        }
 
         return config;
     }
@@ -362,23 +367,24 @@ class BaseConfigurationOptimizer extends ConfigurationOptimizer {
 
         const adjustableValues = this._getAdjustableValues();
 
-        const oldConfigValueById = _.reduce(oldConfig, (memo, value) => {
+        const oldConfigValueById = (oldConfig || []).reduce((memo, value) => {
             memo [value.valueId] = value;
             return memo;
         }, {});
 
-        let newConfig = _.map(adjustableValues, (value) => {
+        let newConfig = adjustableValues.map((value) => {
             let oldConfigValue;
-            if (_.has(oldConfigValueById, value.id)) {
+            if (hasOwnProperty(oldConfigValueById, value.id)) {
                 oldConfigValue = oldConfigValueById [value.id];
             }
 
-            const newConfigValue = _.extend({}, oldConfigValue, {
+            const newConfigValue = {
+                ...oldConfigValue,
                 valueId: value.id,
                 valueIndex: value.index,
                 priority: value.priority || 0,
                 valueTextById: value.valueTextById,
-            });
+            };
 
             if (oldConfigValue) {
                 newConfigValue.previousValue = oldConfigValue.value;
@@ -403,21 +409,21 @@ class BaseConfigurationOptimizer extends ConfigurationOptimizer {
     _getAdjustableValues() {
         const data = this.constructor.configurationData;
 
-        const typeById = _.reduce(data.types, (memo, type) => {
+        const typeById = (data.types || []).reduce((memo, type) => {
             memo [type.id] = type;
             return memo;
         }, {});
 
-        const valueById = _.reduce(data.values, (memo, value) => {
+        const valueById = data.values.reduce((memo, value) => {
             memo [value.id] = value;
             return memo;
         }, {});
 
-        const knownValueIds = {}, adjustableValueIds = {};
+        const knownValueIds = new Set(), adjustableValueIds = {};
 
         const markValueIdAsAdjustable = (valueId) => {
-            if (!_.has(knownValueIds, valueId)) {
-                knownValueIds [valueId] = true;
+            if (!knownValueIds.has(valueId)) {
+                knownValueIds.add(valueId);
 
                 const value = valueById [valueId];
                 if (value) {
@@ -435,17 +441,17 @@ class BaseConfigurationOptimizer extends ConfigurationOptimizer {
             }
         };
 
-        _.forEach(data.values, (value) => {
+        for (const value of data.values) {
             if (!value.storage || value.allowParameterization) {
                 markValueIdAsAdjustable(value.id);
             }
-        });
+        }
 
-        const adjustableValues = _.reduce(data.values, (memo, value) => {
+        const adjustableValues = data.values.reduce((memo, value) => {
             if (adjustableValueIds [value.id]) {
                 const valueTextById = {};
                 const addValueText = (valueText, index) => {
-                    if (valueText.id && !_.has(valueTextById, valueText.id)) {
+                    if (valueText.id && !hasOwnProperty(valueTextById, valueText.id)) {
                         let valueTextValue = valueText.value;
                         if (valueTextValue === undefined) {
                             valueTextValue = index;
@@ -460,7 +466,9 @@ class BaseConfigurationOptimizer extends ConfigurationOptimizer {
                 let { type } = value;
                 while (type) {
                     if (type.valueTexts && (type.valueTexts.length > 0)) {
-                        _.forEach(type.valueTexts, addValueText);
+                        for (let i = 0; i < type.valueTexts.length; i++) {
+                            addValueText(type.valueTexts [i], i);
+                        }
                     }
 
                     if (type.selectorValueRef) {
@@ -470,10 +478,11 @@ class BaseConfigurationOptimizer extends ConfigurationOptimizer {
                     type = typeById [type.base];
                 }
 
-                const adjustableValue = _.extend({}, value, {
+                const adjustableValue = {
+                    ...value,
                     valueTextById,
                     dependsOnValueIds,
-                });
+                };
 
                 memo.push(adjustableValue);
             }
@@ -484,12 +493,12 @@ class BaseConfigurationOptimizer extends ConfigurationOptimizer {
     }
 
     _optimizeConfiguration(config, adjustableValues) {
-        const configValueById = _.reduce(config, (memo, configValue) => {
+        const configValueById = config.reduce((memo, configValue) => {
             memo [configValue.valueId] = configValue;
             return memo;
         }, {});
 
-        adjustableValues = _.map(adjustableValues, (value) => {
+        adjustableValues = adjustableValues.map((value) => {
             const configValue = configValueById [value.id];
 
             let changed;
@@ -502,20 +511,21 @@ class BaseConfigurationOptimizer extends ConfigurationOptimizer {
             }
 
             let ignored = false;
-            _.forEach(value.dependsOnValueIds, (dependsOnValueId) => {
+            for (const dependsOnValueId of value.dependsOnValueIds) {
                 const dependsOnConfigValue = configValueById [dependsOnValueId];
 
                 if (dependsOnConfigValue && (dependsOnConfigValue.value === undefined)) {
                     ignored = true;
                 }
-            });
+            }
 
-            const valueInfo = _.extend({}, configValue, {
+            const valueInfo = {
+                ...configValue,
                 changed,
                 checked: false,
                 ignored,
                 invalidated: false,
-            });
+            };
 
             return valueInfo;
         });

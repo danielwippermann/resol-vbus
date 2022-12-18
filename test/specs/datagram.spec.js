@@ -10,7 +10,6 @@ const {
 
 
 const expect = require('./expect');
-const _ = require('./lodash');
 
 const {
     itShouldWorkCorrectlyAfterMigratingToClass,
@@ -41,11 +40,12 @@ describe('Datagram', () => {
 
             expect(datagram).to.be.an.instanceOf(Datagram);
 
-            _.forEach(options, (refValue, key) => {
+            for (const key of Object.getOwnPropertyNames(options)) {
+                const refValue = options [key];
                 const value = datagram [key];
 
                 expect(value).to.equal(refValue, key);
-            });
+            }
         });
 
     });
@@ -87,7 +87,8 @@ describe('Datagram', () => {
             const datagram = new Datagram(options);
 
             expect(datagram).to.be.an('object');
-            _.forEach(options, (refValue, key) => {
+            for (const key of Object.getOwnPropertyNames(options)) {
+                let refValue = options [key];
                 const value = datagram [key];
 
                 if (key === 'junk') {
@@ -95,7 +96,7 @@ describe('Datagram', () => {
                 }
 
                 expect(value).to.equal(refValue, key);
-            });
+            }
         });
 
     });

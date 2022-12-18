@@ -3,17 +3,10 @@
 
 
 
+const { applyDefaultOptions } = require('./utils');
+
+
 const HeaderSet = require('./header-set');
-const _ = require('./lodash');
-
-
-
-const optionKeys = [
-    'interval',
-    'timeToLive',
-    'minTimestamp',
-    'maxTimestamp',
-];
 
 
 
@@ -100,7 +93,33 @@ class HeaderSetConsolidator extends HeaderSet {
     constructor(options) {
         super(options);
 
-        _.extend(this, _.pick(options, optionKeys));
+        applyDefaultOptions(this, options, /** @lends HeaderSetConsolidator.prototype */ {
+
+            /**
+            * The interval in which the `headerSet` event should be emitted.
+            * @type {number}
+            */
+            interval: 0,
+
+            /**
+            * Header instances that are older then this duration are removed from the set.
+            * @type {number}
+            */
+            timeToLive: 0,
+
+            /**
+            * HeaderSet instances from a time before this Date are ignored.
+            * @type {Date}
+            */
+            minTimestamp: null,
+
+            /**
+            * HeaderSet instances from a time after this Date are ignored.
+            * @type {Date}
+            */
+            maxTimestamp: null,
+
+        });
     }
 
     /**

@@ -12,14 +12,7 @@ try {
 
 
 const Connection = require('./connection');
-const _ = require('./lodash');
-
-
-
-const optionKeys = [
-    'path',
-    'baudrate',
-];
+const { applyDefaultOptions } = require('./utils');
 
 
 
@@ -39,7 +32,17 @@ class SerialConnection extends Connection {
     constructor(options) {
         super(options);
 
-        _.extend(this, _.pick(options, optionKeys));
+        applyDefaultOptions(this, options, /** @lends SerialConnection.prototype */ {
+
+            /**
+            * The path to the serial port.
+            * @type {string}
+            */
+            path: null,
+
+            baudrate: 9600,
+
+        });
     }
 
     connect() {

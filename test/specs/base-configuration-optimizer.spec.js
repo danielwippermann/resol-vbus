@@ -10,10 +10,11 @@ const {
 
 
 const expect = require('./expect');
-const _ = require('./lodash');
 
 const {
     itShouldWorkCorrectlyAfterMigratingToClass,
+    expectOwnPropertyNamesToEqual,
+    expectPromiseToReject,
 } = require('./test-utils');
 
 
@@ -34,6 +35,262 @@ describe('BaseConfigurationOptimizer', () => {
             expect(BaseConfigurationOptimizer.prototype).property('completeConfiguration').a('function');
         });
 
+        it('should work correctly without arguments', async () => {
+            const { expect } = global;
+
+            const optimizer = new TestConfigurationOptimizer();
+
+            const result = await optimizer.completeConfiguration();
+
+            expect(result).toHaveLength(22);
+            expect(result [0].valueId).toBe('LowestPriorityValue');
+            expect(result [0].valueIndex).toBe(0x1000);
+        });
+
+        it('should work correctly with array arguments', async () => {
+            const { expect } = global;
+
+            const optimizer = new TestConfigurationOptimizer();
+
+            const config1 = [{
+                valueIndex: 0x1011,
+                value: 1,
+            }, {
+                valueId: 'TestValue2',
+                value: 2,
+            }, {
+                index: 0x1013,
+                value: 3,
+            }, {
+                id: 'TestValue4',
+                value: 4,
+            }];
+
+            const config2 = [{
+                valueIdHash: 0x12345689,
+                value: 5,
+            }, {
+                idHash: 0x1234568d,
+                value: 6,
+            }];
+
+            const result = await optimizer.completeConfiguration(config1, config2);
+
+            expect(result).toHaveLength(5);
+
+            expectOwnPropertyNamesToEqual(result [0], [
+                'valueIndex',
+                'value',
+                'valueId',
+                'priority',
+                'valueTextById',
+            ]);
+
+            expect(result [0].valueIndex).toBe(0x1011);
+            expect(result [0].value).toBe(1);
+            expect(result [0].valueId).toBe('TestValue1');
+            expect(result [0].priority).toBe(0);
+
+            expectOwnPropertyNamesToEqual(result [1], [
+                'valueIndex',
+                'value',
+                'valueId',
+                'priority',
+                'valueTextById',
+            ]);
+
+            expect(result [1].valueIndex).toBe(0x1012);
+            expect(result [1].value).toBe(2);
+            expect(result [1].valueId).toBe('TestValue2');
+            expect(result [1].priority).toBe(0);
+
+            expectOwnPropertyNamesToEqual(result [2], [
+                'index',
+                'valueIndex',
+                'value',
+                'valueId',
+                'priority',
+                'valueTextById',
+            ]);
+
+            expect(result [2].index).toBe(0x1013);
+            expect(result [2].valueIndex).toBe(0x1013);
+            expect(result [2].value).toBe(3);
+            expect(result [2].valueId).toBe('TestValue3');
+            expect(result [2].priority).toBe(0);
+
+            expectOwnPropertyNamesToEqual(result [3], [
+                'id',
+                'valueIndex',
+                'value',
+                'valueId',
+                'priority',
+                'valueTextById',
+            ]);
+
+            expect(result [3].id).toBe('TestValue4');
+            expect(result [3].valueIndex).toBe(0x1014);
+            expect(result [3].value).toBe(4);
+            expect(result [3].valueId).toBe('TestValue4');
+            expect(result [3].priority).toBe(0);
+
+            expectOwnPropertyNamesToEqual(result [4], [
+                'idHash',
+                'valueIndex',
+                'value',
+                'valueId',
+                'priority',
+                'valueTextById',
+            ]);
+
+            expect(result [4].valueIndex).toBe(0x1015);
+            expect(result [4].value).toBe(6);
+            expect(result [4].valueId).toBe('TestValue5');
+            expect(result [4].priority).toBe(0);
+        });
+
+        it('should work correctly with object arguments', async () => {
+            const { expect } = global;
+
+            const optimizer = new TestConfigurationOptimizer();
+
+            const config1 = {
+                TestValue1: 1,
+                TestValue2: 2,
+            };
+
+            const config2 = {
+                TestValue1: 3,
+                TestValue3: 4,
+            };
+
+            const result = await optimizer.completeConfiguration(config1, config2);
+
+            expect(result).toHaveLength(3);
+
+            expectOwnPropertyNamesToEqual(result [0], [
+                'valueIndex',
+                'value',
+                'valueId',
+                'priority',
+                'valueTextById',
+            ]);
+
+            expect(result [0].valueIndex).toBe(0x1011);
+            expect(result [0].value).toBe(1);
+            expect(result [0].valueId).toBe('TestValue1');
+            expect(result [0].priority).toBe(0);
+
+            expectOwnPropertyNamesToEqual(result [1], [
+                'valueIndex',
+                'value',
+                'valueId',
+                'priority',
+                'valueTextById',
+            ]);
+
+            expect(result [1].valueIndex).toBe(0x1012);
+            expect(result [1].value).toBe(2);
+            expect(result [1].valueId).toBe('TestValue2');
+            expect(result [1].priority).toBe(0);
+
+            expectOwnPropertyNamesToEqual(result [2], [
+                'valueIndex',
+                'value',
+                'valueId',
+                'priority',
+                'valueTextById',
+            ]);
+
+            expect(result [2].valueIndex).toBe(0x1013);
+            expect(result [2].value).toBe(4);
+            expect(result [2].valueId).toBe('TestValue3');
+            expect(result [2].priority).toBe(0);
+        });
+
+        it('should fail for unknown values', async () => {
+            const optimizer = new TestConfigurationOptimizer();
+
+            const config = {
+                UnknownValue: 1,
+            };
+
+            await expectPromiseToReject(optimizer.completeConfiguration(config), 'Unable to complete value {"unknownValueKeyProvided":"UnknownValue"}');
+        });
+
+        it('should fail for incomplete values', async () => {
+            const optimizer = new TestConfigurationOptimizer();
+
+            const config = [{
+                // no known value identification here
+            }];
+
+            await expectPromiseToReject(optimizer.completeConfiguration(config), 'Unable to complete value {}');
+        });
+
+        it('should fail for falsy values', async () => {
+            const optimizer = new TestConfigurationOptimizer();
+
+            const config = [null];
+
+            await expectPromiseToReject(optimizer.completeConfiguration(config), 'Unable to complete value null');
+        });
+
+        it('should parse string values correctly', async () => {
+            const { expect } = global;
+
+            const optimizer = new TestConfigurationOptimizer();
+
+            const config = [{
+                valueId: 'TestValue1',
+                value: '#True',
+            }, {
+                valueId: 'TestValue2',
+                value: '2',
+            }];
+
+            const result = await optimizer.completeConfiguration(config);
+
+            expect(result).toHaveLength(2);
+
+            expectOwnPropertyNamesToEqual(result [0], [
+                'valueIndex',
+                'value',
+                'valueId',
+                'priority',
+                'valueTextById',
+            ]);
+
+            expect(result [0].valueIndex).toBe(0x1011);
+            expect(result [0].value).toBe(1);
+            expect(result [0].valueId).toBe('TestValue1');
+            expect(result [0].priority).toBe(0);
+
+            expectOwnPropertyNamesToEqual(result [1], [
+                'valueIndex',
+                'value',
+                'valueId',
+                'priority',
+                'valueTextById',
+            ]);
+
+            expect(result [1].valueIndex).toBe(0x1012);
+            expect(result [1].value).toBe(2);
+            expect(result [1].valueId).toBe('TestValue2');
+            expect(result [1].priority).toBe(0);
+        });
+
+        it('should fail parsing unknown string values correctly', async () => {
+            const optimizer = new TestConfigurationOptimizer();
+
+            const config = [{
+                valueId: 'TestValue1',
+                value: '#Unknown',
+            }];
+
+            await expectPromiseToReject(optimizer.completeConfiguration(config), 'Unable to convert value text ID to numeric value: "#Unknown"');
+        });
+
     });
 
     describe('#optimizeLoadConfiguration', () => {
@@ -42,12 +299,141 @@ describe('BaseConfigurationOptimizer', () => {
             expect(BaseConfigurationOptimizer.prototype).property('optimizeLoadConfiguration').a('function');
         });
 
+        it('should work correctly', async () => {
+            const { expect } = global;
+
+            const optimizer = new TestConfigurationOptimizer();
+
+            optimizer.optimizeConfiguration = jest.fn($ => {
+                $('BooleanValue').isFalse(() => {
+                    $(/^TestValue\d+$/).ignore();
+                });
+            });
+
+            const result1 = await optimizer.optimizeLoadConfiguration(undefined);
+
+            expect(result1).toHaveLength(22);
+
+            expectOwnPropertyNamesToEqual(result1 [0], [
+                'pending',
+                'changed',
+                'checked',
+                'ignored',
+                'invalidated',
+                'priority',
+                'valueId',
+                'valueIndex',
+                'valueTextById',
+            ]);
+
+            expect(result1 [4].valueId).toBe('BooleanValue');
+            expect(result1 [4].pending).toBe(true);
+
+            expect(result1 [10].valueId).toBe('TestValue1');
+            expect(result1 [10].ignored).toBe(true);
+            expect(result1 [10].pending).toBe(undefined);
+
+            const result2 = await optimizer.optimizeLoadConfiguration([{
+                valueId: 'BooleanValue',
+                value: 0,
+            }]);
+
+            expect(result2).toHaveLength(22);
+
+            expect(result2 [4].valueId).toBe('BooleanValue');
+            expect(result2 [4].pending).toBe(undefined);
+
+            expect(result2 [10].valueId).toBe('TestValue1');
+            expect(result2 [10].ignored).toBe(true);
+            expect(result2 [10].pending).toBe(undefined);
+
+            const result3 = await optimizer.optimizeLoadConfiguration([{
+                valueId: 'BooleanValue',
+                value: 1,
+            }]);
+
+            expect(result3).toHaveLength(22);
+
+            expect(result3 [4].valueId).toBe('BooleanValue');
+            expect(result3 [4].pending).toBe(undefined);
+
+            expect(result3 [10].valueId).toBe('TestValue1');
+            expect(result3 [10].ignored).toBe(false);
+            expect(result3 [10].pending).toBe(true);
+        });
+
     });
 
     describe('#optimizeSaveConfiguration', () => {
 
         it('should be a method', () => {
             expect(BaseConfigurationOptimizer.prototype).property('optimizeSaveConfiguration').a('function');
+        });
+
+        it('should fail', () => {
+            const { expect } = global;
+
+            const optimizer = new TestConfigurationOptimizer();
+
+            expect(() => {
+                optimizer.optimizeSaveConfiguration();
+            }).toThrow('NYI');
+        });
+
+    });
+
+    describe('#_buildConfiguration', () => {
+
+        it('should be a method', () => {
+            expect(BaseConfigurationOptimizer.prototype).property('_buildConfiguration').a('function');
+        });
+
+        it('should work correctly with undefined config', () => {
+            const { expect } = global;
+
+            const optimizer = new TestConfigurationOptimizer();
+
+            optimizer.optimizeConfiguration = jest.fn();
+
+            const result = optimizer._buildConfiguration(undefined);
+
+            expect(result).toHaveLength(22);
+
+            expectOwnPropertyNamesToEqual(result [0], [
+                'changed',
+                'checked',
+                'ignored',
+                'invalidated',
+                'priority',
+                'valueId',
+                'valueIndex',
+                'valueTextById',
+            ]);
+
+            expect(result [0].changed).toBe(false);
+            expect(result [0].checked).toBe(false);
+            expect(result [0].ignored).toBe(false);
+            expect(result [0].invalidated).toBe(false);
+            expect(result [0].priority).toBe(20);
+            expect(result [0].valueId).toBe('HighestPriorityValue');
+            expect(result [0].valueIndex).toBe(0x101c);
+        });
+
+        it('should work correctly with config', () => {
+            const { expect } = global;
+
+            const optimizer = new TestConfigurationOptimizer();
+
+            optimizer.optimizeConfiguration = jest.fn();
+
+            const config = [{
+                valueId: 'TestValue1',
+                value: 1,
+            }];
+
+            const result = optimizer._buildConfiguration(config);
+
+            expect(result).toHaveLength(22);
         });
 
     });
@@ -63,7 +449,7 @@ describe('BaseConfigurationOptimizer', () => {
 
             const values = optimizer._getAdjustableValues();
 
-            const ids = _.map(values, 'id');
+            const ids = values.map(value => value.id);
 
             expect(ids).eql([
                 'LowestPriorityValue',
@@ -90,13 +476,13 @@ describe('BaseConfigurationOptimizer', () => {
                 'HighestPriorityValue',
             ]);
 
-            let value = _.find(values, { id: 'BooleanValue' });
+            let value = values.find(value => value.id === 'BooleanValue');
             expect(value).property('valueTextById').eql({
                 False: 0,
                 True: 1,
             });
 
-            value = _.find(values, { id: 'ValueTextsValue' });
+            value = values.find(value => value.id === 'ValueTextsValue');
             expect(value).property('valueTextById').eql({
                 FourtyTwo: 42,
             });
@@ -114,7 +500,7 @@ describe('BaseConfigurationOptimizer', () => {
 
             let values = optimizer._getAdjustableValues();
 
-            const config = _.map(values, (value) => {
+            const config = values.map((value) => {
                 const configValue = {
                     valueId: value.id,
                     valueIndex: value.index,
@@ -125,11 +511,11 @@ describe('BaseConfigurationOptimizer', () => {
                 return configValue;
             });
 
-            let value = _.find(config, { valueId: 'PrefsValue' });
+            let value = config.find(value => value.valueId === 'PrefsValue');
             value.value = 1;
             value.previousValue = 0;
 
-            value = _.find(config, { valueId: 'KnownOptionValue' });
+            value = config.find(value => value.valueId === 'KnownOptionValue');
             value.value = 1;
 
             optimizer.optimizeConfiguration = function($) {
@@ -152,7 +538,7 @@ describe('BaseConfigurationOptimizer', () => {
 
             values = optimizer._optimizeConfiguration(config, values);
 
-            const ids = _.reduce(values, (memo, value) => {
+            const ids = values.reduce((memo, value) => {
                 if (value.ignored) {
                     memo.push(value.valueId);
                 }
@@ -163,7 +549,7 @@ describe('BaseConfigurationOptimizer', () => {
                 'DependsOnUnknownOptionValue',
             ]);
 
-            value = _.find(values, { valueId: 'BooleanValue' });
+            value = values.find(value => value.valueId === 'BooleanValue');
 
             expect(value.valueTextById).eql({
                 False: 0,
@@ -186,7 +572,7 @@ describe('ValuesWrapper', () => {
 
         let values = optimizer._getAdjustableValues();
 
-        const config = _.map(values, (value) => {
+        const config = values.map((value) => {
             const configValue = {
                 valueId: value.id,
                 valueIndex: value.index,
@@ -201,7 +587,7 @@ describe('ValuesWrapper', () => {
             const allValues = $(/.*/);
 
             const setValue = function(id, value) {
-                const configValue = _.find(allValues.values, { valueId: id });
+                const configValue = allValues.values.find(value => value.valueId === id);
                 configValue.value = value;
                 configValue.changed = true;
             };
@@ -827,17 +1213,17 @@ describe('ValuesWrapper', () => {
 
                 const values = $(/^TestValue[1-3]$/);
 
-                _.forEach(values.values, (value) => {
+                for (const value of values.values) {
                     expect(value.ignored).equal(false);
-                });
+                }
 
                 const result = values.ignore();
 
                 expect(result).equal(values);
 
-                _.forEach(values.values, (value) => {
+                for (const value of values.values) {
                     expect(value.ignored).equal(true);
-                });
+                }
             });
         });
 
@@ -853,17 +1239,17 @@ describe('ValuesWrapper', () => {
 
                 const values = $(/^TestValue[1-3]$/);
 
-                _.forEach(values.values, (value) => {
+                for (const value of values.values) {
                     expect(value.invalidated).equal(false);
-                });
+                }
 
                 const result = values.invalidate();
 
                 expect(result).equal(values);
 
-                _.forEach(values.values, (value) => {
+                for (const value of values.values) {
                     expect(value.invalidated).equal(true);
-                });
+                }
             });
         });
 
@@ -1027,3 +1413,10 @@ Object.assign(TestConfigurationOptimizer, {
     }
 
 });
+
+
+for (let i = 0; i < TestConfigurationOptimizer.configurationData.values.length; i++) {
+    const value = TestConfigurationOptimizer.configurationData.values [i];
+    value.index = 0x1000 + i;
+    value.idHash = 0x12345678 + i;
+}

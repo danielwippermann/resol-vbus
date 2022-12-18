@@ -8,17 +8,11 @@ const moreints = require('buffer-more-ints');
 
 const Datagram = require('./datagram');
 const HeaderSet = require('./header-set');
-const _ = require('./lodash');
 const Packet = require('./packet');
 const Telegram = require('./telegram');
+const { applyDefaultOptions } = require('./utils');
 
 const Converter = require('./converter');
-
-
-
-const optionKeys = [
-    'topologyScanOnly',
-];
 
 
 
@@ -38,7 +32,11 @@ class VBusRecordingConverter extends Converter {
     constructor(options) {
         super(options);
 
-        _.extend(this, _.pick(options, optionKeys));
+        applyDefaultOptions(this, options, /** @lends VBusRecordingConverter.prototype */ {
+
+            topologyScanOnly: false,
+
+        });
 
         this.knownHeaderIds = {};
     }
@@ -175,7 +173,7 @@ class VBusRecordingConverter extends Converter {
 
         let currentChannel = 0;
 
-        _.forEach(headers, (header) => {
+        for (const header of headers) {
             const majorVersion = header.getProtocolVersion() >> 4;
 
             let dataLength;
@@ -229,7 +227,7 @@ class VBusRecordingConverter extends Converter {
 
                 buffers.push(buffer);
             }
-        });
+        }
 
         buffer = Buffer.concat(buffers);
         return this.push(buffer);
@@ -555,7 +553,7 @@ class VBusRecordingConverter extends Converter {
 
         const timestamp = new Date(0);
 
-        _.forEach(_.keys(this.knownHeaderIds), (headerId) => {
+        for (const headerId of Object.getOwnPropertyNames(this.knownHeaderIds)) {
             const headerIdBuffer = Buffer.from(headerId, 'hex');
 
             const channel = headerIdBuffer [0];
@@ -580,7 +578,7 @@ class VBusRecordingConverter extends Converter {
             } else {
                 throw new Error('Unsupported major version');
             }
-        });
+        }
 
         headerSet.timestamp = timestamp;
 

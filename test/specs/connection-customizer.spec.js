@@ -15,7 +15,6 @@ const {
 
 const jestExpect = global.expect;
 const expect = require('./expect');
-const _ = require('./lodash');
 const {
     expectPromiseToReject,
     itShouldWorkCorrectlyAfterMigratingToClass,
@@ -77,10 +76,11 @@ const promiseTestContext = function(options, callback) {
 
         connection._setConnectionState(Connection.STATE_CONNECTED);
 
-        options = _.defaults({}, options, {
+        options = {
             deviceAddress: 0x7E11,
             connection,
-        });
+            ...options,
+        };
 
         if (options.optimizer === true) {
             options.optimizer = optimizer;
@@ -90,7 +90,7 @@ const promiseTestContext = function(options, callback) {
 
         customizer.transceiveValue = sinon.spy(customizer.transceiveValue);
 
-        _.extend(context, {
+        Object.assign(context, {
             optimizer,
             connection,
             customizer,
@@ -99,15 +99,15 @@ const promiseTestContext = function(options, callback) {
         return wrapAsPromise(() => {
             return optimizer.completeConfiguration(options.testConfig);
         }).then((testConfig) => {
-            _.forEach(testConfig, (valueInfo) => {
+            for (const valueInfo of testConfig) {
                 if (valueInfo.value === undefined) {
                     valueInfo.value = null;
                 }
-            });
+            }
 
             context.testConfig = testConfig;
 
-            context.testConfigValueByIndex = _.reduce(testConfig, (memo, valueInfo) => {
+            context.testConfigValueByIndex = testConfig.reduce((memo, valueInfo) => {
                 memo [valueInfo.valueIndex] = valueInfo;
                 return memo;
             }, {});

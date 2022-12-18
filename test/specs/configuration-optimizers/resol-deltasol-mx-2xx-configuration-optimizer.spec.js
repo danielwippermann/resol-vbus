@@ -11,7 +11,6 @@ const {
 
 const jestExpect = global.expect;
 const expect = require('../expect');
-const _ = require('../lodash');
 const testUtils = require('../test-utils');
 const ResolDeltaSolMx2xxConfigurationOptimizer = require('../../../src/configuration-optimizers/resol-deltasol-mx-2xx-configuration-optimizer');
 
@@ -64,7 +63,7 @@ describe('ResolDeltaSolMx2xxConfigurationOptimizer', () => {
                 }).then((config) => {
                     expect(config).an('array');
 
-                    const valueIds = _.reduce(config, (memo, value) => {
+                    const valueIds = config.reduce((memo, value) => {
                         if (value.pending) {
                             memo.push(value.valueId);
                         }
@@ -73,19 +72,19 @@ describe('ResolDeltaSolMx2xxConfigurationOptimizer', () => {
 
                     expect(valueIds).lengthOf(552);
 
-                    _.forEach(config, (value) => {
+                    for (const value of config) {
                         if (value.pending) {
                             value.pending = false;
                             value.transceived = true;
                             value.value = null;
                         }
-                    });
+                    }
 
                     return testUtils.expectPromise(optimizer.optimizeLoadConfiguration(config));
                 }).then((config) => {
                     expect(config).an('array');
 
-                    const valueIds = _.reduce(config, (memo, value) => {
+                    const valueIds = config.reduce((memo, value) => {
                         if (value.pending) {
                             memo.push(value.valueId);
                         }

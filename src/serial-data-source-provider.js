@@ -11,15 +11,10 @@ try {
 }
 
 
-const _ = require('./lodash');
 const SerialDataSource = require('./serial-data-source');
+const { applyDefaultOptions } = require('./utils');
 
 const DataSourceProvider = require('./data-source-provider');
-
-
-
-const optionKeys = [
-];
 
 
 
@@ -28,7 +23,7 @@ class SerialDataSourceProvider extends DataSourceProvider {
     constructor(options) {
         super(options);
 
-        _.extend(this, _.pick(options, optionKeys));
+        applyDefaultOptions(this, options, {});
     }
 
     discoverDataSources() {
@@ -47,7 +42,7 @@ class SerialDataSourceProvider extends DataSourceProvider {
                 if (err) {
                     done(err);
                 } else {
-                    const dataSources = _.map(ports, (port) => {
+                    const dataSources = ports.map((port) => {
                         return new SerialDataSource({
                             provider: _this.id,
                             id: port.comName,

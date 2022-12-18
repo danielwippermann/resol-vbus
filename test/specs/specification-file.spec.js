@@ -13,8 +13,8 @@ const {
 
 
 const expect = require('./expect');
-const _ = require('./lodash');
 const {
+    expectOwnPropertyNamesToEqual,
     itShouldBeAClass,
     itShouldWorkCorrectlyAfterMigratingToClass,
 } = require('./test-utils');
@@ -36,7 +36,7 @@ describe('SpecificationFile', () => {
             const specFile = new SpecificationFile(testVsf1);
 
             expect(specFile).an('object');
-            expect(_.keys(specFile).sort()).eql([
+            expectOwnPropertyNamesToEqual(specFile, [
                 'buffer',
                 'dataVersion',
                 'datecode',
@@ -684,7 +684,7 @@ describe('SpecificationFile', () => {
             }]);
 
             expect(specFile).property('unitById').an('object');
-            expect(_.keys(specFile.unitById).sort()).lengthOf(48).eql([
+            expectOwnPropertyNamesToEqual(specFile.unitById, [
                 '-1',
                 '0',
                 '1024',
@@ -736,7 +736,7 @@ describe('SpecificationFile', () => {
             ]);
 
             expect(specFile).property('unitByCode').an('object');
-            expect(_.keys(specFile.unitByCode).sort()).lengthOf(48).eql([
+            expectOwnPropertyNamesToEqual(specFile.unitByCode, [
                 'Bars',
                 'Btus',
                 'CubicMeters',
@@ -791,7 +791,7 @@ describe('SpecificationFile', () => {
 
             const dt = specFile.deviceTemplates [0];
             expect(dt).an('object');
-            expect(_.keys(dt).sort()).eql([
+            expectOwnPropertyNamesToEqual(dt, [
                 'name',
                 'peerAddress',
                 'peerMask',
@@ -812,7 +812,7 @@ describe('SpecificationFile', () => {
 
             const pt = specFile.packetTemplates [0];
             expect(pt).an('object');
-            expect(_.keys(pt).sort()).eql([
+            expectOwnPropertyNamesToEqual(pt, [
                 'command',
                 'destinationAddress',
                 'destinationMask',
@@ -829,7 +829,7 @@ describe('SpecificationFile', () => {
 
             const ptf = pt.fields [0];
             expect(ptf).an('object');
-            expect(_.keys(ptf).sort()).eql([
+            expectOwnPropertyNamesToEqual(ptf, [
                 'id',
                 'name',
                 'parts',

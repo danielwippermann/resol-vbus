@@ -3,20 +3,11 @@
 
 
 
-const Converter = require('./converter');
-const _ = require('./lodash');
 const Specification = require('./specification');
+const { applyDefaultOptions } = require('./utils');
 
 
-
-const optionKeys = [
-    'columnSeparator',
-    'lineSeparator',
-    'separateDateAndTime',
-    'specification',
-    'dateFormat',
-    'timeFormat',
-];
+const Converter = require('./converter');
 
 
 
@@ -38,7 +29,49 @@ class TextConverter extends Converter {
     constructor(options) {
         super(options);
 
-        _.extend(this, _.pick(options, optionKeys));
+        applyDefaultOptions(this, options, /** @lends TextConverter.prototype */ {
+
+            /**
+            * Column separator, defaults to tab
+            * @type {string}
+            */
+            columnSeparator: '\t',
+
+            /**
+            * Line separator, defaults to CR+NL
+            * @type {string}
+            */
+            lineSeparator: '\r\n',
+
+            /**
+            * Specifies whether date and time columns should be output separately
+            * @type {boolean}
+            */
+            separateDateAndTime: false,
+
+            /**
+            * VBus specification
+            * @type {Specification}
+            */
+            specification: null,
+
+            /**
+            * Date to string formatting for the first column. Can either be a
+            * string to use in `moment(...).format()` or a function that returns
+            * the formatted date string.
+            * @type {string|function}
+            */
+            dateFormat: 'L',
+
+            /**
+            * Time to string formatting for the first column. Can either be a
+            * string to use in `moment(...).format()` or a function that returns
+            * the formatted time string.
+            * @type {string|function}
+            */
+            timeFormat: 'HH:mm:ss',
+
+        });
 
         if (!this.specification) {
             this.specification = new Specification({
@@ -73,7 +106,7 @@ class TextConverter extends Converter {
 
         const now = i18n.moment(headerSet.timestamp);
 
-        const idList = _.map(packetFields, 'id').join(',');
+        const idList = packetFields.map(pf => pf.id).join(',');
 
         let content = '', columns;
 
@@ -103,7 +136,7 @@ class TextConverter extends Converter {
 
             appendDateAndTimeColumns('', '', '');
 
-            _.forEach(packetFields, (packetField) => {
+            for (const packetField of packetFields) {
                 let packetDesc;
                 if (lastPacketSpec !== packetField.packetSpec) {
                     lastPacketSpec = packetField.packetSpec;
@@ -117,14 +150,14 @@ class TextConverter extends Converter {
                     packetDesc = '';
                 }
                 columns.push(packetDesc);
-            });
+            }
 
             appendColumnsToContent();
 
             // packet field spec header line
             appendDateAndTimeColumns(i18n.t('textConverter.date'), i18n.t('textConverter.time'), ' / ');
 
-            _.forEach(packetFields, (packetField) => {
+            for (const packetField of packetFields) {
                 let columnDesc = packetField.name;
                 if (packetField.packetFieldSpec) {
                     const { type } = packetField.packetFieldSpec;
@@ -135,7 +168,7 @@ class TextConverter extends Converter {
                     columnDesc = '';
                 }
                 columns.push(columnDesc);
-            });
+            }
 
             appendColumnsToContent();
         }
@@ -145,10 +178,10 @@ class TextConverter extends Converter {
         const timeString = this.formatDateAndTime(now, this.timeFormat);
         appendDateAndTimeColumns(dateString, timeString, ' ');
 
-        _.forEach(packetFields, (packetField) => {
+        for (const packetField of packetFields) {
             const textValue = packetField.formatTextValue('None');
             columns.push(textValue);
-        });
+        }
 
         appendColumnsToContent();
 

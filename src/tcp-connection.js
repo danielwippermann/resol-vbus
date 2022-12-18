@@ -8,21 +8,14 @@ const tls = require('tls');
 
 
 const Connection = require('./connection');
-const _ = require('./lodash');
-const utils = require('./utils');
-
-
-
-const optionKeys = [
-    'host',
-    'port',
-    'viaTag',
-    'password',
-    'channelListCallback',
-    'channel',
-    'rawVBusDataOnly',
-    'tlsOptions',
-];
+const {
+    applyDefaultOptions,
+    hasOwnProperty,
+    isNumber,
+    isObject,
+    isPromise,
+    isString,
+} = require('./utils');
 
 
 
@@ -51,13 +44,50 @@ class TcpConnection extends Connection {
     constructor(options) {
         super(options);
 
-        if (options && options.tlsOptions) {
-            this.port = 57053;
-        } else {
-            this.port = 7053;
-        }
+        applyDefaultOptions(this, options, /** @lends TcpConnection.prototype */ {
 
-        _.extend(this, _.pick(options, optionKeys));
+            /**
+            * Host name or IP address of the connection target.
+            * @type {string}
+            */
+            host: null,
+
+            /**
+            * Port number of the connection target.
+            * @type {number}
+            */
+            port: (options && options.tlsOptions) ? 57053 : 7053,
+
+            /**
+            * Via tag if connection target is accessed using the VBus.net service.
+            * @type {string}
+            */
+            viaTag: null,
+
+            /**
+            * Password needed to connect to target.
+            * @type {string}
+            */
+            password: null,
+
+            channelListCallback: null,
+
+            /**
+            * Channel number to connect to.
+            * @type {string|number}
+            */
+            channel: 0,
+
+            /**
+            * Indicates that connection does not need to perform login handshake.
+            * Useful for serial-to-LAN converters.
+            * @type {boolean}
+            */
+            rawVBusDataOnly: false,
+
+            tlsOptions: null,
+
+        });
     }
 
     async connect(force) {
@@ -104,7 +134,7 @@ class TcpConnection extends Connection {
                 }
             };
 
-            let options = {
+            const options = {
                 host: this.host,
                 port: this.port
             };
@@ -194,11 +224,11 @@ class TcpConnection extends Connection {
                                 done(err);
                             } else {
                                 if (channel !== undefined) {
-                                    if (_.isNumber(channel)) {
+                                    if (isNumber(channel)) {
                                         _this.channel = channel;
-                                    } else if (_.isString(channel)) {
+                                    } else if (isString(channel)) {
                                         _this.channel = parseInt(channel);
-                                    } else if (_.isObject(channel) && _.has(channel, 'channel')) {
+                                    } else if (isObject(channel) && hasOwnProperty(channel, 'channel')) {
                                         _this.channel = channel.channel;
                                     } else {
                                         done(new Error('Invalid channel selection ' + JSON.stringify(channel)));
@@ -219,7 +249,7 @@ class TcpConnection extends Connection {
                         };
 
                         const channelListCallbackResult = _this.channelListCallback(channelList, channelListCallbackDone);
-                        if (utils.isPromise(channelListCallbackResult)) {
+                        if (isPromise(channelListCallbackResult)) {
                             channelListCallbackResult.then(result => {
                                 channelListCallbackDone(null, result);
                             }, err => {
@@ -371,7 +401,7 @@ class TcpConnection extends Connection {
             this.on('data', onConnectionData);
 
             if (this.tlsOptions) {
-                options = _.extend(options, this.tlsOptions);
+                Object.assign(options, this.tlsOptions);
                 socket = tls.connect(options, onConnect);
             } else {
                 socket = net.connect(options, onConnect);

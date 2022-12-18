@@ -3,10 +3,6 @@
 
 
 
-const _ = require('./lodash');
-
-
-
 const optimizerClasses = [
 
     // ======================================================================
@@ -62,7 +58,9 @@ const ConfigurationOptimizerFactory = {
      * @return {Promise} A Promise that resolves to the best matching optimizer result or `null` if no match was found.
      */
     async matchOptimizer(options) {
-        options = _.defaults({}, options);
+        options = {
+            ...options,
+        };
 
         let result = {
             match: 0,

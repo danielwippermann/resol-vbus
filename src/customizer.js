@@ -6,15 +6,7 @@
 const { EventEmitter } = require('events');
 
 
-const _ = require('./lodash');
-
-
-
-const optionKeys = [
-    'id',
-    'deviceAddress',
-    'optimizer',
-];
+const { applyDefaultOptions } = require('./utils');
 
 
 
@@ -37,7 +29,27 @@ class Customizer extends EventEmitter {
     constructor(options) {
         super();
 
-        _.extend(this, _.pick(options, optionKeys));
+        applyDefaultOptions(this, options, /** @lends Customizer.prototype */ {
+
+            /**
+            * An identifier for this customizer.
+            * @type {string}
+            */
+            id: null,
+
+            /**
+            * The VBus address of the device to customize.
+            * @type {number}
+            */
+            deviceAddress: 0,
+
+            /**
+            * A configuration optimizer.
+            * @type {ConfigurationOptimizer}
+            */
+            optimizer: null,
+
+        });
     }
 
     /**
@@ -57,9 +69,10 @@ class Customizer extends EventEmitter {
      * @returns {Promise} A Promise that resolves to the set of values transfered.
      */
     async loadConfiguration(configuration, options) {
-        options = _.defaults({}, options, {
+        options = {
             optimize: true,
-        });
+            ...options,
+        };
 
         configuration = await this._completeConfiguration(configuration);
 
@@ -91,9 +104,10 @@ class Customizer extends EventEmitter {
      * @returns {Promise} A Promise that resolves to the set of values transfered.
      */
     async saveConfiguration(newConfiguration, oldConfiguration, options) {
-        options = _.defaults({}, options, {
+        options = {
             optimize: true,
-        });
+            ...options,
+        };
 
         newConfiguration = await this._completeConfiguration(newConfiguration);
 

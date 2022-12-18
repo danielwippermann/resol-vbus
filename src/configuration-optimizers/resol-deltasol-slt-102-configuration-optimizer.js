@@ -8,7 +8,6 @@
 const configurationData = require('./resol-deltasol-slt-102-data');
 
 const BaseConfigurationOptimizer = require('../base-configuration-optimizer');
-const _ = require('../lodash');
 
 
 
@@ -75,11 +74,11 @@ class ResolDeltaSolSlt102ConfigurationOptimizer extends BaseConfigurationOptimiz
                 'Volumenstromueberwachung',
             ];
 
-            _.forEach(wfTypes, (wfType) => {
+            for (const wfType of wfTypes) {
                 value.notEql('#' + wfType, () => {
                     $(prefix + wfType + '_.*').ignore();
                 });
-            });
+            }
         });
     }
 
@@ -107,11 +106,11 @@ class ResolDeltaSolSlt102ConfigurationOptimizer extends BaseConfigurationOptimiz
                 'Strahlungsschalter',
             ];
 
-            _.forEach(wfTypes, (wfType) => {
+            for (const wfType of wfTypes) {
                 value.notEql('#' + wfType, () => {
                     $(prefix + wfType + '_.*').ignore();
                 });
-            });
+            }
         });
     }
 
@@ -132,11 +131,11 @@ class ResolDeltaSolSlt102ConfigurationOptimizer extends BaseConfigurationOptimiz
                 'ThBwErwaermung',
             ];
 
-            _.forEach(wfTypes, (wfType) => {
+            for (const wfType of wfTypes) {
                 value.notEql('#' + wfType, () => {
                     $(prefix + wfType + '_.*').ignore();
                 });
-            });
+            }
         });
     }
 

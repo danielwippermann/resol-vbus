@@ -6,33 +6,25 @@
 const { Duplex } = require('stream');
 
 
-const _ = require('./lodash');
-
 const Header = require('./header');
 const Packet = require('./packet');
 const Datagram = require('./datagram');
 const Telegram = require('./telegram');
+const { applyDefaultOptions } = require('./utils');
 
 
 
-const states = _.reduce([
+const states = [
     'DISCONNECTED',
     'CONNECTING',
     'CONNECTED',
     'INTERRUPTED',
     'RECONNECTING',
     'DISCONNECTING',
-], (memo, state) => {
+].reduce((memo, state) => {
     memo ['STATE_' + state] = state;
     return memo;
 }, {});
-
-
-
-const optionKeys = [
-    'channel',
-    'selfAddress',
-];
 
 
 
@@ -93,7 +85,10 @@ class Connection extends Duplex {
     constructor(options) {
         super();
 
-        _.extend(this, _.pick(options, optionKeys));
+        applyDefaultOptions(this, options, {
+            channel: 0,
+            selfAddress: 0x0020,
+        });
     }
 
     /**
@@ -312,10 +307,13 @@ class Connection extends Duplex {
     transceive(txData, options) {
         const _this = this;
 
-        options = _.defaults({}, options, {
+        options = applyDefaultOptions({}, options, {
             timeout: 500,
             timeoutIncr: 0,
             tries: 1,
+            filterPacket: null,
+            filterDatagram: null,
+            filterTelegram: null,
         });
 
         return new Promise((resolve, reject) => {
@@ -433,7 +431,7 @@ class Connection extends Duplex {
      * @param {number} options.timeout=1500 Time in milliseconds to wait between tries.
      */
     releaseBus(address, options) {
-        options = _.defaults({}, options, {
+        options = applyDefaultOptions({}, options, {
             tries: 2,
             timeout: 1500
         });
@@ -468,7 +466,7 @@ class Connection extends Duplex {
     getValueById(address, valueId, options) {
         const _this = this;
 
-        options = _.defaults({}, options, {
+        options = applyDefaultOptions({}, options, {
             timeout: 500,
             timeoutIncr: 500,
             tries: 3,
@@ -527,7 +525,7 @@ class Connection extends Duplex {
     setValueById(address, valueId, value, options) {
         const _this = this;
 
-        options = _.defaults({}, options, {
+        options = applyDefaultOptions({}, options, {
             timeout: 500,
             timeoutIncr: 500,
             tries: 3,
@@ -577,7 +575,7 @@ class Connection extends Duplex {
     getValueIdHashById(address, valueId, options) {
         const _this = this;
 
-        options = _.defaults({}, options, {
+        options = applyDefaultOptions({}, options, {
             timeout: 500,
             timeoutIncr: 500,
             tries: 3,
@@ -623,7 +621,7 @@ class Connection extends Duplex {
     getValueIdByIdHash(address, valueIdHash, options) {
         const _this = this;
 
-        options = _.defaults({}, options, {
+        options = applyDefaultOptions({}, options, {
             timeout: 500,
             timeoutIncr: 500,
             tries: 3,
@@ -668,7 +666,7 @@ class Connection extends Duplex {
     getCaps1(address, options) {
         const _this = this;
 
-        options = _.defaults({}, options, {
+        options = applyDefaultOptions({}, options, {
             timeout: 500,
             timeoutIncr: 500,
             tries: 3,
@@ -712,7 +710,7 @@ class Connection extends Duplex {
     beginBulkValueTransaction(address, txTimeout, options) {
         const _this = this;
 
-        options = _.defaults({}, options, {
+        options = applyDefaultOptions({}, options, {
             timeout: 500,
             timeoutIncr: 500,
             tries: 3,
@@ -755,7 +753,7 @@ class Connection extends Duplex {
     commitBulkValueTransaction(address, options) {
         const _this = this;
 
-        options = _.defaults({}, options, {
+        options = applyDefaultOptions({}, options, {
             timeout: 500,
             timeoutIncr: 500,
             tries: 3,
@@ -798,7 +796,7 @@ class Connection extends Duplex {
     rollbackBulkValueTransaction(address, options) {
         const _this = this;
 
-        options = _.defaults({}, options, {
+        options = applyDefaultOptions({}, options, {
             timeout: 500,
             timeoutIncr: 500,
             tries: 3,
@@ -843,7 +841,7 @@ class Connection extends Duplex {
     setBulkValueById(address, valueId, value, options) {
         const _this = this;
 
-        options = _.defaults({}, options, {
+        options = applyDefaultOptions({}, options, {
             timeout: 500,
             timeoutIncr: 500,
             tries: 3,
@@ -878,7 +876,7 @@ class Connection extends Duplex {
     }
 
     ping(address, valueId, value, options) {
-        options = _.defaults({}, options, {
+        options = applyDefaultOptions({}, options, {
             timeout: 500,
             timeoutIncr: 500,
             tries: 3,
@@ -912,7 +910,7 @@ class Connection extends Duplex {
     }
 
     getStorageActivity(address, options) {
-        options = _.defaults({}, options, {
+        options = applyDefaultOptions({}, options, {
             timeout: 500,
             timeoutIncr: 500,
             tries: 3,

@@ -15,7 +15,6 @@ const {
 
 const jestExpect = global.expect;
 const expect = require('./expect');
-const _ = require('./lodash');
 const testUtils = require('./test-utils');
 
 
@@ -166,7 +165,7 @@ describe('VBusRecordingConverter', () => {
 
                 expect(headers.length).to.equal(16);
 
-                const headerIds = _.map(headers, (header) => {
+                const headerIds = headers.map((header) => {
                     return header.getId();
                 });
 
@@ -338,11 +337,11 @@ describe('VBusRecordingConverter', () => {
 
                 expect(headers.length).to.equal(16);
 
-                _.forEach(headers, (header) => {
+                for (const header of headers) {
                     expect(header.frameCount).equal(0);
-                });
+                }
 
-                const headerIds = _.map(headers, (header) => {
+                const headerIds = headers.map((header) => {
                     return header.getId();
                 });
 
@@ -922,7 +921,7 @@ describe('VBusRecordingConverter', () => {
                 '2221',
                 '34333231',
             ].join(''));
-        })
+        });
 
         it('should work with telegrams correctly', async () => {
             const stats = await runTests({}, converter => {
@@ -956,7 +955,7 @@ describe('VBusRecordingConverter', () => {
                 '21222324252627',
                 '31323334353637',
             ].join(''));
-        })
+        });
     });
 
     testUtils.itShouldWorkCorrectlyAfterMigratingToClass(VBusRecordingConverter, Converter, {

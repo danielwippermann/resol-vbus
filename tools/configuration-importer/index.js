@@ -62,7 +62,7 @@ const mergeTypes = function(menuSystem) {
         });
 
         _.forEach(type.valueTexts, (typeValueText) => {
-            let value = typeValueText.value;
+            let { value } = typeValueText;
             if (value === null) {
                 value = info.valueTexts.length;
             }

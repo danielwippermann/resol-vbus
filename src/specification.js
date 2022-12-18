@@ -10,10 +10,14 @@ const { sprintf } = require('sprintf-js');
 
 
 const I18N = require('./i18n');
-const _ = require('./lodash');
 const SpecificationFile = require('./specification-file');
 const {
+    applyDefaultOptions,
     deepFreezeObjectTree,
+    hasOwnProperty,
+    isNumber,
+    isObject,
+    isString,
     roundNumber,
 } = require('./utils');
 
@@ -41,13 +45,7 @@ const conversionFactors = {
 
 
 
-const optionKeys = [
-    'language'
-];
-
-
-
-const numberFormatCache = {};
+const numberFormatCache = new Map();
 
 
 
@@ -164,7 +162,15 @@ class Specification {
      * @param {string} options.specificationData {@link Specification#specificationData}
      */
     constructor(options) {
-        _.extend(this, _.pick(options, optionKeys));
+        applyDefaultOptions(this, options, /** @lends Specification.prototype */ {
+
+            /**
+            * Language code (ISO 639-1)
+            * @type {string}
+            */
+            language: 'en',
+
+        });
 
         this.i18n = new I18N(this.language);
 
@@ -285,7 +291,7 @@ class Specification {
 
         const deviceId = sprintf('%02X_%04X_%04X', channel, selfAddress, peerAddress);
 
-        if (!_.has(this.deviceSpecCache, deviceId)) {
+        if (!hasOwnProperty(this.deviceSpecCache, deviceId)) {
             let origDeviceSpec;
             if (!origDeviceSpec && this.specificationData.getDeviceSpecification) {
                 origDeviceSpec = this.specificationData.getDeviceSpecification(selfAddress, peerAddress);
@@ -294,18 +300,19 @@ class Specification {
                 origDeviceSpec = this.specificationData.deviceSpecs ['_' + deviceId];
             }
 
-            const deviceSpec = _.extend({}, origDeviceSpec, {
+            const deviceSpec = {
+                ...origDeviceSpec,
                 deviceId,
                 channel,
                 selfAddress,
                 peerAddress,
-            });
+            };
 
-            if (!_.has(deviceSpec, 'name')) {
+            if (!hasOwnProperty(deviceSpec, 'name')) {
                 deviceSpec.name = this.i18n.t('specification.unknownDevice', selfAddress);
             }
 
-            if (!_.has(deviceSpec, 'fullName')) {
+            if (!hasOwnProperty(deviceSpec, 'fullName')) {
                 let fullNameFormatter;
                 if (channel) {
                     fullNameFormatter = 'specification.fullNameWithChannel';
@@ -442,7 +449,7 @@ class Specification {
 
         const packetId = sprintf('%02X_%04X_%04X_10_%04X', headerOrChannel, destinationAddress, sourceAddress, command);
 
-        if (!_.has(this.packetSpecCache, packetId)) {
+        if (!hasOwnProperty(this.packetSpecCache, packetId)) {
             let origPacketSpec;
             if (!origPacketSpec && this.specificationData.getPacketSpecification) {
                 origPacketSpec = this.specificationData.getPacketSpecification(destinationAddress, sourceAddress, command);
@@ -459,7 +466,8 @@ class Specification {
                 fullName += ' => ' + destinationDeviceSpec.name;
             }
 
-            const packetSpec = _.extend({}, origPacketSpec, {
+            const packetSpec = {
+                ...origPacketSpec,
                 packetId,
                 channel: headerOrChannel,
                 destinationAddress,
@@ -470,9 +478,9 @@ class Specification {
                 destinationDevice: destinationDeviceSpec,
                 sourceDevice: sourceDeviceSpec,
                 fullName,
-            });
+            };
 
-            if (!_.has(packetSpec, 'packetFields')) {
+            if (!hasOwnProperty(packetSpec, 'packetFields')) {
                 packetSpec.packetFields = [];
             }
 
@@ -546,7 +554,7 @@ class Specification {
         let packetFieldSpec;
         if (typeof packetSpecOrId === 'string') {
             if (this.specificationData.filteredPacketFieldSpecs) {
-                packetFieldSpec = _.find(this.specificationData.filteredPacketFieldSpecs, { filteredPacketFieldId: packetSpecOrId });
+                packetFieldSpec = this.specificationData.filteredPacketFieldSpecs.find(pfs => pfs.filteredPacketFieldId === packetSpecOrId);
             }
 
             if (!packetFieldSpec) {
@@ -561,7 +569,7 @@ class Specification {
         }
 
         if (!packetFieldSpec && packetSpecOrId) {
-            packetFieldSpec = _.find(packetSpecOrId.packetFields, { fieldId });
+            packetFieldSpec = packetSpecOrId.packetFields.find(pfs => pfs.fieldId === fieldId);
         }
 
         return packetFieldSpec;
@@ -600,7 +608,7 @@ class Specification {
         } else if (packetField && packetField.packetFieldSpec) {
             rawValue = this.getRawValue(packetField.packetFieldSpec, buffer, start, end);
 
-            if (_.isNumber(rawValue)) {
+            if (isNumber(rawValue)) {
                 if (packetField.conversions) {
                     ({ rawValue } = this.convertRawValue(rawValue, packetField.conversions));
                 } else {
@@ -625,19 +633,19 @@ class Specification {
     }
 
     invertConversions(conversions) {
-        if (!_.isArray(conversions)) {
+        if (!Array.isArray(conversions)) {
             return conversions;
         }
 
-        return _.map(conversions.reverse(), (conversion) => {
+        return conversions.reverse().map((conversion) => {
             const invertedConversion = {};
-            if (_.isNumber(conversion.offset)) {
+            if (isNumber(conversion.offset)) {
                 invertedConversion.offset = conversion.offset  * -1;
             }
-            if (_.isNumber(conversion.factor)) {
+            if (isNumber(conversion.factor)) {
                 invertedConversion.factor = 1 / conversion.factor;
             }
-            if (_.isNumber(conversion.power)) {
+            if (isNumber(conversion.power)) {
                 if (conversion.power !== 0) {
                     invertedConversion.power = 1 / conversion.power;
                 } else {
@@ -665,7 +673,7 @@ class Specification {
         if (packetField && packetField.setRawValue) {
             packetField.setRawValue(rawValue, buffer, start, end);
         } else if (packetField && packetField.packetFieldSpec) {
-            if (_.isNumber(rawValue)) {
+            if (isNumber(rawValue)) {
                 if (packetField.conversions) {
                     ({ rawValue } = this.convertRawValue(rawValue, this.invertConversions(packetField.conversions)));
                 } else {
@@ -689,7 +697,7 @@ class Specification {
         const that = this;
 
         let conversions;
-        if (_.isArray(sourceUnit_)) {
+        if (Array.isArray(sourceUnit_)) {
             conversions = sourceUnit_;
         } else {
             conversions = [{
@@ -701,14 +709,14 @@ class Specification {
             }];
         }
 
-        const result = _.reduce(conversions, (valueInfo, conversion) => {
+        const result = conversions.reduce((valueInfo, conversion) => {
             let { rawValue } = valueInfo;
             const { sourceUnit, targetUnit } = conversion;
             const unitFamily = sourceUnit && sourceUnit.unitFamily;
 
-            const hasPower = _.isNumber(conversion.power);
-            const hasFactor = _.isNumber(conversion.factor);
-            const hasOffset = _.isNumber(conversion.offset);
+            const hasPower = isNumber(conversion.power);
+            const hasFactor = isNumber(conversion.factor);
+            const hasOffset = isNumber(conversion.offset);
             const autoConvert = !hasFactor && !hasOffset && !hasPower;
 
             if (hasPower) {
@@ -1070,7 +1078,7 @@ class Specification {
 
         if ((rawValue !== undefined) && (rawValue !== null)) {
             if (typeof unit === 'string') {
-                if (_.has(this.specificationData.units, unit)) {
+                if (hasOwnProperty(this.specificationData.units, unit)) {
                     unit = this.specificationData.units [unit];
                 } else {
                     throw new Error('Unknown unit named "' + unit + '"');
@@ -1128,15 +1136,15 @@ class Specification {
             textValue = this.i18n.numeral(rawValue).format('0.0000');
             result = textValue + unitText;
         } else {
-            if (!_.has(numberFormatCache, precision)) {
+            if (!numberFormatCache.has(precision)) {
                 format = '0.';
                 for (let i = 0; i < precision; i++) {
                     format = format + '0';
                 }
-                numberFormatCache [precision] = format;
+                numberFormatCache.set(precision, format);
             }
 
-            textValue = this.i18n.numeral(rawValue).format(numberFormatCache [precision]);
+            textValue = this.i18n.numeral(rawValue).format(numberFormatCache.get(precision));
             result = textValue + unitText;
         }
 
@@ -1153,7 +1161,7 @@ class Specification {
         const _this = this;
 
         // filter out all packets
-        const packets = _.reduce(headers, (memo, header) => {
+        const packets = headers.reduce((memo, header) => {
             if ((header.getProtocolVersion() & 0xF0) === 0x10) {
                 memo.push(header);
             }
@@ -1164,27 +1172,27 @@ class Specification {
 
         const { filteredPacketFieldSpecs } = this.specificationData;
         if (filteredPacketFieldSpecs) {
-            const packetById = _.reduce(packets, (memo, packet) => {
+            const packetById = packets.reduce((memo, packet) => {
                 const packetSpec = _this.getPacketSpecification(packet);
                 memo [packetSpec.packetId] = packet;
                 return memo;
             }, {});
 
-            _.forEach(filteredPacketFieldSpecs, (fpfs) => {
-                const packetField = _.extend({}, {
+            for (const fpfs of filteredPacketFieldSpecs) {
+                const packetField = {
                     id: fpfs.filteredPacketFieldId,
                     packet: packetById [fpfs.packetId],
                     packetSpec: fpfs.packetSpec,
                     packetFieldSpec: fpfs,
                     origPacketFieldSpec: fpfs.packetFieldSpec,
-                });
+                };
                 packetFields.push(packetField);
-            });
+            }
         } else {
-            _.forEach(packets, (packet) => {
+            for (const packet of packets) {
                 const packetSpec = _this.getPacketSpecification(packet);
                 if (packetSpec) {
-                    _.forEach(packetSpec.packetFields, (packetFieldSpec) => {
+                    for (const packetFieldSpec of packetSpec.packetFields) {
                         const packetField = {
                             id: packetSpec.packetId + '_' + packetFieldSpec.fieldId,
                             packet,
@@ -1193,19 +1201,19 @@ class Specification {
                             origPacketFieldSpec: packetFieldSpec,
                         };
                         packetFields.push(packetField);
-                    });
+                    }
                 }
-            });
+            }
         }
 
         const { language } = this;
 
-        _.forEach(packetFields, (packetField) => {
+        for (const packetField of packetFields) {
             const pfsName = packetField.packetFieldSpec.name;
             let name;
-            if (_.isString(pfsName)) {
+            if (isString(pfsName)) {
                 name = pfsName;
-            } else if (_.isObject(pfsName)) {
+            } else if (isObject(pfsName)) {
                 name = pfsName [language] || pfsName.en || pfsName.de || pfsName.ref;
             }
 
@@ -1220,7 +1228,7 @@ class Specification {
                 precision = packetField.packetFieldSpec.type.precision || 0;
             }
 
-            _.extend(packetField, {
+            Object.assign(packetField, {
 
                 name,
 
@@ -1235,7 +1243,7 @@ class Specification {
                 },
 
             });
-        });
+        }
 
         return packetFields;
     }
@@ -1243,7 +1251,7 @@ class Specification {
     setPacketFieldRawValues(packetFields, rawValues) {
         const _this = this;
 
-        const packetFieldById = _.reduce(packetFields, (memo, packetField) => {
+        const packetFieldById = packetFields.reduce((memo, packetField) => {
             memo [packetField.id] = packetField;
             const { fieldId } = packetField.packetFieldSpec;
             if (memo [fieldId] === undefined) {
@@ -1254,7 +1262,8 @@ class Specification {
             return memo;
         }, {});
 
-        _.forEach(rawValues, (rawValue, key) => {
+        for (const key of Object.getOwnPropertyNames(rawValues)) {
+            const rawValue = rawValues [key];
             const packetField = packetFieldById [key];
             if (packetField === undefined) {
                 throw new Error('Unknown raw value ID ' + JSON.stringify(key));
@@ -1264,7 +1273,7 @@ class Specification {
                 const frameData = packetField.packet.frameData.slice(0, packetField.packet.frameCount * 4);
                 _this.setRawValue(packetField.packetFieldSpec, rawValue, frameData);
             }
-        });
+        }
     }
 
     getFilteredPacketFieldSpecificationsForHeaders(headers) {
@@ -1272,19 +1281,20 @@ class Specification {
 
         const packetFields = this.getPacketFieldsForHeaders(headers);
 
-        _.forEach(packetFields, (packetField) => {
+        for (const packetField of packetFields) {
             const { packetSpec, packetFieldSpec } = packetField;
 
             if (packetSpec && packetFieldSpec) {
-                const filteredPacketFieldSpec = _.extend({}, packetFieldSpec, {
+                const filteredPacketFieldSpec = {
+                    ...packetFieldSpec,
                     filteredPacketFieldId: packetSpec.packetId + '_' + packetFieldSpec.fieldId,
                     packetId: packetSpec.packetId,
                     name: packetField.name,
-                });
+                };
 
                 filteredPacketFieldSpecs.push(filteredPacketFieldSpec);
             }
-        });
+        }
 
         return filteredPacketFieldSpecs;
     }
@@ -1298,7 +1308,7 @@ class Specification {
     getBlockTypeSectionsForHeaders(headers) {
         const _this = this;
 
-        return _.reduce(headers, (memo, header) => {
+        return headers.reduce((memo, header) => {
             if (((header.getProtocolVersion() & 0xF0) === 0x10) && (header.destinationAddress === 0x0015) && (header.command === 0x0100)) {
                 const packetSpec = _this.getPacketSpecification(header);
 
@@ -1548,10 +1558,10 @@ class Specification {
     getBlockTypePacketSpecificationsForSections(sections) {
         const _this = this;
 
-        return _.reduce(sections, (memo, section) => {
+        return sections.reduce((memo, section) => {
             const { sectionId } = section;
 
-            if (!_.has(_this.blockTypePacketSpecCache, sectionId)) {
+            if (!hasOwnProperty(_this.blockTypePacketSpecCache, sectionId)) {
                 const fieldIdPrefix = section.sectionId;
 
                 const forEachPayload = function(iterator) {
@@ -1603,11 +1613,12 @@ class Specification {
                     });
                 }
 
-                _this.blockTypePacketSpecCache [sectionId] = _.extend({}, section.packetSpec, {
+                _this.blockTypePacketSpecCache [sectionId] = {
+                    ...section.packetSpec,
                     packetId: section.surrogatePacketId,
                     sectionId,
                     packetFields: packetFieldSpecs,
-                });
+                };
             }
 
             const packetSpec = _this.blockTypePacketSpecCache [sectionId];
@@ -1626,7 +1637,7 @@ class Specification {
     getBlockTypeFieldsForSections(sections) {
         const _this = this;
 
-        const sectionByBlockTypeId = _.reduce(sections, (memo, section) => {
+        const sectionByBlockTypeId = sections.reduce((memo, section) => {
             memo [section.sectionId] = section;
             return memo;
         }, {});
@@ -1634,8 +1645,8 @@ class Specification {
         const packetSpecs = this.getBlockTypePacketSpecificationsForSections(sections);
 
         const packetFields = [];
-        _.forEach(packetSpecs, (packetSpec) => {
-            _.forEach(packetSpec.packetFields, (packetFieldSpec) => {
+        for (const packetSpec of packetSpecs) {
+            for (const packetFieldSpec of packetSpec.packetFields) {
                 const section = sectionByBlockTypeId [packetSpec.sectionId];
 
                 const packetField = {
@@ -1647,21 +1658,21 @@ class Specification {
                     origPacketFieldSpec: packetFieldSpec,
                 };
                 packetFields.push(packetField);
-            });
-        });
+            }
+        }
 
         const { language } = this;
 
-        _.forEach(packetFields, (packetField) => {
+        for (const packetField of packetFields) {
             const pfsName = packetField.packetFieldSpec.name;
             let name;
-            if (_.isString(pfsName)) {
+            if (isString(pfsName)) {
                 const key = 'specificationData.packetFieldName.' + pfsName;
                 name = _this.i18n.t(key);
                 if (name === key) {
                     name = pfsName;
                 }
-            } else if (_.isObject(pfsName)) {
+            } else if (isObject(pfsName)) {
                 name = pfsName [language] || pfsName.en || pfsName.de || pfsName.ref;
             }
 
@@ -1671,7 +1682,7 @@ class Specification {
                 rawValue = _this.getRawValue(packetField.packetFieldSpec, frameData);
             }
 
-            _.extend(packetField, {
+            Object.assign(packetField, {
 
                 name,
 
@@ -1682,7 +1693,7 @@ class Specification {
                 },
 
             });
-        });
+        }
 
         return packetFields;
     }
@@ -1704,14 +1715,14 @@ class Specification {
             const resolve = function(value, collectionKey) {
                 const collection = specificationData [collectionKey];
 
-                if (_.has(collection, value)) {
+                if (hasOwnProperty(collection, value)) {
                     value = collection [value];
                 }
 
                 return value;
             };
 
-            filteredPacketFieldSpecs = _.map(rawFilteredPacketFieldSpecs, (rfpfs) => {
+            filteredPacketFieldSpecs = rawFilteredPacketFieldSpecs.map((rfpfs) => {
                 const packetSpec = specification.getPacketSpecification(rfpfs.packetId);
                 const packetFieldSpec = specification.getPacketFieldSpecification(packetSpec, rfpfs.fieldId);
 
@@ -1720,12 +1731,13 @@ class Specification {
                     name = { ref: name };
                 }
 
-                return _.extend({}, rfpfs, {
+                return {
+                    ...rfpfs,
                     packetSpec,
                     packetFieldSpec,
                     name,
                     type: resolve(rfpfs.type, 'types'),
-                    conversions: rfpfs.conversions && _.map(rfpfs.conversions, (rawConversion) => {
+                    conversions: rfpfs.conversions && rfpfs.conversions.map((rawConversion) => {
                         return {
                             factor: rawConversion.factor,
                             offset: rawConversion.offset,
@@ -1735,13 +1747,14 @@ class Specification {
                     }),
                     getRawValue: resolve(rfpfs.getRawValue, 'getRawValueFunctions'),
                     setRawValue: resolve(rfpfs.setRawValue, 'setRawValueFunctions'),
-                });
+                };
             });
         }
 
-        const result = _.extend({}, specificationData, {
+        const result = {
+            ...specificationData,
             filteredPacketFieldSpecs,
-        });
+        };
 
         return result;
     }
@@ -1768,18 +1781,18 @@ class Specification {
                     valueId = value [valueIdKey];
                 }
                 if (!valueId) {
-                    valueId = _.findKey(collection, (refValue) => {
-                        return (value === refValue);
+                    valueId = Object.getOwnPropertyNames(collection).find(key => {
+                        return (value === collection [key]);
                     });
                 }
-                if (valueId && _.has(collection, valueId) && (collection [valueId] === value)) {
+                if (valueId && hasOwnProperty(collection, valueId) && (collection [valueId] === value)) {
                     value = valueId;
                 }
 
                 return value;
             };
 
-            rawFilteredPacketFieldSpecs = _.map(filteredPacketFieldSpecs, (fpfs) => {
+            rawFilteredPacketFieldSpecs = filteredPacketFieldSpecs.map((fpfs) => {
                 const rfpfs = {
                     filteredPacketFieldId: fpfs.filteredPacketFieldId,
                     packetId: fpfs.packetId,
@@ -1791,12 +1804,12 @@ class Specification {
                 };
 
                 if (fpfs.conversions) {
-                    rfpfs.conversions = _.map(fpfs.conversions, (conversion) => {
+                    rfpfs.conversions = fpfs.conversions.map((conversion) => {
                         const rawConversion = {};
-                        if (_.isNumber(conversion.factor)) {
+                        if (isNumber(conversion.factor)) {
                             rawConversion.factor = conversion.factor;
                         }
-                        if (_.isNumber(conversion.offset)) {
+                        if (isNumber(conversion.offset)) {
                             rawConversion.offset = conversion.offset;
                         }
                         if (conversion.sourceUnit) {

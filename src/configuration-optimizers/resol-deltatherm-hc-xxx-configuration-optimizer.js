@@ -8,7 +8,6 @@
 const configurationData = require('./resol-deltatherm-hc-xxx-data');
 
 const BaseConfigurationOptimizer = require('../base-configuration-optimizer');
-const _ = require('../lodash');
 
 
 
@@ -41,15 +40,15 @@ class ResolDeltaThermHcXxxConfigurationOptimizer extends BaseConfigurationOptimi
                 $(prefix + 'Schaltuhr_.*').ignore();
             });
 
-            const wfTypes = _.keys(value.values [0].valueTextById);
+            const wfTypes = Object.getOwnPropertyNames(value.values [0].valueTextById);
 
-            _.forEach(wfTypes, (wfType) => {
+            for (const wfType of wfTypes) {
                 if ((wfType !== 'Frei') && (wfType !== 'Fehlerrelais')) {
                     value.notEql('#' + wfType, () => {
                         $(prefix + wfType + '_.*').ignore();
                     });
                 }
-            });
+            }
         });
     }
 
@@ -65,15 +64,15 @@ class ResolDeltaThermHcXxxConfigurationOptimizer extends BaseConfigurationOptimi
                 $(prefix + 'Schaltuhr_.*').ignore();
             });
 
-            const wfTypes = _.keys(value.values [0].valueTextById);
+            const wfTypes = Object.getOwnPropertyNames(value.values [0].valueTextById);
 
-            _.forEach(wfTypes, (wfType) => {
+            for (const wfType of wfTypes) {
                 if (wfType !== 'Frei') {
                     value.notEql('#' + wfType, () => {
                         $(prefix + wfType + '_.*').ignore();
                     });
                 }
-            });
+            }
         });
     }
 

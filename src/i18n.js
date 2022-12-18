@@ -9,7 +9,7 @@ require('numeral/locales/de');
 const { sprintf } = require('sprintf-js');
 
 
-const _ = require('./lodash');
+const { hasOwnProperty } = require('./utils');
 
 
 
@@ -42,7 +42,7 @@ class I18N {
      * @param {string} [language='en'] Language code (ISO 639-1)
      */
     constructor(language) {
-        if (!language || !_.has(knownLanguages, language)) {
+        if (!language || !hasOwnProperty(knownLanguages, language)) {
             language = 'en';
         }
 
@@ -111,7 +111,7 @@ class I18N {
      * // outputs: Unbekanntes Gerät (0x7E11)
      * console.log(i18n.t('specification.unknownDevice', 0x7e11));
      */
-    t(key) {
+    t(key, ...args) {
         const parts = key.split('.');
 
         const languages = [ this.language, 'dev' ];
@@ -132,8 +132,7 @@ class I18N {
             }
         }
         let text = value || key;
-        if (arguments.length > 1) {
-            const args = _.toArray(arguments).slice(1);
+        if (args.length > 0) {
             text = this.vsprintf(text, args);
         }
         return text;

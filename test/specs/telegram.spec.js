@@ -10,7 +10,6 @@ const {
 
 
 const expect = require('./expect');
-const _ = require('./lodash');
 
 const {
     itShouldWorkCorrectlyAfterMigratingToClass,
@@ -157,7 +156,8 @@ describe('Telegram', () => {
 
             expect(telegram).to.be.an.instanceOf(Telegram);
 
-            _.forEach(options, (refValue, key) => {
+            for (const key of Object.getOwnPropertyNames(options)) {
+                let refValue = options [key];
                 let value = telegram [key];
 
                 if ((value instanceof Buffer) && (refValue instanceof Buffer)) {
@@ -166,7 +166,7 @@ describe('Telegram', () => {
                 }
 
                 expect(value).to.equal(refValue, key);
-            });
+            }
         });
 
     });

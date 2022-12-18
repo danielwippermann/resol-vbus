@@ -11,9 +11,6 @@ const moreints = require('buffer-more-ints');
 const { sprintf } = require('sprintf-js');
 
 
-const _ = require('./lodash');
-
-
 
 let defaultSpecificationFile = null;
 
@@ -117,36 +114,36 @@ class SpecificationFile {
 
         this.types = types;
 
-        this.typeById = _.reduce(types, (memo, type) => {
+        this.typeById = types.reduce((memo, type) => {
             memo [type.typeId] = type;
             return memo;
         }, {});
 
-        this.typeByCode = _.reduce(types, (memo, type) => {
+        this.typeByCode = types.reduce((memo, type) => {
             memo [type.typeCode] = type;
             return memo;
         }, {});
 
         this.unitFamilies = unitFamilies;
 
-        this.unitFamilyById = _.reduce(unitFamilies, (memo, unitFamily) => {
+        this.unitFamilyById = unitFamilies.reduce((memo, unitFamily) => {
             memo [unitFamily.unitFamilyId] = unitFamily;
             return memo;
         }, {});
 
-        this.unitFamilyByCode = _.reduce(unitFamilies, (memo, unitFamily) => {
+        this.unitFamilyByCode = unitFamilies.reduce((memo, unitFamily) => {
             memo [unitFamily.unitFamilyCode] = unitFamily;
             return memo;
         }, {});
 
         this.knownUnits = knownUnits;
 
-        this.knownUnitsById = _.reduce(knownUnits, (memo, unit) => {
+        this.knownUnitsById = knownUnits.reduce((memo, unit) => {
             memo [unit.unitId] = unit;
             return memo;
         }, {});
 
-        this.knownUnitsByCode = _.reduce(knownUnits, (memo, unit) => {
+        this.knownUnitsByCode = knownUnits.reduce((memo, unit) => {
             memo [unit.unitCode] = unit;
             return memo;
         }, {});
@@ -163,9 +160,11 @@ class SpecificationFile {
     _generateSpecificationData(language) {
         const that = this;
 
-        let units = _.extend({}, this.knownUnitsByCode);
+        let units = {
+            ...this.knownUnitsByCode,
+        };
 
-        units = _.reduce(this.units, (memo, unit) => {
+        units = this.units.reduce((memo, unit) => {
             memo [unit.unitCode] = {
                 unitId: unit.unitCode,
                 unitCode: unit.unitCode,
@@ -175,8 +174,8 @@ class SpecificationFile {
             return memo;
         }, units);
 
-        const types = _.reduce(this.packetTemplates, (memo, pt) => {
-            return _.reduce(pt.fields, (memo, ptf) => {
+        const types = this.packetTemplates.reduce((memo, pt) => {
+            return pt.fields.reduce((memo, ptf) => {
                 const rootTypeId = ptf.type && ptf.type.typeCode;
                 const { precision } = ptf;
                 const unitCode = (ptf.unit && ptf.unit.unitCode) || 'None';
@@ -196,8 +195,8 @@ class SpecificationFile {
             }, memo);
         }, {});
 
-        const getRawValueFunctions = _.reduce(this.packetTemplates, (memo, pt) => {
-            return _.reduce(pt.fields, (memo, ptf) => {
+        const getRawValueFunctions = this.packetTemplates.reduce((memo, pt) => {
+            return pt.fields.reduce((memo, ptf) => {
                 const funcId = sprintf('_%04X_%04X_%04X_%s', pt.destinationAddress, pt.sourceAddress, pt.command, ptf.id);
 
                 memo [funcId] = function(buffer, start, end) {
@@ -208,8 +207,8 @@ class SpecificationFile {
             }, memo);
         }, {});
 
-        const setRawValueFunctions = _.reduce(this.packetTemplates, (memo, pt) => {
-            return _.reduce(pt.fields, (memo, ptf) => {
+        const setRawValueFunctions = this.packetTemplates.reduce((memo, pt) => {
+            return pt.fields.reduce((memo, ptf) => {
                 const funcId = sprintf('_%04X_%04X_%04X_%s', pt.destinationAddress, pt.sourceAddress, pt.command, ptf.id);
 
                 memo [funcId] = function(newValue, buffer, start, end) {
@@ -220,7 +219,7 @@ class SpecificationFile {
             }, memo);
         }, {});
 
-        const deviceSpecs = _.reduce(this.deviceTemplates, (memo, dt) => {
+        const deviceSpecs = this.deviceTemplates.reduce((memo, dt) => {
             const deviceId = sprintf('_%04X', dt.selfAddress);
 
             memo [deviceId] = {
@@ -231,15 +230,15 @@ class SpecificationFile {
             return memo;
         }, {});
 
-        const deviceSpecCache = {};
+        const deviceSpecCache = new Map();
 
         const getDeviceSpecification = function(selfAddress, peerAddress) {
             const deviceSpecId = sprintf('%04X_%04X', selfAddress, peerAddress);
             let deviceSpec;
-            if (_.has(deviceSpecCache, deviceSpecId)) {
-                deviceSpec = deviceSpecCache [deviceSpecId];
+            if (deviceSpecCache.has(deviceSpecId)) {
+                deviceSpec = deviceSpecCache.get(deviceSpecId);
             } else {
-                const dt = _.find(that.deviceTemplates, (dt) => {
+                const dt = that.deviceTemplates.find((dt) => {
                     if ((selfAddress & dt.selfMask) !== (dt.selfAddress & dt.selfMask)) {
                         // nop
                     } else if ((peerAddress & dt.peerMask) !== (dt.peerAddress & dt.peerMask)) {
@@ -256,15 +255,15 @@ class SpecificationFile {
                     const deviceId = sprintf('_%04X', dt.selfAddress);
                     deviceSpec = deviceSpecs [deviceId];
                 }
-                deviceSpecCache [deviceSpecId] = deviceSpec;
+                deviceSpecCache.set(deviceSpecId, deviceSpec);
             }
             return deviceSpec;
         };
 
-        const packetFieldSpecs = _.reduce(this.packetTemplates, (memo, pt) => {
+        const packetFieldSpecs = this.packetTemplates.reduce((memo, pt) => {
             const packetId = sprintf('_%04X_%04X_%04X', pt.destinationAddress, pt.sourceAddress, pt.command);
 
-            memo [packetId] = _.map(pt.fields, (ptf) => {
+            memo [packetId] = pt.fields.map((ptf) => {
                 const rootTypeId = ptf.type && ptf.type.typeCode;
                 const { precision } = ptf;
                 const unitCode = (ptf.unit && ptf.unit.unitCode) || 'None';
@@ -277,7 +276,7 @@ class SpecificationFile {
 
                 const funcId = sprintf('_%04X_%04X_%04X_%s', pt.destinationAddress, pt.sourceAddress, pt.command, ptf.id);
 
-                const parts = _.map(ptf.parts, (ptfp) => {
+                const parts = ptf.parts.map((ptfp) => {
                     return {
                         offset: ptfp.offset,
                         mask: ptfp.mask,
@@ -301,7 +300,7 @@ class SpecificationFile {
             return memo;
         }, {});
 
-        const packetSpecs = _.reduce(this.packetTemplates, (memo, pt) => {
+        const packetSpecs = this.packetTemplates.reduce((memo, pt) => {
             const packetId = sprintf('_%04X_%04X_%04X', pt.destinationAddress, pt.sourceAddress, pt.command);
 
             memo [packetId] = {
@@ -312,15 +311,15 @@ class SpecificationFile {
             return memo;
         }, {});
 
-        const packetSpecCache = {};
+        const packetSpecCache = new Map();
 
         const getPacketSpecification = function(destinationAddress, sourceAddress, command) {
             const packetSpecId = sprintf('%04X_%04X_%04X', destinationAddress, sourceAddress, command);
             let packetSpec;
-            if (_.has(packetSpecCache, packetSpecId)) {
-                packetSpec = packetSpecCache [packetSpecId];
+            if (packetSpecCache.has(packetSpecId)) {
+                packetSpec = packetSpecCache.get(packetSpecId);
             } else {
-                const pt = _.find(that.packetTemplates, (pt) => {
+                const pt = that.packetTemplates.find((pt) => {
                     if ((destinationAddress & pt.destinationMask) !== (pt.destinationAddress & pt.destinationMask)) {
                         // nop
                     } else if ((sourceAddress & pt.sourceMask) !== (pt.sourceAddress & pt.sourceMask)) {
@@ -340,7 +339,7 @@ class SpecificationFile {
                     packetSpec = packetSpecs [packetId];
                 }
 
-                packetSpecCache [packetSpecId] = packetSpec;
+                packetSpecCache.set(packetSpecId, packetSpec);
             }
             return packetSpec;
         };
@@ -349,6 +348,7 @@ class SpecificationFile {
             units,
             types,
             getRawValueFunctions,
+            setRawValueFunctions,
             deviceSpecs,
             getDeviceSpecification,
             packetFieldSpecs,
@@ -464,12 +464,12 @@ class SpecificationFile {
             });
         });
 
-        const unitById = _.reduce(units, (memo, unit) => {
+        const unitById = units.reduce((memo, unit) => {
             memo [unit.unitId] = unit;
             return memo;
         }, {});
 
-        const unitByCode = _.reduce(units, (memo, unit) => {
+        const unitByCode = units.reduce((memo, unit) => {
             memo [unit.unitCode] = unit;
             return memo;
         }, {});
@@ -569,7 +569,7 @@ class SpecificationFile {
 
     getRawValue(pt, ptf, buffer, start, end) {
         let rawValue = 0, valid = false;
-        _.forEach(ptf.parts, (part) => {
+        for (const part of ptf.parts) {
             if (start + part.offset < end) {
                 let partValue;
                 if (part.isSigned) {
@@ -586,7 +586,7 @@ class SpecificationFile {
                 rawValue += partValue * part.factor;
                 valid = true;
             }
-        });
+        }
         if (ptf.precision > 0) {
             rawValue = rawValue * Math.pow(10, -ptf.precision);
         }
@@ -602,7 +602,7 @@ class SpecificationFile {
         }
         newValue = Math.round(newValue);
 
-        _.forEach(ptf.parts, (part) => {
+        for (const part of ptf.parts) {
             if (start + part.offset < end) {
                 let partValue = Math.floor(newValue / part.factor) & 255;
                 if (part.bitPos > 0) {
@@ -613,7 +613,7 @@ class SpecificationFile {
                 }
                 buffer.writeUInt8(partValue, start + part.offset);
             }
-        });
+        }
     }
 
     static getDefaultSpecificationFile() {

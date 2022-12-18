@@ -6,13 +6,15 @@
 const {
     Packet,
     Specification,
+    utils: { hasOwnProperty },
 } = require('./resol-vbus');
 
 
 const expect = require('./expect');
-const _ = require('./lodash');
 const testUtils = require('./test-utils');
 
+
+const { expectOwnPropertyNamesToEqual } = testUtils;
 
 
 
@@ -1120,20 +1122,21 @@ describe('Specification', () => {
 
         const knownFamilyUnitCodes = [];
 
-        _.forEach(specData.units, (unit) => {
+        for (const unitId of Object.getOwnPropertyNames(specData.units)) {
+            const unit = specData.units [unitId];
             const uf = unit.unitFamily;
             if (uf) {
-                if (!_.has(unitsByFamily, uf)) {
+                if (!hasOwnProperty(unitsByFamily, uf)) {
                     unitsByFamily [uf] = [];
                 }
 
                 unitsByFamily [uf].push(unit);
                 knownFamilyUnitCodes.push(unit.unitCode);
             }
-        });
+        }
 
         const content = [];
-        _.forEach(_.keys(unitsByFamily).sort(), (uf) => {
+        for (const uf of Object.getOwnPropertyNames(unitsByFamily).sort()) {
             const units = unitsByFamily [uf];
 
             content.push('describe(\'Unit Family ' + JSON.stringify(uf) + '\', function() {');
@@ -1141,7 +1144,8 @@ describe('Specification', () => {
             // content.push('var units = unitsByFamily [\'' + uf + '\'];');
             // content.push('');
 
-            _.forEach(units, (sourceUnit, index) => {
+            for (let index = 0; index < units.length; index++) {
+                const sourceUnit = units [index];
                 const targetUnit = units [index + 1] || units [0];
 
                 content.push('it(\'should convert from ' + JSON.stringify(sourceUnit.unitCode) + ' to ' + JSON.stringify(targetUnit.unitCode) + '\', function() {');
@@ -1149,11 +1153,11 @@ describe('Specification', () => {
                 content.push('expectConversion(1000000, \'' + sourceUnit.unitCode + '\', \'' + targetUnit.unitCode + '\').closeTo(undefined, delta);');
                 content.push('});');
                 content.push('');
-            });
+            }
 
             content.push('});');
             content.push('');
-        });
+        }
 
         // console.log(content.join('\n'));
 
@@ -1161,12 +1165,12 @@ describe('Specification', () => {
             expect(Specification.prototype).property('convertRawValue').a('function');
         });
 
-        const checkedSourceUnitCodes = [];
-        const checkedTargetUnitCodes = [];
+        const checkedSourceUnitCodes = new Set();
+        const checkedTargetUnitCodes = new Set();
 
         const expectConversion = function(rawValue, sourceUnitCode, targetUnitCode) {
-            checkedSourceUnitCodes.push(sourceUnitCode);
-            checkedTargetUnitCodes.push(targetUnitCode);
+            checkedSourceUnitCodes.add(sourceUnitCode);
+            checkedTargetUnitCodes.add(targetUnitCode);
 
             const spec = new Specification();
 
@@ -1372,7 +1376,7 @@ describe('Specification', () => {
         const expectConversions = function(rawValue, conversions) {
             const spec = new Specification();
 
-            conversions = _.map(conversions, (conversion) => {
+            conversions = conversions.map((conversion) => {
                 const { sourceUnitCode, targetUnitCode } = conversion;
 
                 const sourceUnit = sourceUnitCode && specData.units [sourceUnitCode];
@@ -1552,11 +1556,11 @@ describe('Specification', () => {
         describe('Units', () => {
 
             it('should have checked all units as source units', () => {
-                expect(_.uniq(checkedSourceUnitCodes).sort()).eql(knownFamilyUnitCodes.sort());
+                expect(Array.from(checkedSourceUnitCodes.values()).sort()).eql(knownFamilyUnitCodes.sort());
             });
 
             it('should have checked all units as target units', () => {
-                expect(_.uniq(checkedTargetUnitCodes).sort()).eql(knownFamilyUnitCodes.sort());
+                expect(Array.from(checkedTargetUnitCodes.values()).sort()).eql(knownFamilyUnitCodes.sort());
             });
 
         });
@@ -1926,10 +1930,6 @@ describe('Specification', () => {
 
             let pfs = spec.getPacketFieldsForHeaders([ header1, header2 ]);
 
-            // console.log(_.map(pfs, function(pf) {
-            //     return '\'' + pf.id + '\':' + pf.rawValue + ',  // ' + pf.name;
-            // }).join('\n'));
-
             spec.setPacketFieldRawValues(pfs, {
                 '01_0010_7722_10_0100_000_2_0': 123.4,   // Flow temperature
                 '01_0010_7722_10_0100_002_2_0': -234.5,  // Return temperature
@@ -1980,15 +1980,9 @@ describe('Specification', () => {
 
             let pfs = spec.getPacketFieldsForHeaders(headers);
 
-            // console.log(_.map(pfs, function(pf) {
-            //     return '\'' + pf.id + '\':' + pf.rawValue + ',  // ' + pf.name;
-            // }).join('\n'));
-
             spec.setPacketFieldRawValues(pfs, {
                 '01_0000_4010_10_0100_002_2_0': 123456789,  // Heat
             });
-
-            // console.log(header1.frameData.slice(0, 24).toString('hex').split(/(.{8})/g));
 
             expect(header1.frameData.readUInt16LE(2)).equal(789);
             expect(header1.frameData.readUInt16LE(0)).equal(456);
@@ -2159,7 +2153,7 @@ describe('Specification', () => {
 
             let section = sections [0];
             expect(section).an('object');
-            expect(_.keys(section).sort()).eql(sectionKeys);
+            expectOwnPropertyNamesToEqual(section, sectionKeys);
             expect(section).property('sectionId').a('string').equal('01_0015_7721_10_0100_01_08_4');
             expect(section).property('surrogatePacketId').a('string').equal('01_8015_4CB0_10_6413');
             expect(section).property('packet').an('object');
@@ -2178,7 +2172,7 @@ describe('Specification', () => {
 
             section = sections [1];
             expect(section).an('object');
-            expect(_.keys(section).sort()).eql(sectionKeys);
+            expectOwnPropertyNamesToEqual(section, sectionKeys);
             expect(section).property('sectionId').a('string').equal('01_0015_7721_10_0100_02_0A_1');
             expect(section).property('surrogatePacketId').a('string').equal('01_8015_6659_10_49D0');
             expect(section).property('packet').an('object');
@@ -2197,7 +2191,7 @@ describe('Specification', () => {
 
             section = sections [2];
             expect(section).an('object');
-            expect(_.keys(section).sort()).eql(sectionKeys);
+            expectOwnPropertyNamesToEqual(section, sectionKeys);
             expect(section).property('sectionId').a('string').equal('01_0015_7721_10_0100_01_0B_1');
             expect(section).property('surrogatePacketId').a('string').equal('01_8015_C162_10_EFC8');
             expect(section).property('packet').an('object');
@@ -2233,7 +2227,8 @@ describe('Specification', () => {
 
             expect(sections).an('array').lengthOf(expectedValues.length);
 
-            _.forEach(sections, (section, index) => {
+            for (let index = 0; index < sections.length; index++) {
+                const section = sections [index];
                 const ev = expectedValues [index];
 
                 const sectionId = ev [0];
@@ -2246,7 +2241,7 @@ describe('Specification', () => {
                 const frameData = ev [7];
 
                 expect(section).an('object');
-                expect(_.keys(section).sort()).eql(sectionKeys);
+                expectOwnPropertyNamesToEqual(section, sectionKeys);
                 expect(section).property('sectionId').a('string').equal(sectionId);
                 expect(section).property('surrogatePacketId').a('string').equal(surrogatePacketId);
                 expect(section).property('packet').an('object');
@@ -2260,7 +2255,7 @@ describe('Specification', () => {
                 testUtils.expectToBeABuffer(section.frameData);
 
                 expect(section.frameData.toString('hex')).equal(frameData);
-            });
+            }
         });
 
     });
@@ -2308,7 +2303,7 @@ describe('Specification', () => {
 
             let packetSpec = packetSpecs [0];
             expect(packetSpec).an('object');
-            expect(_.keys(packetSpec).sort()).eql(packetSpecKeys);
+            expectOwnPropertyNamesToEqual(packetSpec, packetSpecKeys);
             expect(packetSpec).property('packetId').a('string').equal('01_8015_4CB0_10_6413');
             expect(packetSpec).property('sectionId').a('string').equal('01_0015_7721_10_0100_01_08_4');
             expect(packetSpec).property('packetFields').an('array').lengthOf(4);
@@ -2324,7 +2319,7 @@ describe('Specification', () => {
 
             let pfs = packetSpec.packetFields [0];
             expect(pfs).an('object');
-            expect(_.keys(pfs).sort()).eql(packetFieldSpecKeys);
+            expectOwnPropertyNamesToEqual(pfs, packetFieldSpecKeys);
             expect(pfs).property('fieldId').a('string').equal('01_0015_7721_10_0100_01_08_4_004_1_0');
             expect(pfs).property('name').a('string').equal('Drehzahl Relais 1');
             expect(pfs).property('type').an('object').property('typeId').a('string').equal('Number_1_Percent');
@@ -2338,7 +2333,7 @@ describe('Specification', () => {
 
             packetSpec = packetSpecs [1];
             expect(packetSpec).an('object');
-            expect(_.keys(packetSpec).sort()).eql(packetSpecKeys);
+            expectOwnPropertyNamesToEqual(packetSpec, packetSpecKeys);
             expect(packetSpec).property('packetId').a('string').equal('01_8015_6659_10_49D0');
             expect(packetSpec).property('sectionId').a('string').equal('01_0015_7721_10_0100_02_0A_1');
             expect(packetSpec).property('packetFields').an('array').lengthOf(3);
@@ -2354,7 +2349,7 @@ describe('Specification', () => {
 
             pfs = packetSpec.packetFields [0];
             expect(pfs).an('object');
-            expect(_.keys(pfs).sort()).eql(packetFieldSpecKeys);
+            expectOwnPropertyNamesToEqual(pfs, packetFieldSpecKeys);
             expect(pfs).property('fieldId').a('string').equal('01_0015_7721_10_0100_02_0A_1_004_2_0');
             expect(pfs).property('name').a('string').equal('Temperatur Kollektor');
             expect(pfs).property('type').an('object').property('typeId').a('string').equal('Number_0_1_DegreesCelsius');
@@ -2368,7 +2363,7 @@ describe('Specification', () => {
 
             packetSpec = packetSpecs [2];
             expect(packetSpec).an('object');
-            expect(_.keys(packetSpec).sort()).eql(packetSpecKeys);
+            expectOwnPropertyNamesToEqual(packetSpec, packetSpecKeys);
             expect(packetSpec).property('packetId').a('string').equal('01_8015_C162_10_EFC8');
             expect(packetSpec).property('sectionId').a('string').equal('01_0015_7721_10_0100_01_0B_1');
             expect(packetSpec).property('packetFields').an('array').lengthOf(1);
@@ -2384,7 +2379,7 @@ describe('Specification', () => {
 
             pfs = packetSpec.packetFields [0];
             expect(pfs).an('object');
-            expect(_.keys(pfs).sort()).eql(packetFieldSpecKeys);
+            expectOwnPropertyNamesToEqual(pfs, packetFieldSpecKeys);
             expect(pfs).property('fieldId').a('string').equal('01_0015_7721_10_0100_01_0B_1_004_4_0');
             expect(pfs).property('name').a('string').equal('Fehlermaske');
             expect(pfs).property('type').an('object').property('typeId').a('string').equal('Number_1_None');
@@ -2430,7 +2425,7 @@ describe('Specification', () => {
 
             let packetField = packetFields [0];
             expect(packetField).an('object');
-            expect(_.keys(packetField).sort()).eql(packetFieldKeys);
+            expectOwnPropertyNamesToEqual(packetField, packetFieldKeys);
             expect(packetField).property('id').a('string').equal('01_8015_4CB0_10_6413_01_0015_7721_10_0100_01_08_4_004_1_0');
             expect(packetField).property('section').an('object').equal(sections [0]);
             expect(packetField).property('packet').an('object').equal(blockTypeHeader1);
@@ -2446,7 +2441,7 @@ describe('Specification', () => {
 
             packetField = packetFields [1];
             expect(packetField).an('object');
-            expect(_.keys(packetField).sort()).eql(packetFieldKeys);
+            expectOwnPropertyNamesToEqual(packetField, packetFieldKeys);
             expect(packetField).property('id').a('string').equal('01_8015_4CB0_10_6413_01_0015_7721_10_0100_01_08_4_005_1_0');
             expect(packetField).property('section').an('object').equal(sections [0]);
             expect(packetField).property('packet').an('object').equal(blockTypeHeader1);
@@ -2462,7 +2457,7 @@ describe('Specification', () => {
 
             packetField = packetFields [4];
             expect(packetField).an('object');
-            expect(_.keys(packetField).sort()).eql(packetFieldKeys);
+            expectOwnPropertyNamesToEqual(packetField, packetFieldKeys);
             expect(packetField).property('id').a('string').equal('01_8015_6659_10_49D0_01_0015_7721_10_0100_02_0A_1_004_2_0');
             expect(packetField).property('section').an('object').equal(sections [1]);
             expect(packetField).property('packet').an('object').equal(blockTypeHeader1);
@@ -2478,7 +2473,7 @@ describe('Specification', () => {
 
             packetField = packetFields [6];
             expect(packetField).an('object');
-            expect(_.keys(packetField).sort()).eql(packetFieldKeys);
+            expectOwnPropertyNamesToEqual(packetField, packetFieldKeys);
             expect(packetField).property('id').a('string').equal('01_8015_6659_10_49D0_01_0015_7721_10_0100_02_0A_1_008_4_0');
             expect(packetField).property('section').an('object').equal(sections [1]);
             expect(packetField).property('packet').an('object').equal(blockTypeHeader1);
@@ -2494,7 +2489,7 @@ describe('Specification', () => {
 
             packetField = packetFields [7];
             expect(packetField).an('object');
-            expect(_.keys(packetField).sort()).eql(packetFieldKeys);
+            expectOwnPropertyNamesToEqual(packetField, packetFieldKeys);
             expect(packetField).property('id').a('string').equal('01_8015_C162_10_EFC8_01_0015_7721_10_0100_01_0B_1_004_4_0');
             expect(packetField).property('section').an('object').equal(sections [2]);
             expect(packetField).property('packet').an('object').equal(blockTypeHeader1);
@@ -2583,7 +2578,8 @@ describe('Specification', () => {
                 'formatTextValue',
             ].sort();
 
-            _.forEach(packetFields, (packetField, index) => {
+            for (let index = 0; index < packetFields.length; index++) {
+                const packetField = packetFields [index];
                 const ev = expectedValues [index];
 
                 const id = ev [0];
@@ -2594,7 +2590,7 @@ describe('Specification', () => {
                 const textValue = ev [5];
 
                 expect(packetField).an('object');
-                expect(_.keys(packetField).sort()).eql(packetFieldKeys);
+                expectOwnPropertyNamesToEqual(packetField, packetFieldKeys);
                 expect(packetField).property('id').a('string').equal(id);
                 expect(packetField).property('section').an('object').equal(sections [sectionIndex]);
                 expect(packetField).property('packet').an('object').equal(blockTypeHeader2);
@@ -2606,7 +2602,7 @@ describe('Specification', () => {
                 expect(packetField).property('formatTextValue').a('function');
 
                 expect(packetField.formatTextValue()).a('string').equal(textValue);
-            });
+            }
         });
 
     });

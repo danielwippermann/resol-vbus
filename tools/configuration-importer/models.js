@@ -3,13 +3,6 @@
 
 
 
-const _ = require('lodash');
-
-
-const vbus = require('../..');
-
-
-
 class BaseModel {
 
 }

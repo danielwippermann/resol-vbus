@@ -7,18 +7,10 @@ const dgram = require('dgram');
 const http = require('http');
 
 
-const _ = require('./lodash');
 const TcpDataSource = require('./tcp-data-source');
-const { promisify } = require('./utils');
+const { promisify, applyDefaultOptions } = require('./utils');
 
 const DataSourceProvider = require('./data-source-provider');
-
-
-
-const optionKeys = [
-    'broadcastAddress',
-    'broadcastPort',
-];
 
 
 
@@ -33,7 +25,13 @@ class TcpDataSourceProvider extends DataSourceProvider {
     constructor(options) {
         super(options);
 
-        _.extend(this, _.pick(options, optionKeys));
+        applyDefaultOptions(this, options, /** @lends TcpDataSourceProvider.prototype */ {
+
+            broadcastAddress: '255.255.255.255',
+
+            broadcastPort: 7053,
+
+        });
     }
 
     async discoverDataSources() {
@@ -45,21 +43,23 @@ class TcpDataSourceProvider extends DataSourceProvider {
         const results = await TcpDataSourceProvider.discoverDevices(options);
 
         return results.map((result) => {
-            const options = _.extend({}, result, {
+            const options = {
+                ...result,
                 host: result.__address__
-            });
+            };
 
             return this.createDataSource(options);
         });
     }
 
     createDataSource(options) {
-        options = _.extend({}, options, {
+        options = {
+            ...options,
             provider: this.id,
             id: options.__address__,
             name: options.name || options.__address__,
             host: options.__address__,
-        });
+        };
 
         return new TcpDataSource(options);
     }
@@ -159,11 +159,12 @@ class TcpDataSourceProvider extends DataSourceProvider {
     }
 
     static async sendBroadcast(options) {
-        options = _.defaults({}, options, {
+        options = applyDefaultOptions({}, options, {
             broadcastAddress: '255.255.255.255',
             broadcastPort: 7053,
             tries: 3,
             timeout: 500,
+            fetchCallback: undefined,
         });
 
         if (options.fetchCallback === undefined) {
@@ -229,16 +230,9 @@ class TcpDataSourceProvider extends DataSourceProvider {
             }
         } else {
             return new Promise((resolve, reject) => {
-                let portSuffix;
-                if (port !== 80) {
-                    portSuffix = ':' + port;
-                } else {
-                    portSuffix = '';
-                }
-
                 const req = http.get({
                     hostname: address,
-                    port: port,
+                    port,
                     path: '/cgi-bin/get_resol_device_information',
                 }, (res) => {
                     if (res.statusCode === 200) {
@@ -250,9 +244,8 @@ class TcpDataSourceProvider extends DataSourceProvider {
 
                         res.on('end', () => {
                             const bodyString = buffer.toString();
-                            const info = _.extend(TcpDataSourceProvider.parseDeviceInformation(bodyString), {
-                                __address__: address,
-                            });
+                            const info = TcpDataSourceProvider.parseDeviceInformation(bodyString);
+                            info.__address__ = address;
                             resolve(info);
                         });
 

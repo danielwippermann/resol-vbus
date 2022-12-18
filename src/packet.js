@@ -6,15 +6,13 @@
 const { sprintf } = require('sprintf-js');
 
 
+const {
+    applyDefaultOptions,
+    hasOwnProperty,
+} = require('./utils');
+
+
 const Header = require('./header');
-const _ = require('./lodash');
-
-
-
-const optionKeys = [
-    'command',
-    'frameCount',
-];
 
 
 
@@ -43,15 +41,29 @@ class Packet extends Header {
     constructor(options) {
         super(options);
 
-        _.extend(this, _.pick(options, optionKeys));
+        applyDefaultOptions(this, options, /** @lends Packet.prototype */ {
 
-        if (_.has(options, 'frameData') && _.has(options, 'dontCopyFrameData') && options.dontCopyFrameData) {
+            /**
+            * The command field of this VBus packet. See the VBus Protocol specification for details.
+            * @type {number}
+            */
+            command: 0,
+
+            /**
+            * The number of frames of this VBus packet. Each frame can hold four bytes of payload.
+            * @type {number}
+            */
+            frameCount: 0,
+
+        });
+
+        if (hasOwnProperty(options, 'frameData') && hasOwnProperty(options, 'dontCopyFrameData') && options.dontCopyFrameData) {
             this.frameData = options.frameData;
         } else {
             this.frameData = Buffer.alloc(127 * 4);
             this.frameData.fill(0);
 
-            if (_.has(options, 'frameData')) {
+            if (hasOwnProperty(options, 'frameData')) {
                 const minLength = Math.min(this.frameData.length, options.frameData.length);
                 options.frameData.copy(this.frameData, 0, 0, minLength);
             }

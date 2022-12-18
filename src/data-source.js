@@ -3,26 +3,30 @@
 
 
 
-const _ = require('./lodash');
-
-
-
-const optionKeys = [
-    'provider',
-    'id',
-    'name',
-    'description',
-    'isSupportingLiveData',
-    'isSupportingRecordedData',
-    'isSupportingCustomization',
-];
+const { applyDefaultOptions } = require('./utils');
 
 
 
 class DataSource {
 
     constructor(options) {
-        _.extend(this, _.pick(options, optionKeys));
+        applyDefaultOptions(this, options, /** @lends DataSource.prototype */ {
+
+            provider: null,
+
+            id: null,
+
+            name: null,
+
+            description: null,
+
+            isSupportingLiveData: false,
+
+            isSupportingRecordedData: false,
+
+            isSupportingCustomization: false,
+
+        });
     }
 
     connectLive(options) {

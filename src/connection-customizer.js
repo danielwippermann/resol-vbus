@@ -3,17 +3,13 @@
 
 
 
+const {
+    applyDefaultOptions,
+    isNumber,
+    isObject,
+} = require('./utils');
+
 const Customizer = require('./customizer');
-const _ = require('./lodash');
-
-
-const optionKeys = [
-    'connection',
-    'maxRounds',
-    'triesPerValue',
-    'timeoutPerValue',
-    'masterTimeout',
-];
 
 
 
@@ -39,7 +35,45 @@ class ConnectionCustomizer extends Customizer {
     constructor(options) {
         super(options);
 
-        _.extend(this, _.pick(options, optionKeys));
+        applyDefaultOptions(this, options, /** @lends ConnectionCustomizer.prototype */ {
+
+            /**
+            * The connection to use for transfer of the configuration values.
+            * @type {Connection}
+            */
+            connection: null,
+
+            /**
+            * Maximum number of optimization rounds for {@link transceiveConfiguration}.
+            * @type {number}
+            * @default 10
+            */
+            maxRounds: 10,
+
+            /**
+            * Amount of retries to transceive one value.
+            * Between two tries the VBus is released and then re-acquired.
+            * @type {number}
+            * @default 2
+            */
+            triesPerValue: 2,
+
+            /**
+            * Timeout in milliseconds after which the transceive times out.
+            * @type {number}
+            * @default 30000
+            */
+            timeoutPerValue: 30000,
+
+            /**
+            * Interval in milliseconds in which
+            * the VBus master is contacted to reissue the VBus clearance.
+            * @type {number}
+            * @default 8000
+            */
+            masterTimeout: 8000,
+
+        });
     }
 
     /**
@@ -48,18 +82,19 @@ class ConnectionCustomizer extends Customizer {
      * See {@link Customizer#loadConfiguration} for details.
      */
     async _loadConfiguration(configuration, options) {
-        options = _.defaults({}, options, {
+        options = {
             action: 'get',
-        });
+            ...options,
+        };
 
         const callback = (config, round) => {
             if (options.optimize) {
                 return this._optimizeLoadConfiguration(config);
             } else {
                 if (round === 1) {
-                    _.forEach(configuration, (value) => {
+                    for (const value of configuration) {
                         value.pending = true;
-                    });
+                    }
 
                     return configuration;
                 } else {
@@ -77,12 +112,13 @@ class ConnectionCustomizer extends Customizer {
      * See {@link Customizer#saveConfiguration} for details.
      */
     async _saveConfiguration(newConfiguration, oldConfigurstion, options) {
-        options = _.defaults({}, options, {
+        options = {
             action: 'set',
             actionOptions: {
                 save: true,
             },
-        });
+            ...options,
+        };
 
         const callback = (config, round) => {
             if (options.optimize) {
@@ -93,9 +129,9 @@ class ConnectionCustomizer extends Customizer {
                 }
             } else {
                 if (round === 1) {
-                    _.forEach(newConfiguration, (value) => {
+                    for (const value of newConfiguration) {
                         value.pending = true;
-                    });
+                    }
 
                     return newConfiguration;
                 } else {
@@ -123,12 +159,12 @@ class ConnectionCustomizer extends Customizer {
      * @return {object} Promise that resolves to the configuration or `null` on timeout.
      */
     async transceiveConfiguration(options, optimizerCallback) {
-        if (_.isFunction(options)) {
+        if (typeof options === 'function') {
             optimizerCallback = options;
             options = null;
         }
 
-        options = _.defaults({}, options, {
+        options = {
             maxRounds: this.maxRounds,
             triesPerValue: this.triesPerValue,
             timeoutPerValue: this.timeoutPerValue,
@@ -137,7 +173,8 @@ class ConnectionCustomizer extends Customizer {
             actionOptions: null,
             reportProgress: null,
             checkCanceled: null,
-        });
+            ...options,
+        };
 
         const { connection } = this;
         const address = this.deviceAddress;
@@ -188,13 +225,14 @@ class ConnectionCustomizer extends Customizer {
                     let reportProgress;
                     if (options.reportProgress) {
                         reportProgress = (progress) => {
-                            progress = _.extend({}, progress, {
+                            progress = {
+                                ...progress,
                                 valueId: valueInfo.valueId,
                                 valueIndex: valueInfo.valueIndex,
                                 valueIdHash: valueInfo.valueIdHash,
                                 valueNr: index,
                                 valueCount: pendingValues.length,
-                            });
+                            };
 
                             return options.reportProgress(progress);
                         };
@@ -253,7 +291,7 @@ class ConnectionCustomizer extends Customizer {
      * @returns {object} Promise that resolves with the datagram received or `null` on timeout.
      */
     async transceiveValue(valueInfo, value, options, state) {
-        if (!_.isObject(valueInfo)) {
+        if (!isObject(valueInfo)) {
             valueInfo = {
                 valueIndex: valueInfo,
             };
@@ -263,7 +301,7 @@ class ConnectionCustomizer extends Customizer {
             state = {};
         }
 
-        options = _.defaults({}, options, {
+        options = {
             triesPerValue: this.triesPerValue,
             timeoutPerValue: this.timeoutPerValue,
             masterTimeout: this.masterTimeout,
@@ -271,9 +309,10 @@ class ConnectionCustomizer extends Customizer {
             actionOptions: null,
             reportProgress: null,
             checkCanceled: null,
-        });
+            ...options,
+        };
 
-        state = _.defaults(state, {
+        state = applyDefaultOptions(state, state, {
             masterAddress: this.deviceAddress,
             masterLastContacted: Date.now(),
         });
@@ -383,9 +422,9 @@ class ConnectionCustomizer extends Customizer {
                     state.masterLastContacted = Date.now();
                 }
 
-                if (_.isNumber(valueInfo.valueIndex)) {
+                if (isNumber(valueInfo.valueIndex)) {
                     // nop
-                } else if (_.isNumber(valueInfo.valueIdHash)) {
+                } else if (isNumber(valueInfo.valueIdHash)) {
                     reportProgress('LOOKING_UP_VALUE');
 
                     const datagram = await connection.getValueIdByIdHash(address, valueInfo.valueIdHash, options.actionOptions);
@@ -403,7 +442,7 @@ class ConnectionCustomizer extends Customizer {
                     state.masterLastContacted = Date.now();
                 }
 
-                if (!_.isNumber(valueInfo.valueIndex)) {
+                if (!isNumber(valueInfo.valueIndex)) {
                     result = null;
                 } else if (options.action === 'get') {
                     reportProgress('GETTING_VALUE');

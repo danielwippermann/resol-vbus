@@ -9,7 +9,6 @@ const {
 
 
 const expect = require('../expect');
-const _ = require('../lodash');
 const testUtils = require('../test-utils');
 
 
@@ -53,7 +52,7 @@ describe('ResolDeltaSolEV2100ConfigurationOptimizer', () => {
 
             expect(config).an('array');
 
-            let valueIds = _.reduce(config, (memo, value) => {
+            let valueIds = config.reduce((memo, value) => {
                 if (value.pending) {
                     memo.push(value.valueId);
                 }
@@ -62,19 +61,19 @@ describe('ResolDeltaSolEV2100ConfigurationOptimizer', () => {
 
             expect(valueIds).lengthOf(925);
 
-            _.forEach(config, (value) => {
+            for (const value of config) {
                 if (value.pending) {
                     value.pending = false;
                     value.transceived = true;
                     value.value = null;
                 }
-            });
+            }
 
             config = await testUtils.expectPromise(optimizer.optimizeLoadConfiguration(config));
 
             expect(config).an('array');
 
-            valueIds = _.reduce(config, (memo, value) => {
+            valueIds = config.reduce((memo, value) => {
                 if (value.pending) {
                     memo.push(value.valueId);
                 }
