@@ -69,7 +69,7 @@ Use the Node.js `pipe` method to connect the readable file stream with the `Writ
 
 Node.js will now stream the file content into the converter. When the converter successfully decoded a `Header` it emits a `header` event and when it decoded a full `HeaderSet` it emits a `headerSet` event.
 
-Running that code with the file `test/fixtures/dlx-recorder-1/20140214.vbus` as input results in 4895 lines of console output starting as follows:
+Running that code with the file `test/fixtures/test-recorder/20140214.vbus` as input results in 4895 lines of console output starting as follows:
 
 	Header decoded: Fri Feb 14 2014 01:00:00 GMT+0100 (CET) -> 00_0010_0053_10_0100
 	Header decoded: Fri Feb 14 2014 00:59:58 GMT+0100 (CET) -> 01_0010_7E11_10_0100

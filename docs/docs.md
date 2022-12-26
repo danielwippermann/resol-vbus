@@ -67,18 +67,6 @@ The resol-vbus module includes the following sub-classes of the abstract Convert
 - TextConverter
 
 
-## Recorders
-
-A Recorder provides access to HeaderSet stores (e.g. dataloggers) by allowing to either playback the HeaderSets in the store, record HeaderSets to the store or synchronize two Recorders.
-
-The synchronization operation builds on top of this two operations and is able to find unsynced HeaderSets in the source Recorder. Thoses unsynced HeaderSets are then played back from the source Recorder and recorded in the destination Recorder.
-
-The resol-vbus module includes the following sub-classes of the abstract Recorder class:
-
-- FileSystemRecorder
-- DLxRecorder
-
-
 ## Customizers
 
 A Customizer provides functionality to transfer a set of configuration values from or to a device.
