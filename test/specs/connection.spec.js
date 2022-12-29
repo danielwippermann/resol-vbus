@@ -138,8 +138,8 @@ const parseRawData = function(rawDataOrCallback, start, end, ignoreEvents) {
 
 
 
-const minTimeoutFactor = process.env.TRAVIS ? 0.9 : 1;
-const maxTimeoutFactor = process.env.TRAVIS ? 1000 : 1;
+const minTimeoutFactor = process.env.CI ? 0.8 : 1;
+const maxTimeoutFactor = process.env.CI ? 1000 : 1;
 
 
 
