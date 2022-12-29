@@ -93,9 +93,6 @@ following command into your shell:
 
 ## Known issues
 
-- The `FileSystemRecorder` class sometimes writes invalid JSON into its "SyncState.json" file causing it to not
-  being able to restore and recover from that when the app using the recorder restarts (e.g. the "vbustouch-proxy"
-  example).
 - The `ConfigurationOptimizers` do not yet detect the firmware version running on the controller to be configured.
   That sometimes causes configuration loads and saves to fail because unknown values are read from or written to
   (e.g. using the "customizer" example on a DeltaSol MX with firmware version 1.11 or below).
