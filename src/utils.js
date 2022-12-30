@@ -130,6 +130,35 @@ const utils = {
         return (typeof value === 'string');
     },
 
+    normalizeDatecode(input) {
+        let output;
+        if (input == null) {
+            output = null;
+        } else if (typeof input === 'number') {
+            if ((input >= 20010101) && (input <= 29991231)) {
+                output = input.toString();
+            } else {
+                throw new Error(`Invalid number as datecode: ${input}`);
+            }
+        } else if (typeof input === 'string') {
+            if (/^2\d{7}$/.test(input)) {
+                output = input;
+            } else {
+                throw new Error(`Invalid string as datecode: ${input}`);
+            }
+        } else if (input instanceof Date) {
+            const str = input.toISOString();
+            if (/^2\d\d\d-\d\d-\d\d/.test(str)) {
+                output = `${str.slice(0, 4)}${str.slice(5, 7)}${str.slice(8, 10)}`;
+            } else {
+                throw new Error(`Invalid date as datecode: ${str}`);
+            }
+        } else {
+            throw new Error(`Unsupported input as datecode: ${input}`);
+        }
+        return output;
+    },
+
 };
 
 
