@@ -1,0 +1,13 @@
+GET http://127.0.0.1:3000/dlx/download/download?outputType=json&source=current
+
+###
+
+GET http://127.0.0.1:3000/dlx/download/download?startDate=12/30/2022&endDate=12/30/2022&outputType=json&sieveInterval=3600
+
+###
+
+GET http://127.0.0.1:3000/dlx/download/download?startDate=12/30/2022&endDate=12/30/2022&outputType=json&sieveInterval=300
+
+###
+
+GET http://127.0.0.1:3000/dlx/download/download?startDate=12/30/2022&endDate=12/30/2022&outputType=json
