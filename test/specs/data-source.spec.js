@@ -33,7 +33,6 @@ describe('DataSource', () => {
             expect(dataSource.name).to.equal(null);
             expect(dataSource.description).to.equal(null);
             expect(dataSource.isSupportingLiveData).to.equal(false);
-            expect(dataSource.isSupportingRecordedData).to.equal(false);
             expect(dataSource.isSupportingCustomization).to.equal(false);
         });
 
@@ -44,7 +43,6 @@ describe('DataSource', () => {
                 name: 'name',
                 description: 'description',
                 isSupportingLiveData: true,
-                isSupportingRecordedData: true,
                 isSupportingCustomization: true,
                 junk: 'JUNK',
             });
@@ -55,7 +53,6 @@ describe('DataSource', () => {
             expect(dataSource.name).to.equal('name');
             expect(dataSource.description).to.equal('description');
             expect(dataSource.isSupportingLiveData).to.equal(true);
-            expect(dataSource.isSupportingRecordedData).to.equal(true);
             expect(dataSource.isSupportingCustomization).to.equal(true);
             expect(dataSource.junk).to.equal(undefined);
         });
@@ -83,32 +80,6 @@ describe('DataSource', () => {
 
             expect(() => {
                 converter.connectLive();
-            }).to.throw(Error, 'Must be implemented by sub-class');
-        });
-
-    });
-
-    describe('#openRecorder', () => {
-
-        it('should be a method', () => {
-            expect(DataSource.prototype.openRecorder).to.be.a('function');
-        });
-
-        it('should report if not supported', () => {
-            const converter = new DataSource();
-
-            expect(() => {
-                converter.openRecorder();
-            }).to.throw(Error, 'Does not support recorded data');
-        });
-
-        it('should be abstract', () => {
-            const converter = new DataSource({
-                isSupportingRecordedData: true,
-            });
-
-            expect(() => {
-                converter.openRecorder();
             }).to.throw(Error, 'Must be implemented by sub-class');
         });
 
@@ -146,11 +117,9 @@ describe('DataSource', () => {
         name: null,
         description: null,
         isSupportingLiveData: false,
-        isSupportingRecordedData: false,
         isSupportingCustomization: false,
         constructor: Function,
         connectLive: Function,
-        openRecorder: Function,
         createCustomizer: Function,
     }, {
 
