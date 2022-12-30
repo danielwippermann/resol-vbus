@@ -53,6 +53,8 @@ const ConnectionCustomizer = require('./connection-customizer');
 
 const TcpConnectionEndpoint = require('./tcp-connection-endpoint');
 
+const FileListReader = require('./file-list-reader');
+
 
 
 module.exports = {
@@ -99,5 +101,7 @@ module.exports = {
     ConnectionCustomizer,
 
     TcpConnectionEndpoint,
+
+    FileListReader,
 
 };
