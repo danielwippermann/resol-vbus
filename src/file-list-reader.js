@@ -1,4 +1,5 @@
 /*! resol-vbus | Copyright (c) 2022-present, Daniel Wippermann | MIT license */
+
 const fs = require('fs/promises');
 const path = require('path');
 const { Readable } = require('stream');

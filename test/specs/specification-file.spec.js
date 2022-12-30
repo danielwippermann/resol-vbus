@@ -1,7 +1,4 @@
-/*! resol-vbus | Copyright (c) 2016-2018, Daniel Wippermann | MIT license */
-'use strict';
-
-
+/*! resol-vbus | Copyright (c) 2016-present, Daniel Wippermann | MIT license */
 
 const fs = require('fs');
 const path = require('path');

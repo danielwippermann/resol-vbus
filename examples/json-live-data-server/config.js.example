@@ -1,7 +1,4 @@
-/*! resol-vbus | Copyright (c) 2013-2018, Daniel Wippermann | MIT license */
-'use strict';
-
-
+/*! resol-vbus | Copyright (c) 2013-present, Daniel Wippermann | MIT license */
 
 const path = require('path');
 
@@ -40,7 +37,7 @@ const config = {
          * @type {String}
          */
         path: '/dev/ttyACM0',
-        
+
         /**
          * TcpConnection only:
          * The host name / IP address of the VBus/LAN or Datalogger device.

@@ -1,7 +1,4 @@
-/*! resol-vbus | Copyright (c) 2013-2018, Daniel Wippermann | MIT license */
-'use strict';
-
-
+/*! resol-vbus | Copyright (c) 2013-present, Daniel Wippermann | MIT license */
 
 const fs = require('fs');
 const path = require('path');
@@ -236,7 +233,7 @@ const convertMenuXmlFile = async function(inputFilename, outputFilename, convert
     const jsonContent = JSON.stringify(menuSystem, null, '    ');
 
     const jsContent = [
-        '/*! resol-vbus | Copyright (c) 2013-2019, Daniel Wippermann | MIT license */',
+        '/*! resol-vbus | Copyright (c) 2013-present, Daniel Wippermann | MIT license */',
         '\'use strict\';',
         '',
         '',
