@@ -18,7 +18,7 @@ const mqtt = require('mqtt');
 const {
     Converter,
     DLxJsonConverter,
-    FileSystemRecorder,
+    FileListReader,
     HeaderSet,
     HeaderSetConsolidator,
     Packet,
@@ -27,6 +27,10 @@ const {
     TcpConnection,
     TextConverter,
     VBusRecordingConverter,
+    utils: {
+        normalizeDatecode,
+        promisify,
+    },
 } = require('../resol-vbus');
 
 
@@ -60,12 +64,6 @@ const connectionClassByName = {
 const headerSetConsolidator = new HeaderSetConsolidator({
     interval: config.loggingInterval,
     timeToLive: config.loggingTimeToLive,
-});
-
-
-const fsRecorder = new FileSystemRecorder({
-    id: 'fs-destination',
-    path: config.loggingPath,
 });
 
 
@@ -270,8 +268,8 @@ const processDownloadDownloadRequest = async (req, res) => {
     try {
         const i18n = specification.i18n;
 
-        const startDate = req.query.startDate ? i18n.momentUtc(req.query.startDate, 'MM/DD/YYYY') : i18n.moment();
-        const endDate = req.query.endDate ? i18n.momentUtc(req.query.endDate, 'MM/DD/YYYY') : i18n.moment();
+        const startDate = req.query.startDate ? i18n.momentUtc(req.query.startDate, 'MM/DD/YYYY') : i18n.momentUtc();
+        const endDate = req.query.endDate ? i18n.momentUtc(req.query.endDate, 'MM/DD/YYYY') : i18n.momentUtc();
 
         const query = {
             source: req.query.source,
@@ -285,92 +283,113 @@ const processDownloadDownloadRequest = async (req, res) => {
 
         // logger.debug(req.query, query);
 
-        const converter1 = new Converter({ objectMode: true });
-
-        const hsc = new HeaderSetConsolidator({
-            timestamp: query.startDate,
-            interval: query.sieveInterval * 1000,
-            timeToLive: query.ttl * 1000,
-        });
-
-        let converter2, contentType;
+        let outputConverter, contentType;
         if (query.outputType === 'vbus') {
-            converter2 = new VBusRecordingConverter({});
+            outputConverter = new VBusRecordingConverter({});
             contentType = 'application/octet-stream';
         } else if (query.outputType === 'json') {
-            converter2 = new DLxJsonConverter({});
+            outputConverter = new DLxJsonConverter({});
             contentType = 'application/json; charset=utf-8';
         } else {
             throw new Error('Unsupported output type ' + JSON.stringify(query.outputType));
         }
 
-        const onC1HeaderSet = function(headerSet) {
-            // logger.debug('C1 headerSet event received', headerSet.timestamp);
-
-            hsc.processHeaderSet(headerSet);
-        };
-
-        const onC1Finish = function() {
-            // logger.debug('C1 finish event received');
-        };
-
-        converter1.on('headerSet', onC1HeaderSet);
-
-        converter1.on('finish', onC1Finish);
-
-        const onHscHeaderSet = function(headerSet) {
-            if (config.rewriteWebHeaderSets) {
-                headerSet = rewriteWebHeaderSet(headerSet);
-            }
-
-            converter2.convertHeaderSet(headerSet);
-        };
-
-        hsc.on('headerSet', onHscHeaderSet);
-
         const chunks = [];
 
-        const onC2Data = function(chunk) {
-            // logger.debug('C2 data event received');
-
-            chunks.push(chunk);
+        const onOutputConverterReadable = function() {
+            let chunk;
+            while ((chunk = outputConverter.read()) != null) {
+                chunks.push(chunk);
+            }
         };
 
-        const onC2End = function() {
+        const onOutputConverterEnd = function() {
             // logger.debug('C2 end event received');
         };
 
-        converter2.on('data', onC2Data);
+        outputConverter.on('readable', onOutputConverterReadable);
 
-        converter2.on('end', onC2End);
+        outputConverter.on('end', onOutputConverterEnd);
 
         try {
             if (query.source === 'current') {
-                converter1.write(headerSetConsolidator);
+                outputConverter.convertHeaderSet(headerSetConsolidator);
             } else {
-                const playerOptions = {
-                    id: 'fs-destination',
-                    interval: config.loggingInterval,
-                    path: config.loggingPath,
-                };
+                await promisify(cb => {
+                    let cleanup = () => {
+                        cb(new Error('cleanup called too early'));
+                    };
 
-                const playbackOptions = {
-                    minTimestamp: query.startDate,
-                    maxTimestamp: query.endDate,
-                };
+                    const hsc = new HeaderSetConsolidator({
+                        interval: query.sieveInterval * 1000,
+                        timeToLive: query.ttl * 1000,
+                        minTimestamp: startDate.startOf('day').toDate(),
+                        maxTimestamp: startDate.endOf('day').toDate(),
+                    });
 
-                const player = new FileSystemRecorder(playerOptions);
+                    const onHscHeaderSet = function(headerSet) {
+                        // logger.debug(`HSC @headerSet ${headerSet.timestamp.toISOString()}`);
 
-                await player.playback(converter1, playbackOptions);
+                        if (config.rewriteWebHeaderSets) {
+                            headerSet = rewriteWebHeaderSet(headerSet);
+                        }
+
+                        outputConverter.convertHeaderSet(headerSet);
+                    };
+
+                    hsc.on('headerSet', onHscHeaderSet);
+
+                    const inputConverter = new VBusRecordingConverter();
+
+                    let first = true;
+
+                    const onInputConverterHeaderSet = function(headerSet) {
+                        // logger.debug('C1 headerSet event received', headerSet.timestamp);
+
+                        if (first) {
+                            first = false;
+                            hsc.timestamp = headerSet.timestamp;
+                        }
+
+                        hsc.processHeaderSet(headerSet);
+                    };
+
+                    const onInputConverterFinish = function() {
+                        // logger.debug('C1 finish event received');
+
+                        cleanup(null);
+                    };
+
+                    inputConverter.on('headerSet', onInputConverterHeaderSet);
+
+                    inputConverter.on('finish', onInputConverterFinish);
+
+                    const flr = new FileListReader({
+                        dirname: config.loggingPath,
+                        minDatecode: query.startDate,
+                        maxDatecode: query.endDate,
+                    });
+
+                    flr.on('error', err => {
+                        cleanup(err);
+                    });
+
+                    flr.pipe(inputConverter);
+
+                    cleanup = (err) => {
+                        inputConverter.removeListener('headerSet', onInputConverterHeaderSet);
+                        inputConverter.removeListener('finish', onInputConverterFinish);
+                        hsc.removeListener('headerSet', onHscHeaderSet);
+
+                        cb(err);
+                    };
+                });
             }
 
-            await converter2.finish();
+            await outputConverter.finish();
         } finally {
-            converter1.removeListener('headerSet', onC1HeaderSet);
-            converter1.removeListener('finish', onC1Finish);
-            hsc.removeListener('headerSet', onHscHeaderSet);
-            converter2.removeListener('data', onC2Data);
-            converter2.removeListener('end', onC2End);
+            outputConverter.removeListener('readable', onOutputConverterReadable);
+            outputConverter.removeListener('end', onOutputConverterEnd);
         }
 
         const buffer = Buffer.concat(chunks);
@@ -487,7 +506,9 @@ const startMqttLogging = async () => {
 
         if (payload) {
             client.publish(config.mqttTopic, payload, err => {
-                logger.error(err);
+                if (err) {
+                    logger.error(err);
+                }
             });
         }
     };
@@ -507,7 +528,9 @@ const startMqttLogging = async () => {
 
             hsc.on('headerSet', () => {
                 onHeaderSet(headerSetConsolidator, client).then(null, err => {
-                    logger.error(err);
+                    if (err) {
+                        logger.error(err);
+                    }
                 });
             });
 
@@ -634,24 +657,35 @@ const startTextLogging = async () => {
 
 
 const startRecorder = async () => {
-    const converter = new Converter({ objectMode: true });
+    let filename = null;
+
+    const converter = new VBusRecordingConverter();
+
+    const onReadable = () => {
+        const chunks = [];
+
+        let chunk;
+        while ((chunk = converter.read()) != null) {
+            chunks.push(chunk);
+        }
+
+        if (filename) {
+            fs.appendFileSync(filename, Buffer.concat(chunks));
+        }
+    };
 
     const onHeaderSet = function(headerSet) {
         // logger.debug('HeaderSet consolidated...');
 
+        const datecode = normalizeDatecode(headerSet.timestamp);
+
+        filename = path.resolve(config.loggingPath, `${datecode}.vbus`);
+
         converter.convertHeaderSet(headerSet);
     };
 
-    try {
-        headerSetConsolidator.on('headerSet', onHeaderSet);
-
-        await fsRecorder.record(converter, {
-            interval: config.loggingInterval,
-            timeToLive: config.loggingTimeToLive,
-        });
-    } finally {
-        headerSetConsolidator.removeListener('headerSet', onHeaderSet);
-    }
+    converter.on('readable', onReadable);
+    headerSetConsolidator.on('headerSet', onHeaderSet);
 };
 
 
