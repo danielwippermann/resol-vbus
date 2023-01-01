@@ -23,6 +23,11 @@ const testVsf1 = fs.readFileSync(path.join(__dirname, '../fixtures/vbus-specific
 
 
 
+function expectToBeSpecificationFile(specFile) {
+    global.expect(specFile instanceof SpecificationFile).toBe(true);
+}
+
+
 describe('SpecificationFile', () => {
 
     itShouldBeAClass(SpecificationFile);
@@ -867,6 +872,27 @@ describe('SpecificationFile', () => {
     }, {
         getDefaultSpecificationFile: Function,
         loadFromFile: Function,
+    });
+
+    describe('getDefaultSpecificationFile', () => {
+
+        it('should work correctly', () => {
+            const specFile = SpecificationFile.getDefaultSpecificationFile();
+
+            expectToBeSpecificationFile(specFile);
+        });
+
+    });
+
+    describe('loadFromFile', () => {
+
+        it('should work correctly', async () => {
+            const filename = path.resolve(__dirname, '../fixtures/vbus-specifications/test.vsf')
+            const specFile = await SpecificationFile.loadFromFile(filename);
+
+            expectToBeSpecificationFile(specFile);
+        });
+
     });
 
 });

@@ -194,6 +194,41 @@ describe('Telegram', () => {
 
     });
 
+    describe('#compareTo', () => {
+
+        const expect = global.expect;
+
+        it('should work correctly', () => {
+            const frameData = Buffer.alloc(21);
+            for (let i = 0; i < frameData.length; i++) {
+                frameData [i] = i * 12;
+            }
+
+            const telegram1 = new Telegram({
+                channel: 0x13,
+                destinationAddress: 0x1122,
+                sourceAddress: 0x3344,
+                command: 0x77,
+                frameData,
+            });
+
+            const telegram2 = new Telegram({
+                channel: 0x13,
+                destinationAddress: 0x1122,
+                sourceAddress: 0x3344,
+                command: 0x77,
+                frameData,
+            });
+
+            expect(telegram1.compareTo(telegram2)).toBe(0);
+
+            telegram2.channel = 0x14;
+
+            expect(telegram1.compareTo(telegram2)).toBe(-1);
+        });
+
+    });
+
     itShouldWorkCorrectlyAfterMigratingToClass(Telegram, Header, {
         command: 0,
         frameData: null,

@@ -5,6 +5,7 @@ const {
     HeaderSet,
     I18N,
     Packet,
+    Specification,
     TextConverter,
 } = require('./resol-vbus');
 
@@ -23,6 +24,64 @@ describe('TextConverter', () => {
 
         it('should be a constructor function', () => {
             expect(TextConverter).to.be.a('function');
+        });
+
+        it('should work correctly', () => {
+            const expect = global.expect;
+
+            const conv1 = new TextConverter();
+
+            testUtils.expectOwnPropertyNamesToEqual(conv1, [
+                'columnSeparator',
+                'lineSeparator',
+                'separateDateAndTime',
+                'specification',
+                'dateFormat',
+                'timeFormat',
+
+                // Converter
+                'finishedPromise',
+
+                // Duplex
+                '_events',
+                '_eventsCount',
+                '_maxListeners',
+                '_readableState',
+                '_writableState',
+                'allowHalfOpen',
+                'objectMode',
+            ]);
+
+            expect(conv1.columnSeparator).toBe('\t');
+            expect(conv1.lineSeparator).toBe('\r\n');
+            expect(conv1.separateDateAndTime).toBe(false);
+            expect(conv1.specification.language).toBe('en');
+            expect(conv1.dateFormat).toBe('L');
+            expect(conv1.timeFormat).toBe('HH:mm:ss');
+
+            const specification = Specification.getDefaultSpecification();
+
+            const conv2 = new TextConverter({
+                columnSeparator: ',',
+                lineSeparator: '\n',
+                separateDateAndTime: true,
+                specification,
+                dateFormat: 'dd.MM.YYYY',
+                timeFormat: 'HH:mm',
+            });
+
+            expect(conv2.columnSeparator).toBe(',');
+            expect(conv2.lineSeparator).toBe('\n');
+            expect(conv2.separateDateAndTime).toBe(true);
+            expect(conv2.specification).toBe(specification);
+            expect(conv2.dateFormat).toBe('dd.MM.YYYY');
+            expect(conv2.timeFormat).toBe('HH:mm');
+
+            const conv3 = new TextConverter({
+                language: 'de',
+            });
+
+            expect(conv3.specification.language).toBe('de');
         });
 
     });
@@ -122,6 +181,78 @@ describe('TextConverter', () => {
             });
         });
 
+        it('should work correctly', async () => {
+            const expect = global.expect;
+
+            const buffer1 = Buffer.from(rawPacket1, 'hex');
+            const packet1 = Packet.fromLiveBuffer(buffer1, 0, buffer1.length);
+            packet1.timestamp = new Date(1387893006778);
+            packet1.channel = 0;
+
+            const buffer2 = Buffer.from(rawPacket2, 'hex');
+            const packet2 = Packet.fromLiveBuffer(buffer2, 0, buffer2.length);
+            packet2.timestamp = new Date(1387893003303);
+            packet2.channel = 1;
+
+            const buffer3 = Buffer.from(rawPacket3, 'hex');
+            const packet3 = Packet.fromLiveBuffer(buffer3, 0, buffer3.length);
+            packet3.timestamp = new Date(1387893003454);
+            packet3.channel = 1;
+
+            let headerSet = new HeaderSet({
+                timestamp: new Date(1387893006829),
+                headers: []
+            });
+
+            const specification = {
+                ...Specification.getDefaultSpecification(),
+
+                getPacketFieldsForHeaders(headers) {
+                    return [{
+                        packetSpec: {},
+                        formatTextValue() {
+                            return 'TextValue1';
+                        },
+                    }, {
+                        formatTextValue() {
+                            return 'TextValue2';
+                        }
+                    }];
+                },
+            };
+
+            const converter = new TextConverter({
+                columnSeparator: ',',
+                lineSeparator: '\n',
+                separateDateAndTime: true,
+                specification,
+            });
+            converter.specification.i18n.timezone = 'Europe/Berlin';
+
+            const endPromise = new Promise(resolve => {
+                converter.once('end', () => {
+                    resolve();
+                });
+            });
+
+            const chunks = [];
+            converter.on('readable', () => {
+                let chunk;
+                while ((chunk = converter.read()) != null) {
+                    chunks.push(chunk);
+                }
+            });
+
+            converter.convertHeaderSet(headerSet);
+            await converter.finish();
+
+            await endPromise;
+
+            const content = Buffer.concat(chunks).toString();
+
+            expect(content).toBe(',,,\nDate,Time,,\n12/24/2013,14:50:06,TextValue1,TextValue2\n');
+        });
+
     });
 
     describe('#formatDateAndTime', () => {
@@ -157,6 +288,17 @@ describe('TextConverter', () => {
             const result = converter.formatDateAndTime(now, format);
 
             jestExpect(result).toBe('Formatted');
+        });
+
+        it('should fail with an unsupported parameter', () => {
+            const converter = new TextConverter();
+
+            const i18n = new I18N('en');
+            const now = i18n.moment(1387893006829);
+
+            jestExpect(() => {
+                converter.formatDateAndTime(now, {});
+            }).toThrow('Unsupported format specifier');
         });
 
     });
