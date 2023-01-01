@@ -8,6 +8,11 @@ const moreints = require('buffer-more-ints');
 const { sprintf } = require('sprintf-js');
 
 
+const {
+    promisify,
+} = require('./utils');
+
+
 
 let defaultSpecificationFile = null;
 
@@ -617,18 +622,10 @@ class SpecificationFile {
         return defaultSpecificationFile;
     }
 
-    static loadFromFile(filename) {
-        return new Promise((resolve, reject) => {
-            fs.readFile(filename, (err, contents) => {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve(contents);
-                }
-            });
-        }).then((contents) => {
-            return new SpecificationFile(contents);
-        });
+    static async loadFromFile(filename) {
+        const contents = await promisify(cb => fs.readFile(filename, cb));
+
+        return new SpecificationFile(contents);
     }
 
 }
