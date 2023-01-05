@@ -28,6 +28,10 @@ const {
     generatePrometheusResponse,
     generateGetResolDeviceInformationResponse,
     generateDLxDownloadDownloadResponse,
+    generateDLxDownloadLiveResponse,
+    generateCurrentPacketsVBusResponse,
+    generateKM2DataGetCurrentDataResponse,
+    generateKM2WebserviceResponse,
     writeHeaderSet,
     wrapAsyncRequestHandler,
     wrapAsyncJsonRequestHandler,
@@ -53,6 +57,10 @@ it('should export correctly', () => {
         'generatePrometheusResponse',
         'generateGetResolDeviceInformationResponse',
         'generateDLxDownloadDownloadResponse',
+        'generateDLxDownloadLiveResponse',
+        'generateCurrentPacketsVBusResponse',
+        'generateKM2DataGetCurrentDataResponse',
+        'generateKM2WebserviceResponse',
         'writeHeaderSet',
         'wrapAsyncRequestHandler',
         'wrapAsyncJsonRequestHandler',
@@ -438,6 +446,288 @@ describe('generateDLxDownloadDownloadResponse', () => {
 
 });
 
+describe('generateDLxDownloadLiveResponse', () => {
+
+    it('should work correctly', async () => {
+        headerSet.removeAllHeaders();
+
+        const timestamp = new Date(1672896988004);
+
+        headerSet.addHeader(new Packet({
+            timestamp,
+            channel: 0,
+            destinationAddress: 0x0010,
+            sourceAddress: 0x7E21,
+            command: 0x0100,
+            frameCount: 1,
+            frameData: Buffer.from('01020304', 'hex'),
+        }));
+
+        headerSet.timestamp = timestamp;
+
+        const result = await generateDLxDownloadLiveResponse();
+
+        expect(result.contentType).toBe('application/json; charset=utf-8');
+        expect(result.data.toString()).toBe([
+            /**/ '{',
+            /**/     '"headersets":[{',
+            /**/        '"timestamp":1672896988.004,',
+            /**/         '"packets":[{',
+            /**/             '"header_index":0,',
+            /**/             '"timestamp":1672896988.004,',
+            /**/             '"field_values":[{',
+            /**/                 '"field_index":0,',
+            /**/                 '"raw_value":51.3,',
+            /**/                 '"value":"51.3"',
+            /**/             '},{',
+            /**/                 '"field_index":1,',
+            /**/                 '"raw_value":3,',
+            /**/                 '"value":"3"',
+            /**/             '}]',
+            /**/         '}]',
+            /**/     '}],',
+            /**/     '"headerset_stats":{',
+            /**/         '"headerset_count":1,',
+            /**/         '"min_timestamp":1672896988.004,',
+            /**/         '"max_timestamp":1672896988.004',
+            /**/     '},',
+            /**/     '"headers":[{',
+            /**/         '"id":"00_0010_7E21_0100",',
+            /**/         '"description":"VBus 0: DeltaSol MX [Heizkreis #1]",',
+            /**/         '"channel":0,',
+            /**/         '"destination_address":16,',
+            /**/         '"source_address":32289,',
+            /**/         '"protocol_version":16,',
+            /**/         '"command":256,',
+            /**/         '"info":0,',
+            /**/         '"destination_name":"DFA",',
+            /**/         '"source_name":"DeltaSol MX [Heizkreis #1]",',
+            /**/         '"fields":[{',
+            /**/             '"id":"000_2_0",',
+            /**/             '"name":"Flow set temperature",',
+            /**/             '"unit":" °C",',
+            /**/             '"unit_code":"DegreesCelsius"',
+            /**/         '},{',
+            /**/             '"id":"002_1_0",',
+            /**/             '"name":"Operating state",',
+            /**/             '"unit":"",',
+            /**/             '"unit_code":"None"',
+            /**/         '}]',
+            /**/     '}],',
+            /**/     '"language":"en"',
+            /**/ '}',
+        ].join(''));
+    });
+
+});
+
+describe('generateCurrentPacketsVBusResponse', () => {
+
+    it('should work correctly', async () => {
+        headerSet.removeAllHeaders();
+
+        const timestamp = new Date(1672896988004);
+
+        headerSet.addHeader(new Packet({
+            timestamp,
+            channel: 0,
+            destinationAddress: 0x0010,
+            sourceAddress: 0x7E21,
+            command: 0x0100,
+            frameCount: 1,
+            frameData: Buffer.from('01020304', 'hex'),
+        }));
+
+        headerSet.timestamp = timestamp;
+
+        const result = await generateCurrentPacketsVBusResponse();
+
+        expect(result.contentType).toBe('application/octet-stream');
+        expect(result.data.length).toBe(44);
+        expect(result.data.toString('hex')).toBe([
+            'a5440e000e00',
+            '64436e8085010000',
+            'a5661e001e00',
+            '64436e8085010000',
+            '1000',
+            '217e',
+            '1000',
+            '0001',
+            '0400',
+            '0000',
+            '01020304',
+        ].join(''));
+    });
+
+});
+
+describe('generateKM2DataGetCurrentDataResponse', () => {
+
+    it('should work correctly', async () => {
+        headerSet.removeAllHeaders();
+
+        const timestamp = new Date(1672896988004);
+
+        headerSet.addHeader(new Packet({
+            timestamp,
+            channel: 0,
+            destinationAddress: 0x0010,
+            sourceAddress: 0x7E21,
+            command: 0x0100,
+            frameCount: 1,
+            frameData: Buffer.from('01020304', 'hex'),
+        }));
+
+        headerSet.timestamp = timestamp;
+
+        const result = await generateKM2DataGetCurrentDataResponse();
+
+        expect(result).toEqual({
+            headersets: [{
+                timestamp: 1672896988.004,
+                packets: [{
+                    header_index: 0,
+                    timestamp: 1672896988.004,
+                    field_values: [{
+                        field_index: 0,
+                        raw_value: 51.3,
+                        value: '51.3',
+                    }, {
+                        field_index: 1,
+                        raw_value: 3,
+                        value: '3',
+                    }],
+                }]
+            }],
+            headerset_stats: {
+                headerset_count: 1,
+                min_timestamp: 1672896988.004,
+                max_timestamp: 1672896988.004,
+            },
+            headers: [{
+                id: '00_0010_7E21_0100',
+                description: 'VBus 0: DeltaSol MX [Heizkreis #1]',
+                channel: 0,
+                destination_address: 16,
+                source_address: 32289,
+                protocol_version: 16,
+                command: 256,
+                info: 0,
+                destination_name: 'DFA',
+                source_name: 'DeltaSol MX [Heizkreis #1]',
+                fields: [{
+                    id: '000_2_0',
+                    name: 'Flow set temperature',
+                    unit: ' °C',
+                    unit_code: 'DegreesCelsius'
+                }, {
+                    id: '002_1_0',
+                    name: 'Operating state',
+                    unit: '',
+                    unit_code: 'None'
+                }],
+            }],
+        });
+    });
+
+});
+
+describe('generateKM2WebserviceResponse', () => {
+
+    it('should work correctly for a single request', async () => {
+        headerSet.removeAllHeaders();
+
+        const timestamp = new Date(1672896988004);
+
+        headerSet.addHeader(new Packet({
+            timestamp,
+            channel: 0,
+            destinationAddress: 0x0010,
+            sourceAddress: 0x7E21,
+            command: 0x0100,
+            frameCount: 1,
+            frameData: Buffer.from('01020304', 'hex'),
+        }));
+
+        headerSet.timestamp = timestamp;
+
+        const result = await generateKM2WebserviceResponse({
+            jsonrpc: '2.0',
+            id: 123,
+            method: 'dataGetCurrentData',
+            params: {
+                authId: 'doesnotmatter',
+            },
+        });
+
+        expect(result).toBe([
+            '{',
+            '    "jsonrpc": "2.0",',
+            '    "id": 123,',
+            '    "result": {',
+            '        "headersets": [',
+            '            {',
+            '                "timestamp": 1672896988.004,',
+            '                "packets": [',
+            '                    {',
+            '                        "header_index": 0,',
+            '                        "timestamp": 1672896988.004,',
+            '                        "field_values": [',
+            '                            {',
+            '                                "field_index": 0,',
+            '                                "raw_value": 51.3,',
+            '                                "value": "51.3"',
+            '                            },',
+            '                            {',
+            '                                "field_index": 1,',
+            '                                "raw_value": 3,',
+            '                                "value": "3"',
+            '                            }',
+            '                        ]',
+            '                    }',
+            '                ]',
+            '            }',
+            '        ],',
+            '        "headerset_stats": {',
+            '            "headerset_count": 1,',
+            '            "min_timestamp": 1672896988.004,',
+            '            "max_timestamp": 1672896988.004',
+            '        },',
+            '        "headers": [',
+            '            {',
+            '                "id": "00_0010_7E21_0100",',
+            '                "description": "VBus 0: DeltaSol MX [Heizkreis #1]",',
+            '                "channel": 0,',
+            '                "destination_address": 16,',
+            '                "source_address": 32289,',
+            '                "protocol_version": 16,',
+            '                "command": 256,',
+            '                "info": 0,',
+            '                "destination_name": "DFA",',
+            '                "source_name": "DeltaSol MX [Heizkreis #1]",',
+            '                "fields": [',
+            '                    {',
+            '                        "id": "000_2_0",',
+            '                        "name": "Flow set temperature",',
+            '                        "unit": " °C",',
+            '                        "unit_code": "DegreesCelsius"',
+            '                    },',
+            '                    {',
+            '                        "id": "002_1_0",',
+            '                        "name": "Operating state",',
+            '                        "unit": "",',
+            '                        "unit_code": "None"',
+            '                    }',
+            '                ]',
+            '            }',
+            '        ]',
+            '    }',
+            '}',
+        ].join('\n'));
+    });
+
+});
+
 describe('writeHeaderSet', () => {
 
     it('should work correctly', async () => {
@@ -506,16 +796,16 @@ describe('wrapAsyncRequestHandler', () => {
         });
 
         expect(res1.status.mock.calls).toHaveLength(1);
-        expect(res1.status.mock.calls [0]).toHaveLength(1);
-        expect(res1.status.mock.calls [0] [0]).toBe(200);
+        expect(res1.status.mock.calls[0]).toHaveLength(1);
+        expect(res1.status.mock.calls[0][0]).toBe(200);
 
         expect(res1.type.mock.calls).toHaveLength(1);
-        expect(res1.type.mock.calls [0]).toHaveLength(1);
-        expect(res1.type.mock.calls [0] [0]).toBe(result.contentType);
+        expect(res1.type.mock.calls[0]).toHaveLength(1);
+        expect(res1.type.mock.calls[0][0]).toBe(result.contentType);
 
         expect(res1.end.mock.calls).toHaveLength(1);
-        expect(res1.end.mock.calls [0]).toHaveLength(1);
-        expect(res1.end.mock.calls [0] [0]).toBe(result.data);
+        expect(res1.end.mock.calls[0]).toHaveLength(1);
+        expect(res1.end.mock.calls[0][0]).toBe(result.data);
 
         const res2 = await new Promise(resolve => {
             const res = {
@@ -530,16 +820,16 @@ describe('wrapAsyncRequestHandler', () => {
         });
 
         expect(res2.status.mock.calls).toHaveLength(1);
-        expect(res2.status.mock.calls [0]).toHaveLength(1);
-        expect(res2.status.mock.calls [0] [0]).toBe(500);
+        expect(res2.status.mock.calls[0]).toHaveLength(1);
+        expect(res2.status.mock.calls[0][0]).toBe(500);
 
         expect(res2.type.mock.calls).toHaveLength(1);
-        expect(res2.type.mock.calls [0]).toHaveLength(1);
-        expect(res2.type.mock.calls [0] [0]).toBe('text/plain');
+        expect(res2.type.mock.calls[0]).toHaveLength(1);
+        expect(res2.type.mock.calls[0][0]).toBe('text/plain');
 
         expect(res2.end.mock.calls).toHaveLength(1);
-        expect(res2.end.mock.calls [0]).toHaveLength(1);
-        expect(res2.end.mock.calls [0] [0]).toBe('Error: Test error');
+        expect(res2.end.mock.calls[0]).toHaveLength(1);
+        expect(res2.end.mock.calls[0][0]).toBe('Error: Test error');
     });
 
 });
@@ -562,16 +852,16 @@ describe('wrapAsyncJsonRequestHandler', () => {
         });
 
         expect(res1.status.mock.calls).toHaveLength(1);
-        expect(res1.status.mock.calls [0]).toHaveLength(1);
-        expect(res1.status.mock.calls [0] [0]).toBe(200);
+        expect(res1.status.mock.calls[0]).toHaveLength(1);
+        expect(res1.status.mock.calls[0][0]).toBe(200);
 
         expect(res1.type.mock.calls).toHaveLength(1);
-        expect(res1.type.mock.calls [0]).toHaveLength(1);
-        expect(res1.type.mock.calls [0] [0]).toBe('application/json');
+        expect(res1.type.mock.calls[0]).toHaveLength(1);
+        expect(res1.type.mock.calls[0][0]).toBe('application/json');
 
         expect(res1.end.mock.calls).toHaveLength(1);
-        expect(res1.end.mock.calls [0]).toHaveLength(1);
-        expect(res1.end.mock.calls [0] [0]).toBe(result);
+        expect(res1.end.mock.calls[0]).toHaveLength(1);
+        expect(res1.end.mock.calls[0][0]).toBe(result);
     });
 
 });
@@ -677,7 +967,7 @@ describe('main', () => {
             expect(headers).toHaveLength(1);
 
             const timestamp = new Date(1672896988004);
-            headers [0].timestamp = timestamp;
+            headers[0].timestamp = timestamp;
             headerSet.timestamp = timestamp;
 
             const urlPrefix = `http://127.0.0.1:${port}`;
@@ -782,6 +1072,153 @@ describe('main', () => {
                 '0000',
                 '01020304',
             ].join(''));
+
+            const httpResponse6 = await fetch(`${urlPrefix}/current/current_packets.vbus`);
+
+            expect(httpResponse6.ok).toBe(true);
+
+            const response6 = await httpResponse6.arrayBuffer();
+
+            const buffer6 = Buffer.from(response6);
+
+            expect(buffer6.length).toBe(44);
+            expect(buffer6.toString('hex')).toBe([
+                'a5440e000e00',
+                '64436e8085010000',
+                'a5661e001e00',
+                '64436e8085010000',
+                '1000',
+                '217e',
+                '1000',
+                '0001',
+                '0400',
+                '0000',
+                '01020304',
+            ].join(''));
+
+            const httpResponse7 = await fetch(`${urlPrefix}/cgi-bin/resol-webservice`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    jsonrpc: '2.0',
+                    id: 123,
+                    method: 'dataGetCurrentData',
+                    params: {
+                        authId: 'doesnotmatter',
+                    },
+                }),
+            });
+
+            expect(httpResponse7.ok).toBe(true);
+
+            const response7 = await httpResponse7.json();
+
+            expect(response7).toEqual({
+                jsonrpc: '2.0',
+                id: 123,
+                result: {
+                    headersets: [{
+                        timestamp: 1672896988.004,
+                        packets: [{
+                            header_index: 0,
+                            timestamp: 1672896988.004,
+                            field_values: [{
+                                field_index: 0,
+                                raw_value: 51.3,
+                                value: '51.3',
+                            }, {
+                                field_index: 1,
+                                raw_value: 3,
+                                value: '3',
+                            }],
+                        }]
+                    }],
+                    headerset_stats: {
+                        headerset_count: 1,
+                        min_timestamp: 1672896988.004,
+                        max_timestamp: 1672896988.004,
+                    },
+                    headers: [{
+                        id: '00_0010_7E21_0100',
+                        description: 'VBus 0: DeltaSol MX [Heizkreis #1]',
+                        channel: 0,
+                        destination_address: 16,
+                        source_address: 32289,
+                        protocol_version: 16,
+                        command: 256,
+                        info: 0,
+                        destination_name: 'DFA',
+                        source_name: 'DeltaSol MX [Heizkreis #1]',
+                        fields: [{
+                            id: '000_2_0',
+                            name: 'Flow set temperature',
+                            unit: ' °C',
+                            unit_code: 'DegreesCelsius'
+                        }, {
+                            id: '002_1_0',
+                            name: 'Operating state',
+                            unit: '',
+                            unit_code: 'None'
+                        }],
+                    }],
+                },
+            });
+
+            const httpResponse8 = await fetch(`${urlPrefix}/dlx/download/live`);
+
+            expect(httpResponse8.ok).toBe(true);
+
+            const response8 = await httpResponse8.json();
+
+            expect(response8).toEqual({
+                headersets: [{
+                    timestamp: 1672896988.004,
+                    packets: [{
+                        header_index: 0,
+                        timestamp: 1672896988.004,
+                        field_values: [{
+                            field_index: 0,
+                            raw_value: 51.3,
+                            value: '51.3',
+                        }, {
+                            field_index: 1,
+                            raw_value: 3,
+                            value: '3',
+                        }],
+                    }]
+                }],
+                headerset_stats: {
+                    headerset_count: 1,
+                    min_timestamp: 1672896988.004,
+                    max_timestamp: 1672896988.004,
+                },
+                headers: [{
+                    id: '00_0010_7E21_0100',
+                    description: 'VBus 0: DeltaSol MX [Heizkreis #1]',
+                    channel: 0,
+                    destination_address: 16,
+                    source_address: 32289,
+                    protocol_version: 16,
+                    command: 256,
+                    info: 0,
+                    destination_name: 'DFA',
+                    source_name: 'DeltaSol MX [Heizkreis #1]',
+                    fields: [{
+                        id: '000_2_0',
+                        name: 'Flow set temperature',
+                        unit: ' °C',
+                        unit_code: 'DegreesCelsius'
+                    }, {
+                        id: '002_1_0',
+                        name: 'Operating state',
+                        unit: '',
+                        unit_code: 'None'
+                    }],
+                }],
+                language: 'en',
+            });
 
             // wait for headerset to be written to file after a second
             const delay = 1200 - (Date.now() - startTimestamp);

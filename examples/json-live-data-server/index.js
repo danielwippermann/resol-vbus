@@ -215,6 +215,73 @@ async function generateDLxDownloadDownloadResponse(rawQuery) {
 }
 
 
+async function generateDLxDownloadLiveResponse() {
+    return await generateDLxDownloadDownloadResponse({
+        source: 'current',
+        outputType: 'json',
+    });
+}
+
+
+async function generateCurrentPacketsVBusResponse() {
+    return await generateDLxDownloadDownloadResponse({
+        source: 'current',
+        outputType: 'vbus',
+    });
+}
+
+
+async function generateKM2DataGetCurrentDataResponse() {
+    const { data } = await generateDLxDownloadDownloadResponse({
+        source: 'current',
+        outputType: 'json',
+    });
+
+    const result = JSON.parse(data.toString());
+
+    delete result.language;
+
+    return result;
+}
+
+
+async function generateKM2WebserviceResponse(requestBody) {
+    const isBatchRequest = Array.isArray(requestBody);
+    const requests = isBatchRequest ? requestBody : [ requestBody ];
+    const replies = [];
+    for (const request of requests) {
+        const { jsonrpc, id, method } = request;
+        try {
+            let result;
+            if (jsonrpc !== '2.0') {
+                throw new Error(`Unsupported jsonrpc: ${jsonrpc}`);
+            } else if (method === 'dataGetCurrentData') {
+                result = await generateKM2DataGetCurrentDataResponse();
+            } else {
+                throw new Error(`Unsupported method: ${method}`);
+            }
+            replies.push({
+                jsonrpc,
+                id,
+                result,
+            });
+        } catch (err) {
+            if (id) {
+                replies.push({
+                    jsonrpc: '2.0',
+                    id,
+                    error: {
+                        message: err.toString(),
+                    },
+                });
+            }
+        }
+    }
+    const responseBody = isBatchRequest ? replies : replies [0];
+    return JSON.stringify(responseBody, null, 4);
+}
+
+
 async function writeHeaderSet(filename) {
     logger.debug('HeaderSet complete');
 
@@ -281,6 +348,24 @@ async function main(options) {
     app.get('/dlx/download/download', (req, res) => {
         wrapAsyncRequestHandler(res, () => {
             return generateDLxDownloadDownloadResponse(req.query);
+        });
+    });
+
+    app.get('/dlx/download/live', (req, res) => {
+        wrapAsyncRequestHandler(res, () => {
+            return generateDLxDownloadLiveResponse();
+        });
+    });
+
+    app.get('/current/current_packets.vbus', (req, res) => {
+        wrapAsyncRequestHandler(res, () => {
+            return generateCurrentPacketsVBusResponse();
+        });
+    });
+
+    app.post('/cgi-bin/resol-webservice', express.json(), (req, res) => {
+        wrapAsyncJsonRequestHandler(res, () => {
+            return generateKM2WebserviceResponse(req.body);
         });
     });
 
@@ -367,6 +452,10 @@ if (require.main === module) {
         generatePrometheusResponse,
         generateGetResolDeviceInformationResponse,
         generateDLxDownloadDownloadResponse,
+        generateDLxDownloadLiveResponse,
+        generateCurrentPacketsVBusResponse,
+        generateKM2DataGetCurrentDataResponse,
+        generateKM2WebserviceResponse,
         writeHeaderSet,
         wrapAsyncRequestHandler,
         wrapAsyncJsonRequestHandler,
