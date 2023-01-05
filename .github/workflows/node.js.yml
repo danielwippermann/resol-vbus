@@ -23,9 +23,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm ci
-    - run: (cd examples/json-live-data-server && npm ci)
-    - run: cp examples/json-live-data-server/config.js.example examples/json-live-data-server/config.js
-    - run: npm test -- --coverage
+    - run: npm test -- --coverage --testPathIgnorePatterns examples/json-live-data-server
     - name: Codecov
       uses: codecov/codecov-action@v3.1.1
       with:
