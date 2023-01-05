@@ -7,6 +7,12 @@ const path = require('path');
 const config = {
 
     /**
+     * The level of details for log messages.
+     * @type {String}
+     */
+    logLevel: 'debug',
+
+    /**
      * The port number for the HTTP server to listen to.
      * @type {Number}
      */

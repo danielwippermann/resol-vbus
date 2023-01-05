@@ -4,12 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint index.js test",
+    "test": "jest"
   },
   "author": "Daniel Wippermann <Daniel.Wippermann@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "express": "^4.18.2",
     "winston": "^3.8.2"
+  },
+  "devDependencies": {
+    "node-fetch": "^2.6.7"
   }
 }
