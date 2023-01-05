@@ -799,6 +799,12 @@ describe('main', () => {
 
             endpoint.stop();
 
+            try {
+                await fs.unlink(config.loggingFilename);
+            } catch (err) {
+                // ignore
+            }
+
             Object.assign(config, originalConfig);
         }
     });
