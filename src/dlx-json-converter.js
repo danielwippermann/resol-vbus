@@ -135,7 +135,7 @@ class DLxJsonConverter extends Converter {
                 const fieldData = packetInfo.packetFields.map((packetField, packetFieldIndex) => {
                     let { rawValue } = packetField;
                     const { precision } = packetField.packetFieldSpec.type;
-                    rawValue = (rawValue != null) ? parseFloat(rawValue.toFixed(precision)) : null;
+                    rawValue = (rawValue != null) ? parseFloat(rawValue.toFixed(precision)) : 0;
 
                     return {
                         field_index: packetFieldIndex,
