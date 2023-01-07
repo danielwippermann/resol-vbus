@@ -10,21 +10,34 @@ const {
 } = require('./resol-vbus');
 
 
-const expect = require('./expect');
-
 const {
-    itShouldWorkCorrectlyAfterMigratingToClass,
+    expect,
+    expectElapsedTimeToBeWithin,
+    expectOwnPropertyNamesToEqual,
+    expectTimestampToBeWithin,
+    itShouldBeAClass,
 } = require('./test-utils');
 
 
 
 describe('HeaderSetConsolidator', () => {
 
-    describe('constructor', () => {
+    itShouldBeAClass(HeaderSetConsolidator, HeaderSet, {
+        interval: 0,
+        timeToLive: 0,
+        minTimestamp: null,
+        maxTimestamp: null,
+        lastIntervalTime: 0,
+        timer: null,
+        constructor: Function,
+        startTimer: Function,
+        stopTimer: Function,
+        processHeaderSet: Function,
+        _handleInterval: Function,
+        _processHeaderSet: Function,
+    });
 
-        it('should be a constructor function', () => {
-            expect(HeaderSetConsolidator).to.be.a('function');
-        });
+    describe('constructor', () => {
 
         it('should have reasonable defaults', () => {
             const before = new Date();
@@ -33,14 +46,26 @@ describe('HeaderSetConsolidator', () => {
 
             const after = new Date();
 
-            expect(hsc).to.have.a.property('timestamp');
-            expect(hsc.timestamp.getTime()).to.be.within(before.getTime(), after.getTime());
+            expectOwnPropertyNamesToEqual(hsc, [
+                'interval',
+                'timeToLive',
+                'minTimestamp',
+                'maxTimestamp',
 
-            expect(hsc).to.have.a.property('interval').that.is.equal(0);
-            expect(hsc).to.have.a.property('timeToLive').that.is.equal(0);
+                // base class related
+                'timestamp',
+                'headerList',
 
-            expect(hsc).to.have.a.property('minTimestamp').to.be.equal(null);
-            expect(hsc).to.have.a.property('maxTimestamp').to.be.equal(null);
+                '_events',
+                '_eventsCount',
+                '_maxListeners',
+            ]);
+
+            expectTimestampToBeWithin(hsc.timestamp, before, after);
+            expect(hsc.interval).toBe(0);
+            expect(hsc.timeToLive).toBe(0);
+            expect(hsc.minTimestamp).toBe(null);
+            expect(hsc.maxTimestamp).toBe(null);
         });
 
         it('should copy selected options', () => {
@@ -55,60 +80,52 @@ describe('HeaderSetConsolidator', () => {
 
             const hsc = new HeaderSetConsolidator(options);
 
-            expect(hsc.timestamp).to.equal(options.timestamp);
-            expect(hsc.interval).to.equal(options.interval);
-            expect(hsc.timeToLive).to.equal(options.timeToLive);
-            expect(hsc.minTimestamp).to.equal(options.minTimestamp);
-            expect(hsc.maxTimestamp).to.equal(options.maxTimestamp);
-            expect(hsc).to.not.have.property('junk');
+            expect(hsc.timestamp).toBe(options.timestamp);
+            expect(hsc.interval).toBe(options.interval);
+            expect(hsc.timeToLive).toBe(options.timeToLive);
+            expect(hsc.minTimestamp).toBe(options.minTimestamp);
+            expect(hsc.maxTimestamp).toBe(options.maxTimestamp);
+            expect(hsc.junk).toBe(undefined);
         });
 
     });
 
     describe('#startTimer and #stopTimer', () => {
 
-        it('should be functions', () => {
-            expect(HeaderSetConsolidator.prototype)
-                .to.have.a.property('startTimer')
-                .that.is.a('function');
-            expect(HeaderSetConsolidator.prototype)
-                .to.have.a.property('stopTimer')
-                .that.is.a('function');
-        });
-
-        it('should work correctly', () => {
+        it('should work correctly', async () => {
             const hsc = new HeaderSetConsolidator({
 
                 interval: 1000,
 
             });
 
-            let onHeaderSet;
+            let onHeaderSet, startTimestamp;
 
-            const before = Date.now();
-
-            return new Promise((resolve, reject) => {
+            const onHeaderSetPromise = new Promise(resolve => {
                 onHeaderSet = sinon.spy(() => {
-                    hsc.stopTimer();
-
-                    resolve();
+                    if (startTimestamp == null) {
+                        startTimestamp = Date.now();
+                    } else {
+                        resolve();
+                    }
                 });
 
                 hsc.on('headerSet', onHeaderSet);
-
-                hsc.startTimer();
-            }).then(() => {
-                const after = Date.now();
-
-                expect(after - before).to.be.within(0, 1200);
-
-                expect(onHeaderSet.callCount).to.equal(1);
-                expect(onHeaderSet.firstCall.args [0].getHeaders).lengthOf(0);
-
-                hsc.removeListener('headerSet', onHeaderSet);
-
-                hsc.stopTimer();
             });
+
+            hsc.startTimer();
+
+            await onHeaderSetPromise;
+
+            hsc.stopTimer();
+
+            expectElapsedTimeToBeWithin(startTimestamp, 1000, 1200);
+
+            expect(onHeaderSet.callCount).toBe(2);
+            expect(onHeaderSet.firstCall.args).toHaveLength(1);
+            expect(onHeaderSet.firstCall.args [0]).toBe(hsc);
+
+            hsc.removeListener('headerSet', onHeaderSet);
         });
 
     });
@@ -137,15 +154,17 @@ describe('HeaderSetConsolidator', () => {
 
             hsc.on('headerSet', onHeaderSetSpy);
 
-            expect(hsc.getHeaders()).to.have.lengthOf(0);
+            expect(hsc.getHeaders()).toHaveLength(0);
 
             hsc.processHeaderSet(headerSet);
 
-            expect(hsc.getHeaders()).to.have.lengthOf(3);
+            expect(hsc.getHeaders()).toHaveLength(3);
 
-            expect(onHeaderSetSpy.callCount).to.be.equal(1);
+            expect(onHeaderSetSpy.callCount).toBe(1);
+            expect(onHeaderSetSpy.firstCall.args).toHaveLength(1);
+            expect(onHeaderSetSpy.firstCall.args [0]).toBe(hsc);
 
-            expect(onHeaderSetSpy.firstCall.args [0].getHeaders()).to.have.lengthOf(3);
+            hsc.removeListener('headerSet', onHeaderSetSpy);
         });
 
         it('should work correctly with minTimestamp', () => {
@@ -170,17 +189,19 @@ describe('HeaderSetConsolidator', () => {
             headerSet.timestamp = new Date(timestamp - 1);
             hsc.processHeaderSet(headerSet);
 
-            expect(onHeaderSetSpy.callCount).equal(0);
+            expect(onHeaderSetSpy.callCount).toBe(0);
 
             headerSet.timestamp = new Date(timestamp);
             hsc.processHeaderSet(headerSet);
 
-            expect(onHeaderSetSpy.callCount).equal(1);
+            expect(onHeaderSetSpy.callCount).toBe(1);
 
             headerSet.timestamp = new Date(timestamp + 1);
             hsc.processHeaderSet(headerSet);
 
-            expect(onHeaderSetSpy.callCount).equal(2);
+            expect(onHeaderSetSpy.callCount).toBe(2);
+
+            hsc.removeListener('headerSet', onHeaderSetSpy);
         });
 
         it('should work correctly with maxTimestamp', () => {
@@ -205,17 +226,19 @@ describe('HeaderSetConsolidator', () => {
             headerSet.timestamp = new Date(timestamp - 1);
             hsc.processHeaderSet(headerSet);
 
-            expect(onHeaderSetSpy.callCount).equal(1);
+            expect(onHeaderSetSpy.callCount).toBe(1);
 
             headerSet.timestamp = new Date(timestamp);
             hsc.processHeaderSet(headerSet);
 
-            expect(onHeaderSetSpy.callCount).equal(2);
+            expect(onHeaderSetSpy.callCount).toBe(2);
 
             headerSet.timestamp = new Date(timestamp + 1);
             hsc.processHeaderSet(headerSet);
 
-            expect(onHeaderSetSpy.callCount).equal(2);
+            expect(onHeaderSetSpy.callCount).toBe(2);
+
+            hsc.removeListener('headerSet', onHeaderSetSpy);
         });
 
         it('should work correctly with interval', () => {
@@ -240,17 +263,19 @@ describe('HeaderSetConsolidator', () => {
             headerSet.timestamp = new Date(timestamp);
             hsc.processHeaderSet(headerSet);
 
-            expect(onHeaderSetSpy.callCount).equal(1);
+            expect(onHeaderSetSpy.callCount).toBe(1);
 
             headerSet.timestamp = new Date(timestamp + 3599);
             hsc.processHeaderSet(headerSet);
 
-            expect(onHeaderSetSpy.callCount).equal(1);
+            expect(onHeaderSetSpy.callCount).toBe(1);
 
             headerSet.timestamp = new Date(timestamp + 3600);
             hsc.processHeaderSet(headerSet);
 
-            expect(onHeaderSetSpy.callCount).equal(2);
+            expect(onHeaderSetSpy.callCount).toBe(2);
+
+            hsc.removeListener('headerSet', onHeaderSetSpy);
         });
 
         it('should work correctly with timeToLive', () => {
@@ -276,37 +301,24 @@ describe('HeaderSetConsolidator', () => {
             headerSet.timestamp = new Date(timestamp);
             hsc.processHeaderSet(headerSet);
 
-            expect(onHeaderSetSpy.callCount).equal(1);
-            expect(onHeaderSetSpy.firstCall.args [0].getHeaders()).lengthOf(1);
+            expect(onHeaderSetSpy.callCount).toBe(1);
+            expect(hsc.getHeaderCount()).toBe(1);
 
             headerSet.timestamp = new Date(timestamp + 3599);
             hsc.processHeaderSet(headerSet);
 
-            expect(onHeaderSetSpy.callCount).equal(2);
-            expect(onHeaderSetSpy.secondCall.args [0].getHeaders()).lengthOf(1);
+            expect(onHeaderSetSpy.callCount).toBe(2);
+            expect(hsc.getHeaderCount()).toBe(1);
 
             headerSet.timestamp = new Date(timestamp + 3601);
             hsc.processHeaderSet(headerSet);
 
-            expect(onHeaderSetSpy.callCount).equal(3);
-            expect(onHeaderSetSpy.thirdCall.args [0].getHeaders()).lengthOf(0);
+            expect(onHeaderSetSpy.callCount).toBe(3);
+            expect(hsc.getHeaderCount()).toBe(0);
+
+            hsc.removeListener('headerSet', onHeaderSetSpy);
         });
 
-    });
-
-    itShouldWorkCorrectlyAfterMigratingToClass(HeaderSetConsolidator, HeaderSet, {
-        interval: 0,
-        timeToLive: 0,
-        minTimestamp: null,
-        maxTimestamp: null,
-        lastIntervalTime: 0,
-        timer: null,
-        constructor: Function,
-        startTimer: Function,
-        stopTimer: Function,
-        processHeaderSet: Function,
-        _handleInterval: Function,
-        _processHeaderSet: Function,
     });
 
 });

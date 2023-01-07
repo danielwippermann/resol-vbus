@@ -5,11 +5,13 @@ const {
 } = require('../resol-vbus');
 
 
-const expect = require('../expect');
-const testUtils = require('../test-utils');
-
-
-const { wrapAsPromise } = testUtils;
+const {
+    expect,
+    expectPromise,
+    expectTypeToBe,
+    expectPendingValuesCountInConfigToBe,
+    markPendingValuesInConfigAsTransceived,
+} = require('./test-utils');
 
 
 
@@ -21,102 +23,73 @@ describe('ResolDeltaThermHcXxxConfigurationOptimizer', () => {
 
     describe('using ConfigurationOptimizerFactory', () => {
 
-        it('should work correctly', () => {
-            return testUtils.expectPromise(optimizerPromise).then((optimizer) => {
-                expect(optimizer).an('object');
-            });
+        it('should work correctly', async () => {
+            const optimizer = await expectPromise(optimizerPromise);
+
+            expectTypeToBe(optimizer, 'object');
         });
 
     });
 
     describe('#completeConfiguration', () => {
 
-        it('should work correctly without provided config', () => {
-            return optimizerPromise.then((optimizer) => {
-                return wrapAsPromise(() => {
-                    return testUtils.expectPromise(optimizer.completeConfiguration());
-                }).then((config) => {
-                    expect(config).an('array').lengthOf(5753);
-                });
-            });
+        it('should work correctly without provided config', async () => {
+            const optimizer = await optimizerPromise;
+
+            const config = await expectPromise(optimizer.completeConfiguration());
+
+            expectTypeToBe(config, 'array');
+            expect(config).toHaveLength(5753);
         });
 
-        it('should work correctly with provided config object', () => {
-            return optimizerPromise.then((optimizer) => {
-                return wrapAsPromise(() => {
-                    const config = {
-                        Language: 0,
-                        TemperatureHysteresisSelector: 0,
-                    };
+        it('should work correctly with provided config object', async () => {
+            const optimizer = await optimizerPromise;
 
-                    return testUtils.expectPromise(optimizer.completeConfiguration(config));
-                }).then((config) => {
-                    expect(config).an('array').lengthOf(2);
-                });
-            });
+            const config1 = {
+                Language: 0,
+                TemperatureHysteresisSelector: 0,
+            };
+
+            const config2 = await expectPromise(optimizer.completeConfiguration(config1));
+
+            expectTypeToBe(config2, 'array');
+            expect(config2).toHaveLength(2);
         });
 
-        it('should work correctly with provided config array', () => {
-            return optimizerPromise.then((optimizer) => {
-                return wrapAsPromise(() => {
-                    const config = [{
-                        valueId: 'Language',
-                    }, {
-                        // valueId: 'TemperatureHysteresisSelector',
-                        valueIndex: 2,
-                    }];
+        it('should work correctly with provided config array', async () => {
+            const optimizer = await optimizerPromise;
 
-                    return testUtils.expectPromise(optimizer.completeConfiguration(config));
-                }).then((config) => {
-                    expect(config).an('array').lengthOf(2);
-                });
-            });
+            const config1 = [{
+                valueId: 'Language',
+            }, {
+                // valueId: 'TemperatureHysteresisSelector',
+                valueIndex: 2,
+            }];
+
+            const config2 = await expectPromise(optimizer.completeConfiguration(config1));
+
+            expectTypeToBe(config2, 'array');
+            expect(config2).toHaveLength(2);
         });
 
     });
 
     describe('#optimizeLoadConfiguration', () => {
 
-        it('should work correctly after', () => {
-            return optimizerPromise.then((optimizer) => {
-                return wrapAsPromise(() => {
-                    return testUtils.expectPromise(optimizer.completeConfiguration());
-                }).then((config) => {
-                    return testUtils.expectPromise(optimizer.optimizeLoadConfiguration(config));
-                }).then((config) => {
-                    expect(config).a('array');
+        it('should work correctly after', async () => {
+            const optimizer = await optimizerPromise;
 
-                    const valueIds = config.reduce((memo, value) => {
-                        if (value.pending) {
-                            memo.push(value.valueId);
-                        }
-                        return memo;
-                    }, []);
+            const config1 = await expectPromise(optimizer.completeConfiguration());
 
-                    expect(valueIds).lengthOf(164);
+            const config2 = await expectPromise(optimizer.optimizeLoadConfiguration(config1));
 
-                    for (const value of config) {
-                        if (value.pending) {
-                            value.pending = false;
-                            value.transceived = true;
-                            value.value = null;
-                        }
-                    }
+            expectPendingValuesCountInConfigToBe(config2, 164);
 
-                    return testUtils.expectPromise(optimizer.optimizeLoadConfiguration(config));
-                }).then((config) => {
-                    expect(config).an('array');
+            markPendingValuesInConfigAsTransceived(config2);
 
-                    const valueIds = config.reduce((memo, value) => {
-                        if (value.pending) {
-                            memo.push(value.valueId);
-                        }
-                        return memo;
-                    }, []);
+            const config3 = await expectPromise(optimizer.optimizeLoadConfiguration(config2));
 
-                    expect(valueIds).lengthOf(20);
-                });
-            });
+            expectPendingValuesCountInConfigToBe(config3, 20);
         });
 
     });

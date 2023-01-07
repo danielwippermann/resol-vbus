@@ -7,39 +7,47 @@ const {
 } = require('./resol-vbus');
 
 
-const expect = require('./expect');
-
 const {
-    itShouldWorkCorrectlyAfterMigratingToClass,
+    expect,
+    expectOwnPropertyNamesToEqual,
+    itShouldBeAClass,
 } = require('./test-utils');
 
 
 
 describe('SerialDataSource', () => {
 
-    describe('constructor', () => {
+    itShouldBeAClass(SerialDataSource, DataSource, {
+        path: null,
+        constructor: Function,
+        connectLive: Function,
+    }, {
 
-        it('should be a constructor function', () => {
-            expect(SerialDataSource).to.be.a('function');
-        });
+    });
+
+    describe('constructor', () => {
 
         it('should have reasonable defaults', () => {
             const ds = new SerialDataSource();
 
-            expect(ds)
-                .to.have.a.property('path')
-                .that.equal(null);
+            expectOwnPropertyNamesToEqual(ds, [
+                'path',
+
+                // base class related
+                'provider',
+                'id',
+                'name',
+                'description',
+                'isSupportingLiveData',
+                'isSupportingCustomization',
+            ]);
+
+            expect(ds.path).toBe(null);
         });
 
     });
 
     describe('#connectLive', () => {
-
-        it('should be a method', () => {
-            expect(SerialDataSource.prototype)
-                .to.have.a.property('connectLive')
-                .that.is.a('function');
-        });
 
         it('should work correctly', async () => {
             const originalConnect = SerialConnection.prototype.connect;
@@ -53,20 +61,11 @@ describe('SerialDataSource', () => {
             try {
                 const connection = await ds.connectLive();
 
-                expect(connection)
-                    .to.be.instanceOf(SerialConnection);
+                expect(connection).toBeInstanceOf(SerialConnection);
             } finally {
                 SerialConnection.prototype.connect = originalConnect;
             }
         });
-
-    });
-
-    itShouldWorkCorrectlyAfterMigratingToClass(SerialDataSource, DataSource, {
-        path: null,
-        constructor: Function,
-        connectLive: Function,
-    }, {
 
     });
 

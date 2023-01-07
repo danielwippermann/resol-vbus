@@ -6,45 +6,43 @@ const {
 } = require('./resol-vbus');
 
 
-const expect = require('./expect');
 const {
+    expect,
     expectOwnPropertyNamesToEqual,
+    expectTypeToBe,
 } = require('./test-utils');
 
 
 
-const jestExpect = global.expect;
-
-
-const testSpecificationData = function(source, specificationData) {
+function testSpecificationData(source, specificationData) {
     describe('SpecificationData (' + source + ')', () => {
 
         it('should be an object', () => {
-            expect(specificationData).an('object');
             expectOwnPropertyNamesToEqual(specificationData, [
+                'units',
+                'types',
+                'getRawValueFunctions',
+                'setRawValueFunctions',
                 'deviceSpecs',
                 'getDeviceSpecification',
-                'getPacketSpecification',
-                'getRawValueFunctions',
                 'packetFieldSpecs',
                 'packetSpecs',
-                'setRawValueFunctions',
-                'types',
-                'units',
+                'getPacketSpecification',
             ]);
-            expect(specificationData).property('units').an('object');
-            expect(specificationData).property('types').an('object');
-            expect(specificationData).property('getRawValueFunctions').an('object');
-            expect(specificationData).property('setRawValueFunctions').an('object');
-            expect(specificationData).property('deviceSpecs').an('object');
-            expect(specificationData).property('getDeviceSpecification').an('function');
-            expect(specificationData).property('packetFieldSpecs').an('object');
-            expect(specificationData).property('packetSpecs').an('object');
-            expect(specificationData).property('getPacketSpecification').an('function');
+            expectTypeToBe(specificationData.units, 'object');
+            expectTypeToBe(specificationData.types, 'object');
+            expectTypeToBe(specificationData.getRawValueFunctions, 'object');
+            expectTypeToBe(specificationData.setRawValueFunctions, 'object');
+            expectTypeToBe(specificationData.deviceSpecs, 'object');
+            expectTypeToBe(specificationData.getDeviceSpecification, 'function');
+            expectTypeToBe(specificationData.packetFieldSpecs, 'object');
+            expectTypeToBe(specificationData.packetSpecs, 'object');
+            expectTypeToBe(specificationData.getPacketSpecification, 'function');
         });
 
         it('should have units', () => {
             const { units } = specificationData;
+
             expectOwnPropertyNamesToEqual(units, [
                 'Bars',
                 'BecquerelPerCubicMeter',
@@ -98,13 +96,19 @@ const testSpecificationData = function(source, specificationData) {
                 'Watts',
                 'WattsPerSquareMeter',
             ]);
-            expect(units).property('DegreesCelsius').an('object');
 
             const unit = units.DegreesCelsius;
-            expect(unit).property('unitId').equal('DegreesCelsius');
-            expect(unit).property('unitCode').equal('DegreesCelsius');
-            expect(unit).property('unitFamily').equal('Temperature');
-            expect(unit).property('unitText').equal(' °C');
+
+            expectOwnPropertyNamesToEqual(unit, [
+                'unitId',
+                'unitCode',
+                'unitFamily',
+                'unitText',
+            ]);
+            expect(unit.unitId).toBe('DegreesCelsius');
+            expect(unit.unitCode).toBe('DegreesCelsius');
+            expect(unit.unitFamily).toBe('Temperature');
+            expect(unit.unitText).toBe(' °C');
         });
 
         it('should have types', () => {
@@ -183,17 +187,16 @@ const testSpecificationData = function(source, specificationData) {
             ]);
 
             const type = specificationData.types.Number_0_1_DegreesCelsius;
-            expect(type).an('object');
             expectOwnPropertyNamesToEqual(type, [
                 'precision',
                 'rootTypeId',
                 'typeId',
                 'unit',
             ]);
-            expect(type).property('typeId').equal('Number_0_1_DegreesCelsius');
-            expect(type).property('rootTypeId').equal('Number');
-            expect(type).property('precision').equal(1);
-            expect(type).property('unit').equal(specificationData.units.DegreesCelsius);
+            expect(type.typeId).toBe('Number_0_1_DegreesCelsius');
+            expect(type.rootTypeId).toBe('Number');
+            expect(type.precision).toBe(1);
+            expect(type.unit).toBe(specificationData.units.DegreesCelsius);
         });
 
         it('should have getRawValueFunctions', () => {
@@ -5119,8 +5122,8 @@ const testSpecificationData = function(source, specificationData) {
             const testBuffer1 = Buffer.from('8000', 'hex');
 
             const getRawValueFunction = specificationData.getRawValueFunctions._0010_7E11_0100_000_2_0;
-            expect(getRawValueFunction).a('function');
-            expect(getRawValueFunction(testBuffer1, 0, testBuffer1.length)).equal(12.8);
+            expectTypeToBe(getRawValueFunction, 'function');
+            expect(getRawValueFunction(testBuffer1, 0, testBuffer1.length)).toBe(12.8);
         });
 
         it('should have setRawValueFunctions', () => {
@@ -10046,9 +10049,9 @@ const testSpecificationData = function(source, specificationData) {
             const testBuffer1 = Buffer.from('0000', 'hex');
 
             const setRawValueFunction = specificationData.setRawValueFunctions._0010_7E11_0100_000_2_0;
-            expect(setRawValueFunction).a('function');
+            expectTypeToBe(setRawValueFunction, 'function');
             setRawValueFunction(12.8, testBuffer1, 0, testBuffer1.length);
-            jestExpect(testBuffer1.toString('hex')).toBe('8000');
+            expect(testBuffer1.toString('hex')).toBe('8000');
         });
 
         it('should have deviceSpecs', () => {
@@ -10928,15 +10931,16 @@ const testSpecificationData = function(source, specificationData) {
             ]);
 
             const deviceSpec = specificationData.deviceSpecs._7E11;
-            expect(deviceSpec).an('object');
             expectOwnPropertyNamesToEqual(deviceSpec, [
                 'name',
             ]);
-            expect(deviceSpec).property('name').eql('DeltaSol MX [Regler]');
+            expect(deviceSpec.name).toBe('DeltaSol MX [Regler]');
+        });
 
+        it('should have getDeviceSpecification', () => {
             const { getDeviceSpecification } = specificationData;
-            expect(getDeviceSpecification).a('function');
-            expect(getDeviceSpecification(0x7E11, 0x0010)).equal(specificationData.deviceSpecs._7E11);
+
+            expect(getDeviceSpecification(0x7E11, 0x0010)).toBe(specificationData.deviceSpecs._7E11);
         });
 
         it('should have packetFieldSpecs', () => {
@@ -11227,10 +11231,9 @@ const testSpecificationData = function(source, specificationData) {
             ]);
 
             const packetFieldSpecs = specificationData.packetFieldSpecs._0010_7E11_0100;
-            expect(packetFieldSpecs).an('array').lengthOf(62);
+            expect(packetFieldSpecs).toHaveLength(62);
 
             const pfs = packetFieldSpecs [0];
-            expect(pfs).an('object');
             expectOwnPropertyNamesToEqual(pfs, [
                 'factor',
                 'fieldId',
@@ -11240,16 +11243,15 @@ const testSpecificationData = function(source, specificationData) {
                 'setRawValue',
                 'type',
             ]);
-            expect(pfs).property('fieldId').equal('000_2_0');
-            expect(pfs).property('name').an('object');
-            expect(pfs.name).property('de').equal('Temperatur Sensor 1');
-            expect(pfs.name).property('en').equal('Temperature sensor 1');
-            expect(pfs.name).property('fr').equal('Température sonde 1');
-            expect(pfs).property('type').equal(specificationData.types.Number_0_1_DegreesCelsius);
-            expect(pfs).property('factor').equal(0.1);
-            expect(pfs).property('getRawValue').equal(specificationData.getRawValueFunctions._0010_7E11_0100_000_2_0);
-            expect(pfs).property('setRawValue').a('function');
-            expect(pfs).property('parts').an('array').lengthOf(2).eql([{
+            expect(pfs.fieldId).toBe('000_2_0');
+            expect(pfs.name.de).toBe('Temperatur Sensor 1');
+            expect(pfs.name.en).toBe('Temperature sensor 1');
+            expect(pfs.name.fr).toBe('Température sonde 1');
+            expect(pfs.type).toBe(specificationData.types.Number_0_1_DegreesCelsius);
+            expect(pfs.factor).toBe(0.1);
+            expect(pfs.getRawValue).toBe(specificationData.getRawValueFunctions._0010_7E11_0100_000_2_0);
+            expect(pfs.setRawValue).toBe(specificationData.setRawValueFunctions._0010_7E11_0100_000_2_0);
+            expect(pfs.parts).toEqual([{
                 offset: 0,
                 mask: 255,
                 bitPos: 0,
@@ -11552,17 +11554,19 @@ const testSpecificationData = function(source, specificationData) {
             ]);
 
             const ps = specificationData.packetSpecs._0010_7E11_0100;
-            expect(ps).an('object');
-            expectOwnPropertyNamesToEqual(ps, [
-                'packetFields',
-                'packetId',
-            ]);
-            expect(ps).property('packetId').equal('0010_7E11_0100');
-            expect(ps).property('packetFields').equal(specificationData.packetFieldSpecs._0010_7E11_0100);
 
+            expectOwnPropertyNamesToEqual(ps, [
+                'packetId',
+                'packetFields',
+            ]);
+            expect(ps.packetId).toBe('0010_7E11_0100');
+            expect(ps.packetFields).toBe(specificationData.packetFieldSpecs._0010_7E11_0100);
+        });
+
+        it('should have getPacketSpecification', () => {
             const { getPacketSpecification } = specificationData;
-            expect(getPacketSpecification).a('function');
-            expect(getPacketSpecification(0x0010, 0x7E11, 0x0100)).equal(specificationData.packetSpecs._0010_7E11_0100);
+
+            expect(getPacketSpecification(0x0010, 0x7E11, 0x0100)).toBe(specificationData.packetSpecs._0010_7E11_0100);
         });
 
         it('should correctly store multi-byte masks', () => {
@@ -11570,20 +11574,18 @@ const testSpecificationData = function(source, specificationData) {
                 return (pfs.fieldId === '036_1_8388608');
             });
 
-            expect(packetField).an('object');
-            expect(packetField).property('parts').an('array').lengthOf(1);
+            expect(packetField.parts).toHaveLength(1);
 
             const part = packetField.parts [0];
-            expect(part).an('object');
-            expect(part).property('offset').equal(38);
-            expect(part).property('mask').equal(128);
-            expect(part).property('bitPos').equal(7);
-            expect(part).property('isSigned').equal(true);
-            expect(part).property('factor').equal(1);
+            expect(part.offset).toBe(38);
+            expect(part.mask).toBe(128);
+            expect(part.bitPos).toBe(7);
+            expect(part.isSigned).toBe(true);
+            expect(part.factor).toBe(1);
         });
 
     });
-};
+}
 
 
 // testSpecificationData('auto-generated source', createSpecificationData());
@@ -11615,25 +11617,25 @@ describe('SpecificationData', () => {
 
         spec.setRawValue(pfs, 3, buffer);
 
-        expect(buffer [36]).equal(0);
-        expect(buffer [37]).equal(0);
-        expect(buffer [38]).equal(128);
-        expect(buffer [39]).equal(0);
+        expect(buffer [36]).toBe(0);
+        expect(buffer [37]).toBe(0);
+        expect(buffer [38]).toBe(128);
+        expect(buffer [39]).toBe(0);
 
         let rv = spec.getRawValue(pfs, buffer);
 
-        expect(rv).equal(1);
+        expect(rv).toBe(1);
 
         spec.setRawValue(pfs, 4, buffer);
 
-        expect(buffer [36]).equal(0);
-        expect(buffer [37]).equal(0);
-        expect(buffer [38]).equal(0);
-        expect(buffer [39]).equal(0);
+        expect(buffer [36]).toBe(0);
+        expect(buffer [37]).toBe(0);
+        expect(buffer [38]).toBe(0);
+        expect(buffer [39]).toBe(0);
 
         rv = spec.getRawValue(pfs, buffer);
 
-        expect(rv).equal(0);
+        expect(rv).toBe(0);
     });
 
 });

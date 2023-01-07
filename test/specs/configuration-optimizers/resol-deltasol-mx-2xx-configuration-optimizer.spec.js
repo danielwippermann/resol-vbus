@@ -1,18 +1,22 @@
 /*! resol-vbus | Copyright (c) 2013-present, Daniel Wippermann | MIT license */
 
+const ResolDeltaSolMx2xxConfigurationOptimizer = require('../../../src/configuration-optimizers/resol-deltasol-mx-2xx-configuration-optimizer');
+
+
 const {
     BaseConfigurationOptimizer,
     ConfigurationOptimizerFactory,
 } = require('../resol-vbus');
 
 
-const jestExpect = global.expect;
-const expect = require('../expect');
-const testUtils = require('../test-utils');
-const ResolDeltaSolMx2xxConfigurationOptimizer = require('../../../src/configuration-optimizers/resol-deltasol-mx-2xx-configuration-optimizer');
-
-
-const { wrapAsPromise } = testUtils;
+const {
+    expect,
+    expectPromise,
+    expectTypeToBe,
+    expectPendingValuesCountInConfigToBe,
+    markPendingValuesInConfigAsTransceived,
+    itShouldBeAClass,
+} = require('./test-utils');
 
 
 
@@ -27,75 +31,48 @@ describe('ResolDeltaSolMx2xxConfigurationOptimizer', () => {
 
     describe('using ConfigurationOptimizerFactory', () => {
 
-        it('should work correctly', () => {
-            return testUtils.expectPromise(optimizerPromise).then((optimizer) => {
-                expect(optimizer).an('object');
-            });
+        it('should work correctly', async () => {
+            const optimizer = await expectPromise(optimizerPromise);
+
+            expectTypeToBe(optimizer, 'object');
         });
 
     });
 
     describe('#completeConfiguration', () => {
 
-        it('should work correctly', () => {
-            return optimizerPromise.then((optimizer) => {
-                return wrapAsPromise(() => {
-                    return testUtils.expectPromise(optimizer.completeConfiguration());
-                }).then((config) => {
-                    expect(config).an('array').lengthOf(6144);
-                });
-            });
+        it('should work correctly', async () => {
+            const optimizer = await optimizerPromise;
+
+            const config = await expectPromise(optimizer.completeConfiguration());
+
+            expectTypeToBe(config, 'array');
+            expect(config).toHaveLength(6144);
         });
 
     });
 
     describe('#optimizeLoadConfiguration', () => {
 
-        it('should work correctly after', () => {
-            return optimizerPromise.then((optimizer) => {
-                return wrapAsPromise(() => {
-                    return testUtils.expectPromise(optimizer.completeConfiguration());
-                }).then((config) => {
-                    return testUtils.expectPromise(optimizer.optimizeLoadConfiguration(config));
-                }).then((config) => {
-                    expect(config).an('array');
+        it('should work correctly after', async () => {
+            const optimizer = await optimizerPromise;
 
-                    const valueIds = config.reduce((memo, value) => {
-                        if (value.pending) {
-                            memo.push(value.valueId);
-                        }
-                        return memo;
-                    }, []);
+            const config1 = await expectPromise(optimizer.completeConfiguration());
 
-                    expect(valueIds).lengthOf(552);
+            const config2 = await expectPromise(optimizer.optimizeLoadConfiguration(config1));
 
-                    for (const value of config) {
-                        if (value.pending) {
-                            value.pending = false;
-                            value.transceived = true;
-                            value.value = null;
-                        }
-                    }
+            expectPendingValuesCountInConfigToBe(config2, 552);
 
-                    return testUtils.expectPromise(optimizer.optimizeLoadConfiguration(config));
-                }).then((config) => {
-                    expect(config).an('array');
+            markPendingValuesInConfigAsTransceived(config2);
 
-                    const valueIds = config.reduce((memo, value) => {
-                        if (value.pending) {
-                            memo.push(value.valueId);
-                        }
-                        return memo;
-                    }, []);
+            const config3 = await expectPromise(optimizer.optimizeLoadConfiguration(config2));
 
-                    expect(valueIds).lengthOf(33);
-                });
-            });
+            expectPendingValuesCountInConfigToBe(config3, 33);
         });
 
     });
 
-    testUtils.itShouldWorkCorrectlyAfterMigratingToClass(ResolDeltaSolMx2xxConfigurationOptimizer, BaseConfigurationOptimizer, {
+    itShouldBeAClass(ResolDeltaSolMx2xxConfigurationOptimizer, BaseConfigurationOptimizer, {
         constructor: Function,
         optimizeConfiguration: Function,
         optimizeAktorConfiguration: Function,
@@ -111,7 +88,7 @@ describe('ResolDeltaSolMx2xxConfigurationOptimizer', () => {
     }, {
         deviceAddress: 0x7E11,
         deviceMajorVersion: 2,
-        configurationData: jestExpect.any(Object),
+        configurationData: expect.any(Object),
         matchOptimizer: Function,
     });
 

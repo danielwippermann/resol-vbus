@@ -5,10 +5,12 @@ const {
 } = require('./resol-vbus');
 
 
-const { expectOwnPropertyNamesToEqual } = require('./test-utils');
+const {
+    expect,
+    expectOwnPropertyNamesToEqual,
+} = require('./test-utils');
 
 
-const expect = global.expect;
 
 const {
     generateGUID,

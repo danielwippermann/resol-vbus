@@ -7,30 +7,74 @@ const {
 } = require('./resol-vbus');
 
 
-const expect = require('./expect');
-const testUtils = require('./test-utils');
-
-
-const { expectOwnPropertyNamesToEqual } = testUtils;
+const {
+    expect,
+    expectOwnPropertyNamesToEqual,
+    expectTypeToBe,
+    itShouldBeAClass,
+} = require('./test-utils');
 
 
 
 describe('Specification', () => {
 
+    itShouldBeAClass(Specification, null, {
+        language: 'en',
+        deviceSpecCache: null,
+        packetSpecCache: null,
+        blockTypePacketSpecCache: null,
+        i18n: null,
+        specificationData: null,
+        constructor: Function,
+        getUnitById: Function,
+        getTypeById: Function,
+        getDeviceSpecification: Function,
+        getPacketSpecification: Function,
+        getPacketFieldSpecification: Function,
+        getRawValue: Function,
+        getRoundedRawValue: Function,
+        invertConversions: Function,
+        setRawValue: Function,
+        convertRawValue: Function,
+        _convertTemperatureRawValue: Function,
+        _convertVolumeRawValue: Function,
+        _convertVolumeFlowRawValue: Function,
+        _convertPressureRawValue: Function,
+        _convertEnergyRawValue: Function,
+        _convertPowerRawValue: Function,
+        _convertTimeRawValue: Function,
+        formatTextValueFromRawValue: Function,
+        formatTextValueFromRawValueInternal: Function,
+        getPacketFieldsForHeaders: Function,
+        setPacketFieldRawValues: Function,
+        getFilteredPacketFieldSpecificationsForHeaders: Function,
+        getBlockTypeSectionsForHeaders: Function,
+        _createUInt8BlockTypeFieldSpecification: Function,
+        _createInt16BlockTypeFieldSpecification: Function,
+        _createUInt32BlockTypeFieldSpecification: Function,
+        getBlockTypePacketSpecificationsForSections: Function,
+        getBlockTypeFieldsForSections: Function,
+    }, {
+        loadSpecificationData: Function,
+        storeSpecificationData: Function,
+        getDefaultSpecification: Function,
+    });
+
     describe('constructor', () => {
-
-        it('should be a constructor function', () => {
-            expect(Specification).to.be.a('function');
-
-            const spec = new Specification();
-
-            expect(spec).to.be.an.instanceOf(Specification);
-        });
 
         it('should have resonable defaults', () => {
             const spec = new Specification();
 
-            expect(spec.language).to.equal('en');
+            expectOwnPropertyNamesToEqual(spec, [
+                'language',
+                'i18n',
+                'deviceSpecCache',
+                'packetSpecCache',
+                'blockTypePacketSpecCache',
+                'specificationData',
+            ]);
+
+            expect(spec.language).toBe('en');
         });
 
         it('should copy selected options', () => {
@@ -41,8 +85,8 @@ describe('Specification', () => {
 
             const spec = new Specification(options);
 
-            expect(spec.language).to.equal(options.language);
-            expect(spec.junk).to.equal(undefined);
+            expect(spec.language).toBe(options.language);
+            expect(spec.junk).toBe(undefined);
         });
 
         // the specificationData option if checked later
@@ -88,53 +132,52 @@ describe('Specification', () => {
             }]
         };
 
-        const checkSpecificationData1 = function(specData) {
-            expect(specData).to.be.an('object');
+        function checkSpecificationData1(specData) {
+            expectTypeToBe(specData, 'object');
 
             const fpfs = specData.filteredPacketFieldSpecs;
 
-            expect(fpfs).to.be.an('array');
-            expect(fpfs.length).to.equal(2);
-            expect(fpfs [0].filteredPacketFieldId).to.equal('DemoValue1');
-            expect(fpfs [0].packetId).to.equal('00_0010_7722_10_0100');
-            expect(fpfs [0].fieldId).to.equal('000_2_0');
-            expect(fpfs [0].name.de).to.equal('T-VL');
-            expect(fpfs [0].type).to.be.an('object');
-            expect(fpfs [0].getRawValue).to.be.a('function');
-            expect(fpfs [0].packetSpec).to.be.an('object');
-            expect(fpfs [0].packetFieldSpec).to.be.an('object');
-            expect(fpfs [1].filteredPacketFieldId).to.equal('DemoValue2');
-            expect(fpfs [1].packetId).to.equal('00_0010_7722_10_0100');
-            expect(fpfs [1].fieldId).to.equal('000_2_0');
-            expect(fpfs [1].name.de).to.equal('T-VL');
-            expect(fpfs [1].type).to.be.an('object');
-            expect(fpfs [1].conversions).an('array').lengthOf(2);
-            expect(fpfs [1].conversions [0].factor).an('number');
-            expect(fpfs [1].conversions [0].sourceUnit).an('object');
-            expect(fpfs [1].conversions [0].targetUnit).an('object');
-            expect(fpfs [1].conversions [1].offset).an('number');
-            expect(fpfs [1].conversions [1].sourceUnit).an('object');
-            expect(fpfs [1].conversions [1].targetUnit).an('object');
-            expect(fpfs [1].getRawValue).to.be.a('function');
-            expect(fpfs [1].packetSpec).to.be.an('object');
-            expect(fpfs [1].packetFieldSpec).to.be.an('object');
-        };
-
-        it('should be a function', () => {
-            expect(Specification.loadSpecificationData).to.be.a('function');
-        });
+            expect(fpfs).toHaveLength(2);
+            expect(fpfs [0].filteredPacketFieldId).toBe('DemoValue1');
+            expect(fpfs [0].packetId).toBe('00_0010_7722_10_0100');
+            expect(fpfs [0].fieldId).toBe('000_2_0');
+            expect(fpfs [0].name.de).toBe('T-VL');
+            expectTypeToBe(fpfs [0].type, 'object');
+            expectTypeToBe(fpfs [0].getRawValue, 'function');
+            expectTypeToBe(fpfs [0].packetSpec, 'object');
+            expectTypeToBe(fpfs [0].packetFieldSpec, 'object');
+            expect(fpfs [1].filteredPacketFieldId).toBe('DemoValue2');
+            expect(fpfs [1].packetId).toBe('00_0010_7722_10_0100');
+            expect(fpfs [1].fieldId).toBe('000_2_0');
+            expect(fpfs [1].name.de).toBe('T-VL');
+            expectTypeToBe(fpfs [1].type, 'object');
+            expect(fpfs [1].conversions).toHaveLength(2);
+            expectTypeToBe(fpfs [1].conversions [0].factor, 'number');
+            expectTypeToBe(fpfs [1].conversions [0].sourceUnit, 'object');
+            expectTypeToBe(fpfs [1].conversions [0].targetUnit, 'object');
+            expectTypeToBe(fpfs [1].conversions [1].offset, 'number');
+            expectTypeToBe(fpfs [1].conversions [1].sourceUnit, 'object');
+            expectTypeToBe(fpfs [1].conversions [1].targetUnit, 'object');
+            expectTypeToBe(fpfs [1].getRawValue, 'function');
+            expectTypeToBe(fpfs [1].packetSpec, 'object');
+            expectTypeToBe(fpfs [1].packetFieldSpec, 'object');
+        }
 
         it('should work correctly without arguments', () => {
             const specData = Specification.loadSpecificationData();
 
-            expect(specData).to.be.an('object');
-            expect(specData.units).to.be.an('object', 'units');
-            expect(specData.types).to.be.an('object', 'types');
-            expect(specData.deviceSpecs).to.be.an('object', 'deviceSpecs');
-            expect(specData.packetSpecs).to.be.an('object', 'packetSpecs');
-            expect(specData.getDeviceSpecification).to.be.a('function');
-            expect(specData.getPacketSpecification).to.be.a('function');
-            expect(specData.filteredPacketFieldSpecs).to.equal(undefined);
+            expectOwnPropertyNamesToEqual(specData, [
+                'units',
+                'types',
+                'deviceSpecs',
+                'getDeviceSpecification',
+                'getRawValueFunctions',
+                'setRawValueFunctions',
+                'packetFieldSpecs',
+                'packetSpecs',
+                'getPacketSpecification',
+                'filteredPacketFieldSpecs',
+            ]);
         });
 
         it('should work correctly with raw spec data', () => {
@@ -197,21 +240,14 @@ describe('Specification', () => {
             }]
         };
 
-        it('should be a function', () => {
-            expect(Specification.storeSpecificationData).to.be.a('function');
-        });
-
         it('should work correctly without arguments', () => {
             const rawSpecData = Specification.storeSpecificationData();
 
-            expect(rawSpecData).to.be.an('object');
-            expect(rawSpecData.units).to.equal(undefined);
-            expect(rawSpecData.types).to.equal(undefined);
-            expect(rawSpecData.deviceSpecs).to.equal(undefined);
-            expect(rawSpecData.packetSpecs).to.equal(undefined);
-            expect(rawSpecData.getDeviceSpecification).to.equal(undefined);
-            expect(rawSpecData.getPacketSpecification).to.equal(undefined);
-            expect(rawSpecData.filteredPacketFieldSpecs).to.equal(undefined);
+            expectOwnPropertyNamesToEqual(rawSpecData, [
+                'filteredPacketFieldSpecs',
+            ]);
+
+            expect(rawSpecData.filteredPacketFieldSpecs).toBe(undefined);
         });
 
         it('should work correctly with an unfiltered spec', () => {
@@ -219,14 +255,11 @@ describe('Specification', () => {
 
             const rawSpecData = Specification.storeSpecificationData(spec);
 
-            expect(rawSpecData).to.be.an('object');
-            expect(rawSpecData.units).to.equal(undefined);
-            expect(rawSpecData.types).to.equal(undefined);
-            expect(rawSpecData.deviceSpecs).to.equal(undefined);
-            expect(rawSpecData.packetSpecs).to.equal(undefined);
-            expect(rawSpecData.getDeviceSpecification).to.equal(undefined);
-            expect(rawSpecData.getPacketSpecification).to.equal(undefined);
-            expect(rawSpecData.filteredPacketFieldSpecs).to.equal(undefined);
+            expectOwnPropertyNamesToEqual(rawSpecData, [
+                'filteredPacketFieldSpecs',
+            ]);
+
+            expect(rawSpecData.filteredPacketFieldSpecs).toBe(undefined);
         });
 
         it('should work correctly with a filtered spec', () => {
@@ -238,23 +271,19 @@ describe('Specification', () => {
 
             const rawSpecData = Specification.storeSpecificationData(spec);
 
-            expect(rawSpecData).to.eql(rawSpecDataInput);
+            expect(rawSpecData).toEqual(rawSpecDataInput);
         });
 
     });
 
     describe('#getUnitById', () => {
 
-        it('should be a method', () => {
-            expect(Specification.prototype.getUnitById).to.be.a('function');
-        });
-
         it('should work correctly for known units', () => {
             const spec = new Specification();
 
             const unit = spec.getUnitById('None');
 
-            expect(unit).to.be.an('object');
+            expectTypeToBe(unit, 'object');
         });
 
         it('should work correctly for unknown units', () => {
@@ -262,53 +291,44 @@ describe('Specification', () => {
 
             const unit = spec.getUnitById('Unknown');
 
-            expect(unit).to.equal(undefined);
+            expect(unit).toBe(undefined);
         });
 
     });
 
     describe('#getTypeById', () => {
 
-        it('should be a method', () => {
-            expect(Specification.prototype.getTypeById).to.be.a('function');
-        });
-
         it('should work correctly for known types', () => {
             const spec = new Specification();
 
-            const unit = spec.getTypeById('Number_1_None');
+            const type = spec.getTypeById('Number_1_None');
 
-            expect(unit).to.be.an('object');
+            expectTypeToBe(type, 'object');
         });
 
         it('should work correctly for unknown types', () => {
             const spec = new Specification();
 
-            const unit = spec.getTypeById('Unknown');
+            const type = spec.getTypeById('Unknown');
 
-            expect(unit).to.equal(undefined);
+            expect(type).toBe(undefined);
         });
 
     });
 
     describe('#getDeviceSpecification', () => {
 
-        it('should be a method', () => {
-            expect(Specification.prototype.getDeviceSpecification).to.be.a('function');
-        });
-
         it('should work correctly with a number pair', () => {
             const spec = new Specification();
 
             const deviceSpec = spec.getDeviceSpecification(0x7721, 0x0010);
 
-            expect(deviceSpec).to.be.an('object');
-            expect(deviceSpec.deviceId).to.be.a('string');
-            expect(deviceSpec.channel).to.equal(0);
-            expect(deviceSpec.selfAddress).to.equal(0x7721);
-            expect(deviceSpec.peerAddress).to.equal(0x0010);
-            expect(deviceSpec.name).to.equal('DeltaSol E [Regler]');
-            expect(deviceSpec.fullName).to.equal('DeltaSol E [Regler]');
+            expect(deviceSpec.deviceId).toBe('00_7721_0010');
+            expect(deviceSpec.channel).toBe(0);
+            expect(deviceSpec.selfAddress).toBe(0x7721);
+            expect(deviceSpec.peerAddress).toBe(0x0010);
+            expect(deviceSpec.name).toBe('DeltaSol E [Regler]');
+            expect(deviceSpec.fullName).toBe('DeltaSol E [Regler]');
         });
 
         it('should work correctly with a number triple', () => {
@@ -316,13 +336,12 @@ describe('Specification', () => {
 
             const deviceSpec = spec.getDeviceSpecification(0x7721, 0x0010, 1);
 
-            expect(deviceSpec).to.be.an('object');
-            expect(deviceSpec.deviceId).to.be.a('string');
-            expect(deviceSpec.channel).to.equal(1);
-            expect(deviceSpec.selfAddress).to.equal(0x7721);
-            expect(deviceSpec.peerAddress).to.equal(0x0010);
-            expect(deviceSpec.name).to.equal('DeltaSol E [Regler]');
-            expect(deviceSpec.fullName).to.equal('VBus #1: DeltaSol E [Regler]');
+            expect(deviceSpec.deviceId).toBe('01_7721_0010');
+            expect(deviceSpec.channel).toBe(1);
+            expect(deviceSpec.selfAddress).toBe(0x7721);
+            expect(deviceSpec.peerAddress).toBe(0x0010);
+            expect(deviceSpec.name).toBe('DeltaSol E [Regler]');
+            expect(deviceSpec.fullName).toBe('VBus #1: DeltaSol E [Regler]');
         });
 
         it('should work correctly with a header and "source"', () => {
@@ -336,13 +355,12 @@ describe('Specification', () => {
 
             const deviceSpec = spec.getDeviceSpecification(header, 'source');
 
-            expect(deviceSpec).to.be.an('object');
-            expect(deviceSpec.deviceId).to.be.a('string');
-            expect(deviceSpec.channel).to.equal(1);
-            expect(deviceSpec.selfAddress).to.equal(0x7721);
-            expect(deviceSpec.peerAddress).to.equal(0x0010);
-            expect(deviceSpec.name).to.equal('DeltaSol E [Regler]');
-            expect(deviceSpec.fullName).to.equal('VBus #1: DeltaSol E [Regler]');
+            expect(deviceSpec.deviceId).toBe('01_7721_0010');
+            expect(deviceSpec.channel).toBe(1);
+            expect(deviceSpec.selfAddress).toBe(0x7721);
+            expect(deviceSpec.peerAddress).toBe(0x0010);
+            expect(deviceSpec.name).toBe('DeltaSol E [Regler]');
+            expect(deviceSpec.fullName).toBe('VBus #1: DeltaSol E [Regler]');
         });
 
         it('should work correctly with a header and "destination"', () => {
@@ -356,10 +374,9 @@ describe('Specification', () => {
 
             const deviceSpec = spec.getDeviceSpecification(header, 'destination');
 
-            expect(deviceSpec).to.be.an('object');
-            expect(deviceSpec.deviceId).to.be.a('string');
-            expect(deviceSpec.name).to.equal('DFA');
-            expect(deviceSpec.fullName).to.equal('VBus #1: DFA');
+            expect(deviceSpec.deviceId).toBe('01_0010_7721');
+            expect(deviceSpec.name).toBe('DFA');
+            expect(deviceSpec.fullName).toBe('VBus #1: DFA');
         });
 
         it('should work correctly for an unknown device', () => {
@@ -367,39 +384,33 @@ describe('Specification', () => {
 
             const deviceSpec = spec.getDeviceSpecification(0x772F, 0x0010, 1);
 
-            expect(deviceSpec).to.be.an('object');
-            expect(deviceSpec.deviceId).to.be.a('string');
-            expect(deviceSpec.channel).to.equal(1);
-            expect(deviceSpec.selfAddress).to.equal(0x772F);
-            expect(deviceSpec.peerAddress).to.equal(0x0010);
-            expect(deviceSpec.name).to.equal('Unknown Device (0x772F)');
-            expect(deviceSpec.fullName).to.equal('VBus #1: Unknown Device (0x772F)');
+            expect(deviceSpec.deviceId).toBe('01_772F_0010');
+            expect(deviceSpec.channel).toBe(1);
+            expect(deviceSpec.selfAddress).toBe(0x772F);
+            expect(deviceSpec.peerAddress).toBe(0x0010);
+            expect(deviceSpec.name).toBe('Unknown Device (0x772F)');
+            expect(deviceSpec.fullName).toBe('VBus #1: Unknown Device (0x772F)');
         });
 
     });
 
     describe('#getPacketSpecification', () => {
 
-        it('should be a method', () => {
-            expect(Specification.prototype.getPacketSpecification).to.be.a('function');
-        });
-
         it('should work correctly with a number quadruple', () => {
             const spec = new Specification();
 
             const packetSpec = spec.getPacketSpecification(1, 0x0010, 0x7721, 0x0100);
 
-            expect(packetSpec).to.be.an('object');
-            expect(packetSpec.packetId).to.be.a('string');
-            expect(packetSpec.channel).to.equal(1);
-            expect(packetSpec.destinationAddress).to.equal(0x0010);
-            expect(packetSpec.sourceAddress).to.equal(0x7721);
-            expect(packetSpec.command).to.equal(0x0100);
-            expect(packetSpec.destinationDevice).to.be.an('object');
-            expect(packetSpec.sourceDevice).to.be.an('object');
-            expect(packetSpec.fullName).to.equal('VBus #1: DeltaSol E [Regler]');
-            expect(packetSpec.packetFields).to.be.an('array');
-            expect(packetSpec.packetFields.length).to.be.above(0);
+            expect(packetSpec.packetId).toBe('01_0010_7721_10_0100');
+            expect(packetSpec.channel).toBe(1);
+            expect(packetSpec.destinationAddress).toBe(0x0010);
+            expect(packetSpec.sourceAddress).toBe(0x7721);
+            expect(packetSpec.command).toBe(0x0100);
+            expectTypeToBe(packetSpec.destinationDevice, 'object');
+            expectTypeToBe(packetSpec.sourceDevice, 'object');
+            expect(packetSpec.fullName).toBe('VBus #1: DeltaSol E [Regler]');
+            expectTypeToBe(packetSpec.packetFields, 'array');
+            expect(packetSpec.packetFields.length).toBeGreaterThan(0);
         });
 
         it('should work correctly with a header', () => {
@@ -414,12 +425,11 @@ describe('Specification', () => {
 
             const packetSpec = spec.getPacketSpecification(header);
 
-            expect(packetSpec).to.be.an('object');
-            expect(packetSpec.packetId).to.be.a('string');
-            expect(packetSpec.destinationDevice).to.be.an('object');
-            expect(packetSpec.sourceDevice).to.be.an('object');
-            expect(packetSpec.packetFields).to.be.an('array');
-            expect(packetSpec.packetFields.length).to.be.above(0);
+            expect(packetSpec.packetId).toBe('01_0010_7721_10_0100');
+            expectTypeToBe(packetSpec.destinationDevice, 'object');
+            expectTypeToBe(packetSpec.sourceDevice, 'object');
+            expectTypeToBe(packetSpec.packetFields, 'array');
+            expect(packetSpec.packetFields.length).toBeGreaterThan(0);
         });
 
         it('should work correctly with a packet ID string with protocol version', () => {
@@ -427,12 +437,11 @@ describe('Specification', () => {
 
             const packetSpec = spec.getPacketSpecification('01_0010_7721_10_0100');
 
-            expect(packetSpec).to.be.an('object');
-            expect(packetSpec.packetId).to.be.a('string');
-            expect(packetSpec.destinationDevice).to.be.an('object');
-            expect(packetSpec.sourceDevice).to.be.an('object');
-            expect(packetSpec.packetFields).to.be.an('array');
-            expect(packetSpec.packetFields.length).to.be.above(0);
+            expect(packetSpec.packetId).toBe('01_0010_7721_10_0100');
+            expectTypeToBe(packetSpec.destinationDevice, 'object');
+            expectTypeToBe(packetSpec.sourceDevice, 'object');
+            expectTypeToBe(packetSpec.packetFields, 'array');
+            expect(packetSpec.packetFields.length).toBeGreaterThan(0);
         });
 
         it('should work correctly with a packet ID string without protocol version', () => {
@@ -440,12 +449,11 @@ describe('Specification', () => {
 
             const packetSpec = spec.getPacketSpecification('01_0010_7721_0100');
 
-            expect(packetSpec).to.be.an('object');
-            expect(packetSpec.packetId).to.be.a('string');
-            expect(packetSpec.destinationDevice).to.be.an('object');
-            expect(packetSpec.sourceDevice).to.be.an('object');
-            expect(packetSpec.packetFields).to.be.an('array');
-            expect(packetSpec.packetFields.length).to.be.above(0);
+            expect(packetSpec.packetId).toBe('01_0010_7721_10_0100');
+            expectTypeToBe(packetSpec.destinationDevice, 'object');
+            expectTypeToBe(packetSpec.sourceDevice, 'object');
+            expectTypeToBe(packetSpec.packetFields, 'array');
+            expect(packetSpec.packetFields.length).toBeGreaterThan(0);
         });
 
         it('should work correctly for an unknown packet', () => {
@@ -453,12 +461,11 @@ describe('Specification', () => {
 
             const packetSpec = spec.getPacketSpecification(1, 0x0010, 0x772F, 0x0100);
 
-            expect(packetSpec).to.be.an('object');
-            expect(packetSpec.packetId).to.be.a('string');
-            expect(packetSpec.destinationDevice).to.be.an('object');
-            expect(packetSpec.sourceDevice).to.be.an('object');
-            expect(packetSpec.packetFields).to.be.an('array');
-            expect(packetSpec.packetFields.length).to.equal(0);
+            expect(packetSpec.packetId).toBe('01_0010_772F_10_0100');
+            expectTypeToBe(packetSpec.destinationDevice, 'object');
+            expectTypeToBe(packetSpec.sourceDevice, 'object');
+            expectTypeToBe(packetSpec.packetFields, 'array');
+            expect(packetSpec.packetFields.length).toBe(0);
         });
 
         it('should work correctly with a packet field ID string', () => {
@@ -466,12 +473,11 @@ describe('Specification', () => {
 
             const packetSpec = spec.getPacketSpecification('01_0010_7721_10_0100_000_2_0');
 
-            expect(packetSpec).to.be.an('object');
-            expect(packetSpec.packetId).to.be.a('string');
-            expect(packetSpec.destinationDevice).to.be.an('object');
-            expect(packetSpec.sourceDevice).to.be.an('object');
-            expect(packetSpec.packetFields).to.be.an('array');
-            expect(packetSpec.packetFields.length).to.be.above(0);
+            expect(packetSpec.packetId).toBe('01_0010_7721_10_0100');
+            expectTypeToBe(packetSpec.destinationDevice, 'object');
+            expectTypeToBe(packetSpec.sourceDevice, 'object');
+            expectTypeToBe(packetSpec.packetFields, 'array');
+            expect(packetSpec.packetFields.length).toBeGreaterThan(0);
         });
 
     });
@@ -494,10 +500,6 @@ describe('Specification', () => {
             }]
         };
 
-        it('should be a method', () => {
-            expect(Specification.prototype.getPacketFieldSpecification).to.be.a('function');
-        });
-
         it('should work correctly with a packet spec and a field ID', () => {
             const spec = new Specification();
 
@@ -505,19 +507,29 @@ describe('Specification', () => {
 
             const packetFieldSpec = spec.getPacketFieldSpecification(packetSpec, '000_2_0');
 
-            expect(packetFieldSpec).to.be.an('object');
-            expect(packetFieldSpec.fieldId).to.be.a('string');
-            expect(packetFieldSpec.name).to.be.an('object');
-            expect(packetFieldSpec.name.de).to.be.a('string');
-            expect(packetFieldSpec.name.en).to.be.a('string');
-            expect(packetFieldSpec.name.fr).to.be.a('string');
-            expect(packetFieldSpec.type).to.be.an('object');
-            expect(packetFieldSpec.type.typeId).to.be.a('string');
-            expect(packetFieldSpec.type.rootTypeId).to.be.a('string');
-            expect(packetFieldSpec.type.precision).to.be.a('number');
-            expect(packetFieldSpec.type.unit).to.be.an('object');
-            expect(packetFieldSpec.type.unit.unitCode).to.be.a('string');
-            expect(packetFieldSpec.type.unit.unitText).to.be.a('string');
+            expect(packetFieldSpec).toEqual({
+                fieldId: expect.any(String),
+                name: {
+                    en: expect.any(String),
+                    de: expect.any(String),
+                    fr: expect.any(String),
+                },
+                type: {
+                    typeId: expect.any(String),
+                    rootTypeId: expect.any(String),
+                    precision: expect.any(Number),
+                    unit: {
+                        unitId: expect.any(String),
+                        unitCode: expect.any(String),
+                        unitFamily: expect.any(String),
+                        unitText: expect.any(String),
+                    },
+                },
+                getRawValue: expect.any(Function),
+                setRawValue: expect.any(Function),
+                factor: expect.any(Number),
+                parts: expect.any(Array),
+            });
         });
 
         it('should work correctly with a packet field ID string with protocol version', () => {
@@ -525,19 +537,29 @@ describe('Specification', () => {
 
             const packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_10_0100_000_2_0');
 
-            expect(packetFieldSpec).to.be.an('object');
-            expect(packetFieldSpec.fieldId).to.be.a('string');
-            expect(packetFieldSpec.name).to.be.an('object');
-            expect(packetFieldSpec.name.de).to.be.a('string');
-            expect(packetFieldSpec.name.en).to.be.a('string');
-            expect(packetFieldSpec.name.fr).to.be.a('string');
-            expect(packetFieldSpec.type).to.be.an('object');
-            expect(packetFieldSpec.type.typeId).to.be.a('string');
-            expect(packetFieldSpec.type.rootTypeId).to.be.a('string');
-            expect(packetFieldSpec.type.precision).to.be.a('number');
-            expect(packetFieldSpec.type.unit).to.be.an('object');
-            expect(packetFieldSpec.type.unit.unitCode).to.be.a('string');
-            expect(packetFieldSpec.type.unit.unitText).to.be.a('string');
+            expect(packetFieldSpec).toEqual({
+                fieldId: expect.any(String),
+                name: {
+                    en: expect.any(String),
+                    de: expect.any(String),
+                    fr: expect.any(String),
+                },
+                type: {
+                    typeId: expect.any(String),
+                    rootTypeId: expect.any(String),
+                    precision: expect.any(Number),
+                    unit: {
+                        unitId: expect.any(String),
+                        unitCode: expect.any(String),
+                        unitFamily: expect.any(String),
+                        unitText: expect.any(String),
+                    },
+                },
+                getRawValue: expect.any(Function),
+                setRawValue: expect.any(Function),
+                factor: expect.any(Number),
+                parts: expect.any(Array),
+            });
         });
 
         it('should work correctly with a packet field ID string without protocol version', () => {
@@ -545,19 +567,29 @@ describe('Specification', () => {
 
             const packetFieldSpec = spec.getPacketFieldSpecification('01_0010_7721_0100_000_2_0');
 
-            expect(packetFieldSpec).to.be.an('object');
-            expect(packetFieldSpec.fieldId).to.be.a('string');
-            expect(packetFieldSpec.name).to.be.an('object');
-            expect(packetFieldSpec.name.de).to.be.a('string');
-            expect(packetFieldSpec.name.en).to.be.a('string');
-            expect(packetFieldSpec.name.fr).to.be.a('string');
-            expect(packetFieldSpec.type).to.be.an('object');
-            expect(packetFieldSpec.type.typeId).to.be.a('string');
-            expect(packetFieldSpec.type.rootTypeId).to.be.a('string');
-            expect(packetFieldSpec.type.precision).to.be.a('number');
-            expect(packetFieldSpec.type.unit).to.be.an('object');
-            expect(packetFieldSpec.type.unit.unitCode).to.be.a('string');
-            expect(packetFieldSpec.type.unit.unitText).to.be.a('string');
+            expect(packetFieldSpec).toEqual({
+                fieldId: expect.any(String),
+                name: {
+                    en: expect.any(String),
+                    de: expect.any(String),
+                    fr: expect.any(String),
+                },
+                type: {
+                    typeId: expect.any(String),
+                    rootTypeId: expect.any(String),
+                    precision: expect.any(Number),
+                    unit: {
+                        unitId: expect.any(String),
+                        unitCode: expect.any(String),
+                        unitFamily: expect.any(String),
+                        unitText: expect.any(String),
+                    },
+                },
+                getRawValue: expect.any(Function),
+                setRawValue: expect.any(Function),
+                factor: expect.any(Number),
+                parts: expect.any(Array),
+            });
         });
 
         it('should work correctly for a missing packet spec', () => {
@@ -565,7 +597,7 @@ describe('Specification', () => {
 
             const packetFieldSpec = spec.getPacketFieldSpecification(null, '000_2_0');
 
-            expect(packetFieldSpec).to.equal(undefined);
+            expect(packetFieldSpec).toBe(undefined);
         });
 
         it('should work correctly for a missing field ID', () => {
@@ -575,7 +607,7 @@ describe('Specification', () => {
 
             const packetFieldSpec = spec.getPacketFieldSpecification(packetSpec, null);
 
-            expect(packetFieldSpec).to.equal(undefined);
+            expect(packetFieldSpec).toBe(undefined);
         });
 
         it('should work correctly for an unknown field ID', () => {
@@ -585,7 +617,7 @@ describe('Specification', () => {
 
             const packetFieldSpec = spec.getPacketFieldSpecification(packetSpec, '000_0_0');
 
-            expect(packetFieldSpec).to.equal(undefined);
+            expect(packetFieldSpec).toBe(undefined);
         });
 
         it('should work correctly with a filtered spec and a custom ID string', () => {
@@ -595,27 +627,38 @@ describe('Specification', () => {
 
             const packetFieldSpec = spec.getPacketFieldSpecification('DemoValue1');
 
-            expect(packetFieldSpec).to.be.an('object');
-            expect(packetFieldSpec.fieldId).to.be.a('string');
-            expect(packetFieldSpec.name).to.be.an('object');
-            expect(packetFieldSpec.name.ref).to.be.a('string');
-            expect(packetFieldSpec.type).to.be.an('object');
-            expect(packetFieldSpec.type.typeId).to.be.a('string');
-            expect(packetFieldSpec.type.rootTypeId).to.be.a('string');
-            expect(packetFieldSpec.type.precision).to.be.a('number');
-            expect(packetFieldSpec.type.unit).to.be.an('object');
-            expect(packetFieldSpec.type.unit.unitCode).to.be.a('string');
-            expect(packetFieldSpec.type.unit.unitText).to.be.a('string');
+            expect(packetFieldSpec).toEqual({
+                fieldId: expect.any(String),
+                name: {
+                    ref: expect.any(String),
+                    en: expect.any(String),
+                    de: expect.any(String),
+                    fr: expect.any(String),
+                },
+                type: {
+                    typeId: expect.any(String),
+                    rootTypeId: expect.any(String),
+                    precision: expect.any(Number),
+                    unit: {
+                        unitId: expect.any(String),
+                        unitCode: expect.any(String),
+                        unitFamily: expect.any(String),
+                        unitText: expect.any(String),
+                    },
+                },
+                packetId: '00_0010_7722_10_0100',
+                packetSpec: expect.any(Object),
+                packetFieldSpec: expect.any(Object),
+                conversions: undefined,
+                filteredPacketFieldId: 'DemoValue1',
+                getRawValue: expect.any(Function),
+                setRawValue: undefined,
+            });
         });
 
     });
 
     describe('#setRawValue', () => {
-
-        it('should be a method', () => {
-            expect(Specification.prototype.setRawValue).to.be.a('function');
-        });
-
 
         it('should work correctly with all arguments', () => {
             const spec = new Specification();
@@ -630,7 +673,7 @@ describe('Specification', () => {
 
             const rawValue = spec.getRawValue(packetFieldSpec, buffer, 0, buffer.length);
 
-            expect(rawValue).to.be.closeTo(20.5, 0.05);
+            expect(rawValue).toBeCloseTo(20.5, 2);
         });
 
         it('should work correctly without start and end arguments', () => {
@@ -646,7 +689,7 @@ describe('Specification', () => {
 
             const rawValue = spec.getRawValue(packetFieldSpec, buffer);
 
-            expect(rawValue).to.be.closeTo(999.9, 0.05);
+            expect(rawValue).toBeCloseTo(999.9, 2);
         });
 
         it('should work correctly with a too small buffer', () => {
@@ -662,7 +705,7 @@ describe('Specification', () => {
 
             const rawValue = spec.getRawValue(packetFieldSpec, buffer, 0, buffer.length);
 
-            expect(rawValue).to.equal(null);
+            expect(rawValue).toBe(null);
         });
 
         it('should work correctly with a partial buffer', () => {
@@ -678,7 +721,7 @@ describe('Specification', () => {
 
             const rawValue = spec.getRawValue(packetFieldSpec, buffer, 0, buffer.length);
 
-            expect(rawValue).to.be.closeTo(12.3, 0.05);
+            expect(rawValue).toBeCloseTo(12.3, 2);
         });
 
         it('should work correctly for an unknown packet field spec', () => {
@@ -692,7 +735,7 @@ describe('Specification', () => {
 
             const rawValue = spec.getRawValue(null, buffer, 0, buffer.length);
 
-            expect(rawValue).to.equal(null);
+            expect(rawValue).toBe(null);
         });
 
         it('should work correctly without a buffer', () => {
@@ -706,17 +749,13 @@ describe('Specification', () => {
 
             const rawValue = spec.getRawValue(packetFieldSpec);
 
-            expect(rawValue).to.equal(null);
+            expect(rawValue).toBe(null);
         });
 
     });
 
 
     describe('#getRawValue', () => {
-
-        it('should be a method', () => {
-            expect(Specification.prototype.getRawValue).to.be.a('function');
-        });
 
         it('should work correctly with all arguments', () => {
             const spec = new Specification();
@@ -727,7 +766,7 @@ describe('Specification', () => {
 
             const rawValue = spec.getRawValue(packetFieldSpec, buffer, 0, buffer.length);
 
-            expect(rawValue).to.be.closeTo(888.8, 0.05);
+            expect(rawValue).toBeCloseTo(888.8, 2);
         });
 
         it('should work correctly without start and end arguments', () => {
@@ -739,7 +778,7 @@ describe('Specification', () => {
 
             const rawValue = spec.getRawValue(packetFieldSpec, buffer);
 
-            expect(rawValue).to.be.closeTo(888.8, 0.05);
+            expect(rawValue).toBeCloseTo(888.8, 2);
         });
 
         it('should work correctly with a too small buffer', () => {
@@ -751,7 +790,7 @@ describe('Specification', () => {
 
             const rawValue = spec.getRawValue(packetFieldSpec, buffer, 0, buffer.length);
 
-            expect(rawValue).to.equal(null);
+            expect(rawValue).toBe(null);
         });
 
         it('should work correctly with a partial buffer', () => {
@@ -763,7 +802,7 @@ describe('Specification', () => {
 
             const rawValue = spec.getRawValue(packetFieldSpec, buffer, 0, buffer.length);
 
-            expect(rawValue).to.be.closeTo(18.4, 0.05);
+            expect(rawValue).toBeCloseTo(18.4, 2);
         });
 
         it('should work correctly for an unknown packet field spec', () => {
@@ -773,7 +812,7 @@ describe('Specification', () => {
 
             const rawValue = spec.getRawValue(null, buffer, 0, buffer.length);
 
-            expect(rawValue).to.equal(null);
+            expect(rawValue).toBe(null);
         });
 
         it('should work correctly without a buffer', () => {
@@ -783,7 +822,7 @@ describe('Specification', () => {
 
             const rawValue = spec.getRawValue(packetFieldSpec);
 
-            expect(rawValue).to.equal(null);
+            expect(rawValue).toBe(null);
         });
 
         it('should work correctly with a filtered spec and conversion', () => {
@@ -806,16 +845,12 @@ describe('Specification', () => {
 
             const rawValue = spec.getRawValue(packetFieldSpec, buffer, 0, buffer.length);
 
-            expect(rawValue).to.be.closeTo(32.0, 0.05);
+            expect(rawValue).toBeCloseTo(32.0, 2);
         });
 
     });
 
     describe('#getRoundedRawValue', () => {
-
-        it('should be a method', () => {
-            expect(Specification.prototype.getRoundedRawValue).to.be.a('function');
-        });
 
         it('should work correctly with all arguments', () => {
             const spec = new Specification();
@@ -826,7 +861,7 @@ describe('Specification', () => {
 
             const rawValue = spec.getRoundedRawValue(packetFieldSpec, buffer, 0, buffer.length);
 
-            expect(rawValue).to.be.equal(888.8);
+            expect(rawValue).toBe(888.8);
         });
 
         it('should work correctly without start and end arguments', () => {
@@ -838,7 +873,7 @@ describe('Specification', () => {
 
             const rawValue = spec.getRoundedRawValue(packetFieldSpec, buffer);
 
-            expect(rawValue).to.be.equal(888.8);
+            expect(rawValue).toBe(888.8);
         });
 
         it('should work correctly with a too small buffer', () => {
@@ -850,7 +885,7 @@ describe('Specification', () => {
 
             const rawValue = spec.getRoundedRawValue(packetFieldSpec, buffer, 0, buffer.length);
 
-            expect(rawValue).to.equal(0);
+            expect(rawValue).toBe(0);
         });
 
         it('should work correctly with a partial buffer', () => {
@@ -862,7 +897,7 @@ describe('Specification', () => {
 
             const rawValue = spec.getRoundedRawValue(packetFieldSpec, buffer, 0, buffer.length);
 
-            expect(rawValue).to.be.equal(18.4);
+            expect(rawValue).toBe(18.4);
         });
 
         it('should work correctly for an unknown packet field spec', () => {
@@ -872,7 +907,7 @@ describe('Specification', () => {
 
             const rawValue = spec.getRoundedRawValue(null, buffer, 0, buffer.length);
 
-            expect(rawValue).to.equal(null);
+            expect(rawValue).toBe(null);
         });
 
         it('should work correctly without a buffer', () => {
@@ -882,7 +917,7 @@ describe('Specification', () => {
 
             const rawValue = spec.getRoundedRawValue(packetFieldSpec);
 
-            expect(rawValue).to.equal(0);
+            expect(rawValue).toBe(0);
         });
 
         it('should work correctly with a filtered spec and conversion', () => {
@@ -905,23 +940,19 @@ describe('Specification', () => {
 
             const rawValue = spec.getRoundedRawValue(packetFieldSpec, buffer, 0, buffer.length);
 
-            expect(rawValue).to.be.equal(32);
+            expect(rawValue).toBe(32);
         });
 
     });
 
     describe('#invertConversions', () => {
 
-        it('should be a method', () => {
-            expect(Specification.prototype.invertConversions).to.be.a('function');
-        });
-
         it('should work correctly without conversion', () => {
             const spec = new Specification();
 
             const invertedConversions = spec.invertConversions();
 
-            expect(invertedConversions).to.equal(undefined);
+            expect(invertedConversions).toBe(undefined);
         });
 
         it('should work correctly with conversions are not an array', () => {
@@ -929,7 +960,7 @@ describe('Specification', () => {
 
             const invertedConversions = spec.invertConversions('string');
 
-            expect(invertedConversions).to.equal('string');
+            expect(invertedConversions).toBe('string');
         });
 
         it('should work correctly with empty conversions', () => {
@@ -937,7 +968,7 @@ describe('Specification', () => {
 
             const invertedConversions = spec.invertConversions([]);
 
-            expect(invertedConversions).an('array').lengthOf(0);
+            expect(invertedConversions).toHaveLength(0);
         });
 
         it('should work correctly with one conversion and a factor greater 1', () => {
@@ -947,8 +978,8 @@ describe('Specification', () => {
                 factor: 2
             }]);
 
-            expect(invertedConversions).an('array').lengthOf(1);
-            expect(invertedConversions[0]).property('factor').equal(0.5);
+            expect(invertedConversions).toHaveLength(1);
+            expect(invertedConversions[0].factor).toBe(0.5);
         });
 
         it('should work correctly with one conversion and a factor smaller 1', () => {
@@ -958,8 +989,8 @@ describe('Specification', () => {
                 factor: 0.5
             }]);
 
-            expect(invertedConversions).an('array').lengthOf(1);
-            expect(invertedConversions[0]).property('factor').equal(2);
+            expect(invertedConversions).toHaveLength(1);
+            expect(invertedConversions[0].factor).toBe(2);
         });
 
         it('should work correctly with one conversion and a factor of 0', () => {
@@ -969,8 +1000,8 @@ describe('Specification', () => {
                 factor: 0
             }]);
 
-            expect(invertedConversions).an('array').lengthOf(1);
-            expect(invertedConversions[0]).property('factor').equal(Infinity);
+            expect(invertedConversions).toHaveLength(1);
+            expect(invertedConversions[0].factor).toBe(Infinity);
         });
 
         it('should work correctly with one conversion and a power of 0', () => {
@@ -980,8 +1011,8 @@ describe('Specification', () => {
                 power: 0
             }]);
 
-            expect(invertedConversions).an('array').lengthOf(1);
-            expect(invertedConversions[0]).property('power').equal(0);
+            expect(invertedConversions).toHaveLength(1);
+            expect(invertedConversions[0].power).toBe(0);
         });
 
         it('should work correctly with one conversion and a power of 2', () => {
@@ -991,8 +1022,8 @@ describe('Specification', () => {
                 power: 2
             }]);
 
-            expect(invertedConversions).an('array').lengthOf(1);
-            expect(invertedConversions[0]).property('power').equal(0.5);
+            expect(invertedConversions).toHaveLength(1);
+            expect(invertedConversions[0].power).toBe(0.5);
         });
 
         it('should work correctly with one conversion and a power of 0.5', () => {
@@ -1002,8 +1033,8 @@ describe('Specification', () => {
                 power: 0.5
             }]);
 
-            expect(invertedConversions).an('array').lengthOf(1);
-            expect(invertedConversions[0]).property('power').equal(2);
+            expect(invertedConversions).toHaveLength(1);
+            expect(invertedConversions[0].power).toBe(2);
         });
 
         it('should work correctly with one conversion and a power of -2', () => {
@@ -1013,8 +1044,8 @@ describe('Specification', () => {
                 power: -2
             }]);
 
-            expect(invertedConversions).an('array').lengthOf(1);
-            expect(invertedConversions[0]).property('power').equal(-0.5);
+            expect(invertedConversions).toHaveLength(1);
+            expect(invertedConversions[0].power).toBe(-0.5);
         });
 
         it('should work correctly with one conversion and an offset 1000', () => {
@@ -1024,8 +1055,8 @@ describe('Specification', () => {
                 offset: 1000
             }]);
 
-            expect(invertedConversions).an('array').lengthOf(1);
-            expect(invertedConversions[0]).property('offset').equal(-1000);
+            expect(invertedConversions).toHaveLength(1);
+            expect(invertedConversions[0].offset).toBe(-1000);
         });
 
         it('should work correctly with one conversion and an offset -500', () => {
@@ -1035,8 +1066,8 @@ describe('Specification', () => {
                 offset: -500
             }]);
 
-            expect(invertedConversions).an('array').lengthOf(1);
-            expect(invertedConversions[0]).property('offset').equal(500);
+            expect(invertedConversions).toHaveLength(1);
+            expect(invertedConversions[0].offset).toBe(500);
         });
 
         it('should work correctly with one conversion and an unit change', () => {
@@ -1050,9 +1081,9 @@ describe('Specification', () => {
                 targetUnit: fahrenheitUnit,
             }]);
 
-            expect(invertedConversions).an('array').lengthOf(1);
-            expect(invertedConversions[0]).property('sourceUnit').equal(fahrenheitUnit);
-            expect(invertedConversions[0]).property('targetUnit').equal(celsiusUnit);
+            expect(invertedConversions).toHaveLength(1);
+            expect(invertedConversions[0].sourceUnit).toBe(fahrenheitUnit);
+            expect(invertedConversions[0].targetUnit).toBe(celsiusUnit);
         });
 
         it('should work correctly with multiple conversions using a factor of 2 and an offset -10', () => {
@@ -1064,9 +1095,9 @@ describe('Specification', () => {
                 offset: -10
             }]);
 
-            expect(invertedConversions).an('array').lengthOf(2);
-            expect(invertedConversions[0]).property('offset').equal(10);
-            expect(invertedConversions[1]).property('factor').equal(0.5);
+            expect(invertedConversions).toHaveLength(2);
+            expect(invertedConversions[0].offset).toBe(10);
+            expect(invertedConversions[1].factor).toBe(0.5);
         });
 
         it('should work correctly with multiple conversions using an offset 10 and a factor of 0.5', () => {
@@ -1078,9 +1109,9 @@ describe('Specification', () => {
                 factor: 0.5
             }]);
 
-            expect(invertedConversions).an('array').lengthOf(2);
-            expect(invertedConversions[0]).property('factor').equal(2);
-            expect(invertedConversions[1]).property('offset').equal(-10);
+            expect(invertedConversions).toHaveLength(2);
+            expect(invertedConversions[0].factor).toBe(2);
+            expect(invertedConversions[1].offset).toBe(-10);
         });
 
         it('should work correctly with multiple conversions using a manual °C -> °F conversion', () => {
@@ -1100,13 +1131,13 @@ describe('Specification', () => {
                 targetUnit: fahrenheitUnit,
             }]);
 
-            expect(invertedConversions).an('array').lengthOf(2);
-            expect(invertedConversions [0]).property('offset').equal(-32);
-            expect(invertedConversions [0]).property('sourceUnit').equal(fahrenheitUnit);
-            expect(invertedConversions [0]).property('targetUnit').equal(noneUnit);
-            expect(invertedConversions [1]).property('factor').equal(5 / 9);
-            expect(invertedConversions [1]).property('sourceUnit').equal(noneUnit);
-            expect(invertedConversions [1]).property('targetUnit').equal(celsiusUnit);
+            expect(invertedConversions).toHaveLength(2);
+            expect(invertedConversions [0].offset).toBe(-32);
+            expect(invertedConversions [0].sourceUnit).toBe(fahrenheitUnit);
+            expect(invertedConversions [0].targetUnit).toBe(noneUnit);
+            expect(invertedConversions [1].factor).toBe(5 / 9);
+            expect(invertedConversions [1].sourceUnit).toBe(noneUnit);
+            expect(invertedConversions [1].targetUnit).toBe(celsiusUnit);
         });
 
     });
@@ -1158,10 +1189,6 @@ describe('Specification', () => {
 
         // console.log(content.join('\n'));
 
-        it('should be a method', () => {
-            expect(Specification.prototype).property('convertRawValue').a('function');
-        });
-
         const checkedSourceUnitCodes = new Set();
         const checkedTargetUnitCodes = new Set();
 
@@ -1174,84 +1201,78 @@ describe('Specification', () => {
             const sourceUnit = specData.units [sourceUnitCode];
             const targetUnit = specData.units [targetUnitCode];
 
-            expect(sourceUnit).a('object').property('unitCode').equal(sourceUnitCode);
-            expect(targetUnit).a('object').property('unitCode').equal(targetUnitCode);
+            expect(sourceUnit.unitCode).toBe(sourceUnitCode);
+            expect(targetUnit.unitCode).toBe(targetUnitCode);
 
-            let error, result;
-            try {
-                result = spec.convertRawValue(rawValue, sourceUnit, targetUnit);
-            } catch (ex) {
-                error = ex;
-            }
+            const result = spec.convertRawValue(rawValue, sourceUnit, targetUnit);
 
-            expect(error).equal(undefined);
-            expect(result).a('object').property('unit').equal(targetUnit);
+            expect(result.unit).toBe(targetUnit);
 
-            return expect(result).property('rawValue').a('number');
+            return expect(result.rawValue);
         };
 
-        const delta = 0.000000001;
+        const delta = 9;
 
         describe('Unit Family "Energy"', () => {
 
             it('should convert from "Btus" to "GramsCO2Gas"', () => {
-                expectConversion(0, 'Btus', 'GramsCO2Gas').closeTo(0, delta);
-                expectConversion(1000000, 'Btus', 'GramsCO2Gas').closeTo(74323.12035187425, delta);
+                expectConversion(0, 'Btus', 'GramsCO2Gas').toBeCloseTo(0, delta);
+                expectConversion(1000000, 'Btus', 'GramsCO2Gas').toBeCloseTo(74323.12035187425, delta);
             });
 
             it('should convert from "GramsCO2Gas" to "GramsCO2Oil"', () => {
-                expectConversion(0, 'GramsCO2Gas', 'GramsCO2Oil').closeTo(0, delta);
-                expectConversion(10, 'GramsCO2Gas', 'GramsCO2Oil').closeTo(22.397476, 0.0000005);
+                expectConversion(0, 'GramsCO2Gas', 'GramsCO2Oil').toBeCloseTo(0, delta);
+                expectConversion(10, 'GramsCO2Gas', 'GramsCO2Oil').toBeCloseTo(22.397476, 6);
             });
 
             it('should convert from "GramsCO2Oil" to "KiloBtus"', () => {
-                expectConversion(0, 'GramsCO2Oil', 'KiloBtus').closeTo(0, delta);
-                expectConversion(1000000, 'GramsCO2Oil', 'KiloBtus').closeTo(6007.267605633803, delta);
+                expectConversion(0, 'GramsCO2Oil', 'KiloBtus').toBeCloseTo(0, delta);
+                expectConversion(1000000, 'GramsCO2Oil', 'KiloBtus').toBeCloseTo(6007.267605633803, delta);
             });
 
             it('should convert from "KiloBtus" to "KilogramsCO2Gas"', () => {
-                expectConversion(0, 'KiloBtus', 'KilogramsCO2Gas').closeTo(0, delta);
-                expectConversion(1000000, 'KiloBtus', 'KilogramsCO2Gas').closeTo(74323.12035187425, delta);
+                expectConversion(0, 'KiloBtus', 'KilogramsCO2Gas').toBeCloseTo(0, delta);
+                expectConversion(1000000, 'KiloBtus', 'KilogramsCO2Gas').toBeCloseTo(74323.12035187425, delta);
             });
 
             it('should convert from "KilogramsCO2Gas" to "KilogramsCO2Oil"', () => {
-                expectConversion(0, 'KilogramsCO2Gas', 'KilogramsCO2Oil').closeTo(0, delta);
-                expectConversion(10, 'KilogramsCO2Gas', 'KilogramsCO2Oil').closeTo(22.397476, 0.0000005);
+                expectConversion(0, 'KilogramsCO2Gas', 'KilogramsCO2Oil').toBeCloseTo(0, delta);
+                expectConversion(10, 'KilogramsCO2Gas', 'KilogramsCO2Oil').toBeCloseTo(22.397476, 6);
             });
 
             it('should convert from "KilogramsCO2Oil" to "KilowattHours"', () => {
-                expectConversion(0, 'KilogramsCO2Oil', 'KilowattHours').closeTo(0, delta);
-                expectConversion(1000000, 'KilogramsCO2Oil', 'KilowattHours').closeTo(1760563.3802816903, delta);
+                expectConversion(0, 'KilogramsCO2Oil', 'KilowattHours').toBeCloseTo(0, delta);
+                expectConversion(1000000, 'KilogramsCO2Oil', 'KilowattHours').toBeCloseTo(1760563.3802816903, delta);
             });
 
             it('should convert from "KilowattHours" to "MegaBtus"', () => {
-                expectConversion(0, 'KilowattHours', 'MegaBtus').closeTo(0, delta);
-                expectConversion(1000000, 'KilowattHours', 'MegaBtus').closeTo(3412.128, delta);
+                expectConversion(0, 'KilowattHours', 'MegaBtus').toBeCloseTo(0, delta);
+                expectConversion(1000000, 'KilowattHours', 'MegaBtus').toBeCloseTo(3412.128, delta);
             });
 
             it('should convert from "MegaBtus" to "MegawattHours"', () => {
-                expectConversion(0, 'MegaBtus', 'MegawattHours').closeTo(0, delta);
-                expectConversion(1, 'MegaBtus', 'MegawattHours').closeTo(0.293072241, delta);
+                expectConversion(0, 'MegaBtus', 'MegawattHours').toBeCloseTo(0, delta);
+                expectConversion(1, 'MegaBtus', 'MegawattHours').toBeCloseTo(0.293072241, delta);
             });
 
             it('should convert from "MegawattHours" to "TonsCO2Gas"', () => {
-                expectConversion(0, 'MegawattHours', 'TonsCO2Gas').closeTo(0, delta);
-                expectConversion(1000000, 'MegawattHours', 'TonsCO2Gas').closeTo(253600, delta);
+                expectConversion(0, 'MegawattHours', 'TonsCO2Gas').toBeCloseTo(0, delta);
+                expectConversion(1000000, 'MegawattHours', 'TonsCO2Gas').toBeCloseTo(253600, delta);
             });
 
             it('should convert from "TonsCO2Gas" to "TonsCO2Oil"', () => {
-                expectConversion(0, 'TonsCO2Gas', 'TonsCO2Oil').closeTo(0, delta);
-                expectConversion(10, 'TonsCO2Gas', 'TonsCO2Oil').closeTo(22.397476, 0.0000005);
+                expectConversion(0, 'TonsCO2Gas', 'TonsCO2Oil').toBeCloseTo(0, delta);
+                expectConversion(10, 'TonsCO2Gas', 'TonsCO2Oil').toBeCloseTo(22.397476, 6);
             });
 
             it('should convert from "TonsCO2Oil" to "WattHours"', () => {
-                expectConversion(0, 'TonsCO2Oil', 'WattHours').closeTo(0, delta);
-                expectConversion(10, 'TonsCO2Oil', 'WattHours').closeTo(17605633.8, 0.05);
+                expectConversion(0, 'TonsCO2Oil', 'WattHours').toBeCloseTo(0, delta);
+                expectConversion(10, 'TonsCO2Oil', 'WattHours').toBeCloseTo(17605633.8, 2);
             });
 
             it('should convert from "WattHours" to "Btus"', () => {
-                expectConversion(0, 'WattHours', 'Btus').closeTo(0, delta);
-                expectConversion(1000000, 'WattHours', 'Btus').closeTo(3412128, delta);
+                expectConversion(0, 'WattHours', 'Btus').toBeCloseTo(0, delta);
+                expectConversion(1000000, 'WattHours', 'Btus').toBeCloseTo(3412128, delta);
             });
 
         });
@@ -1259,13 +1280,13 @@ describe('Specification', () => {
         describe('Unit Family "Power"', () => {
 
             it('should convert from "Kilowatts" to "Watts"', () => {
-                expectConversion(0, 'Kilowatts', 'Watts').closeTo(0, delta);
-                expectConversion(1000000, 'Kilowatts', 'Watts').closeTo(1000000000, delta);
+                expectConversion(0, 'Kilowatts', 'Watts').toBeCloseTo(0, delta);
+                expectConversion(1000000, 'Kilowatts', 'Watts').toBeCloseTo(1000000000, delta);
             });
 
             it('should convert from "Watts" to "Kilowatts"', () => {
-                expectConversion(0, 'Watts', 'Kilowatts').closeTo(0, delta);
-                expectConversion(1000000, 'Watts', 'Kilowatts').closeTo(1000, delta);
+                expectConversion(0, 'Watts', 'Kilowatts').toBeCloseTo(0, delta);
+                expectConversion(1000000, 'Watts', 'Kilowatts').toBeCloseTo(1000, delta);
             });
 
         });
@@ -1273,13 +1294,13 @@ describe('Specification', () => {
         describe('Unit Family "Pressure"', () => {
 
             it('should convert from "Bars" to "PoundsForcePerSquareInch"', () => {
-                expectConversion(0, 'Bars', 'PoundsForcePerSquareInch').closeTo(0, delta);
-                expectConversion(10, 'Bars', 'PoundsForcePerSquareInch').closeTo(145.037738, delta);
+                expectConversion(0, 'Bars', 'PoundsForcePerSquareInch').toBeCloseTo(0, delta);
+                expectConversion(10, 'Bars', 'PoundsForcePerSquareInch').toBeCloseTo(145.037738, delta);
             });
 
             it('should convert from "PoundsForcePerSquareInch" to "Bars"', () => {
-                expectConversion(0, 'PoundsForcePerSquareInch', 'Bars').closeTo(0, delta);
-                expectConversion(100, 'PoundsForcePerSquareInch', 'Bars').closeTo(6.89475728, delta);
+                expectConversion(0, 'PoundsForcePerSquareInch', 'Bars').toBeCloseTo(0, delta);
+                expectConversion(100, 'PoundsForcePerSquareInch', 'Bars').toBeCloseTo(6.89475728, delta);
             });
 
         });
@@ -1287,13 +1308,13 @@ describe('Specification', () => {
         describe('Unit Family "Temperature"', () => {
 
             it('should convert from "DegreesCelsius" to "DegreesFahrenheit"', () => {
-                expectConversion(0, 'DegreesCelsius', 'DegreesFahrenheit').closeTo(32, delta);
-                expectConversion(100, 'DegreesCelsius', 'DegreesFahrenheit').closeTo(212, delta);
+                expectConversion(0, 'DegreesCelsius', 'DegreesFahrenheit').toBeCloseTo(32, delta);
+                expectConversion(100, 'DegreesCelsius', 'DegreesFahrenheit').toBeCloseTo(212, delta);
             });
 
             it('should convert from "DegreesFahrenheit" to "DegreesCelsius"', () => {
-                expectConversion(32, 'DegreesFahrenheit', 'DegreesCelsius').closeTo(0, delta);
-                expectConversion(212, 'DegreesFahrenheit', 'DegreesCelsius').closeTo(100, delta);
+                expectConversion(32, 'DegreesFahrenheit', 'DegreesCelsius').toBeCloseTo(0, delta);
+                expectConversion(212, 'DegreesFahrenheit', 'DegreesCelsius').toBeCloseTo(100, delta);
             });
 
         });
@@ -1301,23 +1322,23 @@ describe('Specification', () => {
         describe('Unit Family "Time"', () => {
 
             it('should convert from "Days" to "Hours"', () => {
-                expectConversion(0, 'Days', 'Hours').closeTo(0, delta);
-                expectConversion(10, 'Days', 'Hours').closeTo(240, delta);
+                expectConversion(0, 'Days', 'Hours').toBeCloseTo(0, delta);
+                expectConversion(10, 'Days', 'Hours').toBeCloseTo(240, delta);
             });
 
             it('should convert from "Hours" to "Minutes"', () => {
-                expectConversion(0, 'Hours', 'Minutes').closeTo(0, delta);
-                expectConversion(10, 'Hours', 'Minutes').closeTo(600, delta);
+                expectConversion(0, 'Hours', 'Minutes').toBeCloseTo(0, delta);
+                expectConversion(10, 'Hours', 'Minutes').toBeCloseTo(600, delta);
             });
 
             it('should convert from "Minutes" to "Seconds"', () => {
-                expectConversion(0, 'Minutes', 'Seconds').closeTo(0, delta);
-                expectConversion(10, 'Minutes', 'Seconds').closeTo(600, delta);
+                expectConversion(0, 'Minutes', 'Seconds').toBeCloseTo(0, delta);
+                expectConversion(10, 'Minutes', 'Seconds').toBeCloseTo(600, delta);
             });
 
             it('should convert from "Seconds" to "Days"', () => {
-                expectConversion(0, 'Seconds', 'Days').closeTo(0, delta);
-                expectConversion(86400, 'Seconds', 'Days').closeTo(1, delta);
+                expectConversion(0, 'Seconds', 'Days').toBeCloseTo(0, delta);
+                expectConversion(86400, 'Seconds', 'Days').toBeCloseTo(1, delta);
             });
 
         });
@@ -1325,18 +1346,18 @@ describe('Specification', () => {
         describe('Unit Family "Volume"', () => {
 
             it('should convert from "CubicMeters" to "Gallons"', () => {
-                expectConversion(0, 'CubicMeters', 'Gallons').closeTo(0, delta);
-                expectConversion(10, 'CubicMeters', 'Gallons').closeTo(2641.72, 0.005);
+                expectConversion(0, 'CubicMeters', 'Gallons').toBeCloseTo(0, delta);
+                expectConversion(10, 'CubicMeters', 'Gallons').toBeCloseTo(2641.72, 0.005);
             });
 
             it('should convert from "Gallons" to "Liters"', () => {
-                expectConversion(0, 'Gallons', 'Liters').closeTo(0, delta);
-                expectConversion(10, 'Gallons', 'Liters').closeTo(37.8541, 0.00005);
+                expectConversion(0, 'Gallons', 'Liters').toBeCloseTo(0, delta);
+                expectConversion(10, 'Gallons', 'Liters').toBeCloseTo(37.8541, 0.00005);
             });
 
             it('should convert from "Liters" to "CubicMeters"', () => {
-                expectConversion(0, 'Liters', 'CubicMeters').closeTo(0, delta);
-                expectConversion(10000, 'Liters', 'CubicMeters').closeTo(10, delta);
+                expectConversion(0, 'Liters', 'CubicMeters').toBeCloseTo(0, delta);
+                expectConversion(10000, 'Liters', 'CubicMeters').toBeCloseTo(10, delta);
             });
 
         });
@@ -1344,28 +1365,28 @@ describe('Specification', () => {
         describe('Unit Family "VolumeFlow"', () => {
 
             it('should convert from "CubicMetersPerHour" to "GallonsPerHour"', () => {
-                expectConversion(0, 'CubicMetersPerHour', 'GallonsPerHour').closeTo(0, delta);
-                expectConversion(10, 'CubicMetersPerHour', 'GallonsPerHour').closeTo(2641.72, 0.005);
+                expectConversion(0, 'CubicMetersPerHour', 'GallonsPerHour').toBeCloseTo(0, delta);
+                expectConversion(10, 'CubicMetersPerHour', 'GallonsPerHour').toBeCloseTo(2641.72, 0.005);
             });
 
             it('should convert from "GallonsPerHour" to "GallonsPerMinute"', () => {
-                expectConversion(0, 'GallonsPerHour', 'GallonsPerMinute').closeTo(0, delta);
-                expectConversion(600, 'GallonsPerHour', 'GallonsPerMinute').closeTo(10, delta);
+                expectConversion(0, 'GallonsPerHour', 'GallonsPerMinute').toBeCloseTo(0, delta);
+                expectConversion(600, 'GallonsPerHour', 'GallonsPerMinute').toBeCloseTo(10, delta);
             });
 
             it('should convert from "GallonsPerMinute" to "LitersPerHour"', () => {
-                expectConversion(0, 'GallonsPerMinute', 'LitersPerHour').closeTo(0, delta);
-                expectConversion(10, 'GallonsPerMinute', 'LitersPerHour').closeTo(2271.2475, 0.00005);
+                expectConversion(0, 'GallonsPerMinute', 'LitersPerHour').toBeCloseTo(0, delta);
+                expectConversion(10, 'GallonsPerMinute', 'LitersPerHour').toBeCloseTo(2271.2475, 0.00005);
             });
 
             it('should convert from "LitersPerHour" to "LitersPerMinute"', () => {
-                expectConversion(0, 'LitersPerHour', 'LitersPerMinute').closeTo(0, delta);
-                expectConversion(6000, 'LitersPerHour', 'LitersPerMinute').closeTo(100, delta);
+                expectConversion(0, 'LitersPerHour', 'LitersPerMinute').toBeCloseTo(0, delta);
+                expectConversion(6000, 'LitersPerHour', 'LitersPerMinute').toBeCloseTo(100, delta);
             });
 
             it('should convert from "LitersPerMinute" to "CubicMetersPerHour"', () => {
-                expectConversion(0, 'LitersPerMinute', 'CubicMetersPerHour').closeTo(0, delta);
-                expectConversion(1000, 'LitersPerMinute', 'CubicMetersPerHour').closeTo(60, delta);
+                expectConversion(0, 'LitersPerMinute', 'CubicMetersPerHour').toBeCloseTo(0, delta);
+                expectConversion(1000, 'LitersPerMinute', 'CubicMetersPerHour').toBeCloseTo(60, delta);
             });
 
         });
@@ -1380,10 +1401,10 @@ describe('Specification', () => {
                 const targetUnit = targetUnitCode && specData.units [targetUnitCode];
 
                 if (sourceUnitCode) {
-                    expect(sourceUnit).a('object').property('unitCode').equal(sourceUnitCode);
+                    expect(sourceUnit.unitCode).toBe(sourceUnitCode);
                 }
                 if (targetUnitCode) {
-                    expect(targetUnit).a('object').property('unitCode').equal(targetUnitCode);
+                    expect(targetUnit.unitCode).toBe(targetUnitCode);
                 }
 
                 return {
@@ -1395,17 +1416,11 @@ describe('Specification', () => {
                 };
             });
 
-            let error, result;
-            try {
-                result = spec.convertRawValue(rawValue, conversions);
-            } catch (ex) {
-                error = ex;
-            }
+            const result = spec.convertRawValue(rawValue, conversions);
 
-            expect(error).equal(undefined);
-            expect(result).a('object').property('unit').equal(conversions [conversions.length - 1].targetUnit);
+            expect(result.unit).toBe(conversions [conversions.length - 1].targetUnit);
 
-            return expect(result).property('rawValue').a('number');
+            return expect(result.rawValue);
         };
 
         describe('Multiple conversions in one step', () => {
@@ -1414,7 +1429,7 @@ describe('Specification', () => {
                 expectConversions(1234, [{
                     sourceUnitCode: 'WattHours',
                     targetUnitCode: 'KilowattHours',
-                }]).closeTo(1.234, delta);
+                }]).toBeCloseTo(1.234, delta);
             });
 
             it('should return converted rawValue plus offset', () => {
@@ -1423,7 +1438,7 @@ describe('Specification', () => {
                     targetUnitCode: 'KilowattHours',
                 }, {
                     offset: 123,
-                }]).closeTo(124.234, delta);
+                }]).toBeCloseTo(124.234, delta);
             });
 
             it('should return rawValue * 10', () => {
@@ -1431,7 +1446,7 @@ describe('Specification', () => {
                     factor: 10,
                     sourceUnitCode: 'None',
                     targetUnitCode: 'WattHours',
-                }]).closeTo(12340, delta);
+                }]).toBeCloseTo(12340, delta);
             });
 
             it('should return rawValue * factor converted to rawValue / 1000 plus offset', () => {
@@ -1444,7 +1459,7 @@ describe('Specification', () => {
                     targetUnitCode: 'KilowattHours',
                 }, {
                     offset: 123,
-                }]).closeTo(1234 * 10 / 1000 + 123, delta);
+                }]).toBeCloseTo(1234 * 10 / 1000 + 123, delta);
             });
 
             it('should return conversion of degrees celsius to degrees fahrenheit', () => {
@@ -1456,7 +1471,7 @@ describe('Specification', () => {
                     factor: 1,
                     sourceUnitCode: 'DegreesCelsius',
                     targetUnitCode: 'DegreesFahrenheit',
-                }]).closeTo(212, delta);
+                }]).toBeCloseTo(212, delta);
             });
 
             it('should return conversion of degrees fahrenheit to degrees celsius', () => {
@@ -1468,7 +1483,7 @@ describe('Specification', () => {
                     factor: 1,
                     sourceUnitCode: 'DegreesFahrenheit',
                     targetUnitCode: 'DegreesCelsius',
-                }]).closeTo(100, delta);
+                }]).toBeCloseTo(100, delta);
             });
 
             it('should return rawValue * factor plus offset', () => {
@@ -1477,7 +1492,7 @@ describe('Specification', () => {
                     offset: 0.5,
                     sourceUnitCode: 'None',
                     targetUnitCode: 'WattHours',
-                }]).closeTo(12340.5, delta);
+                }]).toBeCloseTo(12340.5, delta);
             });
 
             it('pow(1234, 0) * 10 + 0.5', () => {
@@ -1487,7 +1502,7 @@ describe('Specification', () => {
                     offset: 0.5,
                     sourceUnitCode: 'None',
                     targetUnitCode: 'WattHours',
-                }]).closeTo(10.5, delta);
+                }]).toBeCloseTo(10.5, delta);
             });
 
             it('pow(0, 5) * 10 - 0.5', () => {
@@ -1497,7 +1512,7 @@ describe('Specification', () => {
                     offset: -0.5,
                     sourceUnitCode: 'None',
                     targetUnitCode: 'WattHours',
-                }]).closeTo(-0.5, delta);
+                }]).toBeCloseTo(-0.5, delta);
             });
 
             it('pow(0, -2) * 10', () => {
@@ -1506,7 +1521,7 @@ describe('Specification', () => {
                     factor: 10,
                     sourceUnitCode: 'None',
                     targetUnitCode: 'WattHours',
-                }]).closeTo(0, delta);
+                }]).toBeCloseTo(0, delta);
             });
 
             it('pow(1234, 1) * 10 + 0.5', () => {
@@ -1516,7 +1531,7 @@ describe('Specification', () => {
                     offset: 0.5,
                     sourceUnitCode: 'None',
                     targetUnitCode: 'WattHours',
-                }]).closeTo(12340.5, delta);
+                }]).toBeCloseTo(12340.5, delta);
             });
 
             it('pow(10, 2) * 10 + 1000', () => {
@@ -1526,7 +1541,7 @@ describe('Specification', () => {
                     offset: 1000,
                     sourceUnitCode: 'None',
                     targetUnitCode: 'WattHours',
-                }]).closeTo(2000, delta);
+                }]).toBeCloseTo(2000, delta);
             });
 
             it('pow(100, 0.5) * 5 + 50', () => {
@@ -1536,7 +1551,7 @@ describe('Specification', () => {
                     offset: 50,
                     sourceUnitCode: 'None',
                     targetUnitCode: 'WattHours',
-                }]).closeTo(100, delta);
+                }]).toBeCloseTo(100, delta);
             });
 
             it('pow(100, -1) * 10 + 0.9', () => {
@@ -1546,18 +1561,18 @@ describe('Specification', () => {
                     offset: 0.9,
                     sourceUnitCode: 'None',
                     targetUnitCode: 'WattHours',
-                }]).closeTo(1, delta);
+                }]).toBeCloseTo(1, delta);
             });
         });
 
         describe('Units', () => {
 
             it('should have checked all units as source units', () => {
-                expect(Array.from(checkedSourceUnitCodes.values()).sort()).eql(knownFamilyUnitCodes.sort());
+                expect(Array.from(checkedSourceUnitCodes.values()).sort()).toEqual(knownFamilyUnitCodes.sort());
             });
 
             it('should have checked all units as target units', () => {
-                expect(Array.from(checkedTargetUnitCodes.values()).sort()).eql(knownFamilyUnitCodes.sort());
+                expect(Array.from(checkedTargetUnitCodes.values()).sort()).toEqual(knownFamilyUnitCodes.sort());
             });
 
         });
@@ -1566,10 +1581,6 @@ describe('Specification', () => {
 
     describe('#formatTextValueFromRawValue', () => {
 
-        it('should be a methods', () => {
-            expect(Specification.prototype.formatTextValueFromRawValue).to.be.a('function');
-        });
-
         it('should work correctly with all arguments', () => {
             const spec = new Specification();
 
@@ -1577,7 +1588,7 @@ describe('Specification', () => {
 
             const textValue = spec.formatTextValueFromRawValue(packetFieldSpec, 888.8, 'DegreesCelsius');
 
-            expect(textValue).to.equal('888.8 °C');
+            expect(textValue).toBe('888.8 °C');
         });
 
         it('should work correctly without unit', () => {
@@ -1587,7 +1598,7 @@ describe('Specification', () => {
 
             const textValue = spec.formatTextValueFromRawValue(packetFieldSpec, 888.8);
 
-            expect(textValue).to.equal('888.8 °C');
+            expect(textValue).toBe('888.8 °C');
         });
 
         it('should work correctly with "None" unit', () => {
@@ -1597,7 +1608,7 @@ describe('Specification', () => {
 
             const textValue = spec.formatTextValueFromRawValue(packetFieldSpec, 888.8, 'None');
 
-            expect(textValue).to.equal('888.8');
+            expect(textValue).toBe('888.8');
         });
 
         it('should work correctly without raw value', () => {
@@ -1607,7 +1618,7 @@ describe('Specification', () => {
 
             const textValue = spec.formatTextValueFromRawValue(packetFieldSpec, null, 'None');
 
-            expect(textValue).to.equal('');
+            expect(textValue).toBe('');
         });
 
         it('should work correctly without packet field spec', () => {
@@ -1615,23 +1626,19 @@ describe('Specification', () => {
 
             const textValue = spec.formatTextValueFromRawValue(null, 888.8, 'DegreesCelsius');
 
-            expect(textValue).to.equal('888.8 °C');
+            expect(textValue).toBe('888.8 °C');
         });
 
     });
 
     describe('#formatTextValueFromRawValueInternal', () => {
 
-        it('should be a method', () => {
-            expect(Specification.prototype.formatTextValueFromRawValueInternal).to.be.a('function');
-        });
-
         it('should work correctly for root type "Time"', () => {
             const spec = new Specification();
 
             const textValue = spec.formatTextValueFromRawValueInternal(721, null, 'Time', 0, null);
 
-            expect(textValue).to.equal('12:01');
+            expect(textValue).toBe('12:01');
         });
 
         it('should work correctly for root type "Weektime"', () => {
@@ -1639,7 +1646,7 @@ describe('Specification', () => {
 
             const textValue = spec.formatTextValueFromRawValueInternal(3 * 1440 + 721, null, 'Weektime', 0, null);
 
-            expect(textValue).to.equal('Th,12:01');
+            expect(textValue).toBe('Th,12:01');
         });
 
         it('should work correctly for root type "DateTime"', () => {
@@ -1647,7 +1654,7 @@ describe('Specification', () => {
 
             const textValue = spec.formatTextValueFromRawValueInternal(409418262, null, 'DateTime', 0, null);
 
-            expect(textValue).to.equal('12/22/2013 15:17:42');
+            expect(textValue).toBe('12/22/2013 15:17:42');
         });
 
         it('should work correctly for root type "Number" and precision "0"', () => {
@@ -1655,7 +1662,7 @@ describe('Specification', () => {
 
             const textValue = spec.formatTextValueFromRawValueInternal(12345.6789, null, 'Number', 0, null);
 
-            expect(textValue).to.equal('12346');
+            expect(textValue).toBe('12346');
         });
 
         it('should work correctly for root type "Number" and precision "1"', () => {
@@ -1663,7 +1670,7 @@ describe('Specification', () => {
 
             const textValue = spec.formatTextValueFromRawValueInternal(12345.6789, null, 'Number', 1, null);
 
-            expect(textValue).to.equal('12345.7');
+            expect(textValue).toBe('12345.7');
         });
 
         it('should work correctly for root type "Number" and precision "2"', () => {
@@ -1671,7 +1678,7 @@ describe('Specification', () => {
 
             const textValue = spec.formatTextValueFromRawValueInternal(12345.6789, null, 'Number', 2, null);
 
-            expect(textValue).to.equal('12345.68');
+            expect(textValue).toBe('12345.68');
         });
 
         it('should work correctly for root type "Number" and precision "3"', () => {
@@ -1679,7 +1686,7 @@ describe('Specification', () => {
 
             const textValue = spec.formatTextValueFromRawValueInternal(12345.6789, null, 'Number', 3, null);
 
-            expect(textValue).to.equal('12345.679');
+            expect(textValue).toBe('12345.679');
         });
 
         it('should work correctly for root type "Number" and precision "4"', () => {
@@ -1687,7 +1694,7 @@ describe('Specification', () => {
 
             const textValue = spec.formatTextValueFromRawValueInternal(12345.6789, null, 'Number', 4, null);
 
-            expect(textValue).to.equal('12345.6789');
+            expect(textValue).toBe('12345.6789');
         });
 
         it('should work correctly for root type "Number" and precision "10"', () => {
@@ -1695,7 +1702,7 @@ describe('Specification', () => {
 
             const textValue = spec.formatTextValueFromRawValueInternal(1.23456789, null, 'Number', 10, null);
 
-            expect(textValue).to.equal('1.2345678900');
+            expect(textValue).toBe('1.2345678900');
         });
 
     });
@@ -1757,41 +1764,36 @@ describe('Specification', () => {
             }]
         };
 
-        it('should be a method', () => {
-            expect(Specification.prototype.getPacketFieldsForHeaders).to.be.a('function');
-        });
-
         it('should work correctly with an unfiltered spec', () => {
             const spec = new Specification();
 
             const pfs = spec.getPacketFieldsForHeaders([ header1, header2 ]);
 
-            expect(pfs).to.be.an('array');
-            expect(pfs.length).to.equal(8);
-            expect(pfs [0]).to.be.an('object');
-            expect(pfs [0].id).to.equal('01_0010_7722_10_0100_000_2_0');
-            expect(pfs [0].packet).to.be.an('object');
-            expect(pfs [0].packetSpec).to.be.an('object');
-            expect(pfs [0].packetFieldSpec).to.be.an('object');
-            expect(pfs [0].origPacketFieldSpec).to.be.an('object');
-            expect(pfs [0].name).to.equal('Flow temperature');
-            expect(pfs [0].rawValue).to.be.closeTo(888.8, 0.05);
-            expect(pfs [0].formatTextValue).to.be.a('function');
-            expect(pfs [0].formatTextValue()).to.equal('888.8 °C');
-            expect(pfs [0].getRoundedRawValue).to.be.a('function');
-            expect(pfs [0].getRoundedRawValue()).to.equal(888.8);
-            expect(pfs [5]).to.be.an('object');
-            expect(pfs [5].id).to.equal('02_0010_7722_10_0100_002_2_0');
-            expect(pfs [5].packet).to.be.an('object');
-            expect(pfs [5].packetSpec).to.be.an('object');
-            expect(pfs [5].packetFieldSpec).to.be.an('object');
-            expect(pfs [5].origPacketFieldSpec).to.be.an('object');
-            expect(pfs [5].name).to.equal('Return temperature');
-            expect(pfs [5].rawValue).to.be.closeTo(-888.8, 0.05);
-            expect(pfs [5].formatTextValue).to.be.a('function');
-            expect(pfs [5].formatTextValue()).to.equal('-888.8 °C');
-            expect(pfs [5].getRoundedRawValue).to.be.a('function');
-            expect(pfs [5].getRoundedRawValue()).to.equal(-888.8);
+            expect(pfs.length).toBe(8);
+            expectTypeToBe(pfs [0], 'object');
+            expect(pfs [0].id).toBe('01_0010_7722_10_0100_000_2_0');
+            expectTypeToBe(pfs [0].packet, 'object');
+            expectTypeToBe(pfs [0].packetSpec, 'object');
+            expectTypeToBe(pfs [0].packetFieldSpec, 'object');
+            expectTypeToBe(pfs [0].origPacketFieldSpec, 'object');
+            expect(pfs [0].name).toBe('Flow temperature');
+            expect(pfs [0].rawValue).toBeCloseTo(888.8, 2);
+            expectTypeToBe(pfs [0].formatTextValue, 'function');
+            expect(pfs [0].formatTextValue()).toBe('888.8 °C');
+            expectTypeToBe(pfs [0].getRoundedRawValue, 'function');
+            expect(pfs [0].getRoundedRawValue()).toBe(888.8);
+            expectTypeToBe(pfs [5], 'object');
+            expect(pfs [5].id).toBe('02_0010_7722_10_0100_002_2_0');
+            expectTypeToBe(pfs [5].packet, 'object');
+            expectTypeToBe(pfs [5].packetSpec, 'object');
+            expectTypeToBe(pfs [5].packetFieldSpec, 'object');
+            expectTypeToBe(pfs [5].origPacketFieldSpec, 'object');
+            expect(pfs [5].name).toBe('Return temperature');
+            expect(pfs [5].rawValue).toBeCloseTo(-888.8, 2);
+            expectTypeToBe(pfs [5].formatTextValue, 'function');
+            expect(pfs [5].formatTextValue()).toBe('-888.8 °C');
+            expectTypeToBe(pfs [5].getRoundedRawValue, 'function');
+            expect(pfs [5].getRoundedRawValue()).toBe(-888.8);
         });
 
         it('should work correctly with a filtered spec', () => {
@@ -1801,28 +1803,28 @@ describe('Specification', () => {
 
             const pfs = spec.getPacketFieldsForHeaders([ header1, header2 ]);
 
-            expect(pfs).to.be.an('array');
-            expect(pfs.length).to.equal(2);
-            expect(pfs [0]).to.be.an('object');
-            expect(pfs [0].id).to.equal('DemoValue1');
-            expect(pfs [0].packet).to.be.an('object');
-            expect(pfs [0].packetSpec).to.be.an('object');
-            expect(pfs [0].packetFieldSpec).to.be.an('object');
-            expect(pfs [0].origPacketFieldSpec).to.be.an('object');
-            expect(pfs [0].name).to.equal('T-flow');
-            expect(pfs [0].rawValue).to.be.closeTo(888.8, 0.05);
-            expect(pfs [0].formatTextValue).to.be.a('function');
-            expect(pfs [0].formatTextValue()).to.equal('888.8 °C');
-            expect(pfs [1]).to.be.an('object');
-            expect(pfs [1].id).to.equal('DemoValue2');
-            expect(pfs [1].packet).to.be.an('object');
-            expect(pfs [1].packetSpec).to.be.an('object');
-            expect(pfs [1].packetFieldSpec).to.be.an('object');
-            expect(pfs [1].origPacketFieldSpec).to.be.an('object');
-            expect(pfs [1].name).to.equal('T-return');
-            expect(pfs [1].rawValue).to.be.closeTo(-888.8, 0.05);
-            expect(pfs [1].formatTextValue).to.be.a('function');
-            expect(pfs [1].formatTextValue()).to.equal('-888.8 °C');
+            expectTypeToBe(pfs, 'array');
+            expect(pfs.length).toBe(2);
+            expectTypeToBe(pfs [0], 'object');
+            expect(pfs [0].id).toBe('DemoValue1');
+            expectTypeToBe(pfs [0].packet, 'object');
+            expectTypeToBe(pfs [0].packetSpec, 'object');
+            expectTypeToBe(pfs [0].packetFieldSpec, 'object');
+            expectTypeToBe(pfs [0].origPacketFieldSpec, 'object');
+            expect(pfs [0].name).toBe('T-flow');
+            expect(pfs [0].rawValue).toBeCloseTo(888.8, 2);
+            expectTypeToBe(pfs [0].formatTextValue, 'function');
+            expect(pfs [0].formatTextValue()).toBe('888.8 °C');
+            expectTypeToBe(pfs [1], 'object');
+            expect(pfs [1].id).toBe('DemoValue2');
+            expectTypeToBe(pfs [1].packet, 'object');
+            expectTypeToBe(pfs [1].packetSpec, 'object');
+            expectTypeToBe(pfs [1].packetFieldSpec, 'object');
+            expectTypeToBe(pfs [1].origPacketFieldSpec, 'object');
+            expect(pfs [1].name).toBe('T-return');
+            expect(pfs [1].rawValue).toBeCloseTo(-888.8, 2);
+            expectTypeToBe(pfs [1].formatTextValue, 'function');
+            expect(pfs [1].formatTextValue()).toBe('-888.8 °C');
         });
 
         it('should work correctly with a filtered spec but empty headers', () => {
@@ -1832,28 +1834,28 @@ describe('Specification', () => {
 
             const pfs = spec.getPacketFieldsForHeaders([]);
 
-            expect(pfs).to.be.an('array');
-            expect(pfs.length).to.equal(2);
-            expect(pfs [0]).to.be.an('object');
-            expect(pfs [0].id).to.equal('DemoValue1');
-            expect(pfs [0].packet).to.equal(undefined);
-            expect(pfs [0].packetSpec).to.be.an('object');
-            expect(pfs [0].packetFieldSpec).to.be.an('object');
-            expect(pfs [0].origPacketFieldSpec).to.be.an('object');
-            expect(pfs [0].name).to.equal('T-flow');
-            expect(pfs [0].rawValue).to.equal(undefined);
-            expect(pfs [0].formatTextValue).to.be.a('function');
-            expect(pfs [0].formatTextValue()).to.equal('');
-            expect(pfs [1]).to.be.an('object');
-            expect(pfs [1].id).to.equal('DemoValue2');
-            expect(pfs [1].packet).to.equal(undefined);
-            expect(pfs [1].packetSpec).to.be.an('object');
-            expect(pfs [1].packetFieldSpec).to.be.an('object');
-            expect(pfs [1].origPacketFieldSpec).to.be.an('object');
-            expect(pfs [1].name).to.equal('T-return');
-            expect(pfs [1].rawValue).to.equal(undefined);
-            expect(pfs [1].formatTextValue).to.be.a('function');
-            expect(pfs [1].formatTextValue()).to.equal('');
+            expectTypeToBe(pfs, 'array');
+            expect(pfs.length).toBe(2);
+            expectTypeToBe(pfs [0], 'object');
+            expect(pfs [0].id).toBe('DemoValue1');
+            expectTypeToBe(pfs [0].packet, 'undefined');
+            expectTypeToBe(pfs [0].packetSpec, 'object');
+            expectTypeToBe(pfs [0].packetFieldSpec, 'object');
+            expectTypeToBe(pfs [0].origPacketFieldSpec, 'object');
+            expect(pfs [0].name).toBe('T-flow');
+            expect(pfs [0].rawValue).toBe(undefined);
+            expectTypeToBe(pfs [0].formatTextValue, 'function');
+            expect(pfs [0].formatTextValue()).toBe('');
+            expectTypeToBe(pfs [1], 'object');
+            expect(pfs [1].id).toBe('DemoValue2');
+            expectTypeToBe(pfs [1].packet, 'undefined');
+            expectTypeToBe(pfs [1].packetSpec, 'object');
+            expectTypeToBe(pfs [1].packetFieldSpec, 'object');
+            expectTypeToBe(pfs [1].origPacketFieldSpec, 'object');
+            expect(pfs [1].name).toBe('T-return');
+            expect(pfs [1].rawValue).toBe(undefined);
+            expectTypeToBe(pfs [1].formatTextValue, 'function');
+            expect(pfs [1].formatTextValue()).toBe('');
         });
 
         it('should work correctly with a filtered spec and conversion', () => {
@@ -1863,18 +1865,18 @@ describe('Specification', () => {
 
             const pfs = spec.getPacketFieldsForHeaders([ header1, header2 ]);
 
-            expect(pfs).to.be.an('array');
-            expect(pfs.length).to.equal(1);
-            expect(pfs [0]).to.be.an('object');
-            expect(pfs [0].id).to.equal('DemoValue3');
-            expect(pfs [0].packet).to.be.an('object');
-            expect(pfs [0].packetSpec).to.be.an('object');
-            expect(pfs [0].packetFieldSpec).to.be.an('object');
-            expect(pfs [0].origPacketFieldSpec).to.be.an('object');
-            expect(pfs [0].name).to.equal('T-return');
-            expect(pfs [0].rawValue).to.be.closeTo(32.0, 0.05);
-            expect(pfs [0].formatTextValue).to.be.a('function');
-            expect(pfs [0].formatTextValue()).to.equal('32.0 °F');
+            expectTypeToBe(pfs, 'array');
+            expect(pfs.length).toBe(1);
+            expectTypeToBe(pfs [0], 'object');
+            expect(pfs [0].id).toBe('DemoValue3');
+            expectTypeToBe(pfs [0].packet, 'object');
+            expectTypeToBe(pfs [0].packetSpec, 'object');
+            expectTypeToBe(pfs [0].packetFieldSpec, 'object');
+            expectTypeToBe(pfs [0].origPacketFieldSpec, 'object');
+            expect(pfs [0].name).toBe('T-return');
+            expect(pfs [0].rawValue).toBeCloseTo(32.0, 2);
+            expectTypeToBe(pfs [0].formatTextValue, 'function');
+            expect(pfs [0].formatTextValue()).toBe('32.0 °F');
         });
 
         it('should work correctly for partial packets', () => {
@@ -1883,26 +1885,22 @@ describe('Specification', () => {
 
             const pfs = spec.getPacketFieldsForHeaders([ header3 ]);
 
-            expect(pfs).to.be.an('array');
-            expect(pfs.length).to.equal(9);
-            expect(pfs [4]).to.be.an('object');
-            expect(pfs [4].id).to.equal('03_0010_7E31_10_0100_016_4_0');
-            expect(pfs [4].packet).to.be.an('object');
-            expect(pfs [4].packetSpec).to.be.an('object');
-            expect(pfs [4].packetFieldSpec).to.be.an('object');
-            expect(pfs [4].origPacketFieldSpec).to.be.an('object');
-            expect(pfs [4].name).to.equal('Volume in total');
-            expect(pfs [4].rawValue).to.equal(null);
-            expect(pfs [4].formatTextValue).to.be.a('function');
-            expect(pfs [4].formatTextValue()).to.equal('');
+            expectTypeToBe(pfs, 'array');
+            expect(pfs.length).toBe(9);
+            expectTypeToBe(pfs [4], 'object');
+            expect(pfs [4].id).toBe('03_0010_7E31_10_0100_016_4_0');
+            expectTypeToBe(pfs [4].packet, 'object');
+            expectTypeToBe(pfs [4].packetSpec, 'object');
+            expectTypeToBe(pfs [4].packetFieldSpec, 'object');
+            expectTypeToBe(pfs [4].origPacketFieldSpec, 'object');
+            expect(pfs [4].name).toBe('Volume in total');
+            expect(pfs [4].rawValue).toBe(null);
+            expectTypeToBe(pfs [4].formatTextValue, 'function');
+            expect(pfs [4].formatTextValue()).toBe('');
         });
     });
 
     describe('#setPacketFieldRawValues', () => {
-
-        it('should be a method', () => {
-            expect(Specification.prototype.setPacketFieldRawValues).to.be.a('function');
-        });
 
         it('should work correctly with an unfiltered spec', () => {
             const spec = new Specification();
@@ -1934,32 +1932,33 @@ describe('Specification', () => {
                 '02_0010_7722_10_0100_002_2_0': -23.4,   // Return temperature
             });
 
-            expect(header1.frameData.slice(0, 4).toString('hex')).equal('d204d7f6');
-            expect(header2.frameData.slice(0, 4).toString('hex')).equal('7b0016ff');
+            expect(header1.frameData.slice(0, 4).toString('hex')).toBe('d204d7f6');
+            expect(header2.frameData.slice(0, 4).toString('hex')).toBe('7b0016ff');
 
             pfs = spec.getPacketFieldsForHeaders([ header1, header2 ]);
 
-            expect(pfs).an('array').lengthOf(8);
+            expectTypeToBe(pfs, 'array');
+            expect(pfs).toHaveLength(8);
 
             let pf = pfs [0];
-            expect(pf).an('object');
-            expect(pf).property('id').equal('01_0010_7722_10_0100_000_2_0');
-            expect(pf).property('rawValue').closeTo(123.4, 0.05);
+            expectTypeToBe(pf, 'object');
+            expect(pf.id).toBe('01_0010_7722_10_0100_000_2_0');
+            expect(pf.rawValue).toBeCloseTo(123.4, 2);
 
             pf = pfs [1];
-            expect(pf).an('object');
-            expect(pf).property('id').equal('01_0010_7722_10_0100_002_2_0');
-            expect(pf).property('rawValue').closeTo(-234.5, 0.05);
+            expectTypeToBe(pf, 'object');
+            expect(pf.id).toBe('01_0010_7722_10_0100_002_2_0');
+            expect(pf.rawValue).toBeCloseTo(-234.5, 2);
 
             pf = pfs [4];
-            expect(pf).an('object');
-            expect(pf).property('id').equal('02_0010_7722_10_0100_000_2_0');
-            expect(pf).property('rawValue').closeTo(12.3, 0.05);
+            expectTypeToBe(pf, 'object');
+            expect(pf.id).toBe('02_0010_7722_10_0100_000_2_0');
+            expect(pf.rawValue).toBeCloseTo(12.3, 2);
 
             pf = pfs [5];
-            expect(pf).an('object');
-            expect(pf).property('id').equal('02_0010_7722_10_0100_002_2_0');
-            expect(pf).property('rawValue').closeTo(-23.4, 0.05);
+            expectTypeToBe(pf, 'object');
+            expect(pf.id).toBe('02_0010_7722_10_0100_002_2_0');
+            expect(pf.rawValue).toBeCloseTo(-23.4, 2);
         });
 
         xit('should work for a value with many parts', () => {
@@ -1981,18 +1980,18 @@ describe('Specification', () => {
                 '01_0000_4010_10_0100_002_2_0': 123456789,  // Heat
             });
 
-            expect(header1.frameData.readUInt16LE(2)).equal(789);
-            expect(header1.frameData.readUInt16LE(0)).equal(456);
-            expect(header1.frameData.readUInt16LE(12)).equal(123);
+            expect(header1.frameData.readUInt16LE(2)).toBe(789);
+            expect(header1.frameData.readUInt16LE(0)).toBe(456);
+            expect(header1.frameData.readUInt16LE(12)).toBe(123);
 
             pfs = spec.getPacketFieldsForHeaders(headers);
 
-            expect(pfs).an('array').lengthOf(8);
+            expect(pfs).toHaveLength(8);
 
             const pf = pfs [0];
-            expect(pf).an('object');
-            expect(pf).property('id').equal('01_0000_4010_10_0100_002_2_0');
-            expect(pf).property('rawValue').closeTo(123456789, 0.05);
+            expectTypeToBe(pf, 'object');
+            expect(pf.id).toBe('01_0000_4010_10_0100_002_2_0');
+            expect(pf.rawValue).toBeCloseTo(123456789, 2);
         });
 
     });
@@ -2013,31 +2012,27 @@ describe('Specification', () => {
             command: 0x0100,
         });
 
-        it('should be a method', () => {
-            expect(Specification.prototype.getFilteredPacketFieldSpecificationsForHeaders).to.be.a('function');
-        });
-
         it('should work correctly', () => {
             const spec = new Specification();
 
             const fpfs = spec.getFilteredPacketFieldSpecificationsForHeaders([ header1, header2 ]);
 
-            expect(fpfs).to.be.an('array');
-            expect(fpfs.length).to.equal(8);
-            expect(fpfs [0]).to.be.an('object');
-            expect(fpfs [0].filteredPacketFieldId).to.equal('01_0010_7722_10_0100_000_2_0');
-            expect(fpfs [0].packetId).to.equal('01_0010_7722_10_0100');
-            expect(fpfs [0].fieldId).to.equal('000_2_0');
-            expect(fpfs [0].name).to.equal('Flow temperature');
-            expect(fpfs [0].type.typeId).to.equal('Number_0_1_DegreesCelsius');
-            expect(fpfs [0].getRawValue).to.be.a('function');
-            expect(fpfs [4]).to.be.an('object');
-            expect(fpfs [4].filteredPacketFieldId).to.equal('02_0010_7722_10_0100_000_2_0');
-            expect(fpfs [4].packetId).to.equal('02_0010_7722_10_0100');
-            expect(fpfs [4].fieldId).to.equal('000_2_0');
-            expect(fpfs [4].name).to.equal('Flow temperature');
-            expect(fpfs [4].type.typeId).to.equal('Number_0_1_DegreesCelsius');
-            expect(fpfs [4].getRawValue).to.be.a('function');
+            expectTypeToBe(fpfs, 'array');
+            expect(fpfs.length).toBe(8);
+            expectTypeToBe(fpfs [0], 'object');
+            expect(fpfs [0].filteredPacketFieldId).toBe('01_0010_7722_10_0100_000_2_0');
+            expect(fpfs [0].packetId).toBe('01_0010_7722_10_0100');
+            expect(fpfs [0].fieldId).toBe('000_2_0');
+            expect(fpfs [0].name).toBe('Flow temperature');
+            expect(fpfs [0].type.typeId).toBe('Number_0_1_DegreesCelsius');
+            expectTypeToBe(fpfs [0].getRawValue, 'function');
+            expectTypeToBe(fpfs [4], 'object');
+            expect(fpfs [4].filteredPacketFieldId).toBe('02_0010_7722_10_0100_000_2_0');
+            expect(fpfs [4].packetId).toBe('02_0010_7722_10_0100');
+            expect(fpfs [4].fieldId).toBe('000_2_0');
+            expect(fpfs [4].name).toBe('Flow temperature');
+            expect(fpfs [4].type.typeId).toBe('Number_0_1_DegreesCelsius');
+            expectTypeToBe(fpfs [4].getRawValue, 'function');
         });
 
         it('should work correctly with empty headers', () => {
@@ -2045,8 +2040,8 @@ describe('Specification', () => {
 
             const fpfs = spec.getFilteredPacketFieldSpecificationsForHeaders([]);
 
-            expect(fpfs).to.be.an('array');
-            expect(fpfs.length).to.equal(0);
+            expectTypeToBe(fpfs, 'array');
+            expect(fpfs.length).toBe(0);
         });
 
     });
@@ -2137,73 +2132,66 @@ describe('Specification', () => {
             'frameData',
         ].sort();
 
-        it('should be a method', () => {
-            expect(Specification.prototype).property('getBlockTypeSectionsForHeaders').a('function');
-        });
-
         it('should work correctly', () => {
             const spec = new Specification();
 
             const sections = spec.getBlockTypeSectionsForHeaders([ nonBlockTypeHeader1, blockTypeHeader1 ]);
 
-            expect(sections).an('array').lengthOf(3);
+            expect(sections).toHaveLength(3);
 
             let section = sections [0];
-            expect(section).an('object');
             expectOwnPropertyNamesToEqual(section, sectionKeys);
-            expect(section).property('sectionId').a('string').equal('01_0015_7721_10_0100_01_08_4');
-            expect(section).property('surrogatePacketId').a('string').equal('01_8015_4CB0_10_6413');
-            expect(section).property('packet').an('object');
-            expect(section).property('packetSpec').an('object');
-            expect(section).property('startOffset').a('number').equal(0);
-            expect(section).property('endOffset').a('number').equal(8);
-            expect(section).property('type').a('number').equal(8);
-            expect(section).property('payloadCount').a('number').equal(4);
-            expect(section).property('frameCount').a('number').equal(1);
-            expect(section).property('frameData');
-            testUtils.expectToBeABuffer(section.frameData);
+            expect(section.sectionId).toBe('01_0015_7721_10_0100_01_08_4');
+            expect(section.surrogatePacketId).toBe('01_8015_4CB0_10_6413');
+            expectTypeToBe(section.packet, 'object');
+            expectTypeToBe(section.packetSpec, 'object');
+            expect(section.startOffset).toBe(0);
+            expect(section.endOffset).toBe(8);
+            expect(section.type).toBe(8);
+            expect(section.payloadCount).toBe(4);
+            expect(section.frameCount).toBe(1);
+            expect(section.frameData);
+            expectTypeToBe(section.frameData, 'buffer');
 
             let { frameData } = section;
-            expect(frameData).property('length').a('number').equal(8);
-            expect(frameData.toString('hex')).equal('0108000064000000');
+            expect(frameData.length).toBe(8);
+            expect(frameData.toString('hex')).toBe('0108000064000000');
 
             section = sections [1];
-            expect(section).an('object');
             expectOwnPropertyNamesToEqual(section, sectionKeys);
-            expect(section).property('sectionId').a('string').equal('01_0015_7721_10_0100_02_0A_1');
-            expect(section).property('surrogatePacketId').a('string').equal('01_8015_6659_10_49D0');
-            expect(section).property('packet').an('object');
-            expect(section).property('packetSpec').an('object');
-            expect(section).property('startOffset').a('number').equal(8);
-            expect(section).property('endOffset').a('number').equal(20);
-            expect(section).property('type').a('number').equal(10);
-            expect(section).property('payloadCount').a('number').equal(1);
-            expect(section).property('frameCount').a('number').equal(2);
-            expect(section).property('frameData');
-            testUtils.expectToBeABuffer(section.frameData);
+            expect(section.sectionId).toBe('01_0015_7721_10_0100_02_0A_1');
+            expect(section.surrogatePacketId).toBe('01_8015_6659_10_49D0');
+            expectTypeToBe(section.packet, 'object');
+            expectTypeToBe(section.packetSpec, 'object');
+            expect(section.startOffset).toBe(8);
+            expect(section.endOffset).toBe(20);
+            expect(section.type).toBe(10);
+            expect(section.payloadCount).toBe(1);
+            expect(section.frameCount).toBe(2);
+            expect(section.frameData);
+            expectTypeToBe(section.frameData, 'buffer');
 
             ({ frameData } = section);
-            expect(frameData).property('length').a('number').equal(12);
-            expect(frameData.toString('hex')).equal('020a0000b822b82200000000');
+            expect(frameData.length).toBe(12);
+            expect(frameData.toString('hex')).toBe('020a0000b822b82200000000');
 
             section = sections [2];
-            expect(section).an('object');
             expectOwnPropertyNamesToEqual(section, sectionKeys);
-            expect(section).property('sectionId').a('string').equal('01_0015_7721_10_0100_01_0B_1');
-            expect(section).property('surrogatePacketId').a('string').equal('01_8015_C162_10_EFC8');
-            expect(section).property('packet').an('object');
-            expect(section).property('packetSpec').an('object');
-            expect(section).property('startOffset').a('number').equal(20);
-            expect(section).property('endOffset').a('number').equal(28);
-            expect(section).property('type').a('number').equal(11);
-            expect(section).property('payloadCount').a('number').equal(1);
-            expect(section).property('frameCount').a('number').equal(1);
-            expect(section).property('frameData');
-            testUtils.expectToBeABuffer(section.frameData);
+            expect(section.sectionId).toBe('01_0015_7721_10_0100_01_0B_1');
+            expect(section.surrogatePacketId).toBe('01_8015_C162_10_EFC8');
+            expectTypeToBe(section.packet, 'object');
+            expectTypeToBe(section.packetSpec, 'object');
+            expect(section.startOffset).toBe(20);
+            expect(section.endOffset).toBe(28);
+            expect(section.type).toBe(11);
+            expect(section.payloadCount).toBe(1);
+            expect(section.frameCount).toBe(1);
+            expect(section.frameData);
+            expectTypeToBe(section.frameData, 'buffer');
 
             ({ frameData } = section);
-            expect(frameData).property('length').a('number').equal(8);
-            expect(frameData.toString('hex')).equal('010b00000b000000');
+            expect(frameData.length).toBe(8);
+            expect(frameData.toString('hex')).toBe('010b00000b000000');
         });
 
         it('should work correctly #2', () => {
@@ -2222,7 +2210,7 @@ describe('Specification', () => {
                 [ '01_0015_7721_10_0100_07_0E_28', '01_8015_71B3_10_F8BB', 72, 104, 7, 14, 28, '070e00000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c' ],
             ];
 
-            expect(sections).an('array').lengthOf(expectedValues.length);
+            expect(sections).toHaveLength(expectedValues.length);
 
             for (let index = 0; index < sections.length; index++) {
                 const section = sections [index];
@@ -2237,31 +2225,26 @@ describe('Specification', () => {
                 const payloadCount = ev [6];
                 const frameData = ev [7];
 
-                expect(section).an('object');
                 expectOwnPropertyNamesToEqual(section, sectionKeys);
-                expect(section).property('sectionId').a('string').equal(sectionId);
-                expect(section).property('surrogatePacketId').a('string').equal(surrogatePacketId);
-                expect(section).property('packet').an('object');
-                expect(section).property('packetSpec').an('object');
-                expect(section).property('startOffset').a('number').equal(startOffset);
-                expect(section).property('endOffset').a('number').equal(endOffset);
-                expect(section).property('type').a('number').equal(type);
-                expect(section).property('payloadCount').a('number').equal(payloadCount);
-                expect(section).property('frameCount').a('number').equal(frameCount);
-                expect(section).property('frameData');
-                testUtils.expectToBeABuffer(section.frameData);
+                expect(section.sectionId).toBe(sectionId);
+                expect(section.surrogatePacketId).toBe(surrogatePacketId);
+                expectTypeToBe(section.packet, 'object');
+                expectTypeToBe(section.packetSpec, 'object');
+                expect(section.startOffset).toBe(startOffset);
+                expect(section.endOffset).toBe(endOffset);
+                expect(section.type).toBe(type);
+                expect(section.payloadCount).toBe(payloadCount);
+                expect(section.frameCount).toBe(frameCount);
+                expect(section.frameData);
+                expectTypeToBe(section.frameData, 'buffer');
 
-                expect(section.frameData.toString('hex')).equal(frameData);
+                expect(section.frameData.toString('hex')).toBe(frameData);
             }
         });
 
     });
 
     describe('#getBlockTypePacketSpecificationsForSections', () => {
-
-        it('should be a method', () => {
-            expect(Specification.prototype).property('getBlockTypePacketSpecificationsForSections').a('function');
-        });
 
         it('should work correctly', () => {
             const spec = new Specification();
@@ -2270,7 +2253,7 @@ describe('Specification', () => {
 
             const packetSpecs = spec.getBlockTypePacketSpecificationsForSections(sections);
 
-            expect(packetSpecs).an('array').lengthOf(3);
+            expect(packetSpecs).toHaveLength(3);
 
             const packetSpecKeys = [
                 'packetId',
@@ -2299,103 +2282,94 @@ describe('Specification', () => {
             ].sort();
 
             let packetSpec = packetSpecs [0];
-            expect(packetSpec).an('object');
+
             expectOwnPropertyNamesToEqual(packetSpec, packetSpecKeys);
-            expect(packetSpec).property('packetId').a('string').equal('01_8015_4CB0_10_6413');
-            expect(packetSpec).property('sectionId').a('string').equal('01_0015_7721_10_0100_01_08_4');
-            expect(packetSpec).property('packetFields').an('array').lengthOf(4);
-            expect(packetSpec).property('channel').a('number').equal(1);
-            expect(packetSpec).property('destinationAddress').a('number').equal(0x0015);
-            expect(packetSpec).property('sourceAddress').a('number').equal(0x7721);
-            expect(packetSpec).property('protocolVersion').a('number').equal(0x10);
-            expect(packetSpec).property('command').a('number').equal(0x0100);
-            expect(packetSpec).property('info').a('number').equal(0);
-            expect(packetSpec).property('fullName').a('string').equal('VBus #1: DeltaSol E [Regler] => Standard-Infos');
-            expect(packetSpec).property('destinationDevice').an('object');
-            expect(packetSpec).property('sourceDevice').an('object');
+            expect(packetSpec.packetId).toBe('01_8015_4CB0_10_6413');
+            expect(packetSpec.sectionId).toBe('01_0015_7721_10_0100_01_08_4');
+            expect(packetSpec.packetFields).toHaveLength(4);
+            expect(packetSpec.channel).toBe(1);
+            expect(packetSpec.destinationAddress).toBe(0x0015);
+            expect(packetSpec.sourceAddress).toBe(0x7721);
+            expect(packetSpec.protocolVersion).toBe(0x10);
+            expect(packetSpec.command).toBe(0x0100);
+            expect(packetSpec.info).toBe(0);
+            expect(packetSpec.fullName).toBe('VBus #1: DeltaSol E [Regler] => Standard-Infos');
+            expectTypeToBe(packetSpec.destinationDevice, 'object');
+            expectTypeToBe(packetSpec.sourceDevice, 'object');
 
             let pfs = packetSpec.packetFields [0];
-            expect(pfs).an('object');
             expectOwnPropertyNamesToEqual(pfs, packetFieldSpecKeys);
-            expect(pfs).property('fieldId').a('string').equal('01_0015_7721_10_0100_01_08_4_004_1_0');
-            expect(pfs).property('name').a('string').equal('Drehzahl Relais 1');
-            expect(pfs).property('type').an('object').property('typeId').a('string').equal('Number_1_Percent');
-            expect(pfs).property('factor').a('number').equal(1);
-            expect(pfs).property('parts').an('array').lengthOf(1);
-            expect(pfs).property('getRawValue').a('function');
-            expect(pfs).property('setRawValue').a('function');
+            expect(pfs.fieldId).toBe('01_0015_7721_10_0100_01_08_4_004_1_0');
+            expect(pfs.name).toBe('Drehzahl Relais 1');
+            expect(pfs.type.typeId).toBe('Number_1_Percent');
+            expect(pfs.factor).toBe(1);
+            expect(pfs.parts).toHaveLength(1);
+            expectTypeToBe(pfs.getRawValue, 'function');
+            expectTypeToBe(pfs.setRawValue, 'function');
 
             let rawValue = pfs.getRawValue(sections [0].frameData, 0, sections [0].frameData.length);
-            expect(rawValue).a('number').equal(100);
+            expect(rawValue).toBe(100);
 
             packetSpec = packetSpecs [1];
-            expect(packetSpec).an('object');
             expectOwnPropertyNamesToEqual(packetSpec, packetSpecKeys);
-            expect(packetSpec).property('packetId').a('string').equal('01_8015_6659_10_49D0');
-            expect(packetSpec).property('sectionId').a('string').equal('01_0015_7721_10_0100_02_0A_1');
-            expect(packetSpec).property('packetFields').an('array').lengthOf(3);
-            expect(packetSpec).property('channel').a('number').equal(1);
-            expect(packetSpec).property('destinationAddress').a('number').equal(0x0015);
-            expect(packetSpec).property('sourceAddress').a('number').equal(0x7721);
-            expect(packetSpec).property('protocolVersion').a('number').equal(0x10);
-            expect(packetSpec).property('command').a('number').equal(0x0100);
-            expect(packetSpec).property('info').a('number').equal(0);
-            expect(packetSpec).property('fullName').a('string').equal('VBus #1: DeltaSol E [Regler] => Standard-Infos');
-            expect(packetSpec).property('destinationDevice').an('object');
-            expect(packetSpec).property('sourceDevice').an('object');
+            expect(packetSpec.packetId).toBe('01_8015_6659_10_49D0');
+            expect(packetSpec.sectionId).toBe('01_0015_7721_10_0100_02_0A_1');
+            expect(packetSpec.packetFields).toHaveLength(3);
+            expect(packetSpec.channel).toBe(1);
+            expect(packetSpec.destinationAddress).toBe(0x0015);
+            expect(packetSpec.sourceAddress).toBe(0x7721);
+            expect(packetSpec.protocolVersion).toBe(0x10);
+            expect(packetSpec.command).toBe(0x0100);
+            expect(packetSpec.info).toBe(0);
+            expect(packetSpec.fullName).toBe('VBus #1: DeltaSol E [Regler] => Standard-Infos');
+            expectTypeToBe(packetSpec.destinationDevice, 'object');
+            expectTypeToBe(packetSpec.sourceDevice, 'object');
 
             pfs = packetSpec.packetFields [0];
-            expect(pfs).an('object');
             expectOwnPropertyNamesToEqual(pfs, packetFieldSpecKeys);
-            expect(pfs).property('fieldId').a('string').equal('01_0015_7721_10_0100_02_0A_1_004_2_0');
-            expect(pfs).property('name').a('string').equal('Temperatur Kollektor');
-            expect(pfs).property('type').an('object').property('typeId').a('string').equal('Number_0_1_DegreesCelsius');
-            expect(pfs).property('factor').a('number').equal(0.1);
-            expect(pfs).property('parts').an('array').lengthOf(2);
-            expect(pfs).property('getRawValue').a('function');
-            expect(pfs).property('setRawValue').a('function');
+            expect(pfs.fieldId).toBe('01_0015_7721_10_0100_02_0A_1_004_2_0');
+            expect(pfs.name).toBe('Temperatur Kollektor');
+            expect(pfs.type.typeId).toBe('Number_0_1_DegreesCelsius');
+            expect(pfs.factor).toBe(0.1);
+            expect(pfs.parts).toHaveLength(2);
+            expectTypeToBe(pfs.getRawValue, 'function');
+            expectTypeToBe(pfs.setRawValue, 'function');
 
             rawValue = pfs.getRawValue(sections [1].frameData, 0, sections [1].frameData.length);
-            expect(rawValue).a('number').closeTo(888.8, 0.05);
+            expect(rawValue).toBeCloseTo(888.8, 2);
 
             packetSpec = packetSpecs [2];
-            expect(packetSpec).an('object');
             expectOwnPropertyNamesToEqual(packetSpec, packetSpecKeys);
-            expect(packetSpec).property('packetId').a('string').equal('01_8015_C162_10_EFC8');
-            expect(packetSpec).property('sectionId').a('string').equal('01_0015_7721_10_0100_01_0B_1');
-            expect(packetSpec).property('packetFields').an('array').lengthOf(1);
-            expect(packetSpec).property('channel').a('number').equal(1);
-            expect(packetSpec).property('destinationAddress').a('number').equal(0x0015);
-            expect(packetSpec).property('sourceAddress').a('number').equal(0x7721);
-            expect(packetSpec).property('protocolVersion').a('number').equal(0x10);
-            expect(packetSpec).property('command').a('number').equal(0x0100);
-            expect(packetSpec).property('info').a('number').equal(0);
-            expect(packetSpec).property('fullName').a('string').equal('VBus #1: DeltaSol E [Regler] => Standard-Infos');
-            expect(packetSpec).property('destinationDevice').an('object');
-            expect(packetSpec).property('sourceDevice').an('object');
+            expect(packetSpec.packetId).toBe('01_8015_C162_10_EFC8');
+            expect(packetSpec.sectionId).toBe('01_0015_7721_10_0100_01_0B_1');
+            expect(packetSpec.packetFields).toHaveLength(1);
+            expect(packetSpec.channel).toBe(1);
+            expect(packetSpec.destinationAddress).toBe(0x0015);
+            expect(packetSpec.sourceAddress).toBe(0x7721);
+            expect(packetSpec.protocolVersion).toBe(0x10);
+            expect(packetSpec.command).toBe(0x0100);
+            expect(packetSpec.info).toBe(0);
+            expect(packetSpec.fullName).toBe('VBus #1: DeltaSol E [Regler] => Standard-Infos');
+            expectTypeToBe(packetSpec.destinationDevice, 'object');
+            expectTypeToBe(packetSpec.sourceDevice, 'object');
 
             pfs = packetSpec.packetFields [0];
-            expect(pfs).an('object');
             expectOwnPropertyNamesToEqual(pfs, packetFieldSpecKeys);
-            expect(pfs).property('fieldId').a('string').equal('01_0015_7721_10_0100_01_0B_1_004_4_0');
-            expect(pfs).property('name').a('string').equal('Fehlermaske');
-            expect(pfs).property('type').an('object').property('typeId').a('string').equal('Number_1_None');
-            expect(pfs).property('factor').a('number').equal(1);
-            expect(pfs).property('parts').an('array').lengthOf(4);
-            expect(pfs).property('getRawValue').a('function');
-            expect(pfs).property('setRawValue').a('function');
+            expect(pfs.fieldId).toBe('01_0015_7721_10_0100_01_0B_1_004_4_0');
+            expect(pfs.name).toBe('Fehlermaske');
+            expect(pfs.type.typeId).toBe('Number_1_None');
+            expect(pfs.factor).toBe(1);
+            expect(pfs.parts).toHaveLength(4);
+            expectTypeToBe(pfs.getRawValue, 'function');
+            expectTypeToBe(pfs.setRawValue, 'function');
 
             rawValue = pfs.getRawValue(sections [2].frameData, 0, sections [2].frameData.length);
-            expect(rawValue).a('number').equal(11);
+            expect(rawValue).toBe(11);
         });
 
     });
 
     describe('#getBlockTypeFieldsForSections', () => {
-
-        it('should be a method', () => {
-            expect(Specification.prototype).property('getBlockTypeFieldsForSections').a('function');
-        });
 
         it('should work correctly', () => {
             const spec = new Specification();
@@ -2406,7 +2380,7 @@ describe('Specification', () => {
 
             const packetFields = spec.getBlockTypeFieldsForSections(sections);
 
-            expect(packetFields).an('array').lengthOf(8);
+            expect(packetFields).toHaveLength(8);
 
             const packetFieldKeys = [
                 'id',
@@ -2421,84 +2395,79 @@ describe('Specification', () => {
             ].sort();
 
             let packetField = packetFields [0];
-            expect(packetField).an('object');
             expectOwnPropertyNamesToEqual(packetField, packetFieldKeys);
-            expect(packetField).property('id').a('string').equal('01_8015_4CB0_10_6413_01_0015_7721_10_0100_01_08_4_004_1_0');
-            expect(packetField).property('section').an('object').equal(sections [0]);
-            expect(packetField).property('packet').an('object').equal(blockTypeHeader1);
-            expect(packetField).property('packetSpec').an('object').equal(packetSpecs [0]);
-            expect(packetField).property('packetFieldSpec').an('object').equal(packetSpecs [0].packetFields [0]);
-            expect(packetField).property('origPacketFieldSpec').an('object').equal(packetSpecs [0].packetFields [0]);
-            expect(packetField).property('name').a('string').equal('Pump speed relay 1');
-            expect(packetField).property('rawValue').a('number').equal(100);
-            expect(packetField).property('formatTextValue').a('function');
+            expect(packetField.id).toBe('01_8015_4CB0_10_6413_01_0015_7721_10_0100_01_08_4_004_1_0');
+            expect(packetField.section).toBe(sections [0]);
+            expect(packetField.packet).toBe(blockTypeHeader1);
+            expect(packetField.packetSpec).toBe(packetSpecs [0]);
+            expect(packetField.packetFieldSpec).toBe(packetSpecs [0].packetFields [0]);
+            expect(packetField.origPacketFieldSpec).toBe(packetSpecs [0].packetFields [0]);
+            expect(packetField.name).toBe('Pump speed relay 1');
+            expect(packetField.rawValue).toBe(100);
+            expectTypeToBe(packetField.formatTextValue, 'function');
 
             let textValue = packetField.formatTextValue();
-            expect(textValue).a('string').equal('100%');
+            expect(textValue).toBe('100%');
 
             packetField = packetFields [1];
-            expect(packetField).an('object');
             expectOwnPropertyNamesToEqual(packetField, packetFieldKeys);
-            expect(packetField).property('id').a('string').equal('01_8015_4CB0_10_6413_01_0015_7721_10_0100_01_08_4_005_1_0');
-            expect(packetField).property('section').an('object').equal(sections [0]);
-            expect(packetField).property('packet').an('object').equal(blockTypeHeader1);
-            expect(packetField).property('packetSpec').an('object').equal(packetSpecs [0]);
-            expect(packetField).property('packetFieldSpec').an('object').equal(packetSpecs [0].packetFields [1]);
-            expect(packetField).property('origPacketFieldSpec').an('object').equal(packetSpecs [0].packetFields [1]);
-            expect(packetField).property('name').a('string').equal('Pump speed relay 2');
-            expect(packetField).property('rawValue').a('number').equal(0);
-            expect(packetField).property('formatTextValue').a('function');
+            expect(packetField.id).toBe('01_8015_4CB0_10_6413_01_0015_7721_10_0100_01_08_4_005_1_0');
+            expect(packetField.section).toBe(sections [0]);
+            expect(packetField.packet).toBe(blockTypeHeader1);
+            expect(packetField.packetSpec).toBe(packetSpecs [0]);
+            expect(packetField.packetFieldSpec).toBe(packetSpecs [0].packetFields [1]);
+            expect(packetField.origPacketFieldSpec).toBe(packetSpecs [0].packetFields [1]);
+            expect(packetField.name).toBe('Pump speed relay 2');
+            expect(packetField.rawValue).toBe(0);
+            expectTypeToBe(packetField.formatTextValue, 'function');
 
             textValue = packetField.formatTextValue();
-            expect(textValue).a('string').equal('0%');
+            expect(textValue).toBe('0%');
 
             packetField = packetFields [4];
-            expect(packetField).an('object');
             expectOwnPropertyNamesToEqual(packetField, packetFieldKeys);
-            expect(packetField).property('id').a('string').equal('01_8015_6659_10_49D0_01_0015_7721_10_0100_02_0A_1_004_2_0');
-            expect(packetField).property('section').an('object').equal(sections [1]);
-            expect(packetField).property('packet').an('object').equal(blockTypeHeader1);
-            expect(packetField).property('packetSpec').an('object').equal(packetSpecs [1]);
-            expect(packetField).property('packetFieldSpec').an('object').equal(packetSpecs [1].packetFields [0]);
-            expect(packetField).property('origPacketFieldSpec').an('object').equal(packetSpecs [1].packetFields [0]);
-            expect(packetField).property('name').a('string').equal('Temperatur Kollektor');
-            expect(packetField).property('rawValue').a('number').closeTo(888.8, 0.05);
-            expect(packetField).property('formatTextValue').a('function');
+            expect(packetField.id).toBe('01_8015_6659_10_49D0_01_0015_7721_10_0100_02_0A_1_004_2_0');
+            expect(packetField.section).toBe(sections [1]);
+            expect(packetField.packet).toBe(blockTypeHeader1);
+            expect(packetField.packetSpec).toBe(packetSpecs [1]);
+            expect(packetField.packetFieldSpec).toBe(packetSpecs [1].packetFields [0]);
+            expect(packetField.origPacketFieldSpec).toBe(packetSpecs [1].packetFields [0]);
+            expect(packetField.name).toBe('Temperatur Kollektor');
+            expect(packetField.rawValue).toBeCloseTo(888.8, 2);
+            expectTypeToBe(packetField.formatTextValue, 'function');
 
             textValue = packetField.formatTextValue();
-            expect(textValue).a('string').equal('888.8 °C');
+            expect(textValue).toBe('888.8 °C');
 
             packetField = packetFields [6];
-            expect(packetField).an('object');
             expectOwnPropertyNamesToEqual(packetField, packetFieldKeys);
-            expect(packetField).property('id').a('string').equal('01_8015_6659_10_49D0_01_0015_7721_10_0100_02_0A_1_008_4_0');
-            expect(packetField).property('section').an('object').equal(sections [1]);
-            expect(packetField).property('packet').an('object').equal(blockTypeHeader1);
-            expect(packetField).property('packetSpec').an('object').equal(packetSpecs [1]);
-            expect(packetField).property('packetFieldSpec').an('object').equal(packetSpecs [1].packetFields [2]);
-            expect(packetField).property('origPacketFieldSpec').an('object').equal(packetSpecs [1].packetFields [2]);
-            expect(packetField).property('name').a('string').equal('Heat quantity');
-            expect(packetField).property('rawValue').a('number').equal(0);
-            expect(packetField).property('formatTextValue').a('function');
+            expect(packetField.id).toBe('01_8015_6659_10_49D0_01_0015_7721_10_0100_02_0A_1_008_4_0');
+            expect(packetField.section).toBe(sections [1]);
+            expect(packetField.packet).toBe(blockTypeHeader1);
+            expect(packetField.packetSpec).toBe(packetSpecs [1]);
+            expect(packetField.packetFieldSpec).toBe(packetSpecs [1].packetFields [2]);
+            expect(packetField.origPacketFieldSpec).toBe(packetSpecs [1].packetFields [2]);
+            expect(packetField.name).toBe('Heat quantity');
+            expect(packetField.rawValue).toBe(0);
+            expectTypeToBe(packetField.formatTextValue, 'function');
 
             textValue = packetField.formatTextValue();
-            expect(textValue).a('string').equal('0 Wh');
+            expect(textValue).toBe('0 Wh');
 
             packetField = packetFields [7];
-            expect(packetField).an('object');
             expectOwnPropertyNamesToEqual(packetField, packetFieldKeys);
-            expect(packetField).property('id').a('string').equal('01_8015_C162_10_EFC8_01_0015_7721_10_0100_01_0B_1_004_4_0');
-            expect(packetField).property('section').an('object').equal(sections [2]);
-            expect(packetField).property('packet').an('object').equal(blockTypeHeader1);
-            expect(packetField).property('packetSpec').an('object').equal(packetSpecs [2]);
-            expect(packetField).property('packetFieldSpec').an('object').equal(packetSpecs [2].packetFields [0]);
-            expect(packetField).property('origPacketFieldSpec').an('object').equal(packetSpecs [2].packetFields [0]);
-            expect(packetField).property('name').a('string').equal('Error mask');
-            expect(packetField).property('rawValue').a('number').equal(11);
-            expect(packetField).property('formatTextValue').a('function');
+            expect(packetField.id).toBe('01_8015_C162_10_EFC8_01_0015_7721_10_0100_01_0B_1_004_4_0');
+            expect(packetField.section).toBe(sections [2]);
+            expect(packetField.packet).toBe(blockTypeHeader1);
+            expect(packetField.packetSpec).toBe(packetSpecs [2]);
+            expect(packetField.packetFieldSpec).toBe(packetSpecs [2].packetFields [0]);
+            expect(packetField.origPacketFieldSpec).toBe(packetSpecs [2].packetFields [0]);
+            expect(packetField.name).toBe('Error mask');
+            expect(packetField.rawValue).toBe(11);
+            expectTypeToBe(packetField.formatTextValue, 'function');
 
             textValue = packetField.formatTextValue();
-            expect(textValue).a('string').equal('11');
+            expect(textValue).toBe('11');
         });
 
         it('should work correctly #2', () => {
@@ -2561,7 +2530,7 @@ describe('Specification', () => {
                 [ '01_8015_71B3_10_F8BB_01_0015_7721_10_0100_07_0E_28_031_1_0', 7, 27, 'Segmentmaske 28', 28, '28' ],
             ];
 
-            expect(packetFields).an('array').lengthOf(expectedValues.length);
+            expect(packetFields).toHaveLength(expectedValues.length);
 
             const packetFieldKeys = [
                 'id',
@@ -2586,19 +2555,18 @@ describe('Specification', () => {
                 const rawValue = ev [4];
                 const textValue = ev [5];
 
-                expect(packetField).an('object');
                 expectOwnPropertyNamesToEqual(packetField, packetFieldKeys);
-                expect(packetField).property('id').a('string').equal(id);
-                expect(packetField).property('section').an('object').equal(sections [sectionIndex]);
-                expect(packetField).property('packet').an('object').equal(blockTypeHeader2);
-                expect(packetField).property('packetSpec').an('object').equal(packetSpecs [sectionIndex]);
-                expect(packetField).property('packetFieldSpec').an('object').equal(packetSpecs [sectionIndex].packetFields [fieldIndex]);
-                expect(packetField).property('origPacketFieldSpec').an('object').equal(packetSpecs [sectionIndex].packetFields [fieldIndex]);
-                expect(packetField).property('name').a('string').equal(name);
-                expect(packetField).property('rawValue').a('number').closeTo(rawValue, 0.0005);
-                expect(packetField).property('formatTextValue').a('function');
+                expect(packetField.id).toBe(id);
+                expect(packetField.section).toBe(sections [sectionIndex]);
+                expect(packetField.packet).toBe(blockTypeHeader2);
+                expect(packetField.packetSpec).toBe(packetSpecs [sectionIndex]);
+                expect(packetField.packetFieldSpec).toBe(packetSpecs [sectionIndex].packetFields [fieldIndex]);
+                expect(packetField.origPacketFieldSpec).toBe(packetSpecs [sectionIndex].packetFields [fieldIndex]);
+                expect(packetField.name).toBe(name);
+                expect(packetField.rawValue).toBeCloseTo(rawValue, 4);
+                expectTypeToBe(packetField.formatTextValue, 'function');
 
-                expect(packetField.formatTextValue()).a('string').equal(textValue);
+                expect(packetField.formatTextValue()).toBe(textValue);
             }
         });
 
@@ -2636,57 +2604,14 @@ describe('Specification', () => {
 
         var packetFields = spec.getPacketFieldsForHeaders([ packet ]);
 
-        expect(packetFields).to.be.an('array');
-        expect(packetFields.length).to.equal(1);
-        expect(packetFields [0].id).to.equal('00_0010_772F_0100_10_000_2_0');
-        expect(packetFields [0].packet).to.equal(undefined);
-        expect(packetFields [0].packetSpec).to.equal(undefined);
-        expect(packetFields [0].packetFieldSpec).to.equal(packetFieldSpec);
-        expect(packetFields [0].origPacketFieldSpec).to.equal(undefined);
+        expect(packetFields).toHaveLength(1);
+        expect(packetFields [0].id).toBe('00_0010_772F_0100_10_000_2_0');
+        expect(packetFields [0].packet).toBe(undefined);
+        expect(packetFields [0].packetSpec).toBe(undefined);
+        expect(packetFields [0].packetFieldSpec).toBe(packetFieldSpec);
+        expect(packetFields [0].origPacketFieldSpec).toBe(undefined);
     });
 
     */
-
-    testUtils.itShouldWorkCorrectlyAfterMigratingToClass(Specification, null, {
-        language: 'en',
-        deviceSpecCache: null,
-        packetSpecCache: null,
-        blockTypePacketSpecCache: null,
-        i18n: null,
-        specificationData: null,
-        constructor: Function,
-        getUnitById: Function,
-        getTypeById: Function,
-        getDeviceSpecification: Function,
-        getPacketSpecification: Function,
-        getPacketFieldSpecification: Function,
-        getRawValue: Function,
-        getRoundedRawValue: Function,
-        invertConversions: Function,
-        setRawValue: Function,
-        convertRawValue: Function,
-        _convertTemperatureRawValue: Function,
-        _convertVolumeRawValue: Function,
-        _convertVolumeFlowRawValue: Function,
-        _convertPressureRawValue: Function,
-        _convertEnergyRawValue: Function,
-        _convertPowerRawValue: Function,
-        _convertTimeRawValue: Function,
-        formatTextValueFromRawValue: Function,
-        formatTextValueFromRawValueInternal: Function,
-        getPacketFieldsForHeaders: Function,
-        setPacketFieldRawValues: Function,
-        getFilteredPacketFieldSpecificationsForHeaders: Function,
-        getBlockTypeSectionsForHeaders: Function,
-        _createUInt8BlockTypeFieldSpecification: Function,
-        _createInt16BlockTypeFieldSpecification: Function,
-        _createUInt32BlockTypeFieldSpecification: Function,
-        getBlockTypePacketSpecificationsForSections: Function,
-        getBlockTypeFieldsForSections: Function,
-    }, {
-        loadSpecificationData: Function,
-        storeSpecificationData: Function,
-        getDefaultSpecification: Function,
-    });
 
 });

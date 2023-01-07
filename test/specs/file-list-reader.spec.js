@@ -1,3 +1,5 @@
+/*! resol-vbus | Copyright (c) 2022-present, Daniel Wippermann | MIT license */
+
 const crypto = require('crypto');
 const path = require('path');
 
@@ -6,11 +8,11 @@ const FileListReader = require('../../src/file-list-reader');
 
 
 const {
-    expectOwnPropertyNamesToEqual
+    expect,
+    expectOwnPropertyNamesToEqual,
+    itShouldBeAClass
 } = require('./test-utils');
 
-
-const expect = global.expect;
 
 
 const testableDirname = path.resolve(__dirname, '../fixtures/test-recorder');
@@ -64,21 +66,11 @@ async function readStatsToEnd(flr) {
 
 describe('FileListReader', () => {
 
-    it('should be a class', () => {
-        expect(typeof FileListReader).toBe('function');
-
-        expectOwnPropertyNamesToEqual(FileListReader.prototype, [
-            'constructor',
-            '_read',
-        ]);
-
-        expectOwnPropertyNamesToEqual(FileListReader, [
-            'getListOfFiles',
-
-            'length',
-            'name',
-            'prototype',
-        ]);
+    itShouldBeAClass(FileListReader, null, {
+        constructor: Function,
+        _read: Function,
+    }, {
+        getListOfFiles: Function,
     });
 
     describe('#constructor', () => {

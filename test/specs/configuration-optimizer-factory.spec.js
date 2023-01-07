@@ -1,116 +1,97 @@
 /*! resol-vbus | Copyright (c) 2013-present, Daniel Wippermann | MIT license */
 
 const {
+    ConfigurationOptimizer,
     ConfigurationOptimizerFactory,
 } = require('./resol-vbus');
 
 
-const expect = require('./expect');
-
-const { wrapAsPromise } = require('./test-utils');
+const {
+    expect,
+    expectOwnPropertyNamesToEqual,
+    expectTypeToBe,
+} = require('./test-utils');
 
 
 
 describe('ConfigurationOptimizerFactory', () => {
 
+    it('should export correctly', () => {
+        expectOwnPropertyNamesToEqual(ConfigurationOptimizerFactory, [
+            'matchOptimizer',
+            'createOptimizer',
+            'createOptimizerByDeviceAddress',
+            '_optimizerClasses',
+        ]);
+    });
+
     describe('.createOptimizerByDeviceAddress', () => {
 
-        it('should be a method', () => {
-            expect(ConfigurationOptimizerFactory).property('createOptimizerByDeviceAddress').a('function');
-        });
+        it('should have unique addresses for registered optimizers', async () => {
+            const knownAddresses = new Set();
 
-        it('should have unique addresses for registered optimizers', () => {
-            return new Promise((resolve, reject) => {
-                const knownAddresses = {};
+            const optimizerClasses = ConfigurationOptimizerFactory._optimizerClasses;
 
-                const optimizerClasses = ConfigurationOptimizerFactory._optimizerClasses;
+            for (const OptimizerClass of optimizerClasses) {
+                const address = OptimizerClass.deviceAddress;
+                if (address != null) {
+                    const addressKey = address.toString(16) + '/' + OptimizerClass.deviceMajorVersion;
 
-                let index = 0;
+                    expectTypeToBe(address, 'number');
+                    expect(address).toBeGreaterThan(0);
 
-                const nextOptimizer = function() {
-                    if (index < optimizerClasses.length) {
-                        const OptimizerClass = optimizerClasses [index++];
-
-                        const address = OptimizerClass.deviceAddress;
-                        if (address !== null) {
-                            const addressKey = address.toString(16) + '/' + OptimizerClass.deviceMajorVersion;
-
-                            wrapAsPromise(() => {
-                                expect(address).a('number').above(0);
-
-                                expect(knownAddresses).not.property(addressKey);
-
-                                knownAddresses [addressKey] = true;
-
-                                return ConfigurationOptimizerFactory.createOptimizerByDeviceAddress(address);
-                            }).then((optimizer) => {
-                                expect(optimizer).an('object');
-
-                                nextOptimizer();
-                            }).then(null, (err) => {
-                                reject(err);
-                            });
-                        } else {
-                            nextOptimizer();
-                        }
-                    } else {
-                        resolve();
+                    if (knownAddresses.has(address)) {
+                        console.log(address.toString(16));
                     }
-                };
 
-                nextOptimizer();
-            });
+                    expect(knownAddresses.has(addressKey)).toBe(false);
+
+                    knownAddresses.add(addressKey);
+
+                    const optimizer = await ConfigurationOptimizerFactory.createOptimizerByDeviceAddress(address);
+
+                    expectTypeToBe(optimizer, 'object');
+
+                    // FIXME(daniel): requesting 0x7E11 ALWAYS returns an 1.12 optimizer...
+                }
+            }
         });
 
-        it('should work correctly for unknown devices', () => {
-            return wrapAsPromise(() => {
-                return ConfigurationOptimizerFactory.createOptimizerByDeviceAddress(0x0050);
-            }).then((optimizer) => {
-                expect(optimizer).equal(null);
-            });
+        it('should work correctly for unknown devices', async () => {
+            const optimizer = await ConfigurationOptimizerFactory.createOptimizerByDeviceAddress(0x0050);
+
+            expect(optimizer).toBe(null);
         });
 
-        it('should work correctly for RESOL DeltaSol BX Plus', () => {
-            return wrapAsPromise(() => {
-                return ConfigurationOptimizerFactory.createOptimizerByDeviceAddress(0x7112);
-            }).then((optimizer) => {
-                expect(optimizer).a('object');
-            });
+        it('should work correctly for RESOL DeltaSol BX Plus', async () => {
+            const optimizer = await ConfigurationOptimizerFactory.createOptimizerByDeviceAddress(0x7112);
+
+            expect(optimizer).toBeInstanceOf(ConfigurationOptimizer);
         });
 
-        it('should work correctly for RESOL DeltaSol CS Plus', () => {
-            return wrapAsPromise(() => {
-                return ConfigurationOptimizerFactory.createOptimizerByDeviceAddress(0x2211);
-            }).then((optimizer) => {
-                expect(optimizer).a('object');
-            });
+        it('should work correctly for RESOL DeltaSol CS Plus', async () => {
+            const optimizer = await ConfigurationOptimizerFactory.createOptimizerByDeviceAddress(0x2211);
+
+            expect(optimizer).toBeInstanceOf(ConfigurationOptimizer);
         });
 
-        it('should work correctly for RESOL DeltaSol MX', () => {
-            return wrapAsPromise(() => {
-                return ConfigurationOptimizerFactory.createOptimizerByDeviceAddress(0x7E11);
-            }).then((optimizer) => {
-                expect(optimizer).a('object');
-            });
+        it('should work correctly for RESOL DeltaSol MX', async () => {
+            const optimizer = await ConfigurationOptimizerFactory.createOptimizerByDeviceAddress(0x7E11);
+
+            expect(optimizer).toBeInstanceOf(ConfigurationOptimizer);
         });
 
-        it('should work correctly for RESOL DeltaSol SLT', () => {
-            return wrapAsPromise(() => {
-                return ConfigurationOptimizerFactory.createOptimizerByDeviceAddress(0x1001);
-            }).then((optimizer) => {
-                expect(optimizer).a('object');
-            });
+        it('should work correctly for RESOL DeltaSol SLT', async () => {
+            const optimizer = await ConfigurationOptimizerFactory.createOptimizerByDeviceAddress(0x1001);
+
+            expect(optimizer).toBeInstanceOf(ConfigurationOptimizer);
         });
 
-        it('should work correctly for RESOL DeltaTherm HC', () => {
-            return wrapAsPromise(() => {
-                return ConfigurationOptimizerFactory.createOptimizerByDeviceAddress(0x5400);
-            }).then((optimizer) => {
-                expect(optimizer).a('object');
-            });
+        it('should work correctly for RESOL DeltaTherm HC', async () => {
+            const optimizer = await ConfigurationOptimizerFactory.createOptimizerByDeviceAddress(0x5400);
+
+            expect(optimizer).toBeInstanceOf(ConfigurationOptimizer);
         });
-
-
 
     });
 

@@ -6,72 +6,97 @@ const {
 } = require('./resol-vbus');
 
 
-const expect = require('./expect');
-
 const {
-    itShouldWorkCorrectlyAfterMigratingToClass,
+    expect,
+    expectOwnPropertyNamesToEqual,
+    expectTimestampToBeWithin,
+    itShouldBeAClass,
 } = require('./test-utils');
 
 
 
 describe('Telegram', () => {
 
+    itShouldBeAClass(Telegram, Header, {
+        command: 0,
+        frameData: null,
+        constructor: Function,
+        toLiveBuffer: Function,
+        getProtocolVersion: Function,
+        getId: Function,
+        compareTo: Function,
+        getFrameCount: Function,
+    }, {
+        fromLiveBuffer: Function,
+        getFrameCountForCommand: Function,
+    });
+
     describe('constructor', () => {
 
-        it('should be a constructor function', () => {
-            expect(Telegram).to.be.a('function');
-
-        });
-
         it('should have reasonable defaults', () => {
+            const before = new Date();
+
             const telegram = new Telegram();
 
-            expect(telegram).to.have.a.property('destinationAddress').that.is.equal(0);
-            expect(telegram).to.have.a.property('sourceAddress').that.is.equal(0);
-            expect(telegram).to.have.a.property('command').that.is.equal(0);
-            expect(telegram).to.have.a.property('frameData').that.is.an.instanceOf(Buffer).that.has.a.lengthOf(21);
+            const after = new Date();
+
+            expectOwnPropertyNamesToEqual(telegram, [
+                'command',
+                'frameData',
+
+                // base class related
+                'timestamp',
+                'channel',
+                'destinationAddress',
+                'sourceAddress',
+                'minorVersion',
+            ]);
+
+            expectTimestampToBeWithin(telegram.timestamp, before, after);
+            expect(telegram.channel).toBe(0);
+            expect(telegram.destinationAddress).toBe(0);
+            expect(telegram.sourceAddress).toBe(0);
+            expect(telegram.minorVersion).toBe(0);
+            expect(telegram.command).toBe(0);
+            expect(telegram.frameData).toHaveLength(21);
         });
 
         it('should copy selected options', () => {
             const options = {
+                timestamp: new Date(0),
+                channel: 0x11,
                 destinationAddress: 0x1111,
                 sourceAddress: 0x2222,
+                minorVersion: 0x05,
                 command: 0x3333,
                 frameData: Buffer.from('123456712345671234567123456712345671234567', 'hex'),
             };
 
             const telegram = new Telegram(options);
 
-            expect(telegram).to.have.a.property('destinationAddress').that.is.equal(options.destinationAddress);
-            expect(telegram).to.have.a.property('sourceAddress').that.is.equal(options.sourceAddress);
-            expect(telegram).to.have.a.property('command').that.is.equal(options.command);
-            expect(telegram).to.have.a.property('frameData').that.is.eql(options.frameData).that.is.not.equal(options.frameData);
+            expect(telegram.timestamp).toBe(options.timestamp);
+            expect(telegram.channel).toBe(options.channel);
+            expect(telegram.destinationAddress).toBe(options.destinationAddress);
+            expect(telegram.sourceAddress).toBe(options.sourceAddress);
+            expect(telegram.minorVersion).toBe(options.minorVersion);
+            expect(telegram.command).toBe(options.command);
+            expect(telegram.frameData.toString('hex')).toBe(options.frameData.toString('hex'));
         });
 
-        it('should not copy frameData', () => {
+        it('should respect the dontCopyFrameData option', () => {
             const options = {
-                destinationAddress: 0x1111,
-                sourceAddress: 0x2222,
-                command: 0x3333,
                 frameData: Buffer.from('123456712345671234567123456712345671234567', 'hex'),
                 dontCopyFrameData: true,
             };
 
             const telegram = new Telegram(options);
 
-            expect(telegram).to.have.a.property('destinationAddress').that.is.equal(options.destinationAddress);
-            expect(telegram).to.have.a.property('sourceAddress').that.is.equal(options.sourceAddress);
-            expect(telegram).to.have.a.property('command').that.is.equal(options.command);
-            expect(telegram).to.have.a.property('frameData').that.is.equal(options.frameData);
+            expect(telegram.frameData).toBe(options.frameData);
         });
 
     });
 
     describe('#toLiveBuffer', () => {
-
-        it('should be a method', () => {
-            expect(Telegram.prototype).to.have.a.property('toLiveBuffer').that.is.a('function');
-        });
 
         it('should work correctly without a buffer', () => {
             const frameData = Buffer.alloc(21);
@@ -88,7 +113,7 @@ describe('Telegram', () => {
 
             const buffer = telegram.toLiveBuffer();
 
-            expect(buffer.toString('hex')).to.equal('aa2211443330772e000c1824303c48000354606c7804101c70472834404c5864707f6c');
+            expect(buffer.toString('hex')).toBe('aa2211443330772e000c1824303c48000354606c7804101c70472834404c5864707f6c');
         });
 
         it('should work correctly with a buffer', () => {
@@ -108,7 +133,7 @@ describe('Telegram', () => {
 
             const buffer = telegram.toLiveBuffer(bigBuffer, 100, 200);
 
-            expect(buffer.toString('hex')).to.equal('aa2211443330772e000c1824303c48000354606c7804101c70472834404c5864707f6c');
+            expect(buffer.toString('hex')).toBe('aa2211443330772e000c1824303c48000354606c7804101c70472834404c5864707f6c');
         });
 
         it('should throw if buffer is too small', () => {
@@ -128,51 +153,44 @@ describe('Telegram', () => {
 
             expect(() => {
                 telegram.toLiveBuffer(bigBuffer, 100, 10);
-            }).to.throw();
+            }).toThrow('Buffer too small');
         });
 
     });
 
     describe('.fromLiveBuffer', () => {
 
-        it('should be a method', () => {
-            expect(Telegram).to.have.a.property('fromLiveBuffer').that.is.a('function');
-        });
-
         it('should work correctly', () => {
             const options = {
                 destinationAddress: 0x7771,
                 sourceAddress: 0x2011,
+                minorVersion: 0x00,
                 command: 0x25,
                 frameData: Buffer.from('6018ab04000000', 'hex'),
             };
 
             const buffer = Buffer.from('AA7177112030251160182B040000000454', 'hex');
 
+            const before = new Date();
+
             const telegram = Telegram.fromLiveBuffer(buffer, 0, buffer.length);
 
-            expect(telegram).to.be.an.instanceOf(Telegram);
+            const after = new Date();
 
-            for (const key of Object.getOwnPropertyNames(options)) {
-                let refValue = options [key];
-                let value = telegram [key];
+            expect(telegram).toBeInstanceOf(Telegram);
 
-                if ((value instanceof Buffer) && (refValue instanceof Buffer)) {
-                    value = value.slice(0, refValue.length).toString('hex');
-                    refValue = refValue.toString('hex');
-                }
-
-                expect(value).to.equal(refValue, key);
-            }
+            expectTimestampToBeWithin(telegram.timestamp, before, after);
+            expect(telegram.channel).toBe(0);
+            expect(telegram.destinationAddress).toBe(options.destinationAddress);
+            expect(telegram.sourceAddress).toBe(options.sourceAddress);
+            expect(telegram.minorVersion).toBe(options.minorVersion);
+            expect(telegram.command).toBe(options.command);
+            expect(telegram.frameData.slice(0, 7)).toEqual(options.frameData);
         });
 
     });
 
     describe('#getId', () => {
-
-        it('should be a method', () => {
-            expect(Telegram.prototype).to.have.a.property('getId').that.is.a('function');
-        });
 
         it('should work correctly', () => {
             const frameData = Buffer.alloc(21);
@@ -188,15 +206,12 @@ describe('Telegram', () => {
                 frameData,
             });
 
-            expect(telegram).to.be.an('object');
-            expect(telegram.getId()).to.equal('13_1122_3344_30_77');
+            expect(telegram.getId()).toBe('13_1122_3344_30_77');
         });
 
     });
 
     describe('#compareTo', () => {
-
-        const expect = global.expect;
 
         it('should work correctly', () => {
             const frameData = Buffer.alloc(21);
@@ -227,20 +242,6 @@ describe('Telegram', () => {
             expect(telegram1.compareTo(telegram2)).toBe(-1);
         });
 
-    });
-
-    itShouldWorkCorrectlyAfterMigratingToClass(Telegram, Header, {
-        command: 0,
-        frameData: null,
-        constructor: Function,
-        toLiveBuffer: Function,
-        getProtocolVersion: Function,
-        getId: Function,
-        compareTo: Function,
-        getFrameCount: Function,
-    }, {
-        fromLiveBuffer: Function,
-        getFrameCountForCommand: Function,
     });
 
 });

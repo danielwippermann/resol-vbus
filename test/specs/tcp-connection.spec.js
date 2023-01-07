@@ -7,16 +7,15 @@ const {
 } = require('./resol-vbus');
 
 
-const jestExpect = global.expect;
-const expect = require('./expect');
 const {
-    expectPromiseToReject,
-    itShouldWorkCorrectlyAfterMigratingToClass,
+    expect,
+    itShouldBeAClass,
+    expectOwnPropertyNamesToEqual,
 } = require('./test-utils');
 
 
 
-const testConnection = async function(callback) {
+async function testConnection(callback) {
     const endpoint = new TcpConnectionEndpoint({
         port: 0,
     });
@@ -56,7 +55,7 @@ const testConnection = async function(callback) {
 
         connection.port = endpoint.port;
 
-        expect(connection.connectionState).to.equal(TcpConnection.STATE_DISCONNECTED);
+        expect(connection.connectionState).toBe(TcpConnection.STATE_DISCONNECTED);
 
         return await callback(connection, endpoint, createEndpointInfoPromise);
     } finally {
@@ -73,28 +72,67 @@ const testConnection = async function(callback) {
 
         endpoint.removeListener('connection', onConnection);
     }
-};
+}
 
 
 
 describe('TcpConnection', () => {
 
-    describe('constructor', () => {
+    itShouldBeAClass(TcpConnection, Connection, {
+        host: null,
+        port: null,
+        viaTag: null,
+        password: null,
+        channelListCallback: null,
+        channel: 0,
+        rawVBusDataOnly: false,
+        tlsOptions: null,
+        reconnectTimeout: 0,
+        reconnectTimeoutIncr: 10000,
+        reconnectTimeoutMax: 60000,
+        constructor: Function,
+        connect: Function,
+        disconnect: Function,
+        _connect: Function,
+    }, {
 
-        it('should be a constructor function', () => {
-            expect(TcpConnection).to.be.a('function');
-        });
+    });
+
+    describe('constructor', () => {
 
         it('should have reasonable defaults', () => {
             const connection = new TcpConnection();
 
-            expect(connection.host).to.equal(null);
-            expect(connection.port).to.equal(7053);
-            expect(connection.viaTag).to.equal(null);
-            expect(connection.password).to.equal(null);
-            expect(connection.channelListCallback).to.equal(null);
-            expect(connection.channel).to.equal(0);
-            expect(connection.rawVBusDataOnly).to.equal(false);
+            expectOwnPropertyNamesToEqual(connection, [
+                'host',
+                'port',
+                'viaTag',
+                'password',
+                'channelListCallback',
+                'channel',
+                'rawVBusDataOnly',
+                'tlsOptions',
+
+                'selfAddress',
+
+                // base class related
+                '_events',
+                '_eventsCount',
+                '_maxListeners',
+                '_readableState',
+                '_writableState',
+                'allowHalfOpen',
+            ]);
+
+            expect(connection.host).toBe(null);
+            expect(connection.port).toBe(7053);
+            expect(connection.viaTag).toBe(null);
+            expect(connection.password).toBe(null);
+            expect(connection.channelListCallback).toBe(null);
+            expect(connection.channel).toBe(0);
+            expect(connection.rawVBusDataOnly).toBe(false);
+            expect(connection.tlsOptions).toBe(null);
+            expect(connection.selfAddress).toBe(0x0020);
         });
 
         it('should copy selected options', () => {
@@ -106,31 +144,31 @@ describe('TcpConnection', () => {
                 channelListCallback: async () => '9',
                 channel: '9',
                 rawVBusDataOnly: true,
+                tlsOptions: {},
+                selfAddress: 0x0022,
                 junk: 'JUNK',
             };
 
             const connection = new TcpConnection(options);
 
-            expect(connection.host).to.equal(options.host);
-            expect(connection.port).to.equal(options.port);
-            expect(connection.viaTag).to.equal(options.viaTag);
-            expect(connection.password).to.equal(options.password);
-            expect(connection.channelListCallback).to.equal(options.channelListCallback);
-            expect(connection.channel).to.equal(options.channel);
-            expect(connection.rawVBusDataOnly).to.equal(options.rawVBusDataOnly);
-            expect(connection.junk).to.equal(undefined);
+            expect(connection.host).toBe(options.host);
+            expect(connection.port).toBe(options.port);
+            expect(connection.viaTag).toBe(options.viaTag);
+            expect(connection.password).toBe(options.password);
+            expect(connection.channelListCallback).toBe(options.channelListCallback);
+            expect(connection.channel).toBe(options.channel);
+            expect(connection.rawVBusDataOnly).toBe(options.rawVBusDataOnly);
+            expect(connection.tlsOptions).toBe(options.tlsOptions);
+            expect(connection.selfAddress).toBe(options.selfAddress);
+            expect(connection.junk).toBe(undefined);
         });
 
     });
 
     describe('#connect', () => {
 
-        it('should be a method', () => {
-            expect(TcpConnection.prototype).to.have.a.property('connect').that.is.a('function');
-        });
-
-        it('should work correctly if disconnected', () => {
-            return testConnection(async (connection, endpoint, createEndpointInfoPromise) => {
+        it('should work correctly if disconnected', async () => {
+            await testConnection(async (connection, endpoint, createEndpointInfoPromise) => {
                 const onConnectionState = sinon.spy();
 
                 const options = {
@@ -150,22 +188,22 @@ describe('TcpConnection', () => {
 
                     const epi = await epiPromise;
 
-                    expect(connection.connectionState).to.equal(TcpConnection.STATE_CONNECTED);
-                    expect(onConnectionState.callCount).to.equal(2);
-                    expect(onConnectionState.firstCall.args [0]).to.equal(TcpConnection.STATE_CONNECTING);
-                    expect(onConnectionState.secondCall.args [0]).to.equal(TcpConnection.STATE_CONNECTED);
+                    expect(connection.connectionState).toBe(TcpConnection.STATE_CONNECTED);
+                    expect(onConnectionState.callCount).toBe(2);
+                    expect(onConnectionState.firstCall.args [0]).toBe(TcpConnection.STATE_CONNECTING);
+                    expect(onConnectionState.secondCall.args [0]).toBe(TcpConnection.STATE_CONNECTED);
 
-                    expect(epi.viaTag).to.equal(options.viaTag);
-                    expect(epi.password).to.equal(options.password);
-                    expect(epi.channel).to.equal('9');
+                    expect(epi.viaTag).toBe(options.viaTag);
+                    expect(epi.password).toBe(options.password);
+                    expect(epi.channel).toBe('9');
                 } finally {
                     connection.removeListener('connectionState', onConnectionState);
                 }
             });
         });
 
-        it('should work correctly with sync channelListCallback and string response', () => {
-            return testConnection(async (connection, endpoint, createEndpointInfoPromise) => {
+        it('should work correctly with sync channelListCallback and string response', async () => {
+            await testConnection(async (connection, endpoint, createEndpointInfoPromise) => {
                 const onConnectionState = sinon.spy();
 
                 const options = {
@@ -187,24 +225,24 @@ describe('TcpConnection', () => {
 
                     const epi = await epiPromise;
 
-                    expect(connection.connectionState).to.equal(TcpConnection.STATE_CONNECTED);
-                    expect(onConnectionState.callCount).to.equal(2);
-                    expect(onConnectionState.firstCall.args [0]).to.equal(TcpConnection.STATE_CONNECTING);
-                    expect(onConnectionState.secondCall.args [0]).to.equal(TcpConnection.STATE_CONNECTED);
+                    expect(connection.connectionState).toBe(TcpConnection.STATE_CONNECTED);
+                    expect(onConnectionState.callCount).toBe(2);
+                    expect(onConnectionState.firstCall.args [0]).toBe(TcpConnection.STATE_CONNECTING);
+                    expect(onConnectionState.secondCall.args [0]).toBe(TcpConnection.STATE_CONNECTED);
 
-                    expect(epi.viaTag).to.equal(options.viaTag);
-                    expect(epi.password).to.equal(options.password);
-                    expect(epi.channel).to.equal('9');
+                    expect(epi.viaTag).toBe(options.viaTag);
+                    expect(epi.password).toBe(options.password);
+                    expect(epi.channel).toBe('9');
 
-                    expect(connection.channelListCallback.callCount).to.equal(1);
+                    expect(connection.channelListCallback.callCount).toBe(1);
                 } finally {
                     connection.removeListener('connectionState', onConnectionState);
                 }
             });
         });
 
-        it('should work correctly with sync, but delayed channelListCallback', () => {
-            return testConnection(async (connection, endpoint, createEndpointInfoPromise) => {
+        it('should work correctly with sync, but delayed channelListCallback', async () => {
+            await testConnection(async (connection, endpoint, createEndpointInfoPromise) => {
                 const onConnectionState = sinon.spy();
 
                 const options = {
@@ -228,24 +266,24 @@ describe('TcpConnection', () => {
 
                     const epi = await epiPromise;
 
-                    expect(connection.connectionState).to.equal(TcpConnection.STATE_CONNECTED);
-                    expect(onConnectionState.callCount).to.equal(2);
-                    expect(onConnectionState.firstCall.args [0]).to.equal(TcpConnection.STATE_CONNECTING);
-                    expect(onConnectionState.secondCall.args [0]).to.equal(TcpConnection.STATE_CONNECTED);
+                    expect(connection.connectionState).toBe(TcpConnection.STATE_CONNECTED);
+                    expect(onConnectionState.callCount).toBe(2);
+                    expect(onConnectionState.firstCall.args [0]).toBe(TcpConnection.STATE_CONNECTING);
+                    expect(onConnectionState.secondCall.args [0]).toBe(TcpConnection.STATE_CONNECTED);
 
-                    expect(epi.viaTag).to.equal(options.viaTag);
-                    expect(epi.password).to.equal(options.password);
-                    expect(epi.channel).to.equal('9');
+                    expect(epi.viaTag).toBe(options.viaTag);
+                    expect(epi.password).toBe(options.password);
+                    expect(epi.channel).toBe('9');
 
-                    expect(connection.channelListCallback.callCount).to.equal(1);
+                    expect(connection.channelListCallback.callCount).toBe(1);
                 } finally {
                     connection.removeListener('connectionState', onConnectionState);
                 }
             });
         });
 
-        it('should work correctly with async channelListCallback and number response', () => {
-            return testConnection(async (connection, endpoint, createEndpointInfoPromise) => {
+        it('should work correctly with async channelListCallback and number response', async () => {
+            await testConnection(async (connection, endpoint, createEndpointInfoPromise) => {
                 const onConnectionState = sinon.spy();
 
                 const options = {
@@ -267,24 +305,24 @@ describe('TcpConnection', () => {
 
                     const epi = await epiPromise;
 
-                    expect(connection.connectionState).to.equal(TcpConnection.STATE_CONNECTED);
-                    expect(onConnectionState.callCount).to.equal(2);
-                    expect(onConnectionState.firstCall.args [0]).to.equal(TcpConnection.STATE_CONNECTING);
-                    expect(onConnectionState.secondCall.args [0]).to.equal(TcpConnection.STATE_CONNECTED);
+                    expect(connection.connectionState).toBe(TcpConnection.STATE_CONNECTED);
+                    expect(onConnectionState.callCount).toBe(2);
+                    expect(onConnectionState.firstCall.args [0]).toBe(TcpConnection.STATE_CONNECTING);
+                    expect(onConnectionState.secondCall.args [0]).toBe(TcpConnection.STATE_CONNECTED);
 
-                    expect(epi.viaTag).to.equal(options.viaTag);
-                    expect(epi.password).to.equal(options.password);
-                    expect(epi.channel).to.equal('9');
+                    expect(epi.viaTag).toBe(options.viaTag);
+                    expect(epi.password).toBe(options.password);
+                    expect(epi.channel).toBe('9');
 
-                    expect(connection.channelListCallback.callCount).to.equal(1);
+                    expect(connection.channelListCallback.callCount).toBe(1);
                 } finally {
                     connection.removeListener('connectionState', onConnectionState);
                 }
             });
         });
 
-        it('should work correctly with async channelListCallback and object response', () => {
-            return testConnection(async (connection, endpoint, createEndpointInfoPromise) => {
+        it('should work correctly with async channelListCallback and object response', async () => {
+            await testConnection(async (connection, endpoint, createEndpointInfoPromise) => {
                 const onConnectionState = sinon.spy();
 
                 const options = {
@@ -306,24 +344,24 @@ describe('TcpConnection', () => {
 
                     const epi = await epiPromise;
 
-                    expect(connection.connectionState).to.equal(TcpConnection.STATE_CONNECTED);
-                    expect(onConnectionState.callCount).to.equal(2);
-                    expect(onConnectionState.firstCall.args [0]).to.equal(TcpConnection.STATE_CONNECTING);
-                    expect(onConnectionState.secondCall.args [0]).to.equal(TcpConnection.STATE_CONNECTED);
+                    expect(connection.connectionState).toBe(TcpConnection.STATE_CONNECTED);
+                    expect(onConnectionState.callCount).toBe(2);
+                    expect(onConnectionState.firstCall.args [0]).toBe(TcpConnection.STATE_CONNECTING);
+                    expect(onConnectionState.secondCall.args [0]).toBe(TcpConnection.STATE_CONNECTED);
 
-                    expect(epi.viaTag).to.equal(options.viaTag);
-                    expect(epi.password).to.equal(options.password);
-                    expect(epi.channel).to.equal(undefined);
+                    expect(epi.viaTag).toBe(options.viaTag);
+                    expect(epi.password).toBe(options.password);
+                    expect(epi.channel).toBe(undefined);
 
-                    expect(connection.channelListCallback.callCount).to.equal(1);
+                    expect(connection.channelListCallback.callCount).toBe(1);
                 } finally {
                     connection.removeListener('connectionState', onConnectionState);
                 }
             });
         });
 
-        it('should work correctly with async channelListCallback and error response', () => {
-            return testConnection(async (connection, endpoint, createEndpointInfoPromise) => {
+        it('should work correctly with async channelListCallback and error response', async () => {
+            await testConnection(async (connection, endpoint, createEndpointInfoPromise) => {
                 const onConnectionState = sinon.spy();
 
                 const options = {
@@ -339,29 +377,29 @@ describe('TcpConnection', () => {
                 connection.on('connectionState', onConnectionState);
 
                 try {
-                    await connection.connect().then(() => {
-                        jestExpect(() => {}).toThrow();
-                    }, err => {
-                        jestExpect(err.message).toBe('No suitable channel found');
-                    });
+                    await expect(async () => {
+                        await connection.connect();
+                    }).rejects.toThrow('No suitable channel found');
 
-                    expect(connection.connectionState).to.equal(TcpConnection.STATE_DISCONNECTED);
-                    expect(onConnectionState.callCount).to.equal(2);
-                    expect(onConnectionState.firstCall.args [0]).to.equal(TcpConnection.STATE_CONNECTING);
-                    expect(onConnectionState.secondCall.args [0]).to.equal(TcpConnection.STATE_DISCONNECTED);
+                    expect(connection.connectionState).toBe(TcpConnection.STATE_DISCONNECTED);
+                    expect(onConnectionState.callCount).toBe(2);
+                    expect(onConnectionState.firstCall.args [0]).toBe(TcpConnection.STATE_CONNECTING);
+                    expect(onConnectionState.secondCall.args [0]).toBe(TcpConnection.STATE_DISCONNECTED);
 
-                    expect(connection.channelListCallback.callCount).to.equal(1);
+                    expect(connection.channelListCallback.callCount).toBe(1);
                 } finally {
                     connection.removeListener('connectionState', onConnectionState);
                 }
             });
         });
 
-        it('should throw if not disconnected', () => {
-            return testConnection(async (connection, endpoint) => {
+        it('should throw if not disconnected', async () => {
+            await testConnection(async (connection, endpoint) => {
                 await connection.connect();
 
-                await expectPromiseToReject(connection.connect());
+                await expect(async () => {
+                    await connection.connect();
+                }).rejects.toThrow();
             });
         });
 
@@ -369,20 +407,16 @@ describe('TcpConnection', () => {
 
     describe('#disconnect', () => {
 
-        it('should be a method', () => {
-            expect(TcpConnection.prototype).to.have.a.property('disconnect').that.is.a('function');
-        });
-
-        it('should work correctly if disconnected', () => {
+        it('should work correctly if disconnected', async () => {
             return testConnection((connection) => {
                 connection.disconnect();
 
-                expect(connection.connectionState).to.equal(TcpConnection.STATE_DISCONNECTED);
+                expect(connection.connectionState).toBe(TcpConnection.STATE_DISCONNECTED);
             });
         });
 
-        it('should work correctly if connected', () => {
-            return testConnection(async (connection) => {
+        it('should work correctly if connected', async () => {
+            await testConnection(async (connection) => {
                 const onConnectionState = sinon.spy();
 
                 connection.on('connectionState', onConnectionState);
@@ -401,8 +435,8 @@ describe('TcpConnection', () => {
 
     describe('Automatic reconnection', () => {
 
-        it('should reconnect when connected', () => {
-            return testConnection(async (connection, endpoint, createEndpointInfoPromise) => {
+        it('should reconnect when connected', async () => {
+            await testConnection(async (connection, endpoint, createEndpointInfoPromise) => {
                 const onConnectionState = sinon.spy();
 
                 connection.on('connectionState', onConnectionState);
@@ -414,9 +448,9 @@ describe('TcpConnection', () => {
 
                     const epi = await epiPromise;
 
-                    expect(onConnectionState.callCount).to.equal(2);
-                    expect(onConnectionState.firstCall.args [0]).to.equal(TcpConnection.STATE_CONNECTING);
-                    expect(onConnectionState.secondCall.args [0]).to.equal(TcpConnection.STATE_CONNECTED);
+                    expect(onConnectionState.callCount).toBe(2);
+                    expect(onConnectionState.firstCall.args [0]).toBe(TcpConnection.STATE_CONNECTING);
+                    expect(onConnectionState.secondCall.args [0]).toBe(TcpConnection.STATE_CONNECTED);
 
                     epiPromise = createEndpointInfoPromise();
 
@@ -424,9 +458,9 @@ describe('TcpConnection', () => {
 
                     await epiPromise;
 
-                    expect(onConnectionState.callCount).to.equal(4);
-                    expect(onConnectionState.getCall(2).args [0]).to.equal(TcpConnection.STATE_INTERRUPTED);
-                    expect(onConnectionState.getCall(3).args [0]).to.equal(TcpConnection.STATE_RECONNECTING);
+                    expect(onConnectionState.callCount).toBe(4);
+                    expect(onConnectionState.getCall(2).args [0]).toBe(TcpConnection.STATE_INTERRUPTED);
+                    expect(onConnectionState.getCall(3).args [0]).toBe(TcpConnection.STATE_RECONNECTING);
 
                     await connection.disconnect();
                 } finally {
@@ -435,26 +469,6 @@ describe('TcpConnection', () => {
             });
 
         });
-
-    });
-
-    itShouldWorkCorrectlyAfterMigratingToClass(TcpConnection, Connection, {
-        host: null,
-        port: null,
-        viaTag: null,
-        password: null,
-        channelListCallback: null,
-        channel: 0,
-        rawVBusDataOnly: false,
-        tlsOptions: null,
-        reconnectTimeout: 0,
-        reconnectTimeoutIncr: 10000,
-        reconnectTimeoutMax: 60000,
-        constructor: Function,
-        connect: Function,
-        disconnect: Function,
-        _connect: Function,
-    }, {
 
     });
 

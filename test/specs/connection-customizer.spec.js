@@ -10,12 +10,11 @@ const {
 } = require('./resol-vbus');
 
 
-const jestExpect = global.expect;
-const expect = require('./expect');
 const {
-    expectPromiseToReject,
-    itShouldWorkCorrectlyAfterMigratingToClass,
-    wrapAsPromise,
+    expect,
+    expectOwnPropertyNamesToEqual,
+    expectTypeToBe,
+    itShouldBeAClass,
 } = require('./test-utils');
 
 
@@ -24,136 +23,135 @@ const optimizerPromise = ConfigurationOptimizerFactory.createOptimizerByDeviceAd
 
 
 
-const promiseTestContext = function(options, callback) {
-    return wrapAsPromise(() => {
-        return optimizerPromise;
-    }).then((optimizer) => {
-        const context = {};
+const promiseTestContext = async function(options, callback) {
+    const baseOptimizer = await optimizerPromise;
 
-        const TestableOptimizer = function() {
-        };
+    const context = {};
 
-        TestableOptimizer.prototype = optimizer;
+    const optimizer = Object.create(baseOptimizer, {
 
-        optimizer = new TestableOptimizer();
+        // completeConfiguration: sinon.spy(baseOptimizer.completeConfiguration),
 
-        optimizer.completeConfiguration = sinon.spy(optimizer.completeConfiguration);
-        optimizer.optimizeLoadConfiguration = sinon.spy(optimizer.optimizeLoadConfiguration);
-        optimizer.optimizeSaveConfiguration = sinon.spy(optimizer.optimizeSaveConfiguration);
+        // optimizeLoadConfiguration: sinon.spy(baseOptimizer.optimizeLoadConfiguration),
 
-        class TestableConnectionCustomizer extends ConnectionCustomizer {
+        // optimizeSaveConfiguration: sinon.spy(baseOptimizer.optimizeSaveConfiguration),
 
-            transceiveValue(inValueInfo, value, options, state) {
-                const _this = this;
-
-                return wrapAsPromise(() => {
-                    const { valueIndex } = inValueInfo;
-
-                    const valueInfo = context.testConfigValueByIndex [valueIndex];
-
-                    if ((value !== undefined) && valueInfo) {
-                        valueInfo.value = value;
-                    }
-
-                    const dgram = new Datagram({
-                        destinationAddress: 0x0020,
-                        sourceAddress: _this.deviceAddress,
-                        command: 0x0100,
-                        valueIndex,
-                        value: valueInfo && valueInfo.value,
-                    });
-
-                    return dgram;
-                });
-            }
-
-        }
-
-        const connection = new Connection();
-
-        connection._setConnectionState(Connection.STATE_CONNECTED);
-
-        options = {
-            deviceAddress: 0x7E11,
-            connection,
-            ...options,
-        };
-
-        if (options.optimizer === true) {
-            options.optimizer = optimizer;
-        }
-
-        const customizer = new TestableConnectionCustomizer(options);
-
-        customizer.transceiveValue = sinon.spy(customizer.transceiveValue);
-
-        Object.assign(context, {
-            optimizer,
-            connection,
-            customizer,
-        });
-
-        return wrapAsPromise(() => {
-            return optimizer.completeConfiguration(options.testConfig);
-        }).then((testConfig) => {
-            for (const valueInfo of testConfig) {
-                if (valueInfo.value === undefined) {
-                    valueInfo.value = null;
-                }
-            }
-
-            context.testConfig = testConfig;
-
-            context.testConfigValueByIndex = testConfig.reduce((memo, valueInfo) => {
-                memo [valueInfo.valueIndex] = valueInfo;
-                return memo;
-            }, {});
-
-            return callback(customizer, optimizer, context);
-        }).then(() => {
-            // cleanup
-        });
     });
+
+    class TestableConnectionCustomizer extends ConnectionCustomizer {
+
+        async transceiveValue(inValueInfo, value, options, state) {
+            const { valueIndex } = inValueInfo;
+
+            const valueInfo = context.testConfigValueByIndex [valueIndex];
+
+            if ((value !== undefined) && valueInfo) {
+                valueInfo.value = value;
+            }
+
+            const dgram = new Datagram({
+                destinationAddress: 0x0020,
+                sourceAddress: this.deviceAddress,
+                command: 0x0100,
+                valueIndex,
+                value: valueInfo && valueInfo.value,
+            });
+
+            return dgram;
+        }
+
+    }
+
+    const connection = new Connection();
+
+    connection._setConnectionState(Connection.STATE_CONNECTED);
+
+    options = {
+        deviceAddress: 0x7E11,
+        connection,
+        ...options,
+    };
+
+    if (options.optimizer === true) {
+        options.optimizer = optimizer;
+    }
+
+    const customizer = new TestableConnectionCustomizer(options);
+
+    customizer.transceiveValue = sinon.spy(customizer.transceiveValue);
+
+    Object.assign(context, {
+        optimizer,
+        connection,
+        customizer,
+    });
+
+    const testConfig = await optimizer.completeConfiguration(options.testConfig);
+
+    for (const valueInfo of testConfig) {
+        if (valueInfo.value === undefined) {
+            valueInfo.value = null;
+        }
+    }
+
+    context.testConfig = testConfig;
+
+    context.testConfigValueByIndex = testConfig.reduce((memo, valueInfo) => {
+        memo [valueInfo.valueIndex] = valueInfo;
+        return memo;
+    }, {});
+
+    return await callback(customizer, optimizer, context);
 };
 
 
 
 describe('ConnectionCustomizer', () => {
 
-    describe('constructor', () => {
+    itShouldBeAClass(ConnectionCustomizer, Customizer, {
+        connection: null,
+        maxRounds: 10,
+        triesPerValue: 2,
+        timeoutPerValue: 30000,
+        masterTimeout: 8000,
+        constructor: Function,
+        _loadConfiguration: Function,
+        _saveConfiguration: Function,
+        transceiveConfiguration: Function,
+        transceiveValue: Function,
+    }, {
 
-        it('should be a constructor function', () => {
-            expect(ConnectionCustomizer)
-                .to.be.a('function');
-        });
+    });
+
+    describe('constructor', () => {
 
         it('should have reasonable defaults', () => {
             const customizer = new ConnectionCustomizer();
 
-            expect(customizer)
-                .to.have.a.property('id')
-                .that.is.equal(null);
-            expect(customizer)
-                .to.have.a.property('deviceAddress')
-                .that.is.equal(0);
-            expect(customizer)
-                .to.have.a.property('optimizer')
-                .that.is.equal(null);
-            expect(customizer)
-                .to.have.a.property('connection')
-                .that.is.equal(null);
-            expect(customizer)
-                .to.have.a.property('maxRounds')
-                .that.is.equal(10);
-            expect(customizer)
-                .to.have.a.property('triesPerValue')
-                .that.is.equal(2);
-            expect(customizer)
-                .to.have.a.property('timeoutPerValue')
-                .that.is.equal(30000);
-            expect(customizer)
-                .to.have.a.property('masterTimeout')
-                .that.is.equal(8000);
+            expectOwnPropertyNamesToEqual(customizer, [
+                'id',
+                'deviceAddress',
+                'optimizer',
+                'connection',
+                'maxRounds',
+                'triesPerValue',
+                'timeoutPerValue',
+                'masterTimeout',
+
+                // EventEmitter
+                '_events',
+                '_eventsCount',
+                '_maxListeners',
+            ]);
+
+            expect(customizer.id).toBe(null);
+            expect(customizer.deviceAddress).toBe(0);
+            expect(customizer.optimizer).toBe(null);
+            expect(customizer.connection).toBe(null);
+            expect(customizer.maxRounds).toBe(10);
+            expect(customizer.triesPerValue).toBe(2);
+            expect(customizer.timeoutPerValue).toBe(30000);
+            expect(customizer.masterTimeout).toBe(8000);
         });
 
         it('should copy selected properties', () => {
@@ -170,41 +168,21 @@ describe('ConnectionCustomizer', () => {
 
             const customizer = new ConnectionCustomizer(options);
 
-            expect(customizer)
-                .to.have.a.property('id')
-                .that.is.equal(options.id);
-            expect(customizer)
-                .to.have.a.property('deviceAddress')
-                .that.is.equal(options.deviceAddress);
-            expect(customizer)
-                .to.have.a.property('optimizer')
-                .that.is.equal(options.optimizer);
-            expect(customizer)
-                .to.have.a.property('connection')
-                .that.is.equal(options.connection);
-            expect(customizer)
-                .to.have.a.property('maxRounds')
-                .that.is.equal(options.maxRounds);
-            expect(customizer)
-                .to.have.a.property('triesPerValue')
-                .that.is.equal(options.triesPerValue);
-            expect(customizer)
-                .to.have.a.property('timeoutPerValue')
-                .that.is.equal(options.timeoutPerValue);
-            expect(customizer)
-                .to.have.a.property('masterTimeout')
-                .that.is.equal(options.masterTimeout);
+            expect(customizer.id).toBe(options.id);
+            expect(customizer.deviceAddress).toBe(options.deviceAddress);
+            expect(customizer.optimizer).toBe(options.optimizer);
+            expect(customizer.connection).toBe(options.connection);
+            expect(customizer.maxRounds).toBe(options.maxRounds);
+            expect(customizer.triesPerValue).toBe(options.triesPerValue);
+            expect(customizer.timeoutPerValue).toBe(options.timeoutPerValue);
+            expect(customizer.masterTimeout).toBe(options.masterTimeout);
         });
 
     });
 
     describe('#loadConfiguration', () => {
 
-        it('should be a method', () => {
-            expect(ConnectionCustomizer.prototype).property('loadConfiguration').a('function');
-        });
-
-        it('should work correctly without optimizer and optimization', () => {
+        it('should work correctly without optimizer and optimization', async () => {
             const options = {
                 optimizer: null,
                 testConfig: {
@@ -213,56 +191,48 @@ describe('ConnectionCustomizer', () => {
                 },
             };
 
-            return promiseTestContext(options, (customizer, optimizer, context) => {
+            return await promiseTestContext(options, async (customizer, optimizer, context) => {
                 const refConfig = [{
                     id: 'Relais_Regler_R1_Handbetrieb',
                 }, {
                     id: 'Relais_Regler_R2_Handbetrieb',
                 }];
 
-                return wrapAsPromise(() => {
-                    // manually complete configuration, don't let the customizer do it...
-                    return optimizer.completeConfiguration(refConfig);
-                }).then((config) => {
-                    let value;
-                    expect(config).an('array').lengthOf(2);
+                // manually complete configuration, don't let the customizer do it...
+                const config1 = await optimizer.completeConfiguration(refConfig);
 
-                    value = config [0];
-                    expect(value).an('object');
-                    expect(value).property('valueIndex').equal(1285);
+                let value;
+                expect(config1).toHaveLength(2);
 
-                    value = config [1];
-                    expect(value).an('object');
-                    expect(value).property('valueIndex').equal(1297);
+                value = config1 [0];
+                expect(value.valueIndex).toBe(1285);
 
-                    return customizer.loadConfiguration(config, {
-                        optimize: false,
-                    });
-                }).then((config) => {
-                    let value;
-                    expect(config).an('array').lengthOf(2);
+                value = config1 [1];
+                expect(value.valueIndex).toBe(1297);
 
-                    value = config [0];
-                    expect(value).an('object');
-                    expect(value).property('valueIndex').equal(1285);
-                    expect(value).property('value').equal(-1285);
-                    expect(value).property('pending').equal(false);
-                    expect(value).property('transceived').equal(true);
-
-                    value = config [1];
-                    expect(value).an('object');
-                    expect(value).property('valueIndex').equal(1297);
-                    expect(value).property('value').equal(-1297);
-                    expect(value).property('pending').equal(false);
-                    expect(value).property('transceived').equal(true);
-
-                    expect(customizer.transceiveValue).property('callCount').equal(2);
+                const config2 = await customizer.loadConfiguration(config1, {
+                    optimize: false,
                 });
 
+                expect(config2).toHaveLength(2);
+
+                value = config2 [0];
+                expect(value.valueIndex).toBe(1285);
+                expect(value.value).toBe(-1285);
+                expect(value.pending).toBe(false);
+                expect(value.transceived).toBe(true);
+
+                value = config2 [1];
+                expect(value.valueIndex).toBe(1297);
+                expect(value.value).toBe(-1297);
+                expect(value.pending).toBe(false);
+                expect(value.transceived).toBe(true);
+
+                expect(customizer.transceiveValue.callCount).toBe(2);
             });
         });
 
-        it('should work correctly with optimizer and without optimization', () => {
+        it('should work correctly with optimizer and without optimization', async () => {
             const options = {
                 optimizer: true,  // will be replaced with an object by `promiseTestContext`
                 testConfig: {
@@ -271,72 +241,62 @@ describe('ConnectionCustomizer', () => {
                 },
             };
 
-            return promiseTestContext(options, (customizer, optimizer, context) => {
+            return await promiseTestContext(options, async (customizer, optimizer, context) => {
                 const refConfig = [{
                     id: 'Relais_Regler_R1_Handbetrieb',
                 }, {
                     id: 'Relais_Regler_R2_Handbetrieb',
                 }];
 
-                return wrapAsPromise(() => {
-                    return customizer.loadConfiguration(refConfig, {
-                        optimize: false,
-                    });
-                }).then((config) => {
-                    let value;
-                    expect(config).an('array').lengthOf(2);
-
-                    value = config [0];
-                    expect(value).an('object');
-                    expect(value).property('valueIndex').equal(1285);
-                    expect(value).property('value').equal(-1285);
-                    expect(value).property('pending').equal(false);
-                    expect(value).property('transceived').equal(true);
-
-                    value = config [1];
-                    expect(value).an('object');
-                    expect(value).property('valueIndex').equal(1297);
-                    expect(value).property('value').equal(-1297);
-                    expect(value).property('pending').equal(false);
-                    expect(value).property('transceived').equal(true);
-
-                    expect(customizer.transceiveValue).property('callCount').equal(2);
+                const config1 = await customizer.loadConfiguration(refConfig, {
+                    optimize: false,
                 });
 
+                let value;
+                expect(config1).toHaveLength(2);
+
+                value = config1 [0];
+                expect(value.valueIndex).toBe(1285);
+                expect(value.value).toBe(-1285);
+                expect(value.pending).toBe(false);
+                expect(value.transceived).toBe(true);
+
+                value = config1 [1];
+                expect(value.valueIndex).toBe(1297);
+                expect(value.value).toBe(-1297);
+                expect(value.pending).toBe(false);
+                expect(value.transceived).toBe(true);
+
+                expect(customizer.transceiveValue.callCount).toBe(2);
             });
         });
 
-        it('should work correctly with optimization', () => {
+        it('should work correctly with optimization', async () => {
             const options = {
                 optimizer: true,  // will be replaced with an object by `promiseTestContext`
             };
 
-            return promiseTestContext(options, (customizer, optimizer, context) => {
-                return wrapAsPromise(() => {
-                    return customizer.loadConfiguration(null, {
-                        optimize: true,
-                    });
-                }).then((config) => {
-                    let value;
-                    expect(config).an('array').lengthOf(6291);
-
-                    value = config [64];
-                    expect(value).an('object');
-                    expect(value).property('valueIndex').equal(1285);
-                    expect(value).property('value').equal(null);
-                    expect(value).property('pending').equal(false);
-                    expect(value).property('transceived').equal(true);
-
-                    value = config [71];
-                    expect(value).an('object');
-                    expect(value).property('valueIndex').equal(1297);
-                    expect(value).property('value').equal(null);
-                    expect(value).property('pending').equal(false);
-                    expect(value).property('transceived').equal(true);
-
-                    expect(customizer.transceiveValue).property('callCount').equal(263);
+            return await promiseTestContext(options, async (customizer, optimizer, context) => {
+                const config1 = await customizer.loadConfiguration(null, {
+                    optimize: true,
                 });
 
+                let value;
+                expect(config1).toHaveLength(6291);
+
+                value = config1 [64];
+                expect(value.valueIndex).toBe(1285);
+                expect(value.value).toBe(null);
+                expect(value.pending).toBe(false);
+                expect(value.transceived).toBe(true);
+
+                value = config1 [71];
+                expect(value.valueIndex).toBe(1297);
+                expect(value.value).toBe(null);
+                expect(value.pending).toBe(false);
+                expect(value.transceived).toBe(true);
+
+                expect(customizer.transceiveValue.callCount).toBe(263);
             });
         });
 
@@ -344,16 +304,12 @@ describe('ConnectionCustomizer', () => {
 
     describe('#saveConfiguration', () => {
 
-        it('should be a method', () => {
-            expect(ConnectionCustomizer.prototype).property('saveConfiguration').a('function');
-        });
-
-        it('should work correctly without optimizer and optimization', () => {
+        it('should work correctly without optimizer and optimization', async () => {
             const options = {
                 optimizer: null,
             };
 
-            return promiseTestContext(options, (customizer, optimizer, context) => {
+            return await promiseTestContext(options, async (customizer, optimizer, context) => {
                 const refConfig = [{
                     id: 'Relais_Regler_R1_Handbetrieb',
                     value: 1,
@@ -362,54 +318,46 @@ describe('ConnectionCustomizer', () => {
                     value: 3,
                 }];
 
-                return wrapAsPromise(() => {
-                    // manually complete configuration, don't let the customizer do it...
-                    return optimizer.completeConfiguration(refConfig);
-                }).then((config) => {
-                    let value;
-                    expect(config).an('array').lengthOf(2);
+                // manually complete configuration, don't let the customizer do it...
+                const config1 = await optimizer.completeConfiguration(refConfig);
 
-                    value = config [0];
-                    expect(value).an('object');
-                    expect(value).property('valueIndex').equal(1285);
-                    expect(value).property('value').equal(1);
+                let value;
+                expect(config1).toHaveLength(2);
 
-                    value = config [1];
-                    expect(value).an('object');
-                    expect(value).property('valueIndex').equal(1297);
-                    expect(value).property('value').equal(3);
+                value = config1 [0];
+                expect(value.valueIndex).toBe(1285);
+                expect(value.value).toBe(1);
 
-                    return customizer.saveConfiguration(config, null, {
-                        optimize: false,
-                    });
-                }).then((config) => {
-                    let value;
-                    expect(config).an('array').lengthOf(2);
+                value = config1 [1];
+                expect(value.valueIndex).toBe(1297);
+                expect(value.value).toBe(3);
 
-                    value = config [0];
-                    expect(value).an('object');
-                    expect(value).property('valueIndex').equal(1285);
-                    expect(value).property('value').equal(1);
-                    expect(value).property('pending').equal(false);
-                    expect(value).property('transceived').equal(true);
-
-                    value = config [1];
-                    expect(value).an('object');
-                    expect(value).property('valueIndex').equal(1297);
-                    expect(value).property('value').equal(3);
-                    expect(value).property('pending').equal(false);
-                    expect(value).property('transceived').equal(true);
+                const config2 = await customizer.saveConfiguration(config1, null, {
+                    optimize: false,
                 });
 
+                expect(config2).toHaveLength(2);
+
+                value = config2 [0];
+                expect(value.valueIndex).toBe(1285);
+                expect(value.value).toBe(1);
+                expect(value.pending).toBe(false);
+                expect(value.transceived).toBe(true);
+
+                value = config2 [1];
+                expect(value.valueIndex).toBe(1297);
+                expect(value.value).toBe(3);
+                expect(value.pending).toBe(false);
+                expect(value.transceived).toBe(true);
             });
         });
 
-        it('should work correctly with optimizer and without optimization', () => {
+        it('should work correctly with optimizer and without optimization', async () => {
             const options = {
                 optimizer: true,  // will be replaced with an object by `promiseTestContext`
             };
 
-            return promiseTestContext(options, (customizer, optimizer, context) => {
+            return await promiseTestContext(options, async (customizer, optimizer, context) => {
                 const refConfig = [{
                     id: 'Relais_Regler_R1_Handbetrieb',
                     value: 1,
@@ -418,31 +366,26 @@ describe('ConnectionCustomizer', () => {
                     value: 3,
                 }];
 
-                return wrapAsPromise(() => {
-                    return customizer.saveConfiguration(refConfig, null, {
-                        optimize: false,
-                    });
-                }).then((config) => {
-                    let value;
-                    expect(config).an('array').lengthOf(2);
-
-                    value = config [0];
-                    expect(value).an('object');
-                    expect(value).property('valueIndex').equal(1285);
-                    expect(value).property('value').equal(1);
-                    expect(value).property('pending').equal(false);
-                    expect(value).property('transceived').equal(true);
-
-                    value = config [1];
-                    expect(value).an('object');
-                    expect(value).property('valueIndex').equal(1297);
-                    expect(value).property('value').equal(3);
-                    expect(value).property('pending').equal(false);
-                    expect(value).property('transceived').equal(true);
-
-                    expect(customizer.transceiveValue).property('callCount').equal(2);
+                const config1 = await customizer.saveConfiguration(refConfig, null, {
+                    optimize: false,
                 });
 
+                let value;
+                expect(config1).toHaveLength(2);
+
+                value = config1 [0];
+                expect(value.valueIndex).toBe(1285);
+                expect(value.value).toBe(1);
+                expect(value.pending).toBe(false);
+                expect(value.transceived).toBe(true);
+
+                value = config1 [1];
+                expect(value.valueIndex).toBe(1297);
+                expect(value.value).toBe(3);
+                expect(value.pending).toBe(false);
+                expect(value.transceived).toBe(true);
+
+                expect(customizer.transceiveValue.callCount).toBe(2);
             });
         });
 
@@ -458,13 +401,7 @@ describe('ConnectionCustomizer', () => {
 
     describe('#transceiveConfiguration', () => {
 
-        it('should be a method', () => {
-            expect(ConnectionCustomizer.prototype)
-                .to.have.a.property('transceiveConfiguration')
-                .that.is.a('function');
-        });
-
-        it('should get values correctly', () => {
+        it('should get values correctly', async () => {
             const deviceAddress = 0x1111;
             const value = 0x12345678;
 
@@ -533,11 +470,9 @@ describe('ConnectionCustomizer', () => {
                 connection.send(datagram);
             }, 10);
 
-            return customizer.transceiveConfiguration(options, callback).then((config) => {
-                expect(config)
-                    .to.be.an('array')
-                    .that.has.lengthOf(1);
-            });
+            const config = await customizer.transceiveConfiguration(options, callback);
+
+            expect(config).toHaveLength(1);
         });
 
         it('should report progress correctly', async () => {
@@ -612,12 +547,12 @@ describe('ConnectionCustomizer', () => {
 
             const config = await customizer.transceiveConfiguration(options, callback);
 
-            jestExpect(reportProgress).toHaveBeenCalledTimes(5);
-            jestExpect(reportProgress).toHaveBeenNthCalledWith(1, {
+            expect(reportProgress).toHaveBeenCalledTimes(5);
+            expect(reportProgress).toHaveBeenNthCalledWith(1, {
                 message: 'OPTIMIZING_VALUES',
                 round: 1,
             });
-            jestExpect(reportProgress).toHaveBeenNthCalledWith(2, {
+            expect(reportProgress).toHaveBeenNthCalledWith(2, {
                 message: 'WAITING_FOR_FREE_BUS',
                 tries: 1,
                 valueInfo: config [0],
@@ -627,7 +562,7 @@ describe('ConnectionCustomizer', () => {
                 valueNr: 1,
                 valueCount: 1,
             });
-            jestExpect(reportProgress).toHaveBeenNthCalledWith(3, {
+            expect(reportProgress).toHaveBeenNthCalledWith(3, {
                 message: 'GETTING_VALUE',
                 tries: 1,
                 valueInfo: config [0],
@@ -637,11 +572,11 @@ describe('ConnectionCustomizer', () => {
                 valueNr: 1,
                 valueCount: 1,
             });
-            jestExpect(reportProgress).toHaveBeenNthCalledWith(4, {
+            expect(reportProgress).toHaveBeenNthCalledWith(4, {
                 message: 'OPTIMIZING_VALUES',
                 round: 2,
             });
-            jestExpect(reportProgress).toHaveBeenNthCalledWith(5, {
+            expect(reportProgress).toHaveBeenNthCalledWith(5, {
                 message: 'RELEASING_BUS',
             });
         });
@@ -720,22 +655,16 @@ describe('ConnectionCustomizer', () => {
                 connection.send(datagram);
             }, 10);
 
-            const promise = customizer.transceiveConfiguration(options, callback);
-
-            await expectPromiseToReject(promise, 'Canceled');
+            await expect(async () => {
+                await customizer.transceiveConfiguration(options, callback);
+            }).rejects.toThrow('Canceled');
         });
 
     });
 
     describe('#transceiveValue', () => {
 
-        it('should be a method', () => {
-            expect(ConnectionCustomizer.prototype)
-                .has.a.property('transceiveValue')
-                .that.is.a('function');
-        });
-
-        it('should get value correctly', () => {
+        it('should get value correctly', async () => {
             const deviceAddress = 0x1111;
             const valueId = 0x2222;
             const value = 0x12345678;
@@ -773,32 +702,22 @@ describe('ConnectionCustomizer', () => {
                 action: 'get',
             };
 
-            return customizer.transceiveValue(valueId, 0, options).then((datagram) => {
-                expect(datagram.toLiveBuffer()).to.eql(response.toLiveBuffer());
+            const datagram = await customizer.transceiveValue(valueId, 0, options);
 
-                expect(request).to.be.instanceOf(Datagram);
-                expect(request.getId())
-                    .to.equal('00_1111_0020_20_0300_0000');
-                expect(request)
-                    .to.have.a.property('valueId')
-                    .that.is.equal(valueId);
-                expect(request)
-                    .to.have.a.property('value')
-                    .that.is.equal(0);
+            expect(datagram.toLiveBuffer()).toEqual(response.toLiveBuffer());
 
-                expect(response).to.be.instanceOf(Datagram);
-                expect(response.getId())
-                    .to.equal('00_0020_1111_20_0100_0000');
-                expect(response)
-                    .to.have.a.property('valueId')
-                    .that.is.equal(valueId);
-                expect(response)
-                    .to.have.a.property('value')
-                    .that.is.equal(value);
-            });
+            expect(request).toBeInstanceOf(Datagram);
+            expect(request.getId()).toBe('00_1111_0020_20_0300_0000');
+            expect(request.valueId).toBe(valueId);
+            expect(request.value).toBe(0);
+
+            expect(response).toBeInstanceOf(Datagram);
+            expect(response.getId()).toBe('00_0020_1111_20_0100_0000');
+            expect(response.valueId).toBe(valueId);
+            expect(response.value).toBe(value);
         });
 
-        it('should set value correctly', () => {
+        it('should set value correctly', async () => {
             const deviceAddress = 0x1111;
             const valueId = 0x2222;
             const value = 0x12345678;
@@ -836,32 +755,22 @@ describe('ConnectionCustomizer', () => {
                 action: 'set',
             };
 
-            return customizer.transceiveValue(valueId, value, options).then((datagram) => {
-                expect(datagram.toLiveBuffer()).to.eql(response.toLiveBuffer());
+            const datagram = await customizer.transceiveValue(valueId, value, options);
 
-                expect(request).to.be.instanceOf(Datagram);
-                expect(request.getId())
-                    .to.equal('00_1111_0020_20_0200_0000');
-                expect(request)
-                    .to.have.a.property('valueId')
-                    .that.is.equal(valueId);
-                expect(request)
-                    .to.have.a.property('value')
-                    .that.is.equal(value);
+            expect(datagram.toLiveBuffer()).toEqual(response.toLiveBuffer());
 
-                expect(response).to.be.instanceOf(Datagram);
-                expect(response.getId())
-                    .to.equal('00_0020_1111_20_0100_0000');
-                expect(response)
-                    .to.have.a.property('valueId')
-                    .that.is.equal(valueId);
-                expect(response)
-                    .to.have.a.property('value')
-                    .that.is.equal(value);
-            });
+            expect(request).toBeInstanceOf(Datagram);
+            expect(request.getId()).toBe('00_1111_0020_20_0200_0000');
+            expect(request.valueId).toBe(valueId);
+            expect(request.value).toBe(value);
+
+            expect(response).toBeInstanceOf(Datagram);
+            expect(response.getId()).toBe('00_0020_1111_20_0100_0000');
+            expect(response.valueId).toBe(valueId);
+            expect(response.value).toBe(value);
         });
 
-        it('should contact the master regularly', () => {
+        it('should contact the master regularly', async () => {
             const deviceAddress = 0x1111;
             const valueId = 0x2222;
             const value = 0x12345678;
@@ -904,32 +813,22 @@ describe('ConnectionCustomizer', () => {
                 masterLastContacted: Date.now() - 10000,
             };
 
-            return customizer.transceiveValue(valueId, 0, options, state).then((datagram) => {
-                expect(datagram.toLiveBuffer()).to.eql(response.toLiveBuffer());
+            const datagram = await customizer.transceiveValue(valueId, 0, options, state);
 
-                expect(request).to.be.instanceOf(Datagram);
-                expect(request.getId())
-                    .to.equal('00_1111_0020_20_0300_0000');
-                expect(request)
-                    .to.have.a.property('valueId')
-                    .that.is.equal(valueId);
-                expect(request)
-                    .to.have.a.property('value')
-                    .that.is.equal(0);
+            expect(datagram.toLiveBuffer()).toEqual(response.toLiveBuffer());
 
-                expect(response).to.be.instanceOf(Datagram);
-                expect(response.getId())
-                    .to.equal('00_0020_1111_20_0100_0000');
-                expect(response)
-                    .to.have.a.property('valueId')
-                    .that.is.equal(valueId);
-                expect(response)
-                    .to.have.a.property('value')
-                    .that.is.equal(value);
-            });
+            expect(request).toBeInstanceOf(Datagram);
+            expect(request.getId()).toBe('00_1111_0020_20_0300_0000');
+            expect(request.valueId).toBe(valueId);
+            expect(request.value).toBe(0);
+
+            expect(response).toBeInstanceOf(Datagram);
+            expect(response.getId()).toBe('00_0020_1111_20_0100_0000');
+            expect(response.valueId).toBe(valueId);
+            expect(response.value).toBe(value);
         });
 
-        it('should release and claim the VBus on timeout', () => {
+        it('should release and claim the VBus on timeout', async () => {
             const deviceAddress = 0x1111;
             const valueId = 0x2222;
             const value = 0x12345678;
@@ -1000,32 +899,22 @@ describe('ConnectionCustomizer', () => {
                 }
             };
 
-            return customizer.transceiveValue(valueId, 0, options).then((datagram) => {
-                expect(datagram.toLiveBuffer()).to.eql(response.toLiveBuffer());
+            const datagram = await customizer.transceiveValue(valueId, 0, options);
 
-                expect(request).to.be.instanceOf(Datagram);
-                expect(request.getId())
-                    .to.equal('00_1111_0020_20_0300_0000');
-                expect(request)
-                    .to.have.a.property('valueId')
-                    .that.is.equal(valueId);
-                expect(request)
-                    .to.have.a.property('value')
-                    .that.is.equal(0);
+            expect(datagram.toLiveBuffer()).toEqual(response.toLiveBuffer());
 
-                expect(response).to.be.instanceOf(Datagram);
-                expect(response.getId())
-                    .to.equal('00_0020_1111_20_0100_0000');
-                expect(response)
-                    .to.have.a.property('valueId')
-                    .that.is.equal(valueId);
-                expect(response)
-                    .to.have.a.property('value')
-                    .that.is.equal(value);
-            });
+            expect(request).toBeInstanceOf(Datagram);
+            expect(request.getId()).toBe('00_1111_0020_20_0300_0000');
+            expect(request.valueId).toBe(valueId);
+            expect(request.value).toBe(0);
+
+            expect(response).toBeInstanceOf(Datagram);
+            expect(response.getId()).toBe('00_0020_1111_20_0100_0000');
+            expect(response.valueId).toBe(valueId);
+            expect(response.value).toBe(value);
         });
 
-        it('should fail if disconnected', () => {
+        it('should fail if disconnected', async () => {
             const connection = new Connection();
 
             const customizer = new ConnectionCustomizer({
@@ -1033,14 +922,12 @@ describe('ConnectionCustomizer', () => {
                 connection,
             });
 
-            return customizer.transceiveValue(0x2222, 0).then(() => {
-                throw new Error('Expected to throw');
-            }, () => {
-                // nop, expected error
-            });
+            await expect(async () => {
+                await customizer.transceiveValue(0x2222, 0);
+            }).rejects.toThrow();
         });
 
-        it('should suspend while (re)connecting', () => {
+        it('should suspend while (re)connecting', async () => {
             const deviceAddress = 0x1111;
             const valueId = 0x2222;
             const value = 0x12345678;
@@ -1086,37 +973,27 @@ describe('ConnectionCustomizer', () => {
                 connection._setConnectionState(Connection.STATE_CONNECTED);
             }, 100);
 
-            return customizer.transceiveValue(valueId, 0, options).then((datagram) => {
-                const timeDiff = Date.now() - startTime;
+            const datagram = await customizer.transceiveValue(valueId, 0, options);
 
-                expect(timeDiff)
-                    .to.be.within(100, 120);
+            const timeDiff = Date.now() - startTime;
 
-                expect(datagram.toLiveBuffer()).to.eql(response.toLiveBuffer());
+            expect(timeDiff).toBeGreaterThanOrEqual(100);
+            expect(timeDiff).toBeLessThanOrEqual(120);
 
-                expect(request).to.be.instanceOf(Datagram);
-                expect(request.getId())
-                    .to.equal('00_1111_0020_20_0300_0000');
-                expect(request)
-                    .to.have.a.property('valueId')
-                    .that.is.equal(valueId);
-                expect(request)
-                    .to.have.a.property('value')
-                    .that.is.equal(0);
+            expect(datagram.toLiveBuffer()).toEqual(response.toLiveBuffer());
 
-                expect(response).to.be.instanceOf(Datagram);
-                expect(response.getId())
-                    .to.equal('00_0020_1111_20_0100_0000');
-                expect(response)
-                    .to.have.a.property('valueId')
-                    .that.is.equal(valueId);
-                expect(response)
-                    .to.have.a.property('value')
-                    .that.is.equal(value);
-            });
+            expect(request).toBeInstanceOf(Datagram);
+            expect(request.getId()).toBe('00_1111_0020_20_0300_0000');
+            expect(request.valueId).toBe(valueId);
+            expect(request.value).toBe(0);
+
+            expect(response).toBeInstanceOf(Datagram);
+            expect(response.getId()).toBe('00_0020_1111_20_0100_0000');
+            expect(response.valueId).toBe(valueId);
+            expect(response.value).toBe(value);
         });
 
-        it('should get a value with a value ID hash', () => {
+        it('should get a value with a value ID hash', async () => {
             const deviceAddress = 0x1111;
             const valueId = 0x2222;
             const value = 0x12345678;
@@ -1173,31 +1050,21 @@ describe('ConnectionCustomizer', () => {
                 action: 'get',
             };
 
-            return customizer.transceiveValue(valueInfo, 0, options).then((datagram) => {
-                expect(onDatagram).property('callCount').equal(4);
+            const datagram = await customizer.transceiveValue(valueInfo, 0, options);
 
-                expect(datagram.toLiveBuffer()).to.eql(response.toLiveBuffer());
+            expect(onDatagram.callCount).toBe(4);
 
-                expect(request).to.be.instanceOf(Datagram);
-                expect(request.getId())
-                    .to.equal('00_1111_0020_20_0300_0000');
-                expect(request)
-                    .to.have.a.property('valueId')
-                    .that.is.equal(valueId);
-                expect(request)
-                    .to.have.a.property('value')
-                    .that.is.equal(0);
+            expect(datagram.toLiveBuffer()).toEqual(response.toLiveBuffer());
 
-                expect(response).to.be.instanceOf(Datagram);
-                expect(response.getId())
-                    .to.equal('00_0020_1111_20_0100_0000');
-                expect(response)
-                    .to.have.a.property('valueId')
-                    .that.is.equal(valueId);
-                expect(response)
-                    .to.have.a.property('value')
-                    .that.is.equal(value);
-            });
+            expect(request).toBeInstanceOf(Datagram);
+            expect(request.getId()).toBe('00_1111_0020_20_0300_0000');
+            expect(request.valueId).toBe(valueId);
+            expect(request.value).toBe(0);
+
+            expect(response).toBeInstanceOf(Datagram);
+            expect(response.getId()).toBe('00_0020_1111_20_0100_0000');
+            expect(response.valueId).toBe(valueId);
+            expect(response.value).toBe(value);
         });
 
         it('should report progress', async () => {
@@ -1243,8 +1110,8 @@ describe('ConnectionCustomizer', () => {
 
             await customizer.transceiveValue(valueId, 0, options);
 
-            jestExpect(reportProgress).toHaveBeenCalledTimes(1);
-            jestExpect(reportProgress).toHaveBeenCalledWith({
+            expect(reportProgress).toHaveBeenCalledTimes(1);
+            expect(reportProgress).toHaveBeenCalledWith({
                 message: 'GETTING_VALUE',
                 tries: 1,
                 valueIndex: valueId,
@@ -1288,11 +1155,11 @@ describe('ConnectionCustomizer', () => {
                 checkCanceled,
             };
 
-            const promise = customizer.transceiveValue(valueId, 0, options);
+            await expect(async () => {
+                await customizer.transceiveValue(valueId, 0, options);
+            }).rejects.toThrow('Canceled');
 
-            await expectPromiseToReject(promise, 'Canceled');
-
-            jestExpect(checkCanceled).toHaveBeenCalledTimes(6);
+            expect(checkCanceled).toHaveBeenCalledTimes(6);
         });
 
         it('should be cancelable with own exception', async () => {
@@ -1332,27 +1199,12 @@ describe('ConnectionCustomizer', () => {
                 checkCanceled,
             };
 
-            const promise = customizer.transceiveValue(valueId, 0, options);
+            await expect(async () => {
+                await customizer.transceiveValue(valueId, 0, options);
+            }).rejects.toThrow('My own cancel exception');
 
-            await expectPromiseToReject(promise, 'My own cancel exception');
-
-            jestExpect(checkCanceled).toHaveBeenCalledTimes(6);
+            expect(checkCanceled).toHaveBeenCalledTimes(6);
         });
-
-    });
-
-    itShouldWorkCorrectlyAfterMigratingToClass(ConnectionCustomizer, Customizer, {
-        connection: null,
-        maxRounds: 10,
-        triesPerValue: 2,
-        timeoutPerValue: 30000,
-        masterTimeout: 8000,
-        constructor: Function,
-        _loadConfiguration: Function,
-        _saveConfiguration: Function,
-        transceiveConfiguration: Function,
-        transceiveValue: Function,
-    }, {
 
     });
 

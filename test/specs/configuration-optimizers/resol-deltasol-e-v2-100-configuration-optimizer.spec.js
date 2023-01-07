@@ -5,8 +5,13 @@ const {
 } = require('../resol-vbus');
 
 
-const expect = require('../expect');
-const testUtils = require('../test-utils');
+const {
+    expect,
+    expectPromise,
+    expectTypeToBe,
+    expectPendingValuesCountInConfigToBe,
+    markPendingValuesInConfigAsTransceived,
+} = require('./test-utils');
 
 
 
@@ -19,9 +24,9 @@ describe('ResolDeltaSolEV2100ConfigurationOptimizer', () => {
     describe('using ConfigurationOptimizerFactory', () => {
 
         it('should work correctly', async () => {
-            const optimizer = await testUtils.expectPromise(optimizerPromise);
+            const optimizer = await expectPromise(optimizerPromise);
 
-            expect(optimizer).an('object');
+            expectTypeToBe(optimizer, 'object');
         });
 
     });
@@ -31,9 +36,10 @@ describe('ResolDeltaSolEV2100ConfigurationOptimizer', () => {
         it('should work correctly', async () => {
             const optimizer = await optimizerPromise;
 
-            const config = await testUtils.expectPromise(optimizer.completeConfiguration());
+            const config = await expectPromise(optimizer.completeConfiguration());
 
-            expect(config).an('array').lengthOf(925);
+            expectTypeToBe(config, 'array');
+            expect(config).toHaveLength(925);
         });
 
     });
@@ -43,41 +49,17 @@ describe('ResolDeltaSolEV2100ConfigurationOptimizer', () => {
         it('should work correctly after', async () => {
             const optimizer = await optimizerPromise;
 
-            let config = await testUtils.expectPromise(optimizer.completeConfiguration());
+            const config1 = await expectPromise(optimizer.completeConfiguration());
 
-            config = await testUtils.expectPromise(optimizer.optimizeLoadConfiguration(config));
+            const config2 = await expectPromise(optimizer.optimizeLoadConfiguration(config1));
 
-            expect(config).an('array');
+            expectPendingValuesCountInConfigToBe(config2, 925);
 
-            let valueIds = config.reduce((memo, value) => {
-                if (value.pending) {
-                    memo.push(value.valueId);
-                }
-                return memo;
-            }, []);
+            markPendingValuesInConfigAsTransceived(config2);
 
-            expect(valueIds).lengthOf(925);
+            const config3 = await expectPromise(optimizer.optimizeLoadConfiguration(config2));
 
-            for (const value of config) {
-                if (value.pending) {
-                    value.pending = false;
-                    value.transceived = true;
-                    value.value = null;
-                }
-            }
-
-            config = await testUtils.expectPromise(optimizer.optimizeLoadConfiguration(config));
-
-            expect(config).an('array');
-
-            valueIds = config.reduce((memo, value) => {
-                if (value.pending) {
-                    memo.push(value.valueId);
-                }
-                return memo;
-            }, []);
-
-            expect(valueIds).lengthOf(0);
+            expectPendingValuesCountInConfigToBe(config3, 0);
         });
 
     });

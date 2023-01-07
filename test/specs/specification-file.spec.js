@@ -9,68 +9,75 @@ const {
 } = require('./resol-vbus');
 
 
-const expect = require('./expect');
 const {
+    expect,
     expectOwnPropertyNamesToEqual,
     itShouldBeAClass,
-    itShouldWorkCorrectlyAfterMigratingToClass,
+    expectTypeToBe,
 } = require('./test-utils');
 
 
 
 
-const testVsf1 = fs.readFileSync(path.join(__dirname, '../fixtures/vbus-specifications/test.vsf'));
+const testVsf1Filename = path.resolve(__dirname, '../fixtures/vbus-specifications/test.vsf');
+const testVsf1 = fs.readFileSync(testVsf1Filename);
 
-
-
-function expectToBeSpecificationFile(specFile) {
-    global.expect(specFile instanceof SpecificationFile).toBe(true);
-}
 
 
 describe('SpecificationFile', () => {
 
-    itShouldBeAClass(SpecificationFile);
+    itShouldBeAClass(SpecificationFile, null, {
+        constructor: Function,
+        getSpecificationData: Function,
+        _generateSpecificationData: Function,
+        _parseBuffer: Function,
+        getRawValue: Function,
+        setRawValue: Function,
+    }, {
+        getDefaultSpecificationFile: Function,
+        loadFromFile: Function,
+    });
 
     describe('#constructor', () => {
 
         it('should work correctly for fixtures file #1', () => {
             const specFile = new SpecificationFile(testVsf1);
 
-            expect(specFile).an('object');
             expectOwnPropertyNamesToEqual(specFile, [
                 'buffer',
+                'types',
+                'typeById',
+                'typeByCode',
+                'unitFamilies',
+                'unitFamilyById',
+                'unitFamilyByCode',
+                'knownUnits',
+                'knownUnitsById',
+                'knownUnitsByCode',
+
                 'dataVersion',
                 'datecode',
-                'deviceTemplates',
-                'knownUnits',
-                'knownUnitsByCode',
-                'knownUnitsById',
-                'localizedTexts',
-                'packetTemplates',
-                'specificationData',
                 'texts',
-                'typeByCode',
-                'typeById',
-                'types',
-                'unitByCode',
-                'unitById',
-                'unitFamilies',
-                'unitFamilyByCode',
-                'unitFamilyById',
+                'localizedTexts',
                 'units',
+                'unitById',
+                'unitByCode',
+                'deviceTemplates',
+                'packetTemplates',
+
+                'specificationData',
             ]);
 
-            expect(specFile).property('buffer').equal(testVsf1);
+            expect(specFile.buffer).toBe(testVsf1);
 
-            expect(specFile).property('dataVersion').equal(1);
-            expect(specFile).property('datecode').equal(20161007);
+            expect(specFile.dataVersion).toBe(1);
+            expect(specFile.datecode).toBe(20161007);
 
-            expect(specFile).property('unitFamilyByCode').an('object');
+            expectTypeToBe(specFile.unitFamilyByCode, 'object');
 
             const { unitFamilyByCode } = specFile;
 
-            expect(specFile).property('texts').an('array').lengthOf(188).eql([
+            expect(specFile.texts).toEqual([
                 '',
                 ' BTU',
                 ' Hz',
@@ -261,7 +268,7 @@ describe('SpecificationFile', () => {
                 'Wärmemenge heute',
             ]);
 
-            expect(specFile).property('localizedTexts').an('array').lengthOf(45).eql([{
+            expect(specFile.localizedTexts).toEqual([{
                 en: '5 min error code',
                 de: '5-Min-Fehlercode',
                 fr: 'Code erreur 5 min'
@@ -443,7 +450,7 @@ describe('SpecificationFile', () => {
                 fr: 'Quantité de chaleur aujourd\'hui'
             }]);
 
-            expect(specFile).property('units').an('array').lengthOf(48).eql([{
+            expect(specFile.units).toEqual([{
                 unitId: 55,
                 unitFamily: unitFamilyByCode.Pressure,
                 unitCode: 'Bars',
@@ -685,7 +692,6 @@ describe('SpecificationFile', () => {
                 unitText: ' W/m²'
             }]);
 
-            expect(specFile).property('unitById').an('object');
             expectOwnPropertyNamesToEqual(specFile.unitById, [
                 '-1',
                 '0',
@@ -737,7 +743,6 @@ describe('SpecificationFile', () => {
                 '98'
             ]);
 
-            expect(specFile).property('unitByCode').an('object');
             expectOwnPropertyNamesToEqual(specFile.unitByCode, [
                 'Bars',
                 'Btus',
@@ -789,10 +794,10 @@ describe('SpecificationFile', () => {
                 'WattsPerSquareMeter'
             ]);
 
-            expect(specFile).property('deviceTemplates').an('array').lengthOf(18);
+            expect(specFile.deviceTemplates).toHaveLength(18);
 
             const dt = specFile.deviceTemplates [0];
-            expect(dt).an('object');
+
             expectOwnPropertyNamesToEqual(dt, [
                 'name',
                 'peerAddress',
@@ -800,20 +805,20 @@ describe('SpecificationFile', () => {
                 'selfAddress',
                 'selfMask',
             ]);
-            expect(dt).property('selfAddress').equal(0x0010);
-            expect(dt).property('selfMask').equal(0xffff);
-            expect(dt).property('peerAddress').equal(0x0000);
-            expect(dt).property('peerMask').equal(0x0000);
-            expect(dt).property('name').an('object').eql({
+            expect(dt.selfAddress).toBe(0x0010);
+            expect(dt.selfMask).toBe(0xffff);
+            expect(dt.peerAddress).toBe(0x0000);
+            expect(dt.peerMask).toBe(0x0000);
+            expect(dt.name).toEqual({
                 en: 'DFA',
                 de: 'DFA',
                 fr: 'DFA',
             });
 
-            expect(specFile).property('packetTemplates').an('array').lengthOf(2);
+            expect(specFile.packetTemplates).toHaveLength(2);
 
             const pt = specFile.packetTemplates [0];
-            expect(pt).an('object');
+
             expectOwnPropertyNamesToEqual(pt, [
                 'command',
                 'destinationAddress',
@@ -822,15 +827,15 @@ describe('SpecificationFile', () => {
                 'sourceAddress',
                 'sourceMask',
             ]);
-            expect(pt).property('destinationAddress').equal(0x0010);
-            expect(pt).property('destinationMask').equal(0xffff);
-            expect(pt).property('sourceAddress').equal(0x7e30);
-            expect(pt).property('sourceMask').equal(0xfff0);
-            expect(pt).property('command').equal(0x0100);
-            expect(pt).property('fields').an('array').lengthOf(8);
+            expect(pt.destinationAddress).toBe(0x0010);
+            expect(pt.destinationMask).toBe(0xffff);
+            expect(pt.sourceAddress).toBe(0x7e30);
+            expect(pt.sourceMask).toBe(0xfff0);
+            expect(pt.command).toBe(0x0100);
+            expect(pt.fields).toHaveLength(8);
 
             const ptf = pt.fields [0];
-            expect(ptf).an('object');
+
             expectOwnPropertyNamesToEqual(ptf, [
                 'id',
                 'name',
@@ -839,16 +844,16 @@ describe('SpecificationFile', () => {
                 'type',
                 'unit',
             ]);
-            expect(ptf).property('id').equal('000_4_0');
-            expect(ptf).property('name').an('object').eql({
+            expect(ptf.id).toBe('000_4_0');
+            expect(ptf.name).toEqual({
                 en: 'Heat quantity',
                 de: 'Wärmemenge',
                 fr: 'Quantité de chaleur',
             });
-            expect(ptf).property('unit').equal(specFile.unitByCode.WattHours);
-            expect(ptf).property('precision').equal(0);
-            expect(ptf).property('type').equal(specFile.typeByCode.Number);
-            expect(ptf).property('parts').an('array').lengthOf(8).eql([
+            expect(ptf.unit).toBe(specFile.unitByCode.WattHours);
+            expect(ptf.precision).toBe(0);
+            expect(ptf.type).toBe(specFile.typeByCode.Number);
+            expect(ptf.parts).toEqual([
                 { offset:  0, bitPos: 0, mask: 0xff, isSigned: false, factor: 1 },
                 { offset:  1, bitPos: 0, mask: 0xff, isSigned: false, factor: 256 },
                 { offset:  2, bitPos: 0, mask: 0xff, isSigned: false, factor: 65536 },
@@ -862,24 +867,12 @@ describe('SpecificationFile', () => {
 
     });
 
-    itShouldWorkCorrectlyAfterMigratingToClass(SpecificationFile, null, {
-        constructor: Function,
-        getSpecificationData: Function,
-        _generateSpecificationData: Function,
-        _parseBuffer: Function,
-        getRawValue: Function,
-        setRawValue: Function,
-    }, {
-        getDefaultSpecificationFile: Function,
-        loadFromFile: Function,
-    });
-
     describe('getDefaultSpecificationFile', () => {
 
         it('should work correctly', () => {
             const specFile = SpecificationFile.getDefaultSpecificationFile();
 
-            expectToBeSpecificationFile(specFile);
+            expect(specFile).toBeInstanceOf(SpecificationFile);
         });
 
     });
@@ -887,10 +880,9 @@ describe('SpecificationFile', () => {
     describe('loadFromFile', () => {
 
         it('should work correctly', async () => {
-            const filename = path.resolve(__dirname, '../fixtures/vbus-specifications/test.vsf')
-            const specFile = await SpecificationFile.loadFromFile(filename);
+            const specFile = await SpecificationFile.loadFromFile(testVsf1Filename);
 
-            expectToBeSpecificationFile(specFile);
+            expect(specFile).toBeInstanceOf(SpecificationFile);
         });
 
     });

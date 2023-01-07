@@ -5,22 +5,33 @@ const {
 } = require('./resol-vbus');
 
 
-const expect = require('./expect');
-
 const {
-    itShouldWorkCorrectlyAfterMigratingToClass,
-    wrapAsPromise,
+    expect,
+    expectOwnPropertyNamesToEqual,
+    itShouldBeAClass,
 } = require('./test-utils');
 
 
 
 describe('Customizer', () => {
 
-    describe('constructor', () => {
+    itShouldBeAClass(Customizer, null, {
+        id: null,
+        deviceAddress: 0,
+        optimizer: null,
+        constructor: Function,
+        loadConfiguration: Function,
+        _loadConfiguration: Function,
+        saveConfiguration: Function,
+        _saveConfiguration: Function,
+        _completeConfiguration: Function,
+        _optimizeLoadConfiguration: Function,
+        _optimizeSaveConfiguration: Function,
+    }, {
 
-        it('should be a constructor function', () => {
-            expect(Customizer).a('function');
-        });
+    });
+
+    describe('constructor', () => {
 
         it('should have reasonable defaults', () => {
             const options = {
@@ -31,9 +42,20 @@ describe('Customizer', () => {
 
             const customizer = new Customizer();
 
-            expect(customizer).property('id').equal(options.id);
-            expect(customizer).property('deviceAddress').equal(options.deviceAddress);
-            expect(customizer).property('optimizer').equal(options.optimizer);
+            expectOwnPropertyNamesToEqual(customizer, [
+                'id',
+                'deviceAddress',
+                'optimizer',
+
+                // EventEmitter-related
+                '_events',
+                '_eventsCount',
+                '_maxListeners',
+            ]);
+
+            expect(customizer.id).toBe(options.id);
+            expect(customizer.deviceAddress).toBe(options.deviceAddress);
+            expect(customizer.optimizer).toBe(options.optimizer);
         });
 
         it('should copy selected options', () => {
@@ -46,57 +68,23 @@ describe('Customizer', () => {
 
             const customizer = new Customizer(options);
 
-            expect(customizer).property('id').equal(options.id);
-            expect(customizer).property('deviceAddress').equal(options.deviceAddress);
-            expect(customizer).property('optimizer').equal(options.optimizer);
-            expect(customizer).not.property('junk');
+            expect(customizer.id).toBe(options.id);
+            expect(customizer.deviceAddress).toBe(options.deviceAddress);
+            expect(customizer.optimizer).toBe(options.optimizer);
+            expect(customizer.junk).toBe(undefined);
         });
 
     });
 
     describe('#loadConfiguration', () => {
 
-        it('should be a method', () => {
-            expect(Customizer.prototype).property('loadConfiguration').a('function');
-        });
-
-        it('should work correctly without an optimizer', () => {
+        it('should work correctly without an optimizer', async () => {
             const customizer = new Customizer({
                 optimizer: null,
             });
 
-            customizer._loadConfiguration = sinon.spy((configuration) => {
-                return Promise.resolve(configuration);
-            });
-
-            const inConfig = [{
-                valueIndex: 0x0001,
-            }, {
-                valueIndex: 0x0001,
-            }];
-
-            return wrapAsPromise(() => {
-                return customizer.loadConfiguration(inConfig);
-            }).then((outConfig) => {
-                expect(customizer._loadConfiguration).property('callCount').equal(1);
-
-                expect(outConfig).equal(inConfig);
-            });
-        });
-
-        it('should work correctly with an optimizer', async () => {
-            const optimizer = {
-                completeConfiguration(config) {
-                    return Promise.resolve(config);
-                },
-            };
-
-            const customizer = new Customizer({
-                optimizer,
-            });
-
-            customizer._loadConfiguration = sinon.spy((configuration) => {
-                return Promise.resolve(configuration);
+            customizer._loadConfiguration = sinon.spy(async (configuration) => {
+                return configuration;
             });
 
             const inConfig = [{
@@ -107,63 +95,15 @@ describe('Customizer', () => {
 
             const outConfig = await customizer.loadConfiguration(inConfig);
 
-            expect(customizer._loadConfiguration).property('callCount').equal(1);
+            expect(customizer._loadConfiguration.callCount).toBe(1);
 
-            expect(outConfig).equal(inConfig);
+            expect(outConfig).toBe(inConfig);
         });
 
-    });
-
-    describe('#_loadConfiguration', () => {
-
-        it('should be a method', () => {
-            expect(Customizer.prototype).property('_loadConfiguration').a('function');
-        });
-
-        it('should be an abstract method', () => {
-            const customizer = new Customizer();
-
-            expect(() => {
-                customizer._loadConfiguration();
-            }).to.throw();
-        });
-
-    });
-
-    describe('#saveConfiguration', () => {
-
-        it('should be a method', () => {
-            expect(Customizer.prototype).property('saveConfiguration').a('function');
-        });
-
-        it('should work correctly without an optimizer', () => {
-            const customizer = new Customizer({
-                optimizer: null,
-            });
-
-            customizer._saveConfiguration = sinon.spy((configuration) => {
-                return Promise.resolve(configuration);
-            });
-
-            const inConfig = [{
-                valueIndex: 0x0001,
-            }, {
-                valueIndex: 0x0001,
-            }];
-
-            return wrapAsPromise(() => {
-                return customizer.saveConfiguration(inConfig);
-            }).then((outConfig) => {
-                expect(customizer._saveConfiguration).property('callCount').equal(1);
-
-                expect(outConfig).equal(inConfig);
-            });
-        });
-
-        it('should work correctly with an optimizer', () => {
+        it('should work correctly with an optimizer', async () => {
             const optimizer = {
-                completeConfiguration(config) {
-                    return Promise.resolve(config);
+                async completeConfiguration(config) {
+                    return config;
                 },
             };
 
@@ -171,8 +111,8 @@ describe('Customizer', () => {
                 optimizer,
             });
 
-            customizer._saveConfiguration = sinon.spy((configuration) => {
-                return Promise.resolve(configuration);
+            customizer._loadConfiguration = sinon.spy(async (configuration) => {
+                return configuration;
             });
 
             const inConfig = [{
@@ -181,38 +121,94 @@ describe('Customizer', () => {
                 valueIndex: 0x0001,
             }];
 
-            return wrapAsPromise(() => {
-                return customizer.saveConfiguration(inConfig);
-            }).then((outConfig) => {
-                expect(customizer._saveConfiguration).property('callCount').equal(1);
+            const outConfig = await customizer.loadConfiguration(inConfig);
 
-                expect(outConfig).equal(inConfig);
+            expect(customizer._loadConfiguration.callCount).toBe(1);
+
+            expect(outConfig).toBe(inConfig);
+        });
+
+    });
+
+    describe('#_loadConfiguration', () => {
+
+        it('should be an abstract method', () => {
+            const customizer = new Customizer();
+
+            expect(() => {
+                customizer._loadConfiguration();
+            }).toThrow('Must be implemented by sub-class');
+        });
+
+    });
+
+    describe('#saveConfiguration', () => {
+
+        it('should work correctly without an optimizer', async () => {
+            const customizer = new Customizer({
+                optimizer: null,
             });
+
+            customizer._saveConfiguration = sinon.spy(async (configuration) => {
+                return configuration;
+            });
+
+            const inConfig = [{
+                valueIndex: 0x0001,
+            }, {
+                valueIndex: 0x0001,
+            }];
+
+            const outConfig = await customizer.saveConfiguration(inConfig);
+
+            expect(customizer._saveConfiguration.callCount).toBe(1);
+
+            expect(outConfig).toBe(inConfig);
+        });
+
+        it('should work correctly with an optimizer', async () => {
+            const optimizer = {
+                async completeConfiguration(config) {
+                    return config;
+                },
+            };
+
+            const customizer = new Customizer({
+                optimizer,
+            });
+
+            customizer._saveConfiguration = sinon.spy(async (configuration) => {
+                return configuration;
+            });
+
+            const inConfig = [{
+                valueIndex: 0x0001,
+            }, {
+                valueIndex: 0x0001,
+            }];
+
+            const outConfig = await customizer.saveConfiguration(inConfig);
+
+            expect(customizer._saveConfiguration.callCount).toBe(1);
+
+            expect(outConfig).toBe(inConfig);
         });
 
     });
 
     describe('#_saveConfiguration', () => {
 
-        it('should be a method', () => {
-            expect(Customizer.prototype).property('_saveConfiguration').a('function');
-        });
-
         it('should be an abstract method', () => {
             const customizer = new Customizer();
 
             expect(() => {
                 customizer._saveConfiguration();
-            }).to.throw();
+            }).toThrow('Must be implemented by sub-class');
         });
 
     });
 
     describe('#_completeConfiguration', () => {
-
-        it('should be a method', () => {
-            expect(Customizer.prototype).property('_completeConfiguration').a('function');
-        });
 
         it('should forward to the optimizer', () => {
             const refResult = {};
@@ -233,17 +229,13 @@ describe('Customizer', () => {
 
             const result = customizer._completeConfiguration();
 
-            expect(optimizer.completeConfiguration.callCount).equal(1);
-            expect(result).equal(refResult);
+            expect(optimizer.completeConfiguration.callCount).toBe(1);
+            expect(result).toBe(refResult);
         });
 
     });
 
     describe('#_optimizeLoadConfiguration', () => {
-
-        it('should be a method', () => {
-            expect(Customizer.prototype).property('_optimizeLoadConfiguration').a('function');
-        });
 
         it('should forward to the optimizer', () => {
             const refConfig = {};
@@ -265,18 +257,14 @@ describe('Customizer', () => {
 
             const result = customizer._optimizeLoadConfiguration(refConfig);
 
-            expect(optimizer.optimizeLoadConfiguration.callCount).equal(1);
-            expect(optimizer.optimizeLoadConfiguration.firstCall.args [0]).equal(refConfig);
-            expect(result).equal(refResult);
+            expect(optimizer.optimizeLoadConfiguration.callCount).toBe(1);
+            expect(optimizer.optimizeLoadConfiguration.firstCall.args [0]).toBe(refConfig);
+            expect(result).toBe(refResult);
         });
 
     });
 
     describe('#_optimizeSaveConfiguration', () => {
-
-        it('should be a method', () => {
-            expect(Customizer.prototype).property('_optimizeSaveConfiguration').a('function');
-        });
 
         it('should forward to the optimizer', () => {
             const newConfig = {};
@@ -299,27 +287,11 @@ describe('Customizer', () => {
 
             const result = customizer._optimizeSaveConfiguration(newConfig, oldConfig);
 
-            expect(optimizer.optimizeSaveConfiguration.callCount).equal(1);
-            expect(optimizer.optimizeSaveConfiguration.firstCall.args [0]).equal(newConfig);
-            expect(optimizer.optimizeSaveConfiguration.firstCall.args [1]).equal(oldConfig);
-            expect(result).equal(refResult);
+            expect(optimizer.optimizeSaveConfiguration.callCount).toBe(1);
+            expect(optimizer.optimizeSaveConfiguration.firstCall.args [0]).toBe(newConfig);
+            expect(optimizer.optimizeSaveConfiguration.firstCall.args [1]).toBe(oldConfig);
+            expect(result).toBe(refResult);
         });
-
-    });
-
-    itShouldWorkCorrectlyAfterMigratingToClass(Customizer, null, {
-        id: null,
-        deviceAddress: 0,
-        optimizer: null,
-        constructor: Function,
-        loadConfiguration: Function,
-        _loadConfiguration: Function,
-        saveConfiguration: Function,
-        _saveConfiguration: Function,
-        _completeConfiguration: Function,
-        _optimizeLoadConfiguration: Function,
-        _optimizeSaveConfiguration: Function,
-    }, {
 
     });
 

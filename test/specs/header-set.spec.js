@@ -9,30 +9,57 @@ const {
 } = require('./resol-vbus');
 
 
-const expect = require('./expect');
-
 const {
-    itShouldWorkCorrectlyAfterMigratingToClass,
+    expect,
+    expectOwnPropertyNamesToEqual,
+    expectTimestampToBeWithin,
+    expectTypeToBe,
+    itShouldBeAClass,
 } = require('./test-utils');
 
 
 
 describe('HeaderSet', () => {
 
-    describe('constructor', () => {
+    itShouldBeAClass(HeaderSet, null, {
+        timestamp: null,
+        headerList: null,
+        constructor: Function,
+        _findIndex: Function,
+        containsHeader: Function,
+        addHeader: Function,
+        addHeaders: Function,
+        _removeHeader: Function,
+        _removeHeaders: Function,
+        removeAllHeaders: Function,
+        removeHeadersOlderThan: Function,
+        getHeaderCount: Function,
+        getHeaders: Function,
+        getSortedHeaders: Function,
+        getSortedHeaderSet: Function,
+        getId: Function,
+        getIdHash: Function,
+    });
 
-        it('should be a constructor function', () => {
-            expect(HeaderSet).to.be.a('function');
-        });
+    describe('constructor', () => {
 
         it('should have reasonable defaults', () => {
             const before = new Date();
             const headerSet = new HeaderSet();
             const after = new Date();
 
-            expect(headerSet).to.be.an('object');
-            expect(headerSet.timestamp).to.be.an.instanceOf(Date);
-            expect(headerSet.timestamp.getTime()).to.be.within(before.getTime(), after.getTime());
+            expectOwnPropertyNamesToEqual(headerSet, [
+                'timestamp',
+                'headerList',
+
+                // base class related
+                '_events',
+                '_eventsCount',
+                '_maxListeners',
+            ]);
+
+            expectTimestampToBeWithin(headerSet.timestamp, before, after);
+            expect(headerSet.headerList).toHaveLength(0);
         });
 
         it('should copy certain options', () => {
@@ -51,19 +78,14 @@ describe('HeaderSet', () => {
 
             const headerSet = new HeaderSet(options);
 
-            expect(headerSet).to.be.an('object');
-            expect(headerSet.timestamp).to.equal(options.timestamp);
-            expect(headerSet.headerList).to.eql(options.headers);
+            expect(headerSet.timestamp).toBe(options.timestamp);
+            expect(headerSet.headerList).toEqual(options.headers);
         });
 
     });
 
     describe('#containsHeader', () => {
 
-        it('should be a method', () => {
-            expect(HeaderSet.prototype).property('containsHeader').a('function');
-        });
-
         it('should work correctly', () => {
             const header1 = new Packet({
                 channel: 1
@@ -79,38 +101,34 @@ describe('HeaderSet', () => {
 
             const headerSet = new HeaderSet();
 
-            expect(headerSet.containsHeader(header1)).to.equal(false);
-            expect(headerSet.containsHeader(header2)).to.equal(false);
-            expect(headerSet.containsHeader(header3)).to.equal(false);
+            expect(headerSet.containsHeader(header1)).toBe(false);
+            expect(headerSet.containsHeader(header2)).toBe(false);
+            expect(headerSet.containsHeader(header3)).toBe(false);
 
             headerSet.addHeader(header1);
 
-            expect(headerSet.containsHeader(header1)).to.equal(true);
-            expect(headerSet.containsHeader(header2)).to.equal(false);
-            expect(headerSet.containsHeader(header3)).to.equal(false);
+            expect(headerSet.containsHeader(header1)).toBe(true);
+            expect(headerSet.containsHeader(header2)).toBe(false);
+            expect(headerSet.containsHeader(header3)).toBe(false);
 
             headerSet.addHeader(header2);
 
-            expect(headerSet.containsHeader(header1)).to.equal(true);
-            expect(headerSet.containsHeader(header2)).to.equal(true);
-            expect(headerSet.containsHeader(header3)).to.equal(true);
+            expect(headerSet.containsHeader(header1)).toBe(true);
+            expect(headerSet.containsHeader(header2)).toBe(true);
+            expect(headerSet.containsHeader(header3)).toBe(true);
 
             headerSet.removeAllHeaders();
             headerSet.addHeader(header3);
 
-            expect(headerSet.containsHeader(header1)).to.equal(false);
-            expect(headerSet.containsHeader(header2)).to.equal(true);
-            expect(headerSet.containsHeader(header3)).to.equal(true);
+            expect(headerSet.containsHeader(header1)).toBe(false);
+            expect(headerSet.containsHeader(header2)).toBe(true);
+            expect(headerSet.containsHeader(header3)).toBe(true);
         });
 
     });
 
     describe('#addHeader', () => {
 
-        it('should be a method', () => {
-            expect(HeaderSet.prototype.addHeader).to.be.a('function');
-        });
-
         it('should work correctly', () => {
             const header1 = new Packet({
                 channel: 1
@@ -128,15 +146,15 @@ describe('HeaderSet', () => {
 
             headerSet.addHeader(header1);
 
-            expect(headerSet.headerList).to.eql([ header1 ]);
+            expect(headerSet.headerList).toEqual([ header1 ]);
 
             headerSet.addHeader(header2);
 
-            expect(headerSet.headerList).to.eql([ header1, header2 ]);
+            expect(headerSet.headerList).toEqual([ header1, header2 ]);
 
             headerSet.addHeader(header3);
 
-            expect(headerSet.headerList).to.eql([ header1, header3 ]);
+            expect(headerSet.headerList).toEqual([ header1, header3 ]);
         });
 
         it('should update the timestamp', () => {
@@ -150,20 +168,16 @@ describe('HeaderSet', () => {
                 timestamp: startTimestamp,
             });
 
-            expect(headerSet.timestamp).to.equal(startTimestamp);
+            expect(headerSet.timestamp).toBe(startTimestamp);
 
             headerSet.addHeader(header1);
 
-            expect(headerSet.timestamp).to.equal(header1.timestamp);
+            expect(headerSet.timestamp).toBe(header1.timestamp);
         });
 
     });
 
     describe('#addHeaders', () => {
-
-        it('should be a method', () => {
-            expect(HeaderSet.prototype.addHeaders).to.be.a('function');
-        });
 
         it('should work correctly', () => {
             const header1 = new Packet({
@@ -182,16 +196,12 @@ describe('HeaderSet', () => {
 
             headerSet.addHeaders([ header1, header2, header3 ]);
 
-            expect(headerSet.headerList).to.eql([ header1, header3 ]);
+            expect(headerSet.headerList).toEqual([ header1, header3 ]);
         });
 
     });
 
     describe('#_removeHeader', () => {
-
-        it('should be a method', () => {
-            expect(HeaderSet.prototype._removeHeader).to.be.a('function');
-        });
 
         it('should work correctly', () => {
             const header1 = new Packet({
@@ -208,7 +218,7 @@ describe('HeaderSet', () => {
 
             headerSet._removeHeader(header1);
 
-            expect(headerSet.headerList).to.eql([ header2 ]);
+            expect(headerSet.headerList).toEqual([ header2 ]);
         });
 
         it('should ignore unknown headers', () => {
@@ -230,16 +240,12 @@ describe('HeaderSet', () => {
 
             headerSet._removeHeader(header3);
 
-            expect(headerSet.headerList).to.eql([ header1, header2 ]);
+            expect(headerSet.headerList).toEqual([ header1, header2 ]);
         });
 
     });
 
     describe('#removeAllHeaders', () => {
-
-        it('should be a method', () => {
-            expect(HeaderSet.prototype.removeAllHeaders).to.be.a('function');
-        });
 
         it('should work correctly', () => {
             const header1 = new Packet({
@@ -256,16 +262,12 @@ describe('HeaderSet', () => {
 
             headerSet.removeAllHeaders();
 
-            expect(headerSet.headerList).to.eql([]);
+            expect(headerSet.headerList).toEqual([]);
         });
 
     });
 
     describe('#removeHeadersOlderThan', () => {
-
-        it('should be a method', () => {
-            expect(HeaderSet.prototype.removeHeadersOlderThan).to.be.a('function');
-        });
 
         it('should work correctly', () => {
             const header1 = new Packet({
@@ -284,16 +286,12 @@ describe('HeaderSet', () => {
 
             headerSet.removeHeadersOlderThan(new Date(1388089665500));
 
-            expect(headerSet.headerList).to.eql([ header2 ]);
+            expect(headerSet.headerList).toEqual([ header2 ]);
         });
 
     });
 
     describe('#getHeaderCount', () => {
-
-        it('should be a method', () => {
-            expect(HeaderSet.prototype.getHeaderCount).to.be.a('function');
-        });
 
         it('should work correctly', () => {
             const header1 = new Packet({
@@ -312,16 +310,12 @@ describe('HeaderSet', () => {
                 headers: [ header1, header2, header3 ]
             });
 
-            expect(headerSet.getHeaderCount()).to.eql(2);
+            expect(headerSet.getHeaderCount()).toBe(2);
         });
 
     });
 
     describe('#getHeaders', () => {
-
-        it('should be a method', () => {
-            expect(HeaderSet.prototype.getHeaders).to.be.a('function');
-        });
 
         it('should work correctly', () => {
             const header1 = new Packet({
@@ -338,20 +332,15 @@ describe('HeaderSet', () => {
 
             const headers = headerSet.getHeaders();
 
-            expect(headers).to.be.an('array');
-            expect(headers.length).to.equal(2);
-            expect(headers.indexOf(header1) >= 0);
-            expect(headers.indexOf(header2) >= 0);
+            expectTypeToBe(headers, 'array');
+            expect(headers.includes(header1)).toBe(true);
+            expect(headers.includes(header2)).toBe(true);
         });
 
     });
 
     describe('#getSortedHeaders', () => {
 
-        it('should be a method', () => {
-            expect(HeaderSet.prototype.getSortedHeaders).to.be.a('function');
-        });
-
         it('should work correctly', () => {
             const header1 = new Packet({
                 channel: 1
@@ -365,17 +354,15 @@ describe('HeaderSet', () => {
                 headers: [ header2, header1 ]
             });
 
-            expect(headerSet.getSortedHeaders()).to.eql([ header1, header2 ]);
+            const array = headerSet.getSortedHeaders();
+            expectTypeToBe(array, 'array');
+            expect(array).toEqual([ header1, header2 ]);
         });
 
     });
 
     describe('#getSortedHeaderSet', () => {
 
-        it('should be a method', () => {
-            expect(HeaderSet.prototype.getSortedHeaderSet).to.be.a('function');
-        });
-
         it('should work correctly', () => {
             const header1 = new Packet({
                 channel: 1
@@ -389,16 +376,15 @@ describe('HeaderSet', () => {
                 headers: [ header2, header1 ]
             });
 
-            expect(headerSet.getSortedHeaderSet().headerList).to.eql([ header1, header2 ]);
+            const result = headerSet.getSortedHeaderSet();
+
+            expect(result).toBeInstanceOf(HeaderSet);
+            expect(result.headerList).toEqual([ header1, header2 ]);
         });
 
     });
 
     describe('#getId', () => {
-
-        it('should be a method', () => {
-            expect(HeaderSet.prototype.getId).to.be.a('function');
-        });
 
         it('should work correctly', () => {
             const header1 = new Packet({
@@ -415,16 +401,12 @@ describe('HeaderSet', () => {
 
             const id = headerSet.getId();
 
-            expect(id).to.equal('01_0000_0000_10_0000,02_0000_0000_10_0000');
+            expect(id).toBe('01_0000_0000_10_0000,02_0000_0000_10_0000');
         });
 
     });
 
     describe('#getIdHash', () => {
-
-        it('should be a method', () => {
-            expect(HeaderSet.prototype.getIdHash).to.be.a('function');
-        });
 
         it('should work correctly', () => {
             const header1 = new Packet({
@@ -441,7 +423,7 @@ describe('HeaderSet', () => {
 
             const id = headerSet.getIdHash();
 
-            expect(id).to.equal('5c9c71b01aca96a35c15cffd0ec382e8a1be99b3e42eeff57ecd7836aa7f1a24');
+            expect(id).toBe('5c9c71b01aca96a35c15cffd0ec382e8a1be99b3e42eeff57ecd7836aa7f1a24');
         });
 
         it('should cache hashes and return them', () => {
@@ -463,37 +445,17 @@ describe('HeaderSet', () => {
 
             let id = headerSet.getIdHash();
 
-            expect(id).to.equal('28ee1aa76e488e1d87ebd79573b08b2cf20f08f1991fae46ecca3197812cca86');
-            expect(spy.callCount).to.equal(1);
+            expect(id).toBe('28ee1aa76e488e1d87ebd79573b08b2cf20f08f1991fae46ecca3197812cca86');
+            expect(spy.callCount).toBe(1);
 
             id = headerSet.getIdHash();
 
-            expect(id).to.equal('28ee1aa76e488e1d87ebd79573b08b2cf20f08f1991fae46ecca3197812cca86');
-            expect(spy.callCount).to.equal(1);
+            expect(id).toBe('28ee1aa76e488e1d87ebd79573b08b2cf20f08f1991fae46ecca3197812cca86');
+            expect(spy.callCount).toBe(1);
 
             spy.restore();
         });
 
-    });
-
-    itShouldWorkCorrectlyAfterMigratingToClass(HeaderSet, null, {
-        timestamp: null,
-        headerList: null,
-        constructor: Function,
-        _findIndex: Function,
-        containsHeader: Function,
-        addHeader: Function,
-        addHeaders: Function,
-        _removeHeader: Function,
-        _removeHeaders: Function,
-        removeAllHeaders: Function,
-        removeHeadersOlderThan: Function,
-        getHeaderCount: Function,
-        getHeaders: Function,
-        getSortedHeaders: Function,
-        getSortedHeaderSet: Function,
-        getId: Function,
-        getIdHash: Function,
     });
 
 });

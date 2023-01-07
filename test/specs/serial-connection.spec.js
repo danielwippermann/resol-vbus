@@ -9,12 +9,13 @@ const {
 } = require('./resol-vbus');
 
 
-const jestExpect = global.expect;
-const expect = require('./expect');
-const testUtils = require('./test-utils');
-
-
-const { wrapAsPromise } = testUtils;
+const {
+    expect,
+    expectOwnPropertyNamesToEqual,
+    ifHasSerialPortIt,
+    itShouldBeAClass,
+    serialPortPath,
+} = require('./test-utils');
 
 
 
@@ -52,163 +53,25 @@ class TestableSerialConnection extends SerialConnection {
 
 
 
-const testConnection = function(done, callback) {
+const testConnection = async function(fn) {
     const connection = new TestableSerialConnection({
-        path: testUtils.serialPortPath,
+        path: serialPortPath,
     });
 
-    wrapAsPromise(() => {
-        expect(connection.connectionState).to.equal(SerialConnection.STATE_DISCONNECTED);
+    try {
+        expect(connection.connectionState).toBe(SerialConnection.STATE_DISCONNECTED);
 
-        return callback(connection);
-    }).finally(() => {
+        await fn(connection);
+    } finally {
         connection.disconnect();
-    }).then(() => {
-        done();
-    }, (err) => {
-        done(err);
-    });
+    }
 };
-
-
-
-const { ifHasSerialPortIt } = testUtils;
 
 
 
 describe('SerialConnection', () => {
 
-    describe('constructor', () => {
-
-        it('should be a constructor function', () => {
-            expect(SerialConnection)
-                .to.be.a('function');
-        });
-
-        it('should have reasonable defaults', () => {
-            const connection = new SerialConnection();
-
-            expect(connection)
-                .to.have.a.property('channel')
-                .that.is.equal(0);
-            expect(connection)
-                .to.have.a.property('selfAddress')
-                .that.is.equal(0x0020);
-            expect(connection)
-                .to.have.a.property('path')
-                .that.is.equal(null);
-        });
-
-    });
-
-    describe('#connect', () => {
-
-        it('should be a method', () => {
-            expect(SerialConnection.prototype).to.have.a.property('connect').that.is.a('function');
-        });
-
-        ifHasSerialPortIt('should work correctly if disconnected', (done) => {
-            testConnection(done, (connection, endpoint) => {
-                const onConnectionState = sinon.spy();
-
-                connection.on('connectionState', onConnectionState);
-
-                return wrapAsPromise(() => {
-                    return connection.connect();
-                }).then(() => {
-                    expect(connection.connectionState).to.equal(SerialConnection.STATE_CONNECTED);
-                    expect(onConnectionState.callCount).to.equal(2);
-                    expect(onConnectionState.firstCall.args [0]).to.equal(SerialConnection.STATE_CONNECTING);
-                    expect(onConnectionState.secondCall.args [0]).to.equal(SerialConnection.STATE_CONNECTED);
-                }).finally(() => {
-                    connection.removeListener('connectionState', onConnectionState);
-                });
-            });
-        });
-
-        ifHasSerialPortIt('should throw if not disconnected', (done) => {
-            testConnection(done, (connection, endpoint) => {
-                return wrapAsPromise(() => {
-                    return connection.connect();
-                }).then(() => {
-                    expect(() => {
-                        connection.connect();
-                    }).to.throw();
-                });
-            });
-        });
-
-    });
-
-    describe('#disconnect', () => {
-
-        it('should be a method', () => {
-            expect(SerialConnection.prototype).to.have.a.property('disconnect').that.is.a('function');
-        });
-
-        ifHasSerialPortIt('should work correctly if disconnected', (done) => {
-            testConnection(done, (connection) => {
-                connection.disconnect();
-
-                expect(connection.connectionState).to.equal(SerialConnection.STATE_DISCONNECTED);
-            });
-        });
-
-        ifHasSerialPortIt('should work correctly if connected', (done) => {
-            testConnection(done, (connection) => {
-                const onConnectionState = sinon.spy();
-
-                connection.on('connectionState', onConnectionState);
-
-                return wrapAsPromise(() => {
-                    return connection.connect();
-                }).then(() => {
-                    return connection.disconnect();
-                }).finally(() => {
-                    connection.removeListener('connectionState', onConnectionState);
-                });
-            });
-        });
-
-    });
-
-    describe('Automatic reconnection', () => {
-
-        ifHasSerialPortIt('should reconnect when connected', (done) => {
-            testConnection(done, (connection) => {
-                const onConnectionState = sinon.spy();
-
-                connection.on('connectionState', onConnectionState);
-
-                return wrapAsPromise(() => {
-                    return connection.connect();
-                }).then(() => {
-                    return connection.createConnectedPromise();
-                }).then((socket) => {
-                    expect(onConnectionState.callCount).to.equal(2);
-                    expect(onConnectionState.firstCall.args [0]).to.equal(SerialConnection.STATE_CONNECTING);
-                    expect(onConnectionState.secondCall.args [0]).to.equal(SerialConnection.STATE_CONNECTED);
-
-                    onConnectionState.reset();
-
-                    connection.serialPort.emit('error');
-                }).then(() => {
-                    return connection.createConnectedPromise();
-                }).then(() => {
-                    expect(onConnectionState.callCount).to.equal(3);
-                    expect(onConnectionState.firstCall.args [0]).to.equal(SerialConnection.STATE_INTERRUPTED);
-                    expect(onConnectionState.secondCall.args [0]).to.equal(SerialConnection.STATE_RECONNECTING);
-                    expect(onConnectionState.thirdCall.args [0]).to.equal(SerialConnection.STATE_CONNECTED);
-                }).finally(() => {
-                    connection.removeListener('connectionState', onConnectionState);
-                });
-            });
-
-        });
-
-    });
-
-    testUtils.itShouldWorkCorrectlyAfterMigratingToClass(SerialConnection, Connection, {
+    itShouldBeAClass(SerialConnection, Connection, {
         path: null,
         baudrate: 9600,
         reconnectTimeout: 0,
@@ -221,7 +84,139 @@ describe('SerialConnection', () => {
         _connect: Function,
         _createSerialPort: Function,
     }, {
-        hasSerialPortSupport: jestExpect.any(Boolean),
+        hasSerialPortSupport: expect.any(Boolean),
+    });
+
+    describe('constructor', () => {
+
+        it('should have reasonable defaults', () => {
+            const connection = new SerialConnection();
+
+            expectOwnPropertyNamesToEqual(connection, [
+                'path',
+                'baudrate',
+
+                // base class related
+                'channel',
+                'selfAddress',
+
+                '_events',
+                '_eventsCount',
+                '_maxListeners',
+                '_readableState',
+                '_writableState',
+                'allowHalfOpen',
+            ]);
+
+            expect(connection.path).toBe(null);
+            expect(connection.baudrate).toBe(9600);
+            expect(connection.channel).toBe(0);
+            expect(connection.selfAddress).toBe(0x0020);
+        });
+
+    });
+
+    describe('#connect', () => {
+
+        ifHasSerialPortIt('should work correctly if disconnected', async () => {
+            await testConnection(async (connection) => {
+                const onConnectionState = sinon.spy();
+
+                connection.on('connectionState', onConnectionState);
+
+                try {
+                    await connection.connect();
+
+                    expect(connection.connectionState).toBe(SerialConnection.STATE_CONNECTED);
+                    expect(onConnectionState.callCount).toBe(2);
+                    expect(onConnectionState.firstCall.args [0]).toBe(SerialConnection.STATE_CONNECTING);
+                    expect(onConnectionState.secondCall.args [0]).toBe(SerialConnection.STATE_CONNECTED);
+                } finally {
+                    connection.removeListener('connectionState', onConnectionState);
+                }
+            });
+        });
+
+        ifHasSerialPortIt('should throw if not disconnected', async () => {
+            await testConnection(async (connection) => {
+                await connection.connect();
+
+                await expect(async () => {
+                    await connection.connect();
+                }).rejects.toThrow();
+            });
+        });
+
+    });
+
+    describe('#disconnect', () => {
+
+        ifHasSerialPortIt('should work correctly if disconnected', async () => {
+            await testConnection((connection) => {
+                connection.disconnect();
+
+                expect(connection.connectionState).toBe(SerialConnection.STATE_DISCONNECTED);
+            });
+        });
+
+        ifHasSerialPortIt('should work correctly if connected', async () => {
+            await testConnection(async (connection) => {
+                const onConnectionState = sinon.spy();
+
+                connection.on('connectionState', onConnectionState);
+
+                try {
+                    await connection.connect();
+
+                    onConnectionState.reset();
+
+                    connection.disconnect();
+                } finally {
+                    connection.removeListener('connectionState', onConnectionState);
+                }
+
+                expect(onConnectionState.callCount).toBe(2);
+                expect(onConnectionState.getCall(0).args [0]).toBe(SerialConnection.STATE_DISCONNECTING);
+                expect(onConnectionState.getCall(1).args [0]).toBe(SerialConnection.STATE_DISCONNECTED);
+            });
+        });
+
+    });
+
+    describe('Automatic reconnection', () => {
+
+        ifHasSerialPortIt('should reconnect when connected', async () => {
+            await testConnection(async (connection) => {
+                const onConnectionState = sinon.spy();
+
+                connection.on('connectionState', onConnectionState);
+
+                try {
+                    await connection.connect();
+
+                    const socket = await connection.createConnectedPromise();
+
+                    expect(onConnectionState.callCount).toBe(2);
+                    expect(onConnectionState.firstCall.args [0]).toBe(SerialConnection.STATE_CONNECTING);
+                    expect(onConnectionState.secondCall.args [0]).toBe(SerialConnection.STATE_CONNECTED);
+
+                    onConnectionState.reset();
+
+                    connection.serialPort.emit('error');
+
+                    await connection.createConnectedPromise();
+
+                    expect(onConnectionState.callCount).toBe(3);
+                    expect(onConnectionState.firstCall.args [0]).toBe(SerialConnection.STATE_INTERRUPTED);
+                    expect(onConnectionState.secondCall.args [0]).toBe(SerialConnection.STATE_RECONNECTING);
+                    expect(onConnectionState.thirdCall.args [0]).toBe(SerialConnection.STATE_CONNECTED);
+                } finally {
+                    connection.removeListener('connectionState', onConnectionState);
+                }
+            });
+
+        });
+
     });
 
 });

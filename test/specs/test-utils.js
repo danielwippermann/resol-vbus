@@ -5,124 +5,116 @@ const {
 } = require('./resol-vbus');
 
 
-const jestExpect = global.expect;
-const expect = require('./expect');
 
-
+const { expect } = global;
 
 const serialPortPath = process.env.RESOL_VBUS_SERIALPORT;
+
+const minTimeoutFactor = process.env.CI ? 0.8 : 1;
+const maxTimeoutFactor = process.env.CI ? 1000 : 1;
 
 
 
 const testUtils = {
 
+    expect,
+
+    getType(value) {
+        let type = typeof value;
+        if (type !== 'object') {
+            // nop
+        } else if (value === null) {
+            type = 'null';
+        } else if (Array.isArray(value)) {
+            type = 'array';
+        } else if (Buffer.isBuffer(value)) {
+            type = 'buffer';
+        } else if (typeof value.then === 'function') {
+            type = 'promise';
+        }
+        return type;
+    },
+
+    expectTypeToBe(value, expectedType) {
+        expect(testUtils.getType(value)).toBe(expectedType);
+    },
+
     expectPromise(promise) {
-        // expect(promise).to.be.instanceOf(Promise);
-        expect(promise).to.have.a.property('then').that.is.a('function');
+        testUtils.expectTypeToBe(promise, 'promise');
         return promise;
-    },
-
-    async expectPromiseToReject(promise, ...args) {
-        testUtils.expectPromise(promise);
-
-        await promise.then(() => {
-            jestExpect(() => {
-                // nop
-            }).toThrow(...args);
-        }, err => {
-            jestExpect(() => {
-                throw err;
-            }).toThrow(...args);
-        });
-    },
-
-    expectRanges(ranges) {
-        expect(ranges).a('array');
-
-        const comparableRanges = ranges.map((range) => {
-            return {
-                minTimestamp: range.minTimestamp.toISOString(),
-                maxTimestamp: range.maxTimestamp.toISOString(),
-            };
-        });
-
-        return expect(comparableRanges);
-    },
-
-    adaptTimeout(timeout) {
-        const factor = process.env.TRAVIS ? 1000 : 1;
-        return timeout * factor;
     },
 
     serialPortPath,
 
-    ifHasSerialPortIt(msg) {
+    ifHasSerialPortIt(msg, ...args) {
         if (!SerialDataSourceProvider.hasSerialPortSupport) {
             xit(msg + ' (missing serial port support)', () => {});
-        } else if (!serialPortPath) {
+        } else if (!testUtils.serialPortPath) {
             xit(msg + ' (missing serial port path)', () => {});
         } else {
-            it.apply(null, arguments);
+            it(msg, ...args);
         }
     },
 
-    expectToBeABuffer(buffer) {
-        expect(buffer).instanceOf(Buffer);
-    },
-
-    itShouldBeAClass(Class) {
+    itShouldBeAClass(Class, ParentClass, instanceMembers, staticMembers) {
         it('should be a class', () => {
-            expect(Class).a('function')
-                .property('prototype').an('object')
-                .property('constructor');
+            testUtils.expectToBeAClass(Class, ParentClass, instanceMembers, staticMembers);
         });
     },
 
-    itShouldWorkCorrectlyAfterMigratingToClass(Class, ParentClass, instanceMembers, staticMembers) {
-        it('should work correctly after migrating to Class', () => {
-            jestExpect(typeof Class).toBe('function');
-            if (ParentClass) {
-                jestExpect(typeof ParentClass).toBe('function');
-                jestExpect(Class.prototype).toBeInstanceOf(ParentClass);
-            }
+    expectToBeAClass(Class, ParentClass, instanceMembers, staticMembers) {
+        expect(typeof Class).toBe('function');
+        if (ParentClass) {
+            expect(typeof ParentClass).toBe('function');
+            expect(Class.prototype).toBeInstanceOf(ParentClass);
+        }
 
-            function convertObject(obj, filter) {
-                return Object.getOwnPropertyNames(obj || {}).filter(key => filter ? filter(key) : true).reduce((memo, key) => {
-                    let value = obj [key];
-                    if (value === Function) {
-                        value = jestExpect.any(Function);
-                    }
-                    memo [key] = value;
-                    return memo;
-                }, {});
-            }
-
-            function filterOutStaticMembers(key) {
-                switch (key) {
-                case '__super__':
-                case 'extend':
-                case 'length':
-                case 'name':
-                case 'prototype':
-                    return false;
-                default:
-                    return true;
+        function convertObject(obj, filter) {
+            return Object.getOwnPropertyNames(obj || {}).filter(key => filter ? filter(key) : true).reduce((memo, key) => {
+                let value = obj [key];
+                if (value === Function) {
+                    value = expect.any(Function);
                 }
-            }
+                memo [key] = value;
+                return memo;
+            }, {});
+        }
 
-            jestExpect(convertObject(Class.prototype)).toEqual(convertObject(instanceMembers));
-            if (staticMembers) {
-                jestExpect(convertObject(Class, filterOutStaticMembers)).toEqual(convertObject(staticMembers));
+        function filterOutStaticMembers(key) {
+            switch (key) {
+            case 'length':
+            case 'name':
+            case 'prototype':
+                return false;
+            default:
+                return true;
             }
-        });
-    },
+        }
 
-    wrapAsPromise(fn) {
-        return new Promise((resolve) => resolve(fn()));
+        if (instanceMembers) {
+            expect(convertObject(Class.prototype)).toEqual(convertObject(instanceMembers));
+        }
+        if (staticMembers) {
+            expect(convertObject(Class, filterOutStaticMembers)).toEqual(convertObject(staticMembers));
+        }
     },
 
     expectOwnPropertyNamesToEqual(obj, expected) {
-        jestExpect(Object.getOwnPropertyNames(obj).sort()).toEqual(expected.slice(0).sort());
+        expect(Object.getOwnPropertyNames(obj).sort()).toEqual(expected.slice(0).sort());
+    },
+
+    expectTimestampToBeWithin(timestamp, before, after) {
+        expect(timestamp).toBeInstanceOf(Date);
+        expect(before).toBeInstanceOf(Date);
+        expect(after).toBeInstanceOf(Date);
+        expect(timestamp.getTime()).toBeGreaterThanOrEqual(before.getTime());
+        expect(timestamp.getTime()).toBeLessThanOrEqual(after.getTime());
+    },
+
+    expectElapsedTimeToBeWithin(startTimestamp, minElapsed, maxElapsed) {
+        const diff = Date.now() - startTimestamp;
+        expect(diff).toBeGreaterThanOrEqual(minElapsed * minTimeoutFactor);
+        expect(diff).toBeLessThanOrEqual(maxElapsed * maxTimeoutFactor);
     },
 
 };

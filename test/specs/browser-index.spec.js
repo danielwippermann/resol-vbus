@@ -2,27 +2,35 @@ const browserIndex = require('../../src/browser-index');
 const index = require('../../src/index');
 
 
+const {
+    expect,
+    expectOwnPropertyNamesToEqual,
+    expectTypeToBe,
+} = require('./test-utils');
+
+
+
 describe('RESOL VBus browser index', () => {
 
     it('should be an object', () => {
-        expect(typeof browserIndex).toBe('object');
-        expect(Object.getOwnPropertyNames(browserIndex).sort()).toEqual([
-            'Connection',
-            'Converter',
-            'DLxJsonConverter',
-            'Datagram',
-            'Header',
-            'HeaderSet',
-            'HeaderSetConsolidator',
-            'I18N',
-            'Packet',
-            'Specification',
-            'SpecificationFile',
-            'Telegram',
-            'TextConverter',
-            'VBusRecordingConverter',
+        expectTypeToBe(browserIndex, 'object');
+        expectOwnPropertyNamesToEqual(browserIndex, [
             'VERSION',
             'utils',
+            'I18N',
+            'SpecificationFile',
+            'Specification',
+            'Header',
+            'Packet',
+            'Datagram',
+            'Telegram',
+            'HeaderSet',
+            'HeaderSetConsolidator',
+            'Connection',
+            'Converter',
+            'VBusRecordingConverter',
+            'TextConverter',
+            'DLxJsonConverter',
         ]);
         expect(browserIndex.Connection).toBe(index.Connection);
         expect(browserIndex.Converter).toBe(index.Converter);
