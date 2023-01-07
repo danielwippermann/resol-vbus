@@ -6,8 +6,7 @@
   "scripts": {
     "lint": "eslint src test/specs examples tools",
     "test": "jest -i --verbose",
-    "coverage": "jest -i --coverage",
-    "coveralls": "jest -i --coverage --coverageReporters=text-lcov | coveralls"
+    "coverage": "jest -i --coverage"
   },
   "homepage": "https://github.com/danielwippermann/resol-vbus",
   "repository": "https://github.com/danielwippermann/resol-vbus.git",
