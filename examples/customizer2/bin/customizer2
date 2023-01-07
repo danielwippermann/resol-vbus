@@ -1,0 +1,10 @@
+#!/usr/bin/env node
+
+const config = require('../src/config');
+const { main } = require('../src/main');
+
+
+main(process.argv.slice(2), config).then(null, err => {
+    console.log(err);
+    process.exit(2);
+});
