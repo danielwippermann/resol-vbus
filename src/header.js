@@ -100,9 +100,8 @@ class Header {
             */
             sourceAddress: 0,
 
+            minorVersion: 0,
         });
-
-        this.minorVersion = (options && options.minorVersion) || 0;
 
         if (!this.timestamp) {
             this.timestamp = new Date();
