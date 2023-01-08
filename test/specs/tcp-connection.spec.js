@@ -169,7 +169,7 @@ describe('TcpConnection', () => {
 
         it('should work correctly if disconnected', async () => {
             await testConnection(async (connection, endpoint, createEndpointInfoPromise) => {
-                const onConnectionState = sinon.spy();
+                const onConnectionState = jest.fn();
 
                 const options = {
                     viaTag: 'VIATAG',
@@ -189,9 +189,9 @@ describe('TcpConnection', () => {
                     const epi = await epiPromise;
 
                     expect(connection.connectionState).toBe(TcpConnection.STATE_CONNECTED);
-                    expect(onConnectionState.callCount).toBe(2);
-                    expect(onConnectionState.firstCall.args [0]).toBe(TcpConnection.STATE_CONNECTING);
-                    expect(onConnectionState.secondCall.args [0]).toBe(TcpConnection.STATE_CONNECTED);
+                    expect(onConnectionState.mock.calls.length).toBe(2);
+                    expect(onConnectionState.mock.calls [0] [0]).toBe(TcpConnection.STATE_CONNECTING);
+                    expect(onConnectionState.mock.calls [1] [0]).toBe(TcpConnection.STATE_CONNECTED);
 
                     expect(epi.viaTag).toBe(options.viaTag);
                     expect(epi.password).toBe(options.password);
@@ -204,12 +204,12 @@ describe('TcpConnection', () => {
 
         it('should work correctly with sync channelListCallback and string response', async () => {
             await testConnection(async (connection, endpoint, createEndpointInfoPromise) => {
-                const onConnectionState = sinon.spy();
+                const onConnectionState = jest.fn();
 
                 const options = {
                     viaTag: 'VIATAG',
                     password: 'PASSWORD',
-                    channelListCallback: sinon.spy((channels, done) => {
+                    channelListCallback: jest.fn((channels, done) => {
                         done(null, '9:Test');
                     }),
                 };
@@ -226,15 +226,15 @@ describe('TcpConnection', () => {
                     const epi = await epiPromise;
 
                     expect(connection.connectionState).toBe(TcpConnection.STATE_CONNECTED);
-                    expect(onConnectionState.callCount).toBe(2);
-                    expect(onConnectionState.firstCall.args [0]).toBe(TcpConnection.STATE_CONNECTING);
-                    expect(onConnectionState.secondCall.args [0]).toBe(TcpConnection.STATE_CONNECTED);
+                    expect(onConnectionState.mock.calls.length).toBe(2);
+                    expect(onConnectionState.mock.calls [0] [0]).toBe(TcpConnection.STATE_CONNECTING);
+                    expect(onConnectionState.mock.calls [1] [0]).toBe(TcpConnection.STATE_CONNECTED);
 
                     expect(epi.viaTag).toBe(options.viaTag);
                     expect(epi.password).toBe(options.password);
                     expect(epi.channel).toBe('9');
 
-                    expect(connection.channelListCallback.callCount).toBe(1);
+                    expect(connection.channelListCallback.mock.calls.length).toBe(1);
                 } finally {
                     connection.removeListener('connectionState', onConnectionState);
                 }
@@ -243,12 +243,12 @@ describe('TcpConnection', () => {
 
         it('should work correctly with sync, but delayed channelListCallback', async () => {
             await testConnection(async (connection, endpoint, createEndpointInfoPromise) => {
-                const onConnectionState = sinon.spy();
+                const onConnectionState = jest.fn();
 
                 const options = {
                     viaTag: 'VIATAG',
                     password: 'PASSWORD',
-                    channelListCallback: sinon.spy((channels, done) => {
+                    channelListCallback: jest.fn((channels, done) => {
                         process.nextTick(() => {
                             done(null, '9:Test');
                         });
@@ -267,15 +267,15 @@ describe('TcpConnection', () => {
                     const epi = await epiPromise;
 
                     expect(connection.connectionState).toBe(TcpConnection.STATE_CONNECTED);
-                    expect(onConnectionState.callCount).toBe(2);
-                    expect(onConnectionState.firstCall.args [0]).toBe(TcpConnection.STATE_CONNECTING);
-                    expect(onConnectionState.secondCall.args [0]).toBe(TcpConnection.STATE_CONNECTED);
+                    expect(onConnectionState.mock.calls.length).toBe(2);
+                    expect(onConnectionState.mock.calls [0] [0]).toBe(TcpConnection.STATE_CONNECTING);
+                    expect(onConnectionState.mock.calls [1] [0]).toBe(TcpConnection.STATE_CONNECTED);
 
                     expect(epi.viaTag).toBe(options.viaTag);
                     expect(epi.password).toBe(options.password);
                     expect(epi.channel).toBe('9');
 
-                    expect(connection.channelListCallback.callCount).toBe(1);
+                    expect(connection.channelListCallback.mock.calls.length).toBe(1);
                 } finally {
                     connection.removeListener('connectionState', onConnectionState);
                 }
@@ -284,12 +284,12 @@ describe('TcpConnection', () => {
 
         it('should work correctly with async channelListCallback and number response', async () => {
             await testConnection(async (connection, endpoint, createEndpointInfoPromise) => {
-                const onConnectionState = sinon.spy();
+                const onConnectionState = jest.fn();
 
                 const options = {
                     viaTag: 'VIATAG',
                     password: 'PASSWORD',
-                    channelListCallback: sinon.spy(async (channels) => {
+                    channelListCallback: jest.fn(async (channels) => {
                         return 9;
                     }),
                 };
@@ -306,15 +306,15 @@ describe('TcpConnection', () => {
                     const epi = await epiPromise;
 
                     expect(connection.connectionState).toBe(TcpConnection.STATE_CONNECTED);
-                    expect(onConnectionState.callCount).toBe(2);
-                    expect(onConnectionState.firstCall.args [0]).toBe(TcpConnection.STATE_CONNECTING);
-                    expect(onConnectionState.secondCall.args [0]).toBe(TcpConnection.STATE_CONNECTED);
+                    expect(onConnectionState.mock.calls.length).toBe(2);
+                    expect(onConnectionState.mock.calls [0] [0]).toBe(TcpConnection.STATE_CONNECTING);
+                    expect(onConnectionState.mock.calls [1] [0]).toBe(TcpConnection.STATE_CONNECTED);
 
                     expect(epi.viaTag).toBe(options.viaTag);
                     expect(epi.password).toBe(options.password);
                     expect(epi.channel).toBe('9');
 
-                    expect(connection.channelListCallback.callCount).toBe(1);
+                    expect(connection.channelListCallback.mock.calls.length).toBe(1);
                 } finally {
                     connection.removeListener('connectionState', onConnectionState);
                 }
@@ -323,12 +323,12 @@ describe('TcpConnection', () => {
 
         it('should work correctly with async channelListCallback and object response', async () => {
             await testConnection(async (connection, endpoint, createEndpointInfoPromise) => {
-                const onConnectionState = sinon.spy();
+                const onConnectionState = jest.fn();
 
                 const options = {
                     viaTag: 'VIATAG',
                     password: 'PASSWORD',
-                    channelListCallback: sinon.spy(async (channels) => {
+                    channelListCallback: jest.fn(async (channels) => {
                         return { channel: 0, someOtherOptionsThatWillBeIgnored: true };
                     }),
                 };
@@ -345,15 +345,15 @@ describe('TcpConnection', () => {
                     const epi = await epiPromise;
 
                     expect(connection.connectionState).toBe(TcpConnection.STATE_CONNECTED);
-                    expect(onConnectionState.callCount).toBe(2);
-                    expect(onConnectionState.firstCall.args [0]).toBe(TcpConnection.STATE_CONNECTING);
-                    expect(onConnectionState.secondCall.args [0]).toBe(TcpConnection.STATE_CONNECTED);
+                    expect(onConnectionState.mock.calls.length).toBe(2);
+                    expect(onConnectionState.mock.calls [0] [0]).toBe(TcpConnection.STATE_CONNECTING);
+                    expect(onConnectionState.mock.calls [1] [0]).toBe(TcpConnection.STATE_CONNECTED);
 
                     expect(epi.viaTag).toBe(options.viaTag);
                     expect(epi.password).toBe(options.password);
                     expect(epi.channel).toBe(undefined);
 
-                    expect(connection.channelListCallback.callCount).toBe(1);
+                    expect(connection.channelListCallback.mock.calls.length).toBe(1);
                 } finally {
                     connection.removeListener('connectionState', onConnectionState);
                 }
@@ -362,12 +362,12 @@ describe('TcpConnection', () => {
 
         it('should work correctly with async channelListCallback and error response', async () => {
             await testConnection(async (connection, endpoint, createEndpointInfoPromise) => {
-                const onConnectionState = sinon.spy();
+                const onConnectionState = jest.fn();
 
                 const options = {
                     viaTag: 'VIATAG',
                     password: 'PASSWORD',
-                    channelListCallback: sinon.spy(async (channels) => {
+                    channelListCallback: jest.fn(async (channels) => {
                         throw new Error('No suitable channel found');
                     }),
                 };
@@ -382,11 +382,11 @@ describe('TcpConnection', () => {
                     }).rejects.toThrow('No suitable channel found');
 
                     expect(connection.connectionState).toBe(TcpConnection.STATE_DISCONNECTED);
-                    expect(onConnectionState.callCount).toBe(2);
-                    expect(onConnectionState.firstCall.args [0]).toBe(TcpConnection.STATE_CONNECTING);
-                    expect(onConnectionState.secondCall.args [0]).toBe(TcpConnection.STATE_DISCONNECTED);
+                    expect(onConnectionState.mock.calls.length).toBe(2);
+                    expect(onConnectionState.mock.calls [0] [0]).toBe(TcpConnection.STATE_CONNECTING);
+                    expect(onConnectionState.mock.calls [1] [0]).toBe(TcpConnection.STATE_DISCONNECTED);
 
-                    expect(connection.channelListCallback.callCount).toBe(1);
+                    expect(connection.channelListCallback.mock.calls.length).toBe(1);
                 } finally {
                     connection.removeListener('connectionState', onConnectionState);
                 }
@@ -417,7 +417,7 @@ describe('TcpConnection', () => {
 
         it('should work correctly if connected', async () => {
             await testConnection(async (connection) => {
-                const onConnectionState = sinon.spy();
+                const onConnectionState = jest.fn();
 
                 connection.on('connectionState', onConnectionState);
 
@@ -437,7 +437,7 @@ describe('TcpConnection', () => {
 
         it('should reconnect when connected', async () => {
             await testConnection(async (connection, endpoint, createEndpointInfoPromise) => {
-                const onConnectionState = sinon.spy();
+                const onConnectionState = jest.fn();
 
                 connection.on('connectionState', onConnectionState);
 
@@ -448,9 +448,9 @@ describe('TcpConnection', () => {
 
                     const epi = await epiPromise;
 
-                    expect(onConnectionState.callCount).toBe(2);
-                    expect(onConnectionState.firstCall.args [0]).toBe(TcpConnection.STATE_CONNECTING);
-                    expect(onConnectionState.secondCall.args [0]).toBe(TcpConnection.STATE_CONNECTED);
+                    expect(onConnectionState.mock.calls.length).toBe(2);
+                    expect(onConnectionState.mock.calls [0] [0]).toBe(TcpConnection.STATE_CONNECTING);
+                    expect(onConnectionState.mock.calls [1] [0]).toBe(TcpConnection.STATE_CONNECTED);
 
                     epiPromise = createEndpointInfoPromise();
 
@@ -458,9 +458,9 @@ describe('TcpConnection', () => {
 
                     await epiPromise;
 
-                    expect(onConnectionState.callCount).toBe(4);
-                    expect(onConnectionState.getCall(2).args [0]).toBe(TcpConnection.STATE_INTERRUPTED);
-                    expect(onConnectionState.getCall(3).args [0]).toBe(TcpConnection.STATE_RECONNECTING);
+                    expect(onConnectionState.mock.calls.length).toBe(4);
+                    expect(onConnectionState.mock.calls [2] [0]).toBe(TcpConnection.STATE_INTERRUPTED);
+                    expect(onConnectionState.mock.calls [3] [0]).toBe(TcpConnection.STATE_RECONNECTING);
 
                     await connection.disconnect();
                 } finally {

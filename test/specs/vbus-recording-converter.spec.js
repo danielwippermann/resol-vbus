@@ -186,10 +186,10 @@ describe('VBusRecordingConverter', () => {
 
             const converter = new VBusRecordingConverter();
 
-            const onHeader = sinon.spy();
+            const onHeader = jest.fn();
             converter.on('header', onHeader);
 
-            const onHeaderSet = sinon.spy();
+            const onHeaderSet = jest.fn();
             converter.on('headerSet', onHeaderSet);
 
             const onFinishPromise = new Promise(resolve => {
@@ -203,10 +203,10 @@ describe('VBusRecordingConverter', () => {
 
             await onFinishPromise;
 
-            expect(onHeader.callCount).toBe(16);
-            expect(onHeaderSet.callCount).toBe(1);
+            expect(onHeader.mock.calls.length).toBe(16);
+            expect(onHeaderSet.mock.calls.length).toBe(1);
 
-            const headerSet = onHeaderSet.firstCall.args [0];
+            const headerSet = onHeaderSet.mock.calls [0] [0];
             expect(headerSet).toBeInstanceOf(HeaderSet);
             expect(headerSet.timestamp.getTime()).toBe(1387893006829);
 
@@ -245,7 +245,7 @@ describe('VBusRecordingConverter', () => {
 
             const refHeaderSet = new HeaderSet();
 
-            const onHeaderSet = sinon.spy();
+            const onHeaderSet = jest.fn();
             converter.on('headerSet', onHeaderSet);
 
             const onFinishPromise = new Promise(resolve => {
@@ -259,9 +259,9 @@ describe('VBusRecordingConverter', () => {
 
             await onFinishPromise;
 
-            expect(onHeaderSet.callCount).toBe(1);
+            expect(onHeaderSet.mock.calls.length).toBe(1);
 
-            const headerSet = onHeaderSet.firstCall.args [0];
+            const headerSet = onHeaderSet.mock.calls [0] [0];
             expect(headerSet).toBeInstanceOf(HeaderSet);
             expect(headerSet).toBe(refHeaderSet);
         });
@@ -280,7 +280,7 @@ describe('VBusRecordingConverter', () => {
             const converter = new VBusRecordingConverter({
             });
 
-            const onRawData = sinon.spy();
+            const onRawData = jest.fn();
             converter.on('rawData', onRawData);
 
             const onFinishPromise = new Promise((resolve) => {
@@ -294,9 +294,9 @@ describe('VBusRecordingConverter', () => {
 
             await onFinishPromise;
 
-            expect(onRawData.callCount).toBe(1);
+            expect(onRawData.mock.calls.length).toBe(1);
 
-            const info = onRawData.firstCall.args [0];
+            const info = onRawData.mock.calls [0] [0];
 
             expectOwnPropertyNamesToEqual(info, [
                 'channel',
@@ -330,7 +330,7 @@ describe('VBusRecordingConverter', () => {
             const converter = new VBusRecordingConverter({
             });
 
-            const onComment = sinon.spy();
+            const onComment = jest.fn();
             converter.on('comment', onComment);
 
             const onFinishPromise = new Promise((resolve) => {
@@ -346,9 +346,9 @@ describe('VBusRecordingConverter', () => {
 
             converter.removeListener('comment', onComment);
 
-            expect(onComment.callCount).toBe(1);
+            expect(onComment.mock.calls.length).toBe(1);
 
-            const info = onComment.firstCall.args [0];
+            const info = onComment.mock.calls [0] [0];
 
             expectOwnPropertyNamesToEqual(info, [
                 'timestamp',
@@ -367,10 +367,10 @@ describe('VBusRecordingConverter', () => {
                 topologyScanOnly: true,
             });
 
-            const onHeader = sinon.spy();
+            const onHeader = jest.fn();
             converter.on('header', onHeader);
 
-            const onHeaderSet = sinon.spy();
+            const onHeaderSet = jest.fn();
             converter.on('headerSet', onHeaderSet);
 
             const onFinishPromise = new Promise((resolve) => {
@@ -386,10 +386,10 @@ describe('VBusRecordingConverter', () => {
 
             await onFinishPromise;
 
-            expect(onHeader.callCount).toBe(0, '"header" events triggered');
-            expect(onHeaderSet.callCount).toBe(1, '"headerSet" events triggered');
+            expect(onHeader.mock.calls.length).toBe(0, '"header" events triggered');
+            expect(onHeaderSet.mock.calls.length).toBe(1, '"headerSet" events triggered');
 
-            const headerSet = onHeaderSet.firstCall.args [0];
+            const headerSet = onHeaderSet.mock.calls [0] [0];
             expect(headerSet).toBeInstanceOf(HeaderSet);
             expect(headerSet.timestamp.getTime()).toBe(0);
 
@@ -725,7 +725,7 @@ describe('VBusRecordingConverter', () => {
 
             const converter = new VBusRecordingConverter();
 
-            const onData = sinon.spy();
+            const onData = jest.fn();
             converter.on('data', onData);
 
             converter.convertHeaderSet(headerSet);
@@ -734,9 +734,9 @@ describe('VBusRecordingConverter', () => {
 
             converter.removeListener('data', onData);
 
-            expect(onData.callCount).toBe(1);
+            expect(onData.mock.calls.length).toBe(1);
 
-            const chunk = onData.firstCall.args [0];
+            const chunk = onData.mock.calls [0] [0];
 
             expectTypeToBe(chunk, 'buffer');
             expect(chunk.length).toBe(172);
@@ -820,7 +820,7 @@ describe('VBusRecordingConverter', () => {
             const converter = new VBusRecordingConverter({
             });
 
-            const onData = sinon.spy();
+            const onData = jest.fn();
             converter.on('data', onData);
 
             converter.convertRawData(rawData);
@@ -829,9 +829,9 @@ describe('VBusRecordingConverter', () => {
 
             converter.removeListener('data', onData);
 
-            expect(onData.callCount).toBe(1, '"data" events triggered');
+            expect(onData.mock.calls.length).toBe(1);
 
-            const chunk = onData.firstCall.args [0];
+            const chunk = onData.mock.calls [0] [0];
             expectTypeToBe(chunk, 'buffer');
             expect(chunk.length).toBe(54);
 
@@ -856,7 +856,7 @@ describe('VBusRecordingConverter', () => {
             const converter = new VBusRecordingConverter({
             });
 
-            const onData = sinon.spy();
+            const onData = jest.fn();
             converter.on('data', onData);
 
             converter.convertComment(timestamp, comment);
@@ -865,9 +865,9 @@ describe('VBusRecordingConverter', () => {
 
             converter.removeListener('data', onData);
 
-            expect(onData.callCount).toBe(1);
+            expect(onData.mock.calls.length).toBe(1);
 
-            const chunk = onData.firstCall.args [0];
+            const chunk = onData.mock.calls [0] [0];
             expectTypeToBe(chunk, 'buffer');
             expect(chunk.length).toBe(59);
 

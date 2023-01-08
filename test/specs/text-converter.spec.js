@@ -140,7 +140,7 @@ describe('TextConverter', () => {
             const converter = new TextConverter();
             converter.specification.i18n.timezone = 'Europe/Berlin';
 
-            const onData = sinon.spy();
+            const onData = jest.fn();
             converter.on('data', onData);
 
             converter.convertHeaderSet(headerSet);
@@ -169,29 +169,29 @@ describe('TextConverter', () => {
 
             converter.removeListener('data', onData);
 
-            expect(onData.callCount).toBe(5);
+            expect(onData.mock.calls.length).toBe(5);
 
-            let chunk = onData.firstCall.args [0];
+            let chunk = onData.mock.calls [0] [0];
 
             expectTypeToBe(chunk, 'buffer');
             expect(chunk.toString()).toBe('\r\nDate / Time\r\n12/24/2013 14:50:06\r\n');
 
-            chunk = onData.secondCall.args [0];
+            chunk = onData.mock.calls [1] [0];
 
             expectTypeToBe(chunk, 'buffer');
             expect(chunk.toString()).toBe('\tVBus #1: DeltaSol MX [Heizkreis #1]\t\tVBus #1: DeltaSol MX [WMZ #1]\t\t\t\t\t\t\t\t\r\nDate / Time\tFlow set temperature [ °C]\tOperating state\tHeat quantity [ Wh]\tHeat quantity today [ Wh]\tHeat quantity week [ Wh]\tHeat quantity month [ Wh]\tVolume in total [ l]\tVolume today [ l]\tVolume week [ l]\tVolume month [ l]\tPower [ W]\r\n12/24/2013 14:50:06\t0.0\t11\t4880133\t0\t3347\t\t\t\t\t\t0\r\n');
 
-            chunk = onData.thirdCall.args [0];
+            chunk = onData.mock.calls [2] [0];
 
             expectTypeToBe(chunk, 'buffer');
             expect(chunk.toString()).toBe('\tDL3\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tVBus #1: DeltaSol MX [Heizkreis #1]\t\tVBus #1: DeltaSol MX [WMZ #1]\t\t\t\t\t\t\t\t\r\nDate / Time\tResistor sensor 1 [ Ω]\tResistor sensor 2 [ Ω]\tResistor sensor 3 [ Ω]\tCurrent sensor 4 [ mA]\tTemperature Sensor 1 [ °C]\tTemperature Sensor 2 [ °C]\tTemperature Sensor 3 [ °C]\tImpulse Counter Sensor 1\tImpulse Counter Sensor 2\tImpulse Counter Sensor 3\tIrradiation Sensor 4 [ W/m²]\tLast Impulse Interval Sensor 1 [ ms]\tLast Impulse Interval Sensor 2 [ ms]\tLast Impulse Interval Sensor 3 [ ms]\tCurrent Impulse Interval Sensor 1 [ ms]\tCurrent Impulse Interval Sensor 2 [ ms]\tCurrent Impulse Interval Sensor 3 [ ms]\tHeat quantity [ Wh]\tFlow set temperature [ °C]\tOperating state\tHeat quantity [ Wh]\tHeat quantity today [ Wh]\tHeat quantity week [ Wh]\tHeat quantity month [ Wh]\tVolume in total [ l]\tVolume today [ l]\tVolume week [ l]\tVolume month [ l]\tPower [ W]\r\n12/24/2013 14:50:06\t1049.888\t1064.434\t1071.040\t4.230\t12.7\t16.5\t18.2\t0\t0\t0\t17\t\t\t\t\t\t\t\t0.0\t11\t4880133\t0\t3347\t\t\t\t\t\t0\r\n');
 
-            chunk = onData.getCall(3).args [0];
+            chunk = onData.mock.calls [3] [0];
 
             expectTypeToBe(chunk, 'buffer');
             expect(chunk.toString()).toBe('12/24/2013 14:50:06\t1049.888\t1064.434\t1071.040\t4.230\t12.7\t16.5\t18.2\t0\t0\t0\t17\t\t\t\t\t\t\t\t0.0\t11\t4880133\t0\t3347\t\t\t\t\t\t0\r\n');
 
-            chunk = onData.getCall(4).args [0];
+            chunk = onData.mock.calls [4] [0];
 
             expectTypeToBe(chunk, 'buffer');
             expect(chunk.toString()).toBe('\tDL3\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tVBus #1: DeltaSol MX [Heizkreis #1]\t\tVBus #1: DeltaSol MX [WMZ #1]\t\t\t\t\t\t\t\t\r\nDate / Time\tResistor sensor 1 [ Ω]\tResistor sensor 2 [ Ω]\tResistor sensor 3 [ Ω]\tCurrent sensor 4 [ mA]\tTemperature Sensor 1 [ °C]\tTemperature Sensor 2 [ °C]\tTemperature Sensor 3 [ °C]\tImpulse Counter Sensor 1\tImpulse Counter Sensor 2\tImpulse Counter Sensor 3\tIrradiation Sensor 4 [ W/m²]\tLast Impulse Interval Sensor 1 [ ms]\tLast Impulse Interval Sensor 2 [ ms]\tLast Impulse Interval Sensor 3 [ ms]\tCurrent Impulse Interval Sensor 1 [ ms]\tCurrent Impulse Interval Sensor 2 [ ms]\tCurrent Impulse Interval Sensor 3 [ ms]\tHeat quantity [ Wh]\tFlow set temperature [ °C]\tOperating state\tHeat quantity [ Wh]\tHeat quantity today [ Wh]\tHeat quantity week [ Wh]\tHeat quantity month [ Wh]\tVolume in total [ l]\tVolume today [ l]\tVolume week [ l]\tVolume month [ l]\tPower [ W]\r\n12/24/2013 14:50:06\t1049.888\t1064.434\t1071.040\t4.230\t12.7\t16.5\t18.2\t0\t0\t0\t17\t\t\t\t\t\t\t\t0.0\t11\t4880133\t0\t3347\t\t\t\t\t\t0\r\n');

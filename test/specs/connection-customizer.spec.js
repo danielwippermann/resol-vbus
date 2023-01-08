@@ -30,11 +30,11 @@ const promiseTestContext = async function(options, callback) {
 
     const optimizer = Object.create(baseOptimizer, {
 
-        // completeConfiguration: sinon.spy(baseOptimizer.completeConfiguration),
+        // completeConfiguration: jest.fn(baseOptimizer.completeConfiguration),
 
-        // optimizeLoadConfiguration: sinon.spy(baseOptimizer.optimizeLoadConfiguration),
+        // optimizeLoadConfiguration: jest.fn(baseOptimizer.optimizeLoadConfiguration),
 
-        // optimizeSaveConfiguration: sinon.spy(baseOptimizer.optimizeSaveConfiguration),
+        // optimizeSaveConfiguration: jest.fn(baseOptimizer.optimizeSaveConfiguration),
 
     });
 
@@ -78,7 +78,7 @@ const promiseTestContext = async function(options, callback) {
 
     const customizer = new TestableConnectionCustomizer(options);
 
-    customizer.transceiveValue = sinon.spy(customizer.transceiveValue);
+    customizer.transceiveValue = jest.fn(customizer.transceiveValue);
 
     Object.assign(context, {
         optimizer,
@@ -228,7 +228,7 @@ describe('ConnectionCustomizer', () => {
                 expect(value.pending).toBe(false);
                 expect(value.transceived).toBe(true);
 
-                expect(customizer.transceiveValue.callCount).toBe(2);
+                expect(customizer.transceiveValue.mock.calls.length).toBe(2);
             });
         });
 
@@ -267,7 +267,7 @@ describe('ConnectionCustomizer', () => {
                 expect(value.pending).toBe(false);
                 expect(value.transceived).toBe(true);
 
-                expect(customizer.transceiveValue.callCount).toBe(2);
+                expect(customizer.transceiveValue.mock.calls.length).toBe(2);
             });
         });
 
@@ -296,7 +296,7 @@ describe('ConnectionCustomizer', () => {
                 expect(value.pending).toBe(false);
                 expect(value.transceived).toBe(true);
 
-                expect(customizer.transceiveValue.callCount).toBe(263);
+                expect(customizer.transceiveValue.mock.calls.length).toBe(263);
             });
         });
 
@@ -385,7 +385,7 @@ describe('ConnectionCustomizer', () => {
                 expect(value.pending).toBe(false);
                 expect(value.transceived).toBe(true);
 
-                expect(customizer.transceiveValue.callCount).toBe(2);
+                expect(customizer.transceiveValue.mock.calls.length).toBe(2);
             });
         });
 
@@ -448,7 +448,7 @@ describe('ConnectionCustomizer', () => {
                 action: 'get',
             };
 
-            const callback = sinon.spy((config, round) => {
+            const callback = jest.fn((config, round) => {
                 if (round === 1) {
                     config = [
                         { valueIndex: 0x1234, pending: true },
@@ -523,7 +523,7 @@ describe('ConnectionCustomizer', () => {
                 reportProgress,
             };
 
-            const callback = sinon.spy((config, round) => {
+            const callback = jest.fn((config, round) => {
                 if (round === 1) {
                     config = [
                         { valueIndex, pending: true },
@@ -633,7 +633,7 @@ describe('ConnectionCustomizer', () => {
                 checkCanceled,
             };
 
-            const callback = sinon.spy((config, round) => {
+            const callback = jest.fn((config, round) => {
                 if (round === 1) {
                     config = [
                         { valueIndex, pending: true },
@@ -1003,7 +1003,7 @@ describe('ConnectionCustomizer', () => {
             connection.pipe(connection);
 
             let request, response;
-            const onDatagram = sinon.spy((datagram) => {
+            const onDatagram = jest.fn((datagram) => {
                 if (datagram.destinationAddress !== deviceAddress) {
                     // nop, ignore
                 } else if (datagram.command === 0x1100) {
@@ -1052,7 +1052,7 @@ describe('ConnectionCustomizer', () => {
 
             const datagram = await customizer.transceiveValue(valueInfo, 0, options);
 
-            expect(onDatagram.callCount).toBe(4);
+            expect(onDatagram.mock.calls.length).toBe(4);
 
             expect(datagram.toLiveBuffer()).toEqual(response.toLiveBuffer());
 

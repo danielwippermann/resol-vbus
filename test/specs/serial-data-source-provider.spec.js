@@ -57,7 +57,7 @@ describe('SerialDataSourceProvider', () => {
                 { comName: 'SERIALPORT2' },
             ];
 
-            TestableSerialDataSourceProvider.prototype._listSerialPorts = sinon.spy((callback) => {
+            TestableSerialDataSourceProvider.prototype._listSerialPorts = jest.fn((callback) => {
                 callback(null, ports);
             });
 
@@ -69,7 +69,7 @@ describe('SerialDataSourceProvider', () => {
         });
 
         ifHasSerialPortIt('should reject if an error occurs', async () => {
-            TestableSerialDataSourceProvider.prototype._listSerialPorts = sinon.spy((callback) => {
+            TestableSerialDataSourceProvider.prototype._listSerialPorts = jest.fn((callback) => {
                 callback(new Error('ERROR'));
             });
 

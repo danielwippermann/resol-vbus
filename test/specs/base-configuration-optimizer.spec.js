@@ -610,11 +610,11 @@ describe('ValuesWrapper', () => {
 
                 values.values [0].ignored = true;
 
-                const checker = sinon.spy((value) => {
+                const checker = jest.fn((value) => {
                     return true;
                 });
 
-                const action = sinon.spy();
+                const action = jest.fn();
 
                 const actionWrapper = function(value) {
                     return action.apply(this, arguments);
@@ -624,9 +624,9 @@ describe('ValuesWrapper', () => {
 
                 expect(result).toBe(values);
 
-                expect(checker.callCount).toBe(0);
+                expect(checker.mock.calls.length).toBe(0);
 
-                expect(action.callCount).toBe(0);
+                expect(action.mock.calls.length).toBe(0);
             });
         });
 
@@ -636,11 +636,11 @@ describe('ValuesWrapper', () => {
 
                 const values = $(/^TestValue1$/);
 
-                const checker = sinon.spy((value) => {
+                const checker = jest.fn((value) => {
                     return false;
                 });
 
-                const action = sinon.spy();
+                const action = jest.fn();
 
                 const actionWrapper = function(value) {
                     return action.apply(this, arguments);
@@ -648,21 +648,21 @@ describe('ValuesWrapper', () => {
 
                 values._check(actionWrapper, checker);
 
-                expect(checker.callCount).toBe(0);
+                expect(checker.mock.calls.length).toBe(0);
 
-                expect(action.callCount).toBe(1);
-                expect(action.getCall(0).args [0].md [0]).toBe('TestValue1');
+                expect(action.mock.calls.length).toBe(1);
+                expect(action.mock.calls [0] [0].md [0]).toBe('TestValue1');
 
-                checker.resetHistory();
-                action.resetHistory();
+                checker.mockClear();
+                action.mockClear();
 
                 values._check(actionWrapper, checker, {
                     includeUndefined: false,
                 });
 
-                expect(checker.callCount).toBe(0);
+                expect(checker.mock.calls.length).toBe(0);
 
-                expect(action.callCount).toBe(0);
+                expect(action.mock.calls.length).toBe(0);
             });
         });
 
@@ -672,11 +672,11 @@ describe('ValuesWrapper', () => {
 
                 const values = $(/^TestValue1$/);
 
-                const checker = sinon.spy((value) => {
+                const checker = jest.fn((value) => {
                     return false;
                 });
 
-                const action = sinon.spy();
+                const action = jest.fn();
 
                 const actionWrapper = function(value) {
                     return action.apply(this, arguments);
@@ -684,21 +684,21 @@ describe('ValuesWrapper', () => {
 
                 values._check(actionWrapper, checker);
 
-                expect(checker.callCount).toBe(0);
+                expect(checker.mock.calls.length).toBe(0);
 
-                expect(action.callCount).toBe(1);
-                expect(action.getCall(0).args [0].md [0]).toBe('TestValue1');
+                expect(action.mock.calls.length).toBe(1);
+                expect(action.mock.calls [0] [0].md [0]).toBe('TestValue1');
 
-                checker.resetHistory();
-                action.resetHistory();
+                checker.mockClear();
+                action.mockClear();
 
                 values._check(actionWrapper, checker, {
                     includeFailed: false,
                 });
 
-                expect(checker.callCount).toBe(0);
+                expect(checker.mock.calls.length).toBe(0);
 
-                expect(action.callCount).toBe(0);
+                expect(action.mock.calls.length).toBe(0);
             });
         });
 
@@ -709,11 +709,11 @@ describe('ValuesWrapper', () => {
 
                 const values = $(/^TestValue[1-2]$/);
 
-                const checker = sinon.spy((value) => {
+                const checker = jest.fn((value) => {
                     return (value === 1337);
                 });
 
-                const action = sinon.spy();
+                const action = jest.fn();
 
                 const actionWrapper = function(value) {
                     return action.apply(this, arguments);
@@ -721,12 +721,12 @@ describe('ValuesWrapper', () => {
 
                 values._check(actionWrapper, checker);
 
-                expect(checker.callCount).toBe(2);
-                expect(checker.getCall(0).args [0]).toBe(7353);
-                expect(checker.getCall(1).args [0]).toBe(1337);
+                expect(checker.mock.calls.length).toBe(2);
+                expect(checker.mock.calls [0] [0]).toBe(7353);
+                expect(checker.mock.calls [1] [0]).toBe(1337);
 
-                expect(action.callCount).toBe(1);
-                expect(action.getCall(0).args [0].md [0]).toBe('TestValue2');
+                expect(action.mock.calls.length).toBe(1);
+                expect(action.mock.calls [0] [0].md [0]).toBe('TestValue2');
             });
         });
 
@@ -736,11 +736,11 @@ describe('ValuesWrapper', () => {
 
                 const values = $(/^TestValue1$/);
 
-                const checker = sinon.spy((value) => {
+                const checker = jest.fn((value) => {
                     return false;
                 });
 
-                const action = sinon.spy();
+                const action = jest.fn();
 
                 const actionWrapper = function() {
                     return action.apply(this, arguments);
@@ -748,10 +748,10 @@ describe('ValuesWrapper', () => {
 
                 values._check(actionWrapper, checker);
 
-                expect(checker.callCount).toBe(0);
+                expect(checker.mock.calls.length).toBe(0);
 
-                expect(action.callCount).toBe(1);
-                expect(action.getCall(0).args [0]).toBe(undefined);
+                expect(action.mock.calls.length).toBe(1);
+                expect(action.mock.calls [0] [0]).toBe(undefined);
             });
         });
 
@@ -761,11 +761,11 @@ describe('ValuesWrapper', () => {
 
                 const values = $(/^TestValue(1)$/);
 
-                const checker = sinon.spy((value) => {
+                const checker = jest.fn((value) => {
                     return false;
                 });
 
-                const action = sinon.spy();
+                const action = jest.fn();
 
                 const actionWrapper = function(value) {
                     return action.apply(this, arguments);
@@ -773,13 +773,13 @@ describe('ValuesWrapper', () => {
 
                 values._check(actionWrapper, checker);
 
-                expect(checker.callCount).toBe(0);
+                expect(checker.mock.calls.length).toBe(0);
 
-                expect(action.callCount).toBe(1);
-                expectTypeToBe(action.getCall(0).args [0], 'object');
-                expectTypeToBe(action.getCall(0).args [0].md, 'array');
-                expect(action.getCall(0).args [0].md [0]).toBe('TestValue1');
-                expect(action.getCall(0).args [0].md [1]).toBe('1');
+                expect(action.mock.calls.length).toBe(1);
+                expectTypeToBe(action.mock.calls [0] [0], 'object');
+                expectTypeToBe(action.mock.calls [0] [0].md, 'array');
+                expect(action.mock.calls [0] [0].md [0]).toBe('TestValue1');
+                expect(action.mock.calls [0] [0].md [1]).toBe('1');
             });
         });
 
@@ -795,14 +795,14 @@ describe('ValuesWrapper', () => {
                 const action = 'ACTION';
                 const options = 'OPTIONS';
 
-                values._check = sinon.spy();
+                values._check = jest.fn();
 
                 values.check(checker, action, options);
 
-                expect(values._check.callCount).toBe(1);
-                expect(values._check.getCall(0).args [0]).toBe(action);
-                expect(values._check.getCall(0).args [1]).toBe(checker);
-                expect(values._check.getCall(0).args [2]).toBe(options);
+                expect(values._check.mock.calls.length).toBe(1);
+                expect(values._check.mock.calls [0] [0]).toBe(action);
+                expect(values._check.mock.calls [0] [1]).toBe(checker);
+                expect(values._check.mock.calls [0] [2]).toBe(options);
             });
         });
 

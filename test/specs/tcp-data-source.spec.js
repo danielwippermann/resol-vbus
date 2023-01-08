@@ -63,7 +63,7 @@ describe('TcpDataSource', () => {
         it('should work correctly', async () => {
             const originalConnect = TcpConnection.prototype.connect;
 
-            TcpConnection.prototype.connect = sinon.spy(async () => {
+            TcpConnection.prototype.connect = jest.fn(async () => {
                 // nop
             });
 

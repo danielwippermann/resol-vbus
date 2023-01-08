@@ -441,19 +441,19 @@ describe('HeaderSet', () => {
                 headers: [ header2, header1 ]
             });
 
-            const spy = sinon.spy(crypto, 'createHash');
+            const spy = jest.spyOn(crypto, 'createHash');
 
             let id = headerSet.getIdHash();
 
             expect(id).toBe('28ee1aa76e488e1d87ebd79573b08b2cf20f08f1991fae46ecca3197812cca86');
-            expect(spy.callCount).toBe(1);
+            expect(spy.mock.calls.length).toBe(1);
 
             id = headerSet.getIdHash();
 
             expect(id).toBe('28ee1aa76e488e1d87ebd79573b08b2cf20f08f1991fae46ecca3197812cca86');
-            expect(spy.callCount).toBe(1);
+            expect(spy.mock.calls.length).toBe(1);
 
-            spy.restore();
+            spy.mockRestore();
         });
 
     });

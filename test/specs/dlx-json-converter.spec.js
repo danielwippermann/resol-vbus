@@ -153,7 +153,7 @@ describe('DLxJsonConverter', () => {
 
             const converter = new DLxJsonConverter();
 
-            const onData = sinon.spy();
+            const onData = jest.fn();
             converter.on('data', onData);
 
             converter.convertHeaderSet(headerSet);
@@ -180,39 +180,39 @@ describe('DLxJsonConverter', () => {
 
             await converter.finish();
 
-            expect(onData.callCount).toBe(7);
+            expect(onData.mock.calls.length).toBe(7);
 
-            let chunk = onData.firstCall.args [0];
+            let chunk = onData.mock.calls [0] [0];
 
             expectTypeToBe(chunk, 'buffer');
             expect(chunk.toString()).toBe('{"headersets":[');
 
-            chunk = onData.secondCall.args [0];
+            chunk = onData.mock.calls [1] [0];
 
             expectTypeToBe(chunk, 'buffer');
             expect(chunk.toString()).toBe('{"timestamp":1387893006.829,"packets":[]}');
 
-            chunk = onData.thirdCall.args [0];
+            chunk = onData.mock.calls [2] [0];
 
             expectTypeToBe(chunk, 'buffer');
             expect(chunk.toString()).toBe(',{"timestamp":1387893006.829,"packets":[{"header_index":0,"timestamp":1387893003.303,"field_values":[{"field_index":0,"raw_value":0,"value":"0.0"},{"field_index":1,"raw_value":11,"value":"11"}]},{"header_index":1,"timestamp":1387893003.454,"field_values":[{"field_index":0,"raw_value":4880133,"value":"4880133"},{"field_index":1,"raw_value":0,"value":"0"},{"field_index":2,"raw_value":3347,"value":"3347"},{"field_index":3,"raw_value":0,"value":""},{"field_index":4,"raw_value":0,"value":"0"},{"field_index":5,"raw_value":0,"value":""},{"field_index":6,"raw_value":0,"value":""},{"field_index":7,"raw_value":0,"value":""},{"field_index":8,"raw_value":0,"value":"0"}]}]}');
 
-            chunk = onData.getCall(3).args [0];
+            chunk = onData.mock.calls [3] [0];
 
             expectTypeToBe(chunk, 'buffer');
             expect(chunk.toString()).toBe(',{"timestamp":1387893006.829,"packets":[{"header_index":0,"timestamp":1387893003.303,"field_values":[{"field_index":0,"raw_value":0,"value":"0.0"},{"field_index":1,"raw_value":11,"value":"11"}]},{"header_index":1,"timestamp":1387893003.454,"field_values":[{"field_index":0,"raw_value":4880133,"value":"4880133"},{"field_index":1,"raw_value":0,"value":"0"},{"field_index":2,"raw_value":3347,"value":"3347"},{"field_index":3,"raw_value":0,"value":""},{"field_index":4,"raw_value":0,"value":"0"},{"field_index":5,"raw_value":0,"value":""},{"field_index":6,"raw_value":0,"value":""},{"field_index":7,"raw_value":0,"value":""},{"field_index":8,"raw_value":0,"value":"0"}]},{"header_index":2,"timestamp":1387893006.778,"field_values":[{"field_index":0,"raw_value":1049.888,"value":"1049.888"},{"field_index":1,"raw_value":1064.434,"value":"1064.434"},{"field_index":2,"raw_value":1071.04,"value":"1071.040"},{"field_index":3,"raw_value":4.23,"value":"4.230"},{"field_index":4,"raw_value":12.7,"value":"12.7"},{"field_index":5,"raw_value":16.5,"value":"16.5"},{"field_index":6,"raw_value":18.2,"value":"18.2"},{"field_index":7,"raw_value":0,"value":"0"},{"field_index":8,"raw_value":0,"value":"0"},{"field_index":9,"raw_value":0,"value":"0"},{"field_index":10,"raw_value":17,"value":"17"},{"field_index":11,"raw_value":0,"value":""},{"field_index":12,"raw_value":0,"value":""},{"field_index":13,"raw_value":0,"value":""},{"field_index":14,"raw_value":0,"value":""},{"field_index":15,"raw_value":0,"value":""},{"field_index":16,"raw_value":0,"value":""},{"field_index":17,"raw_value":0,"value":""}]}]}');
 
-            chunk = onData.getCall(4).args [0];
+            chunk = onData.mock.calls [4] [0];
 
             expectTypeToBe(chunk, 'buffer');
             expect(chunk.toString()).toBe(',{"timestamp":1387893006.829,"packets":[{"header_index":0,"timestamp":1387893003.303,"field_values":[{"field_index":0,"raw_value":0,"value":"0.0"},{"field_index":1,"raw_value":11,"value":"11"}]},{"header_index":1,"timestamp":1387893003.454,"field_values":[{"field_index":0,"raw_value":4880133,"value":"4880133"},{"field_index":1,"raw_value":0,"value":"0"},{"field_index":2,"raw_value":3347,"value":"3347"},{"field_index":3,"raw_value":0,"value":""},{"field_index":4,"raw_value":0,"value":"0"},{"field_index":5,"raw_value":0,"value":""},{"field_index":6,"raw_value":0,"value":""},{"field_index":7,"raw_value":0,"value":""},{"field_index":8,"raw_value":0,"value":"0"}]},{"header_index":2,"timestamp":1387893006.778,"field_values":[{"field_index":0,"raw_value":1049.888,"value":"1049.888"},{"field_index":1,"raw_value":1064.434,"value":"1064.434"},{"field_index":2,"raw_value":1071.04,"value":"1071.040"},{"field_index":3,"raw_value":4.23,"value":"4.230"},{"field_index":4,"raw_value":12.7,"value":"12.7"},{"field_index":5,"raw_value":16.5,"value":"16.5"},{"field_index":6,"raw_value":18.2,"value":"18.2"},{"field_index":7,"raw_value":0,"value":"0"},{"field_index":8,"raw_value":0,"value":"0"},{"field_index":9,"raw_value":0,"value":"0"},{"field_index":10,"raw_value":17,"value":"17"},{"field_index":11,"raw_value":0,"value":""},{"field_index":12,"raw_value":0,"value":""},{"field_index":13,"raw_value":0,"value":""},{"field_index":14,"raw_value":0,"value":""},{"field_index":15,"raw_value":0,"value":""},{"field_index":16,"raw_value":0,"value":""},{"field_index":17,"raw_value":0,"value":""}]}]}');
 
-            chunk = onData.getCall(5).args [0];
+            chunk = onData.mock.calls [5] [0];
 
             expectTypeToBe(chunk, 'buffer');
             expect(chunk.toString()).toBe(',{"timestamp":1387893006.829,"packets":[{"header_index":0,"timestamp":1387893003.303,"field_values":[{"field_index":0,"raw_value":0,"value":"0.0"},{"field_index":1,"raw_value":11,"value":"11"}]},{"header_index":1,"timestamp":1387893003.454,"field_values":[{"field_index":0,"raw_value":4880133,"value":"4880133"},{"field_index":1,"raw_value":0,"value":"0"},{"field_index":2,"raw_value":3347,"value":"3347"},{"field_index":3,"raw_value":0,"value":""},{"field_index":4,"raw_value":0,"value":"0"},{"field_index":5,"raw_value":0,"value":""},{"field_index":6,"raw_value":0,"value":""},{"field_index":7,"raw_value":0,"value":""},{"field_index":8,"raw_value":0,"value":"0"}]},{"header_index":2,"timestamp":1387893006.778,"field_values":[{"field_index":0,"raw_value":1049.888,"value":"1049.888"},{"field_index":1,"raw_value":1064.434,"value":"1064.434"},{"field_index":2,"raw_value":1071.04,"value":"1071.040"},{"field_index":3,"raw_value":4.23,"value":"4.230"},{"field_index":4,"raw_value":12.7,"value":"12.7"},{"field_index":5,"raw_value":16.5,"value":"16.5"},{"field_index":6,"raw_value":18.2,"value":"18.2"},{"field_index":7,"raw_value":0,"value":"0"},{"field_index":8,"raw_value":0,"value":"0"},{"field_index":9,"raw_value":0,"value":"0"},{"field_index":10,"raw_value":17,"value":"17"},{"field_index":11,"raw_value":0,"value":""},{"field_index":12,"raw_value":0,"value":""},{"field_index":13,"raw_value":0,"value":""},{"field_index":14,"raw_value":0,"value":""},{"field_index":15,"raw_value":0,"value":""},{"field_index":16,"raw_value":0,"value":""},{"field_index":17,"raw_value":0,"value":""}]}]}');
 
-            chunk = onData.getCall(6).args [0];
+            chunk = onData.mock.calls [6] [0];
 
             expectTypeToBe(chunk, 'buffer');
             expect(chunk.toString()).toBe('],"headerset_stats":{"headerset_count":5,"min_timestamp":1387893006.829,"max_timestamp":1387893006.829},"headers":[{"id":"01_0010_7E21_0100","description":"VBus 1: DeltaSol MX [Heizkreis #1]","channel":1,"destination_address":16,"source_address":32289,"protocol_version":16,"command":256,"info":0,"destination_name":"DFA","source_name":"DeltaSol MX [Heizkreis #1]","fields":[{"id":"000_2_0","name":"Flow set temperature","unit":" °C","unit_code":"DegreesCelsius"},{"id":"002_1_0","name":"Operating state","unit":"","unit_code":"None"}]},{"id":"01_0010_7E31_0100","description":"VBus 1: DeltaSol MX [WMZ #1]","channel":1,"destination_address":16,"source_address":32305,"protocol_version":16,"command":256,"info":0,"destination_name":"DFA","source_name":"DeltaSol MX [WMZ #1]","fields":[{"id":"000_4_0","name":"Heat quantity","unit":" Wh","unit_code":"WattHours"},{"id":"008_4_0","name":"Heat quantity today","unit":" Wh","unit_code":"WattHours"},{"id":"012_4_0","name":"Heat quantity week","unit":" Wh","unit_code":"WattHours"},{"id":"020_4_0","name":"Heat quantity month","unit":" Wh","unit_code":"WattHours"},{"id":"016_4_0","name":"Volume in total","unit":" l","unit_code":"Liters"},{"id":"024_4_0","name":"Volume today","unit":" l","unit_code":"Liters"},{"id":"028_4_0","name":"Volume week","unit":" l","unit_code":"Liters"},{"id":"032_4_0","name":"Volume month","unit":" l","unit_code":"Liters"},{"id":"004_4_0","name":"Power","unit":" W","unit_code":"Watts"}]},{"id":"00_0010_0053_0100","description":"VBus 0: DL3","channel":0,"destination_address":16,"source_address":83,"protocol_version":16,"command":256,"info":0,"destination_name":"DFA","source_name":"DL3","fields":[{"id":"000_4_0","name":"Resistor sensor 1","unit":" Ω","unit_code":"Ohms"},{"id":"004_4_0","name":"Resistor sensor 2","unit":" Ω","unit_code":"Ohms"},{"id":"008_4_0","name":"Resistor sensor 3","unit":" Ω","unit_code":"Ohms"},{"id":"012_4_0","name":"Current sensor 4","unit":" mA","unit_code":"Milliamperes"},{"id":"034_2_0","name":"Temperature Sensor 1","unit":" °C","unit_code":"DegreesCelsius"},{"id":"036_2_0","name":"Temperature Sensor 2","unit":" °C","unit_code":"DegreesCelsius"},{"id":"038_2_0","name":"Temperature Sensor 3","unit":" °C","unit_code":"DegreesCelsius"},{"id":"016_4_0","name":"Impulse Counter Sensor 1","unit":"","unit_code":"None"},{"id":"020_4_0","name":"Impulse Counter Sensor 2","unit":"","unit_code":"None"},{"id":"024_4_0","name":"Impulse Counter Sensor 3","unit":"","unit_code":"None"},{"id":"040_2_0","name":"Irradiation Sensor 4","unit":" W/m²","unit_code":"WattsPerSquareMeter"},{"id":"044_4_0","name":"Last Impulse Interval Sensor 1","unit":" ms","unit_code":"Milliseconds"},{"id":"048_4_0","name":"Last Impulse Interval Sensor 2","unit":" ms","unit_code":"Milliseconds"},{"id":"052_4_0","name":"Last Impulse Interval Sensor 3","unit":" ms","unit_code":"Milliseconds"},{"id":"056_4_0","name":"Current Impulse Interval Sensor 1","unit":" ms","unit_code":"Milliseconds"},{"id":"060_4_0","name":"Current Impulse Interval Sensor 2","unit":" ms","unit_code":"Milliseconds"},{"id":"064_4_0","name":"Current Impulse Interval Sensor 3","unit":" ms","unit_code":"Milliseconds"},{"id":"080_4_0","name":"Heat quantity","unit":" Wh","unit_code":"WattHours"}]}],"language":"en"}');
@@ -227,13 +227,13 @@ describe('DLxJsonConverter', () => {
 
             const outConv = new DLxJsonConverter();
 
-            const onHeaderSet = sinon.spy((headerSet) => {
+            const onHeaderSet = jest.fn((headerSet) => {
                 outConv.convertHeaderSet(headerSet);
             });
 
             const buffers = [];
 
-            const onData = sinon.spy((chunk) => {
+            const onData = jest.fn((chunk) => {
                 buffers.push(chunk);
             });
 
@@ -255,15 +255,15 @@ describe('DLxJsonConverter', () => {
                 outConv.once('end', resolve);
             });
 
-            expect(onHeaderSet.callCount).toBe(1);
+            expect(onHeaderSet.mock.calls.length).toBe(1);
 
-            expect(onData.callCount).toBe(2);
+            expect(onData.mock.calls.length).toBe(2);
 
             outConv.finish();
 
             await outConvEndEventPromise;
 
-            expect(onData.callCount).toBe(3);
+            expect(onData.mock.calls.length).toBe(3);
 
             const buffer = Buffer.concat(buffers);
 

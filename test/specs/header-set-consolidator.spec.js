@@ -102,7 +102,7 @@ describe('HeaderSetConsolidator', () => {
             let onHeaderSet, startTimestamp;
 
             const onHeaderSetPromise = new Promise(resolve => {
-                onHeaderSet = sinon.spy(() => {
+                onHeaderSet = jest.fn(() => {
                     if (startTimestamp == null) {
                         startTimestamp = Date.now();
                     } else {
@@ -121,9 +121,9 @@ describe('HeaderSetConsolidator', () => {
 
             expectElapsedTimeToBeWithin(startTimestamp, 1000, 1200);
 
-            expect(onHeaderSet.callCount).toBe(2);
-            expect(onHeaderSet.firstCall.args).toHaveLength(1);
-            expect(onHeaderSet.firstCall.args [0]).toBe(hsc);
+            expect(onHeaderSet.mock.calls.length).toBe(2);
+            expect(onHeaderSet.mock.calls [0]).toHaveLength(1);
+            expect(onHeaderSet.mock.calls [0] [0]).toBe(hsc);
 
             hsc.removeListener('headerSet', onHeaderSet);
         });
@@ -150,7 +150,7 @@ describe('HeaderSetConsolidator', () => {
 
             const hsc = new HeaderSetConsolidator();
 
-            const onHeaderSetSpy = sinon.spy();
+            const onHeaderSetSpy = jest.fn();
 
             hsc.on('headerSet', onHeaderSetSpy);
 
@@ -160,9 +160,9 @@ describe('HeaderSetConsolidator', () => {
 
             expect(hsc.getHeaders()).toHaveLength(3);
 
-            expect(onHeaderSetSpy.callCount).toBe(1);
-            expect(onHeaderSetSpy.firstCall.args).toHaveLength(1);
-            expect(onHeaderSetSpy.firstCall.args [0]).toBe(hsc);
+            expect(onHeaderSetSpy.mock.calls.length).toBe(1);
+            expect(onHeaderSetSpy.mock.calls [0]).toHaveLength(1);
+            expect(onHeaderSetSpy.mock.calls [0] [0]).toBe(hsc);
 
             hsc.removeListener('headerSet', onHeaderSetSpy);
         });
@@ -182,24 +182,24 @@ describe('HeaderSetConsolidator', () => {
                 minTimestamp: new Date(timestamp),
             });
 
-            const onHeaderSetSpy = sinon.spy();
+            const onHeaderSetSpy = jest.fn();
 
             hsc.on('headerSet', onHeaderSetSpy);
 
             headerSet.timestamp = new Date(timestamp - 1);
             hsc.processHeaderSet(headerSet);
 
-            expect(onHeaderSetSpy.callCount).toBe(0);
+            expect(onHeaderSetSpy.mock.calls.length).toBe(0);
 
             headerSet.timestamp = new Date(timestamp);
             hsc.processHeaderSet(headerSet);
 
-            expect(onHeaderSetSpy.callCount).toBe(1);
+            expect(onHeaderSetSpy.mock.calls.length).toBe(1);
 
             headerSet.timestamp = new Date(timestamp + 1);
             hsc.processHeaderSet(headerSet);
 
-            expect(onHeaderSetSpy.callCount).toBe(2);
+            expect(onHeaderSetSpy.mock.calls.length).toBe(2);
 
             hsc.removeListener('headerSet', onHeaderSetSpy);
         });
@@ -219,24 +219,24 @@ describe('HeaderSetConsolidator', () => {
                 maxTimestamp: new Date(timestamp),
             });
 
-            const onHeaderSetSpy = sinon.spy();
+            const onHeaderSetSpy = jest.fn();
 
             hsc.on('headerSet', onHeaderSetSpy);
 
             headerSet.timestamp = new Date(timestamp - 1);
             hsc.processHeaderSet(headerSet);
 
-            expect(onHeaderSetSpy.callCount).toBe(1);
+            expect(onHeaderSetSpy.mock.calls.length).toBe(1);
 
             headerSet.timestamp = new Date(timestamp);
             hsc.processHeaderSet(headerSet);
 
-            expect(onHeaderSetSpy.callCount).toBe(2);
+            expect(onHeaderSetSpy.mock.calls.length).toBe(2);
 
             headerSet.timestamp = new Date(timestamp + 1);
             hsc.processHeaderSet(headerSet);
 
-            expect(onHeaderSetSpy.callCount).toBe(2);
+            expect(onHeaderSetSpy.mock.calls.length).toBe(2);
 
             hsc.removeListener('headerSet', onHeaderSetSpy);
         });
@@ -256,24 +256,24 @@ describe('HeaderSetConsolidator', () => {
                 interval: 3600,
             });
 
-            const onHeaderSetSpy = sinon.spy();
+            const onHeaderSetSpy = jest.fn();
 
             hsc.on('headerSet', onHeaderSetSpy);
 
             headerSet.timestamp = new Date(timestamp);
             hsc.processHeaderSet(headerSet);
 
-            expect(onHeaderSetSpy.callCount).toBe(1);
+            expect(onHeaderSetSpy.mock.calls.length).toBe(1);
 
             headerSet.timestamp = new Date(timestamp + 3599);
             hsc.processHeaderSet(headerSet);
 
-            expect(onHeaderSetSpy.callCount).toBe(1);
+            expect(onHeaderSetSpy.mock.calls.length).toBe(1);
 
             headerSet.timestamp = new Date(timestamp + 3600);
             hsc.processHeaderSet(headerSet);
 
-            expect(onHeaderSetSpy.callCount).toBe(2);
+            expect(onHeaderSetSpy.mock.calls.length).toBe(2);
 
             hsc.removeListener('headerSet', onHeaderSetSpy);
         });
@@ -294,26 +294,26 @@ describe('HeaderSetConsolidator', () => {
                 timeToLive: 3600,
             });
 
-            const onHeaderSetSpy = sinon.spy();
+            const onHeaderSetSpy = jest.fn();
 
             hsc.on('headerSet', onHeaderSetSpy);
 
             headerSet.timestamp = new Date(timestamp);
             hsc.processHeaderSet(headerSet);
 
-            expect(onHeaderSetSpy.callCount).toBe(1);
+            expect(onHeaderSetSpy.mock.calls.length).toBe(1);
             expect(hsc.getHeaderCount()).toBe(1);
 
             headerSet.timestamp = new Date(timestamp + 3599);
             hsc.processHeaderSet(headerSet);
 
-            expect(onHeaderSetSpy.callCount).toBe(2);
+            expect(onHeaderSetSpy.mock.calls.length).toBe(2);
             expect(hsc.getHeaderCount()).toBe(1);
 
             headerSet.timestamp = new Date(timestamp + 3601);
             hsc.processHeaderSet(headerSet);
 
-            expect(onHeaderSetSpy.callCount).toBe(3);
+            expect(onHeaderSetSpy.mock.calls.length).toBe(3);
             expect(hsc.getHeaderCount()).toBe(0);
 
             hsc.removeListener('headerSet', onHeaderSetSpy);

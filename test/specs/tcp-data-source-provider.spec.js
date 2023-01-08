@@ -175,7 +175,7 @@ describe('TCP Data Source Provider', () => {
             const originalSend = dgram.Socket.prototype.send;
             const originalFDI = TcpDataSourceProvider.fetchDeviceInformation;
 
-            dgram.Socket.prototype.send = sinon.spy(function() {
+            dgram.Socket.prototype.send = jest.fn(function() {
                 this.emit('message', '---RESOL-BROADCAST-REPLY---', {
                     family: 'IPv4',
                     port: 7053,
@@ -183,7 +183,7 @@ describe('TCP Data Source Provider', () => {
                 });
             });
 
-            TcpDataSourceProvider.fetchDeviceInformation = sinon.spy(() => {
+            TcpDataSourceProvider.fetchDeviceInformation = jest.fn(() => {
                 return {};
             });
 
@@ -193,8 +193,8 @@ describe('TCP Data Source Provider', () => {
                 });
 
                 expect(infos).toHaveLength(1);
-                expect(dgram.Socket.prototype.send.callCount).toBe(3);
-                expect(TcpDataSourceProvider.fetchDeviceInformation.callCount).toBe(1);
+                expect(dgram.Socket.prototype.send.mock.calls.length).toBe(3);
+                expect(TcpDataSourceProvider.fetchDeviceInformation.mock.calls.length).toBe(1);
             } finally {
                 dgram.Socket.prototype.send = originalSend;
                 TcpDataSourceProvider.fetchDeviceInformation = originalFDI;
@@ -208,7 +208,7 @@ describe('TCP Data Source Provider', () => {
         it('should work correctly', async () => {
             const originalSendBroadcast = TcpDataSourceProvider.sendBroadcast;
 
-            TcpDataSourceProvider.sendBroadcast = sinon.spy(() => {
+            TcpDataSourceProvider.sendBroadcast = jest.fn(() => {
                 return Promise.resolve([
                     Promise.reject(new Error('Failed')),
                     Promise.resolve({ address: 'ADDRESS' }),
@@ -220,7 +220,7 @@ describe('TCP Data Source Provider', () => {
 
                 expect(infos).toHaveLength(1);
                 expect(infos [0].address).toBe('ADDRESS');
-                expect(TcpDataSourceProvider.sendBroadcast.callCount).toBe(1);
+                expect(TcpDataSourceProvider.sendBroadcast.mock.calls.length).toBe(1);
             } finally {
                 TcpDataSourceProvider.sendBroadcast = originalSendBroadcast;
             }
@@ -233,7 +233,7 @@ describe('TCP Data Source Provider', () => {
         it('should work correctly', async () => {
             const originalDiscoverDevices = TcpDataSourceProvider.discoverDevices;
 
-            TcpDataSourceProvider.discoverDevices = sinon.spy(() => {
+            TcpDataSourceProvider.discoverDevices = jest.fn(() => {
                 return Promise.resolve([
                     { __address__: 'ADDRESS' },
                 ]);
@@ -244,7 +244,7 @@ describe('TCP Data Source Provider', () => {
             try {
                 const dataSources = await dsp.discoverDataSources();
                 expect(dataSources).toHaveLength(1);
-                expect(TcpDataSourceProvider.discoverDevices.callCount).toBe(1);
+                expect(TcpDataSourceProvider.discoverDevices.mock.calls.length).toBe(1);
             } finally {
                 TcpDataSourceProvider.discoverDevices = originalDiscoverDevices;
             }

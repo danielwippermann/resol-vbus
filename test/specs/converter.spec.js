@@ -207,15 +207,15 @@ describe('Converter', () => {
                 objectMode: true,
             });
 
-            const onData = sinon.spy();
+            const onData = jest.fn();
             converter.on('data', onData);
 
             converter.convertHeaderSet(headerSet);
 
-            const onHeader = sinon.spy();
+            const onHeader = jest.fn();
             converter.on('header', onHeader);
 
-            const onHeaderSet = sinon.spy();
+            const onHeaderSet = jest.fn();
             converter.on('headerSet', onHeaderSet);
 
             const finishEventPromise = new Promise(resolve => {
@@ -233,13 +233,13 @@ describe('Converter', () => {
 
             await finishEventPromise;
 
-            expect(onHeader.callCount).toBe(3);
-            expect(onHeader.firstCall.args [0]).toBe(packet1);
-            expect(onHeader.secondCall.args [0]).toBe(packet2);
-            expect(onHeader.thirdCall.args [0]).toBe(packet3);
+            expect(onHeader.mock.calls.length).toBe(3);
+            expect(onHeader.mock.calls [0] [0]).toBe(packet1);
+            expect(onHeader.mock.calls [1] [0]).toBe(packet2);
+            expect(onHeader.mock.calls [2] [0]).toBe(packet3);
 
-            expect(onHeaderSet.callCount).toBe(1);
-            expect(onHeaderSet.firstCall.args [0]).toBe(headerSet);
+            expect(onHeaderSet.mock.calls.length).toBe(1);
+            expect(onHeaderSet.mock.calls [0] [0]).toBe(headerSet);
         });
 
     });
@@ -275,7 +275,7 @@ describe('Converter', () => {
                 objectMode: true,
             });
 
-            const onData = sinon.spy();
+            const onData = jest.fn();
             converter.on('data', onData);
 
             const endEventPromise = new Promise(resolve => {
@@ -292,9 +292,9 @@ describe('Converter', () => {
 
             await endEventPromise;
 
-            expect(onData.callCount).toBe(2);
-            expect(onData.firstCall.args [0]).toBe(packet1);
-            expect(onData.secondCall.args [0]).toBe(headerSet);
+            expect(onData.mock.calls.length).toBe(2);
+            expect(onData.mock.calls [0] [0]).toBe(packet1);
+            expect(onData.mock.calls [1] [0]).toBe(headerSet);
         });
 
     });

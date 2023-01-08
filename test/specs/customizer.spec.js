@@ -83,7 +83,7 @@ describe('Customizer', () => {
                 optimizer: null,
             });
 
-            customizer._loadConfiguration = sinon.spy(async (configuration) => {
+            customizer._loadConfiguration = jest.fn(async (configuration) => {
                 return configuration;
             });
 
@@ -95,7 +95,7 @@ describe('Customizer', () => {
 
             const outConfig = await customizer.loadConfiguration(inConfig);
 
-            expect(customizer._loadConfiguration.callCount).toBe(1);
+            expect(customizer._loadConfiguration.mock.calls.length).toBe(1);
 
             expect(outConfig).toBe(inConfig);
         });
@@ -111,7 +111,7 @@ describe('Customizer', () => {
                 optimizer,
             });
 
-            customizer._loadConfiguration = sinon.spy(async (configuration) => {
+            customizer._loadConfiguration = jest.fn(async (configuration) => {
                 return configuration;
             });
 
@@ -123,7 +123,7 @@ describe('Customizer', () => {
 
             const outConfig = await customizer.loadConfiguration(inConfig);
 
-            expect(customizer._loadConfiguration.callCount).toBe(1);
+            expect(customizer._loadConfiguration.mock.calls.length).toBe(1);
 
             expect(outConfig).toBe(inConfig);
         });
@@ -149,7 +149,7 @@ describe('Customizer', () => {
                 optimizer: null,
             });
 
-            customizer._saveConfiguration = sinon.spy(async (configuration) => {
+            customizer._saveConfiguration = jest.fn(async (configuration) => {
                 return configuration;
             });
 
@@ -161,7 +161,7 @@ describe('Customizer', () => {
 
             const outConfig = await customizer.saveConfiguration(inConfig);
 
-            expect(customizer._saveConfiguration.callCount).toBe(1);
+            expect(customizer._saveConfiguration.mock.calls.length).toBe(1);
 
             expect(outConfig).toBe(inConfig);
         });
@@ -177,7 +177,7 @@ describe('Customizer', () => {
                 optimizer,
             });
 
-            customizer._saveConfiguration = sinon.spy(async (configuration) => {
+            customizer._saveConfiguration = jest.fn(async (configuration) => {
                 return configuration;
             });
 
@@ -189,7 +189,7 @@ describe('Customizer', () => {
 
             const outConfig = await customizer.saveConfiguration(inConfig);
 
-            expect(customizer._saveConfiguration.callCount).toBe(1);
+            expect(customizer._saveConfiguration.mock.calls.length).toBe(1);
 
             expect(outConfig).toBe(inConfig);
         });
@@ -213,7 +213,7 @@ describe('Customizer', () => {
         it('should forward to the optimizer', () => {
             const refResult = {};
 
-            const spy = sinon.spy(() => {
+            const spy = jest.fn(() => {
                 return refResult;
             });
 
@@ -229,7 +229,7 @@ describe('Customizer', () => {
 
             const result = customizer._completeConfiguration();
 
-            expect(optimizer.completeConfiguration.callCount).toBe(1);
+            expect(optimizer.completeConfiguration.mock.calls.length).toBe(1);
             expect(result).toBe(refResult);
         });
 
@@ -241,7 +241,7 @@ describe('Customizer', () => {
             const refConfig = {};
             const refResult = {};
 
-            const spy = sinon.spy(() => {
+            const spy = jest.fn(() => {
                 return refResult;
             });
 
@@ -257,8 +257,8 @@ describe('Customizer', () => {
 
             const result = customizer._optimizeLoadConfiguration(refConfig);
 
-            expect(optimizer.optimizeLoadConfiguration.callCount).toBe(1);
-            expect(optimizer.optimizeLoadConfiguration.firstCall.args [0]).toBe(refConfig);
+            expect(optimizer.optimizeLoadConfiguration.mock.calls.length).toBe(1);
+            expect(optimizer.optimizeLoadConfiguration.mock.calls [0] [0]).toBe(refConfig);
             expect(result).toBe(refResult);
         });
 
@@ -271,7 +271,7 @@ describe('Customizer', () => {
             const oldConfig = {};
             const refResult = {};
 
-            const spy = sinon.spy(() => {
+            const spy = jest.fn(() => {
                 return refResult;
             });
 
@@ -287,9 +287,9 @@ describe('Customizer', () => {
 
             const result = customizer._optimizeSaveConfiguration(newConfig, oldConfig);
 
-            expect(optimizer.optimizeSaveConfiguration.callCount).toBe(1);
-            expect(optimizer.optimizeSaveConfiguration.firstCall.args [0]).toBe(newConfig);
-            expect(optimizer.optimizeSaveConfiguration.firstCall.args [1]).toBe(oldConfig);
+            expect(optimizer.optimizeSaveConfiguration.mock.calls.length).toBe(1);
+            expect(optimizer.optimizeSaveConfiguration.mock.calls [0] [0]).toBe(newConfig);
+            expect(optimizer.optimizeSaveConfiguration.mock.calls [0] [1]).toBe(oldConfig);
             expect(result).toBe(refResult);
         });
 

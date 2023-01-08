@@ -120,7 +120,7 @@ describe('SerialConnection', () => {
 
         ifHasSerialPortIt('should work correctly if disconnected', async () => {
             await testConnection(async (connection) => {
-                const onConnectionState = sinon.spy();
+                const onConnectionState = jest.fn();
 
                 connection.on('connectionState', onConnectionState);
 
@@ -128,9 +128,9 @@ describe('SerialConnection', () => {
                     await connection.connect();
 
                     expect(connection.connectionState).toBe(SerialConnection.STATE_CONNECTED);
-                    expect(onConnectionState.callCount).toBe(2);
-                    expect(onConnectionState.firstCall.args [0]).toBe(SerialConnection.STATE_CONNECTING);
-                    expect(onConnectionState.secondCall.args [0]).toBe(SerialConnection.STATE_CONNECTED);
+                    expect(onConnectionState.mock.calls.length).toBe(2);
+                    expect(onConnectionState.mock.calls [0] [0]).toBe(SerialConnection.STATE_CONNECTING);
+                    expect(onConnectionState.mock.calls [1] [0]).toBe(SerialConnection.STATE_CONNECTED);
                 } finally {
                     connection.removeListener('connectionState', onConnectionState);
                 }
@@ -161,7 +161,7 @@ describe('SerialConnection', () => {
 
         ifHasSerialPortIt('should work correctly if connected', async () => {
             await testConnection(async (connection) => {
-                const onConnectionState = sinon.spy();
+                const onConnectionState = jest.fn();
 
                 connection.on('connectionState', onConnectionState);
 
@@ -175,9 +175,9 @@ describe('SerialConnection', () => {
                     connection.removeListener('connectionState', onConnectionState);
                 }
 
-                expect(onConnectionState.callCount).toBe(2);
-                expect(onConnectionState.getCall(0).args [0]).toBe(SerialConnection.STATE_DISCONNECTING);
-                expect(onConnectionState.getCall(1).args [0]).toBe(SerialConnection.STATE_DISCONNECTED);
+                expect(onConnectionState.mock.calls.length).toBe(2);
+                expect(onConnectionState.mock.calls [0] [0]).toBe(SerialConnection.STATE_DISCONNECTING);
+                expect(onConnectionState.mock.calls [1] [0]).toBe(SerialConnection.STATE_DISCONNECTED);
             });
         });
 
@@ -187,7 +187,7 @@ describe('SerialConnection', () => {
 
         ifHasSerialPortIt('should reconnect when connected', async () => {
             await testConnection(async (connection) => {
-                const onConnectionState = sinon.spy();
+                const onConnectionState = jest.fn();
 
                 connection.on('connectionState', onConnectionState);
 
@@ -196,20 +196,20 @@ describe('SerialConnection', () => {
 
                     const socket = await connection.createConnectedPromise();
 
-                    expect(onConnectionState.callCount).toBe(2);
-                    expect(onConnectionState.firstCall.args [0]).toBe(SerialConnection.STATE_CONNECTING);
-                    expect(onConnectionState.secondCall.args [0]).toBe(SerialConnection.STATE_CONNECTED);
+                    expect(onConnectionState.mock.calls.length).toBe(2);
+                    expect(onConnectionState.mock.calls [0] [0]).toBe(SerialConnection.STATE_CONNECTING);
+                    expect(onConnectionState.mock.calls [1] [0]).toBe(SerialConnection.STATE_CONNECTED);
 
-                    onConnectionState.reset();
+                    onConnectionState.mockClear();
 
                     connection.serialPort.emit('error');
 
                     await connection.createConnectedPromise();
 
-                    expect(onConnectionState.callCount).toBe(3);
-                    expect(onConnectionState.firstCall.args [0]).toBe(SerialConnection.STATE_INTERRUPTED);
-                    expect(onConnectionState.secondCall.args [0]).toBe(SerialConnection.STATE_RECONNECTING);
-                    expect(onConnectionState.thirdCall.args [0]).toBe(SerialConnection.STATE_CONNECTED);
+                    expect(onConnectionState.mock.calls.length).toBe(3);
+                    expect(onConnectionState.mock.calls [0] [0]).toBe(SerialConnection.STATE_INTERRUPTED);
+                    expect(onConnectionState.mock.calls [1] [0]).toBe(SerialConnection.STATE_RECONNECTING);
+                    expect(onConnectionState.mock.calls [2] [0]).toBe(SerialConnection.STATE_CONNECTED);
                 } finally {
                     connection.removeListener('connectionState', onConnectionState);
                 }

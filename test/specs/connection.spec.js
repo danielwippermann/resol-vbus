@@ -474,22 +474,22 @@ describe('Connection', () => {
         it('should work correctly', () => {
             const conn = new Connection();
 
-            const onConnectionState = sinon.spy();
+            const onConnectionState = jest.fn();
 
             conn.on('connectionState', onConnectionState);
 
             expect(conn.connectionState).toBe(Connection.STATE_DISCONNECTED);
-            expect(onConnectionState.callCount).toBe(0);
+            expect(onConnectionState.mock.calls.length).toBe(0);
 
             conn._setConnectionState(Connection.STATE_CONNECTED);
 
             expect(conn.connectionState).toBe(Connection.STATE_CONNECTED);
-            expect(onConnectionState.callCount).toBe(1);
+            expect(onConnectionState.mock.calls.length).toBe(1);
 
             conn._setConnectionState(Connection.STATE_CONNECTED);
 
             expect(conn.connectionState).toBe(Connection.STATE_CONNECTED);
-            expect(onConnectionState.callCount).toBe(1);
+            expect(onConnectionState.mock.calls.length).toBe(1);
         });
 
     });
