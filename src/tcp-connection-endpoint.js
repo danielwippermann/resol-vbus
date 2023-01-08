@@ -171,7 +171,7 @@ class TcpConnectionEndpoint extends EventEmitter {
                 };
 
                 processNextLine = function() {
-                    if ((index < buffer.length) && (phase < 1000)) {
+                    if (phase < 1000) {
                         while (index < buffer.length) {
                             if ((buffer [index] === 13) || (buffer [index] === 10)) {
                                 if (start < index) {
@@ -186,24 +186,20 @@ class TcpConnectionEndpoint extends EventEmitter {
 
                             index++;
                         }
-                    } else {
-                        if (start < buffer.length) {
-                            if (phase >= 1000) {
-                                // _this._write(buffer.slice(start));
+                    }
 
-                                rxBuffer = null;
-                            } else {
-                                rxBuffer = buffer.slice(start);
-                            }
-                        } else {
+                    if (start < buffer.length) {
+                        if (phase >= 1000) {
                             rxBuffer = null;
+                        } else {
+                            rxBuffer = buffer.slice(start);
                         }
+                    } else {
+                        rxBuffer = null;
                     }
                 };
 
                 processNextLine();
-            // } else {
-            //     _this._write(chunk);
             }
         };
 
