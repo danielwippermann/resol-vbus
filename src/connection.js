@@ -301,7 +301,7 @@ class Connection extends Duplex {
      * @param {?function} options.filterTelegram Will be called when a Telegram has been received with the Telegram and a callback as arguments.
      * @returns {Promise} A Promise that either resolves to the VBus data selected by one of the filter callbacks or `null` on timeout.
      */
-    transceive(txData, options) {
+    async transceive(txData, options) {
         const _this = this;
 
         options = applyDefaultOptions({}, options, {
@@ -313,36 +313,15 @@ class Connection extends Duplex {
             filterTelegram: null,
         });
 
-        return new Promise((resolve, reject) => {
-            let timer, onPacket, onDatagram, onTelegram;
+        let onPacket, onDatagram, onTelegram;
+        try {
+            let doneHandler = null;
 
-            const done = function(err, result) {
-                if (timer) {
-                    clearTimeout(timer);
-                    timer = null;
+            function done(err, result) {
+                if (doneHandler) {
+                    doneHandler(err, result);
                 }
-
-                if (onPacket) {
-                    _this.removeListener('packet', onPacket);
-                    onPacket = null;
-                }
-
-                if (onDatagram) {
-                    _this.removeListener('datagram', onDatagram);
-                    onDatagram = null;
-                }
-
-                if (onTelegram) {
-                    _this.removeListener('telegram', onTelegram);
-                    onTelegram = null;
-                }
-
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve(result);
-                }
-            };
+            }
 
             if (options.filterPacket) {
                 onPacket = function(rxPacket) {
@@ -374,26 +353,61 @@ class Connection extends Duplex {
                 this.on('telegram', onTelegram);
             }
 
-            let { tries, timeout } = options;
+            let timeout = options.timeout;
 
-            const nextTry = function() {
-                if (tries > 0) {
-                    tries--;
+            for (let currentTry = 0; currentTry < options.tries; currentTry++) {
+                let timer;
+                try {
+                    const donePromise = new Promise((resolve, reject) => {
+                        doneHandler = (err, result) => {
+                            if (err) {
+                                reject(err);
+                            } else {
+                                resolve(result);
+                            }
+                        };
+                    });
 
-                    timer = setTimeout(nextTry, timeout);
-
-                    timeout += options.timeoutIncr;
+                    timer = setTimeout(() => {
+                        timer = null;
+                        done(null, null);
+                    }, timeout);
 
                     if (txData) {
-                        _this.send(txData);
+                        this.send(txData);
                     }
-                } else {
-                    done(null, null);
-                }
-            };
 
-            process.nextTick(nextTry);
-        });
+                    const result = await donePromise;
+
+                    if (result) {
+                        return result;
+                    }
+
+                    timeout += options.timeoutIncr;
+                } finally {
+                    if (timer) {
+                        clearTimeout(timer);
+                    }
+                }
+            }
+
+            return null;
+        } finally {
+            if (onPacket) {
+                this.removeListener('packet', onPacket);
+                onPacket = null;
+            }
+
+            if (onDatagram) {
+                this.removeListener('datagram', onDatagram);
+                onDatagram = null;
+            }
+
+            if (onTelegram) {
+                this.removeListener('telegram', onTelegram);
+                onTelegram = null;
+            }
+        }
     }
 
     /**
