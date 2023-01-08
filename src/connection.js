@@ -302,8 +302,6 @@ class Connection extends Duplex {
      * @returns {Promise} A Promise that either resolves to the VBus data selected by one of the filter callbacks or `null` on timeout.
      */
     async transceive(txData, options) {
-        const _this = this;
-
         options = applyDefaultOptions({}, options, {
             timeout: 500,
             timeoutIncr: 0,
@@ -353,7 +351,7 @@ class Connection extends Duplex {
                 this.on('telegram', onTelegram);
             }
 
-            let timeout = options.timeout;
+            let { timeout } = options;
 
             for (let currentTry = 0; currentTry < options.tries; currentTry++) {
                 let timer;

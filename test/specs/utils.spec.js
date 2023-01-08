@@ -175,7 +175,6 @@ describe('utils', () => {
             expect(obj1.key1).toBe(1);
             expect(obj1.key2).toBe(undefined);
             expect(obj1.constructor).toBeTruthy();
-            expect(obj1.__proto__).toBeTruthy();
 
             expect(hasOwnProperty(obj1, 'key1')).toBe(true);
             expect(hasOwnProperty(obj1, 'key2')).toBe(false);

@@ -213,7 +213,7 @@ describe('TextConverter', () => {
             packet3.timestamp = new Date(1387893003454);
             packet3.channel = 1;
 
-            let headerSet = new HeaderSet({
+            const headerSet = new HeaderSet({
                 timestamp: new Date(1387893006829),
                 headers: []
             });

@@ -9,7 +9,6 @@ const {
     expect,
     expectOwnPropertyNamesToEqual,
     expectTimestampToBeWithin,
-    expectTypeToBe,
     itShouldBeAClass,
 } = require('./test-utils');
 

@@ -127,9 +127,6 @@ class DLxJsonConverter extends Converter {
             }
         }
 
-        const noneUnit = spec.getUnitById('None');
-        const numberType = spec.getTypeById('Number');
-
         const packetData = packetInfoList.reduce((memo, packetInfo) => {
             if (packetInfo.packetFields.length >= 0) {
                 const fieldData = packetInfo.packetFields.map((packetField, packetFieldIndex) => {

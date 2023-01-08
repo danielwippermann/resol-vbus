@@ -13,7 +13,6 @@ const {
 const {
     expect,
     expectOwnPropertyNamesToEqual,
-    expectTypeToBe,
     itShouldBeAClass,
 } = require('./test-utils');
 

@@ -194,7 +194,7 @@ describe('SerialConnection', () => {
                 try {
                     await connection.connect();
 
-                    const socket = await connection.createConnectedPromise();
+                    await connection.createConnectedPromise();
 
                     expect(onConnectionState.mock.calls.length).toBe(2);
                     expect(onConnectionState.mock.calls [0] [0]).toBe(SerialConnection.STATE_CONNECTING);

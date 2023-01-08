@@ -90,7 +90,7 @@ describe('test-utils', () => {
 
     xdescribe('serialPortPath', () => {
 
-        const { serialPortPath } = testUtils;
+        // const { serialPortPath } = testUtils;
 
         it('should work correctly', () => {
             throw new Error('NYI');
@@ -100,7 +100,7 @@ describe('test-utils', () => {
 
     xdescribe('ifHasSerialPortIt', () => {
 
-        const { ifHasSerialPortIt } = testUtils;
+        // const { ifHasSerialPortIt } = testUtils;
 
         it('should work correctly', () => {
             throw new Error('NYI');

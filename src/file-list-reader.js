@@ -49,7 +49,7 @@ class FileListReader extends Readable {
             } else {
                 this.push(null);
             }
-        }
+        };
 
         runner().then(null, err => {
             this.emit('error', err);

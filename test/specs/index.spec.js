@@ -4,7 +4,6 @@ const index = require('./resol-vbus');
 
 
 const {
-    expect,
     expectOwnPropertyNamesToEqual,
 } = require('./test-utils');
 

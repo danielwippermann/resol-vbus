@@ -124,17 +124,9 @@ describe('FileListReader', () => {
                 path.resolve(testableDirname, 'unknown-file.txt'),
             ];
 
-            let error, hasError;
-            try {
-                const stats = await readStatsToEnd(flr);
-                hasError = false;
-            } catch (err) {
-                error = err;
-                hasError = true;
-            }
-
-            expect(hasError).toBe(true);
-            expect(error.code).toBe('ENOENT');
+            await expect(async () => {
+                await readStatsToEnd(flr);
+            }).rejects.toThrow('ENOENT');
         });
 
     });
@@ -142,7 +134,7 @@ describe('FileListReader', () => {
     describe('.getListOfFiles', () => {
 
         function normalizeFilenames(filenames) {
-            return filenames.map(filename => filename.replace(testableDirname, '${testableDirname}'));
+            return filenames.map(filename => filename.replace(testableDirname, '$testableDirname'));
         }
 
         it('should work correctly', async () => {
@@ -151,23 +143,23 @@ describe('FileListReader', () => {
             result = await FileListReader.getListOfFiles(testableDirname, null, null);
 
             expect(normalizeFilenames(result)).toEqual([
-                '${testableDirname}/20140214_packets.vbus',
-                '${testableDirname}/20140215_packets.vbus',
-                '${testableDirname}/20140216_packets.vbus',
+                '$testableDirname/20140214_packets.vbus',
+                '$testableDirname/20140215_packets.vbus',
+                '$testableDirname/20140216_packets.vbus',
             ]);
 
             result = await FileListReader.getListOfFiles(testableDirname, '20140215', null);
 
             expect(normalizeFilenames(result)).toEqual([
-                '${testableDirname}/20140215_packets.vbus',
-                '${testableDirname}/20140216_packets.vbus',
+                '$testableDirname/20140215_packets.vbus',
+                '$testableDirname/20140216_packets.vbus',
             ]);
 
             result = await FileListReader.getListOfFiles(testableDirname, null, '20140215');
 
             expect(normalizeFilenames(result)).toEqual([
-                '${testableDirname}/20140214_packets.vbus',
-                '${testableDirname}/20140215_packets.vbus',
+                '$testableDirname/20140214_packets.vbus',
+                '$testableDirname/20140215_packets.vbus',
             ]);
         });
 
