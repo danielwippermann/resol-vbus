@@ -397,8 +397,6 @@ async function generateEmSimulatorSensorResponse(requestParams, requestBody) {
         throw new Error(`Invalid sensorNr`);
     }
 
-    console.log(requestBody);
-
     const resistor = convertSensorValue(requestBody);
     if (typeof resistor !== 'number') {
         throw new Error(`Unable to convert value to number`);
@@ -491,8 +489,6 @@ function wrapAsyncJsonRequestHandler(res, fn) {
 
 
 function processEmSimulatorPacket(connection, rxPacket) {
-    console.log(rxPacket.getId());
-
     if (((rxPacket.destinationAddress & 0xFFF0) === 0x6650) && (rxPacket.command === 0x0200) && (rxPacket.frameCount >= 10)) {
         const subAddress = rxPacket.destinationAddress & 0x000F;
 
@@ -529,8 +525,6 @@ function processEmSimulatorPacket(connection, rxPacket) {
             });
 
             connection.send(txPacket);
-
-            console.log('state', state);
         }
     }
 }
