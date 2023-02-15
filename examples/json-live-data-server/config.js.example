@@ -66,6 +66,17 @@ const config = {
         '00_0010_7E11_10_0100_000_2_0': 'Temperature collector',  // instead of "Temperater sensor 1"
     },
 
+    /**
+     * A list of EM (extension module) sub-addresses to simulate.
+     */
+    emSimulatorSubAdresses: [
+        // 1,
+        // 2,
+        // 3,
+        // 4,
+        // 5,
+    ],
+
 };
 
 

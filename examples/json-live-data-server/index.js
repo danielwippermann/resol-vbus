@@ -12,6 +12,7 @@ const {
     DLxJsonConverter,
     HeaderSet,
     HeaderSetConsolidator,
+    Packet,
     Specification,
     SerialConnection,
     TcpConnection,
@@ -60,6 +61,21 @@ const spec = Specification.getDefaultSpecification();
 
 
 const headerSet = new HeaderSet();
+
+
+const emSimulatorStates = (config.emSimulatorSubAdresses || []).map(subAddress => {
+    return {
+        subAddress,
+        sensorValues: [ 0, 0, 0, 0, 0, 0 ],
+        relayValues: [
+            [ 0, 0, 0, 0, ],
+            [ 0, 0, 0, 0, ],
+            [ 0, 0, 0, 0, ],
+            [ 0, 0, 0, 0, ],
+            [ 0, 0, 0, 0, ],
+        ],
+    };
+});
 
 
 async function generateJsonDataV1() {
@@ -282,6 +298,166 @@ async function generateKM2WebserviceResponse(requestBody) {
 }
 
 
+function isNumberString(string) {
+    return /^\d+$/.test(string);
+}
+
+
+function generateJsonResponse(obj) {
+    return Buffer.from(JSON.stringify(obj));
+}
+
+
+const knownSensorConversionMap = new Map([
+    [ 'resistor', function(body) {
+        const { value } = body;
+        if (typeof value !== 'number') {
+            throw new Error(`Malformed value: ${typeof value}`);
+        }
+        return value;
+    } ],
+    [ 'temperaturePt1000', function(body) {
+        const { value } = body;
+        if (typeof value !== 'number') {
+            throw new Error(`Malformed value`);
+        }
+        // Source: https://de.wikipedia.org/wiki/Widerstandsthermometer#Platin
+        return 1000 * (1 + 3.9083e-3 * value - 5.775e-7 * value * value);
+    } ],
+    [ 'bas', function(body) {
+        const { offset, mode } = body;
+        if (typeof offset !== 'number') {
+            throw new Error('Malformed offset');
+        } else if ((offset < -30) || (offset > 30)) {
+            throw new Error(`Invalid offset`)
+        } else if (typeof mode !== 'string') {
+            throw new Error('Malformed mode');
+        }
+
+        let modeResistor;
+        switch (mode) {
+        case 'auto': modeResistor = 36; break;
+        case 'night': modeResistor = 620; break;
+        case 'summer': modeResistor = 1200; break;
+        case 'off': modeResistor = 1800; break;
+        default:
+            throw new Error(`Invalid mode`);
+        }
+
+        let offsetResistor;
+        if (offset < -15) {
+            offsetResistor = 0;
+        } else if (offset > 15) {
+            offsetResistor = 500;
+        } else {
+            offsetResistor = 250 + offset * 210 / 15;
+        }
+
+        return (modeResistor + offsetResistor);
+    } ],
+]);
+
+
+async function generateEmSimulatorResponse() {
+    return generateJsonResponse(emSimulatorStates.map(state => {
+        const { subAddress } = state;
+        return { subAddress };
+    }));
+}
+
+
+async function generateEmSimulatorSensorResponse(requestParams, requestBody) {
+    let { subAddress, sensorNr, sensorType } = requestParams;
+
+    if (isNumberString(subAddress)) {
+        subAddress = +subAddress;
+    } else {
+        throw new Error(`Malformed subAddress`);
+    }
+
+    if (isNumberString(sensorNr)) {
+        sensorNr = +sensorNr;
+    } else {
+        throw new Error(`Malformed sensorNr`);
+    }
+
+    let convertSensorValue;
+    if (knownSensorConversionMap.has(sensorType)) {
+        convertSensorValue = knownSensorConversionMap.get(sensorType);
+    } else {
+        throw new Error(`Unknown sensorType`);
+    }
+
+    const state = emSimulatorStates.find(state => state.subAddress === subAddress);
+    if (!state) {
+        throw new Error(`Unknown subAddress`);
+    }
+
+    if ((sensorNr < 1) || (sensorNr > state.sensorValues.length)) {
+        throw new Error(`Invalid sensorNr`);
+    }
+
+    console.log(requestBody);
+
+    const resistor = convertSensorValue(requestBody);
+    if (typeof resistor !== 'number') {
+        throw new Error(`Unable to convert value to number`);
+    } else if (!Number.isFinite(resistor)) {
+        throw new Error(`Converted sensor is not a finite number`);
+    }
+
+    const rawResistor = Math.round(resistor * 1000);
+    if ((rawResistor < 0) || (rawResistor > 0xFFFFFFFF)) {
+        throw new Error(`Sensor value is out of range`);
+    }
+
+    state.sensorValues [sensorNr - 1] = rawResistor;
+
+    return generateJsonResponse({
+        resistor,
+        rawResistor,
+    });
+}
+
+
+async function generateEmSimulatorRelayResponse(requestParams) {
+    let { subAddress, relayNr } = requestParams;
+
+    if (isNumberString(subAddress)) {
+        subAddress = +subAddress;
+    } else {
+        throw new Error(`Malformed subAddress`);
+    }
+
+    if (isNumberString(relayNr)) {
+        relayNr = +relayNr;
+    } else {
+        throw new Error(`Malformed relayNr`);
+    }
+
+    const state = emSimulatorStates.find(state => state.subAddress === subAddress);
+    if (!state) {
+        throw new Error(`Unknown subAddress`);
+    }
+
+    if ((relayNr < 1) || (relayNr > state.relayValues.length)) {
+        throw new Error(`Invalid relayNr`);
+    }
+
+    const [ value1, time1, value2, time2 ] = state.relayValues [relayNr - 1];
+
+    const value = (time1 > 0) ? value1 : (time2 > 0) ? value2 : 0;
+
+    return generateJsonResponse({
+        value1,
+        time1,
+        value2,
+        time2,
+        value,
+    });
+}
+
+
 async function writeHeaderSet(filename) {
     logger.debug('HeaderSet complete');
 
@@ -311,6 +487,52 @@ function wrapAsyncJsonRequestHandler(res, fn) {
         const contentType = 'application/json';
         return { data, contentType };
     });
+}
+
+
+function processEmSimulatorPacket(connection, rxPacket) {
+    console.log(rxPacket.getId());
+
+    if (((rxPacket.destinationAddress & 0xFFF0) === 0x6650) && (rxPacket.command === 0x0200) && (rxPacket.frameCount >= 10)) {
+        const subAddress = rxPacket.destinationAddress & 0x000F;
+
+        const state = emSimulatorStates.find(state => state.subAddress === subAddress);
+
+        if (state) {
+            const rxFrameData = rxPacket.frameData;
+
+            const tmpBuffer = Buffer.alloc(4);
+
+            for (let i = 0; i < 5; i++) {
+                const offset = i * 8;
+                const value1 = rxFrameData [offset + 0];
+                rxFrameData.copy(tmpBuffer, 0, offset + 1, offset + 4);
+                const time1 = tmpBuffer.readUInt32LE(0);
+                const value2 = rxFrameData [offset + 4];
+                rxFrameData.copy(tmpBuffer, 0, offset + 5, offset + 8);
+                const time2 = tmpBuffer.readUInt32LE(0);
+
+                state.relayValues [i] = [ value1, time1, value2, time2 ];
+            }
+
+            const txFrameData = Buffer.alloc(24);
+            for (let i = 0; i < 6; i++) {
+                txFrameData.writeUInt32LE(state.sensorValues [i], i * 4);
+            }
+
+            const txPacket = new Packet({
+                destinationAddress: rxPacket.sourceAddress,
+                sourceAddress: rxPacket.destinationAddress,
+                command: 0x0100,
+                frameCount: 6,
+                frameData: txFrameData,
+            });
+
+            connection.send(txPacket);
+
+            console.log('state', state);
+        }
+    }
 }
 
 
@@ -369,6 +591,24 @@ async function main(options) {
         });
     });
 
+    app.get('/api/v1/em', (req, res) => {
+        wrapAsyncJsonRequestHandler(res, () => {
+            return generateEmSimulatorResponse();
+        });
+    });
+
+    app.post('/api/v1/em/:subAddress/sensor/:sensorNr/:sensorType', express.json(), (req, res) => {
+        wrapAsyncJsonRequestHandler(res, () => {
+            return generateEmSimulatorSensorResponse(req.params, req.body);
+        });
+    });
+
+    app.get('/api/v1/em/:subAddress/relay/:relayNr', (req, res) => {
+        wrapAsyncJsonRequestHandler(res, () => {
+            return generateEmSimulatorRelayResponse(req.params);
+        });
+    });
+
     const server = await promisify(cb => {
         const server = app.listen(config.httpPort, err => cb(err, server));
     });
@@ -391,6 +631,7 @@ async function main(options) {
     connection.on('packet', (packet) => {
         headerSet.addHeader(packet);
         hsc.addHeader(packet);
+        processEmSimulatorPacket(connection, packet);
     });
 
     hsc.on('headerSet', (headerSet) => {

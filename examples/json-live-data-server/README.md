@@ -213,3 +213,77 @@ build = "201311280853"
 name = "DL2-001E66000000"
 features = "vbus,dl2"
 ```
+
+
+### Simulating extension modules
+
+You can enable simulation of extension modules (EMs) by adding their sub-addresses to the `config.emSimulationSubAddresses` array. The following example config would simulate EMs on sub-address 2 and 3.
+
+```
+    ...
+
+    /**
+     * A list of EM (extension module) sub-addresses to simulate.
+     */
+    emSimulatorSubAdresses: [
+        // 1,
+        2,
+        3,
+        // 4,
+        // 5,
+    ],
+
+    ...
+```
+
+To use those extension modules in your controller consult the controller's manual on how many modules are supported and how to activate them.
+
+After configuring the EM sub-addresses you can use HTTP API endpoints to get current relay values and set sensor values for the simulated EMs.
+
+
+#### Getting list of simulated EMs
+
+**URL:** `http://127.0.0.1:3333/api/v1/em`
+
+```
+$ curl -s http://127.0.0.1:3333/api/v1/em
+[{"subAddress":2},{"subAddress":3}]
+```
+
+
+#### Getting relay values
+
+**URL:** `http://127.0.0.1:3333/api/v1/em/<subAddress>/relay/<relayNr>`
+**Param "subAddress":** one of the configured sub-addresses
+**Param "relayNr":** one of the relays (1-5)
+
+```
+$ curl -s http://127.0.0.1:3333/api/v1/em/2/relay/1
+{"value1":100,"time1":1,"value2":0,"time2":0,"value":100}
+```
+
+
+#### Setting sensor values
+
+**URL:** `http://127.0.0.1:3333/api/v1/em/<subAddress>/sensor/<sensorNr>/<sensorType>`
+**Param "subAddress":** one of the configured sub-addresses
+**Param "sensorNr":** one of the sensors (1-6)
+**Param "sensorType":** one of the sensor conversions supported, see below
+
+```
+# setting a raw resistor value (sensorType = resistor)
+# possible values are: 0 ... 4000
+$ curl -H 'Content-Type: application/json' -d '{"value":1000}' -s http://127.0.0.1:3333/api/v1/em/2/sensor/1/resistor
+{"resistor":1000,"rawResistor":1000000}
+
+# setting a resistor value for a Pt1000 sensor (sensorType = temperaturPt1000)
+# possible values are: -40 ... 260
+$ curl -H 'Content-Type: application/json' -d '{"value":100}' -s http://127.0.0.1:3333/api/v1/em/2/sensor/1/temperaturePt1000
+{"resistor":1385.0549999999998,"rawResistor":1385055}
+
+# setting a resistor value for a BAS sensor (sensorType = bas)
+# possible offsets are: -30 ... 30
+# possible modes are: "auto", "night", "summer" and "off"
+$ curl -H 'Content-Type: application/json' -d '{"offset":10,"mode":"auto"}' -s http://127.0.0.1:3333/api/v1/em/1/sensor/1/bas
+{"resistor":426,"rawResistor":426000}
+```
