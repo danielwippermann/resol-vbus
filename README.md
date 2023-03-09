@@ -114,6 +114,11 @@ following command into your shell:
 ## Work in progress
 
 
+## Version 0.27.0 (2022-03-xx)
+
+- Fix bugs in `SerialConnection` and `SerialDataSourceProvider`
+
+
 ## Version 0.26.0 (2022-12-xx)
 
 - [BREAKING CHANGE] Removed `Recorder`, `DLxRecorder` and `FileSystemRecorder`
