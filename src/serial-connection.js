@@ -2,7 +2,7 @@
 
 let SerialPort, serialPortRequireError;
 try {
-    SerialPort = require('serialport');
+    SerialPort = require('serialport').SerialPort;
 } catch (ex) {
     serialPortRequireError = ex;
 }
@@ -67,117 +67,131 @@ class SerialConnection extends Connection {
     }
 
     _connect() {
-        const _this = this;
-
-        let serialPort = undefined;
-
         return new Promise((resolve, reject) => {
-            const done = function(err, result) {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve(result);
-                }
-            };
-
-            const onConnectionData = function(chunk) {
-                serialPort.write(chunk);
-            };
-
-            const onSerialPortData = function(chunk) {
-                _this._write(chunk);
-            };
-
-            const onSerialPortTermination = function() {
-                _this.removeListener('data', onConnectionData);
-
-                if (_this.serialPort !== serialPort) {
-                    // nop
-                } else if (_this.connectionState === SerialConnection.STATE_CONNECTING) {
-                    _this._setConnectionState(SerialConnection.STATE_DISCONNECTED);
-
-                    _this.serialPort = null;
-
-                    done(new Error('Unable to connect'));
-                } else if (_this.connectionState === SerialConnection.STATE_DISCONNECTING) {
-                    _this._setConnectionState(SerialConnection.STATE_DISCONNECTED);
-
-                    _this.serialPort = null;
-                } else {
-                    _this._setConnectionState(SerialConnection.STATE_INTERRUPTED);
-
-                    _this.serialPort = null;
-
-                    const timeout = _this.reconnectTimeout;
-                    if (_this.reconnectTimeout < _this.reconnectTimeoutMax) {
-                        _this.reconnectTimeout += _this.reconnectTimeoutIncr;
-                    }
-
-                    setTimeout(() => {
-                        _this._setConnectionState(SerialConnection.STATE_RECONNECTING);
-
-                        _this._connect();
-                    }, timeout);
-                }
-            };
-
-            const onEnd = function() {
-                onSerialPortTermination();
-            };
-
-            const onError = function() {
-                serialPort.close();
-                onSerialPortTermination();
-            };
-
-            const onConnectionEstablished = function() {
-                _this.reconnectTimeout = 0;
-
-                _this._setConnectionState(SerialConnection.STATE_CONNECTED);
-
-                done();
-            };
-
-            this.on('data', onConnectionData);
-
-            const onCompletion = function(err) {
-                if (err) {
-                    done(err);
-                }
-            };
-
-            const onDisconnect = function() {
-                onError();
-            };
+            let cleanup = () => { reject(new Error('Called too soon')); };
 
             const options = {
+                path: this.path,
                 baudRate: this.baudrate,
                 dataBits: 8,
                 stopBits: 1,
                 parity: 'none',
-                disconnectedCallback: onDisconnect,
             };
 
-            serialPort = this._createSerialPort(this.path, options, onCompletion);
+            let serialPort = this._createSerialPort(options);
 
-            serialPort.once('open', () => {
-                serialPort.on('data', onSerialPortData);
-                serialPort.on('end', onEnd);
-                serialPort.on('error', onError);
+            let onConnectionReadable = () => {
+                let chunk;
+                while ((chunk = this.read()) != null) {
+                    if (serialPort) {
+                        serialPort.write(chunk);
+                    }
+                }
+            };
 
-                onConnectionEstablished();
-            });
+            let onSerialPortError = (err) => {
+                cleanup();
+            };
+
+            let onSerialPortOpen = () => {
+                onSerialPortOpen = null;
+
+                this.reconnectTimeout = 0;
+
+                this._setConnectionState(SerialConnection.STATE_CONNECTED);
+
+                resolve();
+            };
+
+            let onSerialPortClose = (err) => {
+                cleanup();
+            };
+
+            let onSerialPortReadable = () => {
+                let chunk;
+                while ((chunk = serialPort.read()) != null) {
+                    this._write(chunk);
+                }
+            };
+
+            cleanup = () => {
+                if (onConnectionReadable) {
+                    this.removeListener('readable', onConnectionReadable);
+                    onConnectionReadable = null;
+                }
+
+                if (serialPort) {
+                    if (onSerialPortError) {
+                        serialPort.removeListener('error', onSerialPortError);
+                        onSerialPortError = null;
+                    }
+
+                    if (onSerialPortOpen) {
+                        serialPort.removeListener('open', onSerialPortOpen);
+                        onSerialPortOpen = null;
+                    }
+
+                    if (onSerialPortClose) {
+                        serialPort.removeListener('close', onSerialPortClose);
+                        onSerialPortClose = null;
+                    }
+
+                    if (onSerialPortReadable) {
+                        serialPort.removeListener('readable', onSerialPortReadable);
+                        onSerialPortReadable = null;
+                    }
+
+                    if (serialPort.isOpen) {
+                        serialPort.close();
+                    }
+                }
+
+                if (this.serialPort !== serialPort) {
+                    // nop
+                } else if (this.connectionState === SerialConnection.STATE_CONNECTING) {
+                    this._setConnectionState(SerialConnection.STATE_DISCONNECTED);
+
+                    this.serialPort = null;
+
+                    reject(new Error('Unable to connect'));
+                } else if (this.connectionState === SerialConnection.STATE_DISCONNECTING) {
+                    this._setConnectionState(SerialConnection.STATE_DISCONNECTED);
+
+                    this.serialPort = null;
+                } else {
+                    this._setConnectionState(SerialConnection.STATE_INTERRUPTED);
+
+                    this.serialPort = null;
+
+                    const timeout = this.reconnectTimeout;
+                    if (this.reconnectTimeout < this.reconnectTimeoutMax) {
+                        this.reconnectTimeout += this.reconnectTimeoutIncr;
+                    }
+
+                    setTimeout(() => {
+                        this._setConnectionState(SerialConnection.STATE_RECONNECTING);
+
+                        this._connect();
+                    }, timeout);
+                }
+            };
+
+            this.on('readable', onConnectionReadable);
+            serialPort.on('error', onSerialPortError);
+            serialPort.once('open', onSerialPortOpen);
+            serialPort.on('close', onSerialPortClose);
+            serialPort.on('readable', onSerialPortReadable);
 
             this.serialPort = serialPort;
         });
     }
 
-    _createSerialPort(path, options, onCompletion) {
+    _createSerialPort(options) {
         if (serialPortRequireError) {
             throw serialPortRequireError;
         }
 
-        return new SerialPort(path, options, null, onCompletion);
+        return new SerialPort(options);
     }
 
 }
