@@ -2,7 +2,7 @@
 
 let SerialPort, serialPortRequireError;
 try {
-    SerialPort = require('serialport');
+    SerialPort = require('serialport').SerialPort;
 } catch (ex) {
     serialPortRequireError = ex;
 }
@@ -23,47 +23,31 @@ class SerialDataSourceProvider extends DataSourceProvider {
         applyDefaultOptions(this, options, {});
     }
 
-    discoverDataSources() {
-        const _this = this;
+    async discoverDataSources() {
+        const ports = await this._listSerialPorts();
 
-        return new Promise((resolve, reject) => {
-            const done = function(err, result) {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve(result);
-                }
-            };
-
-            this._listSerialPorts((err, ports) => {
-                if (err) {
-                    done(err);
-                } else {
-                    const dataSources = ports.map((port) => {
-                        return new SerialDataSource({
-                            provider: _this.id,
-                            id: port.comName,
-                            name: port.comName,
-                            path: port.comName,
-                        });
-                    });
-
-                    done(null, dataSources);
-                }
+        const dataSources = ports.map((port) => {
+            return new SerialDataSource({
+                provider: _this.id,
+                id: port.comName,
+                name: port.comName,
+                path: port.comName,
             });
         });
+
+        return dataSources;
     }
 
     createDataSource(options) {
         return new SerialDataSource(options);
     }
 
-    _listSerialPorts() {
+    async _listSerialPorts() {
         if (serialPortRequireError) {
             throw serialPortRequireError;
         }
 
-        return SerialPort.list.apply(SerialPort, arguments);
+        return await SerialPort.list();
     }
 
 }
