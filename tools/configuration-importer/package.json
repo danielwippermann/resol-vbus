@@ -9,6 +9,6 @@
   "author": "Daniel Wippermann <Daniel.Wippermann@gmail.com> (http://danielwippermann.github.io/)",
   "license": "MIT",
   "dependencies": {
-    "xml2js": "^0.4.23"
+    "xml2js": "^0.5.0"
   }
 }
