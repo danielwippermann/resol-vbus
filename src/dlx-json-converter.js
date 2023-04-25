@@ -40,6 +40,8 @@ class DLxJsonConverter extends Converter {
 
             statsOnly: false,
 
+            extendFieldData: false,
+
         });
 
         if (!this.specification) {
@@ -200,16 +202,35 @@ class DLxJsonConverter extends Converter {
             }
         }
 
+        const extendFieldData = this.extendFieldData;
+
         const headersData = packetInfoList.reduce((memo, packetInfo, packetInfoIndex) => {
             if (packetInfo.packetFields.length >= 0) {
                 const fieldsData = packetInfo.packetFields.map((packetField, packetFieldIndex) => {
-                    return {
+                    const fieldData = {
                         id: packetField.packetFieldSpec.fieldId,
                         filteredId: packetField.packetFieldSpec.filteredPacketFieldId,
                         name: packetField.name,
                         unit: packetField.packetFieldSpec.type.unit.unitText,
                         unit_code: packetField.packetFieldSpec.type.unit.unitCode,
                     };
+
+                    if (extendFieldData === true) {
+                        const extendedData = { ...packetField };
+                        delete extendedData.packet;
+                        delete extendedData.packetSpec;
+                        if (extendedData.origPacketFieldSpec === extendedData.packetFieldSpec) {
+                            delete extendedData.origPacketFieldSpec;
+                        }
+                        fieldData.extendedData = extendedData;
+                    } else if (typeof extendFieldData === 'function') {
+                        const extendedData = extendFieldData(fieldData, packetField, packetInfo, packetFieldIndex, packetInfoIndex);
+                        if (extendedData != null) {
+                            fieldData.extendedData = extendedData;
+                        }
+                    }
+
+                    return fieldData;
                 });
 
                 let md;

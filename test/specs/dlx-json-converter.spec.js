@@ -52,6 +52,7 @@ describe('DLxJsonConverter', () => {
             expectOwnPropertyNamesToEqual(converter, [
                 'specification',
                 'statsOnly',
+                'extendFieldData',
                 'allHeaderSet',
                 'emittedStart',
                 'stats',
@@ -73,6 +74,7 @@ describe('DLxJsonConverter', () => {
             expectPromise(converter.finishedPromise);
             expect(converter.specification.language).toBe('en');
             expect(converter.statsOnly).toBe(false);
+            expect(converter.extendFieldData).toBe(false);
             expect(converter.allHeaderSet).toBeInstanceOf(HeaderSet);
             expect(converter.emittedStart).toBe(false);
             expect(converter.stats.headerSetCount).toBe(0);
@@ -84,6 +86,7 @@ describe('DLxJsonConverter', () => {
             const options = {
                 specification: Specification.getDefaultSpecification(),
                 statsOnly: true,
+                extendFieldData: true,
                 objectMode: true,
                 junk: 'JUNK',
             };
@@ -92,6 +95,7 @@ describe('DLxJsonConverter', () => {
 
             expect(converter.specification).toBe(options.specification);
             expect(converter.statsOnly).toBe(options.statsOnly);
+            expect(converter.extendFieldData).toBe(options.extendFieldData);
             expect(converter.objectMode).toBe(options.objectMode);
             expect(converter.junk).toBe(undefined);
         });
@@ -519,6 +523,266 @@ describe('DLxJsonConverter', () => {
                             'field_index': 1,
                             'raw_value': -17.8,
                             'value': '-17.8',
+                        }],
+                        'header_index': 0,
+                        'timestamp': 1387893003.303,
+                    }],
+                    'timestamp': 1387893006.829
+                }],
+                'language': 'en'
+            });
+        });
+
+        it('should work with extendFieldData set to true', async () => {
+            const buffer2 = Buffer.from(rawPacket2, 'hex');
+            const packet2 = Packet.fromLiveBuffer(buffer2, 0, buffer2.length);
+            packet2.timestamp = new Date(1387893003303);
+            packet2.channel = 1;
+
+            const outConv = new DLxJsonConverter({
+                extendFieldData: true,
+            });
+
+            const dataChunks = [];
+
+            const headerSet = new HeaderSet({
+                timestamp: new Date(1387893006829),
+                headers: [ packet2 ]
+            });
+
+            outConv.on('data', (chunk) => {
+                dataChunks.push(chunk);
+            });
+
+            const outConvEndEventPromise = new Promise(resolve => {
+                outConv.on('end', () => {
+                    resolve();
+                });
+            });
+
+            outConv.convertHeaderSet(headerSet);
+
+            outConv.finish();
+
+            await outConvEndEventPromise;
+
+            const buffer = Buffer.concat(dataChunks);
+
+            const string = buffer.toString();
+
+            const jsonRecording = JSON.parse(string);
+
+            expect(jsonRecording).toEqual({
+                'headers': [{
+                    'channel': 1,
+                    'command': 256,
+                    'description': 'VBus 1: DeltaSol MX [Heizkreis #1]',
+                    'destination_address': 16,
+                    'destination_name': 'DFA',
+                    'fields': [{
+                        'id': '000_2_0',
+                        'name': 'Flow set temperature',
+                        'unit': ' °C',
+                        'unit_code': 'DegreesCelsius',
+                        'extendedData': {
+                            'id': '01_0010_7E21_10_0100_000_2_0',
+                            'name': 'Flow set temperature',
+                            'packetFieldSpec': {
+                                'factor': 0.1,
+                                'fieldId': '000_2_0',
+                                'name': {
+                                    'de': 'Vorlauf-Soll-Temperatur',
+                                    'en': 'Flow set temperature',
+                                    'fr': 'Température nominale départ',
+                                },
+                                'parts': [{
+                                    'bitPos': 0,
+                                    'factor': 1,
+                                    'isSigned': false,
+                                    'mask': 255,
+                                    'offset': 0,
+                                }, {
+                                    'bitPos': 0,
+                                    'factor': 256,
+                                    'isSigned': true,
+                                    'mask': 255,
+                                    'offset': 1,
+                                }],
+                                'type': {
+                                    'precision': 1,
+                                    'rootTypeId': 'Number',
+                                    'typeId': 'Number_0_1_DegreesCelsius',
+                                    'unit': {
+                                        'unitCode': 'DegreesCelsius',
+                                        'unitFamily': 'Temperature',
+                                        'unitId': 'DegreesCelsius',
+                                        'unitText': ' °C',
+                                    },
+                                },
+                            },
+                            'rawValue': 0,
+                        },
+                    }, {
+                        'id': '002_1_0',
+                        'name': 'Operating state',
+                        'unit': '',
+                        'unit_code': 'None',
+                        'extendedData': {
+                            'id': '01_0010_7E21_10_0100_002_1_0',
+                            'name': 'Operating state',
+                            'packetFieldSpec': {
+                                'factor': 1,
+                                'fieldId': '002_1_0',
+                                'name': {
+                                    'de': 'Betriebsstatus',
+                                    'en': 'Operating state',
+                                    'fr': 'Etat de fonctionnement',
+                                },
+                                'parts': [{
+                                    'bitPos': 0,
+                                    'factor': 1,
+                                    'isSigned': false,
+                                    'mask': 255,
+                                    'offset': 2,
+                                }],
+                                'type': {
+                                    'precision': 0,
+                                    'rootTypeId': 'Number',
+                                    'typeId': 'Number_1_None',
+                                    'unit': {
+                                        'unitCode': 'None',
+                                        'unitFamily': null,
+                                        'unitId': 'None',
+                                        'unitText': '',
+                                    },
+                                },
+                            },
+                            'rawValue': 11,
+                        },
+                    }],
+                    'id': '01_0010_7E21_0100',
+                    'info': 0,
+                    'protocol_version': 16,
+                    'source_address': 32289,
+                    'source_name': 'DeltaSol MX [Heizkreis #1]'
+                }],
+                'headerset_stats': {
+                    'headerset_count': 1,
+                    'max_timestamp': 1387893006.829,
+                    'min_timestamp': 1387893006.829
+                },
+                'headersets': [{
+                    'packets': [{
+                        'field_values': [{
+                            'field_index': 0,
+                            'raw_value': 0,
+                            'value': '0.0',
+                        }, {
+                            'field_index': 1,
+                            'raw_value': 11,
+                            'value': '11',
+                        }],
+                        'header_index': 0,
+                        'timestamp': 1387893003.303,
+                    }],
+                    'timestamp': 1387893006.829
+                }],
+                'language': 'en'
+            });
+        });
+
+        it('should work with extendFieldData set to a function', async () => {
+            const buffer2 = Buffer.from(rawPacket2, 'hex');
+            const packet2 = Packet.fromLiveBuffer(buffer2, 0, buffer2.length);
+            packet2.timestamp = new Date(1387893003303);
+            packet2.channel = 1;
+
+            const extendFieldData = jest.fn((fieldData, packetField, packetInfo, packetFieldIndex, packetInfoIndex) => {
+                if (packetFieldIndex === 0) {
+                    fieldData.customExtendedData = { packetFieldIndex };
+                } else {
+                    return { packetFieldIndex };
+                }
+            });
+
+            const outConv = new DLxJsonConverter({
+                extendFieldData,
+            });
+
+            const dataChunks = [];
+
+            const headerSet = new HeaderSet({
+                timestamp: new Date(1387893006829),
+                headers: [ packet2 ]
+            });
+
+            outConv.on('data', (chunk) => {
+                dataChunks.push(chunk);
+            });
+
+            const outConvEndEventPromise = new Promise(resolve => {
+                outConv.on('end', () => {
+                    resolve();
+                });
+            });
+
+            outConv.convertHeaderSet(headerSet);
+
+            outConv.finish();
+
+            await outConvEndEventPromise;
+
+            const buffer = Buffer.concat(dataChunks);
+
+            const string = buffer.toString();
+
+            const jsonRecording = JSON.parse(string);
+
+            expect(jsonRecording).toEqual({
+                'headers': [{
+                    'channel': 1,
+                    'command': 256,
+                    'description': 'VBus 1: DeltaSol MX [Heizkreis #1]',
+                    'destination_address': 16,
+                    'destination_name': 'DFA',
+                    'fields': [{
+                        'id': '000_2_0',
+                        'name': 'Flow set temperature',
+                        'unit': ' °C',
+                        'unit_code': 'DegreesCelsius',
+                        'customExtendedData': {
+                            'packetFieldIndex': 0,
+                        },
+                    }, {
+                        'id': '002_1_0',
+                        'name': 'Operating state',
+                        'unit': '',
+                        'unit_code': 'None',
+                        'extendedData': {
+                            'packetFieldIndex': 1,
+                        },
+                    }],
+                    'id': '01_0010_7E21_0100',
+                    'info': 0,
+                    'protocol_version': 16,
+                    'source_address': 32289,
+                    'source_name': 'DeltaSol MX [Heizkreis #1]'
+                }],
+                'headerset_stats': {
+                    'headerset_count': 1,
+                    'max_timestamp': 1387893006.829,
+                    'min_timestamp': 1387893006.829
+                },
+                'headersets': [{
+                    'packets': [{
+                        'field_values': [{
+                            'field_index': 0,
+                            'raw_value': 0,
+                            'value': '0.0',
+                        }, {
+                            'field_index': 1,
+                            'raw_value': 11,
+                            'value': '11',
                         }],
                         'header_index': 0,
                         'timestamp': 1387893003.303,
