@@ -569,6 +569,21 @@ class SpecificationFile {
         this.packetTemplates = packetTemplates;
     }
 
+    getPacketTemplate(destinationAddress, sourceAddress, command) {
+        return this.packetTemplates.find(pt => {
+            if ((pt.destinationAddress & pt.destinationMask) !== (destinationAddress & pt.destinationMask)) {
+                // nop
+            } else if ((pt.sourceAddress & pt.sourceMask) !== (sourceAddress & pt.sourceMask)) {
+                // nop
+            } else if (pt.command !== command) {
+                // nop
+            } else {
+                return true;
+            }
+            return false;
+        });
+    }
+
     getRawValue(pt, ptf, buffer, start, end) {
         let rawValue = 0, valid = false;
         for (const part of ptf.parts) {
