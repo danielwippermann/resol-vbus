@@ -2,6 +2,7 @@
 
 const fs = require('fs');
 const os = require('os');
+const path = require('path');
 
 
 const express = require('express');
@@ -113,6 +114,32 @@ async function generateJsonDataV2() {
             id,
             name,
             rawValue,
+            unitCode,
+            unitFamily,
+            unitText,
+        };
+    });
+
+    return JSON.stringify(data, null, 4);
+}
+
+
+async function generateJsonDataV3() {
+    const packetFields = spec.getPacketFieldsForHeaders(headerSet.getSortedHeaders());
+
+    const data = packetFields.map((pf) => {
+        let { id, name, rawValue } = pf;
+        if (config.packetFieldNameMap && config.packetFieldNameMap [id]) {
+            name = config.packetFieldNameMap [id];
+        }
+
+        const { unitCode, unitFamily, unitText } = pf.packetFieldSpec.type.unit;
+
+        return {
+            id,
+            name,
+            rawValue,
+            textValue: pf.formatTextValue('None'),
             unitCode,
             unitFamily,
             unitText,
@@ -537,6 +564,8 @@ async function main(options) {
 
     const app = express();
 
+    app.use(express.static(path.resolve(__dirname, 'public')));
+
     app.get('/api/v1/live-data', (req, res) => {
         wrapAsyncJsonRequestHandler(res, () => {
             return generateJsonDataV1();
@@ -546,6 +575,12 @@ async function main(options) {
     app.get('/api/v2/live-data', (req, res) => {
         wrapAsyncJsonRequestHandler(res, () => {
             return generateJsonDataV2();
+        });
+    });
+
+    app.get('/api/v3/live-data', (req, res) => {
+        wrapAsyncJsonRequestHandler(res, () => {
+            return generateJsonDataV3();
         });
     });
 
