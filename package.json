@@ -14,20 +14,20 @@
   "author": "Daniel Wippermann <Daniel.Wippermann@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "eslint": "^8.35.0",
-    "eslint-plugin-n": "^15.6.1",
+    "eslint": "^8.44.0",
+    "eslint-plugin-n": "^16.0.1",
     "eslint-plugin-promise": "^6.1.1",
-    "jest": "^29.5.0"
+    "jest": "^29.6.1"
   },
   "dependencies": {
     "buffer-more-ints": "^1.0.0",
     "moment": "^2.29.4",
-    "moment-timezone": "^0.5.41",
+    "moment-timezone": "^0.5.43",
     "numeral": "^2.0.6",
     "sprintf-js": "^1.1.2"
   },
   "optionalDependencies": {
-    "serialport": "^10.5.0"
+    "serialport": "^11.0.0"
   },
   "engines": {
     "node": ">= 14"
