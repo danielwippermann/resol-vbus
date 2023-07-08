@@ -31,6 +31,7 @@ describe('SpecificationFile', () => {
         getSpecificationData: Function,
         _generateSpecificationData: Function,
         _parseBuffer: Function,
+        getPacketTemplate: Function,
         getRawValue: Function,
         setRawValue: Function,
     }, {
@@ -863,6 +864,52 @@ describe('SpecificationFile', () => {
                 { offset: 38, bitPos: 0, mask: 0xff, isSigned: false, factor: 65536000000000 },
                 { offset: 39, bitPos: 0, mask: 0xff, isSigned: true,  factor: 16777216000000000 },
             ]);
+        });
+
+    });
+
+    describe('getPacketTemplate', () => {
+
+        it('should work correctly', () => {
+            const specFile = SpecificationFile.getDefaultSpecificationFile();
+
+            const pt1 = specFile.getPacketTemplate(0x0010, 0x7E11, 0x0100);
+
+            expectOwnPropertyNamesToEqual(pt1, [
+                'destinationAddress',
+                'destinationMask',
+                'sourceAddress',
+                'sourceMask',
+                'command',
+                'fields',
+            ]);
+
+            expect(pt1.destinationAddress).toBe(0x0010);
+            expect(pt1.destinationMask).toBe(0xFFFF);
+            expect(pt1.sourceAddress).toBe(0x7E11);
+            expect(pt1.sourceMask).toBe(0xFFFF);
+            expect(pt1.command).toBe(0x0100);
+
+            const pt2 = specFile.getPacketTemplate(0x6511, 0x7E11, 0x0200);
+
+            expectOwnPropertyNamesToEqual(pt2, [
+                'destinationAddress',
+                'destinationMask',
+                'sourceAddress',
+                'sourceMask',
+                'command',
+                'fields',
+            ]);
+
+            expect(pt2.destinationAddress).toBe(0x6510);
+            expect(pt2.destinationMask).toBe(0xFFF0);
+            expect(pt2.sourceAddress).toBe(0x0000);
+            expect(pt2.sourceMask).toBe(0x0000);
+            expect(pt2.command).toBe(0x0200);
+
+            const pt3 = specFile.getPacketTemplate(0x6511, 0x7E11, 0xFFFF);
+
+            expect(pt3).toBe(undefined);
         });
 
     });
