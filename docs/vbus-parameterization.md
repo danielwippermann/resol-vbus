@@ -4,21 +4,6 @@ title: VBus Parameterization
 ---
 
 
-- intro
-- basics of VBus communication (master in control, bus offering, 10 s timeout)
-- basisc of VBus parameterization (reading and writing to and from value indices)
-- discovering values
-    - changeset ID
-    - value ID hashes
-- value indices
-- value ID hashes
-- reading
-- writing
-    - implications on NV memory
-- examples in JS
-    - including byte dumps
-
-
 This document aims to give an overview on how you can read and possibly change parameters in a controller over the VBus connection.
 
 
