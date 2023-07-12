@@ -4,7 +4,7 @@ const util = require('util');
 
 const xml2js = require('xml2js');
 
-const vbus = require('../resol-vbus');
+const vbus = require('../..');
 
 function promisify(fn) {
     return new Promise((resolve, reject) => {
