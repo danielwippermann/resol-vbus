@@ -17,6 +17,7 @@ const {
     Specification,
     SerialConnection,
     TcpConnection,
+    TextConverter,
     VBusRecordingConverter,
     utils: {
         promisify,
@@ -653,6 +654,10 @@ async function main(options) {
         interval: config.loggingInterval,
     });
 
+    const textHeaderSetConsolidator = new HeaderSetConsolidator({
+        timeToLive: config.textLoggingTimeToLive,
+    });
+
     const ConnectionClass = connectionClassByName [config.connectionClassName];
 
     const connection = new ConnectionClass(config.connectionOptions);
@@ -660,6 +665,7 @@ async function main(options) {
     connection.on('packet', (packet) => {
         headerSet.addHeader(packet);
         hsc.addHeader(packet);
+        textHeaderSetConsolidator.addHeader(packet);
         processEmSimulatorPacket(connection, packet);
     });
 
@@ -671,6 +677,53 @@ async function main(options) {
             });
         }
     });
+
+    if (config.textLoggingInterval) {
+        let currentDatecode = null;
+
+        let currentConverter = null;
+
+        const onHeaderSet = async (headerSet) => {
+            const datecode = spec.i18n.moment(headerSet.timestamp).format('YYYYMMDD');
+            if (currentDatecode !== datecode) {
+                currentDatecode = datecode;
+
+                if (currentConverter) {
+                    currentConverter.finish();
+                    currentConverter = null;
+                }
+
+                const filename = path.resolve(config.textLoggingPath, datecode + '.csv');
+
+                const file = fs.createWriteStream(filename, { flags: 'a' });
+
+                const options = Object.assign({}, config.textLoggingOptions, {
+                    specification: spec,
+                });
+
+                const converter = new TextConverter(options);
+                converter.pipe(file);
+
+                currentConverter = converter;
+            }
+
+            if (currentConverter) {
+                currentConverter.convertHeaderSet(headerSet);
+            }
+        };
+
+        logger.debug('Starting text logging');
+
+        const hsc = new HeaderSetConsolidator({
+            interval: config.textLoggingInterval,
+        });
+
+        hsc.on('headerSet', () => {
+            onHeaderSet(textHeaderSetConsolidator);
+        });
+
+        hsc.startTimer();
+    }
 
     await connection.connect();
 
