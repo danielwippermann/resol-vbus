@@ -17,7 +17,8 @@ class TcpConnectionEndpoint extends EventEmitter {
      * @augments EventEmitter
      * @param {object} options The initialization values for this instance.
      * @param {number} options.port See {@link TcpConnectionEndpoint#port}
-     * @param {number} options.channels See {@link TcpConnectionEndpoint#channels}
+     * @param {string} options.password See {@link TcpConnectionEndpoint#password}
+     * @param {string[]} options.channels See {@link TcpConnectionEndpoint#channels}
      *
      * @classdesc
      * The TcpConnectionEndpoint can act as the remote side for a TcpConnection.
@@ -37,6 +38,12 @@ class TcpConnectionEndpoint extends EventEmitter {
             * @type {number}
             */
             port: 7053,
+
+            /**
+             * The password to check against if the PASS command is received.
+             * @type {string}
+             */
+            password: null,
 
             /**
             * The list of channels to return if the CHANNELLIST command is received.
@@ -147,8 +154,13 @@ class TcpConnectionEndpoint extends EventEmitter {
                         connectionInfo.viaTag = md [1];
                         callback(null, '+OK');
                     } else if ((md = /^PASS (.*)$/.exec(line))) {
-                        connectionInfo.password = md [1];
-                        callback(null, '+OK');
+                        const passwordString = md [1];
+                        if (!_this.password || (passwordString === _this.password)) {
+                            connectionInfo.password = passwordString;
+                            callback(null, '+OK');
+                        } else {
+                            callback(new Error('Password mismatch'));
+                        }
                     } else if ((md = /^CHANNELLIST$/.exec(line))) {
                         const response = _this.channels.reduce((memo, channel, index) => {
                             if (channel) {
@@ -158,9 +170,16 @@ class TcpConnectionEndpoint extends EventEmitter {
                         }, []).join('\r\n');
 
                         callback(null, response + '\r\n+OK');
-                    } else if ((md = /^CHANNEL (.*)$/.exec(line))) {
-                        connectionInfo.channel = md [1];
-                        callback(null, '+OK');
+                    } else if ((md = /^CHANNEL (\d+)$/.exec(line))) {
+                        const channelString = md [1];
+                        const index = +channelString;
+                        const channel = _this.channels [index];
+                        if (channel) {
+                            connectionInfo.channel = channelString;
+                            callback(null, '+OK');
+                        } else {
+                            callback(new Error('Channel not available'));
+                        }
                     } else if ((md = /^QUIT$/.exec(line))) {
                         callback(null, '+OK', false);
                     } else if ((md = /^DATA$/.exec(line))) {

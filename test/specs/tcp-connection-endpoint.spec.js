@@ -40,6 +40,7 @@ describe('TcpConnectionEndpoint', () => {
 
             expectOwnPropertyNamesToEqual(ep, [
                 'port',
+                'password',
                 'channels',
 
                 // base class related
@@ -49,12 +50,14 @@ describe('TcpConnectionEndpoint', () => {
             ]);
 
             expect(ep.port).toBe(7053);
+            expect(ep.password).toBe(null);
             expect(ep.channels).toEqual([ 'VBus' ]);
         });
 
         it('should copy selected options', () => {
             const options = {
                 port: 12345,
+                password: 'vbus',
                 channels: [ 'VBus 1', 'VBus 2' ],
                 junk: 'DO NOT COPY ME',
             };
@@ -62,6 +65,7 @@ describe('TcpConnectionEndpoint', () => {
             const ep = new TcpConnectionEndpoint(options);
 
             expect(ep.port).toBe(options.port);
+            expect(ep.password).toBe(options.password);
             expect(ep.channels).toBe(options.channels);
             expect(ep.junk).toBe(undefined);
         });
@@ -285,6 +289,118 @@ describe('TcpConnectionEndpoint', () => {
 
                 await endPromise;
             });
+        });
+
+        it('should work correctly for matching passwords', async () => {
+            let ep, conn;
+            try {
+                ep = new TcpConnectionEndpoint({
+                    port: 0,
+                    password: 's3cr3t',
+                });
+
+                await ep.start();
+
+                conn = new TcpConnection({
+                    host: '127.0.0.1',
+                    port: ep.port,
+                    password: 's3cr3t',
+                });
+
+                await conn.connect();
+            } finally {
+                if (conn) {
+                    conn.disconnect();
+                }
+
+                if (ep) {
+                    ep.stop();
+                }
+            }
+        });
+
+        it('should work correctly for mismatching passwords', async () => {
+            let ep, conn;
+            try {
+                ep = new TcpConnectionEndpoint({
+                    port: 0,
+                    password: 's3cr3t',
+                });
+
+                await ep.start();
+
+                conn = new TcpConnection({
+                    host: '127.0.0.1',
+                    port: ep.port,
+                    password: 'h8xx0r',
+                });
+
+                await expect(() => conn.connect()).rejects.toThrow('Remote side responded with "-ERROR: \\"Error: Password mismatch\\""');
+            } finally {
+                if (conn) {
+                    conn.disconnect();
+                }
+
+                if (ep) {
+                    ep.stop();
+                }
+            }
+        });
+
+        it('should work correctly for matching channels', async () => {
+            let ep, conn;
+            try {
+                ep = new TcpConnectionEndpoint({
+                    port: 0,
+                    channels: [ null, 'VBus 1', 'VBus 2' ],
+                });
+
+                await ep.start();
+
+                conn = new TcpConnection({
+                    host: '127.0.0.1',
+                    port: ep.port,
+                    channel: 2,
+                });
+
+                await conn.connect();
+            } finally {
+                if (conn) {
+                    conn.disconnect();
+                }
+
+                if (ep) {
+                    ep.stop();
+                }
+            }
+        });
+
+        it('should work correctly for mismatching channels', async () => {
+            let ep, conn;
+            try {
+                ep = new TcpConnectionEndpoint({
+                    port: 0,
+                    channels: [ null, 'VBus 1', 'VBus 2' ],
+                });
+
+                await ep.start();
+
+                conn = new TcpConnection({
+                    host: '127.0.0.1',
+                    port: ep.port,
+                    channel: 3,
+                });
+
+                await expect(() => conn.connect()).rejects.toThrow('Remote side responded with "-ERROR: \\"Error: Channel not available\\""');
+            } finally {
+                if (conn) {
+                    conn.disconnect();
+                }
+
+                if (ep) {
+                    ep.stop();
+                }
+            }
         });
 
     });
