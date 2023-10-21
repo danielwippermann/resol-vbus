@@ -114,12 +114,17 @@ following command into your shell:
 ## Work in progress
 
 
-## Version 0.27.0 (2022-03-xx)
+## WIP
+
+- Add password and channel checks to TCP endpoint. (#93)
+
+
+## Version 0.27.0 (2022-03-09)
 
 - Fix bugs in `SerialConnection` and `SerialDataSourceProvider`
 
 
-## Version 0.26.0 (2022-12-xx)
+## Version 0.26.0 (2022-12-18, never released publicly)
 
 - [BREAKING CHANGE] Removed `Recorder`, `DLxRecorder` and `FileSystemRecorder`
     The `Recorder` style of interfaces was not well thought out and unreliable. This
