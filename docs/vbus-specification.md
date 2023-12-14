@@ -17,6 +17,7 @@ Main contact: VBus Development Group (EMail: <vbus@resol.de>)
 |10|2015-10-20|Daniel Wippermann|Added VBus protocol specification 3.0|
 |11|2015-10-26|Daniel Wippermann|Added VBus master schematic|
 |12|2016-01-28|Daniel Wippermann|Fixed error in "Physical layer" section about "MARK" and "SPACE"|
+|13|2023-12-14|Daniel Wippermann|Added "Block type packets" section|
 
 
 ##### Authors
@@ -188,7 +189,7 @@ The first 6 bytes of a VBus data stream (starting with the SYNC-Byte) share the 
 | 4 | Source address (high-byte) |
 | 5 | Protocol version |
 
-Addresses are assigned by RESOL. Every module on the VBus has at least one address. Modules that have an adjustable sub-address use the four least significant bits for that. See [VBus Packet List](vbus-packets.html) for a list of known addresses.
+Addresses are assigned by RESOL. Every module on the VBus has at least one address. Modules that have an adjustable sub-address use the four least significant bits for that. See [VBus Specification](#/vsf) for a list of known addresses.
 
 The remaing data stream structure differs depending on the „Protocol version“ byte. The following values are valid:
 
@@ -237,13 +238,18 @@ The header field „Command“ can be one of the following values:
 | 0x0200 | Packet contains data for destination, answer required |
 | 0x0300 | Request answer of destination |
 
-The contents of the payload is is depending on three header fields:
+The contents of the payload is depending on three header fields:
 
 - Source address
 - Destination address
 - Command
 
-After the header was received without errors the contents of the payload is known. See [VBus Packet List](vbus-packets.html) for a list of known packets (address / command combinations).
+After the header was received without errors the contents of the payload can be processed based on those header fields:
+
+- if the "Destination address" is `0x0015` and the "Command" is `0x0100`, it is a "block type packet" (see below for details)
+- in all other cases the payload structure needs to be looked up based on the header's address / command combination
+
+See [VBus Specification](#/vsf) for a list of known packets (address / command combinations).
 
 
 A short packet may look like this:
@@ -269,6 +275,93 @@ A short packet may look like this:
 
 This packet is sent by module 0x6610 (RESOL Midi Pro) and is directed to module 0x4411 (RESOL HKM1) including command 0x0200 (Packet contains data for destination, answer required). These three components define the payload contents.
 
+
+#### Block type packets
+
+"Block type packets" are used to transfer certain information aimed for product-independent VBus accessories (like SD3 smart displays or AM1 alarm modules). Block type packets are marked as such by using a "Destination address" of `0x0015` and a "Command" of `0x0100` in the packet's header. The "Source address" can be ignored in that case.
+
+The payload of a block type packet contains a sequence of self-describing block type sections (called "section" for short). Each section consists of a section header and optional section payload. The section header has a size of four bytes and is always aligned to a frame boundary (i.e. its payload offset is a multiple of four). The section header is structured as follows:
+
+| Offset | Description |
+|--:|:--|
+| 0 | Number of payload frames belonging to this section |
+| 1 | Type of this section |
+| 2 | Reserved |
+| 3 | Reserved |
+
+This structure allows product-independent VBus accessories to only find the information they are interested in, skipping all other sections.
+
+The following section types are defined:
+
+| Type | Description | Element size |
+|--:|:--|--:|
+| 0x01 | Temperatures | 2 |
+| 0x05 | Heat quantities | 4 |
+| 0x08 | Relay speeds | 1 |
+| 0x0A | Smart Display | 8 |
+| 0x0B | Error mask | 4 |
+| 0x0C | Warning mask | 4 |
+| 0x0D | Status mask | 4 |
+
+An example block type packet's frame payload may look like this:
+
+| Offset | Value | Description |
+|--:|--:|:--|
+| 0 | 0x02 | Section #1: Number of payload frames belonging to this section |
+| 1 | 0x0a | Section #1: Type of this section |
+| 2 | 0x00 |  |
+| 3 | 0x00 | Section #1: End of section header |
+| 4 | 0x03 | Section #1: first byte of section payload |
+| 5 | 0x00 | .. |
+| 6 | 0x08 | .. |
+| 7 | 0x00 | .. |
+| 8 | 0x00 | .. |
+| 9 | 0x00 | .. |
+| 10 | 0x00 | .. |
+| 11 | 0x00 | Section #1: last byte of section payload |
+| 12 | 0x01 | Section #2: Number of payload frames belonging to this section |
+| 13 | 0x0b | Section #2: Type of this section |
+| 14 | 0x00 |  |
+| 15 | 0x00 | Section #2: End of section header |
+| 16 | 0x00 | Section #2: first byte of section payload |
+| 17 | 0x00 | .. |
+| 18 | 0x00 | .. |
+| 19 | 0x00 | Section #2: last byte of section payload |
+| 20 | 0x04 | Section #3: Number of payload frames belonging to this section |
+| 21 | 0x08 | Section #3: Type of this section |
+| 22 | 0x00 |  |
+| 23 | 0x00 | Section #3: End of section header |
+| 24 | 0x00 | Section #3: first byte of section payload |
+| 25 | 0x00 | .. |
+| 26 | 0x00 | .. |
+| 27 | 0x00 | .. |
+| 28 | 0x00 | .. |
+| 29 | 0x00 | .. |
+| 30 | 0x00 | .. |
+| 31 | 0x00 | .. |
+| 32 | 0x00 | .. |
+| 33 | 0x00 | .. |
+| 34 | 0x00 | .. |
+| 35 | 0x00 | .. |
+| 36 | 0x00 | .. |
+| 37 | 0x00 | .. |
+| 38 | 0x00 | .. |
+| 39 | 0x00 | Section #3: last byte of section payload |
+| 40 | 0x01 | Section #4: Number of payload frames belonging to this section |
+| 41 | 0x0c | Section #4: Type of this section |
+| 42 | 0x00 |  |
+| 43 | 0x00 | Section #4: End of section header |
+| 44 | 0x00 | Section #4: first byte of section payload |
+| 45 | 0x00 | .. |
+| 46 | 0x00 | .. |
+| 47 | 0x00 | Section #4: last byte of section payload |
+
+This example packet contains four sections:
+
+- Type 0x0A ("Smart Display") with a payload length of 2 frames = 1 element of 8 bytes
+- Type 0x0B ("Error mask") with a payload length of 1 frame = 1 element of 4 bytes
+- Type 0x08 ("Relay speeds") with a payload length of 4 frames = 16 elements of 1 byte each
+- Type 0x0C ("Warning mask") with a payload lenght of 1 frame = 1 element of 4 bytes
 
 
 ### Protocol version 2.0
