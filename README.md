@@ -114,9 +114,13 @@ following command into your shell:
 ## Work in progress
 
 
-## WIP
+## Version 0.28.0 (2024-01-06)
 
+- Add `extendFieldData` option to `DLxJsonConverter`.
+- Add `SpecificationFile#getPacketTemplate`.
 - Add password and channel checks to TCP endpoint. (#93)
+- Add `TcpConnection#disableReconnect`.
+- Correctly propagate errors during `TcpConnection` reconnect.
 
 
 ## Version 0.27.0 (2022-03-09)
