@@ -30,6 +30,7 @@ class TcpConnection extends Connection {
      * @param {string} options.viaTag See {@link TcpConnection#viaTag}
      * @param {string} options.password See {@link TcpConnection#password}
      * @param {boolean} options.rawVBusDataOnly See {@link TcpConnection#rawVBusDataOnly}
+     * @param {boolean} options.disableReconnect See {@link TcpConnection#disableReconnect}
      *
      * @classdesc
      * The TcpConnection class is primarily designed to provide access to VBus live data
@@ -83,6 +84,12 @@ class TcpConnection extends Connection {
             rawVBusDataOnly: false,
 
             tlsOptions: null,
+
+            /**
+             * Disable automatic reconnect on connection interruption.
+             * @type {boolean}
+             */
+            disableReconnect: false,
 
         });
     }
@@ -368,16 +375,18 @@ class TcpConnection extends Connection {
 
                     _this.socket = null;
 
-                    const timeout = _this.reconnectTimeout;
-                    if (_this.reconnectTimeout < _this.reconnectTimeoutMax) {
-                        _this.reconnectTimeout += _this.reconnectTimeoutIncr;
+                    if (!_this.disableReconnect) {
+                        const timeout = _this.reconnectTimeout;
+                        if (_this.reconnectTimeout < _this.reconnectTimeoutMax) {
+                            _this.reconnectTimeout += _this.reconnectTimeoutIncr;
+                        }
+
+                        setTimeout(() => {
+                            _this._setConnectionState(TcpConnection.STATE_RECONNECTING);
+
+                            _this._connect();
+                        }, timeout);
                     }
-
-                    setTimeout(() => {
-                        _this._setConnectionState(TcpConnection.STATE_RECONNECTING);
-
-                        _this._connect();
-                    }, timeout);
                 }
             };
 
@@ -476,6 +485,12 @@ Object.assign(TcpConnection.prototype, /** @lends TcpConnection.prototype */ {
      * @type {number}
      */
     reconnectTimeoutMax: 60000,
+
+    /**
+     * Disable automatic reconnect on connection interruption.
+     * @type {boolean}
+     */
+    disableReconnect: false,
 
 });
 
