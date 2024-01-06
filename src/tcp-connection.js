@@ -384,7 +384,9 @@ class TcpConnection extends Connection {
                         setTimeout(() => {
                             _this._setConnectionState(TcpConnection.STATE_RECONNECTING);
 
-                            _this._connect();
+                            _this._connect().then(null, err => {
+                                _this.emit('error', err);
+                            });
                         }, timeout);
                     }
                 }
