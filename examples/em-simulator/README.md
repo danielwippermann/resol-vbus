@@ -3,6 +3,14 @@
 Emulates a extension module (EM) to deliver a switch state to a controller.
 
 
+## DEPRECATED EXAMPLE
+
+This example is superseded by the respective script in the
+"resol-vbus-toolbox" project:
+
+https://github.com/danielwippermann/resol-vbus-toolbox/blob/main/scripts/em-simulator.js
+
+
 ## Overview
 
 Imagine you want to use your home automation system to request backup-heating
