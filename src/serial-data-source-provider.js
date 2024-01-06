@@ -2,6 +2,7 @@
 
 let SerialPort, serialPortRequireError;
 try {
+    // eslint-disable-next-line prefer-destructuring
     SerialPort = require('serialport').SerialPort;
 } catch (ex) {
     serialPortRequireError = ex;
@@ -28,7 +29,7 @@ class SerialDataSourceProvider extends DataSourceProvider {
 
         const dataSources = ports.map((port) => {
             return new SerialDataSource({
-                provider: _this.id,
+                provider: this.id,
                 id: port.comName,
                 name: port.comName,
                 path: port.comName,

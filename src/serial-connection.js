@@ -2,6 +2,7 @@
 
 let SerialPort, serialPortRequireError;
 try {
+    // eslint-disable-next-line prefer-destructuring
     SerialPort = require('serialport').SerialPort;
 } catch (ex) {
     serialPortRequireError = ex;
@@ -78,7 +79,7 @@ class SerialConnection extends Connection {
                 parity: 'none',
             };
 
-            let serialPort = this._createSerialPort(options);
+            const serialPort = this._createSerialPort(options);
 
             let onConnectionReadable = () => {
                 let chunk;
@@ -89,7 +90,7 @@ class SerialConnection extends Connection {
                 }
             };
 
-            let onSerialPortError = (err) => {
+            let onSerialPortError = () => {
                 cleanup();
             };
 
@@ -103,7 +104,7 @@ class SerialConnection extends Connection {
                 resolve();
             };
 
-            let onSerialPortClose = (err) => {
+            let onSerialPortClose = () => {
                 cleanup();
             };
 

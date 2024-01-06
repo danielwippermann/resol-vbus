@@ -202,7 +202,7 @@ class DLxJsonConverter extends Converter {
             }
         }
 
-        const extendFieldData = this.extendFieldData;
+        const { extendFieldData } = this;
 
         const headersData = packetInfoList.reduce((memo, packetInfo, packetInfoIndex) => {
             if (packetInfo.packetFields.length >= 0) {

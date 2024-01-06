@@ -18,7 +18,7 @@ const {
 async function testConnection(callback) {
     const endpoint = new TcpConnectionEndpoint({
         port: 0,
-        channels: [ null, null, null, null, null, null, null, null, null, "Test" ],
+        channels: [ null, null, null, null, null, null, null, null, null, 'Test' ],
     });
 
     const infos = [];
