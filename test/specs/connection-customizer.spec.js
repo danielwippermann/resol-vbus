@@ -12,6 +12,7 @@ const {
 
 const {
     expect,
+    expectElapsedTimeToBeWithin,
     expectOwnPropertyNamesToEqual,
     itShouldBeAClass,
 } = require('./test-utils');
