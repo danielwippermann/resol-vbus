@@ -974,10 +974,7 @@ describe('ConnectionCustomizer', () => {
 
             const datagram = await customizer.transceiveValue(valueId, 0, options);
 
-            const timeDiff = Date.now() - startTime;
-
-            expect(timeDiff).toBeGreaterThanOrEqual(100);
-            expect(timeDiff).toBeLessThanOrEqual(120);
+            expectElapsedTimeToBeWithin(startTime, 100, 120);
 
             expect(datagram.toLiveBuffer()).toEqual(response.toLiveBuffer());
 
