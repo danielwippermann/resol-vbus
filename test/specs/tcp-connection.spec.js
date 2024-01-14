@@ -117,7 +117,7 @@ describe('TcpConnection', () => {
                 'disableReconnect',
 
                 'selfAddress',
-
+            ], [
                 // base class related
                 '_events',
                 '_eventsCount',

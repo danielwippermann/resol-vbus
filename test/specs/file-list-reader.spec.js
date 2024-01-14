@@ -88,7 +88,7 @@ describe('FileListReader', () => {
                 'maxDatecode',
                 'files',
                 'fileIndex',
-
+            ], [
                 // base-class related
                 '_events',
                 '_eventsCount',

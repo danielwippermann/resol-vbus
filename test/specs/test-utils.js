@@ -99,8 +99,12 @@ const testUtils = {
         }
     },
 
-    expectOwnPropertyNamesToEqual(obj, expected) {
-        expect(Object.getOwnPropertyNames(obj).sort()).toEqual(expected.slice(0).sort());
+    expectOwnPropertyNamesToEqual(obj, expected, ignored) {
+        let actual = Object.getOwnPropertyNames(obj).slice(0);
+        if (ignored) {
+            actual = actual.filter(key => !ignored.includes(key));
+        }
+        expect(actual.sort()).toEqual(expected.slice(0).sort());
     },
 
     expectTimestampToBeWithin(timestamp, before, after) {

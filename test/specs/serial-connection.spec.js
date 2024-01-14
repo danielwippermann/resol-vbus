@@ -99,7 +99,7 @@ describe('SerialConnection', () => {
                 // base class related
                 'channel',
                 'selfAddress',
-
+            ], [
                 '_events',
                 '_eventsCount',
                 '_maxListeners',

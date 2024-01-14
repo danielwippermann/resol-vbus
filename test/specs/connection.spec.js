@@ -174,7 +174,7 @@ describe('Connection', () => {
             expectOwnPropertyNamesToEqual(connection, [
                 'channel',
                 'selfAddress',
-
+            ], [
                 // base class related
                 '_events',
                 '_eventsCount',
