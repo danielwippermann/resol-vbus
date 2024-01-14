@@ -48,7 +48,7 @@ function logError(source, error) {
     /* istanbul ignore if */
     if (error && !(error instanceof TestableError)) {
         logger.error(source);
-        logger.error(error);
+        logger.error(error.stack);
     }
 }
 
