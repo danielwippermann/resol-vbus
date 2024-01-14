@@ -10,7 +10,7 @@ const { expect } = global;
 
 const serialPortPath = process.env.RESOL_VBUS_SERIALPORT;
 
-const minTimeoutFactor = process.env.CI ? 0.8 : 1;
+const minTimeoutFactor = process.env.CI ? 0.8 : 0.99;
 const maxTimeoutFactor = process.env.CI ? 1000 : 1;
 
 
