@@ -11,6 +11,30 @@ const DataSourceProvider = require('./data-source-provider');
 
 
 
+const ipv4Re = /^\d+\.\d+\.\d+\.\d+$/;
+
+function parseIpV4Address(string) {
+    if (!ipv4Re.test(string)) {
+        throw new Error('Invalid IPv4 input');
+    }
+    return string.split('.').map(s => +s);
+}
+
+function formatIpV4Address(parts) {
+    return parts.map(p => p.toString()).join('.');
+}
+
+function calculateIpV4BroadcastAddress(address, netmask) {
+    const addressParts = parseIpV4Address(address);
+    const netmaskParts = parseIpV4Address(netmask);
+    const bcastParts = [ 0, 0, 0, 0, ];
+    for (let i = 0; i < 4; i++) {
+        bcastParts [i] = addressParts [i] | (netmaskParts [i] ^ 255);
+    }
+    const broadcastAddress = formatIpV4Address(bcastParts);
+    return broadcastAddress;
+}
+
 class TcpDataSourceProvider extends DataSourceProvider {
 
     /**
