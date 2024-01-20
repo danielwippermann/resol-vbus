@@ -113,6 +113,13 @@ following command into your shell:
 
 ## Work in progress
 
+- [BREAKING CHANGE] Changed IPv6 device discovery support activation.
+    Previously the `options` object passed into `TcpDataSourceProvider#discoverDevices`
+    needed an `ipv6` boolean value set to `true`. That option was removed in favor of a
+    `family` string value which defaults to `"IPv4"` but can be set to `"IPv6"` to
+    perform a IPv6 device discovery. In that case the two other options `localAddress`
+    and `broadcastInterface` are required as well. See the documentation for more details.
+
 
 ## Version 0.28.0 (2024-01-06)
 

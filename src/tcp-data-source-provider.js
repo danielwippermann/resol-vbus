@@ -88,14 +88,21 @@ class TcpDataSourceProvider extends DataSourceProvider {
     /**
      * Discovers devices on the local network.
      *
-     * @param {object} options
-     * @param {string} options.broadcastAddress IP address to broadcast to
-     * @param {number} options.broadcastPort Port number to broadcast to.
+     * @param {object} options Optional options object
+     * @param {string} options.family Either `IPv4` or `IPv6`. Defaults to 'IPv4'.
+     * @param {string} options.broadcastAddress IP address to broadcast to. Defaults to calculated address for IPv4 and "ff02::1" for IPv6.
+     * @param {string} options.localAddress Local IP address to broadcast from. Optional for IPv4, required for IPv6.
+     * @param {string} options.netmask Local IPv4 netmask. Optional for IPv4, ignored for IPv6.
+     * @param {string} options.broadcastInterface Local interface name to broadcast from. Ignored for IPv4, required for IPv6.
+     * @param {number} options.broadcastPort Port number to broadcast to. Defaults to 7053.
+     * @param {number} options.tries Number of broadcasts to send. Defaults to 3.
+     * @param {number} options.timeout Time between broadcast tries. Defaults to 500.
+     * @param {function} options.fetchCallback Callback to fetch information about the device.
      * @returns {Promise} A Promise that resolves to an array of device information objects.
      */
     static async discoverDevices(options) {
         let promises;
-        if (options && options.ipv6) {
+        if (options && (options.family === 'IPv6')) {
             promises = await TcpDataSourceProvider.sendBroadcastIPv6(options);
         } else {
             promises = await TcpDataSourceProvider.sendBroadcast(options);
