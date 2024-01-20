@@ -179,9 +179,24 @@ class TcpDataSourceProvider extends DataSourceProvider {
         return result;
     }
 
+    /**
+     * Send device discovery broadcasts using IPv4.
+     *
+     * @param {object} options Optional options object.
+     * @param {string} options.broadcastAddress IP address to broadcast to. Defaults to calculated address or "255.255.255.255" if no "netmask" was provided.
+     * @param {string} options.localAddress Local IP address to broadcast from. Used in conjunction with "netmask" to calculate a "broadcastAddress" if none was provided explicitly.
+     * @param {string} options.netmask Local IP netmask. Used in conjunction with "localAddress" to calculate a "broadcastAddress" if none was provided explicitly.
+     * @param {number} options.broadcastPort Port number to broadcast to. Defaults to 7053.
+     * @param {number} options.tries Number of broadcasts to send. Defaults to 3.
+     * @param {number} options.timeout Time between broadcast tries. Defaults to 500.
+     * @param {function} options.fetchCallback Callback to fetch information about the device.
+     * @returns { Promise } A Promise that resolves to an array of Promises resolving to the fetched device information.
+     */
     static async sendBroadcast(options) {
         options = applyDefaultOptions({}, options, {
-            broadcastAddress: '255.255.255.255',
+            broadcastAddress: null,
+            localAddress: null,
+            netmask: null,
             broadcastPort: 7053,
             tries: 3,
             timeout: 500,
@@ -190,8 +205,19 @@ class TcpDataSourceProvider extends DataSourceProvider {
 
         if (options.fetchCallback === undefined) {
             options.fetchCallback = function(address) {
-                return TcpDataSourceProvider.fetchDeviceInformation(address);
+                return TcpDataSourceProvider.fetchDeviceInformation({
+                    hostname: address,
+                    family: 4,
+                });
             };
+        }
+
+        if (options.broadcastAddress) {
+            // nop, already set
+        } else if (options.localAddress && options.netmask) {
+            options.broadcastAddress = calculateIpV4BroadcastAddress(options.localAddress, options.netmask);
+        } else {
+            options.broadcastAddress = '255.255.255.255';
         }
 
         const bcastAddress = options.broadcastAddress;
