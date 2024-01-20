@@ -121,19 +121,37 @@ class TcpDataSourceProvider extends DataSourceProvider {
         return result;
     }
 
+    /**
+     * Send device discovery broadcasts using IPv6.
+     *
+     * @param {object} options Optional options object.
+     * @param {string} options.broadcastAddress IP address to broadcast to. Defaults to "ff02::1".
+     * @param {string} options.localAddress Local IPv6 address to broadcast from. Required.
+     * @param {string} options.broadcastInterface Local interface name to broadcast from. Required.
+     * @param {number} options.broadcastPort Port number to broadcast to. Defaults to 7053.
+     * @param {number} options.tries Number of broadcasts to send. Defaults to 3.
+     * @param {number} options.timeout Time between broadcast tries. Defaults to 500.
+     * @param {function} options.fetchCallback Callback to fetch information about the device.
+     * @returns { Promise } A Promise that resolves to an array of Promises resolving to the fetched device information.
+     */
     static async sendBroadcastIPv6(options) {
-        options = {
-            broadcastInterface: null,
+        options = applyDefaultOptions({}, options, {
             broadcastAddress: 'ff02::1',
+            localAddress: null,
+            broadcastInterface: null,
             broadcastPort: 7053,
             tries: 3,
             timeout: 500,
-            ...options,
-        };
+            fetchCallback: undefined,
+        });
 
         if (options.fetchCallback === undefined) {
             options.fetchCallback = function(address) {
-                return TcpDataSourceProvider.fetchDeviceInformation(address);
+                return TcpDataSourceProvider.fetchDeviceInformation({
+                    hostname: address,
+                    localAddress: `${options.localAddress}%${options.broadcastInterface}`,
+                    family: 6,
+                });
             };
         }
 
