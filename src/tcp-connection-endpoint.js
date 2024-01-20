@@ -8,6 +8,13 @@ const { applyDefaultOptions } = require('./utils');
 
 
 
+function runAsync(fn) {
+    async function runner() {
+        return await fn();
+    }
+    return runner();
+}
+
 class TcpConnectionEndpoint extends EventEmitter {
 
     /**
@@ -40,16 +47,40 @@ class TcpConnectionEndpoint extends EventEmitter {
             port: 7053,
 
             /**
+             * An optional async function that verifies the viaTag provided to the `CONNECT` command.
+             * @type {function}
+             */
+            verifyViaTag: null,
+
+            /**
              * The password to check against if the PASS command is received.
              * @type {string}
              */
             password: null,
 
             /**
+             * An optional async function that verifies the password provided to the `PASS` command.
+             * @type {function}
+             */
+            verifyPassword: null,
+
+            /**
             * The list of channels to return if the CHANNELLIST command is received.
             * @type {string[]}
             */
             channels: null,
+
+            /**
+             * An optional async function that verifies the channel provided to the `CHANNEL` command.
+             * @type {function}
+             */
+            verifyChannel: null,
+
+            /**
+             * An optional async function that verifies whether the `DATA` command succeeds.
+             * @type {function}
+             */
+            verifyDataMode: null,
 
         });
 
@@ -151,11 +182,24 @@ class TcpConnectionEndpoint extends EventEmitter {
                 const processLine = function(line) {
                     let md;
                     if ((md = /^CONNECT (.*)$/.exec(line))) {
-                        connectionInfo.viaTag = md [1];
-                        callback(null, '+OK');
+                        const viaTagString = md [1];
+                        if (_this.verifyViaTag) {
+                            runAsync(() => _this.verifyViaTag(viaTagString, connectionInfo)).then(() => {
+                                connectionInfo.viaTag = viaTagString;
+                                callback(null, '+OK');
+                            }, err => callback(err));
+                        } else {
+                            connectionInfo.viaTag = viaTagString;
+                            callback(null, '+OK');
+                        }
                     } else if ((md = /^PASS (.*)$/.exec(line))) {
                         const passwordString = md [1];
-                        if (!_this.password || (passwordString === _this.password)) {
+                        if (_this.verifyPassword) {
+                            runAsync(() => _this.verifyPassword(passwordString, connectionInfo)).then(() => {
+                                connectionInfo.password = passwordString;
+                                callback(null, '+OK');
+                            }, err => callback(err));
+                        } else if (!_this.password || (passwordString === _this.password)) {
                             connectionInfo.password = passwordString;
                             callback(null, '+OK');
                         } else {
@@ -174,7 +218,12 @@ class TcpConnectionEndpoint extends EventEmitter {
                         const channelString = md [1];
                         const index = +channelString;
                         const channel = _this.channels [index];
-                        if (channel) {
+                        if (_this.verifyChannel) {
+                            runAsync(() => _this.verifyChannel(channelString, index, channel, connectionInfo)).then(() => {
+                                connectionInfo.channel = channelString;
+                                callback(null, '+OK');
+                            }, err => callback(err));
+                        } else if (channel) {
                             connectionInfo.channel = channelString;
                             callback(null, '+OK');
                         } else {
@@ -183,7 +232,13 @@ class TcpConnectionEndpoint extends EventEmitter {
                     } else if ((md = /^QUIT$/.exec(line))) {
                         callback(null, '+OK', false);
                     } else if ((md = /^DATA$/.exec(line))) {
-                        callback(null, '+OK', true);
+                        if (_this.verifyDataMode) {
+                            runAsync(() => _this.verifyDataMode(connectionInfo)).then(() => {
+                                callback(null, '+OK', true);
+                            }, err => callback(err));
+                        } else {
+                            callback(null, '+OK', true);
+                        }
                     } else {
                         callback(new Error('Unknown command'));
                     }

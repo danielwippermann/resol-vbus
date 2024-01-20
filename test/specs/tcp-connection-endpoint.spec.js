@@ -40,9 +40,13 @@ describe('TcpConnectionEndpoint', () => {
 
             expectOwnPropertyNamesToEqual(ep, [
                 'port',
+                'verifyViaTag',
                 'password',
+                'verifyPassword',
                 'channels',
-
+                'verifyChannel',
+                'verifyDataMode',
+            ], [
                 // base class related
                 '_events',
                 '_eventsCount',
@@ -50,23 +54,40 @@ describe('TcpConnectionEndpoint', () => {
             ]);
 
             expect(ep.port).toBe(7053);
+            expect(ep.verifyViaTag).toBe(null);
             expect(ep.password).toBe(null);
+            expect(ep.verifyPassword).toBe(null);
             expect(ep.channels).toEqual([ 'VBus' ]);
+            expect(ep.verifyChannel).toBe(null);
+            expect(ep.verifyDataMode).toBe(null);
         });
 
         it('should copy selected options', () => {
+            const verifyViaTag = () => {};
+            const verifyPassword = () => {};
+            const verifyChannel = () => {};
+            const verifyDataMode = () => {};
+
             const options = {
                 port: 12345,
+                verifyViaTag,
                 password: 'vbus',
+                verifyPassword,
                 channels: [ 'VBus 1', 'VBus 2' ],
+                verifyChannel,
+                verifyDataMode,
                 junk: 'DO NOT COPY ME',
             };
 
             const ep = new TcpConnectionEndpoint(options);
 
             expect(ep.port).toBe(options.port);
+            expect(ep.verifyViaTag).toBe(verifyViaTag);
             expect(ep.password).toBe(options.password);
+            expect(ep.verifyPassword).toBe(verifyPassword);
             expect(ep.channels).toBe(options.channels);
+            expect(ep.verifyChannel).toBe(verifyChannel);
+            expect(ep.verifyDataMode).toBe(verifyDataMode);
             expect(ep.junk).toBe(undefined);
         });
 
@@ -291,6 +312,63 @@ describe('TcpConnectionEndpoint', () => {
             });
         });
 
+        it('should work correctly with a resolving viaTag verifier', async () => {
+            await runTestableEndpointAndSocket(async ({ ep, socket, read }) => {
+                const endPromise = new Promise(resolve => {
+                    socket.once('end', () => {
+                        resolve();
+                    });
+                });
+
+                ep.verifyViaTag = async function(viaTag) {
+                    expect(this).toBe(ep);
+                    expect(viaTag).toBe('expectedViaTag');
+                };
+
+                const buffer1 = await read();
+
+                expect(buffer1.toString()).toBe('+HELLO: This is TcpConnectionEndpoint, at your service!\r\n');
+
+                socket.write('CONNECT expectedViaTag\r\n');
+
+                const buffer2 = await read();
+
+                expect(buffer2.toString()).toBe('+OK\r\n');
+
+                socket.end();
+
+                await endPromise;
+            });
+        });
+
+        it('should work correctly with a rejecting viaTag verifier', async () => {
+            await runTestableEndpointAndSocket(async ({ ep, socket, read }) => {
+                const endPromise = new Promise(resolve => {
+                    socket.once('end', () => {
+                        resolve();
+                    });
+                });
+
+                ep.verifyViaTag = async function(viaTag) {
+                    throw new Error(`Unknown viaTag: ${viaTag}`);
+                };
+
+                const buffer1 = await read();
+
+                expect(buffer1.toString()).toBe('+HELLO: This is TcpConnectionEndpoint, at your service!\r\n');
+
+                socket.write('CONNECT unknownViaTag\r\n');
+
+                const buffer2 = await read();
+
+                expect(buffer2.toString()).toBe('-ERROR: "Error: Unknown viaTag: unknownViaTag"\r\n');
+
+                socket.end();
+
+                await endPromise;
+            });
+        });
+
         it('should work correctly for matching passwords', async () => {
             let ep, conn;
             try {
@@ -347,6 +425,63 @@ describe('TcpConnectionEndpoint', () => {
             }
         });
 
+        it('should work correctly with a resolving password verifier', async () => {
+            await runTestableEndpointAndSocket(async ({ ep, socket, read }) => {
+                const endPromise = new Promise(resolve => {
+                    socket.once('end', () => {
+                        resolve();
+                    });
+                });
+
+                ep.verifyPassword = async function(password) {
+                    expect(this).toBe(ep);
+                    expect(password).toBe('expectedPassword');
+                };
+
+                const buffer1 = await read();
+
+                expect(buffer1.toString()).toBe('+HELLO: This is TcpConnectionEndpoint, at your service!\r\n');
+
+                socket.write('PASS expectedPassword\r\n');
+
+                const buffer2 = await read();
+
+                expect(buffer2.toString()).toBe('+OK\r\n');
+
+                socket.end();
+
+                await endPromise;
+            });
+        });
+
+        it('should work correctly with a rejecting password verifier', async () => {
+            await runTestableEndpointAndSocket(async ({ ep, socket, read }) => {
+                const endPromise = new Promise(resolve => {
+                    socket.once('end', () => {
+                        resolve();
+                    });
+                });
+
+                ep.verifyPassword = async function(viaTag) {
+                    throw new Error('Password mismatch');
+                };
+
+                const buffer1 = await read();
+
+                expect(buffer1.toString()).toBe('+HELLO: This is TcpConnectionEndpoint, at your service!\r\n');
+
+                socket.write('PASS wrongPassword\r\n');
+
+                const buffer2 = await read();
+
+                expect(buffer2.toString()).toBe('-ERROR: "Error: Password mismatch"\r\n');
+
+                socket.end();
+
+                await endPromise;
+            });
+        });
+
         it('should work correctly for matching channels', async () => {
             let ep, conn;
             try {
@@ -401,6 +536,148 @@ describe('TcpConnectionEndpoint', () => {
                     ep.stop();
                 }
             }
+        });
+
+        it('should work correctly with a resolving channel verifier', async () => {
+            await runTestableEndpointAndSocket(async ({ ep, socket, read }) => {
+                const endPromise = new Promise(resolve => {
+                    socket.once('end', () => {
+                        resolve();
+                    });
+                });
+
+                ep.channels = [ null, null, null, 'Channel 3' ];
+
+                ep.verifyChannel = async function(indexString, index, channel) {
+                    expect(this).toBe(ep);
+                    expect(indexString).toBe('3');
+                    expect(index).toBe(3);
+                    expect(channel).toBe('Channel 3');
+                };
+
+                const buffer1 = await read();
+
+                expect(buffer1.toString()).toBe('+HELLO: This is TcpConnectionEndpoint, at your service!\r\n');
+
+                socket.write('CHANNEL 3\r\n');
+
+                const buffer2 = await read();
+
+                expect(buffer2.toString()).toBe('+OK\r\n');
+
+                socket.end();
+
+                await endPromise;
+            });
+        });
+
+        it('should work correctly with a rejecting channel verifier', async () => {
+            await runTestableEndpointAndSocket(async ({ ep, socket, read }) => {
+                const endPromise = new Promise(resolve => {
+                    socket.once('end', () => {
+                        resolve();
+                    });
+                });
+
+                ep.channels = [ null, null, null, 'Channel 3' ];
+
+                ep.verifyChannel = async function(indexString, index, channel) {
+                    throw new Error(`Unknown channel: ${indexString} ${index} ${channel}`);
+                };
+
+                const buffer1 = await read();
+
+                expect(buffer1.toString()).toBe('+HELLO: This is TcpConnectionEndpoint, at your service!\r\n');
+
+                socket.write('CHANNEL 3\r\n');
+
+                const buffer2 = await read();
+
+                expect(buffer2.toString()).toBe('-ERROR: "Error: Unknown channel: 3 3 Channel 3"\r\n');
+
+                socket.end();
+
+                await endPromise;
+            });
+        });
+
+        it('should work correctly with a resolving data mode verifier', async () => {
+            await runTestableEndpointAndSocket(async ({ ep, socket, read }) => {
+                const endPromise = new Promise(resolve => {
+                    socket.once('end', () => {
+                        resolve();
+                    });
+                });
+
+                ep.channels = [ null, null, null, 'Channel 3' ];
+
+                ep.verifyDataMode = async function(connectionInfo) {
+                    expect(this).toBe(ep);
+                    expect(connectionInfo.viaTag).toBe('viaTag');
+                    expect(connectionInfo.password).toBe('password');
+                    expect(connectionInfo.channel).toBe('3');
+                };
+
+                const buffer1 = await read();
+
+                expect(buffer1.toString()).toBe('+HELLO: This is TcpConnectionEndpoint, at your service!\r\n');
+
+                socket.write('CONNECT viaTag\r\n');
+
+                const buffer2 = await read();
+
+                expect(buffer2.toString()).toBe('+OK\r\n');
+
+                socket.write('PASS password\r\n');
+
+                const buffer3 = await read();
+
+                expect(buffer3.toString()).toBe('+OK\r\n');
+
+                socket.write('CHANNEL 3\r\n');
+
+                const buffer4 = await read();
+
+                expect(buffer4.toString()).toBe('+OK\r\n');
+
+                socket.write('DATA\r\n');
+
+                const buffer5 = await read();
+
+                expect(buffer5.toString()).toBe('+OK\r\n');
+
+                socket.end();
+
+                await endPromise;
+            });
+        });
+
+        it('should work correctly with a rejecting data mode verifier', async () => {
+            await runTestableEndpointAndSocket(async ({ ep, socket, read }) => {
+                const endPromise = new Promise(resolve => {
+                    socket.once('end', () => {
+                        resolve();
+                    });
+                });
+
+                ep.verifyDataMode = async function() {
+                    throw new Error('Data mode not allowed');
+                };
+
+                const buffer1 = await read();
+
+                expect(buffer1.toString()).toBe('+HELLO: This is TcpConnectionEndpoint, at your service!\r\n');
+
+                socket.write('DATA\r\n');
+
+                const buffer2 = await read();
+
+                expect(buffer2.toString()).toBe('-ERROR: "Error: Data mode not allowed"\r\n');
+
+                socket.end();
+
+                await endPromise;
+            });
         });
 
     });
