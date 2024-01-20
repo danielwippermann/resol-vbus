@@ -218,20 +218,37 @@ class TcpDataSourceProvider extends DataSourceProvider {
         return result;
     }
 
-    static async fetchDeviceInformation(address, port) {
+    /**
+     * Fetch device information using the `/cgi-bin/get_resol_device_information` web API.
+     *
+     * @param {string | object} addressOrOptions Either the IPv4 address as a string or an object for `http.get(options)`.
+     * @returns {Promise} A Promise that resolves to the parsed device information.
+     */
+    static async fetchDeviceInformation(addressOrOptions, port) {
         if (port === undefined) {
             try {
-                return await TcpDataSourceProvider.fetchDeviceInformation(address, 80);
+                return await TcpDataSourceProvider.fetchDeviceInformation(addressOrOptions, 80);
             } catch (err) {
-                return await TcpDataSourceProvider.fetchDeviceInformation(address, 3000);
+                return await TcpDataSourceProvider.fetchDeviceInformation(addressOrOptions, 3000);
             }
         } else {
+            let options;
+            if (typeof addressOrOptions === 'string') {
+                options = {
+                    hostname: addressOrOptions,
+                };
+            } else {
+                options = addressOrOptions;
+            }
+
+            options = {
+                port,
+                path: '/cgi-bin/get_resol_device_information',
+                ...options,
+            };
+
             return new Promise((resolve, reject) => {
-                const req = http.get({
-                    hostname: address,
-                    port,
-                    path: '/cgi-bin/get_resol_device_information',
-                }, (res) => {
+                const req = http.get(options, (res) => {
                     if (res.statusCode === 200) {
                         let buffer = Buffer.alloc(0);
 
@@ -242,7 +259,7 @@ class TcpDataSourceProvider extends DataSourceProvider {
                         res.on('end', () => {
                             const bodyString = buffer.toString();
                             const info = TcpDataSourceProvider.parseDeviceInformation(bodyString);
-                            info.__address__ = address;
+                            info.__address__ = options.hostname;
                             resolve(info);
                         });
 
