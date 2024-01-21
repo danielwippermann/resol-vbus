@@ -162,6 +162,13 @@ class TcpConnectionEndpoint extends EventEmitter {
 
                 const callback = function(err, result, transition) {
                     if (err) {
+                        _this.emit('connectionAttemptFailed', {
+                            ip: socket.remoteAddress,
+                            family: socket.remoteFamily,
+                            port: socket.remotePort,
+                            error: err,
+                        });
+
                         write('-ERROR: ' + JSON.stringify(err.toString()) + '\r\n');
                     } else {
                         write(result.toString() + '\r\n');

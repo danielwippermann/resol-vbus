@@ -343,6 +343,10 @@ describe('TcpConnectionEndpoint', () => {
 
         it('should work correctly with a rejecting viaTag verifier', async () => {
             await runTestableEndpointAndSocket(async ({ ep, socket, read }) => {
+                const onConnectionAttemptFailed = jest.fn();
+
+                ep.on('connectionAttemptFailed', onConnectionAttemptFailed);
+
                 const endPromise = new Promise(resolve => {
                     socket.once('end', () => {
                         resolve();
@@ -364,6 +368,22 @@ describe('TcpConnectionEndpoint', () => {
                 expect(buffer2.toString()).toBe('-ERROR: "Error: Unknown viaTag: unknownViaTag"\r\n');
 
                 socket.end();
+
+                expect(onConnectionAttemptFailed.mock.calls).toHaveLength(1);
+                expect(onConnectionAttemptFailed.mock.calls [0]).toHaveLength(1);
+
+                const ev1 = onConnectionAttemptFailed.mock.calls [0] [0];
+
+                expectOwnPropertyNamesToEqual(ev1, [
+                    'ip',
+                    'port',
+                    'family',
+                    'error',
+                ]);
+                expect(typeof ev1.ip).toBe('string');
+                expect(typeof ev1.port).toBe('number');
+                expect(ev1.family).toBe('IPv6');
+                expect(ev1.error.message).toBe('Unknown viaTag: unknownViaTag');
 
                 await endPromise;
             });
