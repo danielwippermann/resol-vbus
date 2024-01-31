@@ -49,6 +49,18 @@ class ValueInfoCache {
         return valueInfo;
     }
 
+    getValueInfoByIndexOrId(valueIndex, valueId) {
+        let valueInfo = this.cache.find(info => info.valueId === valueId);
+        if (!valueInfo) {
+            valueInfo = {
+                valueId,
+                valueIdHash: calcValueIdHash(valueId),
+                valueIndex: valueIndex || null,
+            };
+        }
+        return valueInfo;
+    }
+
     setValueIndexById(valueId, valueIndex) {
         const valueInfo = this.getValueInfoById(valueId);
         if (valueInfo.valueIndex !== valueIndex) {

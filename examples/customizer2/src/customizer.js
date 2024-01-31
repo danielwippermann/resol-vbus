@@ -57,7 +57,7 @@ async function performTransaction(connection, fn) {
 async function updateCacheForValues(connection, peerAddress, cache, values) {
     let knownValues = 0, unknownValues = 0;
     for (const value of values) {
-        const { valueIndex } = cache.getValueInfoById(value.valueId);
+        const { valueIndex } = cache.getValueInfoByIndexOrId(value.valueIndex, value.valueId);
         if (valueIndex) {
             knownValues += 1;
         } else {
@@ -113,7 +113,7 @@ async function loadConfiguration(connection, values) {
         for (const jobValue of values) {
             const { valueId } = jobValue;
 
-            const { valueIndex } = cache.getValueInfoById(valueId);
+            const { valueIndex } = cache.getValueInfoByIndexOrId(jobValue.valueIndex, valueId);
 
             if (valueIndex) {
                 logger.debug(`Getting value for "${valueId}" (0x${hex(valueIndex, 4)})...`);
@@ -158,7 +158,7 @@ async function saveConfiguration(connection, values) {
         for (const jobValue of values) {
             const { valueId, value } = jobValue;
 
-            const { valueIndex } = cache.getValueInfoById(valueId);
+            const { valueIndex } = cache.getValueInfoByIndexOrId(jobValue.valueIndex, valueId);
 
             if (valueIndex && (value != null)) {
                 logger.debug(`Setting value for "${valueId}" (0x${hex(valueIndex, 4)}) to ${value} (0x${hex(value, 8)})...`);

@@ -40,6 +40,7 @@ describe('value-info-cache', () => {
                 'loadFromFile',
                 'saveToFile',
                 'getValueInfoById',
+                'getValueInfoByIndexOrId',
                 'setValueIndexById',
             ]);
         });
@@ -132,6 +133,31 @@ describe('value-info-cache', () => {
                 expect(result2.valueIdHash).toBe(206004685);
                 expect(result2.valueIndex).toBe(null);
                 expect(cache.isDirty).toBe(true);
+            });
+
+        });
+
+        describe('getValueInfoByIndexOrId', () => {
+
+            it('should work correctly', async () => {
+                const cache = new ValueInfoCache(0x1234, 0x76543210);
+                cache.filename = readableFixtureFilename;
+
+                await cache.loadFromFile();
+
+                const result1 = cache.getValueInfoByIndexOrId(null, 'Schema');
+
+                expect(result1.valueId).toBe('Schema');
+                expect(result1.valueIdHash).toBe(12345678);
+                expect(result1.valueIndex).toBe(12345);
+                expect(cache.isDirty).toBe(false);
+
+                const result2 = cache.getValueInfoByIndexOrId(null, 'UnknownValue');
+
+                expect(result2.valueId).toBe('UnknownValue');
+                expect(result2.valueIdHash).toBe(206004685);
+                expect(result2.valueIndex).toBe(null);
+                expect(cache.isDirty).toBe(false);
             });
 
         });
