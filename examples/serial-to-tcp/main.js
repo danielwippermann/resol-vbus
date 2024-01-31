@@ -158,12 +158,12 @@ async function startDiscoveryServices() {
 
     const webReplyContent = [
         'vendor = "RESOL"',
-        'product = "DL2"',
+        'product = "DL3"',
         'serial = "001E66000000"',
         'version = "2.1.0"',
         'build = "201311280853"',
         'name = "DL2-001E66000000"',
-        'features = "vbus,dl2"',
+        'features = "vbus,dl2,dl3"',
     ].join('\n');
 
     const webServer = http.createServer((req, res) => {
