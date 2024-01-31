@@ -435,8 +435,9 @@ async function main() {
     // console.log(`PeerAddress = 0x${hex(peerAddress, 4)}`);
 
     dgram = await conn.getValueById(peerAddress, 0x00000000);
+    const changeset = dgram ? dgram.value : 0;
     if (!dgram) {
-        console.log(`Unable to get changeset ID`);
+        console.log(`Unable to get changeset ID, using 0 as default`);
     }
 
     // console.log(`Changeset ID = ${hex(dgram.value, 8)}`);
@@ -453,9 +454,11 @@ async function main() {
         }
 
         // Resynchronize between lookup and get/set
-        dgram = await conn.getValueById(peerAddress, 0x00000000);
-        if (!dgram) {
-            console.log(`Unable to get changeset ID`);
+        if (changeset != 0) {
+            dgram = await conn.getValueById(peerAddress, 0x00000000);
+            if (!dgram) {
+                console.log(`Unable to get changeset ID`);
+            }
         }
     }
 
@@ -472,9 +475,11 @@ async function main() {
         }
 
         // Resynchronize between get and set
-        dgram = await conn.getValueById(peerAddress, 0x00000000);
-        if (!dgram) {
-            console.log(`Unable to get changeset ID`);
+        if (changeset != 0) {
+            dgram = await conn.getValueById(peerAddress, 0x00000000);
+            if (!dgram) {
+                console.log(`Unable to get changeset ID`);
+            }
         }
     }
 
