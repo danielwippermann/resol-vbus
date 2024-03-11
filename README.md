@@ -336,6 +336,7 @@ First release to the NPM registry.
 * Andrew Thompson (@thompsa)
 * @t9zx
 * @SurfGargano
+* @epenet
 
 
 
