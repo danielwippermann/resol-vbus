@@ -13,23 +13,27 @@ const knownDataSources = new Map();
 
 async function getOrFetchInformation(key, interfaceName, address, discoveredAddress) {
     let result;
-    if (knownDataSources.has(key)) {
-        result = knownDataSources.get(key);
-    } else {
-        if (address.family === 'IPv4') {
-            result = await TcpDataSourceProvider.fetchDeviceInformation({
-                hostname: discoveredAddress,
-                family: 4,
-            });
-        } else if (address.family === 'IPv6') {
-            result = await TcpDataSourceProvider.fetchDeviceInformation({
-                hostname: discoveredAddress,
-                localAdress: `${address.address}%${interfaceName}`,
-                family: 6,
-            });
-        }
+    try {
+        if (knownDataSources.has(key)) {
+            result = knownDataSources.get(key);
+        } else {
+            if (address.family === 'IPv4') {
+                result = await TcpDataSourceProvider.fetchDeviceInformation({
+                    hostname: discoveredAddress,
+                    family: 4,
+                });
+            } else if (address.family === 'IPv6') {
+                result = await TcpDataSourceProvider.fetchDeviceInformation({
+                    hostname: discoveredAddress,
+                    localAdress: `${address.address}%${interfaceName}`,
+                    family: 6,
+                });
+            }
 
-        knownDataSources.set(key, result);
+            knownDataSources.set(key, result);
+        }
+    } catch (err) {
+        console.error(err);
     }
     return result;
 }
@@ -111,13 +115,13 @@ async function discover() {
     }, []);
 
     for (const device of removedDevices) {
-        const id = device.__address__;
-        console.log('REMOVED: ', id, device.name);
+        const id = device?.__address__;
+        console.log('REMOVED: ', id, device?.name);
     }
 
     for (const device of addedDevices) {
-        const id = device.__address__;
-        console.log('ADDED: ', id, device.name);
+        const id = device?.__address__;
+        console.log('ADDED: ', id, device?.name);
     }
 }
 
