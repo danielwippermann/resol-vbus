@@ -113,6 +113,8 @@ following command into your shell:
 
 ## Work in progress
 
+- [BREAKING CHANGE] Dropping support for Node.js versions < 16
+
 
 ## Version 0.29.0 (2024-01-22)
 
