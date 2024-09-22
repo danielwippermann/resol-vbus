@@ -311,7 +311,7 @@ class Specification {
 
             if (!hasOwnProperty(deviceSpec, 'fullName')) {
                 let fullNameFormatter;
-                if (channel) {
+                if ((channel >= 1) && (channel < 255)) {
                     fullNameFormatter = 'specification.fullNameWithChannel';
                 } else {
                     fullNameFormatter = 'specification.fullNameWithoutChannel';

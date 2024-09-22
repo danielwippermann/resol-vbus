@@ -392,6 +392,19 @@ describe('Specification', () => {
             expect(deviceSpec.fullName).toBe('VBus #1: Unknown Device (0x772F)');
         });
 
+        it('should work correctly with a virtual VBus channel', () => {
+            const spec = new Specification();
+
+            const deviceSpec = spec.getDeviceSpecification(0x7721, 0x0010, 0xFF);
+
+            expect(deviceSpec.deviceId).toBe('FF_7721_0010');
+            expect(deviceSpec.channel).toBe(0xFF);
+            expect(deviceSpec.selfAddress).toBe(0x7721);
+            expect(deviceSpec.peerAddress).toBe(0x0010);
+            expect(deviceSpec.name).toBe('DeltaSol E [Regler]');
+            expect(deviceSpec.fullName).toBe('DeltaSol E [Regler]');
+        });
+
     });
 
     describe('#getPacketSpecification', () => {
