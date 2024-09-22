@@ -10,8 +10,8 @@
   "author": "Daniel Wippermann <Daniel.Wippermann@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.18.2",
-    "winston": "^3.8.2"
+    "express": "^4.21.0",
+    "winston": "^3.14.2"
   },
   "devDependencies": {
     "node-fetch": "^2.6.7"

@@ -9,10 +9,10 @@
   "author": "Daniel Wippermann <Daniel.Wippermann@gmail.com> (http://danielwippermann.github.io/)",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.19.2",
+    "express": "^4.21.0",
     "morgan": "^1.10.0",
     "mqtt": "^4.3.8",
-    "qs": "^6.11.0",
-    "winston": "^3.8.2"
+    "qs": "^6.13.0",
+    "winston": "^3.14.2"
   }
 }
