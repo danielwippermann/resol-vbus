@@ -2,7 +2,7 @@ const dgram = require('dgram');
 const http = require('http');
 
 
-const SerialPort = require('serialport');
+const { SerialPort } = require('serialport');
 
 
 const vbus = require('../resol-vbus');
@@ -101,7 +101,8 @@ async function openSerialPort(config) {
     debugLog('Opening serial port...');
 
     const port = await new Promise((resolve, reject) => {
-        const port = new SerialPort(config.path, {
+        const port = new SerialPort({
+            path: config.path,
             baudRate: config.baudrate,
         }, (err) => {
             if (err) {
