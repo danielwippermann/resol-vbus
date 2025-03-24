@@ -84,6 +84,16 @@ const config = {
     },
 
     /**
+     * a second optional connection is supported by giving the following parameters as above:
+     * connection2ClassName: 'TcpConnection',
+     * connection2Options: {
+     *     host: '192.168.2.18',
+     *     port: 8234,
+     *     rawVBusDataOnly: true,
+     * },
+     */
+
+    /**
      * A map of packet field IDs to their custom name.
      */
     packetFieldNameMap: {
