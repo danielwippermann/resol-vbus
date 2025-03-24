@@ -341,6 +341,7 @@ First release to the NPM registry.
 * @t9zx
 * @SurfGargano
 * @epenet
+* @Dr-schobi
 
 
 
