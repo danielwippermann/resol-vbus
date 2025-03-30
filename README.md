@@ -20,6 +20,10 @@
 
 See [this issue](https://github.com/danielwippermann/resol-vbus/issues/110) for details.
 
+New projects should consider using the `resol-vbus-core*` libraries:
+
+- [Documentation](https://resol-vbus-core.bugstu.be/)
+- [Code](https://codeberg.org/DanielWippermann/resol-vbus-core/)
 
 
 ## Features
