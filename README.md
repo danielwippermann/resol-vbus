@@ -20,7 +20,7 @@
 
 See [this issue](https://github.com/danielwippermann/resol-vbus/issues/110) for details.
 
-New projects should consider using the `resol-vbus-core*` libraries:
+New projects should consider using the [`resol-vbus-core*`](https://resol-vbus-core.bugstu.be/) libraries:
 
 - [Migration Info](https://danielwippermann.github.io/resol-vbus/#/md/docs/migration-to-resol-vbus-core)
 - [Documentation](https://resol-vbus-core.bugstu.be/)
