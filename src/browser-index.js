@@ -7,7 +7,6 @@
  */
 const packageInfo = require('../package.json');
 
-
 const utils = require('./utils');
 
 const I18N = require('./i18n');
@@ -49,10 +48,7 @@ const DLxJsonConverter = require('./dlx-json-converter');
 
 // var TcpConnectionEndpoint = require('./tcp-connection-endpoint');
 
-
-
 module.exports = {
-
     VERSION: packageInfo.version,
 
     utils,
@@ -95,5 +91,4 @@ module.exports = {
     // ConnectionCustomizer: ConnectionCustomizer,
 
     // TcpConnectionEndpoint: TcpConnectionEndpoint,
-
 };

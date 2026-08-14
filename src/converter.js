@@ -2,15 +2,11 @@
 
 const util = require('util');
 
-
 const { Duplex } = require('stream');
-
 
 const Header = require('./header');
 const HeaderSet = require('./header-set');
 const { applyDefaultOptions } = require('./utils');
-
-
 
 /**
  * @typedef RawData
@@ -21,10 +17,7 @@ const { applyDefaultOptions } = require('./utils');
  * @property {Buffer} buffer The VBus raw data buffer
  */
 
-
-
 class Converter extends Duplex {
-
     /**
      * Creates a new Converter instance and optionally initializes its members with the given values.
      *
@@ -51,7 +44,7 @@ class Converter extends Duplex {
 
         this.finishedPromise = new Promise((resolve) => {
             // we have to add a data event handler to enable getting end event
-            const onData = function() {};
+            const onData = () => {};
 
             this.on('data', onData);
 
@@ -163,22 +156,19 @@ class Converter extends Duplex {
             throw new Error('Must be implemented by sub-class');
         }
     }
-
 }
 
+Object.assign(
+    Converter.prototype,
+    /** @lends Converter.prototype */ {
+        /**
+         * Specifies whether the underlying stream operates in object mode.
+         * @type {boolean}
+         */
+        objectMode: false,
 
-Object.assign(Converter.prototype, /** @lends Converter.prototype */ {
-
-    /**
-     * Specifies whether the underlying stream operates in object mode.
-     * @type {boolean}
-     */
-    objectMode: false,
-
-    finishedPromise: null,
-
-});
-
-
+        finishedPromise: null,
+    },
+);
 
 module.exports = Converter;

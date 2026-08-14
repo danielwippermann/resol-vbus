@@ -3,21 +3,10 @@
 const net = require('net');
 const tls = require('tls');
 
-
 const Connection = require('./connection');
-const {
-    applyDefaultOptions,
-    hasOwnProperty,
-    isNumber,
-    isObject,
-    isPromise,
-    isString,
-} = require('./utils');
-
-
+const { applyDefaultOptions, hasOwnProperty, isNumber, isObject, isPromise, isString } = require('./utils');
 
 class TcpConnection extends Connection {
-
     /**
      * Creates a new TcpConnection instance and optionally initializes its
      * members to the given values.
@@ -42,56 +31,58 @@ class TcpConnection extends Connection {
     constructor(options) {
         super(options);
 
-        applyDefaultOptions(this, options, /** @lends TcpConnection.prototype */ {
+        applyDefaultOptions(
+            this,
+            options,
+            /** @lends TcpConnection.prototype */ {
+                /**
+                 * Host name or IP address of the connection target.
+                 * @type {string}
+                 */
+                host: null,
 
-            /**
-            * Host name or IP address of the connection target.
-            * @type {string}
-            */
-            host: null,
+                /**
+                 * Port number of the connection target.
+                 * @type {number}
+                 */
+                port: options && options.tlsOptions ? 57053 : 7053,
 
-            /**
-            * Port number of the connection target.
-            * @type {number}
-            */
-            port: (options && options.tlsOptions) ? 57053 : 7053,
+                /**
+                 * Via tag if connection target is accessed using the VBus.net service.
+                 * @type {string}
+                 */
+                viaTag: null,
 
-            /**
-            * Via tag if connection target is accessed using the VBus.net service.
-            * @type {string}
-            */
-            viaTag: null,
+                /**
+                 * Password needed to connect to target.
+                 * @type {string}
+                 */
+                password: null,
 
-            /**
-            * Password needed to connect to target.
-            * @type {string}
-            */
-            password: null,
+                channelListCallback: null,
 
-            channelListCallback: null,
+                /**
+                 * Channel number to connect to.
+                 * @type {string|number}
+                 */
+                channel: 0,
 
-            /**
-            * Channel number to connect to.
-            * @type {string|number}
-            */
-            channel: 0,
+                /**
+                 * Indicates that connection does not need to perform login handshake.
+                 * Useful for serial-to-LAN converters.
+                 * @type {boolean}
+                 */
+                rawVBusDataOnly: false,
 
-            /**
-            * Indicates that connection does not need to perform login handshake.
-            * Useful for serial-to-LAN converters.
-            * @type {boolean}
-            */
-            rawVBusDataOnly: false,
+                tlsOptions: null,
 
-            tlsOptions: null,
-
-            /**
-             * Disable automatic reconnect on connection interruption.
-             * @type {boolean}
-             */
-            disableReconnect: false,
-
-        });
+                /**
+                 * Disable automatic reconnect on connection interruption.
+                 * @type {boolean}
+                 */
+                disableReconnect: false,
+            },
+        );
     }
 
     async connect(force) {
@@ -125,12 +116,10 @@ class TcpConnection extends Connection {
     }
 
     _connect(force) {
-        const _this = this;
-
         let socket;
 
         return new Promise((resolve, reject) => {
-            const done = function(err, result) {
+            const done = (err, result) => {
                 if (err) {
                     reject(err);
                 } else {
@@ -140,46 +129,46 @@ class TcpConnection extends Connection {
 
             const options = {
                 host: this.host,
-                port: this.port
+                port: this.port,
             };
 
             let phase = this.rawVBusDataOnly ? 1000 : 0;
             let rxBuffer = null;
 
-            const write = function() {
+            const write = function () {
                 return socket.write.apply(socket, arguments);
             };
 
-            const onConnectionEstablished = function() {
-                _this.reconnectTimeout = 0;
+            const onConnectionEstablished = () => {
+                this.reconnectTimeout = 0;
 
-                _this._setConnectionState(TcpConnection.STATE_CONNECTED);
+                this._setConnectionState(TcpConnection.STATE_CONNECTED);
 
                 done();
             };
 
-            const onConnect = function() {
+            const onConnect = () => {
                 if (phase === 1000) {
                     onConnectionEstablished();
                 }
             };
 
-            const changePhase = function (newPhase) {
+            const changePhase = (newPhase) => {
                 if (newPhase >= 0) {
                     phase = newPhase;
 
                     if (phase === 20) {
                         // CONNECT
-                        write('CONNECT ' + _this.viaTag + '\r\n');
+                        write('CONNECT ' + this.viaTag + '\r\n');
                     } else if (phase === 40) {
                         // PASS
-                        write('PASS ' + _this.password + '\r\n');
+                        write('PASS ' + this.password + '\r\n');
                     } else if (phase === 60) {
                         // CHANNELLIST
                         write('CHANNELLIST\r\n');
                     } else if (phase === 80) {
                         // CHANNEL
-                        write('CHANNEL ' + _this.channel + '\r\n');
+                        write('CHANNEL ' + this.channel + '\r\n');
                     } else if (phase === 800) {
                         // QUIT
                         write('QUIT\r\n');
@@ -194,11 +183,11 @@ class TcpConnection extends Connection {
 
             const channelList = [];
 
-            const onLine = function(line) {
+            const onLine = (line) => {
                 let newPhase = -1;
-                if (line [0] === '+') {
+                if (line[0] === '+') {
                     if (phase === 0) {
-                        if (_this.viaTag) {
+                        if (this.viaTag) {
                             // CONNECT ...
                             newPhase = 20;
                         } else {
@@ -208,9 +197,9 @@ class TcpConnection extends Connection {
                     } else if (phase === 20) {
                         newPhase = 40;
                     } else if (phase === 40) {
-                        if (_this.channelListCallback) {
+                        if (this.channelListCallback) {
                             newPhase = 60;
-                        } else if (_this.channel) {
+                        } else if (this.channel) {
                             newPhase = 80;
                         } else {
                             newPhase = 900;
@@ -220,27 +209,27 @@ class TcpConnection extends Connection {
 
                         const channelListCallbackDone = (err, channel) => {
                             if (err) {
-                                _this.socket.destroy();
-                                _this.socket = null;
+                                this.socket.destroy();
+                                this.socket = null;
 
-                                _this._setConnectionState(TcpConnection.STATE_DISCONNECTED);
+                                this._setConnectionState(TcpConnection.STATE_DISCONNECTED);
 
                                 done(err);
                             } else {
                                 if (channel !== undefined) {
                                     if (isNumber(channel)) {
-                                        _this.channel = channel;
+                                        this.channel = channel;
                                     } else if (isString(channel)) {
-                                        _this.channel = parseInt(channel);
+                                        this.channel = parseInt(channel, 10);
                                     } else if (isObject(channel) && hasOwnProperty(channel, 'channel')) {
-                                        _this.channel = channel.channel;
+                                        this.channel = channel.channel;
                                     } else {
                                         done(new Error('Invalid channel selection ' + JSON.stringify(channel)));
                                     }
                                 }
 
                                 let newPhase;
-                                if (_this.channel) {
+                                if (this.channel) {
                                     newPhase = 80;
                                 } else {
                                     newPhase = 900;
@@ -252,50 +241,56 @@ class TcpConnection extends Connection {
                             }
                         };
 
-                        const channelListCallbackResult = _this.channelListCallback(channelList, channelListCallbackDone);
+                        const channelListCallbackResult = this.channelListCallback(
+                            channelList,
+                            channelListCallbackDone,
+                        );
                         if (isPromise(channelListCallbackResult)) {
-                            channelListCallbackResult.then(result => {
-                                channelListCallbackDone(null, result);
-                            }, err => {
-                                channelListCallbackDone(err);
-                            });
+                            channelListCallbackResult.then(
+                                (result) => {
+                                    channelListCallbackDone(null, result);
+                                },
+                                (err) => {
+                                    channelListCallbackDone(err);
+                                },
+                            );
                         }
                     } else if (phase === 80) {
                         newPhase = 900;
                     } else if (phase === 900) {
                         newPhase = 1000;
                     }
-                } else if (line [0] === '-') {
+                } else if (line[0] === '-') {
                     newPhase = 800;
 
                     const error = new Error('Remote side responded with ' + JSON.stringify(line));
 
                     switch (phase) {
-                    case 20:
-                        error.vbusPhase = 'CONNECT';
-                        break;
-                    case 40:
-                        error.vbusPhase = 'PASS';
-                        break;
-                    case 60:
-                        error.vbusPhase = 'CHANNELLIST';
-                        break;
-                    case 80:
-                        error.vbusPhase = 'CHANNEL';
-                        break;
-                    case 900:
-                        error.vbusPhase = 'DATA';
-                        break;
+                        case 20:
+                            error.vbusPhase = 'CONNECT';
+                            break;
+                        case 40:
+                            error.vbusPhase = 'PASS';
+                            break;
+                        case 60:
+                            error.vbusPhase = 'CHANNELLIST';
+                            break;
+                        case 80:
+                            error.vbusPhase = 'CHANNEL';
+                            break;
+                        case 900:
+                            error.vbusPhase = 'DATA';
+                            break;
                     }
 
                     done(error);
-                } else if (line [0] === '*') {
+                } else if (line[0] === '*') {
                     if (phase === 60) {
                         const md = /^\*([\d]+):(.*)$/.exec(line);
                         if (md) {
                             channelList.push({
-                                channel: md [1],
-                                name: md [2],
+                                channel: md[1],
+                                name: md[2],
                             });
                         }
                     }
@@ -306,7 +301,7 @@ class TcpConnection extends Connection {
                 changePhase(newPhase);
             };
 
-            const onSocketData = function(chunk) {
+            const onSocketData = (chunk) => {
                 // console.log('onData');
 
                 if (phase < 1000) {
@@ -314,15 +309,15 @@ class TcpConnection extends Connection {
 
                     let buffer;
                     if (rxBuffer) {
-                        buffer = Buffer.concat([ rxBuffer, chunk ]);
+                        buffer = Buffer.concat([rxBuffer, chunk]);
                     } else {
                         buffer = chunk;
                     }
 
-                    let start = 0, index = 0;
-                    /* eslint-disable-next-line no-unmodified-loop-condition */
-                    while ((index < buffer.length) && (phase < 1000)) {
-                        if ((buffer [index] === 13) || (buffer [index] === 10)) {
+                    let start = 0,
+                        index = 0;
+                    while (index < buffer.length && phase < 1000) {
+                        if (buffer[index] === 13 || buffer[index] === 10) {
                             if (start < index) {
                                 const line = buffer.toString('utf8', start, index);
                                 onLine(line);
@@ -336,7 +331,7 @@ class TcpConnection extends Connection {
 
                     if (start < buffer.length) {
                         if (phase >= 1000) {
-                            _this._write(buffer.slice(start));
+                            this._write(buffer.slice(start));
 
                             rxBuffer = null;
                         } else {
@@ -346,62 +341,62 @@ class TcpConnection extends Connection {
                         rxBuffer = null;
                     }
                 } else {
-                    _this._write(chunk);
+                    this._write(chunk);
                 }
             };
 
-            const onConnectionData = function(chunk) {
+            const onConnectionData = (chunk) => {
                 write(chunk);
             };
 
-            const onSocketTermination = function() {
-                _this.removeListener('data', onConnectionData);
+            const onSocketTermination = () => {
+                this.removeListener('data', onConnectionData);
 
-                if (_this.socket !== socket) {
+                if (this.socket !== socket) {
                     // nop
-                } else if (!force && (_this.connectionState === TcpConnection.STATE_CONNECTING)) {
+                } else if (!force && this.connectionState === TcpConnection.STATE_CONNECTING) {
                     // failed to connect
-                    _this._setConnectionState(TcpConnection.STATE_DISCONNECTED);
+                    this._setConnectionState(TcpConnection.STATE_DISCONNECTED);
 
-                    _this.socket = null;
+                    this.socket = null;
 
                     done(new Error('Unable to connect'));
-                } else if (_this.connectionState === TcpConnection.STATE_DISCONNECTING) {
-                    _this._setConnectionState(TcpConnection.STATE_DISCONNECTED);
+                } else if (this.connectionState === TcpConnection.STATE_DISCONNECTING) {
+                    this._setConnectionState(TcpConnection.STATE_DISCONNECTED);
 
-                    _this.socket = null;
+                    this.socket = null;
                 } else {
-                    _this._setConnectionState(TcpConnection.STATE_INTERRUPTED);
+                    this._setConnectionState(TcpConnection.STATE_INTERRUPTED);
 
-                    _this.socket = null;
+                    this.socket = null;
 
-                    if (!_this.disableReconnect) {
-                        const timeout = _this.reconnectTimeout;
-                        if (_this.reconnectTimeout < _this.reconnectTimeoutMax) {
-                            _this.reconnectTimeout += _this.reconnectTimeoutIncr;
+                    if (!this.disableReconnect) {
+                        const timeout = this.reconnectTimeout;
+                        if (this.reconnectTimeout < this.reconnectTimeoutMax) {
+                            this.reconnectTimeout += this.reconnectTimeoutIncr;
                         }
 
                         setTimeout(() => {
-                            _this._setConnectionState(TcpConnection.STATE_RECONNECTING);
+                            this._setConnectionState(TcpConnection.STATE_RECONNECTING);
 
-                            _this._connect().then(null, err => {
-                                _this.emit('error', err);
+                            this._connect().then(null, (err) => {
+                                this.emit('error', err);
                             });
                         }, timeout);
                     }
                 }
             };
 
-            const onEnd = function() {
+            const onEnd = () => {
                 onSocketTermination();
             };
 
-            const onError = function(/* err */) {
+            const onError = (/* err */) => {
                 socket.destroy();
                 onSocketTermination();
             };
 
-            const onTimeout = function() {
+            const onTimeout = () => {
                 socket.destroy();
                 onSocketTermination();
             };
@@ -423,79 +418,76 @@ class TcpConnection extends Connection {
             this.socket = socket;
         });
     }
-
 }
 
+Object.assign(
+    TcpConnection.prototype,
+    /** @lends TcpConnection.prototype */ {
+        /**
+         * Host name or IP address of the connection target.
+         * @type {string}
+         */
+        host: null,
 
-Object.assign(TcpConnection.prototype, /** @lends TcpConnection.prototype */ {
+        /**
+         * Port number of the connection target.
+         * @type {number}
+         */
+        port: null,
 
-    /**
-     * Host name or IP address of the connection target.
-     * @type {string}
-     */
-    host: null,
+        /**
+         * Via tag if connection target is accessed using the VBus.net service.
+         * @type {string}
+         */
+        viaTag: null,
 
-    /**
-     * Port number of the connection target.
-     * @type {number}
-     */
-    port: null,
+        /**
+         * Password needed to connect to target.
+         * @type {string}
+         */
+        password: null,
 
-    /**
-     * Via tag if connection target is accessed using the VBus.net service.
-     * @type {string}
-     */
-    viaTag: null,
+        channelListCallback: null,
 
-    /**
-     * Password needed to connect to target.
-     * @type {string}
-     */
-    password: null,
+        /**
+         * Channel number to connect to.
+         * @type {string|number}
+         */
+        channel: 0,
 
-    channelListCallback: null,
+        /**
+         * Indicates that connection does not need to perform login handshake.
+         * Useful for serial-to-LAN converters.
+         * @type {boolean}
+         */
+        rawVBusDataOnly: false,
 
-    /**
-     * Channel number to connect to.
-     * @type {string|number}
-     */
-    channel: 0,
+        tlsOptions: null,
 
-    /**
-     * Indicates that connection does not need to perform login handshake.
-     * Useful for serial-to-LAN converters.
-     * @type {boolean}
-     */
-    rawVBusDataOnly: false,
+        /**
+         * Timeout in milliseconds to way between reconnection retries.
+         * @type {number}
+         */
+        reconnectTimeout: 0,
 
-    tlsOptions: null,
+        /**
+         * Value to increment timeout after every unsuccessful reconnection retry.
+         * @type {number}
+         */
+        reconnectTimeoutIncr: 10000,
 
-    /**
-     * Timeout in milliseconds to way between reconnection retries.
-     * @type {number}
-     */
-    reconnectTimeout: 0,
+        /**
+         * Maximum timeout value between unsuccessful reconnection retry.
+         * @type {number}
+         */
+        reconnectTimeoutMax: 60000,
 
-    /**
-     * Value to increment timeout after every unsuccessful reconnection retry.
-     * @type {number}
-     */
-    reconnectTimeoutIncr: 10000,
-
-    /**
-     * Maximum timeout value between unsuccessful reconnection retry.
-     * @type {number}
-     */
-    reconnectTimeoutMax: 60000,
-
-    /**
-     * Disable automatic reconnect on connection interruption.
-     * @type {boolean}
-     */
-    disableReconnect: false,
-
-});
-
-
+        /**
+         * Disable automatic reconnect on connection interruption.
+         * @type {boolean}
+         */
+        disableReconnect: false,
+    },
+);
 
 module.exports = TcpConnection;

@@ -2,14 +2,10 @@
 
 const { sprintf } = require('sprintf-js');
 
-
 const Header = require('./header');
 const { applyDefaultOptions } = require('./utils');
 
-
-
 class Datagram extends Header {
-
     /**
      * Creates a new Datagram instance and optionally initializes its members with the given values.
      *
@@ -29,27 +25,29 @@ class Datagram extends Header {
     constructor(options) {
         super(options);
 
-        applyDefaultOptions(this, options, /** @lends Datagram.prototype */ {
+        applyDefaultOptions(
+            this,
+            options,
+            /** @lends Datagram.prototype */ {
+                /**
+                 * The command field of this VBus datagram. See the VBus Protocol Specification for details.
+                 * @type {number}
+                 */
+                command: 0,
 
-            /**
-            * The command field of this VBus datagram. See the VBus Protocol Specification for details.
-            * @type {number}
-            */
-            command: 0,
+                /**
+                 * The value ID field of this VBus datagram.
+                 * @type {number}
+                 */
+                valueId: 0,
 
-            /**
-            * The value ID field of this VBus datagram.
-            * @type {number}
-            */
-            valueId: 0,
-
-            /**
-            * The value field of this VBus datagram.
-            * @type {number}
-            */
-            value: 0,
-
-        });
+                /**
+                 * The value field of this VBus datagram.
+                 * @type {number}
+                 */
+                value: 0,
+            },
+        );
     }
 
     toLiveBuffer(origBuffer, start, end) {
@@ -66,11 +64,11 @@ class Datagram extends Header {
             throw new Error('Buffer too small');
         }
 
-        buffer [0] = 0xAA;
-        buffer.writeUInt16LE(this.destinationAddress & 0x7F7F, 1);
-        buffer.writeUInt16LE(this.sourceAddress & 0x7F7F, 3);
-        buffer [5] = this.getProtocolVersion();
-        buffer.writeUInt16LE(this.command & 0x7F7F, 6);
+        buffer[0] = 0xaa;
+        buffer.writeUInt16LE(this.destinationAddress & 0x7f7f, 1);
+        buffer.writeUInt16LE(this.sourceAddress & 0x7f7f, 3);
+        buffer[5] = this.getProtocolVersion();
+        buffer.writeUInt16LE(this.command & 0x7f7f, 6);
 
         const frameData = Buffer.alloc(6);
         frameData.writeUInt16LE(this.valueId, 0);
@@ -121,35 +119,32 @@ class Datagram extends Header {
             sourceAddress: buffer.readUInt16LE(start + 3),
             command: buffer.readUInt16LE(start + 6),
             valueId: frameData.readUInt16LE(0),
-            value: frameData.readInt32LE(2)
+            value: frameData.readInt32LE(2),
         });
     }
-
 }
 
+Object.assign(
+    Datagram.prototype,
+    /** @lends Datagram.prototype */ {
+        /**
+         * The command field of this VBus datagram. See the VBus Protocol Specification for details.
+         * @type {number}
+         */
+        command: 0,
 
-Object.assign(Datagram.prototype, /** @lends Datagram.prototype */ {
+        /**
+         * The value ID field of this VBus datagram.
+         * @type {number}
+         */
+        valueId: 0,
 
-    /**
-     * The command field of this VBus datagram. See the VBus Protocol Specification for details.
-     * @type {number}
-     */
-    command: 0,
-
-    /**
-     * The value ID field of this VBus datagram.
-     * @type {number}
-     */
-    valueId: 0,
-
-    /**
-     * The value field of this VBus datagram.
-     * @type {number}
-     */
-    value: 0,
-
-});
-
-
+        /**
+         * The value field of this VBus datagram.
+         * @type {number}
+         */
+        value: 0,
+    },
+);
 
 module.exports = Datagram;

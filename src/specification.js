@@ -2,9 +2,7 @@
 
 const crypto = require('crypto');
 
-
 const { sprintf } = require('sprintf-js');
-
 
 const I18N = require('./i18n');
 const SpecificationFile = require('./specification-file');
@@ -18,17 +16,13 @@ const {
     roundNumber,
 } = require('./utils');
 
-
-
 const globalSpecificationFile = SpecificationFile.getDefaultSpecificationFile();
 let globalSpecificationData = null;
 if (globalSpecificationFile) {
     globalSpecificationData = deepFreezeObjectTree(globalSpecificationFile.getSpecificationData());
 }
 
-let globalSpecification = undefined;
-
-
+let globalSpecification;
 
 const conversionFactors = {
     BtusPerWattHour: 3.412128,
@@ -40,11 +34,7 @@ const conversionFactors = {
     PoundsForcePerSquareInchPerBar: 14.5037738,
 };
 
-
-
 const numberFormatCache = new Map();
-
-
 
 /**
  * @typedef UnitSpecification
@@ -146,10 +136,7 @@ const numberFormatCache = new Map();
  * @property {Buffer} frameData Frame data
  */
 
-
-
 class Specification {
-
     /**
      * Creates a new Specification instance and optionally initializes its members with the given values.
      *
@@ -159,15 +146,17 @@ class Specification {
      * @param {string} options.specificationData {@link Specification#specificationData}
      */
     constructor(options) {
-        applyDefaultOptions(this, options, /** @lends Specification.prototype */ {
-
-            /**
-            * Language code (ISO 639-1)
-            * @type {string}
-            */
-            language: 'en',
-
-        });
+        applyDefaultOptions(
+            this,
+            options,
+            /** @lends Specification.prototype */ {
+                /**
+                 * Language code (ISO 639-1)
+                 * @type {string}
+                 */
+                language: 'en',
+            },
+        );
 
         this.i18n = new I18N(this.language);
 
@@ -184,7 +173,10 @@ class Specification {
         } else if (options.specificationFile) {
             loadSpecificationDataOptions.specificationData = options.specificationFile.getSpecificationData();
         }
-        this.specificationData = Specification.loadSpecificationData(rawSpecificationData, loadSpecificationDataOptions);
+        this.specificationData = Specification.loadSpecificationData(
+            rawSpecificationData,
+            loadSpecificationDataOptions,
+        );
     }
 
     /**
@@ -202,7 +194,7 @@ class Specification {
      * >
      */
     getUnitById(id) {
-        return this.specificationData.units [id];
+        return this.specificationData.units[id];
     }
 
     /**
@@ -224,7 +216,7 @@ class Specification {
      * >
      */
     getTypeById(id) {
-        return this.specificationData.types [id];
+        return this.specificationData.types[id];
     }
 
     /**
@@ -277,9 +269,9 @@ class Specification {
                 throw new Error('Invalid device ID');
             }
 
-            selfAddress = parseInt(md [2], 16);
-            peerAddress = parseInt(md [3], 16);
-            channel = parseInt(md [1], 16);
+            selfAddress = parseInt(md[2], 16);
+            peerAddress = parseInt(md[3], 16);
+            channel = parseInt(md[1], 16);
         }
 
         if (channel === undefined) {
@@ -294,7 +286,7 @@ class Specification {
                 origDeviceSpec = this.specificationData.getDeviceSpecification(selfAddress, peerAddress);
             }
             if (!origDeviceSpec && this.specificationData.deviceSpecs) {
-                origDeviceSpec = this.specificationData.deviceSpecs ['_' + deviceId];
+                origDeviceSpec = this.specificationData.deviceSpecs['_' + deviceId];
             }
 
             const deviceSpec = {
@@ -311,7 +303,7 @@ class Specification {
 
             if (!hasOwnProperty(deviceSpec, 'fullName')) {
                 let fullNameFormatter;
-                if ((channel >= 1) && (channel < 255)) {
+                if (channel >= 1 && channel < 255) {
                     fullNameFormatter = 'specification.fullNameWithChannel';
                 } else {
                     fullNameFormatter = 'specification.fullNameWithoutChannel';
@@ -319,10 +311,10 @@ class Specification {
                 deviceSpec.fullName = this.i18n.t(fullNameFormatter, channel, deviceSpec.name);
             }
 
-            this.deviceSpecCache [deviceId] = Object.freeze(deviceSpec);
+            this.deviceSpecCache[deviceId] = Object.freeze(deviceSpec);
         }
 
-        return this.deviceSpecCache [deviceId];
+        return this.deviceSpecCache[deviceId];
     }
 
     /**
@@ -438,10 +430,10 @@ class Specification {
                 throw new Error('Invalid packet ID');
             }
 
-            command = parseInt(md [4], 16);
-            sourceAddress = parseInt(md [3], 16);
-            destinationAddress = parseInt(md [2], 16);
-            headerOrChannel = parseInt(md [1], 16);
+            command = parseInt(md[4], 16);
+            sourceAddress = parseInt(md[3], 16);
+            destinationAddress = parseInt(md[2], 16);
+            headerOrChannel = parseInt(md[1], 16);
         }
 
         const packetId = sprintf('%02X_%04X_%04X_10_%04X', headerOrChannel, destinationAddress, sourceAddress, command);
@@ -449,13 +441,21 @@ class Specification {
         if (!hasOwnProperty(this.packetSpecCache, packetId)) {
             let origPacketSpec;
             if (!origPacketSpec && this.specificationData.getPacketSpecification) {
-                origPacketSpec = this.specificationData.getPacketSpecification(destinationAddress, sourceAddress, command);
+                origPacketSpec = this.specificationData.getPacketSpecification(
+                    destinationAddress,
+                    sourceAddress,
+                    command,
+                );
             }
             if (!origPacketSpec && this.specificationData.packetSpecs) {
-                origPacketSpec = this.specificationData.packetSpecs ['_' + packetId];
+                origPacketSpec = this.specificationData.packetSpecs['_' + packetId];
             }
 
-            const destinationDeviceSpec = this.getDeviceSpecification(destinationAddress, sourceAddress, headerOrChannel);
+            const destinationDeviceSpec = this.getDeviceSpecification(
+                destinationAddress,
+                sourceAddress,
+                headerOrChannel,
+            );
             const sourceDeviceSpec = this.getDeviceSpecification(sourceAddress, destinationAddress, headerOrChannel);
 
             let { fullName } = sourceDeviceSpec;
@@ -481,10 +481,10 @@ class Specification {
                 packetSpec.packetFields = [];
             }
 
-            this.packetSpecCache [packetId] = Object.freeze(packetSpec);
+            this.packetSpecCache[packetId] = Object.freeze(packetSpec);
         }
 
-        return this.packetSpecCache [packetId];
+        return this.packetSpecCache[packetId];
     }
 
     /**
@@ -551,7 +551,9 @@ class Specification {
         let packetFieldSpec;
         if (typeof packetSpecOrId === 'string') {
             if (this.specificationData.filteredPacketFieldSpecs) {
-                packetFieldSpec = this.specificationData.filteredPacketFieldSpecs.find(pfs => pfs.filteredPacketFieldId === packetSpecOrId);
+                packetFieldSpec = this.specificationData.filteredPacketFieldSpecs.find(
+                    (pfs) => pfs.filteredPacketFieldId === packetSpecOrId,
+                );
             }
 
             if (!packetFieldSpec) {
@@ -560,13 +562,13 @@ class Specification {
                     throw new Error('Invalid packet field ID');
                 }
 
-                fieldId = md [2];
-                packetSpecOrId = this.getPacketSpecification(md [1]);
+                fieldId = md[2];
+                packetSpecOrId = this.getPacketSpecification(md[1]);
             }
         }
 
         if (!packetFieldSpec && packetSpecOrId) {
-            packetFieldSpec = packetSpecOrId.packetFields.find(pfs => pfs.fieldId === fieldId);
+            packetFieldSpec = packetSpecOrId.packetFields.find((pfs) => pfs.fieldId === fieldId);
         }
 
         return packetFieldSpec;
@@ -609,7 +611,11 @@ class Specification {
                 if (packetField.conversions) {
                     ({ rawValue } = this.convertRawValue(rawValue, packetField.conversions));
                 } else {
-                    ({ rawValue } = this.convertRawValue(rawValue, packetField.packetFieldSpec.type.unit, packetField.type.unit));
+                    ({ rawValue } = this.convertRawValue(
+                        rawValue,
+                        packetField.packetFieldSpec.type.unit,
+                        packetField.type.unit,
+                    ));
                 }
             }
         } else {
@@ -637,7 +643,7 @@ class Specification {
         return conversions.reverse().map((conversion) => {
             const invertedConversion = {};
             if (isNumber(conversion.offset)) {
-                invertedConversion.offset = conversion.offset  * -1;
+                invertedConversion.offset = conversion.offset * -1;
             }
             if (isNumber(conversion.factor)) {
                 invertedConversion.factor = 1 / conversion.factor;
@@ -674,7 +680,11 @@ class Specification {
                 if (packetField.conversions) {
                     ({ rawValue } = this.convertRawValue(rawValue, this.invertConversions(packetField.conversions)));
                 } else {
-                    ({ rawValue } = this.convertRawValue(rawValue, packetField.type.unit, packetField.packetFieldSpec.type.unit));
+                    ({ rawValue } = this.convertRawValue(
+                        rawValue,
+                        packetField.type.unit,
+                        packetField.packetFieldSpec.type.unit,
+                    ));
                 }
             }
 
@@ -691,110 +701,113 @@ class Specification {
      * @return {object} Result containing a `rawValue` property with the conversion result and a `unit` property with the associated unit.
      */
     convertRawValue(rawValue_, sourceUnit_, targetUnit_) {
-        const that = this;
-
         let conversions;
         if (Array.isArray(sourceUnit_)) {
             conversions = sourceUnit_;
         } else {
-            conversions = [{
-                power: null,
-                factor: null,
-                offset: null,
-                sourceUnit: sourceUnit_,
-                targetUnit: targetUnit_,
-            }];
+            conversions = [
+                {
+                    power: null,
+                    factor: null,
+                    offset: null,
+                    sourceUnit: sourceUnit_,
+                    targetUnit: targetUnit_,
+                },
+            ];
         }
 
-        const result = conversions.reduce((valueInfo, conversion) => {
-            let { rawValue } = valueInfo;
-            const { sourceUnit, targetUnit } = conversion;
-            const unitFamily = sourceUnit && sourceUnit.unitFamily;
+        const result = conversions.reduce(
+            (valueInfo, conversion) => {
+                let { rawValue } = valueInfo;
+                const { sourceUnit, targetUnit } = conversion;
+                const unitFamily = sourceUnit && sourceUnit.unitFamily;
 
-            const hasPower = isNumber(conversion.power);
-            const hasFactor = isNumber(conversion.factor);
-            const hasOffset = isNumber(conversion.offset);
-            const autoConvert = !hasFactor && !hasOffset && !hasPower;
+                const hasPower = isNumber(conversion.power);
+                const hasFactor = isNumber(conversion.factor);
+                const hasOffset = isNumber(conversion.offset);
+                const autoConvert = !hasFactor && !hasOffset && !hasPower;
 
-            if (hasPower) {
-                if (rawValue === 0 && conversion.power < 0) {
-                    rawValue = 0; // Infinity
-                } else {
-                    rawValue = Math.pow(rawValue, conversion.power);
+                if (hasPower) {
+                    if (rawValue === 0 && conversion.power < 0) {
+                        rawValue = 0; // Infinity
+                    } else {
+                        rawValue = rawValue ** conversion.power;
+                    }
                 }
-            }
-            if (hasFactor) {
-                rawValue = rawValue * conversion.factor;
-            }
-            if (hasOffset) {
-                rawValue = rawValue + conversion.offset;
-            }
+                if (hasFactor) {
+                    rawValue = rawValue * conversion.factor;
+                }
+                if (hasOffset) {
+                    rawValue = rawValue + conversion.offset;
+                }
 
-            if (autoConvert && !sourceUnit) {
-                throw new Error('Must provide a source unit');
-            } else if (!targetUnit) {
-                // nop, no conversion requested
-            } else if (sourceUnit.unitCode === targetUnit.unitCode) {
-                // nop, no conversion for same unit
-            } else if (targetUnit.unitCode === 'None') {
-                // nop, just ignore the unit suffix
-            } else if (!autoConvert) {
-                // nop, already multiplied by factor above and allows to change unit family
-            } else if (unitFamily !== targetUnit.unitFamily) {
-                throw new Error('Unit families of source and target unit must match');
-            } else if (!unitFamily) {
-                // nop, no conversion for unknown unit family
-            } else if (unitFamily === 'Temperature') {
-                rawValue = that._convertTemperatureRawValue(rawValue, sourceUnit.unitCode, targetUnit.unitCode);
-            } else if (unitFamily === 'Volume') {
-                rawValue = that._convertVolumeRawValue(rawValue, sourceUnit.unitCode, targetUnit.unitCode);
-            } else if (unitFamily === 'VolumeFlow') {
-                rawValue = that._convertVolumeFlowRawValue(rawValue, sourceUnit.unitCode, targetUnit.unitCode);
-            } else if (unitFamily === 'Pressure') {
-                rawValue = that._convertPressureRawValue(rawValue, sourceUnit.unitCode, targetUnit.unitCode);
-            } else if (unitFamily === 'Energy') {
-                rawValue = that._convertEnergyRawValue(rawValue, sourceUnit.unitCode, targetUnit.unitCode);
-            } else if (unitFamily === 'Power') {
-                rawValue = that._convertPowerRawValue(rawValue, sourceUnit.unitCode, targetUnit.unitCode);
-            } else if (unitFamily === 'Time') {
-                rawValue = that._convertTimeRawValue(rawValue, sourceUnit.unitCode, targetUnit.unitCode);
-            } else {
-                throw new Error('Unsupported unit family ' + JSON.stringify(sourceUnit.unitFamily));
-            }
+                if (autoConvert && !sourceUnit) {
+                    throw new Error('Must provide a source unit');
+                } else if (!targetUnit) {
+                    // nop, no conversion requested
+                } else if (sourceUnit.unitCode === targetUnit.unitCode) {
+                    // nop, no conversion for same unit
+                } else if (targetUnit.unitCode === 'None') {
+                    // nop, just ignore the unit suffix
+                } else if (!autoConvert) {
+                    // nop, already multiplied by factor above and allows to change unit family
+                } else if (unitFamily !== targetUnit.unitFamily) {
+                    throw new Error('Unit families of source and target unit must match');
+                } else if (!unitFamily) {
+                    // nop, no conversion for unknown unit family
+                } else if (unitFamily === 'Temperature') {
+                    rawValue = this._convertTemperatureRawValue(rawValue, sourceUnit.unitCode, targetUnit.unitCode);
+                } else if (unitFamily === 'Volume') {
+                    rawValue = this._convertVolumeRawValue(rawValue, sourceUnit.unitCode, targetUnit.unitCode);
+                } else if (unitFamily === 'VolumeFlow') {
+                    rawValue = this._convertVolumeFlowRawValue(rawValue, sourceUnit.unitCode, targetUnit.unitCode);
+                } else if (unitFamily === 'Pressure') {
+                    rawValue = this._convertPressureRawValue(rawValue, sourceUnit.unitCode, targetUnit.unitCode);
+                } else if (unitFamily === 'Energy') {
+                    rawValue = this._convertEnergyRawValue(rawValue, sourceUnit.unitCode, targetUnit.unitCode);
+                } else if (unitFamily === 'Power') {
+                    rawValue = this._convertPowerRawValue(rawValue, sourceUnit.unitCode, targetUnit.unitCode);
+                } else if (unitFamily === 'Time') {
+                    rawValue = this._convertTimeRawValue(rawValue, sourceUnit.unitCode, targetUnit.unitCode);
+                } else {
+                    throw new Error('Unsupported unit family ' + JSON.stringify(sourceUnit.unitFamily));
+                }
 
-            return {
-                rawValue,
-                unit: targetUnit || sourceUnit,
-            };
-        }, {
-            rawValue: rawValue_,
-            unit: sourceUnit_,
-        });
+                return {
+                    rawValue,
+                    unit: targetUnit || sourceUnit,
+                };
+            },
+            {
+                rawValue: rawValue_,
+                unit: sourceUnit_,
+            },
+        );
 
         return result;
     }
 
     _convertTemperatureRawValue(rawValue, sourceUnitCode, targetUnitCode) {
         switch (sourceUnitCode) {
-        case 'DegreesCelsius':
-            // nop
-            break;
-        case 'DegreesFahrenheit':
-            rawValue = (rawValue - 32) / 1.8;
-            break;
-        default:
-            throw new Error('Unsupported source unit ' + JSON.stringify(sourceUnitCode));
+            case 'DegreesCelsius':
+                // nop
+                break;
+            case 'DegreesFahrenheit':
+                rawValue = (rawValue - 32) / 1.8;
+                break;
+            default:
+                throw new Error('Unsupported source unit ' + JSON.stringify(sourceUnitCode));
         }
 
         switch (targetUnitCode) {
-        case 'DegreesCelsius':
-            // nop
-            break;
-        case 'DegreesFahrenheit':
-            rawValue = (rawValue * 1.8) + 32;
-            break;
-        default:
-            throw new Error('Unsupported target unit ' + JSON.stringify(targetUnitCode));
+            case 'DegreesCelsius':
+                // nop
+                break;
+            case 'DegreesFahrenheit':
+                rawValue = rawValue * 1.8 + 32;
+                break;
+            default:
+                throw new Error('Unsupported target unit ' + JSON.stringify(targetUnitCode));
         }
 
         return rawValue;
@@ -802,31 +815,31 @@ class Specification {
 
     _convertVolumeRawValue(rawValue, sourceUnitCode, targetUnitCode) {
         switch (sourceUnitCode) {
-        case 'Liters':
-            // nop
-            break;
-        case 'CubicMeters':
-            rawValue = rawValue * 1000;
-            break;
-        case 'Gallons':
-            rawValue = rawValue / conversionFactors.GallonsPerLiter;
-            break;
-        default:
-            throw new Error('Unsupported source unit ' + JSON.stringify(sourceUnitCode));
+            case 'Liters':
+                // nop
+                break;
+            case 'CubicMeters':
+                rawValue = rawValue * 1000;
+                break;
+            case 'Gallons':
+                rawValue = rawValue / conversionFactors.GallonsPerLiter;
+                break;
+            default:
+                throw new Error('Unsupported source unit ' + JSON.stringify(sourceUnitCode));
         }
 
         switch (targetUnitCode) {
-        case 'Liters':
-            // nop
-            break;
-        case 'CubicMeters':
-            rawValue = rawValue / 1000;
-            break;
-        case 'Gallons':
-            rawValue = rawValue * conversionFactors.GallonsPerLiter;
-            break;
-        default:
-            throw new Error('Unsupported target unit ' + JSON.stringify(targetUnitCode));
+            case 'Liters':
+                // nop
+                break;
+            case 'CubicMeters':
+                rawValue = rawValue / 1000;
+                break;
+            case 'Gallons':
+                rawValue = rawValue * conversionFactors.GallonsPerLiter;
+                break;
+            default:
+                throw new Error('Unsupported target unit ' + JSON.stringify(targetUnitCode));
         }
 
         return rawValue;
@@ -834,43 +847,43 @@ class Specification {
 
     _convertVolumeFlowRawValue(rawValue, sourceUnitCode, targetUnitCode) {
         switch (sourceUnitCode) {
-        case 'LitersPerHour':
-            // nop
-            break;
-        case 'LitersPerMinute':
-            rawValue = rawValue * 60;
-            break;
-        case 'CubicMetersPerHour':
-            rawValue = rawValue * 1000;
-            break;
-        case 'GallonsPerHour':
-            rawValue = rawValue / conversionFactors.GallonsPerLiter;
-            break;
-        case 'GallonsPerMinute':
-            rawValue = rawValue * 60 / conversionFactors.GallonsPerLiter;
-            break;
-        default:
-            throw new Error('Unsupported source unit ' + JSON.stringify(sourceUnitCode));
+            case 'LitersPerHour':
+                // nop
+                break;
+            case 'LitersPerMinute':
+                rawValue = rawValue * 60;
+                break;
+            case 'CubicMetersPerHour':
+                rawValue = rawValue * 1000;
+                break;
+            case 'GallonsPerHour':
+                rawValue = rawValue / conversionFactors.GallonsPerLiter;
+                break;
+            case 'GallonsPerMinute':
+                rawValue = (rawValue * 60) / conversionFactors.GallonsPerLiter;
+                break;
+            default:
+                throw new Error('Unsupported source unit ' + JSON.stringify(sourceUnitCode));
         }
 
         switch (targetUnitCode) {
-        case 'LitersPerHour':
-            // nop
-            break;
-        case 'LitersPerMinute':
-            rawValue = rawValue / 60;
-            break;
-        case 'CubicMetersPerHour':
-            rawValue = rawValue / 1000;
-            break;
-        case 'GallonsPerHour':
-            rawValue = rawValue * conversionFactors.GallonsPerLiter;
-            break;
-        case 'GallonsPerMinute':
-            rawValue = rawValue / 60 * conversionFactors.GallonsPerLiter;
-            break;
-        default:
-            throw new Error('Unsupported target unit ' + JSON.stringify(targetUnitCode));
+            case 'LitersPerHour':
+                // nop
+                break;
+            case 'LitersPerMinute':
+                rawValue = rawValue / 60;
+                break;
+            case 'CubicMetersPerHour':
+                rawValue = rawValue / 1000;
+                break;
+            case 'GallonsPerHour':
+                rawValue = rawValue * conversionFactors.GallonsPerLiter;
+                break;
+            case 'GallonsPerMinute':
+                rawValue = (rawValue / 60) * conversionFactors.GallonsPerLiter;
+                break;
+            default:
+                throw new Error('Unsupported target unit ' + JSON.stringify(targetUnitCode));
         }
 
         return rawValue;
@@ -878,25 +891,25 @@ class Specification {
 
     _convertPressureRawValue(rawValue, sourceUnitCode, targetUnitCode) {
         switch (sourceUnitCode) {
-        case 'Bars':
-            // nop
-            break;
-        case 'PoundsForcePerSquareInch':
-            rawValue = rawValue / conversionFactors.PoundsForcePerSquareInchPerBar;
-            break;
-        default:
-            throw new Error('Unsupported source unit ' + JSON.stringify(sourceUnitCode));
+            case 'Bars':
+                // nop
+                break;
+            case 'PoundsForcePerSquareInch':
+                rawValue = rawValue / conversionFactors.PoundsForcePerSquareInchPerBar;
+                break;
+            default:
+                throw new Error('Unsupported source unit ' + JSON.stringify(sourceUnitCode));
         }
 
         switch (targetUnitCode) {
-        case 'Bars':
-            // nop
-            break;
-        case 'PoundsForcePerSquareInch':
-            rawValue = rawValue * conversionFactors.PoundsForcePerSquareInchPerBar;
-            break;
-        default:
-            throw new Error('Unsupported target unit ' + JSON.stringify(targetUnitCode));
+            case 'Bars':
+                // nop
+                break;
+            case 'PoundsForcePerSquareInch':
+                rawValue = rawValue * conversionFactors.PoundsForcePerSquareInchPerBar;
+                break;
+            default:
+                throw new Error('Unsupported target unit ' + JSON.stringify(targetUnitCode));
         }
 
         return rawValue;
@@ -904,85 +917,85 @@ class Specification {
 
     _convertEnergyRawValue(rawValue, sourceUnitCode, targetUnitCode) {
         switch (sourceUnitCode) {
-        case 'WattHours':
-            // nop
-            break;
-        case 'KilowattHours':
-            rawValue = rawValue * 1000;
-            break;
-        case 'MegawattHours':
-            rawValue = rawValue * 1000000;
-            break;
-        case 'Btus':
-            rawValue = rawValue / conversionFactors.BtusPerWattHour;
-            break;
-        case 'KiloBtus':
-            rawValue = rawValue * 1000 / conversionFactors.BtusPerWattHour;
-            break;
-        case 'MegaBtus':
-            rawValue = rawValue * 1000000 / conversionFactors.BtusPerWattHour;
-            break;
-        case 'GramsCO2Gas':
-            rawValue = rawValue / conversionFactors.GramsCO2GasPerWattHour;
-            break;
-        case 'KilogramsCO2Gas':
-            rawValue = rawValue * 1000 / conversionFactors.GramsCO2GasPerWattHour;
-            break;
-        case 'TonsCO2Gas':
-            rawValue = rawValue * 1000000 / conversionFactors.GramsCO2GasPerWattHour;
-            break;
-        case 'GramsCO2Oil':
-            rawValue = rawValue / conversionFactors.GramsCO2OilPerWattHour;
-            break;
-        case 'KilogramsCO2Oil':
-            rawValue = rawValue * 1000 / conversionFactors.GramsCO2OilPerWattHour;
-            break;
-        case 'TonsCO2Oil':
-            rawValue = rawValue * 1000000 / conversionFactors.GramsCO2OilPerWattHour;
-            break;
-        default:
-            throw new Error('Unsupported source unit ' + JSON.stringify(sourceUnitCode));
+            case 'WattHours':
+                // nop
+                break;
+            case 'KilowattHours':
+                rawValue = rawValue * 1000;
+                break;
+            case 'MegawattHours':
+                rawValue = rawValue * 1000000;
+                break;
+            case 'Btus':
+                rawValue = rawValue / conversionFactors.BtusPerWattHour;
+                break;
+            case 'KiloBtus':
+                rawValue = (rawValue * 1000) / conversionFactors.BtusPerWattHour;
+                break;
+            case 'MegaBtus':
+                rawValue = (rawValue * 1000000) / conversionFactors.BtusPerWattHour;
+                break;
+            case 'GramsCO2Gas':
+                rawValue = rawValue / conversionFactors.GramsCO2GasPerWattHour;
+                break;
+            case 'KilogramsCO2Gas':
+                rawValue = (rawValue * 1000) / conversionFactors.GramsCO2GasPerWattHour;
+                break;
+            case 'TonsCO2Gas':
+                rawValue = (rawValue * 1000000) / conversionFactors.GramsCO2GasPerWattHour;
+                break;
+            case 'GramsCO2Oil':
+                rawValue = rawValue / conversionFactors.GramsCO2OilPerWattHour;
+                break;
+            case 'KilogramsCO2Oil':
+                rawValue = (rawValue * 1000) / conversionFactors.GramsCO2OilPerWattHour;
+                break;
+            case 'TonsCO2Oil':
+                rawValue = (rawValue * 1000000) / conversionFactors.GramsCO2OilPerWattHour;
+                break;
+            default:
+                throw new Error('Unsupported source unit ' + JSON.stringify(sourceUnitCode));
         }
 
         switch (targetUnitCode) {
-        case 'WattHours':
-            // nop
-            break;
-        case 'KilowattHours':
-            rawValue = rawValue / 1000;
-            break;
-        case 'MegawattHours':
-            rawValue = rawValue / 1000000;
-            break;
-        case 'Btus':
-            rawValue = rawValue * conversionFactors.BtusPerWattHour;
-            break;
-        case 'KiloBtus':
-            rawValue = rawValue / 1000 * conversionFactors.BtusPerWattHour;
-            break;
-        case 'MegaBtus':
-            rawValue = rawValue / 1000000 * conversionFactors.BtusPerWattHour;
-            break;
-        case 'GramsCO2Gas':
-            rawValue = rawValue * conversionFactors.GramsCO2GasPerWattHour;
-            break;
-        case 'KilogramsCO2Gas':
-            rawValue = rawValue / 1000 * conversionFactors.GramsCO2GasPerWattHour;
-            break;
-        case 'TonsCO2Gas':
-            rawValue = rawValue / 1000000 * conversionFactors.GramsCO2GasPerWattHour;
-            break;
-        case 'GramsCO2Oil':
-            rawValue = rawValue * conversionFactors.GramsCO2OilPerWattHour;
-            break;
-        case 'KilogramsCO2Oil':
-            rawValue = rawValue / 1000 * conversionFactors.GramsCO2OilPerWattHour;
-            break;
-        case 'TonsCO2Oil':
-            rawValue = rawValue / 1000000 * conversionFactors.GramsCO2OilPerWattHour;
-            break;
-        default:
-            throw new Error('Unsupported target unit ' + JSON.stringify(targetUnitCode));
+            case 'WattHours':
+                // nop
+                break;
+            case 'KilowattHours':
+                rawValue = rawValue / 1000;
+                break;
+            case 'MegawattHours':
+                rawValue = rawValue / 1000000;
+                break;
+            case 'Btus':
+                rawValue = rawValue * conversionFactors.BtusPerWattHour;
+                break;
+            case 'KiloBtus':
+                rawValue = (rawValue / 1000) * conversionFactors.BtusPerWattHour;
+                break;
+            case 'MegaBtus':
+                rawValue = (rawValue / 1000000) * conversionFactors.BtusPerWattHour;
+                break;
+            case 'GramsCO2Gas':
+                rawValue = rawValue * conversionFactors.GramsCO2GasPerWattHour;
+                break;
+            case 'KilogramsCO2Gas':
+                rawValue = (rawValue / 1000) * conversionFactors.GramsCO2GasPerWattHour;
+                break;
+            case 'TonsCO2Gas':
+                rawValue = (rawValue / 1000000) * conversionFactors.GramsCO2GasPerWattHour;
+                break;
+            case 'GramsCO2Oil':
+                rawValue = rawValue * conversionFactors.GramsCO2OilPerWattHour;
+                break;
+            case 'KilogramsCO2Oil':
+                rawValue = (rawValue / 1000) * conversionFactors.GramsCO2OilPerWattHour;
+                break;
+            case 'TonsCO2Oil':
+                rawValue = (rawValue / 1000000) * conversionFactors.GramsCO2OilPerWattHour;
+                break;
+            default:
+                throw new Error('Unsupported target unit ' + JSON.stringify(targetUnitCode));
         }
 
         return rawValue;
@@ -990,25 +1003,25 @@ class Specification {
 
     _convertPowerRawValue(rawValue, sourceUnitCode, targetUnitCode) {
         switch (sourceUnitCode) {
-        case 'Watts':
-            // nop
-            break;
-        case 'Kilowatts':
-            rawValue = rawValue * 1000;
-            break;
-        default:
-            throw new Error('Unsupported source unit ' + JSON.stringify(sourceUnitCode));
+            case 'Watts':
+                // nop
+                break;
+            case 'Kilowatts':
+                rawValue = rawValue * 1000;
+                break;
+            default:
+                throw new Error('Unsupported source unit ' + JSON.stringify(sourceUnitCode));
         }
 
         switch (targetUnitCode) {
-        case 'Watts':
-            // nop
-            break;
-        case 'Kilowatts':
-            rawValue = rawValue / 1000;
-            break;
-        default:
-            throw new Error('Unsupported target unit ' + JSON.stringify(targetUnitCode));
+            case 'Watts':
+                // nop
+                break;
+            case 'Kilowatts':
+                rawValue = rawValue / 1000;
+                break;
+            default:
+                throw new Error('Unsupported target unit ' + JSON.stringify(targetUnitCode));
         }
 
         return rawValue;
@@ -1016,37 +1029,37 @@ class Specification {
 
     _convertTimeRawValue(rawValue, sourceUnitCode, targetUnitCode) {
         switch (sourceUnitCode) {
-        case 'Seconds':
-            // nop
-            break;
-        case 'Minutes':
-            rawValue = rawValue * 60;
-            break;
-        case 'Hours':
-            rawValue = rawValue * 3600;
-            break;
-        case 'Days':
-            rawValue = rawValue * 86400;
-            break;
-        default:
-            throw new Error('Unsupported source unit ' + JSON.stringify(sourceUnitCode));
+            case 'Seconds':
+                // nop
+                break;
+            case 'Minutes':
+                rawValue = rawValue * 60;
+                break;
+            case 'Hours':
+                rawValue = rawValue * 3600;
+                break;
+            case 'Days':
+                rawValue = rawValue * 86400;
+                break;
+            default:
+                throw new Error('Unsupported source unit ' + JSON.stringify(sourceUnitCode));
         }
 
         switch (targetUnitCode) {
-        case 'Seconds':
-            // nop
-            break;
-        case 'Minutes':
-            rawValue = rawValue / 60;
-            break;
-        case 'Hours':
-            rawValue = rawValue / 3600;
-            break;
-        case 'Days':
-            rawValue = rawValue / 86400;
-            break;
-        default:
-            throw new Error('Unsupported target unit ' + JSON.stringify(targetUnitCode));
+            case 'Seconds':
+                // nop
+                break;
+            case 'Minutes':
+                rawValue = rawValue / 60;
+                break;
+            case 'Hours':
+                rawValue = rawValue / 3600;
+                break;
+            case 'Days':
+                rawValue = rawValue / 86400;
+                break;
+            default:
+                throw new Error('Unsupported target unit ' + JSON.stringify(targetUnitCode));
         }
 
         return rawValue;
@@ -1073,10 +1086,10 @@ class Specification {
     formatTextValueFromRawValue(packetField, rawValue, unit) {
         let textValue;
 
-        if ((rawValue !== undefined) && (rawValue !== null)) {
+        if (rawValue !== undefined && rawValue !== null) {
             if (typeof unit === 'string') {
                 if (hasOwnProperty(this.specificationData.units, unit)) {
-                    unit = this.specificationData.units [unit];
+                    unit = this.specificationData.units[unit];
                 } else {
                     throw new Error('Unknown unit named "' + unit + '"');
                 }
@@ -1087,7 +1100,13 @@ class Specification {
                 if (type.formatTextValue) {
                     textValue = type.formatTextValue(rawValue, unit);
                 } else {
-                    textValue = this.formatTextValueFromRawValueInternal(rawValue, unit, type.rootTypeId, type.precision, type.unit);
+                    textValue = this.formatTextValueFromRawValueInternal(
+                        rawValue,
+                        unit,
+                        type.rootTypeId,
+                        type.precision,
+                        type.unit,
+                    );
                 }
             } else {
                 textValue = rawValue.toString();
@@ -1106,16 +1125,25 @@ class Specification {
         const unitText = unit ? unit.unitText : defaultUnit ? defaultUnit.unitText : '';
 
         let result, textValue, format;
-        if ((rawValue === undefined) || (rawValue === null)) {
+        if (rawValue === undefined || rawValue === null) {
             result = '';
         } else if (rootType === 'Time') {
-            textValue = this.i18n.moment(rawValue * 60000).utc().format('HH:mm');
+            textValue = this.i18n
+                .moment(rawValue * 60000)
+                .utc()
+                .format('HH:mm');
             result = textValue + unitText;
         } else if (rootType === 'Weektime') {
-            textValue = this.i18n.moment((rawValue + 5760) * 60000).utc().format('dd,HH:mm');
+            textValue = this.i18n
+                .moment((rawValue + 5760) * 60000)
+                .utc()
+                .format('dd,HH:mm');
             result = textValue + unitText;
         } else if (rootType === 'DateTime') {
-            textValue = this.i18n.moment((rawValue + 978307200) * 1000).utc().format('L HH:mm:ss');
+            textValue = this.i18n
+                .moment((rawValue + 978307200) * 1000)
+                .utc()
+                .format('L HH:mm:ss');
             result = textValue + unitText;
         } else if (precision === 0) {
             textValue = this.i18n.numeral(rawValue).format('0');
@@ -1159,7 +1187,7 @@ class Specification {
 
         // filter out all packets
         const packets = headers.reduce((memo, header) => {
-            if ((header.getProtocolVersion() & 0xF0) === 0x10) {
+            if ((header.getProtocolVersion() & 0xf0) === 0x10) {
                 memo.push(header);
             }
             return memo;
@@ -1171,14 +1199,14 @@ class Specification {
         if (filteredPacketFieldSpecs) {
             const packetById = packets.reduce((memo, packet) => {
                 const packetSpec = _this.getPacketSpecification(packet);
-                memo [packetSpec.packetId] = packet;
+                memo[packetSpec.packetId] = packet;
                 return memo;
             }, {});
 
             for (const fpfs of filteredPacketFieldSpecs) {
                 const packetField = {
                     id: fpfs.filteredPacketFieldId,
-                    packet: packetById [fpfs.packetId],
+                    packet: packetById[fpfs.packetId],
                     packetSpec: fpfs.packetSpec,
                     packetFieldSpec: fpfs,
                     origPacketFieldSpec: fpfs.packetFieldSpec,
@@ -1211,7 +1239,7 @@ class Specification {
             if (isString(pfsName)) {
                 name = pfsName;
             } else if (isObject(pfsName)) {
-                name = pfsName [language] || pfsName.en || pfsName.de || pfsName.ref;
+                name = pfsName[language] || pfsName.en || pfsName.de || pfsName.ref;
             }
 
             let rawValue;
@@ -1226,7 +1254,6 @@ class Specification {
             }
 
             Object.assign(packetField, {
-
                 name,
 
                 rawValue,
@@ -1238,7 +1265,6 @@ class Specification {
                 getRoundedRawValue() {
                     return roundNumber(rawValue, -precision);
                 },
-
             });
         }
 
@@ -1246,29 +1272,27 @@ class Specification {
     }
 
     setPacketFieldRawValues(packetFields, rawValues) {
-        const _this = this;
-
         const packetFieldById = packetFields.reduce((memo, packetField) => {
-            memo [packetField.id] = packetField;
+            memo[packetField.id] = packetField;
             const { fieldId } = packetField.packetFieldSpec;
-            if (memo [fieldId] === undefined) {
-                memo [fieldId] = packetField;
+            if (memo[fieldId] === undefined) {
+                memo[fieldId] = packetField;
             } else {
-                memo [fieldId] = null;
+                memo[fieldId] = null;
             }
             return memo;
         }, {});
 
         for (const key of Object.getOwnPropertyNames(rawValues)) {
-            const rawValue = rawValues [key];
-            const packetField = packetFieldById [key];
+            const rawValue = rawValues[key];
+            const packetField = packetFieldById[key];
             if (packetField === undefined) {
                 throw new Error('Unknown raw value ID ' + JSON.stringify(key));
             } else if (packetField === null) {
                 throw new Error('Non-unique raw value ID ' + JSON.stringify(key));
             } else {
                 const frameData = packetField.packet.frameData.slice(0, packetField.packet.frameCount * 4);
-                _this.setRawValue(packetField.packetFieldSpec, rawValue, frameData);
+                this.setRawValue(packetField.packetFieldSpec, rawValue, frameData);
             }
         }
     }
@@ -1303,22 +1327,26 @@ class Specification {
      * @return {BlockTypeSection[]} Array of BlockTypeSection objects
      */
     getBlockTypeSectionsForHeaders(headers) {
-        const _this = this;
-
         return headers.reduce((memo, header) => {
-            if (((header.getProtocolVersion() & 0xF0) === 0x10) && (header.destinationAddress === 0x0015) && (header.command === 0x0100)) {
-                const packetSpec = _this.getPacketSpecification(header);
+            if (
+                (header.getProtocolVersion() & 0xf0) === 0x10 &&
+                header.destinationAddress === 0x0015 &&
+                header.command === 0x0100
+            ) {
+                const packetSpec = this.getPacketSpecification(header);
 
-                const length = header.frameCount * 4, { frameData } = header;
+                const length = header.frameCount * 4,
+                    { frameData } = header;
                 let startOffset = 0;
                 while (startOffset + 4 <= length) {
-                    const frameCount = frameData [startOffset] & 255;
+                    const frameCount = frameData[startOffset] & 255;
                     const endOffset = startOffset + 4 + 4 * frameCount;
 
                     if (endOffset <= length) {
-                        const type = frameData [startOffset + 1] & 255;
+                        const type = frameData[startOffset + 1] & 255;
 
-                        let payloadSize = null, payloadCount = null;
+                        let payloadSize = null,
+                            payloadCount = null;
                         // TODO(daniel): refine the payload count based on the type
                         if (type === 1) {
                             payloadSize = 2;
@@ -1344,7 +1372,13 @@ class Specification {
                             payloadCount = Math.floor((endOffset - startOffset - 4) / payloadSize);
                         }
 
-                        const sectionId = sprintf('%s_%02X_%02X_%d', packetSpec.packetId, frameCount, type, payloadCount);
+                        const sectionId = sprintf(
+                            '%s_%02X_%02X_%d',
+                            packetSpec.packetId,
+                            frameCount,
+                            type,
+                            payloadCount,
+                        );
 
                         const shasum = crypto.createHash('sha1');
                         shasum.update(Buffer.from(sectionId, 'utf8'));
@@ -1353,7 +1387,14 @@ class Specification {
                         const surrogatePacketIdHashPart1 = surrogatePacketIdHash.slice(0, 4);
                         const surrogatePacketIdHashPart2 = surrogatePacketIdHash.slice(4, 8);
 
-                        const surrogatePacketId = sprintf('%02X_%04X_%s_%02X_%s', header.channel, header.destinationAddress | 0x8000, surrogatePacketIdHashPart1, 0x10, surrogatePacketIdHashPart2);
+                        const surrogatePacketId = sprintf(
+                            '%02X_%04X_%s_%02X_%s',
+                            header.channel,
+                            header.destinationAddress | 0x8000,
+                            surrogatePacketIdHashPart1,
+                            0x10,
+                            surrogatePacketIdHashPart2,
+                        );
 
                         memo.push({
                             sectionId,
@@ -1386,15 +1427,18 @@ class Specification {
             name,
             type: this.getTypeById(typeId),
             factor,
-            parts: [{
-                offset,
-                mask: 255,
-                isSigned: false,
-                factor: 1,
-            }],
+            parts: [
+                {
+                    offset,
+                    mask: 255,
+                    isSigned: false,
+                    factor: 1,
+                },
+            ],
 
             getRawValue(buffer, start, end) {
-                let rawValue = 0, valid = false;
+                let rawValue = 0,
+                    valid = false;
                 if (start + offset < end) {
                     rawValue += buffer.readUInt8(start + offset);
                     valid = true;
@@ -1424,20 +1468,24 @@ class Specification {
             name,
             type: this.getTypeById(typeId),
             factor,
-            parts: [{
-                offset,
-                mask: 255,
-                isSigned: false,
-                factor: 1,
-            }, {
-                offset: offset + 1,
-                mask: 255,
-                isSigned: true,
-                factor: 256,
-            }],
+            parts: [
+                {
+                    offset,
+                    mask: 255,
+                    isSigned: false,
+                    factor: 1,
+                },
+                {
+                    offset: offset + 1,
+                    mask: 255,
+                    isSigned: true,
+                    factor: 256,
+                },
+            ],
 
             getRawValue(buffer, start, end) {
-                let rawValue = 0, valid = false;
+                let rawValue = 0,
+                    valid = false;
                 if (start + offset < end) {
                     rawValue += buffer.readUInt8(start + offset);
                     valid = true;
@@ -1475,30 +1523,36 @@ class Specification {
             name,
             type: this.getTypeById(typeId),
             factor,
-            parts: [{
-                offset,
-                mask: 255,
-                isSigned: false,
-                factor: 1,
-            }, {
-                offset: offset + 1,
-                mask: 255,
-                isSigned: false,
-                factor: 256,
-            }, {
-                offset: offset + 2,
-                mask: 255,
-                isSigned: false,
-                factor: 65536,
-            }, {
-                offset: offset + 3,
-                mask: 255,
-                isSigned: false,
-                factor: 16777216,
-            }],
+            parts: [
+                {
+                    offset,
+                    mask: 255,
+                    isSigned: false,
+                    factor: 1,
+                },
+                {
+                    offset: offset + 1,
+                    mask: 255,
+                    isSigned: false,
+                    factor: 256,
+                },
+                {
+                    offset: offset + 2,
+                    mask: 255,
+                    isSigned: false,
+                    factor: 65536,
+                },
+                {
+                    offset: offset + 3,
+                    mask: 255,
+                    isSigned: false,
+                    factor: 16777216,
+                },
+            ],
 
             getRawValue(buffer, start, end) {
-                let rawValue = 0, valid = false;
+                let rawValue = 0,
+                    valid = false;
                 if (start + offset < end) {
                     rawValue += buffer.readUInt8(start + offset);
                     valid = true;
@@ -1553,18 +1607,16 @@ class Specification {
      * @return {PacketSpecification[]} Array of PacketSpecificationObjects
      */
     getBlockTypePacketSpecificationsForSections(sections) {
-        const _this = this;
-
         return sections.reduce((memo, section) => {
             const { sectionId } = section;
 
-            if (!hasOwnProperty(_this.blockTypePacketSpecCache, sectionId)) {
+            if (!hasOwnProperty(this.blockTypePacketSpecCache, sectionId)) {
                 const fieldIdPrefix = section.sectionId;
 
-                const forEachPayload = function(iterator) {
+                const forEachPayload = (iterator) => {
                     const count = section.payloadCount;
                     for (let i = 0; i < count; i++) {
-                        const suffix = (count > 1) ? (' ' + (i + 1)) : '';
+                        const suffix = count > 1 ? ' ' + (i + 1) : '';
                         iterator(i, suffix);
                     }
                 };
@@ -1574,43 +1626,123 @@ class Specification {
                 if (section.type === 1) {
                     // temperatures
                     forEachPayload((index, suffix) => {
-                        packetFieldSpecs.push(_this._createInt16BlockTypeFieldSpecification(fieldIdPrefix, 4 + index * 2, 'Temperatur Sensor' + suffix, 'Number_0_1_DegreesCelsius', 0.1));
+                        packetFieldSpecs.push(
+                            this._createInt16BlockTypeFieldSpecification(
+                                fieldIdPrefix,
+                                4 + index * 2,
+                                'Temperatur Sensor' + suffix,
+                                'Number_0_1_DegreesCelsius',
+                                0.1,
+                            ),
+                        );
                     });
                 } else if (section.type === 5) {
                     forEachPayload((index, suffix) => {
-                        packetFieldSpecs.push(_this._createUInt32BlockTypeFieldSpecification(fieldIdPrefix, 4 + index * 4, 'Wärmemenge' + suffix, 'Number_1_WattHours', 1));
+                        packetFieldSpecs.push(
+                            this._createUInt32BlockTypeFieldSpecification(
+                                fieldIdPrefix,
+                                4 + index * 4,
+                                'Wärmemenge' + suffix,
+                                'Number_1_WattHours',
+                                1,
+                            ),
+                        );
                     });
                 } else if (section.type === 8) {
                     // Relais speeds
                     forEachPayload((index, suffix) => {
-                        packetFieldSpecs.push(_this._createUInt8BlockTypeFieldSpecification(fieldIdPrefix, 4 + index, 'Drehzahl Relais' + suffix, 'Number_1_Percent', 1));
+                        packetFieldSpecs.push(
+                            this._createUInt8BlockTypeFieldSpecification(
+                                fieldIdPrefix,
+                                4 + index,
+                                'Drehzahl Relais' + suffix,
+                                'Number_1_Percent',
+                                1,
+                            ),
+                        );
                     });
                 } else if (section.type === 10) {
                     // SmartDisplay
                     forEachPayload((index, suffix) => {
-                        packetFieldSpecs.push(_this._createInt16BlockTypeFieldSpecification(fieldIdPrefix, 4 + index * 8, 'Temperatur Kollektor' + suffix, 'Number_0_1_DegreesCelsius', 0.1));
-                        packetFieldSpecs.push(_this._createInt16BlockTypeFieldSpecification(fieldIdPrefix, 6 + index * 8, 'Temperatur Speicher' + suffix, 'Number_0_1_DegreesCelsius', 0.1));
-                        packetFieldSpecs.push(_this._createUInt32BlockTypeFieldSpecification(fieldIdPrefix, 8 + index * 8, 'Wärmemenge' + suffix, 'Number_1_WattHours', 1));
+                        packetFieldSpecs.push(
+                            this._createInt16BlockTypeFieldSpecification(
+                                fieldIdPrefix,
+                                4 + index * 8,
+                                'Temperatur Kollektor' + suffix,
+                                'Number_0_1_DegreesCelsius',
+                                0.1,
+                            ),
+                        );
+                        packetFieldSpecs.push(
+                            this._createInt16BlockTypeFieldSpecification(
+                                fieldIdPrefix,
+                                6 + index * 8,
+                                'Temperatur Speicher' + suffix,
+                                'Number_0_1_DegreesCelsius',
+                                0.1,
+                            ),
+                        );
+                        packetFieldSpecs.push(
+                            this._createUInt32BlockTypeFieldSpecification(
+                                fieldIdPrefix,
+                                8 + index * 8,
+                                'Wärmemenge' + suffix,
+                                'Number_1_WattHours',
+                                1,
+                            ),
+                        );
                     });
                 } else if (section.type === 11) {
                     forEachPayload((index, suffix) => {
-                        packetFieldSpecs.push(_this._createUInt32BlockTypeFieldSpecification(fieldIdPrefix, 4 + index * 4, 'Fehlermaske' + suffix, 'Number_1_None', 1));
+                        packetFieldSpecs.push(
+                            this._createUInt32BlockTypeFieldSpecification(
+                                fieldIdPrefix,
+                                4 + index * 4,
+                                'Fehlermaske' + suffix,
+                                'Number_1_None',
+                                1,
+                            ),
+                        );
                     });
                 } else if (section.type === 12) {
                     forEachPayload((index, suffix) => {
-                        packetFieldSpecs.push(_this._createUInt32BlockTypeFieldSpecification(fieldIdPrefix, 4 + index * 4, 'Warnungsmaske' + suffix, 'Number_1_None', 1));
+                        packetFieldSpecs.push(
+                            this._createUInt32BlockTypeFieldSpecification(
+                                fieldIdPrefix,
+                                4 + index * 4,
+                                'Warnungsmaske' + suffix,
+                                'Number_1_None',
+                                1,
+                            ),
+                        );
                     });
                 } else if (section.type === 13) {
                     forEachPayload((index, suffix) => {
-                        packetFieldSpecs.push(_this._createUInt32BlockTypeFieldSpecification(fieldIdPrefix, 4 + index * 4, 'Statusmaske' + suffix, 'Number_1_None', 1));
+                        packetFieldSpecs.push(
+                            this._createUInt32BlockTypeFieldSpecification(
+                                fieldIdPrefix,
+                                4 + index * 4,
+                                'Statusmaske' + suffix,
+                                'Number_1_None',
+                                1,
+                            ),
+                        );
                     });
                 } else if (section.type === 14) {
                     forEachPayload((index, suffix) => {
-                        packetFieldSpecs.push(_this._createUInt8BlockTypeFieldSpecification(fieldIdPrefix, 4 + index, 'Segmentmaske' + suffix, 'Number_1_None', 1));
+                        packetFieldSpecs.push(
+                            this._createUInt8BlockTypeFieldSpecification(
+                                fieldIdPrefix,
+                                4 + index,
+                                'Segmentmaske' + suffix,
+                                'Number_1_None',
+                                1,
+                            ),
+                        );
                     });
                 }
 
-                _this.blockTypePacketSpecCache [sectionId] = {
+                this.blockTypePacketSpecCache[sectionId] = {
                     ...section.packetSpec,
                     packetId: section.surrogatePacketId,
                     sectionId,
@@ -1618,7 +1750,7 @@ class Specification {
                 };
             }
 
-            const packetSpec = _this.blockTypePacketSpecCache [sectionId];
+            const packetSpec = this.blockTypePacketSpecCache[sectionId];
             memo.push(packetSpec);
 
             return memo;
@@ -1635,7 +1767,7 @@ class Specification {
         const _this = this;
 
         const sectionByBlockTypeId = sections.reduce((memo, section) => {
-            memo [section.sectionId] = section;
+            memo[section.sectionId] = section;
             return memo;
         }, {});
 
@@ -1644,7 +1776,7 @@ class Specification {
         const packetFields = [];
         for (const packetSpec of packetSpecs) {
             for (const packetFieldSpec of packetSpec.packetFields) {
-                const section = sectionByBlockTypeId [packetSpec.sectionId];
+                const section = sectionByBlockTypeId[packetSpec.sectionId];
 
                 const packetField = {
                     id: packetSpec.packetId + '_' + packetFieldSpec.fieldId,
@@ -1670,7 +1802,7 @@ class Specification {
                     name = pfsName;
                 }
             } else if (isObject(pfsName)) {
-                name = pfsName [language] || pfsName.en || pfsName.de || pfsName.ref;
+                name = pfsName[language] || pfsName.en || pfsName.de || pfsName.ref;
             }
 
             let rawValue;
@@ -1680,7 +1812,6 @@ class Specification {
             }
 
             Object.assign(packetField, {
-
                 name,
 
                 rawValue,
@@ -1688,7 +1819,6 @@ class Specification {
                 formatTextValue(unit) {
                     return _this.formatTextValueFromRawValue(packetField.packetFieldSpec, rawValue, unit);
                 },
-
             });
         }
 
@@ -1705,15 +1835,16 @@ class Specification {
 
         const rawFilteredPacketFieldSpecs = rawSpecificationData.filteredPacketFieldSpecs;
         const specification = options.specification || globalSpecification || {};
-        const specificationData = options.specificationData || specification.specificationData || globalSpecificationData || {};
+        const specificationData =
+            options.specificationData || specification.specificationData || globalSpecificationData || {};
 
         let filteredPacketFieldSpecs;
         if (rawFilteredPacketFieldSpecs) {
-            const resolve = function(value, collectionKey) {
-                const collection = specificationData [collectionKey];
+            const resolve = (value, collectionKey) => {
+                const collection = specificationData[collectionKey];
 
                 if (hasOwnProperty(collection, value)) {
-                    value = collection [value];
+                    value = collection[value];
                 }
 
                 return value;
@@ -1734,14 +1865,16 @@ class Specification {
                     packetFieldSpec,
                     name,
                     type: resolve(rfpfs.type, 'types'),
-                    conversions: rfpfs.conversions && rfpfs.conversions.map((rawConversion) => {
-                        return {
-                            factor: rawConversion.factor,
-                            offset: rawConversion.offset,
-                            sourceUnit: rawConversion.sourceUnit && resolve(rawConversion.sourceUnit, 'units'),
-                            targetUnit: rawConversion.targetUnit && resolve(rawConversion.targetUnit, 'units'),
-                        };
-                    }),
+                    conversions:
+                        rfpfs.conversions &&
+                        rfpfs.conversions.map((rawConversion) => {
+                            return {
+                                factor: rawConversion.factor,
+                                offset: rawConversion.offset,
+                                sourceUnit: rawConversion.sourceUnit && resolve(rawConversion.sourceUnit, 'units'),
+                                targetUnit: rawConversion.targetUnit && resolve(rawConversion.targetUnit, 'units'),
+                            };
+                        }),
                     getRawValue: resolve(rfpfs.getRawValue, 'getRawValueFunctions'),
                     setRawValue: resolve(rfpfs.setRawValue, 'setRawValueFunctions'),
                 };
@@ -1765,24 +1898,25 @@ class Specification {
         }
 
         const specification = options.specification || globalSpecification || {};
-        const specificationData = options.specificationData || specification.specificationData || globalSpecificationData || {};
+        const specificationData =
+            options.specificationData || specification.specificationData || globalSpecificationData || {};
         const filteredPacketFieldSpecs = options.filteredPacketFieldSpecs || specificationData.filteredPacketFieldSpecs;
 
         let rawFilteredPacketFieldSpecs;
         if (filteredPacketFieldSpecs) {
-            const link = function(value, valueIdKey, collectionKey) {
-                const collection = specificationData [collectionKey];
+            const link = (value, valueIdKey, collectionKey) => {
+                const collection = specificationData[collectionKey];
 
                 let valueId;
                 if (valueIdKey) {
-                    valueId = value [valueIdKey];
+                    valueId = value[valueIdKey];
                 }
                 if (!valueId) {
-                    valueId = Object.getOwnPropertyNames(collection).find(key => {
-                        return (value === collection [key]);
+                    valueId = Object.getOwnPropertyNames(collection).find((key) => {
+                        return value === collection[key];
                     });
                 }
-                if (valueId && hasOwnProperty(collection, valueId) && (collection [valueId] === value)) {
+                if (valueId && hasOwnProperty(collection, valueId) && collection[valueId] === value) {
                     value = valueId;
                 }
 
@@ -1833,41 +1967,37 @@ class Specification {
     static getDefaultSpecification() {
         return globalSpecification;
     }
-
 }
 
+Object.assign(
+    Specification.prototype,
+    /** @lends Specification.prototype */ {
+        /**
+         * Language code (ISO 639-1)
+         * @type {string}
+         */
+        language: 'en',
 
-Object.assign(Specification.prototype, /** @lends Specification.prototype */ {
+        deviceSpecCache: null,
 
-    /**
-     * Language code (ISO 639-1)
-     * @type {string}
-     */
-    language: 'en',
+        packetSpecCache: null,
 
-    deviceSpecCache: null,
+        blockTypePacketSpecCache: null,
 
-    packetSpecCache: null,
+        /**
+         * I18N instance
+         * @type {I18N}
+         */
+        i18n: null,
 
-    blockTypePacketSpecCache: null,
-
-    /**
-     * I18N instance
-     * @type {I18N}
-     */
-    i18n: null,
-
-    /**
-     * Custom specification data to be mixed-in to built-in specification.
-     * @type {object}
-     */
-    specificationData: null,
-
-});
-
+        /**
+         * Custom specification data to be mixed-in to built-in specification.
+         * @type {object}
+         */
+        specificationData: null,
+    },
+);
 
 globalSpecification = new Specification();
-
-
 
 module.exports = Specification;

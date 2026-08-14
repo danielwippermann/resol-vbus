@@ -1,17 +1,9 @@
 const browserIndex = require('../../src/browser-index');
 const index = require('../../src/index');
 
-
-const {
-    expect,
-    expectOwnPropertyNamesToEqual,
-    expectTypeToBe,
-} = require('./test-utils');
-
-
+const { expect, expectOwnPropertyNamesToEqual, expectTypeToBe } = require('./test-utils');
 
 describe('RESOL VBus browser index', () => {
-
     it('should be an object', () => {
         expectTypeToBe(browserIndex, 'object');
         expectOwnPropertyNamesToEqual(browserIndex, [
@@ -49,5 +41,4 @@ describe('RESOL VBus browser index', () => {
         expect(browserIndex.VERSION).toBe(index.VERSION);
         expect(browserIndex.utils).toBe(index.utils);
     });
-
 });

@@ -2,22 +2,17 @@
 
 let SerialPort, serialPortRequireError;
 try {
-    // eslint-disable-next-line prefer-destructuring
     SerialPort = require('serialport').SerialPort;
 } catch (ex) {
     serialPortRequireError = ex;
 }
-
 
 const SerialDataSource = require('./serial-data-source');
 const { applyDefaultOptions } = require('./utils');
 
 const DataSourceProvider = require('./data-source-provider');
 
-
-
 class SerialDataSourceProvider extends DataSourceProvider {
-
     constructor(options) {
         super(options);
 
@@ -50,27 +45,24 @@ class SerialDataSourceProvider extends DataSourceProvider {
 
         return await SerialPort.list();
     }
-
 }
 
+Object.assign(
+    SerialDataSourceProvider.prototype,
+    /** @lends SerialDataSourceProvider.prototype */ {
+        id: 'serial-data-source-provider',
 
-Object.assign(SerialDataSourceProvider.prototype, /** @lends SerialDataSourceProvider.prototype */ {
+        name: 'Serial VBus Data Source Provider',
 
-    id: 'serial-data-source-provider',
+        description: 'Data source provider for VBus devices connected using a serial port (incl. USB)',
+    },
+);
 
-    name: 'Serial VBus Data Source Provider',
-
-    description: 'Data source provider for VBus devices connected using a serial port (incl. USB)',
-
-});
-
-
-Object.assign(SerialDataSourceProvider, /** @lends SerialDataSourceProvider */ {
-
-    hasSerialPortSupport: !!SerialPort,
-
-});
-
-
+Object.assign(
+    SerialDataSourceProvider,
+    /** @lends SerialDataSourceProvider */ {
+        hasSerialPortSupport: !!SerialPort,
+    },
+);
 
 module.exports = SerialDataSourceProvider;

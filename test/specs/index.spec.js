@@ -2,15 +2,9 @@
 
 const index = require('./resol-vbus');
 
-
-const {
-    expectOwnPropertyNamesToEqual,
-} = require('./test-utils');
-
-
+const { expectOwnPropertyNamesToEqual } = require('./test-utils');
 
 describe('RESOL VBus', () => {
-
     it('should export correctly', () => {
         expectOwnPropertyNamesToEqual(index, [
             'VERSION',
@@ -46,5 +40,4 @@ describe('RESOL VBus', () => {
             'FileListReader',
         ]);
     });
-
 });

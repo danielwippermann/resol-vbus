@@ -3,21 +3,11 @@
 const crypto = require('crypto');
 const { EventEmitter } = require('events');
 
-
-
-const {
-    applyDefaultOptions,
-    hasOwnProperty,
-} = require('./utils');
-
-
+const { applyDefaultOptions, hasOwnProperty } = require('./utils');
 
 const idHashes = new Map();
 
-
-
 class HeaderSet extends EventEmitter {
-
     /**
      * Creates a new header set instance and optionally initializes its members with the given values.
      *
@@ -32,15 +22,17 @@ class HeaderSet extends EventEmitter {
 
         this.headerList = [];
 
-        applyDefaultOptions(this, options, /** @lends HeaderSet.prototype */ {
-
-            /**
-            * Timestamp of the youngest Header instance added to this set.
-            * @type {Date}
-            */
-            timestamp: null,
-
-        });
+        applyDefaultOptions(
+            this,
+            options,
+            /** @lends HeaderSet.prototype */ {
+                /**
+                 * Timestamp of the youngest Header instance added to this set.
+                 * @type {Date}
+                 */
+                timestamp: null,
+            },
+        );
 
         if (!this.timestamp) {
             this.timestamp = new Date();
@@ -53,7 +45,7 @@ class HeaderSet extends EventEmitter {
 
     _findIndex(header) {
         return this.headerList.findIndex((refHeader) => {
-            return (refHeader.compareTo(header) === 0);
+            return refHeader.compareTo(header) === 0;
         });
     }
 
@@ -66,7 +58,7 @@ class HeaderSet extends EventEmitter {
     containsHeader(header) {
         const index = this._findIndex(header);
 
-        return (index >= 0);
+        return index >= 0;
     }
 
     /**
@@ -77,7 +69,7 @@ class HeaderSet extends EventEmitter {
     addHeader(header) {
         const index = this._findIndex(header);
         if (index >= 0) {
-            this.headerList [index] = header;
+            this.headerList[index] = header;
         } else {
             this.headerList.push(header);
         }
@@ -115,7 +107,7 @@ class HeaderSet extends EventEmitter {
              * @event HeaderSet#removeHeader
              * @type {Header}
              */
-            this.emit('removeHeader', this.headerList [index]);
+            this.emit('removeHeader', this.headerList[index]);
 
             this.headerList.splice(index, 1);
         }
@@ -233,26 +225,23 @@ class HeaderSet extends EventEmitter {
 
         return idHashes.get(id);
     }
-
 }
 
+Object.assign(
+    HeaderSet.prototype,
+    /** @lends HeaderSet.prototype */ {
+        /**
+         * Timestamp of the youngest Header instance added to this set.
+         * @type {Date}
+         */
+        timestamp: null,
 
-Object.assign(HeaderSet.prototype, /** @lends HeaderSet.prototype */ {
-
-    /**
-     * Timestamp of the youngest Header instance added to this set.
-     * @type {Date}
-     */
-    timestamp: null,
-
-    /**
-     * Array of Header instances in this set.
-     * @type {Header[]}
-     */
-    headerList: null,
-
-});
-
-
+        /**
+         * Array of Header instances in this set.
+         * @type {Header[]}
+         */
+        headerList: null,
+    },
+);
 
 module.exports = HeaderSet;

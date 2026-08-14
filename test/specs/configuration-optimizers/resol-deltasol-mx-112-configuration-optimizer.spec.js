@@ -2,12 +2,7 @@
 
 const ResolDeltaSolMx112ConfigurationOptimizer = require('../../../src/configuration-optimizers/resol-deltasol-mx-112-configuration-optimizer');
 
-
-const {
-    BaseConfigurationOptimizer,
-    ConfigurationOptimizerFactory,
-} = require('../resol-vbus');
-
+const { BaseConfigurationOptimizer, ConfigurationOptimizerFactory } = require('../resol-vbus');
 
 const {
     expect,
@@ -18,26 +13,18 @@ const {
     itShouldBeAClass,
 } = require('./test-utils');
 
-
-
-const optimizerPromise = ConfigurationOptimizerFactory.createOptimizerByDeviceAddress(0x7E11);
-
-
+const optimizerPromise = ConfigurationOptimizerFactory.createOptimizerByDeviceAddress(0x7e11);
 
 describe('ResolDeltaSolMx112ConfigurationOptimizer', () => {
-
     describe('using ConfigurationOptimizerFactory', () => {
-
         it('should work correctly', async () => {
             const optimizer = await expectPromise(optimizerPromise);
 
             expectTypeToBe(optimizer, 'object');
         });
-
     });
 
     describe('#completeConfiguration', () => {
-
         it('should work correctly', async () => {
             const optimizer = await optimizerPromise;
 
@@ -46,11 +33,9 @@ describe('ResolDeltaSolMx112ConfigurationOptimizer', () => {
             expectTypeToBe(config, 'array');
             expect(config).toHaveLength(6291);
         });
-
     });
 
     describe('#optimizeLoadConfiguration', () => {
-
         it('should work correctly after', async () => {
             const optimizer = await optimizerPromise;
 
@@ -66,24 +51,27 @@ describe('ResolDeltaSolMx112ConfigurationOptimizer', () => {
 
             expectPendingValuesCountInConfigToBe(config3, 15);
         });
-
     });
 
-    itShouldBeAClass(ResolDeltaSolMx112ConfigurationOptimizer, BaseConfigurationOptimizer, {
-        constructor: Function,
-        optimizeConfiguration: Function,
-        optimizeModuleConfiguration: Function,
-        optimizeSolarConfiguration: Function,
-        optimizeSolarWfConfiguration: Function,
-        optimizeAnlageWfConfiguration: Function,
-        optimizeHeizungWfConfiguration: Function,
-        optimizeHeizungHeizkreisConfiguration: Function,
-        optimizeWmzConfiguration: Function,
-    }, {
-        deviceAddress: 0x7E11,
-        deviceMajorVersion: 1,
-        configurationData: expect.any(Object),
-        matchOptimizer: Function,
-    });
-
+    itShouldBeAClass(
+        ResolDeltaSolMx112ConfigurationOptimizer,
+        BaseConfigurationOptimizer,
+        {
+            constructor: Function,
+            optimizeConfiguration: Function,
+            optimizeModuleConfiguration: Function,
+            optimizeSolarConfiguration: Function,
+            optimizeSolarWfConfiguration: Function,
+            optimizeAnlageWfConfiguration: Function,
+            optimizeHeizungWfConfiguration: Function,
+            optimizeHeizungHeizkreisConfiguration: Function,
+            optimizeWmzConfiguration: Function,
+        },
+        {
+            deviceAddress: 0x7e11,
+            deviceMajorVersion: 1,
+            configurationData: expect.any(Object),
+            matchOptimizer: Function,
+        },
+    );
 });

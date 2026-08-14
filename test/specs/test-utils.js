@@ -48,9 +48,9 @@ const testUtils = {
 
     ifHasSerialPortIt(msg, ...args) {
         if (!SerialDataSourceProvider.hasSerialPortSupport) {
-            xit(msg + ' (missing serial port support)', () => {});
+            it.skip(msg + ' (missing serial port support)', () => {});
         } else if (!testUtils.serialPortPath) {
-            xit(msg + ' (missing serial port path)', () => {});
+            it.skip(msg + ' (missing serial port path)', () => {});
         } else {
             it(msg, ...args);
         }

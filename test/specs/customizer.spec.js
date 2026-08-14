@@ -1,38 +1,30 @@
 /*! resol-vbus | Copyright (c) 2013-present, Daniel Wippermann | MIT license */
 
-const {
-    Customizer,
-} = require('./resol-vbus');
+const { Customizer } = require('./resol-vbus');
 
-
-const {
-    expect,
-    expectOwnPropertyNamesToEqual,
-    itShouldBeAClass,
-} = require('./test-utils');
-
-
+const { expect, expectOwnPropertyNamesToEqual, itShouldBeAClass } = require('./test-utils');
 
 describe('Customizer', () => {
-
-    itShouldBeAClass(Customizer, null, {
-        id: null,
-        deviceAddress: 0,
-        optimizer: null,
-        constructor: Function,
-        loadConfiguration: Function,
-        _loadConfiguration: Function,
-        saveConfiguration: Function,
-        _saveConfiguration: Function,
-        _completeConfiguration: Function,
-        _optimizeLoadConfiguration: Function,
-        _optimizeSaveConfiguration: Function,
-    }, {
-
-    });
+    itShouldBeAClass(
+        Customizer,
+        null,
+        {
+            id: null,
+            deviceAddress: 0,
+            optimizer: null,
+            constructor: Function,
+            loadConfiguration: Function,
+            _loadConfiguration: Function,
+            saveConfiguration: Function,
+            _saveConfiguration: Function,
+            _completeConfiguration: Function,
+            _optimizeLoadConfiguration: Function,
+            _optimizeSaveConfiguration: Function,
+        },
+        {},
+    );
 
     describe('constructor', () => {
-
         it('should have reasonable defaults', () => {
             const options = {
                 id: null,
@@ -73,25 +65,26 @@ describe('Customizer', () => {
             expect(customizer.optimizer).toBe(options.optimizer);
             expect(customizer.junk).toBe(undefined);
         });
-
     });
 
     describe('#loadConfiguration', () => {
-
         it('should work correctly without an optimizer', async () => {
             const customizer = new Customizer({
                 optimizer: null,
             });
 
-            customizer._loadConfiguration = jest.fn(async (configuration) => {
+            customizer._loadConfiguration = vi.fn(async (configuration) => {
                 return configuration;
             });
 
-            const inConfig = [{
-                valueIndex: 0x0001,
-            }, {
-                valueIndex: 0x0001,
-            }];
+            const inConfig = [
+                {
+                    valueIndex: 0x0001,
+                },
+                {
+                    valueIndex: 0x0001,
+                },
+            ];
 
             const outConfig = await customizer.loadConfiguration(inConfig);
 
@@ -111,15 +104,18 @@ describe('Customizer', () => {
                 optimizer,
             });
 
-            customizer._loadConfiguration = jest.fn(async (configuration) => {
+            customizer._loadConfiguration = vi.fn(async (configuration) => {
                 return configuration;
             });
 
-            const inConfig = [{
-                valueIndex: 0x0001,
-            }, {
-                valueIndex: 0x0001,
-            }];
+            const inConfig = [
+                {
+                    valueIndex: 0x0001,
+                },
+                {
+                    valueIndex: 0x0001,
+                },
+            ];
 
             const outConfig = await customizer.loadConfiguration(inConfig);
 
@@ -127,11 +123,9 @@ describe('Customizer', () => {
 
             expect(outConfig).toBe(inConfig);
         });
-
     });
 
     describe('#_loadConfiguration', () => {
-
         it('should be an abstract method', () => {
             const customizer = new Customizer();
 
@@ -139,25 +133,26 @@ describe('Customizer', () => {
                 customizer._loadConfiguration();
             }).toThrow('Must be implemented by sub-class');
         });
-
     });
 
     describe('#saveConfiguration', () => {
-
         it('should work correctly without an optimizer', async () => {
             const customizer = new Customizer({
                 optimizer: null,
             });
 
-            customizer._saveConfiguration = jest.fn(async (configuration) => {
+            customizer._saveConfiguration = vi.fn(async (configuration) => {
                 return configuration;
             });
 
-            const inConfig = [{
-                valueIndex: 0x0001,
-            }, {
-                valueIndex: 0x0001,
-            }];
+            const inConfig = [
+                {
+                    valueIndex: 0x0001,
+                },
+                {
+                    valueIndex: 0x0001,
+                },
+            ];
 
             const outConfig = await customizer.saveConfiguration(inConfig);
 
@@ -177,15 +172,18 @@ describe('Customizer', () => {
                 optimizer,
             });
 
-            customizer._saveConfiguration = jest.fn(async (configuration) => {
+            customizer._saveConfiguration = vi.fn(async (configuration) => {
                 return configuration;
             });
 
-            const inConfig = [{
-                valueIndex: 0x0001,
-            }, {
-                valueIndex: 0x0001,
-            }];
+            const inConfig = [
+                {
+                    valueIndex: 0x0001,
+                },
+                {
+                    valueIndex: 0x0001,
+                },
+            ];
 
             const outConfig = await customizer.saveConfiguration(inConfig);
 
@@ -193,11 +191,9 @@ describe('Customizer', () => {
 
             expect(outConfig).toBe(inConfig);
         });
-
     });
 
     describe('#_saveConfiguration', () => {
-
         it('should be an abstract method', () => {
             const customizer = new Customizer();
 
@@ -205,15 +201,13 @@ describe('Customizer', () => {
                 customizer._saveConfiguration();
             }).toThrow('Must be implemented by sub-class');
         });
-
     });
 
     describe('#_completeConfiguration', () => {
-
         it('should forward to the optimizer', () => {
             const refResult = {};
 
-            const spy = jest.fn(() => {
+            const spy = vi.fn(() => {
                 return refResult;
             });
 
@@ -232,16 +226,14 @@ describe('Customizer', () => {
             expect(optimizer.completeConfiguration.mock.calls.length).toBe(1);
             expect(result).toBe(refResult);
         });
-
     });
 
     describe('#_optimizeLoadConfiguration', () => {
-
         it('should forward to the optimizer', () => {
             const refConfig = {};
             const refResult = {};
 
-            const spy = jest.fn(() => {
+            const spy = vi.fn(() => {
                 return refResult;
             });
 
@@ -258,20 +250,18 @@ describe('Customizer', () => {
             const result = customizer._optimizeLoadConfiguration(refConfig);
 
             expect(optimizer.optimizeLoadConfiguration.mock.calls.length).toBe(1);
-            expect(optimizer.optimizeLoadConfiguration.mock.calls [0] [0]).toBe(refConfig);
+            expect(optimizer.optimizeLoadConfiguration.mock.calls[0][0]).toBe(refConfig);
             expect(result).toBe(refResult);
         });
-
     });
 
     describe('#_optimizeSaveConfiguration', () => {
-
         it('should forward to the optimizer', () => {
             const newConfig = {};
             const oldConfig = {};
             const refResult = {};
 
-            const spy = jest.fn(() => {
+            const spy = vi.fn(() => {
                 return refResult;
             });
 
@@ -288,11 +278,9 @@ describe('Customizer', () => {
             const result = customizer._optimizeSaveConfiguration(newConfig, oldConfig);
 
             expect(optimizer.optimizeSaveConfiguration.mock.calls.length).toBe(1);
-            expect(optimizer.optimizeSaveConfiguration.mock.calls [0] [0]).toBe(newConfig);
-            expect(optimizer.optimizeSaveConfiguration.mock.calls [0] [1]).toBe(oldConfig);
+            expect(optimizer.optimizeSaveConfiguration.mock.calls[0][0]).toBe(newConfig);
+            expect(optimizer.optimizeSaveConfiguration.mock.calls[0][1]).toBe(oldConfig);
             expect(result).toBe(refResult);
         });
-
     });
-
 });

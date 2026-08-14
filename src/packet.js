@@ -2,19 +2,11 @@
 
 const { sprintf } = require('sprintf-js');
 
-
-const {
-    applyDefaultOptions,
-    hasOwnProperty,
-} = require('./utils');
-
+const { applyDefaultOptions, hasOwnProperty } = require('./utils');
 
 const Header = require('./header');
 
-
-
 class Packet extends Header {
-
     /**
      * Creates a new Packet instance and optionally initializes its members with the given values.
      *
@@ -38,23 +30,29 @@ class Packet extends Header {
     constructor(options) {
         super(options);
 
-        applyDefaultOptions(this, options, /** @lends Packet.prototype */ {
+        applyDefaultOptions(
+            this,
+            options,
+            /** @lends Packet.prototype */ {
+                /**
+                 * The command field of this VBus packet. See the VBus Protocol specification for details.
+                 * @type {number}
+                 */
+                command: 0,
 
-            /**
-            * The command field of this VBus packet. See the VBus Protocol specification for details.
-            * @type {number}
-            */
-            command: 0,
+                /**
+                 * The number of frames of this VBus packet. Each frame can hold four bytes of payload.
+                 * @type {number}
+                 */
+                frameCount: 0,
+            },
+        );
 
-            /**
-            * The number of frames of this VBus packet. Each frame can hold four bytes of payload.
-            * @type {number}
-            */
-            frameCount: 0,
-
-        });
-
-        if (hasOwnProperty(options, 'frameData') && hasOwnProperty(options, 'dontCopyFrameData') && options.dontCopyFrameData) {
+        if (
+            hasOwnProperty(options, 'frameData') &&
+            hasOwnProperty(options, 'dontCopyFrameData') &&
+            options.dontCopyFrameData
+        ) {
             this.frameData = options.frameData;
         } else {
             this.frameData = Buffer.alloc(127 * 4);
@@ -79,12 +77,12 @@ class Packet extends Header {
             throw new Error('Buffer too small');
         }
 
-        buffer [0] = 0xAA;
-        buffer.writeUInt16LE(this.destinationAddress & 0x7F7F, 1);
-        buffer.writeUInt16LE(this.sourceAddress & 0x7F7F, 3);
-        buffer [5] = this.getProtocolVersion();
-        buffer.writeUInt16LE(this.command & 0x7F7F, 6);
-        buffer [8] = this.frameCount & 0x7F;
+        buffer[0] = 0xaa;
+        buffer.writeUInt16LE(this.destinationAddress & 0x7f7f, 1);
+        buffer.writeUInt16LE(this.sourceAddress & 0x7f7f, 3);
+        buffer[5] = this.getProtocolVersion();
+        buffer.writeUInt16LE(this.command & 0x7f7f, 6);
+        buffer[8] = this.frameCount & 0x7f;
         Packet.calcAndSetChecksum(this.minorVersion, buffer, 1, 9);
 
         for (let i = 0; i < this.frameCount; i++) {
@@ -115,7 +113,7 @@ class Packet extends Header {
     }
 
     static fromLiveBuffer(buffer, start, end) {
-        const frameCount = buffer [start + 8];
+        const frameCount = buffer[start + 8];
 
         const frameData = Buffer.alloc(127 * 4);
         frameData.fill(0);
@@ -132,34 +130,31 @@ class Packet extends Header {
             command: buffer.readUInt16LE(start + 6),
             frameCount,
             frameData,
-            dontCopyFrameData: true
+            dontCopyFrameData: true,
         });
     }
-
 }
 
+Object.assign(
+    Packet.prototype,
+    /** @lends Packet.prototype */ {
+        /**
+         * The command field of this VBus packet. See the VBus Protocol specification for details.
+         * @type {number}
+         */
+        command: 0,
 
-Object.assign(Packet.prototype, /** @lends Packet.prototype */ {
+        /**
+         * The number of frames of this VBus packet. Each frame can hold four bytes of payload.
+         * @type {number}
+         */
+        frameCount: 0,
 
-    /**
-     * The command field of this VBus packet. See the VBus Protocol specification for details.
-     * @type {number}
-     */
-    command: 0,
-
-    /**
-     * The number of frames of this VBus packet. Each frame can hold four bytes of payload.
-     * @type {number}
-     */
-    frameCount: 0,
-
-    /**
-     * The buffer containing the frame data of this VBus packet.
-     */
-    frameData: null,
-
-});
-
-
+        /**
+         * The buffer containing the frame data of this VBus packet.
+         */
+        frameData: null,
+    },
+);
 
 module.exports = Packet;

@@ -1,21 +1,10 @@
 /*! resol-vbus | Copyright (c) 2013-present, Daniel Wippermann | MIT license */
 
-const {
-    Header,
-} = require('./resol-vbus');
+const { Header } = require('./resol-vbus');
 
-
-const {
-    expect,
-    expectOwnPropertyNamesToEqual,
-    expectTimestampToBeWithin,
-    itShouldBeAClass,
-} = require('./test-utils');
-
-
+const { expect, expectOwnPropertyNamesToEqual, expectTimestampToBeWithin, itShouldBeAClass } = require('./test-utils');
 
 class TestableHeader extends Header {
-
     constructor(options) {
         super(options);
 
@@ -29,39 +18,39 @@ class TestableHeader extends Header {
     getProtocolVersion() {
         return this.protocolVersion;
     }
-
 }
 
-
-
 describe('Header', () => {
-
-    itShouldBeAClass(Header, null, {
-        timestamp: null,
-        channel: 0,
-        destinationAddress: 0,
-        sourceAddress: 0,
-        constructor: Function,
-        toLiveBuffer: Function,
-        getProtocolVersion: Function,
-        getInfo: Function,
-        getId: Function,
-        compareTo: Function,
-    }, {
-        fromLiveBuffer: Function,
-        calcChecksumV0: Function,
-        calcAndCompareChecksumV0: Function,
-        calcAndSetChecksumV0: Function,
-        calcChecksumV1: Function,
-        calcChecksum: Function,
-        calcAndCompareChecksum: Function,
-        calcAndSetChecksum: Function,
-        injectSeptett: Function,
-        extractSeptett: Function,
-    });
+    itShouldBeAClass(
+        Header,
+        null,
+        {
+            timestamp: null,
+            channel: 0,
+            destinationAddress: 0,
+            sourceAddress: 0,
+            constructor: Function,
+            toLiveBuffer: Function,
+            getProtocolVersion: Function,
+            getInfo: Function,
+            getId: Function,
+            compareTo: Function,
+        },
+        {
+            fromLiveBuffer: Function,
+            calcChecksumV0: Function,
+            calcAndCompareChecksumV0: Function,
+            calcAndSetChecksumV0: Function,
+            calcChecksumV1: Function,
+            calcChecksum: Function,
+            calcAndCompareChecksum: Function,
+            calcAndSetChecksum: Function,
+            injectSeptett: Function,
+            extractSeptett: Function,
+        },
+    );
 
     describe('.fromLiveBuffer', () => {
-
         it('should be abstract', () => {
             const buffer = Buffer.from('aa000021772000050000000000000042', 'hex');
 
@@ -69,52 +58,47 @@ describe('Header', () => {
                 Header.fromLiveBuffer(buffer);
             }).toThrow('Must be implemented by sub-class');
         });
-
     });
 
     describe('.calcChecksumV0', () => {
-
         it('should work correctly', () => {
             const buffer = Buffer.from('aa000021772000050000000000000042', 'hex');
 
             const checksum = Header.calcChecksumV0(buffer, 1, 15);
             expect(checksum).toBe(0x42);
         });
-
     });
 
     describe('.calcAndCompareChecksumV0', () => {
-
         it('should work correctly', () => {
             const buffer = Buffer.from('aa000021772000050000000000000042', 'hex');
 
             let result = Header.calcAndCompareChecksumV0(buffer, 1, 15);
             expect(result).toBe(true);
 
-            buffer [15] = 0x41;  // corrupt the checksum
+            buffer[15] = 0x41; // corrupt the checksum
 
             result = Header.calcAndCompareChecksumV0(buffer, 1, 15);
             expect(result).toBe(false);
         });
-
     });
 
     describe('.calcAndSetChecksumV0', () => {
-
         it('should work correctly', () => {
             const buffer = Buffer.from('aa000021772000050000000000000000', 'hex');
 
             const checksum = Header.calcAndSetChecksumV0(buffer, 1, 15);
             expect(checksum).toBe(0x42);
-            expect(buffer [15]).toBe(0x42);
+            expect(buffer[15]).toBe(0x42);
         });
-
     });
 
     describe('.injectSeptett', () => {
-
         it('should work correctly', () => {
-            const srcBuffer = Buffer.from('aa21772165100001044c07014c00002b02017f00057838227600052a00000000007f', 'hex');
+            const srcBuffer = Buffer.from(
+                'aa21772165100001044c07014c00002b02017f00057838227600052a00000000007f',
+                'hex',
+            );
             const dstBuffer = Buffer.alloc(16);
 
             Header.injectSeptett(srcBuffer, 10, 14, dstBuffer, 0);
@@ -124,11 +108,9 @@ describe('Header', () => {
 
             expect(dstBuffer.toString('hex')).toBe('07014c008201ff00b822f60000000000');
         });
-
     });
 
     describe('.extractSeptett', () => {
-
         it('should work correctly', () => {
             const srcBuffer = Buffer.from('07014c008201ff00b822f60000000000', 'hex');
             const dstBuffer = Buffer.alloc(34);
@@ -138,15 +120,13 @@ describe('Header', () => {
             Header.extractSeptett(srcBuffer, 8, 12, dstBuffer, 22);
             Header.extractSeptett(srcBuffer, 12, 16, dstBuffer, 28);
 
-            dstBuffer [15] = dstBuffer [21] = dstBuffer [27] = dstBuffer [33] = 0;
+            dstBuffer[15] = dstBuffer[21] = dstBuffer[27] = dstBuffer[33] = 0;
 
             expect(dstBuffer.toString('hex', 10)).toBe('07014c00000002017f000500382276000500000000000000');
         });
-
     });
 
     describe('constructor', () => {
-
         it('should have reasonable defaults', () => {
             const before = new Date();
             const header = new Header();
@@ -174,7 +154,7 @@ describe('Header', () => {
                 destinationAddress: 0x2336,
                 sourceAddress: 0x3335,
                 minorVersion: 0x05,
-                junk: 0x7331
+                junk: 0x7331,
             };
 
             const header = new Header(options);
@@ -186,11 +166,9 @@ describe('Header', () => {
             expect(header.minorVersion).toBe(options.minorVersion);
             expect(header.junk).toBe(undefined);
         });
-
     });
 
     describe('#toLiveBuffer', () => {
-
         it('should be abstract', () => {
             const header = new Header();
 
@@ -198,11 +176,9 @@ describe('Header', () => {
                 header.toLiveBuffer();
             }).toThrow('Must be implemented by sub-class');
         });
-
     });
 
     describe('#getProtocolVersion', () => {
-
         it('should be abstract', () => {
             const header = new Header();
 
@@ -210,21 +186,17 @@ describe('Header', () => {
                 header.getProtocolVersion();
             }).toThrow('Must be implemented by sub-class');
         });
-
     });
 
     describe('#getInfo', () => {
-
         it('should work correctly', () => {
             const header = new Header();
 
             expect(header.getInfo()).toBe(0);
         });
-
     });
 
     describe('#getId', () => {
-
         it('should work correctly', () => {
             const options = {
                 timestamp: new Date(0),
@@ -238,11 +210,9 @@ describe('Header', () => {
 
             expect(header.getId()).toBe('13_2336_3335_37');
         });
-
     });
 
     describe('#compareTo', () => {
-
         it('should work correctly for channel', () => {
             const options = {
                 timestamp: new Date(0),
@@ -260,7 +230,7 @@ describe('Header', () => {
 
             expect(datagram.compareTo(new TestableHeader(options))).toBeGreaterThan(0);
 
-            options.channel = 0x7F;
+            options.channel = 0x7f;
 
             expect(datagram.compareTo(new TestableHeader(options))).toBeLessThan(0);
         });
@@ -282,7 +252,7 @@ describe('Header', () => {
 
             expect(datagram.compareTo(new TestableHeader(options))).toBeGreaterThan(0);
 
-            options.destinationAddress = 0x7F7F;
+            options.destinationAddress = 0x7f7f;
 
             expect(datagram.compareTo(new TestableHeader(options))).toBeLessThan(0);
         });
@@ -304,7 +274,7 @@ describe('Header', () => {
 
             expect(datagram.compareTo(new TestableHeader(options))).toBeGreaterThan(0);
 
-            options.sourceAddress = 0x7F7F;
+            options.sourceAddress = 0x7f7f;
 
             expect(datagram.compareTo(new TestableHeader(options))).toBeLessThan(0);
         });
@@ -326,11 +296,9 @@ describe('Header', () => {
 
             expect(datagram.compareTo(new TestableHeader(options))).toBeGreaterThan(0);
 
-            options.protocolVersion = 0x7F;
+            options.protocolVersion = 0x7f;
 
             expect(datagram.compareTo(new TestableHeader(options))).toBeLessThan(0);
         });
-
     });
-
 });

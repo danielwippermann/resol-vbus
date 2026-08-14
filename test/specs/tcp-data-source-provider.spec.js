@@ -3,49 +3,38 @@
 const dgram = require('dgram');
 const http = require('http');
 
+const { DataSourceProvider, TcpDataSourceProvider } = require('./resol-vbus');
 
-const {
-    DataSourceProvider,
-    TcpDataSourceProvider,
-} = require('./resol-vbus');
-
-
-const {
-    expect,
-    itShouldBeAClass,
-    expectOwnPropertyNamesToEqual,
-} = require('./test-utils');
-
-
+const { expect, itShouldBeAClass, expectOwnPropertyNamesToEqual } = require('./test-utils');
 
 describe('TCP Data Source Provider', () => {
-
-    itShouldBeAClass(TcpDataSourceProvider, DataSourceProvider, {
-        id: 'tcp-data-source-provider',
-        name: 'TCP VBus Data Source Provider',
-        description: 'Data source provider for TCP connected VBus devices',
-        broadcastAddress: '255.255.255.255',
-        broadcastPort: 7053,
-        constructor: Function,
-        discoverDataSources: Function,
-        createDataSource: Function,
-    }, {
-        discoverDevices: Function,
-        sendBroadcast: Function,
-        sendBroadcastIPv6: Function,
-        fetchDeviceInformation: Function,
-        parseDeviceInformation: Function,
-    });
+    itShouldBeAClass(
+        TcpDataSourceProvider,
+        DataSourceProvider,
+        {
+            id: 'tcp-data-source-provider',
+            name: 'TCP VBus Data Source Provider',
+            description: 'Data source provider for TCP connected VBus devices',
+            broadcastAddress: '255.255.255.255',
+            broadcastPort: 7053,
+            constructor: Function,
+            discoverDataSources: Function,
+            createDataSource: Function,
+        },
+        {
+            discoverDevices: Function,
+            sendBroadcast: Function,
+            sendBroadcastIPv6: Function,
+            fetchDeviceInformation: Function,
+            parseDeviceInformation: Function,
+        },
+    );
 
     describe('constructor', () => {
-
         it('should have reasonable defaults', () => {
             const dsp = new TcpDataSourceProvider();
 
-            expectOwnPropertyNamesToEqual(dsp, [
-                'broadcastAddress',
-                'broadcastPort',
-            ]);
+            expectOwnPropertyNamesToEqual(dsp, ['broadcastAddress', 'broadcastPort']);
 
             expect(dsp.broadcastAddress).toBe('255.255.255.255');
             expect(dsp.broadcastPort).toBe(7053);
@@ -64,13 +53,12 @@ describe('TCP Data Source Provider', () => {
             expect(dsp.broadcastPort).toBe(options.broadcastPort);
             expect(dsp.junk).toBe(undefined);
         });
-
     });
 
     describe('.parseDeviceInformation', () => {
-
         it('should work correctly', () => {
-            const string = 'vendor = "RESOL"\r\nproduct = "DL3"\r\nserial = "001E660300F0"\r\nversion = "2.1.0"\r\nbuild = "201311280853"\r\nname = "DL3-001E660300F0"\r\nfeatures = "vbus,dl2,dl3"\r\n';
+            const string =
+                'vendor = "RESOL"\r\nproduct = "DL3"\r\nserial = "001E660300F0"\r\nversion = "2.1.0"\r\nbuild = "201311280853"\r\nname = "DL3-001E660300F0"\r\nfeatures = "vbus,dl2,dl3"\r\n';
 
             const info = TcpDataSourceProvider.parseDeviceInformation(string);
 
@@ -92,14 +80,12 @@ describe('TCP Data Source Provider', () => {
             expect(info.name).toBe('DL3-001E660300F0');
             expect(info.features).toBe('vbus,dl2,dl3');
         });
-
     });
 
     describe('.fetchDeviceInformation', () => {
-
         it('should work correctly', () => {
             return new Promise((resolve, reject) => {
-                let server = undefined;
+                let server;
 
                 const cleanup = () => {
                     if (server) {
@@ -108,12 +94,12 @@ describe('TCP Data Source Provider', () => {
                     }
                 };
 
-                const onListening = async function() {
+                const onListening = async () => {
                     try {
                         const address = server.address();
 
                         let host = address.address;
-                        if ((address.family === 'IPv6') && (host.indexOf(':') >= 0)) {
+                        if (address.family === 'IPv6' && host.indexOf(':') >= 0) {
                             host = '[' + host + ']';
                         }
 
@@ -147,10 +133,12 @@ describe('TCP Data Source Provider', () => {
                     }
                 };
 
-                const onRequest = function(req, res) {
+                const onRequest = (req, res) => {
                     if (req.url === '/cgi-bin/get_resol_device_information') {
                         res.statusCode = 200;
-                        res.end('vendor = "RESOL"\r\nproduct = "DL3"\r\nserial = "001E660300F0"\r\nversion = "2.1.0"\r\nbuild = "201311280853"\r\nname = "DL3-001E660300F0"\r\nfeatures = "vbus,dl2,dl3"\r\n');
+                        res.end(
+                            'vendor = "RESOL"\r\nproduct = "DL3"\r\nserial = "001E660300F0"\r\nversion = "2.1.0"\r\nbuild = "201311280853"\r\nname = "DL3-001E660300F0"\r\nfeatures = "vbus,dl2,dl3"\r\n',
+                        );
                     } else {
                         res.statusCode = 404;
                         res.end();
@@ -159,7 +147,7 @@ describe('TCP Data Source Provider', () => {
 
                 server = http.createServer(onRequest);
 
-                server.on('error', err => {
+                server.on('error', (err) => {
                     cleanup();
                     reject(err);
                 });
@@ -170,12 +158,11 @@ describe('TCP Data Source Provider', () => {
     });
 
     describe('.sendBroadcast', () => {
-
         it('should work correctly', async () => {
             const originalSend = dgram.Socket.prototype.send;
             const originalFDI = TcpDataSourceProvider.fetchDeviceInformation;
 
-            dgram.Socket.prototype.send = jest.fn(function() {
+            dgram.Socket.prototype.send = vi.fn(function () {
                 this.emit('message', '---RESOL-BROADCAST-REPLY---', {
                     family: 'IPv4',
                     port: 7053,
@@ -183,7 +170,7 @@ describe('TCP Data Source Provider', () => {
                 });
             });
 
-            TcpDataSourceProvider.fetchDeviceInformation = jest.fn(() => {
+            TcpDataSourceProvider.fetchDeviceInformation = vi.fn(() => {
                 return {};
             });
 
@@ -200,43 +187,34 @@ describe('TCP Data Source Provider', () => {
                 TcpDataSourceProvider.fetchDeviceInformation = originalFDI;
             }
         });
-
     });
 
     describe('.discoverDevices', () => {
-
         it('should work correctly', async () => {
             const originalSendBroadcast = TcpDataSourceProvider.sendBroadcast;
 
-            TcpDataSourceProvider.sendBroadcast = jest.fn(() => {
-                return Promise.resolve([
-                    Promise.reject(new Error('Failed')),
-                    Promise.resolve({ address: 'ADDRESS' }),
-                ]);
+            TcpDataSourceProvider.sendBroadcast = vi.fn(() => {
+                return Promise.resolve([Promise.reject(new Error('Failed')), Promise.resolve({ address: 'ADDRESS' })]);
             });
 
             try {
                 const infos = await TcpDataSourceProvider.discoverDevices();
 
                 expect(infos).toHaveLength(1);
-                expect(infos [0].address).toBe('ADDRESS');
+                expect(infos[0].address).toBe('ADDRESS');
                 expect(TcpDataSourceProvider.sendBroadcast.mock.calls.length).toBe(1);
             } finally {
                 TcpDataSourceProvider.sendBroadcast = originalSendBroadcast;
             }
         });
-
     });
 
     describe('#discoverDataSources', () => {
-
         it('should work correctly', async () => {
             const originalDiscoverDevices = TcpDataSourceProvider.discoverDevices;
 
-            TcpDataSourceProvider.discoverDevices = jest.fn(() => {
-                return Promise.resolve([
-                    { __address__: 'ADDRESS' },
-                ]);
+            TcpDataSourceProvider.discoverDevices = vi.fn(() => {
+                return Promise.resolve([{ __address__: 'ADDRESS' }]);
             });
 
             const dsp = new TcpDataSourceProvider();
@@ -249,7 +227,5 @@ describe('TCP Data Source Provider', () => {
                 TcpDataSourceProvider.discoverDevices = originalDiscoverDevices;
             }
         });
-
     });
-
 });

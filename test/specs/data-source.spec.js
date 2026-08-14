@@ -1,36 +1,28 @@
 /*! resol-vbus | Copyright (c) 2013-present, Daniel Wippermann | MIT license */
 
-const {
-    DataSource,
-} = require('./resol-vbus');
+const { DataSource } = require('./resol-vbus');
 
-
-const {
-    expect,
-    expectOwnPropertyNamesToEqual,
-    itShouldBeAClass,
-} = require('./test-utils');
-
-
+const { expect, expectOwnPropertyNamesToEqual, itShouldBeAClass } = require('./test-utils');
 
 describe('DataSource', () => {
-
-    itShouldBeAClass(DataSource, null, {
-        provider: null,
-        id: null,
-        name: null,
-        description: null,
-        isSupportingLiveData: false,
-        isSupportingCustomization: false,
-        constructor: Function,
-        connectLive: Function,
-        createCustomizer: Function,
-    }, {
-
-    });
+    itShouldBeAClass(
+        DataSource,
+        null,
+        {
+            provider: null,
+            id: null,
+            name: null,
+            description: null,
+            isSupportingLiveData: false,
+            isSupportingCustomization: false,
+            constructor: Function,
+            connectLive: Function,
+            createCustomizer: Function,
+        },
+        {},
+    );
 
     describe('constructor', () => {
-
         it('should have reasonable defaults', () => {
             const dataSource = new DataSource();
 
@@ -72,11 +64,9 @@ describe('DataSource', () => {
             expect(dataSource.isSupportingCustomization).toBe(options.isSupportingCustomization);
             expect(dataSource.junk).toBe(undefined);
         });
-
     });
 
     describe('#connectLive', () => {
-
         it('should report if not supported', () => {
             const converter = new DataSource();
 
@@ -94,11 +84,9 @@ describe('DataSource', () => {
                 converter.connectLive();
             }).toThrow('Must be implemented by sub-class');
         });
-
     });
 
     describe('#createCustomizer', () => {
-
         it('should report if not supported', () => {
             const converter = new DataSource();
 
@@ -116,7 +104,5 @@ describe('DataSource', () => {
                 converter.createCustomizer();
             }).toThrow('Must be implemented by sub-class');
         });
-
     });
-
 });

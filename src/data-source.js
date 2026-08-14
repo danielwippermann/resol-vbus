@@ -2,26 +2,25 @@
 
 const { applyDefaultOptions } = require('./utils');
 
-
-
 class DataSource {
-
     constructor(options) {
-        applyDefaultOptions(this, options, /** @lends DataSource.prototype */ {
+        applyDefaultOptions(
+            this,
+            options,
+            /** @lends DataSource.prototype */ {
+                provider: null,
 
-            provider: null,
+                id: null,
 
-            id: null,
+                name: null,
 
-            name: null,
+                description: null,
 
-            description: null,
+                isSupportingLiveData: false,
 
-            isSupportingLiveData: false,
-
-            isSupportingCustomization: false,
-
-        });
+                isSupportingCustomization: false,
+            },
+        );
     }
 
     connectLive(options) {
@@ -39,26 +38,23 @@ class DataSource {
             throw new Error('Does not support customization');
         }
     }
-
 }
 
+Object.assign(
+    DataSource.prototype,
+    /** @lends DataSource.prototype */ {
+        provider: null,
 
-Object.assign(DataSource.prototype, /** @lends DataSource.prototype */ {
+        id: null,
 
-    provider: null,
+        name: null,
 
-    id: null,
+        description: null,
 
-    name: null,
+        isSupportingLiveData: false,
 
-    description: null,
-
-    isSupportingLiveData: false,
-
-    isSupportingCustomization: false,
-
-});
-
-
+        isSupportingCustomization: false,
+    },
+);
 
 module.exports = DataSource;

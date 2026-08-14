@@ -1,13 +1,12 @@
 .babelrc
 .docs/
-.eslintignore
-.eslintrc.js
 .travis.yml
+biome.json
 coverage/
 docs/
 examples/
-jest.config.js
 jsdoc.json
 nw-apps/
 test/
 tools/
+vitest.config.mjs

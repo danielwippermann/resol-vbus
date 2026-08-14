@@ -1,21 +1,10 @@
 /*! resol-vbus | Copyright (c) 2013-present, Daniel Wippermann | MIT license */
 
-const {
-    ConfigurationOptimizer,
-    ConfigurationOptimizerFactory,
-} = require('./resol-vbus');
+const { ConfigurationOptimizer, ConfigurationOptimizerFactory } = require('./resol-vbus');
 
-
-const {
-    expect,
-    expectOwnPropertyNamesToEqual,
-    expectTypeToBe,
-} = require('./test-utils');
-
-
+const { expect, expectOwnPropertyNamesToEqual, expectTypeToBe } = require('./test-utils');
 
 describe('ConfigurationOptimizerFactory', () => {
-
     it('should export correctly', () => {
         expectOwnPropertyNamesToEqual(ConfigurationOptimizerFactory, [
             'matchOptimizer',
@@ -26,7 +15,6 @@ describe('ConfigurationOptimizerFactory', () => {
     });
 
     describe('.createOptimizerByDeviceAddress', () => {
-
         it('should have unique addresses for registered optimizers', async () => {
             const knownAddresses = new Set();
 
@@ -76,7 +64,7 @@ describe('ConfigurationOptimizerFactory', () => {
         });
 
         it('should work correctly for RESOL DeltaSol MX', async () => {
-            const optimizer = await ConfigurationOptimizerFactory.createOptimizerByDeviceAddress(0x7E11);
+            const optimizer = await ConfigurationOptimizerFactory.createOptimizerByDeviceAddress(0x7e11);
 
             expect(optimizer).toBeInstanceOf(ConfigurationOptimizer);
         });
@@ -92,7 +80,5 @@ describe('ConfigurationOptimizerFactory', () => {
 
             expect(optimizer).toBeInstanceOf(ConfigurationOptimizer);
         });
-
     });
-
 });

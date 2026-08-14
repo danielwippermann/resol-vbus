@@ -3,13 +3,9 @@
 const Specification = require('./specification');
 const { applyDefaultOptions } = require('./utils');
 
-
 const Converter = require('./converter');
 
-
-
 class TextConverter extends Converter {
-
     /**
      * Create a new TextConverter instance given the set of options.
      * @constructs
@@ -26,53 +22,55 @@ class TextConverter extends Converter {
     constructor(options) {
         super(options);
 
-        applyDefaultOptions(this, options, /** @lends TextConverter.prototype */ {
+        applyDefaultOptions(
+            this,
+            options,
+            /** @lends TextConverter.prototype */ {
+                /**
+                 * Column separator, defaults to tab
+                 * @type {string}
+                 */
+                columnSeparator: '\t',
 
-            /**
-            * Column separator, defaults to tab
-            * @type {string}
-            */
-            columnSeparator: '\t',
+                /**
+                 * Line separator, defaults to CR+NL
+                 * @type {string}
+                 */
+                lineSeparator: '\r\n',
 
-            /**
-            * Line separator, defaults to CR+NL
-            * @type {string}
-            */
-            lineSeparator: '\r\n',
+                /**
+                 * Specifies whether date and time columns should be output separately
+                 * @type {boolean}
+                 */
+                separateDateAndTime: false,
 
-            /**
-            * Specifies whether date and time columns should be output separately
-            * @type {boolean}
-            */
-            separateDateAndTime: false,
+                /**
+                 * VBus specification
+                 * @type {Specification}
+                 */
+                specification: null,
 
-            /**
-            * VBus specification
-            * @type {Specification}
-            */
-            specification: null,
+                /**
+                 * Date to string formatting for the first column. Can either be a
+                 * string to use in `moment(...).format()` or a function that returns
+                 * the formatted date string.
+                 * @type {string|function}
+                 */
+                dateFormat: 'L',
 
-            /**
-            * Date to string formatting for the first column. Can either be a
-            * string to use in `moment(...).format()` or a function that returns
-            * the formatted date string.
-            * @type {string|function}
-            */
-            dateFormat: 'L',
-
-            /**
-            * Time to string formatting for the first column. Can either be a
-            * string to use in `moment(...).format()` or a function that returns
-            * the formatted time string.
-            * @type {string|function}
-            */
-            timeFormat: 'HH:mm:ss',
-
-        });
+                /**
+                 * Time to string formatting for the first column. Can either be a
+                 * string to use in `moment(...).format()` or a function that returns
+                 * the formatted time string.
+                 * @type {string|function}
+                 */
+                timeFormat: 'HH:mm:ss',
+            },
+        );
 
         if (!this.specification) {
             this.specification = new Specification({
-                language: (options && options.language) || 'en'
+                language: (options && options.language) || 'en',
             });
         }
     }
@@ -91,8 +89,6 @@ class TextConverter extends Converter {
      * @param {HeaderSet} headerSet
      */
     convertHeaderSet(headerSet) {
-        const _this = this;
-
         const spec = this.specification;
 
         const { i18n } = spec;
@@ -103,13 +99,14 @@ class TextConverter extends Converter {
 
         const now = i18n.moment(headerSet.timestamp);
 
-        const idList = packetFields.map(pf => pf.id).join(',');
+        const idList = packetFields.map((pf) => pf.id).join(',');
 
-        let content = '', columns;
+        let content = '',
+            columns;
 
-        const appendDateAndTimeColumns = function(date, time, join) {
+        const appendDateAndTimeColumns = (date, time, join) => {
             columns = [];
-            if (_this.separateDateAndTime) {
+            if (this.separateDateAndTime) {
                 columns.push(date);
                 columns.push(time);
             } else {
@@ -117,8 +114,8 @@ class TextConverter extends Converter {
             }
         };
 
-        const appendColumnsToContent = function() {
-            content += columns.join(_this.columnSeparator) + _this.lineSeparator;
+        const appendColumnsToContent = () => {
+            content += columns.join(this.columnSeparator) + this.lineSeparator;
         };
 
         let needHeaderLines = false;
@@ -207,61 +204,58 @@ class TextConverter extends Converter {
     _read() {
         // nop
     }
-
 }
 
+Object.assign(
+    TextConverter.prototype,
+    /** @lends TextConverter.prototype */ {
+        /**
+         * Column separator, defaults to tab
+         * @type {string}
+         */
+        columnSeparator: '\t',
 
-Object.assign(TextConverter.prototype, /** @lends TextConverter.prototype */ {
+        /**
+         * Line separator, defaults to CR+NL
+         * @type {string}
+         */
+        lineSeparator: '\r\n',
 
-    /**
-     * Column separator, defaults to tab
-     * @type {string}
-     */
-    columnSeparator: '\t',
+        /**
+         * Specifies whether date and time columns should be output separately
+         * @type {boolean}
+         */
+        separateDateAndTime: false,
 
-    /**
-     * Line separator, defaults to CR+NL
-     * @type {string}
-     */
-    lineSeparator: '\r\n',
+        /**
+         * VBus specification
+         * @type {Specification}
+         */
+        specification: null,
 
-    /**
-     * Specifies whether date and time columns should be output separately
-     * @type {boolean}
-     */
-    separateDateAndTime: false,
+        /**
+         * Date to string formatting for the first column. Can either be a
+         * string to use in `moment(...).format()` or a function that returns
+         * the formatted date string.
+         * @type {string|function}
+         */
+        dateFormat: 'L',
 
-    /**
-     * VBus specification
-     * @type {Specification}
-     */
-    specification: null,
+        /**
+         * Time to string formatting for the first column. Can either be a
+         * string to use in `moment(...).format()` or a function that returns
+         * the formatted time string.
+         * @type {string|function}
+         */
+        timeFormat: 'HH:mm:ss',
 
-    /**
-     * Date to string formatting for the first column. Can either be a
-     * string to use in `moment(...).format()` or a function that returns
-     * the formatted date string.
-     * @type {string|function}
-     */
-    dateFormat: 'L',
-
-    /**
-     * Time to string formatting for the first column. Can either be a
-     * string to use in `moment(...).format()` or a function that returns
-     * the formatted time string.
-     * @type {string|function}
-     */
-    timeFormat: 'HH:mm:ss',
-
-    /**
-     * List of packet IDs converted last time, enables decision whether a
-     * new header line pair must be output.
-     * @type {string}
-     */
-    lastIdList: null,
-
-});
-
-
+        /**
+         * List of packet IDs converted last time, enables decision whether a
+         * new header line pair must be output.
+         * @type {string}
+         */
+        lastIdList: null,
+    },
+);
 
 module.exports = TextConverter;

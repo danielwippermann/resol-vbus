@@ -1,18 +1,8 @@
 /*! resol-vbus | Copyright (c) 2013-present, Daniel Wippermann | MIT license */
 
-const {
-    I18N,
-} = require('./resol-vbus');
+const { I18N } = require('./resol-vbus');
 
-
-const {
-    expect,
-    expectOwnPropertyNamesToEqual,
-    expectTypeToBe,
-    itShouldBeAClass,
-} = require('./test-utils');
-
-
+const { expect, expectOwnPropertyNamesToEqual, expectTypeToBe, itShouldBeAClass } = require('./test-utils');
 
 function expectFormattedObjectToBe(m, format, expected) {
     expectTypeToBe(m, 'object');
@@ -20,35 +10,32 @@ function expectFormattedObjectToBe(m, format, expected) {
     expect(m.format(format)).toBe(expected);
 }
 
-
 describe('I18N', () => {
-
-    itShouldBeAClass(I18N, null, {
-        language: null,
-        languageData: null,
-        timezone: null,
-        constructor: Function,
-        sprintf: Function,
-        vsprintf: Function,
-        t: Function,
-        moment: Function,
-        momentUtc: Function,
-        momentTz: Function,
-        momentTzZone: Function,
-        numeral: Function,
-    }, {
-
-    });
+    itShouldBeAClass(
+        I18N,
+        null,
+        {
+            language: null,
+            languageData: null,
+            timezone: null,
+            constructor: Function,
+            sprintf: Function,
+            vsprintf: Function,
+            t: Function,
+            moment: Function,
+            momentUtc: Function,
+            momentTz: Function,
+            momentTzZone: Function,
+            numeral: Function,
+        },
+        {},
+    );
 
     describe('constructor', () => {
-
         it('should have reasonable defaults', () => {
             const i18n = new I18N();
 
-            expectOwnPropertyNamesToEqual(i18n, [
-                'language',
-                'languageData',
-            ]);
+            expectOwnPropertyNamesToEqual(i18n, ['language', 'languageData']);
 
             expect(i18n.language).toBe('en');
         });
@@ -58,11 +45,9 @@ describe('I18N', () => {
 
             expect(i18n.language).toBe('de');
         });
-
     });
 
     describe('#sprintf', () => {
-
         it('should work correctly', () => {
             const i18n = new I18N();
 
@@ -70,23 +55,19 @@ describe('I18N', () => {
 
             expect(result).toBe('0768_0300_Test');
         });
-
     });
 
     describe('#vsprintf', () => {
-
         it('should work correctly', () => {
             const i18n = new I18N();
 
-            const result = i18n.vsprintf('%04d_%04x_%s', [ 0x300, 0x300, 'Test' ]);
+            const result = i18n.vsprintf('%04d_%04x_%s', [0x300, 0x300, 'Test']);
 
             expect(result).toBe('0768_0300_Test');
         });
-
     });
 
     describe('#t', () => {
-
         it('should work correctly for known keys', () => {
             const i18n = new I18N();
 
@@ -118,11 +99,9 @@ describe('I18N', () => {
 
             expect(text).toBe('Unknown Device (0x1234)');
         });
-
     });
 
     describe('#moment', () => {
-
         it('should work correctly', () => {
             const i18n = new I18N();
             i18n.timezone = 'Europe/Berlin';
@@ -149,11 +128,9 @@ describe('I18N', () => {
 
             expectFormattedObjectToBe(m, 'L LT', '12/24/2013 1:29 PM');
         });
-
     });
 
     describe('#momentUtc', () => {
-
         it('should work correctly', () => {
             const i18n = new I18N();
             i18n.timezone = 'Europe/Berlin';
@@ -180,11 +157,9 @@ describe('I18N', () => {
 
             expectFormattedObjectToBe(m, 'L LT', '12/24/2013 12:29 PM');
         });
-
     });
 
     describe('#momentTz', () => {
-
         it('should work correctly', () => {
             const i18n = new I18N();
 
@@ -220,11 +195,9 @@ describe('I18N', () => {
 
             expectFormattedObjectToBe(m, 'L LT', '12/24/2013 4:29 AM');
         });
-
     });
 
     describe('#momentTzZone', () => {
-
         it('should work correctly', () => {
             const i18n = new I18N();
 
@@ -239,11 +212,9 @@ describe('I18N', () => {
             expect(z.abbr(m)).toBe('CET');
             expect(z.utcOffset(m)).toBe(-60);
         });
-
     });
 
     describe('#numeral', () => {
-
         it('should work correctly', () => {
             const i18n = new I18N();
 
@@ -267,7 +238,5 @@ describe('I18N', () => {
 
             expectFormattedObjectToBe(n, '0,0.0', '1,234.5');
         });
-
     });
-
 });

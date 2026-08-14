@@ -1,14 +1,10 @@
 /*! resol-vbus | Copyright (c) 2013-present, Daniel Wippermann | MIT license */
 
-
 const configurationData = require('./resol-deltasol-bx-plus-xxx-data');
 
 const BaseConfigurationOptimizer = require('../base-configuration-optimizer');
 
-
-
 class ResolDeltaSolBxPlusXxxConfigurationOptimizer extends BaseConfigurationOptimizer {
-
     optimizeConfiguration($) {
         this.optimizeModuleConfiguration($);
         this.optimizeSolarConfiguration($);
@@ -21,7 +17,7 @@ class ResolDeltaSolBxPlusXxxConfigurationOptimizer extends BaseConfigurationOpti
 
     optimizeModuleConfiguration($) {
         $(/^Modul([0-9]+)_Aktiviert$/).isFalse((value) => {
-            $('^(Sensor|Relais)[^_]*_Modul' + value.md [1] + '_.*$').ignore();
+            $('^(Sensor|Relais)[^_]*_Modul' + value.md[1] + '_.*$').ignore();
         });
     }
 
@@ -34,9 +30,7 @@ class ResolDeltaSolBxPlusXxxConfigurationOptimizer extends BaseConfigurationOpti
             $(/^Heizung_.*/).invalidate();
         });
 
-        const hasSecondKollektor = function(solarSystemId) {
-            return (((solarSystemId / 10) & 1) !== 0);
-        };
+        const hasSecondKollektor = (solarSystemId) => ((solarSystemId / 10) & 1) !== 0;
 
         value.lt(10, () => {
             $(/^Solar_Kol1_.*/).ignore();
@@ -72,10 +66,13 @@ class ResolDeltaSolBxPlusXxxConfigurationOptimizer extends BaseConfigurationOpti
 
     optimizeSolarWfConfiguration($) {
         $(/^Solar_Wf([0-9]+)_Type$/).forEach((value) => {
-            const prefix = '^Solar_Wf' + value.md [1] + '_';
+            const prefix = '^Solar_Wf' + value.md[1] + '_';
 
-            value.in([ 0, '#Frei' ], () => {
-                $(prefix + '(?!(Type|(Roehrenkollektor|Bypass|Frostschutz|ExtWT|Zieltemperatur|Bereitschaft|DrainBack)_)).*').ignore();
+            value.in([0, '#Frei'], () => {
+                $(
+                    prefix +
+                        '(?!(Type|(Roehrenkollektor|Bypass|Frostschutz|ExtWT|Zieltemperatur|Bereitschaft|DrainBack)_)).*',
+                ).ignore();
             });
 
             const wfTypes = [
@@ -96,7 +93,7 @@ class ResolDeltaSolBxPlusXxxConfigurationOptimizer extends BaseConfigurationOpti
 
     optimizeAnlageWfConfiguration($) {
         $(/^(Anlage_Wf[0-9]+)_Type$/).forEach((value) => {
-            const prefix = '^' + value.md [1] + '_';
+            const prefix = '^' + value.md[1] + '_';
 
             value.eql('#Frei', () => {
                 $(prefix + '(?!Type).*').ignore();
@@ -128,7 +125,7 @@ class ResolDeltaSolBxPlusXxxConfigurationOptimizer extends BaseConfigurationOpti
 
     optimizeHeizungWfConfiguration($) {
         $(/^(Heizung_Wf[0-9]+)_Type$/).forEach((value) => {
-            const prefix = '^' + value.md [1] + '_';
+            const prefix = '^' + value.md[1] + '_';
 
             value.eql('#Frei', () => {
                 $(prefix + '(?!Type).*').ignore();
@@ -138,10 +135,7 @@ class ResolDeltaSolBxPlusXxxConfigurationOptimizer extends BaseConfigurationOpti
                 $(prefix + 'Schaltuhr_.*').ignore();
             });
 
-            const wfTypes = [
-                'ThDesinfektion',
-                'ThBwErwaermung',
-            ];
+            const wfTypes = ['ThDesinfektion', 'ThBwErwaermung'];
 
             for (const wfType of wfTypes) {
                 value.notEql('#' + wfType, () => {
@@ -153,7 +147,7 @@ class ResolDeltaSolBxPlusXxxConfigurationOptimizer extends BaseConfigurationOpti
 
     optimizeHeizungHeizkreisConfiguration($) {
         $(/^(Heizung_Heizkreis[0-9]+)_Type$/).forEach((value) => {
-            const prefix = '^' + value.md [1] + '_';
+            const prefix = '^' + value.md[1] + '_';
 
             value.eql('#Frei', () => {
                 $(prefix + '(?!Type).*').ignore();
@@ -164,7 +158,7 @@ class ResolDeltaSolBxPlusXxxConfigurationOptimizer extends BaseConfigurationOpti
             });
 
             $(prefix + '(Raumthermostat[0-9]+)_Typ$').forEach((value) => {
-                const rthPrefix = prefix + value.md [1] + '_';
+                const rthPrefix = prefix + value.md[1] + '_';
 
                 value.eql(0, () => {
                     $(rthPrefix + '(?!Typ).*').ignore();
@@ -179,25 +173,22 @@ class ResolDeltaSolBxPlusXxxConfigurationOptimizer extends BaseConfigurationOpti
 
     optimizeWmzConfiguration($) {
         $(/^(Wmz[0-9]+)_Type$/).forEach((value) => {
-            const prefix = '^' + value.md [1] + '_';
+            const prefix = '^' + value.md[1] + '_';
 
             value.eql(0, () => {
                 $(prefix + '(?!Type).*').ignore();
             });
         });
     }
-
 }
 
+Object.assign(
+    ResolDeltaSolBxPlusXxxConfigurationOptimizer,
+    /** @lends ResolDeltaSolBxPlusXxxConfigurationOptimizer */ {
+        deviceAddress: 0x7112,
 
-Object.assign(ResolDeltaSolBxPlusXxxConfigurationOptimizer, /** @lends ResolDeltaSolBxPlusXxxConfigurationOptimizer */ {
-
-    deviceAddress: 0x7112,
-
-    configurationData,
-
-});
-
-
+        configurationData,
+    },
+);
 
 module.exports = ResolDeltaSolBxPlusXxxConfigurationOptimizer;

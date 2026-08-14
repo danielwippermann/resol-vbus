@@ -2,20 +2,15 @@
 
 let SerialPort, serialPortRequireError;
 try {
-    // eslint-disable-next-line prefer-destructuring
     SerialPort = require('serialport').SerialPort;
 } catch (ex) {
     serialPortRequireError = ex;
 }
 
-
 const Connection = require('./connection');
 const { applyDefaultOptions } = require('./utils');
 
-
-
 class SerialConnection extends Connection {
-
     /**
      * Creates a new SerialConnection instance and optionally initialized its member with the given values.
      *
@@ -30,17 +25,19 @@ class SerialConnection extends Connection {
     constructor(options) {
         super(options);
 
-        applyDefaultOptions(this, options, /** @lends SerialConnection.prototype */ {
+        applyDefaultOptions(
+            this,
+            options,
+            /** @lends SerialConnection.prototype */ {
+                /**
+                 * The path to the serial port.
+                 * @type {string}
+                 */
+                path: null,
 
-            /**
-            * The path to the serial port.
-            * @type {string}
-            */
-            path: null,
-
-            baudrate: 9600,
-
-        });
+                baudrate: 9600,
+            },
+        );
     }
 
     connect() {
@@ -59,7 +56,7 @@ class SerialConnection extends Connection {
 
             this._setConnectionState(SerialConnection.STATE_DISCONNECTING);
 
-            if (this.serialPort && (previousConnectionState !== SerialConnection.STATE_CONNECTING)) {
+            if (this.serialPort && previousConnectionState !== SerialConnection.STATE_CONNECTING) {
                 this.serialPort.close();
             } else {
                 this._setConnectionState(SerialConnection.STATE_DISCONNECTED);
@@ -69,7 +66,9 @@ class SerialConnection extends Connection {
 
     _connect() {
         return new Promise((resolve, reject) => {
-            let cleanup = () => { reject(new Error('Called too soon')); };
+            let cleanup = () => {
+                reject(new Error('Called too soon'));
+            };
 
             const options = {
                 path: this.path,
@@ -194,49 +193,46 @@ class SerialConnection extends Connection {
 
         return new SerialPort(options);
     }
-
 }
 
+Object.assign(
+    SerialConnection.prototype,
+    /** @lends SerialConnection.prototype */ {
+        /**
+         * The path to the serial port.
+         * @type {string}
+         */
+        path: null,
 
-Object.assign(SerialConnection.prototype, /** @lends SerialConnection.prototype */ {
+        baudrate: 9600,
 
-    /**
-     * The path to the serial port.
-     * @type {string}
-     */
-    path: null,
+        /**
+         * Timeout in milliseconds to way between reconnection retries.
+         * @type {number}
+         */
+        reconnectTimeout: 0,
 
-    baudrate: 9600,
+        /**
+         * Value to increment timeout after every unsuccessful reconnection retry.
+         * @type {number}
+         */
+        reconnectTimeoutIncr: 10000,
 
-    /**
-     * Timeout in milliseconds to way between reconnection retries.
-     * @type {number}
-     */
-    reconnectTimeout: 0,
+        /**
+         * Maximum timeout value between unsuccessful reconnection retry.
+         * @type {number}
+         */
+        reconnectTimeoutMax: 60000,
 
-    /**
-     * Value to increment timeout after every unsuccessful reconnection retry.
-     * @type {number}
-     */
-    reconnectTimeoutIncr: 10000,
+        serialPort: null,
+    },
+);
 
-    /**
-     * Maximum timeout value between unsuccessful reconnection retry.
-     * @type {number}
-     */
-    reconnectTimeoutMax: 60000,
-
-    serialPort: null,
-
-});
-
-
-Object.assign(SerialConnection, /** @lends SerialConnection */ {
-
-    hasSerialPortSupport: !!SerialPort,
-
-});
-
-
+Object.assign(
+    SerialConnection,
+    /** @lends SerialConnection */ {
+        hasSerialPortSupport: !!SerialPort,
+    },
+);
 
 module.exports = SerialConnection;

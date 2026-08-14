@@ -1,16 +1,8 @@
 /*! resol-vbus | Copyright (c) 2013-present, Daniel Wippermann | MIT license */
 
-const {
-    utils,
-} = require('./resol-vbus');
+const { utils } = require('./resol-vbus');
 
-
-const {
-    expect,
-    expectOwnPropertyNamesToEqual,
-} = require('./test-utils');
-
-
+const { expect, expectOwnPropertyNamesToEqual } = require('./test-utils');
 
 const {
     generateGUID,
@@ -26,9 +18,7 @@ const {
     normalizeDatecode,
 } = utils;
 
-
 describe('utils', () => {
-
     it('should export correctly', () => {
         expectOwnPropertyNamesToEqual(utils, [
             'generateGUID',
@@ -46,17 +36,14 @@ describe('utils', () => {
     });
 
     describe('generateGUID', () => {
-
         it('should work correctly', () => {
             const result = generateGUID();
 
             expect(result).toMatch(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/);
         });
-
     });
 
     describe('roundNumber', () => {
-
         it('should be a function', () => {
             expect(typeof roundNumber).toBe('function');
         });
@@ -97,11 +84,9 @@ describe('utils', () => {
             result = roundNumber(1.2345e200, 100);
             expect(result).toBe(1.2345e200);
         });
-
     });
 
     describe('deepFreezeObjectTree', () => {
-
         it('should work correctly', () => {
             const object1 = {};
             object1.key1 = object1;
@@ -110,15 +95,13 @@ describe('utils', () => {
                 deepFreezeObjectTree(object1);
             }).toThrow('Circular reference while deep freezing');
         });
-
     });
 
     describe('promisify', () => {
-
         it('should work correctly', async () => {
             const value1 = {};
 
-            const fn1 = jest.fn(cb => {
+            const fn1 = vi.fn((cb) => {
                 cb(null, value1);
             });
 
@@ -130,7 +113,7 @@ describe('utils', () => {
 
             const error2 = {};
 
-            const fn2 = jest.fn(cb => {
+            const fn2 = vi.fn((cb) => {
                 cb(error2);
             });
 
@@ -140,11 +123,9 @@ describe('utils', () => {
 
             await expect(promise2).rejects.toBe(error2);
         });
-
     });
 
     describe('isPromise', () => {
-
         it('should be a function', () => {
             expect(typeof isPromise).toBe('function');
         });
@@ -164,11 +145,9 @@ describe('utils', () => {
             expect(isPromise(promiseB)).toBe(true);
             await expect(promiseB).rejects.toBe(errorB);
         });
-
     });
 
     describe('hasOwnProperty', () => {
-
         it('should work correctly', () => {
             const obj1 = { key1: 1 };
 
@@ -181,11 +160,9 @@ describe('utils', () => {
             expect(hasOwnProperty(obj1, 'constructor')).toBe(false);
             expect(hasOwnProperty(obj1, '__proto__')).toBe(false);
         });
-
     });
 
     describe('applyDefaultOptions', () => {
-
         it('should work correctly', () => {
             const obj1 = {
                 key1: 11,
@@ -204,21 +181,15 @@ describe('utils', () => {
 
             expect(result1).toBe(obj1);
 
-            expectOwnPropertyNamesToEqual(result1, [
-                'key1',
-                'key2',
-                'key3',
-            ]);
+            expectOwnPropertyNamesToEqual(result1, ['key1', 'key2', 'key3']);
 
             expect(result1.key1).toBe(31);
             expect(result1.key2).toBe(22);
             expect(result1.key3).toBe(13);
         });
-
     });
 
     describe('isNumber', () => {
-
         it('should work correctly', () => {
             expect(isNumber(undefined)).toBe(false);
             expect(isNumber(null)).toBe(false);
@@ -230,11 +201,9 @@ describe('utils', () => {
             expect(isNumber([])).toBe(false);
             expect(isNumber(() => {})).toBe(false);
         });
-
     });
 
     describe('isObject', () => {
-
         it('should work correctly', () => {
             expect(isObject(undefined)).toBe(false);
             expect(isObject(null)).toBe(false);
@@ -246,11 +215,9 @@ describe('utils', () => {
             expect(isObject([])).toBe(false);
             expect(isObject(() => {})).toBe(false);
         });
-
     });
 
     describe('isString', () => {
-
         it('should work correctly', () => {
             expect(isString(undefined)).toBe(false);
             expect(isString(null)).toBe(false);
@@ -262,11 +229,9 @@ describe('utils', () => {
             expect(isString([])).toBe(false);
             expect(isString(() => {})).toBe(false);
         });
-
     });
 
     describe('normalizeDatecode', () => {
-
         it('should work correctly', () => {
             let result;
 
@@ -301,7 +266,5 @@ describe('utils', () => {
                 normalizeDatecode(true);
             }).toThrow('Unsupported input as datecode: true');
         });
-
     });
-
 });

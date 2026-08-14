@@ -1,17 +1,10 @@
 /*! resol-vbus | Copyright (c) 2013-present, Daniel Wippermann | MIT license */
 
-const {
-    applyDefaultOptions,
-    isNumber,
-    isObject,
-} = require('./utils');
+const { applyDefaultOptions, isNumber, isObject } = require('./utils');
 
 const Customizer = require('./customizer');
 
-
-
 class ConnectionCustomizer extends Customizer {
-
     /**
      * Constructs a new ConnectionCustomizer instance and optionally initializes its
      * members with the given values.
@@ -32,45 +25,47 @@ class ConnectionCustomizer extends Customizer {
     constructor(options) {
         super(options);
 
-        applyDefaultOptions(this, options, /** @lends ConnectionCustomizer.prototype */ {
+        applyDefaultOptions(
+            this,
+            options,
+            /** @lends ConnectionCustomizer.prototype */ {
+                /**
+                 * The connection to use for transfer of the configuration values.
+                 * @type {Connection}
+                 */
+                connection: null,
 
-            /**
-            * The connection to use for transfer of the configuration values.
-            * @type {Connection}
-            */
-            connection: null,
+                /**
+                 * Maximum number of optimization rounds for {@link transceiveConfiguration}.
+                 * @type {number}
+                 * @default 10
+                 */
+                maxRounds: 10,
 
-            /**
-            * Maximum number of optimization rounds for {@link transceiveConfiguration}.
-            * @type {number}
-            * @default 10
-            */
-            maxRounds: 10,
+                /**
+                 * Amount of retries to transceive one value.
+                 * Between two tries the VBus is released and then re-acquired.
+                 * @type {number}
+                 * @default 2
+                 */
+                triesPerValue: 2,
 
-            /**
-            * Amount of retries to transceive one value.
-            * Between two tries the VBus is released and then re-acquired.
-            * @type {number}
-            * @default 2
-            */
-            triesPerValue: 2,
+                /**
+                 * Timeout in milliseconds after which the transceive times out.
+                 * @type {number}
+                 * @default 30000
+                 */
+                timeoutPerValue: 30000,
 
-            /**
-            * Timeout in milliseconds after which the transceive times out.
-            * @type {number}
-            * @default 30000
-            */
-            timeoutPerValue: 30000,
-
-            /**
-            * Interval in milliseconds in which
-            * the VBus master is contacted to reissue the VBus clearance.
-            * @type {number}
-            * @default 8000
-            */
-            masterTimeout: 8000,
-
-        });
+                /**
+                 * Interval in milliseconds in which
+                 * the VBus master is contacted to reissue the VBus clearance.
+                 * @type {number}
+                 * @default 8000
+                 */
+                masterTimeout: 8000,
+            },
+        );
     }
 
     /**
@@ -193,7 +188,7 @@ class ConnectionCustomizer extends Customizer {
             masterLastContacted: null,
         };
 
-        const reportProgress = function(progress) {
+        const reportProgress = (progress) => {
             if (options.reportProgress) {
                 options.reportProgress(progress);
             }
@@ -217,7 +212,7 @@ class ConnectionCustomizer extends Customizer {
 
             if (pendingValues.length > 0) {
                 for (let index = 0; index < pendingValues.length; index++) {
-                    const valueInfo = pendingValues [index++];
+                    const valueInfo = pendingValues[index++];
 
                     let reportProgress;
                     if (options.reportProgress) {
@@ -237,13 +232,18 @@ class ConnectionCustomizer extends Customizer {
 
                     await check();
 
-                    const datagram = await this.transceiveValue(valueInfo, valueInfo.value, {
-                        triesPerValue: options.triesPerValue,
-                        timeoutPerValue: options.timeoutPerValue,
-                        action: options.action,
-                        actionOptions: options.actionOptions,
-                        reportProgress,
-                    }, state);
+                    const datagram = await this.transceiveValue(
+                        valueInfo,
+                        valueInfo.value,
+                        {
+                            triesPerValue: options.triesPerValue,
+                            timeoutPerValue: options.timeoutPerValue,
+                            action: options.action,
+                            actionOptions: options.actionOptions,
+                            reportProgress,
+                        },
+                        state,
+                    );
 
                     valueInfo.pending = false;
                     valueInfo.transceived = !!datagram;
@@ -345,7 +345,7 @@ class ConnectionCustomizer extends Customizer {
             }
 
             for (let tries = 1; tries <= options.triesPerValue; tries++) {
-                const reportProgress = function(message) {
+                const reportProgress = (message) => {
                     if (options.reportProgress) {
                         options.reportProgress({
                             message,
@@ -356,11 +356,11 @@ class ConnectionCustomizer extends Customizer {
                     }
                 };
 
-                if (!await check()) {
+                if (!(await check())) {
                     break;
                 }
 
-                if ((tries > 1) && (state.masterLastContacted !== null)) {
+                if (tries > 1 && state.masterLastContacted !== null) {
                     reportProgress('RELEASING_BUS');
 
                     state.masterLastContacted = null;
@@ -368,14 +368,14 @@ class ConnectionCustomizer extends Customizer {
                     await connection.releaseBus(state.masterAddress);
                 }
 
-                if (!await check()) {
+                if (!(await check())) {
                     break;
                 }
 
-                if ((state.masterLastContacted === null) && (options.masterTimeout !== null)) {
+                if (state.masterLastContacted === null && options.masterTimeout !== null) {
                     reportProgress('WAITING_FOR_FREE_BUS');
 
-                    const datagram = await connection.waitForFreeBus();  // TODO: optional timeout?
+                    const datagram = await connection.waitForFreeBus(); // TODO: optional timeout?
 
                     if (datagram) {
                         state.masterAddress = datagram.sourceAddress;
@@ -384,7 +384,7 @@ class ConnectionCustomizer extends Customizer {
                     }
                 }
 
-                if (!await check()) {
+                if (!(await check())) {
                     break;
                 }
 
@@ -395,7 +395,7 @@ class ConnectionCustomizer extends Customizer {
                     contactMaster = false;
                 } else if (state.masterLastContacted === null) {
                     contactMaster = true;
-                } else if ((Date.now() - state.masterLastContacted) >= options.masterTimeout) {
+                } else if (Date.now() - state.masterLastContacted >= options.masterTimeout) {
                     contactMaster = true;
                 } else {
                     contactMaster = false;
@@ -411,7 +411,7 @@ class ConnectionCustomizer extends Customizer {
                     });
                 }
 
-                if (!await check()) {
+                if (!(await check())) {
                     break;
                 }
 
@@ -424,14 +424,18 @@ class ConnectionCustomizer extends Customizer {
                 } else if (isNumber(valueInfo.valueIdHash)) {
                     reportProgress('LOOKING_UP_VALUE');
 
-                    const datagram = await connection.getValueIdByIdHash(address, valueInfo.valueIdHash, options.actionOptions);
+                    const datagram = await connection.getValueIdByIdHash(
+                        address,
+                        valueInfo.valueIdHash,
+                        options.actionOptions,
+                    );
 
                     if (datagram && datagram.valueId) {
                         valueInfo.valueIndex = datagram.valueId;
                     }
                 }
 
-                if (!await check()) {
+                if (!(await check())) {
                     break;
                 }
 
@@ -468,47 +472,45 @@ class ConnectionCustomizer extends Customizer {
     }
 }
 
+Object.assign(
+    ConnectionCustomizer.prototype,
+    /** @lends ConnectionCustomizer.prototype */ {
+        /**
+         * The connection to use for transfer of the configuration values.
+         * @type {Connection}
+         */
+        connection: null,
 
-Object.assign(ConnectionCustomizer.prototype, /** @lends ConnectionCustomizer.prototype */ {
+        /**
+         * Maximum number of optimization rounds for {@link transceiveConfiguration}.
+         * @type {number}
+         * @default 10
+         */
+        maxRounds: 10,
 
-    /**
-     * The connection to use for transfer of the configuration values.
-     * @type {Connection}
-     */
-    connection: null,
+        /**
+         * Amount of retries to transceive one value.
+         * Between two tries the VBus is released and then re-acquired.
+         * @type {number}
+         * @default 2
+         */
+        triesPerValue: 2,
 
-    /**
-     * Maximum number of optimization rounds for {@link transceiveConfiguration}.
-     * @type {number}
-     * @default 10
-     */
-    maxRounds: 10,
+        /**
+         * Timeout in milliseconds after which the transceive times out.
+         * @type {number}
+         * @default 30000
+         */
+        timeoutPerValue: 30000,
 
-    /**
-     * Amount of retries to transceive one value.
-     * Between two tries the VBus is released and then re-acquired.
-     * @type {number}
-     * @default 2
-     */
-    triesPerValue: 2,
-
-    /**
-     * Timeout in milliseconds after which the transceive times out.
-     * @type {number}
-     * @default 30000
-     */
-    timeoutPerValue: 30000,
-
-    /**
-     * Interval in milliseconds in which
-     * the VBus master is contacted to reissue the VBus clearance.
-     * @type {number}
-     * @default 8000
-     */
-    masterTimeout: 8000,
-
-});
-
-
+        /**
+         * Interval in milliseconds in which
+         * the VBus master is contacted to reissue the VBus clearance.
+         * @type {number}
+         * @default 8000
+         */
+        masterTimeout: 8000,
+    },
+);
 
 module.exports = ConnectionCustomizer;

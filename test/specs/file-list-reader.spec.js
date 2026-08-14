@@ -3,26 +3,17 @@
 const crypto = require('crypto');
 const path = require('path');
 
-
 const FileListReader = require('../../src/file-list-reader');
 
-
-const {
-    expect,
-    expectOwnPropertyNamesToEqual,
-    itShouldBeAClass
-} = require('./test-utils');
-
-
+const { expect, expectOwnPropertyNamesToEqual, itShouldBeAClass } = require('./test-utils');
 
 const testableDirname = path.resolve(__dirname, '../fixtures/test-recorder');
-
 
 async function readStatsToEnd(flr) {
     return new Promise((resolve, reject) => {
         let cleanup = () => {};
 
-        flr.on('error', err => {
+        flr.on('error', (err) => {
             cleanup();
             reject(err);
         });
@@ -39,11 +30,10 @@ async function readStatsToEnd(flr) {
             flr._read = originalMethod;
         };
 
-        flr._read = jest.fn((...args) => {
+        flr._read = vi.fn((...args) => {
             stats.readCallCount += 1;
             return originalMethod.apply(flr, args);
         });
-
 
         const hasher = crypto.createHash('sha256');
 
@@ -63,18 +53,20 @@ async function readStatsToEnd(flr) {
     });
 }
 
-
 describe('FileListReader', () => {
-
-    itShouldBeAClass(FileListReader, null, {
-        constructor: Function,
-        _read: Function,
-    }, {
-        getListOfFiles: Function,
-    });
+    itShouldBeAClass(
+        FileListReader,
+        null,
+        {
+            constructor: Function,
+            _read: Function,
+        },
+        {
+            getListOfFiles: Function,
+        },
+    );
 
     describe('#constructor', () => {
-
         it('should work correctly', () => {
             const flr = new FileListReader({
                 dirname: testableDirname,
@@ -82,19 +74,17 @@ describe('FileListReader', () => {
                 maxDatecode: 20221231,
             });
 
-            expectOwnPropertyNamesToEqual(flr, [
-                'dirname',
-                'minDatecode',
-                'maxDatecode',
-                'files',
-                'fileIndex',
-            ], [
-                // base-class related
-                '_events',
-                '_eventsCount',
-                '_maxListeners',
-                '_readableState',
-            ]);
+            expectOwnPropertyNamesToEqual(
+                flr,
+                ['dirname', 'minDatecode', 'maxDatecode', 'files', 'fileIndex'],
+                [
+                    // base-class related
+                    '_events',
+                    '_eventsCount',
+                    '_maxListeners',
+                    '_readableState',
+                ],
+            );
 
             expect(flr.dirname).toBe(testableDirname);
             expect(flr.minDatecode).toBe('20220101');
@@ -102,11 +92,9 @@ describe('FileListReader', () => {
             expect(flr.files).toBe(null);
             expect(flr.fileIndex).toBe(0);
         });
-
     });
 
     describe('Readable interface', () => {
-
         it('should work correctly', async () => {
             const flr = new FileListReader({ dirname: testableDirname });
 
@@ -120,21 +108,17 @@ describe('FileListReader', () => {
             const flr = new FileListReader({ dirname: testableDirname });
 
             // manually set list of unknown files for testing purposes
-            flr.files = [
-                path.resolve(testableDirname, 'unknown-file.txt'),
-            ];
+            flr.files = [path.resolve(testableDirname, 'unknown-file.txt')];
 
             await expect(async () => {
                 await readStatsToEnd(flr);
             }).rejects.toThrow('ENOENT');
         });
-
     });
 
     describe('.getListOfFiles', () => {
-
         function normalizeFilenames(filenames) {
-            return filenames.map(filename => filename.replace(testableDirname, '$testableDirname'));
+            return filenames.map((filename) => filename.replace(testableDirname, '$testableDirname'));
         }
 
         it('should work correctly', async () => {
@@ -162,7 +146,5 @@ describe('FileListReader', () => {
                 '$testableDirname/20140215_packets.vbus',
             ]);
         });
-
     });
-
 });

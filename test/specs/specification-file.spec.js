@@ -3,44 +3,33 @@
 const fs = require('fs');
 const path = require('path');
 
+const { SpecificationFile } = require('./resol-vbus');
 
-const {
-    SpecificationFile,
-} = require('./resol-vbus');
-
-
-const {
-    expect,
-    expectOwnPropertyNamesToEqual,
-    itShouldBeAClass,
-    expectTypeToBe,
-} = require('./test-utils');
-
-
-
+const { expect, expectOwnPropertyNamesToEqual, itShouldBeAClass, expectTypeToBe } = require('./test-utils');
 
 const testVsf1Filename = path.resolve(__dirname, '../fixtures/vbus-specifications/test.vsf');
 const testVsf1 = fs.readFileSync(testVsf1Filename);
 
-
-
 describe('SpecificationFile', () => {
-
-    itShouldBeAClass(SpecificationFile, null, {
-        constructor: Function,
-        getSpecificationData: Function,
-        _generateSpecificationData: Function,
-        _parseBuffer: Function,
-        getPacketTemplate: Function,
-        getRawValue: Function,
-        setRawValue: Function,
-    }, {
-        getDefaultSpecificationFile: Function,
-        loadFromFile: Function,
-    });
+    itShouldBeAClass(
+        SpecificationFile,
+        null,
+        {
+            constructor: Function,
+            getSpecificationData: Function,
+            _generateSpecificationData: Function,
+            _parseBuffer: Function,
+            getPacketTemplate: Function,
+            getRawValue: Function,
+            setRawValue: Function,
+        },
+        {
+            getDefaultSpecificationFile: Function,
+            loadFromFile: Function,
+        },
+    );
 
     describe('#constructor', () => {
-
         it('should work correctly for fixtures file #1', () => {
             const specFile = new SpecificationFile(testVsf1);
 
@@ -125,7 +114,7 @@ describe('SpecificationFile', () => {
                 ' °C',
                 ' °F',
                 ' µV',
-                ' \u2126',  // OHM SIGN
+                ' \u2126', // OHM SIGN
                 '%',
                 '000_4_0',
                 '004_4_0',
@@ -225,7 +214,7 @@ describe('SpecificationFile', () => {
                 'Quantité de chaleur',
                 'Quantité de chaleur 1',
                 'Quantité de chaleur 2',
-                'Quantité de chaleur aujourd\'hui',
+                "Quantité de chaleur aujourd'hui",
                 'Quantité de chaleur semaine',
                 'Rated current 1',
                 'Rated current 2',
@@ -269,429 +258,524 @@ describe('SpecificationFile', () => {
                 'Wärmemenge heute',
             ]);
 
-            expect(specFile.localizedTexts).toEqual([{
-                en: '5 min error code',
-                de: '5-Min-Fehlercode',
-                fr: 'Code erreur 5 min'
-            }, {
-                en: 'DFA',
-                de: 'DFA',
-                fr: 'DFA'
-            }, {
-                en: 'Date measured values',
-                de: 'Datum_Messdaten',
-                fr: 'Date valeurs de mesure'
-            }, {
-                en: 'DeltaSol MX [WMZ #0]',
-                de: 'DeltaSol MX [WMZ #0]',
-                fr: 'DeltaSol MX [WMZ #0]'
-            }, {
-                en: 'DeltaSol MX [WMZ #10]',
-                de: 'DeltaSol MX [WMZ #10]',
-                fr: 'DeltaSol MX [WMZ #10]'
-            }, {
-                en: 'DeltaSol MX [WMZ #11]',
-                de: 'DeltaSol MX [WMZ #11]',
-                fr: 'DeltaSol MX [WMZ #11]'
-            }, {
-                en: 'DeltaSol MX [WMZ #12]',
-                de: 'DeltaSol MX [WMZ #12]',
-                fr: 'DeltaSol MX [WMZ #12]'
-            }, {
-                en: 'DeltaSol MX [WMZ #13]',
-                de: 'DeltaSol MX [WMZ #13]',
-                fr: 'DeltaSol MX [WMZ #13]'
-            }, {
-                en: 'DeltaSol MX [WMZ #14]',
-                de: 'DeltaSol MX [WMZ #14]',
-                fr: 'DeltaSol MX [WMZ #14]'
-            }, {
-                en: 'DeltaSol MX [WMZ #15]',
-                de: 'DeltaSol MX [WMZ #15]',
-                fr: 'DeltaSol MX [WMZ #15]'
-            }, {
-                en: 'DeltaSol MX [WMZ #1]',
-                de: 'DeltaSol MX [WMZ #1]',
-                fr: 'DeltaSol MX [WMZ #1]'
-            }, {
-                en: 'DeltaSol MX [WMZ #2]',
-                de: 'DeltaSol MX [WMZ #2]',
-                fr: 'DeltaSol MX [WMZ #2]'
-            }, {
-                en: 'DeltaSol MX [WMZ #3]',
-                de: 'DeltaSol MX [WMZ #3]',
-                fr: 'DeltaSol MX [WMZ #3]'
-            }, {
-                en: 'DeltaSol MX [WMZ #4]',
-                de: 'DeltaSol MX [WMZ #4]',
-                fr: 'DeltaSol MX [WMZ #4]'
-            }, {
-                en: 'DeltaSol MX [WMZ #5]',
-                de: 'DeltaSol MX [WMZ #5]',
-                fr: 'DeltaSol MX [WMZ #5]'
-            }, {
-                en: 'DeltaSol MX [WMZ #6]',
-                de: 'DeltaSol MX [WMZ #6]',
-                fr: 'DeltaSol MX [WMZ #6]'
-            }, {
-                en: 'DeltaSol MX [WMZ #7]',
-                de: 'DeltaSol MX [WMZ #7]',
-                fr: 'DeltaSol MX [WMZ #7]'
-            }, {
-                en: 'DeltaSol MX [WMZ #8]',
-                de: 'DeltaSol MX [WMZ #8]',
-                fr: 'DeltaSol MX [WMZ #8]'
-            }, {
-                en: 'DeltaSol MX [WMZ #9]',
-                de: 'DeltaSol MX [WMZ #9]',
-                fr: 'DeltaSol MX [WMZ #9]'
-            }, {
-                en: 'DeltaSol MX [WMZ #]',
-                de: 'DeltaSol MX [WMZ #]',
-                fr: 'DeltaSol MX [WMZ #]'
-            }, {
-                en: 'Irradiation',
-                de: 'Einstrahlung',
-                fr: 'Irradiation'
-            }, {
-                en: 'Gesamtvolumen',
-                de: 'Gesamtvolumen',
-                fr: 'Gesamtvolumen'
-            }, {
-                en: 'IOC-Modul [Messwerte]',
-                de: 'IOC-Modul [Messwerte]',
-                fr: 'IOC-Modul [Messwerte]'
-            }, {
-                en: 'S6',
-                de: 'S6',
-                fr: 'S6'
-            }, {
-                en: 'S7',
-                de: 'S7',
-                fr: 'S7'
-            }, {
-                en: 'Seconds no.',
-                de: 'SekNr',
-                fr: 'N° secondes'
-            }, {
-                en: 'Solar heat',
-                de: 'Solarwärme',
-                fr: 'Chaleur solaire'
-            }, {
-                en: 'Rated current 1',
-                de: 'Stromstärke 1',
-                fr: 'Intensité courant 1'
-            }, {
-                en: 'Rated current 2',
-                de: 'Stromstärke 2',
-                fr: 'Intensité courant 2'
-            }, {
-                en: 'T-return / S2',
-                de: 'T-Rücklauf/S2',
-                fr: 'T-Retour /S2'
-            }, {
-                en: 'T-ambient',
-                de: 'T-Umgebung',
-                fr: 'T-Ambiance'
-            }, {
-                en: 'T-flow / S1',
-                de: 'T-Vorlauf/S1',
-                fr: 'T- Départ / S1'
-            }, {
-                en: 'TSL',
-                de: 'TSL',
-                fr: 'TSL'
-            }, {
-                en: 'Tmax-Temp_/S5',
-                de: 'Tmax-Temp_/S5',
-                fr: 'Tmax-Temp_/S5'
-            }, {
-                en: 'Volumen Monat',
-                de: 'Volumen Monat',
-                fr: 'Volumen Monat'
-            }, {
-                en: 'Volumen Woche',
-                de: 'Volumen Woche',
-                fr: 'Volumen Woche'
-            }, {
-                en: 'Volumen heute',
-                de: 'Volumen heute',
-                fr: 'Volumen heute'
-            }, {
-                en: 'Volumenstr_1',
-                de: 'Volumenstr_1',
-                fr: 'Volumenstr_1'
-            }, {
-                en: 'Volumenstr_2',
-                de: 'Volumenstr_2',
-                fr: 'Volumenstr_2'
-            }, {
-                en: 'Heat quantity',
-                de: 'Wärmemenge',
-                fr: 'Quantité de chaleur'
-            }, {
-                en: 'Heat quantity 1',
-                de: 'Wärmemenge 1',
-                fr: 'Quantité de chaleur 1'
-            }, {
-                en: 'Heat quantity 2',
-                de: 'Wärmemenge 2',
-                fr: 'Quantité de chaleur 2'
-            }, {
-                en: 'Wärmemenge Monat',
-                de: 'Wärmemenge Monat',
-                fr: 'Wärmemenge Monat'
-            }, {
-                en: 'Heat quantity week',
-                de: 'Wärmemenge Woche',
-                fr: 'Quantité de chaleur semaine'
-            }, {
-                en: 'Heat quantity today',
-                de: 'Wärmemenge heute',
-                fr: 'Quantité de chaleur aujourd\'hui'
-            }]);
+            expect(specFile.localizedTexts).toEqual([
+                {
+                    en: '5 min error code',
+                    de: '5-Min-Fehlercode',
+                    fr: 'Code erreur 5 min',
+                },
+                {
+                    en: 'DFA',
+                    de: 'DFA',
+                    fr: 'DFA',
+                },
+                {
+                    en: 'Date measured values',
+                    de: 'Datum_Messdaten',
+                    fr: 'Date valeurs de mesure',
+                },
+                {
+                    en: 'DeltaSol MX [WMZ #0]',
+                    de: 'DeltaSol MX [WMZ #0]',
+                    fr: 'DeltaSol MX [WMZ #0]',
+                },
+                {
+                    en: 'DeltaSol MX [WMZ #10]',
+                    de: 'DeltaSol MX [WMZ #10]',
+                    fr: 'DeltaSol MX [WMZ #10]',
+                },
+                {
+                    en: 'DeltaSol MX [WMZ #11]',
+                    de: 'DeltaSol MX [WMZ #11]',
+                    fr: 'DeltaSol MX [WMZ #11]',
+                },
+                {
+                    en: 'DeltaSol MX [WMZ #12]',
+                    de: 'DeltaSol MX [WMZ #12]',
+                    fr: 'DeltaSol MX [WMZ #12]',
+                },
+                {
+                    en: 'DeltaSol MX [WMZ #13]',
+                    de: 'DeltaSol MX [WMZ #13]',
+                    fr: 'DeltaSol MX [WMZ #13]',
+                },
+                {
+                    en: 'DeltaSol MX [WMZ #14]',
+                    de: 'DeltaSol MX [WMZ #14]',
+                    fr: 'DeltaSol MX [WMZ #14]',
+                },
+                {
+                    en: 'DeltaSol MX [WMZ #15]',
+                    de: 'DeltaSol MX [WMZ #15]',
+                    fr: 'DeltaSol MX [WMZ #15]',
+                },
+                {
+                    en: 'DeltaSol MX [WMZ #1]',
+                    de: 'DeltaSol MX [WMZ #1]',
+                    fr: 'DeltaSol MX [WMZ #1]',
+                },
+                {
+                    en: 'DeltaSol MX [WMZ #2]',
+                    de: 'DeltaSol MX [WMZ #2]',
+                    fr: 'DeltaSol MX [WMZ #2]',
+                },
+                {
+                    en: 'DeltaSol MX [WMZ #3]',
+                    de: 'DeltaSol MX [WMZ #3]',
+                    fr: 'DeltaSol MX [WMZ #3]',
+                },
+                {
+                    en: 'DeltaSol MX [WMZ #4]',
+                    de: 'DeltaSol MX [WMZ #4]',
+                    fr: 'DeltaSol MX [WMZ #4]',
+                },
+                {
+                    en: 'DeltaSol MX [WMZ #5]',
+                    de: 'DeltaSol MX [WMZ #5]',
+                    fr: 'DeltaSol MX [WMZ #5]',
+                },
+                {
+                    en: 'DeltaSol MX [WMZ #6]',
+                    de: 'DeltaSol MX [WMZ #6]',
+                    fr: 'DeltaSol MX [WMZ #6]',
+                },
+                {
+                    en: 'DeltaSol MX [WMZ #7]',
+                    de: 'DeltaSol MX [WMZ #7]',
+                    fr: 'DeltaSol MX [WMZ #7]',
+                },
+                {
+                    en: 'DeltaSol MX [WMZ #8]',
+                    de: 'DeltaSol MX [WMZ #8]',
+                    fr: 'DeltaSol MX [WMZ #8]',
+                },
+                {
+                    en: 'DeltaSol MX [WMZ #9]',
+                    de: 'DeltaSol MX [WMZ #9]',
+                    fr: 'DeltaSol MX [WMZ #9]',
+                },
+                {
+                    en: 'DeltaSol MX [WMZ #]',
+                    de: 'DeltaSol MX [WMZ #]',
+                    fr: 'DeltaSol MX [WMZ #]',
+                },
+                {
+                    en: 'Irradiation',
+                    de: 'Einstrahlung',
+                    fr: 'Irradiation',
+                },
+                {
+                    en: 'Gesamtvolumen',
+                    de: 'Gesamtvolumen',
+                    fr: 'Gesamtvolumen',
+                },
+                {
+                    en: 'IOC-Modul [Messwerte]',
+                    de: 'IOC-Modul [Messwerte]',
+                    fr: 'IOC-Modul [Messwerte]',
+                },
+                {
+                    en: 'S6',
+                    de: 'S6',
+                    fr: 'S6',
+                },
+                {
+                    en: 'S7',
+                    de: 'S7',
+                    fr: 'S7',
+                },
+                {
+                    en: 'Seconds no.',
+                    de: 'SekNr',
+                    fr: 'N° secondes',
+                },
+                {
+                    en: 'Solar heat',
+                    de: 'Solarwärme',
+                    fr: 'Chaleur solaire',
+                },
+                {
+                    en: 'Rated current 1',
+                    de: 'Stromstärke 1',
+                    fr: 'Intensité courant 1',
+                },
+                {
+                    en: 'Rated current 2',
+                    de: 'Stromstärke 2',
+                    fr: 'Intensité courant 2',
+                },
+                {
+                    en: 'T-return / S2',
+                    de: 'T-Rücklauf/S2',
+                    fr: 'T-Retour /S2',
+                },
+                {
+                    en: 'T-ambient',
+                    de: 'T-Umgebung',
+                    fr: 'T-Ambiance',
+                },
+                {
+                    en: 'T-flow / S1',
+                    de: 'T-Vorlauf/S1',
+                    fr: 'T- Départ / S1',
+                },
+                {
+                    en: 'TSL',
+                    de: 'TSL',
+                    fr: 'TSL',
+                },
+                {
+                    en: 'Tmax-Temp_/S5',
+                    de: 'Tmax-Temp_/S5',
+                    fr: 'Tmax-Temp_/S5',
+                },
+                {
+                    en: 'Volumen Monat',
+                    de: 'Volumen Monat',
+                    fr: 'Volumen Monat',
+                },
+                {
+                    en: 'Volumen Woche',
+                    de: 'Volumen Woche',
+                    fr: 'Volumen Woche',
+                },
+                {
+                    en: 'Volumen heute',
+                    de: 'Volumen heute',
+                    fr: 'Volumen heute',
+                },
+                {
+                    en: 'Volumenstr_1',
+                    de: 'Volumenstr_1',
+                    fr: 'Volumenstr_1',
+                },
+                {
+                    en: 'Volumenstr_2',
+                    de: 'Volumenstr_2',
+                    fr: 'Volumenstr_2',
+                },
+                {
+                    en: 'Heat quantity',
+                    de: 'Wärmemenge',
+                    fr: 'Quantité de chaleur',
+                },
+                {
+                    en: 'Heat quantity 1',
+                    de: 'Wärmemenge 1',
+                    fr: 'Quantité de chaleur 1',
+                },
+                {
+                    en: 'Heat quantity 2',
+                    de: 'Wärmemenge 2',
+                    fr: 'Quantité de chaleur 2',
+                },
+                {
+                    en: 'Wärmemenge Monat',
+                    de: 'Wärmemenge Monat',
+                    fr: 'Wärmemenge Monat',
+                },
+                {
+                    en: 'Heat quantity week',
+                    de: 'Wärmemenge Woche',
+                    fr: 'Quantité de chaleur semaine',
+                },
+                {
+                    en: 'Heat quantity today',
+                    de: 'Wärmemenge heute',
+                    fr: "Quantité de chaleur aujourd'hui",
+                },
+            ]);
 
-            expect(specFile.units).toEqual([{
-                unitId: 55,
-                unitFamily: unitFamilyByCode.Pressure,
-                unitCode: 'Bars',
-                unitText: ' bar'
-            }, {
-                unitId: 20,
-                unitFamily: unitFamilyByCode.Energy,
-                unitCode: 'Btus',
-                unitText: ' BTU'
-            }, {
-                unitId: 80,
-                unitFamily: unitFamilyByCode.Volume,
-                unitCode: 'CubicMeters',
-                unitText: ' m³'
-            }, {
-                unitId: 135,
-                unitFamily: unitFamilyByCode.VolumeFlow,
-                unitCode: 'CubicMetersPerHour',
-                unitText: ' m³/h'
-            }, {
-                unitId: 70,
-                unitFamily: null,
-                unitCode: 'Days',
-                unitText: ' d'
-            }, {
-                unitId: 90,
-                unitFamily: null,
-                unitCode: 'DegreesAngular',
-                unitText: ' °'
-            }, {
-                unitId: 62,
-                unitFamily: unitFamilyByCode.Temperature,
-                unitCode: 'DegreesCelsius',
-                unitText: ' °C'
-            }, {
-                unitId: 64,
-                unitFamily: unitFamilyByCode.Temperature,
-                unitCode: 'DegreesFahrenheit',
-                unitText: ' °F'
-            }, {
-                unitId: 63,
-                unitFamily: null,
-                unitCode: 'DegreesKelvin',
-                unitText: ' K'
-            }, {
-                unitId: 1042,
-                unitFamily: unitFamilyByCode.Volume,
-                unitCode: 'Gallons',
-                unitText: ' gal'
-            }, {
-                unitId: 1041,
-                unitFamily: unitFamilyByCode.VolumeFlow,
-                unitCode: 'GallonsPerHour',
-                unitText: ' gal/h'
-            }, {
-                unitId: 1040,
-                unitFamily: unitFamilyByCode.VolumeFlow,
-                unitCode: 'GallonsPerMinute',
-                unitText: ' gal/min'
-            }, {
-                unitId: 1035,
-                unitFamily: unitFamilyByCode.Energy,
-                unitCode: 'GramsCO2Gas',
-                unitText: ' g CO₂ (Gas)'
-            }, {
-                unitId: 1032,
-                unitFamily: unitFamilyByCode.Energy,
-                unitCode: 'GramsCO2Oil',
-                unitText: ' g CO₂ (Oil)'
-            }, {
-                unitId: 133,
-                unitFamily: null,
-                unitCode: 'Hectopascals',
-                unitText: ' hPa'
-            }, {
-                unitId: 27,
-                unitFamily: null,
-                unitCode: 'Hertz',
-                unitText: ' Hz'
-            }, {
-                unitId: 71,
-                unitFamily: null,
-                unitCode: 'Hours',
-                unitText: ' h'
-            }, {
-                unitId: 1030,
-                unitFamily: unitFamilyByCode.Energy,
-                unitCode: 'KiloBtus',
-                unitText: ' MBTU'
-            }, {
-                unitId: 1024,
-                unitFamily: null,
-                unitCode: 'KiloWattHoursPerSquareMeterPerDay',
-                unitText: ' kWh/(m²*d)'
-            }, {
-                unitId: 1036,
-                unitFamily: unitFamilyByCode.Energy,
-                unitCode: 'KilogramsCO2Gas',
-                unitText: ' kg CO₂ (Gas)'
-            }, {
-                unitId: 1033,
-                unitFamily: unitFamilyByCode.Energy,
-                unitCode: 'KilogramsCO2Oil',
-                unitText: ' kg CO₂ (Oil)'
-            }, {
-                unitId: 186,
-                unitFamily: null,
-                unitCode: 'KilogramsPerCubicMeter',
-                unitText: ' kg/m³'
-            }, {
-                unitId: 44,
-                unitFamily: null,
-                unitCode: 'KilogramsPerHour',
-                unitText: ' kg/h'
-            }, {
-                unitId: 19,
-                unitFamily: unitFamilyByCode.Energy,
-                unitCode: 'KilowattHours',
-                unitText: ' kWh'
-            }, {
-                unitId: 48,
-                unitFamily: null,
-                unitCode: 'Kilowatts',
-                unitText: ' kW'
-            }, {
-                unitId: 82,
-                unitFamily: unitFamilyByCode.Volume,
-                unitCode: 'Liters',
-                unitText: ' l'
-            }, {
-                unitId: 136,
-                unitFamily: unitFamilyByCode.VolumeFlow,
-                unitCode: 'LitersPerHour',
-                unitText: ' l/h'
-            }, {
-                unitId: 88,
-                unitFamily: unitFamilyByCode.VolumeFlow,
-                unitCode: 'LitersPerMinute',
-                unitText: ' l/min'
-            }, {
-                unitId: 1025,
-                unitFamily: null,
-                unitCode: 'LitersPerSquareMeterPerDay',
-                unitText: ' l/(m²*d)'
-            }, {
-                unitId: 1031,
-                unitFamily: unitFamilyByCode.Energy,
-                unitCode: 'MegaBtus',
-                unitText: ' MMBTU'
-            }, {
-                unitId: 146,
-                unitFamily: unitFamilyByCode.Energy,
-                unitCode: 'MegawattHours',
-                unitText: ' MWh'
-            }, {
-                unitId: 74,
-                unitFamily: null,
-                unitCode: 'MetersPerSecond',
-                unitText: ' m/s'
-            }, {
-                unitId: 1100,
-                unitFamily: null,
-                unitCode: 'Microvolts',
-                unitText: ' µV'
-            }, {
-                unitId: 2,
-                unitFamily: null,
-                unitCode: 'Milliamperes',
-                unitText: ' mA'
-            }, {
-                unitId: 159,
-                unitFamily: null,
-                unitCode: 'Milliseconds',
-                unitText: ' ms'
-            }, {
-                unitId: 72,
-                unitFamily: null,
-                unitCode: 'Minutes',
-                unitText: ' min'
-            }, {
-                unitId: -1,
-                unitFamily: null,
-                unitCode: 'None',
-                unitText: ''
-            }, {
-                unitId: 4,
-                unitFamily: null,
-                unitCode: 'Ohms',
-                unitText: ' \u2126'
-            }, {
-                unitId: 98,
-                unitFamily: null,
-                unitCode: 'Percent',
-                unitText: '%'
-            }, {
-                unitId: 56,
-                unitFamily: unitFamilyByCode.Pressure,
-                unitCode: 'PoundsForcePerSquareInch',
-                unitText: ' psi'
-            }, {
-                unitId: 73,
-                unitFamily: null,
-                unitCode: 'Seconds',
-                unitText: ' s'
-            }, {
-                unitId: 0,
-                unitFamily: null,
-                unitCode: 'SquareMeters',
-                unitText: ' m²'
-            }, {
-                unitId: 1037,
-                unitFamily: unitFamilyByCode.Energy,
-                unitCode: 'TonsCO2Gas',
-                unitText: ' t CO₂ (Gas)'
-            }, {
-                unitId: 1034,
-                unitFamily: unitFamilyByCode.Energy,
-                unitCode: 'TonsCO2Oil',
-                unitText: ' t CO₂ (Oil)'
-            }, {
-                unitId: 5,
-                unitFamily: null,
-                unitCode: 'Volts',
-                unitText: ' V'
-            }, {
-                unitId: 18,
-                unitFamily: unitFamilyByCode.Energy,
-                unitCode: 'WattHours',
-                unitText: ' Wh'
-            }, {
-                unitId: 47,
-                unitFamily: null,
-                unitCode: 'Watts',
-                unitText: ' W'
-            }, {
-                unitId: 35,
-                unitFamily: null,
-                unitCode: 'WattsPerSquareMeter',
-                unitText: ' W/m²'
-            }]);
+            expect(specFile.units).toEqual([
+                {
+                    unitId: 55,
+                    unitFamily: unitFamilyByCode.Pressure,
+                    unitCode: 'Bars',
+                    unitText: ' bar',
+                },
+                {
+                    unitId: 20,
+                    unitFamily: unitFamilyByCode.Energy,
+                    unitCode: 'Btus',
+                    unitText: ' BTU',
+                },
+                {
+                    unitId: 80,
+                    unitFamily: unitFamilyByCode.Volume,
+                    unitCode: 'CubicMeters',
+                    unitText: ' m³',
+                },
+                {
+                    unitId: 135,
+                    unitFamily: unitFamilyByCode.VolumeFlow,
+                    unitCode: 'CubicMetersPerHour',
+                    unitText: ' m³/h',
+                },
+                {
+                    unitId: 70,
+                    unitFamily: null,
+                    unitCode: 'Days',
+                    unitText: ' d',
+                },
+                {
+                    unitId: 90,
+                    unitFamily: null,
+                    unitCode: 'DegreesAngular',
+                    unitText: ' °',
+                },
+                {
+                    unitId: 62,
+                    unitFamily: unitFamilyByCode.Temperature,
+                    unitCode: 'DegreesCelsius',
+                    unitText: ' °C',
+                },
+                {
+                    unitId: 64,
+                    unitFamily: unitFamilyByCode.Temperature,
+                    unitCode: 'DegreesFahrenheit',
+                    unitText: ' °F',
+                },
+                {
+                    unitId: 63,
+                    unitFamily: null,
+                    unitCode: 'DegreesKelvin',
+                    unitText: ' K',
+                },
+                {
+                    unitId: 1042,
+                    unitFamily: unitFamilyByCode.Volume,
+                    unitCode: 'Gallons',
+                    unitText: ' gal',
+                },
+                {
+                    unitId: 1041,
+                    unitFamily: unitFamilyByCode.VolumeFlow,
+                    unitCode: 'GallonsPerHour',
+                    unitText: ' gal/h',
+                },
+                {
+                    unitId: 1040,
+                    unitFamily: unitFamilyByCode.VolumeFlow,
+                    unitCode: 'GallonsPerMinute',
+                    unitText: ' gal/min',
+                },
+                {
+                    unitId: 1035,
+                    unitFamily: unitFamilyByCode.Energy,
+                    unitCode: 'GramsCO2Gas',
+                    unitText: ' g CO₂ (Gas)',
+                },
+                {
+                    unitId: 1032,
+                    unitFamily: unitFamilyByCode.Energy,
+                    unitCode: 'GramsCO2Oil',
+                    unitText: ' g CO₂ (Oil)',
+                },
+                {
+                    unitId: 133,
+                    unitFamily: null,
+                    unitCode: 'Hectopascals',
+                    unitText: ' hPa',
+                },
+                {
+                    unitId: 27,
+                    unitFamily: null,
+                    unitCode: 'Hertz',
+                    unitText: ' Hz',
+                },
+                {
+                    unitId: 71,
+                    unitFamily: null,
+                    unitCode: 'Hours',
+                    unitText: ' h',
+                },
+                {
+                    unitId: 1030,
+                    unitFamily: unitFamilyByCode.Energy,
+                    unitCode: 'KiloBtus',
+                    unitText: ' MBTU',
+                },
+                {
+                    unitId: 1024,
+                    unitFamily: null,
+                    unitCode: 'KiloWattHoursPerSquareMeterPerDay',
+                    unitText: ' kWh/(m²*d)',
+                },
+                {
+                    unitId: 1036,
+                    unitFamily: unitFamilyByCode.Energy,
+                    unitCode: 'KilogramsCO2Gas',
+                    unitText: ' kg CO₂ (Gas)',
+                },
+                {
+                    unitId: 1033,
+                    unitFamily: unitFamilyByCode.Energy,
+                    unitCode: 'KilogramsCO2Oil',
+                    unitText: ' kg CO₂ (Oil)',
+                },
+                {
+                    unitId: 186,
+                    unitFamily: null,
+                    unitCode: 'KilogramsPerCubicMeter',
+                    unitText: ' kg/m³',
+                },
+                {
+                    unitId: 44,
+                    unitFamily: null,
+                    unitCode: 'KilogramsPerHour',
+                    unitText: ' kg/h',
+                },
+                {
+                    unitId: 19,
+                    unitFamily: unitFamilyByCode.Energy,
+                    unitCode: 'KilowattHours',
+                    unitText: ' kWh',
+                },
+                {
+                    unitId: 48,
+                    unitFamily: null,
+                    unitCode: 'Kilowatts',
+                    unitText: ' kW',
+                },
+                {
+                    unitId: 82,
+                    unitFamily: unitFamilyByCode.Volume,
+                    unitCode: 'Liters',
+                    unitText: ' l',
+                },
+                {
+                    unitId: 136,
+                    unitFamily: unitFamilyByCode.VolumeFlow,
+                    unitCode: 'LitersPerHour',
+                    unitText: ' l/h',
+                },
+                {
+                    unitId: 88,
+                    unitFamily: unitFamilyByCode.VolumeFlow,
+                    unitCode: 'LitersPerMinute',
+                    unitText: ' l/min',
+                },
+                {
+                    unitId: 1025,
+                    unitFamily: null,
+                    unitCode: 'LitersPerSquareMeterPerDay',
+                    unitText: ' l/(m²*d)',
+                },
+                {
+                    unitId: 1031,
+                    unitFamily: unitFamilyByCode.Energy,
+                    unitCode: 'MegaBtus',
+                    unitText: ' MMBTU',
+                },
+                {
+                    unitId: 146,
+                    unitFamily: unitFamilyByCode.Energy,
+                    unitCode: 'MegawattHours',
+                    unitText: ' MWh',
+                },
+                {
+                    unitId: 74,
+                    unitFamily: null,
+                    unitCode: 'MetersPerSecond',
+                    unitText: ' m/s',
+                },
+                {
+                    unitId: 1100,
+                    unitFamily: null,
+                    unitCode: 'Microvolts',
+                    unitText: ' µV',
+                },
+                {
+                    unitId: 2,
+                    unitFamily: null,
+                    unitCode: 'Milliamperes',
+                    unitText: ' mA',
+                },
+                {
+                    unitId: 159,
+                    unitFamily: null,
+                    unitCode: 'Milliseconds',
+                    unitText: ' ms',
+                },
+                {
+                    unitId: 72,
+                    unitFamily: null,
+                    unitCode: 'Minutes',
+                    unitText: ' min',
+                },
+                {
+                    unitId: -1,
+                    unitFamily: null,
+                    unitCode: 'None',
+                    unitText: '',
+                },
+                {
+                    unitId: 4,
+                    unitFamily: null,
+                    unitCode: 'Ohms',
+                    unitText: ' \u2126',
+                },
+                {
+                    unitId: 98,
+                    unitFamily: null,
+                    unitCode: 'Percent',
+                    unitText: '%',
+                },
+                {
+                    unitId: 56,
+                    unitFamily: unitFamilyByCode.Pressure,
+                    unitCode: 'PoundsForcePerSquareInch',
+                    unitText: ' psi',
+                },
+                {
+                    unitId: 73,
+                    unitFamily: null,
+                    unitCode: 'Seconds',
+                    unitText: ' s',
+                },
+                {
+                    unitId: 0,
+                    unitFamily: null,
+                    unitCode: 'SquareMeters',
+                    unitText: ' m²',
+                },
+                {
+                    unitId: 1037,
+                    unitFamily: unitFamilyByCode.Energy,
+                    unitCode: 'TonsCO2Gas',
+                    unitText: ' t CO₂ (Gas)',
+                },
+                {
+                    unitId: 1034,
+                    unitFamily: unitFamilyByCode.Energy,
+                    unitCode: 'TonsCO2Oil',
+                    unitText: ' t CO₂ (Oil)',
+                },
+                {
+                    unitId: 5,
+                    unitFamily: null,
+                    unitCode: 'Volts',
+                    unitText: ' V',
+                },
+                {
+                    unitId: 18,
+                    unitFamily: unitFamilyByCode.Energy,
+                    unitCode: 'WattHours',
+                    unitText: ' Wh',
+                },
+                {
+                    unitId: 47,
+                    unitFamily: null,
+                    unitCode: 'Watts',
+                    unitText: ' W',
+                },
+                {
+                    unitId: 35,
+                    unitFamily: null,
+                    unitCode: 'WattsPerSquareMeter',
+                    unitText: ' W/m²',
+                },
+            ]);
 
             expectOwnPropertyNamesToEqual(specFile.unitById, [
                 '-1',
@@ -741,7 +825,7 @@ describe('SpecificationFile', () => {
                 '82',
                 '88',
                 '90',
-                '98'
+                '98',
             ]);
 
             expectOwnPropertyNamesToEqual(specFile.unitByCode, [
@@ -792,20 +876,14 @@ describe('SpecificationFile', () => {
                 'Volts',
                 'WattHours',
                 'Watts',
-                'WattsPerSquareMeter'
+                'WattsPerSquareMeter',
             ]);
 
             expect(specFile.deviceTemplates).toHaveLength(18);
 
-            const dt = specFile.deviceTemplates [0];
+            const dt = specFile.deviceTemplates[0];
 
-            expectOwnPropertyNamesToEqual(dt, [
-                'name',
-                'peerAddress',
-                'peerMask',
-                'selfAddress',
-                'selfMask',
-            ]);
+            expectOwnPropertyNamesToEqual(dt, ['name', 'peerAddress', 'peerMask', 'selfAddress', 'selfMask']);
             expect(dt.selfAddress).toBe(0x0010);
             expect(dt.selfMask).toBe(0xffff);
             expect(dt.peerAddress).toBe(0x0000);
@@ -818,7 +896,7 @@ describe('SpecificationFile', () => {
 
             expect(specFile.packetTemplates).toHaveLength(2);
 
-            const pt = specFile.packetTemplates [0];
+            const pt = specFile.packetTemplates[0];
 
             expectOwnPropertyNamesToEqual(pt, [
                 'command',
@@ -835,16 +913,9 @@ describe('SpecificationFile', () => {
             expect(pt.command).toBe(0x0100);
             expect(pt.fields).toHaveLength(8);
 
-            const ptf = pt.fields [0];
+            const ptf = pt.fields[0];
 
-            expectOwnPropertyNamesToEqual(ptf, [
-                'id',
-                'name',
-                'parts',
-                'precision',
-                'type',
-                'unit',
-            ]);
+            expectOwnPropertyNamesToEqual(ptf, ['id', 'name', 'parts', 'precision', 'type', 'unit']);
             expect(ptf.id).toBe('000_4_0');
             expect(ptf.name).toEqual({
                 en: 'Heat quantity',
@@ -855,25 +926,23 @@ describe('SpecificationFile', () => {
             expect(ptf.precision).toBe(0);
             expect(ptf.type).toBe(specFile.typeByCode.Number);
             expect(ptf.parts).toEqual([
-                { offset:  0, bitPos: 0, mask: 0xff, isSigned: false, factor: 1 },
-                { offset:  1, bitPos: 0, mask: 0xff, isSigned: false, factor: 256 },
-                { offset:  2, bitPos: 0, mask: 0xff, isSigned: false, factor: 65536 },
-                { offset:  3, bitPos: 0, mask: 0xff, isSigned: true,  factor: 16777216 },
+                { offset: 0, bitPos: 0, mask: 0xff, isSigned: false, factor: 1 },
+                { offset: 1, bitPos: 0, mask: 0xff, isSigned: false, factor: 256 },
+                { offset: 2, bitPos: 0, mask: 0xff, isSigned: false, factor: 65536 },
+                { offset: 3, bitPos: 0, mask: 0xff, isSigned: true, factor: 16777216 },
                 { offset: 36, bitPos: 0, mask: 0xff, isSigned: false, factor: 1000000000 },
                 { offset: 37, bitPos: 0, mask: 0xff, isSigned: false, factor: 256000000000 },
                 { offset: 38, bitPos: 0, mask: 0xff, isSigned: false, factor: 65536000000000 },
-                { offset: 39, bitPos: 0, mask: 0xff, isSigned: true,  factor: 16777216000000000 },
+                { offset: 39, bitPos: 0, mask: 0xff, isSigned: true, factor: 16777216000000000 },
             ]);
         });
-
     });
 
     describe('getPacketTemplate', () => {
-
         it('should work correctly', () => {
             const specFile = SpecificationFile.getDefaultSpecificationFile();
 
-            const pt1 = specFile.getPacketTemplate(0x0010, 0x7E11, 0x0100);
+            const pt1 = specFile.getPacketTemplate(0x0010, 0x7e11, 0x0100);
 
             expectOwnPropertyNamesToEqual(pt1, [
                 'destinationAddress',
@@ -885,12 +954,12 @@ describe('SpecificationFile', () => {
             ]);
 
             expect(pt1.destinationAddress).toBe(0x0010);
-            expect(pt1.destinationMask).toBe(0xFFFF);
-            expect(pt1.sourceAddress).toBe(0x7E11);
-            expect(pt1.sourceMask).toBe(0xFFFF);
+            expect(pt1.destinationMask).toBe(0xffff);
+            expect(pt1.sourceAddress).toBe(0x7e11);
+            expect(pt1.sourceMask).toBe(0xffff);
             expect(pt1.command).toBe(0x0100);
 
-            const pt2 = specFile.getPacketTemplate(0x6511, 0x7E11, 0x0200);
+            const pt2 = specFile.getPacketTemplate(0x6511, 0x7e11, 0x0200);
 
             expectOwnPropertyNamesToEqual(pt2, [
                 'destinationAddress',
@@ -902,36 +971,30 @@ describe('SpecificationFile', () => {
             ]);
 
             expect(pt2.destinationAddress).toBe(0x6510);
-            expect(pt2.destinationMask).toBe(0xFFF0);
+            expect(pt2.destinationMask).toBe(0xfff0);
             expect(pt2.sourceAddress).toBe(0x0000);
             expect(pt2.sourceMask).toBe(0x0000);
             expect(pt2.command).toBe(0x0200);
 
-            const pt3 = specFile.getPacketTemplate(0x6511, 0x7E11, 0xFFFF);
+            const pt3 = specFile.getPacketTemplate(0x6511, 0x7e11, 0xffff);
 
             expect(pt3).toBe(undefined);
         });
-
     });
 
     describe('getDefaultSpecificationFile', () => {
-
         it('should work correctly', () => {
             const specFile = SpecificationFile.getDefaultSpecificationFile();
 
             expect(specFile).toBeInstanceOf(SpecificationFile);
         });
-
     });
 
     describe('loadFromFile', () => {
-
         it('should work correctly', async () => {
             const specFile = await SpecificationFile.loadFromFile(testVsf1Filename);
 
             expect(specFile).toBeInstanceOf(SpecificationFile);
         });
-
     });
-
 });

@@ -2,14 +2,7 @@
 
 const { Duplex } = require('stream');
 
-
-const {
-    Packet,
-    Datagram,
-    Connection,
-    Telegram,
-} = require('./resol-vbus');
-
+const { Packet, Datagram, Connection, Telegram } = require('./resol-vbus');
 
 const {
     expect,
@@ -20,35 +13,35 @@ const {
     itShouldBeAClass,
 } = require('./test-utils');
 
-
-
-const rawDataPacket = Buffer.from([
-    'aa100021771000011135',
-    '02032e02004a',
-    '760104010003',
-    '7b0078000507',
-    '02013822041e',
-    '170116010050',
-    '460500000034',
-    '01000000007e',
-    '646400000037',
-    '00000000007f',
-    '00000000007f',
-    '01000000007e',
-    '0e0109000067',
-    '06010a00016d',
-    '68010a00000c',
-    '0e0109000067',
-    '010e01230448',
-    '5d070c0f017f'
-].join(''), 'hex');
+const rawDataPacket = Buffer.from(
+    [
+        'aa100021771000011135',
+        '02032e02004a',
+        '760104010003',
+        '7b0078000507',
+        '02013822041e',
+        '170116010050',
+        '460500000034',
+        '01000000007e',
+        '646400000037',
+        '00000000007f',
+        '00000000007f',
+        '01000000007e',
+        '0e0109000067',
+        '06010a00016d',
+        '68010a00000c',
+        '0e0109000067',
+        '010e01230448',
+        '5d070c0f017f',
+    ].join(''),
+    'hex',
+);
 
 const rawDataDatagram = Buffer.from('aa000021772000050000000000000042', 'hex');
 
 const rawDataTelegram1 = Buffer.from('AA11207177300432', 'hex');
 
 const rawDataTelegram2 = Buffer.from('AA7177112030251160182B040000000454', 'hex');
-
 
 async function withTestableConnection(options, fn) {
     if (typeof options === 'function') {
@@ -73,7 +66,7 @@ async function withTestableConnection(options, fn) {
         };
 
         if (!options.ignoreEvents) {
-            connection.on('data', function(chunk) {
+            connection.on('data', function (chunk) {
                 stats.txDataCount += chunk.length;
 
                 this.write(chunk);
@@ -111,50 +104,51 @@ async function withTestableConnection(options, fn) {
     }
 }
 
-
-
 describe('Connection', () => {
-
-    itShouldBeAClass(Connection, Duplex, {
-        constructor: Function,
-        dataSource: null,
-        channel: 0,
-        selfAddress: 0x0020,
-        connectionState: Connection.STATE_DISCONNECTED,
-        rxBuffer: null,
-        connect: Function,
-        disconnect: Function,
-        _write: Function,
-        receive: Function,
-        _read: Function,
-        _setConnectionState: Function,
-        send: Function,
-        transceive: Function,
-        waitForFreeBus: Function,
-        releaseBus: Function,
-        getValueById: Function,
-        setValueById: Function,
-        getValueIdHashById: Function,
-        getValueIdByIdHash: Function,
-        getCaps1: Function,
-        beginBulkValueTransaction: Function,
-        commitBulkValueTransaction: Function,
-        rollbackBulkValueTransaction: Function,
-        setBulkValueById: Function,
-        ping: Function,
-        getStorageActivity: Function,
-        createConnectedPromise: Function,
-    }, {
-        STATE_DISCONNECTED: 'DISCONNECTED',
-        STATE_CONNECTING: 'CONNECTING',
-        STATE_CONNECTED: 'CONNECTED',
-        STATE_INTERRUPTED: 'INTERRUPTED',
-        STATE_RECONNECTING: 'RECONNECTING',
-        STATE_DISCONNECTING: 'DISCONNECTING',
-    });
+    itShouldBeAClass(
+        Connection,
+        Duplex,
+        {
+            constructor: Function,
+            dataSource: null,
+            channel: 0,
+            selfAddress: 0x0020,
+            connectionState: Connection.STATE_DISCONNECTED,
+            rxBuffer: null,
+            connect: Function,
+            disconnect: Function,
+            _write: Function,
+            receive: Function,
+            _read: Function,
+            _setConnectionState: Function,
+            send: Function,
+            transceive: Function,
+            waitForFreeBus: Function,
+            releaseBus: Function,
+            getValueById: Function,
+            setValueById: Function,
+            getValueIdHashById: Function,
+            getValueIdByIdHash: Function,
+            getCaps1: Function,
+            beginBulkValueTransaction: Function,
+            commitBulkValueTransaction: Function,
+            rollbackBulkValueTransaction: Function,
+            setBulkValueById: Function,
+            ping: Function,
+            getStorageActivity: Function,
+            createConnectedPromise: Function,
+        },
+        {
+            STATE_DISCONNECTED: 'DISCONNECTED',
+            STATE_CONNECTING: 'CONNECTING',
+            STATE_CONNECTED: 'CONNECTED',
+            STATE_INTERRUPTED: 'INTERRUPTED',
+            STATE_RECONNECTING: 'RECONNECTING',
+            STATE_DISCONNECTING: 'DISCONNECTING',
+        },
+    );
 
     describe('.STATE_...', () => {
-
         it('should define states', () => {
             expectTypeToBe(Connection.STATE_DISCONNECTED, 'string');
             expectTypeToBe(Connection.STATE_CONNECTING, 'string');
@@ -163,26 +157,25 @@ describe('Connection', () => {
             expectTypeToBe(Connection.STATE_RECONNECTING, 'string');
             expectTypeToBe(Connection.STATE_DISCONNECTING, 'string');
         });
-
     });
 
     describe('#constructor', () => {
-
         it('should have reasonable defaults', () => {
             const connection = new Connection();
 
-            expectOwnPropertyNamesToEqual(connection, [
-                'channel',
-                'selfAddress',
-            ], [
-                // base class related
-                '_events',
-                '_eventsCount',
-                '_maxListeners',
-                '_readableState',
-                '_writableState',
-                'allowHalfOpen',
-            ]);
+            expectOwnPropertyNamesToEqual(
+                connection,
+                ['channel', 'selfAddress'],
+                [
+                    // base class related
+                    '_events',
+                    '_eventsCount',
+                    '_maxListeners',
+                    '_readableState',
+                    '_writableState',
+                    'allowHalfOpen',
+                ],
+            );
 
             expect(connection.channel).toBe(0);
             expect(connection.selfAddress).toBe(0x0020);
@@ -201,11 +194,9 @@ describe('Connection', () => {
             expect(connection.selfAddress).toBe(0x0022);
             expect(connection.junk).toBe(undefined);
         });
-
     });
 
     describe('#connect', () => {
-
         it('should have abstract connect method', () => {
             const conn = new Connection();
 
@@ -213,11 +204,9 @@ describe('Connection', () => {
                 conn.connect();
             }).toThrow('Must be implemented by sub-class');
         });
-
     });
 
     describe('#disconnect', () => {
-
         it('should have abstract disconnect method', () => {
             const conn = new Connection();
 
@@ -225,11 +214,9 @@ describe('Connection', () => {
                 conn.disconnect();
             }).toThrow('Must be implemented by sub-class');
         });
-
     });
 
     describe('writable stream', () => {
-
         it('should work correctly without event listeners', async () => {
             await withTestableConnection({ ignoreEvents: true }, async (conn) => {
                 conn.write(rawDataPacket);
@@ -442,14 +429,12 @@ describe('Connection', () => {
                 expect(stats.telegramCount).toBe(0);
             });
         });
-
     });
 
     describe('readable stream', () => {
-
         it('should process outgoing stream correctly', async () => {
             await withTestableConnection(async (conn, stats) => {
-                const promise = new Promise(resolve => {
+                const promise = new Promise((resolve) => {
                     conn.on('data', () => {
                         resolve();
                     });
@@ -466,15 +451,13 @@ describe('Connection', () => {
                 expect(stats.datagramCount).toBe(0);
             });
         });
-
     });
 
     describe('#_setConnectionState', () => {
-
         it('should work correctly', () => {
             const conn = new Connection();
 
-            const onConnectionState = jest.fn();
+            const onConnectionState = vi.fn();
 
             conn.on('connectionState', onConnectionState);
 
@@ -491,16 +474,14 @@ describe('Connection', () => {
             expect(conn.connectionState).toBe(Connection.STATE_CONNECTED);
             expect(onConnectionState.mock.calls.length).toBe(1);
         });
-
     });
 
     describe('#send', () => {
-
         it('should work correctly with a header object', async () => {
             await withTestableConnection(async (conn, stats) => {
                 const packet = Packet.fromLiveBuffer(rawDataPacket, 0, rawDataPacket.length);
 
-                const promise = new Promise(resolve => {
+                const promise = new Promise((resolve) => {
                     conn.once('data', resolve);
                 });
 
@@ -515,11 +496,9 @@ describe('Connection', () => {
                 expect(stats.datagramCount).toBe(0);
             });
         });
-
     });
 
     describe('#transceive', () => {
-
         it('should work correctly without arguments', async () => {
             await withTestableConnection(async (conn, stats) => {
                 const startTimestamp = Date.now();
@@ -543,7 +522,7 @@ describe('Connection', () => {
                 const startTimestamp = Date.now();
 
                 const promise = conn.transceive(null, {
-                    timeout: 10
+                    timeout: 10,
                 });
 
                 const result = await expectPromise(promise);
@@ -563,7 +542,7 @@ describe('Connection', () => {
                 const startTimestamp = Date.now();
 
                 const promise = conn.transceive(rawDataDatagram, {
-                    timeout: 10
+                    timeout: 10,
                 });
 
                 const result = await expectPromise(promise);
@@ -627,7 +606,7 @@ describe('Connection', () => {
 
                 let datagramResult;
 
-                const onDatagram = function(datagram, doneFiltering) {
+                const onDatagram = (datagram, doneFiltering) => {
                     expect(datagram).toBeInstanceOf(Datagram);
                     expect(datagram.getId()).toBe('00_0000_7721_20_0500_0000');
                     datagramResult = datagram;
@@ -657,7 +636,7 @@ describe('Connection', () => {
 
                 let datagramResult;
 
-                const onDatagram = async function(datagram) {
+                const onDatagram = async (datagram) => {
                     expect(datagram).toBeInstanceOf(Datagram);
                     expect(datagram.getId()).toBe('00_0000_7721_20_0500_0000');
                     datagramResult = datagram;
@@ -687,7 +666,7 @@ describe('Connection', () => {
 
                 let packetResult;
 
-                const onPacket = function(packet, doneFiltering) {
+                const onPacket = (packet, doneFiltering) => {
                     expect(packet).toBeInstanceOf(Packet);
                     expect(packet.getId()).toBe('00_0010_7721_10_0100');
                     packetResult = packet;
@@ -717,7 +696,7 @@ describe('Connection', () => {
 
                 let packetResult;
 
-                const onPacket = async function(packet) {
+                const onPacket = async (packet) => {
                     expect(packet).toBeInstanceOf(Packet);
                     expect(packet.getId()).toBe('00_0010_7721_10_0100');
                     packetResult = packet;
@@ -745,7 +724,7 @@ describe('Connection', () => {
             await withTestableConnection(async (conn, stats) => {
                 const error = new Error('Test error');
 
-                const onPacket = async function(packet) {
+                const onPacket = async (packet) => {
                     expect(packet).toBeInstanceOf(Packet);
                     expect(packet.getId()).toBe('00_0010_7721_10_0100');
 
@@ -771,7 +750,7 @@ describe('Connection', () => {
 
                 let telegramResult;
 
-                const onTelegram = function(telegram, doneFiltering) {
+                const onTelegram = (telegram, doneFiltering) => {
                     expect(telegram).toBeInstanceOf(Telegram);
                     expect(telegram.destinationAddress).toBe(0x2011);
                     telegramResult = telegram;
@@ -802,7 +781,7 @@ describe('Connection', () => {
 
                 let telegramResult;
 
-                const onTelegram = async function(telegram) {
+                const onTelegram = async (telegram) => {
                     expect(telegram).toBeInstanceOf(Telegram);
                     expect(telegram.destinationAddress).toBe(0x2011);
                     telegramResult = telegram;
@@ -826,11 +805,9 @@ describe('Connection', () => {
                 expect(stats.telegramCount).toBe(1);
             });
         });
-
     });
 
     describe('#waitForFreeBus', () => {
-
         it('should work correctly without arguments', async () => {
             await withTestableConnection(async (conn, stats) => {
                 const startTimestamp = Date.now();
@@ -869,11 +846,9 @@ describe('Connection', () => {
                 expect(stats.datagramCount).toBe(0);
             });
         });
-
     });
 
     describe('#releaseBus', () => {
-
         it('should work correctly with address', async () => {
             await withTestableConnection(async (conn, stats) => {
                 const startTimestamp = Date.now();
@@ -939,11 +914,9 @@ describe('Connection', () => {
                 expect(stats.datagramCount).toBe(1);
             });
         });
-
     });
 
     describe('#getValueById', () => {
-
         it('should work correctly with address and value index', async () => {
             await withTestableConnection(async (conn, stats) => {
                 const startTimestamp = Date.now();
@@ -959,7 +932,7 @@ describe('Connection', () => {
                             sourceAddress: rxDatagram.destinationAddress,
                             command: 0x0100,
                             valueId: rxDatagram.valueId,
-                            value: 0x12345678
+                            value: 0x12345678,
                         });
 
                         conn.send(txDatagram);
@@ -990,7 +963,7 @@ describe('Connection', () => {
                 let datagramResult;
 
                 conn.on('datagram', (rxDatagram) => {
-                    if ((rxDatagram.command === 0x0300) && (stats.datagramCount === 2)) {
+                    if (rxDatagram.command === 0x0300 && stats.datagramCount === 2) {
                         datagramResult = rxDatagram;
 
                         const txDatagram = new Datagram({
@@ -998,7 +971,7 @@ describe('Connection', () => {
                             sourceAddress: rxDatagram.destinationAddress,
                             command: 0x0100,
                             valueId: rxDatagram.valueId,
-                            value: 0x12345678
+                            value: 0x12345678,
                         });
 
                         conn.send(txDatagram);
@@ -1065,11 +1038,9 @@ describe('Connection', () => {
                 expect(stats.datagramCount).toBe(1);
             });
         });
-
     });
 
     describe('#setValueById', () => {
-
         it('should work correctly with address, value ID and value', async () => {
             await withTestableConnection(async (conn, stats) => {
                 const startTimestamp = Date.now();
@@ -1116,7 +1087,7 @@ describe('Connection', () => {
                 let datagramResult;
 
                 conn.on('datagram', (rxDatagram) => {
-                    if ((rxDatagram.command === 0x0200) && (stats.datagramCount === 2)) {
+                    if (rxDatagram.command === 0x0200 && stats.datagramCount === 2) {
                         datagramResult = rxDatagram;
 
                         const txDatagram = new Datagram({
@@ -1132,7 +1103,7 @@ describe('Connection', () => {
                 });
 
                 const promise = conn.setValueById(0x7721, 0x1234, 0x12345678, {
-                    timeout: 10
+                    timeout: 10,
                 });
 
                 const result = await expectPromise(promise);
@@ -1191,11 +1162,9 @@ describe('Connection', () => {
                 expect(stats.datagramCount).toBe(1);
             });
         });
-
     });
 
     describe('#getValueIdHashById', () => {
-
         it('should work correctly with address and value ID', async () => {
             await withTestableConnection(async (conn, stats) => {
                 const startTimestamp = Date.now();
@@ -1242,7 +1211,7 @@ describe('Connection', () => {
                 let datagramResult;
 
                 conn.on('datagram', (rxDatagram) => {
-                    if ((rxDatagram.command === 0x1000) && (stats.datagramCount === 2)) {
+                    if (rxDatagram.command === 0x1000 && stats.datagramCount === 2) {
                         datagramResult = rxDatagram;
 
                         const txDatagram = new Datagram({
@@ -1258,7 +1227,7 @@ describe('Connection', () => {
                 });
 
                 const promise = conn.getValueIdHashById(0x7721, 0x1234, {
-                    timeout: 10
+                    timeout: 10,
                 });
 
                 const result = await expectPromise(promise);
@@ -1317,11 +1286,9 @@ describe('Connection', () => {
                 expect(stats.datagramCount).toBe(1);
             });
         });
-
     });
 
     describe('#getValueIdByIdHash', () => {
-
         it('should work correctly with address and value ID', async () => {
             await withTestableConnection(async (conn, stats) => {
                 const startTimestamp = Date.now();
@@ -1368,7 +1335,7 @@ describe('Connection', () => {
                 let datagramResult;
 
                 conn.on('datagram', (rxDatagram) => {
-                    if ((rxDatagram.command === 0x1100) && (stats.datagramCount === 2)) {
+                    if (rxDatagram.command === 0x1100 && stats.datagramCount === 2) {
                         datagramResult = rxDatagram;
 
                         const txDatagram = new Datagram({
@@ -1384,7 +1351,7 @@ describe('Connection', () => {
                 });
 
                 const promise = conn.getValueIdByIdHash(0x7721, 0x12345678, {
-                    timeout: 10
+                    timeout: 10,
                 });
 
                 const result = await expectPromise(promise);
@@ -1443,11 +1410,9 @@ describe('Connection', () => {
                 expect(stats.datagramCount).toBe(1);
             });
         });
-
     });
 
     describe('#getCaps1', () => {
-
         it('should work correctly', async () => {
             await withTestableConnection(async (conn, stats) => {
                 const startTimestamp = Date.now();
@@ -1489,11 +1454,9 @@ describe('Connection', () => {
                 expect(stats.datagramCount).toBe(2);
             });
         });
-
     });
 
     describe('#beginBulkValueTransaction', () => {
-
         it('should work correctly', async () => {
             await withTestableConnection(async (conn, stats) => {
                 const startTimestamp = Date.now();
@@ -1536,11 +1499,9 @@ describe('Connection', () => {
                 expect(stats.datagramCount).toBe(2);
             });
         });
-
     });
 
     describe('#commitBulkValueTransaction', () => {
-
         it('should work correctly', async () => {
             await withTestableConnection(async (conn, stats) => {
                 const startTimestamp = Date.now();
@@ -1582,11 +1543,9 @@ describe('Connection', () => {
                 expect(stats.datagramCount).toBe(2);
             });
         });
-
     });
 
     describe('#rollbackBulkValueTransaction', () => {
-
         it('should work correctly', async () => {
             await withTestableConnection(async (conn, stats) => {
                 const startTimestamp = Date.now();
@@ -1628,11 +1587,9 @@ describe('Connection', () => {
                 expect(stats.datagramCount).toBe(2);
             });
         });
-
     });
 
     describe('#setBulkValueById', () => {
-
         it('should work correctly', async () => {
             await withTestableConnection(async (conn, stats) => {
                 const startTimestamp = Date.now();
@@ -1678,12 +1635,8 @@ describe('Connection', () => {
                 expect(stats.datagramCount).toBe(2);
             });
         });
-
     });
-
 });
-
-
 
 module.exports = {
     withTestableConnection,

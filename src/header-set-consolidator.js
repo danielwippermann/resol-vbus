@@ -2,13 +2,9 @@
 
 const { applyDefaultOptions } = require('./utils');
 
-
 const HeaderSet = require('./header-set');
 
-
-
 class HeaderSetConsolidator extends HeaderSet {
-
     /**
      * Creates a new instances and optionally initializes its members to the given values.
      *
@@ -90,33 +86,35 @@ class HeaderSetConsolidator extends HeaderSet {
     constructor(options) {
         super(options);
 
-        applyDefaultOptions(this, options, /** @lends HeaderSetConsolidator.prototype */ {
+        applyDefaultOptions(
+            this,
+            options,
+            /** @lends HeaderSetConsolidator.prototype */ {
+                /**
+                 * The interval in which the `headerSet` event should be emitted.
+                 * @type {number}
+                 */
+                interval: 0,
 
-            /**
-            * The interval in which the `headerSet` event should be emitted.
-            * @type {number}
-            */
-            interval: 0,
+                /**
+                 * Header instances that are older then this duration are removed from the set.
+                 * @type {number}
+                 */
+                timeToLive: 0,
 
-            /**
-            * Header instances that are older then this duration are removed from the set.
-            * @type {number}
-            */
-            timeToLive: 0,
+                /**
+                 * HeaderSet instances from a time before this Date are ignored.
+                 * @type {Date}
+                 */
+                minTimestamp: null,
 
-            /**
-            * HeaderSet instances from a time before this Date are ignored.
-            * @type {Date}
-            */
-            minTimestamp: null,
-
-            /**
-            * HeaderSet instances from a time after this Date are ignored.
-            * @type {Date}
-            */
-            maxTimestamp: null,
-
-        });
+                /**
+                 * HeaderSet instances from a time after this Date are ignored.
+                 * @type {Date}
+                 */
+                maxTimestamp: null,
+            },
+        );
     }
 
     /**
@@ -155,15 +153,13 @@ class HeaderSetConsolidator extends HeaderSet {
     }
 
     _handleInterval() {
-        const _this = this;
-
         const now = Date.now();
 
         this._processHeaderSet(now);
 
         const interval = 1000 - (now % 1000);
         this.timer = setTimeout(() => {
-            _this._handleInterval();
+            this._handleInterval();
         }, interval);
     }
 
@@ -187,7 +183,7 @@ class HeaderSetConsolidator extends HeaderSet {
             const currentInterval = Math.floor(now / this.interval);
             const diff = currentInterval - lastInterval;
 
-            if ((diff >= -1) && (diff <= 0)) {
+            if (diff >= -1 && diff <= 0) {
                 include = false;
             }
         }
@@ -204,41 +200,39 @@ class HeaderSetConsolidator extends HeaderSet {
             this.lastIntervalTime = now;
         }
     }
-
 }
 
+Object.assign(
+    HeaderSetConsolidator.prototype,
+    /** @lends HeaderSetConsolidator.prototype */ {
+        /**
+         * The interval in which the `headerSet` event should be emitted.
+         * @type {number}
+         */
+        interval: 0,
 
-Object.assign(HeaderSetConsolidator.prototype, /** @lends HeaderSetConsolidator.prototype */ {
-    /**
-     * The interval in which the `headerSet` event should be emitted.
-     * @type {number}
-     */
-    interval: 0,
+        /**
+         * Header instances that are older then this duration are removed from the set.
+         * @type {number}
+         */
+        timeToLive: 0,
 
-    /**
-     * Header instances that are older then this duration are removed from the set.
-     * @type {number}
-     */
-    timeToLive: 0,
+        /**
+         * HeaderSet instances from a time before this Date are ignored.
+         * @type {Date}
+         */
+        minTimestamp: null,
 
-    /**
-     * HeaderSet instances from a time before this Date are ignored.
-     * @type {Date}
-     */
-    minTimestamp: null,
+        /**
+         * HeaderSet instances from a time after this Date are ignored.
+         * @type {Date}
+         */
+        maxTimestamp: null,
 
-    /**
-     * HeaderSet instances from a time after this Date are ignored.
-     * @type {Date}
-     */
-    maxTimestamp: null,
+        lastIntervalTime: 0,
 
-    lastIntervalTime: 0,
-
-    timer: null,
-
-});
-
-
+        timer: null,
+    },
+);
 
 module.exports = HeaderSetConsolidator;

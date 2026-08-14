@@ -4,27 +4,23 @@ const fs = require('fs/promises');
 const path = require('path');
 const { Readable } = require('stream');
 
-
-const {
-    applyDefaultOptions,
-    normalizeDatecode,
-} = require('./utils');
-
+const { applyDefaultOptions, normalizeDatecode } = require('./utils');
 
 class FileListReader extends Readable {
-
     constructor(options) {
         super();
 
-        applyDefaultOptions(this, options, /** @lends FileListReader.prototype */ {
+        applyDefaultOptions(
+            this,
+            options,
+            /** @lends FileListReader.prototype */ {
+                dirname: null,
 
-            dirname: null,
+                minDatecode: null,
 
-            minDatecode: null,
-
-            maxDatecode: null,
-
-        });
+                maxDatecode: null,
+            },
+        );
 
         this.minDatecode = normalizeDatecode(this.minDatecode);
         this.maxDatecode = normalizeDatecode(this.maxDatecode);
@@ -41,7 +37,7 @@ class FileListReader extends Readable {
             }
 
             if (this.fileIndex < this.files.length) {
-                const filename = this.files [this.fileIndex];
+                const filename = this.files[this.fileIndex];
                 this.fileIndex += 1;
 
                 const chunk = await fs.readFile(filename);
@@ -51,7 +47,7 @@ class FileListReader extends Readable {
             }
         };
 
-        runner().then(null, err => {
+        runner().then(null, (err) => {
             this.emit('error', err);
         });
     }
@@ -62,13 +58,13 @@ class FileListReader extends Readable {
         for (const entry of entries) {
             if (!entry.isFile()) {
                 // nop
-            } else if (!(/^2\d{7}(_\w+)?\.vbus$/i.test(entry.name))) {
+            } else if (!/^2\d{7}(_\w+)?\.vbus$/i.test(entry.name)) {
                 // nop
             } else {
                 const datecode = entry.name.slice(0, 8);
-                if ((minDatecode != null) && (datecode < minDatecode)) {
+                if (minDatecode != null && datecode < minDatecode) {
                     // nop
-                } else if ((maxDatecode != null) && (datecode > maxDatecode)) {
+                } else if (maxDatecode != null && datecode > maxDatecode) {
                     // nop
                 } else {
                     files.push(path.resolve(dirname, entry.name));
@@ -78,8 +74,6 @@ class FileListReader extends Readable {
         files.sort();
         return files;
     }
-
 }
-
 
 module.exports = FileListReader;

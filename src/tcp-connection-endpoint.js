@@ -3,10 +3,7 @@
 const { EventEmitter } = require('events');
 const net = require('net');
 
-
 const { applyDefaultOptions } = require('./utils');
-
-
 
 function runAsync(fn) {
     async function runner() {
@@ -16,7 +13,6 @@ function runAsync(fn) {
 }
 
 class TcpConnectionEndpoint extends EventEmitter {
-
     /**
      * Creates a new instance and optionally initializes its members.
      *
@@ -38,54 +34,56 @@ class TcpConnectionEndpoint extends EventEmitter {
     constructor(options) {
         super();
 
-        applyDefaultOptions(this, options, /** @lends TcpConnectionEndpoint.prototype */ {
+        applyDefaultOptions(
+            this,
+            options,
+            /** @lends TcpConnectionEndpoint.prototype */ {
+                /**
+                 * The port number to listen on for incoming connections.
+                 * @type {number}
+                 */
+                port: 7053,
 
-            /**
-            * The port number to listen on for incoming connections.
-            * @type {number}
-            */
-            port: 7053,
+                /**
+                 * An optional async function that verifies the viaTag provided to the `CONNECT` command.
+                 * @type {function}
+                 */
+                verifyViaTag: null,
 
-            /**
-             * An optional async function that verifies the viaTag provided to the `CONNECT` command.
-             * @type {function}
-             */
-            verifyViaTag: null,
+                /**
+                 * The password to check against if the PASS command is received.
+                 * @type {string}
+                 */
+                password: null,
 
-            /**
-             * The password to check against if the PASS command is received.
-             * @type {string}
-             */
-            password: null,
+                /**
+                 * An optional async function that verifies the password provided to the `PASS` command.
+                 * @type {function}
+                 */
+                verifyPassword: null,
 
-            /**
-             * An optional async function that verifies the password provided to the `PASS` command.
-             * @type {function}
-             */
-            verifyPassword: null,
+                /**
+                 * The list of channels to return if the CHANNELLIST command is received.
+                 * @type {string[]}
+                 */
+                channels: null,
 
-            /**
-            * The list of channels to return if the CHANNELLIST command is received.
-            * @type {string[]}
-            */
-            channels: null,
+                /**
+                 * An optional async function that verifies the channel provided to the `CHANNEL` command.
+                 * @type {function}
+                 */
+                verifyChannel: null,
 
-            /**
-             * An optional async function that verifies the channel provided to the `CHANNEL` command.
-             * @type {function}
-             */
-            verifyChannel: null,
-
-            /**
-             * An optional async function that verifies whether the `DATA` command succeeds.
-             * @type {function}
-             */
-            verifyDataMode: null,
-
-        });
+                /**
+                 * An optional async function that verifies whether the `DATA` command succeeds.
+                 * @type {function}
+                 */
+                verifyDataMode: null,
+            },
+        );
 
         if (this.channels == null) {
-            this.channels = [ 'VBus' ];
+            this.channels = ['VBus'];
         }
     }
 
@@ -95,10 +93,8 @@ class TcpConnectionEndpoint extends EventEmitter {
      * @return {Promise} A promise that resolves when the server is started.
      */
     start() {
-        const _this = this;
-
         return new Promise((resolve, reject) => {
-            const done = function(err, result) {
+            const done = (err, result) => {
                 if (err) {
                     reject(err);
                 } else {
@@ -107,12 +103,12 @@ class TcpConnectionEndpoint extends EventEmitter {
             };
 
             const server = net.createServer((socket) => {
-                _this._onConnection(socket);
+                this._onConnection(socket);
             });
 
             server.listen(this.port, () => {
-                if (_this.port === 0) {
-                    _this.port = server.address().port;
+                if (this.port === 0) {
+                    this.port = server.address().port;
                 }
                 done(null, true);
             });
@@ -134,8 +130,6 @@ class TcpConnectionEndpoint extends EventEmitter {
     }
 
     _onConnection(socket) {
-        const _this = this;
-
         const connectionInfo = {
             socket,
         };
@@ -143,26 +137,27 @@ class TcpConnectionEndpoint extends EventEmitter {
         let phase = 0;
         let rxBuffer = null;
 
-        const write = function() {
+        const write = function () {
             return socket.write.apply(socket, arguments);
         };
 
-        const onData = function(chunk) {
+        const onData = (chunk) => {
             if (phase < 1000) {
                 let buffer;
                 if (rxBuffer) {
-                    buffer = Buffer.concat([ rxBuffer, chunk ]);
+                    buffer = Buffer.concat([rxBuffer, chunk]);
                 } else {
                     buffer = chunk;
                 }
 
-                let start = 0, index = 0;
+                let start = 0,
+                    index = 0;
 
-                let processNextLine = undefined;
+                let processNextLine;
 
-                const callback = function(err, result, transition) {
+                const callback = (err, result, transition) => {
                     if (err) {
-                        _this.emit('connectionAttemptFailed', {
+                        this.emit('connectionAttemptFailed', {
                             ip: socket.remoteAddress,
                             family: socket.remoteFamily,
                             port: socket.remotePort,
@@ -179,57 +174,68 @@ class TcpConnectionEndpoint extends EventEmitter {
                         } else if (transition === true) {
                             phase = 1000;
 
-                            _this.emit('connection', connectionInfo);
+                            this.emit('connection', connectionInfo);
                         }
 
                         processNextLine();
                     }
                 };
 
-                const processLine = function(line) {
+                const processLine = (line) => {
                     let md;
                     if ((md = /^CONNECT (.*)$/.exec(line))) {
-                        const viaTagString = md [1];
-                        if (_this.verifyViaTag) {
-                            runAsync(() => _this.verifyViaTag(viaTagString, connectionInfo)).then(() => {
-                                connectionInfo.viaTag = viaTagString;
-                                callback(null, '+OK');
-                            }, err => callback(err));
+                        const viaTagString = md[1];
+                        if (this.verifyViaTag) {
+                            runAsync(() => this.verifyViaTag(viaTagString, connectionInfo)).then(
+                                () => {
+                                    connectionInfo.viaTag = viaTagString;
+                                    callback(null, '+OK');
+                                },
+                                (err) => callback(err),
+                            );
                         } else {
                             connectionInfo.viaTag = viaTagString;
                             callback(null, '+OK');
                         }
                     } else if ((md = /^PASS (.*)$/.exec(line))) {
-                        const passwordString = md [1];
-                        if (_this.verifyPassword) {
-                            runAsync(() => _this.verifyPassword(passwordString, connectionInfo)).then(() => {
-                                connectionInfo.password = passwordString;
-                                callback(null, '+OK');
-                            }, err => callback(err));
-                        } else if (!_this.password || (passwordString === _this.password)) {
+                        const passwordString = md[1];
+                        if (this.verifyPassword) {
+                            runAsync(() => this.verifyPassword(passwordString, connectionInfo)).then(
+                                () => {
+                                    connectionInfo.password = passwordString;
+                                    callback(null, '+OK');
+                                },
+                                (err) => callback(err),
+                            );
+                        } else if (!this.password || passwordString === this.password) {
                             connectionInfo.password = passwordString;
                             callback(null, '+OK');
                         } else {
                             callback(new Error('Password mismatch'));
                         }
                     } else if ((md = /^CHANNELLIST$/.exec(line))) {
-                        const response = _this.channels.reduce((memo, channel, index) => {
-                            if (channel) {
-                                memo.push('*' + index + ':' + channel);
-                            }
-                            return memo;
-                        }, []).join('\r\n');
+                        const response = this.channels
+                            .reduce((memo, channel, index) => {
+                                if (channel) {
+                                    memo.push('*' + index + ':' + channel);
+                                }
+                                return memo;
+                            }, [])
+                            .join('\r\n');
 
                         callback(null, response + '\r\n+OK');
                     } else if ((md = /^CHANNEL (\d+)$/.exec(line))) {
-                        const channelString = md [1];
+                        const channelString = md[1];
                         const index = +channelString;
-                        const channel = _this.channels [index];
-                        if (_this.verifyChannel) {
-                            runAsync(() => _this.verifyChannel(channelString, index, channel, connectionInfo)).then(() => {
-                                connectionInfo.channel = channelString;
-                                callback(null, '+OK');
-                            }, err => callback(err));
+                        const channel = this.channels[index];
+                        if (this.verifyChannel) {
+                            runAsync(() => this.verifyChannel(channelString, index, channel, connectionInfo)).then(
+                                () => {
+                                    connectionInfo.channel = channelString;
+                                    callback(null, '+OK');
+                                },
+                                (err) => callback(err),
+                            );
                         } else if (channel) {
                             connectionInfo.channel = channelString;
                             callback(null, '+OK');
@@ -239,10 +245,13 @@ class TcpConnectionEndpoint extends EventEmitter {
                     } else if ((md = /^QUIT$/.exec(line))) {
                         callback(null, '+OK', false);
                     } else if ((md = /^DATA$/.exec(line))) {
-                        if (_this.verifyDataMode) {
-                            runAsync(() => _this.verifyDataMode(connectionInfo)).then(() => {
-                                callback(null, '+OK', true);
-                            }, err => callback(err));
+                        if (this.verifyDataMode) {
+                            runAsync(() => this.verifyDataMode(connectionInfo)).then(
+                                () => {
+                                    callback(null, '+OK', true);
+                                },
+                                (err) => callback(err),
+                            );
                         } else {
                             callback(null, '+OK', true);
                         }
@@ -251,10 +260,10 @@ class TcpConnectionEndpoint extends EventEmitter {
                     }
                 };
 
-                processNextLine = function() {
+                processNextLine = () => {
                     if (phase < 1000) {
                         while (index < buffer.length) {
-                            if ((buffer [index] === 13) || (buffer [index] === 10)) {
+                            if (buffer[index] === 13 || buffer[index] === 10) {
                                 if (start < index) {
                                     const line = buffer.toString('utf8', start, index);
                                     start = index + 1;
@@ -284,17 +293,11 @@ class TcpConnectionEndpoint extends EventEmitter {
             }
         };
 
-        const onEnd = function() {
+        const onEnd = () => {};
 
-        };
+        const onError = () => {};
 
-        const onError = function() {
-
-        };
-
-        const onTimeout = function() {
-
-        };
+        const onTimeout = () => {};
 
         socket.on('data', onData);
         socket.on('end', onEnd);
@@ -304,32 +307,29 @@ class TcpConnectionEndpoint extends EventEmitter {
 
         write('+HELLO: This is TcpConnectionEndpoint, at your service!\r\n');
     }
-
 }
 
+Object.assign(
+    TcpConnectionEndpoint.prototype,
+    /** @lends TcpConnectionEndpoint.prototype */ {
+        /**
+         * The port number to listen on for incoming connections.
+         * @type {number}
+         */
+        port: 7053,
 
-Object.assign(TcpConnectionEndpoint.prototype, /** @lends TcpConnectionEndpoint.prototype */ {
+        /**
+         * The list of channels to return if the CHANNELLIST command is received.
+         * @type {string[]}
+         */
+        channels: null,
 
-    /**
-     * The port number to listen on for incoming connections.
-     * @type {number}
-     */
-    port: 7053,
-
-    /**
-     * The list of channels to return if the CHANNELLIST command is received.
-     * @type {string[]}
-     */
-    channels: null,
-
-    /**
-     * The Server instance used for listening for incoming connections.
-     * @type {net.Server}
-     */
-    server: null,
-
-});
-
-
+        /**
+         * The Server instance used for listening for incoming connections.
+         * @type {net.Server}
+         */
+        server: null,
+    },
+);
 
 module.exports = TcpConnectionEndpoint;

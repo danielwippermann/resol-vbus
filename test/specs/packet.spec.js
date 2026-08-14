@@ -1,10 +1,6 @@
 /*! resol-vbus | Copyright (c) 2013-present, Daniel Wippermann | MIT license */
 
-const {
-    Header,
-    Packet,
-} = require('./resol-vbus');
-
+const { Header, Packet } = require('./resol-vbus');
 
 const {
     expect,
@@ -14,12 +10,10 @@ const {
     itShouldBeAClass,
 } = require('./test-utils');
 
-
-
 function getTestableOptions() {
     const frameData = Buffer.alloc(13 * 4);
     for (let i = 0; i < frameData.length; i++) {
-        frameData [i] = i * 4;
+        frameData[i] = i * 4;
     }
 
     const options = {
@@ -34,25 +28,26 @@ function getTestableOptions() {
     return options;
 }
 
-
-
 describe('Packet', () => {
-
-    itShouldBeAClass(Packet, Header, {
-        command: 0,
-        frameCount: 0,
-        frameData: null,
-        constructor: Function,
-        toLiveBuffer: Function,
-        getProtocolVersion: Function,
-        getId: Function,
-        compareTo: Function,
-    }, {
-        fromLiveBuffer: Function,
-    });
+    itShouldBeAClass(
+        Packet,
+        Header,
+        {
+            command: 0,
+            frameCount: 0,
+            frameData: null,
+            constructor: Function,
+            toLiveBuffer: Function,
+            getProtocolVersion: Function,
+            getId: Function,
+            compareTo: Function,
+        },
+        {
+            fromLiveBuffer: Function,
+        },
+    );
 
     describe('#constructor', () => {
-
         it('should have reasonable defaults', () => {
             const before = new Date();
             const packet = new Packet();
@@ -83,7 +78,7 @@ describe('Packet', () => {
         it('should copy certain options', () => {
             const frameData = Buffer.alloc(13 * 4);
             for (let i = 0; i < frameData.length; i++) {
-                frameData [i] = i * 4;
+                frameData[i] = i * 4;
             }
 
             const options = {
@@ -95,7 +90,7 @@ describe('Packet', () => {
                 command: 0x4334,
                 frameCount: 13,
                 frameData,
-                junk: 0x7331
+                junk: 0x7331,
             };
 
             const packet = new Packet(options);
@@ -126,11 +121,10 @@ describe('Packet', () => {
     });
 
     describe('#toLiveBuffer', () => {
-
         it('should work correctly without a buffer', () => {
             const frameData = Buffer.alloc(13 * 4);
             for (let i = 0; i < frameData.length; i++) {
-                frameData [i] = i * 4;
+                frameData[i] = i * 4;
             }
 
             const options = {
@@ -147,13 +141,15 @@ describe('Packet', () => {
 
             expectTypeToBe(buffer, 'buffer');
             expect(buffer).toHaveLength(88);
-            expect(buffer.toString('hex')).toBe('aa362335331034430d2a0004080c00671014181c00272024282c00673034383c00274044484c00675054585c00276064686c00677074787c00270004080c0f581014181c0f182024282c0f583034383c0f184044484c0f58');
+            expect(buffer.toString('hex')).toBe(
+                'aa362335331034430d2a0004080c00671014181c00272024282c00673034383c00274044484c00675054585c00276064686c00677074787c00270004080c0f581014181c0f182024282c0f583034383c0f184044484c0f58',
+            );
         });
 
         it('should work correctly with a buffer', () => {
             const frameData = Buffer.alloc(13 * 4);
             for (let i = 0; i < frameData.length; i++) {
-                frameData [i] = i * 4;
+                frameData[i] = i * 4;
             }
 
             const options = {
@@ -172,13 +168,15 @@ describe('Packet', () => {
 
             expectTypeToBe(buffer, 'buffer');
             expect(buffer).toHaveLength(88);
-            expect(buffer.toString('hex')).toBe('aa362335331034430d2a0004080c00671014181c00272024282c00673034383c00274044484c00675054585c00276064686c00677074787c00270004080c0f581014181c0f182024282c0f583034383c0f184044484c0f58');
+            expect(buffer.toString('hex')).toBe(
+                'aa362335331034430d2a0004080c00671014181c00272024282c00673034383c00274044484c00675054585c00276064686c00677074787c00270004080c0f581014181c0f182024282c0f583034383c0f184044484c0f58',
+            );
         });
 
         it('should throw if buffer is too small', () => {
             const frameData = Buffer.alloc(13 * 4);
             for (let i = 0; i < frameData.length; i++) {
-                frameData [i] = i * 4;
+                frameData[i] = i * 4;
             }
 
             const options = {
@@ -197,15 +195,13 @@ describe('Packet', () => {
                 packet.toLiveBuffer(bigBuffer, 100, 180);
             }).toThrow('Buffer too small');
         });
-
     });
 
     describe('.fromLiveBuffer', () => {
-
         it('should work correctly', () => {
             const frameData = Buffer.alloc(13 * 4);
             for (let i = 0; i < frameData.length; i++) {
-                frameData [i] = i * 4;
+                frameData[i] = i * 4;
             }
 
             const options = {
@@ -216,7 +212,10 @@ describe('Packet', () => {
                 frameData,
             };
 
-            const buffer = Buffer.from('aa362335331034430d2a0004080c00671014181c00272024282c00673034383c00274044484c00675054585c00276064686c00677074787c00270004080c0f581014181c0f182024282c0f583034383c0f184044484c0f58', 'hex');
+            const buffer = Buffer.from(
+                'aa362335331034430d2a0004080c00671014181c00272024282c00673034383c00274044484c00675054585c00276064686c00677074787c00270004080c0f581014181c0f182024282c0f583034383c0f184044484c0f58',
+                'hex',
+            );
 
             const before = new Date();
 
@@ -233,11 +232,9 @@ describe('Packet', () => {
             expect(packet.frameCount).toBe(options.frameCount);
             expect(packet.frameData.slice(0, 13 * 4)).toEqual(options.frameData);
         });
-
     });
 
     describe('#getProtocolVersion', () => {
-
         it('should work correctly', () => {
             const packet = new Packet({
                 minorVersion: 0x05,
@@ -247,15 +244,13 @@ describe('Packet', () => {
 
             expect(result).toBe(0x15);
         });
-
     });
 
     describe('#getId', () => {
-
         it('should work correctly', () => {
             const frameData = Buffer.alloc(13 * 4);
             for (let i = 0; i < frameData.length; i++) {
-                frameData [i] = i * 4;
+                frameData[i] = i * 4;
             }
 
             const options = {
@@ -271,11 +266,9 @@ describe('Packet', () => {
 
             expect(packet.getId()).toBe('13_2336_3335_10_4334');
         });
-
     });
 
     describe('#compareTo', () => {
-
         it('should work correctly for Header related info', () => {
             const options = getTestableOptions();
 
@@ -287,7 +280,7 @@ describe('Packet', () => {
 
             expect(packet.compareTo(new Packet(options))).toBeGreaterThan(0);
 
-            options.channel = 0xFF;
+            options.channel = 0xff;
 
             expect(packet.compareTo(new Packet(options))).toBeLessThan(0);
         });
@@ -303,11 +296,9 @@ describe('Packet', () => {
 
             expect(packet.compareTo(new Packet(options))).toBeGreaterThan(0);
 
-            options.command = 0x7F7F;
+            options.command = 0x7f7f;
 
             expect(packet.compareTo(new Packet(options))).toBeLessThan(0);
         });
-
     });
-
 });

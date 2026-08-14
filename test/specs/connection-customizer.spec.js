@@ -9,7 +9,6 @@ const {
     Packet,
 } = require('./resol-vbus');
 
-
 const {
     expect,
     expectElapsedTimeToBeWithin,
@@ -17,35 +16,26 @@ const {
     itShouldBeAClass,
 } = require('./test-utils');
 
+const optimizerPromise = ConfigurationOptimizerFactory.createOptimizerByDeviceAddress(0x7e11);
 
-
-const optimizerPromise = ConfigurationOptimizerFactory.createOptimizerByDeviceAddress(0x7E11);
-
-
-
-const promiseTestContext = async function(options, callback) {
+const promiseTestContext = async (options, callback) => {
     const baseOptimizer = await optimizerPromise;
 
     const context = {};
 
     const optimizer = Object.create(baseOptimizer, {
-
-        // completeConfiguration: jest.fn(baseOptimizer.completeConfiguration),
-
-        // optimizeLoadConfiguration: jest.fn(baseOptimizer.optimizeLoadConfiguration),
-
-        // optimizeSaveConfiguration: jest.fn(baseOptimizer.optimizeSaveConfiguration),
-
+        // completeConfiguration: vi.fn(baseOptimizer.completeConfiguration),
+        // optimizeLoadConfiguration: vi.fn(baseOptimizer.optimizeLoadConfiguration),
+        // optimizeSaveConfiguration: vi.fn(baseOptimizer.optimizeSaveConfiguration),
     });
 
     class TestableConnectionCustomizer extends ConnectionCustomizer {
-
         async transceiveValue(inValueInfo, value, options, state) {
             const { valueIndex } = inValueInfo;
 
-            const valueInfo = context.testConfigValueByIndex [valueIndex];
+            const valueInfo = context.testConfigValueByIndex[valueIndex];
 
-            if ((value !== undefined) && valueInfo) {
+            if (value !== undefined && valueInfo) {
                 valueInfo.value = value;
             }
 
@@ -59,7 +49,6 @@ const promiseTestContext = async function(options, callback) {
 
             return dgram;
         }
-
     }
 
     const connection = new Connection();
@@ -67,7 +56,7 @@ const promiseTestContext = async function(options, callback) {
     connection._setConnectionState(Connection.STATE_CONNECTED);
 
     options = {
-        deviceAddress: 0x7E11,
+        deviceAddress: 0x7e11,
         connection,
         ...options,
     };
@@ -78,7 +67,7 @@ const promiseTestContext = async function(options, callback) {
 
     const customizer = new TestableConnectionCustomizer(options);
 
-    customizer.transceiveValue = jest.fn(customizer.transceiveValue);
+    customizer.transceiveValue = vi.fn(customizer.transceiveValue);
 
     Object.assign(context, {
         optimizer,
@@ -97,34 +86,33 @@ const promiseTestContext = async function(options, callback) {
     context.testConfig = testConfig;
 
     context.testConfigValueByIndex = testConfig.reduce((memo, valueInfo) => {
-        memo [valueInfo.valueIndex] = valueInfo;
+        memo[valueInfo.valueIndex] = valueInfo;
         return memo;
     }, {});
 
     return await callback(customizer, optimizer, context);
 };
 
-
-
 describe('ConnectionCustomizer', () => {
-
-    itShouldBeAClass(ConnectionCustomizer, Customizer, {
-        connection: null,
-        maxRounds: 10,
-        triesPerValue: 2,
-        timeoutPerValue: 30000,
-        masterTimeout: 8000,
-        constructor: Function,
-        _loadConfiguration: Function,
-        _saveConfiguration: Function,
-        transceiveConfiguration: Function,
-        transceiveValue: Function,
-    }, {
-
-    });
+    itShouldBeAClass(
+        ConnectionCustomizer,
+        Customizer,
+        {
+            connection: null,
+            maxRounds: 10,
+            triesPerValue: 2,
+            timeoutPerValue: 30000,
+            masterTimeout: 8000,
+            constructor: Function,
+            _loadConfiguration: Function,
+            _saveConfiguration: Function,
+            transceiveConfiguration: Function,
+            transceiveValue: Function,
+        },
+        {},
+    );
 
     describe('constructor', () => {
-
         it('should have reasonable defaults', () => {
             const customizer = new ConnectionCustomizer();
 
@@ -177,26 +165,27 @@ describe('ConnectionCustomizer', () => {
             expect(customizer.timeoutPerValue).toBe(options.timeoutPerValue);
             expect(customizer.masterTimeout).toBe(options.masterTimeout);
         });
-
     });
 
     describe('#loadConfiguration', () => {
-
         it('should work correctly without optimizer and optimization', async () => {
             const options = {
                 optimizer: null,
                 testConfig: {
-                    'Relais_Regler_R1_Handbetrieb': -1285,
-                    'Relais_Regler_R2_Handbetrieb': -1297,
+                    Relais_Regler_R1_Handbetrieb: -1285,
+                    Relais_Regler_R2_Handbetrieb: -1297,
                 },
             };
 
             return await promiseTestContext(options, async (customizer, optimizer, context) => {
-                const refConfig = [{
-                    id: 'Relais_Regler_R1_Handbetrieb',
-                }, {
-                    id: 'Relais_Regler_R2_Handbetrieb',
-                }];
+                const refConfig = [
+                    {
+                        id: 'Relais_Regler_R1_Handbetrieb',
+                    },
+                    {
+                        id: 'Relais_Regler_R2_Handbetrieb',
+                    },
+                ];
 
                 // manually complete configuration, don't let the customizer do it...
                 const config1 = await optimizer.completeConfiguration(refConfig);
@@ -204,10 +193,10 @@ describe('ConnectionCustomizer', () => {
                 let value;
                 expect(config1).toHaveLength(2);
 
-                value = config1 [0];
+                value = config1[0];
                 expect(value.valueIndex).toBe(1285);
 
-                value = config1 [1];
+                value = config1[1];
                 expect(value.valueIndex).toBe(1297);
 
                 const config2 = await customizer.loadConfiguration(config1, {
@@ -216,13 +205,13 @@ describe('ConnectionCustomizer', () => {
 
                 expect(config2).toHaveLength(2);
 
-                value = config2 [0];
+                value = config2[0];
                 expect(value.valueIndex).toBe(1285);
                 expect(value.value).toBe(-1285);
                 expect(value.pending).toBe(false);
                 expect(value.transceived).toBe(true);
 
-                value = config2 [1];
+                value = config2[1];
                 expect(value.valueIndex).toBe(1297);
                 expect(value.value).toBe(-1297);
                 expect(value.pending).toBe(false);
@@ -234,19 +223,22 @@ describe('ConnectionCustomizer', () => {
 
         it('should work correctly with optimizer and without optimization', async () => {
             const options = {
-                optimizer: true,  // will be replaced with an object by `promiseTestContext`
+                optimizer: true, // will be replaced with an object by `promiseTestContext`
                 testConfig: {
-                    'Relais_Regler_R1_Handbetrieb': -1285,
-                    'Relais_Regler_R2_Handbetrieb': -1297,
+                    Relais_Regler_R1_Handbetrieb: -1285,
+                    Relais_Regler_R2_Handbetrieb: -1297,
                 },
             };
 
             return await promiseTestContext(options, async (customizer, optimizer, context) => {
-                const refConfig = [{
-                    id: 'Relais_Regler_R1_Handbetrieb',
-                }, {
-                    id: 'Relais_Regler_R2_Handbetrieb',
-                }];
+                const refConfig = [
+                    {
+                        id: 'Relais_Regler_R1_Handbetrieb',
+                    },
+                    {
+                        id: 'Relais_Regler_R2_Handbetrieb',
+                    },
+                ];
 
                 const config1 = await customizer.loadConfiguration(refConfig, {
                     optimize: false,
@@ -255,13 +247,13 @@ describe('ConnectionCustomizer', () => {
                 let value;
                 expect(config1).toHaveLength(2);
 
-                value = config1 [0];
+                value = config1[0];
                 expect(value.valueIndex).toBe(1285);
                 expect(value.value).toBe(-1285);
                 expect(value.pending).toBe(false);
                 expect(value.transceived).toBe(true);
 
-                value = config1 [1];
+                value = config1[1];
                 expect(value.valueIndex).toBe(1297);
                 expect(value.value).toBe(-1297);
                 expect(value.pending).toBe(false);
@@ -273,7 +265,7 @@ describe('ConnectionCustomizer', () => {
 
         it('should work correctly with optimization', async () => {
             const options = {
-                optimizer: true,  // will be replaced with an object by `promiseTestContext`
+                optimizer: true, // will be replaced with an object by `promiseTestContext`
             };
 
             return await promiseTestContext(options, async (customizer, optimizer, context) => {
@@ -284,13 +276,13 @@ describe('ConnectionCustomizer', () => {
                 let value;
                 expect(config1).toHaveLength(6291);
 
-                value = config1 [64];
+                value = config1[64];
                 expect(value.valueIndex).toBe(1285);
                 expect(value.value).toBe(null);
                 expect(value.pending).toBe(false);
                 expect(value.transceived).toBe(true);
 
-                value = config1 [71];
+                value = config1[71];
                 expect(value.valueIndex).toBe(1297);
                 expect(value.value).toBe(null);
                 expect(value.pending).toBe(false);
@@ -299,24 +291,25 @@ describe('ConnectionCustomizer', () => {
                 expect(customizer.transceiveValue.mock.calls.length).toBe(263);
             });
         });
-
     });
 
     describe('#saveConfiguration', () => {
-
         it('should work correctly without optimizer and optimization', async () => {
             const options = {
                 optimizer: null,
             };
 
             return await promiseTestContext(options, async (customizer, optimizer, context) => {
-                const refConfig = [{
-                    id: 'Relais_Regler_R1_Handbetrieb',
-                    value: 1,
-                }, {
-                    id: 'Relais_Regler_R2_Handbetrieb',
-                    value: 3,
-                }];
+                const refConfig = [
+                    {
+                        id: 'Relais_Regler_R1_Handbetrieb',
+                        value: 1,
+                    },
+                    {
+                        id: 'Relais_Regler_R2_Handbetrieb',
+                        value: 3,
+                    },
+                ];
 
                 // manually complete configuration, don't let the customizer do it...
                 const config1 = await optimizer.completeConfiguration(refConfig);
@@ -324,11 +317,11 @@ describe('ConnectionCustomizer', () => {
                 let value;
                 expect(config1).toHaveLength(2);
 
-                value = config1 [0];
+                value = config1[0];
                 expect(value.valueIndex).toBe(1285);
                 expect(value.value).toBe(1);
 
-                value = config1 [1];
+                value = config1[1];
                 expect(value.valueIndex).toBe(1297);
                 expect(value.value).toBe(3);
 
@@ -338,13 +331,13 @@ describe('ConnectionCustomizer', () => {
 
                 expect(config2).toHaveLength(2);
 
-                value = config2 [0];
+                value = config2[0];
                 expect(value.valueIndex).toBe(1285);
                 expect(value.value).toBe(1);
                 expect(value.pending).toBe(false);
                 expect(value.transceived).toBe(true);
 
-                value = config2 [1];
+                value = config2[1];
                 expect(value.valueIndex).toBe(1297);
                 expect(value.value).toBe(3);
                 expect(value.pending).toBe(false);
@@ -354,17 +347,20 @@ describe('ConnectionCustomizer', () => {
 
         it('should work correctly with optimizer and without optimization', async () => {
             const options = {
-                optimizer: true,  // will be replaced with an object by `promiseTestContext`
+                optimizer: true, // will be replaced with an object by `promiseTestContext`
             };
 
             return await promiseTestContext(options, async (customizer, optimizer, context) => {
-                const refConfig = [{
-                    id: 'Relais_Regler_R1_Handbetrieb',
-                    value: 1,
-                }, {
-                    id: 'Relais_Regler_R2_Handbetrieb',
-                    value: 3,
-                }];
+                const refConfig = [
+                    {
+                        id: 'Relais_Regler_R1_Handbetrieb',
+                        value: 1,
+                    },
+                    {
+                        id: 'Relais_Regler_R2_Handbetrieb',
+                        value: 3,
+                    },
+                ];
 
                 const config1 = await customizer.saveConfiguration(refConfig, null, {
                     optimize: false,
@@ -373,13 +369,13 @@ describe('ConnectionCustomizer', () => {
                 let value;
                 expect(config1).toHaveLength(2);
 
-                value = config1 [0];
+                value = config1[0];
                 expect(value.valueIndex).toBe(1285);
                 expect(value.value).toBe(1);
                 expect(value.pending).toBe(false);
                 expect(value.transceived).toBe(true);
 
-                value = config1 [1];
+                value = config1[1];
                 expect(value.valueIndex).toBe(1297);
                 expect(value.value).toBe(3);
                 expect(value.pending).toBe(false);
@@ -389,18 +385,16 @@ describe('ConnectionCustomizer', () => {
             });
         });
 
-        xit('should work correctly with optimization but without old config (NYI)', () => {
+        it.skip('should work correctly with optimization but without old config (NYI)', () => {
             throw new Error('NYI');
         });
 
-        xit('should work correctly with optimization and old config (NYI)', () => {
+        it.skip('should work correctly with optimization and old config (NYI)', () => {
             throw new Error('NYI');
         });
-
     });
 
     describe('#transceiveConfiguration', () => {
-
         it('should get values correctly', async () => {
             const deviceAddress = 0x1111;
             const value = 0x12345678;
@@ -448,11 +442,9 @@ describe('ConnectionCustomizer', () => {
                 action: 'get',
             };
 
-            const callback = jest.fn((config, round) => {
+            const callback = vi.fn((config, round) => {
                 if (round === 1) {
-                    config = [
-                        { valueIndex: 0x1234, pending: true },
-                    ];
+                    config = [{ valueIndex: 0x1234, pending: true }];
                 }
                 return config;
             });
@@ -516,18 +508,16 @@ describe('ConnectionCustomizer', () => {
                 connection,
             });
 
-            const reportProgress = jest.fn();
+            const reportProgress = vi.fn();
 
             const options = {
                 action: 'get',
                 reportProgress,
             };
 
-            const callback = jest.fn((config, round) => {
+            const callback = vi.fn((config, round) => {
                 if (round === 1) {
-                    config = [
-                        { valueIndex, pending: true },
-                    ];
+                    config = [{ valueIndex, pending: true }];
                 }
                 return config;
             });
@@ -555,7 +545,7 @@ describe('ConnectionCustomizer', () => {
             expect(reportProgress).toHaveBeenNthCalledWith(2, {
                 message: 'WAITING_FOR_FREE_BUS',
                 tries: 1,
-                valueInfo: config [0],
+                valueInfo: config[0],
                 valueId: undefined,
                 valueIndex,
                 valueIdHash: undefined,
@@ -565,7 +555,7 @@ describe('ConnectionCustomizer', () => {
             expect(reportProgress).toHaveBeenNthCalledWith(3, {
                 message: 'GETTING_VALUE',
                 tries: 1,
-                valueInfo: config [0],
+                valueInfo: config[0],
                 valueId: undefined,
                 valueIndex,
                 valueIdHash: undefined,
@@ -626,18 +616,16 @@ describe('ConnectionCustomizer', () => {
                 connection,
             });
 
-            const checkCanceled = jest.fn(() => isCanceled);
+            const checkCanceled = vi.fn(() => isCanceled);
 
             const options = {
                 action: 'get',
                 checkCanceled,
             };
 
-            const callback = jest.fn((config, round) => {
+            const callback = vi.fn((config, round) => {
                 if (round === 1) {
-                    config = [
-                        { valueIndex, pending: true },
-                    ];
+                    config = [{ valueIndex, pending: true }];
                 }
                 return config;
             });
@@ -659,11 +647,9 @@ describe('ConnectionCustomizer', () => {
                 await customizer.transceiveConfiguration(options, callback);
             }).rejects.toThrow('Canceled');
         });
-
     });
 
     describe('#transceiveValue', () => {
-
         it('should get value correctly', async () => {
             const deviceAddress = 0x1111;
             const valueId = 0x2222;
@@ -896,7 +882,7 @@ describe('ConnectionCustomizer', () => {
                 actionOptions: {
                     tries: 1,
                     timeout: 100,
-                }
+                },
             };
 
             const datagram = await customizer.transceiveValue(valueId, 0, options);
@@ -1000,7 +986,7 @@ describe('ConnectionCustomizer', () => {
             connection.pipe(connection);
 
             let request, response;
-            const onDatagram = jest.fn((datagram) => {
+            const onDatagram = vi.fn((datagram) => {
                 if (datagram.destinationAddress !== deviceAddress) {
                     // nop, ignore
                 } else if (datagram.command === 0x1100) {
@@ -1098,7 +1084,7 @@ describe('ConnectionCustomizer', () => {
                 connection,
             });
 
-            const reportProgress = jest.fn();
+            const reportProgress = vi.fn();
 
             const options = {
                 action: 'get',
@@ -1114,7 +1100,7 @@ describe('ConnectionCustomizer', () => {
                 valueIndex: valueId,
                 valueInfo: {
                     valueIndex: valueId,
-                }
+                },
             });
         });
 
@@ -1126,7 +1112,8 @@ describe('ConnectionCustomizer', () => {
 
             connection.pipe(connection);
 
-            let counter = 0, isCanceled = false;
+            let counter = 0,
+                isCanceled = false;
             connection.on('datagram', (datagram) => {
                 if (datagram.destinationAddress === deviceAddress) {
                     counter += 1;
@@ -1143,7 +1130,7 @@ describe('ConnectionCustomizer', () => {
                 connection,
             });
 
-            const checkCanceled = jest.fn(() => {
+            const checkCanceled = vi.fn(() => {
                 return isCanceled;
             });
 
@@ -1167,7 +1154,8 @@ describe('ConnectionCustomizer', () => {
 
             connection.pipe(connection);
 
-            let counter = 0, cancelException = null;
+            let counter = 0,
+                cancelException = null;
             connection.on('datagram', (datagram) => {
                 if (datagram.destinationAddress === deviceAddress) {
                     counter += 1;
@@ -1184,7 +1172,7 @@ describe('ConnectionCustomizer', () => {
                 connection,
             });
 
-            const checkCanceled = jest.fn(() => {
+            const checkCanceled = vi.fn(() => {
                 if (cancelException) {
                     throw cancelException;
                 }
@@ -1202,7 +1190,5 @@ describe('ConnectionCustomizer', () => {
 
             expect(checkCanceled).toHaveBeenCalledTimes(6);
         });
-
     });
-
 });

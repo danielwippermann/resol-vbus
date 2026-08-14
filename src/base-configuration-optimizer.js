@@ -1,17 +1,9 @@
 /*! resol-vbus | Copyright (c) 2013-present, Daniel Wippermann | MIT license */
 
 const ConfigurationOptimizer = require('./configuration-optimizer');
-const {
-    isNumber,
-    isObject,
-    isString,
-    hasOwnProperty,
-} = require('./utils');
-
-
+const { isNumber, isObject, isString, hasOwnProperty } = require('./utils');
 
 class ValuesWrapper {
-
     constructor(pattern, values) {
         this.pattern = pattern;
         this.values = values;
@@ -34,7 +26,7 @@ class ValuesWrapper {
             return memo;
         }, []);
 
-        if ((matchingValues.length === 0) && (values.length > 0)) {
+        if (matchingValues.length === 0 && values.length > 0) {
             this._reportNoMatchingValues(pattern, values);
         }
 
@@ -64,42 +56,42 @@ class ValuesWrapper {
     eql(refValue, callback) {
         return this._check(callback, (value, valueInfo) => {
             const normalizedRefValue = this._normalizeValue(refValue, valueInfo);
-            return (value === normalizedRefValue);
+            return value === normalizedRefValue;
         });
     }
 
     notEql(refValue, callback) {
         return this._check(callback, (value, valueInfo) => {
             const normalizedRefValue = this._normalizeValue(refValue, valueInfo);
-            return (value !== normalizedRefValue);
+            return value !== normalizedRefValue;
         });
     }
 
     lt(refValue, callback) {
         return this._check(callback, (value, valueInfo) => {
             const normalizedRefValue = this._normalizeValue(refValue, valueInfo);
-            return (value < normalizedRefValue);
+            return value < normalizedRefValue;
         });
     }
 
     lte(refValue, callback) {
         return this._check(callback, (value, valueInfo) => {
             const normalizedRefValue = this._normalizeValue(refValue, valueInfo);
-            return (value <= normalizedRefValue);
+            return value <= normalizedRefValue;
         });
     }
 
     gt(refValue, callback) {
         return this._check(callback, (value, valueInfo) => {
             const normalizedRefValue = this._normalizeValue(refValue, valueInfo);
-            return (value > normalizedRefValue);
+            return value > normalizedRefValue;
         });
     }
 
     gte(refValue, callback) {
         return this._check(callback, (value, valueInfo) => {
             const normalizedRefValue = this._normalizeValue(refValue, valueInfo);
-            return (value >= normalizedRefValue);
+            return value >= normalizedRefValue;
         });
     }
 
@@ -118,12 +110,16 @@ class ValuesWrapper {
     }
 
     isChanged(callback) {
-        return this._check(callback, (value, valueInfo) => {
-            return (isNumber(value) && valueInfo.changed);
-        }, {
-            includeUndefined: false,
-            includeFailed: false,
-        });
+        return this._check(
+            callback,
+            (value, valueInfo) => {
+                return isNumber(value) && valueInfo.changed;
+            },
+            {
+                includeUndefined: false,
+                includeFailed: false,
+            },
+        );
     }
 
     ignore() {
@@ -147,8 +143,6 @@ class ValuesWrapper {
     }
 
     _check(action, checker, options) {
-        const _this = this;
-
         options = {
             includeUndefined: true,
             includeFailed: true,
@@ -166,18 +160,18 @@ class ValuesWrapper {
             } else if (value.value === null) {
                 result = options.includeFailed;
             } else {
-                result = checker.call(_this, value.value, value);
+                result = checker.call(this, value.value, value);
             }
 
             if (result !== false) {
                 if (action.length > 0) {
-                    const wrapper = _this.$('^' + value.valueId + '$');
+                    const wrapper = this.$('^' + value.valueId + '$');
 
-                    wrapper.md = _this.pattern.exec(value.valueId);
+                    wrapper.md = this.pattern.exec(value.valueId);
 
-                    action.call(_this, wrapper);
+                    action.call(this, wrapper);
                 } else {
-                    action.call(_this);
+                    action.call(this);
                 }
             }
         }
@@ -186,9 +180,9 @@ class ValuesWrapper {
     }
 
     _normalizeValue(value, valueInfo) {
-        if (isString(value) && (value.charAt(0) === '#')) {
+        if (isString(value) && value.charAt(0) === '#') {
             const valueTextId = value.slice(1);
-            const valueText = valueInfo.valueTextById [valueTextId];
+            const valueText = valueInfo.valueTextById[valueTextId];
             if (valueText !== undefined) {
                 value = valueText;
             }
@@ -198,10 +192,8 @@ class ValuesWrapper {
     }
 
     _normalizeValues(values, valueInfo) {
-        const _this = this;
-
         values = values.map((value) => {
-            return _this._normalizeValue(value, valueInfo);
+            return this._normalizeValue(value, valueInfo);
         });
 
         return values;
@@ -210,33 +202,27 @@ class ValuesWrapper {
     _reportNoMatchingValues(pattern, values) {
         throw new Error('WARNING: No values matching ' + pattern + ' found');
     }
-
 }
 
+Object.assign(
+    ValuesWrapper.prototype,
+    /** @lends ValuesWrapper.prototype */ {
+        pattern: null,
 
-Object.assign(ValuesWrapper.prototype, /** @lends ValuesWrapper.prototype */ {
+        values: null,
 
-    pattern: null,
+        length: 0,
 
-    values: null,
-
-    length: 0,
-
-    md: null,
-
-});
-
-
+        md: null,
+    },
+);
 
 class BaseConfigurationOptimizer extends ConfigurationOptimizer {
-
     async completeConfiguration(...configs) {
-        const _this = this;
-
-        const adjustableValues = _this._getAdjustableValues();
+        const adjustableValues = this._getAdjustableValues();
 
         let result;
-        if (!configs [0]) {
+        if (!configs[0]) {
             result = adjustableValues.map((value) => {
                 return {
                     valueId: value.id,
@@ -244,12 +230,14 @@ class BaseConfigurationOptimizer extends ConfigurationOptimizer {
                 };
             });
         } else {
-            const valueByIndex = {}, valueById = {}, valueByIdHash = {};
+            const valueByIndex = {},
+                valueById = {},
+                valueByIdHash = {};
             for (const value of adjustableValues) {
-                valueByIndex [value.index] = value;
-                valueById [value.id] = value;
+                valueByIndex[value.index] = value;
+                valueById[value.id] = value;
                 if (value.idHash) {
-                    valueByIdHash [value.idHash] = value;
+                    valueByIdHash[value.idHash] = value;
                 }
             }
 
@@ -258,12 +246,12 @@ class BaseConfigurationOptimizer extends ConfigurationOptimizer {
                 if (Array.isArray(config)) {
                     // nop
                 } else if (isObject(config)) {
-                    config = Object.getOwnPropertyNames(config).map(key => {
+                    config = Object.getOwnPropertyNames(config).map((key) => {
                         let value;
                         if (hasOwnProperty(valueById, key)) {
                             value = {
                                 valueId: key,
-                                value: config [key],
+                                value: config[key],
                             };
                         } else {
                             value = {
@@ -279,17 +267,17 @@ class BaseConfigurationOptimizer extends ConfigurationOptimizer {
                     if (!value) {
                         refValue = null;
                     } else if (hasOwnProperty(value, 'valueIndex')) {
-                        refValue = valueByIndex [value.valueIndex];
+                        refValue = valueByIndex[value.valueIndex];
                     } else if (hasOwnProperty(value, 'valueId')) {
-                        refValue = valueById [value.valueId];
+                        refValue = valueById[value.valueId];
                     } else if (hasOwnProperty(value, 'index')) {
-                        refValue = valueByIndex [value.index];
+                        refValue = valueByIndex[value.index];
                     } else if (hasOwnProperty(value, 'id')) {
-                        refValue = valueById [value.id];
+                        refValue = valueById[value.id];
                     } else if (hasOwnProperty(value, 'valueIdHash')) {
-                        refValue = valueByIdHash [value.valueIdHash];
+                        refValue = valueByIdHash[value.valueIdHash];
                     } else if (hasOwnProperty(value, 'idHash')) {
-                        refValue = valueByIdHash [value.idHash];
+                        refValue = valueByIdHash[value.idHash];
                     } else {
                         refValue = null;
                     }
@@ -302,11 +290,13 @@ class BaseConfigurationOptimizer extends ConfigurationOptimizer {
                     if (isString(numericValue)) {
                         if (numericValue.charAt(0) === '#') {
                             const valueTextId = numericValue.slice(1);
-                            const valueText = refValue.valueTextById [valueTextId];
+                            const valueText = refValue.valueTextById[valueTextId];
                             if (valueText !== undefined) {
                                 numericValue = valueText;
                             } else {
-                                throw new Error('Unable to convert value text ID to numeric value: ' + JSON.stringify(numericValue));
+                                throw new Error(
+                                    'Unable to convert value text ID to numeric value: ' + JSON.stringify(numericValue),
+                                );
                             }
                         } else {
                             numericValue = numericValue | 0;
@@ -365,14 +355,14 @@ class BaseConfigurationOptimizer extends ConfigurationOptimizer {
         const adjustableValues = this._getAdjustableValues();
 
         const oldConfigValueById = (oldConfig || []).reduce((memo, value) => {
-            memo [value.valueId] = value;
+            memo[value.valueId] = value;
             return memo;
         }, {});
 
         let newConfig = adjustableValues.map((value) => {
             let oldConfigValue;
             if (hasOwnProperty(oldConfigValueById, value.id)) {
-                oldConfigValue = oldConfigValueById [value.id];
+                oldConfigValue = oldConfigValueById[value.id];
             }
 
             const newConfigValue = {
@@ -407,32 +397,33 @@ class BaseConfigurationOptimizer extends ConfigurationOptimizer {
         const data = this.constructor.configurationData;
 
         const typeById = (data.types || []).reduce((memo, type) => {
-            memo [type.id] = type;
+            memo[type.id] = type;
             return memo;
         }, {});
 
         const valueById = data.values.reduce((memo, value) => {
-            memo [value.id] = value;
+            memo[value.id] = value;
             return memo;
         }, {});
 
-        const knownValueIds = new Set(), adjustableValueIds = {};
+        const knownValueIds = new Set(),
+            adjustableValueIds = {};
 
         const markValueIdAsAdjustable = (valueId) => {
             if (!knownValueIds.has(valueId)) {
                 knownValueIds.add(valueId);
 
-                const value = valueById [valueId];
+                const value = valueById[valueId];
                 if (value) {
                     let compoundValue;
                     if (value.compoundValueRef) {
-                        compoundValue = valueById [value.compoundValueRef];
+                        compoundValue = valueById[value.compoundValueRef];
                     }
 
                     if (compoundValue) {
                         markValueIdAsAdjustable(compoundValue.id);
                     } else {
-                        adjustableValueIds [valueId] = true;
+                        adjustableValueIds[valueId] = true;
                     }
                 }
             }
@@ -445,7 +436,7 @@ class BaseConfigurationOptimizer extends ConfigurationOptimizer {
         }
 
         const adjustableValues = data.values.reduce((memo, value) => {
-            if (adjustableValueIds [value.id]) {
+            if (adjustableValueIds[value.id]) {
                 const valueTextById = {};
                 const addValueText = (valueText, index) => {
                     if (valueText.id && !hasOwnProperty(valueTextById, valueText.id)) {
@@ -454,7 +445,7 @@ class BaseConfigurationOptimizer extends ConfigurationOptimizer {
                             valueTextValue = index;
                         }
 
-                        valueTextById [valueText.id] = valueTextValue;
+                        valueTextById[valueText.id] = valueTextValue;
                     }
                 };
 
@@ -462,9 +453,9 @@ class BaseConfigurationOptimizer extends ConfigurationOptimizer {
 
                 let { type } = value;
                 while (type) {
-                    if (type.valueTexts && (type.valueTexts.length > 0)) {
+                    if (type.valueTexts && type.valueTexts.length > 0) {
                         for (let i = 0; i < type.valueTexts.length; i++) {
-                            addValueText(type.valueTexts [i], i);
+                            addValueText(type.valueTexts[i], i);
                         }
                     }
 
@@ -472,7 +463,7 @@ class BaseConfigurationOptimizer extends ConfigurationOptimizer {
                         dependsOnValueIds.push(type.selectorValueRef);
                     }
 
-                    type = typeById [type.base];
+                    type = typeById[type.base];
                 }
 
                 const adjustableValue = {
@@ -491,12 +482,12 @@ class BaseConfigurationOptimizer extends ConfigurationOptimizer {
 
     _optimizeConfiguration(config, adjustableValues) {
         const configValueById = config.reduce((memo, configValue) => {
-            memo [configValue.valueId] = configValue;
+            memo[configValue.valueId] = configValue;
             return memo;
         }, {});
 
         adjustableValues = adjustableValues.map((value) => {
-            const configValue = configValueById [value.id];
+            const configValue = configValueById[value.id];
 
             let changed;
             if (configValue.value === undefined) {
@@ -504,14 +495,14 @@ class BaseConfigurationOptimizer extends ConfigurationOptimizer {
             } else if (configValue.previousValue === undefined) {
                 changed = true;
             } else {
-                changed = (configValue.previousValue !== configValue.value);
+                changed = configValue.previousValue !== configValue.value;
             }
 
             let ignored = false;
             for (const dependsOnValueId of value.dependsOnValueIds) {
-                const dependsOnConfigValue = configValueById [dependsOnValueId];
+                const dependsOnConfigValue = configValueById[dependsOnValueId];
 
-                if (dependsOnConfigValue && (dependsOnConfigValue.value === undefined)) {
+                if (dependsOnConfigValue && dependsOnConfigValue.value === undefined) {
                     ignored = true;
                 }
             }
@@ -537,18 +528,15 @@ class BaseConfigurationOptimizer extends ConfigurationOptimizer {
 
         return adjustableValues;
     }
-
 }
 
+Object.assign(
+    BaseConfigurationOptimizer,
+    /** @lends BaseConfigurationOptimizer */ {
+        deviceAddress: 0,
 
-Object.assign(BaseConfigurationOptimizer, /** @lends BaseConfigurationOptimizer */ {
-
-    deviceAddress: 0,
-
-    configurationData: null,
-
-});
-
-
+        configurationData: null,
+    },
+);
 
 module.exports = BaseConfigurationOptimizer;

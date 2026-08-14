@@ -3,6 +3,4 @@
 const vbus = require('../../src/index');
 // const vbus = require('../../dist/index');
 
-
-
 module.exports = vbus;

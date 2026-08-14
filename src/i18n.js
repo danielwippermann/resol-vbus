@@ -5,10 +5,7 @@ const numeral = require('numeral');
 require('numeral/locales/de');
 const { sprintf } = require('sprintf-js');
 
-
 const { hasOwnProperty } = require('./utils');
-
-
 
 const knownLanguages = {
     de: {
@@ -21,17 +18,12 @@ const knownLanguages = {
     },
 };
 
-
-
 const resources = {
     dev: { translation: require('./locales/dev.json') },
     de: { translation: require('./locales/de.json') },
 };
 
-
-
 class I18N {
-
     /**
      * Creates a new I18N instance for the given language code.
      *
@@ -44,7 +36,7 @@ class I18N {
         }
 
         this.language = language;
-        this.languageData = knownLanguages [language];
+        this.languageData = knownLanguages[language];
     }
 
     /**
@@ -111,16 +103,16 @@ class I18N {
     t(key, ...args) {
         const parts = key.split('.');
 
-        const languages = [ this.language, 'dev' ];
+        const languages = [this.language, 'dev'];
 
         let value;
         for (let i = 0; i < languages.length; i++) {
-            value = resources [languages [i]];
+            value = resources[languages[i]];
             value = value && value.translation;
 
             let j = 0;
-            while (value && (j < parts.length)) {
-                value = value [parts [j]];
+            while (value && j < parts.length) {
+                value = value[parts[j]];
                 j++;
             }
 
@@ -190,20 +182,17 @@ class I18N {
 
         return numeral.apply(null, arguments);
     }
-
 }
 
+Object.assign(
+    I18N.prototype,
+    /** @lends I18N.prototype */ {
+        language: null,
 
-Object.assign(I18N.prototype, /** @lends I18N.prototype */ {
+        languageData: null,
 
-    language: null,
-
-    languageData: null,
-
-    timezone: null,
-
-});
-
-
+        timezone: null,
+    },
+);
 
 module.exports = I18N;

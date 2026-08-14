@@ -11,16 +11,12 @@
  * @property {boolean} transceived Indicates that this value has been tranceived.
  */
 
-
 /**
  * @typedef Configuration
  * @type {ConfigurationValue[]}
  */
 
-
-
 class ConfigurationOptimizer {
-
     /**
      * Converts the configurations provided into an array of {@see ConfigurationValue} objects.
      * The provided configurations can be either an array of partially initialized ConfigurationValue
@@ -72,7 +68,7 @@ class ConfigurationOptimizer {
      */
     static async getOptimizerOptions() {
         if (this.deviceAddress !== null) {
-            return [ null ];
+            return [null];
         } else {
             throw new Error('Must be implemented by sub-class');
         }
@@ -90,7 +86,7 @@ class ConfigurationOptimizer {
      */
     static async matchOptimizer(options) {
         if (this.deviceAddress !== null) {
-            const match = (options.deviceAddress === this.deviceAddress) ? 1 : 0;
+            const match = options.deviceAddress === this.deviceAddress ? 1 : 0;
 
             return {
                 match,
@@ -101,16 +97,13 @@ class ConfigurationOptimizer {
             throw new Error('Must be implemented by sub-class');
         }
     }
-
 }
 
-
-Object.assign(ConfigurationOptimizer, /** @lends ConfigurationOptimizer */ {
-
-    deviceAddress: null,
-
-});
-
-
+Object.assign(
+    ConfigurationOptimizer,
+    /** @lends ConfigurationOptimizer */ {
+        deviceAddress: null,
+    },
+);
 
 module.exports = ConfigurationOptimizer;

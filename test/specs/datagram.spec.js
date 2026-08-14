@@ -1,10 +1,6 @@
 /*! resol-vbus | Copyright (c) 2013-present, Daniel Wippermann | MIT license */
 
-const {
-    Datagram,
-    Header,
-} = require('./resol-vbus');
-
+const { Datagram, Header } = require('./resol-vbus');
 
 const {
     expect,
@@ -14,33 +10,34 @@ const {
     itShouldBeAClass,
 } = require('./test-utils');
 
-
-
 describe('Datagram', () => {
-
-    itShouldBeAClass(Datagram, Header, {
-        command: 0,
-        valueId: 0,
-        value: 0,
-        constructor: Function,
-        toLiveBuffer: Function,
-        getProtocolVersion: Function,
-        getInfo: Function,
-        getId: Function,
-        compareTo: Function,
-    }, {
-        fromLiveBuffer: Function,
-    });
+    itShouldBeAClass(
+        Datagram,
+        Header,
+        {
+            command: 0,
+            valueId: 0,
+            value: 0,
+            constructor: Function,
+            toLiveBuffer: Function,
+            getProtocolVersion: Function,
+            getInfo: Function,
+            getId: Function,
+            compareTo: Function,
+        },
+        {
+            fromLiveBuffer: Function,
+        },
+    );
 
     describe('.fromLiveBuffer', () => {
-
         it('should work correctly', () => {
             const options = {
                 destinationAddress: 0x2336,
                 sourceAddress: 0x3335,
                 command: 0x4334,
                 valueId: 0x5333,
-                value: 0x63328330
+                value: 0x63328330,
             };
 
             const buffer = Buffer.from('aa362335332034433353300332630851', 'hex');
@@ -58,11 +55,9 @@ describe('Datagram', () => {
             expect(datagram.valueId).toBe(options.valueId);
             expect(datagram.value).toBe(options.value);
         });
-
     });
 
     describe('constructor', () => {
-
         it('should have reasonable defaults', () => {
             const before = new Date();
             const datagram = new Datagram();
@@ -99,7 +94,7 @@ describe('Datagram', () => {
                 command: 0x4334,
                 valueId: 0x5333,
                 value: 0x63328330,
-                junk: 0x7331
+                junk: 0x7331,
             };
 
             const datagram = new Datagram(options);
@@ -114,18 +109,16 @@ describe('Datagram', () => {
             expect(datagram.value).toBe(options.value);
             expect(datagram.junk).toBe(undefined);
         });
-
     });
 
     describe('#toLiveBuffer', () => {
-
         it('should work correctly', () => {
             const options = {
                 destinationAddress: 0x2336,
                 sourceAddress: 0x3335,
                 command: 0x4334,
                 valueId: 0x5333,
-                value: 0x63328330
+                value: 0x63328330,
             };
 
             const datagram = new Datagram(options);
@@ -135,11 +128,9 @@ describe('Datagram', () => {
             expectTypeToBe(buffer, 'buffer');
             expect(buffer.toString('hex')).toBe('aa362335332034433353300332630851');
         });
-
     });
 
     describe('#getProtocolVersion', () => {
-
         it('should work correctly', () => {
             const options = {
                 destinationAddress: 0x2336,
@@ -147,25 +138,23 @@ describe('Datagram', () => {
                 minorVersion: 0x05,
                 command: 0x4334,
                 valueId: 0x5333,
-                value: 0x63328330
+                value: 0x63328330,
             };
 
             const datagram = new Datagram(options);
 
             expect(datagram.getProtocolVersion()).toBe(0x25);
         });
-
     });
 
     describe('#getInfo', () => {
-
         it('should work correctly for non-notifications', () => {
             const options = {
                 destinationAddress: 0x2336,
                 sourceAddress: 0x3335,
                 command: 0x4334,
                 valueId: 0x5333,
-                value: 0x63328330
+                value: 0x63328330,
             };
 
             const datagram = new Datagram(options);
@@ -179,18 +168,16 @@ describe('Datagram', () => {
                 sourceAddress: 0x3335,
                 command: 0x0900,
                 valueId: 0x5333,
-                value: 0x63328330
+                value: 0x63328330,
             };
 
             const datagram = new Datagram(options);
 
             expect(datagram.getInfo()).toBe(0x5333);
         });
-
     });
 
     describe('#getId', () => {
-
         it('should work correctly for non-notifications', () => {
             const options = {
                 timestamp: new Date(0),
@@ -222,11 +209,9 @@ describe('Datagram', () => {
 
             expect(datagram.getId()).toBe('13_2336_3335_20_0900_5333');
         });
-
     });
 
     describe('#compareTo', () => {
-
         it('should work correctly for channel', () => {
             const options = {
                 timestamp: new Date(0),
@@ -246,7 +231,7 @@ describe('Datagram', () => {
 
             expect(datagram.compareTo(new Datagram(options))).toBeGreaterThan(0);
 
-            options.channel = 0x7F;
+            options.channel = 0x7f;
 
             expect(datagram.compareTo(new Datagram(options))).toBeLessThan(0);
         });
@@ -270,7 +255,7 @@ describe('Datagram', () => {
 
             expect(datagram.compareTo(new Datagram(options))).toBeGreaterThan(0);
 
-            options.destinationAddress = 0x7F7F;
+            options.destinationAddress = 0x7f7f;
 
             expect(datagram.compareTo(new Datagram(options))).toBeLessThan(0);
         });
@@ -294,7 +279,7 @@ describe('Datagram', () => {
 
             expect(datagram.compareTo(new Datagram(options))).toBeGreaterThan(0);
 
-            options.sourceAddress = 0x7F7F;
+            options.sourceAddress = 0x7f7f;
 
             expect(datagram.compareTo(new Datagram(options))).toBeLessThan(0);
         });
@@ -318,7 +303,7 @@ describe('Datagram', () => {
 
             expect(datagram.compareTo(new Datagram(options))).toBeGreaterThan(0);
 
-            options.command = 0x7F7F;
+            options.command = 0x7f7f;
 
             expect(datagram.compareTo(new Datagram(options))).toBeLessThan(0);
         });
@@ -342,11 +327,9 @@ describe('Datagram', () => {
 
             expect(datagram.compareTo(new Datagram(options))).toBeGreaterThan(0);
 
-            options.valueId = 0x7F7F;
+            options.valueId = 0x7f7f;
 
             expect(datagram.compareTo(new Datagram(options))).toBeLessThan(0);
         });
-
     });
-
 });

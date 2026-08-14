@@ -2,13 +2,9 @@
 
 const { EventEmitter } = require('events');
 
-
 const { applyDefaultOptions } = require('./utils');
 
-
-
 class Customizer extends EventEmitter {
-
     /**
      * Creates a new Customizer instance and optionally initializes its members
      * with the given values.
@@ -26,27 +22,29 @@ class Customizer extends EventEmitter {
     constructor(options) {
         super();
 
-        applyDefaultOptions(this, options, /** @lends Customizer.prototype */ {
+        applyDefaultOptions(
+            this,
+            options,
+            /** @lends Customizer.prototype */ {
+                /**
+                 * An identifier for this customizer.
+                 * @type {string}
+                 */
+                id: null,
 
-            /**
-            * An identifier for this customizer.
-            * @type {string}
-            */
-            id: null,
+                /**
+                 * The VBus address of the device to customize.
+                 * @type {number}
+                 */
+                deviceAddress: 0,
 
-            /**
-            * The VBus address of the device to customize.
-            * @type {number}
-            */
-            deviceAddress: 0,
-
-            /**
-            * A configuration optimizer.
-            * @type {ConfigurationOptimizer}
-            */
-            optimizer: null,
-
-        });
+                /**
+                 * A configuration optimizer.
+                 * @type {ConfigurationOptimizer}
+                 */
+                optimizer: null,
+            },
+        );
     }
 
     /**
@@ -156,32 +154,29 @@ class Customizer extends EventEmitter {
     _optimizeSaveConfiguration(newConfig, oldConfig) {
         return this.optimizer.optimizeSaveConfiguration(newConfig, oldConfig);
     }
-
 }
 
+Object.assign(
+    Customizer.prototype,
+    /** @lends Customizer.prototype */ {
+        /**
+         * An identifier for this customizer.
+         * @type {string}
+         */
+        id: null,
 
-Object.assign(Customizer.prototype, /** @lends Customizer.prototype */ {
+        /**
+         * The VBus address of the device to customize.
+         * @type {number}
+         */
+        deviceAddress: 0,
 
-    /**
-     * An identifier for this customizer.
-     * @type {string}
-     */
-    id: null,
-
-    /**
-     * The VBus address of the device to customize.
-     * @type {number}
-     */
-    deviceAddress: 0,
-
-    /**
-     * A configuration optimizer.
-     * @type {ConfigurationOptimizer}
-     */
-    optimizer: null,
-
-});
-
-
+        /**
+         * A configuration optimizer.
+         * @type {ConfigurationOptimizer}
+         */
+        optimizer: null,
+    },
+);
 
 module.exports = Customizer;

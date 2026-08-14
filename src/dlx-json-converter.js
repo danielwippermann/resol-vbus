@@ -6,10 +6,7 @@ const { applyDefaultOptions } = require('./utils');
 
 const Converter = require('./converter');
 
-
-
 class DLxJsonConverter extends Converter {
-
     /**
      * Creates a new DLxJsonConverter instance and optionally initializes its members with the given values.
      *
@@ -30,23 +27,25 @@ class DLxJsonConverter extends Converter {
     constructor(options) {
         super(options);
 
-        applyDefaultOptions(this, options, /** @lends DLxJsonConverter.prototype */ {
+        applyDefaultOptions(
+            this,
+            options,
+            /** @lends DLxJsonConverter.prototype */ {
+                /**
+                 * Reference to the Specification instance that is used for the binary -> text conversion.
+                 * @type {Specification}
+                 */
+                specification: null,
 
-            /**
-            * Reference to the Specification instance that is used for the binary -> text conversion.
-            * @type {Specification}
-            */
-            specification: null,
+                statsOnly: false,
 
-            statsOnly: false,
-
-            extendFieldData: false,
-
-        });
+                extendFieldData: false,
+            },
+        );
 
         if (!this.specification) {
             this.specification = new Specification({
-                language: (options && options.language) || 'en'
+                language: (options && options.language) || 'en',
             });
         }
 
@@ -92,10 +91,10 @@ class DLxJsonConverter extends Converter {
 
         this.stats.headerSetCount++;
 
-        if ((this.stats.minTimestamp === null) || (this.stats.minTimestamp > timestamp)) {
+        if (this.stats.minTimestamp === null || this.stats.minTimestamp > timestamp) {
             this.stats.minTimestamp = timestamp;
         }
-        if ((this.stats.maxTimestamp === null) || (this.stats.maxTimestamp < timestamp)) {
+        if (this.stats.maxTimestamp === null || this.stats.maxTimestamp < timestamp) {
             this.stats.maxTimestamp = timestamp;
         }
     }
@@ -124,7 +123,7 @@ class DLxJsonConverter extends Converter {
         for (const packetField of packetFields) {
             const headerIndex = allHeaders.indexOf(packetField.packet);
             if (headerIndex >= 0) {
-                const packetInfo = packetInfoList [headerIndex];
+                const packetInfo = packetInfoList[headerIndex];
                 packetInfo.packetFields.push(packetField);
             }
         }
@@ -134,7 +133,7 @@ class DLxJsonConverter extends Converter {
                 const fieldData = packetInfo.packetFields.map((packetField, packetFieldIndex) => {
                     let { rawValue } = packetField;
                     const { precision } = packetField.packetFieldSpec.type;
-                    rawValue = (rawValue != null) ? parseFloat(rawValue.toFixed(precision)) : 0;
+                    rawValue = rawValue != null ? parseFloat(rawValue.toFixed(precision)) : 0;
 
                     return {
                         field_index: packetFieldIndex,
@@ -162,10 +161,7 @@ class DLxJsonConverter extends Converter {
 
         this._emitStart();
 
-        const content = [
-            (this.stats.headerSetCount > 0) ? ',' : '',
-            JSON.stringify(headerSetData),
-        ].join('');
+        const content = [this.stats.headerSetCount > 0 ? ',' : '', JSON.stringify(headerSetData)].join('');
 
         this.push(content);
     }
@@ -197,7 +193,7 @@ class DLxJsonConverter extends Converter {
         for (const packetField of allPacketFields) {
             const headerIndex = allHeaders.indexOf(packetField.packet);
             if (headerIndex >= 0) {
-                const packetInfo = packetInfoList [headerIndex];
+                const packetInfo = packetInfoList[headerIndex];
                 packetInfo.packetFields.push(packetField);
             }
         }
@@ -224,7 +220,13 @@ class DLxJsonConverter extends Converter {
                         }
                         fieldData.extendedData = extendedData;
                     } else if (typeof extendFieldData === 'function') {
-                        const extendedData = extendFieldData(fieldData, packetField, packetInfo, packetFieldIndex, packetInfoIndex);
+                        const extendedData = extendFieldData(
+                            fieldData,
+                            packetField,
+                            packetInfo,
+                            packetFieldIndex,
+                            packetInfoIndex,
+                        );
                         if (extendedData != null) {
                             fieldData.extendedData = extendedData;
                         }
@@ -238,12 +240,12 @@ class DLxJsonConverter extends Converter {
                 const { packetSpec } = packetInfo;
                 let id = packetSpec.packetId;
                 if ((md = /^(.._...._....)_10(_....)$/.exec(id)) !== null) {
-                    id = md [1] + md [2];
+                    id = md[1] + md[2];
                 }
 
                 let description = packetSpec.fullName;
                 if ((md = /^(VBus )#([0-9]+:.*)$/.exec(description)) !== null) {
-                    description = md[1] + md [2];
+                    description = md[1] + md[2];
                 } else {
                     description = 'VBus 0: ' + description;
                 }
@@ -268,7 +270,7 @@ class DLxJsonConverter extends Converter {
 
         const statsData = {
             headerset_count: this.stats.headerSetCount,
-            min_timestamp : this.stats.minTimestamp / 1000.0,
+            min_timestamp: this.stats.minTimestamp / 1000.0,
             max_timestamp: this.stats.maxTimestamp / 1000.0,
         };
 
@@ -281,7 +283,7 @@ class DLxJsonConverter extends Converter {
             JSON.stringify(headersData),
             ',"language":"',
             spec.i18n.language,
-            '"}'
+            '"}',
         ].join('');
 
         this.push(content);
@@ -292,28 +294,25 @@ class DLxJsonConverter extends Converter {
     _read() {
         // nop
     }
-
 }
 
+Object.assign(
+    DLxJsonConverter.prototype,
+    /** @lends DLxJsonConverter.prototype */ {
+        /**
+         * Reference to the Specification instance that is used for the binary -> text conversion.
+         * @type {Specification}
+         */
+        specification: null,
 
-Object.assign(DLxJsonConverter.prototype, /** @lends DLxJsonConverter.prototype */ {
+        statsOnly: false,
 
-    /**
-     * Reference to the Specification instance that is used for the binary -> text conversion.
-     * @type {Specification}
-     */
-    specification: null,
+        allHeaderSet: null,
 
-    statsOnly: false,
+        emittedStart: false,
 
-    allHeaderSet: null,
-
-    emittedStart: false,
-
-    stats: null,
-
-});
-
-
+        stats: null,
+    },
+);
 
 module.exports = DLxJsonConverter;

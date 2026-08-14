@@ -1,22 +1,11 @@
 /*! resol-vbus | Copyright (c) 2013-present, Daniel Wippermann | MIT license */
 
-const {
-    Specification,
-    SpecificationFile,
-} = require('./resol-vbus');
+const { Specification, SpecificationFile } = require('./resol-vbus');
 
-
-const {
-    expect,
-    expectOwnPropertyNamesToEqual,
-    expectTypeToBe,
-} = require('./test-utils');
-
-
+const { expect, expectOwnPropertyNamesToEqual, expectTypeToBe } = require('./test-utils');
 
 function testSpecificationData(source, specificationData) {
     describe('SpecificationData (' + source + ')', () => {
-
         it('should be an object', () => {
             expectOwnPropertyNamesToEqual(specificationData, [
                 'units',
@@ -100,12 +89,7 @@ function testSpecificationData(source, specificationData) {
 
             const unit = units.DegreesCelsius;
 
-            expectOwnPropertyNamesToEqual(unit, [
-                'unitId',
-                'unitCode',
-                'unitFamily',
-                'unitText',
-            ]);
+            expectOwnPropertyNamesToEqual(unit, ['unitId', 'unitCode', 'unitFamily', 'unitText']);
             expect(unit.unitId).toBe('DegreesCelsius');
             expect(unit.unitCode).toBe('DegreesCelsius');
             expect(unit.unitFamily).toBe('Temperature');
@@ -192,12 +176,7 @@ function testSpecificationData(source, specificationData) {
             ]);
 
             const type = specificationData.types.Number_0_1_DegreesCelsius;
-            expectOwnPropertyNamesToEqual(type, [
-                'precision',
-                'rootTypeId',
-                'typeId',
-                'unit',
-            ]);
+            expectOwnPropertyNamesToEqual(type, ['precision', 'rootTypeId', 'typeId', 'unit']);
             expect(type.typeId).toBe('Number_0_1_DegreesCelsius');
             expect(type.rootTypeId).toBe('Number');
             expect(type.precision).toBe(1);
@@ -7596,16 +7575,14 @@ function testSpecificationData(source, specificationData) {
             ]);
 
             const deviceSpec = specificationData.deviceSpecs._7E11;
-            expectOwnPropertyNamesToEqual(deviceSpec, [
-                'name',
-            ]);
+            expectOwnPropertyNamesToEqual(deviceSpec, ['name']);
             expect(deviceSpec.name).toBe('DeltaSol MX [Regler]');
         });
 
         it('should have getDeviceSpecification', () => {
             const { getDeviceSpecification } = specificationData;
 
-            expect(getDeviceSpecification(0x7E11, 0x0010)).toBe(specificationData.deviceSpecs._7E11);
+            expect(getDeviceSpecification(0x7e11, 0x0010)).toBe(specificationData.deviceSpecs._7E11);
         });
 
         it('should have packetFieldSpecs', () => {
@@ -7975,7 +7952,7 @@ function testSpecificationData(source, specificationData) {
             const packetFieldSpecs = specificationData.packetFieldSpecs._0010_7E11_0100;
             expect(packetFieldSpecs).toHaveLength(62);
 
-            const pfs = packetFieldSpecs [0];
+            const pfs = packetFieldSpecs[0];
             expectOwnPropertyNamesToEqual(pfs, [
                 'factor',
                 'fieldId',
@@ -7993,19 +7970,22 @@ function testSpecificationData(source, specificationData) {
             expect(pfs.factor).toBe(0.1);
             expect(pfs.getRawValue).toBe(specificationData.getRawValueFunctions._0010_7E11_0100_000_2_0);
             expect(pfs.setRawValue).toBe(specificationData.setRawValueFunctions._0010_7E11_0100_000_2_0);
-            expect(pfs.parts).toEqual([{
-                offset: 0,
-                mask: 255,
-                bitPos: 0,
-                isSigned: false,
-                factor: 1,
-            }, {
-                offset: 1,
-                mask: 255,
-                bitPos: 0,
-                isSigned: true,
-                factor: 256,
-            }]);
+            expect(pfs.parts).toEqual([
+                {
+                    offset: 0,
+                    mask: 255,
+                    bitPos: 0,
+                    isSigned: false,
+                    factor: 1,
+                },
+                {
+                    offset: 1,
+                    mask: 255,
+                    bitPos: 0,
+                    isSigned: true,
+                    factor: 256,
+                },
+            ]);
         });
 
         it('should have packetSpecs', () => {
@@ -8374,10 +8354,7 @@ function testSpecificationData(source, specificationData) {
 
             const ps = specificationData.packetSpecs._0010_7E11_0100;
 
-            expectOwnPropertyNamesToEqual(ps, [
-                'packetId',
-                'packetFields',
-            ]);
+            expectOwnPropertyNamesToEqual(ps, ['packetId', 'packetFields']);
             expect(ps.packetId).toBe('0010_7E11_0100');
             expect(ps.packetFields).toBe(specificationData.packetFieldSpecs._0010_7E11_0100);
         });
@@ -8385,34 +8362,30 @@ function testSpecificationData(source, specificationData) {
         it('should have getPacketSpecification', () => {
             const { getPacketSpecification } = specificationData;
 
-            expect(getPacketSpecification(0x0010, 0x7E11, 0x0100)).toBe(specificationData.packetSpecs._0010_7E11_0100);
+            expect(getPacketSpecification(0x0010, 0x7e11, 0x0100)).toBe(specificationData.packetSpecs._0010_7E11_0100);
         });
 
         it('should correctly store multi-byte masks', () => {
-            const packetField = specificationData.packetFieldSpecs._0010_7761_0100.find(pfs => {
-                return (pfs.fieldId === '036_1_8388608');
+            const packetField = specificationData.packetFieldSpecs._0010_7761_0100.find((pfs) => {
+                return pfs.fieldId === '036_1_8388608';
             });
 
             expect(packetField.parts).toHaveLength(1);
 
-            const part = packetField.parts [0];
+            const part = packetField.parts[0];
             expect(part.offset).toBe(38);
             expect(part.mask).toBe(128);
             expect(part.bitPos).toBe(7);
             expect(part.isSigned).toBe(true);
             expect(part.factor).toBe(1);
         });
-
     });
 }
-
 
 // testSpecificationData('auto-generated source', createSpecificationData());
 testSpecificationData('loaded from VSF', SpecificationFile.getDefaultSpecificationFile().getSpecificationData());
 
-
 describe('SpecificationData', () => {
-
     it('is auto-generated, just increase test coverage :)', () => {
         const spec = new Specification();
 
@@ -8421,7 +8394,7 @@ describe('SpecificationData', () => {
         const buffer = Buffer.alloc(127 * 4);
 
         for (const key of Object.getOwnPropertyNames(specificationData.getRawValueFunctions)) {
-            const getRawValue = specificationData.getRawValueFunctions [key];
+            const getRawValue = specificationData.getRawValueFunctions[key];
             getRawValue(buffer, 0, buffer.length);
         }
     });
@@ -8436,10 +8409,10 @@ describe('SpecificationData', () => {
 
         spec.setRawValue(pfs, 3, buffer);
 
-        expect(buffer [36]).toBe(0);
-        expect(buffer [37]).toBe(0);
-        expect(buffer [38]).toBe(128);
-        expect(buffer [39]).toBe(0);
+        expect(buffer[36]).toBe(0);
+        expect(buffer[37]).toBe(0);
+        expect(buffer[38]).toBe(128);
+        expect(buffer[39]).toBe(0);
 
         let rv = spec.getRawValue(pfs, buffer);
 
@@ -8447,14 +8420,13 @@ describe('SpecificationData', () => {
 
         spec.setRawValue(pfs, 4, buffer);
 
-        expect(buffer [36]).toBe(0);
-        expect(buffer [37]).toBe(0);
-        expect(buffer [38]).toBe(0);
-        expect(buffer [39]).toBe(0);
+        expect(buffer[36]).toBe(0);
+        expect(buffer[37]).toBe(0);
+        expect(buffer[38]).toBe(0);
+        expect(buffer[39]).toBe(0);
 
         rv = spec.getRawValue(pfs, buffer);
 
         expect(rv).toBe(0);
     });
-
 });

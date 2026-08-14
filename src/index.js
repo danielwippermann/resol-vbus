@@ -7,7 +7,6 @@
  */
 const packageInfo = require('../package.json');
 
-
 const utils = require('./utils');
 
 const I18N = require('./i18n');
@@ -51,10 +50,7 @@ const TcpConnectionEndpoint = require('./tcp-connection-endpoint');
 
 const FileListReader = require('./file-list-reader');
 
-
-
 module.exports = {
-
     VERSION: packageInfo.version,
 
     utils,
@@ -99,5 +95,4 @@ module.exports = {
     TcpConnectionEndpoint,
 
     FileListReader,
-
 };

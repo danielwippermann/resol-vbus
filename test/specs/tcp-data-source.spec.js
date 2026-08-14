@@ -1,35 +1,25 @@
 /*! resol-vbus | Copyright (c) 2013-present, Daniel Wippermann | MIT license */
 
-const {
-    DataSource,
-    TcpConnection,
-    TcpDataSource,
-} = require('./resol-vbus');
+const { DataSource, TcpConnection, TcpDataSource } = require('./resol-vbus');
 
-
-const {
-    expect,
-    expectOwnPropertyNamesToEqual,
-    itShouldBeAClass,
-} = require('./test-utils');
-
-
+const { expect, expectOwnPropertyNamesToEqual, itShouldBeAClass } = require('./test-utils');
 
 describe('TcpDataSource', () => {
-
-    itShouldBeAClass(TcpDataSource, DataSource, {
-        host: null,
-        port: 7053,
-        liveChannel: 0,
-        livePassword: 'vbus',
-        constructor: Function,
-        connectLive: Function,
-    }, {
-
-    });
+    itShouldBeAClass(
+        TcpDataSource,
+        DataSource,
+        {
+            host: null,
+            port: 7053,
+            liveChannel: 0,
+            livePassword: 'vbus',
+            constructor: Function,
+            connectLive: Function,
+        },
+        {},
+    );
 
     describe('constructor', () => {
-
         it('should have reasonable defaults', () => {
             const ds = new TcpDataSource();
 
@@ -55,15 +45,13 @@ describe('TcpDataSource', () => {
             expect(ds.livePassword).toBe('vbus');
             expect(ds.options).toBe(undefined);
         });
-
     });
 
     describe('#connectLive', () => {
-
         it('should work correctly', async () => {
             const originalConnect = TcpConnection.prototype.connect;
 
-            TcpConnection.prototype.connect = jest.fn(async () => {
+            TcpConnection.prototype.connect = vi.fn(async () => {
                 // nop
             });
 
@@ -77,7 +65,5 @@ describe('TcpDataSource', () => {
                 TcpConnection.prototype.connect = originalConnect;
             }
         });
-
     });
-
 });

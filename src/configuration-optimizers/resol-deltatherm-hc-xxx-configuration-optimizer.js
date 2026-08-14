@@ -1,14 +1,10 @@
 /*! resol-vbus | Copyright (c) 2013-present, Daniel Wippermann | MIT license */
 
-
 const configurationData = require('./resol-deltatherm-hc-xxx-data');
 
 const BaseConfigurationOptimizer = require('../base-configuration-optimizer');
 
-
-
 class ResolDeltaThermHcXxxConfigurationOptimizer extends BaseConfigurationOptimizer {
-
     optimizeConfiguration($) {
         this.optimizeModuleConfiguration($);
         // TODO?
@@ -20,13 +16,13 @@ class ResolDeltaThermHcXxxConfigurationOptimizer extends BaseConfigurationOptimi
 
     optimizeModuleConfiguration($) {
         $(/^Modul([0-9]+)_Aktiviert$/).isFalse((value) => {
-            $('^(Sensor|Relais)[^_]*_Modul' + value.md [1] + '_.*$').ignore();
+            $('^(Sensor|Relais)[^_]*_Modul' + value.md[1] + '_.*$').ignore();
         });
     }
 
     optimizeAnlageWfConfiguration($) {
         $(/^(Anlage_Wf[0-9]+)_Type$/).forEach((value) => {
-            const prefix = '^' + value.md [1] + '_';
+            const prefix = '^' + value.md[1] + '_';
 
             value.eql('#Frei', () => {
                 $(prefix + '(?!Type).*').ignore();
@@ -36,10 +32,10 @@ class ResolDeltaThermHcXxxConfigurationOptimizer extends BaseConfigurationOptimi
                 $(prefix + 'Schaltuhr_.*').ignore();
             });
 
-            const wfTypes = Object.getOwnPropertyNames(value.values [0].valueTextById);
+            const wfTypes = Object.getOwnPropertyNames(value.values[0].valueTextById);
 
             for (const wfType of wfTypes) {
-                if ((wfType !== 'Frei') && (wfType !== 'Fehlerrelais')) {
+                if (wfType !== 'Frei' && wfType !== 'Fehlerrelais') {
                     value.notEql('#' + wfType, () => {
                         $(prefix + wfType + '_.*').ignore();
                     });
@@ -50,7 +46,7 @@ class ResolDeltaThermHcXxxConfigurationOptimizer extends BaseConfigurationOptimi
 
     optimizeHeizungWfConfiguration($) {
         $(/^(Heizung_Wf[0-9]+)_Type$/).forEach((value) => {
-            const prefix = '^' + value.md [1] + '_';
+            const prefix = '^' + value.md[1] + '_';
 
             value.eql('#Frei', () => {
                 $(prefix + '(?!Type).*').ignore();
@@ -60,7 +56,7 @@ class ResolDeltaThermHcXxxConfigurationOptimizer extends BaseConfigurationOptimi
                 $(prefix + 'Schaltuhr_.*').ignore();
             });
 
-            const wfTypes = Object.getOwnPropertyNames(value.values [0].valueTextById);
+            const wfTypes = Object.getOwnPropertyNames(value.values[0].valueTextById);
 
             for (const wfType of wfTypes) {
                 if (wfType !== 'Frei') {
@@ -74,7 +70,7 @@ class ResolDeltaThermHcXxxConfigurationOptimizer extends BaseConfigurationOptimi
 
     optimizeHeizungHeizkreisConfiguration($) {
         $(/^(Heizung_Heizkreis[0-9]+)_Type$/).forEach((value) => {
-            const prefix = '^' + value.md [1] + '_';
+            const prefix = '^' + value.md[1] + '_';
 
             value.eql('#Frei', () => {
                 $(prefix + '(?!Type).*').ignore();
@@ -85,7 +81,7 @@ class ResolDeltaThermHcXxxConfigurationOptimizer extends BaseConfigurationOptimi
             });
 
             $(prefix + '(Raumthermostat[0-9]+)_Option$').forEach((value) => {
-                const rthPrefix = prefix + value.md [1] + '_';
+                const rthPrefix = prefix + value.md[1] + '_';
 
                 value.eql(0, () => {
                     $(rthPrefix + '(?!Option).*').ignore();
@@ -100,25 +96,22 @@ class ResolDeltaThermHcXxxConfigurationOptimizer extends BaseConfigurationOptimi
 
     optimizeWmzConfiguration($) {
         $(/^(Wmz[0-9]+)_Type$/).forEach((value) => {
-            const prefix = '^' + value.md [1] + '_';
+            const prefix = '^' + value.md[1] + '_';
 
             value.eql(0, () => {
                 $(prefix + '(?!Type).*').ignore();
             });
         });
     }
-
 }
 
+Object.assign(
+    ResolDeltaThermHcXxxConfigurationOptimizer,
+    /** @lends ResolDeltaThermHcXxxConfigurationOptimizer */ {
+        deviceAddress: 0x5400,
 
-Object.assign(ResolDeltaThermHcXxxConfigurationOptimizer, /** @lends ResolDeltaThermHcXxxConfigurationOptimizer */ {
-
-    deviceAddress: 0x5400,
-
-    configurationData,
-
-});
-
-
+        configurationData,
+    },
+);
 
 module.exports = ResolDeltaThermHcXxxConfigurationOptimizer;

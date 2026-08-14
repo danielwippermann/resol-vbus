@@ -1,9 +1,6 @@
 /*! resol-vbus | Copyright (c) 2013-present, Daniel Wippermann | MIT license */
 
-const {
-    ConfigurationOptimizerFactory,
-} = require('../resol-vbus');
-
+const { ConfigurationOptimizerFactory } = require('../resol-vbus');
 
 const {
     expect,
@@ -13,26 +10,18 @@ const {
     markPendingValuesInConfigAsTransceived,
 } = require('./test-utils');
 
-
-
 const optimizerPromise = ConfigurationOptimizerFactory.createOptimizerByDeviceAddress(0x1001);
 
-
-
 describe('ResolDeltaSolSlt102ConfigurationOptimizer', () => {
-
     describe('using ConfigurationOptimizerFactory', () => {
-
         it('should work correctly', async () => {
             const optimizer = await expectPromise(optimizerPromise);
 
             expectTypeToBe(optimizer, 'object');
         });
-
     });
 
     describe('#completeConfiguration', () => {
-
         it('should work correctly', async () => {
             const optimizer = await optimizerPromise;
 
@@ -41,11 +30,9 @@ describe('ResolDeltaSolSlt102ConfigurationOptimizer', () => {
             expectTypeToBe(config, 'array');
             expect(config).toHaveLength(2651);
         });
-
     });
 
     describe('#optimizeLoadConfiguration', () => {
-
         it('should work correctly after', async () => {
             const optimizer = await optimizerPromise;
 
@@ -61,7 +48,5 @@ describe('ResolDeltaSolSlt102ConfigurationOptimizer', () => {
 
             expectPendingValuesCountInConfigToBe(config3, 15);
         });
-
     });
-
 });

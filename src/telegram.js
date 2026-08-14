@@ -2,17 +2,10 @@
 
 const { sprintf } = require('sprintf-js');
 
-
 const Header = require('./header');
-const {
-    applyDefaultOptions,
-    hasOwnProperty,
-} = require('./utils');
-
-
+const { applyDefaultOptions, hasOwnProperty } = require('./utils');
 
 class Telegram extends Header {
-
     /**
      * Creates a new Telegram instance.
      *
@@ -23,17 +16,23 @@ class Telegram extends Header {
     constructor(options) {
         super(options);
 
-        applyDefaultOptions(this, options, /** @lends Telegram.prototype */ {
+        applyDefaultOptions(
+            this,
+            options,
+            /** @lends Telegram.prototype */ {
+                /**
+                 * The VBus command of this Telegram instance.
+                 * @type {number}
+                 */
+                command: 0,
+            },
+        );
 
-            /**
-            * The VBus command of this Telegram instance.
-            * @type {number}
-            */
-            command: 0,
-
-        });
-
-        if (hasOwnProperty(options, 'frameData') && hasOwnProperty(options, 'dontCopyFrameData') && options.dontCopyFrameData) {
+        if (
+            hasOwnProperty(options, 'frameData') &&
+            hasOwnProperty(options, 'dontCopyFrameData') &&
+            options.dontCopyFrameData
+        ) {
             this.frameData = options.frameData;
         } else {
             this.frameData = Buffer.alloc(3 * 7);
@@ -59,11 +58,11 @@ class Telegram extends Header {
             throw new Error('Buffer too small');
         }
 
-        buffer [0] = 0xAA;
-        buffer.writeUInt16LE(this.destinationAddress & 0x7F7F, 1);
-        buffer.writeUInt16LE(this.sourceAddress & 0x7F7F, 3);
-        buffer [5] = this.getProtocolVersion();
-        buffer [6] = this.command & 0x7F;
+        buffer[0] = 0xaa;
+        buffer.writeUInt16LE(this.destinationAddress & 0x7f7f, 1);
+        buffer.writeUInt16LE(this.sourceAddress & 0x7f7f, 3);
+        buffer[5] = this.getProtocolVersion();
+        buffer[6] = this.command & 0x7f;
         Telegram.calcAndSetChecksum(this.minorVersion, buffer, 1, 7);
 
         for (let i = 0; i < frameCount; i++) {
@@ -98,7 +97,7 @@ class Telegram extends Header {
     }
 
     static fromLiveBuffer(buffer, start, end) {
-        const frameCount = this.getFrameCountForCommand(buffer [start + 6]);
+        const frameCount = Telegram.getFrameCountForCommand(buffer[start + 6]);
 
         const frameData = Buffer.alloc(3 * 7);
         frameData.fill(0);
@@ -112,30 +111,28 @@ class Telegram extends Header {
         return new Telegram({
             destinationAddress: buffer.readUInt16LE(start + 1),
             sourceAddress: buffer.readUInt16LE(start + 3),
-            command: buffer [start + 6],
+            command: buffer[start + 6],
             frameData,
-            dontCopyFrameData: true
+            dontCopyFrameData: true,
         });
     }
 
     static getFrameCountForCommand(command) {
-        return ((command >> 5) & 0x03);
+        return (command >> 5) & 0x03;
     }
-
 }
 
+Object.assign(
+    Telegram.prototype,
+    /** @lends Telegram.prototype */ {
+        /**
+         * The VBus command of this Telegram instance.
+         * @type {number}
+         */
+        command: 0,
 
-Object.assign(Telegram.prototype, /** @lends Telegram.prototype */ {
-    /**
-     * The VBus command of this Telegram instance.
-     * @type {number}
-     */
-    command: 0,
-
-    frameData: null,
-
-});
-
-
+        frameData: null,
+    },
+);
 
 module.exports = Telegram;

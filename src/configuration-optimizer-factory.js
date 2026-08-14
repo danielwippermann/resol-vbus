@@ -1,7 +1,6 @@
 /*! resol-vbus | Copyright (c) 2013-present, Daniel Wippermann | MIT license */
 
 const optimizerClasses = [
-
     // ======================================================================
     // RESOL
     // ======================================================================
@@ -38,13 +37,9 @@ const optimizerClasses = [
 
     // DeltaTherm HC
     require('./configuration-optimizers/resol-deltatherm-hc-xxx-configuration-optimizer'),
-
 ];
 
-
-
 const ConfigurationOptimizerFactory = {
-
     /**
      * Find a `ConfigurationOptimizer` sub-class that matches the given options best.
      *
@@ -73,7 +68,7 @@ const ConfigurationOptimizerFactory = {
         for (const Optimizer of optimizerClasses) {
             const refResult = await Optimizer.matchOptimizer(options, cache);
 
-            if ((refResult.match > 0) && (refResult.match > result.match)) {
+            if (refResult.match > 0 && refResult.match > result.match) {
                 result = refResult;
             }
         }
@@ -116,9 +111,6 @@ const ConfigurationOptimizerFactory = {
     },
 
     _optimizerClasses: optimizerClasses,
-
 };
-
-
 
 module.exports = ConfigurationOptimizerFactory;

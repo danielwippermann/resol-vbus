@@ -2,53 +2,37 @@
 
 const { Duplex } = require('stream');
 
+const { Converter, HeaderSet, Packet } = require('./resol-vbus');
 
-const {
-    Converter,
-    HeaderSet,
-    Packet,
-} = require('./resol-vbus');
-
-
-const {
-    expect,
-    expectOwnPropertyNamesToEqual,
-    expectPromise,
-    itShouldBeAClass,
-} = require('./test-utils');
-
-
+const { expect, expectOwnPropertyNamesToEqual, expectPromise, itShouldBeAClass } = require('./test-utils');
 
 class TestableConverter extends Converter {
-
     _read() {
         // nop
     }
-
 }
 
-
-
 describe('Converter', () => {
-
-    itShouldBeAClass(Converter, Duplex, {
-        objectMode: false,
-        finishedPromise: null,
-        constructor: Function,
-        reset: Function,
-        finish: Function,
-        convertRawData: Function,
-        convertComment: Function,
-        convertHeader: Function,
-        convertHeaderSet: Function,
-        _read: Function,
-        _write: Function,
-    }, {
-
-    });
+    itShouldBeAClass(
+        Converter,
+        Duplex,
+        {
+            objectMode: false,
+            finishedPromise: null,
+            constructor: Function,
+            reset: Function,
+            finish: Function,
+            convertRawData: Function,
+            convertComment: Function,
+            convertHeader: Function,
+            convertHeaderSet: Function,
+            _read: Function,
+            _write: Function,
+        },
+        {},
+    );
 
     describe('constructor', () => {
-
         it('should have reasonable defaults', () => {
             const converter = new TestableConverter();
 
@@ -81,27 +65,23 @@ describe('Converter', () => {
             expectPromise(converter.finishedPromise);
             expect(converter.junk).toBe(undefined);
         });
-
     });
 
     describe('#reset', () => {
-
         it('should work correctly (nop)', () => {
             const converter = new TestableConverter();
 
             converter.reset();
         });
-
     });
 
     describe('#finish', () => {
-
         it('should fire an end event', async () => {
             const converter = new TestableConverter({
                 objectMode: true,
             });
 
-            const endEventPromise = new Promise(resolve => {
+            const endEventPromise = new Promise((resolve) => {
                 converter.once('end', () => {
                     resolve();
                 });
@@ -113,11 +93,9 @@ describe('Converter', () => {
 
             await endEventPromise;
         });
-
     });
 
     describe('#convertRawData', () => {
-
         it('should be abstract', () => {
             const converter = new TestableConverter();
 
@@ -125,11 +103,9 @@ describe('Converter', () => {
                 converter.convertRawData();
             }).toThrow('Must be implemented by sub-class');
         });
-
     });
 
     describe('#convertHeader', () => {
-
         it('should be abstract', () => {
             const converter = new TestableConverter();
 
@@ -137,11 +113,9 @@ describe('Converter', () => {
                 converter.convertHeader();
             }).toThrow('Must be implemented by sub-class');
         });
-
     });
 
     describe('#convertHeaderSet', () => {
-
         it('should be abstract', () => {
             const converter = new TestableConverter();
 
@@ -149,11 +123,9 @@ describe('Converter', () => {
                 converter.convertHeaderSet();
             }).toThrow('Must be implemented by sub-class');
         });
-
     });
 
     describe('#_read', () => {
-
         it('should be abstract', () => {
             const converter = new TestableConverter();
 
@@ -161,11 +133,9 @@ describe('Converter', () => {
                 Converter.prototype._read.call(converter);
             }).toThrow('Must be implemented by sub-class');
         });
-
     });
 
     describe('#_write', () => {
-
         it('should be abstract', () => {
             const converter = new TestableConverter();
 
@@ -173,12 +143,11 @@ describe('Converter', () => {
                 converter._write();
             }).toThrow('Must be implemented by sub-class');
         });
-
     });
 
     describe('writable stream (object mode)', () => {
-
-        const rawPacket1 = 'aa100053001000010b0020051000004a723d1000013f40571000015706100000016800000000007f00000000007f00000000007f00000000007f00007f00000025003600051f11000000006e';
+        const rawPacket1 =
+            'aa100053001000010b0020051000004a723d1000013f40571000015706100000016800000000007f00000000007f00000000007f00000000007f00007f00000025003600051f11000000006e';
         const rawPacket2 = 'aa1000217e100001013e00000b000074';
         const rawPacket3 = 'aa1000317e100001042b05774a00003900000000007f00000000007f130d0000005f';
 
@@ -200,25 +169,25 @@ describe('Converter', () => {
 
             const headerSet = new HeaderSet({
                 timestamp: new Date(1387893006829),
-                headers: [ packet1, packet2, packet3 ]
+                headers: [packet1, packet2, packet3],
             });
 
             const converter = new TestableConverter({
                 objectMode: true,
             });
 
-            const onData = jest.fn();
+            const onData = vi.fn();
             converter.on('data', onData);
 
             converter.convertHeaderSet(headerSet);
 
-            const onHeader = jest.fn();
+            const onHeader = vi.fn();
             converter.on('header', onHeader);
 
-            const onHeaderSet = jest.fn();
+            const onHeaderSet = vi.fn();
             converter.on('headerSet', onHeaderSet);
 
-            const finishEventPromise = new Promise(resolve => {
+            const finishEventPromise = new Promise((resolve) => {
                 converter.on('finish', () => {
                     resolve();
                 });
@@ -234,19 +203,18 @@ describe('Converter', () => {
             await finishEventPromise;
 
             expect(onHeader.mock.calls.length).toBe(3);
-            expect(onHeader.mock.calls [0] [0]).toBe(packet1);
-            expect(onHeader.mock.calls [1] [0]).toBe(packet2);
-            expect(onHeader.mock.calls [2] [0]).toBe(packet3);
+            expect(onHeader.mock.calls[0][0]).toBe(packet1);
+            expect(onHeader.mock.calls[1][0]).toBe(packet2);
+            expect(onHeader.mock.calls[2][0]).toBe(packet3);
 
             expect(onHeaderSet.mock.calls.length).toBe(1);
-            expect(onHeaderSet.mock.calls [0] [0]).toBe(headerSet);
+            expect(onHeaderSet.mock.calls[0][0]).toBe(headerSet);
         });
-
     });
 
     describe('readable stream (object mode)', () => {
-
-        const rawPacket1 = 'aa100053001000010b0020051000004a723d1000013f40571000015706100000016800000000007f00000000007f00000000007f00000000007f00007f00000025003600051f11000000006e';
+        const rawPacket1 =
+            'aa100053001000010b0020051000004a723d1000013f40571000015706100000016800000000007f00000000007f00000000007f00000000007f00007f00000025003600051f11000000006e';
         const rawPacket2 = 'aa1000217e100001013e00000b000074';
         const rawPacket3 = 'aa1000317e100001042b05774a00003900000000007f00000000007f130d0000005f';
 
@@ -268,17 +236,17 @@ describe('Converter', () => {
 
             const headerSet = new HeaderSet({
                 timestamp: new Date(1387893006829),
-                headers: [ packet1, packet2, packet3 ]
+                headers: [packet1, packet2, packet3],
             });
 
             const converter = new TestableConverter({
                 objectMode: true,
             });
 
-            const onData = jest.fn();
+            const onData = vi.fn();
             converter.on('data', onData);
 
-            const endEventPromise = new Promise(resolve => {
+            const endEventPromise = new Promise((resolve) => {
                 converter.on('end', () => {
                     resolve();
                 });
@@ -293,10 +261,8 @@ describe('Converter', () => {
             await endEventPromise;
 
             expect(onData.mock.calls.length).toBe(2);
-            expect(onData.mock.calls [0] [0]).toBe(packet1);
-            expect(onData.mock.calls [1] [0]).toBe(headerSet);
+            expect(onData.mock.calls[0][0]).toBe(packet1);
+            expect(onData.mock.calls[1][0]).toBe(headerSet);
         });
-
     });
-
 });

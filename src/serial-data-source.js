@@ -4,10 +4,7 @@ const DataSource = require('./data-source');
 const SerialConnection = require('./serial-connection');
 const { applyDefaultOptions } = require('./utils');
 
-
-
 class SerialDataSource extends DataSource {
-
     /**
      * Creates a new SerialDataSource.
      *
@@ -17,14 +14,16 @@ class SerialDataSource extends DataSource {
     constructor(options) {
         super(options);
 
-        applyDefaultOptions(this, options, /** @lends SerialDataSource.prototype */ {
-
-            /**
-            * The path to the serial port.
-            */
-            path: null,
-
-        });
+        applyDefaultOptions(
+            this,
+            options,
+            /** @lends SerialDataSource.prototype */ {
+                /**
+                 * The path to the serial port.
+                 */
+                path: null,
+            },
+        );
     }
 
     async connectLive(options) {
@@ -41,19 +40,16 @@ class SerialDataSource extends DataSource {
 
         return connection;
     }
-
 }
 
-
-Object.assign(SerialDataSource.prototype, /** @lends SerialDataSource.prototype */ {
-
-    /**
-     * The path to the serial port.
-     */
-    path: null,
-
-});
-
-
+Object.assign(
+    SerialDataSource.prototype,
+    /** @lends SerialDataSource.prototype */ {
+        /**
+         * The path to the serial port.
+         */
+        path: null,
+    },
+);
 
 module.exports = SerialDataSource;

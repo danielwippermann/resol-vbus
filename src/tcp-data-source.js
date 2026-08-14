@@ -5,10 +5,7 @@ const { applyDefaultOptions } = require('./utils');
 
 const TcpConnection = require('./tcp-connection');
 
-
-
 class TcpDataSource extends DataSource {
-
     /**
      * Creates a new TcpDataSource instance.
      *
@@ -18,33 +15,35 @@ class TcpDataSource extends DataSource {
     constructor(options) {
         super(options);
 
-        applyDefaultOptions(this, options,  /** @lends TcpDataSource.prototype */ {
+        applyDefaultOptions(
+            this,
+            options,
+            /** @lends TcpDataSource.prototype */ {
+                /**
+                 * The host to connect to.
+                 * @type {string}
+                 */
+                host: null,
 
-            /**
-            * The host to connect to.
-            * @type {string}
-            */
-            host: null,
+                /**
+                 * The port to connect to.
+                 * @type {number}
+                 */
+                port: 7053,
 
-            /**
-            * The port to connect to.
-            * @type {number}
-            */
-            port: 7053,
+                /**
+                 * The channel to connect to live.
+                 * @type {number}
+                 */
+                liveChannel: 0,
 
-            /**
-            * The channel to connect to live.
-            * @type {number}
-            */
-            liveChannel: 0,
-
-            /**
-            * The password to connect live.
-            * @type {string}
-            */
-            livePassword: 'vbus',
-
-        });
+                /**
+                 * The password to connect live.
+                 * @type {string}
+                 */
+                livePassword: 'vbus',
+            },
+        );
 
         this.options = options;
     }
@@ -67,38 +66,35 @@ class TcpDataSource extends DataSource {
 
         return connection;
     }
-
 }
 
+Object.assign(
+    TcpDataSource.prototype,
+    /** @lends TcpDataSource.prototype */ {
+        /**
+         * The host to connect to.
+         * @type {string}
+         */
+        host: null,
 
-Object.assign(TcpDataSource.prototype, /** @lends TcpDataSource.prototype */ {
+        /**
+         * The port to connect to.
+         * @type {number}
+         */
+        port: 7053,
 
-    /**
-     * The host to connect to.
-     * @type {string}
-     */
-    host: null,
+        /**
+         * The channel to connect to live.
+         * @type {number}
+         */
+        liveChannel: 0,
 
-    /**
-     * The port to connect to.
-     * @type {number}
-     */
-    port: 7053,
-
-    /**
-     * The channel to connect to live.
-     * @type {number}
-     */
-    liveChannel: 0,
-
-    /**
-     * The password to connect live.
-     * @type {string}
-     */
-    livePassword: 'vbus',
-
-});
-
-
+        /**
+         * The password to connect live.
+         * @type {string}
+         */
+        livePassword: 'vbus',
+    },
+);
 
 module.exports = TcpDataSource;

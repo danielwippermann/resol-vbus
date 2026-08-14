@@ -1,103 +1,91 @@
 /*! resol-vbus | Copyright (c) 2013-present, Daniel Wippermann | MIT license */
 
-const {
-    BaseConfigurationOptimizer,
-    ConfigurationOptimizer,
-} = require('./resol-vbus');
+const { BaseConfigurationOptimizer, ConfigurationOptimizer } = require('./resol-vbus');
 
-
-const {
-    expect,
-    expectTypeToBe,
-    itShouldBeAClass,
-    expectOwnPropertyNamesToEqual,
-} = require('./test-utils');
-
-
+const { expect, expectTypeToBe, itShouldBeAClass, expectOwnPropertyNamesToEqual } = require('./test-utils');
 
 describe('BaseConfigurationOptimizer', () => {
-
-    itShouldBeAClass(BaseConfigurationOptimizer, ConfigurationOptimizer, {
-        constructor: Function,
-        completeConfiguration: Function,
-        optimizeLoadConfiguration: Function,
-        optimizeSaveConfiguration: Function,
-        _buildConfiguration: Function,
-        _getAdjustableValues: Function,
-        _optimizeConfiguration: Function,
-    }, {
-        deviceAddress: 0,
-        configurationData: null,
-    });
+    itShouldBeAClass(
+        BaseConfigurationOptimizer,
+        ConfigurationOptimizer,
+        {
+            constructor: Function,
+            completeConfiguration: Function,
+            optimizeLoadConfiguration: Function,
+            optimizeSaveConfiguration: Function,
+            _buildConfiguration: Function,
+            _getAdjustableValues: Function,
+            _optimizeConfiguration: Function,
+        },
+        {
+            deviceAddress: 0,
+            configurationData: null,
+        },
+    );
 
     describe('#completeConfiguration', () => {
-
         it('should work correctly without arguments', async () => {
             const optimizer = new TestConfigurationOptimizer();
 
             const result = await optimizer.completeConfiguration();
 
             expect(result).toHaveLength(22);
-            expect(result [0].valueId).toBe('LowestPriorityValue');
-            expect(result [0].valueIndex).toBe(0x1000);
+            expect(result[0].valueId).toBe('LowestPriorityValue');
+            expect(result[0].valueIndex).toBe(0x1000);
         });
 
         it('should work correctly with array arguments', async () => {
             const optimizer = new TestConfigurationOptimizer();
 
-            const config1 = [{
-                valueIndex: 0x1011,
-                value: 1,
-            }, {
-                valueId: 'TestValue2',
-                value: 2,
-            }, {
-                index: 0x1013,
-                value: 3,
-            }, {
-                id: 'TestValue4',
-                value: 4,
-            }];
+            const config1 = [
+                {
+                    valueIndex: 0x1011,
+                    value: 1,
+                },
+                {
+                    valueId: 'TestValue2',
+                    value: 2,
+                },
+                {
+                    index: 0x1013,
+                    value: 3,
+                },
+                {
+                    id: 'TestValue4',
+                    value: 4,
+                },
+            ];
 
-            const config2 = [{
-                valueIdHash: 0x12345689,
-                value: 5,
-            }, {
-                idHash: 0x1234568d,
-                value: 6,
-            }];
+            const config2 = [
+                {
+                    valueIdHash: 0x12345689,
+                    value: 5,
+                },
+                {
+                    idHash: 0x1234568d,
+                    value: 6,
+                },
+            ];
 
             const result = await optimizer.completeConfiguration(config1, config2);
 
             expect(result).toHaveLength(5);
 
-            expectOwnPropertyNamesToEqual(result [0], [
-                'valueIndex',
-                'value',
-                'valueId',
-                'priority',
-                'valueTextById',
-            ]);
+            expectOwnPropertyNamesToEqual(result[0], ['valueIndex', 'value', 'valueId', 'priority', 'valueTextById']);
 
-            expect(result [0].valueIndex).toBe(0x1011);
-            expect(result [0].value).toBe(1);
-            expect(result [0].valueId).toBe('TestValue1');
-            expect(result [0].priority).toBe(0);
+            expect(result[0].valueIndex).toBe(0x1011);
+            expect(result[0].value).toBe(1);
+            expect(result[0].valueId).toBe('TestValue1');
+            expect(result[0].priority).toBe(0);
 
-            expectOwnPropertyNamesToEqual(result [1], [
-                'valueIndex',
-                'value',
-                'valueId',
-                'priority',
-                'valueTextById',
-            ]);
+            expectOwnPropertyNamesToEqual(result[1], ['valueIndex', 'value', 'valueId', 'priority', 'valueTextById']);
 
-            expect(result [1].valueIndex).toBe(0x1012);
-            expect(result [1].value).toBe(2);
-            expect(result [1].valueId).toBe('TestValue2');
-            expect(result [1].priority).toBe(0);
+            expect(result[1].valueIndex).toBe(0x1012);
+            expect(result[1].value).toBe(2);
+            expect(result[1].valueId).toBe('TestValue2');
+            expect(result[1].priority).toBe(0);
 
-            expectOwnPropertyNamesToEqual(result [2], [
+            expectOwnPropertyNamesToEqual(result[2], [
                 'index',
                 'valueIndex',
                 'value',
@@ -106,13 +94,13 @@ describe('BaseConfigurationOptimizer', () => {
                 'valueTextById',
             ]);
 
-            expect(result [2].index).toBe(0x1013);
-            expect(result [2].valueIndex).toBe(0x1013);
-            expect(result [2].value).toBe(3);
-            expect(result [2].valueId).toBe('TestValue3');
-            expect(result [2].priority).toBe(0);
+            expect(result[2].index).toBe(0x1013);
+            expect(result[2].valueIndex).toBe(0x1013);
+            expect(result[2].value).toBe(3);
+            expect(result[2].valueId).toBe('TestValue3');
+            expect(result[2].priority).toBe(0);
 
-            expectOwnPropertyNamesToEqual(result [3], [
+            expectOwnPropertyNamesToEqual(result[3], [
                 'id',
                 'valueIndex',
                 'value',
@@ -121,13 +109,13 @@ describe('BaseConfigurationOptimizer', () => {
                 'valueTextById',
             ]);
 
-            expect(result [3].id).toBe('TestValue4');
-            expect(result [3].valueIndex).toBe(0x1014);
-            expect(result [3].value).toBe(4);
-            expect(result [3].valueId).toBe('TestValue4');
-            expect(result [3].priority).toBe(0);
+            expect(result[3].id).toBe('TestValue4');
+            expect(result[3].valueIndex).toBe(0x1014);
+            expect(result[3].value).toBe(4);
+            expect(result[3].valueId).toBe('TestValue4');
+            expect(result[3].priority).toBe(0);
 
-            expectOwnPropertyNamesToEqual(result [4], [
+            expectOwnPropertyNamesToEqual(result[4], [
                 'idHash',
                 'valueIndex',
                 'value',
@@ -136,10 +124,10 @@ describe('BaseConfigurationOptimizer', () => {
                 'valueTextById',
             ]);
 
-            expect(result [4].valueIndex).toBe(0x1015);
-            expect(result [4].value).toBe(6);
-            expect(result [4].valueId).toBe('TestValue5');
-            expect(result [4].priority).toBe(0);
+            expect(result[4].valueIndex).toBe(0x1015);
+            expect(result[4].value).toBe(6);
+            expect(result[4].valueId).toBe('TestValue5');
+            expect(result[4].priority).toBe(0);
         });
 
         it('should work correctly with object arguments', async () => {
@@ -159,44 +147,26 @@ describe('BaseConfigurationOptimizer', () => {
 
             expect(result).toHaveLength(3);
 
-            expectOwnPropertyNamesToEqual(result [0], [
-                'valueIndex',
-                'value',
-                'valueId',
-                'priority',
-                'valueTextById',
-            ]);
+            expectOwnPropertyNamesToEqual(result[0], ['valueIndex', 'value', 'valueId', 'priority', 'valueTextById']);
 
-            expect(result [0].valueIndex).toBe(0x1011);
-            expect(result [0].value).toBe(1);
-            expect(result [0].valueId).toBe('TestValue1');
-            expect(result [0].priority).toBe(0);
+            expect(result[0].valueIndex).toBe(0x1011);
+            expect(result[0].value).toBe(1);
+            expect(result[0].valueId).toBe('TestValue1');
+            expect(result[0].priority).toBe(0);
 
-            expectOwnPropertyNamesToEqual(result [1], [
-                'valueIndex',
-                'value',
-                'valueId',
-                'priority',
-                'valueTextById',
-            ]);
+            expectOwnPropertyNamesToEqual(result[1], ['valueIndex', 'value', 'valueId', 'priority', 'valueTextById']);
 
-            expect(result [1].valueIndex).toBe(0x1012);
-            expect(result [1].value).toBe(2);
-            expect(result [1].valueId).toBe('TestValue2');
-            expect(result [1].priority).toBe(0);
+            expect(result[1].valueIndex).toBe(0x1012);
+            expect(result[1].value).toBe(2);
+            expect(result[1].valueId).toBe('TestValue2');
+            expect(result[1].priority).toBe(0);
 
-            expectOwnPropertyNamesToEqual(result [2], [
-                'valueIndex',
-                'value',
-                'valueId',
-                'priority',
-                'valueTextById',
-            ]);
+            expectOwnPropertyNamesToEqual(result[2], ['valueIndex', 'value', 'valueId', 'priority', 'valueTextById']);
 
-            expect(result [2].valueIndex).toBe(0x1013);
-            expect(result [2].value).toBe(4);
-            expect(result [2].valueId).toBe('TestValue3');
-            expect(result [2].priority).toBe(0);
+            expect(result[2].valueIndex).toBe(0x1013);
+            expect(result[2].value).toBe(4);
+            expect(result[2].valueId).toBe('TestValue3');
+            expect(result[2].priority).toBe(0);
         });
 
         it('should fail for unknown values', async () => {
@@ -214,11 +184,13 @@ describe('BaseConfigurationOptimizer', () => {
         it('should fail for incomplete values', async () => {
             const optimizer = new TestConfigurationOptimizer();
 
-            const config = [{
-                // no known value identification here
-            }];
+            const config = [
+                {
+                    // no known value identification here
+                },
+            ];
 
-            await expect(async() => {
+            await expect(async () => {
                 await optimizer.completeConfiguration(config);
             }).rejects.toThrow('Unable to complete value {}');
         });
@@ -236,66 +208,57 @@ describe('BaseConfigurationOptimizer', () => {
         it('should parse string values correctly', async () => {
             const optimizer = new TestConfigurationOptimizer();
 
-            const config = [{
-                valueId: 'TestValue1',
-                value: '#True',
-            }, {
-                valueId: 'TestValue2',
-                value: '2',
-            }];
+            const config = [
+                {
+                    valueId: 'TestValue1',
+                    value: '#True',
+                },
+                {
+                    valueId: 'TestValue2',
+                    value: '2',
+                },
+            ];
 
             const result = await optimizer.completeConfiguration(config);
 
             expect(result).toHaveLength(2);
 
-            expectOwnPropertyNamesToEqual(result [0], [
-                'valueIndex',
-                'value',
-                'valueId',
-                'priority',
-                'valueTextById',
-            ]);
+            expectOwnPropertyNamesToEqual(result[0], ['valueIndex', 'value', 'valueId', 'priority', 'valueTextById']);
 
-            expect(result [0].valueIndex).toBe(0x1011);
-            expect(result [0].value).toBe(1);
-            expect(result [0].valueId).toBe('TestValue1');
-            expect(result [0].priority).toBe(0);
+            expect(result[0].valueIndex).toBe(0x1011);
+            expect(result[0].value).toBe(1);
+            expect(result[0].valueId).toBe('TestValue1');
+            expect(result[0].priority).toBe(0);
 
-            expectOwnPropertyNamesToEqual(result [1], [
-                'valueIndex',
-                'value',
-                'valueId',
-                'priority',
-                'valueTextById',
-            ]);
+            expectOwnPropertyNamesToEqual(result[1], ['valueIndex', 'value', 'valueId', 'priority', 'valueTextById']);
 
-            expect(result [1].valueIndex).toBe(0x1012);
-            expect(result [1].value).toBe(2);
-            expect(result [1].valueId).toBe('TestValue2');
-            expect(result [1].priority).toBe(0);
+            expect(result[1].valueIndex).toBe(0x1012);
+            expect(result[1].value).toBe(2);
+            expect(result[1].valueId).toBe('TestValue2');
+            expect(result[1].priority).toBe(0);
         });
 
         it('should fail parsing unknown string values correctly', async () => {
             const optimizer = new TestConfigurationOptimizer();
 
-            const config = [{
-                valueId: 'TestValue1',
-                value: '#Unknown',
-            }];
+            const config = [
+                {
+                    valueId: 'TestValue1',
+                    value: '#Unknown',
+                },
+            ];
 
-            await expect(async() => {
+            await expect(async () => {
                 await optimizer.completeConfiguration(config);
             }).rejects.toThrow('Unable to convert value text ID to numeric value: "#Unknown"');
         });
-
     });
 
     describe('#optimizeLoadConfiguration', () => {
-
         it('should work correctly', async () => {
             const optimizer = new TestConfigurationOptimizer();
 
-            optimizer.optimizeConfiguration = jest.fn($ => {
+            optimizer.optimizeConfiguration = vi.fn(($) => {
                 $('BooleanValue').isFalse(() => {
                     $(/^TestValue\d+$/).ignore();
                 });
@@ -305,7 +268,7 @@ describe('BaseConfigurationOptimizer', () => {
 
             expect(result1).toHaveLength(22);
 
-            expectOwnPropertyNamesToEqual(result1 [0], [
+            expectOwnPropertyNamesToEqual(result1[0], [
                 'pending',
                 'changed',
                 'checked',
@@ -317,46 +280,48 @@ describe('BaseConfigurationOptimizer', () => {
                 'valueTextById',
             ]);
 
-            expect(result1 [4].valueId).toBe('BooleanValue');
-            expect(result1 [4].pending).toBe(true);
+            expect(result1[4].valueId).toBe('BooleanValue');
+            expect(result1[4].pending).toBe(true);
 
-            expect(result1 [10].valueId).toBe('TestValue1');
-            expect(result1 [10].ignored).toBe(true);
-            expect(result1 [10].pending).toBe(undefined);
+            expect(result1[10].valueId).toBe('TestValue1');
+            expect(result1[10].ignored).toBe(true);
+            expect(result1[10].pending).toBe(undefined);
 
-            const result2 = await optimizer.optimizeLoadConfiguration([{
-                valueId: 'BooleanValue',
-                value: 0,
-            }]);
+            const result2 = await optimizer.optimizeLoadConfiguration([
+                {
+                    valueId: 'BooleanValue',
+                    value: 0,
+                },
+            ]);
 
             expect(result2).toHaveLength(22);
 
-            expect(result2 [4].valueId).toBe('BooleanValue');
-            expect(result2 [4].pending).toBe(undefined);
+            expect(result2[4].valueId).toBe('BooleanValue');
+            expect(result2[4].pending).toBe(undefined);
 
-            expect(result2 [10].valueId).toBe('TestValue1');
-            expect(result2 [10].ignored).toBe(true);
-            expect(result2 [10].pending).toBe(undefined);
+            expect(result2[10].valueId).toBe('TestValue1');
+            expect(result2[10].ignored).toBe(true);
+            expect(result2[10].pending).toBe(undefined);
 
-            const result3 = await optimizer.optimizeLoadConfiguration([{
-                valueId: 'BooleanValue',
-                value: 1,
-            }]);
+            const result3 = await optimizer.optimizeLoadConfiguration([
+                {
+                    valueId: 'BooleanValue',
+                    value: 1,
+                },
+            ]);
 
             expect(result3).toHaveLength(22);
 
-            expect(result3 [4].valueId).toBe('BooleanValue');
-            expect(result3 [4].pending).toBe(undefined);
+            expect(result3[4].valueId).toBe('BooleanValue');
+            expect(result3[4].pending).toBe(undefined);
 
-            expect(result3 [10].valueId).toBe('TestValue1');
-            expect(result3 [10].ignored).toBe(false);
-            expect(result3 [10].pending).toBe(true);
+            expect(result3[10].valueId).toBe('TestValue1');
+            expect(result3[10].ignored).toBe(false);
+            expect(result3[10].pending).toBe(true);
         });
-
     });
 
     describe('#optimizeSaveConfiguration', () => {
-
         it('should fail', () => {
             const optimizer = new TestConfigurationOptimizer();
 
@@ -364,21 +329,19 @@ describe('BaseConfigurationOptimizer', () => {
                 optimizer.optimizeSaveConfiguration();
             }).toThrow('NYI');
         });
-
     });
 
     describe('#_buildConfiguration', () => {
-
         it('should work correctly with undefined config', () => {
             const optimizer = new TestConfigurationOptimizer();
 
-            optimizer.optimizeConfiguration = jest.fn();
+            optimizer.optimizeConfiguration = vi.fn();
 
             const result = optimizer._buildConfiguration(undefined);
 
             expect(result).toHaveLength(22);
 
-            expectOwnPropertyNamesToEqual(result [0], [
+            expectOwnPropertyNamesToEqual(result[0], [
                 'changed',
                 'checked',
                 'ignored',
@@ -389,40 +352,40 @@ describe('BaseConfigurationOptimizer', () => {
                 'valueTextById',
             ]);
 
-            expect(result [0].changed).toBe(false);
-            expect(result [0].checked).toBe(false);
-            expect(result [0].ignored).toBe(false);
-            expect(result [0].invalidated).toBe(false);
-            expect(result [0].priority).toBe(20);
-            expect(result [0].valueId).toBe('HighestPriorityValue');
-            expect(result [0].valueIndex).toBe(0x101c);
+            expect(result[0].changed).toBe(false);
+            expect(result[0].checked).toBe(false);
+            expect(result[0].ignored).toBe(false);
+            expect(result[0].invalidated).toBe(false);
+            expect(result[0].priority).toBe(20);
+            expect(result[0].valueId).toBe('HighestPriorityValue');
+            expect(result[0].valueIndex).toBe(0x101c);
         });
 
         it('should work correctly with config', () => {
             const optimizer = new TestConfigurationOptimizer();
 
-            optimizer.optimizeConfiguration = jest.fn();
+            optimizer.optimizeConfiguration = vi.fn();
 
-            const config = [{
-                valueId: 'TestValue1',
-                value: 1,
-            }];
+            const config = [
+                {
+                    valueId: 'TestValue1',
+                    value: 1,
+                },
+            ];
 
             const result = optimizer._buildConfiguration(config);
 
             expect(result).toHaveLength(22);
         });
-
     });
 
     describe('_getAdjustableValues', () => {
-
         it('should work correctly', () => {
             const optimizer = new TestConfigurationOptimizer();
 
             const values = optimizer._getAdjustableValues();
 
-            const ids = values.map(value => value.id);
+            const ids = values.map((value) => value.id);
 
             expect(ids).toEqual([
                 'LowestPriorityValue',
@@ -449,13 +412,13 @@ describe('BaseConfigurationOptimizer', () => {
                 'HighestPriorityValue',
             ]);
 
-            let value = values.find(value => value.id === 'BooleanValue');
+            let value = values.find((value) => value.id === 'BooleanValue');
             expect(value.valueTextById).toEqual({
                 False: 0,
                 True: 1,
             });
 
-            value = values.find(value => value.id === 'ValueTextsValue');
+            value = values.find((value) => value.id === 'ValueTextsValue');
             expect(value.valueTextById).toEqual({
                 FourtyTwo: 42,
             });
@@ -463,7 +426,6 @@ describe('BaseConfigurationOptimizer', () => {
     });
 
     describe('_optimizeConfiguration', () => {
-
         it('should work correctly', () => {
             const optimizer = new TestConfigurationOptimizer();
 
@@ -480,14 +442,14 @@ describe('BaseConfigurationOptimizer', () => {
                 return configValue;
             });
 
-            let value = config.find(value => value.valueId === 'PrefsValue');
+            let value = config.find((value) => value.valueId === 'PrefsValue');
             value.value = 1;
             value.previousValue = 0;
 
-            value = config.find(value => value.valueId === 'KnownOptionValue');
+            value = config.find((value) => value.valueId === 'KnownOptionValue');
             value.value = 1;
 
-            optimizer.optimizeConfiguration = function($) {
+            optimizer.optimizeConfiguration = ($) => {
                 let values = $('^PrefsValue$');
                 expect(values.length).toBe(1);
 
@@ -514,27 +476,20 @@ describe('BaseConfigurationOptimizer', () => {
                 return memo;
             }, []);
 
-            expect(ids).toEqual([
-                'DependsOnUnknownOptionValue',
-            ]);
+            expect(ids).toEqual(['DependsOnUnknownOptionValue']);
 
-            value = values.find(value => value.valueId === 'BooleanValue');
+            value = values.find((value) => value.valueId === 'BooleanValue');
 
             expect(value.valueTextById).toEqual({
                 False: 0,
                 True: 1,
             });
         });
-
     });
-
 });
 
-
-
 describe('ValuesWrapper', () => {
-
-    const testValuesWrapper = function(optimize) {
+    const testValuesWrapper = (optimize) => {
         const optimizer = new TestConfigurationOptimizer();
 
         let values = optimizer._getAdjustableValues();
@@ -550,11 +505,11 @@ describe('ValuesWrapper', () => {
             return configValue;
         });
 
-        optimizer.optimizeConfiguration = function($) {
+        optimizer.optimizeConfiguration = ($) => {
             const allValues = $(/.*/);
 
-            const setValue = function(id, value) {
-                const configValue = allValues.values.find(value => value.valueId === id);
+            const setValue = (id, value) => {
+                const configValue = allValues.values.find((value) => value.valueId === id);
                 configValue.value = value;
                 configValue.changed = true;
             };
@@ -603,20 +558,19 @@ describe('ValuesWrapper', () => {
     });
 
     describe('#_check', () => {
-
         it('should work correctly for ignored values', () => {
             testValuesWrapper(($, setValue) => {
                 const values = $(/^TestValue1$/);
 
-                values.values [0].ignored = true;
+                values.values[0].ignored = true;
 
-                const checker = jest.fn((value) => {
+                const checker = vi.fn((value) => {
                     return true;
                 });
 
-                const action = jest.fn();
+                const action = vi.fn();
 
-                const actionWrapper = function(value) {
+                const actionWrapper = function (value) {
                     return action.apply(this, arguments);
                 };
 
@@ -636,13 +590,13 @@ describe('ValuesWrapper', () => {
 
                 const values = $(/^TestValue1$/);
 
-                const checker = jest.fn((value) => {
+                const checker = vi.fn((value) => {
                     return false;
                 });
 
-                const action = jest.fn();
+                const action = vi.fn();
 
-                const actionWrapper = function(value) {
+                const actionWrapper = function (value) {
                     return action.apply(this, arguments);
                 };
 
@@ -651,7 +605,7 @@ describe('ValuesWrapper', () => {
                 expect(checker.mock.calls.length).toBe(0);
 
                 expect(action.mock.calls.length).toBe(1);
-                expect(action.mock.calls [0] [0].md [0]).toBe('TestValue1');
+                expect(action.mock.calls[0][0].md[0]).toBe('TestValue1');
 
                 checker.mockClear();
                 action.mockClear();
@@ -672,13 +626,13 @@ describe('ValuesWrapper', () => {
 
                 const values = $(/^TestValue1$/);
 
-                const checker = jest.fn((value) => {
+                const checker = vi.fn((value) => {
                     return false;
                 });
 
-                const action = jest.fn();
+                const action = vi.fn();
 
-                const actionWrapper = function(value) {
+                const actionWrapper = function (value) {
                     return action.apply(this, arguments);
                 };
 
@@ -687,7 +641,7 @@ describe('ValuesWrapper', () => {
                 expect(checker.mock.calls.length).toBe(0);
 
                 expect(action.mock.calls.length).toBe(1);
-                expect(action.mock.calls [0] [0].md [0]).toBe('TestValue1');
+                expect(action.mock.calls[0][0].md[0]).toBe('TestValue1');
 
                 checker.mockClear();
                 action.mockClear();
@@ -709,24 +663,24 @@ describe('ValuesWrapper', () => {
 
                 const values = $(/^TestValue[1-2]$/);
 
-                const checker = jest.fn((value) => {
-                    return (value === 1337);
+                const checker = vi.fn((value) => {
+                    return value === 1337;
                 });
 
-                const action = jest.fn();
+                const action = vi.fn();
 
-                const actionWrapper = function(value) {
+                const actionWrapper = function (value) {
                     return action.apply(this, arguments);
                 };
 
                 values._check(actionWrapper, checker);
 
                 expect(checker.mock.calls.length).toBe(2);
-                expect(checker.mock.calls [0] [0]).toBe(7353);
-                expect(checker.mock.calls [1] [0]).toBe(1337);
+                expect(checker.mock.calls[0][0]).toBe(7353);
+                expect(checker.mock.calls[1][0]).toBe(1337);
 
                 expect(action.mock.calls.length).toBe(1);
-                expect(action.mock.calls [0] [0].md [0]).toBe('TestValue2');
+                expect(action.mock.calls[0][0].md[0]).toBe('TestValue2');
             });
         });
 
@@ -736,13 +690,13 @@ describe('ValuesWrapper', () => {
 
                 const values = $(/^TestValue1$/);
 
-                const checker = jest.fn((value) => {
+                const checker = vi.fn((value) => {
                     return false;
                 });
 
-                const action = jest.fn();
+                const action = vi.fn();
 
-                const actionWrapper = function() {
+                const actionWrapper = function () {
                     return action.apply(this, arguments);
                 };
 
@@ -751,7 +705,7 @@ describe('ValuesWrapper', () => {
                 expect(checker.mock.calls.length).toBe(0);
 
                 expect(action.mock.calls.length).toBe(1);
-                expect(action.mock.calls [0] [0]).toBe(undefined);
+                expect(action.mock.calls[0][0]).toBe(undefined);
             });
         });
 
@@ -761,13 +715,13 @@ describe('ValuesWrapper', () => {
 
                 const values = $(/^TestValue(1)$/);
 
-                const checker = jest.fn((value) => {
+                const checker = vi.fn((value) => {
                     return false;
                 });
 
-                const action = jest.fn();
+                const action = vi.fn();
 
-                const actionWrapper = function(value) {
+                const actionWrapper = function (value) {
                     return action.apply(this, arguments);
                 };
 
@@ -776,17 +730,15 @@ describe('ValuesWrapper', () => {
                 expect(checker.mock.calls.length).toBe(0);
 
                 expect(action.mock.calls.length).toBe(1);
-                expectTypeToBe(action.mock.calls [0] [0], 'object');
-                expectTypeToBe(action.mock.calls [0] [0].md, 'array');
-                expect(action.mock.calls [0] [0].md [0]).toBe('TestValue1');
-                expect(action.mock.calls [0] [0].md [1]).toBe('1');
+                expectTypeToBe(action.mock.calls[0][0], 'object');
+                expectTypeToBe(action.mock.calls[0][0].md, 'array');
+                expect(action.mock.calls[0][0].md[0]).toBe('TestValue1');
+                expect(action.mock.calls[0][0].md[1]).toBe('1');
             });
         });
-
     });
 
     describe('#check', () => {
-
         it('should work correctly', () => {
             testValuesWrapper(($, setValue) => {
                 const values = $(/^TestValue1$/);
@@ -795,21 +747,19 @@ describe('ValuesWrapper', () => {
                 const action = 'ACTION';
                 const options = 'OPTIONS';
 
-                values._check = jest.fn();
+                values._check = vi.fn();
 
                 values.check(checker, action, options);
 
                 expect(values._check.mock.calls.length).toBe(1);
-                expect(values._check.mock.calls [0] [0]).toBe(action);
-                expect(values._check.mock.calls [0] [1]).toBe(checker);
-                expect(values._check.mock.calls [0] [2]).toBe(options);
+                expect(values._check.mock.calls[0][0]).toBe(action);
+                expect(values._check.mock.calls[0][1]).toBe(checker);
+                expect(values._check.mock.calls[0][2]).toBe(options);
             });
         });
-
     });
 
     describe('#forEach', () => {
-
         it('should work correctly', () => {
             testValuesWrapper(($, setValue) => {
                 setValue('TestValue1', undefined);
@@ -826,11 +776,9 @@ describe('ValuesWrapper', () => {
                 expect(count).toBe(8);
             });
         });
-
     });
 
     describe('#isFalse', () => {
-
         it('should work correctly', () => {
             testValuesWrapper(($, setValue) => {
                 setValue('TestValue1', undefined);
@@ -841,21 +789,15 @@ describe('ValuesWrapper', () => {
                 const valueIds = [];
 
                 $(/^TestValue[1-4]$/).isFalse((value) => {
-                    valueIds.push(value.md [0]);
+                    valueIds.push(value.md[0]);
                 });
 
-                expect(valueIds).toEqual([
-                    'TestValue1',
-                    'TestValue2',
-                    'TestValue3',
-                ]);
+                expect(valueIds).toEqual(['TestValue1', 'TestValue2', 'TestValue3']);
             });
         });
-
     });
 
     describe('#isTrue', () => {
-
         it('should work correctly', () => {
             testValuesWrapper(($, setValue) => {
                 setValue('TestValue1', undefined);
@@ -866,21 +808,15 @@ describe('ValuesWrapper', () => {
                 const valueIds = [];
 
                 $(/^TestValue[1-4]$/).isTrue((value) => {
-                    valueIds.push(value.md [0]);
+                    valueIds.push(value.md[0]);
                 });
 
-                expect(valueIds).toEqual([
-                    'TestValue1',
-                    'TestValue2',
-                    'TestValue4',
-                ]);
+                expect(valueIds).toEqual(['TestValue1', 'TestValue2', 'TestValue4']);
             });
         });
-
     });
 
     describe('#eql', () => {
-
         it('should work correctly for numbers', () => {
             testValuesWrapper(($, setValue) => {
                 setValue('TestValue1', undefined);
@@ -891,14 +827,10 @@ describe('ValuesWrapper', () => {
                 const valueIds = [];
 
                 $(/^TestValue[1-4]$/).eql(1, (value) => {
-                    valueIds.push(value.md [0]);
+                    valueIds.push(value.md[0]);
                 });
 
-                expect(valueIds).toEqual([
-                    'TestValue1',
-                    'TestValue2',
-                    'TestValue4',
-                ]);
+                expect(valueIds).toEqual(['TestValue1', 'TestValue2', 'TestValue4']);
             });
         });
 
@@ -912,14 +844,10 @@ describe('ValuesWrapper', () => {
                 const valueIds = [];
 
                 $(/^TestValue[1-4]$/).eql('#False', (value) => {
-                    valueIds.push(value.md [0]);
+                    valueIds.push(value.md[0]);
                 });
 
-                expect(valueIds).toEqual([
-                    'TestValue1',
-                    'TestValue2',
-                    'TestValue3',
-                ]);
+                expect(valueIds).toEqual(['TestValue1', 'TestValue2', 'TestValue3']);
             });
         });
 
@@ -933,20 +861,15 @@ describe('ValuesWrapper', () => {
                 const valueIds = [];
 
                 $(/^TestValue[1-4]$/).eql('#Unknown', (value) => {
-                    valueIds.push(value.md [0]);
+                    valueIds.push(value.md[0]);
                 });
 
-                expect(valueIds).toEqual([
-                    'TestValue1',
-                    'TestValue2',
-                ]);
+                expect(valueIds).toEqual(['TestValue1', 'TestValue2']);
             });
         });
-
     });
 
     describe('#notEql', () => {
-
         it('should work correctly for numbers', () => {
             testValuesWrapper(($, setValue) => {
                 setValue('TestValue1', undefined);
@@ -957,14 +880,10 @@ describe('ValuesWrapper', () => {
                 const valueIds = [];
 
                 $(/^TestValue[1-4]$/).notEql(1, (value) => {
-                    valueIds.push(value.md [0]);
+                    valueIds.push(value.md[0]);
                 });
 
-                expect(valueIds).toEqual([
-                    'TestValue1',
-                    'TestValue2',
-                    'TestValue3',
-                ]);
+                expect(valueIds).toEqual(['TestValue1', 'TestValue2', 'TestValue3']);
             });
         });
 
@@ -978,14 +897,10 @@ describe('ValuesWrapper', () => {
                 const valueIds = [];
 
                 $(/^TestValue[1-4]$/).notEql('#False', (value) => {
-                    valueIds.push(value.md [0]);
+                    valueIds.push(value.md[0]);
                 });
 
-                expect(valueIds).toEqual([
-                    'TestValue1',
-                    'TestValue2',
-                    'TestValue4',
-                ]);
+                expect(valueIds).toEqual(['TestValue1', 'TestValue2', 'TestValue4']);
             });
         });
 
@@ -999,22 +914,15 @@ describe('ValuesWrapper', () => {
                 const valueIds = [];
 
                 $(/^TestValue[1-4]$/).notEql('#Unknown', (value) => {
-                    valueIds.push(value.md [0]);
+                    valueIds.push(value.md[0]);
                 });
 
-                expect(valueIds).toEqual([
-                    'TestValue1',
-                    'TestValue2',
-                    'TestValue3',
-                    'TestValue4',
-                ]);
+                expect(valueIds).toEqual(['TestValue1', 'TestValue2', 'TestValue3', 'TestValue4']);
             });
         });
-
     });
 
     describe('#lt', () => {
-
         it('should work correctly for numbers', () => {
             testValuesWrapper(($, setValue) => {
                 setValue('TestValue1', undefined);
@@ -1026,21 +934,15 @@ describe('ValuesWrapper', () => {
                 const valueIds = [];
 
                 $(/^TestValue[1-5]$/).lt(1, (value) => {
-                    valueIds.push(value.md [0]);
+                    valueIds.push(value.md[0]);
                 });
 
-                expect(valueIds).toEqual([
-                    'TestValue1',
-                    'TestValue2',
-                    'TestValue3',
-                ]);
+                expect(valueIds).toEqual(['TestValue1', 'TestValue2', 'TestValue3']);
             });
         });
-
     });
 
     describe('#lte', () => {
-
         it('should work correctly for numbers', () => {
             testValuesWrapper(($, setValue) => {
                 setValue('TestValue1', undefined);
@@ -1052,22 +954,15 @@ describe('ValuesWrapper', () => {
                 const valueIds = [];
 
                 $(/^TestValue[1-5]$/).lte(1, (value) => {
-                    valueIds.push(value.md [0]);
+                    valueIds.push(value.md[0]);
                 });
 
-                expect(valueIds).toEqual([
-                    'TestValue1',
-                    'TestValue2',
-                    'TestValue3',
-                    'TestValue4',
-                ]);
+                expect(valueIds).toEqual(['TestValue1', 'TestValue2', 'TestValue3', 'TestValue4']);
             });
         });
-
     });
 
     describe('#gt', () => {
-
         it('should work correctly for numbers', () => {
             testValuesWrapper(($, setValue) => {
                 setValue('TestValue1', undefined);
@@ -1079,21 +974,15 @@ describe('ValuesWrapper', () => {
                 const valueIds = [];
 
                 $(/^TestValue[1-5]$/).gt(1, (value) => {
-                    valueIds.push(value.md [0]);
+                    valueIds.push(value.md[0]);
                 });
 
-                expect(valueIds).toEqual([
-                    'TestValue1',
-                    'TestValue2',
-                    'TestValue5',
-                ]);
+                expect(valueIds).toEqual(['TestValue1', 'TestValue2', 'TestValue5']);
             });
         });
-
     });
 
     describe('#gte', () => {
-
         it('should work correctly for numbers', () => {
             testValuesWrapper(($, setValue) => {
                 setValue('TestValue1', undefined);
@@ -1105,22 +994,15 @@ describe('ValuesWrapper', () => {
                 const valueIds = [];
 
                 $(/^TestValue[1-5]$/).gte(1, (value) => {
-                    valueIds.push(value.md [0]);
+                    valueIds.push(value.md[0]);
                 });
 
-                expect(valueIds).toEqual([
-                    'TestValue1',
-                    'TestValue2',
-                    'TestValue4',
-                    'TestValue5',
-                ]);
+                expect(valueIds).toEqual(['TestValue1', 'TestValue2', 'TestValue4', 'TestValue5']);
             });
         });
-
     });
 
     describe('#in', () => {
-
         it('should work correctly', () => {
             testValuesWrapper(($, setValue) => {
                 setValue('TestValue1', undefined);
@@ -1132,23 +1014,16 @@ describe('ValuesWrapper', () => {
 
                 const valueIds = [];
 
-                $(/^TestValue[1-6]$/).in([ '#True', 3, 4, 5 ], (value) => {
-                    valueIds.push(value.md [0]);
+                $(/^TestValue[1-6]$/).in(['#True', 3, 4, 5], (value) => {
+                    valueIds.push(value.md[0]);
                 });
 
-                expect(valueIds).toEqual([
-                    'TestValue1',
-                    'TestValue2',
-                    'TestValue4',
-                    'TestValue6',
-                ]);
+                expect(valueIds).toEqual(['TestValue1', 'TestValue2', 'TestValue4', 'TestValue6']);
             });
         });
-
     });
 
     describe('#notIn', () => {
-
         it('should work correctly', () => {
             testValuesWrapper(($, setValue) => {
                 setValue('TestValue1', undefined);
@@ -1160,23 +1035,16 @@ describe('ValuesWrapper', () => {
 
                 const valueIds = [];
 
-                $(/^TestValue[1-6]$/).notIn([ '#True', 3, 4, 5 ], (value) => {
-                    valueIds.push(value.md [0]);
+                $(/^TestValue[1-6]$/).notIn(['#True', 3, 4, 5], (value) => {
+                    valueIds.push(value.md[0]);
                 });
 
-                expect(valueIds).toEqual([
-                    'TestValue1',
-                    'TestValue2',
-                    'TestValue3',
-                    'TestValue5',
-                ]);
+                expect(valueIds).toEqual(['TestValue1', 'TestValue2', 'TestValue3', 'TestValue5']);
             });
         });
-
     });
 
     describe('#isChanged', () => {
-
         it('should work correctly', () => {
             testValuesWrapper(($, setValue) => {
                 setValue('TestValue1', undefined);
@@ -1186,19 +1054,15 @@ describe('ValuesWrapper', () => {
                 const valueIds = [];
 
                 $(/^TestValue[1-3]$/).isChanged((value) => {
-                    valueIds.push(value.md [0]);
+                    valueIds.push(value.md[0]);
                 });
 
-                expect(valueIds).toEqual([
-                    'TestValue3',
-                ]);
+                expect(valueIds).toEqual(['TestValue3']);
             });
         });
-
     });
 
     describe('#ignore', () => {
-
         it('should work correctly', () => {
             testValuesWrapper(($, setValue) => {
                 setValue('TestValue1', undefined);
@@ -1220,11 +1084,9 @@ describe('ValuesWrapper', () => {
                 }
             });
         });
-
     });
 
     describe('#invalidate', () => {
-
         it('should work correctly', () => {
             testValuesWrapper(($, setValue) => {
                 setValue('TestValue1', undefined);
@@ -1246,158 +1108,183 @@ describe('ValuesWrapper', () => {
                 }
             });
         });
-
     });
-
 });
 
-
-
-class TestConfigurationOptimizer extends BaseConfigurationOptimizer {
-
-}
-
+class TestConfigurationOptimizer extends BaseConfigurationOptimizer {}
 
 Object.assign(TestConfigurationOptimizer, {
-
     configurationData: {
+        types: [
+            {
+                id: 'Boolean',
+                valueTexts: [
+                    {
+                        id: 'False',
+                    },
+                    {
+                        id: 'True',
+                    },
+                ],
+            },
+        ],
 
-        types: [{
-            id: 'Boolean',
-            valueTexts: [{
-                id: 'False',
-            }, {
-                id: 'True',
-            }]
-        }],
-
-        values: [{
-            id: 'LowestPriorityValue',
-            priority: -20,
-        }, {
-            id: 'AbstractValue',
-            storage: 'abstract',
-        }, {
-            id: 'StructValue',
-            storage: 'struct',
-        }, {
-            id: 'StructSubValue',
-            structValueRef: 'StructValue',
-        }, {
-            id: 'VolatileValue',
-            storage: 'volatile',
-        }, {
-            id: 'PrefsValue',
-        }, {
-            id: 'PersistentValue',
-            storage: 'persistent',
-        }, {
-            id: 'CompoundPrefsValue',
-            storage: 'abstract',
-        }, {
-            id: 'CompoundPrefsSubValue1',
-            compoundValueRef: 'CompoundPrefsValue',
-        }, {
-            id: 'CompoundVolatileValue',
-            storage: 'abstract',
-        }, {
-            id: 'CompoundVolatileSubValue1',
-            storage: 'volatile',
-            compoundValueRef: 'CompoundValue',
-        }, {
-            id: 'BooleanValue',
-            type: {
-                base: 'Boolean',
+        values: [
+            {
+                id: 'LowestPriorityValue',
+                priority: -20,
             },
-        }, {
-            id: 'ValueTextsValue',
-            type: {
-                valueTexts: [{
-                    id: 'FourtyTwo',
-                    value: 42,
-                }],
+            {
+                id: 'AbstractValue',
+                storage: 'abstract',
             },
-        }, {
-            id: 'KnownOptionValue',
-        }, {
-            id: 'DependsOnKnownOptionValue',
-            type: {
-                selectorValueRef: 'KnownOptionValue',
+            {
+                id: 'StructValue',
+                storage: 'struct',
             },
-        }, {
-            id: 'UnknownOptionValue',
-        }, {
-            id: 'DependsOnUnknownOptionValue',
-            type: {
-                selectorValueRef: 'UnknownOptionValue',
+            {
+                id: 'StructSubValue',
+                structValueRef: 'StructValue',
             },
-        }, {
-            id: 'TestValue1',
-            type: {
-                base: 'Boolean',
+            {
+                id: 'VolatileValue',
+                storage: 'volatile',
             },
-        }, {
-            id: 'TestValue2',
-            type: {
-                base: 'Boolean',
+            {
+                id: 'PrefsValue',
             },
-        }, {
-            id: 'TestValue3',
-            type: {
-                base: 'Boolean',
+            {
+                id: 'PersistentValue',
+                storage: 'persistent',
             },
-        }, {
-            id: 'TestValue4',
-            type: {
-                base: 'Boolean',
+            {
+                id: 'CompoundPrefsValue',
+                storage: 'abstract',
             },
-        }, {
-            id: 'TestValue5',
-            type: {
-                base: 'Boolean',
+            {
+                id: 'CompoundPrefsSubValue1',
+                compoundValueRef: 'CompoundPrefsValue',
             },
-        }, {
-            id: 'TestValue6',
-            type: {
-                base: 'Boolean',
+            {
+                id: 'CompoundVolatileValue',
+                storage: 'abstract',
             },
-        }, {
-            id: 'TestValue7',
-            type: {
-                base: 'Boolean',
+            {
+                id: 'CompoundVolatileSubValue1',
+                storage: 'volatile',
+                compoundValueRef: 'CompoundValue',
             },
-        }, {
-            id: 'TestValue8',
-            type: {
-                base: 'Boolean',
+            {
+                id: 'BooleanValue',
+                type: {
+                    base: 'Boolean',
+                },
             },
-        }, {
-            id: 'TestValueA',
-            type: {
-                base: 'Boolean',
+            {
+                id: 'ValueTextsValue',
+                type: {
+                    valueTexts: [
+                        {
+                            id: 'FourtyTwo',
+                            value: 42,
+                        },
+                    ],
+                },
             },
-        }, {
-            id: 'TestValueB',
-            type: {
-                base: 'Boolean',
+            {
+                id: 'KnownOptionValue',
             },
-        }, {
-            id: 'TestValueC',
-            type: {
-                base: 'Boolean',
+            {
+                id: 'DependsOnKnownOptionValue',
+                type: {
+                    selectorValueRef: 'KnownOptionValue',
+                },
             },
-        }, {
-            id: 'HighestPriorityValue',
-            priority: 20,
-        }]
-
-    }
-
+            {
+                id: 'UnknownOptionValue',
+            },
+            {
+                id: 'DependsOnUnknownOptionValue',
+                type: {
+                    selectorValueRef: 'UnknownOptionValue',
+                },
+            },
+            {
+                id: 'TestValue1',
+                type: {
+                    base: 'Boolean',
+                },
+            },
+            {
+                id: 'TestValue2',
+                type: {
+                    base: 'Boolean',
+                },
+            },
+            {
+                id: 'TestValue3',
+                type: {
+                    base: 'Boolean',
+                },
+            },
+            {
+                id: 'TestValue4',
+                type: {
+                    base: 'Boolean',
+                },
+            },
+            {
+                id: 'TestValue5',
+                type: {
+                    base: 'Boolean',
+                },
+            },
+            {
+                id: 'TestValue6',
+                type: {
+                    base: 'Boolean',
+                },
+            },
+            {
+                id: 'TestValue7',
+                type: {
+                    base: 'Boolean',
+                },
+            },
+            {
+                id: 'TestValue8',
+                type: {
+                    base: 'Boolean',
+                },
+            },
+            {
+                id: 'TestValueA',
+                type: {
+                    base: 'Boolean',
+                },
+            },
+            {
+                id: 'TestValueB',
+                type: {
+                    base: 'Boolean',
+                },
+            },
+            {
+                id: 'TestValueC',
+                type: {
+                    base: 'Boolean',
+                },
+            },
+            {
+                id: 'HighestPriorityValue',
+                priority: 20,
+            },
+        ],
+    },
 });
 
-
 for (let i = 0; i < TestConfigurationOptimizer.configurationData.values.length; i++) {
-    const value = TestConfigurationOptimizer.configurationData.values [i];
+    const value = TestConfigurationOptimizer.configurationData.values[i];
     value.index = 0x1000 + i;
     value.idHash = 0x12345678 + i;
 }

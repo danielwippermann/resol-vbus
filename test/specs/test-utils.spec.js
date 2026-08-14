@@ -1,11 +1,8 @@
 const testUtils = require('./test-utils');
 
-
 const { expect } = global;
 
-
 describe('test-utils', () => {
-
     it('should export correctly', () => {
         testUtils.expectOwnPropertyNamesToEqual(testUtils, [
             'expect',
@@ -23,15 +20,12 @@ describe('test-utils', () => {
     });
 
     describe('expect', () => {
-
         it('should work correctly', () => {
             expect(testUtils.expect).toBe(expect);
         });
-
     });
 
     describe('getType', () => {
-
         const { getType } = testUtils;
 
         it('should work correctly', () => {
@@ -49,11 +43,9 @@ describe('test-utils', () => {
             expect(getType(Buffer.alloc(0))).toBe('buffer');
             expect(getType(Promise.resolve())).toBe('promise');
         });
-
     });
 
     describe('expectTypeToBe', () => {
-
         const { expectTypeToBe } = testUtils;
 
         it('should work correctly', () => {
@@ -71,11 +63,9 @@ describe('test-utils', () => {
             expectTypeToBe(Buffer.alloc(0), 'buffer');
             expectTypeToBe(Promise.resolve(), 'promise');
         });
-
     });
 
     describe('expectPromise', () => {
-
         const { expectPromise } = testUtils;
 
         it('should work correctly', () => {
@@ -85,27 +75,22 @@ describe('test-utils', () => {
 
             expect(result).toBe(promise);
         });
-
     });
 
-    xdescribe('serialPortPath', () => {
-
+    describe.skip('serialPortPath', () => {
         // const { serialPortPath } = testUtils;
 
         it('should work correctly', () => {
             throw new Error('NYI');
         });
-
     });
 
-    xdescribe('ifHasSerialPortIt', () => {
-
+    describe.skip('ifHasSerialPortIt', () => {
         // const { ifHasSerialPortIt } = testUtils;
 
         it('should work correctly', () => {
             throw new Error('NYI');
         });
-
     });
 
     // describe('itShouldBeAClass', () => {
@@ -119,60 +104,66 @@ describe('test-utils', () => {
     // });
 
     describe('expectToBeAClass', () => {
-
         const { expectToBeAClass } = testUtils;
 
         it('should work correctly', () => {
             class ClassA {
-
                 methodA() {}
 
                 static functionA() {}
-
             }
 
             class ClassB extends ClassA {
-
                 methodB() {}
 
                 static functionB() {}
-
             }
 
             class ClassC extends ClassB {
-
                 methodC() {}
 
                 static functionC() {}
-
             }
 
-            expectToBeAClass(ClassA, null, {
-                constructor: Function,
-                methodA: Function,
-            }, {
-                functionA: Function,
-            });
+            expectToBeAClass(
+                ClassA,
+                null,
+                {
+                    constructor: Function,
+                    methodA: Function,
+                },
+                {
+                    functionA: Function,
+                },
+            );
 
-            expectToBeAClass(ClassB, ClassA, {
-                constructor: Function,
-                methodB: Function,
-            }, {
-                functionB: Function,
-            });
+            expectToBeAClass(
+                ClassB,
+                ClassA,
+                {
+                    constructor: Function,
+                    methodB: Function,
+                },
+                {
+                    functionB: Function,
+                },
+            );
 
-            expectToBeAClass(ClassC, ClassB, {
-                constructor: Function,
-                methodC: Function,
-            }, {
-                functionC: Function,
-            });
+            expectToBeAClass(
+                ClassC,
+                ClassB,
+                {
+                    constructor: Function,
+                    methodC: Function,
+                },
+                {
+                    functionC: Function,
+                },
+            );
         });
-
     });
 
     describe('expectOwnPropertyNamesToEqual', () => {
-
         const { expectOwnPropertyNamesToEqual } = testUtils;
 
         it('should work correctly', () => {
@@ -187,23 +178,13 @@ describe('test-utils', () => {
                 value: true,
             });
 
-            expectOwnPropertyNamesToEqual(obj, [
-                'prop1',
-                'prop2',
-                'prop3',
-            ]);
+            expectOwnPropertyNamesToEqual(obj, ['prop1', 'prop2', 'prop3']);
 
-            expectOwnPropertyNamesToEqual(obj, [
-                'prop3',
-                'prop2',
-                'prop1',
-            ]);
+            expectOwnPropertyNamesToEqual(obj, ['prop3', 'prop2', 'prop1']);
         });
-
     });
 
     describe('expectTimestampToBeWithin', () => {
-
         const { expectTimestampToBeWithin } = testUtils;
 
         it('should work correctly', () => {
@@ -211,11 +192,9 @@ describe('test-utils', () => {
 
             expectTimestampToBeWithin(now, now, now);
         });
-
     });
 
     describe('expectElapsedTimeToBeWithin', () => {
-
         const { expectElapsedTimeToBeWithin } = testUtils;
 
         it('should work correctly', () => {
@@ -223,7 +202,5 @@ describe('test-utils', () => {
 
             expectElapsedTimeToBeWithin(startTimestamp, 0, 10);
         });
-
     });
-
 });

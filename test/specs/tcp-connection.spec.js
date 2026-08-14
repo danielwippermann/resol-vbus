@@ -1,29 +1,18 @@
 /*! resol-vbus | Copyright (c) 2013-present, Daniel Wippermann | MIT license */
 
-const {
-    Connection,
-    TcpConnection,
-    TcpConnectionEndpoint,
-} = require('./resol-vbus');
+const { Connection, TcpConnection, TcpConnectionEndpoint } = require('./resol-vbus');
 
-
-const {
-    expect,
-    itShouldBeAClass,
-    expectOwnPropertyNamesToEqual,
-} = require('./test-utils');
-
-
+const { expect, itShouldBeAClass, expectOwnPropertyNamesToEqual } = require('./test-utils');
 
 async function testConnection(callback) {
     const endpoint = new TcpConnectionEndpoint({
         port: 0,
-        channels: [ null, null, null, null, null, null, null, null, null, 'Test' ],
+        channels: [null, null, null, null, null, null, null, null, null, 'Test'],
     });
 
     const infos = [];
 
-    const onConnection = function(info) {
+    const onConnection = (info) => {
         infos.push(info);
     };
 
@@ -31,13 +20,13 @@ async function testConnection(callback) {
 
     let onEpiConnection;
 
-    const createEndpointInfoPromise = function() {
-        return new Promise((resolve) => {
+    const createEndpointInfoPromise = () =>
+        new Promise((resolve) => {
             if (onEpiConnection) {
                 endpoint.removeListener('connection', onEpiConnection);
             }
 
-            onEpiConnection = function(info) {
+            onEpiConnection = (info) => {
                 onEpiConnection = null;
 
                 resolve(info);
@@ -45,7 +34,6 @@ async function testConnection(callback) {
 
             endpoint.once('connection', onEpiConnection);
         });
-    };
 
     const connection = new TcpConnection({
         host: '127.0.0.1',
@@ -75,57 +63,60 @@ async function testConnection(callback) {
     }
 }
 
-
-
 describe('TcpConnection', () => {
-
-    itShouldBeAClass(TcpConnection, Connection, {
-        host: null,
-        port: null,
-        viaTag: null,
-        password: null,
-        channelListCallback: null,
-        channel: 0,
-        rawVBusDataOnly: false,
-        tlsOptions: null,
-        reconnectTimeout: 0,
-        reconnectTimeoutIncr: 10000,
-        reconnectTimeoutMax: 60000,
-        disableReconnect: false,
-        constructor: Function,
-        connect: Function,
-        disconnect: Function,
-        _connect: Function,
-    }, {
-
-    });
+    itShouldBeAClass(
+        TcpConnection,
+        Connection,
+        {
+            host: null,
+            port: null,
+            viaTag: null,
+            password: null,
+            channelListCallback: null,
+            channel: 0,
+            rawVBusDataOnly: false,
+            tlsOptions: null,
+            reconnectTimeout: 0,
+            reconnectTimeoutIncr: 10000,
+            reconnectTimeoutMax: 60000,
+            disableReconnect: false,
+            constructor: Function,
+            connect: Function,
+            disconnect: Function,
+            _connect: Function,
+        },
+        {},
+    );
 
     describe('constructor', () => {
-
         it('should have reasonable defaults', () => {
             const connection = new TcpConnection();
 
-            expectOwnPropertyNamesToEqual(connection, [
-                'host',
-                'port',
-                'viaTag',
-                'password',
-                'channelListCallback',
-                'channel',
-                'rawVBusDataOnly',
-                'tlsOptions',
-                'disableReconnect',
+            expectOwnPropertyNamesToEqual(
+                connection,
+                [
+                    'host',
+                    'port',
+                    'viaTag',
+                    'password',
+                    'channelListCallback',
+                    'channel',
+                    'rawVBusDataOnly',
+                    'tlsOptions',
+                    'disableReconnect',
 
-                'selfAddress',
-            ], [
-                // base class related
-                '_events',
-                '_eventsCount',
-                '_maxListeners',
-                '_readableState',
-                '_writableState',
-                'allowHalfOpen',
-            ]);
+                    'selfAddress',
+                ],
+                [
+                    // base class related
+                    '_events',
+                    '_eventsCount',
+                    '_maxListeners',
+                    '_readableState',
+                    '_writableState',
+                    'allowHalfOpen',
+                ],
+            );
 
             expect(connection.host).toBe(null);
             expect(connection.port).toBe(7053);
@@ -168,14 +159,12 @@ describe('TcpConnection', () => {
             expect(connection.selfAddress).toBe(options.selfAddress);
             expect(connection.junk).toBe(undefined);
         });
-
     });
 
     describe('#connect', () => {
-
         it('should work correctly if disconnected', async () => {
             await testConnection(async (connection, endpoint, createEndpointInfoPromise) => {
-                const onConnectionState = jest.fn();
+                const onConnectionState = vi.fn();
 
                 const options = {
                     viaTag: 'VIATAG',
@@ -196,8 +185,8 @@ describe('TcpConnection', () => {
 
                     expect(connection.connectionState).toBe(TcpConnection.STATE_CONNECTED);
                     expect(onConnectionState.mock.calls.length).toBe(2);
-                    expect(onConnectionState.mock.calls [0] [0]).toBe(TcpConnection.STATE_CONNECTING);
-                    expect(onConnectionState.mock.calls [1] [0]).toBe(TcpConnection.STATE_CONNECTED);
+                    expect(onConnectionState.mock.calls[0][0]).toBe(TcpConnection.STATE_CONNECTING);
+                    expect(onConnectionState.mock.calls[1][0]).toBe(TcpConnection.STATE_CONNECTED);
 
                     expect(epi.viaTag).toBe(options.viaTag);
                     expect(epi.password).toBe(options.password);
@@ -210,12 +199,12 @@ describe('TcpConnection', () => {
 
         it('should work correctly with sync channelListCallback and string response', async () => {
             await testConnection(async (connection, endpoint, createEndpointInfoPromise) => {
-                const onConnectionState = jest.fn();
+                const onConnectionState = vi.fn();
 
                 const options = {
                     viaTag: 'VIATAG',
                     password: 'PASSWORD',
-                    channelListCallback: jest.fn((channels, done) => {
+                    channelListCallback: vi.fn((channels, done) => {
                         done(null, '9:Test');
                     }),
                 };
@@ -233,8 +222,8 @@ describe('TcpConnection', () => {
 
                     expect(connection.connectionState).toBe(TcpConnection.STATE_CONNECTED);
                     expect(onConnectionState.mock.calls.length).toBe(2);
-                    expect(onConnectionState.mock.calls [0] [0]).toBe(TcpConnection.STATE_CONNECTING);
-                    expect(onConnectionState.mock.calls [1] [0]).toBe(TcpConnection.STATE_CONNECTED);
+                    expect(onConnectionState.mock.calls[0][0]).toBe(TcpConnection.STATE_CONNECTING);
+                    expect(onConnectionState.mock.calls[1][0]).toBe(TcpConnection.STATE_CONNECTED);
 
                     expect(epi.viaTag).toBe(options.viaTag);
                     expect(epi.password).toBe(options.password);
@@ -249,12 +238,12 @@ describe('TcpConnection', () => {
 
         it('should work correctly with sync, but delayed channelListCallback', async () => {
             await testConnection(async (connection, endpoint, createEndpointInfoPromise) => {
-                const onConnectionState = jest.fn();
+                const onConnectionState = vi.fn();
 
                 const options = {
                     viaTag: 'VIATAG',
                     password: 'PASSWORD',
-                    channelListCallback: jest.fn((channels, done) => {
+                    channelListCallback: vi.fn((channels, done) => {
                         process.nextTick(() => {
                             done(null, '9:Test');
                         });
@@ -274,8 +263,8 @@ describe('TcpConnection', () => {
 
                     expect(connection.connectionState).toBe(TcpConnection.STATE_CONNECTED);
                     expect(onConnectionState.mock.calls.length).toBe(2);
-                    expect(onConnectionState.mock.calls [0] [0]).toBe(TcpConnection.STATE_CONNECTING);
-                    expect(onConnectionState.mock.calls [1] [0]).toBe(TcpConnection.STATE_CONNECTED);
+                    expect(onConnectionState.mock.calls[0][0]).toBe(TcpConnection.STATE_CONNECTING);
+                    expect(onConnectionState.mock.calls[1][0]).toBe(TcpConnection.STATE_CONNECTED);
 
                     expect(epi.viaTag).toBe(options.viaTag);
                     expect(epi.password).toBe(options.password);
@@ -290,12 +279,12 @@ describe('TcpConnection', () => {
 
         it('should work correctly with async channelListCallback and number response', async () => {
             await testConnection(async (connection, endpoint, createEndpointInfoPromise) => {
-                const onConnectionState = jest.fn();
+                const onConnectionState = vi.fn();
 
                 const options = {
                     viaTag: 'VIATAG',
                     password: 'PASSWORD',
-                    channelListCallback: jest.fn(async (channels) => {
+                    channelListCallback: vi.fn(async (channels) => {
                         return 9;
                     }),
                 };
@@ -313,8 +302,8 @@ describe('TcpConnection', () => {
 
                     expect(connection.connectionState).toBe(TcpConnection.STATE_CONNECTED);
                     expect(onConnectionState.mock.calls.length).toBe(2);
-                    expect(onConnectionState.mock.calls [0] [0]).toBe(TcpConnection.STATE_CONNECTING);
-                    expect(onConnectionState.mock.calls [1] [0]).toBe(TcpConnection.STATE_CONNECTED);
+                    expect(onConnectionState.mock.calls[0][0]).toBe(TcpConnection.STATE_CONNECTING);
+                    expect(onConnectionState.mock.calls[1][0]).toBe(TcpConnection.STATE_CONNECTED);
 
                     expect(epi.viaTag).toBe(options.viaTag);
                     expect(epi.password).toBe(options.password);
@@ -329,12 +318,12 @@ describe('TcpConnection', () => {
 
         it('should work correctly with async channelListCallback and object response', async () => {
             await testConnection(async (connection, endpoint, createEndpointInfoPromise) => {
-                const onConnectionState = jest.fn();
+                const onConnectionState = vi.fn();
 
                 const options = {
                     viaTag: 'VIATAG',
                     password: 'PASSWORD',
-                    channelListCallback: jest.fn(async (channels) => {
+                    channelListCallback: vi.fn(async (channels) => {
                         return { channel: 0, someOtherOptionsThatWillBeIgnored: true };
                     }),
                 };
@@ -352,8 +341,8 @@ describe('TcpConnection', () => {
 
                     expect(connection.connectionState).toBe(TcpConnection.STATE_CONNECTED);
                     expect(onConnectionState.mock.calls.length).toBe(2);
-                    expect(onConnectionState.mock.calls [0] [0]).toBe(TcpConnection.STATE_CONNECTING);
-                    expect(onConnectionState.mock.calls [1] [0]).toBe(TcpConnection.STATE_CONNECTED);
+                    expect(onConnectionState.mock.calls[0][0]).toBe(TcpConnection.STATE_CONNECTING);
+                    expect(onConnectionState.mock.calls[1][0]).toBe(TcpConnection.STATE_CONNECTED);
 
                     expect(epi.viaTag).toBe(options.viaTag);
                     expect(epi.password).toBe(options.password);
@@ -368,12 +357,12 @@ describe('TcpConnection', () => {
 
         it('should work correctly with async channelListCallback and error response', async () => {
             await testConnection(async (connection, endpoint, createEndpointInfoPromise) => {
-                const onConnectionState = jest.fn();
+                const onConnectionState = vi.fn();
 
                 const options = {
                     viaTag: 'VIATAG',
                     password: 'PASSWORD',
-                    channelListCallback: jest.fn(async (channels) => {
+                    channelListCallback: vi.fn(async (channels) => {
                         throw new Error('No suitable channel found');
                     }),
                 };
@@ -389,8 +378,8 @@ describe('TcpConnection', () => {
 
                     expect(connection.connectionState).toBe(TcpConnection.STATE_DISCONNECTED);
                     expect(onConnectionState.mock.calls.length).toBe(2);
-                    expect(onConnectionState.mock.calls [0] [0]).toBe(TcpConnection.STATE_CONNECTING);
-                    expect(onConnectionState.mock.calls [1] [0]).toBe(TcpConnection.STATE_DISCONNECTED);
+                    expect(onConnectionState.mock.calls[0][0]).toBe(TcpConnection.STATE_CONNECTING);
+                    expect(onConnectionState.mock.calls[1][0]).toBe(TcpConnection.STATE_DISCONNECTED);
 
                     expect(connection.channelListCallback.mock.calls.length).toBe(1);
                 } finally {
@@ -408,11 +397,9 @@ describe('TcpConnection', () => {
                 }).rejects.toThrow();
             });
         });
-
     });
 
     describe('#disconnect', () => {
-
         it('should work correctly if disconnected', async () => {
             return testConnection((connection) => {
                 connection.disconnect();
@@ -423,7 +410,7 @@ describe('TcpConnection', () => {
 
         it('should work correctly if connected', async () => {
             await testConnection(async (connection) => {
-                const onConnectionState = jest.fn();
+                const onConnectionState = vi.fn();
 
                 connection.on('connectionState', onConnectionState);
 
@@ -436,14 +423,12 @@ describe('TcpConnection', () => {
                 }
             });
         });
-
     });
 
     describe('Automatic reconnection', () => {
-
         it('should reconnect when connected', async () => {
             await testConnection(async (connection, endpoint, createEndpointInfoPromise) => {
-                const onConnectionState = jest.fn();
+                const onConnectionState = vi.fn();
 
                 connection.on('connectionState', onConnectionState);
 
@@ -455,8 +440,8 @@ describe('TcpConnection', () => {
                     const epi = await epiPromise;
 
                     expect(onConnectionState.mock.calls.length).toBe(2);
-                    expect(onConnectionState.mock.calls [0] [0]).toBe(TcpConnection.STATE_CONNECTING);
-                    expect(onConnectionState.mock.calls [1] [0]).toBe(TcpConnection.STATE_CONNECTED);
+                    expect(onConnectionState.mock.calls[0][0]).toBe(TcpConnection.STATE_CONNECTING);
+                    expect(onConnectionState.mock.calls[1][0]).toBe(TcpConnection.STATE_CONNECTED);
 
                     epiPromise = createEndpointInfoPromise();
 
@@ -465,17 +450,14 @@ describe('TcpConnection', () => {
                     await epiPromise;
 
                     expect(onConnectionState.mock.calls.length).toBe(4);
-                    expect(onConnectionState.mock.calls [2] [0]).toBe(TcpConnection.STATE_INTERRUPTED);
-                    expect(onConnectionState.mock.calls [3] [0]).toBe(TcpConnection.STATE_RECONNECTING);
+                    expect(onConnectionState.mock.calls[2][0]).toBe(TcpConnection.STATE_INTERRUPTED);
+                    expect(onConnectionState.mock.calls[3][0]).toBe(TcpConnection.STATE_RECONNECTING);
 
                     await connection.disconnect();
                 } finally {
                     connection.removeListener('connectionState', onConnectionState);
                 }
             });
-
         });
-
     });
-
 });

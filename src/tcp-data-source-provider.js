@@ -3,13 +3,10 @@
 const dgram = require('dgram');
 const http = require('http');
 
-
 const TcpDataSource = require('./tcp-data-source');
 const { promisify, applyDefaultOptions } = require('./utils');
 
 const DataSourceProvider = require('./data-source-provider');
-
-
 
 const ipv4Re = /^\d+\.\d+\.\d+\.\d+$/;
 
@@ -17,26 +14,25 @@ function parseIpV4Address(string) {
     if (!ipv4Re.test(string)) {
         throw new Error('Invalid IPv4 input');
     }
-    return string.split('.').map(s => +s);
+    return string.split('.').map((s) => +s);
 }
 
 function formatIpV4Address(parts) {
-    return parts.map(p => p.toString()).join('.');
+    return parts.map((p) => p.toString()).join('.');
 }
 
 function calculateIpV4BroadcastAddress(address, netmask) {
     const addressParts = parseIpV4Address(address);
     const netmaskParts = parseIpV4Address(netmask);
-    const bcastParts = [ 0, 0, 0, 0, ];
+    const bcastParts = [0, 0, 0, 0];
     for (let i = 0; i < 4; i++) {
-        bcastParts [i] = addressParts [i] | (netmaskParts [i] ^ 255);
+        bcastParts[i] = addressParts[i] | (netmaskParts[i] ^ 255);
     }
     const broadcastAddress = formatIpV4Address(bcastParts);
     return broadcastAddress;
 }
 
 class TcpDataSourceProvider extends DataSourceProvider {
-
     /**
      * Creates a new TcpDataSourceProvider instance.
      *
@@ -46,13 +42,15 @@ class TcpDataSourceProvider extends DataSourceProvider {
     constructor(options) {
         super(options);
 
-        applyDefaultOptions(this, options, /** @lends TcpDataSourceProvider.prototype */ {
+        applyDefaultOptions(
+            this,
+            options,
+            /** @lends TcpDataSourceProvider.prototype */ {
+                broadcastAddress: '255.255.255.255',
 
-            broadcastAddress: '255.255.255.255',
-
-            broadcastPort: 7053,
-
-        });
+                broadcastPort: 7053,
+            },
+        );
     }
 
     async discoverDataSources() {
@@ -66,7 +64,7 @@ class TcpDataSourceProvider extends DataSourceProvider {
         return results.map((result) => {
             const options = {
                 ...result,
-                host: result.__address__
+                host: result.__address__,
             };
 
             return this.createDataSource(options);
@@ -102,7 +100,7 @@ class TcpDataSourceProvider extends DataSourceProvider {
      */
     static async discoverDevices(options) {
         let promises;
-        if (options && (options.family === 'IPv6')) {
+        if (options && options.family === 'IPv6') {
             promises = await TcpDataSourceProvider.sendBroadcastIPv6(options);
         } else {
             promises = await TcpDataSourceProvider.sendBroadcast(options);
@@ -146,13 +144,12 @@ class TcpDataSourceProvider extends DataSourceProvider {
         });
 
         if (options.fetchCallback === undefined) {
-            options.fetchCallback = function(address) {
-                return TcpDataSourceProvider.fetchDeviceInformation({
+            options.fetchCallback = (address) =>
+                TcpDataSourceProvider.fetchDeviceInformation({
                     hostname: address,
                     localAddress: `${options.localAddress}%${options.broadcastInterface}`,
                     family: 6,
                 });
-            };
         }
 
         const bcastAddress = options.broadcastAddress;
@@ -172,7 +169,7 @@ class TcpDataSourceProvider extends DataSourceProvider {
         const addressList = [];
 
         socket.on('message', (msg, rinfo) => {
-            if ((rinfo.family === 'IPv6') && (rinfo.port === bcastPort) && (msg.length >= replyString.length)) {
+            if (rinfo.family === 'IPv6' && rinfo.port === bcastPort && msg.length >= replyString.length) {
                 const msgString = msg.slice(0, replyString.length).toString();
                 if (msgString === replyString) {
                     const { address } = rinfo;
@@ -183,7 +180,7 @@ class TcpDataSourceProvider extends DataSourceProvider {
             }
         });
 
-        await promisify(cb => socket.bind(0, cb));
+        await promisify((cb) => socket.bind(0, cb));
 
         socket.setMulticastInterface('::%' + options.broadcastInterface);
         socket.setBroadcast(true);
@@ -192,7 +189,7 @@ class TcpDataSourceProvider extends DataSourceProvider {
             const queryBuffer = Buffer.from(queryString);
             socket.send(queryBuffer, 0, queryBuffer.length, bcastPort, bcastAddress);
 
-            await promisify(cb => setTimeout(cb, options.timeout));
+            await promisify((cb) => setTimeout(cb, options.timeout));
         }
 
         socket.close();
@@ -229,12 +226,11 @@ class TcpDataSourceProvider extends DataSourceProvider {
         });
 
         if (options.fetchCallback === undefined) {
-            options.fetchCallback = function(address) {
-                return TcpDataSourceProvider.fetchDeviceInformation({
+            options.fetchCallback = (address) =>
+                TcpDataSourceProvider.fetchDeviceInformation({
                     hostname: address,
                     family: 4,
                 });
-            };
         }
 
         if (options.broadcastAddress) {
@@ -262,7 +258,7 @@ class TcpDataSourceProvider extends DataSourceProvider {
         const addressList = [];
 
         socket.on('message', (msg, rinfo) => {
-            if ((rinfo.family === 'IPv4') && (rinfo.port === 7053) && (msg.length >= replyString.length)) {
+            if (rinfo.family === 'IPv4' && rinfo.port === 7053 && msg.length >= replyString.length) {
                 const msgString = msg.slice(0, replyString.length).toString();
                 if (msgString === replyString) {
                     const { address } = rinfo;
@@ -273,7 +269,7 @@ class TcpDataSourceProvider extends DataSourceProvider {
             }
         });
 
-        await promisify(cb => socket.bind(0, cb));
+        await promisify((cb) => socket.bind(0, cb));
 
         socket.setBroadcast(true);
 
@@ -281,7 +277,7 @@ class TcpDataSourceProvider extends DataSourceProvider {
             const queryBuffer = Buffer.from(queryString);
             socket.send(queryBuffer, 0, queryBuffer.length, bcastPort, bcastAddress);
 
-            await promisify(cb => setTimeout(cb, options.timeout));
+            await promisify((cb) => setTimeout(cb, options.timeout));
         }
 
         socket.close();
@@ -328,7 +324,7 @@ class TcpDataSourceProvider extends DataSourceProvider {
                         let buffer = Buffer.alloc(0);
 
                         res.on('data', (chunk) => {
-                            buffer = Buffer.concat([ buffer, chunk ]);
+                            buffer = Buffer.concat([buffer, chunk]);
                         });
 
                         res.on('end', () => {
@@ -364,29 +360,26 @@ class TcpDataSourceProvider extends DataSourceProvider {
 
         let md;
         while ((md = re.exec(string)) !== null) {
-            result [md [1]] = md [2];
+            result[md[1]] = md[2];
         }
 
         return result;
     }
-
 }
 
+Object.assign(
+    TcpDataSourceProvider.prototype,
+    /** @lends TcpDataSourceProvider.prototype */ {
+        id: 'tcp-data-source-provider',
 
-Object.assign(TcpDataSourceProvider.prototype, /** @lends TcpDataSourceProvider.prototype */ {
+        name: 'TCP VBus Data Source Provider',
 
-    id: 'tcp-data-source-provider',
+        description: 'Data source provider for TCP connected VBus devices',
 
-    name: 'TCP VBus Data Source Provider',
+        broadcastAddress: '255.255.255.255',
 
-    description: 'Data source provider for TCP connected VBus devices',
-
-    broadcastAddress: '255.255.255.255',
-
-    broadcastPort: 7053,
-
-});
-
-
+        broadcastPort: 7053,
+    },
+);
 
 module.exports = TcpDataSourceProvider;

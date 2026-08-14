@@ -1,11 +1,6 @@
 /*! resol-vbus | Copyright (c) 2013-present, Daniel Wippermann | MIT license */
 
-const {
-    DataSourceProvider,
-    SerialDataSource,
-    SerialDataSourceProvider,
-} = require('./resol-vbus');
-
+const { DataSourceProvider, SerialDataSource, SerialDataSourceProvider } = require('./resol-vbus');
 
 const {
     expect,
@@ -15,30 +10,27 @@ const {
     itShouldBeAClass,
 } = require('./test-utils');
 
-
-
-class TestableSerialDataSourceProvider extends SerialDataSourceProvider {
-
-}
-
-
+class TestableSerialDataSourceProvider extends SerialDataSourceProvider {}
 
 describe('SerialDataSourceProvider', () => {
-
-    itShouldBeAClass(SerialDataSourceProvider, DataSourceProvider, {
-        id: 'serial-data-source-provider',
-        name: 'Serial VBus Data Source Provider',
-        description: 'Data source provider for VBus devices connected using a serial port (incl. USB)',
-        constructor: Function,
-        discoverDataSources: Function,
-        createDataSource: Function,
-        _listSerialPorts: Function,
-    }, {
-        hasSerialPortSupport: expect.any(Boolean),
-    });
+    itShouldBeAClass(
+        SerialDataSourceProvider,
+        DataSourceProvider,
+        {
+            id: 'serial-data-source-provider',
+            name: 'Serial VBus Data Source Provider',
+            description: 'Data source provider for VBus devices connected using a serial port (incl. USB)',
+            constructor: Function,
+            discoverDataSources: Function,
+            createDataSource: Function,
+            _listSerialPorts: Function,
+        },
+        {
+            hasSerialPortSupport: expect.any(Boolean),
+        },
+    );
 
     describe('constructor', () => {
-
         it('should work correctly', () => {
             const dsp = new SerialDataSourceProvider();
 
@@ -46,18 +38,13 @@ describe('SerialDataSourceProvider', () => {
                 // nothing
             ]);
         });
-
     });
 
     describe('#discoverDataSources', () => {
-
         ifHasSerialPortIt('should work correctly', async () => {
-            const ports = [
-                { comName: 'SERIALPORT1' },
-                { comName: 'SERIALPORT2' },
-            ];
+            const ports = [{ comName: 'SERIALPORT1' }, { comName: 'SERIALPORT2' }];
 
-            TestableSerialDataSourceProvider.prototype._listSerialPorts = jest.fn((callback) => {
+            TestableSerialDataSourceProvider.prototype._listSerialPorts = vi.fn((callback) => {
                 callback(null, ports);
             });
 
@@ -69,7 +56,7 @@ describe('SerialDataSourceProvider', () => {
         });
 
         ifHasSerialPortIt('should reject if an error occurs', async () => {
-            TestableSerialDataSourceProvider.prototype._listSerialPorts = jest.fn((callback) => {
+            TestableSerialDataSourceProvider.prototype._listSerialPorts = vi.fn((callback) => {
                 callback(new Error('ERROR'));
             });
 
@@ -79,11 +66,9 @@ describe('SerialDataSourceProvider', () => {
                 await dsp.discoverDataSources();
             }).rejects.toThrow();
         });
-
     });
 
     describe('#createDataSource', () => {
-
         it('should work correctly', () => {
             const dsp = new SerialDataSourceProvider();
 
@@ -91,7 +76,5 @@ describe('SerialDataSourceProvider', () => {
 
             expect(ds).toBeInstanceOf(SerialDataSource);
         });
-
     });
-
 });

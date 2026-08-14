@@ -80,7 +80,7 @@ into your shell:
 To run the tests after each change to the source just enter the
 following command into your shell:
 
-	⌘  npm test -- --watch
+	⌘  npm run test:watch
 
 
 

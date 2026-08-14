@@ -1,14 +1,6 @@
 /*! resol-vbus | Copyright (c) 2013-present, Daniel Wippermann | MIT license */
 
-const {
-    Converter,
-    Datagram,
-    HeaderSet,
-    Packet,
-    Telegram,
-    VBusRecordingConverter,
-} = require('./resol-vbus');
-
+const { Converter, Datagram, HeaderSet, Packet, Telegram, VBusRecordingConverter } = require('./resol-vbus');
 
 const {
     expect,
@@ -18,39 +10,38 @@ const {
     itShouldBeAClass,
 } = require('./test-utils');
 
-
-
 describe('VBusRecordingConverter', () => {
-
-    itShouldBeAClass(VBusRecordingConverter, Converter, {
-        topologyScanOnly: false,
-        rxBuffer: null,
-        headerSet: null,
-        headerSetTimestamp: null,
-        currentChannel: 0,
-        knownHeaderIds: null,
-        constructor: Function,
-        reset: Function,
-        end: Function,
-        convertRawData: Function,
-        convertComment: Function,
-        convertHeader: Function,
-        convertHeaderSet: Function,
-        _convertHeaders: Function,
-        _read: Function,
-        _write: Function,
-        _processBuffer: Function,
-        _processRecord: Function,
-        _processType3Record: Function,
-        _emitHeaderSet: Function,
-        _processRecordForTopologyScan: Function,
-        _constructTopologyHeaderSet: Function,
-    }, {
-
-    });
+    itShouldBeAClass(
+        VBusRecordingConverter,
+        Converter,
+        {
+            topologyScanOnly: false,
+            rxBuffer: null,
+            headerSet: null,
+            headerSetTimestamp: null,
+            currentChannel: 0,
+            knownHeaderIds: null,
+            constructor: Function,
+            reset: Function,
+            end: Function,
+            convertRawData: Function,
+            convertComment: Function,
+            convertHeader: Function,
+            convertHeaderSet: Function,
+            _convertHeaders: Function,
+            _read: Function,
+            _write: Function,
+            _processBuffer: Function,
+            _processRecord: Function,
+            _processType3Record: Function,
+            _emitHeaderSet: Function,
+            _processRecordForTopologyScan: Function,
+            _constructTopologyHeaderSet: Function,
+        },
+        {},
+    );
 
     describe('constructor', () => {
-
         it('should have reasonable defaults', () => {
             const converter = new VBusRecordingConverter();
 
@@ -89,11 +80,9 @@ describe('VBusRecordingConverter', () => {
             expect(converter.objectMode).toBe(options.objectMode);
             expect(converter.junk).toBe(undefined);
         });
-
     });
 
     describe('#reset', () => {
-
         it('should work correctly', () => {
             const converter = new VBusRecordingConverter();
 
@@ -105,11 +94,9 @@ describe('VBusRecordingConverter', () => {
 
             expect(converter.rxBuffer).toBe(null);
         });
-
     });
 
     describe('writable stream', () => {
-
         const rawVBusRecordingHexDump = [
             'a5440e000e00eda1de2443010000a566',
             '46004600baa1de244301000010005300',
@@ -186,13 +173,13 @@ describe('VBusRecordingConverter', () => {
 
             const converter = new VBusRecordingConverter();
 
-            const onHeader = jest.fn();
+            const onHeader = vi.fn();
             converter.on('header', onHeader);
 
-            const onHeaderSet = jest.fn();
+            const onHeaderSet = vi.fn();
             converter.on('headerSet', onHeaderSet);
 
-            const onFinishPromise = new Promise(resolve => {
+            const onFinishPromise = new Promise((resolve) => {
                 converter.once('finish', () => {
                     resolve();
                 });
@@ -206,7 +193,7 @@ describe('VBusRecordingConverter', () => {
             expect(onHeader.mock.calls.length).toBe(16);
             expect(onHeaderSet.mock.calls.length).toBe(1);
 
-            const headerSet = onHeaderSet.mock.calls [0] [0];
+            const headerSet = onHeaderSet.mock.calls[0][0];
             expect(headerSet).toBeInstanceOf(HeaderSet);
             expect(headerSet.timestamp.getTime()).toBe(1387893006829);
 
@@ -234,7 +221,7 @@ describe('VBusRecordingConverter', () => {
                 '01_6653_7E11_10_0200',
                 '01_6654_7E11_10_0200',
                 '01_6655_7E11_10_0200',
-                '01_7E11_6651_10_0100'
+                '01_7E11_6651_10_0100',
             ]);
         });
 
@@ -245,10 +232,10 @@ describe('VBusRecordingConverter', () => {
 
             const refHeaderSet = new HeaderSet();
 
-            const onHeaderSet = jest.fn();
+            const onHeaderSet = vi.fn();
             converter.on('headerSet', onHeaderSet);
 
-            const onFinishPromise = new Promise(resolve => {
+            const onFinishPromise = new Promise((resolve) => {
                 converter.once('finish', () => {
                     resolve();
                 });
@@ -261,7 +248,7 @@ describe('VBusRecordingConverter', () => {
 
             expect(onHeaderSet.mock.calls.length).toBe(1);
 
-            const headerSet = onHeaderSet.mock.calls [0] [0];
+            const headerSet = onHeaderSet.mock.calls[0][0];
             expect(headerSet).toBeInstanceOf(HeaderSet);
             expect(headerSet).toBe(refHeaderSet);
         });
@@ -277,10 +264,9 @@ describe('VBusRecordingConverter', () => {
 
             const buffer = Buffer.from(rawDataHexDump, 'hex');
 
-            const converter = new VBusRecordingConverter({
-            });
+            const converter = new VBusRecordingConverter({});
 
-            const onRawData = jest.fn();
+            const onRawData = vi.fn();
             converter.on('rawData', onRawData);
 
             const onFinishPromise = new Promise((resolve) => {
@@ -296,14 +282,9 @@ describe('VBusRecordingConverter', () => {
 
             expect(onRawData.mock.calls.length).toBe(1);
 
-            const info = onRawData.mock.calls [0] [0];
+            const info = onRawData.mock.calls[0][0];
 
-            expectOwnPropertyNamesToEqual(info, [
-                'channel',
-                'startTimestamp',
-                'endTimestamp',
-                'buffer',
-            ]);
+            expectOwnPropertyNamesToEqual(info, ['channel', 'startTimestamp', 'endTimestamp', 'buffer']);
 
             expect(info.channel).toBe(1);
             expect(info.startTimestamp).toBeInstanceOf(Date);
@@ -327,10 +308,9 @@ describe('VBusRecordingConverter', () => {
 
             const buffer = Buffer.from(rawDataHexDump, 'hex');
 
-            const converter = new VBusRecordingConverter({
-            });
+            const converter = new VBusRecordingConverter({});
 
-            const onComment = jest.fn();
+            const onComment = vi.fn();
             converter.on('comment', onComment);
 
             const onFinishPromise = new Promise((resolve) => {
@@ -348,12 +328,9 @@ describe('VBusRecordingConverter', () => {
 
             expect(onComment.mock.calls.length).toBe(1);
 
-            const info = onComment.mock.calls [0] [0];
+            const info = onComment.mock.calls[0][0];
 
-            expectOwnPropertyNamesToEqual(info, [
-                'timestamp',
-                'comment',
-            ]);
+            expectOwnPropertyNamesToEqual(info, ['timestamp', 'comment']);
 
             expect(info.timestamp).toBeInstanceOf(Date);
             expect(info.timestamp.valueOf()).toBe(1387893003287);
@@ -367,10 +344,10 @@ describe('VBusRecordingConverter', () => {
                 topologyScanOnly: true,
             });
 
-            const onHeader = jest.fn();
+            const onHeader = vi.fn();
             converter.on('header', onHeader);
 
-            const onHeaderSet = jest.fn();
+            const onHeaderSet = vi.fn();
             converter.on('headerSet', onHeaderSet);
 
             const onFinishPromise = new Promise((resolve) => {
@@ -389,7 +366,7 @@ describe('VBusRecordingConverter', () => {
             expect(onHeader.mock.calls.length).toBe(0, '"header" events triggered');
             expect(onHeaderSet.mock.calls.length).toBe(1, '"headerSet" events triggered');
 
-            const headerSet = onHeaderSet.mock.calls [0] [0];
+            const headerSet = onHeaderSet.mock.calls[0][0];
             expect(headerSet).toBeInstanceOf(HeaderSet);
             expect(headerSet.timestamp.getTime()).toBe(0);
 
@@ -421,34 +398,36 @@ describe('VBusRecordingConverter', () => {
                 '01_6653_7E11_10_0200',
                 '01_6654_7E11_10_0200',
                 '01_6655_7E11_10_0200',
-                '01_7E11_6651_10_0100'
+                '01_7E11_6651_10_0100',
             ]);
         });
 
         it('should ignore junk data correctly', async () => {
-            const buffer = Buffer.from([
-                '00000000',
-                'a5a5',
-                'a50000000100',
-                'a50000000001',
+            const buffer = Buffer.from(
+                [
+                    '00000000',
+                    'a5a5',
+                    'a50000000100',
+                    'a50000000001',
 
-                // must be last
-                'a50010001000',
-            ].join(''), 'hex');
+                    // must be last
+                    'a50010001000',
+                ].join(''),
+                'hex',
+            );
 
-            const converter = new VBusRecordingConverter({
-            });
+            const converter = new VBusRecordingConverter({});
 
-            const onHeader = jest.fn();
+            const onHeader = vi.fn();
             converter.on('header', onHeader);
 
-            const onHeaderSet = jest.fn();
+            const onHeaderSet = vi.fn();
             converter.on('headerSet', onHeaderSet);
 
-            const onRawData = jest.fn();
+            const onRawData = vi.fn();
             converter.on('rawData', onRawData);
 
-            const onComment = jest.fn();
+            const onComment = vi.fn();
             converter.on('comment', onComment);
 
             const onFinishPromise = new Promise((resolve) => {
@@ -474,38 +453,40 @@ describe('VBusRecordingConverter', () => {
         });
 
         it('should parse legacy type 3 records correctly', async () => {
-            const buffer = Buffer.from([
-                'a5331e001e00eda1de2443010000',
-                '100033221000000104000000',
-                '77665544',
+            const buffer = Buffer.from(
+                [
+                    'a5331e001e00eda1de2443010000',
+                    '100033221000000104000000',
+                    '77665544',
 
-                'a5331e001e00eda1de2443010000',
-                '443333221000000104000000',
-                '77665544',
+                    'a5331e001e00eda1de2443010000',
+                    '443333221000000104000000',
+                    '77665544',
 
-                'a5331e001e00eda1de2443010000',
-                '100033221000000104000000',
-                '77665544',
+                    'a5331e001e00eda1de2443010000',
+                    '100033221000000104000000',
+                    '77665544',
 
-                'a5331e001e00eda1de2443010000',
-                '443333221000000104000000',
-                '77665544',
+                    'a5331e001e00eda1de2443010000',
+                    '443333221000000104000000',
+                    '77665544',
 
-                'a5331e001e00eda1de2443010000',
-                '443333221000000104000000',
-                '77665544',
+                    'a5331e001e00eda1de2443010000',
+                    '443333221000000104000000',
+                    '77665544',
 
-                'a5331a001a00eda1de2443010000',
-                '443333221000000104000000',
-            ].join(''), 'hex');
+                    'a5331a001a00eda1de2443010000',
+                    '443333221000000104000000',
+                ].join(''),
+                'hex',
+            );
 
-            const converter = new VBusRecordingConverter({
-            });
+            const converter = new VBusRecordingConverter({});
 
-            const onHeader = jest.fn();
+            const onHeader = vi.fn();
             converter.on('header', onHeader);
 
-            const onHeaderSet = jest.fn();
+            const onHeaderSet = vi.fn();
             converter.on('headerSet', onHeaderSet);
 
             const onFinishPromise = new Promise((resolve) => {
@@ -526,36 +507,39 @@ describe('VBusRecordingConverter', () => {
             expect(onHeaderSet).toHaveBeenCalledTimes(3);
 
             function expectLiveBufferToBe(call, hexDump) {
-                expect(call [0].toLiveBuffer().toString('hex')).toBe(hexDump);
+                expect(call[0].toLiveBuffer().toString('hex')).toBe(hexDump);
             }
 
-            expectLiveBufferToBe(onHeader.mock.calls [0], 'aa100033221000010108776655440009');
-            expectLiveBufferToBe(onHeader.mock.calls [1], 'aa443333221000010121776655440009');
-            expectLiveBufferToBe(onHeader.mock.calls [2], 'aa100033221000010108776655440009');
-            expectLiveBufferToBe(onHeader.mock.calls [3], 'aa443333221000010121776655440009');
-            expectLiveBufferToBe(onHeader.mock.calls [4], 'aa443333221000010121776655440009');
+            expectLiveBufferToBe(onHeader.mock.calls[0], 'aa100033221000010108776655440009');
+            expectLiveBufferToBe(onHeader.mock.calls[1], 'aa443333221000010121776655440009');
+            expectLiveBufferToBe(onHeader.mock.calls[2], 'aa100033221000010108776655440009');
+            expectLiveBufferToBe(onHeader.mock.calls[3], 'aa443333221000010121776655440009');
+            expectLiveBufferToBe(onHeader.mock.calls[4], 'aa443333221000010121776655440009');
         });
 
         it('should support raw data in topology scan only', async () => {
-            const buffer = Buffer.from([
-                'a5771000100000000000000000000100',
-                'a58826002600',
-                '1794de2443010000',
-                '2794de2443010000',
-                'aa1000217e100001013e00000b000074',
-            ].join(''), 'hex');
+            const buffer = Buffer.from(
+                [
+                    'a5771000100000000000000000000100',
+                    'a58826002600',
+                    '1794de2443010000',
+                    '2794de2443010000',
+                    'aa1000217e100001013e00000b000074',
+                ].join(''),
+                'hex',
+            );
 
             const converter = new VBusRecordingConverter({
                 topologyScanOnly: true,
             });
 
-            const onHeader = jest.fn();
+            const onHeader = vi.fn();
             converter.on('header', onHeader);
 
-            const onHeaderSet = jest.fn();
+            const onHeaderSet = vi.fn();
             converter.on('headerSet', onHeaderSet);
 
-            const onRawData = jest.fn();
+            const onRawData = vi.fn();
             converter.on('rawData', onRawData);
 
             const onFinishPromise = new Promise((resolve) => {
@@ -579,18 +563,18 @@ describe('VBusRecordingConverter', () => {
             expect(onHeaderSet).toHaveBeenCalledTimes(1);
             expect(onRawData).toHaveBeenCalledTimes(3);
 
-            const headerSet = onHeaderSet.mock.calls [0] [0];
+            const headerSet = onHeaderSet.mock.calls[0][0];
             expect(headerSet.timestamp.getTime()).toBe(0);
 
             const headers = headerSet.getSortedHeaders();
             expect(headers).toHaveLength(0);
 
-            const call0 = onRawData.mock.calls [0];
+            const call0 = onRawData.mock.calls[0];
             expect(call0).toHaveLength(1);
-            expect(call0 [0].startTimestamp.getTime()).toBe(1387893003287);
-            expect(call0 [0].endTimestamp.getTime()).toBe(1387893003303);
-            expect(call0 [0].channel).toBe(1);
-            expect(call0 [0].buffer.toString('hex')).toBe('aa1000217e100001013e00000b000074');
+            expect(call0[0].startTimestamp.getTime()).toBe(1387893003287);
+            expect(call0[0].endTimestamp.getTime()).toBe(1387893003303);
+            expect(call0[0].channel).toBe(1);
+            expect(call0[0].buffer.toString('hex')).toBe('aa1000217e100001013e00000b000074');
         });
 
         async function runTests(options, fn) {
@@ -600,11 +584,11 @@ describe('VBusRecordingConverter', () => {
                 headerCount: 0,
                 headerSetCount: 0,
 
-                onHeader: jest.fn(() => {
+                onHeader: vi.fn(() => {
                     stats.headerCount += 1;
                 }),
 
-                onHeaderSet: jest.fn(() => {
+                onHeaderSet: vi.fn(() => {
                     stats.headerSetCount += 1;
                 }),
             };
@@ -632,10 +616,11 @@ describe('VBusRecordingConverter', () => {
         }
 
         it('should work with datagrams correctly', async () => {
-            const stats = await runTests({}, converter => {
-                const buffer = Buffer.from([
-                    'a566200020007c87ef5a5a0100000000117e2000000906000000f8182a000000',
-                ].join(''), 'hex');
+            const stats = await runTests({}, (converter) => {
+                const buffer = Buffer.from(
+                    ['a566200020007c87ef5a5a0100000000117e2000000906000000f8182a000000'].join(''),
+                    'hex',
+                );
 
                 converter.write(buffer);
                 converter.end();
@@ -644,12 +629,12 @@ describe('VBusRecordingConverter', () => {
             expect(stats.headerCount).toEqual(1);
             expect(stats.headerSetCount).toEqual(0);
 
-            const header = stats.onHeader.mock.calls [0] [0];
+            const header = stats.onHeader.mock.calls[0][0];
             expect(header).toBeInstanceOf(Datagram);
             expect(header.timestamp.getTime()).toEqual(1487584331644);
             expect(header.channel).toEqual(0);
             expect(header.destinationAddress).toEqual(0x0000);
-            expect(header.sourceAddress).toEqual(0x7E11);
+            expect(header.sourceAddress).toEqual(0x7e11);
             expect(header.minorVersion).toEqual(0x00);
             expect(header.command).toEqual(0x0900);
             expect(header.valueId).toEqual(6392);
@@ -657,10 +642,11 @@ describe('VBusRecordingConverter', () => {
         });
 
         it('should work with telegrams correctly', async () => {
-            const stats = await runTests({}, converter => {
-                const buffer = Buffer.from([
-                    'a56628002800880af6e95901000013121514300057000e0000000000000000000000000000000000',
-                ].join(''), 'hex');
+            const stats = await runTests({}, (converter) => {
+                const buffer = Buffer.from(
+                    ['a56628002800880af6e95901000013121514300057000e0000000000000000000000000000000000'].join(''),
+                    'hex',
+                );
 
                 converter.write(buffer);
                 converter.end();
@@ -669,7 +655,7 @@ describe('VBusRecordingConverter', () => {
             expect(stats.headerCount).toEqual(1);
             expect(stats.headerSetCount).toEqual(0);
 
-            const header = stats.onHeader.mock.calls [0] [0];
+            const header = stats.onHeader.mock.calls[0][0];
             expect(header).toBeInstanceOf(Telegram);
             expect(header.timestamp.getTime()).toEqual(1485688933000);
             expect(header.channel).toEqual(0);
@@ -679,12 +665,11 @@ describe('VBusRecordingConverter', () => {
             expect(header.command).toEqual(0x57);
             expect(header.frameData.slice(0, 14).toString('hex')).toEqual('0000000000000000000000000000');
         });
-
     });
 
     describe('readable stream', () => {
-
-        const rawPacket1 = 'aa100053001000010b0020051000004a723d1000013f40571000015706100000016800000000007f00000000007f00000000007f00000000007f00007f00000025003600051f11000000006e';
+        const rawPacket1 =
+            'aa100053001000010b0020051000004a723d1000013f40571000015706100000016800000000007f00000000007f00000000007f00000000007f00007f00000025003600051f11000000006e';
         const rawPacket2 = 'aa1000217e100001013e00000b000074';
         const rawPacket3 = 'aa1000317e100001042b05774a00003900000000007f00000000007f130d0000005f';
 
@@ -720,12 +705,12 @@ describe('VBusRecordingConverter', () => {
 
             const headerSet = new HeaderSet({
                 timestamp: new Date(1387893006829),
-                headers: [ packet1, packet2, packet3 ]
+                headers: [packet1, packet2, packet3],
             });
 
             const converter = new VBusRecordingConverter();
 
-            const onData = jest.fn();
+            const onData = vi.fn();
             converter.on('data', onData);
 
             converter.convertHeaderSet(headerSet);
@@ -736,15 +721,18 @@ describe('VBusRecordingConverter', () => {
 
             expect(onData.mock.calls.length).toBe(1);
 
-            const chunk = onData.mock.calls [0] [0];
+            const chunk = onData.mock.calls[0][0];
 
             expectTypeToBe(chunk, 'buffer');
             expect(chunk.length).toBe(172);
 
             const hexDump = chunk.toString('hex');
             let index = 0;
-            while ((index < hexDump.length) && (index < rawVBusRecordingHexDump.length)) {
-                expect(hexDump.slice(index, index + 2)).toBe(rawVBusRecordingHexDump.slice(index, index + 2), index / 2);
+            while (index < hexDump.length && index < rawVBusRecordingHexDump.length) {
+                expect(hexDump.slice(index, index + 2)).toBe(
+                    rawVBusRecordingHexDump.slice(index, index + 2),
+                    index / 2,
+                );
                 index += 2;
             }
 
@@ -766,7 +754,7 @@ describe('VBusRecordingConverter', () => {
                 objectMode: true,
             });
 
-            const onData = jest.fn();
+            const onData = vi.fn();
             converter.on('data', onData);
 
             converter.convertHeaderSet(refHeaderSet);
@@ -783,22 +771,22 @@ describe('VBusRecordingConverter', () => {
 
             expect(onData).toHaveBeenCalledTimes(4);
 
-            const call0 = onData.mock.calls [0];
+            const call0 = onData.mock.calls[0];
             expect(call0).toHaveLength(1);
-            expect(call0 [0]).toBe(refHeaderSet);
+            expect(call0[0]).toBe(refHeaderSet);
 
-            const call1 = onData.mock.calls [1];
+            const call1 = onData.mock.calls[1];
             expect(call1).toHaveLength(1);
-            expect(call1 [0]).toBe(rawData);
+            expect(call1[0]).toBe(rawData);
 
-            const call2 = onData.mock.calls [2];
+            const call2 = onData.mock.calls[2];
             expect(call2).toHaveLength(1);
-            expect(call2 [0].timestamp).toBe(timestamp);
-            expect(call2 [0].comment).toBe(comment);
+            expect(call2[0].timestamp).toBe(timestamp);
+            expect(call2[0].comment).toBe(comment);
 
-            const call3 = onData.mock.calls [3];
+            const call3 = onData.mock.calls[3];
             expect(call3).toHaveLength(1);
-            expect(call3 [0]).toBe(refHeader);
+            expect(call3[0]).toBe(refHeader);
         });
 
         it('should work correctly with raw data', async () => {
@@ -817,10 +805,9 @@ describe('VBusRecordingConverter', () => {
                 'aa1000217e100001013e00000b000074',
             ].join('');
 
-            const converter = new VBusRecordingConverter({
-            });
+            const converter = new VBusRecordingConverter({});
 
-            const onData = jest.fn();
+            const onData = vi.fn();
             converter.on('data', onData);
 
             converter.convertRawData(rawData);
@@ -831,7 +818,7 @@ describe('VBusRecordingConverter', () => {
 
             expect(onData.mock.calls.length).toBe(1);
 
-            const chunk = onData.mock.calls [0] [0];
+            const chunk = onData.mock.calls[0][0];
             expectTypeToBe(chunk, 'buffer');
             expect(chunk.length).toBe(54);
 
@@ -853,10 +840,9 @@ describe('VBusRecordingConverter', () => {
                 '65636f7264',
             ].join('');
 
-            const converter = new VBusRecordingConverter({
-            });
+            const converter = new VBusRecordingConverter({});
 
-            const onData = jest.fn();
+            const onData = vi.fn();
             converter.on('data', onData);
 
             converter.convertComment(timestamp, comment);
@@ -867,7 +853,7 @@ describe('VBusRecordingConverter', () => {
 
             expect(onData.mock.calls.length).toBe(1);
 
-            const chunk = onData.mock.calls [0] [0];
+            const chunk = onData.mock.calls[0][0];
             expectTypeToBe(chunk, 'buffer');
             expect(chunk.length).toBe(59);
 
@@ -889,7 +875,7 @@ describe('VBusRecordingConverter', () => {
 
             const converter = new VBusRecordingConverter();
 
-            const onData = jest.fn();
+            const onData = vi.fn();
             converter.on('data', onData);
 
             converter.convertHeader(packet1);
@@ -900,13 +886,13 @@ describe('VBusRecordingConverter', () => {
 
             expect(onData).toHaveBeenCalledTimes(1);
 
-            const call0 = onData.mock.calls [0];
+            const call0 = onData.mock.calls[0];
 
             expect(call0).toHaveLength(1);
-            expectTypeToBe(call0 [0], 'buffer');
-            expect(call0 [0].length).toBe(84);
+            expectTypeToBe(call0[0], 'buffer');
+            expect(call0[0].length).toBe(84);
 
-            const hexDump = call0 [0].toString('hex');
+            const hexDump = call0[0].toString('hex');
             expect(hexDump).toBe(rawDataHexDump);
         });
 
@@ -918,7 +904,7 @@ describe('VBusRecordingConverter', () => {
                 readChunks: [],
                 readData: null,
 
-                onReadable: jest.fn(() => {
+                onReadable: vi.fn(() => {
                     let chunk;
                     while ((chunk = converter.read()) != null) {
                         stats.readChunks.push(chunk);
@@ -949,7 +935,7 @@ describe('VBusRecordingConverter', () => {
         }
 
         it('should work with datagrams correctly', async () => {
-            const stats = await runTests({}, converter => {
+            const stats = await runTests({}, (converter) => {
                 const timestamp = new Date(1387893003287);
 
                 const dgram = new Datagram({
@@ -967,22 +953,24 @@ describe('VBusRecordingConverter', () => {
                 converter.finish();
             });
 
-            expect(stats.readData.toString('hex')).toEqual([
-                'a5440e000e00',
-                '1794de2443010000',
-                'a57710001000',
-                '0000000000000000',
-                '1100',
-                'a56620002000',
-                '1794de2443010000',
-                '131215142000171606000000',
-                '2221',
-                '34333231',
-            ].join(''));
+            expect(stats.readData.toString('hex')).toEqual(
+                [
+                    'a5440e000e00',
+                    '1794de2443010000',
+                    'a57710001000',
+                    '0000000000000000',
+                    '1100',
+                    'a56620002000',
+                    '1794de2443010000',
+                    '131215142000171606000000',
+                    '2221',
+                    '34333231',
+                ].join(''),
+            );
         });
 
         it('should work with telegrams correctly', async () => {
-            const stats = await runTests({}, converter => {
+            const stats = await runTests({}, (converter) => {
                 const timestamp = new Date(1387893003287);
 
                 const tgram = new Telegram({
@@ -999,19 +987,20 @@ describe('VBusRecordingConverter', () => {
                 converter.finish();
             });
 
-            expect(stats.readData.toString('hex')).toEqual([
-                'a5440e000e00',
-                '1794de2443010000',
-                'a57710001000',
-                '0000000000000000',
-                '1100',
-                'a56628002800',
-                '1794de2443010000',
-                '13121514300057000e000000',
-                '21222324252627',
-                '31323334353637',
-            ].join(''));
+            expect(stats.readData.toString('hex')).toEqual(
+                [
+                    'a5440e000e00',
+                    '1794de2443010000',
+                    'a57710001000',
+                    '0000000000000000',
+                    '1100',
+                    'a56628002800',
+                    '1794de2443010000',
+                    '13121514300057000e000000',
+                    '21222324252627',
+                    '31323334353637',
+                ].join(''),
+            );
         });
     });
-
 });

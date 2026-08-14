@@ -1,38 +1,30 @@
 /*! resol-vbus | Copyright (c) 2013-present, Daniel Wippermann | MIT license */
 
-const {
-    Header,
-    Telegram,
-} = require('./resol-vbus');
+const { Header, Telegram } = require('./resol-vbus');
 
-
-const {
-    expect,
-    expectOwnPropertyNamesToEqual,
-    expectTimestampToBeWithin,
-    itShouldBeAClass,
-} = require('./test-utils');
-
-
+const { expect, expectOwnPropertyNamesToEqual, expectTimestampToBeWithin, itShouldBeAClass } = require('./test-utils');
 
 describe('Telegram', () => {
-
-    itShouldBeAClass(Telegram, Header, {
-        command: 0,
-        frameData: null,
-        constructor: Function,
-        toLiveBuffer: Function,
-        getProtocolVersion: Function,
-        getId: Function,
-        compareTo: Function,
-        getFrameCount: Function,
-    }, {
-        fromLiveBuffer: Function,
-        getFrameCountForCommand: Function,
-    });
+    itShouldBeAClass(
+        Telegram,
+        Header,
+        {
+            command: 0,
+            frameData: null,
+            constructor: Function,
+            toLiveBuffer: Function,
+            getProtocolVersion: Function,
+            getId: Function,
+            compareTo: Function,
+            getFrameCount: Function,
+        },
+        {
+            fromLiveBuffer: Function,
+            getFrameCountForCommand: Function,
+        },
+    );
 
     describe('constructor', () => {
-
         it('should have reasonable defaults', () => {
             const before = new Date();
 
@@ -93,15 +85,13 @@ describe('Telegram', () => {
 
             expect(telegram.frameData).toBe(options.frameData);
         });
-
     });
 
     describe('#toLiveBuffer', () => {
-
         it('should work correctly without a buffer', () => {
             const frameData = Buffer.alloc(21);
             for (let i = 0; i < frameData.length; i++) {
-                frameData [i] = i * 12;
+                frameData[i] = i * 12;
             }
 
             const telegram = new Telegram({
@@ -113,13 +103,15 @@ describe('Telegram', () => {
 
             const buffer = telegram.toLiveBuffer();
 
-            expect(buffer.toString('hex')).toBe('aa2211443330772e000c1824303c48000354606c7804101c70472834404c5864707f6c');
+            expect(buffer.toString('hex')).toBe(
+                'aa2211443330772e000c1824303c48000354606c7804101c70472834404c5864707f6c',
+            );
         });
 
         it('should work correctly with a buffer', () => {
             const frameData = Buffer.alloc(21);
             for (let i = 0; i < frameData.length; i++) {
-                frameData [i] = i * 12;
+                frameData[i] = i * 12;
             }
 
             const telegram = new Telegram({
@@ -133,13 +125,15 @@ describe('Telegram', () => {
 
             const buffer = telegram.toLiveBuffer(bigBuffer, 100, 200);
 
-            expect(buffer.toString('hex')).toBe('aa2211443330772e000c1824303c48000354606c7804101c70472834404c5864707f6c');
+            expect(buffer.toString('hex')).toBe(
+                'aa2211443330772e000c1824303c48000354606c7804101c70472834404c5864707f6c',
+            );
         });
 
         it('should throw if buffer is too small', () => {
             const frameData = Buffer.alloc(21);
             for (let i = 0; i < frameData.length; i++) {
-                frameData [i] = i * 12;
+                frameData[i] = i * 12;
             }
 
             const telegram = new Telegram({
@@ -155,11 +149,9 @@ describe('Telegram', () => {
                 telegram.toLiveBuffer(bigBuffer, 100, 10);
             }).toThrow('Buffer too small');
         });
-
     });
 
     describe('.fromLiveBuffer', () => {
-
         it('should work correctly', () => {
             const options = {
                 destinationAddress: 0x7771,
@@ -187,15 +179,13 @@ describe('Telegram', () => {
             expect(telegram.command).toBe(options.command);
             expect(telegram.frameData.slice(0, 7)).toEqual(options.frameData);
         });
-
     });
 
     describe('#getId', () => {
-
         it('should work correctly', () => {
             const frameData = Buffer.alloc(21);
             for (let i = 0; i < frameData.length; i++) {
-                frameData [i] = i * 12;
+                frameData[i] = i * 12;
             }
 
             const telegram = new Telegram({
@@ -208,15 +198,13 @@ describe('Telegram', () => {
 
             expect(telegram.getId()).toBe('13_1122_3344_30_77');
         });
-
     });
 
     describe('#compareTo', () => {
-
         it('should work correctly', () => {
             const frameData = Buffer.alloc(21);
             for (let i = 0; i < frameData.length; i++) {
-                frameData [i] = i * 12;
+                frameData[i] = i * 12;
             }
 
             const telegram1 = new Telegram({
@@ -241,7 +229,5 @@ describe('Telegram', () => {
 
             expect(telegram1.compareTo(telegram2)).toBe(-1);
         });
-
     });
-
 });

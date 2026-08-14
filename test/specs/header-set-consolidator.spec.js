@@ -2,13 +2,7 @@
 
 const moment = require('moment');
 
-
-const {
-    HeaderSet,
-    HeaderSetConsolidator,
-    Packet,
-} = require('./resol-vbus');
-
+const { HeaderSet, HeaderSetConsolidator, Packet } = require('./resol-vbus');
 
 const {
     expect,
@@ -18,10 +12,7 @@ const {
     itShouldBeAClass,
 } = require('./test-utils');
 
-
-
 describe('HeaderSetConsolidator', () => {
-
     itShouldBeAClass(HeaderSetConsolidator, HeaderSet, {
         interval: 0,
         timeToLive: 0,
@@ -38,7 +29,6 @@ describe('HeaderSetConsolidator', () => {
     });
 
     describe('constructor', () => {
-
         it('should have reasonable defaults', () => {
             const before = new Date();
 
@@ -87,22 +77,18 @@ describe('HeaderSetConsolidator', () => {
             expect(hsc.maxTimestamp).toBe(options.maxTimestamp);
             expect(hsc.junk).toBe(undefined);
         });
-
     });
 
     describe('#startTimer and #stopTimer', () => {
-
         it('should work correctly', async () => {
             const hsc = new HeaderSetConsolidator({
-
                 interval: 1000,
-
             });
 
             let onHeaderSet, startTimestamp;
 
-            const onHeaderSetPromise = new Promise(resolve => {
-                onHeaderSet = jest.fn(() => {
+            const onHeaderSetPromise = new Promise((resolve) => {
+                onHeaderSet = vi.fn(() => {
                     if (startTimestamp == null) {
                         startTimestamp = Date.now();
                     } else {
@@ -122,35 +108,33 @@ describe('HeaderSetConsolidator', () => {
             expectElapsedTimeToBeWithin(startTimestamp, 1000, 1200);
 
             expect(onHeaderSet.mock.calls.length).toBe(2);
-            expect(onHeaderSet.mock.calls [0]).toHaveLength(1);
-            expect(onHeaderSet.mock.calls [0] [0]).toBe(hsc);
+            expect(onHeaderSet.mock.calls[0]).toHaveLength(1);
+            expect(onHeaderSet.mock.calls[0][0]).toBe(hsc);
 
             hsc.removeListener('headerSet', onHeaderSet);
         });
-
     });
 
     describe('#processHeaderSet', () => {
-
         it('should work correctly without options', () => {
             const header1 = new Packet({
-                channel: 1
+                channel: 1,
             });
 
             const header2 = new Packet({
-                channel: 2
+                channel: 2,
             });
 
             const header3 = new Packet({
-                channel: 3
+                channel: 3,
             });
 
             const headerSet = new HeaderSet();
-            headerSet.addHeaders([ header1, header2, header3 ]);
+            headerSet.addHeaders([header1, header2, header3]);
 
             const hsc = new HeaderSetConsolidator();
 
-            const onHeaderSetSpy = jest.fn();
+            const onHeaderSetSpy = vi.fn();
 
             hsc.on('headerSet', onHeaderSetSpy);
 
@@ -161,28 +145,28 @@ describe('HeaderSetConsolidator', () => {
             expect(hsc.getHeaders()).toHaveLength(3);
 
             expect(onHeaderSetSpy.mock.calls.length).toBe(1);
-            expect(onHeaderSetSpy.mock.calls [0]).toHaveLength(1);
-            expect(onHeaderSetSpy.mock.calls [0] [0]).toBe(hsc);
+            expect(onHeaderSetSpy.mock.calls[0]).toHaveLength(1);
+            expect(onHeaderSetSpy.mock.calls[0][0]).toBe(hsc);
 
             hsc.removeListener('headerSet', onHeaderSetSpy);
         });
 
         it('should work correctly with minTimestamp', () => {
             const header1 = new Packet({
-                channel: 1
+                channel: 1,
             });
 
             const headerSet = new HeaderSet({
-                headers: [ header1 ],
+                headers: [header1],
             });
 
-            const timestamp = moment.utc([ 2014, 3, 1 ]).valueOf();
+            const timestamp = moment.utc([2014, 3, 1]).valueOf();
 
             const hsc = new HeaderSetConsolidator({
                 minTimestamp: new Date(timestamp),
             });
 
-            const onHeaderSetSpy = jest.fn();
+            const onHeaderSetSpy = vi.fn();
 
             hsc.on('headerSet', onHeaderSetSpy);
 
@@ -206,20 +190,20 @@ describe('HeaderSetConsolidator', () => {
 
         it('should work correctly with maxTimestamp', () => {
             const header1 = new Packet({
-                channel: 1
+                channel: 1,
             });
 
             const headerSet = new HeaderSet({
-                headers: [ header1 ],
+                headers: [header1],
             });
 
-            const timestamp = moment.utc([ 2014, 3, 1 ]).valueOf();
+            const timestamp = moment.utc([2014, 3, 1]).valueOf();
 
             const hsc = new HeaderSetConsolidator({
                 maxTimestamp: new Date(timestamp),
             });
 
-            const onHeaderSetSpy = jest.fn();
+            const onHeaderSetSpy = vi.fn();
 
             hsc.on('headerSet', onHeaderSetSpy);
 
@@ -243,20 +227,20 @@ describe('HeaderSetConsolidator', () => {
 
         it('should work correctly with interval', () => {
             const header1 = new Packet({
-                channel: 1
+                channel: 1,
             });
 
             const headerSet = new HeaderSet({
-                headers: [ header1 ],
+                headers: [header1],
             });
 
-            const timestamp = moment.utc([ 2014, 3, 1 ]).valueOf();
+            const timestamp = moment.utc([2014, 3, 1]).valueOf();
 
             const hsc = new HeaderSetConsolidator({
                 interval: 3600,
             });
 
-            const onHeaderSetSpy = jest.fn();
+            const onHeaderSetSpy = vi.fn();
 
             hsc.on('headerSet', onHeaderSetSpy);
 
@@ -279,7 +263,7 @@ describe('HeaderSetConsolidator', () => {
         });
 
         it('should work correctly with timeToLive', () => {
-            const timestamp = moment.utc([ 2014, 3, 1 ]).valueOf();
+            const timestamp = moment.utc([2014, 3, 1]).valueOf();
 
             const header1 = new Packet({
                 timestamp: new Date(timestamp),
@@ -287,14 +271,14 @@ describe('HeaderSetConsolidator', () => {
             });
 
             const headerSet = new HeaderSet({
-                headers: [ header1 ],
+                headers: [header1],
             });
 
             const hsc = new HeaderSetConsolidator({
                 timeToLive: 3600,
             });
 
-            const onHeaderSetSpy = jest.fn();
+            const onHeaderSetSpy = vi.fn();
 
             hsc.on('headerSet', onHeaderSetSpy);
 
@@ -318,7 +302,5 @@ describe('HeaderSetConsolidator', () => {
 
             hsc.removeListener('headerSet', onHeaderSetSpy);
         });
-
     });
-
 });

@@ -2,45 +2,36 @@
 
 const { Duplex } = require('stream');
 
-
 const Header = require('./header');
 const Packet = require('./packet');
 const Datagram = require('./datagram');
 const Telegram = require('./telegram');
 const { applyDefaultOptions } = require('./utils');
 
-
-
-const states = [
-    'DISCONNECTED',
-    'CONNECTING',
-    'CONNECTED',
-    'INTERRUPTED',
-    'RECONNECTING',
-    'DISCONNECTING',
-].reduce((memo, state) => {
-    memo ['STATE_' + state] = state;
-    return memo;
-}, {});
-
-
+const states = ['DISCONNECTED', 'CONNECTING', 'CONNECTED', 'INTERRUPTED', 'RECONNECTING', 'DISCONNECTING'].reduce(
+    (memo, state) => {
+        memo['STATE_' + state] = state;
+        return memo;
+    },
+    {},
+);
 
 function promiseToCallback(maybePromise, callback) {
-    if (maybePromise && (typeof maybePromise.then === 'function')) {
-        maybePromise.then((result) => {
-            if (result != null) {
-                callback(null, result);
-            }
-        }, (err) => {
-            callback(err);
-        });
+    if (maybePromise && typeof maybePromise.then === 'function') {
+        maybePromise.then(
+            (result) => {
+                if (result != null) {
+                    callback(null, result);
+                }
+            },
+            (err) => {
+                callback(err);
+            },
+        );
     }
 }
 
-
-
 class Connection extends Duplex {
-
     /**
      * Creates a new Connection instance and optionally initializes its member with the given values.
      *
@@ -116,36 +107,35 @@ class Connection extends Duplex {
     }
 
     receive(timestamp, chunk) {
-        const _this = this;
-
         if (this.listenerCount('rawData') > 0) {
             this.emit('rawData', chunk, timestamp);
         }
 
         let buffer;
         if (this.rxBuffer) {
-            buffer = Buffer.concat([ this.rxBuffer, chunk ]);
+            buffer = Buffer.concat([this.rxBuffer, chunk]);
         } else {
             buffer = chunk;
         }
 
         let processed = 0;
 
-        const reportJunk = function(index) {
+        const reportJunk = (index) => {
             if (index > processed) {
-                if (_this.listenerCount('junkData') > 0) {
+                if (this.listenerCount('junkData') > 0) {
                     const junkData = buffer.slice(processed, index);
-                    _this.emit('junkData', junkData, timestamp);
+                    this.emit('junkData', junkData, timestamp);
                 }
             }
         };
 
         // console.log('_write (start):', this.rxBuffer, chunk);
 
-        let index = 0, start = null;
+        let index = 0,
+            start = null;
         while (index < buffer.length) {
-            const b = buffer [index] & 255;
-            if (b === 0xAA) {
+            const b = buffer[index] & 255;
+            if (b === 0xaa) {
                 reportJunk(index);
 
                 start = index;
@@ -155,12 +145,12 @@ class Connection extends Duplex {
             } else if (start === null) {
                 // skip junk
             } else if (index >= start + 5) {
-                const version = buffer [start + 5] & 255;
+                const version = buffer[start + 5] & 255;
                 const majorVersion = version >> 4;
                 let length;
                 if (majorVersion === 1) {
                     if (index >= start + 8) {
-                        length = 10 + buffer [start + 8] * 6;
+                        length = 10 + buffer[start + 8] * 6;
                     } else {
                         length = 10;
                     }
@@ -168,7 +158,7 @@ class Connection extends Duplex {
                     length = 16;
                 } else if (majorVersion === 3) {
                     if (index >= start + 6) {
-                        length = 8 + Telegram.getFrameCountForCommand(buffer [start + 6]) * 9;
+                        length = 8 + Telegram.getFrameCountForCommand(buffer[start + 6]) * 9;
                     } else {
                         length = 8;
                     }
@@ -185,7 +175,7 @@ class Connection extends Duplex {
                         }
 
                         let frameIndex = start + 10;
-                        while (valid && (frameIndex < start + length)) {
+                        while (valid && frameIndex < start + length) {
                             if (!Header.calcAndCompareChecksum(version, buffer, frameIndex, frameIndex + 5)) {
                                 // console.log('checksum error in frame index ' + frameIndex);
                                 valid = false;
@@ -202,7 +192,7 @@ class Connection extends Duplex {
                         }
 
                         let frameIndex = start + 8;
-                        while (valid && (frameIndex < start + length)) {
+                        while (valid && frameIndex < start + length) {
                             if (!Header.calcAndCompareChecksum(version, buffer, frameIndex, frameIndex + 8)) {
                                 valid = false;
                             }
@@ -322,7 +312,7 @@ class Connection extends Duplex {
             }
 
             if (options.filterPacket) {
-                onPacket = function(rxPacket) {
+                onPacket = (rxPacket) => {
                     const result = options.filterPacket(rxPacket, done);
 
                     promiseToCallback(result, done);
@@ -332,7 +322,7 @@ class Connection extends Duplex {
             }
 
             if (options.filterDatagram) {
-                onDatagram = function(rxDatagram) {
+                onDatagram = (rxDatagram) => {
                     const result = options.filterDatagram(rxDatagram, done);
 
                     promiseToCallback(result, done);
@@ -342,7 +332,7 @@ class Connection extends Duplex {
             }
 
             if (options.filterTelegram) {
-                onTelegram = function(rxTelegram) {
+                onTelegram = (rxTelegram) => {
                     const result = options.filterTelegram(rxTelegram, done);
 
                     promiseToCallback(result, done);
@@ -421,7 +411,7 @@ class Connection extends Duplex {
             timeout: timeout || 20000,
         };
 
-        options.filterDatagram = function(rxDatagram, done) {
+        options.filterDatagram = (rxDatagram, done) => {
             if (rxDatagram.command === 0x0500) {
                 done(null, rxDatagram);
             }
@@ -442,7 +432,7 @@ class Connection extends Duplex {
     releaseBus(address, options) {
         options = applyDefaultOptions({}, options, {
             tries: 2,
-            timeout: 1500
+            timeout: 1500,
         });
 
         const txDatagram = new Datagram({
@@ -450,10 +440,10 @@ class Connection extends Duplex {
             sourceAddress: this.selfAddress,
             command: 0x0600,
             valueId: 0,
-            value: 0
+            value: 0,
         }).toLiveBuffer();
 
-        options.filterPacket = function(rxPacket, done) {
+        options.filterPacket = (rxPacket, done) => {
             done(null, rxPacket);
         };
 
@@ -473,16 +463,14 @@ class Connection extends Duplex {
      * @returns {Promise} A promise that resolves to the received Datagram or `null` on timeout.
      */
     getValueById(address, valueId, options) {
-        const _this = this;
-
         options = applyDefaultOptions({}, options, {
             timeout: 500,
             timeoutIncr: 500,
             tries: 3,
         });
 
-        const subIndex = (valueId >> 16) & 0x7F;
-        valueId = valueId & 0xFFFF;
+        const subIndex = (valueId >> 16) & 0x7f;
+        valueId = valueId & 0xffff;
         const reqCommand = 0x0300 | subIndex;
         const ackCommand = 0x0100 | subIndex;
         const nackCommand = 0x4300 | subIndex;
@@ -492,11 +480,11 @@ class Connection extends Duplex {
             sourceAddress: this.selfAddress,
             command: reqCommand,
             valueId,
-            value: 0
+            value: 0,
         }).toLiveBuffer();
 
-        options.filterDatagram = function(rxDatagram, done) {
-            if (rxDatagram.destinationAddress !== _this.selfAddress) {
+        options.filterDatagram = (rxDatagram, done) => {
+            if (rxDatagram.destinationAddress !== this.selfAddress) {
                 // nop
             } else if (rxDatagram.sourceAddress !== address) {
                 // nop
@@ -532,8 +520,6 @@ class Connection extends Duplex {
      * @returns {Promise} A promise that resolves to the received Datagram or `null` on timeout.
      */
     setValueById(address, valueId, value, options) {
-        const _this = this;
-
         options = applyDefaultOptions({}, options, {
             timeout: 500,
             timeoutIncr: 500,
@@ -541,19 +527,19 @@ class Connection extends Duplex {
             save: false,
         });
 
-        const subIndex = (valueId >> 16) & 0x7F;
-        valueId = valueId & 0xFFFF;
+        const subIndex = (valueId >> 16) & 0x7f;
+        valueId = valueId & 0xffff;
 
         const txDatagram = new Datagram({
             destinationAddress: address,
             sourceAddress: this.selfAddress,
             command: (options.save ? 0x0400 : 0x0200) | subIndex,
             valueId,
-            value
+            value,
         }).toLiveBuffer();
 
-        options.filterDatagram = function(rxDatagram, done) {
-            if (rxDatagram.destinationAddress !== _this.selfAddress) {
+        options.filterDatagram = (rxDatagram, done) => {
+            if (rxDatagram.destinationAddress !== this.selfAddress) {
                 // nop
             } else if (rxDatagram.sourceAddress !== address) {
                 // nop
@@ -582,8 +568,6 @@ class Connection extends Duplex {
      * @return {Promise} A Promise the resolves to the received Datagram or `null` on timeout.
      */
     getValueIdHashById(address, valueId, options) {
-        const _this = this;
-
         options = applyDefaultOptions({}, options, {
             timeout: 500,
             timeoutIncr: 500,
@@ -595,11 +579,11 @@ class Connection extends Duplex {
             sourceAddress: this.selfAddress,
             command: 0x1000,
             valueId,
-            value: 0
+            value: 0,
         }).toLiveBuffer();
 
-        options.filterDatagram = function(rxDatagram, done) {
-            if (rxDatagram.destinationAddress !== _this.selfAddress) {
+        options.filterDatagram = (rxDatagram, done) => {
+            if (rxDatagram.destinationAddress !== this.selfAddress) {
                 // nop
             } else if (rxDatagram.sourceAddress !== address) {
                 // nop
@@ -628,8 +612,6 @@ class Connection extends Duplex {
      * @return {Promise} A Promise the resolves to the received Datagram or `null` on timeout.
      */
     getValueIdByIdHash(address, valueIdHash, options) {
-        const _this = this;
-
         options = applyDefaultOptions({}, options, {
             timeout: 500,
             timeoutIncr: 500,
@@ -641,15 +623,15 @@ class Connection extends Duplex {
             sourceAddress: this.selfAddress,
             command: 0x1100,
             valueId: 0,
-            value: valueIdHash
+            value: valueIdHash,
         }).toLiveBuffer();
 
-        options.filterDatagram = function(rxDatagram, done) {
-            if (rxDatagram.destinationAddress !== _this.selfAddress) {
+        options.filterDatagram = (rxDatagram, done) => {
+            if (rxDatagram.destinationAddress !== this.selfAddress) {
                 // nop
             } else if (rxDatagram.sourceAddress !== address) {
                 // nop
-            } else if ((rxDatagram.command !== 0x0100) && (rxDatagram.command !== 0x1101)) {
+            } else if (rxDatagram.command !== 0x0100 && rxDatagram.command !== 0x1101) {
                 // nop
             } else if (rxDatagram.value !== valueIdHash) {
                 // nop
@@ -673,8 +655,6 @@ class Connection extends Duplex {
      * @return {Promise} A Promise the resolves to the received Datagram or `null` on timeout.
      */
     getCaps1(address, options) {
-        const _this = this;
-
         options = applyDefaultOptions({}, options, {
             timeout: 500,
             timeoutIncr: 500,
@@ -689,8 +669,8 @@ class Connection extends Duplex {
             value: 0,
         }).toLiveBuffer();
 
-        options.filterDatagram = function(rxDatagram, done) {
-            if (rxDatagram.destinationAddress !== _this.selfAddress) {
+        options.filterDatagram = (rxDatagram, done) => {
+            if (rxDatagram.destinationAddress !== this.selfAddress) {
                 // nop
             } else if (rxDatagram.sourceAddress !== address) {
                 // nop
@@ -717,8 +697,6 @@ class Connection extends Duplex {
      * @return {Promise} A Promise the resolves to the received Datagram or `null` on timeout.
      */
     beginBulkValueTransaction(address, txTimeout, options) {
-        const _this = this;
-
         options = applyDefaultOptions({}, options, {
             timeout: 500,
             timeoutIncr: 500,
@@ -730,11 +708,11 @@ class Connection extends Duplex {
             sourceAddress: this.selfAddress,
             command: 0x1400,
             valueId: 0,
-            value: txTimeout
+            value: txTimeout,
         }).toLiveBuffer();
 
-        options.filterDatagram = function(rxDatagram, done) {
-            if (rxDatagram.destinationAddress !== _this.selfAddress) {
+        options.filterDatagram = (rxDatagram, done) => {
+            if (rxDatagram.destinationAddress !== this.selfAddress) {
                 // nop
             } else if (rxDatagram.sourceAddress !== address) {
                 // nop
@@ -760,8 +738,6 @@ class Connection extends Duplex {
      * @return {Promise} A Promise the resolves to the received Datagram or `null` on timeout.
      */
     commitBulkValueTransaction(address, options) {
-        const _this = this;
-
         options = applyDefaultOptions({}, options, {
             timeout: 500,
             timeoutIncr: 500,
@@ -773,11 +749,11 @@ class Connection extends Duplex {
             sourceAddress: this.selfAddress,
             command: 0x1402,
             valueId: 0,
-            value: 0
+            value: 0,
         }).toLiveBuffer();
 
-        options.filterDatagram = function(rxDatagram, done) {
-            if (rxDatagram.destinationAddress !== _this.selfAddress) {
+        options.filterDatagram = (rxDatagram, done) => {
+            if (rxDatagram.destinationAddress !== this.selfAddress) {
                 // nop
             } else if (rxDatagram.sourceAddress !== address) {
                 // nop
@@ -803,8 +779,6 @@ class Connection extends Duplex {
      * @return {Promise} A Promise the resolves to the received Datagram or `null` on timeout.
      */
     rollbackBulkValueTransaction(address, options) {
-        const _this = this;
-
         options = applyDefaultOptions({}, options, {
             timeout: 500,
             timeoutIncr: 500,
@@ -816,11 +790,11 @@ class Connection extends Duplex {
             sourceAddress: this.selfAddress,
             command: 0x1404,
             valueId: 0,
-            value: 0
+            value: 0,
         }).toLiveBuffer();
 
-        options.filterDatagram = function(rxDatagram, done) {
-            if (rxDatagram.destinationAddress !== _this.selfAddress) {
+        options.filterDatagram = (rxDatagram, done) => {
+            if (rxDatagram.destinationAddress !== this.selfAddress) {
                 // nop
             } else if (rxDatagram.sourceAddress !== address) {
                 // nop
@@ -848,27 +822,25 @@ class Connection extends Duplex {
      * @return {Promise} A Promise the resolves to the received Datagram or `null` on timeout.
      */
     setBulkValueById(address, valueId, value, options) {
-        const _this = this;
-
         options = applyDefaultOptions({}, options, {
             timeout: 500,
             timeoutIncr: 500,
             tries: 3,
         });
 
-        const subIndex = (valueId >> 16) & 0x7F;
-        valueId = valueId & 0xFFFF;
+        const subIndex = (valueId >> 16) & 0x7f;
+        valueId = valueId & 0xffff;
 
         const txDatagram = new Datagram({
             destinationAddress: address,
             sourceAddress: this.selfAddress,
             command: 0x1500 | subIndex,
             valueId,
-            value
+            value,
         }).toLiveBuffer();
 
-        options.filterDatagram = function(rxDatagram, done) {
-            if (rxDatagram.destinationAddress !== _this.selfAddress) {
+        options.filterDatagram = (rxDatagram, done) => {
+            if (rxDatagram.destinationAddress !== this.selfAddress) {
                 // nop
             } else if (rxDatagram.sourceAddress !== address) {
                 // nop
@@ -957,10 +929,8 @@ class Connection extends Duplex {
      * @returns {Promise}
      */
     createConnectedPromise() {
-        const _this = this;
-
         return new Promise((resolve, reject) => {
-            const checkConnectionState = function(state) {
+            const checkConnectionState = (state) => {
                 if (state === Connection.STATE_DISCONNECTED) {
                     reject(new Error(state));
                     return true;
@@ -972,60 +942,56 @@ class Connection extends Duplex {
                 }
             };
 
-            if (!checkConnectionState(_this.connectionState)) {
-                const onConnectionState = function(state) {
+            if (!checkConnectionState(this.connectionState)) {
+                const onConnectionState = (state) => {
                     if (checkConnectionState(state)) {
-                        _this.removeListener('connectionState', onConnectionState);
+                        this.removeListener('connectionState', onConnectionState);
                     }
                 };
 
-                _this.on('connectionState', onConnectionState);
+                this.on('connectionState', onConnectionState);
             }
         });
     }
-
 }
 
+Object.assign(
+    Connection.prototype,
+    /** @lends Connection.prototype */ {
+        /**
+         * Reference to this instance's DataSource.
+         * @type {DataSource}
+         */
+        dataSource: null,
 
-Object.assign(Connection.prototype, /** @lends Connection.prototype */ {
+        /**
+         * The VBus channel that this connection is established to.
+         * All `Header` instances created by this `Connection` instance will be assigned
+         * this VBus channel.
+         * @type {number}
+         */
+        channel: 0,
 
-    /**
-     * Reference to this instance's DataSource.
-     * @type {DataSource}
-     */
-    dataSource: null,
+        /**
+         * The VBus address used for sending information over this connection.
+         * @type {number}
+         */
+        selfAddress: 0x0020,
 
-    /**
-     * The VBus channel that this connection is established to.
-     * All `Header` instances created by this `Connection` instance will be assigned
-     * this VBus channel.
-     * @type {number}
-     */
-    channel: 0,
+        /**
+         * The current connection state.
+         * @type {string}
+         */
+        connectionState: states.STATE_DISCONNECTED,
 
-    /**
-     * The VBus address used for sending information over this connection.
-     * @type {number}
-     */
-    selfAddress: 0x0020,
-
-    /**
-     * The current connection state.
-     * @type {string}
-     */
-    connectionState: states.STATE_DISCONNECTED,
-
-    /**
-     * The internal receive buffer of this conneciton.
-     * @type {Buffer}
-     */
-    rxBuffer: null,
-
-});
-
+        /**
+         * The internal receive buffer of this conneciton.
+         * @type {Buffer}
+         */
+        rxBuffer: null,
+    },
+);
 
 Object.assign(Connection, states);
-
-
 
 module.exports = Connection;

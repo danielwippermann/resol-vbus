@@ -1,36 +1,36 @@
 {
-  "name": "resol-vbus",
-  "version": "0.30.0",
-  "description": "A JavaScript library for processing RESOL VBus data",
-  "main": "src/index.js",
-  "scripts": {
-    "lint": "eslint src test/specs",
-    "test": "jest -i --verbose",
-    "coverage": "jest -i --coverage"
-  },
-  "homepage": "https://github.com/danielwippermann/resol-vbus",
-  "repository": "https://github.com/danielwippermann/resol-vbus.git",
-  "bugs": "https://github.com/danielwippermann/resol-vbus/issues",
-  "author": "Daniel Wippermann <Daniel.Wippermann@gmail.com>",
-  "license": "MIT",
-  "devDependencies": {
-    "eslint": "^10.8.1",
-    "eslint-plugin-n": "^18.3.0",
-    "eslint-plugin-promise": "^7.3.0",
-    "globals": "^17.11.0",
-    "jest": "^30.4.2"
-  },
-  "dependencies": {
-    "buffer-more-ints": "^1.0.0",
-    "moment": "^2.30.1",
-    "moment-timezone": "^0.6.3",
-    "numeral": "^2.0.6",
-    "sprintf-js": "^1.1.3"
-  },
-  "optionalDependencies": {
-    "serialport": "^13.0.0"
-  },
-  "engines": {
-    "node": ">= 20"
-  }
+    "name": "resol-vbus",
+    "version": "0.30.0",
+    "description": "A JavaScript library for processing RESOL VBus data",
+    "main": "src/index.js",
+    "scripts": {
+        "lint": "biome check",
+        "format": "biome format --write .",
+        "test": "vitest run",
+        "test:watch": "vitest",
+        "coverage": "vitest run --coverage"
+    },
+    "homepage": "https://github.com/danielwippermann/resol-vbus",
+    "repository": "https://github.com/danielwippermann/resol-vbus.git",
+    "bugs": "https://github.com/danielwippermann/resol-vbus/issues",
+    "author": "Daniel Wippermann <Daniel.Wippermann@gmail.com>",
+    "license": "MIT",
+    "dependencies": {
+        "buffer-more-ints": "^1.0.0",
+        "moment": "^2.30.1",
+        "moment-timezone": "^0.6.3",
+        "numeral": "^2.0.6",
+        "sprintf-js": "^1.1.3"
+    },
+    "optionalDependencies": {
+        "serialport": "^13.0.0"
+    },
+    "engines": {
+        "node": ">= 20"
+    },
+    "devDependencies": {
+        "@biomejs/biome": "^2.5.8",
+        "@vitest/coverage-v8": "^4.1.10",
+        "vitest": "^4.1.10"
+    }
 }
