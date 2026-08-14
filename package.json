@@ -4,7 +4,7 @@
   "description": "A JavaScript library for processing RESOL VBus data",
   "main": "src/index.js",
   "scripts": {
-    "lint": "eslint src test/specs examples tools",
+    "lint": "eslint src test/specs",
     "test": "jest -i --verbose",
     "coverage": "jest -i --coverage"
   },
@@ -14,15 +14,16 @@
   "author": "Daniel Wippermann <Daniel.Wippermann@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "eslint": "^8.52.0",
-    "eslint-plugin-n": "^16.2.0",
-    "eslint-plugin-promise": "^6.1.1",
-    "jest": "^29.7.0"
+    "eslint": "^10.8.1",
+    "eslint-plugin-n": "^18.3.0",
+    "eslint-plugin-promise": "^7.3.0",
+    "globals": "^17.11.0",
+    "jest": "^30.4.2"
   },
   "dependencies": {
     "buffer-more-ints": "^1.0.0",
     "moment": "^2.30.1",
-    "moment-timezone": "^0.6.1",
+    "moment-timezone": "^0.6.3",
     "numeral": "^2.0.6",
     "sprintf-js": "^1.1.3"
   },
@@ -30,6 +31,6 @@
     "serialport": "^13.0.0"
   },
   "engines": {
-    "node": ">= 16"
+    "node": ">= 20"
   }
 }
