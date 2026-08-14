@@ -1,0 +1,62 @@
+{
+    "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+    "files": {
+        "includes": [
+            "**",
+            "!**/node_modules",
+            "!**/examples",
+            "!**/tools",
+            "!**/src/configuration-optimizers/**/*-data.js",
+            "!**/test/specs/test-utils.js"
+        ]
+    },
+    "formatter": {
+        "enabled": true,
+        "indentStyle": "space",
+        "indentWidth": 4,
+        "lineWidth": 120
+    },
+    "javascript": {
+        "formatter": {
+            "quoteStyle": "single",
+            "quoteProperties": "asNeeded"
+        }
+    },
+    "linter": {
+        "enabled": true,
+        "rules": {
+            "preset": "recommended",
+            "style": {
+                "useTemplate": "off",
+                "useNodejsImportProtocol": "off"
+            },
+            "complexity": {
+                "useOptionalChain": "off",
+                "noArguments": "off",
+                "noThisInStatic": "off"
+            },
+            "correctness": {
+                "noUnusedFunctionParameters": "off",
+                "noUnusedVariables": {
+                    "level": "error",
+                    "options": {
+                        "ignore": {
+                            "variable": ["err", "ex"]
+                        }
+                    }
+                }
+            },
+            "suspicious": {
+                "noAssignInExpressions": "off",
+                "noThenProperty": "off",
+                "noShadowRestrictedNames": "off",
+                "noExportsInTest": "off"
+            }
+        }
+    },
+    "vcs": {
+        "enabled": true,
+        "clientKind": "git",
+        "useIgnoreFile": true
+    }
+}
